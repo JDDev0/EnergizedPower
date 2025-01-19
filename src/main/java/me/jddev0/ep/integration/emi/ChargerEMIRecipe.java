@@ -31,7 +31,7 @@ public class ChargerEMIRecipe implements EmiRecipe {
     private final long energyConsumption;
 
     public ChargerEMIRecipe(RecipeEntry<ChargerRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
         this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
         this.energyConsumption = (long)(recipe.value().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);

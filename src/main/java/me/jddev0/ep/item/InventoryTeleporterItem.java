@@ -19,9 +19,9 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -39,21 +39,21 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand hand) {
+    public ActionResult use(World level, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(hand == Hand.OFF_HAND)
-            return TypedActionResult.pass(itemStack);
+            return ActionResult.PASS;
 
         if(level.isClient() || !(player instanceof ServerPlayerEntity serverPlayer))
-            return TypedActionResult.success(itemStack);
+            return ActionResult.SUCCESS.withNewHandStack(itemStack);
 
         if(player.isSneaking())
             player.openHandledScreen(this);
         else
             teleportPlayer(itemStack, serverPlayer);
 
-        return TypedActionResult.success(itemStack);
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 
     @Override

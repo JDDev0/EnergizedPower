@@ -1,25 +1,20 @@
 {
   "type": "energizedpower:alloy_furnace",
-  "inputs": [
+  "ingredients": [
     {
-      "input": {
-        "tag": "c:ingots/tin"
-      }
+      "ingredient": "#c:ingots/tin"
     },
     {
-      "input": {
-        "tag": "c:silicon"
-      }
+      "ingredient": "#c:silicon"
     },
     {
       "count": 2,
-      "input": {
-        "tag": "c:dusts/redstone"
-      }
+      "ingredient": "#c:dusts/redstone"
     }
   ],
-  "output": {
-    "item": "energizedpower:redstone_alloy_ingot"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:redstone_alloy_ingot"
   },
   "ticks": 2500
 }

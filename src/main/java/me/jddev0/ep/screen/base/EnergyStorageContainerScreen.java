@@ -5,8 +5,9 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -58,13 +59,13 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
         if(!handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
             renderEnergyMeter(drawContext, x, y);
             renderEnergyIndicatorBar(drawContext, x, y);
         }
@@ -72,15 +73,15 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
 
     protected void renderEnergyMeter(DrawContext drawContext, int x, int y) {
         int pos = handler.getScaledEnergyMeterPos(energyMeterHeight);
-        drawContext.drawTexture(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
-                energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos, 256, 256);
     }
 
     protected void renderEnergyIndicatorBar(DrawContext drawContext, int x, int y) {
         int pos = handler.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            drawContext.drawTexture(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
-                    energyMeterV + energyMeterHeight, energyMeterWidth, 1);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                    energyMeterV + energyMeterHeight, energyMeterWidth, 1, 256, 256);
     }
 
     @Override

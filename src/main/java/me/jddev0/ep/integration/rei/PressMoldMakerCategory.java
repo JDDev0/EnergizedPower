@@ -16,13 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PressMoldMakerCategory implements DisplayCategory<PressMoldMakerDisplay> {
-    public static final CategoryIdentifier<PressMoldMakerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "press_mold_maker");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends PressMoldMakerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return PressMoldMakerDisplay.CATEGORY;
     }
 
     @Override

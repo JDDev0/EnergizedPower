@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "I": {
-      "tag": "c:gears/iron"
-    },
-    "R": {
-      "tag": "c:rods/iron"
-    },
-    "S": {
-      "tag": "c:silicon"
-    },
-    "s": {
-      "tag": "c:ingots/steel"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "I": "#c:gears/iron",
+    "R": "#c:rods/iron",
+    "S": "#c:silicon",
+    "s": "#c:ingots/steel"
   },
   "pattern": [
     "IsR",

@@ -2,24 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "tag": "c:storage_blocks/copper"
-    },
-    "I": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "S": {
-      "tag": "c:silicon"
-    },
-    "U": {
-      "item": "energizedpower:uncharger"
-    },
-    "c": {
-      "tag": "c:plates/copper"
-    },
-    "i": {
-      "tag": "c:plates/iron"
-    }
+    "C": "#c:storage_blocks/copper",
+    "I": "#c:storage_blocks/iron",
+    "S": "#c:silicon",
+    "U": "energizedpower:uncharger",
+    "c": "#c:plates/copper",
+    "i": "#c:plates/iron"
   },
   "pattern": [
     "iIi",

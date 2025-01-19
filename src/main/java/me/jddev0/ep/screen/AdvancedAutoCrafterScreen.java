@@ -6,9 +6,9 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import me.jddev0.ep.networking.packet.*;
 
 import java.util.ArrayList;
@@ -72,27 +72,27 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(handler.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 16, 176, 70, 11, 11);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 158, y + 16, 176, 70, 11, 11, 256, 256);
         }
 
         if(handler.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 38, 187, 81, 11, 11);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 158, y + 38, 187, 81, 11, 11, 256, 256);
         }else {
             //Extract mode checkbox [1]
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 38, 176, 81, 11, 11);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 158, y + 38, 176, 81, 11, 11, 256, 256);
         }
 
-        drawContext.drawTexture(TEXTURE, x + 96, y + 16, 176 + 11 * handler.getRecipeIndex(), 81, 11, 11);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 96, y + 16, 176 + 11 * handler.getRecipeIndex(), 81, 11, 11, 256, 256);
     }
 
     @Override

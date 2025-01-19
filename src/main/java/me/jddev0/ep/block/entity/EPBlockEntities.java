@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -565,9 +566,9 @@ public final class EPBlockEntities {
 
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
-            BlockEntityType.BlockEntityFactory<? extends T> factory) {
+            FabricBlockEntityTypeBuilder.Factory<? extends T> factory) {
         return (BlockEntityType<T>)Registry.register(Registries.BLOCK_ENTITY_TYPE, EPAPI.id(name),
-                BlockEntityType.Builder.create(factory, block).build(null));
+                FabricBlockEntityTypeBuilder.create(factory, block).build(null));
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> registerInventoryStorage(BlockEntityType<T> blockEntityType,

@@ -36,7 +36,7 @@ public class AlloyFurnaceEMIRecipe implements EmiRecipe {
     private final int ticks;
 
     public AlloyFurnaceEMIRecipe(RecipeEntry<AlloyFurnaceRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = Arrays.stream(recipe.value().getInputs()).map(input ->
                 EmiIngredient.of(input.input(), input.count())).collect(Collectors.toList());
 

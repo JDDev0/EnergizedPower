@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "minecraft:wooden_buttons"
-  },
-  "output": {
+  "ingredient": "#minecraft:wooden_buttons",
+  "result": {
     "count": 3,
-    "item": "minecraft:stick"
+    "id": "minecraft:stick"
   },
   "sawdustAmount": 1
 }

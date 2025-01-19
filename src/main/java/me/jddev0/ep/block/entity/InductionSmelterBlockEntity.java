@@ -11,6 +11,7 @@ import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.InductionSmelterMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
@@ -18,11 +19,10 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-
-import java.util.Arrays;
 
 public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AlloyFurnaceRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.getValue();
@@ -56,11 +56,9 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> world == null || world.getRecipeManager().
-                            listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
+                    case 0, 1, 2 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 3, 4 -> false;
                     default -> false;
                 };

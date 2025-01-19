@@ -20,9 +20,9 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -45,18 +45,18 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand hand) {
+    public ActionResult use(World level, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(hand == Hand.OFF_HAND)
-            return TypedActionResult.pass(itemStack);
+            return ActionResult.PASS;
 
         if(level.isClient())
-            return TypedActionResult.success(itemStack);
+            return ActionResult.SUCCESS.withNewHandStack(itemStack);
 
         player.openHandledScreen(this);
 
-        return TypedActionResult.success(itemStack);
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 
     @Override

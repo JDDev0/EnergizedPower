@@ -1,13 +1,15 @@
 {
   "type": "energizedpower:metal_press",
   "ingredient": {
-    "tag": "c:plates/iron"
-  },
-  "inputCount": 2,
-  "output": {
-    "item": "energizedpower:iron_gear"
+    "count": 2,
+    "ingredient": "#c:plates/iron"
   },
   "pressMold": {
-    "item": "energizedpower:gear_press_mold"
+    "count": 1,
+    "id": "energizedpower:gear_press_mold"
+  },
+  "result": {
+    "count": 1,
+    "id": "energizedpower:iron_gear"
   }
 }

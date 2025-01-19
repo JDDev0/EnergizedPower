@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:mangrove_trapdoor"
-  },
-  "output": {
+  "ingredient": "minecraft:mangrove_trapdoor",
+  "result": {
     "count": 2,
-    "item": "minecraft:mangrove_planks"
+    "id": "minecraft:mangrove_planks"
   },
   "sawdustAmount": 3
 }

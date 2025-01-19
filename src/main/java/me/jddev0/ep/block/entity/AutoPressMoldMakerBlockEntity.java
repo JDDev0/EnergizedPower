@@ -59,6 +59,8 @@ public class AutoPressMoldMakerBlockEntity
             @Override
             public void markDirty() {
                 super.markDirty();
+
+                AutoPressMoldMakerBlockEntity.this.markDirty();
             }
         };
     }
@@ -76,9 +78,9 @@ public class AutoPressMoldMakerBlockEntity
         itemHandler.setStack(1, shovel);
 
         itemHandler.removeStack(0, recipe.value().getClayCount());
-        itemHandler.setStack(2, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.setStack(2, recipe.value().craft(null, world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(2).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
@@ -89,6 +91,6 @@ public class AutoPressMoldMakerBlockEntity
                 itemHandler.getStack(0).isOf(Items.CLAY_BALL) &&
                 itemHandler.getStack(0).getCount() >= recipe.value().getClayCount() &&
                 itemHandler.getStack(1).isIn(ItemTags.SHOVELS) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().craft(null, world.getRegistryManager()));
     }
 }

@@ -16,7 +16,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -77,15 +76,15 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand interactionHand) {
+    public ActionResult use(World level, PlayerEntity player, Hand interactionHand) {
         ItemStack itemStack = player.getStackInHand(interactionHand);
 
         if(level.isClient())
-            return TypedActionResult.success(itemStack);
+            return ActionResult.SUCCESS.withNewHandStack(itemStack);
 
        cycleCurrentFace(itemStack, (ServerPlayerEntity)player);
 
-        return TypedActionResult.success(itemStack);
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 
     @Override

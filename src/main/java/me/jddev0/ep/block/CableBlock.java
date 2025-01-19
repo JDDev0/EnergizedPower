@@ -27,11 +27,14 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
+import net.minecraft.world.block.WireOrientation;
+import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -40,7 +43,9 @@ import java.util.List;
 public class CableBlock extends BlockWithEntity implements Waterloggable {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
-                forGetter(CableBlock::getTier)).apply(instance, CableBlock::new);
+                forGetter(CableBlock::getTier),
+                Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                apply(instance, CableBlock::new);
     });
 
     public static final BooleanProperty UP = Properties.UP;
@@ -61,8 +66,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
     private final Tier tier;
 
-    public CableBlock(Tier tier) {
-        super(tier.getProperties());
+    public CableBlock(Tier tier, Settings props) {
+        super(props);
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(UP, false).with(DOWN, false).
                 with(NORTH, false).with(SOUTH, false).with(EAST, false).with(WEST, false).
@@ -170,11 +175,12 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState facingState, WorldAccess level, BlockPos selfPos, BlockPos facingPos) {
+    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView level, ScheduledTickView tickView, BlockPos selfPos, Direction facing,
+                                                   BlockPos facingPos, BlockState facingState, Random random) {
         if(state.get(WATERLOGGED))
-            level.scheduleFluidTick(selfPos, Fluids.WATER, Fluids.WATER.getTickRate(level));
+            tickView.scheduleFluidTick(selfPos, Fluids.WATER, Fluids.WATER.getTickRate(level));
 
-        return super.getStateForNeighborUpdate(state, facing, facingState, level, selfPos, facingPos);
+        return super.getStateForNeighborUpdate(state, level, tickView, selfPos, facing, facingPos, facingState, random);
     }
 
     @Override
@@ -183,8 +189,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
         if(level.isClient())
             return;
@@ -204,7 +210,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
-        if(blockEntity == null || !(blockEntity instanceof CableBlockEntity))
+        if(!(blockEntity instanceof CableBlockEntity))
             return;
 
         CableBlockEntity.updateConnections(level, selfPos, newState, (CableBlockEntity)blockEntity);

@@ -1,10 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:birch_pressure_plate"
-  },
-  "output": {
-    "item": "minecraft:birch_planks"
+  "ingredient": "minecraft:birch_pressure_plate",
+  "result": {
+    "count": 1,
+    "id": "minecraft:birch_planks"
   },
   "sawdustAmount": 2
 }

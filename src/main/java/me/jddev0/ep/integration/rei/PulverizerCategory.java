@@ -16,13 +16,11 @@ import net.minecraft.util.Identifier;
 import java.util.*;
 
 public class PulverizerCategory implements DisplayCategory<PulverizerDisplay> {
-    public static final CategoryIdentifier<PulverizerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "pulverizer");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends PulverizerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return PulverizerDisplay.CATEGORY;
     }
 
     @Override

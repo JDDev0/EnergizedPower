@@ -22,13 +22,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthChamberDisplay> {
-    public static final CategoryIdentifier<PlantGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "plant_growth_chamber");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends PlantGrowthChamberDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return PlantGrowthChamberDisplay.CATEGORY;
     }
 
     @Override

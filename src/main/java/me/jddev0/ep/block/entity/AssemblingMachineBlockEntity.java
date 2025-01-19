@@ -11,6 +11,7 @@ import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
@@ -18,10 +19,9 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-
-import java.util.Arrays;
 
 public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
     final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
@@ -54,11 +54,9 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2, 3 -> world == null || world.getRecipeManager().
-                            listAllOfType(AssemblingMachineRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
+                    case 0, 1, 2, 3 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 4 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -150,9 +148,9 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
             itemHandler.removeStack(indexMinCount, input.count());
         }
 
-        itemHandler.setStack(4, recipe.value().getResult(world.getRegistryManager()).copyWithCount(
+        itemHandler.setStack(4, recipe.value().craft(null, world.getRegistryManager()).copyWithCount(
                 itemHandler.getStack(4).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
@@ -160,6 +158,6 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<AssemblingMachineRecipe> recipe) {
         return world != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().craft(null, world.getRegistryManager()));
     }
 }

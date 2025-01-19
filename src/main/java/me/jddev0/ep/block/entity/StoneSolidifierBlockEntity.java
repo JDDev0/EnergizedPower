@@ -137,9 +137,9 @@ public class StoneSolidifierBlockEntity
             transaction.commit();
         }
 
-        itemHandler.setStack(0, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.setStack(0, recipe.value().craft(null, world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(0).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
@@ -149,6 +149,6 @@ public class StoneSolidifierBlockEntity
         return world != null &&
                 fluidStorage.parts.get(0).getAmount() >= FluidUtils.convertMilliBucketsToDroplets(recipe.value().getWaterAmount()) &&
                 fluidStorage.parts.get(1).getAmount() >= FluidUtils.convertMilliBucketsToDroplets(recipe.value().getLavaAmount()) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().craft(null, world.getRegistryManager()));
     }
 }

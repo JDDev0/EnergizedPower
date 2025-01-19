@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:plates/energized_gold"
-    },
-    "M": {
-      "item": "energizedpower:advanced_machine_frame"
-    },
-    "S": {
-      "tag": "c:storage_blocks/silicon"
-    },
-    "T": {
-      "item": "energizedpower:transformer_1_to_n"
-    }
+    "G": "#c:plates/energized_gold",
+    "M": "energizedpower:advanced_machine_frame",
+    "S": "#c:storage_blocks/silicon",
+    "T": "energizedpower:transformer_1_to_n"
   },
   "pattern": [
     "GTG",

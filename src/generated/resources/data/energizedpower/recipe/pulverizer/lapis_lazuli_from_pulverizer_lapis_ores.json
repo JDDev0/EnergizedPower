@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ores/lapis"
-  },
-  "output": {
-    "output": {
-      "item": "minecraft:lapis_lazuli"
-    },
+  "ingredient": "#c:ores/lapis",
+  "result": {
     "percentages": [
       1.0,
       1.0,
@@ -35,6 +30,10 @@
       0.5,
       0.25,
       0.125
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:lapis_lazuli"
+    }
   }
 }

@@ -19,6 +19,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.ComponentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -46,17 +47,20 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 ).
                 criterion("has_the_item",
                         InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
+                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
                                 CommonItemTags.INGOTS_ENERGIZED_COPPER
                         ))).
                 build(advancementOutput, EPAPI.MOD_ID + ":main/advanced/energizedpower_advanced");
 
         AdvancementEntry advancedAlloyIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedPowerAdvanced,
                 EPItems.ADVANCED_ALLOY_INGOT, "advanced_alloy_ingot", AdvancementFrame.TASK,
                 CommonItemTags.INGOTS_ADVANCED_ALLOY
         );
 
         AdvancementEntry advancedAlloyPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, advancedAlloyIngot,
                 EPItems.ADVANCED_ALLOY_PLATE, "advanced_alloy_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_ADVANCED_ALLOY
@@ -105,7 +109,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 advancementOutput, battery8,
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementFrame.CHALLENGE,
                 InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().
-                        items(EPItems.BATTERY_8).
+                        items(lookupProvider.getOrThrow(RegistryKeys.ITEM), EPItems.BATTERY_8).
                         component(ComponentPredicate.builder().
                                 add(EPDataComponentTypes.ENERGY, BatteryItem.Tier.BATTERY_8.getCapacity()).
                                 build()).
@@ -123,12 +127,14 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry energizedCopperPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedPowerAdvanced,
                 EPItems.ENERGIZED_COPPER_PLATE, "energized_copper_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_ENERGIZED_COPPER
         );
 
         AdvancementEntry energizedCopperWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedCopperPlate,
                 EPItems.ENERGIZED_COPPER_WIRE, "energized_copper_wire", AdvancementFrame.TASK,
                 CommonItemTags.WIRES_ENERGIZED_COPPER
@@ -214,6 +220,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM, "hv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
                         ItemPredicate.Builder.create().items(
+                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
                                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM
@@ -247,6 +254,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry energizedGoldIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizer,
                 EPItems.ENERGIZED_GOLD_INGOT, "energized_gold_ingot", AdvancementFrame.TASK,
                 CommonItemTags.INGOTS_ENERGIZED_GOLD
@@ -258,12 +266,14 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry energizedGoldPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedGoldIngot,
                 EPItems.ENERGIZED_GOLD_PLATE, "energized_gold_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_ENERGIZED_GOLD
         );
 
         AdvancementEntry energizedGoldWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedGoldPlate,
                 EPItems.ENERGIZED_GOLD_WIRE, "energized_gold_wire", AdvancementFrame.TASK,
                 CommonItemTags.WIRES_ENERGIZED_GOLD
@@ -409,6 +419,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM, "ehv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
                         ItemPredicate.Builder.create().items(
+                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
                                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
@@ -447,11 +458,12 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangedCriterion.Conditions.items(trigger));
     }
-    private AdvancementEntry addAdvancement(Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
+    private AdvancementEntry addAdvancement(RegistryWrapper.WrapperLookup lookupProvider, Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
                                             ItemConvertible icon, String advancementId, AdvancementFrame type,
                                             TagKey<Item> trigger) {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
+                        lookupProvider.getOrThrow(RegistryKeys.ITEM),
                         trigger
                 )));
     }

@@ -4,21 +4,19 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
-public class PlantGrowthChamberFertilizerRecipe implements Recipe<RecipeInput> {
+import java.util.List;
+
+public class PlantGrowthChamberFertilizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final Ingredient input;
     private final double speedMultiplier;
     private final double energyConsumptionMultiplier;
@@ -55,25 +53,8 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
-        ingredients.add(0, input);
-        return ingredients;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -82,13 +63,33 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of(input);
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return input.test(itemStack);
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return false;
     }
 
     public static final class Type implements RecipeType<PlantGrowthChamberFertilizerRecipe> {
@@ -105,7 +106,7 @@ public class PlantGrowthChamberFertilizerRecipe implements Recipe<RecipeInput> {
         public static final Identifier ID = EPAPI.id("plant_growth_chamber_fertilizer");
 
         private final MapCodec<PlantGrowthChamberFertilizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            return instance.group(Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), Codec.DOUBLE.fieldOf("speedMultiplier").forGetter((recipe) -> {
                 return recipe.speedMultiplier;

@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "energized_gold_cable",
   "key": {
-    "I": {
-      "tag": "c:ingots/energized_gold"
-    },
-    "i": {
-      "item": "energizedpower:cable_insulator"
-    }
+    "I": "#c:ingots/energized_gold",
+    "i": "energizedpower:cable_insulator"
   },
   "pattern": [
     "iIi",

@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:warped_fence_gate"
-  },
-  "output": {
+  "ingredient": "minecraft:warped_fence_gate",
+  "result": {
     "count": 2,
-    "item": "minecraft:warped_planks"
+    "id": "minecraft:warped_planks"
   },
   "sawdustAmount": 3
 }

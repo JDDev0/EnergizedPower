@@ -21,7 +21,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.StonecuttingRecipe;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.ArrayPropertyDelegate;
@@ -39,7 +38,8 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), RecipeType.STONECUTTING, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(((AutoStonecutterBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> stack.isIn(ItemTags.PICKAXES);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);

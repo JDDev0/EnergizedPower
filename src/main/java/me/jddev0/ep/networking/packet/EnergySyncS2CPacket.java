@@ -7,7 +7,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public record EnergySyncS2CPacket(long energy, long capacity, BlockPos pos) implements CustomPayload {

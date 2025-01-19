@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:tools/cutters"
-    },
-    {
-      "tag": "c:plates/gold"
-    }
+    "#c:tools/cutters",
+    "#c:plates/gold"
   ],
   "result": {
     "count": 2,

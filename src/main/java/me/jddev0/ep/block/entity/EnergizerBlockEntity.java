@@ -6,8 +6,12 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.EnergizerRecipe;
+import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.screen.EnergizerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
@@ -21,10 +25,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
 import net.minecraft.nbt.NbtLong;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -33,10 +40,13 @@ import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class EnergizerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        implements IngredientPacketUpdate {
     public static final double ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
@@ -45,6 +55,8 @@ public class EnergizerBlockEntity
     private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
+
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -95,7 +107,9 @@ public class EnergizerBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, EnergizerRecipe.Type.INSTANCE, stack);
+                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.ENERGIZER_TYPE, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -163,6 +177,7 @@ public class EnergizerBlockEntity
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
+        syncIngredientListToPlayer(player);
         
         return new EnergizerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
@@ -184,14 +199,14 @@ public class EnergizerBlockEntity
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
-        if(level.isClient())
+        if(level.isClient() || !(level instanceof ServerWorld serverWorld))
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().
+            Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
                     getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isEmpty())
                 return;
@@ -260,15 +275,18 @@ public class EnergizerBlockEntity
     private static void craftItem(BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().
+        if(!(level instanceof ServerWorld serverWorld))
+            return;
+
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
                 getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
         blockEntity.itemHandler.removeStack(0, 1);
-        blockEntity.itemHandler.setStack(1, recipe.get().value().getResult(level.getRegistryManager()).copyWithCount(
-                blockEntity.itemHandler.getStack(1).getCount() + recipe.get().value().getResult(level.getRegistryManager()).getCount()));
+        blockEntity.itemHandler.setStack(1, recipe.get().value().craft(null, level.getRegistryManager()).copyWithCount(
+                blockEntity.itemHandler.getStack(1).getCount() + recipe.get().value().craft(null, level.getRegistryManager()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -276,11 +294,14 @@ public class EnergizerBlockEntity
     private static boolean hasRecipe(EnergizerBlockEntity blockEntity) {
         World level = blockEntity.world;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = level.getRecipeManager().
+        if(!(level instanceof ServerWorld serverWorld))
+            return false;
+
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
                 getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
 
         return recipe.isPresent() &&
-                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 1, recipe.get().value().getResult(level.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 1, recipe.get().value().craft(null, level.getRegistryManager()));
     }
 
     @Override
@@ -288,5 +309,23 @@ public class EnergizerBlockEntity
         resetProgress(getPos(), getCachedState());
 
         super.updateUpgradeModules();
+    }
+
+    protected void syncIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.ENERGIZER_TYPE)));
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
     }
 }

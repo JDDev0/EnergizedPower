@@ -20,6 +20,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -47,6 +48,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 ).
                 criterion("has_the_item",
                         InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
+                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
                                 ConventionalItemTags.COPPER_INGOTS
                         ))).
                 build(advancementOutput, EPAPI.MOD_ID + ":main/basics/energizedpower_basics");
@@ -62,12 +64,14 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry rawPressMolds = addAdvancement(
+                lookupProvider,
                 advancementOutput, pressMoldMaker,
                 EPItems.RAW_GEAR_PRESS_MOLD, "raw_press_molds", AdvancementFrame.TASK,
                 EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
         );
 
         AdvancementEntry pressMolds = addAdvancement(
+                lookupProvider,
                 advancementOutput, rawPressMolds,
                 EPItems.GEAR_PRESS_MOLD, "press_molds", AdvancementFrame.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS
@@ -79,12 +83,14 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry steelIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, alloyFurnace,
                 EPItems.STEEL_INGOT, "steel_ingot", AdvancementFrame.TASK,
                 CommonItemTags.INGOTS_STEEL
         );
 
         AdvancementEntry redstoneAlloyIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, alloyFurnace,
                 EPItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", AdvancementFrame.TASK,
                 CommonItemTags.INGOTS_REDSTONE_ALLOY
@@ -96,54 +102,63 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry hammer = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedPowerBasics,
                 EPItems.IRON_HAMMER, "hammer", AdvancementFrame.TASK,
                 CommonItemTags.TOOLS_HAMMERS
         );
 
         AdvancementEntry tinPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.TIN_PLATE, "tin_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_TIN
         );
 
         AdvancementEntry copperPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.COPPER_PLATE, "copper_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_COPPER
         );
 
         AdvancementEntry goldPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.GOLD_PLATE, "gold_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_GOLD
         );
 
         AdvancementEntry ironPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.IRON_PLATE, "iron_plate", AdvancementFrame.TASK,
                 CommonItemTags.PLATES_IRON
         );
 
         AdvancementEntry cutter = addAdvancement(
+                lookupProvider,
                 advancementOutput, ironPlate,
                 EPItems.CUTTER, "cutter", AdvancementFrame.TASK,
                 CommonItemTags.TOOLS_CUTTERS
         );
 
         AdvancementEntry tinWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, cutter,
                 EPItems.TIN_WIRE, "tin_wire", AdvancementFrame.TASK,
                 CommonItemTags.WIRES_TIN
         );
 
         AdvancementEntry goldWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, cutter,
                 EPItems.GOLD_WIRE, "gold_wire", AdvancementFrame.TASK,
                 CommonItemTags.WIRES_GOLD
         );
 
         AdvancementEntry copperWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, cutter,
                 EPItems.COPPER_WIRE, "copper_wire", AdvancementFrame.TASK,
                 CommonItemTags.WIRES_COPPER
@@ -299,6 +314,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
                         ItemPredicate.Builder.create().items(
+                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
                                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM
@@ -307,6 +323,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         );
 
         AdvancementEntry silicon = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedPowerBasics,
                 EPItems.SILICON, "silicon", AdvancementFrame.TASK,
                 CommonItemTags.SILICON
@@ -518,6 +535,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementFrame.TASK,
                 InventoryChangedCriterion.Conditions.items(
                         ItemPredicate.Builder.create().items(
+                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
                                 EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM
@@ -566,11 +584,12 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangedCriterion.Conditions.items(trigger));
     }
-    private AdvancementEntry addAdvancement(Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
+    private AdvancementEntry addAdvancement(RegistryWrapper.WrapperLookup lookupProvider, Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
                                             ItemConvertible icon, String advancementId, AdvancementFrame type,
                                             TagKey<Item> trigger) {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
+                        lookupProvider.getOrThrow(RegistryKeys.ITEM),
                         trigger
                 )));
     }

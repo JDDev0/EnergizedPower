@@ -1,10 +1,10 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "tag": "c:storage_blocks/tin"
+    "ingredient": "#c:storage_blocks/tin"
   },
-  "output": {
+  "result": {
     "count": 9,
-    "item": "energizedpower:tin_plate"
+    "id": "energizedpower:tin_plate"
   }
 }

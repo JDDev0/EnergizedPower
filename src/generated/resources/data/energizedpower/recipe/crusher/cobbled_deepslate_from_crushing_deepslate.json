@@ -1,9 +1,8 @@
 {
   "type": "energizedpower:crusher",
-  "ingredient": {
-    "item": "minecraft:deepslate"
-  },
-  "output": {
-    "item": "minecraft:cobbled_deepslate"
+  "ingredient": "minecraft:deepslate",
+  "result": {
+    "count": 1,
+    "id": "minecraft:cobbled_deepslate"
   }
 }

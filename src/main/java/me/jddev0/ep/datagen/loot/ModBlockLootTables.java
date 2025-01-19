@@ -181,7 +181,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
     }
 
     private LootTable.Builder createTinOreDrops(Block block) {
-        RegistryWrapper.Impl<Enchantment> impl = registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
+        RegistryWrapper.Impl<Enchantment> impl = registries.getOrThrow(RegistryKeys.ENCHANTMENT);
 
         return dropsWithSilkTouch(block,
                 applyExplosionDecay(

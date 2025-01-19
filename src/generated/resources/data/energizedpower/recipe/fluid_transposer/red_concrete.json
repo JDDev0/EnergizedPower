@@ -4,11 +4,10 @@
     "amount": 1000,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:red_concrete_powder"
-  },
+  "ingredient": "minecraft:red_concrete_powder",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:red_concrete"
+  "result": {
+    "count": 1,
+    "id": "minecraft:red_concrete"
   }
 }

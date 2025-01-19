@@ -6,7 +6,6 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -35,7 +34,8 @@ public class AdvancedCrusherMenu extends UpgradableEnergyStorageMenu<AdvancedCru
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), CrusherRecipe.Type.INSTANCE, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(((AdvancedCrusherBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };

@@ -7,8 +7,9 @@ import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -47,7 +48,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
                         if(index < handler.getRecipeList().size() && handler.getRecipeList().get(index).getSecond()) {
                             ModMessages.sendClientPacketToServer(new CraftPressMoldMakerRecipeC2SPacket(handler.getBlockEntity().getPos(),
-                                    handler.getRecipeList().get(index).getFirst().id()));
+                                    handler.getRecipeList().get(index).getFirst().id().getValue()));
                             clicked = true;
                         }
                     }
@@ -79,12 +80,12 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         renderButtons(drawContext, x, y, mouseX, mouseY);
     }
@@ -98,9 +99,9 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
             if(handler.getRecipeList().get(i).getSecond()) {
                 if(isPointWithinBounds(btnX, btnY, 20, 20, mouseX, mouseY)) {
-                    drawContext.drawTexture(TEXTURE, x + btnX, y + btnY, 176, 20, 20, 20);
+                    drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + btnX, y + btnY, 176, 20, 20, 20, 256, 256);
                 }else {
-                    drawContext.drawTexture(TEXTURE, x + btnX, y + btnY, 176, 0, 20, 20);
+                    drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + btnX, y + btnY, 176, 0, 20, 20, 256, 256);
                 }
             }
 
@@ -118,18 +119,18 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
         //Up button
         if(scrollIndexOffset > 0) {
             if(isPointWithinBounds(155, 19, 11, 12, mouseX, mouseY)) {
-                drawContext.drawTexture(TEXTURE, x + 155, y + 19, 187, 40, 11, 12);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 19, 187, 40, 11, 12, 256, 256);
             }else {
-                drawContext.drawTexture(TEXTURE, x + 155, y + 19, 176, 40, 11, 12);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 19, 176, 40, 11, 12, 256, 256);
             }
         }
 
         //Down button
         if(scrollIndexOffset + 8 < handler.getRecipeList().size()) {
             if(isPointWithinBounds(155, 55, 11, 12, mouseX, mouseY)) {
-                drawContext.drawTexture(TEXTURE, x + 155, y + 55, 187, 52, 11, 12);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 55, 187, 52, 11, 12, 256, 256);
             }else {
-                drawContext.drawTexture(TEXTURE, x + 155, y + 55, 176, 52, 11, 12);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 55, 176, 52, 11, 12, 256, 256);
             }
         }
     }
@@ -159,7 +160,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
                     components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                             output.getName()));
                     components.add(Text.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", recipe.getClayCount(),
-                            Text.translatable(Items.CLAY_BALL.getTranslationKey())).formatted(Formatting.ITALIC));
+                            Items.CLAY_BALL.getName()).formatted(Formatting.ITALIC));
 
                     drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
                 }

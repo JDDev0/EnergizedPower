@@ -3,40 +3,34 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
-public class CompressorRecipe implements Recipe<RecipeInput> {
-    private final ItemStack output;
-    private final Ingredient input;
-    private final int inputCount;
+import java.util.List;
 
-    public CompressorRecipe(ItemStack output, Ingredient input, int inputCount) {
+public class CompressorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
+    private final ItemStack output;
+    private final IngredientWithCount input;
+
+    public CompressorRecipe(ItemStack output, IngredientWithCount input) {
         this.output = output;
         this.input = input;
-        this.inputCount = inputCount;
     }
 
     public ItemStack getOutputItem() {
         return output;
     }
 
-    public Ingredient getInputItem() {
+    public IngredientWithCount getInput() {
         return input;
-    }
-
-    public int getInputCount() {
-        return inputCount;
     }
 
     @Override
@@ -44,7 +38,7 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
         if(level.isClient())
             return false;
 
-        return input.test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= inputCount;
+        return input.input().test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= input.count();
     }
 
     @Override
@@ -53,25 +47,8 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return output.copy();
-    }
-
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
-        ingredients.add(0, input);
-        return ingredients;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.COMPRESSOR_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -80,13 +57,33 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.COMPRESSOR_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of(input.input());
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return input.input().test(itemStack);
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return ItemStack.areItemsAndComponentsEqual(output, itemStack);
     }
 
     public static final class Type implements RecipeType<CompressorRecipe> {
@@ -103,12 +100,10 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
         public static final Identifier ID = EPAPI.id("compressor");
 
         private final MapCodec<CompressorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            }), IngredientWithCount.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
-                return recipe.inputCount;
             })).apply(instance, CompressorRecipe::new);
         });
 
@@ -126,16 +121,14 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
         }
 
         private static CompressorRecipe read(RegistryByteBuf buffer) {
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
-            int inputCount = buffer.readInt();
+            IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
             ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
 
-            return new CompressorRecipe(output, input, inputCount);
+            return new CompressorRecipe(output, input);
         }
 
         private static void write(RegistryByteBuf buffer, CompressorRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
-            buffer.writeInt(recipe.inputCount);
+            IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
             ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
         }
     }

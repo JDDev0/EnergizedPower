@@ -10,21 +10,19 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PageTurnWidget;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.NarratorManager;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenTexts;
@@ -307,7 +305,8 @@ public class EnergizedPowerBookScreen extends Screen {
     @Override
     public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         super.renderBackground(drawContext, mouseX, mouseY, delta);
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if(formattedPages == null)
@@ -315,11 +314,11 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int startX = (width - 226) / 2;
         if(currentPage == 0) {
-            drawContext.drawTexture(FRONT_COVER, startX, 2, 0, 0, 226, 230);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, FRONT_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
         }else if(currentPage == getPageCount() - 1) {
-            drawContext.drawTexture(BACK_COVER, startX, 2, 0, 0, 226, 230);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, BACK_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
         }else {
-            drawContext.drawTexture(TEXTURE, startX, 2, 0, 0, 226, 230);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, startX, 2, 0, 0, 226, 230, 256, 256);
         }
 
         if(!isCurrentPageCached) {
@@ -433,7 +432,7 @@ public class EnergizedPowerBookScreen extends Screen {
             y = (int)((230 - 256 * scaleFactor) * .5f) + 2;
 
         drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
-        drawContext.drawTexture(image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256, 256, 256);
         drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
     }
 

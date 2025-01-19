@@ -9,15 +9,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
 
 import java.util.List;
 
 public class BatteryItem extends EnergizedPowerEnergyItem {
     private final Tier tier;
 
-    public BatteryItem(Tier tier) {
-        super(new Settings().maxCount(1), tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer());
+    public BatteryItem(Settings props, Tier tier) {
+        super(props.maxCount(1), tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer());
 
         this.tier = tier;
     }

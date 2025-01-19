@@ -1,20 +1,13 @@
 {
   "type": "energizedpower:crusher",
   "ingredient": [
-    {
-      "item": "minecraft:tuff_bricks"
-    },
-    {
-      "item": "minecraft:chiseled_tuff_bricks"
-    },
-    {
-      "item": "minecraft:chiseled_tuff"
-    },
-    {
-      "item": "minecraft:polished_tuff"
-    }
+    "minecraft:tuff_bricks",
+    "minecraft:chiseled_tuff_bricks",
+    "minecraft:chiseled_tuff",
+    "minecraft:polished_tuff"
   ],
-  "output": {
-    "item": "minecraft:tuff"
+  "result": {
+    "count": 1,
+    "id": "minecraft:tuff"
   }
 }

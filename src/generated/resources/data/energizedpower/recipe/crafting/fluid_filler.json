@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "F": {
-      "item": "energizedpower:fluid_tank_small"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "S": {
-      "tag": "c:silicon"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "C": "#c:plates/copper",
+    "F": "energizedpower:fluid_tank_small",
+    "I": "#c:plates/iron",
+    "S": "#c:silicon"
   },
   "pattern": [
     "SIS",

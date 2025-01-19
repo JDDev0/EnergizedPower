@@ -11,7 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
@@ -20,13 +20,14 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 public class PlantGrowthChamberBlock extends BlockWithEntity {
     public static final MapCodec<PlantGrowthChamberBlock> CODEC = createCodec(PlantGrowthChamberBlock::new);
 
     public static final BooleanProperty POWERED = Properties.POWERED;
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     protected PlantGrowthChamberBlock(AbstractBlock.Settings props) {
         super(props);
@@ -93,8 +94,8 @@ public class PlantGrowthChamberBlock extends BlockWithEntity {
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
         if(level.isClient())
             return;

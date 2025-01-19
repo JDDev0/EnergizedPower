@@ -1,13 +1,14 @@
 {
   "type": "energizedpower:metal_press",
   "ingredient": {
-    "tag": "c:plates/energized_copper"
-  },
-  "output": {
-    "count": 3,
-    "item": "energizedpower:energized_copper_wire"
+    "ingredient": "#c:plates/energized_copper"
   },
   "pressMold": {
-    "item": "energizedpower:wire_press_mold"
+    "count": 1,
+    "id": "energizedpower:wire_press_mold"
+  },
+  "result": {
+    "count": 3,
+    "id": "energizedpower:energized_copper_wire"
   }
 }

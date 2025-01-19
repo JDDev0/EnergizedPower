@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.3,
-  "ingredient": {
-    "item": "energizedpower:raw_wire_press_mold"
-  },
+  "ingredient": "energizedpower:raw_wire_press_mold",
   "result": {
     "id": "energizedpower:wire_press_mold"
   }

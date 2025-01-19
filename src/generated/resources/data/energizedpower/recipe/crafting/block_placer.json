@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "C": {
-      "tag": "c:storage_blocks/copper"
-    },
-    "D": {
-      "item": "minecraft:dispenser"
-    },
-    "I": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "S": {
-      "tag": "c:storage_blocks/silicon"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "C": "#c:storage_blocks/copper",
+    "D": "minecraft:dispenser",
+    "I": "#c:storage_blocks/iron",
+    "S": "#c:storage_blocks/silicon"
   },
   "pattern": [
     "IDS",

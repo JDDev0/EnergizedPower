@@ -22,7 +22,7 @@ public final class ModMessages {
         PayloadTypeRegistry.playS2C().register(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.PACKET_CODEC);
         PayloadTypeRegistry.playS2C().register(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.PACKET_CODEC);
         PayloadTypeRegistry.playS2C().register(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playS2C().register(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket.PACKET_CODEC);
 
         //Client -> Server
         PayloadTypeRegistry.playC2S().register(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.PACKET_CODEC);
@@ -51,7 +51,7 @@ public final class ModMessages {
         ClientPlayNetworking.registerGlobalReceiver(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket::receive);
-        ClientPlayNetworking.registerGlobalReceiver(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket::receive);
     }
 
     public static void registerPacketsC2S() {

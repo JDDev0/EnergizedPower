@@ -9,7 +9,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 public class ItemConveyorBeltSplitterBlock extends BlockWithEntity {
     public static final MapCodec<ItemConveyorBeltSplitterBlock> CODEC = createCodec(ItemConveyorBeltSplitterBlock::new);
 
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     protected ItemConveyorBeltSplitterBlock(AbstractBlock.Settings props) {
         super(props);

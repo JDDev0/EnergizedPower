@@ -32,10 +32,10 @@ public final class EPDataComponentTypes {
             builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
 
     public static final ComponentType<Integer> PROGRESS = registerDataComponentType("progress", builder ->
-            builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
+            builder.codec(Codecs.NON_NEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
 
     public static final ComponentType<Integer> MAX_PROGRESS = registerDataComponentType("max_progress", builder ->
-            builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
+            builder.codec(Codecs.NON_NEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
 
     public static final ComponentType<Long> ENERGY_PRODUCTION_LEFT = registerDataComponentType("energy_production_left", builder ->
             builder.codec(Codec.LONG).packetCodec(PacketCodecs.VAR_LONG));
@@ -50,7 +50,7 @@ public final class EPDataComponentTypes {
             builder.codec(Direction.CODEC).packetCodec(Direction.PACKET_CODEC));
 
     public static final ComponentType<Integer> ACTION_COOLDOWN = registerDataComponentType("action_cooldown", builder ->
-            builder.codec(Codecs.NONNEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
+            builder.codec(Codecs.NON_NEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));
 
     public static final ComponentType<DimensionalPositionComponent> DIMENSIONAL_POSITION =
             registerDataComponentType("dimensional_position", builder ->

@@ -5,11 +5,6 @@ import net.minecraft.fluid.FlowableFluid;
 
 public class DirtyWaterFluidBlock extends FluidBlock {
     public DirtyWaterFluidBlock(FlowableFluid fluid, Settings settings) {
-        super(fluid, settings);
-    }
-
-    @Override
-    public String getTranslationKey() {
-        return "fluid_type.energizedpower.dirty_water";
+        super(fluid, settings.overrideTranslationKey("fluid_type.energizedpower.dirty_water"));
     }
 }

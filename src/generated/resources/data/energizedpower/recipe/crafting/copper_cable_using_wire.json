@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "copper_cable",
   "key": {
-    "I": {
-      "item": "energizedpower:cable_insulator"
-    },
-    "W": {
-      "tag": "c:wires/copper"
-    }
+    "I": "energizedpower:cable_insulator",
+    "W": "#c:wires/copper"
   },
   "pattern": [
     "IWI",

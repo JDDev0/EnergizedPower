@@ -1,10 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:acacia_pressure_plate"
-  },
-  "output": {
-    "item": "minecraft:acacia_planks"
+  "ingredient": "minecraft:acacia_pressure_plate",
+  "result": {
+    "count": 1,
+    "id": "minecraft:acacia_planks"
   },
   "sawdustAmount": 2
 }

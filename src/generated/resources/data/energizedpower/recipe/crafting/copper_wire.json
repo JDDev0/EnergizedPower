@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:tools/cutters"
-    },
-    {
-      "tag": "c:plates/copper"
-    }
+    "#c:tools/cutters",
+    "#c:plates/copper"
   ],
   "result": {
     "count": 2,

@@ -25,7 +25,7 @@ public class SawmillEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public SawmillEMIRecipe(RecipeEntry<SawmillRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
 
         EmiStack emiOutputItem = EmiStack.of(recipe.value().getOutputItem());

@@ -5,13 +5,14 @@ import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.recipe.display.SlotDisplayContexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,14 @@ public class AutoStonecutterScreen
 
     @Override
     protected ItemStack getRecipeIcon(RecipeEntry<StonecuttingRecipe> currentRecipe) {
-        return currentRecipe.value().getResult(handler.getBlockEntity().getWorld().getRegistryManager());
+        return currentRecipe.value().getDisplays().get(0).result().
+                getFirst(SlotDisplayContexts.createParameters(handler.getBlockEntity().getWorld()));
     }
 
     @Override
     protected void renderCurrentRecipeTooltip(DrawContext drawContext, int mouseX, int mouseY, RecipeEntry<StonecuttingRecipe> currentRecipe) {
-        ItemStack output = currentRecipe.value().getResult(handler.getBlockEntity().getWorld().getRegistryManager());
+        ItemStack output = currentRecipe.value().getDisplays().get(0).result().
+                getFirst(SlotDisplayContexts.createParameters(handler.getBlockEntity().getWorld()));
         if(!output.isEmpty()) {
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
@@ -58,7 +61,7 @@ public class AutoStonecutterScreen
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 84, y + 43, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 84, y + 43, 176, 53, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

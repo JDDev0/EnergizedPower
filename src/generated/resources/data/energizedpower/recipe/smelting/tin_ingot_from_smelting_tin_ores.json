@@ -4,9 +4,7 @@
   "cookingtime": 200,
   "experience": 0.7,
   "group": "tin_ingot",
-  "ingredient": {
-    "tag": "c:ores/tin"
-  },
+  "ingredient": "#c:ores/tin",
   "result": {
     "id": "energizedpower:tin_ingot"
   }

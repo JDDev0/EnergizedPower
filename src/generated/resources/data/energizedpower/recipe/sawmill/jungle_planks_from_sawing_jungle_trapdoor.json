@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:jungle_trapdoor"
-  },
-  "output": {
+  "ingredient": "minecraft:jungle_trapdoor",
+  "result": {
     "count": 2,
-    "item": "minecraft:jungle_planks"
+    "id": "minecraft:jungle_planks"
   },
   "sawdustAmount": 3
 }

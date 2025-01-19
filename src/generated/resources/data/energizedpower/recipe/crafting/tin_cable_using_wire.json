@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "tin_cable",
   "key": {
-    "I": {
-      "item": "energizedpower:cable_insulator"
-    },
-    "W": {
-      "tag": "c:wires/tin"
-    }
+    "I": "energizedpower:cable_insulator",
+    "W": "#c:wires/tin"
   },
   "pattern": [
     "IWI",

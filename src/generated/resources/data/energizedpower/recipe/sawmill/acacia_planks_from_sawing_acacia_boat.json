@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:acacia_boat"
-  },
-  "output": {
+  "ingredient": "minecraft:acacia_boat",
+  "result": {
     "count": 4,
-    "item": "minecraft:acacia_planks"
+    "id": "minecraft:acacia_planks"
   },
   "sawdustAmount": 3
 }

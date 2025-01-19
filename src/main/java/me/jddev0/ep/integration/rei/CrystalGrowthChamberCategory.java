@@ -17,13 +17,11 @@ import net.minecraft.util.Identifier;
 import java.util.*;
 
 public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrowthChamberDisplay> {
-    public static final CategoryIdentifier<CrystalGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "crystal_growth_chamber");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends CrystalGrowthChamberDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return CrystalGrowthChamberDisplay.CATEGORY;
     }
 
     @Override

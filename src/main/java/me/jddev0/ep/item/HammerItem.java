@@ -3,22 +3,16 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
-import net.minecraft.item.ToolMaterials;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.random.Random;
 
-public class HammerItem extends ToolItem {
+public class HammerItem extends Item {
     private final Random random = Random.create();
 
-    public HammerItem(ToolMaterials tier, Item.Settings props) {
-        super(tier, props.component(EPDataComponentTypes.NO_REPAIR, Unit.INSTANCE));
-    }
-
-    @Override
-    public boolean canRepair(ItemStack itemStack, ItemStack ingredient) {
-        //TODO improve [Equivalent to setNoRepair needed]
-        return false;
+    public HammerItem(ToolMaterial tier, Item.Settings props) {
+        super(props.component(EPDataComponentTypes.NO_REPAIR, Unit.INSTANCE).
+                maxDamage(tier.durability()).repairable(tier.repairItems()).enchantable(tier.enchantmentValue()));
     }
 
     @Override
@@ -34,10 +28,5 @@ public class HammerItem extends ToolItem {
         }
 
         return copy;
-    }
-
-    @Override
-    public boolean hasRecipeRemainder() {
-        return true;
     }
 }

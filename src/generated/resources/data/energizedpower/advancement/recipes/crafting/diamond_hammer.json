@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#c:gems/diamond"
+            "items": "#minecraft:diamond_tool_materials"
           }
         ]
       },

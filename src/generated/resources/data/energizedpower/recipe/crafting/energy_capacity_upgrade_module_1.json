@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_upgrade_module"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "T": {
-      "tag": "c:plates/tin"
-    },
-    "c": {
-      "tag": "minecraft:coals"
-    }
+    "B": "energizedpower:basic_upgrade_module",
+    "C": "#c:plates/copper",
+    "T": "#c:plates/tin",
+    "c": "#minecraft:coals"
   },
   "pattern": [
     "CTC",

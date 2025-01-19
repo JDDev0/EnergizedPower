@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ores/iron"
-  },
-  "output": {
-    "output": {
-      "item": "energizedpower:iron_dust"
-    },
+  "ingredient": "#c:ores/iron",
+  "result": {
     "percentages": [
       1.0,
       1.0,
@@ -17,6 +12,10 @@
       1.0,
       0.5,
       0.25
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "energizedpower:iron_dust"
+    }
   }
 }

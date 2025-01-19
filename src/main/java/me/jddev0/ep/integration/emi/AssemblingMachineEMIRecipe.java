@@ -27,7 +27,7 @@ public class AssemblingMachineEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public AssemblingMachineEMIRecipe(RecipeEntry<AssemblingMachineRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = Arrays.stream(recipe.value().getInputs()).map(input ->
                 EmiIngredient.of(input.input(), input.count())).collect(Collectors.toList());
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));

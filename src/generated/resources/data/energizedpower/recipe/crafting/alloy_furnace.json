@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:bricks"
-    },
-    "F": {
-      "item": "minecraft:furnace"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    }
+    "B": "minecraft:bricks",
+    "F": "minecraft:furnace",
+    "I": "#c:plates/iron"
   },
   "pattern": [
     "III",

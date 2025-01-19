@@ -13,6 +13,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,13 +21,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.*;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -83,7 +84,8 @@ public class AdvancedAutoCrafterBlockEntity
     private final boolean[] hasRecipeLoaded = new boolean[] {
             false, false, false
     };
-    private final Identifier[] recipeIdForSetRecipe = new Identifier[] {
+    @SuppressWarnings("unchecked")
+    private final RegistryKey<Recipe<?>>[] recipeIdForSetRecipe = new RegistryKey[] {
             null, null, null
     };
     @SuppressWarnings("unchecked")
@@ -277,7 +279,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         for(int i = 0;i < 3;i++) {
             if(craftingRecipe[i] != null)
-                nbt.put("recipe.id." + i, NbtString.of(craftingRecipe[i].id().toString()));
+                nbt.put("recipe.id." + i, NbtString.of(craftingRecipe[i].id().getValue().toString()));
 
             nbt.put("recipe.progress." + i, NbtInt.of(progress[i]));
             nbt.put("recipe.max_progress." + i, NbtInt.of(maxProgress[i]));
@@ -310,7 +312,7 @@ public class AdvancedAutoCrafterBlockEntity
                 if(!(tag instanceof NbtString stringTag))
                     throw new IllegalArgumentException("Tag must be of type StringTag!");
 
-                recipeIdForSetRecipe[i] = Identifier.tryParse(stringTag.asString());
+                recipeIdForSetRecipe[i] = RegistryKey.of(RegistryKeys.RECIPE, Identifier.tryParse(stringTag.asString()));
             }
 
             progress[i] = nbt.getInt("recipe.progress." + i);
@@ -455,7 +457,7 @@ public class AdvancedAutoCrafterBlockEntity
                     craftingRecipe[currentRecipeIndex].id() == null)?recipes.get(0).id():craftingRecipe[currentRecipeIndex].id();
 
         for(int i = 0;i < recipes.size();i++) {
-            if(Objects.equals(recipes.get(i).id(), recipeIdForSetRecipe[currentRecipeIndex])) {
+            if(Objects.equals(recipes.get(i).id().getValue(), recipeIdForSetRecipe[currentRecipeIndex].getValue())) {
                 recipeIdForSetRecipe[currentRecipeIndex] = recipes.get((i + 1) % recipes.size()).id();
 
                 break;
@@ -465,7 +467,7 @@ public class AdvancedAutoCrafterBlockEntity
         updateRecipe(currentRecipeIndex);
     }
 
-    public void setRecipeIdForSetRecipe(Identifier recipeIdForSetRecipe) {
+    public void setRecipeIdForSetRecipe(RegistryKey<Recipe<?>> recipeIdForSetRecipe) {
         this.recipeIdForSetRecipe[currentRecipeIndex] = recipeIdForSetRecipe;
 
         updateRecipe(currentRecipeIndex);
@@ -480,9 +482,7 @@ public class AdvancedAutoCrafterBlockEntity
         if(hasRecipeLoaded[index] && craftingRecipe[index] != null && oldCopyOfRecipe[index] != null) {
             oldRecipe = craftingRecipe[index];
 
-            oldResult = craftingRecipe[index].value() instanceof SpecialCraftingRecipe ?craftingRecipe[index].value().
-                    craft(oldCopyOfRecipe[index].createRecipeInput(), world.getRegistryManager()):
-                    craftingRecipe[index].value().getResult(world.getRegistryManager());
+            oldResult = craftingRecipe[index].value().craft(oldCopyOfRecipe[index].createRecipeInput(), world.getRegistryManager());
         }
 
         hasRecipeLoaded[index] = true;
@@ -492,19 +492,17 @@ public class AdvancedAutoCrafterBlockEntity
         for(int i = 0;i < patternSlotsForRecipe.size();i++)
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
-        Optional<Pair<Identifier, RecipeEntry<CraftingRecipe>>> recipe = getRecipeFor(copyOfPatternSlots, world, recipeIdForSetRecipe[index]);
+        Optional<Pair<RegistryKey<Recipe<?>>, RecipeEntry<CraftingRecipe>>> recipe = getRecipeFor(copyOfPatternSlots, world, recipeIdForSetRecipe[index]);
         if(recipe.isPresent()) {
             craftingRecipe[index] = recipe.get().getSecond();
 
             //Recipe with saved recipe id does not exist or pattern items are not compatible with recipe
-            if(recipeIdForSetRecipe[index] != null && !Objects.equals(craftingRecipe[index].id(), recipeIdForSetRecipe[index])) {
+            if(recipeIdForSetRecipe[index] != null && !Objects.equals(craftingRecipe[index].id().getValue(), recipeIdForSetRecipe[index].getValue())) {
                 recipeIdForSetRecipe[index] = craftingRecipe[index].id();
                 resetProgress(index);
             }
 
-            ItemStack resultItemStack = craftingRecipe[index].value() instanceof SpecialCraftingRecipe?craftingRecipe[index].value().
-                    craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
-                    craftingRecipe[index].value().getResult(world.getRegistryManager());
+            ItemStack resultItemStack = craftingRecipe[index].value().craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager());
 
             patternResultSlots[index].setStack(0, resultItemStack);
 
@@ -564,13 +562,12 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
 
-        ItemStack resultItemStack = craftingRecipe[index].value() instanceof SpecialCraftingRecipe?craftingRecipe[index].value().
-                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
-                craftingRecipe[index].value().getResult(world.getRegistryManager());
+        ItemStack resultItemStack = craftingRecipe[index].value().
+                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager());
 
         outputItemStacks.add(resultItemStack);
 
-        for(ItemStack remainingItem:craftingRecipe[index].value().getRemainder(copyOfPatternSlots.createRecipeInput()))
+        for(ItemStack remainingItem:craftingRecipe[index].value().getRecipeRemainders(copyOfPatternSlots.createRecipeInput()))
             if(!remainingItem.isEmpty())
                 outputItemStacks.add(remainingItem);
 
@@ -676,14 +673,13 @@ public class AdvancedAutoCrafterBlockEntity
             copyOfPatternSlots.setStack(i, patternSlotsForRecipe.getStack(i));
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-        ItemStack resultItemStack = craftingRecipe[index].value() instanceof SpecialCraftingRecipe?craftingRecipe[index].value().
-                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
-                craftingRecipe[index].value().getResult(world.getRegistryManager());
+        ItemStack resultItemStack = craftingRecipe[index].value().
+                craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
 
-        for(ItemStack remainingItem:craftingRecipe[index].value().getRemainder(copyOfPatternSlots.createRecipeInput()))
+        for(ItemStack remainingItem:craftingRecipe[index].value().getRecipeRemainders(copyOfPatternSlots.createRecipeInput()))
             if(!remainingItem.isEmpty())
                 outputItemStacks.add(remainingItem);
 
@@ -746,14 +742,12 @@ public class AdvancedAutoCrafterBlockEntity
             for(int j = 0;j < patternSlotsForRecipe.size();j++)
                 copyOfPatternSlots.setStack(j, patternSlotsForRecipe.getStack(j));
 
-            ItemStack resultItemStack = craftingRecipe[i].value() instanceof SpecialCraftingRecipe?
-                    craftingRecipe[i].value().craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager()):
-                    craftingRecipe[i].value().getResult(world.getRegistryManager());
+            ItemStack resultItemStack = craftingRecipe[i].value().craft(copyOfPatternSlots.createRecipeInput(), world.getRegistryManager());
 
             if(ItemStack.areItemsEqual(itemStack, resultItemStack) && ItemStack.areItemsAndComponentsEqual(itemStack, resultItemStack))
                 return true;
 
-            for(ItemStack remainingItem:craftingRecipe[i].value().getRemainder(copyOfPatternSlots.createRecipeInput()))
+            for(ItemStack remainingItem:craftingRecipe[i].value().getRecipeRemainders(copyOfPatternSlots.createRecipeInput()))
                 if(ItemStack.areItemsEqual(itemStack, remainingItem) && ItemStack.areItemsAndComponentsEqual(itemStack, remainingItem))
                     return true;
         }
@@ -827,16 +821,19 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     private List<RecipeEntry<CraftingRecipe>> getRecipesFor(CraftingInventory patternSlots, World level) {
-        return level.getRecipeManager().listAllOfType(RecipeType.CRAFTING).
-                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id())).
+        if(!(level instanceof ServerWorld serverWorld))
+            return List.of();
+
+        return RecipeUtils.getAllRecipesFor(serverWorld, RecipeType.CRAFTING).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id().getValue())).
                 filter(recipe -> recipe.value().matches(patternSlots.createRecipeInput(), level)).
-                sorted(Comparator.comparing(recipe -> recipe.value().getResult(level.getRegistryManager()).getTranslationKey())).
+                sorted(Comparator.comparing(recipe -> recipe.id().getValue())).
                 toList();
     }
 
-    private Optional<Pair<Identifier, RecipeEntry<CraftingRecipe>>> getRecipeFor(CraftingInventory patternSlots, World level, Identifier recipeId) {
+    private Optional<Pair<RegistryKey<Recipe<?>>, RecipeEntry<CraftingRecipe>>> getRecipeFor(CraftingInventory patternSlots, World level, RegistryKey<Recipe<?>> recipeId) {
         List<RecipeEntry<CraftingRecipe>> recipes = getRecipesFor(patternSlots, level);
-        Optional<RecipeEntry<CraftingRecipe>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
+        Optional<RecipeEntry<CraftingRecipe>> recipe = recipes.stream().filter(r -> recipeId != null && r.id().getValue().equals(recipeId.getValue())).findFirst();
 
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }

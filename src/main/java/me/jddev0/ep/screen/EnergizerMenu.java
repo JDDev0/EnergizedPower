@@ -3,7 +3,6 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -34,7 +33,8 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), EnergizerRecipe.Type.INSTANCE, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(((EnergizerBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };

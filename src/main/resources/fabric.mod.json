@@ -26,8 +26,11 @@
 		"client": [
 			"me.jddev0.ep.EnergizedPowerModClient"
 		],
-		"rei_client": [
+		"rei_common": [
 			"me.jddev0.ep.integration.rei.EnergizedPowerREIPlugin"
+		],
+		"rei_client": [
+			"me.jddev0.ep.integration.rei.EnergizedPowerREIClientPlugin"
 		],
 		"emi": [
 			"me.jddev0.ep.integration.emi.EnergizedPowerEMIPlugin"
@@ -39,7 +42,7 @@
 	"accessWidener" : "energizedpower.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.21.1",
+		"minecraft": "~1.21.2",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

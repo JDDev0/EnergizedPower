@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:battery_5"
-    },
-    "E": {
-      "tag": "c:plates/energized_copper"
-    },
-    "T": {
-      "tag": "c:nuggets/tin"
-    }
+    "B": "energizedpower:battery_5",
+    "E": "#c:plates/energized_copper",
+    "T": "#c:nuggets/tin"
   },
   "pattern": [
     "T T",

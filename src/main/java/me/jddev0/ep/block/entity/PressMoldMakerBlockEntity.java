@@ -9,6 +9,7 @@ import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,10 +24,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
@@ -91,25 +89,31 @@ public class PressMoldMakerBlockEntity
     }
 
     public void craftItem(Identifier recipeId) {
-        Optional<RecipeEntry<?>> recipe = world.getRecipeManager().values().stream().
-                filter(recipeHolder -> recipeHolder.id().equals(recipeId)).findFirst();
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        Optional<RecipeEntry<?>> recipe = serverWorld.getRecipeManager().values().stream().
+                filter(recipeHolder -> recipeHolder.id().getValue().equals(recipeId)).findFirst();
 
         if(recipe.isEmpty() || !(recipe.get().value() instanceof PressMoldMakerRecipe pressMoldMakerRecipe))
             return;
 
         if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(itemHandler), world) ||
-                !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.getResult(world.getRegistryManager())))
+                !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.craft(null, world.getRegistryManager())))
             return;
 
         itemHandler.removeStack(0, pressMoldMakerRecipe.getClayCount());
-        itemHandler.setStack(1, pressMoldMakerRecipe.getResult(world.getRegistryManager()).copyWithCount(
-                itemHandler.getStack(1).getCount() + pressMoldMakerRecipe.getResult(world.getRegistryManager()).getCount()));
+        itemHandler.setStack(1, pressMoldMakerRecipe.craft(null, world.getRegistryManager()).copyWithCount(
+                itemHandler.getStack(1).getCount() + pressMoldMakerRecipe.craft(null, world.getRegistryManager()).getCount()));
     }
 
     private List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> createRecipeList() {
-        List<RecipeEntry<PressMoldMakerRecipe>> recipes = world.getRecipeManager().listAllOfType(PressMoldMakerRecipe.Type.INSTANCE);
+        if(!(world instanceof ServerWorld serverWorld))
+            return List.of();
+
+        Collection<RecipeEntry<PressMoldMakerRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, PressMoldMakerRecipe.Type.INSTANCE);
         return recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.value().getResult(world.getRegistryManager()).getTranslationKey())).
+                sorted(Comparator.comparing(recipe -> recipe.id().getValue())).
                 map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(itemHandler), world))).
                 collect(Collectors.toList());
     }

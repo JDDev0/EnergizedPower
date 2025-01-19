@@ -116,10 +116,10 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         ModKeyBindings.register();
 
         EntityRendererRegistry.register(EPEntityTypes.BATTERY_BOX_MINECART,
-                entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
+                entity -> new MinecartEntityRenderer(entity, new EntityModelLayer(
                         Identifier.of("minecraft", "chest_minecart"), "main")));
         EntityRendererRegistry.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
-                entity -> new MinecartEntityRenderer<>(entity, new EntityModelLayer(
+                entity -> new MinecartEntityRenderer(entity, new EntityModelLayer(
                         Identifier.of("minecraft", "chest_minecart"), "main")));
 
         FluidRenderHandlerRegistry.INSTANCE.register(EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER,

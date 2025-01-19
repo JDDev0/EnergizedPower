@@ -10,7 +10,8 @@ import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPayloa
         pos = buffer.readBlockPos();
 
         int size = buffer.readInt();
-        recipeList = IntStream.range(0, size).mapToObj(i -> Pair.of(new RecipeEntry<>(buffer.readIdentifier(),
+        recipeList = IntStream.range(0, size).mapToObj(i -> Pair.of(new RecipeEntry<>(RegistryKey.of(RegistryKeys.RECIPE, buffer.readIdentifier()),
                         PressMoldMakerRecipe.Serializer.INSTANCE.packetCodec().decode(buffer)), buffer.readBoolean())).
                 collect(Collectors.toList());
     }
@@ -45,7 +46,7 @@ public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPayloa
 
         buffer.writeInt(recipeList.size());
         recipeList.forEach(entry -> {
-            buffer.writeIdentifier(entry.getFirst().id());
+            buffer.writeIdentifier(entry.getFirst().id().getValue());
             PressMoldMakerRecipe.Serializer.INSTANCE.packetCodec().encode(buffer, entry.getFirst().value());
             buffer.writeBoolean(entry.getSecond());
         });

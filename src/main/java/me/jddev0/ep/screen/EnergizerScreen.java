@@ -5,9 +5,9 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<EnergizerMenu> {
@@ -31,12 +31,12 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderActiveOverlay(DrawContext drawContext, int x, int y) {
         if(handler.isCrafting()) {
-            drawContext.drawTexture(TEXTURE, x + 31, y + 18, 176, 70, 50, 50);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 31, y + 18, 176, 70, 50, 50, 256, 256);
         }
     }
 }

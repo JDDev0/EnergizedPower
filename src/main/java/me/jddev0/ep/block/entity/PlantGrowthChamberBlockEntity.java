@@ -4,6 +4,8 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
@@ -11,15 +13,22 @@ import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtDouble;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +43,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
     private double fertilizerSpeedMultiplier = 1;
     private double fertilizerEnergyConsumptionMultiplier = 1;
+
+    protected List<Ingredient> ingredientsOfFertilizerRecipes = new ArrayList<>();
 
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -59,8 +70,12 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, PlantGrowthChamberRecipe.Type.INSTANCE, stack);
-                    case 1 -> world == null || RecipeUtils.isIngredientOfAny(world, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
+                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
+                    case 1 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfFertilizerRecipes, stack));
                     case 2, 3, 4, 5 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -85,6 +100,13 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
                 PlantGrowthChamberBlockEntity.this.markDirty();
             }
         };
+    }
+
+    @Override
+    public @Nullable ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        syncFertilizerIngredientListToPlayer(player);
+
+        return super.createMenu(id, inventory, player);
     }
 
     @Override
@@ -123,10 +145,10 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
     @Override
     protected void onStartCrafting(RecipeEntry<PlantGrowthChamberRecipe> recipe) {
-        if(world == null)
+        if(!(world instanceof ServerWorld serverWorld))
             return;
 
-        Optional<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = world.getRecipeManager().
+        Optional<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = serverWorld.getRecipeManager().
                 getFirstMatch(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(itemHandler), world);
 
         if(fertilizerRecipe.isPresent()) {
@@ -243,5 +265,25 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         }
 
         return itemsStacks.isEmpty();
+    }
+
+    protected void syncFertilizerIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 1, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE)));
+    }
+
+    public List<Ingredient> getIngredientsOfFertilizerRecipes() {
+        return ingredientsOfFertilizerRecipes;
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        super.setIngredients(index, ingredients);
+
+        if(index == 1)
+            this.ingredientsOfFertilizerRecipes = ingredients;
     }
 }

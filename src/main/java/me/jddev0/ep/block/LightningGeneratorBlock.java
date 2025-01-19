@@ -28,6 +28,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -87,16 +88,16 @@ public class LightningGeneratorBlock extends BlockWithEntity {
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
         if(level.isClient())
             return;
 
-        if(!selfPos.up().equals(fromPos) || !(fromBlock instanceof LightningRodBlock))
+        if(!(fromBlock instanceof LightningRodBlock) || !(level.getBlockState(selfPos.up()).getBlock() instanceof LightningRodBlock))
             return;
 
-        BlockState fromState = level.getBlockState(fromPos);
+        BlockState fromState = level.getBlockState(selfPos.up());
         if(!fromState.contains(LightningRodBlock.POWERED) || !fromState.get(LightningRodBlock.POWERED) ||
         !fromState.contains(LightningRodBlock.POWERED) || fromState.get(FacingBlock.FACING) != Direction.UP)
             return;

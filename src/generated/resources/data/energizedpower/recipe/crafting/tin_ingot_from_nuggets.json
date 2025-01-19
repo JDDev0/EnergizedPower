@@ -3,9 +3,7 @@
   "category": "misc",
   "group": "tin_ingot",
   "key": {
-    "#": {
-      "tag": "c:nuggets/tin"
-    }
+    "#": "#c:nuggets/tin"
   },
   "pattern": [
     "###",

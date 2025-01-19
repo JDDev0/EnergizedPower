@@ -1,32 +1,25 @@
 {
   "type": "energizedpower:assembling_machine",
-  "inputs": [
+  "ingredients": [
     {
       "count": 4,
-      "input": {
-        "item": "energizedpower:basic_circuit"
-      }
+      "ingredient": "energizedpower:basic_circuit"
     },
     {
       "count": 4,
-      "input": {
-        "tag": "c:wires/energized_copper"
-      }
+      "ingredient": "#c:wires/energized_copper"
     },
     {
       "count": 4,
-      "input": {
-        "tag": "c:silicon"
-      }
+      "ingredient": "#c:silicon"
     },
     {
       "count": 2,
-      "input": {
-        "tag": "c:dusts/redstone"
-      }
+      "ingredient": "#c:dusts/redstone"
     }
   ],
-  "output": {
-    "item": "energizedpower:advanced_circuit"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:advanced_circuit"
   }
 }

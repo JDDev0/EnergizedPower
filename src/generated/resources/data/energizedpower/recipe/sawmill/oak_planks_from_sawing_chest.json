@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:chest"
-  },
-  "output": {
+  "ingredient": "minecraft:chest",
+  "result": {
     "count": 7,
-    "item": "minecraft:oak_planks"
+    "id": "minecraft:oak_planks"
   },
   "sawdustAmount": 3
 }

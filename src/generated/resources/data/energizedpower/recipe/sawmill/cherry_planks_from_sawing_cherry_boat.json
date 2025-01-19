@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:cherry_boat"
-  },
-  "output": {
+  "ingredient": "minecraft:cherry_boat",
+  "result": {
     "count": 4,
-    "item": "minecraft:cherry_planks"
+    "id": "minecraft:cherry_planks"
   },
   "sawdustAmount": 3
 }

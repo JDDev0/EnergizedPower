@@ -1,10 +1,12 @@
 package me.jddev0.ep.loading;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
@@ -24,7 +26,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Environment(EnvType.CLIENT)
-public class EnergizedPowerBookReloadListener extends JsonDataLoader implements IdentifiableResourceReloadListener {
+public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement> implements IdentifiableResourceReloadListener {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     @Override
@@ -33,7 +35,17 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
     }
 
     public EnergizedPowerBookReloadListener() {
-        super(new GsonBuilder().create(), "book_pages");
+        super(new Codec<>() {
+            @Override
+            public <T> DataResult<Pair<JsonElement, T>> decode(DynamicOps<T> ops, T input) {
+                return DataResult.success(Pair.of(ops.convertTo(JsonOps.INSTANCE, input), input));
+            }
+
+            @Override
+            public <T> DataResult<T> encode(JsonElement input, DynamicOps<T> ops, T prefix) {
+                return DataResult.error(() -> "Not implemented");
+            }
+        }, "book_pages");
     }
 
     @Override
@@ -45,7 +57,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
             }
 
             @Override
-            public <T> Optional<RegistryWrapper.Impl<T>> getOptionalWrapper(RegistryKey<? extends Registry<? extends T>> registryRef) {
+            public <T> Optional<? extends RegistryWrapper.Impl<T>> getOptional(RegistryKey<? extends Registry<? extends T>> registryRef) {
                 return Optional.empty();
             }
         };

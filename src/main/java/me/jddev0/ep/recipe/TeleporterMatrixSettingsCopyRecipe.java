@@ -21,7 +21,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
-        for(int i = 0;i < container.getSize();i++) {
+        for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getStackInSlot(i);
             if(!itemStack.isEmpty()) {
                 if(!itemStack.isOf(EPItems.TELEPORTER_MATRIX))
@@ -50,7 +50,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
-        for(int i = 0;i < container.getSize();i++) {
+        for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getStackInSlot(i);
             if(!itemStack.isEmpty()) {
                 if(!itemStack.isOf(EPItems.TELEPORTER_MATRIX))
@@ -76,13 +76,8 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return new ItemStack(EPItems.TELEPORTER_MATRIX, 2);
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput container) {
-        DefaultedList<ItemStack> remainders = DefaultedList.ofSize(container.getSize(), ItemStack.EMPTY);
+    public DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput container) {
+        DefaultedList<ItemStack> remainders = DefaultedList.ofSize(container.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < remainders.size(); ++i) {
             ItemStack itemstack = container.getStackInSlot(i);
@@ -99,17 +94,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPItems.TELEPORTER_MATRIX);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
         return EPRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER;
-    }
-
-    @Override
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
     }
 }

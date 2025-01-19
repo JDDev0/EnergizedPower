@@ -6,7 +6,6 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import me.jddev0.ep.recipe.PulverizerRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -35,7 +34,8 @@ public class AdvancedPulverizerMenu extends UpgradableEnergyStorageMenu<Advanced
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), PulverizerRecipe.Type.INSTANCE, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(((AdvancedPulverizerBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1, 2 -> false;
                     default -> super.isValid(slot, stack);
                 };

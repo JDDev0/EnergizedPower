@@ -114,6 +114,6 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
         }
 
         itemStack.decrement(1);
-        return ActionResult.success(level.isClient);
+        return level.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
     }
 }

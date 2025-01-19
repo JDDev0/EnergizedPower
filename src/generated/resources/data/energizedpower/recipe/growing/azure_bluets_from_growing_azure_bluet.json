@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:azure_bluet"
-  },
-  "outputs": [
+  "ingredient": "minecraft:azure_bluet",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:azure_bluet"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:azure_bluet"
+      }
     }
   ],
   "ticks": 16000

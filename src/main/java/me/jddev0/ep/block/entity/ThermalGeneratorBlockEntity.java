@@ -12,6 +12,7 @@ import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
@@ -22,6 +23,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -31,6 +33,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -92,10 +95,10 @@ public class ThermalGeneratorBlockEntity
             }
 
             private boolean isFluidValid(FluidVariant variant) {
-                if(world == null)
+                if(!(world instanceof ServerWorld serverWorld))
                     return false;
 
-                List<RecipeEntry<ThermalGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
+                Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
                 return recipes.stream().map(RecipeEntry::value).map(ThermalGeneratorRecipe::getInput).
                         anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> variant.getFluid() == input));
@@ -123,10 +126,10 @@ public class ThermalGeneratorBlockEntity
                 else if(index == 5)
                     return comparatorMode.ordinal();
 
-                if(world == null || index > 3)
+                if(!(world instanceof ServerWorld serverWorld) || index > 3)
                     return 0;
 
-                List<RecipeEntry<ThermalGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
+                Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
                 long rawProduction = 0;
                 outer:
@@ -185,10 +188,10 @@ public class ThermalGeneratorBlockEntity
     }
 
     private static void tickRecipe(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClient())
+        if(level.isClient() || !(level instanceof ServerWorld serverWorld))
             return;
 
-        List<RecipeEntry<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
+        Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
         long rawProduction = 0;
         outer:

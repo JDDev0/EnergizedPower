@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:bricks"
-    },
-    "S": {
-      "item": "minecraft:smooth_stone"
-    },
-    "s": {
-      "tag": "minecraft:shovels"
-    }
+    "B": "minecraft:bricks",
+    "S": "minecraft:smooth_stone",
+    "s": "#minecraft:shovels"
   },
   "pattern": [
     "BBB",

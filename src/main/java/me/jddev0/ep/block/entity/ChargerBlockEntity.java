@@ -7,8 +7,12 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.screen.ChargerMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
@@ -22,10 +26,13 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtLong;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -35,21 +42,26 @@ import team.reborn.energy.api.EnergyStorageUtil;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class ChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        implements IngredientPacketUpdate {
     public static final double CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
+
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
         ItemStack itemStack = itemHandler.getStack(i);
-        if(world != null && RecipeUtils.isResultOfAny(world, ChargerRecipe.Type.INSTANCE, itemStack))
+        if(world instanceof ServerWorld serverWorld && RecipeUtils.isResultOfAny(serverWorld, ChargerRecipe.Type.INSTANCE, itemStack))
             return true;
 
-        if(world == null || RecipeUtils.isIngredientOfAny(world, ChargerRecipe.Type.INSTANCE, itemStack))
+        if(!(world instanceof ServerWorld serverWorld) || RecipeUtils.isIngredientOfAny(serverWorld, ChargerRecipe.Type.INSTANCE, itemStack))
             return false;
 
         if(!EnergyStorageUtil.isEnergyStorage(itemStack))
@@ -121,7 +133,9 @@ public class ChargerBlockEntity
 
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(world == null || RecipeUtils.isIngredientOfAny(world, ChargerRecipe.Type.INSTANCE, stack))
+                if(((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.CHARGER_TYPE, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack)))
                     return true;
 
                 if(slot == 0) {
@@ -194,6 +208,7 @@ public class ChargerBlockEntity
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
+        syncIngredientListToPlayer(player);
 
         return new ChargerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
@@ -213,7 +228,7 @@ public class ChargerBlockEntity
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
-        if(level.isClient())
+        if(!(level instanceof ServerWorld serverWorld))
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.get(ChargerBlock.POWERED)))
@@ -221,9 +236,9 @@ public class ChargerBlockEntity
 
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.itemHandler.getStack(0);
-            long energyConsumptionPerTick = 0;
+            long energyConsumptionPerTick;
 
-            Optional<RecipeEntry<ChargerRecipe>> recipe = level.getRecipeManager().
+            Optional<RecipeEntry<ChargerRecipe>> recipe = serverWorld.getRecipeManager().
                     getFirstMatch(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)
@@ -282,7 +297,7 @@ public class ChargerBlockEntity
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.itemHandler.setStack(0, chargerRecipe.value().getResult(level.getRegistryManager()).copyWithCount(1)));
+                        blockEntity.itemHandler.setStack(0, chargerRecipe.value().craft(null, level.getRegistryManager()).copyWithCount(1)));
 
                 blockEntity.resetProgress();
             }
@@ -299,10 +314,12 @@ public class ChargerBlockEntity
     }
 
     private boolean hasRecipe() {
+        if(!(world instanceof ServerWorld serverWorld))
+            return false;
+
         ItemStack stack = itemHandler.getStack(0);
 
-        Optional<RecipeEntry<ChargerRecipe>> recipe = world == null?Optional.empty():
-                world.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE,
+        Optional<RecipeEntry<ChargerRecipe>> recipe = serverWorld.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE,
                         new ContainerRecipeInputWrapper(itemHandler), world);
 
         if(recipe.isPresent())
@@ -316,5 +333,23 @@ public class ChargerBlockEntity
         resetProgress();
 
         super.updateUpgradeModules();
+    }
+
+    protected void syncIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.CHARGER_TYPE)));
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
     }
 }

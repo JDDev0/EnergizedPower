@@ -31,7 +31,9 @@ import java.util.List;
 public class SolarPanelBlock extends BlockWithEntity {
     public static final MapCodec<SolarPanelBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
-                forGetter(SolarPanelBlock::getTier)).apply(instance, SolarPanelBlock::new);
+                forGetter(SolarPanelBlock::getTier),
+                Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                apply(instance, SolarPanelBlock::new);
     });
 
     private static final VoxelShape SHAPE = Block.createCuboidShape(0.d, 0.d, 0.d, 16.d, 4.d, 16.d);
@@ -49,8 +51,8 @@ public class SolarPanelBlock extends BlockWithEntity {
         };
     }
 
-    public SolarPanelBlock(Tier tier) {
-        super(tier.getProperties());
+    public SolarPanelBlock(Tier tier, Settings props) {
+        super(props);
 
         this.tier = tier;
     }

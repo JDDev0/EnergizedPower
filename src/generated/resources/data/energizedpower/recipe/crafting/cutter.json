@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "S": {
-      "tag": "c:rods/wooden"
-    },
-    "i": {
-      "tag": "c:nuggets/iron"
-    }
+    "I": "#c:plates/iron",
+    "S": "#c:rods/wooden",
+    "i": "#c:nuggets/iron"
   },
   "pattern": [
     "I I",

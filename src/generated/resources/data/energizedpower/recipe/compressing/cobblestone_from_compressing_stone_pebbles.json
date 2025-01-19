@@ -1,10 +1,11 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "item": "energizedpower:stone_pebble"
+    "count": 16,
+    "ingredient": "energizedpower:stone_pebble"
   },
-  "inputCount": 16,
-  "output": {
-    "item": "minecraft:cobblestone"
+  "result": {
+    "count": 1,
+    "id": "minecraft:cobblestone"
   }
 }

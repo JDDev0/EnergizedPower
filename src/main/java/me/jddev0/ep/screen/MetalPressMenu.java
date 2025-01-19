@@ -3,7 +3,6 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -14,13 +13,13 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
@@ -35,8 +34,8 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> inv.player.getWorld().getRecipeManager().listAllOfType(MetalPressRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(MetalPressRecipe::getInput).anyMatch(ingredient -> ingredient.test(stack));
+                    case 0 -> RecipeUtils.isIngredientOfAny(((MetalPressBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
                             (getStack(1).isEmpty() || stack.getCount() == 1);
                     case 2 -> false;

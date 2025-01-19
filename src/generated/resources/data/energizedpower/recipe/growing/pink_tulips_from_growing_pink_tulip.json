@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:pink_tulip"
-  },
-  "outputs": [
+  "ingredient": "minecraft:pink_tulip",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:pink_tulip"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:pink_tulip"
+      }
     }
   ],
   "ticks": 16000

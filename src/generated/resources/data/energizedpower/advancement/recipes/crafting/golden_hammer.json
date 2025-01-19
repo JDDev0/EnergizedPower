@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#c:ingots/gold"
+            "items": "#minecraft:gold_tool_materials"
           }
         ]
       },

@@ -5,6 +5,7 @@ import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
@@ -107,14 +108,14 @@ public abstract class SelectableRecipeMachineContainerScreen
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         //Down button
         if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            drawContext.drawTexture(TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
-                    recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
+                    recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
 
         //Up button
         if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            drawContext.drawTexture(TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
-                    recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
+                    recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
     }
 

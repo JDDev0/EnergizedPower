@@ -14,7 +14,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.BlockMirror;
@@ -38,7 +38,7 @@ public class TransformerBlock extends BlockWithEntity {
         ).apply(instance, TransformerBlock::new);
     });
 
-    public static final DirectionProperty FACING = Properties.FACING;
+    public static final EnumProperty<Direction> FACING = Properties.FACING;
 
     private final Tier tier;
     private final Type type;

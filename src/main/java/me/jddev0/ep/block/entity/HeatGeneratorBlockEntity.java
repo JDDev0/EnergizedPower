@@ -5,6 +5,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,6 +15,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -22,6 +24,7 @@ import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -78,10 +81,10 @@ public class HeatGeneratorBlockEntity
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
-        if(level.isClient())
+        if(level.isClient() || !(level instanceof ServerWorld serverWorld))
             return;
 
-        List<RecipeEntry<HeatGeneratorRecipe>> recipes = level.getRecipeManager().listAllOfType(HeatGeneratorRecipe.Type.INSTANCE);
+        Collection<RecipeEntry<HeatGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, HeatGeneratorRecipe.Type.INSTANCE);
 
         long productionSum = 0;
         for(Direction direction:Direction.values()) {

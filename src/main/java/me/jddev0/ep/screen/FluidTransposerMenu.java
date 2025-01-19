@@ -9,7 +9,6 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
@@ -35,7 +34,8 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(), EPRecipes.FLUID_TRANSPOSER_TYPE, stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(((FluidTransposerBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };

@@ -392,7 +392,7 @@ public class TeleporterBlockEntity
         Vec3d toPosCenter = toPos.toCenterPos();
 
         player.teleport((ServerWorld)toDimension, toPosCenter.getX(), toPos.getY() + 1, toPosCenter.getZ(),
-                new HashSet<>(), 0, 0);
+                new HashSet<>(), 0, 0, true);
 
         player.networkHandler.sendPacket(new PlaySoundS2CPacket(
                 RegistryEntry.of(SoundEvents.ENTITY_ENDERMAN_TELEPORT), SoundCategory.BLOCKS,

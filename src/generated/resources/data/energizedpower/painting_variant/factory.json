@@ -1,5 +1,11 @@
 {
   "asset_id": "energizedpower:factory",
+  "author": {
+    "translate": "painting.energizedpower.factory.author"
+  },
   "height": 2,
+  "title": {
+    "translate": "painting.energizedpower.factory.title"
+  },
   "width": 2
 }

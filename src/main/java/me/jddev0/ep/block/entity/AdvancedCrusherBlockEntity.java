@@ -11,8 +11,6 @@ import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
-import me.jddev0.ep.util.FluidUtils;
-import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -22,6 +20,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import me.jddev0.ep.util.*;
 
@@ -63,7 +62,9 @@ public class AdvancedCrusherBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, CrusherRecipe.Type.INSTANCE, stack);
+                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -156,9 +157,9 @@ public class AdvancedCrusherBlockEntity
         }
 
         itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.setStack(1, recipe.value().craft(null, world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
@@ -168,6 +169,6 @@ public class AdvancedCrusherBlockEntity
         return world != null &&
                 fluidStorage.parts.get(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
                 fluidStorage.parts.get(1).getCapacity() - fluidStorage.parts.get(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().craft(null, world.getRegistryManager()));
     }
 }

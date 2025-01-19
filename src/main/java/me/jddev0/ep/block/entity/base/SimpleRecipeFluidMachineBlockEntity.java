@@ -3,7 +3,11 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
+import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
@@ -11,23 +15,31 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>> {
+        extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>>
+        implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
+
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     public SimpleRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                String machineName, UpgradableMenuProvider menuProvider,
@@ -86,6 +98,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
+        syncIngredientListToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
@@ -93,7 +106,10 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     protected abstract C getRecipeInput(SimpleInventory inventory);
 
     protected Optional<RecipeEntry<R>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
+        if(!(world instanceof ServerWorld serverWorld))
+            return Optional.empty();
+
+        return serverWorld.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
     }
 
     @Override
@@ -148,4 +164,22 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     protected abstract void craftItem(RecipeEntry<R> recipe);
 
     protected abstract boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<R> recipe);
+
+    protected void syncIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)));
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
+    }
 }

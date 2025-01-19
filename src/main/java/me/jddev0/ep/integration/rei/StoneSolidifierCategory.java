@@ -16,13 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoneSolidifierCategory implements DisplayCategory<StoneSolidifierDisplay> {
-    public static final CategoryIdentifier<StoneSolidifierDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "stone_solidifier");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends StoneSolidifierDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return StoneSolidifierDisplay.CATEGORY;
     }
 
     @Override

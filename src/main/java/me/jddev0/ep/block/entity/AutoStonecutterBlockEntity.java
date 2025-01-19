@@ -50,7 +50,9 @@ public class AutoStonecutterBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack);
+                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> stack.isIn(ItemTags.PICKAXES);
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
@@ -60,6 +62,8 @@ public class AutoStonecutterBlockEntity
             @Override
             public void markDirty() {
                 super.markDirty();
+
+                AutoStonecutterBlockEntity.this.markDirty();
             }
         };
     }
@@ -77,9 +81,9 @@ public class AutoStonecutterBlockEntity
         itemHandler.setStack(1, pickaxe);
 
         itemHandler.removeStack(0, 1);
-        itemHandler.setStack(2, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.setStack(2, recipe.value().craft(null, world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(2).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
@@ -89,6 +93,6 @@ public class AutoStonecutterBlockEntity
         return world != null &&
                 recipe.value().matches(new SingleStackRecipeInput(inventory.getStack(0)), world) &&
                 itemHandler.getStack(1).isIn(ItemTags.PICKAXES) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().craft(null, world.getRegistryManager()));
     }
 }

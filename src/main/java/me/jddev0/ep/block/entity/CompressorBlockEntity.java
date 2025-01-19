@@ -45,10 +45,10 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         if(world == null || !hasRecipe())
             return;
 
-        itemHandler.removeStack(0, recipe.value().getInputCount());
-        itemHandler.setStack(1, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.removeStack(0, recipe.value().getInput().count());
+        itemHandler.setStack(1, recipe.value().craft(null, world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }

@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "T": {
-      "item": "minecraft:crafting_table"
-    },
-    "b": {
-      "item": "energizedpower:basic_circuit"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "C": "#c:plates/copper",
+    "I": "#c:plates/iron",
+    "T": "minecraft:crafting_table",
+    "b": "energizedpower:basic_circuit"
   },
   "pattern": [
     "CTC",

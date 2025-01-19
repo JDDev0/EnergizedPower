@@ -13,10 +13,10 @@ import net.minecraft.item.WrittenBookItem;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -41,13 +41,13 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand interactionHand) {
+    public ActionResult use(World level, PlayerEntity player, Hand interactionHand) {
         ItemStack itemStack = player.getStackInHand(interactionHand);
 
         if(level.isClient())
             showBookViewScreen(null);
 
-        return TypedActionResult.success(itemStack, level.isClient());
+        return (level.isClient()?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER).withNewHandStack(itemStack);
     }
 
     @Override

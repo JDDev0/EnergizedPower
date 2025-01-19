@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MetalPressCategory implements DisplayCategory<MetalPressDisplay> {
-    public static final CategoryIdentifier<MetalPressDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "metal_press");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends MetalPressDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return MetalPressDisplay.CATEGORY;
     }
 
     @Override

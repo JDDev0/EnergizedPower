@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ores/redstone"
-  },
-  "output": {
-    "output": {
-      "item": "minecraft:redstone"
-    },
+  "ingredient": "#c:ores/redstone",
+  "result": {
     "percentages": [
       1.0,
       1.0,
@@ -29,6 +24,10 @@
       0.33,
       0.33,
       0.17
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:redstone"
+    }
   }
 }

@@ -3,6 +3,9 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
+import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
@@ -12,22 +15,30 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerMachineBlockEntity<RecipeEntry<R>> {
+        extends WorkerMachineBlockEntity<RecipeEntry<R>>
+        implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
+
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     public SimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                           String machineName, UpgradableMenuProvider menuProvider,
@@ -47,7 +58,9 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
         return new SimpleInventory(slotCount) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                return slot == 0 && (world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack));
+                return slot == 0 && ((world instanceof ServerWorld serverWorld)?
+                        RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                        RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
             }
 
             @Override
@@ -112,6 +125,7 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
+        syncIngredientListToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
@@ -119,7 +133,10 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     protected abstract C getRecipeInput(SimpleInventory inventory);
 
     protected Optional<RecipeEntry<R>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
+        if(!(world instanceof ServerWorld serverWorld))
+            return Optional.empty();
+
+        return serverWorld.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
     }
 
     @Override
@@ -176,15 +193,33 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
             return;
 
         itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.setStack(1, recipe.value().craft(getRecipeInput(itemHandler), world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(getRecipeInput(itemHandler), world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
 
     protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<R> recipe) {
         return world != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().craft(getRecipeInput(itemHandler), world.getRegistryManager()));
+    }
+
+    protected void syncIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)));
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
     }
 }

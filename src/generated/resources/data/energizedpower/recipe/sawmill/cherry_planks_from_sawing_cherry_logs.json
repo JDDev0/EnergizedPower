@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "minecraft:cherry_logs"
-  },
-  "output": {
+  "ingredient": "#minecraft:cherry_logs",
+  "result": {
     "count": 6,
-    "item": "minecraft:cherry_planks"
+    "id": "minecraft:cherry_planks"
   },
   "sawdustAmount": 1
 }

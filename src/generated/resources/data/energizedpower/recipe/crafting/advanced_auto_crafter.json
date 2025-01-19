@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
-    },
-    "G": {
-      "tag": "c:plates/energized_gold"
-    },
-    "P": {
-      "tag": "c:plates/advanced_alloy"
-    },
-    "a": {
-      "item": "energizedpower:auto_crafter"
-    },
-    "c": {
-      "item": "energizedpower:advanced_circuit"
-    }
+    "A": "energizedpower:advanced_machine_frame",
+    "G": "#c:plates/energized_gold",
+    "P": "#c:plates/advanced_alloy",
+    "a": "energizedpower:auto_crafter",
+    "c": "energizedpower:advanced_circuit"
   },
   "pattern": [
     "GaG",

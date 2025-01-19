@@ -7,11 +7,11 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,14 +63,14 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
     }
 
     private void renderFluidMeterOverlay(int tank, DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive()) {
-            drawContext.drawTexture(TEXTURE, x + 69, y + 45, 176, 106, handler.getScaledProgressArrowSize(), 14);
-            drawContext.drawTexture(TEXTURE, x + 143 - handler.getScaledProgressArrowSize(), y + 45,
-                    196 - handler.getScaledProgressArrowSize(), 120, handler.getScaledProgressArrowSize(), 14);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 69, y + 45, 176, 106, handler.getScaledProgressArrowSize(), 14, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 143 - handler.getScaledProgressArrowSize(), y + 45,
+                    196 - handler.getScaledProgressArrowSize(), 120, handler.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

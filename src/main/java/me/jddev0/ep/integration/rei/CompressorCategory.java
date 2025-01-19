@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompressorCategory implements DisplayCategory<CompressorDisplay> {
-    public static final CategoryIdentifier<CompressorDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "compressor");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends CompressorDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return CompressorDisplay.CATEGORY;
     }
 
     @Override

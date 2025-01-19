@@ -98,11 +98,11 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand interactionHand) {
+    public ActionResult use(World level, PlayerEntity player, Hand interactionHand) {
         ItemStack itemStack = player.getStackInHand(interactionHand);
 
         if(level.isClient())
-            return TypedActionResult.success(itemStack);
+            return ActionResult.SUCCESS.withNewHandStack(itemStack);
 
         if(itemStack.contains(EPDataComponentTypes.DIMENSIONAL_POSITION))
             itemStack.remove(EPDataComponentTypes.DIMENSIONAL_POSITION);
@@ -114,7 +114,7 @@ public class TeleporterMatrixItem extends Item {
             ));
         }
 
-        return TypedActionResult.success(itemStack);
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public String getTranslationKey(ItemStack itemStack) {
-        return getTranslationKey() + "." + (isLinked(itemStack)?"linked":"unlinked");
+    public Text getName(ItemStack itemStack) {
+        return Text.translatable(translationKey + "." + (isLinked(itemStack)?"linked":"unlinked"));
     }
 }

@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
 	id 'maven-publish'
 	
 }
@@ -73,9 +73,9 @@ dependencies {
 
 	// REI integration
 	modCompileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	modCompileOnlyApi "dev.architectury:architectury-fabric:13.0.1"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:16.0.729"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:16.0.729"
+	modCompileOnlyApi "dev.architectury:architectury-fabric:14.0.4"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:17.0.794"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:17.0.794"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
@@ -83,6 +83,22 @@ dependencies {
 	// CCTweaked integration
 	modCompileOnlyApi "cc.tweaked:cc-tweaked-1.21-core-api:1.111.0"
 	modCompileOnlyApi "cc.tweaked:cc-tweaked-1.21-fabric-api:1.111.0"
+
+	//TEST-TMP
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:17.0.794"
+
+	//modLocalRuntime "dev.emi:emi-fabric:1.1.8+1.21"
+	//runtimeOnly "cc.tweaked:cc-tweaked-1.21-fabric:1.111.0"
+	//modRuntimeOnly "blank:modmenu-6.1.0-rc.4:6.1.0-rc.4"
+
+	//runtimeOnly "blank:RebornCore-5.11.0:5.11.0"
+	//runtimeOnly "blank:TechReborn-5.11.0:5.11.0"
+	//modRuntimeOnly "blank:appliedenergistics2-fabric-13.0.6-beta:13.0.6"
+
+	//modRuntimeOnly "blank:whats-that-slot-fabric-1.3.4+1.20.1:1.3.4+1.20.1"
+	//modRuntimeOnly "blank:emitrades-fabric-1.2.0+mc1.20.1:fabric-1.2.0+mc1.20.1"
+
+	//modRuntimeOnly "blank:worldedit-mod-7.3.4:7.3.4-fabric"
 }
 
 processResources {
@@ -134,12 +150,4 @@ publishing {
 //Dummy task to fix post sync error caused by NeoGradle
 tasks.register("idePostSync") {
 
-}
-
-// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
-idea {
-	module {
-		downloadSources = true
-		downloadJavadoc = true
-	}
 }

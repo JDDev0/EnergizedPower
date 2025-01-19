@@ -1,27 +1,22 @@
 {
   "type": "energizedpower:alloy_furnace",
-  "inputs": [
+  "ingredients": [
     {
       "count": 3,
-      "input": {
-        "tag": "c:ingots/steel"
-      }
+      "ingredient": "#c:ingots/steel"
     },
     {
       "count": 3,
-      "input": {
-        "tag": "c:ingots/copper"
-      }
+      "ingredient": "#c:ingots/copper"
     },
     {
       "count": 3,
-      "input": {
-        "tag": "c:ingots/tin"
-      }
+      "ingredient": "#c:ingots/tin"
     }
   ],
-  "output": {
-    "item": "energizedpower:advanced_alloy_ingot"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:advanced_alloy_ingot"
   },
   "ticks": 10000
 }

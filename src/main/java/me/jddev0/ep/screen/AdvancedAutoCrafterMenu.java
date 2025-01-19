@@ -2,9 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.inventory.PatternResultSlot;
-import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.inventory.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;

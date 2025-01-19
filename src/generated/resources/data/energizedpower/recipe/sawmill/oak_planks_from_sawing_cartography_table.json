@@ -1,14 +1,12 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:cartography_table"
-  },
-  "output": {
+  "ingredient": "minecraft:cartography_table",
+  "result": {
     "count": 4,
-    "item": "minecraft:oak_planks"
+    "id": "minecraft:oak_planks"
   },
-  "secondaryOutput": {
+  "secondaryResult": {
     "count": 2,
-    "item": "minecraft:paper"
+    "id": "minecraft:paper"
   }
 }

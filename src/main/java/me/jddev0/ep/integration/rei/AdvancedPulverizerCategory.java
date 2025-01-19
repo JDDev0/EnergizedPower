@@ -19,13 +19,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulverizerDisplay> {
-    public static final CategoryIdentifier<AdvancedPulverizerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "advanced_pulverizer");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends AdvancedPulverizerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return AdvancedPulverizerDisplay.CATEGORY;
     }
 
     @Override

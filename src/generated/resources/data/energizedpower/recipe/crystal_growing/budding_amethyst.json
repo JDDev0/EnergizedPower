@@ -1,16 +1,17 @@
 {
   "type": "energizedpower:crystal_growth_chamber",
   "ingredient": {
-    "item": "minecraft:amethyst_block"
+    "count": 4,
+    "ingredient": "minecraft:amethyst_block"
   },
-  "inputCount": 4,
-  "output": {
-    "output": {
-      "item": "minecraft:budding_amethyst"
-    },
+  "result": {
     "percentages": [
       0.25
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:budding_amethyst"
+    }
   },
   "ticks": 32000
 }

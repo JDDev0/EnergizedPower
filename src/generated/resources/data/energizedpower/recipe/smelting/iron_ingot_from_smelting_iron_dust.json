@@ -4,9 +4,7 @@
   "cookingtime": 200,
   "experience": 0.7,
   "group": "iron_ingot",
-  "ingredient": {
-    "tag": "c:dusts/iron"
-  },
+  "ingredient": "#c:dusts/iron",
   "result": {
     "id": "minecraft:iron_ingot"
   }

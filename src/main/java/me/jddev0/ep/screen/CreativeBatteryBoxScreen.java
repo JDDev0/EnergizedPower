@@ -7,8 +7,9 @@ import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
@@ -54,12 +55,12 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
         renderCheckboxLabels(drawContext, x, y, mouseX, mouseY);
@@ -69,13 +70,13 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         if(handler.isEnergyProduction()) {
             //Energy Production checkbox
 
-            drawContext.drawTexture(TEXTURE, x + 10, y + 28, 176, 0, 11, 11);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 10, y + 28, 176, 0, 11, 11, 256, 256);
         }
 
         if(handler.isEnergyConsumption()) {
             //Energy Consumption checkbox
 
-            drawContext.drawTexture(TEXTURE, x + 10, y + 46, 176, 0, 11, 11);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 10, y + 46, 176, 0, 11, 11, 256, 256);
         }
     }
 

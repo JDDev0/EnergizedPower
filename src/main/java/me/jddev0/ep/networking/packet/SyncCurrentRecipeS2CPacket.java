@@ -11,6 +11,8 @@ import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +43,7 @@ public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements Cu
         if(recipeSerializer == null)
             throw new IllegalArgumentException("Recipe Serializer \"" + recipeSerializerId + "\" does not exist!");
 
-        currentRecipe = buffer.readBoolean()?new RecipeEntry<>(buffer.readIdentifier(),
+        currentRecipe = buffer.readBoolean()?new RecipeEntry<>(RegistryKey.of(RegistryKeys.RECIPE, buffer.readIdentifier()),
                 recipeSerializer.packetCodec().decode(buffer)):null;
     }
 
@@ -59,7 +61,7 @@ public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements Cu
         }else {
             buffer.writeBoolean(true);
 
-            buffer.writeIdentifier(currentRecipe.id());
+            buffer.writeIdentifier(currentRecipe.id().getValue());
             recipeSerializer.packetCodec().encode(buffer, currentRecipe.value());
         }
     }

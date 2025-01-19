@@ -8,7 +8,6 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -45,8 +44,7 @@ public class CoalEngineBlockEntity
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
         ItemStack item = itemHandler.getStack(i);
-        Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
-        return burnTime == null || burnTime <= 0;
+        return world != null && world.getFuelRegistry().getFuelTicks(item) <= 0;
     });
 
     private int progress;
@@ -102,10 +100,8 @@ public class CoalEngineBlockEntity
         return new SimpleInventory(slotCount) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(slot == 0) {
-                    Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
-                    return burnTime != null && burnTime > 0;
-                }
+                if(slot == 0)
+                    return world.getFuelRegistry().getFuelTicks(stack) > 0;
 
                 return super.isValid(slot, stack);
             }
@@ -201,8 +197,7 @@ public class CoalEngineBlockEntity
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
             ItemStack item = blockEntity.itemHandler.getStack(0);
 
-            Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
-            long energyProduction = burnTime == null?-1:burnTime;
+            long energyProduction = level.getFuelRegistry().getFuelTicks(item);
             energyProduction = (long)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
@@ -363,8 +358,7 @@ public class CoalEngineBlockEntity
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {
         ItemStack item = blockEntity.itemHandler.getStack(0);
 
-        Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
-        if(burnTime == null || burnTime <= 0)
+        if(blockEntity.world == null || blockEntity.world.getFuelRegistry().getFuelTicks(item) <= 0)
             return false;
 
         return item.getRecipeRemainder().isEmpty() || item.getCount() == 1;

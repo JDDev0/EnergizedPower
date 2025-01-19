@@ -5,24 +5,23 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
+import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtString;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
@@ -34,14 +33,13 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
         extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>>
-        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
+        implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate,
+        IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
@@ -49,6 +47,8 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
     protected Identifier currentRecipeIdForLoad;
     protected RecipeEntry<R> currentRecipe;
+
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     public SelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                    String machineName, UpgradableMenuProvider menuProvider,
@@ -109,7 +109,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         super.writeNbt(nbt, registries);
 
         if(currentRecipe != null)
-            nbt.put("recipe.id", NbtString.of(currentRecipe.id().toString()));
+            nbt.put("recipe.id", NbtString.of(currentRecipe.id().getValue().toString()));
     }
 
     @Override
@@ -126,6 +126,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
         syncCurrentRecipeToPlayer(player);
+        syncIngredientListToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
@@ -133,10 +134,10 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     @Override
     protected final void onTickStart() {
         //Load recipe
-        if(currentRecipeIdForLoad != null) {
-            List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
+        if(currentRecipeIdForLoad != null && world instanceof ServerWorld serverWorld) {
+            Collection<RecipeEntry<R>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, recipeType);
             currentRecipe = recipes.stream().
-                    filter(recipe -> recipe.id().equals(currentRecipeIdForLoad)).
+                    filter(recipe -> recipe.id().getValue().equals(currentRecipeIdForLoad)).
                     findFirst().orElse(null);
 
             currentRecipeIdForLoad = null;
@@ -196,19 +197,18 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
     @Override
     public void changeRecipeIndex(boolean downUp) {
-        if(world == null || world.isClient())
+        if(!(world instanceof ServerWorld serverWorld))
             return;
 
-        List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
+        List<RecipeEntry<R>> recipes = new ArrayList<>(RecipeUtils.getAllRecipesFor(serverWorld, recipeType));
         recipes = recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.value().getResult(world.getRegistryManager()).
-                        getTranslationKey())).
+                sorted(Comparator.comparing(recipe -> recipe.id().getValue())).
                 toList();
 
         int currentIndex = -1;
         if(currentRecipe != null) {
             for(int i = 0;i < recipes.size();i++) {
-                if(currentRecipe.id().equals(recipes.get(i).id())) {
+                if(currentRecipe.id().getValue().equals(recipes.get(i).id().getValue())) {
                     currentIndex = i;
                     break;
                 }
@@ -231,14 +231,14 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
     @Override
     public void setRecipeId(Identifier recipeId) {
-        if(world == null || world.isClient())
+        if(!(world instanceof ServerWorld serverWorld))
             return;
 
         if(recipeId == null) {
             currentRecipe = null;
         }else {
-            List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
-            Optional<RecipeEntry<R>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
+            Collection<RecipeEntry<R>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, recipeType);
+            Optional<RecipeEntry<R>> recipe = recipes.stream().filter(r -> r.id().getValue().equals(recipeId)).findFirst();
 
             currentRecipe = recipe.orElse(null);
         }
@@ -269,5 +269,23 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     @Override
     public void setCurrentRecipe(@Nullable RecipeEntry<R> currentRecipe) {
         this.currentRecipe = currentRecipe;
+    }
+
+    protected void syncIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)));
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
     }
 }

@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "minecraft:jungle_logs"
-  },
-  "output": {
+  "ingredient": "#minecraft:jungle_logs",
+  "result": {
     "count": 6,
-    "item": "minecraft:jungle_planks"
+    "id": "minecraft:jungle_planks"
   },
   "sawdustAmount": 1
 }

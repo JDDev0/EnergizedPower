@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:bamboo_mosaic_slab",
+  "result": {
+    "count": 1,
+    "id": "minecraft:stick"
+  },
+  "sawdustAmount": 1
+}

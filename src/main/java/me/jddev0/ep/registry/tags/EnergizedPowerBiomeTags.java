@@ -3,7 +3,6 @@ package me.jddev0.ep.registry.tags;
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 
 public final class EnergizedPowerBiomeTags {

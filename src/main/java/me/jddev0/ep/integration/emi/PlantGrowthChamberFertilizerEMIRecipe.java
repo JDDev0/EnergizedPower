@@ -29,7 +29,7 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
     private final double energyConsumptionMultiplier;
 
     public PlantGrowthChamberFertilizerEMIRecipe(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
         this.speedMultiplier = recipe.value().getSpeedMultiplier();
         this.energyConsumptionMultiplier = recipe.value().getEnergyConsumptionMultiplier();

@@ -20,13 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChargerCategory implements DisplayCategory<ChargerDisplay> {
-    public static final CategoryIdentifier<ChargerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "charger");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends ChargerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return ChargerDisplay.CATEGORY;
     }
 
     @Override

@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -84,7 +86,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPay
             for(int i = 0;i < data.itemStacks.size();i++)
                 autoCrafterMenu.getPatternSlots().setStack(i, data.itemStacks.get(i));
 
-            autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
+            autoCrafterBlockEntity.setRecipeIdForSetRecipe(RegistryKey.of(RegistryKeys.RECIPE, data.recipeId));
 
             autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
         });

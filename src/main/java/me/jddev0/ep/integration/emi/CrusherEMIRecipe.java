@@ -25,7 +25,7 @@ public class CrusherEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public CrusherEMIRecipe(RecipeEntry<CrusherRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
         this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
     }

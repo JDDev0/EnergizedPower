@@ -9,11 +9,13 @@ import me.jddev0.ep.recipe.CrystalGrowthChamberRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.CrystalGrowthChamberMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 
 public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, CrystalGrowthChamberRecipe> {
@@ -48,10 +50,9 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || world.getRecipeManager().
-                            listAllOfType(CrystalGrowthChamberRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(CrystalGrowthChamberRecipe::getInput).
-                            anyMatch(ingredient -> ingredient.test(stack));
+                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -93,7 +94,7 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
         if(world == null || !hasRecipe())
             return;
 
-        itemHandler.removeStack(0, recipe.value().getInputCount());
+        itemHandler.removeStack(0, recipe.value().getInput().count());
 
         ItemStack output = recipe.value().generateOutput(world.random);
 

@@ -3,21 +3,23 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
+import java.util.Arrays;
+import java.util.List;
+
+public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final OutputItemStackWithPercentages[] outputs;
     private final Ingredient input;
     private final int ticks;
@@ -80,25 +82,8 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
-        ingredients.add(0, input);
-        return ingredients;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -107,13 +92,34 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.PLANT_GROWTH_CHAMBER_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of(input);
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return input.test(itemStack);
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return Arrays.stream(outputs).map(OutputItemStackWithPercentages::output).
+                anyMatch(output -> ItemStack.areItemsAndComponentsEqual(output, itemStack));
     }
 
     public static final class Type implements RecipeType<PlantGrowthChamberRecipe> {
@@ -131,9 +137,9 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
 
         private final MapCodec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC_NONEMPTY, OutputItemStackWithPercentages[]::new).
-                    fieldOf("outputs").forGetter((recipe) -> {
+                    fieldOf("results").forGetter((recipe) -> {
                 return recipe.outputs;
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;

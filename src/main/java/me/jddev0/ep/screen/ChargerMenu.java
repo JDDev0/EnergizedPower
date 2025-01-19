@@ -3,7 +3,6 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -36,7 +35,8 @@ public class ChargerMenu extends UpgradableEnergyStorageMenu<ChargerBlockEntity>
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(inv.player.getWorld() == null || RecipeUtils.isIngredientOfAny(inv.player.getWorld(), ChargerRecipe.Type.INSTANCE, stack))
+                if(RecipeUtils.isIngredientOfAny(((ChargerBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack))
                     return true;
 
                 if(slot == 0) {

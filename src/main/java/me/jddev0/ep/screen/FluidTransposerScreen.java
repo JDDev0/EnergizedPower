@@ -9,11 +9,11 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,12 +62,12 @@ public class FluidTransposerScreen
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + 152, y + 17, 176, 53, 16, 52);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 152, y + 17, 176, 53, 16, 52, 256, 256);
     }
 
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(isPointWithinBounds(114, 47, 20, 20, mouseX, mouseY))
-            drawContext.drawTexture(TEXTURE, x + 114, y + 47, 176, 135, 20, 20);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 114, y + 47, 176, 135, 20, 20, 256, 256);
 
         ItemStack output = new ItemStack(handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
         drawContext.getMatrices().push();
@@ -81,14 +81,14 @@ public class FluidTransposerScreen
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         int arrowPosY = handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?106:120;
 
-        drawContext.drawTexture(TEXTURE, x + 114, y + 19, 176, arrowPosY, 20, 14);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 114, y + 19, 176, arrowPosY, 20, 14, 256, 256);
 
         if(handler.isCraftingActive()) {
             if(handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING)
-                drawContext.drawTexture(TEXTURE, x + 114, y + 19, 196, arrowPosY, handler.getScaledProgressArrowSize(), 14);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 114, y + 19, 196, arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
             else
-                drawContext.drawTexture(TEXTURE, x + 134 - handler.getScaledProgressArrowSize(), y + 19,
-                        216 - handler.getScaledProgressArrowSize(), arrowPosY, handler.getScaledProgressArrowSize(), 14);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 134 - handler.getScaledProgressArrowSize(), y + 19,
+                        216 - handler.getScaledProgressArrowSize(), arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

@@ -29,6 +29,7 @@ import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
@@ -121,7 +122,9 @@ public class FluidTransposerBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack);
+                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -154,7 +157,8 @@ public class FluidTransposerBlockEntity
                 if(world == null)
                     return false;
 
-                return world.getRecipeManager().listAllOfType(recipeType).stream().map(RecipeEntry::value).
+                return !(world instanceof ServerWorld serverWorld) || //Always false on client side (Recipes are no longer synced)
+                    RecipeUtils.getAllRecipesFor(serverWorld, recipeType).stream().map(RecipeEntry::value).
                         map(FluidTransposerRecipe::getFluid).
                         anyMatch(fluidStack -> variant.isOf(fluidStack.getFluid()) &&
                                 variant.componentsMatch(fluidStack.getFluidVariant().getComponents()));
@@ -188,7 +192,10 @@ public class FluidTransposerBlockEntity
 
     @Override
     protected Optional<RecipeEntry<FluidTransposerRecipe>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().listAllOfType(recipeType).
+        if(!(world instanceof ServerWorld serverWorld))
+            return Optional.empty();
+
+        return RecipeUtils.getAllRecipesFor(serverWorld, recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), world)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
@@ -225,9 +232,9 @@ public class FluidTransposerBlockEntity
         }
 
         itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, recipe.value().getResult(world.getRegistryManager()).
+        itemHandler.setStack(1, recipe.value().craft(null, world.getRegistryManager()).
                 copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
 
         resetProgress();
     }
@@ -239,7 +246,7 @@ public class FluidTransposerBlockEntity
 
         return world != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().craft(null, world.getRegistryManager()));
     }
 
     public void setMode(boolean isFillingMode) {

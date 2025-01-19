@@ -1,5 +1,5 @@
 {
   "type": "energizedpower:heat_generator",
   "energy": 15,
-  "input": "minecraft:flowing_lava"
+  "ingredient": "minecraft:flowing_lava"
 }

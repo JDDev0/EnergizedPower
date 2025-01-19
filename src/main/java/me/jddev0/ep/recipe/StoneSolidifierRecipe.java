@@ -4,20 +4,20 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
+import java.util.List;
+
+public class StoneSolidifierRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final ItemStack output;
     private final long waterAmount;
     private final long lavaAmount;
@@ -51,18 +51,8 @@ public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return output.copy();
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.STONE_SOLIDIFIER);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -71,13 +61,33 @@ public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.STONE_SOLIDIFIER_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return ItemStack.areItemsAndComponentsEqual(output, itemStack);
     }
 
     public static final class Type implements RecipeType<StoneSolidifierRecipe> {
@@ -94,7 +104,7 @@ public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
         public static final Identifier ID = EPAPI.id("stone_solidifier");
 
         private final MapCodec<StoneSolidifierRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), Codec.LONG.fieldOf("waterAmount").forGetter((recipe) -> {
                 return recipe.waterAmount;

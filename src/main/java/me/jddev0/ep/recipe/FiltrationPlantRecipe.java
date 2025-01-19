@@ -3,22 +3,21 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.List;
 import java.util.Optional;
 
-public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
+public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final OutputItemStackWithPercentages output;
     private final OutputItemStackWithPercentages secondaryOutput;
     private final Identifier icon;
@@ -77,18 +76,8 @@ public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -97,12 +86,33 @@ public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.FILTRATION_PLANT_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public List<Ingredient> getIngredients() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return ItemStack.areItemsAndComponentsEqual(output.output(), itemStack) || (secondaryOutput != null &&
+                ItemStack.areItemsAndComponentsEqual(secondaryOutput.output(), itemStack));
+    }
+
+    @Override
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
     }
 
@@ -120,9 +130,9 @@ public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
         public static final Identifier ID = EPAPI.id("filtration_plant");
 
         private final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("output").forGetter((recipe) -> {
+            return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+            }), OutputItemStackWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
             }), Identifier.CODEC.fieldOf("icon").forGetter((recipe) -> {
                 return recipe.icon;

@@ -31,7 +31,7 @@ public class PulverizerEMIRecipe implements EmiRecipe {
     private final PulverizerRecipe.OutputItemStackWithPercentages secondaryOutputWithPercentages;
 
     public PulverizerEMIRecipe(RecipeEntry<PulverizerRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().getValue();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
 
         this.output = Arrays.stream(recipe.value().getMaxOutputCounts(false)).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();

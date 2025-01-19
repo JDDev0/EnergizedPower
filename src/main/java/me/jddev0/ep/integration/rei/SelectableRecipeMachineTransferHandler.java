@@ -3,12 +3,13 @@ package me.jddev0.ep.integration.rei;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
-import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
 import me.shedaniel.rei.api.common.display.Display;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class SelectableRecipeMachineTransferHandler
         <M extends ScreenHandler & IConfigurableMenu, R extends Recipe<?>>
@@ -30,14 +31,14 @@ public class SelectableRecipeMachineTransferHandler
         M container = (M)context.getMenu();
 
         Display display = context.getDisplay();
-        Object origin = DisplayRegistry.getInstance().getDisplayOrigin(display);
-        if(!(origin instanceof RecipeEntry<?> recipeEntry) || !recipeClass.isAssignableFrom(recipeEntry.value().getClass()))
+        Optional<Identifier> recipeIdOptional = display.getDisplayLocation();
+        if(recipeIdOptional.isEmpty())
             return Result.createNotApplicable();
 
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();
 
-        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getPos(), recipeEntry.id()));
+        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getPos(), recipeIdOptional.get()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }

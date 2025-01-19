@@ -1,15 +1,9 @@
 package me.jddev0.ep.config;
 
 import com.mojang.logging.LogUtils;
-import me.jddev0.ep.config.value.DoubleConfigValue;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.validation.ValueValidators;
-import me.jddev0.ep.config.value.BooleanConfigValue;
-import me.jddev0.ep.config.value.EnumConfigValue;
-import me.jddev0.ep.config.value.FloatConfigValue;
-import me.jddev0.ep.config.value.LongConfigValue;
 import net.fabricmc.loader.api.FabricLoader;
-import me.jddev0.ep.config.value.IntegerConfigValue;
 import me.jddev0.ep.config.value.*;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;

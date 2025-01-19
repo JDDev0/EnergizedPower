@@ -36,8 +36,7 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.getWorld(),
-                            blockEntity.getRecipeForFurnaceModeUpgrade(), stack);
+                    case 0 -> RecipeUtils.isIngredientOfAny(blockEntity.getIngredientsOfRecipes(), stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);
                 };

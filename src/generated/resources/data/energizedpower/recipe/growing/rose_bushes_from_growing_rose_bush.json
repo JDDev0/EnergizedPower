@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:rose_bush"
-  },
-  "outputs": [
+  "ingredient": "minecraft:rose_bush",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:rose_bush"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:rose_bush"
+      }
     }
   ],
   "ticks": 16000

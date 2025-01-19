@@ -1,10 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:jungle_fence"
-  },
-  "output": {
-    "item": "minecraft:jungle_planks"
+  "ingredient": "minecraft:jungle_fence",
+  "result": {
+    "count": 1,
+    "id": "minecraft:jungle_planks"
   },
   "sawdustAmount": 2
 }

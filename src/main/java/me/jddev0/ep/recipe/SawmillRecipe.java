@@ -3,22 +3,23 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.EPItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
+
+import java.util.List;
 import java.util.Optional;
 
-public class SawmillRecipe implements Recipe<RecipeInput> {
+public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final ItemStack output;
     private final ItemStack secondaryOutput;
     private final Ingredient input;
@@ -59,25 +60,8 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return output.copy();
-    }
-
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
-        ingredients.add(0, input);
-        return ingredients;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.SAWMILL_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -86,13 +70,34 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return SawmillRecipe.Serializer.INSTANCE;
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.SAWMILL_CATEGORY;
     }
 
     @Override
-    public RecipeType<?> getType() {
-        return SawmillRecipe.Type.INSTANCE;
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
+        return Serializer.INSTANCE;
+    }
+
+    @Override
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
+        return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of(input);
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return input.test(itemStack);
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return ItemStack.areItemsAndComponentsEqual(output, itemStack) || (secondaryOutput != null &&
+                ItemStack.areItemsAndComponentsEqual(secondaryOutput, itemStack));
     }
 
     public static final class Type implements RecipeType<SawmillRecipe> {
@@ -109,17 +114,17 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
         public static final Identifier ID = EPAPI.id("sawmill");
 
         private final MapCodec<SawmillRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.NONNEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+            }), Codecs.NON_NEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.of(0);
 
                 return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
                         Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
-            }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+            }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.empty();
 

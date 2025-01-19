@@ -8,11 +8,11 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class FluidPumpScreen
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + 206, y + 17, 230, 53, 16, 52);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 206, y + 17, 230, 53, 16, 52, 256, 256);
     }
 
     private void renderInfoText(DrawContext drawContext, int x, int y) {

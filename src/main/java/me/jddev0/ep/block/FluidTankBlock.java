@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
@@ -33,10 +33,12 @@ import java.util.List;
 public class FluidTankBlock extends BlockWithEntity {
     public static final MapCodec<FluidTankBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
-                forGetter(FluidTankBlock::getTier)).apply(instance, FluidTankBlock::new);
+                forGetter(FluidTankBlock::getTier),
+                Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                apply(instance, FluidTankBlock::new);
     });
 
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     private final Tier tier;
 
@@ -48,8 +50,8 @@ public class FluidTankBlock extends BlockWithEntity {
         };
     }
 
-    public FluidTankBlock(Tier tier) {
-        super(tier.getProperties());
+    public FluidTankBlock(Tier tier, Settings props) {
+        super(props);
 
         this.tier = tier;
 

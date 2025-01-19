@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:tools/hammers"
-    },
-    {
-      "tag": "c:ingots/copper"
-    }
+    "#c:tools/hammers",
+    "#c:ingots/copper"
   ],
   "result": {
     "count": 1,

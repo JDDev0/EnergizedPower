@@ -2,8 +2,8 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
+import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
@@ -28,7 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
+public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedChargerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final PropertyDelegate data;
 
@@ -36,7 +36,8 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(inv.player.getWorld() == null || RecipeUtils.isIngredientOfAny(inv.player.getWorld(), ChargerRecipe.Type.INSTANCE, stack))
+                if(RecipeUtils.isIngredientOfAny(((AdvancedChargerBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack))
                     return true;
 
                 if(slot >= 0 && slot < 3) {

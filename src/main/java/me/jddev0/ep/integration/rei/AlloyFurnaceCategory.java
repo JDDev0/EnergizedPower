@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.shedaniel.math.Point;
@@ -19,13 +18,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay> {
-    public static final CategoryIdentifier<AlloyFurnaceDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "alloy_furnace");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends AlloyFurnaceDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return AlloyFurnaceDisplay.CATEGORY;
     }
 
     @Override

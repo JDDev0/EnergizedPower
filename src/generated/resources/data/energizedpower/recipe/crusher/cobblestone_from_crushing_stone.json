@@ -1,9 +1,8 @@
 {
   "type": "energizedpower:crusher",
-  "ingredient": {
-    "item": "minecraft:stone"
-  },
-  "output": {
-    "item": "minecraft:cobblestone"
+  "ingredient": "minecraft:stone",
+  "result": {
+    "count": 1,
+    "id": "minecraft:cobblestone"
   }
 }

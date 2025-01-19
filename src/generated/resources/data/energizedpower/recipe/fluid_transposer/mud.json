@@ -4,11 +4,10 @@
     "amount": 250,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:dirt"
-  },
+  "ingredient": "minecraft:dirt",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:mud"
+  "result": {
+    "count": 1,
+    "id": "minecraft:mud"
   }
 }

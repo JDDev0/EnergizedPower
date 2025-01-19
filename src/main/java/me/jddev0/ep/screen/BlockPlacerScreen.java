@@ -7,9 +7,9 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
         if(handler.isInverseRotation()) {
             //Inverse rotation checkbox
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 16, 176, 53, 11, 11);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 158, y + 16, 176, 53, 11, 11, 256, 256);
         }
     }
 

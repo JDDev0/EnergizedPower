@@ -12,7 +12,6 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -32,10 +31,8 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(slot == 0) {
-                    Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
-                    return burnTime != null && burnTime > 0;
-                }
+                if(slot == 0)
+                    return inv.player.getWorld().getFuelRegistry().getFuelTicks(stack) > 0;
 
                 return super.isValid(slot, stack);
             }

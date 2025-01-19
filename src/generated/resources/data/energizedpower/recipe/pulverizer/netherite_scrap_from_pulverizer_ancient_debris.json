@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ores/netherite_scrap"
-  },
-  "output": {
-    "output": {
-      "item": "minecraft:netherite_scrap"
-    },
+  "ingredient": "#c:ores/netherite_scrap",
+  "result": {
     "percentages": [
       1.0,
       0.125,
@@ -17,6 +12,10 @@
       0.25,
       0.25,
       0.125
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:netherite_scrap"
+    }
   }
 }

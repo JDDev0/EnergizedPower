@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_solar_cell"
-    },
-    "G": {
-      "tag": "c:glass_panes/colorless"
-    },
-    "R": {
-      "tag": "c:ingots/redstone_alloy"
-    },
-    "S": {
-      "item": "energizedpower:solar_panel_3"
-    },
-    "s": {
-      "tag": "c:silicon"
-    }
+    "A": "energizedpower:advanced_solar_cell",
+    "G": "#c:glass_panes/colorless",
+    "R": "#c:ingots/redstone_alloy",
+    "S": "energizedpower:solar_panel_3",
+    "s": "#c:silicon"
   },
   "pattern": [
     "GGG",

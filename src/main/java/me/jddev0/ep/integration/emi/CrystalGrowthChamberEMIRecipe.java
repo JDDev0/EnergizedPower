@@ -34,8 +34,8 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
     private final int ticks;
 
     public CrystalGrowthChamberEMIRecipe(RecipeEntry<CrystalGrowthChamberRecipe> recipe) {
-        this.id = recipe.id();
-        this.input = List.of(EmiIngredient.of(recipe.value().getInput(), recipe.value().getInputCount()));
+        this.id = recipe.id().getValue();
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput().input(), recipe.value().getInput().count()));
         this.output = List.of(EmiStack.of(recipe.value().getMaxOutputCount()));
         this.outputWithPercentages = recipe.value().getOutput();
         this.ticks = (int)(recipe.value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);

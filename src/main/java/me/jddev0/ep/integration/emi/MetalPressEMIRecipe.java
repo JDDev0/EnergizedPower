@@ -9,7 +9,6 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.MetalPressRecipe;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.util.Identifier;
 
@@ -27,9 +26,9 @@ public class MetalPressEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public MetalPressEMIRecipe(RecipeEntry<MetalPressRecipe> recipe) {
-        this.id = recipe.id();
-        this.catalysts = List.of(EmiIngredient.of(Ingredient.ofStacks(recipe.value().getPressMold())));
-        this.input = List.of(EmiIngredient.of(recipe.value().getInput(), recipe.value().getInputCount()));
+        this.id = recipe.id().getValue();
+        this.catalysts = List.of(EmiStack.of(recipe.value().getPressMold()));
+        this.input = List.of(EmiIngredient.of(recipe.value().getInput().input(), recipe.value().getInput().count()));
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));
     }
 

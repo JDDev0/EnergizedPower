@@ -5,9 +5,9 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class CompressorScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<CompressorMenu> {
@@ -30,6 +30,6 @@ public class CompressorScreen extends ConfigurableUpgradableEnergyStorageContain
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 79, y + 30, 176, 53, handler.getScaledProgressArrowSize(), 25);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 79, y + 30, 176, 53, handler.getScaledProgressArrowSize(), 25, 256, 256);
     }
 }

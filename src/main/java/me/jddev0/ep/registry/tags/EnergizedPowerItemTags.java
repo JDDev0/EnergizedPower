@@ -4,7 +4,6 @@ import me.jddev0.ep.api.EPAPI;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 
 public final class EnergizedPowerItemTags {
     private EnergizedPowerItemTags() {}

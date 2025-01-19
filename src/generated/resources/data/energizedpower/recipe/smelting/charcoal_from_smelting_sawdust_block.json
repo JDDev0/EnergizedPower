@@ -3,9 +3,7 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.15,
-  "ingredient": {
-    "item": "energizedpower:sawdust_block"
-  },
+  "ingredient": "energizedpower:sawdust_block",
   "result": {
     "id": "minecraft:charcoal"
   }

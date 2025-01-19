@@ -1,13 +1,8 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:pink_petals"
-  },
-  "outputs": [
+  "ingredient": "minecraft:pink_petals",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:pink_petals"
-      },
       "percentages": [
         1.0,
         1.0,
@@ -16,7 +11,11 @@
         0.33,
         0.33,
         0.15
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:pink_petals"
+      }
     }
   ],
   "ticks": 16000

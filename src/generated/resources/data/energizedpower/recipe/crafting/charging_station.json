@@ -2,24 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
-    },
-    "C": {
-      "tag": "c:storage_blocks/copper"
-    },
-    "E": {
-      "tag": "c:plates/energized_gold"
-    },
-    "I": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "R": {
-      "tag": "c:storage_blocks/redstone"
-    },
-    "a": {
-      "tag": "c:plates/advanced_alloy"
-    }
+    "A": "energizedpower:advanced_machine_frame",
+    "C": "#c:storage_blocks/copper",
+    "E": "#c:plates/energized_gold",
+    "I": "#c:storage_blocks/iron",
+    "R": "#c:storage_blocks/redstone",
+    "a": "#c:plates/advanced_alloy"
   },
   "pattern": [
     "aRa",

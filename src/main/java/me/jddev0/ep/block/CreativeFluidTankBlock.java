@@ -17,7 +17,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -35,7 +35,7 @@ import java.util.List;
 public class CreativeFluidTankBlock extends BlockWithEntity {
     public static final MapCodec<CreativeFluidTankBlock> CODEC = createCodec(CreativeFluidTankBlock::new);
 
-    public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
     public CreativeFluidTankBlock(Settings props) {
         super(props);

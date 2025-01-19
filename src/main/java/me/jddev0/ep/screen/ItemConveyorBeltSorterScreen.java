@@ -7,8 +7,9 @@ import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
@@ -56,12 +57,12 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         renderOutputBeltConnectionState(drawContext, x, y, mouseX, mouseY);
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
@@ -70,20 +71,20 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     private void renderOutputBeltConnectionState(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++)
             if(handler.isOutputBeltConnected(i))
-                drawContext.drawTexture(TEXTURE, x + 10, y + 18 + i * 18, 176, i * 14, 30, 14);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 10, y + 18 + i * 18, 176, i * 14, 30, 14, 256, 256);
     }
     private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++) {
             if(handler.isWhitelist(i)) {
                 //Whitelist checkbox [3x]
 
-                drawContext.drawTexture(TEXTURE, x + 136, y + 19 + i * 18, 176, 42, 13, 13);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 136, y + 19 + i * 18, 176, 42, 13, 13, 256, 256);
             }
 
             if(handler.isIgnoreNBT(i)) {
                 //Ignore NBT checkbox [3x]
 
-                drawContext.drawTexture(TEXTURE, x + 153, y + 19 + i * 18, 176, 55, 13, 13);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 153, y + 19 + i * 18, 176, 55, 13, 13, 256, 256);
             }
         }
     }

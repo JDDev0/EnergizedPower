@@ -5,6 +5,9 @@ import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
+
+import java.util.Optional;
 
 public final class EPPaintingVariants {
     private EPPaintingVariants() {}
@@ -24,6 +27,8 @@ public final class EPPaintingVariants {
 
     private static void register(Registerable<PaintingVariant> context, RegistryKey<PaintingVariant> key,
                                  int width, int height) {
-        context.register(key, new PaintingVariant(width, height, key.getValue()));
+        context.register(key, new PaintingVariant(width, height, key.getValue(),
+                Optional.of(Text.translatable("painting.energizedpower." + key.getValue().getPath() + ".title")),
+                Optional.of(Text.translatable("painting.energizedpower." + key.getValue().getPath() + ".author"))));
     }
 }

@@ -7,6 +7,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeEntry;
@@ -86,13 +87,13 @@ public class FiltrationPlantScreen extends SelectableRecipeMachineContainerScree
     }
 
     private void renderFluidMeterOverlay(int tank, DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive()) {
             for(int i = 0;i < 2;i++) {
-                drawContext.drawTexture(TEXTURE, x + 67, y + 34 + 27*i, 176, 106, handler.getScaledProgressArrowSize(), 9);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 67, y + 34 + 27*i, 176, 106, handler.getScaledProgressArrowSize(), 9, 256, 256);
             }
         }
     }

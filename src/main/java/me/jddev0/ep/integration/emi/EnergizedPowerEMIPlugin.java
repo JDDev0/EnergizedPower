@@ -4,17 +4,10 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.stack.EmiStack;
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.item.EPItems;
-import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.EPMenuTypes;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeManager;
-import net.minecraft.registry.tag.ItemTags;
 
 public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
@@ -111,6 +104,8 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     private void registerRecipes(EmiRegistry registry) {
         RecipeManager recipeManager = registry.getRecipeManager();
 
+        //TODO fix
+        /*
         for(RecipeEntry<ChargerRecipe> recipe:recipeManager.listAllOfType(ChargerRecipe.Type.INSTANCE))
             registry.addRecipe(new ChargerEMIRecipe(recipe));
 
@@ -170,7 +165,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
                 EPAPI.id("in_world_crafting/energizedpower/cable_insulator"),
                 Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
-                new ItemStack(EPItems.CABLE_INSULATOR, 18))));
+                new ItemStack(EPItems.CABLE_INSULATOR, 18))));*/
     }
 
     private void registerRecipeHandlers(EmiRegistry registry) {

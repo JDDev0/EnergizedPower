@@ -5,9 +5,9 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedPoweredFurnaceScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedPoweredFurnaceMenu> {
@@ -31,6 +31,6 @@ public class AdvancedPoweredFurnaceScreen extends ConfigurableUpgradableEnergySt
     private void renderProgressArrows(DrawContext drawContext, int x, int y) {
         for(int i = 0;i < 3;i++)
             if(handler.isCraftingActive(i))
-                drawContext.drawTexture(TEXTURE, x + 45 + 54 * i, y + 35, 176, 53, 12, handler.getScaledProgressArrowSize(i));
+                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 45 + 54 * i, y + 35, 176, 53, 12, handler.getScaledProgressArrowSize(i), 256, 256);
     }
 }

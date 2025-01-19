@@ -7,16 +7,15 @@ import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -24,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PulverizerRecipe implements Recipe<RecipeInput> {
+public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final OutputItemStackWithPercentages output;
     private final OutputItemStackWithPercentages secondaryOutput;
     private final Ingredient input;
@@ -88,25 +87,8 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
-        ingredients.add(0, input);
-        return ingredients;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.PULVERIZER_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -115,13 +97,34 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.PULVERIZER_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of(input);
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return input.test(itemStack);
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return ItemStack.areItemsAndComponentsEqual(output.output(), itemStack) || (secondaryOutput != null &&
+                ItemStack.areItemsAndComponentsEqual(secondaryOutput.output(), itemStack));
     }
 
     public static final class Type implements RecipeType<PulverizerRecipe> {
@@ -138,14 +141,14 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
         public static final Identifier ID = EPAPI.id("pulverizer");
 
         private final MapCodec<PulverizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
+            return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.output.isEmpty() || recipe.secondaryOutput.percentages.length == 0)
                     return Optional.empty();
 
                 return Optional.of(recipe.secondaryOutput);
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             })).apply(instance, (output, secondaryOutput, input) -> new PulverizerRecipe(output,
                     secondaryOutput.orElse(new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])),
@@ -245,7 +248,7 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
 
         public static Codec<OutputItemStackWithPercentages> createCodec(boolean atLeastOnePercentageValue) {
             return RecordCodecBuilder.create((instance) -> {
-                return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
+                return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((output) -> {
                     return output.output;
                 }), createDoubleArrayCodec(atLeastOnePercentageValue).fieldOf("percentages").forGetter((output) -> {
                     return output.percentages;

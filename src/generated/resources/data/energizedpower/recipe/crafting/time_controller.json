@@ -2,24 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:plates/advanced_alloy"
-    },
-    "C": {
-      "item": "minecraft:clock"
-    },
-    "E": {
-      "tag": "c:plates/energized_gold"
-    },
-    "P": {
-      "item": "energizedpower:processing_unit"
-    },
-    "R": {
-      "item": "energizedpower:reinforced_advanced_machine_frame"
-    },
-    "c": {
-      "item": "energizedpower:energized_crystal_matrix"
-    }
+    "A": "#c:plates/advanced_alloy",
+    "C": "minecraft:clock",
+    "E": "#c:plates/energized_gold",
+    "P": "energizedpower:processing_unit",
+    "R": "energizedpower:reinforced_advanced_machine_frame",
+    "c": "energizedpower:energized_crystal_matrix"
   },
   "pattern": [
     "cCc",

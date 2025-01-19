@@ -5,22 +5,22 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.RecipeBookCategory;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
+import java.util.List;
+
+public class HeatGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final Fluid[] input;
     private final long energyProduction;
 
@@ -48,18 +48,8 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean fits(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack createIcon() {
-        return new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM);
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.NONE;
     }
 
     @Override
@@ -68,13 +58,33 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory getRecipeBookCategory() {
+        return EPRecipes.HEAT_GENERATOR_CATEGORY;
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return false;
     }
 
     public static final class Type implements RecipeType<HeatGeneratorRecipe> {
@@ -92,7 +102,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
-                    Registries.FLUID.getCodec()).fieldOf("input").forGetter((recipe) -> {
+                    Registries.FLUID.getCodec()).fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;

@@ -17,7 +17,7 @@ public class ContainerRecipeInputWrapper implements RecipeInput {
     }
 
     @Override
-    public int getSize() {
+    public int size() {
         return inventory.size();
     }
 }

@@ -5,7 +5,6 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -17,9 +16,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -202,8 +201,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 continue;
 
             ItemStack testItemStack = inventory.getStack(i);
-            Integer burnTime = FuelRegistry.INSTANCE.get(testItemStack.getItem());
-            long energyProduction = burnTime == null?-1:burnTime;
+            long energyProduction = level.getFuelRegistry().getFuelTicks(testItemStack);
             if(energyProduction <= 0)
                 continue;
 
@@ -235,15 +233,15 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand hand) {
+    public ActionResult use(World level, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
 
         if(level.isClient())
-            return TypedActionResult.success(itemStack);
+            return ActionResult.SUCCESS.withNewHandStack(itemStack);
 
         itemStack.set(EPDataComponentTypes.ACTIVE, !isActive(itemStack));
 
-        return TypedActionResult.success(itemStack);
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 
     private void resetProgress(ItemStack itemStack) {

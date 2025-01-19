@@ -49,7 +49,7 @@ public record OutputItemStackWithPercentages(ItemStack output, double[] percenta
     };
 
     public static final Codec<OutputItemStackWithPercentages> CODEC_NONEMPTY = RecordCodecBuilder.create((instance) -> {
-        return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
+        return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((output) -> {
             return output.output;
         }), DOUBLE_ARRAY_CODEC.fieldOf("percentages").forGetter((output) -> {
             return output.percentages;

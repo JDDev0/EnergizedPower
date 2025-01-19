@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:mangrove_sign"
-  },
-  "output": {
+  "ingredient": "minecraft:mangrove_sign",
+  "result": {
     "count": 2,
-    "item": "minecraft:mangrove_planks"
+    "id": "minecraft:mangrove_planks"
   },
   "sawdustAmount": 1
 }

@@ -102,7 +102,7 @@ public class ItemConveyorBeltBlockEntity
                             new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos)
                     );
 
-        if(level.getTime() % blockEntity.TICKS_PER_STEP == 0) {
+        if(level.getTime() % ItemConveyorBeltBlockEntity.TICKS_PER_STEP == 0) {
             int slotCount = blockEntity.itemHandler.size();
 
             if(!blockEntity.itemHandler.getStack(slotCount - 1).isEmpty())

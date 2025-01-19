@@ -3,30 +3,26 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
-import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.Arrays;
 
 public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<AssemblingMachineBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -37,11 +33,8 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2, 3 -> inv.player.getWorld() == null || inv.player.getWorld().getRecipeManager().
-                            listAllOfType(AssemblingMachineRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
+                    case 0, 1, 2, 3 -> RecipeUtils.isIngredientOfAny(((AssemblingMachineBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 4 -> false;
                     default -> super.isValid(slot, stack);
                 };

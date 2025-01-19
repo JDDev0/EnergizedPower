@@ -22,11 +22,6 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
     }
 
     @Override
-    public Type getMinecartType() {
-        return Type.CHEST;
-    }
-
-    @Override
     public ActionResult interact(PlayerEntity player, Hand interactionHand) {
         player.openHandledScreen(this);
 

@@ -8,12 +8,12 @@ import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,19 +74,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            drawContext.drawTexture(TEXTURE, x + 34, y + 34, 176, 52, 18, 18);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 34, y + 34, 176, 52, 18, 18, 256, 256);
         }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            drawContext.drawTexture(TEXTURE, x + 70, y + 34, 176, 70, 18, 18);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 70, y + 34, 176, 70, 18, 18, 256, 256);
         }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            drawContext.drawTexture(TEXTURE, x + 106, y + 34, 176, 88, 18, 18);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 106, y + 34, 176, 88, 18, 18, 256, 256);
         }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            drawContext.drawTexture(TEXTURE, x + 142, y + 34, 176, 106, 18, 18);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 142, y + 34, 176, 106, 18, 18, 256, 256);
         }
     }
 

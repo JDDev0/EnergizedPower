@@ -20,7 +20,7 @@ import java.util.List;
 public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarting {
     @Override
     public void onServerStarting(MinecraftServer server) {
-        Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
+        Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
 
         //Electrician 1
         int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT.getValue();

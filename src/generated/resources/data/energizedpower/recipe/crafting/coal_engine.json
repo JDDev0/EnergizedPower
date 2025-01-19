@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "F": {
-      "item": "minecraft:furnace"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "S": {
-      "tag": "c:silicon"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "C": "#c:plates/copper",
+    "F": "minecraft:furnace",
+    "I": "#c:plates/iron",
+    "S": "#c:silicon"
   },
   "pattern": [
     "ISI",

@@ -8,25 +8,21 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
-import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.Arrays;
 
 public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionSmelterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -37,11 +33,8 @@ public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionS
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> inv.player.getWorld().getRecipeManager().
-                            listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
+                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((InductionSmelterBlockEntity)inv.player.getWorld().
+                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 3, 4 -> false;
                     default -> false;
                 };

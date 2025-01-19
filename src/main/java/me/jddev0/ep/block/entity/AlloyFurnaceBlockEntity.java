@@ -4,14 +4,13 @@ import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
-import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
-import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
-import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
@@ -22,11 +21,14 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtInt;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.input.RecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -34,12 +36,14 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AlloyFurnaceBlockEntity
-        extends MenuInventoryStorageBlockEntity<SimpleInventory> {
+        extends MenuInventoryStorageBlockEntity<SimpleInventory>
+        implements IngredientPacketUpdate {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private int progress;
@@ -47,12 +51,13 @@ public class AlloyFurnaceBlockEntity
     private int litDuration;
     private int maxLitDuration;
 
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
+
     private final Predicate<Integer> canOutput = i -> {
         if(i == 3) {
             //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
             ItemStack item = itemHandler.getStack(i);
-            Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
-            return burnTime == null || burnTime <= 0;
+            return world != null && world.getFuelRegistry().getFuelTicks(item) <= 0;
         }
 
         return i > 3 && i < 6;
@@ -80,15 +85,10 @@ public class AlloyFurnaceBlockEntity
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> world == null || world.getRecipeManager().
-                            listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE).stream().
-                            map(RecipeEntry::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
-                    case 3 -> {
-                        Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
-                        yield burnTime != null && burnTime > 0;
-                    }
+                    case 0, 1, 2 -> ((world instanceof ServerWorld serverWorld)?
+                            RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.ALLOY_FURNACE_TYPE, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
+                    case 3 -> world != null && world.getFuelRegistry().getFuelTicks(stack) > 0;
                     case 4, 5 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -156,6 +156,8 @@ public class AlloyFurnaceBlockEntity
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        syncIngredientListToPlayer(player);
+
         return new AlloyFurnaceMenu(id, this, inventory, itemHandler, data);
     }
 
@@ -230,8 +232,7 @@ public class AlloyFurnaceBlockEntity
             //Use next fuel only if recipe is present
             if(blockEntity.litDuration <= 0) {
                 ItemStack item = blockEntity.itemHandler.getStack(3);
-                Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
-                blockEntity.litDuration = blockEntity.maxLitDuration = burnTime == null?0:burnTime;
+                blockEntity.litDuration = blockEntity.maxLitDuration = blockEntity.world.getFuelRegistry().getFuelTicks(item);
                 if(blockEntity.maxLitDuration > 0) {
                     blockEntity.onHasEnoughFuel();
                     hasNotEnoughFuel = false;
@@ -299,7 +300,10 @@ public class AlloyFurnaceBlockEntity
     }
 
     private Optional<RecipeEntry<AlloyFurnaceRecipe>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().getFirstMatch(EPRecipes.ALLOY_FURNACE_TYPE, getRecipeInput(inventory), world);
+        if(!(world instanceof ServerWorld serverWorld))
+            return Optional.empty();
+
+        return serverWorld.getRecipeManager().getFirstMatch(EPRecipes.ALLOY_FURNACE_TYPE, getRecipeInput(inventory), world);
     }
 
     private Optional<RecipeEntry<AlloyFurnaceRecipe>> getCurrentRecipe() {
@@ -376,5 +380,23 @@ public class AlloyFurnaceBlockEntity
     private void resetProgress() {
         progress = 0;
         maxProgress = 0;
+    }
+
+    protected void syncIngredientListToPlayer(PlayerEntity player) {
+        if(!(world instanceof ServerWorld serverWorld))
+            return;
+
+        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
+                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.ALLOY_FURNACE_TYPE)));
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
     }
 }
