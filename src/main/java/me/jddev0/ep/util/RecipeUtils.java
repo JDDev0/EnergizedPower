@@ -14,7 +14,7 @@ public final class RecipeUtils {
     private RecipeUtils() {}
 
     public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getAllRecipesFor(ServerLevel level, RecipeType<T> recipeType) {
-        return level.recipeAccess().recipes.byType(recipeType);
+        return level.recipeAccess().recipeMap().byType(recipeType);
     }
 
     public static <C extends RecipeInput, T extends Recipe<C>> boolean isIngredientOfAny(ServerLevel level, RecipeType<T> recipeType, ItemStack itemStack) {
