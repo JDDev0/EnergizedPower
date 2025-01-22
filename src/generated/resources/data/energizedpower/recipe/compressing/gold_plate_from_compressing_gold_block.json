@@ -1,10 +1,10 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "tag": "c:storage_blocks/gold"
+    "ingredient": "#c:storage_blocks/gold"
   },
-  "output": {
+  "result": {
     "count": 9,
-    "item": "energizedpower:gold_plate"
+    "id": "energizedpower:gold_plate"
   }
 }

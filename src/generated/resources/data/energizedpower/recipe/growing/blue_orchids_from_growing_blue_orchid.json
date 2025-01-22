@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:blue_orchid"
-  },
-  "outputs": [
+  "ingredient": "minecraft:blue_orchid",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:blue_orchid"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:blue_orchid"
+      }
     }
   ],
   "ticks": 16000

@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:acacia_fence_gate"
-  },
-  "output": {
+  "ingredient": "minecraft:acacia_fence_gate",
+  "result": {
     "count": 2,
-    "item": "minecraft:acacia_planks"
+    "id": "minecraft:acacia_planks"
   },
   "sawdustAmount": 3
 }

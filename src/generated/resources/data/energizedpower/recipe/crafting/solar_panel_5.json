@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_solar_cell"
-    },
-    "E": {
-      "tag": "c:ingots/energized_gold"
-    },
-    "G": {
-      "tag": "c:glass_panes/colorless"
-    },
-    "S": {
-      "item": "energizedpower:solar_panel_4"
-    },
-    "a": {
-      "tag": "c:gems/amethyst"
-    }
+    "A": "energizedpower:advanced_solar_cell",
+    "E": "#c:ingots/energized_gold",
+    "G": "#c:glass_panes/colorless",
+    "S": "energizedpower:solar_panel_4",
+    "a": "#c:gems/amethyst"
   },
   "pattern": [
     "GGG",

@@ -31,7 +31,7 @@ public class EnergizerEMIRecipe implements EmiRecipe {
     private final int energyConsumption;
 
     public EnergizerEMIRecipe(RecipeHolder<EnergizerRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().location();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));
         this.energyConsumption = (int)(recipe.value().getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);

@@ -5,8 +5,8 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +41,7 @@ public class AutoPressMoldMakerScreen
             components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                     output.getHoverName()));
             components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", currentRecipe.value().getClayCount(),
-                    Component.translatable(Items.CLAY_BALL.getDescriptionId())).withStyle(ChatFormatting.ITALIC));
+                    Items.CLAY_BALL.getName()).withStyle(ChatFormatting.ITALIC));
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
@@ -59,7 +59,7 @@ public class AutoPressMoldMakerScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 84, y + 43, 176, 53, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 84, y + 43, 176, 53, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,10 +34,12 @@ import java.util.List;
 public class FluidTankBlock extends BaseEntityBlock {
     public static final MapCodec<FluidTankBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
-                forGetter(FluidTankBlock::getTier)).apply(instance, FluidTankBlock::new);
+                forGetter(FluidTankBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, FluidTankBlock::new);
     });
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final Tier tier;
 
@@ -49,8 +51,8 @@ public class FluidTankBlock extends BaseEntityBlock {
         };
     }
 
-    public FluidTankBlock(Tier tier) {
-        super(tier.getProperties());
+    public FluidTankBlock(Tier tier, Properties properties) {
+        super(properties);
 
         this.tier = tier;
 
@@ -94,7 +96,7 @@ public class FluidTankBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof FluidTankBlockEntity) || ((FluidTankBlockEntity)blockEntity).getTier() != tier)
@@ -102,7 +104,7 @@ public class FluidTankBlock extends BaseEntityBlock {
 
         player.openMenu((FluidTankBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override

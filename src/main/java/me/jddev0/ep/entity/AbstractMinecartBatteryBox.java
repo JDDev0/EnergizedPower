@@ -22,11 +22,6 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecart implem
     }
 
     @Override
-    public Type getMinecartType() {
-        return Type.CHEST;
-    }
-
-    @Override
     public InteractionResult interact(Player player, InteractionHand interactionHand) {
         player.openMenu(this);
         return InteractionResult.SUCCESS;

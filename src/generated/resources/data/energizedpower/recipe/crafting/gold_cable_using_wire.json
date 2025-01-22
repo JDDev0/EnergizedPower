@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "gold_cable",
   "key": {
-    "I": {
-      "item": "energizedpower:cable_insulator"
-    },
-    "W": {
-      "tag": "c:wires/gold"
-    }
+    "I": "energizedpower:cable_insulator",
+    "W": "#c:wires/gold"
   },
   "pattern": [
     "IWI",

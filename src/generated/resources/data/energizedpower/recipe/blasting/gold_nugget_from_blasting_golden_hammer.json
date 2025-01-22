@@ -4,9 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "group": "gold_nugget",
-  "ingredient": {
-    "item": "energizedpower:golden_hammer"
-  },
+  "ingredient": "energizedpower:golden_hammer",
   "result": {
     "count": 1,
     "id": "minecraft:gold_nugget"

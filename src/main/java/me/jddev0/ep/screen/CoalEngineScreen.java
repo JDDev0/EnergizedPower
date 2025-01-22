@@ -3,8 +3,8 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -32,7 +32,7 @@ public class CoalEngineScreen
     private void renderProgressFlame(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isProducingActive()) {
             int pos = menu.getScaledProgressFlameSize();
-            guiGraphics.blit(TEXTURE, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos, 256, 256);
         }
     }
 }

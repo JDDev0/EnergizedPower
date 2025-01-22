@@ -66,10 +66,11 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
         for(int i = 0;i < len;i++) {
             IngredientWithCount input = recipe.value().getInputs()[i];
 
+            /*TODO fix
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1 + 18 * i, 5).
                     addItemStacks(Arrays.stream(input.input().getItems()).
                             map(itemStack -> itemStack.copyWithCount(input.count())).
-                            collect(Collectors.toList()));
+                            collect(Collectors.toList()));*/
         }
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();

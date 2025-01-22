@@ -1,9 +1,10 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "tag": "c:ingots/tin"
+    "ingredient": "#c:ingots/tin"
   },
-  "output": {
-    "item": "energizedpower:tin_plate"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:tin_plate"
   }
 }

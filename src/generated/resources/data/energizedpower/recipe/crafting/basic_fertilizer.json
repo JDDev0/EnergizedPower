@@ -2,24 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "minecraft:allium"
-    },
-    "B": {
-      "item": "minecraft:bone_meal"
-    },
-    "D": {
-      "item": "minecraft:dandelion"
-    },
-    "L": {
-      "tag": "c:gems/lapis"
-    },
-    "P": {
-      "item": "minecraft:poppy"
-    },
-    "b": {
-      "item": "minecraft:blue_orchid"
-    }
+    "A": "minecraft:allium",
+    "B": "minecraft:bone_meal",
+    "D": "minecraft:dandelion",
+    "L": "#c:gems/lapis",
+    "P": "minecraft:poppy",
+    "b": "minecraft:blue_orchid"
   },
   "pattern": [
     "DBb",

@@ -3,15 +3,9 @@
   "category": "misc",
   "group": "item_conveyor_belt",
   "key": {
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "L": {
-      "tag": "c:leathers"
-    },
-    "R": {
-      "tag": "c:dusts/redstone"
-    }
+    "I": "#c:plates/iron",
+    "L": "#c:leathers",
+    "R": "#c:dusts/redstone"
   },
   "pattern": [
     "   ",

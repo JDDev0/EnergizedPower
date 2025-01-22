@@ -4,18 +4,20 @@ import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
-import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
-import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
-import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
 import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,6 +25,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
@@ -33,12 +36,14 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AlloyFurnaceBlockEntity
-        extends MenuInventoryStorageBlockEntity<ItemStackHandler> {
+        extends MenuInventoryStorageBlockEntity<ItemStackHandler>
+        implements IngredientPacketUpdate {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private int progress;
@@ -46,11 +51,13 @@ public class AlloyFurnaceBlockEntity
     private int litDuration;
     private int maxLitDuration;
 
+    protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
+
     private final Predicate<Integer> canOutput = i -> {
         if(i == 3) {
             //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
             ItemStack item = itemHandler.getStackInSlot(i);
-            return item.getBurnTime(null) <= 0;
+            return level != null && item.getBurnTime(null, level.fuelValues()) <= 0;
         }
 
         return i > 3 && i < 6;
@@ -83,12 +90,10 @@ public class AlloyFurnaceBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> level == null || level.getRecipeManager().
-                            getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE).stream().
-                            map(RecipeHolder::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
-                    case 3 -> stack.getBurnTime(null) > 0;
+                    case 0, 1, 2 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, EPRecipes.ALLOY_FURNACE_TYPE.get(), stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
+                    case 3 -> level != null && stack.getBurnTime(null, level.fuelValues()) > 0;
                     case 4, 5 -> false;
                     default -> super.isItemValid(slot, stack);
                 };
@@ -150,6 +155,8 @@ public class AlloyFurnaceBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        syncIngredientListToPlayer(player);
+
         return new AlloyFurnaceMenu(id, inventory, this, data);
     }
 
@@ -225,13 +232,13 @@ public class AlloyFurnaceBlockEntity
             if(blockEntity.litDuration <= 0) {
                 ItemStack item = blockEntity.itemHandler.getStackInSlot(3);
 
-                blockEntity.litDuration = blockEntity.maxLitDuration = item.getBurnTime(null);
+                blockEntity.litDuration = blockEntity.maxLitDuration = item.getBurnTime(null, level.fuelValues());
                 if(blockEntity.maxLitDuration > 0) {
                     blockEntity.onHasEnoughFuel();
                     hasNotEnoughFuel = false;
 
-                    if(item.hasCraftingRemainingItem())
-                        blockEntity.itemHandler.setStackInSlot(3, item.getCraftingRemainingItem());
+                    if(!item.getCraftingRemainder().isEmpty())
+                        blockEntity.itemHandler.setStackInSlot(3, item.getCraftingRemainder());
                     else
                         blockEntity.itemHandler.extractItem(3, 1, false);
                 }
@@ -293,7 +300,10 @@ public class AlloyFurnaceBlockEntity
     }
 
     private Optional<RecipeHolder<AlloyFurnaceRecipe>> getRecipeFor(Container inventory) {
-        return level.getRecipeManager().getRecipeFor(EPRecipes.ALLOY_FURNACE_TYPE.get(), getRecipeInput(inventory), level);
+        if(!(level instanceof ServerLevel serverLevel))
+            return Optional.empty();
+
+        return serverLevel.recipeAccess().getRecipeFor(EPRecipes.ALLOY_FURNACE_TYPE.get(), getRecipeInput(inventory), level);
     }
 
     private Optional<RecipeHolder<AlloyFurnaceRecipe>> getCurrentRecipe() {
@@ -378,5 +388,22 @@ public class AlloyFurnaceBlockEntity
     private void resetProgress() {
         progress = 0;
         maxProgress = 0;
+    }
+
+    protected void syncIngredientListToPlayer(Player player) {
+        if(!(level instanceof ServerLevel serverLevel))
+            return;
+
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverLevel, EPRecipes.ALLOY_FURNACE_TYPE.get())), (ServerPlayer)player);
+    }
+
+    public List<Ingredient> getIngredientsOfRecipes() {
+        return new ArrayList<>(ingredientsOfRecipes);
+    }
+
+    @Override
+    public void setIngredients(int index, List<Ingredient> ingredients) {
+        if(index == 0)
+            this.ingredientsOfRecipes = ingredients;
     }
 }

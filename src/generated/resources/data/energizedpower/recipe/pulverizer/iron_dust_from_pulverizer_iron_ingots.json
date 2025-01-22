@@ -1,17 +1,16 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ingots/iron"
-  },
-  "output": {
-    "output": {
-      "item": "energizedpower:iron_dust"
-    },
+  "ingredient": "#c:ingots/iron",
+  "result": {
     "percentages": [
       1.0
     ],
     "percentagesAdvanced": [
       1.0
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "energizedpower:iron_dust"
+    }
   }
 }

@@ -1,32 +1,25 @@
 {
   "type": "energizedpower:assembling_machine",
-  "inputs": [
+  "ingredients": [
     {
       "count": 4,
-      "input": {
-        "item": "energizedpower:processing_unit"
-      }
+      "ingredient": "energizedpower:processing_unit"
     },
     {
       "count": 4,
-      "input": {
-        "item": "energizedpower:teleporter_matrix"
-      }
+      "ingredient": "energizedpower:teleporter_matrix"
     },
     {
       "count": 2,
-      "input": {
-        "item": "energizedpower:energized_crystal_matrix"
-      }
+      "ingredient": "energizedpower:energized_crystal_matrix"
     },
     {
       "count": 2,
-      "input": {
-        "tag": "c:silicon"
-      }
+      "ingredient": "#c:silicon"
     }
   ],
-  "output": {
-    "item": "energizedpower:teleporter_processing_unit"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:teleporter_processing_unit"
   }
 }

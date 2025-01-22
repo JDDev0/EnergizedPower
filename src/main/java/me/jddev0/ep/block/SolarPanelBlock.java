@@ -36,7 +36,9 @@ import java.util.List;
 public class SolarPanelBlock extends BaseEntityBlock {
     public static final MapCodec<SolarPanelBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
-                forGetter(SolarPanelBlock::getTier)).apply(instance, SolarPanelBlock::new);
+                forGetter(SolarPanelBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, SolarPanelBlock::new);
     });
 
     private static final VoxelShape SHAPE = Block.box(0.d, 0.d, 0.d, 16.d, 4.d, 16.d);
@@ -54,8 +56,8 @@ public class SolarPanelBlock extends BaseEntityBlock {
         };
     }
 
-    public SolarPanelBlock(Tier tier) {
-        super(tier.getProperties());
+    public SolarPanelBlock(Tier tier, Properties properties) {
+        super(properties);
 
         this.tier = tier;
     }
@@ -102,7 +104,7 @@ public class SolarPanelBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof SolarPanelBlockEntity) || ((SolarPanelBlockEntity)blockEntity).getTier() != tier)
@@ -110,7 +112,7 @@ public class SolarPanelBlock extends BaseEntityBlock {
 
         player.openMenu((SolarPanelBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

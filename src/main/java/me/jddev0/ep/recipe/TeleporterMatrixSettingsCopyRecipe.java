@@ -5,10 +5,7 @@ import me.jddev0.ep.item.TeleporterMatrixItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
 public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
@@ -76,19 +73,14 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return new ItemStack(EPItems.TELEPORTER_MATRIX.get(), 2);
-    }
-
-    @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingInput container) {
         NonNullList<ItemStack> remainders = NonNullList.withSize(container.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < remainders.size(); ++i) {
             ItemStack itemstack = container.getItem(i);
             if(!itemstack.isEmpty()) {
-                if(itemstack.hasCraftingRemainingItem()) {
-                    remainders.set(i, itemstack.getCraftingRemainingItem());
+                if(!itemstack.getCraftingRemainder().isEmpty()) {
+                    remainders.set(i, itemstack.getCraftingRemainder());
                 }else if(itemstack.is(EPItems.TELEPORTER_MATRIX.get()) && TeleporterMatrixItem.isLinked(itemstack)) {
                     remainders.set(i, itemstack.copyWithCount(1));
                 }
@@ -99,17 +91,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(EPItems.TELEPORTER_MATRIX.get());
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<TeleporterMatrixSettingsCopyRecipe> getSerializer() {
         return EPRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER.get();
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
     }
 }

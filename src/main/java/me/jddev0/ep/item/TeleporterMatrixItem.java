@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -100,11 +99,11 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(level.isClientSide)
-            return InteractionResultHolder.success(itemStack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         if(itemStack.has(EPDataComponentTypes.DIMENSIONAL_POSITION))
             itemStack.remove(EPDataComponentTypes.DIMENSIONAL_POSITION);
@@ -116,7 +115,7 @@ public class TeleporterMatrixItem extends Item {
             ));
         }
 
-        return InteractionResultHolder.success(itemStack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
     }
 
     @Override
@@ -151,7 +150,7 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public String getDescriptionId(ItemStack itemStack) {
-        return getDescriptionId() + "." + (isLinked(itemStack)?"linked":"unlinked");
+    public Component getName(ItemStack itemStack) {
+        return Component.translatable(descriptionId + "." + (isLinked(itemStack)?"linked":"unlinked"));
     }
 }

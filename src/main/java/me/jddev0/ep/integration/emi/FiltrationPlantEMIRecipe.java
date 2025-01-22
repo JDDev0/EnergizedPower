@@ -34,7 +34,7 @@ public class FiltrationPlantEMIRecipe implements EmiRecipe {
     private final OutputItemStackWithPercentages secondaryOutputWithPercentages;
 
     public FiltrationPlantEMIRecipe(RecipeHolder<FiltrationPlantRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().location();
         this.input = List.of(EmiStack.of(EPFluids.DIRTY_WATER.get(), FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE));
 
         this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();

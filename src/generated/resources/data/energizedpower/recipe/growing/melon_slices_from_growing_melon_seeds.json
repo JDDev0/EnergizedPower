@@ -1,20 +1,19 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:melon_seeds"
-  },
-  "outputs": [
+  "ingredient": "minecraft:melon_seeds",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:melon_slice"
-      },
       "percentages": [
         1.0,
         1.0,
         0.75,
         0.25,
         0.25
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:melon_slice"
+      }
     }
   ],
   "ticks": 16000

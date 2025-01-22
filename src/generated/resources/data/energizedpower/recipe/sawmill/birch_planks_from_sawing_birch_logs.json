@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "minecraft:birch_logs"
-  },
-  "output": {
+  "ingredient": "#minecraft:birch_logs",
+  "result": {
     "count": 6,
-    "item": "minecraft:birch_planks"
+    "id": "minecraft:birch_planks"
   },
   "sawdustAmount": 1
 }

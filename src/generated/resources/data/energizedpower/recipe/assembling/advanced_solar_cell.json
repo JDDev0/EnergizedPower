@@ -1,31 +1,24 @@
 {
   "type": "energizedpower:assembling_machine",
-  "inputs": [
+  "ingredients": [
     {
       "count": 2,
-      "input": {
-        "item": "energizedpower:basic_solar_cell"
-      }
+      "ingredient": "energizedpower:basic_solar_cell"
     },
     {
       "count": 4,
-      "input": {
-        "tag": "c:ingots/energized_copper"
-      }
+      "ingredient": "#c:ingots/energized_copper"
     },
     {
       "count": 2,
-      "input": {
-        "tag": "c:ingots/tin"
-      }
+      "ingredient": "#c:ingots/tin"
     },
     {
-      "input": {
-        "tag": "c:ingots/redstone_alloy"
-      }
+      "ingredient": "#c:ingots/redstone_alloy"
     }
   ],
-  "output": {
-    "item": "energizedpower:advanced_solar_cell"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:advanced_solar_cell"
   }
 }

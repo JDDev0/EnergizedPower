@@ -1,19 +1,18 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:bamboo"
-  },
-  "outputs": [
+  "ingredient": "minecraft:bamboo",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:bamboo"
-      },
       "percentages": [
         1.0,
         1.0,
         0.67,
         0.17
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:bamboo"
+      }
     }
   ],
   "ticks": 16000

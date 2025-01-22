@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "minecraft:warped_stems"
-  },
-  "output": {
+  "ingredient": "#minecraft:warped_stems",
+  "result": {
     "count": 6,
-    "item": "minecraft:warped_planks"
+    "id": "minecraft:warped_planks"
   },
   "sawdustAmount": 1
 }

@@ -145,7 +145,7 @@ dependencies {
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
     compileOnly "dev.architectury:architectury-neoforge:13.0.6"
-    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:16.0.783'
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:17.0.794'
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration

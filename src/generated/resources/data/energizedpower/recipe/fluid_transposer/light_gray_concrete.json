@@ -4,11 +4,10 @@
     "amount": 1000,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:light_gray_concrete_powder"
-  },
+  "ingredient": "minecraft:light_gray_concrete_powder",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:light_gray_concrete"
+  "result": {
+    "count": 1,
+    "id": "minecraft:light_gray_concrete"
   }
 }

@@ -48,8 +48,9 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
     @Override
     public @Nullable IRecipeTransferError transferRecipe(AutoCrafterMenu container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player,
                                                          boolean maxTransfer, boolean doTransfer) {
+        /*TODO fix
         if(!recipe.value().canCraftInDimensions(3, 3))
-            return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));
+            return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));*/
 
         if(!doTransfer)
             return null;
@@ -61,7 +62,7 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
         for(int i = 0;i < len;i++)
             itemStacks.add(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY).copy());
 
-        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.id()));
+        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.id().location()));
 
         return null;
     }

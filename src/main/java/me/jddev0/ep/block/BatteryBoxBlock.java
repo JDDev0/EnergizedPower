@@ -66,7 +66,7 @@ public class BatteryBoxBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof BatteryBoxBlockEntity))
@@ -74,7 +74,7 @@ public class BatteryBoxBlock extends BaseEntityBlock {
 
         player.openMenu((BatteryBoxBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

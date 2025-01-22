@@ -1,7 +1,8 @@
 {
   "type": "energizedpower:press_mold_maker",
   "clayCount": 6,
-  "output": {
-    "item": "energizedpower:raw_wire_press_mold"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:raw_wire_press_mold"
   }
 }

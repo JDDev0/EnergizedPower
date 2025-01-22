@@ -1,9 +1,8 @@
 {
   "type": "energizedpower:crusher",
-  "ingredient": {
-    "tag": "c:gravels"
-  },
-  "output": {
-    "item": "minecraft:sand"
+  "ingredient": "#c:gravels",
+  "result": {
+    "count": 1,
+    "id": "minecraft:sand"
   }
 }

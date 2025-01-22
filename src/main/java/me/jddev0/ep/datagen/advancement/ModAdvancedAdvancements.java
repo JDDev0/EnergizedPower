@@ -15,6 +15,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -42,17 +43,20 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 ).
                 addCriterion("has_the_item",
                         InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 CommonItemTags.INGOTS_ENERGIZED_COPPER
                         ))).
                 save(advancementOutput, EPAPI.id("main/advanced/energizedpower_advanced"), existingFileHelper);
 
         AdvancementHolder advancedAlloyIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedPowerAdvanced,
                 EPItems.ADVANCED_ALLOY_INGOT, "advanced_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ADVANCED_ALLOY
         );
 
         AdvancementHolder advancedAlloyPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, advancedAlloyIngot,
                 EPItems.ADVANCED_ALLOY_PLATE, "advanced_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ADVANCED_ALLOY
@@ -101,7 +105,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 advancementOutput, existingFileHelper, battery8,
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementType.CHALLENGE,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().
-                        of(EPItems.BATTERY_8).
+                        of(lookupProvider.lookupOrThrow(Registries.ITEM), EPItems.BATTERY_8).
                         hasComponents(DataComponentPredicate.builder().
                                 expect(EPDataComponentTypes.ENERGY.get(), BatteryItem.Tier.BATTERY_8.getCapacity()).
                                 build()).
@@ -119,12 +123,14 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         );
 
         AdvancementHolder energizedCopperPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedPowerAdvanced,
                 EPItems.ENERGIZED_COPPER_PLATE, "energized_copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_COPPER
         );
 
         AdvancementHolder energizedCopperWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedCopperPlate,
                 EPItems.ENERGIZED_COPPER_WIRE, "energized_copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_COPPER
@@ -210,6 +216,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM, "hv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM
@@ -243,6 +250,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         );
 
         AdvancementHolder energizedGoldIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizer,
                 EPItems.ENERGIZED_GOLD_INGOT, "energized_gold_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ENERGIZED_GOLD
@@ -254,12 +262,14 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         );
 
         AdvancementHolder energizedGoldPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedGoldIngot,
                 EPItems.ENERGIZED_GOLD_PLATE, "energized_gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_GOLD
         );
 
         AdvancementHolder energizedGoldWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedGoldPlate,
                 EPItems.ENERGIZED_GOLD_WIRE, "energized_gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_GOLD
@@ -405,6 +415,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM, "ehv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
@@ -443,11 +454,12 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              TagKey<Item> trigger) {
         return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                        lookupProvider.lookupOrThrow(Registries.ITEM),
                         trigger
                 )));
     }

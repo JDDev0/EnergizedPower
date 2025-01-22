@@ -1,5 +1,11 @@
 {
   "asset_id": "energizedpower:gear",
+  "author": {
+    "translate": "painting.energizedpower.gear.author"
+  },
   "height": 2,
+  "title": {
+    "translate": "painting.energizedpower.gear.title"
+  },
   "width": 2
 }

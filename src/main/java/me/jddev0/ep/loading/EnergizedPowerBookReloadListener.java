@@ -1,7 +1,12 @@
 package me.jddev0.ep.loading;
 
 import com.google.gson.*;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -19,18 +24,28 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @OnlyIn(Dist.CLIENT)
-public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadListener {
+public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadListener<JsonElement> {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public EnergizedPowerBookReloadListener() {
-        super(new GsonBuilder().create(), "book_pages");
+        super(new Codec<>() {
+            @Override
+            public <T> DataResult<Pair<JsonElement, T>> decode(DynamicOps<T> ops, T input) {
+                return DataResult.success(Pair.of(ops.convertTo(JsonOps.INSTANCE, input), input));
+            }
+
+            @Override
+            public <T> DataResult<T> encode(JsonElement input, DynamicOps<T> ops, T prefix) {
+                return DataResult.error(() -> "Not implemented");
+            }
+        }, "book_pages");
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         HolderLookup.Provider registries = new HolderLookup.Provider() {
             @Override
-            public Stream<ResourceKey<? extends Registry<?>>> listRegistries() {
+            public Stream<ResourceKey<? extends Registry<?>>> listRegistryKeys() {
                 return Stream.empty();
             }
 

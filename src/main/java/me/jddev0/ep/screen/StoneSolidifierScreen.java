@@ -5,8 +5,8 @@ import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -64,14 +64,14 @@ public class StoneSolidifierScreen
     }
 
     private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive()) {
-            guiGraphics.blit(TEXTURE, x + 69, y + 45, 176, 106, menu.getScaledProgressArrowSize(), 14);
-            guiGraphics.blit(TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
-                    196 - menu.getScaledProgressArrowSize(), 120, menu.getScaledProgressArrowSize(), 14);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 69, y + 45, 176, 106, menu.getScaledProgressArrowSize(), 14, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
+                    196 - menu.getScaledProgressArrowSize(), 120, menu.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

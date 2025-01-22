@@ -4,11 +4,10 @@
     "amount": 1000,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:lime_concrete_powder"
-  },
+  "ingredient": "minecraft:lime_concrete_powder",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:lime_concrete"
+  "result": {
+    "count": 1,
+    "id": "minecraft:lime_concrete"
   }
 }

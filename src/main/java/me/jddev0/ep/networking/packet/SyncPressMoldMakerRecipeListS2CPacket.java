@@ -5,10 +5,11 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -36,7 +37,7 @@ public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPacket
         pos = buffer.readBlockPos();
 
         int size = buffer.readInt();
-        recipeList = IntStream.range(0, size).mapToObj(i -> Pair.of(new RecipeHolder<>(buffer.readResourceLocation(),
+        recipeList = IntStream.range(0, size).mapToObj(i -> Pair.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, buffer.readResourceLocation()),
                 PressMoldMakerRecipe.Serializer.INSTANCE.streamCodec().decode(buffer)), buffer.readBoolean())).
                 collect(Collectors.toList());
     }
@@ -46,7 +47,7 @@ public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPacket
 
         buffer.writeInt(recipeList.size());
         recipeList.forEach(entry -> {
-            buffer.writeResourceLocation(entry.getFirst().id());
+            buffer.writeResourceLocation(entry.getFirst().id().location());
             PressMoldMakerRecipe.Serializer.INSTANCE.streamCodec().encode(buffer, entry.getFirst().value());
             buffer.writeBoolean(entry.getSecond());
         });

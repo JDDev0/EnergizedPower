@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:peony"
-  },
-  "outputs": [
+  "ingredient": "minecraft:peony",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:peony"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:peony"
+      }
     }
   ],
   "ticks": 16000

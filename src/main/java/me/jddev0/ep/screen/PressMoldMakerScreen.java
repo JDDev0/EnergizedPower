@@ -8,7 +8,8 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -47,7 +48,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
                         if(index < menu.getRecipeList().size() && menu.getRecipeList().get(index).getSecond()) {
                             ModMessages.sendToServer(new CraftPressMoldMakerRecipeC2SPacket(menu.getBlockEntity().getBlockPos(),
-                                    menu.getRecipeList().get(index).getFirst().id()));
+                                    menu.getRecipeList().get(index).getFirst().id().location()));
                             clicked = true;
                         }
                     }
@@ -79,12 +80,12 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderButtons(guiGraphics, x, y, mouseX, mouseY);
     }
@@ -98,9 +99,9 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
             if(menu.getRecipeList().get(i).getSecond()) {
                 if(isHovering(btnX, btnY, 20, 20, mouseX, mouseY)) {
-                    guiGraphics.blit(TEXTURE, x + btnX, y + btnY, 176, 20, 20, 20);
+                    guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + btnX, y + btnY, 176, 20, 20, 20, 256, 256);
                 }else {
-                    guiGraphics.blit(TEXTURE, x + btnX, y + btnY, 176, 0, 20, 20);
+                    guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + btnX, y + btnY, 176, 0, 20, 20, 256, 256);
                 }
             }
 
@@ -118,18 +119,18 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
         //Up button
         if(scrollIndexOffset > 0) {
             if(isHovering(155, 19, 11, 12, mouseX, mouseY)) {
-                guiGraphics.blit(TEXTURE, x + 155, y + 19, 187, 40, 11, 12);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 155, y + 19, 187, 40, 11, 12, 256, 256);
             }else {
-                guiGraphics.blit(TEXTURE, x + 155, y + 19, 176, 40, 11, 12);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 155, y + 19, 176, 40, 11, 12, 256, 256);
             }
         }
 
         //Down button
         if(scrollIndexOffset + 8 < menu.getRecipeList().size()) {
             if(isHovering(155, 55, 11, 12, mouseX, mouseY)) {
-                guiGraphics.blit(TEXTURE, x + 155, y + 55, 187, 52, 11, 12);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 155, y + 55, 187, 52, 11, 12, 256, 256);
             }else {
-                guiGraphics.blit(TEXTURE, x + 155, y + 55, 176, 52, 11, 12);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 155, y + 55, 176, 52, 11, 12, 256, 256);
             }
         }
     }

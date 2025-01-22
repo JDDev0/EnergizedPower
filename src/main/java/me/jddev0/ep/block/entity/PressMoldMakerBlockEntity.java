@@ -9,6 +9,7 @@ import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -27,10 +28,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
@@ -99,8 +97,11 @@ public class PressMoldMakerBlockEntity
     }
 
     public void craftItem(ResourceLocation recipeId) {
-        Optional<RecipeHolder<?>> recipe = level.getRecipeManager().getRecipes().stream().
-                filter(recipeHolder -> recipeHolder.id().equals(recipeId)).findFirst();
+        if(!(level instanceof ServerLevel serverLevel))
+            return;
+
+        Optional<RecipeHolder<?>> recipe = serverLevel.recipeAccess().getRecipes().stream().
+                filter(recipeHolder -> recipeHolder.id().location().equals(recipeId)).findFirst();
 
         if(recipe.isEmpty() || !(recipe.get().value() instanceof PressMoldMakerRecipe pressMoldMakerRecipe))
             return;
@@ -110,22 +111,25 @@ public class PressMoldMakerBlockEntity
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(inventory), level) ||
-                !InventoryUtils.canInsertItemIntoSlot(inventory, 1, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
+                !InventoryUtils.canInsertItemIntoSlot(inventory, 1, pressMoldMakerRecipe.assemble(null, level.registryAccess())))
             return;
 
         itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount(), false);
-        itemHandler.setStackInSlot(1, pressMoldMakerRecipe.getResultItem(level.registryAccess()).copyWithCount(
-                itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.getResultItem(level.registryAccess()).getCount()));
+        itemHandler.setStackInSlot(1, pressMoldMakerRecipe.assemble(null, level.registryAccess()).copyWithCount(
+                itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.assemble(null, level.registryAccess()).getCount()));
     }
 
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> createRecipeList() {
+        if(!(level instanceof ServerLevel serverLevel))
+            return List.of();
+
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for(int i = 0;i < itemHandler.getSlots();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        List<RecipeHolder<PressMoldMakerRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE);
+        Collection<RecipeHolder<PressMoldMakerRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, PressMoldMakerRecipe.Type.INSTANCE);
         return recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.value().getResultItem(level.registryAccess()).getDescriptionId())).
+                sorted(Comparator.comparing(recipe -> recipe.id().location())).
                 map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(inventory), level))).
                 collect(Collectors.toList());
     }

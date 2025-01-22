@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:ingots/gold"
-    },
-    "g": {
-      "tag": "c:plates/gold"
-    }
+    "G": "#c:ingots/gold",
+    "g": "#c:plates/gold"
   },
   "pattern": [
     "GgG",

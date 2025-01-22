@@ -310,7 +310,7 @@ public class FluidPumpBlockEntity
                 //Last position in depth = y was reached -> Go to depth = y - 1 or to depth = -1
 
                 yOffset--;
-                if(-yOffset >= depth || (getBlockPos().getY() + yOffset) < level.getMinBuildHeight())
+                if(-yOffset >= depth || (getBlockPos().getY() + yOffset) < level.getMinY())
                     yOffset = -1;
 
                 xOffset = range;

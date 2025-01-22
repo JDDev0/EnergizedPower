@@ -14,6 +14,7 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -43,6 +44,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 ).
                 addCriterion("has_the_item",
                         InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 Tags.Items.INGOTS_COPPER
                         ))).
                 save(advancementOutput, EPAPI.id("main/basics/energizedpower_basics"), existingFileHelper);
@@ -58,12 +60,14 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         );
 
         AdvancementHolder rawPressMolds = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, pressMoldMaker,
                 EPItems.RAW_GEAR_PRESS_MOLD, "raw_press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
         );
 
         AdvancementHolder pressMolds = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, rawPressMolds,
                 EPItems.GEAR_PRESS_MOLD, "press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS
@@ -75,12 +79,14 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         );
 
         AdvancementHolder steelIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, alloyFurnace,
                 EPItems.STEEL_INGOT, "steel_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_STEEL
         );
 
         AdvancementHolder redstoneAlloyIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, alloyFurnace,
                 EPItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_REDSTONE_ALLOY
@@ -92,54 +98,63 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         );
 
         AdvancementHolder hammer = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedPowerBasics,
                 EPItems.IRON_HAMMER, "hammer", AdvancementType.TASK,
                 CommonItemTags.TOOLS_HAMMERS
         );
 
         AdvancementHolder tinPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, hammer,
                 EPItems.TIN_PLATE, "tin_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_TIN
         );
 
         AdvancementHolder copperPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, hammer,
                 EPItems.COPPER_PLATE, "copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_COPPER
         );
 
         AdvancementHolder goldPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, hammer,
                 EPItems.GOLD_PLATE, "gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_GOLD
         );
 
         AdvancementHolder ironPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, hammer,
                 EPItems.IRON_PLATE, "iron_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_IRON
         );
 
         AdvancementHolder cutter = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, ironPlate,
                 EPItems.CUTTER, "cutter", AdvancementType.TASK,
                 CommonItemTags.TOOLS_CUTTERS
         );
 
         AdvancementHolder tinWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, cutter,
                 EPItems.TIN_WIRE, "tin_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_TIN
         );
 
         AdvancementHolder goldWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, cutter,
                 EPItems.GOLD_WIRE, "gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_GOLD
         );
 
         AdvancementHolder copperWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, cutter,
                 EPItems.COPPER_WIRE, "copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_COPPER
@@ -295,6 +310,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM
@@ -303,6 +319,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         );
 
         AdvancementHolder silicon = addAdvancement(
+                lookupProvider,
                 advancementOutput, existingFileHelper, energizedPowerBasics,
                 EPItems.SILICON, "silicon", AdvancementType.TASK,
                 CommonItemTags.SILICON
@@ -514,6 +531,7 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM
@@ -562,11 +580,12 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              TagKey<Item> trigger) {
         return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                        lookupProvider.lookupOrThrow(Registries.ITEM),
                         trigger
                 )));
     }

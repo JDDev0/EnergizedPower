@@ -14,6 +14,7 @@ import me.jddev0.ep.screen.AdvancedPulverizerMenu;
 import me.jddev0.ep.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -67,7 +68,9 @@ public class AdvancedPulverizerBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PulverizerRecipe.Type.INSTANCE, stack);
+                    case 0 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1, 2 -> false;
                     default -> super.isItemValid(slot, stack);
                 };

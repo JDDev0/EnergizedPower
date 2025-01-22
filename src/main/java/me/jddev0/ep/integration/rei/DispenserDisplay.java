@@ -1,16 +1,23 @@
 package me.jddev0.ep.integration.rei;
 
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.item.EPItems;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.Tags;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class DispenserDisplay implements Display {
+    public static final CategoryIdentifier<DispenserDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "dispenser");
+
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
@@ -28,6 +35,16 @@ public class DispenserDisplay implements Display {
 
     @Override
     public CategoryIdentifier<DispenserDisplay> getCategoryIdentifier() {
-        return DispenserCategory.CATEGORY;
+        return CATEGORY;
+    }
+
+    @Override
+    public Optional<ResourceLocation> getDisplayLocation() {
+        return Optional.empty();
+    }
+
+    @Override
+    public @Nullable DisplaySerializer<? extends Display> getSerializer() {
+        return null;
     }
 }

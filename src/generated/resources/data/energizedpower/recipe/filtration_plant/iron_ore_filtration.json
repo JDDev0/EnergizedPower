@@ -1,20 +1,22 @@
 {
   "type": "energizedpower:filtration_plant",
   "icon": "minecraft:raw_iron",
-  "output": {
-    "output": {
-      "item": "energizedpower:stone_pebble"
-    },
+  "result": {
     "percentages": [
       0.33
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "energizedpower:stone_pebble"
+    }
   },
-  "secondaryOutput": {
-    "output": {
-      "item": "minecraft:raw_iron"
-    },
+  "secondaryResult": {
     "percentages": [
       0.05
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:raw_iron"
+    }
   }
 }

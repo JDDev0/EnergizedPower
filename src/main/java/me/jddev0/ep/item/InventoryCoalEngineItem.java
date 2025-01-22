@@ -11,7 +11,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -196,7 +196,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 continue;
 
             ItemStack testItemStack = inventory.getItem(i);
-            int energyProduction = testItemStack.getBurnTime(null);
+            int energyProduction = testItemStack.getBurnTime(null, level.fuelValues());
             if(energyProduction <= 0)
                 continue;
 
@@ -216,8 +216,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             newItemStack.shrink(1);
             inventory.setItem(i, newItemStack);
 
-            if(testItemStack.hasCraftingRemainingItem()) {
-                ItemStack craftingRemainingItem = testItemStack.getCraftingRemainingItem();
+            if(!testItemStack.getCraftingRemainder().isEmpty()) {
+                ItemStack craftingRemainingItem = testItemStack.getCraftingRemainder();
 
                 if(inventory.add(craftingRemainingItem))
                     player.drop(craftingRemainingItem, false);
@@ -228,15 +228,15 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(level.isClientSide)
-            return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+            return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         itemStack.set(EPDataComponentTypes.ACTIVE, !isActive(itemStack));
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
     }
 
     private void resetProgress(ItemStack itemStack) {

@@ -1,13 +1,8 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:glow_berries"
-  },
-  "outputs": [
+  "ingredient": "minecraft:glow_berries",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:glow_berries"
-      },
       "percentages": [
         1.0,
         1.0,
@@ -15,7 +10,11 @@
         0.33,
         0.17,
         0.17
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:glow_berries"
+      }
     }
   ],
   "ticks": 16000

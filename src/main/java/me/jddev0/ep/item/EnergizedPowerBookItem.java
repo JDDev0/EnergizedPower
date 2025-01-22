@@ -9,14 +9,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -39,13 +38,13 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(level.isClientSide)
             showBookViewScreen(null);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return (level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER).heldItemTransformedTo(itemStack);
     }
 
     @Override

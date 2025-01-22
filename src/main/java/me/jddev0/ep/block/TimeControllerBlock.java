@@ -40,7 +40,7 @@ public class TimeControllerBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof TimeControllerBlockEntity))
@@ -48,6 +48,6 @@ public class TimeControllerBlock extends BaseEntityBlock {
 
         player.openMenu((TimeControllerBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 }

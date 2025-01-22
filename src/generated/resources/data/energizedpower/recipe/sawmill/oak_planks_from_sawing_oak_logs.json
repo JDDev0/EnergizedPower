@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "minecraft:oak_logs"
-  },
-  "output": {
+  "ingredient": "#minecraft:oak_logs",
+  "result": {
     "count": 6,
-    "item": "minecraft:oak_planks"
+    "id": "minecraft:oak_planks"
   },
   "sawdustAmount": 1
 }

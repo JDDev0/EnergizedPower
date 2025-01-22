@@ -4,12 +4,13 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -29,12 +30,12 @@ public class AutoStonecutterScreen
 
     @Override
     protected ItemStack getRecipeIcon(RecipeHolder<StonecutterRecipe> currentRecipe) {
-        return currentRecipe.value().getResultItem(menu.getBlockEntity().getLevel().registryAccess());
+        return currentRecipe.value().display().get(0).result().resolveForFirstStack(SlotDisplayContext.fromLevel(menu.getBlockEntity().getLevel()));
     }
 
     @Override
     protected void renderCurrentRecipeTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, RecipeHolder<StonecutterRecipe> currentRecipe) {
-        ItemStack output = currentRecipe.value().getResultItem(menu.getBlockEntity().getLevel().registryAccess());
+        ItemStack output = currentRecipe.value().display().get(0).result().resolveForFirstStack(SlotDisplayContext.fromLevel(menu.getBlockEntity().getLevel()));
         if(!output.isEmpty()) {
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
@@ -58,7 +59,7 @@ public class AutoStonecutterScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 84, y + 43, 176, 53, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 84, y + 43, 176, 53, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

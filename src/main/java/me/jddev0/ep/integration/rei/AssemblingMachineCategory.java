@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssemblingMachineCategory implements DisplayCategory<AssemblingMachineDisplay> {
-    public static final CategoryIdentifier<AssemblingMachineDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "assembling_machine");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends AssemblingMachineDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return AssemblingMachineDisplay.CATEGORY;
     }
 
     @Override

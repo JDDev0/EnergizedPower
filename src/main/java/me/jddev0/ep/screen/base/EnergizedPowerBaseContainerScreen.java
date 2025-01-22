@@ -5,7 +5,8 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -59,32 +60,32 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
 
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor((fluidColorTint >> 16 & 0xFF) / 255.f,
-                (fluidColorTint >> 8 & 0xFF) / 255.f, (fluidColorTint & 0xFF) / 255.f,
-                (fluidColorTint >> 24 & 0xFF) / 255.f);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
 
         Matrix4f mat = guiGraphics.pose().last().pose();
 
         for(int yOffset = h;yOffset > fluidMeterPos;yOffset -= 16) {
             for(int xOffset = 0;xOffset < w;xOffset += 16) {
-                int width = Math.min(w - xOffset, 16);
-                int height = Math.min(yOffset - fluidMeterPos, 16);
+                int finalXOffset = xOffset;
+                int finalYOffset = yOffset;
 
-                float u0 = stillFluidSprite.getU0();
-                float u1 = stillFluidSprite.getU1();
-                float v0 = stillFluidSprite.getV0();
-                float v1 = stillFluidSprite.getV1();
-                u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
-                v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
+                guiGraphics.drawSpecial(vertexConsumers -> {
+                    int width = Math.min(w - finalXOffset, 16);
+                    int height = Math.min(finalYOffset - fluidMeterPos, 16);
 
-                Tesselator tesselator = Tesselator.getInstance();
-                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                bufferBuilder.addVertex(mat, xOffset, yOffset, 0).setUv(u0, v1);
-                bufferBuilder.addVertex(mat, xOffset + width, yOffset, 0).setUv(u1, v1);
-                bufferBuilder.addVertex(mat, xOffset + width, yOffset - height, 0).setUv(u1, v0);
-                bufferBuilder.addVertex(mat, xOffset, yOffset - height, 0).setUv(u0, v0);
-                BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
+                    float u0 = stillFluidSprite.getU0();
+                    float u1 = stillFluidSprite.getU1();
+                    float v0 = stillFluidSprite.getV0();
+                    float v1 = stillFluidSprite.getV1();
+                    u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
+                    v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
+
+                    VertexConsumer bufferBuilder = vertexConsumers.getBuffer(RenderType.guiTextured(stillFluidSprite.atlasLocation()));
+                    bufferBuilder.addVertex(mat, finalXOffset, finalYOffset, 0).setColor(fluidColorTint).setUv(u0, v1);
+                    bufferBuilder.addVertex(mat, finalXOffset + width, finalYOffset, 0).setColor(fluidColorTint).setUv(u1, v1);
+                    bufferBuilder.addVertex(mat, finalXOffset + width, finalYOffset - height, 0).setColor(fluidColorTint).setUv(u1, v0);
+                    bufferBuilder.addVertex(mat, finalXOffset, finalYOffset - height, 0).setColor(fluidColorTint).setUv(u0, v0);
+                });
             }
         }
     }

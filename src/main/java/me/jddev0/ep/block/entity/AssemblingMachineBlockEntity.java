@@ -11,8 +11,10 @@ import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AssemblingMachineMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -58,11 +60,9 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2, 3 -> level == null || level.getRecipeManager().
-                            getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE).stream().
-                            map(RecipeHolder::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
+                    case 0, 1, 2, 3 -> ((level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 4 -> false;
                     default -> false;
                 };
@@ -155,9 +155,9 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
             itemHandler.extractItem(indexMinCount, input.count(), false);
         }
 
-        itemHandler.setStackInSlot(4, recipe.value().getResultItem(level.registryAccess()).copyWithCount(
+        itemHandler.setStackInSlot(4, recipe.value().assemble(null, level.registryAccess()).copyWithCount(
                 itemHandler.getStackInSlot(4).getCount() +
-                        recipe.value().getResultItem(level.registryAccess()).getCount()));
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
@@ -165,6 +165,6 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<AssemblingMachineRecipe> recipe) {
         return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().getResultItem(level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().assemble(null, level.registryAccess()));
     }
 }

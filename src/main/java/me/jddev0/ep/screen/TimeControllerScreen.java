@@ -7,9 +7,9 @@ import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
@@ -74,19 +74,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            guiGraphics.blit(TEXTURE, x + 34, y + 34, 176, 52, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 34, y + 34, 176, 52, 18, 18, 256, 256);
         }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            guiGraphics.blit(TEXTURE, x + 70, y + 34, 176, 70, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 70, y + 34, 176, 70, 18, 18, 256, 256);
         }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            guiGraphics.blit(TEXTURE, x + 106, y + 34, 176, 88, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 106, y + 34, 176, 88, 18, 18, 256, 256);
         }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            guiGraphics.blit(TEXTURE, x + 142, y + 34, 176, 106, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 142, y + 34, 176, 106, 18, 18, 256, 256);
         }
     }
 

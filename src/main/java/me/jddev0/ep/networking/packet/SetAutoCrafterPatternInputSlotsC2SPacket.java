@@ -5,9 +5,11 @@ import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -86,7 +88,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPac
             for(int i = 0;i < data.itemStacks.size();i++)
                 autoCrafterMenu.getPatternSlots().setItem(i, data.itemStacks.get(i));
 
-            autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
+            autoCrafterBlockEntity.setRecipeIdForSetRecipe(ResourceKey.create(Registries.RECIPE, data.recipeId));
 
             autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
         });

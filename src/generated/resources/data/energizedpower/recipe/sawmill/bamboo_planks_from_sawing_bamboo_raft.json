@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:bamboo_raft"
-  },
-  "output": {
+  "ingredient": "minecraft:bamboo_raft",
+  "result": {
     "count": 4,
-    "item": "minecraft:bamboo_planks"
+    "id": "minecraft:bamboo_planks"
   },
   "sawdustAmount": 3
 }

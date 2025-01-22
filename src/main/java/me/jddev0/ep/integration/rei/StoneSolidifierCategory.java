@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -16,13 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoneSolidifierCategory implements DisplayCategory<StoneSolidifierDisplay> {
-    public static final CategoryIdentifier<StoneSolidifierDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "stone_solidifier");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends StoneSolidifierDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return StoneSolidifierDisplay.CATEGORY;
     }
 
     @Override

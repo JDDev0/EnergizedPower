@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "F": {
-      "item": "energizedpower:fluid_tank_small"
-    },
-    "S": {
-      "tag": "c:ingots/steel"
-    }
+    "F": "energizedpower:fluid_tank_small",
+    "S": "#c:ingots/steel"
   },
   "pattern": [
     "SFS",

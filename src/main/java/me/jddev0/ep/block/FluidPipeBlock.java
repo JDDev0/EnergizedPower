@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -20,9 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -35,6 +34,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -48,7 +48,9 @@ import java.util.List;
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
-                forGetter(FluidPipeBlock::getTier)).apply(instance, FluidPipeBlock::new);
+                forGetter(FluidPipeBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, FluidPipeBlock::new);
     });
 
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> UP = EPBlockStateProperties.PIPE_CONNECTION_UP;
@@ -88,8 +90,8 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         };
     }
 
-    public FluidPipeBlock(Tier tier) {
-        super(tier.getProperties());
+    public FluidPipeBlock(Tier tier, Properties properties) {
+        super(properties);
 
         this.tier = tier;
 
@@ -297,11 +299,12 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos selfPos, BlockPos facingPos) {
+    public BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickView, BlockPos selfPos, Direction facing,
+                                  BlockPos facingPos, BlockState facingState, RandomSource random) {
         if(state.getValue(WATERLOGGED))
-            level.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+            tickView.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
-        return super.updateShape(state, facing, facingState, level, selfPos, facingPos);
+        return super.updateShape(state, level, tickView, selfPos, facing, facingPos, facingState, random);
     }
 
     @Override
@@ -310,47 +313,31 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
     }
 
     @Override
-    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation orientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, orientation, isMoving);
 
         if(level.isClientSide())
             return;
 
         FluidState fluidState = level.getFluidState(selfPos);
 
-        int dx = fromPos.getX() - selfPos.getX();
-        int dy = fromPos.getY() - selfPos.getY();
-        int dz = fromPos.getZ() - selfPos.getZ();
-        Direction dir = Direction.fromDelta(dx, dy, dz);
-
-        BlockState newState;
-        if(dir == null) {
-            newState = defaultBlockState().
-                    setValue(UP, selfState.getValue(UP)).
-                    setValue(DOWN, selfState.getValue(DOWN)).
-                    setValue(NORTH, selfState.getValue(NORTH)).
-                    setValue(SOUTH, selfState.getValue(SOUTH)).
-                    setValue(EAST, selfState.getValue(EAST)).
-                    setValue(WEST, selfState.getValue(WEST)).
-                    setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
-        }else {
+        BlockState newState = defaultBlockState().
+                setValue(UP, selfState.getValue(UP)).
+                setValue(DOWN, selfState.getValue(DOWN)).
+                setValue(NORTH, selfState.getValue(NORTH)).
+                setValue(SOUTH, selfState.getValue(SOUTH)).
+                setValue(EAST, selfState.getValue(EAST)).
+                setValue(WEST, selfState.getValue(WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+        for(Direction dir:Direction.values()) {
             EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty = getPipeConnectionPropertyFromDirection(dir);
 
-            newState = defaultBlockState().
-                    setValue(UP, selfState.getValue(UP)).
-                    setValue(DOWN, selfState.getValue(DOWN)).
-                    setValue(NORTH, selfState.getValue(NORTH)).
-                    setValue(SOUTH, selfState.getValue(SOUTH)).
-                    setValue(EAST, selfState.getValue(EAST)).
-                    setValue(WEST, selfState.getValue(WEST)).
-                    setValue(pipeConnectionProperty, shouldConnectTo(level, selfPos, selfState, dir)).
-                    setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
+            newState = newState.setValue(pipeConnectionProperty, shouldConnectTo(level, selfPos, selfState, dir));
+            level.setBlockAndUpdate(selfPos, newState);
         }
-        level.setBlockAndUpdate(selfPos, newState);
-
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
-        if(blockEntity == null || !(blockEntity instanceof FluidPipeBlockEntity))
+        if(!(blockEntity instanceof FluidPipeBlockEntity))
             return;
 
         FluidPipeBlockEntity.updateConnections(level, selfPos, newState, (FluidPipeBlockEntity)blockEntity);

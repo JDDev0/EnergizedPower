@@ -54,10 +54,11 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<MetalPressRecipe> recipe, IFocusGroup iFocusGroup) {
+        /*TODO fix
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 13).addItemStacks(
                 Arrays.stream(recipe.value().getInput().getItems()).
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
-                        collect(Collectors.toList()));
+                        collect(Collectors.toList()));*/
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CATALYST, 37, 1).addItemStack(recipe.value().getPressMold());
 

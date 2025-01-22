@@ -63,9 +63,9 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInp
             return;
 
         itemHandler.extractItem(0, 1, false);
-        itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
-                        recipe.value().getResultItem(level.registryAccess()).getCount()));
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         if(!recipe.value().getSecondaryOutput().isEmpty())
             itemHandler.setStackInSlot(2, recipe.value().getSecondaryOutput().
@@ -78,7 +78,7 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInp
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<SawmillRecipe> recipe) {
         return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess())) &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess())) &&
                 (recipe.value().getSecondaryOutput().isEmpty() ||
                         InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getSecondaryOutput()));
     }

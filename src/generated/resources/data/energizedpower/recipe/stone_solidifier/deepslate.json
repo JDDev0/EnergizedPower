@@ -1,8 +1,9 @@
 {
   "type": "energizedpower:stone_solidifier",
   "lavaAmount": 150,
-  "output": {
-    "item": "minecraft:deepslate"
+  "result": {
+    "count": 1,
+    "id": "minecraft:deepslate"
   },
   "waterAmount": 1000
 }

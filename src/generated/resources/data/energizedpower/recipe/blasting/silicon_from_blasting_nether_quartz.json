@@ -4,9 +4,7 @@
   "cookingtime": 250,
   "experience": 4.1,
   "group": "silicon",
-  "ingredient": {
-    "tag": "c:gems/quartz"
-  },
+  "ingredient": "#c:gems/quartz",
   "result": {
     "count": 1,
     "id": "energizedpower:silicon"

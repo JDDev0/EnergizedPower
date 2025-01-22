@@ -4,9 +4,7 @@
   "cookingtime": 200,
   "experience": 0.7,
   "group": "tin_ingot",
-  "ingredient": {
-    "tag": "c:dusts/tin"
-  },
+  "ingredient": "#c:dusts/tin",
   "result": {
     "count": 1,
     "id": "energizedpower:tin_ingot"

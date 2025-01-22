@@ -1,17 +1,16 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ingots/gold"
-  },
-  "output": {
-    "output": {
-      "item": "energizedpower:gold_dust"
-    },
+  "ingredient": "#c:ingots/gold",
+  "result": {
     "percentages": [
       1.0
     ],
     "percentagesAdvanced": [
       1.0
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "energizedpower:gold_dust"
+    }
   }
 }

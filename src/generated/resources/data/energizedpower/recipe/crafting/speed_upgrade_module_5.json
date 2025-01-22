@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "R": {
-      "item": "energizedpower:reinforced_advanced_upgrade_module"
-    },
-    "S": {
-      "tag": "c:silicon"
-    },
-    "r": {
-      "tag": "c:dusts/redstone"
-    },
-    "s": {
-      "item": "energizedpower:speed_upgrade_module_4"
-    }
+    "C": "#c:plates/copper",
+    "R": "energizedpower:reinforced_advanced_upgrade_module",
+    "S": "#c:silicon",
+    "r": "#c:dusts/redstone",
+    "s": "energizedpower:speed_upgrade_module_4"
   },
   "pattern": [
     "CSC",

@@ -6,6 +6,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -65,18 +66,18 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
         int ordinal = redstoneMode.ordinal();
 
         if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20, 256, 256);
         }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20, 256, 256);
         }
 
         ComparatorMode comparatorMode = menu.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
         if(isHovering(-22, 50, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20, 256, 256);
         }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20, 256, 256);
         }
     }
 

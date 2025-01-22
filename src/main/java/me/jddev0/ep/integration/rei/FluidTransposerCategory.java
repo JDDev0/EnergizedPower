@@ -18,13 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FluidTransposerCategory implements DisplayCategory<FluidTransposerDisplay> {
-    public static final CategoryIdentifier<FluidTransposerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "fluid_transposer");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends FluidTransposerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return FluidTransposerDisplay.CATEGORY;
     }
 
     @Override

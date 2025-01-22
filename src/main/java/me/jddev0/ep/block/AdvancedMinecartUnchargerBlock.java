@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,7 +32,7 @@ import java.util.List;
 public class AdvancedMinecartUnchargerBlock extends BaseEntityBlock {
     public static final MapCodec<AdvancedMinecartUnchargerBlock> CODEC = simpleCodec(AdvancedMinecartUnchargerBlock::new);
 
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
     protected AdvancedMinecartUnchargerBlock(Properties props) {
         super(props);
@@ -73,7 +73,7 @@ public class AdvancedMinecartUnchargerBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AdvancedMinecartUnchargerBlockEntity))
@@ -81,7 +81,7 @@ public class AdvancedMinecartUnchargerBlock extends BaseEntityBlock {
 
         player.openMenu((AdvancedMinecartUnchargerBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override

@@ -20,6 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.Container;
@@ -122,7 +123,9 @@ public class FluidTransposerBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
+                    case 0 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> false;
                     default -> super.isItemValid(slot, stack);
                 };
@@ -156,7 +159,8 @@ public class FluidTransposerBlockEntity
                 if(!super.isFluidValid(stack) || level == null)
                     return false;
 
-                return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
+                return !(level instanceof ServerLevel serverLevel) || //Always false on client side (Recipes are no longer synced)
+                        RecipeUtils.getAllRecipesFor(serverLevel, recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
                         anyMatch(fluidStack -> FluidStack.isSameFluidSameComponents(stack, fluidStack));
             }
@@ -194,7 +198,10 @@ public class FluidTransposerBlockEntity
 
     @Override
     protected Optional<RecipeHolder<FluidTransposerRecipe>> getRecipeFor(Container inventory) {
-        return level.getRecipeManager().getAllRecipesFor(recipeType).
+        if(!(level instanceof ServerLevel serverLevel))
+            return Optional.empty();
+
+        return RecipeUtils.getAllRecipesFor(serverLevel, recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
@@ -221,9 +228,9 @@ public class FluidTransposerBlockEntity
             fluidStorage.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
 
         itemHandler.extractItem(0, 1, false);
-        itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
-                        recipe.value().getResultItem(level.registryAccess()).getCount()));
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
@@ -235,7 +242,7 @@ public class FluidTransposerBlockEntity
 
         return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess()));
     }
 
     public void setMode(boolean isFillingMode) {

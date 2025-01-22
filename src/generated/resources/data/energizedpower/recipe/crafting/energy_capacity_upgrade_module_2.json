@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_upgrade_module"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "E": {
-      "item": "energizedpower:energy_capacity_upgrade_module_1"
-    },
-    "T": {
-      "tag": "c:plates/tin"
-    },
-    "c": {
-      "tag": "minecraft:coals"
-    }
+    "B": "energizedpower:basic_upgrade_module",
+    "C": "#c:plates/copper",
+    "E": "energizedpower:energy_capacity_upgrade_module_1",
+    "T": "#c:plates/tin",
+    "c": "#minecraft:coals"
   },
   "pattern": [
     "CTC",

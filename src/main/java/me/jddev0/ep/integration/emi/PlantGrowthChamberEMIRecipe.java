@@ -33,7 +33,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     private final int ticks;
 
     public PlantGrowthChamberEMIRecipe(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().location();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
         this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).map(EmiStack::of).toList();
         this.outputsWithPercentages = recipe.value().getOutputs();
@@ -97,7 +97,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
             Component oddsText = Component.translatable("recipes.energizedpower.transfer.output_percentages");
 
             if(i >= 4 || i + 4 < outputsWithPercentages.length) {
-                outputSlot.appendTooltip(Component.translatable(outputsWithPercentages[i].output().getDescriptionId()).
+                outputSlot.appendTooltip(Component.empty().append(outputsWithPercentages[i].output().getHoverName()).
                         append(Component.literal(": ").append(oddsText)));
             }else {
                 outputSlot.appendTooltip(oddsText);

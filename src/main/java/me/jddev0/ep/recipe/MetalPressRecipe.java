@@ -3,28 +3,26 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 
-public class MetalPressRecipe implements Recipe<RecipeInput> {
+import java.util.List;
+
+public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final ItemStack output;
     private final ItemStack pressMold;
-    private final Ingredient input;
-    private final int inputCount;
+    private final IngredientWithCount input;
 
-    public MetalPressRecipe(ItemStack output, ItemStack pressMold, Ingredient input, int inputCount) {
+    public MetalPressRecipe(ItemStack output, ItemStack pressMold, IngredientWithCount input) {
         this.output = output;
         this.pressMold = pressMold;
         this.input = input;
-        this.inputCount = inputCount;
     }
 
     public ItemStack getOutput() {
@@ -35,12 +33,8 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         return pressMold;
     }
 
-    public Ingredient getInput() {
+    public IngredientWithCount getInput() {
         return input;
-    }
-
-    public int getInputCount() {
-        return inputCount;
     }
 
     @Override
@@ -48,8 +42,8 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         if(level.isClientSide)
             return false;
 
-        return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount &&
-                ItemStack.isSameItem(container.getItem(1), pressMold);
+        return input.input().test(container.getItem(0)) && container.getItem(0).getCount() >= input.count() &&
+                ItemStack.isSameItem(pressMold, container.getItem(1));
     }
 
     @Override
@@ -58,18 +52,8 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return output.copy();
-    }
-
-    @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(EPBlocks.METAL_PRESS_ITEM.get());
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
@@ -78,13 +62,33 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory recipeBookCategory() {
+        return EPRecipes.METAL_PRESS_CATEGORY.get();
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of(input.input());
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return input.input().test(itemStack);
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
     public static final class Type implements RecipeType<MetalPressRecipe> {
@@ -101,14 +105,12 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         public static final ResourceLocation ID = EPAPI.id("metal_press");
 
         private final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
+            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), CodecFix.ITEM_STACK_CODEC.fieldOf("pressMold").forGetter((recipe) -> {
                 return recipe.pressMold;
-            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
+            }), IngredientWithCount.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), ExtraCodecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
-                return recipe.inputCount;
             })).apply(instance, MetalPressRecipe::new);
         });
 
@@ -126,17 +128,15 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         }
 
         private static MetalPressRecipe read(RegistryFriendlyByteBuf buffer) {
-            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            int inputCount = buffer.readInt();
+            IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
             ItemStack pressMold = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
             ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
-            return new MetalPressRecipe(output, pressMold, input, inputCount);
+            return new MetalPressRecipe(output, pressMold, input);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, MetalPressRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
-            buffer.writeInt(recipe.inputCount);
+            IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.pressMold);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }

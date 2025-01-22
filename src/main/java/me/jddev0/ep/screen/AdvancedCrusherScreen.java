@@ -4,8 +4,8 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -40,12 +40,12 @@ public class AdvancedCrusherScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y, int tank) {
-        guiGraphics.blit(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 90, y + 34, 176, 106, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 90, y + 34, 176, 106, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

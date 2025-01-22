@@ -5,8 +5,8 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -56,7 +56,7 @@ public class BlockPlacerScreen
         if(menu.isInverseRotation()) {
             //Inverse rotation checkbox
 
-            guiGraphics.blit(TEXTURE, x + 158, y + 16, 176, 53, 11, 11);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 16, 176, 53, 11, 11, 256, 256);
         }
     }
 

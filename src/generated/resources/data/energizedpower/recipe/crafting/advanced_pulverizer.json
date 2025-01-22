@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
-    },
-    "C": {
-      "tag": "c:plates/energized_copper"
-    },
-    "F": {
-      "item": "energizedpower:fluid_tank_small"
-    },
-    "P": {
-      "item": "energizedpower:pulverizer"
-    },
-    "a": {
-      "tag": "c:plates/advanced_alloy"
-    }
+    "A": "energizedpower:advanced_machine_frame",
+    "C": "#c:plates/energized_copper",
+    "F": "energizedpower:fluid_tank_small",
+    "P": "energizedpower:pulverizer",
+    "a": "#c:plates/advanced_alloy"
   },
   "pattern": [
     "aPa",

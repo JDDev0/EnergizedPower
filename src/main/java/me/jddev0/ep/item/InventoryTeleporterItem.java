@@ -36,21 +36,21 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(interactionHand == InteractionHand.OFF_HAND)
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
 
         if(level.isClientSide || !(player instanceof ServerPlayer serverPlayer))
-            return InteractionResultHolder.success(itemStack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         if(player.isShiftKeyDown())
             player.openMenu(this);
         else
             teleportPlayer(itemStack, serverPlayer);
 
-        return InteractionResultHolder.success(itemStack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
     }
 
     @Override

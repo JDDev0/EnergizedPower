@@ -2,7 +2,6 @@ package me.jddev0.ep.registry.tags;
 
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 

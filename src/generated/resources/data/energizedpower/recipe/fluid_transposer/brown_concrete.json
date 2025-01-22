@@ -4,11 +4,10 @@
     "amount": 1000,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:brown_concrete_powder"
-  },
+  "ingredient": "minecraft:brown_concrete_powder",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:brown_concrete"
+  "result": {
+    "count": 1,
+    "id": "minecraft:brown_concrete"
   }
 }

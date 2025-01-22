@@ -1,8 +1,9 @@
 {
   "type": "energizedpower:stone_solidifier",
   "lavaAmount": 50,
-  "output": {
-    "item": "minecraft:andesite"
+  "result": {
+    "count": 1,
+    "id": "minecraft:andesite"
   },
   "waterAmount": 1000
 }

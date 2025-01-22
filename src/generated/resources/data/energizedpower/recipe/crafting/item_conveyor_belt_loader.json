@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "C": {
-      "tag": "c:cobblestones/normal"
-    },
-    "H": {
-      "item": "minecraft:hopper"
-    },
-    "c": {
-      "item": "energizedpower:item_conveyor_belt"
-    }
+    "C": "#c:cobblestones/normal",
+    "H": "minecraft:hopper",
+    "c": "energizedpower:item_conveyor_belt"
   },
   "pattern": [
     "CCC",

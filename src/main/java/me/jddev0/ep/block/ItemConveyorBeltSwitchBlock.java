@@ -15,14 +15,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSwitchBlock extends BaseEntityBlock {
     public static final MapCodec<ItemConveyorBeltSwitchBlock> CODEC = simpleCodec(ItemConveyorBeltSwitchBlock::new);
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     protected ItemConveyorBeltSwitchBlock(Properties props) {
         super(props);
@@ -47,8 +48,8 @@ public class ItemConveyorBeltSwitchBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation orientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, orientation, isMoving);
 
         if(level.isClientSide())
             return;

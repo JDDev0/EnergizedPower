@@ -1,10 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:bowl"
-  },
-  "output": {
-    "item": "minecraft:stick"
+  "ingredient": "minecraft:bowl",
+  "result": {
+    "count": 1,
+    "id": "minecraft:stick"
   },
   "sawdustAmount": 2
 }

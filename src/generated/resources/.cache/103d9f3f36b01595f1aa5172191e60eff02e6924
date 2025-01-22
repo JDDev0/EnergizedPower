@@ -1,7 +1,7 @@
-// 1.21.1	2024-09-08T16:57:23.017503962	Registries
+// 1.21.2	2025-01-22T20:37:01.289122582	Registries
 ce4e9b1d8ecb10afaa37089c10db4f812bc13bb6 data/energizedpower/neoforge/biome_modifier/add_tin_ore.json
-315171f8b72c2c383c6e8644ee24528e46a14d3e data/energizedpower/painting_variant/factory.json
-5ad2dc86a2177ff5f25a527336dc78b3dd2dc062 data/energizedpower/painting_variant/gear.json
+74c397de30bc0f8c1484a85450c0b2099ec60072 data/energizedpower/painting_variant/factory.json
+40ec13debc1998414c281ce78ac0bd6ea9245328 data/energizedpower/painting_variant/gear.json
 aaa78c8c33a9aa7cd3386b065f9ab80bd1db1ad4 data/energizedpower/worldgen/configured_feature/tin_ore.json
 316a8070a2e8dec6a6b08dfd04b23753c416ee12 data/energizedpower/worldgen/placed_feature/tin_ore.json
 7ccd724e560b63f6b4858380f484c3c84b2dd1c0 data/energizedpower/worldgen/structure/factory_1.json

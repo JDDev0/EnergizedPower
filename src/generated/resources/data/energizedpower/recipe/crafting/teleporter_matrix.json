@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:gems/amethyst"
-    },
-    "E": {
-      "item": "energizedpower:energized_crystal_matrix"
-    },
-    "e": {
-      "tag": "c:ender_pearls"
-    }
+    "A": "#c:gems/amethyst",
+    "E": "energizedpower:energized_crystal_matrix",
+    "e": "#c:ender_pearls"
   },
   "pattern": [
     "AEA",

@@ -44,7 +44,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
             double additionalYOffset;
             if(blockState.is(BlockTags.RAILS)) {
-                additionalYOffset = railShape.isAscending()?.6:.1;
+                additionalYOffset = railShape.isSlope()?.6:.1;
             }else {
                 if(!blockState.isAir() || !level.getBlockState(blockPos.below()).is(BlockTags.RAILS))
                     return DEFAULT_ITEM_BEHAVIOR.dispense(blockSource, itemStack);
@@ -54,7 +54,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
                         blockStateBelow.getValue(((BaseRailBlock)blockStateBelow.getBlock()).getShapeProperty()):
                         RailShape.NORTH_SOUTH;
 
-                additionalYOffset = direction != Direction.DOWN && railShapeBelow.isAscending()?-.4:-.9;
+                additionalYOffset = direction != Direction.DOWN && railShapeBelow.isSlope()?-.4:-.9;
             }
 
             MinecartAdvancedBatteryBox minecartAdvancedBatteryBox = new MinecartAdvancedBatteryBox(level, xOffset,
@@ -101,7 +101,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
             RailShape railShape = blockState.getBlock() instanceof BaseRailBlock?
                     ((BaseRailBlock)blockState.getBlock()).getRailDirection(blockState, level, blockPos, null):
                     RailShape.NORTH_SOUTH;
-            double yOffset = railShape.isAscending()?.5:0.;
+            double yOffset = railShape.isSlope()?.5:0.;
 
             MinecartAdvancedBatteryBox minecartAdvancedBatteryBox = new MinecartAdvancedBatteryBox(level,
                     blockPos.getX() + .5, blockPos.getY() + .0625 + yOffset, blockPos.getZ() + .5);
@@ -114,6 +114,6 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
         }
 
         itemStack.shrink(1);
-        return InteractionResult.sidedSuccess(level.isClientSide);
+        return level.isClientSide?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER;
     }
 }

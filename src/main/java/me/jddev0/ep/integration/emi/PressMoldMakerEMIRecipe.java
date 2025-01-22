@@ -27,7 +27,7 @@ public class PressMoldMakerEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public PressMoldMakerEMIRecipe(RecipeHolder<PressMoldMakerRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().location();
         this.input = List.of(EmiIngredient.of(Ingredient.of(Items.CLAY_BALL), recipe.value().getClayCount()));
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));
     }

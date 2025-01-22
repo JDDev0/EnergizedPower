@@ -29,7 +29,7 @@ public class FluidTransposerEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public FluidTransposerEMIRecipe(RecipeHolder<FluidTransposerRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().location();
 
         this.mode = recipe.value().getMode();
 

@@ -11,8 +11,10 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -30,6 +32,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -87,11 +90,10 @@ public class ThermalGeneratorBlockEntity
 
             @Override
             public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || level == null)
+                if(!super.isFluidValid(stack) || !(level instanceof ServerLevel serverLevel))
                     return false;
 
-                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().
-                        getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+                Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
                 return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
                         anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
@@ -109,10 +111,10 @@ public class ThermalGeneratorBlockEntity
                 else if(index == 3)
                     return comparatorMode.ordinal();
 
-                if(level == null || index > 1)
+                if(!(level instanceof ServerLevel serverLevel) || index > 1)
                     return 0;
 
-                List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+                Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
                 int rawProduction = 0;
                 outer:
@@ -180,10 +182,10 @@ public class ThermalGeneratorBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
             return;
 
-        List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+        Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
         int rawProduction = 0;
         outer:

@@ -59,10 +59,11 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<A
         for(int i = 0;i < len;i++) {
             IngredientWithCount input = recipe.value().getInputs()[i];
 
+            /*TODO fix
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, i == 1?1:(i == 2?37:19), i == 0?1:(i == 3?37:19)).
                     addItemStacks(Arrays.stream(input.input().getItems()).
                             map(itemStack -> itemStack.copyWithCount(input.count())).
-                            collect(Collectors.toList()));
+                            collect(Collectors.toList()));*/
         }
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStack(recipe.value().getOutput());

@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_upgrade_module"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "G": {
-      "tag": "c:ingots/gold"
-    },
-    "R": {
-      "tag": "c:ingots/redstone_alloy"
-    }
+    "B": "energizedpower:basic_upgrade_module",
+    "C": "#c:plates/copper",
+    "G": "#c:ingots/gold",
+    "R": "#c:ingots/redstone_alloy"
   },
   "pattern": [
     "CGC",

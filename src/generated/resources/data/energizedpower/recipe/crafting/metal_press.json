@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "I": {
-      "tag": "c:storage_blocks/iron"
-    },
-    "P": {
-      "item": "minecraft:piston"
-    },
-    "S": {
-      "tag": "c:ingots/steel"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "I": "#c:storage_blocks/iron",
+    "P": "minecraft:piston",
+    "S": "#c:ingots/steel"
   },
   "pattern": [
     "SPS",

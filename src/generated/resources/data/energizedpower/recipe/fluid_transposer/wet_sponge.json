@@ -4,11 +4,10 @@
     "amount": 1000,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:sponge"
-  },
+  "ingredient": "minecraft:sponge",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:wet_sponge"
+  "result": {
+    "count": 1,
+    "id": "minecraft:wet_sponge"
   }
 }

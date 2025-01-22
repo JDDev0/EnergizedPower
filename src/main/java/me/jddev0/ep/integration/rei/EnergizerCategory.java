@@ -20,13 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
-    public static final CategoryIdentifier<EnergizerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "energizer");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends EnergizerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return EnergizerDisplay.CATEGORY;
     }
 
     @Override

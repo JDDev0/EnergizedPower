@@ -1,26 +1,21 @@
 {
   "type": "energizedpower:assembling_machine",
-  "inputs": [
+  "ingredients": [
     {
       "count": 4,
-      "input": {
-        "item": "energizedpower:advanced_circuit"
-      }
+      "ingredient": "energizedpower:advanced_circuit"
     },
     {
       "count": 6,
-      "input": {
-        "tag": "c:wires/energized_gold"
-      }
+      "ingredient": "#c:wires/energized_gold"
     },
     {
       "count": 6,
-      "input": {
-        "tag": "c:silicon"
-      }
+      "ingredient": "#c:silicon"
     }
   ],
-  "output": {
-    "item": "energizedpower:processing_unit"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:processing_unit"
   }
 }

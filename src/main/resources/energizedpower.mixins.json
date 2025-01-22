@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "me.jddev0.ep.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "entity.PlayerTeleporterCrashFixMixin",
+    "recipe.RepairItemRecipeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

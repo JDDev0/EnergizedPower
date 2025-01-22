@@ -26,7 +26,7 @@ public class StoneSolidifierEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
 
     public StoneSolidifierEMIRecipe(RecipeHolder<StoneSolidifierRecipe> recipe) {
-        this.id = recipe.id();
+        this.id = recipe.id().location();
         this.input = List.of(
                 EmiStack.of(Fluids.WATER, recipe.value().getWaterAmount()),
                 EmiStack.of(Fluids.LAVA, recipe.value().getLavaAmount())

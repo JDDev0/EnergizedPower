@@ -7,7 +7,7 @@ import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -46,7 +46,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
 
         poseStack.pushPose();
 
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(Sheets.translucentCullBlockSheet());
+        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.translucent());
 
         poseStack.mulPose(facing.getRotation());
         poseStack.mulPose(new Quaternionf().rotationX((float)Math.PI * .5f));

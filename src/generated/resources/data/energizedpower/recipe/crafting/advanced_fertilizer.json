@@ -2,24 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "item": "energizedpower:good_fertilizer"
-    },
-    "M": {
-      "item": "minecraft:red_mushroom"
-    },
-    "R": {
-      "item": "minecraft:rose_bush"
-    },
-    "S": {
-      "item": "minecraft:sweet_berries"
-    },
-    "T": {
-      "item": "minecraft:red_tulip"
-    },
-    "r": {
-      "tag": "c:dyes/red"
-    }
+    "G": "energizedpower:good_fertilizer",
+    "M": "minecraft:red_mushroom",
+    "R": "minecraft:rose_bush",
+    "S": "minecraft:sweet_berries",
+    "T": "minecraft:red_tulip",
+    "r": "#c:dyes/red"
   },
   "pattern": [
     "MGS",

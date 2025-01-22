@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:spruce_boat"
-  },
-  "output": {
+  "ingredient": "minecraft:spruce_boat",
+  "result": {
     "count": 4,
-    "item": "minecraft:spruce_planks"
+    "id": "minecraft:spruce_planks"
   },
   "sawdustAmount": 3
 }

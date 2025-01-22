@@ -4,7 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,12 +24,12 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderProgressFlame(guiGraphics, x, y);
         renderProgressArrow(guiGraphics, x, y);
@@ -37,13 +38,13 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
     private void renderProgressFlame(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isBurningFuel()) {
             int pos = menu.getScaledProgressFlameSize();
-            guiGraphics.blit(TEXTURE, x + 36, y + 37 + 14 - pos, 176, 14 - pos, 14, pos);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 36, y + 37 + 14 - pos, 176, 14 - pos, 14, pos, 256, 256);
         }
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 79, y + 34, 176, 14, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 79, y + 34, 176, 14, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

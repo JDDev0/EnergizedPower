@@ -9,7 +9,8 @@ import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -71,12 +72,12 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         for(int i = 0;i < 2;i++) {
             if(i == 0)
@@ -92,16 +93,16 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y, int tank) {
         if(tank == 0)
-            guiGraphics.blit(TEXTURE, x + 80, y + 17, 176, 0, 16, 52);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 80, y + 17, 176, 0, 16, 52, 256, 256);
         else if(tank == 1)
-            guiGraphics.blit(TEXTURE, x + 152, y + 35, 176, 64, 16, 16);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 152, y + 35, 176, 64, 16, 16, 256, 256);
     }
 
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            guiGraphics.blit(TEXTURE, x + 158, y + 16, 176, 53, 11, 11);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 16, 176, 53, 11, 11, 256, 256);
         }
     }
 

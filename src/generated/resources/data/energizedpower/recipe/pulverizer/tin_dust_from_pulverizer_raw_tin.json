@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:raw_materials/tin"
-  },
-  "output": {
-    "output": {
-      "item": "energizedpower:tin_dust"
-    },
+  "ingredient": "#c:raw_materials/tin",
+  "result": {
     "percentages": [
       1.0,
       0.25
@@ -14,6 +9,10 @@
     "percentagesAdvanced": [
       1.0,
       0.5
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "energizedpower:tin_dust"
+    }
   }
 }

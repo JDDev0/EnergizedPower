@@ -6,8 +6,8 @@ import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -68,23 +68,23 @@ public class WeatherControllerScreen
 
         //Weather clear button
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + 52, y + 34, 176, 52, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 52, y + 34, 176, 52, 18, 18, 256, 256);
         }else if(selectedWeatherType == 0) {
-            guiGraphics.blit(TEXTURE, x + 52, y + 34, 194, 52, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 52, y + 34, 194, 52, 18, 18, 256, 256);
         }
 
         //Weather rain button
         if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + 88, y + 34, 176, 70, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 88, y + 34, 176, 70, 18, 18, 256, 256);
         }else if(selectedWeatherType == 1) {
-            guiGraphics.blit(TEXTURE, x + 88, y + 34, 194, 70, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 88, y + 34, 194, 70, 18, 18, 256, 256);
         }
 
         //Weather thunder button
         if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + 124, y + 34, 176, 88, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 124, y + 34, 176, 88, 18, 18, 256, 256);
         }else if(selectedWeatherType == 2) {
-            guiGraphics.blit(TEXTURE, x + 124, y + 34, 194, 88, 18, 18);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 124, y + 34, 194, 88, 18, 18, 256, 256);
         }
     }
 

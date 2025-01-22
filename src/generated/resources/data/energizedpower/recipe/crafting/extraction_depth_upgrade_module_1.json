@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_upgrade_module"
-    },
-    "F": {
-      "item": "energizedpower:fluid_pipe"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "R": {
-      "tag": "c:dusts/redstone"
-    }
+    "B": "energizedpower:basic_upgrade_module",
+    "F": "energizedpower:fluid_pipe",
+    "I": "#c:plates/iron",
+    "R": "#c:dusts/redstone"
   },
   "pattern": [
     "IFI",

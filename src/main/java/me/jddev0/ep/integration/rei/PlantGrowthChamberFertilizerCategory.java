@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<PlantGrowthChamberFertilizerDisplay> {
-    public static final CategoryIdentifier<PlantGrowthChamberFertilizerDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "plant_growth_chamber_fertilizer");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends PlantGrowthChamberFertilizerDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return PlantGrowthChamberFertilizerDisplay.CATEGORY;
     }
 
     @Override

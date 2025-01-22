@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_machine_frame"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    },
-    "S": {
-      "item": "minecraft:stonecutter"
-    }
+    "B": "energizedpower:basic_machine_frame",
+    "I": "#c:plates/iron",
+    "S": "minecraft:stonecutter"
   },
   "pattern": [
     "ISI",

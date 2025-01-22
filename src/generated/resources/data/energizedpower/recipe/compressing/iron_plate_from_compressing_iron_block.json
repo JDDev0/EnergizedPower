@@ -1,10 +1,10 @@
 {
   "type": "energizedpower:compressor",
   "ingredient": {
-    "tag": "c:storage_blocks/iron"
+    "ingredient": "#c:storage_blocks/iron"
   },
-  "output": {
+  "result": {
     "count": 9,
-    "item": "energizedpower:iron_plate"
+    "id": "energizedpower:iron_plate"
   }
 }

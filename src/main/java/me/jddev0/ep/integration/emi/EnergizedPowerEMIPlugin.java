@@ -113,6 +113,8 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     private void registerRecipes(EmiRegistry registry) {
         RecipeManager recipeManager = registry.getRecipeManager();
 
+        //TODO fix
+        /*
         for(RecipeHolder<ChargerRecipe> recipe:recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE))
             registry.addRecipe(new ChargerEMIRecipe(recipe));
 
@@ -163,7 +165,6 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeHolder<FluidTransposerRecipe> recipe:recipeManager.getAllRecipesFor(FluidTransposerRecipe.Type.INSTANCE))
             registry.addRecipe(new FluidTransposerEMIRecipe(recipe));
-
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 EPAPI.id("dispenser/energizedpower/cable_insulator"),
                 Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
@@ -172,7 +173,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
                 EPAPI.id("in_world_crafting/energizedpower/cable_insulator"),
                 Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
-                new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))));
+                new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))));*/
     }
 
     private void registerRecipeHandlers(EmiRegistry registry) {

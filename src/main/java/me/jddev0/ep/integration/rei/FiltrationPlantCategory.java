@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -18,13 +17,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class FiltrationPlantCategory implements DisplayCategory<FiltrationPlantDisplay> {
-    public static final CategoryIdentifier<FiltrationPlantDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "filtration_plant");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends FiltrationPlantDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return FiltrationPlantDisplay.CATEGORY;
     }
 
     @Override

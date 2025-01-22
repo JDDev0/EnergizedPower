@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:allium"
-  },
-  "outputs": [
+  "ingredient": "minecraft:allium",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:allium"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:allium"
+      }
     }
   ],
   "ticks": 16000

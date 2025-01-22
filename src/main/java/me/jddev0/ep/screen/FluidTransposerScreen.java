@@ -7,8 +7,8 @@ import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -62,12 +62,12 @@ public class FluidTransposerScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + 152, y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 152, y + 17, 176, 53, 16, 52, 256, 256);
     }
 
     private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(isHovering(114, 47, 20, 20, mouseX, mouseY))
-            guiGraphics.blit(TEXTURE, x + 114, y + 47, 176, 135, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 114, y + 47, 176, 135, 20, 20, 256, 256);
 
         ItemStack output = new ItemStack(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
         guiGraphics.pose().pushPose();
@@ -81,14 +81,14 @@ public class FluidTransposerScreen
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         int arrowPosY = menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?106:120;
 
-        guiGraphics.blit(TEXTURE, x + 114, y + 19, 176, arrowPosY, 20, 14);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 114, y + 19, 176, arrowPosY, 20, 14, 256, 256);
 
         if(menu.isCraftingActive()) {
             if(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING)
-                guiGraphics.blit(TEXTURE, x + 114, y + 19, 196, arrowPosY, menu.getScaledProgressArrowSize(), 14);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 114, y + 19, 196, arrowPosY, menu.getScaledProgressArrowSize(), 14, 256, 256);
             else
-                guiGraphics.blit(TEXTURE, x + 134 - menu.getScaledProgressArrowSize(), y + 19,
-                        216 - menu.getScaledProgressArrowSize(), arrowPosY, menu.getScaledProgressArrowSize(), 14);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 134 - menu.getScaledProgressArrowSize(), y + 19,
+                        216 - menu.getScaledProgressArrowSize(), arrowPosY, menu.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

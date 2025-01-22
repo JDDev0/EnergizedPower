@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:birch_chest_boat"
-  },
-  "output": {
+  "ingredient": "minecraft:birch_chest_boat",
+  "result": {
     "count": 5,
-    "item": "minecraft:birch_planks"
+    "id": "minecraft:birch_planks"
   },
   "sawdustAmount": 7
 }

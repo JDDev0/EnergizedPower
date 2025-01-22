@@ -3,8 +3,8 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -31,6 +31,6 @@ public class MetalPressScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 80, y + 41, 176, 53, menu.getScaledProgressArrowSize(), 10);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 80, y + 41, 176, 53, menu.getScaledProgressArrowSize(), 10, 256, 256);
     }
 }

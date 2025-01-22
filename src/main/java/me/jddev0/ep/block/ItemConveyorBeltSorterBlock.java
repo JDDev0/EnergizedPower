@@ -18,7 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +27,7 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     public static final MapCodec<ItemConveyorBeltSorterBlock> CODEC = simpleCodec(ItemConveyorBeltSorterBlock::new);
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     protected ItemConveyorBeltSorterBlock(Properties props) {
         super(props);
@@ -63,7 +64,7 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof ItemConveyorBeltSorterBlockEntity))
@@ -71,24 +72,22 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
 
         player.openMenu((ItemConveyorBeltSorterBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation orientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, orientation, isMoving);
 
         if(level.isClientSide())
             return;
 
-        int dx = fromPos.getX() - selfPos.getX();
-        int dy = fromPos.getY() - selfPos.getY();
-        int dz = fromPos.getZ() - selfPos.getZ();
-        Direction dir = Direction.fromDelta(dx, dy, dz);
-        if(dir == Direction.UP || dir == Direction.DOWN || dir == selfState.getValue(FACING))
-            return;
+        for(Direction dir:Direction.values()) {
+            if(dir == Direction.UP || dir == Direction.DOWN || dir == selfState.getValue(FACING))
+                continue;
 
-        updateOutputBeltConnectionStateOfDirection(level, selfPos, selfState, dir);
+            updateOutputBeltConnectionStateOfDirection(level, selfPos, selfState, dir);
+        }
     }
 
     @Override

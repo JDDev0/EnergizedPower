@@ -4,11 +4,10 @@
     "amount": 1000,
     "id": "minecraft:water"
   },
-  "ingredient": {
-    "item": "minecraft:green_concrete_powder"
-  },
+  "ingredient": "minecraft:green_concrete_powder",
   "mode": "FILLING",
-  "output": {
-    "item": "minecraft:green_concrete"
+  "result": {
+    "count": 1,
+    "id": "minecraft:green_concrete"
   }
 }

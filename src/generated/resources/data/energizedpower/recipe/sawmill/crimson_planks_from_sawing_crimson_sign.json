@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:crimson_sign"
-  },
-  "output": {
+  "ingredient": "minecraft:crimson_sign",
+  "result": {
     "count": 2,
-    "item": "minecraft:crimson_planks"
+    "id": "minecraft:crimson_planks"
   },
   "sawdustAmount": 1
 }

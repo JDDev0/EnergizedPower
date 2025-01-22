@@ -2,6 +2,7 @@ package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -94,7 +95,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         int y = (height - imageHeight) / 2;
 
         if(menu.isInUpgradeModuleView()) {
-            guiGraphics.blit(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+            guiGraphics.blit(RenderType::guiTextured, UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
         }else {
             renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
         }
@@ -105,11 +106,11 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     protected void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         //Upgrade view
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20, 256, 256);
         }else if(menu.isInUpgradeModuleView()) {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20, 256, 256);
         }else {
-            guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20, 256, 256);
         }
     }
 

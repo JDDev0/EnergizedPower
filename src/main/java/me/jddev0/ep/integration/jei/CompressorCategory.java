@@ -54,10 +54,11 @@ public class CompressorCategory implements IRecipeCategory<RecipeHolder<Compress
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CompressorRecipe> recipe, IFocusGroup iFocusGroup) {
+        /*TODO fix
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addItemStacks(
                 Arrays.stream(recipe.value().getInput().getItems()).
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
-                        collect(Collectors.toList()));
+                        collect(Collectors.toList()));*/
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getOutput());
     }

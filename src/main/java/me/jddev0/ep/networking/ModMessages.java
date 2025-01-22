@@ -28,8 +28,8 @@ public final class ModMessages {
                 SyncPressMoldMakerRecipeListS2CPacket::handle);
         registrar.playToClient(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.STREAM_CODEC,
                 SyncCurrentRecipeS2CPacket::handle);
-        registrar.playToClient(SyncFurnaceRecipeTypeS2CPacket.ID, SyncFurnaceRecipeTypeS2CPacket.STREAM_CODEC,
-                SyncFurnaceRecipeTypeS2CPacket::handle);
+        registrar.playToClient(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket.STREAM_CODEC,
+                SyncIngredientsS2CPacket::handle);
 
         //Client -> Server
         registrar.playToServer(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC,

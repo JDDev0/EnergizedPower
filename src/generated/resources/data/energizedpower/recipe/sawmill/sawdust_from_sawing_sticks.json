@@ -1,10 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "tag": "c:rods/wooden"
-  },
-  "output": {
-    "item": "energizedpower:sawdust"
+  "ingredient": "#c:rods/wooden",
+  "result": {
+    "count": 1,
+    "id": "energizedpower:sawdust"
   },
   "sawdustAmount": 0
 }

@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:raw_materials/gold"
-  },
-  "output": {
-    "output": {
-      "item": "energizedpower:gold_dust"
-    },
+  "ingredient": "#c:raw_materials/gold",
+  "result": {
     "percentages": [
       1.0,
       0.25
@@ -14,6 +9,10 @@
     "percentagesAdvanced": [
       1.0,
       0.5
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "energizedpower:gold_dust"
+    }
   }
 }

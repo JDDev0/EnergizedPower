@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "energizedpower:advanced_machine_frame"
-    },
-    "E": {
-      "tag": "c:plates/energized_copper"
-    },
-    "P": {
-      "tag": "c:plates/advanced_alloy"
-    },
-    "a": {
-      "item": "minecraft:amethyst_block"
-    }
+    "A": "energizedpower:advanced_machine_frame",
+    "E": "#c:plates/energized_copper",
+    "P": "#c:plates/advanced_alloy",
+    "a": "minecraft:amethyst_block"
   },
   "pattern": [
     "aPa",

@@ -57,7 +57,9 @@ public class AutoStonecutterBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
+                    case 0 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> stack.is(ItemTags.PICKAXES);
                     case 2 -> false;
                     default -> super.isItemValid(slot, stack);
@@ -90,9 +92,9 @@ public class AutoStonecutterBlockEntity
         itemHandler.setStackInSlot(1, pickaxe);
 
         itemHandler.extractItem(0, 1, false);
-        itemHandler.setStackInSlot(2, recipe.value().getResultItem(level.registryAccess()).
+        itemHandler.setStackInSlot(2, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
-                        recipe.value().getResultItem(level.registryAccess()).getCount()));
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
@@ -102,6 +104,6 @@ public class AutoStonecutterBlockEntity
         return level != null &&
                 recipe.value().matches(new SingleRecipeInput(inventory.getItem(0)), level) &&
                 itemHandler.getStackInSlot(1).is(ItemTags.PICKAXES) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getResultItem(level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
     }
 }

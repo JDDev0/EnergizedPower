@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:tools/cutters"
-    },
-    {
-      "tag": "c:plates/tin"
-    }
+    "#c:tools/cutters",
+    "#c:plates/tin"
   ],
   "result": {
     "count": 2,

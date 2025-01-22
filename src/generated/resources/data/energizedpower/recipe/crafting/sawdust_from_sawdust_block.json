@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "energizedpower:sawdust_block"
-    }
+    "energizedpower:sawdust_block"
   ],
   "result": {
     "count": 9,

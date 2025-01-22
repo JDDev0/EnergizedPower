@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
-    public static final CategoryIdentifier<CrusherDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "crusher");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends CrusherDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return CrusherDisplay.CATEGORY;
     }
 
     @Override

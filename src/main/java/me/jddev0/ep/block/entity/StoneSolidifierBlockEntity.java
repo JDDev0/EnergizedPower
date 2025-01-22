@@ -122,9 +122,9 @@ public class StoneSolidifierBlockEntity
         fluidStorage.drain(new FluidStack(Fluids.WATER, recipe.value().getWaterAmount()), IFluidHandler.FluidAction.EXECUTE);
         fluidStorage.drain(new FluidStack(Fluids.LAVA, recipe.value().getLavaAmount()), IFluidHandler.FluidAction.EXECUTE);
 
-        itemHandler.setStackInSlot(0, recipe.value().getResultItem(level.registryAccess()).
+        itemHandler.setStackInSlot(0, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(0).getCount() +
-                        recipe.value().getResultItem(level.registryAccess()).getCount()));
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
@@ -134,6 +134,6 @@ public class StoneSolidifierBlockEntity
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= recipe.value().getWaterAmount() &&
                 fluidStorage.getFluid(1).getAmount() >= recipe.value().getLavaAmount() &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().getResultItem(level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null, level.registryAccess()));
     }
 }

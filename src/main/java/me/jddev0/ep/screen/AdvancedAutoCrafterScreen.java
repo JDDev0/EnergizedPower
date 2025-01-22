@@ -5,8 +5,8 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.*;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -74,27 +74,27 @@ public class AdvancedAutoCrafterScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            guiGraphics.blit(TEXTURE, x + 158, y + 16, 176, 70, 11, 11);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 16, 176, 70, 11, 11, 256, 256);
         }
 
         if(menu.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            guiGraphics.blit(TEXTURE, x + 158, y + 38, 187, 81, 11, 11);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 38, 187, 81, 11, 11, 256, 256);
         }else {
             //Extract mode checkbox [1]
 
-            guiGraphics.blit(TEXTURE, x + 158, y + 38, 176, 81, 11, 11);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 38, 176, 81, 11, 11, 256, 256);
         }
 
-        guiGraphics.blit(TEXTURE, x + 96, y + 16, 176 + 11 * menu.getRecipeIndex(), 81, 11, 11);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 96, y + 16, 176 + 11 * menu.getRecipeIndex(), 81, 11, 11, 256, 256);
     }
 
     @Override

@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SawmillCategory implements DisplayCategory<SawmillDisplay> {
-    public static final CategoryIdentifier<SawmillDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "sawmill");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends SawmillDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return SawmillDisplay.CATEGORY;
     }
 
     @Override

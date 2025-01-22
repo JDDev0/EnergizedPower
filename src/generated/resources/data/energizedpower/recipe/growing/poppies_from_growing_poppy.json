@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:poppy"
-  },
-  "outputs": [
+  "ingredient": "minecraft:poppy",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:poppy"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:poppy"
+      }
     }
   ],
   "ticks": 16000

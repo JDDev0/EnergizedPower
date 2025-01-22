@@ -1,32 +1,25 @@
 {
   "type": "energizedpower:assembling_machine",
-  "inputs": [
+  "ingredients": [
     {
       "count": 2,
-      "input": {
-        "item": "energizedpower:advanced_solar_cell"
-      }
+      "ingredient": "energizedpower:advanced_solar_cell"
     },
     {
       "count": 4,
-      "input": {
-        "item": "energizedpower:energized_crystal_matrix"
-      }
+      "ingredient": "energizedpower:energized_crystal_matrix"
     },
     {
       "count": 2,
-      "input": {
-        "tag": "c:silicon"
-      }
+      "ingredient": "#c:silicon"
     },
     {
       "count": 2,
-      "input": {
-        "tag": "c:dusts/redstone"
-      }
+      "ingredient": "#c:dusts/redstone"
     }
   ],
-  "output": {
-    "item": "energizedpower:reinforced_advanced_solar_cell"
+  "result": {
+    "count": 1,
+    "id": "energizedpower:reinforced_advanced_solar_cell"
   }
 }

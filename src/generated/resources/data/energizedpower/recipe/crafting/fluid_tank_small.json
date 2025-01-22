@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:glass_panes/colorless"
-    },
-    "I": {
-      "tag": "c:plates/iron"
-    }
+    "G": "#c:glass_panes/colorless",
+    "I": "#c:plates/iron"
   },
   "pattern": [
     "IGI",

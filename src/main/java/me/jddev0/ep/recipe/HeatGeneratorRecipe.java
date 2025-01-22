@@ -5,7 +5,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,7 +16,9 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
+import java.util.List;
+
+public class HeatGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final Fluid[] input;
     private final int energyProduction;
 
@@ -45,18 +46,8 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM.get());
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
@@ -65,13 +56,33 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeBookCategory recipeBookCategory() {
+        return EPRecipes.HEAT_GENERATOR_CATEGORY.get();
+    }
+
+    @Override
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public List<Ingredient> getIngredients() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isIngredient(ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean isResult(ItemStack itemStack) {
+        return false;
     }
 
     public static final class Type implements RecipeType<HeatGeneratorRecipe> {
@@ -89,7 +100,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
-                    BuiltInRegistries.FLUID.byNameCodec()).fieldOf("input").forGetter((recipe) -> {
+                    BuiltInRegistries.FLUID.byNameCodec()).fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
@@ -118,7 +129,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
-                input[i] = BuiltInRegistries.FLUID.get(buffer.readResourceLocation());
+                input[i] = BuiltInRegistries.FLUID.getValue(buffer.readResourceLocation());
 
             int energyProduction = buffer.readInt();
 

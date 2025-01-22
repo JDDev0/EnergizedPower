@@ -3,6 +3,7 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -107,14 +108,14 @@ public abstract class SelectableRecipeMachineContainerScreen
     private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         //Down button
         if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
-                    recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
+                    recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
 
         //Up button
         if(isHovering(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
-                    recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
+                    recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
     }
 

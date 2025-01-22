@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "c:storage_blocks/silicon"
-    }
+    "#c:storage_blocks/silicon"
   ],
   "result": {
     "count": 9,

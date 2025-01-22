@@ -1,12 +1,7 @@
 {
   "type": "energizedpower:pulverizer",
-  "ingredient": {
-    "tag": "c:ores/emerald"
-  },
-  "output": {
-    "output": {
-      "item": "minecraft:emerald"
-    },
+  "ingredient": "#c:ores/emerald",
+  "result": {
     "percentages": [
       1.0,
       0.67,
@@ -17,6 +12,10 @@
       0.67,
       0.33,
       0.17
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:emerald"
+    }
   }
 }

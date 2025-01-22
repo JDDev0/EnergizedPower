@@ -44,7 +44,7 @@ public class CoalEngineBlockEntity
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
         ItemStack item = itemHandler.getStackInSlot(i);
-        return item.getBurnTime(null) <= 0;
+        return level != null && item.getBurnTime(null, level.fuelValues()) <= 0;
     });
 
     private int progress;
@@ -101,7 +101,7 @@ public class CoalEngineBlockEntity
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0)
-                    return stack.getBurnTime(null) > 0;
+                    return stack.getBurnTime(null, level.fuelValues()) > 0;
 
                 return super.isItemValid(slot, stack);
             }
@@ -205,7 +205,7 @@ public class CoalEngineBlockEntity
 
             ItemStack item = inventory.getItem(0);
 
-            int energyProduction = item.getBurnTime(null);
+            int energyProduction = item.getBurnTime(null, level.fuelValues());
             energyProduction = (int)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
@@ -227,8 +227,8 @@ public class CoalEngineBlockEntity
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
-                    if(item.hasCraftingRemainingItem())
-                        blockEntity.itemHandler.setStackInSlot(0, item.getCraftingRemainingItem());
+                    if(!item.getCraftingRemainder().isEmpty())
+                        blockEntity.itemHandler.setStackInSlot(0, item.getCraftingRemainder());
                     else
                         blockEntity.itemHandler.extractItem(0, 1, false);
                 }
@@ -350,9 +350,9 @@ public class CoalEngineBlockEntity
 
         ItemStack item = inventory.getItem(0);
 
-        if(item.getBurnTime(null) <= 0)
+        if(blockEntity.level != null && item.getBurnTime(null, blockEntity.level.fuelValues()) <= 0)
             return false;
 
-        return !item.hasCraftingRemainingItem() || item.getCount() == 1;
+        return item.getCraftingRemainder().isEmpty() || item.getCount() == 1;
     }
 }

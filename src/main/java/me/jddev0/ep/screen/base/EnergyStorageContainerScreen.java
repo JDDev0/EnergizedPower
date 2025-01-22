@@ -5,7 +5,8 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -58,13 +59,13 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
         if(!menu.isInUpgradeModuleView()) {
-            guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
             renderEnergyMeter(guiGraphics, x, y);
             renderEnergyIndicatorBar(guiGraphics, x, y);
         }
@@ -72,15 +73,15 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
 
     protected void renderEnergyMeter(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyMeterPos(energyMeterHeight);
-        guiGraphics.blit(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
-                energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos, 256, 256);
     }
 
     protected void renderEnergyIndicatorBar(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            guiGraphics.blit(TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
-                    energyMeterV + energyMeterHeight, energyMeterWidth, 1);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                    energyMeterV + energyMeterHeight, energyMeterWidth, 1, 256, 256);
     }
 
     @Override

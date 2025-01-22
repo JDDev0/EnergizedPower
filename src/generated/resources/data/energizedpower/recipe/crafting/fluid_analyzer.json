@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:battery_3"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "L": {
-      "tag": "c:gems/lapis"
-    },
-    "S": {
-      "tag": "c:silicon"
-    },
-    "b": {
-      "item": "energizedpower:basic_circuit"
-    }
+    "B": "energizedpower:battery_3",
+    "C": "#c:plates/copper",
+    "L": "#c:gems/lapis",
+    "S": "#c:silicon",
+    "b": "energizedpower:basic_circuit"
   },
   "pattern": [
     "S S",

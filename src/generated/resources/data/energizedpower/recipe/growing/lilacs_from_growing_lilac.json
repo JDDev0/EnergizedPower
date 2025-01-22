@@ -1,18 +1,17 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:lilac"
-  },
-  "outputs": [
+  "ingredient": "minecraft:lilac",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:lilac"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:lilac"
+      }
     }
   ],
   "ticks": 16000

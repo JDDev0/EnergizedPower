@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -76,7 +77,7 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof LightningGeneratorBlockEntity))
@@ -84,20 +85,20 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
 
         player.openMenu((LightningGeneratorBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
-        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation orientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, orientation, isMoving);
 
         if(level.isClientSide())
             return;
 
-        if(!selfPos.above().equals(fromPos) || !(fromBlock instanceof LightningRodBlock))
+        if(!(fromBlock instanceof LightningRodBlock) || !(level.getBlockState(selfPos.above()).getBlock() instanceof LightningRodBlock))
             return;
 
-        BlockState fromState = level.getBlockState(fromPos);
+        BlockState fromState = level.getBlockState(selfPos.above());
         if(!fromState.hasProperty(LightningRodBlock.POWERED) || !fromState.getValue(LightningRodBlock.POWERED) ||
         !fromState.hasProperty(LightningRodBlock.POWERED) || fromState.getValue(DirectionalBlock.FACING) != Direction.UP)
             return;

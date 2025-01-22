@@ -1,7 +1,5 @@
 package me.jddev0.ep;
 
-import com.mojang.blaze3d.shaders.FogShape;
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.behavior.ModBlockBehaviors;
@@ -27,6 +25,7 @@ import me.jddev0.ep.villager.EPVillager;
 import net.minecraft.client.Camera;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.FogParameters;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -54,9 +53,9 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 @Mod(EPAPI.MOD_ID)
 public class EnergizedPowerMod {
@@ -384,10 +383,10 @@ public class EnergizedPowerMod {
             });
 
             EntityRenderers.register(EPEntityTypes.BATTERY_BOX_MINECART.get(),
-                    entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
+                    entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                             ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
             EntityRenderers.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
-                    entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
+                    entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                             ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
 
             ItemBlockRenderTypes.setRenderLayer(EPFluids.DIRTY_WATER.get(), RenderType.translucent());
@@ -424,14 +423,27 @@ public class EnergizedPowerMod {
                 }
 
                 @Override
-                public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
-                    return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFogColor();
+                public Vector4f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector4f fluidFogColor) {
+                    Vector3f fogColor = EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFogColor();
+                    return new Vector4f(
+                            fogColor.x,
+                            fogColor.y,
+                            fogColor.z,
+                            fluidFogColor.w
+                    );
                 }
 
                 @Override
-                public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
-                    RenderSystem.setShaderFogStart(.25f);
-                    RenderSystem.setShaderFogEnd(3.f);
+                public FogParameters modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, FogParameters fogParameters) {
+                    return new FogParameters(
+                            .25f,
+                            3.f,
+                            fogParameters.shape(),
+                            fogParameters.red(),
+                            fogParameters.green(),
+                            fogParameters.blue(),
+                            fogParameters.alpha()
+                    );
                 }
             }, EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get());
         }

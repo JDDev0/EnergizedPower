@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:wooden_sword"
-  },
-  "output": {
+  "ingredient": "minecraft:wooden_sword",
+  "result": {
     "count": 2,
-    "item": "minecraft:oak_planks"
+    "id": "minecraft:oak_planks"
   },
   "sawdustAmount": 1
 }

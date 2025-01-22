@@ -1,8 +1,9 @@
 {
   "type": "energizedpower:stone_solidifier",
   "lavaAmount": 50,
-  "output": {
-    "item": "minecraft:stone"
+  "result": {
+    "count": 1,
+    "id": "minecraft:stone"
   },
   "waterAmount": 1000
 }

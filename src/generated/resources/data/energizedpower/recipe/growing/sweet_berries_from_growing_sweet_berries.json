@@ -1,19 +1,18 @@
 {
   "type": "energizedpower:plant_growth_chamber",
-  "ingredient": {
-    "item": "minecraft:sweet_berries"
-  },
-  "outputs": [
+  "ingredient": "minecraft:sweet_berries",
+  "results": [
     {
-      "output": {
-        "item": "minecraft:sweet_berries"
-      },
       "percentages": [
         1.0,
         1.0,
         0.33,
         0.17
-      ]
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:sweet_berries"
+      }
     }
   ],
   "ticks": 16000

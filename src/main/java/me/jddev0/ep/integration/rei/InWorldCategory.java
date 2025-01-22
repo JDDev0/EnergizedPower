@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.rei;
 
-import me.jddev0.ep.api.EPAPI;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -16,13 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InWorldCategory implements DisplayCategory<InWorldDisplay> {
-    public static final CategoryIdentifier<InWorldDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "in_world");
-
     private static final int PADDING = 5;
 
     @Override
     public CategoryIdentifier<? extends InWorldDisplay> getCategoryIdentifier() {
-        return CATEGORY;
+        return InWorldDisplay.CATEGORY;
     }
 
     @Override

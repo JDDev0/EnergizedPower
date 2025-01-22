@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "energizedpower:basic_upgrade_module"
-    },
-    "C": {
-      "tag": "c:plates/copper"
-    },
-    "R": {
-      "tag": "c:dusts/redstone"
-    },
-    "S": {
-      "tag": "c:silicon"
-    },
-    "b": {
-      "item": "minecraft:blast_furnace"
-    }
+    "B": "energizedpower:basic_upgrade_module",
+    "C": "#c:plates/copper",
+    "R": "#c:dusts/redstone",
+    "S": "#c:silicon",
+    "b": "minecraft:blast_furnace"
   },
   "pattern": [
     "CSC",

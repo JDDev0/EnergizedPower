@@ -13,9 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -305,7 +303,7 @@ public class EnergizedPowerBookScreen extends Screen {
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         super.renderBackground(guiGraphics, mouseX, mouseY, delta);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if(formattedPages == null)
@@ -313,11 +311,11 @@ public class EnergizedPowerBookScreen extends Screen {
 
         int startX = (width - 226) / 2;
         if(currentPage == 0) {
-            guiGraphics.blit(FRONT_COVER, startX, 2, 0, 0, 226, 230);
+            guiGraphics.blit(RenderType::guiTextured, FRONT_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
         }else if(currentPage == getPageCount() - 1) {
-            guiGraphics.blit(BACK_COVER, startX, 2, 0, 0, 226, 230);
+            guiGraphics.blit(RenderType::guiTextured, BACK_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
         }else {
-            guiGraphics.blit(TEXTURE, startX, 2, 0, 0, 226, 230);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, startX, 2, 0, 0, 226, 230, 256, 256);
         }
 
         if(!isCurrentPageCached) {
@@ -430,7 +428,7 @@ public class EnergizedPowerBookScreen extends Screen {
             y = (int)((230 - 256 * scaleFactor) * .5f) + 2;
 
         guiGraphics.pose().scale(scaleFactor, scaleFactor, 1.f);
-        guiGraphics.blit(image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256, 256, 256);
         guiGraphics.pose().scale(1/scaleFactor, 1/scaleFactor, 1.f);
     }
 
@@ -438,7 +436,7 @@ public class EnergizedPowerBookScreen extends Screen {
         if(y == -1) //Centered
             y = (int)((230 - 64) * .5f) + 2;
 
-        Block block = BuiltInRegistries.BLOCK.get(blockResourceLocation);
+        Block block = BuiltInRegistries.BLOCK.getValue(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
 
         ItemRenderer itemRenderer = minecraft.getItemRenderer();

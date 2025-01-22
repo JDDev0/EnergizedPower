@@ -3,8 +3,11 @@ package me.jddev0.ep.paintings;
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+
+import java.util.Optional;
 
 public final class EPPaintingVariants {
     private EPPaintingVariants() {}
@@ -25,6 +28,8 @@ public final class EPPaintingVariants {
 
     private static void register(BootstrapContext<PaintingVariant> context, ResourceKey<PaintingVariant> key,
                                  int width, int height) {
-        context.register(key, new PaintingVariant(width, height, key.location()));
+        context.register(key, new PaintingVariant(width, height, key.location(),
+                Optional.of(Component.translatable("painting.energizedpower." + key.location().getPath() + ".title")),
+                Optional.of(Component.translatable("painting.energizedpower." + key.location().getPath() + ".author"))));
     }
 }

@@ -6,9 +6,9 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.api.distmarker.Dist;
@@ -49,7 +49,7 @@ public class FluidPumpScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + 206, y + 17, 230, 53, 16, 52);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 206, y + 17, 230, 53, 16, 52, 256, 256);
     }
 
     private void renderInfoText(GuiGraphics guiGraphics, int x, int y) {

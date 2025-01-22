@@ -6,8 +6,10 @@ import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
+import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,6 +23,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,10 +79,10 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
             return;
 
-        List<RecipeHolder<HeatGeneratorRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(HeatGeneratorRecipe.Type.INSTANCE);
+        Collection<RecipeHolder<HeatGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, HeatGeneratorRecipe.Type.INSTANCE);
 
         int productionSum = 0;
         for(Direction direction:Direction.values()) {

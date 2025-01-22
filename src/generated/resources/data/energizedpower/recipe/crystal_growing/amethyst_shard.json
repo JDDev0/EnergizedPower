@@ -1,12 +1,9 @@
 {
   "type": "energizedpower:crystal_growth_chamber",
   "ingredient": {
-    "tag": "c:gems/amethyst"
+    "ingredient": "#c:gems/amethyst"
   },
-  "output": {
-    "output": {
-      "item": "minecraft:amethyst_shard"
-    },
+  "result": {
     "percentages": [
       1.0,
       1.0,
@@ -14,7 +11,11 @@
       0.5,
       0.25,
       0.125
-    ]
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:amethyst_shard"
+    }
   },
   "ticks": 16000
 }

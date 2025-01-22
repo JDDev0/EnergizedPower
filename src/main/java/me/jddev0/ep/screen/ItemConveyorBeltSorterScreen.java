@@ -6,7 +6,8 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -56,12 +57,12 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderOutputBeltConnectionState(guiGraphics, x, y, mouseX, mouseY);
         renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
@@ -70,20 +71,20 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     private void renderOutputBeltConnectionState(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++)
             if(menu.isOutputBeltConnected(i))
-                guiGraphics.blit(TEXTURE, x + 10, y + 18 + i * 18, 176, i * 14, 30, 14);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 10, y + 18 + i * 18, 176, i * 14, 30, 14, 256, 256);
     }
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++) {
             if(menu.isWhitelist(i)) {
                 //Whitelist checkbox [3x]
 
-                guiGraphics.blit(TEXTURE, x + 136, y + 19 + i * 18, 176, 42, 13, 13);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 136, y + 19 + i * 18, 176, 42, 13, 13, 256, 256);
             }
 
             if(menu.isIgnoreNBT(i)) {
                 //Ignore NBT checkbox [3x]
 
-                guiGraphics.blit(TEXTURE, x + 153, y + 19 + i * 18, 176, 55, 13, 13);
+                guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 153, y + 19 + i * 18, 176, 55, 13, 13, 256, 256);
             }
         }
     }

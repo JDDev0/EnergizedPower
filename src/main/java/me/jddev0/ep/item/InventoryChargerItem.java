@@ -39,18 +39,18 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(interactionHand == InteractionHand.OFF_HAND)
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
 
         if(level.isClientSide)
-            return InteractionResultHolder.success(itemStack);
+            return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         player.openMenu(this);
 
-        return InteractionResultHolder.success(itemStack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
     }
 
     @Override

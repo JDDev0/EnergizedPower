@@ -1,11 +1,9 @@
 {
   "type": "energizedpower:sawmill",
-  "ingredient": {
-    "item": "minecraft:dark_oak_sign"
-  },
-  "output": {
+  "ingredient": "minecraft:dark_oak_sign",
+  "result": {
     "count": 2,
-    "item": "minecraft:dark_oak_planks"
+    "id": "minecraft:dark_oak_planks"
   },
   "sawdustAmount": 1
 }

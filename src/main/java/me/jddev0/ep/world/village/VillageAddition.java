@@ -20,7 +20,7 @@ import java.util.List;
 public class VillageAddition {
     @SubscribeEvent
     public static void addVillageHouses(ServerAboutToStartEvent event) {
-        Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().registry(Registries.TEMPLATE_POOL).orElseThrow();
+        Registry<StructureTemplatePool> templatePoolRegistry = event.getServer().registryAccess().lookup(Registries.TEMPLATE_POOL).orElseThrow();
 
         //Electrician 1
         int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT.getValue();
@@ -33,7 +33,7 @@ public class VillageAddition {
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry, String villageType,
                                         String buildingName, int weight) {
-        StructureTemplatePool pool = templatePoolRegistry.get(ResourceLocation.parse(String.format("minecraft:village/%s/houses", villageType)));
+        StructureTemplatePool pool = templatePoolRegistry.getValue(ResourceLocation.parse(String.format("minecraft:village/%s/houses", villageType)));
         if(pool == null)
             return;
 

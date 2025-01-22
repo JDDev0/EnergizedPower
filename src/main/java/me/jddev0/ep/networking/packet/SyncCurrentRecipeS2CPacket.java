@@ -4,9 +4,11 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -38,11 +40,11 @@ public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements Cu
         pos = buffer.readBlockPos();
 
         ResourceLocation recipeSerializerId = buffer.readResourceLocation();
-        recipeSerializer = (RecipeSerializer<R>)BuiltInRegistries.RECIPE_SERIALIZER.get(recipeSerializerId);
+        recipeSerializer = (RecipeSerializer<R>)BuiltInRegistries.RECIPE_SERIALIZER.getValue(recipeSerializerId);
         if(recipeSerializer == null)
             throw new IllegalArgumentException("Recipe Serializer \"" + recipeSerializerId + "\" does not exist!");
 
-        currentRecipe = buffer.readBoolean()?new RecipeHolder<>(buffer.readResourceLocation(),
+        currentRecipe = buffer.readBoolean()?new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, buffer.readResourceLocation()),
                 recipeSerializer.streamCodec().decode(buffer)):null;
     }
 
@@ -60,7 +62,7 @@ public final class SyncCurrentRecipeS2CPacket<R extends Recipe<?>> implements Cu
         }else {
             buffer.writeBoolean(true);
 
-            buffer.writeResourceLocation(currentRecipe.id());
+            buffer.writeResourceLocation(currentRecipe.id().location());
             recipeSerializer.streamCodec().encode(buffer, currentRecipe.value());
         }
     }

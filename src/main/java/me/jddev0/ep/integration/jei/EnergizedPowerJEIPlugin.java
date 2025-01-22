@@ -90,6 +90,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
+        /*TODO fix
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 
         registration.addRecipes(ChargerCategory.TYPE, recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE));
@@ -118,7 +119,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
                 new DispenserCategory.DispenserRecipe(Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
                         new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
-        ));
+        ));*/
     }
 
     @Override

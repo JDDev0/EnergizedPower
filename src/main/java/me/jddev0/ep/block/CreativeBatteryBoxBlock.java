@@ -51,7 +51,7 @@ public class CreativeBatteryBoxBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
         if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof CreativeBatteryBoxBlockEntity))
@@ -59,7 +59,7 @@ public class CreativeBatteryBoxBlock extends BaseEntityBlock {
 
         player.openMenu((CreativeBatteryBoxBlockEntity)blockEntity, blockPos);
 
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
