@@ -11,7 +11,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ModelTransformationMode;
@@ -91,10 +90,9 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
             if(itemStack.isEmpty())
                 continue;
 
-            BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
-            itemRenderer.renderItem(itemStack, ModelTransformationMode.GROUND, false, poseStack, bufferSource,
+            itemRenderer.renderItem(itemStack, ModelTransformationMode.GROUND,
                     LightmapTextureManager.pack(level.getLightLevel(LightType.BLOCK, pos), level.getLightLevel(LightType.SKY, pos)),
-                    OverlayTexture.DEFAULT_UV, bakedModel);
+                    OverlayTexture.DEFAULT_UV, poseStack, bufferSource, null, 0);
         }
 
         poseStack.pop();

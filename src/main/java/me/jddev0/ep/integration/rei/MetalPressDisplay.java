@@ -49,7 +49,7 @@ public record MetalPressDisplay(RecipeEntry<MetalPressRecipe> recipe) implements
     public List<EntryIngredient> getInputEntries() {
         return List.of(
                 EntryIngredients.of(recipe.value().getPressMold()),
-                EntryIngredients.ofItemStacks(recipe.value().getInput().input().getMatchingItems().stream().
+                EntryIngredients.ofItemStacks(recipe.value().getInput().input().entries.stream().
                         map(RegistryEntry::getKeyOrValue).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
                                 l -> new ItemStack(BasicDisplay.registryAccess().getOrThrow(RegistryKeys.ITEM).get(l)),

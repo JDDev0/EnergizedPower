@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "energizedpower:item/blast_furnace_upgrade_module"
+  }
+}

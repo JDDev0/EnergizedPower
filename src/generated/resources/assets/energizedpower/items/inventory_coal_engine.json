@@ -1,0 +1,22 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "energizedpower:item/inventory_coal_engine"
+    },
+    "on_true": {
+      "type": "minecraft:condition",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "energizedpower:item/inventory_coal_engine_active"
+      },
+      "on_true": {
+        "type": "minecraft:model",
+        "model": "energizedpower:item/inventory_coal_engine_on"
+      },
+      "property": "energizedpower:working"
+    },
+    "property": "energizedpower:active"
+  }
+}

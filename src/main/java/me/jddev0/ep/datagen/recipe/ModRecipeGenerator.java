@@ -15,8 +15,8 @@ import net.minecraft.advancement.AdvancementRequirements;
 import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.RecipeGenerator;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -2103,6 +2103,13 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 Ingredient.ofItems(Items.CHERRY_SIGN), Ingredient.ofItems(Items.CHERRY_BOAT), Ingredient.ofItems(Items.CHERRY_CHEST_BOAT),
                 false, "cherry");
 
+        addBasicWoodSawmillRecipe(new ItemStack(Items.PALE_OAK_PLANKS),
+                ingredientFromTag(ItemTags.PALE_OAK_LOGS), Ingredient.ofItems(Items.PALE_OAK_FENCE),
+                Ingredient.ofItems(Items.PALE_OAK_FENCE_GATE), Ingredient.ofItems(Items.PALE_OAK_DOOR),
+                Ingredient.ofItems(Items.PALE_OAK_TRAPDOOR), Ingredient.ofItems(Items.PALE_OAK_PRESSURE_PLATE),
+                Ingredient.ofItems(Items.PALE_OAK_SIGN), Ingredient.ofItems(Items.PALE_OAK_BOAT), Ingredient.ofItems(Items.PALE_OAK_CHEST_BOAT),
+                false, "pale_oak");
+
         addSawmillRecipe(ingredientFromTag(ItemTags.BAMBOO_BLOCKS), new ItemStack(Items.BAMBOO_PLANKS, 3),
                 1, "bamboo_planks", "bamboo_blocks");
         addBasicWoodWithoutLogsSawmillRecipe(new ItemStack(Items.BAMBOO_PLANKS),
@@ -2208,6 +2215,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
         addBasicFlowerGrowingRecipe(Items.OXEYE_DAISY, "oxeye_daisies");
         addBasicFlowerGrowingRecipe(Items.CORNFLOWER, "cornflowers");
         addBasicFlowerGrowingRecipe(Items.LILY_OF_THE_VALLEY, "lily_of_the_valley");
+        addBasicFlowerGrowingRecipe(Items.OPEN_EYEBLOSSOM, "open_eyeblossoms");
+        addBasicFlowerGrowingRecipe(Items.CLOSED_EYEBLOSSOM, "closed_eyeblossoms");
 
         addBasicFlowerGrowingRecipe(Items.SUNFLOWER, "sunflowers");
         addBasicFlowerGrowingRecipe(Items.LILAC, "lilacs");

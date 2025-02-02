@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen.model;
 
-import net.minecraft.data.client.TextureKey;
+import net.minecraft.client.data.TextureKey;
 
 public final class ModTextureKey {
     public static final TextureKey INTERIOR = TextureKey.of("interior");

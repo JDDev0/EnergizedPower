@@ -49,7 +49,7 @@ public record AlloyFurnaceDisplay(RecipeEntry<AlloyFurnaceRecipe> recipe) implem
     @Override
     public List<EntryIngredient> getInputEntries() {
         return Arrays.stream(recipe.value().getInputs()).map(input ->
-                EntryIngredients.ofItemStacks(input.input().getMatchingItems().stream().
+                EntryIngredients.ofItemStacks(input.input().entries.stream().
                         map(RegistryEntry::getKeyOrValue).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
                                 l -> new ItemStack(BasicDisplay.registryAccess().getOrThrow(RegistryKeys.ITEM).get(l)),

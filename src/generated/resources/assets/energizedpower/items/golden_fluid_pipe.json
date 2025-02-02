@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "energizedpower:block/golden_fluid_pipe_core"
+  }
+}

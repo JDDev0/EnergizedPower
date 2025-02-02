@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "#minecraft:pale_oak_logs",
+  "result": {
+    "count": 6,
+    "id": "minecraft:pale_oak_planks"
+  },
+  "sawdustAmount": 1
+}

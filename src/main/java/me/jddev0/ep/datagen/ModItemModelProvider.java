@@ -1,16 +1,13 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.datagen.model.ItemWithOverridesModelSupplier;
+import me.jddev0.ep.client.item.property.bool.ActiveProperty;
+import me.jddev0.ep.client.item.property.bool.WorkingProperty;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.ModelIds;
-import net.minecraft.data.client.Models;
+import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.model.ItemModel;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
 
 class ModItemModelProvider {
     private final ItemModelGenerator generator;
@@ -191,35 +188,30 @@ class ModItemModelProvider {
     }
 
     private void registerSpecialModels() {
-        Identifier inventoryCoalEngineActive = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_active");
-        Identifier inventoryCoalEngineOn = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_on");
-
-        generator.writer.accept(ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE), new ItemWithOverridesModelSupplier(
+        ItemModel.Unbaked inventoryCoalEngine = ItemModels.basic(Models.GENERATED.upload(
                 ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE),
-                List.of(
-                        new ItemWithOverridesModelSupplier.ItemPredicateOverrides(
-                                List.of(
-                                        new ItemWithOverridesModelSupplier.ItemPredicateValue(
-                                                EPAPI.id("active"),
-                                                1.f
-                                        )
-                                ),
-                                inventoryCoalEngineActive
-                        ),
-                        new ItemWithOverridesModelSupplier.ItemPredicateOverrides(
-                                List.of(
-                                        new ItemWithOverridesModelSupplier.ItemPredicateValue(
-                                                EPAPI.id("active"),
-                                                1.f
-                                        ),
-                                        new ItemWithOverridesModelSupplier.ItemPredicateValue(
-                                                EPAPI.id("working"),
-                                                1.f
-                                        )
-                                ),
-                                inventoryCoalEngineOn
-                        )
-                )
+                TextureMap.layer0(ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE)),
+                generator.modelCollector
+        ));
+        ItemModel.Unbaked inventoryCoalEngineOn = ItemModels.basic(Models.GENERATED.upload(
+                ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_on"),
+                TextureMap.layer0(ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_on")),
+                generator.modelCollector
+        ));
+        ItemModel.Unbaked inventoryCoalEngineActive = ItemModels.basic(Models.GENERATED.upload(
+                ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_active"),
+                TextureMap.layer0(ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_active")),
+                generator.modelCollector
+        ));
+
+        generator.output.accept(EPItems.INVENTORY_COAL_ENGINE, ItemModels.condition(
+                new ActiveProperty(),
+                ItemModels.condition(
+                        new WorkingProperty(),
+                        inventoryCoalEngineOn,
+                        inventoryCoalEngineActive
+                ),
+                inventoryCoalEngine
         ));
     }
 
@@ -227,11 +219,5 @@ class ModItemModelProvider {
         generator.register(item, Models.GENERATED);
 
         return ModelIds.getItemModelId(item);
-    }
-
-    private Identifier basicItem(Item item, String suffix) {
-        generator.register(item, suffix, Models.GENERATED);
-
-        return ModelIds.getItemSubModelId(item, suffix);
     }
 }

@@ -1,9 +1,9 @@
 package me.jddev0.ep.datagen.model;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.client.TextureKey;
-import net.minecraft.data.client.TextureMap;
-import net.minecraft.data.client.TexturedModel;
+import net.minecraft.client.data.TextureKey;
+import net.minecraft.client.data.TextureMap;
+import net.minecraft.client.data.TexturedModel;
 
 public final class ModTexturedModel {
     public static final TexturedModel.Factory ITEM_CONVEYOR_BELT_FLAT = TexturedModel.makeFactory(ModTexturedModel::itemConveyorBelt,

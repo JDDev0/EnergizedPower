@@ -26,10 +26,10 @@ public final class EPDataComponentTypes {
             builder.codec(CodecFix.NON_NEGATIVE_LONG).packetCodec(PacketCodecs.VAR_LONG));
 
     public static final ComponentType<Boolean> ACTIVE = registerDataComponentType("active", builder ->
-            builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
+            builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOLEAN));
 
     public static final ComponentType<Boolean> WORKING = registerDataComponentType("working", builder ->
-            builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL));
+            builder.codec(Codec.BOOL).packetCodec(PacketCodecs.BOOLEAN));
 
     public static final ComponentType<Integer> PROGRESS = registerDataComponentType("progress", builder ->
             builder.codec(Codecs.NON_NEGATIVE_INT).packetCodec(PacketCodecs.VAR_INT));

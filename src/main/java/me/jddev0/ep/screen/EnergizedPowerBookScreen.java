@@ -17,14 +17,13 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PageTurnWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.NarratorManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.registry.Registries;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.ClickEvent;
@@ -446,10 +445,8 @@ public class EnergizedPowerBookScreen extends Screen {
         ItemRenderer itemRenderer = client.getItemRenderer();
         TextureManager textureManager = client.getTextureManager();
 
-        BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
-
-        textureManager.getTexture(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).setFilter(false, false);
-        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+        textureManager.getTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).setFilter(false, false);
+        RenderSystem.setShaderTexture(0, SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
@@ -463,8 +460,8 @@ public class EnergizedPowerBookScreen extends Screen {
         VertexConsumerProvider.Immediate bufferSource = client.getBufferBuilders().getEntityVertexConsumers();
         DiffuseLighting.method_34742();
 
-        itemRenderer.renderItem(itemStack, ModelTransformationMode.GUI, false, drawContext.getMatrices(), bufferSource,
-                15728880, OverlayTexture.DEFAULT_UV, bakedModel);
+        itemRenderer.renderItem(itemStack, ModelTransformationMode.GUI, 15728880, OverlayTexture.DEFAULT_UV,
+                drawContext.getMatrices(), bufferSource, null, 0);
 
         bufferSource.draw();
         RenderSystem.enableDepthTest();

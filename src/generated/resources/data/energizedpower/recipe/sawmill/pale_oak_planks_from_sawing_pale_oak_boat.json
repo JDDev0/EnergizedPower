@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:pale_oak_boat",
+  "result": {
+    "count": 4,
+    "id": "minecraft:pale_oak_planks"
+  },
+  "sawdustAmount": 3
+}

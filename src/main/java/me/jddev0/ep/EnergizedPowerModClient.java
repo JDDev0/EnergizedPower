@@ -4,12 +4,12 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
+import me.jddev0.ep.client.item.property.bool.ActiveProperty;
+import me.jddev0.ep.client.item.property.bool.WorkingProperty;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.EPEntityTypes;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.input.ModKeyBindings;
-import me.jddev0.ep.item.ActivatableItem;
-import me.jddev0.ep.item.WorkingItem;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.*;
@@ -20,12 +20,11 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.MinecartEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.item.Item;
+import net.minecraft.client.render.item.property.bool.BooleanProperties;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
@@ -100,14 +99,8 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(EPMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
         HandledScreens.register(EPMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, MinecartAdvancedBatteryBoxScreen::new);
 
-        ModelPredicateProviderRegistry.register(EPAPI.id("active"), (itemStack, level, entity, seed) -> {
-            Item item = itemStack.getItem();
-            return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
-        });
-        ModelPredicateProviderRegistry.register(EPAPI.id("working"), (itemStack, level, entity, seed) -> {
-            Item item = itemStack.getItem();
-            return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
-        });
+        BooleanProperties.ID_MAPPER.put(EPAPI.id("active"), ActiveProperty.CODEC);
+        BooleanProperties.ID_MAPPER.put(EPAPI.id("working"), WorkingProperty.CODEC);
 
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new EnergizedPowerBookReloadListener());
 

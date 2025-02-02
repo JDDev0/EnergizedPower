@@ -1,8 +1,8 @@
 package me.jddev0.ep.datagen.model;
 
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.data.client.Model;
-import net.minecraft.data.client.TextureKey;
+import net.minecraft.client.data.Model;
+import net.minecraft.client.data.TextureKey;
 
 import java.util.Optional;
 

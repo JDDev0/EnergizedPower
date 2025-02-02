@@ -12,9 +12,9 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.*;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import org.joml.Matrix4f;
@@ -46,7 +46,7 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
         Fluid fluid = fluidStack.getFluid();
         Sprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
         if(stillFluidSprite == null)
-            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
+            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).
                     apply(MissingSprite.getMissingSpriteId());
 
         int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
@@ -55,7 +55,7 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
                 0:(int)(h - ((fluidStack.getDropletsAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getDropletsAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
-        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+        RenderSystem.setShaderTexture(0, SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 
         RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
 

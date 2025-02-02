@@ -1,8 +1,8 @@
 {
     "pack": {
         "description": "Resources used for Energized Power",
-        "pack_format": 57,
-        "forge:resource_pack_format": 42,
-        "forge:data_pack_format": 57
+        "pack_format": 61,
+        "forge:resource_pack_format": 46,
+        "forge:data_pack_format": 61
     }
 }

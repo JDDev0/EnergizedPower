@@ -15,10 +15,10 @@ public interface StructurePoolElementGetterSetter {
     @Accessor("elements")
     ObjectArrayList<StructurePoolElement> getElements();
 
-    @Accessor("elementCounts")
+    @Accessor("elementWeights")
     List<Pair<StructurePoolElement, Integer>> getElementCounts();
 
-    @Accessor("elementCounts")
+    @Accessor("elementWeights")
     @Mutable
     void setElementCounts(List<Pair<StructurePoolElement, Integer>> elementCounts);
 }

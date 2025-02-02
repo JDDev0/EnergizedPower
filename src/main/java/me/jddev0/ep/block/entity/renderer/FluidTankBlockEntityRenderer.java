@@ -16,9 +16,9 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.math.Direction;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
@@ -73,7 +73,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
         Fluid fluid = fluidStack.getFluid();
         Sprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
         if(stillFluidSprite == null)
-            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
+            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).
                     apply(MissingSprite.getMissingSpriteId());
 
         int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
@@ -131,7 +131,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
 
         //Indicator bar
         {
-            Sprite indicatorBarSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
+            Sprite indicatorBarSprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).
                     apply(EPAPI.id("block/fluid_tank_indicator_bar"));
 
             float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);

@@ -6,3 +6,5 @@ accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x
 accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I
 
 accessible    method    net/minecraft/util/thread/ThreadExecutor    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
+
+accessible    field    net/minecraft/recipe/Ingredient entries    Lnet/minecraft/registry/entry/RegistryEntryList;

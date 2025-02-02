@@ -2,17 +2,14 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
-import me.jddev0.ep.datagen.model.ItemWithDisplayModelSupplier;
 import me.jddev0.ep.datagen.model.ModModels;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import net.minecraft.block.Block;
-import net.minecraft.data.client.*;
+import net.minecraft.client.data.*;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import org.joml.Vector3f;
 
 class ModBlockStateProvider {
     private final BlockStateModelGenerator generator;
@@ -315,7 +312,7 @@ class ModBlockStateProvider {
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
                 BlockStateVariant.create().put(VariantSettings.MODEL, model)));
 
-        generator.registerParentedItemModel(block.asItem(), model);
+        generator.registerParentedItemModel(block, model);
     }
 
     private void horizontalTwoSideBlockWithItem(Block block, boolean uniqueBottomTexture) {
@@ -332,7 +329,7 @@ class ModBlockStateProvider {
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
                 BlockStateVariant.create().put(VariantSettings.MODEL, model)));
 
-        generator.registerParentedItemModel(block.asItem(), model);
+        generator.registerParentedItemModel(block, model);
     }
 
     private void orientableBlockWithItem(Block block, Identifier model) {
@@ -351,7 +348,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
                 ));
 
-        generator.registerParentedItemModel(block.asItem(), model);
+        generator.registerParentedItemModel(block, model);
     }
 
     private void orientableSixDirsBlockWithBackItem(Block block, boolean uniqueBottomTexture) {
@@ -387,7 +384,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
                 ));
 
-        generator.registerParentedItemModel(block.asItem(), modelNormal);
+        generator.registerParentedItemModel(block, modelNormal);
     }
 
     private void activatableBlockWithItem(Block block, Identifier modelNormal,
@@ -400,7 +397,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.MODEL, modelActive))
                 ));
 
-        generator.registerParentedItemModel(block.asItem(), modelNormal);
+        generator.registerParentedItemModel(block, modelNormal);
     }
 
     private void activatableOrientableBlockWithItem(Block block, Identifier modelNormal,
@@ -431,7 +428,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
                 ));
 
-        generator.registerParentedItemModel(block.asItem(), modelNormal);
+        generator.registerParentedItemModel(block, modelNormal);
     }
 
     private void itemConveyorBeltBlockWithItem(ItemConveyorBeltBlock block) {
@@ -531,11 +528,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
         );
 
-        generator.modelCollector.accept(ModelIds.getItemModelId(block.asItem()), new ItemWithDisplayModelSupplier(fluidPipeCore,
-                new Vector3f(.65f, .65f, .65f),
-                new Vector3f(1.f, 1.f, 1.f),
-                new Vec3i(30, 45, 0)
-        ));
+        generator.registerParentedItemModel(block, fluidPipeCore);
     }
 
     private void fluidTankBlockWithItem(Block block) {
@@ -556,7 +549,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
                 ));
 
-        generator.registerParentedItemModel(block.asItem(), fluidTank);
+        generator.registerParentedItemModel(block, fluidTank);
     }
 
     private void cableBlockWithItem(Block block) {
@@ -586,11 +579,7 @@ class ModBlockStateProvider {
                                 put(VariantSettings.Y, VariantSettings.Rotation.R270))
         );
 
-        generator.modelCollector.accept(ModelIds.getItemModelId(block.asItem()), new ItemWithDisplayModelSupplier(cableCore,
-                new Vector3f(1.01f, 1.01f, 1.01f),
-                new Vector3f(1.5f, 1.5f, 1.5f),
-                new Vec3i(30, 45, 0)
-        ));
+        generator.registerParentedItemModel(block, cableCore);
     }
 
     private void transformerBlockWithItem(TransformerBlock block) {
@@ -636,7 +625,7 @@ class ModBlockStateProvider {
                                         put(VariantSettings.Y, VariantSettings.Rotation.R270))
                         ));
 
-                generator.registerParentedItemModel(block.asItem(), transformer);
+                generator.registerParentedItemModel(block, transformer);
             }
             case TYPE_3_TO_3 -> {
                 Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
@@ -673,7 +662,7 @@ class ModBlockStateProvider {
                                         put(VariantSettings.Y, VariantSettings.Rotation.R270))
                         ));
 
-                generator.registerParentedItemModel(block.asItem(), transformer);
+                generator.registerParentedItemModel(block, transformer);
             }
         }
     }
@@ -684,7 +673,7 @@ class ModBlockStateProvider {
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block,
                 BlockStateVariant.create().put(VariantSettings.MODEL, solarPanel)));
 
-        generator.registerParentedItemModel(block.asItem(), solarPanel);
+        generator.registerParentedItemModel(block, solarPanel);
     }
 
     private void activatableOrientableMachineBlockWithItem(Block block, boolean uniqueBottomTexture) {
@@ -714,6 +703,6 @@ class ModBlockStateProvider {
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).
                 coordinate(builder));
 
-        generator.registerParentedItemModel(block.asItem(), modelOff);
+        generator.registerParentedItemModel(block, modelOff);
     }
 }

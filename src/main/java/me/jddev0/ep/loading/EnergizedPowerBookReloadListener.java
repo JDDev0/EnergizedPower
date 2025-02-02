@@ -16,6 +16,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.resource.JsonDataLoader;
+import net.minecraft.resource.ResourceFinder;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -45,7 +46,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement
             public <T> DataResult<T> encode(JsonElement input, DynamicOps<T> ops, T prefix) {
                 return DataResult.error(() -> "Not implemented");
             }
-        }, "book_pages");
+        }, ResourceFinder.json("book_pages"));
     }
 
     @Override
