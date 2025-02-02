@@ -30,7 +30,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.List;
@@ -39,7 +38,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class ModRecipeGenerator extends RecipeProvider implements IConditionBuilder {
+public class ModRecipeGenerator extends RecipeProvider {
     public ModRecipeGenerator(HolderLookup.Provider registries, RecipeOutput recipeOutput) {
         super(registries, recipeOutput);
     }
@@ -2101,6 +2100,13 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 ingredientOf(Items.CHERRY_SIGN), ingredientOf(Items.CHERRY_BOAT), ingredientOf(Items.CHERRY_CHEST_BOAT),
                 false, "cherry");
 
+        addBasicWoodSawmillRecipe(output, new ItemStack(Items.PALE_OAK_PLANKS),
+                ingredientOf(ItemTags.PALE_OAK_LOGS), ingredientOf(Items.PALE_OAK_FENCE),
+                ingredientOf(Items.PALE_OAK_FENCE_GATE), ingredientOf(Items.PALE_OAK_DOOR),
+                ingredientOf(Items.PALE_OAK_TRAPDOOR), ingredientOf(Items.PALE_OAK_PRESSURE_PLATE),
+                ingredientOf(Items.PALE_OAK_SIGN), ingredientOf(Items.PALE_OAK_BOAT), ingredientOf(Items.PALE_OAK_CHEST_BOAT),
+                false, "pale_oak");
+
         addSawmillRecipe(output, ingredientOf(ItemTags.BAMBOO_BLOCKS), new ItemStack(Items.BAMBOO_PLANKS, 3),
                 1, "bamboo_planks", "bamboo_blocks");
         addBasicWoodWithoutLogsSawmillRecipe(output, new ItemStack(Items.BAMBOO_PLANKS),
@@ -2206,6 +2212,8 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addBasicFlowerGrowingRecipe(output, Items.OXEYE_DAISY, "oxeye_daisies");
         addBasicFlowerGrowingRecipe(output, Items.CORNFLOWER, "cornflowers");
         addBasicFlowerGrowingRecipe(output, Items.LILY_OF_THE_VALLEY, "lily_of_the_valley");
+        addBasicFlowerGrowingRecipe(output, Items.OPEN_EYEBLOSSOM, "open_eyeblossoms");
+        addBasicFlowerGrowingRecipe(output, Items.CLOSED_EYEBLOSSOM, "closed_eyeblossoms");
 
         addBasicFlowerGrowingRecipe(output, Items.SUNFLOWER, "sunflowers");
         addBasicFlowerGrowingRecipe(output, Items.LILAC, "lilacs");

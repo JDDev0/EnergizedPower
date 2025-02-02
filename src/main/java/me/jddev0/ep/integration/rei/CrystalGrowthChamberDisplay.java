@@ -48,7 +48,7 @@ public record CrystalGrowthChamberDisplay(RecipeHolder<CrystalGrowthChamberRecip
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.ofItemStacks(recipe.value().getInput().input().items().stream().
+                EntryIngredients.ofItemStacks(recipe.value().getInput().input().items().
                         map(Holder::unwrap).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
                                 l -> new ItemStack(BasicDisplay.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),

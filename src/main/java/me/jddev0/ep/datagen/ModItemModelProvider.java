@@ -1,26 +1,27 @@
 package me.jddev0.ep.datagen;
 
-import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.client.item.property.bool.ActiveProperty;
+import me.jddev0.ep.client.item.property.bool.WorkingProperty;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import java.util.Objects;
+public class ModItemModelProvider {
+    private final ItemModelGenerators generator;
 
-public class ModItemModelProvider extends ItemModelProvider {
-    public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, EPAPI.MOD_ID, existingFileHelper);
+    public ModItemModelProvider(ItemModelGenerators generator) {
+        this.generator = generator;
     }
 
-    @Override
-    protected void registerModels() {
+    protected void registerItems() {
         registerBasicModels();
         registerSpecialModels();
     }
@@ -192,36 +193,36 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void registerSpecialModels() {
-        ModelFile inventoryCoalEngineActive = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_active");
-        ModelFile inventoryCoalEngineOn = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_on");
+        ItemModel.Unbaked inventoryCoalEngine = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE.get()),
+                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE.get())),
+                generator.modelOutput
+        ));
+        ItemModel.Unbaked inventoryCoalEngineOn = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE.get(), "_on"),
+                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE.get(), "_on")),
+                generator.modelOutput
+        ));
+        ItemModel.Unbaked inventoryCoalEngineActive = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE.get(), "_active"),
+                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE.get(), "_active")),
+                generator.modelOutput
+        ));
 
-        ResourceLocation inventoryCoalEngineItemId = Objects.requireNonNull(EPItems.INVENTORY_COAL_ENGINE.getKey()).location();
-
-        withExistingParent(inventoryCoalEngineItemId.getPath(), "generated").
-                texture("layer0", ResourceLocation.fromNamespaceAndPath(inventoryCoalEngineItemId.getNamespace(),
-                        "item/" + inventoryCoalEngineItemId.getPath())).
-                override().
-                predicate(EPAPI.id("active"), 1.f).
-                model(inventoryCoalEngineActive).
-                end().
-                override().
-                predicate(EPAPI.id("active"), 1.f).
-                predicate(EPAPI.id("working"), 1.f).
-                model(inventoryCoalEngineOn).
-                end();
+        generator.itemModelOutput.accept(EPItems.INVENTORY_COAL_ENGINE.get(), ItemModelUtils.conditional(
+                new ActiveProperty(),
+                ItemModelUtils.conditional(
+                        new WorkingProperty(),
+                        inventoryCoalEngineOn,
+                        inventoryCoalEngineActive
+                ),
+                inventoryCoalEngine
+        ));
     }
 
-    private ItemModelBuilder basicItem(Holder<Item> item) {
-        ResourceLocation itemID = Objects.requireNonNull(item.getKey()).location();
+    private ResourceLocation basicItem(Holder<Item> item) {
+        generator.generateFlatItem(item.value(), ModelTemplates.FLAT_ITEM);
 
-        return withExistingParent(itemID.getPath(), "generated")
-                .texture("layer0", ResourceLocation.fromNamespaceAndPath(itemID.getNamespace(), "item/" + itemID.getPath()));
-    }
-
-    private ItemModelBuilder basicItem(Holder<Item> item, String pathSuffix) {
-        ResourceLocation itemID = Objects.requireNonNull(item.getKey()).location();
-
-        return withExistingParent(itemID.getPath() + pathSuffix, "generated")
-                .texture("layer0", ResourceLocation.fromNamespaceAndPath(itemID.getNamespace(), "item/" + itemID.getPath() + pathSuffix));
+        return ModelLocationUtils.getModelLocation(item.value());
     }
 }

@@ -6,16 +6,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.PoiTypeTagsProvider;
 import net.minecraft.tags.PoiTypeTags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class ModPoiTypeTagProvider extends PoiTypeTagsProvider {
-    public ModPoiTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-                                 @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, EPAPI.MOD_ID, existingFileHelper);
+    public ModPoiTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, EPAPI.MOD_ID);
     }
 
     @Override

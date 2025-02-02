@@ -4,7 +4,7 @@
     "down": "energizedpower:block/pulverizer_bottom",
     "east": "energizedpower:block/pulverizer_side",
     "north": "energizedpower:block/pulverizer_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/pulverizer_top",
     "south": "energizedpower:block/pulverizer_side",
     "up": "energizedpower:block/pulverizer_top",
     "west": "energizedpower:block/pulverizer_side"

@@ -11,6 +11,7 @@ import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -38,7 +39,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
             public <T> DataResult<T> encode(JsonElement input, DynamicOps<T> ops, T prefix) {
                 return DataResult.error(() -> "Not implemented");
             }
-        }, "book_pages");
+        }, FileToIdConverter.json("book_pages"));
     }
 
     @Override

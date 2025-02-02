@@ -4,7 +4,7 @@
     "down": "energizedpower:block/item_conveyor_belt_sorter_top",
     "east": "energizedpower:block/item_conveyor_belt_sorter_output_1",
     "north": "energizedpower:block/item_conveyor_belt_sorter_input",
-    "particle": "#up",
+    "particle": "energizedpower:block/item_conveyor_belt_sorter_top",
     "south": "energizedpower:block/item_conveyor_belt_sorter_output_2",
     "up": "energizedpower:block/item_conveyor_belt_sorter_top",
     "west": "energizedpower:block/item_conveyor_belt_sorter_output_3"

@@ -1,0 +1,42 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/thin_block",
+	"elements": [
+		{
+			"from": [6, 6, 6],
+			"to": [10, 10, 10],
+			"faces": {
+				"north": {"uv": [0, 7, 4, 11], "texture": "#cable", "cullface": "north"},
+				"east": {"uv": [0, 7, 4, 11], "texture": "#cable", "cullface": "east"},
+				"south": {"uv": [0, 7, 4, 11], "texture": "#cable", "cullface": "south"},
+				"west": {"uv": [0, 7, 4, 11], "texture": "#cable", "cullface": "west"},
+				"up": {"uv": [0, 7, 4, 11], "texture": "#cable", "cullface": "up"},
+				"down": {"uv": [0, 7, 4, 11], "texture": "#cable", "cullface": "down"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"scale": [1.01, 1.01, 1.01]
+		},
+		"thirdperson_lefthand": {
+			"scale": [1.01, 1.01, 1.01]
+		},
+		"firstperson_righthand": {
+			"scale": [1.01, 1.01, 1.01]
+		},
+		"firstperson_lefthand": {
+			"scale": [1.01, 1.01, 1.01]
+		},
+		"ground": {
+			"scale": [1.01, 1.01, 1.01]
+		},
+		"gui": {
+			"rotation": [30, 45, 0],
+			"scale": [1.5, 1.5, 1.5]
+		},
+		"fixed": {
+			"scale": [1.01, 1.01, 1.01]
+		}
+	}
+}

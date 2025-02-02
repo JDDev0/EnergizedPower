@@ -4,7 +4,7 @@
     "down": "energizedpower:block/drain_bottom",
     "east": "energizedpower:block/drain_side",
     "north": "energizedpower:block/drain_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/drain_top",
     "south": "energizedpower:block/drain_side",
     "up": "energizedpower:block/drain_top",
     "west": "energizedpower:block/drain_side"

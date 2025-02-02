@@ -106,7 +106,7 @@ runs {
         systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
     }
 
-    data {
+    clientData {
         // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
         // workingDirectory project.file('run-data')
 
@@ -144,8 +144,8 @@ dependencies {
 
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
-    compileOnly "dev.architectury:architectury-neoforge:13.0.6"
-    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:17.0.794'
+    compileOnly "dev.architectury:architectury-neoforge:15.0.1"
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:18.0.796'
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration

@@ -7,12 +7,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -49,7 +49,7 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
         if(stillFluidImageId == null)
             stillFluidImageId = ResourceLocation.withDefaultNamespace("air");
-        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
+        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).
                 apply(stillFluidImageId);
 
         int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
@@ -58,7 +58,7 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
                 0:(h - ((fluidStack.getAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
-        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 
         RenderSystem.setShader(CoreShaders.POSITION_TEX);
 

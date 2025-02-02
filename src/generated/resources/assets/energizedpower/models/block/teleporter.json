@@ -4,7 +4,7 @@
     "down": "energizedpower:block/teleporter_bottom",
     "east": "energizedpower:block/teleporter_side",
     "north": "energizedpower:block/teleporter_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/teleporter_top",
     "south": "energizedpower:block/teleporter_side",
     "up": "energizedpower:block/teleporter_top",
     "west": "energizedpower:block/teleporter_side"

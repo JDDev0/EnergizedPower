@@ -6,6 +6,8 @@ import me.jddev0.ep.block.behavior.ModBlockBehaviors;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
+import me.jddev0.ep.client.item.property.bool.ActiveProperty;
+import me.jddev0.ep.client.item.property.bool.WorkingProperty;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.EPEntityTypes;
@@ -32,7 +34,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -44,6 +45,7 @@ import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -371,17 +373,6 @@ public class EnergizedPowerMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModConfigs.registerConfigs(false);
 
-            event.enqueueWork(() -> {
-                ItemProperties.registerGeneric(EPAPI.id("active"), (itemStack, level, entity, seed) -> {
-                    Item item = itemStack.getItem();
-                    return (item instanceof ActivatableItem && ((ActivatableItem)item).isActive(itemStack))?1.f:0.f;
-                });
-                ItemProperties.registerGeneric(EPAPI.id("working"), (itemStack, level, entity, seed) -> {
-                    Item item = itemStack.getItem();
-                    return (item instanceof WorkingItem && ((WorkingItem)item).isWorking(itemStack))?1.f:0.f;
-                });
-            });
-
             EntityRenderers.register(EPEntityTypes.BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                             ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
@@ -515,6 +506,12 @@ public class EnergizedPowerMod {
 
             event.register(EPMenuTypes.MINECART_BATTERY_BOX_MENU.get(), MinecartBatteryBoxScreen::new);
             event.register(EPMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU.get(), MinecartAdvancedBatteryBoxScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void onRegisterConditionalItemModelProperties(RegisterConditionalItemModelPropertyEvent event) {
+            event.register(EPAPI.id("active"), ActiveProperty.CODEC);
+            event.register(EPAPI.id("working"), WorkingProperty.CODEC);
         }
 
         @SubscribeEvent

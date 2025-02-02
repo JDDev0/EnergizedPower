@@ -2,6 +2,6 @@
   "parent": "energizedpower:block/item_conveyor_belt_flat_template",
   "textures": {
     "belt": "energizedpower:block/item_conveyor_belt",
-    "particle": "#belt"
+    "particle": "energizedpower:block/item_conveyor_belt"
   }
 }

@@ -4,7 +4,7 @@
     "down": "energizedpower:block/advanced_uncharger_bottom",
     "east": "energizedpower:block/advanced_uncharger_side",
     "north": "energizedpower:block/advanced_uncharger_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/advanced_uncharger_top",
     "south": "energizedpower:block/advanced_uncharger_side",
     "up": "energizedpower:block/advanced_uncharger_top",
     "west": "energizedpower:block/advanced_uncharger_side"

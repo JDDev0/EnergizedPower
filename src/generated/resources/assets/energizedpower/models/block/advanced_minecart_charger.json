@@ -1,9 +1,8 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
     "bottom": "energizedpower:block/advanced_minecart_charger_bottom",
     "front": "energizedpower:block/advanced_minecart_charger_front",
-    "particle": "#top",
     "side": "energizedpower:block/advanced_minecart_charger_side",
     "top": "energizedpower:block/advanced_minecart_charger_top"
   }

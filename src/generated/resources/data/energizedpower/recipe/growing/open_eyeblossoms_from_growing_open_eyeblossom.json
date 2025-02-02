@@ -1,0 +1,18 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "ingredient": "minecraft:open_eyeblossom",
+  "results": [
+    {
+      "percentages": [
+        1.0,
+        1.0,
+        0.33
+      ],
+      "result": {
+        "count": 1,
+        "id": "minecraft:open_eyeblossom"
+      }
+    }
+  ],
+  "ticks": 16000
+}

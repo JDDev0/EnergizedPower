@@ -4,7 +4,7 @@
     "down": "energizedpower:block/lightning_generator_bottom",
     "east": "energizedpower:block/lightning_generator_side_on",
     "north": "energizedpower:block/lightning_generator_side_on",
-    "particle": "#up",
+    "particle": "energizedpower:block/lightning_generator_top_on",
     "south": "energizedpower:block/lightning_generator_side_on",
     "up": "energizedpower:block/lightning_generator_top_on",
     "west": "energizedpower:block/lightning_generator_side_on"

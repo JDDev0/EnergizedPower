@@ -4,7 +4,7 @@
     "down": "energizedpower:block/item_conveyor_belt_loader_top",
     "east": "energizedpower:block/item_conveyor_belt_loader_side",
     "north": "energizedpower:block/item_conveyor_belt_loader_front",
-    "particle": "#up",
+    "particle": "energizedpower:block/item_conveyor_belt_loader_top",
     "south": "energizedpower:block/item_conveyor_belt_loader_back",
     "up": "energizedpower:block/item_conveyor_belt_loader_top",
     "west": "energizedpower:block/item_conveyor_belt_loader_side"

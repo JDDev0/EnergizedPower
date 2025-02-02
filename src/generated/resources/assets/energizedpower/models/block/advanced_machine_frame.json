@@ -4,7 +4,7 @@
     "down": "energizedpower:block/advanced_machine_frame_top",
     "east": "energizedpower:block/advanced_machine_frame_side",
     "north": "energizedpower:block/advanced_machine_frame_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/advanced_machine_frame_top",
     "south": "energizedpower:block/advanced_machine_frame_side",
     "up": "energizedpower:block/advanced_machine_frame_top",
     "west": "energizedpower:block/advanced_machine_frame_side"

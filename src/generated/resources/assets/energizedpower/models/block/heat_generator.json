@@ -4,7 +4,7 @@
     "down": "energizedpower:block/heat_generator_top",
     "east": "energizedpower:block/heat_generator_side",
     "north": "energizedpower:block/heat_generator_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/heat_generator_top",
     "south": "energizedpower:block/heat_generator_side",
     "up": "energizedpower:block/heat_generator_top",
     "west": "energizedpower:block/heat_generator_side"

@@ -11,7 +11,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -24,14 +23,11 @@ public abstract  class PageContentProvider implements DataProvider {
     private final PackOutput output;
     private final CompletableFuture<HolderLookup.Provider> lookupProvider;
     private final String modid;
-    private final ExistingFileHelper existingFileHelper;
 
-    public PageContentProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid,
-                               ExistingFileHelper existingFileHelper) {
+    public PageContentProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid) {
         this.output = output;
         this.lookupProvider = lookupProvider;
         this.modid = modid;
-        this.existingFileHelper = existingFileHelper;
     }
 
     protected abstract void registerPageContent();

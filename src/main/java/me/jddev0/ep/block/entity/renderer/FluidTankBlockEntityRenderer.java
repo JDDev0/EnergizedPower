@@ -10,10 +10,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -75,7 +75,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
         if(stillFluidImageId == null)
             stillFluidImageId = ResourceLocation.withDefaultNamespace("air");
-        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
+        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).
                 apply(stillFluidImageId);
 
         int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
@@ -133,7 +133,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
 
         //Indicator bar
         {
-            TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
+            TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).
                     apply(EPAPI.id("block/fluid_tank_indicator_bar"));
 
             float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);

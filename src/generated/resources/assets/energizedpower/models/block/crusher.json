@@ -4,7 +4,7 @@
     "down": "energizedpower:block/crusher_bottom",
     "east": "energizedpower:block/crusher_side",
     "north": "energizedpower:block/crusher_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/crusher_top",
     "south": "energizedpower:block/crusher_side",
     "up": "energizedpower:block/crusher_top",
     "west": "energizedpower:block/crusher_side"

@@ -13,7 +13,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,9 +36,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
     private final Map<String, String> tableOfContentPageTitles = new HashMap<>();
     private final Map<String, List<Pair<String, PageContent>>> tableOfContentsEntries = new HashMap<>();
 
-    public ModBookPageContentProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-                                      ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, EPAPI.MOD_ID, existingFileHelper);
+    public ModBookPageContentProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, EPAPI.MOD_ID);
     }
 
     @Override

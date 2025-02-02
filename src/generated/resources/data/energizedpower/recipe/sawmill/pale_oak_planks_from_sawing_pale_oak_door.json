@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:pale_oak_door",
+  "result": {
+    "count": 1,
+    "id": "minecraft:pale_oak_planks"
+  },
+  "sawdustAmount": 3
+}

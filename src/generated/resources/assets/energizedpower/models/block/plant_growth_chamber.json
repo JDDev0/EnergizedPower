@@ -4,7 +4,7 @@
     "down": "energizedpower:block/plant_growth_chamber_top",
     "east": "energizedpower:block/plant_growth_chamber_side",
     "north": "energizedpower:block/plant_growth_chamber_front",
-    "particle": "#up",
+    "particle": "energizedpower:block/plant_growth_chamber_top",
     "south": "energizedpower:block/plant_growth_chamber_front",
     "up": "energizedpower:block/plant_growth_chamber_top",
     "west": "energizedpower:block/plant_growth_chamber_side"

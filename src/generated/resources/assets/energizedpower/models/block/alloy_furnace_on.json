@@ -1,9 +1,8 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
     "bottom": "energizedpower:block/alloy_furnace_top",
     "front": "energizedpower:block/alloy_furnace_front_on",
-    "particle": "#top",
     "side": "energizedpower:block/alloy_furnace_side",
     "top": "energizedpower:block/alloy_furnace_top"
   }

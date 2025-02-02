@@ -1,57 +1,9 @@
 {
-  "parent": "minecraft:block/orientable",
-  "elements": [
-    {
-      "faces": {
-        "down": {
-          "cullface": "down",
-          "texture": "#side",
-          "uv": [
-            0.0,
-            16.0,
-            16.0,
-            0.0
-          ]
-        },
-        "east": {
-          "cullface": "east",
-          "rotation": 90,
-          "texture": "#side"
-        },
-        "north": {
-          "cullface": "north",
-          "texture": "#top"
-        },
-        "south": {
-          "cullface": "south",
-          "texture": "#bottom"
-        },
-        "up": {
-          "cullface": "up",
-          "texture": "#front"
-        },
-        "west": {
-          "cullface": "west",
-          "rotation": 270,
-          "texture": "#side"
-        }
-      },
-      "from": [
-        0,
-        0,
-        0
-      ],
-      "to": [
-        16,
-        16,
-        16
-      ]
-    }
-  ],
+  "parent": "energizedpower:block/orientable_vertical",
   "textures": {
     "bottom": "energizedpower:block/block_placer_bottom",
     "front": "energizedpower:block/block_placer_front",
-    "particle": "#top",
+    "particle": "energizedpower:block/block_placer_front",
     "side": "energizedpower:block/block_placer_side",
     "top": "energizedpower:block/block_placer_top"
   }

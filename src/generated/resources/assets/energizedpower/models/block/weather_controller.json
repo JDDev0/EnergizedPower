@@ -4,7 +4,7 @@
     "down": "energizedpower:block/weather_controller_top",
     "east": "energizedpower:block/weather_controller_side",
     "north": "energizedpower:block/weather_controller_front",
-    "particle": "#up",
+    "particle": "energizedpower:block/weather_controller_top",
     "south": "energizedpower:block/weather_controller_side",
     "up": "energizedpower:block/weather_controller_top",
     "west": "energizedpower:block/weather_controller_front"

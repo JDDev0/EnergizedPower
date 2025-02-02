@@ -4,7 +4,7 @@
     "down": "energizedpower:block/mv_transformer_output",
     "east": "energizedpower:block/mv_transformer_output",
     "north": "energizedpower:block/mv_transformer_input",
-    "particle": "#up",
+    "particle": "energizedpower:block/mv_transformer_input",
     "south": "energizedpower:block/mv_transformer_output",
     "up": "energizedpower:block/mv_transformer_input",
     "west": "energizedpower:block/mv_transformer_input"

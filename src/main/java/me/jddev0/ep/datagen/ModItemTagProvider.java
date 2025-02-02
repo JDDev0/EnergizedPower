@@ -13,16 +13,13 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-                              CompletableFuture<TagsProvider.TagLookup<Block>> blockTagLookup,
-                              @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTagLookup, EPAPI.MOD_ID, existingFileHelper);
+                              CompletableFuture<TagsProvider.TagLookup<Block>> blockTagLookup) {
+        super(output, lookupProvider, blockTagLookup, EPAPI.MOD_ID);
     }
 
     @Override

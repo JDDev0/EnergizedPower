@@ -2,110 +2,32 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
+import me.jddev0.ep.datagen.model.ModModelTemplates;
+import me.jddev0.ep.datagen.model.ModTexturedModel;
+import me.jddev0.ep.fluid.EPFluids;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.blockstates.*;
+import net.minecraft.client.data.models.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.neoforged.neoforge.client.model.generators.*;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
-import java.util.Objects;
+public class ModBlockStateProvider {
+    private final BlockModelGenerators generator;
 
-public class ModBlockStateProvider extends BlockStateProvider {
-    private ModelFile itemConveyorBeltFlatTemplate;
-    private ModelFile itemConveyorBeltAscendingTemplate;
-    private ModelFile itemConveyorBeltDescendingTemplate;
-
-    private ModelFile fluidPipeCoreTemplate;
-    private ModelFile fluidPipeSideConnectedTemplate;
-    private ModelFile fluidPipeSideExtractTemplate;
-
-    private ModelFile fluidTankTemplate;
-
-    private ModelFile cableCoreTemplate;
-    private ModelFile cableSideTemplate;
-
-    private ModelFile solarPanelTemplate;
-
-    public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, EPAPI.MOD_ID, existingFileHelper);
+    public ModBlockStateProvider(BlockModelGenerators generator) {
+        this.generator = generator;
     }
 
-    @Override
     protected void registerStatesAndModels() {
-        registerTemplates();
         registerBlocks();
     }
 
-    private void registerTemplates() {
-        itemConveyorBeltFlatTemplate = models().getBuilder("item_conveyor_belt_flat_template").
-                ao(false).
-                element().from(0, 1, 0).to(16, 1, 16).
-                face(Direction.DOWN).uvs(16, 0, 0, 16).texture("#belt").end().
-                face(Direction.UP).uvs(16, 16, 0, 0).texture("#belt").end().end();
-        itemConveyorBeltAscendingTemplate = models().getBuilder("item_conveyor_belt_ascending_template").
-                ao(false).
-                element().from(0, 9, 0).to(16, 9, 16).
-                rotation().origin(8, 9, 8).axis(Direction.Axis.X).angle(-45.f).rescale(true).end().
-                face(Direction.DOWN).uvs(16, 0, 0, 16).texture("#belt").end().
-                face(Direction.UP).uvs(16, 16, 0, 0).texture("#belt").end().end();
-        itemConveyorBeltDescendingTemplate = models().getBuilder("item_conveyor_belt_descending_template").
-                ao(false).
-                element().from(0, 9, 0).to(16, 9, 16).
-                rotation().origin(8, 9, 8).axis(Direction.Axis.X).angle(-45.f).rescale(true).end().
-                face(Direction.DOWN).uvs(0, 16, 16, 0).texture("#belt").end().
-                face(Direction.UP).uvs(0, 0, 16, 16).texture("#belt").end().end();
-
-        fluidPipeCoreTemplate = models().getExistingFile(
-                EPAPI.id("fluid_pipe_core_template"));
-        fluidPipeSideConnectedTemplate = models().getExistingFile(
-                EPAPI.id("fluid_pipe_side_connected_template"));
-        fluidPipeSideExtractTemplate = models().getExistingFile(
-                EPAPI.id("fluid_pipe_side_extract_template"));
-
-        fluidTankTemplate = models().getExistingFile(
-                EPAPI.id("fluid_tank_template"));
-
-        cableCoreTemplate = models().
-                withExistingParent("cable_core_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
-                element().from(6, 6, 6).to(10, 10, 10).
-                face(Direction.DOWN).uvs(0, 7, 4, 11).cullface(Direction.DOWN).texture("#cable").end().
-                face(Direction.UP).uvs(0, 7, 4, 11).cullface(Direction.UP).texture("#cable").end().
-                face(Direction.NORTH).uvs(0, 7, 4, 11).cullface(Direction.NORTH).texture("#cable").end().
-                face(Direction.SOUTH).uvs(0, 7, 4, 11).cullface(Direction.SOUTH).texture("#cable").end().
-                face(Direction.WEST).uvs(0, 7, 4, 11).cullface(Direction.WEST).texture("#cable").end().
-                face(Direction.EAST).uvs(0, 7, 4, 11).cullface(Direction.EAST).texture("#cable").end().
-                end();
-
-        cableSideTemplate = models().
-                withExistingParent("cable_side_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
-                element().from(6, 6, 0).to(10, 10, 6).
-                face(Direction.DOWN).uvs(0, 0, 4, 6).texture("#cable").end().
-                face(Direction.UP).uvs(0, 0, 4, 6).texture("#cable").end().
-                face(Direction.NORTH).uvs(0, 12, 4, 16).texture("#cable").end().
-                face(Direction.SOUTH).uvs(0, 12, 4, 16).texture("#cable").end().
-                face(Direction.WEST).uvs(5, 7, 11, 11).texture("#cable").end().
-                face(Direction.EAST).uvs(5, 7, 11, 11).texture("#cable").end().
-                end();
-
-        solarPanelTemplate = models().
-                withExistingParent("solar_panel_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
-                element().from(0, 0, 0).to(16, 4, 16).
-                face(Direction.DOWN).uvs(0, 0, 16, 16).cullface(Direction.DOWN).texture("#side").end().
-                face(Direction.UP).uvs(0, 0, 16, 16).texture("#top").end().
-                face(Direction.NORTH).uvs(0, 12, 16, 16).cullface(Direction.NORTH).texture("#side").end().
-                face(Direction.SOUTH).uvs(0, 12, 16, 16).cullface(Direction.SOUTH).texture("#side").end().
-                face(Direction.WEST).uvs(0, 12, 16, 16).cullface(Direction.WEST).texture("#side").end().
-                face(Direction.EAST).uvs(0, 12, 16, 16).cullface(Direction.EAST).texture("#side").end().
-                end();
-    }
-
-    private void registerBlocks() {
+    void registerBlocks() {
         cubeAllBlockWithItem(EPBlocks.SILICON_BLOCK);
 
         cubeAllBlockWithItem(EPBlocks.TIN_BLOCK);
@@ -293,491 +215,505 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlockWithItem(EPBlocks.HARDENED_MACHINE_FRAME, false);
         horizontalBlockWithItem(EPBlocks.ADVANCED_MACHINE_FRAME, false);
         horizontalBlockWithItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
+
+        generator.createNonTemplateModelBlock(EPFluids.DIRTY_WATER_BLOCK.get());
     }
 
-    private ModelFile cubeBlockModel(Holder<? extends Block> block, String fileSuffix, String upSuffix,
-                                     String bottomSuffix, String northSuffix, String southSuffix,
-                                     String westSuffix, String eastSuffix) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return models().
-                withExistingParent(blockId.getPath() + fileSuffix, ModelProvider.BLOCK_FOLDER + "/cube").
-                texture("particle", "#up").
-                texture("up", getBlockTexture(block, upSuffix)).
-                texture("down", getBlockTexture(block, bottomSuffix)).
-                texture("north", getBlockTexture(block, northSuffix)).
-                texture("south", getBlockTexture(block, southSuffix)).
-                texture("west", getBlockTexture(block, westSuffix)).
-                texture("east", getBlockTexture(block, eastSuffix));
+    private void cubeAllBlockWithItem(Holder<Block> block) {
+        generator.createTrivialCube(block.value());
     }
 
-    private ModelFile orientableBlockModel(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private ResourceLocation cubeBlockModel(Holder<Block> block, String fileSuffix, String upSuffix,
+                                            String bottomSuffix, String northSuffix, String southSuffix,
+                                            String westSuffix, String eastSuffix) {
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), upSuffix)).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block.value(), bottomSuffix)).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block.value(), northSuffix)).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block.value(), southSuffix)).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block.value(), eastSuffix)).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block.value(), westSuffix)).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
+    }
+
+    private ResourceLocation orientableBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableBlockModel(block, "", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_side");
     }
 
-    private ModelFile orientableOnBlockModel(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private ResourceLocation orientableOnBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableBlockModel(block, "_on", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front_on", "_side");
     }
 
-    private ModelFile orientableBlockModel(Holder<? extends Block> block, String fileSuffix, String topSuffix,
-                                           String bottomSuffix, String frontSuffix, String sideSuffix) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return models().
-                withExistingParent(blockId.getPath() + fileSuffix, ModelProvider.BLOCK_FOLDER + "/orientable").
-                texture("particle", "#top").
-                texture("top", getBlockTexture(block, topSuffix)).
-                texture("bottom", getBlockTexture(block, bottomSuffix)).
-                texture("front", getBlockTexture(block, frontSuffix)).
-                texture("side", getBlockTexture(block, sideSuffix));
+    private ResourceLocation orientableBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+                                            String bottomSuffix, String frontSuffix, String sideSuffix) {
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.TOP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
+                        put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block.value(), bottomSuffix)).
+                        put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block.value(), frontSuffix)).
+                        put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block.value(), sideSuffix)).
+                        copySlot(TextureSlot.TOP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ModelFile orientableWithBackBlockModel(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private ResourceLocation orientableWithBackBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableWithBackBlockModel(block, "", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_back", "_side");
     }
 
-    private ModelFile orientableWithBackBlockModel(Holder<? extends Block> block, String fileSuffix, String topSuffix,
-                                           String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return models().
-                withExistingParent(blockId.getPath() + fileSuffix, ModelProvider.BLOCK_FOLDER + "/cube").
-                texture("particle", "#up").
-                texture("up", getBlockTexture(block, topSuffix)).
-                texture("down", getBlockTexture(block, bottomSuffix)).
-                texture("north", getBlockTexture(block, frontSuffix)).
-                texture("south", getBlockTexture(block, backSuffix)).
-                texture("west", getBlockTexture(block, sideSuffix)).
-                texture("east", getBlockTexture(block, sideSuffix));
+    private ResourceLocation orientableWithBackBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+                                                    String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block.value(), bottomSuffix)).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block.value(), frontSuffix)).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block.value(), backSuffix)).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block.value(), sideSuffix)).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block.value(), sideSuffix)).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ModelFile orientableVerticalWithBackBlockModel(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private ResourceLocation orientableVerticalWithBackBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableVerticalWithBackBlockModel(block, "_vertical", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_back", "_side");
     }
 
-    private ModelFile orientableVerticalWithBackBlockModel(Holder<? extends Block> block, String fileSuffix, String topSuffix,
-                                                   String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return models().
-                withExistingParent(blockId.getPath() + fileSuffix, ModelProvider.BLOCK_FOLDER + "/cube").
-                element().
-                face(Direction.UP).cullface(Direction.UP).texture("#front").end().
-                face(Direction.DOWN).uvs(0, 16, 16, 0).cullface(Direction.DOWN).texture("#back").end().
-                face(Direction.NORTH).cullface(Direction.NORTH).texture("#top").end().
-                face(Direction.SOUTH).cullface(Direction.SOUTH).texture("#bottom").end().
-                face(Direction.WEST).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).cullface(Direction.WEST).texture("#side").end().
-                face(Direction.EAST).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).cullface(Direction.EAST).texture("#side").end().
-                end().
-                texture("particle", "#top").
-                texture("top", getBlockTexture(block, topSuffix)).
-                texture("bottom", getBlockTexture(block, bottomSuffix)).
-                texture("front", getBlockTexture(block, frontSuffix)).
-                texture("back", getBlockTexture(block, backSuffix)).
-                texture("side", getBlockTexture(block, sideSuffix));
+    private ResourceLocation orientableVerticalWithBackBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+                                                            String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.TOP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
+                        put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block.value(), bottomSuffix)).
+                        put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block.value(), frontSuffix)).
+                        put(TextureSlot.BACK, TextureMapping.getBlockTexture(block.value(), backSuffix)).
+                        put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block.value(), sideSuffix)).
+                        copySlot(TextureSlot.FRONT, TextureSlot.PARTICLE),
+                ModModelTemplates.ORIENTABLE_VERTICAL_WITH_BACK).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ModelFile orientableVerticalBlockModel(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private ResourceLocation orientableVerticalBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableVerticalBlockModel(block, "_vertical", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_side");
     }
 
-    private ModelFile orientableVerticalBlockModel(Holder<? extends Block> block, String fileSuffix, String topSuffix,
-                                           String bottomSuffix, String frontSuffix, String sideSuffix) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return models().
-                withExistingParent(blockId.getPath() + fileSuffix, ModelProvider.BLOCK_FOLDER + "/orientable").
-                element().
-                face(Direction.UP).cullface(Direction.UP).texture("#front").end().
-                face(Direction.DOWN).uvs(0, 16, 16, 0).cullface(Direction.DOWN).texture("#side").end().
-                face(Direction.NORTH).cullface(Direction.NORTH).texture("#top").end().
-                face(Direction.SOUTH).cullface(Direction.SOUTH).texture("#bottom").end().
-                face(Direction.WEST).rotation(ModelBuilder.FaceRotation.COUNTERCLOCKWISE_90).cullface(Direction.WEST).texture("#side").end().
-                face(Direction.EAST).rotation(ModelBuilder.FaceRotation.CLOCKWISE_90).cullface(Direction.EAST).texture("#side").end().
-                end().
-                texture("particle", "#top").
-                texture("top", getBlockTexture(block, topSuffix)).
-                texture("bottom", getBlockTexture(block, bottomSuffix)).
-                texture("front", getBlockTexture(block, frontSuffix)).
-                texture("side", getBlockTexture(block, sideSuffix));
+    private ResourceLocation orientableVerticalBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+                                                    String bottomSuffix, String frontSuffix, String sideSuffix) {
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.TOP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
+                        put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block.value(), bottomSuffix)).
+                        put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block.value(), frontSuffix)).
+                        put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block.value(), sideSuffix)).
+                        copySlot(TextureSlot.FRONT, TextureSlot.PARTICLE),
+                ModModelTemplates.ORIENTABLE_VERTICAL).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private void cubeAllBlockWithItem(Holder<? extends Block> block) {
-        simpleBlockWithItem(block.value(), cubeAll(block.value()));
+    private void horizontalBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
+        ResourceLocation model = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), "_top")).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block.value(), uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block.value(), "_side")).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block.value(), "_side")).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block.value(), "_side")).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block.value(), "_side")).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block.value()).create(block.value(), generator.modelOutput);
+
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value(),
+                Variant.variant().with(VariantProperties.MODEL, model)));
+
+        generator.registerSimpleItemModel(block.value(), model);
     }
 
-    private void horizontalBlockWithItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void horizontalTwoSideBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
+        ResourceLocation model = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), "_top")).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block.value(), uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block.value(), "_front")).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block.value(), "_side")).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block.value(), "_side")).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block.value(), "_front")).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block.value()).create(block.value(), generator.modelOutput);
 
-        ModelFile model = models().
-                withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
-                texture("particle", "#up").
-                texture("up", getBlockTexture(block, "_top")).
-                texture("down", getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
-                texture("north", getBlockTexture(block, "_side")).
-                texture("south", getBlockTexture(block, "_side")).
-                texture("east", getBlockTexture(block, "_side")).
-                texture("west", getBlockTexture(block, "_side"));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value(),
+                Variant.variant().with(VariantProperties.MODEL, model)));
 
-        simpleBlockWithItem(block.value(), model);
+        generator.registerSimpleItemModel(block.value(), model);
     }
 
-    private void horizontalTwoSideBlockWithItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void orientableBlockWithItem(Holder<Block> block, ResourceLocation model) {
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, Variant.variant().
+                                with(VariantProperties.MODEL, model)).
+                        select(Direction.SOUTH, Variant.variant().
+                                with(VariantProperties.MODEL, model).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                        select(Direction.EAST, Variant.variant().
+                                with(VariantProperties.MODEL, model).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        select(Direction.WEST, Variant.variant().
+                                with(VariantProperties.MODEL, model).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                ));
 
-        ModelFile model = models().
-                withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
-                texture("particle", "#up").
-                texture("up", getBlockTexture(block, "_top")).
-                texture("down", getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
-                texture("north", getBlockTexture(block, "_front")).
-                texture("south", getBlockTexture(block, "_side")).
-                texture("east", getBlockTexture(block, "_side")).
-                texture("west", getBlockTexture(block, "_front"));
-
-        simpleBlockWithItem(block.value(), model);
+        generator.registerSimpleItemModel(block.value(), model);
     }
 
-    private void orientableBlockWithItem(Holder<? extends Block> block, ModelFile model) {
-        getVariantBuilder(block.value()).partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).modelForState().modelFile(model).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(model).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).modelForState().rotationY(90).modelFile(model).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).modelForState().rotationY(270).modelFile(model).addModel().partialState();
-
-        simpleBlockItem(block.value(), model);
-    }
-
-    private void orientableSixDirsBlockWithBackItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private void orientableSixDirsBlockWithBackItem(Holder<Block> block, boolean uniqueBottomTexture) {
         orientableSixDirsBlockWithItem(block,
                 orientableWithBackBlockModel(block, uniqueBottomTexture),
                 orientableVerticalWithBackBlockModel(block, uniqueBottomTexture));
     }
 
-    private void orientableSixDirsBlockWithItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private void orientableSixDirsBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
         orientableSixDirsBlockWithItem(block,
                 orientableBlockModel(block, uniqueBottomTexture),
                 orientableVerticalBlockModel(block, uniqueBottomTexture));
     }
 
-    private void orientableSixDirsBlockWithItem(Holder<? extends Block> block, ModelFile modelNormal, ModelFile modelVertical) {
-        getVariantBuilder(block.value()).partialState().
-                with(BlockStateProperties.FACING, Direction.UP).modelForState().modelFile(modelVertical).addModel().partialState().
-                with(BlockStateProperties.FACING, Direction.DOWN).modelForState().rotationX(180).modelFile(modelVertical).addModel().partialState().
-                with(BlockStateProperties.FACING, Direction.NORTH).modelForState().modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.FACING, Direction.WEST).modelForState().rotationY(270).modelFile(modelNormal).addModel().partialState();
+    private void orientableSixDirsBlockWithItem(Holder<Block> block, ResourceLocation modelNormal, ResourceLocation modelVertical) {
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(PropertyDispatch.property(BlockStateProperties.FACING).
+                        select(Direction.UP, Variant.variant().
+                                with(VariantProperties.MODEL, modelVertical)).
+                        select(Direction.DOWN, Variant.variant().
+                                with(VariantProperties.MODEL, modelVertical).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
+                        select(Direction.NORTH, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal)).
+                        select(Direction.SOUTH, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                        select(Direction.EAST, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        select(Direction.WEST, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                ));
 
-        simpleBlockItem(block.value(), modelNormal);
+        generator.registerSimpleItemModel(block.value(), modelNormal);
     }
 
-    private void activatableBlockWithItem(Holder<? extends Block> block, ModelFile modelNormal,
-                                                    ModelFile modelActive, BooleanProperty isActiveProperty) {
-        getVariantBuilder(block.value()).partialState().
-                with(isActiveProperty, false).modelForState().modelFile(modelNormal).addModel().partialState().
-                with(isActiveProperty, true).modelForState().modelFile(modelActive).addModel().partialState();
+    private void activatableBlockWithItem(Holder<Block> block, ResourceLocation modelNormal,
+                                          ResourceLocation modelActive, BooleanProperty isActiveProperty) {
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(PropertyDispatch.property(isActiveProperty).
+                        select(false, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal)).
+                        select(true, Variant.variant().
+                                with(VariantProperties.MODEL, modelActive))
+                ));
 
-        simpleBlockItem(block.value(), modelNormal);
+        generator.registerSimpleItemModel(block.value(), modelNormal);
     }
 
-    private void activatableOrientableBlockWithItem(Holder<? extends Block> block, ModelFile modelNormal,
-                                                    ModelFile modelActive, BooleanProperty isActiveProperty) {
-        getVariantBuilder(block.value()).partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).with(isActiveProperty, false).modelForState().
-                modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH).with(isActiveProperty, true).modelForState().
-                modelFile(modelActive).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).with(isActiveProperty, false).modelForState().
-                rotationY(180).modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH).with(isActiveProperty, true).modelForState().
-                rotationY(180).modelFile(modelActive).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).with(isActiveProperty, false).modelForState().
-                rotationY(90).modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST).with(isActiveProperty, true).modelForState().
-                rotationY(90).modelFile(modelActive).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).with(isActiveProperty, false).modelForState().
-                rotationY(270).modelFile(modelNormal).addModel().partialState().
-                with(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST).with(isActiveProperty, true).modelForState().
-                rotationY(270).modelFile(modelActive).addModel().partialState();
+    private void activatableOrientableBlockWithItem(Holder<Block> block, ResourceLocation modelNormal,
+                                                    ResourceLocation modelActive, BooleanProperty isActiveProperty) {
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, isActiveProperty).
+                        select(Direction.NORTH, false, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal)).
+                        select(Direction.NORTH, true, Variant.variant().
+                                with(VariantProperties.MODEL, modelActive)).
+                        select(Direction.SOUTH, false, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                        select(Direction.SOUTH, true, Variant.variant().
+                                with(VariantProperties.MODEL, modelActive).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                        select(Direction.EAST, false, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        select(Direction.EAST, true, Variant.variant().
+                                with(VariantProperties.MODEL, modelActive).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        select(Direction.WEST, false, Variant.variant().
+                                with(VariantProperties.MODEL, modelNormal).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)).
+                        select(Direction.WEST, true, Variant.variant().
+                                with(VariantProperties.MODEL, modelActive).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                ));
 
-        simpleBlockItem(block.value(), modelNormal);
+        generator.registerSimpleItemModel(block.value(), modelNormal);
     }
 
-    private void itemConveyorBeltBlockWithItem(DeferredHolder<Block, ? extends ItemConveyorBeltBlock> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void itemConveyorBeltBlockWithItem(DeferredBlock<ItemConveyorBeltBlock> block) {
+        ResourceLocation modelFlat = ModTexturedModel.ITEM_CONVEYOR_BELT_FLAT.get(block.value()).
+                createWithSuffix(block.value(), "_flat", generator.modelOutput);
+        ResourceLocation modelAscending = ModTexturedModel.ITEM_CONVEYOR_BELT_ASCENDING.get(block.value()).
+                createWithSuffix(block.value(), "_ascending", generator.modelOutput);
+        ResourceLocation modelDescending = ModTexturedModel.ITEM_CONVEYOR_BELT_DESCENDING.get(block.value()).
+                createWithSuffix(block.value(), "_descending", generator.modelOutput);
 
-        ModelFile modelFlat = models().
-                getBuilder(blockId.getPath() + "_flat").parent(itemConveyorBeltFlatTemplate).
-                texture("particle", "#belt").
-                texture("belt", getBlockTexture(block));
+        PropertyDispatch.C1<EPBlockStateProperties.ConveyorBeltDirection> builder =
+                PropertyDispatch.property(ItemConveyorBeltBlock.FACING);
 
-        ModelFile modelAscending = models().
-                getBuilder(blockId.getPath() + "_ascending").parent(itemConveyorBeltAscendingTemplate).
-                texture("particle", "#belt").
-                texture("belt", getBlockTexture(block));
-
-        ModelFile modelDescending = models().
-                getBuilder(blockId.getPath() + "_descending").parent(itemConveyorBeltDescendingTemplate).
-                texture("particle", "#belt").
-                texture("belt", getBlockTexture(block));
-
-        VariantBlockStateBuilder blockStateBuilder = getVariantBuilder(block.value());
         for(EPBlockStateProperties.ConveyorBeltDirection beltDir: EPBlockStateProperties.ConveyorBeltDirection.values()) {
-            ConfiguredModel.Builder<VariantBlockStateBuilder> configuredModelBuilder = blockStateBuilder.partialState().
-                    with(ItemConveyorBeltBlock.FACING, beltDir).modelForState();
+            Variant blockStateVariant = Variant.variant();
+
             if(beltDir.isAscending()) {
                 switch(beltDir.getDirection()) {
-                    case NORTH -> configuredModelBuilder.rotationY(180);
-                    case WEST -> configuredModelBuilder.rotationY(90);
-                    case EAST -> configuredModelBuilder.rotationY(270);
+                    case NORTH -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
+                    case WEST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
+                    case EAST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
                 }
 
-                configuredModelBuilder.modelFile(modelAscending).addModel();
+                blockStateVariant.with(VariantProperties.MODEL, modelAscending);
             }else if(beltDir.isDescending()) {
                 switch(beltDir.getDirection()) {
-                    case SOUTH -> configuredModelBuilder.rotationY(180);
-                    case WEST -> configuredModelBuilder.rotationY(270);
-                    case EAST -> configuredModelBuilder.rotationY(90);
+                    case SOUTH -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
+                    case WEST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
+                    case EAST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
                 }
 
-                configuredModelBuilder.modelFile(modelDescending).addModel();
+                blockStateVariant.with(VariantProperties.MODEL, modelDescending);
             }else {
                 switch(beltDir.getDirection()) {
-                    case NORTH -> configuredModelBuilder.rotationY(180);
-                    case WEST -> configuredModelBuilder.rotationY(90);
-                    case EAST -> configuredModelBuilder.rotationY(270);
+                    case NORTH -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
+                    case WEST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
+                    case EAST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
                 }
 
-                configuredModelBuilder.modelFile(modelFlat).addModel();
+                blockStateVariant.with(VariantProperties.MODEL, modelFlat);
             }
+
+            builder.select(beltDir, blockStateVariant);
         }
 
-        itemModels().getBuilder(blockId.getPath())
-                .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                .texture("layer0", getBlockTexture(block));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(builder));
+
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.value()), TextureMapping.layer0(TextureMapping.getBlockTexture(block.value())), generator.modelOutput);
     }
 
-    private void fluidPipeBlockWithItem(Holder<? extends Block> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void fluidPipeBlockWithItem(Holder<Block> block) {
+        ResourceLocation fluidPipeCore = ModTexturedModel.FLUID_PIPE_CORE.get(block.value()).
+                createWithSuffix(block.value(), "_core", generator.modelOutput);
+        ResourceLocation fluidPipeSideConnected = ModTexturedModel.FLUID_PIPE_SIDE_CONNECTED.get(block.value()).
+                createWithSuffix(block.value(), "_side_connected", generator.modelOutput);
+        ResourceLocation fluidPipeSideExtract = ModTexturedModel.FLUID_PIPE_SIDE_EXTRACT.get(block.value()).
+                createWithSuffix(block.value(), "_side_extract", generator.modelOutput);
 
-        ModelFile fluidPipeCore = models().
-                getBuilder(blockId.getPath() + "_core").parent(fluidPipeCoreTemplate).
-                texture("particle", getBlockTexture(block, "_core")).
-                texture("fluid_pipe_core", getBlockTexture(block, "_core"));
-        ModelFile fluidPipeSideConnected = models().
-                getBuilder(blockId.getPath() + "_side_connected").parent(fluidPipeSideConnectedTemplate).
-                texture("particle", getBlockTexture(block, "_side_connected")).
-                texture("fluid_pipe_side", getBlockTexture(block, "_side_connected"));
-        ModelFile fluidPipeSideExtract = models().
-                getBuilder(blockId.getPath() + "_side_extract").parent(fluidPipeSideExtractTemplate).
-                texture("particle", getBlockTexture(block, "_side_outer_extract")).
-                texture("fluid_pipe_side_inner", getBlockTexture(block, "_side_inner_extract")).
-                texture("fluid_pipe_side_outer", getBlockTexture(block, "_side_outer_extract"));
+        generator.blockStateOutput.accept(
+                MultiPartGenerator.multiPart(block.value()).
+                        with(Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeCore)).
+                        with(Condition.condition().term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideConnected).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
+                        with(Condition.condition().term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideExtract).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
+                        with(Condition.condition().term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideConnected).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
+                        with(Condition.condition().term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideExtract).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
+                        with(Condition.condition().term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideConnected)).
+                        with(Condition.condition().term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideExtract)).
+                        with(Condition.condition().term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideConnected).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
+                        with(Condition.condition().term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideExtract).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
+                        with(Condition.condition().term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideConnected).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        with(Condition.condition().term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideExtract).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        with(Condition.condition().term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideConnected).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)).
+                        with(Condition.condition().term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
+                                with(VariantProperties.MODEL, fluidPipeSideExtract).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        );
 
-        getMultipartBuilder(block.value()).part().
-                modelFile(fluidPipeCore).addModel().end().part().
-                modelFile(fluidPipeSideConnected).rotationX(270).addModel().condition(FluidPipeBlock.UP,
-                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
-                modelFile(fluidPipeSideExtract).rotationX(270).addModel().condition(FluidPipeBlock.UP,
-                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
-                modelFile(fluidPipeSideConnected).rotationX(90).addModel().condition(FluidPipeBlock.DOWN,
-                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
-                modelFile(fluidPipeSideExtract).rotationX(90).addModel().condition(FluidPipeBlock.DOWN,
-                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
-                modelFile(fluidPipeSideConnected).addModel().condition(FluidPipeBlock.NORTH,
-                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
-                modelFile(fluidPipeSideExtract).addModel().condition(FluidPipeBlock.NORTH,
-                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
-                modelFile(fluidPipeSideConnected).rotationX(180).addModel().condition(FluidPipeBlock.SOUTH,
-                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
-                modelFile(fluidPipeSideExtract).rotationX(180).addModel().condition(FluidPipeBlock.SOUTH,
-                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
-                modelFile(fluidPipeSideConnected).rotationY(90).addModel().condition(FluidPipeBlock.EAST,
-                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
-                modelFile(fluidPipeSideExtract).rotationY(90).addModel().condition(FluidPipeBlock.EAST,
-                        EPBlockStateProperties.PipeConnection.EXTRACT).end().part().
-                modelFile(fluidPipeSideConnected).rotationY(270).addModel().condition(FluidPipeBlock.WEST,
-                        EPBlockStateProperties.PipeConnection.CONNECTED).end().part().
-                modelFile(fluidPipeSideExtract).rotationY(270).addModel().condition(FluidPipeBlock.WEST,
-                        EPBlockStateProperties.PipeConnection.EXTRACT).end();
-
-        itemModels().
-                getBuilder(blockId.getPath()).parent(fluidPipeCore).
-                transforms().
-                transform(ItemDisplayContext.GUI).rotation(30, 45, 0).end().
-                transform(ItemDisplayContext.GROUND).scale(.65f, .65f, .65f).end().
-                transform(ItemDisplayContext.FIXED).scale(.65f, .65f, .65f).end().
-                transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(.65f, .65f, .65f).end().
-                transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).scale(.65f, .65f, .65f).end().
-                transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).scale(.65f, .65f, .65f).end().
-                transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).scale(.65f, .65f, .65f).end().end();
+        generator.registerSimpleItemModel(block.value(), fluidPipeCore);
     }
 
-    private void fluidTankBlockWithItem(Holder<? extends Block> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void fluidTankBlockWithItem(Holder<Block> block) {
+        ResourceLocation fluidTank = ModTexturedModel.FLUID_TANK.get(block.value()).create(block.value(), generator.modelOutput);
 
-        ModelFile fluidTank = models().
-                getBuilder(blockId.getPath()).parent(fluidTankTemplate).
-                texture("particle", "#up").
-                texture("front", getBlockTexture(block, "_front")).
-                texture("side", getBlockTexture(block, "_side")).
-                texture("up", getBlockTexture(block, "_top")).
-                texture("interior", getBlockTexture(block, "_interior"));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(PropertyDispatch.property(FluidTankBlock.FACING).
+                        select(Direction.NORTH, Variant.variant().
+                                with(VariantProperties.MODEL, fluidTank)).
+                        select(Direction.SOUTH, Variant.variant().
+                                with(VariantProperties.MODEL, fluidTank).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                        select(Direction.EAST, Variant.variant().
+                                with(VariantProperties.MODEL, fluidTank).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        select(Direction.WEST, Variant.variant().
+                                with(VariantProperties.MODEL, fluidTank).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                ));
 
-        getVariantBuilder(block.value()).partialState().
-                with(FluidTankBlock.FACING, Direction.NORTH).modelForState().modelFile(fluidTank).addModel().partialState().
-                with(FluidTankBlock.FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(fluidTank).addModel().partialState().
-                with(FluidTankBlock.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(fluidTank).addModel().partialState().
-                with(FluidTankBlock.FACING, Direction.WEST).modelForState().rotationY(270).modelFile(fluidTank).addModel().partialState();
-
-        simpleBlockItem(block.value(), fluidTank);
+        generator.registerSimpleItemModel(block.value(), fluidTank);
     }
 
-    private void cableBlockWithItem(Holder<? extends Block> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void cableBlockWithItem(Holder<Block> block) {
+        ResourceLocation cableCore = ModTexturedModel.CABLE_CORE.get(block.value()).createWithSuffix(block.value(), "_core", generator.modelOutput);
+        ResourceLocation cableSide = ModTexturedModel.CABLE_SIDE.get(block.value()).createWithSuffix(block.value(), "_side", generator.modelOutput);
 
-        ModelFile cableCore = models().
-                getBuilder(blockId.getPath() + "_core").parent(cableCoreTemplate).
-                texture("particle", getBlockTexture(block)).
-                texture("cable", getBlockTexture(block));
-        ModelFile cableSide = models().
-                getBuilder(blockId.getPath() + "_side").parent(cableSideTemplate).
-                texture("particle", getBlockTexture(block)).
-                texture("cable", getBlockTexture(block));
+        generator.blockStateOutput.accept(
+                MultiPartGenerator.multiPart(block.value()).
+                        with(Variant.variant().
+                                with(VariantProperties.MODEL, cableCore)).
+                        with(Condition.condition().term(CableBlock.UP, true), Variant.variant().
+                                with(VariantProperties.MODEL, cableSide).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
+                        with(Condition.condition().term(CableBlock.DOWN, true), Variant.variant().
+                                with(VariantProperties.MODEL, cableSide).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
+                        with(Condition.condition().term(CableBlock.NORTH, true), Variant.variant().
+                                with(VariantProperties.MODEL, cableSide)).
+                        with(Condition.condition().term(CableBlock.SOUTH, true), Variant.variant().
+                                with(VariantProperties.MODEL, cableSide).
+                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
+                        with(Condition.condition().term(CableBlock.EAST, true), Variant.variant().
+                                with(VariantProperties.MODEL, cableSide).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                        with(Condition.condition().term(CableBlock.WEST, true), Variant.variant().
+                                with(VariantProperties.MODEL, cableSide).
+                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        );
 
-        getMultipartBuilder(block.value()).part().
-                modelFile(cableCore).addModel().end().part().
-                modelFile(cableSide).rotationX(270).addModel().condition(CableBlock.UP, true).end().part().
-                modelFile(cableSide).rotationX(90).addModel().condition(CableBlock.DOWN, true).end().part().
-                modelFile(cableSide).addModel().condition(CableBlock.NORTH, true).end().part().
-                modelFile(cableSide).rotationX(180).addModel().condition(CableBlock.SOUTH, true).end().part().
-                modelFile(cableSide).rotationY(90).addModel().condition(CableBlock.EAST, true).end().part().
-                modelFile(cableSide).rotationY(270).addModel().condition(CableBlock.WEST, true).end();
-
-        itemModels().
-                getBuilder(blockId.getPath()).parent(cableCore).
-                transforms().
-                transform(ItemDisplayContext.GUI).rotation(30, 45, 0).scale(1.5f, 1.5f, 1.5f).end().
-                transform(ItemDisplayContext.GROUND).scale(1.01f, 1.01f, 1.01f).end().
-                transform(ItemDisplayContext.FIXED).scale(1.01f, 1.01f, 1.01f).end().
-                transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(1.01f, 1.01f, 1.01f).end().
-                transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).scale(1.01f, 1.01f, 1.01f).end().
-                transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).scale(1.01f, 1.01f, 1.01f).end().
-                transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).scale(1.01f, 1.01f, 1.01f).end().end();
+        generator.registerSimpleItemModel(block.value(), cableCore);
     }
 
-    private void transformerBlockWithItem(DeferredHolder<Block, ? extends TransformerBlock> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-        String textureName = switch(block.get().getTier()) {
+    private void transformerBlockWithItem(DeferredBlock<TransformerBlock> block) {
+        String textureName = switch(block.value().getTier()) {
             case TIER_LV -> "lv_transformer";
             case TIER_MV -> "mv_transformer";
             case TIER_HV -> "hv_transformer";
             case TIER_EHV -> "ehv_transformer";
         };
 
-        TransformerBlock.Type transformerType = block.get().getTransformerType();
+        TransformerBlock.Type transformerType = block.value().getTransformerType();
         switch(transformerType) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
                 String singleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_input":"_output";
                 String multipleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_output":"_input";
 
-                ModelFile transformer = models().
-                        withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/orientable").
-                        texture("particle", "#top").
-                        texture("top", ModelProvider.BLOCK_FOLDER + "/" + textureName + multipleSuffix).
-                        texture("bottom", ModelProvider.BLOCK_FOLDER + "/" + textureName + multipleSuffix).
-                        texture("front", ModelProvider.BLOCK_FOLDER + "/" + textureName + singleSuffix).
-                        texture("side", ModelProvider.BLOCK_FOLDER + "/" + textureName + multipleSuffix);
+                ResourceLocation transformer = TexturedModel.createDefault(unused -> new TextureMapping().
+                                put(TextureSlot.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureSlot.BOTTOM, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureSlot.FRONT, EPAPI.id("block/" + textureName + singleSuffix)).
+                                put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                copySlot(TextureSlot.TOP, TextureSlot.PARTICLE),
+                        ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block.value()).create(block.value(), generator.modelOutput);
 
-                getVariantBuilder(block.value()).partialState().
-                        with(TransformerBlock.FACING, Direction.UP).modelForState().rotationX(270).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.DOWN).modelForState().rotationX(90).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.NORTH).modelForState().modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.SOUTH).modelForState().rotationY(180).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.WEST).modelForState().rotationY(270).modelFile(transformer).addModel().partialState();
+                generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                        with(PropertyDispatch.property(BlockStateProperties.FACING).
+                                select(Direction.UP, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
+                                select(Direction.DOWN, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
+                                select(Direction.NORTH, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer)).
+                                select(Direction.SOUTH, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                                select(Direction.EAST, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                                select(Direction.WEST, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                        ));
 
-                simpleBlockItem(block.value(), transformer);
+                generator.registerSimpleItemModel(block.value(), transformer);
             }
             case TYPE_3_TO_3 -> {
-                ModelFile transformer = models().
-                        withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
-                        texture("particle", "#up").
-                        texture("up", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input").
-                        texture("down", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
-                        texture("north", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input").
-                        texture("south", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
-                        texture("east", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
-                        texture("west", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input");
+                ResourceLocation transformer = TexturedModel.createDefault(unused -> new TextureMapping().
+                                put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureSlot.SOUTH, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureSlot.EAST, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureSlot.WEST, EPAPI.id("block/" + textureName + "_input")).
+                                copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                        ModelTemplates.CUBE).get(block.value()).create(block.value(), generator.modelOutput);
 
-                getVariantBuilder(block.value()).partialState().
-                        with(TransformerBlock.FACING, Direction.UP).modelForState().rotationX(270).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.DOWN).modelForState().rotationX(90).rotationY(90).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.NORTH).modelForState().modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.SOUTH).modelForState().rotationX(90).rotationY(180).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.EAST).modelForState().rotationY(90).modelFile(transformer).addModel().partialState().
-                        with(TransformerBlock.FACING, Direction.WEST).modelForState().rotationX(90).rotationY(270).modelFile(transformer).addModel().partialState();
+                generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                        with(PropertyDispatch.property(BlockStateProperties.FACING).
+                                select(Direction.UP, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
+                                select(Direction.DOWN, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                                select(Direction.NORTH, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer)).
+                                select(Direction.SOUTH, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
+                                select(Direction.EAST, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
+                                select(Direction.WEST, Variant.variant().
+                                        with(VariantProperties.MODEL, transformer).
+                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).
+                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                        ));
 
-                simpleBlockItem(block.value(), transformer);
+                generator.registerSimpleItemModel(block.value(), transformer);
             }
         }
     }
 
-    private void solarPanelBlockWithItem(Holder<? extends Block> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void solarPanelBlockWithItem(Holder<Block> block) {
+        ResourceLocation solarPanel = ModTexturedModel.SOLAR_PANEL.get(block.value()).create(block.value(), generator.modelOutput);
 
-        ModelFile solarPanel = models().
-                getBuilder(blockId.getPath()).parent(solarPanelTemplate).
-                texture("particle", "#top").
-                texture("top", getBlockTexture(block, "_top")).
-                texture("side", getBlockTexture(block, "_side"));
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value(),
+                Variant.variant().with(VariantProperties.MODEL, solarPanel)));
 
-        getVariantBuilder(block.value()).partialState().
-                modelForState().modelFile(solarPanel).addModel();
-
-        simpleBlockItem(block.value(), solarPanel);
+        generator.registerSimpleItemModel(block.value(), solarPanel);
     }
 
-    private void activatableOrientableMachineBlockWithItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private void activatableOrientableMachineBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
         activatableOrientableBlockWithItem(block,
                 orientableBlockModel(block, uniqueBottomTexture),
                 orientableOnBlockModel(block, uniqueBottomTexture),
                 BlockStateProperties.LIT);
     }
 
-    private void poweredLampBlockWithItem(Holder<? extends Block> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+    private void poweredLampBlockWithItem(Holder<Block> block) {
+        ResourceLocation modelOff = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.ALL, TextureMapping.getBlockTexture(block.value())),
+                ModelTemplates.CUBE_ALL).get(block.value()).create(block.value(), generator.modelOutput);
 
-        ModelFile modelOff = models().cubeAll(blockId.getPath(), getBlockTexture(block));
-        ModelFile modelOn = models().cubeAll(blockId.getPath() + "_on", getBlockTexture(block, "_on"));
+        ResourceLocation modelOn = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.ALL, TextureMapping.getBlockTexture(block.value(), "_on")),
+                ModelTemplates.CUBE_ALL).get(block.value()).createWithSuffix(block.value(), "_on", generator.modelOutput);
 
-        VariantBlockStateBuilder blockStateBuilder = getVariantBuilder(block.value()).partialState().
-                with(BlockStateProperties.LEVEL, 0).modelForState().modelFile(modelOff).addModel();
+        PropertyDispatch.C1<Integer> builder = PropertyDispatch.property(BlockStateProperties.LEVEL).
+                select(0, Variant.variant().
+                        with(VariantProperties.MODEL, modelOff));
 
         for(int i = 1;i < 16;i++)
-                blockStateBuilder.partialState().
-                        with(BlockStateProperties.LEVEL, i).modelForState().modelFile(modelOn).addModel();
+            builder.select(i, Variant.variant().
+                    with(VariantProperties.MODEL, modelOn));
 
-        simpleBlockItem(block.value(), modelOff);
-    }
+        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+                with(builder));
 
-    private ResourceLocation getBlockTexture(Holder<? extends Block> block) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(),
-                ModelProvider.BLOCK_FOLDER + "/" + blockId.getPath());
-    }
-
-    private ResourceLocation getBlockTexture(Holder<? extends Block> block, String pathSuffix) {
-        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
-
-        return ResourceLocation.fromNamespaceAndPath(blockId.getNamespace(),
-                ModelProvider.BLOCK_FOLDER + "/" + blockId.getPath() + pathSuffix);
+        generator.registerSimpleItemModel(block.value(), modelOff);
     }
 }

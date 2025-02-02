@@ -4,7 +4,7 @@
     "down": "energizedpower:block/charging_station_bottom",
     "east": "energizedpower:block/charging_station_side_on",
     "north": "energizedpower:block/charging_station_side_on",
-    "particle": "#up",
+    "particle": "energizedpower:block/charging_station_top_on",
     "south": "energizedpower:block/charging_station_side_on",
     "up": "energizedpower:block/charging_station_top_on",
     "west": "energizedpower:block/charging_station_side_on"

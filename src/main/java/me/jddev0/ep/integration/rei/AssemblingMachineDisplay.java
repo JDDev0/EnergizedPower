@@ -49,7 +49,7 @@ public record AssemblingMachineDisplay(RecipeHolder<AssemblingMachineRecipe> rec
     @Override
     public List<EntryIngredient> getInputEntries() {
         return Arrays.stream(recipe.value().getInputs()).map(input ->
-                EntryIngredients.ofItemStacks(input.input().items().stream().
+                EntryIngredients.ofItemStacks(input.input().items().
                         map(Holder::unwrap).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
                                 l -> new ItemStack(BasicDisplay.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),

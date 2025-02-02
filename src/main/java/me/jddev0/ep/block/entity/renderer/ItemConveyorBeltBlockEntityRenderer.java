@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -91,10 +90,9 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
             if(itemStack.isEmpty())
                 continue;
 
-            BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
-            itemRenderer.render(itemStack, ItemDisplayContext.GROUND, false, poseStack, bufferSource,
+            itemRenderer.renderStatic(itemStack, ItemDisplayContext.GROUND,
                     LightTexture.pack(level.getBrightness(LightLayer.BLOCK, pos), level.getBrightness(LightLayer.SKY, pos)),
-                    OverlayTexture.NO_OVERLAY, bakedModel);
+                    OverlayTexture.NO_OVERLAY, poseStack, bufferSource, null, 0);
         }
 
         poseStack.popPose();

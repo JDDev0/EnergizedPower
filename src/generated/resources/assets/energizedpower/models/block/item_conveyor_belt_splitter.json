@@ -4,7 +4,7 @@
     "down": "energizedpower:block/item_conveyor_belt_splitter_top",
     "east": "energizedpower:block/item_conveyor_belt_splitter_output",
     "north": "energizedpower:block/item_conveyor_belt_splitter_input",
-    "particle": "#up",
+    "particle": "energizedpower:block/item_conveyor_belt_splitter_top",
     "south": "energizedpower:block/item_conveyor_belt_splitter_output",
     "up": "energizedpower:block/item_conveyor_belt_splitter_top",
     "west": "energizedpower:block/item_conveyor_belt_splitter_output"

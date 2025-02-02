@@ -4,7 +4,7 @@
     "down": "energizedpower:block/advanced_battery_box_bottom",
     "east": "energizedpower:block/advanced_battery_box_side",
     "north": "energizedpower:block/advanced_battery_box_side",
-    "particle": "#up",
+    "particle": "energizedpower:block/advanced_battery_box_top",
     "south": "energizedpower:block/advanced_battery_box_side",
     "up": "energizedpower:block/advanced_battery_box_top",
     "west": "energizedpower:block/advanced_battery_box_side"

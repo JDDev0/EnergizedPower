@@ -16,8 +16,8 @@ import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.*;
@@ -25,7 +25,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -442,10 +441,8 @@ public class EnergizedPowerBookScreen extends Screen {
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
         TextureManager textureManager = minecraft.getTextureManager();
 
-        BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
-
-        textureManager.getTexture(InventoryMenu.BLOCK_ATLAS).setFilter(false, false);
-        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+        textureManager.getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
+        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
@@ -459,8 +456,8 @@ public class EnergizedPowerBookScreen extends Screen {
         MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
         Lighting.setupForEntityInInventory();
 
-        itemRenderer.render(itemStack, ItemDisplayContext.GUI, false, guiGraphics.pose(), bufferSource,
-                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, bakedModel);
+        itemRenderer.renderStatic(itemStack, ItemDisplayContext.GUI, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, guiGraphics.pose(), bufferSource,
+                null, 0);
 
         bufferSource.endBatch();
         RenderSystem.enableDepthTest();

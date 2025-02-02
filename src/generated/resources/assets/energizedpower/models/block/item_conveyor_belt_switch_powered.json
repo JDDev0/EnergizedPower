@@ -4,7 +4,7 @@
     "down": "energizedpower:block/item_conveyor_belt_switch_top",
     "east": "energizedpower:block/item_conveyor_belt_switch_output_disabled",
     "north": "energizedpower:block/item_conveyor_belt_switch_input",
-    "particle": "#up",
+    "particle": "energizedpower:block/item_conveyor_belt_switch_top",
     "south": "energizedpower:block/item_conveyor_belt_switch_side",
     "up": "energizedpower:block/item_conveyor_belt_switch_top",
     "west": "energizedpower:block/item_conveyor_belt_switch_output_enabled"
