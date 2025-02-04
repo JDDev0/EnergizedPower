@@ -634,17 +634,17 @@
   "item.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
   "container.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
 
-  "block.energizedpower.weather_controller": "Wetter-Controller",
-  "item.energizedpower.weather_controller": "Wetter-Controller",
-  "container.energizedpower.weather_controller": "Wetter-Controller",
+  "block.energizedpower.weather_controller": "Wetter-Kontroller",
+  "item.energizedpower.weather_controller": "Wetter-Kontroller",
+  "container.energizedpower.weather_controller": "Wetter-Kontroller",
 
   "tooltip.energizedpower.weather_controller.btn.clear": "Setze das Wetter auf Klar",
   "tooltip.energizedpower.weather_controller.btn.rain": "Setze das Wetter auf Regen",
   "tooltip.energizedpower.weather_controller.btn.thunder": "Setze das Wetter auf Gewitter",
 
-  "block.energizedpower.time_controller": "Zeit-Controller",
-  "item.energizedpower.time_controller": "Zeit-Controller",
-  "container.energizedpower.time_controller": "Zeit-Controller",
+  "block.energizedpower.time_controller": "Zeit-Kontroller",
+  "item.energizedpower.time_controller": "Zeit-Kontroller",
+  "container.energizedpower.time_controller": "Zeit-Kontroller",
 
   "tooltip.energizedpower.time_controller.btn.day": "Setze die Zeit auf Vormittag",
   "tooltip.energizedpower.time_controller.btn.noon": "Setze die Zeit auf Mittag",
@@ -751,7 +751,7 @@
   "entity.minecraft.villager.energizedpower.electrician": "Elektroniker",
 
   "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
-  "entity.energizedpower.advanced_battery_box_minecart": "Fortgesch... Batterie-Box-Lore",
+  "entity.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
 
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
@@ -1075,10 +1075,10 @@
   "advancements.energizedpower.teleporter.description": "Crafte einen Teleporter.",
 
   "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
-  "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Controller.",
+  "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Kontroller.",
 
   "advancements.energizedpower.time_controller.title": "Steuere die Zeit",
-  "advancements.energizedpower.time_controller.description": "Ändere die Zeit mit dem Zeit-Controller.",
+  "advancements.energizedpower.time_controller.description": "Ändere die Zeit mit dem Zeit-Kontroller.",
 
   "advancements.energizedpower.coal_engine.title": "Durch Kohle angetrieben",
   "advancements.energizedpower.coal_engine.description": "Die Stromproduktion durch Verbrennung is nicht das Effizienteste, aber es reicht für den Moment.",
@@ -1186,10 +1186,10 @@
   "advancements.energizedpower.energized_power_book.description": "Ein Guide-Buch für diese Mod.",
 
   "advancements.energizedpower.hammer.title": "Ein gutes Werkzeug",
-  "advancements.energizedpower.hammer.description": "Hämmer können für das Craften von Platten verwendet werden.",
+  "advancements.energizedpower.hammer.description": "Hämmer können für das Herstellen von Platten verwendet werden.",
 
   "advancements.energizedpower.cutter.title": "Schnipp, Schnipp, Schnipp",
-  "advancements.energizedpower.cutter.description": "Seitenschneider können für das Craften von Drähten verwendet werden.",
+  "advancements.energizedpower.cutter.description": "Seitenschneider können für das Herstellen von Drähten verwendet werden.",
 
   "advancements.energizedpower.wrench.title": "Schraubenschlüssel-Konfiguration",
   "advancements.energizedpower.wrench.description": "Konfiguriere Blöcke mit einem Schraubenschlüssel.",
@@ -1300,8 +1300,8 @@
 
   "book.energizedpower.page.welcome.title": "Willkommen zu Energized Power!",
   "book.energizedpower.page.welcome.1": "Diese Mod fügt viele Items und Maschinen hinzu, die etwas mit Strom zu tun haben.",
-  "book.energizedpower.page.welcome.2": "Offizielles Energized Power-Wiki",
-  "book.energizedpower.page.welcome.3": "Du hast einen Bug gefunden oder hast einen Vorschlag? Mache das hier (Englisch)",
+  "book.energizedpower.page.welcome.2": "Offizielle Energized Power-Wiki",
+  "book.energizedpower.page.welcome.3": "Du hast einen Fehler gefunden oder möchtest eine Verbesserung vorschlagen? Tu es hier (Englisch)",
   "book.energizedpower.page.welcome.3.link": "Issues",
   "book.energizedpower.page.welcome.4": "Discord-Server (Englisch)",
   "book.energizedpower.page.welcome.4.link": "Discord",
@@ -1314,7 +1314,7 @@
   "book.energizedpower.page.credits.1": "Energetisierte Kupfer-/Goldbarren (Texturen)",
   "book.energizedpower.page.credits.2": "Batterie (Texturen)",
   "book.energizedpower.page.credits.3": "Silizium (Textur)",
-  "book.energizedpower.page.credits.4": "Energie-Analyzierer (Textur)",
+  "book.energizedpower.page.credits.4": "Energie-Analysator (Textur)",
   "book.energizedpower.page.credits.5": "Chinesisch (Vereinfacht)-Übersetzung",
   "book.energizedpower.page.credits.6": "Italienisch-Übersetzung",
   "book.energizedpower.page.credits.7": "Türkisch-Übersetzung",
@@ -1324,7 +1324,7 @@
 
 
   "book.energizedpower.page.chapter.resources.title": "Ressourcen",
-  "book.energizedpower.page.chapter.resources.1": "Ressourcen sind für das Craften von Items erforderlich.",
+  "book.energizedpower.page.chapter.resources.1": "Für das Herstellen von Gegenständen werden Ressourcen benötigt.",
 
   "book.energizedpower.page.cable_insulator.1": "Der Kabelinsulator ist für das herstellen von Kabeln erforderlich.",
   "book.energizedpower.page.cable_insulator.2": "Er kann durch das Klicken auf einen Wolleblock mit einer Schere hergestellt werden.",
@@ -1335,7 +1335,7 @@
   "book.energizedpower.page.silicon.1": "Silizium ist ein Item, dass für viele Rezepte dieser Mod benötigt wird.",
   "book.energizedpower.page.silicon.2": "Es kann durch das Schmelzen von Netherquarz herstellt werden.",
 
-  "book.energizedpower.page.sawdust.1": "Sägemehl wird in dem Sägewerk als Nebenprodukt hergestellt und kann zu Sägemehlblöcken gecraftet werden.",
+  "book.energizedpower.page.sawdust.1": "Sägemehl ist ein Nebenprodukt, das im Sägewerk entsteht und zu Sägemehlblöcken verarbeitet werden kann.",
   "book.energizedpower.page.sawdust.2": "Sägemehlblöcke können zu Holzkohle geschmolzen werden.",
 
   "book.energizedpower.page.fertilizers": "Dünger können verwendet werden, um die Pflanzenwachstums-Kammer schneller zu machen.",
@@ -1348,7 +1348,7 @@
 
   "book.energizedpower.page.alloys": "Legierungen werden in vielen Rezepten verwendet und können im Legierungsofen und in der Induktionsschmelzanlage hergestellt werden.",
 
-  "book.energizedpower.page.plates.1": "Platten werden benötigt, um die meisten Maschinen zu craften. Platten können mit Hämmer oder im Kompressor hergestellt werden.",
+  "book.energizedpower.page.plates.1": "Platten werden benötigt, um die meisten Maschinen herzustellen. Platten können mit Hämmer oder im Kompressor hergestellt werden.",
   "book.energizedpower.page.plates.2": "Fortgeschrittene Legierungs-Platten und energetisierte Platten können nur im Kompressor hergestellt werden.",
 
   "book.energizedpower.page.metal_products.1": "Metall-Produkte (Zahnräder, Stangen und Drähte) werden in vielen Rezepten verwendet.",
@@ -1375,14 +1375,14 @@
 
   "book.energizedpower.page.energy_capacity_upgrades": "Energiekapazität-Upgrades erhöhen die Energie-Speicher-Kapazität und die Energie-Transfer-Rate.",
 
-  "book.energizedpower.page.duration_upgrades.1": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Controller gesetzten Wetter.",
-  "book.energizedpower.page.duration_upgrades.2": "Das Laufzeit-Upgrade (MK VI) erlaubt es dem Wetter-Controller das aktuelle Wetter beizubehalten, erfordert aber eine konstante Energiezufuhr.",
+  "book.energizedpower.page.duration_upgrades.1": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Kontroller gesetzten Wetter.",
+  "book.energizedpower.page.duration_upgrades.2": "Das Laufzeit-Upgrade (MK VI) erlaubt es dem Wetter-Kontroller das aktuelle Wetter beizubehalten, erfordert aber eine konstante Energiezufuhr.",
 
   "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine arbeiten kann.",
 
   "book.energizedpower.page.extraction_depth_upgrades": "Extraktionstiefen-Upgrades erhöht die Tiefe, in der eine Machine arbeiten kann.",
 
-  "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektroofen herstellen kann.",
+  "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektro-Ofen herstellen kann.",
 
   "book.energizedpower.page.moon_light_upgrades": "Mondlicht-Upgrades erlaubt es einem Solarpanel während der Nacht Strom zu produzieren.",
 
@@ -1390,9 +1390,9 @@
   "book.energizedpower.page.chapter.tools.title": "Werkzeuge",
   "book.energizedpower.page.chapter.tools": "Können hilfreich sein",
 
-  "book.energizedpower.page.hammers": "Hämmer können verwendet werden, um Platten zu craften.",
+  "book.energizedpower.page.hammers": "Hämmer können verwendet werden, um Platten herzustellen.",
 
-  "book.energizedpower.page.cutters.1": "Seitenschneider können für das Craften von Drähten verwendet werden.",
+  "book.energizedpower.page.cutters.1": "Seitenschneider können für die Herstellung von Drähten verwendet werden.",
   "book.energizedpower.page.cutters.2": "Seitenschneider können verwendet werden, um Kabel schneller abzubauen.",
 
   "book.energizedpower.page.wrench": "Der Schraubenschlüssel kann für die Konfiguration von Blöcken verwendet werden.",
@@ -1403,16 +1403,16 @@
 
   "book.energizedpower.page.press_mold_maker": "Der Pressform-Hersteller kann für die Herstellung von Pressformen für die Metallpresse verwendet werden.",
 
-  "book.energizedpower.page.alloy_furnace.1": "Der Legierungsofen kann für die Herstelltung von Legierungen verwendet werden.",
+  "book.energizedpower.page.alloy_furnace.1": "Der Legierungsofen kann für die Herstellung von Legierungen verwendet werden.",
   "book.energizedpower.page.alloy_furnace.2": "Ausgabe-Items und konsumierte Treibstoff-Items können von allen Seiten extrahiert werden.",
-  "book.energizedpower.page.alloy_furnace.3": "Treibstoff-Items können von oben und unten eingelegt werden. Eingabe-Items können von allen anderen Steien eingelegt werden (Vorne: Alle Eingabe-Slots, Links: Linker Eingabe-Slot, Hinten: Mittlerer Eingabe-Slot, Rechts: Rechter Eingabe-Slot).",
+  "book.energizedpower.page.alloy_furnace.3": "Treibstoff-Items können von oben und unten eingelegt werden. Eingabe-Items können von allen anderen Seiten eingelegt werden (Vorne: Alle Eingabe-Slots, Links: Linker Eingabe-Slot, Hinten: Mittlerer Eingabe-Slot, Rechts: Rechter Eingabe-Slot).",
 
 
   "book.energizedpower.page.chapter.energy_items.title": "Energie-Items",
   "book.energizedpower.page.chapter.energy_items": "Items, die Energie produzieren, verbrauchen oder speichern.",
 
   "book.energizedpower.page.inventory_coal_engine.1": "Dieses Item kann Strom in deinem Inventar produzieren und verteilen.",
-  "book.energizedpower.page.inventory_coal_engine.2": "Es kann durch das Klicken in Luft aktiviert werden.",
+  "book.energizedpower.page.inventory_coal_engine.2": "Es kann durch das Klicken in der Luft aktiviert werden.",
   "book.energizedpower.page.inventory_coal_engine.3": "Treibstoff wird automatisch aus dem Inventar entnommen.",
   "book.energizedpower.page.inventory_coal_engine.4": " [Die Hotbar ist ausgenommen]",
 
@@ -1421,11 +1421,11 @@
 
   "book.energizedpower.page.inventory_teleporter": "Der Inventar Teleporter kann Spieler teleportieren. Um das zu tun, benötigt er Energie und eine gebundene Teleporter-Matrix.",
 
-  "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analyzierer kann genutzt werden, um Energie-Statistiken von Blöcken - auch diese, ohne GUI - zu erhalten.",
-  "book.energizedpower.page.energy_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
+  "book.energizedpower.page.energy_analyzer.1": "Der Energie-Analysator kann verwendet werden, um Energiestatistiken zu erhalten. Hauptsächlich verwendet für Energieblöcke ohne GUI.",
+  "book.energizedpower.page.energy_analyzer.2": "Er wird durch das Klicken auf Blöcken verwendet.",
 
-  "book.energizedpower.page.fluid_analyzer.1": "Der Flüssigkeits-Analyzierer kann genutzt werden, um Flüssigkeits-Statistiken von Blöcken zu erhalten.",
-  "book.energizedpower.page.fluid_analyzer.2": "Es wird durch das Klicken auf Blöcken verwendet.",
+  "book.energizedpower.page.fluid_analyzer.1": "Der Flüssigkeits-Analysator kann genutzt werden, um Flüssigkeits-Statistiken von Blöcken zu erhalten.",
+  "book.energizedpower.page.fluid_analyzer.2": "Er wird durch das Klicken auf Blöcken verwendet.",
 
   "book.energizedpower.page.batteries.1": "Batterien speichern Strom.",
   "book.energizedpower.page.batteries.2": "Sie können im Lader oder durch den Inventar-Kohlegenerator geladen werden und mit dem Entlader entladen werden.",
@@ -1437,7 +1437,7 @@
   "book.energizedpower.page.energy_blocks.table_of_contents.title": "Inhaltsverzeichnis\n(Energie-Blöcke)",
 
 
-  "book.energizedpower.page.chapter.energy_blocks.general.title": "Allgemeines",
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "Allgemein",
   "book.energizedpower.page.chapter.energy_blocks.general": "Allgemeine Informationen für Energie-Blöcke",
 
   "book.energizedpower.page.machine_frames.1": "Maschinenrahmen sind der Basis-Crafting-Block für alle Maschinen.",
@@ -1507,7 +1507,7 @@
   "book.energizedpower.page.auto_crafters.1": "Die automatische Werkbank stellt Items automatisch her.",
   "book.energizedpower.page.auto_crafters.2": "Die Rezepte können in den Pattern-Feldern definiert werden.",
   "book.energizedpower.page.auto_crafters.3": "Die automatische Werkbank kann mit Rezept-Konflikten umgehen, d.h. Rezepte mit den gleichen Items. Nutze dafür den \"Rezepte durchlaufen\"-Button oder setzte das Pattern mithilfe einer Recipe-Viewer-Mod (wie REI).",
-  "book.energizedpower.page.auto_crafters.4": "Die fortgeschrittene Version der automatischen Werkbank untersützt mehrere Rezpte auf einmal.",
+  "book.energizedpower.page.auto_crafters.4": "Die fortgeschrittene Version der automatischen Werkbank untersützt mehrere Rezepte auf einmal.",
 
   "book.energizedpower.page.crushers.1": "Der Zerkleinerer kann Items wie Sand, Sandstein, Bruchstein und Kies zerkleinern.",
   "book.energizedpower.page.crushers.2": "Die fortgeschrittene Version des Zerkleinerers konsumiert Wasser und produziert schmutziges Wasser.",
@@ -1518,9 +1518,9 @@
   "book.energizedpower.page.sawmill.1": "Das Sägewerk sägt Holz-Blöcke und -Items.",
   "book.energizedpower.page.sawmill.2": "Sägemehl wird dabei produziert und kann zu Sägemehlblöcken verarbeitet werden. Diese können dann als Treibstoff verwendet werden.",
 
-  "book.energizedpower.page.compressor": "Der Kompressor komprimiert Barren in Platten.",
+  "book.energizedpower.page.compressor": "Der Kompressor komprimiert Barren zu Platten.",
 
-  "book.energizedpower.page.metal_press.1": "Die Metallpresse erstellt Metall-Produkte (z.B. Drähte) von Metallen.",
+  "book.energizedpower.page.metal_press.1": "Die Metallpresse erstellt Metall-Produkte (z.B. Drähte) aus Metallen.",
   "book.energizedpower.page.metal_press.2": "Pressformen können im Pressform-Hersteller hergestellt werden.",
   "book.energizedpower.page.metal_press.3": "Pressformen können von oben hinzugefügt und extrahiert werden.",
   "book.energizedpower.page.metal_press.4": "Eingaben können von allen anderen Seiten hinzugefügt werden und Ausgaben können auf diesen Seiten extrahiert werden.",
@@ -1563,24 +1563,24 @@
   "book.energizedpower.page.charger_uncharger.1": "Der Lader kann Items laden und der Entlader kann Items entladen.",
   "book.energizedpower.page.charger_uncharger.2": "Die fortgeschrittene Version vom Lader und Endlader haben 3 Slots.",
 
-  "book.energizedpower.page.charging_station": "Die Ladestation kann Items wireless laden.",
+  "book.energizedpower.page.charging_station": "Die Ladestation kann Items kabellos laden.",
 
   "book.energizedpower.page.crystal_growth_chamber": "Die Kristall-Wachstums-Kammer kann genutzt werden, um Kristalle, wie Amethysten, wachsen zu lassen.",
 
   "book.energizedpower.page.energizer": "Der Energetisierer kann Items sehr effizient energetisieren.",
 
-  "book.energizedpower.page.weather_controller": "Der Wetter-Controller kann das Wetter temporär ändern. Um das zu tun, benötigt er Energie.",
+  "book.energizedpower.page.weather_controller": "Der Wetter-Kontroller kann das Wetter temporär ändern. Um das zu tun, benötigt er Energie.",
 
-  "book.energizedpower.page.time_controller.1": "Der Zeit-Controller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
-  "book.energizedpower.page.time_controller.2": "Er kann nicht in der Zeit zurückreisen, der \"time\"-Wert wird immer inkrementiert.",
+  "book.energizedpower.page.time_controller.1": "Der Zeit-Kontroller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
+  "book.energizedpower.page.time_controller.2": "Es kann nicht in der Zeit zurückgehen, der Zeitwert wird immer erhöht.",
 
   "book.energizedpower.page.teleporter_matrix.1": "Teleporter-Matrizen werden zum Verbinden von Teleportern verwendet.",
-  "book.energizedpower.page.teleporter_matrix.2": "Die Einstellungen einer Teleporter-Matrix können kopiert werden indem man eine gebundene und eine oder mehere ungebundene Teleporter-Matrizen in einen Crafting Table legt.",
+  "book.energizedpower.page.teleporter_matrix.2": "Die Einstellungen einer Teleporter-Matrix können kopiert werden, indem man ein verlinktes Ende und eine oder mehrere unverlinkte Teleporter-Matrizen in einer Werkbank legt.",
 
   "book.energizedpower.page.teleporter.1": "Der Teleporter kann Spieler teleportieren. Um das zu tun, benötigt er Energie und eine gebundene Teleporter-Matrix.",
   "book.energizedpower.page.teleporter.2": "Er gibt ein Redstone-Singal aus, wenn er bereit ist, jemanden zu Teleportieren.",
-  "book.energizedpower.page.teleporter.3.1": "Der Teleporter kann durch das Drücken von",
-  "book.energizedpower.page.teleporter.3.2": "manuell ausgelöst werden während man auf dem Teleporter steht.",
+  "book.energizedpower.page.teleporter.3.1": "Der Teleporter kann manuell ausgelöst werden durch Drücken",
+  "book.energizedpower.page.teleporter.3.2": "während du dich über dem Teleporter befindest.",
 
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "Flüssigkeits-Blöcke",
@@ -1664,7 +1664,7 @@
   "book.energizedpower.page.chapter.structures.title": "Strukturen",
   "book.energizedpower.page.chapter.structures": "Strukturen, die in deiner Welt generiert werden.",
 
-  "book.energizedpower.page.electrician.title": "Elektriker-Dorf-\nbewohner",
+  "book.energizedpower.page.electrician.title": "Elektriker-Dorfbewohner",
   "book.energizedpower.page.electrician.1": "Der Elektriker-Dorfbewohner kann im Elektriker-Haus gefunden werden.",
   "book.energizedpower.page.electrician.2": "Dieses Haus kann in allen Dörfern gefunden werden.",
   "book.energizedpower.page.electrician.3": "Der Basis Maschinenrahmen ist die Werkstation des Elektriker-Dorfbewohners.",
