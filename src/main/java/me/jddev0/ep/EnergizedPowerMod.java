@@ -44,7 +44,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -515,8 +515,8 @@ public class EnergizedPowerMod {
         }
 
         @SubscribeEvent
-        public static void loadBookPages(RegisterClientReloadListenersEvent event) {
-            event.registerReloadListener(new EnergizedPowerBookReloadListener());
+        public static void loadBookPages(AddClientReloadListenersEvent event) {
+            event.addListener(EPAPI.id("energized_power_book"), new EnergizedPowerBookReloadListener());
         }
 
         @SubscribeEvent
