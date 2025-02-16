@@ -12,18 +12,18 @@
 
   "item.energizedpower.stone_pebble": "Stone Pebble",
 
-  "item.energizedpower.raw_tin": "Raw Tin",
+  "item.energizedpower.raw_tin": "Ham Kalay",
 
-  "item.energizedpower.tin_dust": "Tin Dust",
+  "item.energizedpower.tin_dust": "Kalay Tozu",
   "item.energizedpower.copper_dust": "Bakır Tozu",
   "item.energizedpower.iron_dust": "Demir Tozu",
   "item.energizedpower.gold_dust": "Altın Tozu",
 
-  "item.energizedpower.tin_nugget": "Tin Nugget",
+  "item.energizedpower.tin_nugget": "Kalay Nuggeti",
 
-  "item.energizedpower.tin_ingot": "Tin Ingot",
+  "item.energizedpower.tin_ingot": "Kalay Külçesi",
 
-  "item.energizedpower.tin_plate": "Tin Plate",
+  "item.energizedpower.tin_plate": "Kalay Plaka",
   "item.energizedpower.copper_plate": "Bakır Plaka",
   "item.energizedpower.iron_plate": "Demir Plaka",
   "item.energizedpower.gold_plate": "Altın Plaka",
@@ -39,13 +39,13 @@
 
   "item.energizedpower.iron_rod": "Demir Çubuk",
 
-  "item.energizedpower.tin_wire": "Tin Wire",
+  "item.energizedpower.tin_wire": "Kalay Tel",
   "item.energizedpower.copper_wire": "Bakır Tel",
   "item.energizedpower.gold_wire": "Altın Tel",
 
   "item.energizedpower.sawdust": "Talaş",
 
-  "item.energizedpower.charcoal_dust": "Charcoal Dust",
+  "item.energizedpower.charcoal_dust": "Odunkömürü Tozu",
 
   "item.energizedpower.basic_fertilizer": "Basit Gübreleyici",
   "item.energizedpower.good_fertilizer": "İyi Gübreleyici",
@@ -78,7 +78,7 @@
   "item.energizedpower.cable_insulator": "Kablo İzalotörü",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "Bu eşya, makas ile bir yün bloğuna tıklanarak üretilebilir.",
 
-  "item.energizedpower.charcoal_filter": "Charcoal Filter",
+  "item.energizedpower.charcoal_filter": "Odunkömürü Filtresi",
 
   "item.energizedpower.saw_blade": "Testere Bıçağı",
 
@@ -86,7 +86,7 @@
 
   "item.energizedpower.energized_crystal_matrix": "Enerjili Matrix Kristali",
 
-  "item.energizedpower.dirty_water_bucket": "Dirty Water Bucket",
+  "item.energizedpower.dirty_water_bucket": "Kirli Su Kovası",
 
   "item.energizedpower.teleporter_matrix": "Işınlayıcı Matrix",
   "item.energizedpower.teleporter_matrix.linked": "Işınlayıcı Matrix [Bağlı]",
@@ -230,20 +230,20 @@
   "block.energizedpower.silicon_block": "Silikon Bloğu",
   "item.energizedpower.silicon_block": "Silikon Bloğu",
 
-  "block.energizedpower.tin_block": "Block of Tin",
-  "item.energizedpower.tin_block": "Block of Tin",
+  "block.energizedpower.tin_block": "Kalay Bloğu",
+  "item.energizedpower.tin_block": "Kalay Bloğu",
 
   "block.energizedpower.sawdust_block": "Talaş Bloğu",
   "item.energizedpower.sawdust_block": "Talaş Bloğu",
 
-  "block.energizedpower.tin_ore": "Tin Ore",
-  "item.energizedpower.tin_ore": "Tin Ore",
+  "block.energizedpower.tin_ore": "Kalay Madeni",
+  "item.energizedpower.tin_ore": "Kalay Madeni",
 
-  "block.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
-  "item.energizedpower.deepslate_tin_ore": "Deepslate Tin Ore",
+  "block.energizedpower.deepslate_tin_ore": "Derinkayrak Kalay Madeni",
+  "item.energizedpower.deepslate_tin_ore": "Derinkayrak Kalay Madeni",
 
-  "block.energizedpower.raw_tin_block": "Block of Raw Tin",
-  "item.energizedpower.raw_tin_block": "Block of Raw Tin",
+  "block.energizedpower.raw_tin_block": "Ham Kalay Bloğu",
+  "item.energizedpower.raw_tin_block": "Ham Kalay Bloğu",
 
   "block.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
   "item.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
@@ -276,8 +276,8 @@
   "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
 
-  "block.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
-  "item.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
+  "block.energizedpower.golden_fluid_pipe": "Altın Boru",
+  "item.energizedpower.golden_fluid_pipe": "Altın Boru",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Max extraction per extractor face: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Yüzün bağlantı tipi (%s) şuna ayarlandı %s.",
@@ -355,8 +355,8 @@
   "item.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
   "container.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
 
-  "block.energizedpower.tin_cable": "Tin Cable",
-  "item.energizedpower.tin_cable": "Tin Cable",
+  "block.energizedpower.tin_cable": "Kalay Kablo",
+  "item.energizedpower.tin_cable": "Kalay Kablo",
 
   "block.energizedpower.copper_cable": "Bakır Kablo",
   "item.energizedpower.copper_cable": "Bakır Kablo",
@@ -498,11 +498,11 @@
   "item.energizedpower.pulverizer": "Pulverizatör",
   "container.energizedpower.pulverizer": "Pulverizatör",
 
-  "block.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
-  "item.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
-  "container.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "block.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizatör",
+  "item.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizatör",
+  "container.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizatör",
 
-  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Bu makine su tüketir ve sonucunda kirli su çıkartır.",
 
   "block.energizedpower.sawmill": "Odun Testersi",
   "item.energizedpower.sawmill": "Odun Testeresi",
@@ -530,9 +530,9 @@
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Pickaxe is missing!",
 
-  "block.energizedpower.assembling_machine": "Assembling Machine",
-  "item.energizedpower.assembling_machine": "Assembling Machine",
-  "container.energizedpower.assembling_machine": "Assembling Machine",
+  "block.energizedpower.assembling_machine": "Birleştirme Makinası",
+  "item.energizedpower.assembling_machine": "Birleştirme Makinası",
+  "container.energizedpower.assembling_machine": "Birleştirme Makinası",
 
   "block.energizedpower.induction_smelter": "Induction Smelter",
   "item.energizedpower.induction_smelter": "Induction Smelter",
@@ -542,15 +542,15 @@
   "item.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
   "container.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
 
-  "block.energizedpower.stone_solidifier": "Stone Solidifier",
-  "item.energizedpower.stone_solidifier": "Stone Solidifier",
-  "container.energizedpower.stone_solidifier": "Stone Solidifier",
+  "block.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
+  "item.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
+  "container.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
 
-  "block.energizedpower.filtration_plant": "Filtration Plant",
-  "item.energizedpower.filtration_plant": "Filtration Plant",
-  "container.energizedpower.filtration_plant": "Filtration Plant",
+  "block.energizedpower.filtration_plant": "Filtreleme Merkezi",
+  "item.energizedpower.filtration_plant": "Filtreleme Merkezi",
+  "container.energizedpower.filtration_plant": "Filtreleme Merkezi",
 
-  "tooltip.energizedpower.filtration_plant.txt.shift.1": "This block requires Charcoal Filters.",
+  "tooltip.energizedpower.filtration_plant.txt.shift.1": "Bu blok odunkömürü filterisi gerektirir.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
 
   "block.energizedpower.fluid_transposer": "Fluid Transposer",
@@ -567,23 +567,23 @@
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Bu blok hayla koymak için %s gerektiyor.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Ters Rotasyon",
 
-  "block.energizedpower.fluid_tank_small": "Fluid Tank (Small)",
-  "item.energizedpower.fluid_tank_small": "Fluid Tank (Small)",
-  "container.energizedpower.fluid_tank_small": "Fluid Tank (Small)",
+  "block.energizedpower.fluid_tank_small": "Sıvı Tankı ( Minik )",
+  "item.energizedpower.fluid_tank_small": "Sıvı Tankı ( Minik )",
+  "container.energizedpower.fluid_tank_small": "Sıvı Tankı ( Minik )",
 
-  "block.energizedpower.fluid_tank_medium": "Fluid Tank (Medium)",
-  "item.energizedpower.fluid_tank_medium": "Fluid Tank (Medium)",
-  "container.energizedpower.fluid_tank_medium": "Fluid Tank (Medium)",
+  "block.energizedpower.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
+  "item.energizedpower.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
+  "container.energizedpower.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
 
-  "block.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
-  "item.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
-  "container.energizedpower.fluid_tank_large": "Fluid Tank (Large)",
+  "block.energizedpower.fluid_tank_large": "Sıvı Tankı ( Büyük )",
+  "item.energizedpower.fluid_tank_large": "Sıvı Tankı ( Büyük )",
+  "container.energizedpower.fluid_tank_large": "Sıvı TANKI ( Büyük )",
 
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBT'yi yoksay",
-  "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "No filter set",
-  "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Filter: %s",
-  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Set the filter by left-clicking with an item which contains fluids.",
-  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Unset the filter by left-clicking without an item.",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Filtre Seçilmemiş",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Filtre: %s",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Filtreyi ayarlamak için sıvı içeren bir bloğa sol-tıklayın.",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Filteryi kapamak için bloğu seçmeden sol tık yapın.",
 
   "block.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
   "item.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
@@ -607,11 +607,11 @@
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Cobblestone is missing!",
   "tooltip.energizedpower.fluid_pump.extracting": "Extracting: %s",
 
-  "block.energizedpower.drain": "Drain",
-  "item.energizedpower.drain": "Drain",
-  "container.energizedpower.drain": "Drain",
+  "block.energizedpower.drain": "Gider",
+  "item.energizedpower.drain": "Gider",
+  "container.energizedpower.drain": "Gider",
 
-  "tooltip.energizedpower.drain.txt.shift": "The Drain drains fluid source blocks above the block.",
+  "tooltip.energizedpower.drain.txt.shift": "Gider üzerindeki sıvı bloklarının sıvısını çeker.",
 
   "block.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
   "item.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
@@ -688,7 +688,7 @@
   "block.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
   "item.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
 
-  "fluid_type.energizedpower.dirty_water": "Dirty Water",
+  "fluid_type.energizedpower.dirty_water": "Lağım Suyu",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
@@ -720,13 +720,13 @@
   "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Yükselen",
   "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Alçalan",
 
-  "tooltip.energizedpower.machine_configuration.redstone_mode.ignore": "Redstone Mode: Ignore",
-  "tooltip.energizedpower.machine_configuration.redstone_mode.high": "Redstone Mode: High",
-  "tooltip.energizedpower.machine_configuration.redstone_mode.low": "Redstone Mode: Low",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.ignore": "Redstone Modu: Sinyale bakılmıyor",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.high": "Redstone Modu: SİNYAL VAR",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.low": "Redstone Modu: SİNYAL YOK",
 
-  "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Comparator Mode: Item",
-  "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Comparator Mode: Fluid",
-  "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Comparator Mode: Energy",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Comparatör Modu: Item",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Comparatör Modu: Sıvı",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Comparatör Modu: Enerji",
 
   "tooltip.energizedpower.upgrade_module_modifier.speed": "Production Speed",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption per tick",
@@ -764,11 +764,11 @@
   "emi.category.energizedpower.charger": "Şarj",
   "emi.category.energizedpower.crusher": "Ezici",
   "emi.category.energizedpower.pulverizer": "Pulverizör",
-  "emi.category.energizedpower.advanced_pulverizer": "Advanced Pulverizer",
+  "emi.category.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizör",
   "emi.category.energizedpower.sawmill": "Odun Testeresi",
   "emi.category.energizedpower.compressor": "Kompresör",
   "emi.category.energizedpower.metal_press": "Metal Pres",
-  "emi.category.energizedpower.assembling_machine": "Assembling Machine",
+  "emi.category.energizedpower.assembling_machine": "Montaj Makinesi",
   "emi.category.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Büyütme Çemberi (Gübreleyici)",
   "emi.category.energizedpower.energizer": "Enerjileyici",
@@ -1128,20 +1128,20 @@
   "advancements.energizedpower.iron_fluid_pipe.title": "Sıvı Taşımacılığı",
   "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with iron fluid pipes.",
 
-  "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
-  "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with golden fluid pipes.",
+  "advancements.energizedpower.golden_fluid_pipe.title": "Ekspres Sıvı Taşıma",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Altın imalat boru ile sıvı taşı.",
 
-  "advancements.energizedpower.fluid_tank_small.title": "Simple Fluid Storage",
-  "advancements.energizedpower.fluid_tank_small.description": "Store fluids in a small Fluid Tank.",
+  "advancements.energizedpower.fluid_tank_small.title": "Basit Sıvı Tankeri",
+  "advancements.energizedpower.fluid_tank_small.description": "Tankerde küçük sıvılar depola.",
 
-  "advancements.energizedpower.fluid_tank_medium.title": "Better Fluid Storage",
-  "advancements.energizedpower.fluid_tank_medium.description": "Store fluids in a medium Fluid Tank.",
+  "advancements.energizedpower.fluid_tank_medium.title": "Daha iyi tanker",
+  "advancements.energizedpower.fluid_tank_medium.description": "Orta boyutlu tankerde sıvılar depola.",
 
-  "advancements.energizedpower.fluid_tank_large.title": "Large Fluid Storage",
-  "advancements.energizedpower.fluid_tank_large.description": "Store fluids in a large Fluid Tank.",
+  "advancements.energizedpower.fluid_tank_large.title": "Büyük tanker",
+  "advancements.energizedpower.fluid_tank_large.description": "Büyük tankerde sıvı depola.",
 
-  "advancements.energizedpower.tin_cable.title": "Basic Energy Transport",
-  "advancements.energizedpower.tin_cable.description": "Transport low amounts of energy with a Tin Cable.",
+  "advancements.energizedpower.tin_cable.title": "Basit Enerji Taşıma",
+  "advancements.energizedpower.tin_cable.description": "Kalay Kablo ile azcık enerji taşı.",
 
   "advancements.energizedpower.copper_cable.title": "Enerji Taşımacılığı",
   "advancements.energizedpower.copper_cable.description": "Kablo ile enerji taşı.",
