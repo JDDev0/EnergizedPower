@@ -626,6 +626,65 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStack(EPItems.BLAST_FURNACE_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM)
+        ), new String[] {
+                "IRI",
+                "FBF",
+                "IRI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), Map.of(
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1)
+        ), new String[] {
+                "IRI",
+                "FBF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), Map.of(
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2)
+        ), new String[] {
+                "IRI",
+                "FAF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), Map.of(
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3)
+        ), new String[] {
+                "IRI",
+                "FAF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), Map.of(
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'r', ingredientOf(Tags.Items.DUSTS_REDSTONE),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4)
+        ), new String[] {
+                "IrI",
+                "FRF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 's', ingredientOf(CommonItemTags.SILICON),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
@@ -966,7 +1025,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStack(EPBlocks.FLUID_TANK_MEDIUM_ITEM.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
-                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM.get()),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_MEDIUM_ITEM.get()),
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON)
         ), new String[] {
                 "IFI",

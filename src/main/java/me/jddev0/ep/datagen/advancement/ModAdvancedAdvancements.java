@@ -199,6 +199,16 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4, "extraction_depth_upgrade_module_4", AdvancementType.TASK
         );
 
+        AdvancementHolder extractionRangeUpgradeModule3 = addAdvancement(
+                advancementOutput, advancedUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3, "extraction_range_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder extractionRangeUpgradeModule4 = addAdvancement(
+                advancementOutput, extractionRangeUpgradeModule3,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4, "extraction_range_upgrade_module_4", AdvancementType.TASK
+        );
+
         AdvancementHolder moonLightUpgradeModule2 = addAdvancement(
                 advancementOutput, advancedUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_2, "moon_light_upgrade_module_2", AdvancementType.TASK
@@ -331,6 +341,11 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
         AdvancementHolder extractionDepthUpgradeModule5 = addAdvancement(
                 advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5, "extraction_depth_upgrade_module_5", AdvancementType.TASK
+        );
+
+        AdvancementHolder extractionRangeUpgradeModule5 = addAdvancement(
+                advancementOutput, reinforcedAdvancedUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5, "extraction_range_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder moonLightUpgradeModule3 = addAdvancement(

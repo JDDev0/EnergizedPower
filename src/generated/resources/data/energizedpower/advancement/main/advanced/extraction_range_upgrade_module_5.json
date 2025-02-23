@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/reinforced_advanced_upgrade_module",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:extraction_range_upgrade_module_5"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.extraction_range_upgrade_module_5.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:extraction_range_upgrade_module_5"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.extraction_range_upgrade_module_5.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

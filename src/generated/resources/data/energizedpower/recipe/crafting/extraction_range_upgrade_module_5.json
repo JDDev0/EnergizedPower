@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "energizedpower:extraction_range_upgrade_module_4",
+    "F": "energizedpower:fluid_pipe",
+    "I": "#c:plates/iron",
+    "R": "energizedpower:reinforced_advanced_upgrade_module",
+    "r": "#c:dusts/redstone"
+  },
+  "pattern": [
+    "IrI",
+    "FRF",
+    "IEI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:extraction_range_upgrade_module_5"
+  }
+}

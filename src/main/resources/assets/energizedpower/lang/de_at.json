@@ -143,6 +143,12 @@
   "item.energizedpower.extraction_depth_upgrade_module_4": "Extraktionstiefen-Upgrade-Modul (MK IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Extraktionstiefen-Upgrade-Modul (MK V)",
 
+  "item.energizedpower.extraction_range_upgrade_module_1": "Extraktionsreichweiten-Upgrade-Modul (MK I)",
+  "item.energizedpower.extraction_range_upgrade_module_2": "Extraktionsreichweiten-Upgrade-Modul (MK II)",
+  "item.energizedpower.extraction_range_upgrade_module_3": "Extraktionsreichweiten-Upgrade-Modul (MK III)",
+  "item.energizedpower.extraction_range_upgrade_module_4": "Extraktionsreichweiten-Upgrade-Modul (MK IV)",
+  "item.energizedpower.extraction_range_upgrade_module_5": "Extraktionsreichweiten-Upgrade-Modul (MK V)",
+
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
   "item.energizedpower.smoker_upgrade_module": "Räucherofen-Upgrade-Modul",
@@ -735,6 +741,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Laufzeit",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Reichweite",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Extraktionstiefe",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Extraktionsreichweite",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Ofenmodus",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
 
@@ -911,6 +918,21 @@
 
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extraktionstiefe V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK V).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Extraktionsreichweite I",
+  "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK I).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_2.title": "Extraktionsreichweite II",
+  "advancements.energizedpower.extraction_range_upgrade_module_2.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK II).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_3.title": "Extraktionsreichweite III",
+  "advancements.energizedpower.extraction_range_upgrade_module_3.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK III).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_4.title": "Extraktionsreichweite IV",
+  "advancements.energizedpower.extraction_range_upgrade_module_4.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK IV).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Extraktionsreichweite V",
+  "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK V).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Erstelle ein Schmelzofen-Upgrade-Modul.",
@@ -1379,9 +1401,11 @@
   "book.energizedpower.page.duration_upgrades.1": "Laufzeit-Upgrades erhöhen die Laufzeit des vom Wetter-Kontroller gesetzten Wetter.",
   "book.energizedpower.page.duration_upgrades.2": "Das Laufzeit-Upgrade (MK VI) erlaubt es dem Wetter-Kontroller das aktuelle Wetter beizubehalten, erfordert aber eine konstante Energiezufuhr.",
 
-  "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine arbeiten kann.",
+  "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine elektromagentische Wellen senden und empfangen kann.",
 
-  "book.energizedpower.page.extraction_depth_upgrades": "Extraktionstiefen-Upgrades erhöht die Tiefe, in der eine Machine arbeiten kann.",
+  "book.energizedpower.page.extraction_depth_upgrades": "Extraktionstiefen-Upgrades erhöhen die Tiefe, in der eine Machine arbeiten kann.",
+
+  "book.energizedpower.page.extraction_range_upgrades": "Extraktionsreichweiten-Upgrades erhöhen die Reichweite, in der eine Machine arbeiten kann.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektro-Ofen herstellen kann.",
 
