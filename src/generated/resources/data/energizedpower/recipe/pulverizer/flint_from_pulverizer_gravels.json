@@ -1,0 +1,16 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": "#c:gravels",
+  "result": {
+    "percentages": [
+      1.0
+    ],
+    "percentagesAdvanced": [
+      1.0
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:flint"
+    }
+  }
+}
