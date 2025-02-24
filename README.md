@@ -162,6 +162,10 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 - Russian translation (Imperial Officer)
 - German translation ([Lucanoria](https://github.com/Lucanoria))
 
+## Wiki
+
+Checkout the official Energized Power wiki here: [Energized Power wiki](https://wiki.jddev0.com/books/energized-power/page/home)
+
 ## Tutorial
 A tutorial world showcasing all the features of this mod can be downloaded on CurseForge: [Energized Power [Tutorial World]](https://www.curseforge.com/minecraft/worlds/energized-power-tutorial-world)
 
