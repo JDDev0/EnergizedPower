@@ -3,15 +3,14 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
-import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
@@ -195,70 +194,27 @@ public class AdvancedAutoCrafterBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.progress[0], index);
-                    case 2, 3 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.maxProgress[0], index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.progress[1], index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.maxProgress[1], index - 6);
-                    case 8, 9 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.progress[2], index - 8);
-                    case 10, 11 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.maxProgress[2], index - 10);
-                    case 12, 13 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.energyConsumptionLeft[0], index - 12);
-                    case 14, 15 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.energyConsumptionLeft[1], index - 14);
-                    case 16, 17 -> ByteUtils.get2Bytes(AdvancedAutoCrafterBlockEntity.this.energyConsumptionLeft[2], index - 16);
-                    case 18 -> hasEnoughEnergy[0]?1:0;
-                    case 19 -> hasEnoughEnergy[1]?1:0;
-                    case 20 -> hasEnoughEnergy[2]?1:0;
-                    case 21 -> ignoreNBT[0]?1:0;
-                    case 22 -> ignoreNBT[1]?1:0;
-                    case 23 -> ignoreNBT[2]?1:0;
-                    case 24 -> secondaryExtractMode?1:0;
-                    case 25 -> currentRecipeIndex;
-                    case 26 -> redstoneMode.ordinal();
-                    case 27 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> AdvancedAutoCrafterBlockEntity.this.progress[0] = ByteUtils.with2Bytes(
-                            AdvancedAutoCrafterBlockEntity.this.progress[0], (short)value, index
-                    );
-                    case 2, 3 -> AdvancedAutoCrafterBlockEntity.this.maxProgress[0] = ByteUtils.with2Bytes(
-                            AdvancedAutoCrafterBlockEntity.this.maxProgress[0], (short)value, index - 2
-                    );
-                    case 4, 5 -> AdvancedAutoCrafterBlockEntity.this.progress[1] = ByteUtils.with2Bytes(
-                            AdvancedAutoCrafterBlockEntity.this.progress[1], (short)value, index - 4
-                    );
-                    case 6, 7 -> AdvancedAutoCrafterBlockEntity.this.maxProgress[1] = ByteUtils.with2Bytes(
-                            AdvancedAutoCrafterBlockEntity.this.maxProgress[1], (short)value, index - 6
-                    );
-                    case 8, 9 -> AdvancedAutoCrafterBlockEntity.this.progress[2] = ByteUtils.with2Bytes(
-                            AdvancedAutoCrafterBlockEntity.this.progress[2], (short)value, index - 8
-                    );
-                    case 10, 11 -> AdvancedAutoCrafterBlockEntity.this.maxProgress[2] = ByteUtils.with2Bytes(
-                            AdvancedAutoCrafterBlockEntity.this.maxProgress[2], (short)value, index - 10
-                    );
-                    case 12, 13, 14, 15, 16, 17, 18, 19, 20 -> {}
-                    case 21 -> AdvancedAutoCrafterBlockEntity.this.ignoreNBT[0] = value != 0;
-                    case 22 -> AdvancedAutoCrafterBlockEntity.this.ignoreNBT[1] = value != 0;
-                    case 23 -> AdvancedAutoCrafterBlockEntity.this.ignoreNBT[2] = value != 0;
-                    case 24 -> AdvancedAutoCrafterBlockEntity.this.secondaryExtractMode = value != 0;
-                    case 25 -> AdvancedAutoCrafterBlockEntity.this.currentRecipeIndex = value;
-                    case 26 -> AdvancedAutoCrafterBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 27 -> AdvancedAutoCrafterBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 28;
-            }
-        };
+        return new CombinedContainerData(
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> progress[1], value -> progress[1] = value),
+                new ProgressValueContainerData(() -> progress[2], value -> progress[2] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[1], value -> maxProgress[1] = value),
+                new ProgressValueContainerData(() -> maxProgress[2], value -> maxProgress[2] = value),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[1], value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[2], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[1], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[2], value -> {}),
+                new BooleanValueContainerData(() -> ignoreNBT[0], value -> ignoreNBT[0] = value),
+                new BooleanValueContainerData(() -> ignoreNBT[1], value -> ignoreNBT[1] = value),
+                new BooleanValueContainerData(() -> ignoreNBT[2], value -> ignoreNBT[2] = value),
+                new BooleanValueContainerData(() -> secondaryExtractMode, value -> secondaryExtractMode = value),
+                new ShortValueContainerData(() -> (short)currentRecipeIndex, value -> currentRecipeIndex = value),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Nullable
@@ -854,6 +810,10 @@ public class AdvancedAutoCrafterBlockEntity
             resetProgress(i);
 
         super.updateUpgradeModules();
+    }
+
+    public int getCurrentRecipeIndex() {
+        return currentRecipeIndex;
     }
 
     public void setCurrentRecipeIndex(int currentRecipeIndex) {
