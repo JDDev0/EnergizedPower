@@ -35,7 +35,7 @@ public class FluidDrainerScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 152, y + 17, 176, 53, 16, 52, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     @Override

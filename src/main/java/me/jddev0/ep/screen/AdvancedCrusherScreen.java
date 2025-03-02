@@ -40,12 +40,12 @@ public class AdvancedCrusherScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y, int tank) {
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 90, y + 34, 176, 106, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 90, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

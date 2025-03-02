@@ -27,8 +27,6 @@ public class StoneSolidifierScreen
                 EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
 
         recipeSelectorPosX = 98;
-
-        recipeSelectorTexturePosY = 135;
     }
 
     @Override
@@ -64,14 +62,14 @@ public class StoneSolidifierScreen
     }
 
     private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive()) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 69, y + 45, 176, 106, menu.getScaledProgressArrowSize(), 14, 256, 256);
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
-                    196 - menu.getScaledProgressArrowSize(), 120, menu.getScaledProgressArrowSize(), 14, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 69, y + 45, 72, 58, menu.getScaledProgressArrowSize(), 14, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
+                    92 - menu.getScaledProgressArrowSize(), 72, menu.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

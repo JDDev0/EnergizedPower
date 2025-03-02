@@ -32,12 +32,12 @@ public class EnergizerScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderActiveOverlay(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 31, y + 18, 176, 70, 50, 50, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50, 256, 256);
         }
     }
 }

@@ -77,7 +77,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 48, y + 17, 176, 0, 80, 52, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 48, y + 17, 36, 0, 80, 52, 256, 256);
     }
 
     @Override

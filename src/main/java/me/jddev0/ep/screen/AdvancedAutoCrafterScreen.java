@@ -74,27 +74,27 @@ public class AdvancedAutoCrafterScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 89, y + 34, 176, 53, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 16, 176, 70, 11, 11, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
 
         if(menu.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 38, 187, 81, 11, 11, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 22, 139, 11, 11, 256, 256);
         }else {
             //Extract mode checkbox [1]
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 38, 176, 81, 11, 11, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11, 256, 256);
         }
 
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 96, y + 16, 176 + 11 * menu.getRecipeIndex(), 81, 11, 11, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * menu.getRecipeIndex(), 139, 11, 11, 256, 256);
     }
 
     @Override

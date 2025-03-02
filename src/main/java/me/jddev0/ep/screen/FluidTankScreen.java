@@ -93,16 +93,16 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y, int tank) {
         if(tank == 0)
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 80, y + 17, 176, 0, 16, 52, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
         else if(tank == 1)
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 152, y + 35, 176, 64, 16, 16, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 152, y + 35, 0, 167, 16, 16, 256, 256);
     }
 
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 16, 176, 53, 11, 11, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
     }
 

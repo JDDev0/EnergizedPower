@@ -37,6 +37,6 @@ public class AssemblingMachineScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 100, y + 36, 176, 53, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 100, y + 36, 24, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 }

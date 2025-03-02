@@ -31,6 +31,6 @@ public class MetalPressScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 80, y + 41, 176, 53, menu.getScaledProgressArrowSize(), 10, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 41, 52, 90, menu.getScaledProgressArrowSize(), 10, 256, 256);
     }
 }

@@ -56,7 +56,7 @@ public class BlockPlacerScreen
         if(menu.isInverseRotation()) {
             //Inverse rotation checkbox
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 158, y + 16, 176, 53, 11, 11, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
     }
 

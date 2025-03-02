@@ -31,6 +31,6 @@ public class CompressorScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 79, y + 30, 176, 53, menu.getScaledProgressArrowSize(), 25, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 79, y + 30, 16, 79, menu.getScaledProgressArrowSize(), 25, 256, 256);
     }
 }

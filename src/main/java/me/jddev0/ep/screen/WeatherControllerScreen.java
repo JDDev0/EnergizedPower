@@ -68,23 +68,23 @@ public class WeatherControllerScreen
 
         //Weather clear button
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 52, y + 34, 176, 52, 18, 18, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 56, 193, 18, 18, 256, 256);
         }else if(selectedWeatherType == 0) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 52, y + 34, 194, 52, 18, 18, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 74, 193, 18, 18, 256, 256);
         }
 
         //Weather rain button
         if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 88, y + 34, 176, 70, 18, 18, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 56, 211, 18, 18, 256, 256);
         }else if(selectedWeatherType == 1) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 88, y + 34, 194, 70, 18, 18, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 74, 211, 18, 18, 256, 256);
         }
 
         //Weather thunder button
         if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 124, y + 34, 176, 88, 18, 18, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 56, 229, 18, 18, 256, 256);
         }else if(selectedWeatherType == 2) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x + 124, y + 34, 194, 88, 18, 18, 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 74, 229, 18, 18, 256, 256);
         }
     }
 
