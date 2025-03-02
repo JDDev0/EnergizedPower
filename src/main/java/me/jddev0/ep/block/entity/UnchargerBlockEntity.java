@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -128,6 +129,7 @@ public class UnchargerBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(() -> hasRecipe()?getEnergyProductionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -175,6 +177,17 @@ public class UnchargerBlockEntity
            tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
+    }
+    
+    protected final int getEnergyProductionPerTick() {
+        ItemStack stack = itemHandler.getStackInSlot(0);
+
+        IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyStorage == null || !energyStorage.canExtract())
+            return -1;
+
+        return energyStorage.extractEnergy(Math.min(this.energyStorage.getMaxExtract(),
+                this.energyStorage.getCapacity() - this.energyStorage.getEnergy()), true);
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {

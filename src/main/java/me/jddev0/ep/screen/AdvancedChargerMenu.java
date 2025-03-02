@@ -24,6 +24,7 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedChargerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -73,6 +74,7 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData[0]);
             addDataSlots(energyConsumptionLeftData[1]);
             addDataSlots(energyConsumptionLeftData[2]);
@@ -103,6 +105,11 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
         }
 
         return energyIndicatorBarValueSum;
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     @Override

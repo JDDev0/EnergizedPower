@@ -15,5 +15,7 @@ public class AdvancedUnchargerScreen
                 "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt",
                 EPAPI.id("textures/gui/container/advanced_uncharger.png"),
                 EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+
+        energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }
 }

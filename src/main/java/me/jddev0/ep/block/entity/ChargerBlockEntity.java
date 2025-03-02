@@ -156,6 +156,7 @@ public class ChargerBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(() -> hasRecipe()?getEnergyConsumptionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -264,6 +265,29 @@ public class ChargerBlockEntity
         }else {
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);
+        }
+    }
+    
+    protected final int getEnergyConsumptionPerTick() {
+        if(!(level instanceof ServerLevel serverLevel))
+            return -1;
+
+        ItemStack stack = itemHandler.getStackInSlot(0);
+
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<ChargerRecipe>> recipe = serverLevel.recipeAccess().
+                getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
+        if(recipe.isPresent()) {
+            return Math.min(energyConsumptionLeft, Math.min(energyStorage.getMaxReceive(), energyStorage.getEnergy()));
+        }else {
+            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if(energyStorage == null || !energyStorage.canReceive())
+                return -1;
+
+            return energyStorage.receiveEnergy(Math.min(this.energyStorage.getMaxReceive(), this.energyStorage.getEnergy()), true);
         }
     }
 

@@ -122,6 +122,36 @@ public class ThermalGeneratorBlockEntity
                         }
                     }
 
+                    //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
+                    int production = (int)(rawProduction * (Math.min(fluidStorage.getFluidAmount(), 50) / 1000.f));
+
+                    //Cap production
+                    production = Math.min(production, energyStorage.getCapacity() - energyStorage.getEnergy());
+
+                    int fluidAmount = (int)((float)production/rawProduction * 1000);
+
+                    //Re-calculate energy production (Prevents draining of not enough fluid)
+                    return (int)(rawProduction * fluidAmount / 1000.f);
+                }, value -> {}),
+                new EnergyValueContainerData(() -> {
+                    if(!(level instanceof ServerLevel serverLevel))
+                        return 0;
+
+                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
+
+                    int rawProduction = 0;
+                    outer:
+                    for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
+                        for(Fluid fluid:recipe.value().getInput()) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                                rawProduction = recipe.value().getEnergyProduction();
+                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
+
+                                break outer;
+                            }
+                        }
+                    }
+
                     //Calculate real production (raw production is in x FE per 1000 mB, use fluid amount without cap)
                     return (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getFluidAmount() / 1000.f);
                 }, value -> {}),

@@ -153,6 +153,7 @@ public class AutoCrafterBlockEntity
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(this::getEnergyConsumptionPerTick, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
                 new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
                 new BooleanValueContainerData(() -> ignoreNBT, value -> ignoreNBT = value),
@@ -318,6 +319,20 @@ public class AutoCrafterBlockEntity
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);
         }
+    }
+    
+    protected final int getEnergyConsumptionPerTick() {
+        int itemCount = 0;
+        for(int i = 0;i < patternSlots.getContainerSize();i++)
+            if(!patternSlots.getItem(i).isEmpty())
+                itemCount++;
+
+        //Ignore empty recipes
+        if(itemCount == 0 || craftingRecipe == null || progress <= 0)
+            return -1;
+
+        return Math.max(1, (int)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
     }
 
     private void resetProgress() {

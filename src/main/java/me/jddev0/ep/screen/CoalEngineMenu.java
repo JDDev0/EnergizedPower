@@ -24,6 +24,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyProductionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughCapacityForProductionData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
@@ -60,6 +61,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         if(data == null) {
             addDataSlots(progressData);
             addDataSlots(maxProgressData);
+            addDataSlots(energyProductionPerTickData);
             addDataSlots(energyProductionLeftData);
             addDataSlots(hasEnoughCapacityForProductionData);
             addDataSlots(redstoneModeData);
@@ -72,6 +74,11 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyProductionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     /**
