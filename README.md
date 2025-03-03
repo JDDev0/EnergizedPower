@@ -96,8 +96,8 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Integrations
 
 - JEI (*Forge/NeoForge editions only*), EMI, and REI support
-- Curios API (*Forge/NeoForge editions only*, *MC 1.20.x and older*)
-- Curios API Continuation (*Forge/NeoForge editions only*, *MC 1.21.x and newer*)
+- Curios API (*Forge/NeoForge editions only*)
+- Curios API Continuation (*Forge/NeoForge editions only*, *MC 1.21/1.21.1 only*)
 - CCTweaked:
   - Redstone Mode
   - Comparator Mode
