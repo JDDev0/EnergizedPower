@@ -133,6 +133,12 @@ class ModItemModelProvider {
         basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
         basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
 
+        basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1);
+        basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2);
+        basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3);
+        basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4);
+        basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5);
+
         basicItem(EPItems.BLAST_FURNACE_UPGRADE_MODULE);
         basicItem(EPItems.SMOKER_UPGRADE_MODULE);
 

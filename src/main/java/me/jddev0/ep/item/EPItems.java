@@ -182,6 +182,17 @@ public final class EPItems {
     public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_5 = registerItem("extraction_depth_upgrade_module_5",
             props -> new ExtractionDepthUpgradeModuleItem(props, 5));
 
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_1 = registerItem("extraction_range_upgrade_module_1",
+            props -> new ExtractionRangeUpgradeModuleItem(props, 1));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_2 = registerItem("extraction_range_upgrade_module_2",
+            props -> new ExtractionRangeUpgradeModuleItem(props, 2));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_3 = registerItem("extraction_range_upgrade_module_3",
+            props -> new ExtractionRangeUpgradeModuleItem(props, 3));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_4 = registerItem("extraction_range_upgrade_module_4",
+            props -> new ExtractionRangeUpgradeModuleItem(props, 4));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_5 = registerItem("extraction_range_upgrade_module_5",
+            props -> new ExtractionRangeUpgradeModuleItem(props, 5));
+
     public static final Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
             props -> new FurnaceModeUpgradeModuleItem(props, 1));
     public static final Item SMOKER_UPGRADE_MODULE = registerItem("smoker_upgrade_module",

@@ -629,6 +629,65 @@ public class ModRecipeGenerator extends RecipeGenerator {
         }, new ItemStack(EPItems.BLAST_FURNACE_UPGRADE_MODULE), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'I', ingredientFromTag(CommonItemTags.PLATES_IRON),
+                'R', ingredientFromTag(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM)
+        ), new String[] {
+                "IRI",
+                "FBF",
+                "IRI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(conditionsFromItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), Map.of(
+                'I', ingredientFromTag(CommonItemTags.PLATES_IRON),
+                'R', ingredientFromTag(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', Ingredient.ofItems(EPItems.BASIC_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1)
+        ), new String[] {
+                "IRI",
+                "FBF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(conditionsFromItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), Map.of(
+                'I', ingredientFromTag(CommonItemTags.PLATES_IRON),
+                'R', ingredientFromTag(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2)
+        ), new String[] {
+                "IRI",
+                "FAF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(conditionsFromItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), Map.of(
+                'I', ingredientFromTag(CommonItemTags.PLATES_IRON),
+                'R', ingredientFromTag(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', Ingredient.ofItems(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3)
+        ), new String[] {
+                "IRI",
+                "FAF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(conditionsFromItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), Map.of(
+                'I', ingredientFromTag(CommonItemTags.PLATES_IRON),
+                'r', ingredientFromTag(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', Ingredient.ofItems(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.ofItems(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.ofItems(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4)
+        ), new String[] {
+                "IrI",
+                "FRF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(conditionsFromItem(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientFromTag(CommonItemTags.PLATES_COPPER),
                 's', ingredientFromTag(CommonItemTags.SILICON),
                 'R', ingredientFromTag(ConventionalItemTags.REDSTONE_DUSTS),
@@ -969,7 +1028,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
         }, new ItemStack(EPBlocks.FLUID_TANK_MEDIUM_ITEM), CraftingRecipeCategory.MISC);
 
         addShapedCraftingRecipe(conditionsFromItem(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
-                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_MEDIUM_ITEM),
                 'I', ingredientFromTag(ConventionalItemTags.STORAGE_BLOCKS_IRON)
         ), new String[] {
                 "IFI",
