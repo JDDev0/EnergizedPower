@@ -74,7 +74,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.literal("\n").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                         append(addLinkToComponent(Text.translatable("book.energizedpower.page.welcome.2"),
-                                "https://github.com/JDDev0/EnergizedPower/wiki"))
+                                "https://wiki.jddev0.com/books/energized-power/page/home"))
         ).append(
                 Text.literal("\n").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
