@@ -1,0 +1,22 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": "minecraft:quartz_block",
+  "result": {
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:quartz"
+    }
+  }
+}

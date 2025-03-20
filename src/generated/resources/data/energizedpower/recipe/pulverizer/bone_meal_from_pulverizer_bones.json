@@ -1,0 +1,25 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": "#c:bones",
+  "result": {
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      0.25,
+      0.25
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      0.5,
+      0.25,
+      0.125
+    ],
+    "result": {
+      "count": 1,
+      "id": "minecraft:bone_meal"
+    }
+  }
+}
