@@ -55,7 +55,7 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
         if(handler.isInverseRotation()) {
             //Inverse rotation checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 158, y + 16, 176, 53, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
     }
 

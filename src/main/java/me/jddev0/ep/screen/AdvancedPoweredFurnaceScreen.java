@@ -31,6 +31,6 @@ public class AdvancedPoweredFurnaceScreen extends ConfigurableUpgradableEnergySt
     private void renderProgressArrows(DrawContext drawContext, int x, int y) {
         for(int i = 0;i < 3;i++)
             if(handler.isCraftingActive(i))
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 45 + 54 * i, y + 35, 176, 53, 12, handler.getScaledProgressArrowSize(i), 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 45 + 54 * i, y + 35, 0, 79, 12, handler.getScaledProgressArrowSize(i), 256, 256);
     }
 }

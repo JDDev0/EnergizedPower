@@ -27,9 +27,10 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     protected int energyMeterWidth = 16;
     protected int energyMeterHeight = 52;
 
-    protected int energyMeterU = 176;
+    protected int energyMeterU = 0;
     protected int energyMeterV = 0;
 
+    protected String energyPerTickBarTooltipComponentID;
     protected final String energyIndicatorBarTooltipComponentID;
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
@@ -68,20 +69,28 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
             drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
             renderEnergyMeter(drawContext, x, y);
             renderEnergyIndicatorBar(drawContext, x, y);
+            renderEnergyPerTickBar(drawContext, x, y);
         }
     }
 
     protected void renderEnergyMeter(DrawContext drawContext, int x, int y) {
         int pos = handler.getScaledEnergyMeterPos(energyMeterHeight);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                 energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos, 256, 256);
     }
 
     protected void renderEnergyIndicatorBar(DrawContext drawContext, int x, int y) {
         int pos = handler.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                     energyMeterV + energyMeterHeight, energyMeterWidth, 1, 256, 256);
+    }
+
+    protected void renderEnergyPerTickBar(DrawContext guiGraphics, int x, int y) {
+        int pos = handler.getScaledEnergyPerTickBarPos(energyMeterHeight);
+        if(pos > 0)
+            guiGraphics.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+                    energyMeterV + energyMeterHeight + 1, energyMeterWidth, 1, 256, 256);
     }
 
     @Override
@@ -103,6 +112,11 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
                 if(handler.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
                     components.add(Text.translatable(energyIndicatorBarTooltipComponentID,
                             EnergyUtils.getEnergyWithPrefix(handler.getEnergyIndicatorBarValue())).formatted(Formatting.YELLOW));
+                }
+
+                if(handler.getEnergyPerTickBarValue() > 0 && energyPerTickBarTooltipComponentID != null) {
+                    components.add(Text.translatable(energyPerTickBarTooltipComponentID,
+                            EnergyUtils.getEnergyWithPrefix(handler.getEnergyPerTickBarValue())).formatted(Formatting.YELLOW));
                 }
 
                 drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);

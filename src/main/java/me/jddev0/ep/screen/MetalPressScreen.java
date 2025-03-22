@@ -30,6 +30,6 @@ public class MetalPressScreen extends ConfigurableUpgradableEnergyStorageContain
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 80, y + 41, 176, 53, handler.getScaledProgressArrowSize(), 10, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 41, 52, 90, handler.getScaledProgressArrowSize(), 10, 256, 256);
     }
 }

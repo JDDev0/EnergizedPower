@@ -30,6 +30,6 @@ public class CrusherScreen extends ConfigurableUpgradableEnergyStorageContainerS
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 80, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 }

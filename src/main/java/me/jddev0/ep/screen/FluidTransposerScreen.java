@@ -62,12 +62,12 @@ public class FluidTransposerScreen
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 152, y + 17, 176, 53, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(isPointWithinBounds(114, 47, 20, 20, mouseX, mouseY))
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 114, y + 47, 176, 135, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20, 256, 256);
 
         ItemStack output = new ItemStack(handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
         drawContext.getMatrices().push();
@@ -79,16 +79,16 @@ public class FluidTransposerScreen
     }
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
-        int arrowPosY = handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?106:120;
+        int arrowPosY = handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?58:72;
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 114, y + 19, 176, arrowPosY, 20, 14, 256, 256);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14, 256, 256);
 
         if(handler.isCraftingActive()) {
             if(handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING)
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 114, y + 19, 196, arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 72, arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
             else
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 134 - handler.getScaledProgressArrowSize(), y + 19,
-                        216 - handler.getScaledProgressArrowSize(), arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 134 - handler.getScaledProgressArrowSize(), y + 19,
+                        92 - handler.getScaledProgressArrowSize(), arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

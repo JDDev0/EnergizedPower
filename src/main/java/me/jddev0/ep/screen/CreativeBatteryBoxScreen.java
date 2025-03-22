@@ -70,13 +70,13 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         if(handler.isEnergyProduction()) {
             //Energy Production checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 10, y + 28, 176, 0, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 10, y + 28, 0, 139, 11, 11, 256, 256);
         }
 
         if(handler.isEnergyConsumption()) {
             //Energy Consumption checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 10, y + 46, 176, 0, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 10, y + 46, 0, 139, 11, 11, 256, 256);
         }
     }
 

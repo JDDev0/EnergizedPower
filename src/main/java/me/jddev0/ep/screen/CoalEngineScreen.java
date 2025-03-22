@@ -31,7 +31,7 @@ public class CoalEngineScreen extends ConfigurableUpgradableEnergyStorageContain
     private void renderProgressFlame(DrawContext drawContext, int x, int y) {
         if(handler.isProducingActive()) {
             int pos = handler.getScaledProgressFlameSize();
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 81, y + 28 + pos, 0, 121 + pos, 14, 14 - pos, 256, 256);
         }
     }
 }

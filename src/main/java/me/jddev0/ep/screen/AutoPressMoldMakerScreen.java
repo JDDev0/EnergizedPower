@@ -58,7 +58,7 @@ public class AutoPressMoldMakerScreen extends SelectableRecipeMachineContainerSc
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 84, y + 43, 176, 53, handler.getScaledProgressArrowSize(), 17, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

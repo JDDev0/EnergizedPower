@@ -99,9 +99,9 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
             if(handler.getRecipeList().get(i).getSecond()) {
                 if(isPointWithinBounds(btnX, btnY, 20, 20, mouseX, mouseY)) {
-                    drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + btnX, y + btnY, 176, 20, 20, 20, 256, 256);
+                    drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 211, 20, 20, 256, 256);
                 }else {
-                    drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + btnX, y + btnY, 176, 0, 20, 20, 256, 256);
+                    drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 231, 20, 20, 256, 256);
                 }
             }
 
@@ -119,18 +119,18 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
         //Up button
         if(scrollIndexOffset > 0) {
             if(isPointWithinBounds(155, 19, 11, 12, mouseX, mouseY)) {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 19, 187, 40, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 187, 11, 12, 256, 256);
             }else {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 19, 176, 40, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 199, 11, 12, 256, 256);
             }
         }
 
         //Down button
         if(scrollIndexOffset + 8 < handler.getRecipeList().size()) {
             if(isPointWithinBounds(155, 55, 11, 12, mouseX, mouseY)) {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 55, 187, 52, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 187, 11, 12, 256, 256);
             }else {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 155, y + 55, 176, 52, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 199, 11, 12, 256, 256);
             }
         }
     }

@@ -26,8 +26,6 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
                 EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
 
         recipeSelectorPosX = 98;
-
-        recipeSelectorTexturePosY = 135;
     }
 
     @Override
@@ -63,14 +61,14 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
     }
 
     private void renderFluidMeterOverlay(int tank, DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive()) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 69, y + 45, 176, 106, handler.getScaledProgressArrowSize(), 14, 256, 256);
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 143 - handler.getScaledProgressArrowSize(), y + 45,
-                    196 - handler.getScaledProgressArrowSize(), 120, handler.getScaledProgressArrowSize(), 14, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 69, y + 45, 72, 58, handler.getScaledProgressArrowSize(), 14, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 143 - handler.getScaledProgressArrowSize(), y + 45,
+                    92 - handler.getScaledProgressArrowSize(), 72, handler.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
 

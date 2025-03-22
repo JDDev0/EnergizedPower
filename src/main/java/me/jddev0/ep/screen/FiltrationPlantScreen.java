@@ -30,8 +30,6 @@ public class FiltrationPlantScreen extends SelectableRecipeMachineContainerScree
                 EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
 
         recipeSelectorPosX = 98;
-
-        recipeSelectorTexturePosY = 115;
     }
 
     @Override
@@ -87,13 +85,13 @@ public class FiltrationPlantScreen extends SelectableRecipeMachineContainerScree
     }
 
     private void renderFluidMeterOverlay(int tank, DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive()) {
             for(int i = 0;i < 2;i++) {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 67, y + 34 + 27*i, 176, 106, handler.getScaledProgressArrowSize(), 9, 256, 256);
+                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 67, y + 34 + 27*i, 0, 108, handler.getScaledProgressArrowSize(), 9, 256, 256);
             }
         }
     }

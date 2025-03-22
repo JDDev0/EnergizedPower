@@ -39,12 +39,12 @@ public class AdvancedPulverizerScreen extends ConfigurableUpgradableEnergyStorag
     }
 
     private void renderFluidMeterOverlay(int tank, DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x + 90, y + 34, 176, 106, handler.getScaledProgressArrowSize(), 17, 256, 256);
+            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 90, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override
