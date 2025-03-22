@@ -1,0 +1,22 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "c:rods/blaze"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:blaze_powder"
+    },
+    "percentages": [
+      1.0,
+      1.0,
+      0.5
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      0.75,
+      0.25
+    ]
+  }
+}

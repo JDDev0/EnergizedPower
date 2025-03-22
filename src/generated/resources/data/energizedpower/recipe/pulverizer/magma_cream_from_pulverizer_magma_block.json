@@ -1,0 +1,23 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "item": "minecraft:magma_block"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:magma_cream"
+    },
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  }
+}

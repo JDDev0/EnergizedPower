@@ -1,0 +1,28 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "c:rods/breeze"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:wind_charge"
+    },
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.5,
+      0.5
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.75,
+      0.5,
+      0.25
+    ]
+  }
+}
