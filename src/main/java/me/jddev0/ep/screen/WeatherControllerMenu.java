@@ -2,12 +2,13 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleShortValueContainerData;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
@@ -16,12 +17,13 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherControllerBlockEntity> {
-    private final PropertyDelegate data;
+    private final SimpleShortValueContainerData selectedWeatherTypeData = new SimpleShortValueContainerData();
+    private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
 
     public WeatherControllerMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.DURATION
-        ), new ArrayPropertyDelegate(2));
+        ), null);
     }
 
     public WeatherControllerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
@@ -35,20 +37,22 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
                 upgradeModuleInventory, 1
         );
 
-        checkDataCount(data, 2);
-        this.data = data;
-
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(selectedWeatherTypeData);
+            addProperties(hasEnoughEnergyData);
+        }else {
+            addProperties(data);
+        }
     }
 
     public int getSelectedWeatherType() {
-        return data.get(0);
+        return selectedWeatherTypeData.getValue();
     }
 
     public boolean hasEnoughEnergy() {
-        return data.get(1) != 0;
+        return hasEnoughEnergyData.getValue();
     }
 
     @Override

@@ -4,6 +4,9 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedUnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleComparatorModeValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleRedstoneModeValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -11,7 +14,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +21,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +29,13 @@ import team.reborn.energy.api.EnergyStorageUtil;
 
 public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedUnchargerBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
-    private final PropertyDelegate data;
+    private final SimpleEnergyValueContainerData[] energyProductionLeftData = new SimpleEnergyValueContainerData[] {
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData()
+    };
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedUnchargerMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
@@ -54,7 +61,7 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
             }
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new ArrayPropertyDelegate(14));
+        ), null);
     }
 
     public AdvancedUnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -69,8 +76,6 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         );
 
         checkSize(inv, 3);
-        checkDataCount(data, 14);
-        this.data = data;
 
         addSlot(new ConstraintInsertSlot(inv, 0, 41, 35) {
             @Override
@@ -93,16 +98,23 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(energyProductionLeftData[0]);
+            addProperties(energyProductionLeftData[1]);
+            addProperties(energyProductionLeftData[2]);
+            addProperties(redstoneModeData);
+            addProperties(comparatorModeData);
+        }else {
+            addProperties(data);
+        }
     }
 
     @Override
     public long getEnergyIndicatorBarValue() {
         long energyIndicatorBarValueSum = -1;
 
-        for(int i = 0;i < 12;i += 4) {
-            long value = ByteUtils.from2ByteChunks((short)data.get(i), (short)data.get(i + 1),
-                    (short)data.get(i + 2), (short)data.get(i + 3));
+        for(SimpleEnergyValueContainerData ele:energyProductionLeftData) {
+            long value = ele.getValue();
 
             //Prevent overflow
             if(Math.max(0, energyIndicatorBarValueSum) + Math.max(0, value) < 0)
@@ -121,12 +133,12 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(12));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(13));
+        return comparatorModeData.getValue();
     }
 
     @Override

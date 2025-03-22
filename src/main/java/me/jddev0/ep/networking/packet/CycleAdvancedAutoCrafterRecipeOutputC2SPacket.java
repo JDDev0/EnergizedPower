@@ -47,12 +47,14 @@ public record CycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implem
 
             ScreenHandler menu = context.player().currentScreenHandler;
 
-            if(!(menu instanceof AdvancedAutoCrafterMenu advancedAutoCrafterMenu))
+            if(!(menu instanceof AdvancedAutoCrafterMenu))
                 return;
+
+            int recipeIndex = advancedAutoCrafterBlockEntity.getCurrentRecipeIndex();
 
             advancedAutoCrafterBlockEntity.cycleRecipe();
 
-            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(advancedAutoCrafterMenu.getRecipeIndex());
+            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
         });
     }
 }

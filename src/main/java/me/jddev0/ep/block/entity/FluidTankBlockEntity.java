@@ -4,6 +4,8 @@ import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.BooleanValueContainerData;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
@@ -73,37 +75,14 @@ public class FluidTankBlockEntity
             protected boolean canInsert(FluidVariant variant) {
                 return isFluidValid(variant);
             }
-
-            @Override
-            protected boolean canExtract(FluidVariant variant) {
-                return isFluidValid(variant);
-            }
         };
     }
 
     @Override
     protected PropertyDelegate initContainerData() {
-        return new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0 -> ignoreNBT?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0 -> FluidTankBlockEntity.this.ignoreNBT = value != 0;
-                }
-            }
-
-            @Override
-            public int size() {
-                return 1;
-            }
-        };
+        return new CombinedContainerData(
+                new BooleanValueContainerData(() -> ignoreNBT, value -> ignoreNBT = value)
+        );
     }
 
     @Nullable

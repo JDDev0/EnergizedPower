@@ -3,12 +3,13 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
-import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -116,41 +117,12 @@ public class AlloyFurnaceBlockEntity
 
     @Override
     protected PropertyDelegate initContainerData() {
-        return new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(litDuration, index - 4);
-                    case 6, 7 -> ByteUtils.get2Bytes(maxLitDuration, index - 6);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> progress = ByteUtils.with2Bytes(
-                            progress, (short)value, index
-                    );
-                    case 2, 3 -> maxProgress = ByteUtils.with2Bytes(
-                            maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5 -> litDuration = ByteUtils.with2Bytes(
-                            litDuration, (short)value, index - 4
-                    );
-                    case 6, 7 -> maxLitDuration = ByteUtils.with2Bytes(
-                            maxLitDuration, (short)value, index - 6
-                    );
-                }
-            }
-
-            @Override
-            public int size() {
-                return 8;
-            }
-        };
+        return new CombinedContainerData(
+                new ProgressValueContainerData(() -> progress, value -> progress = value),
+                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new ProgressValueContainerData(() -> litDuration, value -> litDuration = value),
+                new ProgressValueContainerData(() -> maxLitDuration, value -> maxLitDuration = value)
+        );
     }
 
     @Nullable

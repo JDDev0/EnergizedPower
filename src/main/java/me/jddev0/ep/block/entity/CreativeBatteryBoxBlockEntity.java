@@ -3,6 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.BooleanValueContainerData;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
@@ -59,29 +61,10 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
 
     @Override
     protected PropertyDelegate initContainerData() {
-        return new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0 -> energyProduction?1:0;
-                    case 1 -> energyConsumption?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0 -> CreativeBatteryBoxBlockEntity.this.energyProduction = value != 0;
-                    case 1 -> CreativeBatteryBoxBlockEntity.this.energyConsumption = value != 0;
-                }
-            }
-
-            @Override
-            public int size() {
-                return 2;
-            }
-        };
+        return new CombinedContainerData(
+                new BooleanValueContainerData(() -> energyProduction, value -> energyProduction = value),
+                new BooleanValueContainerData(() -> energyConsumption, value -> energyConsumption = value)
+        );
     }
 
     @Nullable

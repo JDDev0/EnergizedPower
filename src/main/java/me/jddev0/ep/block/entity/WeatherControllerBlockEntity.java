@@ -2,6 +2,9 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.WeatherControllerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
@@ -14,7 +17,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,30 +42,13 @@ public class WeatherControllerBlockEntity
         );
     }
 
+
+    @Override
     protected PropertyDelegate initContainerData() {
-        return new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0 -> selectedWeatherType;
-                    case 1 -> hasEnoughEnergy()?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0 -> selectedWeatherType = value;
-                    case 1 -> {}
-                }
-            }
-
-            @Override
-            public int size() {
-                return 2;
-            }
-        };
+        return new CombinedContainerData(
+                new ShortValueContainerData(() -> (short)selectedWeatherType, value -> selectedWeatherType = value),
+                new BooleanValueContainerData(this::hasEnoughEnergy, value -> {})
+        );
     }
 
     @Override
