@@ -182,6 +182,10 @@ public class TeleporterBlockEntity
 
     public static void teleportPlayer(ServerPlayerEntity player, EnergyStorage energyStorage, Runnable clearEnergyCallback,
                                       ItemStack teleporterMatrixItemStack, World level, @Nullable BlockPos pos) {
+        if(player.isSpectator()) {
+            return;
+        }
+
         if(energyStorage.getAmount() < energyStorage.getCapacity()) {
             player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
                     Text.translatable("tooltip.energizedpower.teleporter.use.not_enough_energy").
