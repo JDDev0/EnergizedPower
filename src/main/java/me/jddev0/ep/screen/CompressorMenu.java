@@ -27,6 +27,7 @@ public class CompressorMenu extends UpgradableEnergyStorageMenu<CompressorBlockE
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
@@ -82,6 +83,7 @@ public class CompressorMenu extends UpgradableEnergyStorageMenu<CompressorBlockE
         if(data == null) {
             addProperties(progressData);
             addProperties(maxProgressData);
+            addProperties(energyConsumptionPerTickData);
             addProperties(energyConsumptionLeftData);
             addProperties(hasEnoughEnergyData);
             addProperties(redstoneModeData);
@@ -94,6 +96,11 @@ public class CompressorMenu extends UpgradableEnergyStorageMenu<CompressorBlockE
     @Override
     public long getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

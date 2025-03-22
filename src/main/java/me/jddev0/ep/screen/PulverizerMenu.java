@@ -27,6 +27,7 @@ public class PulverizerMenu extends UpgradableEnergyStorageMenu<PulverizerBlockE
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
@@ -88,6 +89,7 @@ public class PulverizerMenu extends UpgradableEnergyStorageMenu<PulverizerBlockE
         if(data == null) {
             addProperties(progressData);
             addProperties(maxProgressData);
+            addProperties(energyConsumptionPerTickData);
             addProperties(energyConsumptionLeftData);
             addProperties(hasEnoughEnergyData);
             addProperties(redstoneModeData);
@@ -100,6 +102,11 @@ public class PulverizerMenu extends UpgradableEnergyStorageMenu<PulverizerBlockE
     @Override
     public long getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

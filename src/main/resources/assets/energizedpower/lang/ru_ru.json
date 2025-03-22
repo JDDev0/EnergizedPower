@@ -700,8 +700,8 @@
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
-  "tooltip.energizedpower.energy_consumption_per_tick.txt": "Energy consumption per tick: %s",
-  "tooltip.energizedpower.energy_production_per_tick.txt": "Energy production per tick: %s",
+  "tooltip.energizedpower.energy_consumption_per_tick.txt": "Energy consumption: %s",
+  "tooltip.energizedpower.energy_production_per_tick.txt": "Energy production: %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Для завершения этого рецепта требуется %s.",
   "tooltip.energizedpower.recipe.selector.next_recipe": "Следующий рецепт",
   "tooltip.energizedpower.recipe.selector.prev_recipe": "Предыдущий рецепт",

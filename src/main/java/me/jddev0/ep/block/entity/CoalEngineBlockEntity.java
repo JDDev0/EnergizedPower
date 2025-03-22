@@ -119,6 +119,7 @@ public class CoalEngineBlockEntity
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(() -> maxProgress > 0 || hasRecipe(this)?getEnergyProductionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft, value -> {}),
                 new BooleanValueContainerData(() -> hasEnoughCapacityForProduction, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
@@ -161,7 +162,15 @@ public class CoalEngineBlockEntity
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
+    
+    protected final long getEnergyProductionPerTick() {
+        //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
+        long energyProductionPerTick = (long)Math.ceil((double)this.energyProductionLeft / (this.maxProgress - this.progress));
+        if(progress == maxProgress - 1)
+            energyProductionPerTick = energyProductionLeft;
 
+        return energyProductionPerTick;
+    }
 
     private static void tickRecipe(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
         if(level.isClient())
@@ -183,12 +192,8 @@ public class CoalEngineBlockEntity
                     blockEntity.maxProgress = (int)Math.ceil((double)energyProduction / blockEntity.limitingEnergyStorage.getMaxExtract());
             }
 
-            //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
-            long energyProductionPerTick = (long)Math.ceil((double)blockEntity.energyProductionLeft / (blockEntity.maxProgress - blockEntity.progress));
-            if(blockEntity.progress == blockEntity.maxProgress - 1)
-                energyProductionPerTick = blockEntity.energyProductionLeft;
-
-            if(energyProductionPerTick <= blockEntity.limitingEnergyStorage.getCapacity() - blockEntity.energyStorage.getAmount()) {
+            long energyProductionPerTick = blockEntity.getEnergyProductionPerTick();
+            if(energyProductionPerTick <= blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount()) {
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 

@@ -139,6 +139,36 @@ public class ThermalGeneratorBlockEntity
                         }
                     }
 
+                    //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
+                    long production = (long)(rawProduction * (Math.min(fluidStorage.getFluid().getMilliBucketsAmount(), 50) / 1000.f));
+
+                    //Cap production
+                    production = Math.min(production, energyStorage.getCapacity() - energyStorage.getAmount());
+
+                    long fluidAmount = (long)((float)production/rawProduction * 1000);
+
+                    //Re-calculate energy production (Prevents draining of not enough fluid)
+                    return (long)(rawProduction * fluidAmount / 1000.f);
+                }, value -> {}),
+                new EnergyValueContainerData(() -> {
+                    if(!(world instanceof ServerWorld serverWorld))
+                        return 0L;
+
+                    Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+
+                    long rawProduction = 0;
+                    outer:
+                    for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
+                        for(Fluid fluid:recipe.value().getInput()) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                                rawProduction = recipe.value().getEnergyProduction();
+                                rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
+
+                                break outer;
+                            }
+                        }
+                    }
+
                     //Calculate real production (raw production is in x E per 1000 mB, use fluid amount without cap)
                     return (long)(rawProduction * fluidStorage.getFluid().getMilliBucketsAmount() / 1000.);
                 }, value -> {}),

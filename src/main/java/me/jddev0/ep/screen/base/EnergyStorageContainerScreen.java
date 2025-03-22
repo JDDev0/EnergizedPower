@@ -30,7 +30,7 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     protected int energyMeterU = 0;
     protected int energyMeterV = 0;
 
-    protected String energyPerTickBarTooltipComponentID;
+    protected String energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_consumption_per_tick.txt";
     protected final String energyIndicatorBarTooltipComponentID;
 
     public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
@@ -68,8 +68,8 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
         if(!handler.isInUpgradeModuleView()) {
             drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
             renderEnergyMeter(drawContext, x, y);
-            renderEnergyIndicatorBar(drawContext, x, y);
             renderEnergyPerTickBar(drawContext, x, y);
+            renderEnergyIndicatorBar(drawContext, x, y);
         }
     }
 
@@ -116,7 +116,7 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
 
                 if(handler.getEnergyPerTickBarValue() > 0 && energyPerTickBarTooltipComponentID != null) {
                     components.add(Text.translatable(energyPerTickBarTooltipComponentID,
-                            EnergyUtils.getEnergyWithPrefix(handler.getEnergyPerTickBarValue())).formatted(Formatting.YELLOW));
+                            EnergyUtils.getEnergyWithPrefix(handler.getEnergyPerTickBarValue()) + "/t").formatted(Formatting.YELLOW));
                 }
 
                 drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);

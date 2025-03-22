@@ -36,6 +36,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
             new SimpleProgressValueContainerData(),
             new SimpleProgressValueContainerData()
     };
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -130,6 +131,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
             addProperties(maxProgressData[0]);
             addProperties(maxProgressData[1]);
             addProperties(maxProgressData[2]);
+            addProperties(energyConsumptionPerTickData);
             addProperties(energyConsumptionLeftData[0]);
             addProperties(energyConsumptionLeftData[1]);
             addProperties(energyConsumptionLeftData[2]);
@@ -163,6 +165,11 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
         }
 
         return energyIndicatorBarValueSum;
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

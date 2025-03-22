@@ -139,6 +139,7 @@ public class EnergizerBlockEntity
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(() -> hasRecipe(this)?getEnergyConsumptionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
                 new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
@@ -189,11 +190,7 @@ public class EnergizerBlockEntity
             if(blockEntity.progress == 0)
                 blockEntity.energyConsumptionLeft = energyConsumption;
 
-            //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy consumption tick)
-            long energyConsumptionPerTick = (long)Math.ceil((double)energyConsumption / blockEntity.maxProgress);
-            if(blockEntity.progress == blockEntity.maxProgress - 1)
-                energyConsumptionPerTick = blockEntity.energyConsumptionLeft;
-
+            long energyConsumptionPerTick = blockEntity.getEnergyConsumptionPerTick();
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
                 if(level.getBlockState(blockPos).contains(Properties.LIT) &&
@@ -237,6 +234,26 @@ public class EnergizerBlockEntity
             }
             markDirty(level, blockPos, state);
         }
+    }
+    
+    protected final long getEnergyConsumptionPerTick() {
+        if(!(world instanceof ServerWorld serverWorld))
+            return -1;
+
+        Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
+                getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(this.itemHandler), world);
+        if(recipe.isEmpty())
+            return -1;
+
+        long energyConsumption = recipe.get().value().getEnergyConsumption();
+        energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
+
+        //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy consumption tick)
+        long energyConsumptionPerTick = (long)Math.ceil((double)energyConsumption / this.maxProgress);
+        if(progress == maxProgress - 1)
+            energyConsumptionPerTick = energyConsumptionLeft;
+
+        return energyConsumptionPerTick;
     }
 
     private void resetProgress(BlockPos blockPos, BlockState state) {

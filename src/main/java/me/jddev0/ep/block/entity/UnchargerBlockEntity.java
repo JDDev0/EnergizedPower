@@ -154,6 +154,7 @@ public class UnchargerBlockEntity
     @Override
     protected PropertyDelegate initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(() -> hasRecipe()?getEnergyProductionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -190,6 +191,26 @@ public class UnchargerBlockEntity
            tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
+    }
+    
+    protected final long getEnergyProductionPerTick() {
+        ItemStack stack = itemHandler.getStack(0);
+
+        if(!EnergyStorageUtil.isEnergyStorage(stack))
+            return -1;
+
+        EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
+                ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(0)));
+        if(limitingEnergyStorage == null)
+            return -1;
+
+        if(!limitingEnergyStorage.supportsExtraction())
+            return -1;
+
+        try(Transaction transaction = Transaction.openOuter()) {
+            return limitingEnergyStorage.insert(Math.min(this.limitingEnergyStorage.getMaxExtract(),
+                    this.energyStorage.getCapacity() - this.energyStorage.getAmount()), transaction);
+        }
     }
 
     public static void tickRecipe(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {

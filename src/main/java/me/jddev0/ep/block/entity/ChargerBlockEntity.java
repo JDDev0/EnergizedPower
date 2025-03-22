@@ -179,6 +179,7 @@ public class ChargerBlockEntity
     @Override
     protected PropertyDelegate initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(() -> hasRecipe()?getEnergyConsumptionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -287,6 +288,35 @@ public class ChargerBlockEntity
         }else {
             blockEntity.resetProgress();
             markDirty(level, blockPos, state);
+        }
+    }
+    
+    protected final long getEnergyConsumptionPerTick() {
+        if(!(world instanceof ServerWorld serverWorld))
+            return -1;
+
+        ItemStack stack = itemHandler.getStack(0);
+        Optional<RecipeEntry<ChargerRecipe>> recipe = serverWorld.getRecipeManager().
+                getFirstMatch(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(this.itemHandler), world);
+        if(recipe.isPresent()) {
+            return Math.min(this.energyConsumptionLeft, Math.min(this.limitingEnergyStorage.getMaxInsert(),
+                    this.energyStorage.getAmount()));
+        }else {
+            if(!EnergyStorageUtil.isEnergyStorage(stack))
+                return -1;
+
+            EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
+                    ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(0)));
+            if(limitingEnergyStorage == null)
+                return -1;
+
+            if(!limitingEnergyStorage.supportsInsertion())
+                return -1;
+
+            try(Transaction transaction = Transaction.openOuter()) {
+                return limitingEnergyStorage.insert(Math.min(this.limitingEnergyStorage.getMaxInsert(),
+                        this.energyStorage.getAmount()), transaction);
+            }
         }
     }
 

@@ -107,6 +107,7 @@ public class PoweredFurnaceBlockEntity
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
                 new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
