@@ -1,0 +1,23 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "tag": "minecraft:wool"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:string"
+    },
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  }
+}
