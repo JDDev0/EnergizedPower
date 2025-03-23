@@ -156,6 +156,7 @@ public class AdvancedPoweredFurnaceBlockEntity
                 new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
                 new ProgressValueContainerData(() -> maxProgress[1], value -> maxProgress[1] = value),
                 new ProgressValueContainerData(() -> maxProgress[2], value -> maxProgress[2] = value),
+                new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[1], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[2], value -> {}),
@@ -279,6 +280,36 @@ public class AdvancedPoweredFurnaceBlockEntity
                 level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
             }
         }
+    }
+    
+    protected final long getEnergyConsumptionPerTickSum() {
+        long energyConsumptionSum = -1;
+
+        for(int i = 0;i < 3;i++) {
+            if(!hasRecipe(i, this))
+                continue;
+
+            SimpleInventory inventory = new SimpleInventory(2);
+            inventory.setStack(0, this.itemHandler.getStack(i));
+            inventory.setStack(1, this.itemHandler.getStack(3 + i));
+
+            Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = getRecipeFor(inventory, world);
+            if(recipe.isEmpty())
+                continue;
+
+            long energyConsumption = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_INPUT_PER_TICK *
+                    upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(energyConsumptionSum == -1)
+                energyConsumptionSum = energyConsumption;
+            else
+                energyConsumptionSum += energyConsumption;
+
+            if(energyConsumptionSum < 0)
+                energyConsumptionSum = Long.MAX_VALUE;
+        }
+
+        return energyConsumptionSum;
     }
 
     private void resetProgress(int index, BlockPos blockPos, BlockState state) {

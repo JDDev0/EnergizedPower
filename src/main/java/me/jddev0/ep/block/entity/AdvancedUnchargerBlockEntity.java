@@ -156,6 +156,7 @@ public class AdvancedUnchargerBlockEntity
     @Override
     protected PropertyDelegate initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(this::getEnergyProductionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[0], value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[1], value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[2], value -> {}),
@@ -198,6 +199,44 @@ public class AdvancedUnchargerBlockEntity
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
+    protected final long getEnergyProductionPerTickSum() {
+        final long maxExtractPerSlot = (long)Math.min(this.limitingEnergyStorage.getMaxExtract() / 3.,
+                Math.ceil((this.energyStorage.getCapacity() - this.energyStorage.getAmount()) / 3.));
+
+        long energyProductionSum = -1;
+
+        for(int i = 0;i < 3;i++) {
+            ItemStack stack = itemHandler.getStack(i);
+
+            if(!EnergyStorageUtil.isEnergyStorage(stack))
+                continue;
+
+            EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
+                    ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(i)));
+            if(limitingEnergyStorage == null)
+                continue;
+
+            if(!limitingEnergyStorage.supportsExtraction())
+                continue;
+
+            long energyProduction;
+            try(Transaction transaction = Transaction.openOuter()) {
+                energyProduction = limitingEnergyStorage.insert(Math.min(maxExtractPerSlot,
+                        this.energyStorage.getCapacity() - this.energyStorage.getAmount()), transaction);
+            }
+
+            if(energyProductionSum == -1)
+                energyProductionSum = energyProduction;
+            else
+                energyProductionSum += energyProduction;
+
+            if(energyProductionSum < 0)
+                energyProductionSum = Long.MAX_VALUE;
+        }
+
+        return energyProductionSum;
+    }
+
     public static void tickRecipe(World level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
         final long maxExtractPerSlot = (long)Math.min(blockEntity.limitingEnergyStorage.getMaxExtract() / 3.,
                 Math.ceil((blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount()) / 3.));
@@ -207,15 +246,15 @@ public class AdvancedUnchargerBlockEntity
                 ItemStack stack = blockEntity.itemHandler.getStack(i);
 
                 if(!EnergyStorageUtil.isEnergyStorage(stack))
-                    return;
+                    continue;
 
                 EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
                         ofSingleSlot(InventoryStorage.of(blockEntity.itemHandler, null).getSlots().get(i)));
                 if(limitingEnergyStorage == null)
-                    return;
+                    continue;
 
                 if(!limitingEnergyStorage.supportsExtraction())
-                    return;
+                    continue;
 
                 blockEntity.energyProductionLeft[i] = limitingEnergyStorage.getAmount();
 

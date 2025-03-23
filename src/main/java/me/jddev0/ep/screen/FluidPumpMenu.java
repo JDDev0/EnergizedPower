@@ -28,6 +28,7 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleIntegerValueContainerData xOffsetData = new SimpleIntegerValueContainerData();
@@ -83,6 +84,7 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
         if(data == null) {
             addProperties(progressData);
             addProperties(maxProgressData);
+            addProperties(energyConsumptionPerTickData);
             addProperties(energyConsumptionLeftData);
             addProperties(hasEnoughEnergyData);
             addProperties(xOffsetData);
@@ -107,6 +109,11 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
     @Override
     public long getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

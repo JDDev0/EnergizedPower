@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.inventory.data.SimpleShortValueContainerData;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,6 +19,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherControllerBlockEntity> {
     private final SimpleShortValueContainerData selectedWeatherTypeData = new SimpleShortValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
 
     public WeatherControllerMenu(int id, PlayerInventory inv, BlockPos pos) {
@@ -41,10 +43,16 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
 
         if(data == null) {
             addProperties(selectedWeatherTypeData);
+            addProperties(energyConsumptionPerTickData);
             addProperties(hasEnoughEnergyData);
         }else {
             addProperties(data);
         }
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     public int getSelectedWeatherType() {

@@ -165,6 +165,7 @@ public class AdvancedChargerBlockEntity
     @Override
     protected PropertyDelegate initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[1], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[2], value -> {}),
@@ -285,6 +286,57 @@ public class AdvancedChargerBlockEntity
                 markDirty(level, blockPos, state);
             }
         }
+    }
+
+    protected final long getEnergyConsumptionPerTickSum() {
+        if(world == null)
+            return -1;
+
+        final long maxReceivePerSlot = (long)Math.min(this.limitingEnergyStorage.getMaxInsert() / 3.,
+                Math.ceil(this.energyStorage.getAmount() / 3.));
+
+        long energyConsumptionSum = -1;
+
+        for(int i = 0;i < 3;i++) {
+            ItemStack stack = itemHandler.getStack(i);
+            long energyConsumption;
+
+            SimpleInventory inventory = new SimpleInventory(1);
+            inventory.setStack(0, this.itemHandler.getStack(i));
+
+            Optional<RecipeEntry<ChargerRecipe>> recipe = world.getRecipeManager().
+                    getFirstMatch(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), world);
+
+            if(recipe.isPresent()) {
+                energyConsumption = Math.min(energyConsumptionLeft[i], Math.min(maxReceivePerSlot, energyStorage.getAmount()));
+            }else {
+                if(!EnergyStorageUtil.isEnergyStorage(stack))
+                    continue;
+
+                EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
+                        ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(i)));
+                if(limitingEnergyStorage == null)
+                    continue;
+
+                if(!limitingEnergyStorage.supportsInsertion())
+                    continue;
+
+                try(Transaction transaction = Transaction.openOuter()) {
+                    energyConsumption = limitingEnergyStorage.insert(Math.min(maxReceivePerSlot,
+                            this.energyStorage.getAmount()), transaction);
+                }
+            }
+
+            if(energyConsumptionSum == -1)
+                energyConsumptionSum = energyConsumption;
+            else
+                energyConsumptionSum += energyConsumption;
+
+            if(energyConsumptionSum < 0)
+                energyConsumptionSum = Long.MAX_VALUE;
+        }
+
+        return energyConsumptionSum;
     }
 
     private void resetProgress(int index) {

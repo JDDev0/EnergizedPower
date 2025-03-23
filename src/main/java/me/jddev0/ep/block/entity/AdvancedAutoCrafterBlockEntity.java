@@ -200,6 +200,7 @@ public class AdvancedAutoCrafterBlockEntity
                 new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
                 new ProgressValueContainerData(() -> maxProgress[1], value -> maxProgress[1] = value),
                 new ProgressValueContainerData(() -> maxProgress[2], value -> maxProgress[2] = value),
+                new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[1], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[2], value -> {}),
@@ -376,6 +377,34 @@ public class AdvancedAutoCrafterBlockEntity
                 markDirty(level, blockPos, state);
             }
         }
+    }
+    
+    protected final long getEnergyConsumptionPerTickSum() {
+        long energyConsumptionSum = -1;
+
+        for(int i = 0;i < 3;i++) {
+            int itemCount = 0;
+            for(int j = 0;j < patternSlots[i].size();j++)
+                if(!patternSlots[i].getStack(j).isEmpty())
+                    itemCount++;
+
+            //Ignore empty recipes
+            if(itemCount == 0 || craftingRecipe[i] == null || progress[i] <= 0)
+                continue;
+
+            long energyConsumption = Math.max(1, (long)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
+                    upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+            if(energyConsumptionSum == -1)
+                energyConsumptionSum = energyConsumption;
+            else
+                energyConsumptionSum += energyConsumption;
+
+            if(energyConsumptionSum < 0)
+                energyConsumptionSum = Long.MAX_VALUE;
+        }
+
+        return energyConsumptionSum;
     }
 
     private void resetProgress(int index) {
