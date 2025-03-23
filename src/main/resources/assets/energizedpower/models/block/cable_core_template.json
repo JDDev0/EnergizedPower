@@ -5,7 +5,6 @@
       "name": "cable_core",
       "faces": {
         "down": {
-          "cullface": "down",
           "texture": "#cable",
           "uv": [
             0.0,
@@ -15,7 +14,6 @@
           ]
         },
         "east": {
-          "cullface": "east",
           "texture": "#cable",
           "uv": [
             0.0,
@@ -25,7 +23,6 @@
           ]
         },
         "north": {
-          "cullface": "north",
           "texture": "#cable",
           "uv": [
             0.0,
@@ -35,7 +32,6 @@
           ]
         },
         "south": {
-          "cullface": "south",
           "texture": "#cable",
           "uv": [
             0.0,
@@ -45,7 +41,6 @@
           ]
         },
         "up": {
-          "cullface": "up",
           "texture": "#cable",
           "uv": [
             0.0,
@@ -55,7 +50,6 @@
           ]
         },
         "west": {
-          "cullface": "west",
           "texture": "#cable",
           "uv": [
             0.0,
