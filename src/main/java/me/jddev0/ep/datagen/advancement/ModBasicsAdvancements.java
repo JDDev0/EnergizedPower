@@ -195,6 +195,16 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2, "extraction_depth_upgrade_module_2", AdvancementFrame.TASK
         );
 
+        Advancement extractionRangeUpgradeModule1 = addAdvancement(
+                advancementOutput, basicUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1, "extraction_range_upgrade_module_1", AdvancementFrame.TASK
+        );
+
+        Advancement extractionRangeUpgradeModule2 = addAdvancement(
+                advancementOutput, extractionRangeUpgradeModule1,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2, "extraction_range_upgrade_module_2", AdvancementFrame.TASK
+        );
+
         Advancement blastFurnaceUpgradeModule = addAdvancement(
                 advancementOutput, basicUpgradeModule,
                 EPItems.BLAST_FURNACE_UPGRADE_MODULE, "blast_furnace_upgrade_module", AdvancementFrame.TASK

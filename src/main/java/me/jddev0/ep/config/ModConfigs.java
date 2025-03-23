@@ -334,6 +334,31 @@ public final class ModConfigs {
             192
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_1_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
+            1, "I",
+            1.25
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_2_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
+            2, "II",
+            1.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_3_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
+            3, "III",
+            2
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_4_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
+            4, "IV",
+            2.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_5_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
+            5, "V",
+            3
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerMoonLightUpgradeModuleEffectValue(
             1, "I",
             .125
@@ -1433,6 +1458,16 @@ public final class ModConfigs {
                         tierRomanNumerals + ")",
                 defaultValue,
                 1, null
+        ));
+    }
+
+    private static ConfigValue<Double> registerExtractionRangeUpgradeModuleEffectValue(int tier, String tierRomanNumerals, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.extraction_range_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Range multiplier) of the Extraction Range Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
         ));
     }
 

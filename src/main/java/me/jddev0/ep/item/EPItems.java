@@ -208,16 +208,27 @@ public final class EPItems {
     public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_5 = registerItem("extraction_depth_upgrade_module_5",
             new ExtractionDepthUpgradeModuleItem(new FabricItemSettings(), 5));
 
-    public static Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_1 = registerItem("extraction_range_upgrade_module_1",
+            new ExtractionRangeUpgradeModuleItem(new FabricItemSettings(), 1));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_2 = registerItem("extraction_range_upgrade_module_2",
+            new ExtractionRangeUpgradeModuleItem(new FabricItemSettings(), 2));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_3 = registerItem("extraction_range_upgrade_module_3",
+            new ExtractionRangeUpgradeModuleItem(new FabricItemSettings(), 3));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_4 = registerItem("extraction_range_upgrade_module_4",
+            new ExtractionRangeUpgradeModuleItem(new FabricItemSettings(), 4));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_5 = registerItem("extraction_range_upgrade_module_5",
+            new ExtractionRangeUpgradeModuleItem(new FabricItemSettings(), 5));
+
+    public static final Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
             new FurnaceModeUpgradeModuleItem(new FabricItemSettings(), 1));
-    public static Item SMOKER_UPGRADE_MODULE = registerItem("smoker_upgrade_module",
+    public static final Item SMOKER_UPGRADE_MODULE = registerItem("smoker_upgrade_module",
             new FurnaceModeUpgradeModuleItem(new FabricItemSettings(), 2));
 
-    public static Item MOON_LIGHT_UPGRADE_MODULE_1 = registerItem("moon_light_upgrade_module_1",
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_1 = registerItem("moon_light_upgrade_module_1",
             new MoonLightUpgradeModuleItem(new FabricItemSettings(), 1));
-    public static Item MOON_LIGHT_UPGRADE_MODULE_2 = registerItem("moon_light_upgrade_module_2",
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_2 = registerItem("moon_light_upgrade_module_2",
             new MoonLightUpgradeModuleItem(new FabricItemSettings(), 2));
-    public static Item MOON_LIGHT_UPGRADE_MODULE_3 = registerItem("moon_light_upgrade_module_3",
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_3 = registerItem("moon_light_upgrade_module_3",
             new MoonLightUpgradeModuleItem(new FabricItemSettings(), 3));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",

@@ -396,6 +396,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_5.png")
         });
 
+        addSimplePage(pageId("extraction_range_upgrades"), Text.empty().append(
+                Text.translatable("book.energizedpower.page.extraction_range_upgrades").
+                        formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
+        ), new Identifier[] {
+                EPAPI.id("textures/item/extraction_range_upgrade_module_1.png"),
+                EPAPI.id("textures/item/extraction_range_upgrade_module_2.png"),
+                EPAPI.id("textures/item/extraction_range_upgrade_module_3.png"),
+                EPAPI.id("textures/item/extraction_range_upgrade_module_4.png"),
+                EPAPI.id("textures/item/extraction_range_upgrade_module_5.png")
+        });
+
         addSimplePage(pageId("furnace_mode_upgrades"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.furnace_mode_upgrades").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)

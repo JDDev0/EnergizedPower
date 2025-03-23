@@ -192,6 +192,16 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4, "extraction_depth_upgrade_module_4", AdvancementFrame.TASK
         );
 
+        Advancement extractionRangeUpgradeModule3 = addAdvancement(
+                advancementOutput, advancedUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3, "extraction_range_upgrade_module_3", AdvancementFrame.TASK
+        );
+
+        Advancement extractionRangeUpgradeModule4 = addAdvancement(
+                advancementOutput, extractionRangeUpgradeModule3,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4, "extraction_range_upgrade_module_4", AdvancementFrame.TASK
+        );
+
         Advancement moonLightUpgradeModule2 = addAdvancement(
                 advancementOutput, advancedUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_2, "moon_light_upgrade_module_2", AdvancementFrame.TASK
@@ -320,6 +330,11 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         Advancement extractionDepthUpgradeModule5 = addAdvancement(
                 advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5, "extraction_depth_upgrade_module_5", AdvancementFrame.TASK
+        );
+
+        Advancement extractionRangeUpgradeModule5 = addAdvancement(
+                advancementOutput, reinforcedAdvancedUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5, "extraction_range_upgrade_module_5", AdvancementFrame.TASK
         );
 
         Advancement moonLightUpgradeModule3 = addAdvancement(

@@ -143,6 +143,12 @@
   "item.energizedpower.extraction_depth_upgrade_module_4": "Модуль улучшения глубины (Уровень IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Модуль улучшения глубины (Уровень V)",
 
+  "item.energizedpower.extraction_range_upgrade_module_1": "Extraction Range Upgrade Module (Tier I)",
+  "item.energizedpower.extraction_range_upgrade_module_2": "Extraction Range Upgrade Module (Tier II)",
+  "item.energizedpower.extraction_range_upgrade_module_3": "Extraction Range Upgrade Module (Tier III)",
+  "item.energizedpower.extraction_range_upgrade_module_4": "Extraction Range Upgrade Module (Tier IV)",
+  "item.energizedpower.extraction_range_upgrade_module_5": "Extraction Range Upgrade Module (Tier V)",
+
   "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения доменной печи",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Доменная печь",
   "item.energizedpower.smoker_upgrade_module": "Модуль модернизации коптильни",
@@ -735,6 +741,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Продолжительность",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Дальность",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Extraction Range",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Режим печи",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
 
@@ -911,6 +918,21 @@
 
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Глубина извлечения V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Создайте модуль улучшения глубины извлечения (Уровень V).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Extraction Range I",
+  "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Craft an Extraction Range Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_2.title": "Extraction Range II",
+  "advancements.energizedpower.extraction_range_upgrade_module_2.description": "Craft an Extraction Range Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_3.title": "Extraction Range III",
+  "advancements.energizedpower.extraction_range_upgrade_module_3.description": "Craft an Extraction Range Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_4.title": "Extraction Range IV",
+  "advancements.energizedpower.extraction_range_upgrade_module_4.description": "Craft an Extraction Range Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Extraction Range V",
+  "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Craft an Extraction Range Upgrade Module (Tier V).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Режим печи: доменная печь",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменной печи.",
@@ -1379,9 +1401,11 @@
   "book.energizedpower.page.duration_upgrades.1": "Улучшение продолжительности увеличивает продолжительность погоды, установленной контроллером погоды.",
   "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",
 
-  "book.energizedpower.page.range_upgrades": "Улучшение дальности действия увеличивает дальность действия машины.",
+  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can send and receive electromagnetic waves in.",
 
   "book.energizedpower.page.extraction_depth_upgrades": "Улучшение глубины добычи увеличивают глубину, на которой может работать машина.",
+
+  "book.energizedpower.page.extraction_range_upgrades": "Extraction Range Upgrades increase the range a machine can operate in.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
 
