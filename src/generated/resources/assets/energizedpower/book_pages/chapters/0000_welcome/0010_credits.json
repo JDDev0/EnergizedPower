@@ -209,7 +209,7 @@
           {
             "clickEvent": {
               "action": "open_url",
-              "value": "https://github.com/EyyupBerkOZASLAN"
+              "value": "https://github.com/msb-eyyup"
             },
             "color": "blue",
             "hoverEvent": {
@@ -218,7 +218,7 @@
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
-            "text": "Eyyüp Berk ÖZASLAN",
+            "text": "Eyyup",
             "underlined": true
           }
         ],
