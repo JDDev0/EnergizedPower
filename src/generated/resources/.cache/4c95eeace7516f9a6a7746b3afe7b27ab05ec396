@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-23T20:41:25.01887873	Block States: energizedpower
+// 1.20.1	2025-03-23T20:42:24.342383435	Block States: energizedpower
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -116,7 +116,7 @@ cef09ca845fcbd4bab53762a6970df8c253c770d assets/energizedpower/models/block/basi
 9118faefb6c13d446ca14531c477058f525c8b6c assets/energizedpower/models/block/battery_box.json
 047cff6c4c939cd30d9b51272a1d8330eab149a9 assets/energizedpower/models/block/block_placer.json
 ebdc3baf6cb0618ae8380bb03c54ab339f66a167 assets/energizedpower/models/block/block_placer_vertical.json
-ad0b29f0b1051ee072472ef935e373e604afd96a assets/energizedpower/models/block/cable_core_template.json
+5222ac11cf705c68940f812d9439320c134ef230 assets/energizedpower/models/block/cable_core_template.json
 f07a486be9a1382c7129534e1b28faac0c159dcb assets/energizedpower/models/block/cable_side_template.json
 d719dba1d0406cc4462b2035b77c520f47709ed9 assets/energizedpower/models/block/charger.json
 d8a91adefa9225bbe64330d29ba3d97f0c177dc4 assets/energizedpower/models/block/charging_station.json
