@@ -241,6 +241,35 @@
         ],
         "font": "minecraft:uniform",
         "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.9"
+          },
+          {
+            "text": ": "
+          },
+          {
+            "clickEvent": {
+              "action": "open_url",
+              "value": "https://github.com/Lucanoria"
+            },
+            "color": "blue",
+            "hoverEvent": {
+              "action": "show_text",
+              "contents": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "Lucanoria",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
       }
     ],
     "text": ""
