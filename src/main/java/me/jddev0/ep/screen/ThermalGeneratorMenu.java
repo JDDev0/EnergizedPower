@@ -21,6 +21,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGeneratorBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyProductionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
@@ -45,6 +46,7 @@ public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGen
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addDataSlots(energyProductionPerTickData);
             addDataSlots(energyProductionLeftData);
             addDataSlots(redstoneModeData);
             addDataSlots(comparatorModeData);
@@ -56,6 +58,11 @@ public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGen
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyProductionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     public FluidStack getFluid() {

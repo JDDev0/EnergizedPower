@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
+import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.SimpleComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
@@ -22,8 +23,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
+public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedChargerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -73,6 +75,7 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData[0]);
             addDataSlots(energyConsumptionLeftData[1]);
             addDataSlots(energyConsumptionLeftData[2]);
@@ -103,6 +106,11 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
         }
 
         return energyIndicatorBarValueSum;
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     @Override

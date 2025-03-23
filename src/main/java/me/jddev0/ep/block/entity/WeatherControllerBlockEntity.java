@@ -45,6 +45,8 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ShortValueContainerData(() -> (short)selectedWeatherType, value -> selectedWeatherType = value),
+                new EnergyValueContainerData(() -> (!hasInfiniteWeatherChangedDuration() || selectedWeatherType == -1)?-1:
+                        (int)upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ENERGY_CONSUMPTION), value -> {}),
                 new BooleanValueContainerData(this::hasEnoughEnergy, value -> {})
         );
     }

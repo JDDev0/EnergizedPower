@@ -152,6 +152,7 @@ public class AdvancedChargerBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[1], value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft[2], value -> {}),
@@ -274,6 +275,51 @@ public class AdvancedChargerBlockEntity
                 setChanged(level, blockPos, state);
             }
         }
+    }
+
+    protected final int getEnergyConsumptionPerTickSum() {
+        if(level == null)
+            return -1;
+
+        final int maxReceivePerSlot = (int)Math.min(this.energyStorage.getMaxReceive() / 3.,
+                Math.ceil(this.energyStorage.getEnergy() / 3.));
+
+        int energyConsumptionSum = -1;
+
+        for(int i = 0;i < 3;i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+            int energyConsumption;
+
+            SimpleContainer inventory = new SimpleContainer(1);
+            inventory.setItem(0, itemHandler.getStackInSlot(i));
+
+            Optional<ChargerRecipe> recipe = level.getRecipeManager().
+                    getRecipeFor(ChargerRecipe.Type.INSTANCE, inventory, level);
+
+            if(recipe.isPresent()) {
+                energyConsumption = Math.min(energyConsumptionLeft[i], Math.min(maxReceivePerSlot, energyStorage.getEnergy()));
+            }else {
+                LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+                if(!energyStorageLazyOptional.isPresent())
+                    continue;
+
+                IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+                if(!energyStorage.canReceive())
+                    continue;
+
+                energyConsumption = energyStorage.receiveEnergy(Math.min(maxReceivePerSlot, this.energyStorage.getEnergy()), true);
+            }
+
+            if(energyConsumptionSum == -1)
+                energyConsumptionSum = energyConsumption;
+            else
+                energyConsumptionSum += energyConsumption;
+
+            if(energyConsumptionSum < 0)
+                energyConsumptionSum = Integer.MAX_VALUE;
+        }
+
+        return energyConsumptionSum;
     }
 
     private void resetProgress(int index) {

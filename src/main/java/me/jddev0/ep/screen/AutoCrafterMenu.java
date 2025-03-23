@@ -30,6 +30,7 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
 
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
@@ -88,6 +89,7 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
         if(data == null) {
             addDataSlots(progressData);
             addDataSlots(maxProgressData);
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData);
             addDataSlots(hasEnoughEnergyData);
             addDataSlots(ignoreNBTData);
@@ -106,6 +108,11 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

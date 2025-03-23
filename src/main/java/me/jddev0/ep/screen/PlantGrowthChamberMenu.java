@@ -24,6 +24,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
@@ -93,6 +94,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
         if(data == null) {
             addDataSlots(progressData);
             addDataSlots(maxProgressData);
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData);
             addDataSlots(hasEnoughEnergyData);
             addDataSlots(redstoneModeData);
@@ -105,6 +107,11 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

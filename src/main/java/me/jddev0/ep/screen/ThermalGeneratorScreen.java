@@ -22,6 +22,8 @@ public class ThermalGeneratorScreen
                 "tooltip.energizedpower.thermal_generator.txt",
                 EPAPI.id("textures/gui/container/thermal_generator.png"),
                 EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+
+        energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }
 
     @Override

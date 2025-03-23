@@ -29,7 +29,7 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     protected int energyMeterU = 0;
     protected int energyMeterV = 0;
 
-    protected String energyPerTickBarTooltipComponentID;
+    protected String energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_consumption_per_tick.txt";
     protected final String energyIndicatorBarTooltipComponentID;
 
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent) {
@@ -67,8 +67,8 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
         if(!menu.isInUpgradeModuleView()) {
             guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
             renderEnergyMeter(guiGraphics, x, y);
-            renderEnergyIndicatorBar(guiGraphics, x, y);
             renderEnergyPerTickBar(guiGraphics, x, y);
+            renderEnergyIndicatorBar(guiGraphics, x, y);
         }
     }
 
@@ -117,7 +117,7 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
 
                 if(menu.getEnergyPerTickBarValue() > 0 && energyPerTickBarTooltipComponentID != null) {
                     components.add(Component.translatable(energyPerTickBarTooltipComponentID,
-                            EnergyUtils.getEnergyWithPrefix(menu.getEnergyPerTickBarValue())).withStyle(ChatFormatting.YELLOW));
+                            EnergyUtils.getEnergyWithPrefix(menu.getEnergyPerTickBarValue()) + "/t").withStyle(ChatFormatting.YELLOW));
                 }
 
                 guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);

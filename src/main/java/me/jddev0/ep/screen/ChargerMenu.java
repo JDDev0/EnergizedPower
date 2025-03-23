@@ -22,6 +22,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ChargerMenu extends UpgradableEnergyStorageMenu<ChargerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
@@ -55,6 +56,7 @@ public class ChargerMenu extends UpgradableEnergyStorageMenu<ChargerBlockEntity>
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData);
             addDataSlots(redstoneModeData);
             addDataSlots(comparatorModeData);
@@ -66,6 +68,11 @@ public class ChargerMenu extends UpgradableEnergyStorageMenu<ChargerBlockEntity>
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     @Override

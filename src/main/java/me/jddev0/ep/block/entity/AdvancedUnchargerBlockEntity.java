@@ -142,6 +142,7 @@ public class AdvancedUnchargerBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
+                new EnergyValueContainerData(this::getEnergyProductionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[0], value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[1], value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[2], value -> {}),
@@ -195,6 +196,37 @@ public class AdvancedUnchargerBlockEntity
             tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
+    }
+
+    protected final int getEnergyProductionPerTickSum() {
+        final int maxExtractPerSlot = (int)Math.min(this.energyStorage.getMaxExtract() / 3.,
+                Math.ceil((this.energyStorage.getMaxEnergyStored() - this.energyStorage.getEnergy()) / 3.));
+
+        int energyProductionSum = -1;
+
+        for(int i = 0;i < 3;i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+            LazyOptional<IEnergyStorage> energyStorageLazyOptional = stack.getCapability(ForgeCapabilities.ENERGY);
+            if(!energyStorageLazyOptional.isPresent())
+                continue;
+
+            IEnergyStorage energyStorage = energyStorageLazyOptional.orElse(null);
+            if(!energyStorage.canExtract())
+                continue;
+
+            int energyProduction = energyStorage.extractEnergy(Math.min(maxExtractPerSlot,
+                    this.energyStorage.getCapacity() - this.energyStorage.getEnergy()), false);
+
+            if(energyProductionSum == -1)
+                energyProductionSum = energyProduction;
+            else
+                energyProductionSum += energyProduction;
+
+            if(energyProductionSum < 0)
+                energyProductionSum = Integer.MAX_VALUE;
+        }
+
+        return energyProductionSum;
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {

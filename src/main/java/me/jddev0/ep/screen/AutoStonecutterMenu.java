@@ -27,6 +27,7 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
         ISelectableRecipeMachineMenu<StonecutterRecipe> {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
@@ -78,6 +79,7 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
         if(data == null) {
             addDataSlots(progressData);
             addDataSlots(maxProgressData);
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData);
             addDataSlots(hasEnoughEnergyData);
             addDataSlots(redstoneModeData);
@@ -90,6 +92,11 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**

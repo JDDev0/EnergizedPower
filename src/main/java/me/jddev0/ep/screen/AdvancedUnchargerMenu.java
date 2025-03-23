@@ -24,6 +24,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedUnchargerBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyProductionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -73,6 +74,7 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addDataSlots(energyProductionPerTickData);
             addDataSlots(energyProductionLeftData[0]);
             addDataSlots(energyProductionLeftData[1]);
             addDataSlots(energyProductionLeftData[2]);
@@ -103,6 +105,11 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         }
 
         return energyIndicatorBarValueSum;
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     @Override
