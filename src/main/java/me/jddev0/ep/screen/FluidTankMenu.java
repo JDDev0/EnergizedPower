@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -15,7 +16,8 @@ import net.minecraft.world.World;
 public class FluidTankMenu extends ScreenHandler {
     private final FluidTankBlockEntity blockEntity;
     private final World level;
-    private final PropertyDelegate data;
+
+    private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
 
     public static ScreenHandlerType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
@@ -26,7 +28,7 @@ public class FluidTankMenu extends ScreenHandler {
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(pos), new ArrayPropertyDelegate(1));
+        this(id, inv, inv.player.getWorld().getBlockEntity(pos), null);
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {
@@ -34,14 +36,16 @@ public class FluidTankMenu extends ScreenHandler {
 
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
 
-        checkDataCount(data, 1);
         this.level = inv.player.getWorld();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(ignoreNBTData);
+        }else {
+            addProperties(data);
+        }
     }
 
     public FluidTankBlock.Tier getTier() {
@@ -57,7 +61,7 @@ public class FluidTankMenu extends ScreenHandler {
     }
 
     public boolean isIgnoreNBT() {
-        return data.get(0) != 0;
+        return ignoreNBTData.getValue();
     }
 
     @Override

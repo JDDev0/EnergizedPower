@@ -2,11 +2,11 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -17,32 +17,37 @@ import net.minecraft.world.World;
 public class CreativeBatteryBoxMenu extends ScreenHandler {
     private final CreativeBatteryBoxBlockEntity blockEntity;
     private final World level;
-    private final PropertyDelegate data;
+
+    private final SimpleBooleanValueContainerData energyProductionData = new SimpleBooleanValueContainerData();
+    private final SimpleBooleanValueContainerData energyConsumptionData = new SimpleBooleanValueContainerData();
 
     public CreativeBatteryBoxMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new ArrayPropertyDelegate(2));
+        this(id, inv.player.getWorld().getBlockEntity(pos), inv, null);
     }
 
     public CreativeBatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
         super(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU, id);
 
-        checkDataCount(data, 2);
         this.blockEntity = (CreativeBatteryBoxBlockEntity)blockEntity;
         this.level = playerInventory.player.getWorld();
-        this.data = data;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(energyProductionData);
+            addProperties(energyConsumptionData);
+        }else {
+            addProperties(data);
+        }
     }
 
     public boolean isEnergyProduction() {
-        return data.get(0) != 0;
+        return energyProductionData.getValue();
     }
 
     public boolean isEnergyConsumption() {
-        return data.get(1) != 0;
+        return energyConsumptionData.getValue();
     }
 
     @Override

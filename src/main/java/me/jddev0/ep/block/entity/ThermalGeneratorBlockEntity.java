@@ -5,12 +5,13 @@ import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBl
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
+import me.jddev0.ep.inventory.data.EnergyValueContainerData;
+import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
-import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -115,54 +116,32 @@ public class ThermalGeneratorBlockEntity
 
     @Override
     protected PropertyDelegate initContainerData() {
-        return new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                if(index == 4)
-                    return redstoneMode.ordinal();
-                else if(index == 5)
-                    return comparatorMode.ordinal();
+        return new CombinedContainerData(
+                new EnergyValueContainerData(() -> {
+                    if(world == null)
+                        return 0L;
 
-                if(world == null || index > 3)
-                    return 0;
+                    List<RecipeEntry<ThermalGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
 
-                List<RecipeEntry<ThermalGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(ThermalGeneratorRecipe.Type.INSTANCE);
+                    long rawProduction = 0;
+                    outer:
+                    for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
+                        for(Fluid fluid:recipe.value().getInput()) {
+                            if(fluidStorage.getFluid().getFluid() == fluid) {
+                                rawProduction = recipe.value().getEnergyProduction();
+                                rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
-                long rawProduction = 0;
-                outer:
-                for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
-                    for(Fluid fluid:recipe.value().getInput()) {
-                        if(fluidStorage.getFluid().getFluid() == fluid) {
-                            rawProduction = recipe.value().getEnergyProduction();
-                            rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
-
-                            break outer;
+                                break outer;
+                            }
                         }
                     }
-                }
-                //Calculate real production (raw production is in x E per 1000 mB, use fluid amount without cap)
-                long productionLeft = (long)(rawProduction * fluidStorage.getFluid().getMilliBucketsAmount() / 1000.);
 
-                return switch(index) {
-                    case 0, 1, 2, 3 -> ByteUtils.get2Bytes(productionLeft, index);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> ThermalGeneratorBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int size() {
-                return 6;
-            }
-        };
+                    //Calculate real production (raw production is in x E per 1000 mB, use fluid amount without cap)
+                    return (long)(rawProduction * fluidStorage.getFluid().getMilliBucketsAmount() / 1000.);
+                }, value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Nullable

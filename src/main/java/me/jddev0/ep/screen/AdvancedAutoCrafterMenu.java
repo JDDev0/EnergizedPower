@@ -6,6 +6,7 @@ import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.PatternResultSlot;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.inventory.*;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -13,25 +14,51 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 
 public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
-    private final PropertyDelegate data;
-
     private final Inventory[] patternSlots;
 
     private final Inventory[] patternResultSlots;
+
+    private final SimpleProgressValueContainerData[] progressData = new SimpleProgressValueContainerData[] {
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData()
+    };
+    private final SimpleProgressValueContainerData[] maxProgressData = new SimpleProgressValueContainerData[] {
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData()
+    };
+    private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] hasEnoughEnergyData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] ignoreNBTData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData secondaryExtractModeData = new SimpleBooleanValueContainerData();
+    private final SimpleShortValueContainerData currentRecipeIndexData = new SimpleShortValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedAutoCrafterMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(27) {
@@ -47,7 +74,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
                 new SimpleInventory(9), new SimpleInventory(9), new SimpleInventory(9)
         }, new Inventory[] {
                 new SimpleInventory(1), new SimpleInventory(1), new SimpleInventory(1)
-        }, new ArrayPropertyDelegate(34));
+        }, null);
     }
 
     public AdvancedAutoCrafterMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -67,8 +94,6 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         this.patternResultSlots = patternResultSlots;
 
         checkSize(inv, 27);
-        checkDataCount(data, 34);
-        this.data = data;
 
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 9;j++)
@@ -99,7 +124,29 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         for(int i = 0;i < upgradeModuleInventory.size();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(progressData[0]);
+            addProperties(progressData[1]);
+            addProperties(progressData[2]);
+            addProperties(maxProgressData[0]);
+            addProperties(maxProgressData[1]);
+            addProperties(maxProgressData[2]);
+            addProperties(energyConsumptionLeftData[0]);
+            addProperties(energyConsumptionLeftData[1]);
+            addProperties(energyConsumptionLeftData[2]);
+            addProperties(hasEnoughEnergyData[0]);
+            addProperties(hasEnoughEnergyData[1]);
+            addProperties(hasEnoughEnergyData[2]);
+            addProperties(ignoreNBTData[0]);
+            addProperties(ignoreNBTData[1]);
+            addProperties(ignoreNBTData[2]);
+            addProperties(secondaryExtractModeData);
+            addProperties(currentRecipeIndexData);
+            addProperties(redstoneModeData);
+            addProperties(comparatorModeData);
+        }else {
+            addProperties(data);
+        }
     }
 
     public Inventory[] getPatternSlots() {
@@ -110,9 +157,8 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
     public long getEnergyIndicatorBarValue() {
         long energyIndicatorBarValueSum = -1;
 
-        for(int i = 12;i < 24;i += 4) {
-            long value = ByteUtils.from2ByteChunks((short)data.get(i), (short)data.get(i + 1),
-                    (short)data.get(i + 2), (short)data.get(i + 3));
+        for(SimpleEnergyValueContainerData ele:energyConsumptionLeftData) {
+            long value = ele.getValue();
 
             //Prevent overflow
             if(Math.max(0, energyIndicatorBarValueSum) + Math.max(0, value) < 0)
@@ -134,18 +180,18 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
      */
     public boolean isCraftingActive() {
         int index = getRecipeIndex();
-        return ByteUtils.from2ByteChunks((short)data.get(4 * index), (short)data.get(1 + 4 * index)) > 0;
+        return progressData[index].getValue() > 0;
     }
 
     public boolean isCrafting() {
         int index = getRecipeIndex();
-        return ByteUtils.from2ByteChunks((short)data.get(4 * index), (short)data.get(1 + 4 * index)) > 0 && data.get(18 + index) == 1;
+        return progressData[index].getValue() > 0 && hasEnoughEnergyData[index].getValue();
     }
 
     public int getScaledProgressArrowSize() {
         int index = getRecipeIndex();
-        int progress = ByteUtils.from2ByteChunks((short)data.get(4 * index), (short)data.get(1 + 4 * index));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2 + 4 * index), (short)data.get(3 + 4 * index));
+        int progress = progressData[index].getValue();
+        int maxProgress = maxProgressData[index].getValue();
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
@@ -153,25 +199,25 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
 
     public boolean isIgnoreNBT() {
         int index = getRecipeIndex();
-        return data.get(27 + index) != 0;
+        return ignoreNBTData[index].getValue();
     }
 
     public boolean isSecondaryExtractMode() {
-        return data.get(30) != 0;
+        return secondaryExtractModeData.getValue();
     }
 
     public int getRecipeIndex() {
-        return data.get(31);
+        return currentRecipeIndexData.getValue();
     }
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(32));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(33));
+        return comparatorModeData.getValue();
     }
 
     @Override

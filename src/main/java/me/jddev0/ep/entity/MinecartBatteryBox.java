@@ -2,9 +2,10 @@ package me.jddev0.ep.entity;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.MinecartBatteryBoxMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
@@ -25,30 +26,10 @@ public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
 
     private static final TrackedData<Long> DATA_ID_ENERGY = DataTracker.registerData(MinecartBatteryBox.class, TrackedDataHandlerRegistry.LONG);
 
-    protected final PropertyDelegate data = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            return switch(index) {
-                case 0, 1, 2, 3 -> ByteUtils.get2Bytes(MinecartBatteryBox.this.getEnergy(), index);
-                case 4, 5, 6, 7 -> ByteUtils.get2Bytes(MinecartBatteryBox.this.getCapacity(), index - 4);
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch(index) {
-                case 0, 1, 2, 3 -> MinecartBatteryBox.this.setEnergy(ByteUtils.with2Bytes(
-                        MinecartBatteryBox.this.getEnergy(), (short)value, index));
-                case 4, 5, 6, 7 -> {}
-            }
-        }
-
-        @Override
-        public int size() {
-            return 8;
-        }
-    };
+    protected final PropertyDelegate data = new CombinedContainerData(
+            new EnergyValueContainerData(MinecartBatteryBox.this::getEnergy, MinecartBatteryBox.this::setEnergy),
+            new EnergyValueContainerData(MinecartBatteryBox.this::getCapacity, value -> {})
+    );
 
     public MinecartBatteryBox(EntityType<? extends MinecartBatteryBox> entityType, World level) {
         super(entityType, level);
