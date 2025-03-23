@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "energizedpower:item/extraction_range_upgrade_module_5"
+  }
+}

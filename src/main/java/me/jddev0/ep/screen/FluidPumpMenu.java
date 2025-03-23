@@ -43,7 +43,7 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.RANGE,
+                UpgradeModuleModifier.EXTRACTION_RANGE,
                 UpgradeModuleModifier.EXTRACTION_DEPTH
         ), new ArrayPropertyDelegate(18));
     }
