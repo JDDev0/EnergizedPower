@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-23T21:46:42.300178429	Energized Power/Block Loot Tables
+// 1.20.1	2025-03-23T21:47:52.840328759	Energized Power/Block Loot Tables
 75cd2b9225591085c881138629a609012dfecb68 data/energizedpower/loot_tables/blocks/fluid_pipe.json
 616950a2a37d1032997d6adcc28ddc462e137e97 data/energizedpower/loot_tables/blocks/fluid_filler.json
 7609cb3e8c196b21ac938fed38933747b35ca45e data/energizedpower/loot_tables/blocks/advanced_powered_furnace.json
@@ -26,8 +26,8 @@ acb7344907fce625b3968534197eaea7b27f136a data/energizedpower/loot_tables/blocks/
 c4efe7b3b84b5de6e1a1b566e73730b1e266aba8 data/energizedpower/loot_tables/blocks/fluid_tank_large.json
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_tables/blocks/advanced_auto_crafter.json
 4743e664416739e9e3cdcc95a36e6002bf42a05c data/energizedpower/loot_tables/blocks/fluid_transposer.json
-6668f7e9d1546e00b161da02a163be40106ab46d data/energizedpower/loot_tables/blocks/reinforced_advanced_machine_frame.json
 af759b432c5858f6b8b2b1d0de696d740573deda data/energizedpower/loot_tables/blocks/thermal_generator.json
+6668f7e9d1546e00b161da02a163be40106ab46d data/energizedpower/loot_tables/blocks/reinforced_advanced_machine_frame.json
 ad8d3a16e8e179d26c806b88c7989b1c6cf4a203 data/energizedpower/loot_tables/blocks/fluid_tank_small.json
 51841426549af6f04213ab1501e750383f4150ba data/energizedpower/loot_tables/blocks/fluid_drainer.json
 03b48eebb7aea41207cb84e11b1b331932b77be7 data/energizedpower/loot_tables/blocks/compressor.json
