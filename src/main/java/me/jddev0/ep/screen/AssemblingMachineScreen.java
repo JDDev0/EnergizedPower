@@ -36,6 +36,6 @@ public class AssemblingMachineScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 100, y + 36, 176, 53, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 100, y + 36, 24, 58, menu.getScaledProgressArrowSize(), 17);
     }
 }

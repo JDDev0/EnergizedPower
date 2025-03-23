@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -24,6 +25,8 @@ import org.joml.Matrix4f;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+    protected final ResourceLocation MACHINE_SPRITES_TEXTURE = EPAPI.id("textures/gui/container/sprites/machine_sprites.png");
+
     public EnergizedPowerBaseContainerScreen(T menu, Inventory inventory, Component titleComponent) {
         super(menu, inventory, titleComponent);
     }

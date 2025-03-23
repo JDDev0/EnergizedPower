@@ -70,20 +70,20 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     private void renderOutputBeltConnectionState(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++)
             if(menu.isOutputBeltConnected(i))
-                guiGraphics.blit(TEXTURE, x + 10, y + 18 + i * 18, 176, i * 14, 30, 14);
+                guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 10, y + 18 + i * 18, 22, 169 + i * 14, 30, 14);
     }
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++) {
             if(menu.isWhitelist(i)) {
                 //Whitelist checkbox [3x]
 
-                guiGraphics.blit(TEXTURE, x + 136, y + 19 + i * 18, 176, 42, 13, 13);
+                guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 136, y + 19 + i * 18, 13, 150, 13, 13);
             }
 
             if(menu.isIgnoreNBT(i)) {
                 //Ignore NBT checkbox [3x]
 
-                guiGraphics.blit(TEXTURE, x + 153, y + 19 + i * 18, 176, 55, 13, 13);
+                guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 153, y + 19 + i * 18, 0, 150, 13, 13);
             }
         }
     }

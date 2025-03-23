@@ -57,7 +57,7 @@ public class AutoStonecutterScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 84, y + 43, 176, 53, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, menu.getScaledProgressArrowSize(), 17);
     }
 
     @Override

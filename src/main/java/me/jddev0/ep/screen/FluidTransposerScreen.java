@@ -62,12 +62,12 @@ public class FluidTransposerScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + 152, y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52);
     }
 
     private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(isHovering(114, 47, 20, 20, mouseX, mouseY))
-            guiGraphics.blit(TEXTURE, x + 114, y + 47, 176, 135, 20, 20);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20);
 
         ItemStack output = new ItemStack(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
         guiGraphics.pose().pushPose();
@@ -79,16 +79,16 @@ public class FluidTransposerScreen
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
-        int arrowPosY = menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?106:120;
+        int arrowPosY = menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?58:72;
 
-        guiGraphics.blit(TEXTURE, x + 114, y + 19, 176, arrowPosY, 20, 14);
+        guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14);
 
         if(menu.isCraftingActive()) {
             if(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING)
-                guiGraphics.blit(TEXTURE, x + 114, y + 19, 196, arrowPosY, menu.getScaledProgressArrowSize(), 14);
+                guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 72, arrowPosY, menu.getScaledProgressArrowSize(), 14);
             else
-                guiGraphics.blit(TEXTURE, x + 134 - menu.getScaledProgressArrowSize(), y + 19,
-                        216 - menu.getScaledProgressArrowSize(), arrowPosY, menu.getScaledProgressArrowSize(), 14);
+                guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 134 - menu.getScaledProgressArrowSize(), y + 19,
+                        92 - menu.getScaledProgressArrowSize(), arrowPosY, menu.getScaledProgressArrowSize(), 14);
         }
     }
 

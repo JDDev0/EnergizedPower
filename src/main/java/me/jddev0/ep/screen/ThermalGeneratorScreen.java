@@ -36,7 +36,7 @@ public class ThermalGeneratorScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + 80, y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52);
     }
 
     @Override

@@ -8,7 +8,7 @@ public interface IEnergyStorageMenu extends IUpgradeModuleMenu {
         int energy = getEnergy();
         int capacity = getCapacity();
 
-        return (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity);
+        return Math.min(energyMeterHeight, (energy == 0 || capacity == 0)?0:Math.max(1, energy * energyMeterHeight / capacity));
     }
 
     default int getEnergyIndicatorBarValue() {
@@ -16,6 +16,14 @@ public interface IEnergyStorageMenu extends IUpgradeModuleMenu {
     }
 
     default int getScaledEnergyIndicatorBarPos(int energyMeterHeight) {
+        return 0;
+    }
+
+    default int getEnergyPerTickBarValue() {
+        return 0;
+    }
+
+    default int getScaledEnergyPerTickBarPos(int energyMeterHeight) {
         return 0;
     }
 }

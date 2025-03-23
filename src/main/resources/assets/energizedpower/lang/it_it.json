@@ -700,6 +700,8 @@
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.energy_consumption_per_tick.txt": "Energy consumption per tick: %s",
+  "tooltip.energizedpower.energy_production_per_tick.txt": "Energy production per tick: %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Questa ricetta richiede %s per essere completata.",
   "tooltip.energizedpower.recipe.selector.next_recipe": "Next recipe",
   "tooltip.energizedpower.recipe.selector.prev_recipe": "Previous recipe",

@@ -24,8 +24,8 @@ public abstract class SelectableRecipeMachineContainerScreen
     protected int recipeSelectorPosX = 80;
     protected int recipeSelectorPosY = 17;
 
-    protected int recipeSelectorTexturePosX = 176;
-    protected int recipeSelectorTexturePosY = 70;
+    protected int recipeSelectorTexturePosX = 0;
+    protected int recipeSelectorTexturePosY = 187;
 
     public SelectableRecipeMachineContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   ResourceLocation texture,
@@ -106,13 +106,13 @@ public abstract class SelectableRecipeMachineContainerScreen
     private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         //Down button
         if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12);
         }
 
         //Up button
         if(isHovering(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            guiGraphics.blit(TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12);
         }
     }

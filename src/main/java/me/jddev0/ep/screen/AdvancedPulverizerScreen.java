@@ -40,12 +40,12 @@ public class AdvancedPulverizerScreen
     }
 
     private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 90, y + 34, 176, 106, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 90, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17);
     }
 
     @Override
