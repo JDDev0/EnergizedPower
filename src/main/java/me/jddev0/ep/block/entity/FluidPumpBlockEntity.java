@@ -3,12 +3,11 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidPumpMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -119,45 +118,18 @@ public class FluidPumpBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(FluidPumpBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(FluidPumpBlockEntity.this.maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(FluidPumpBlockEntity.this.energyConsumptionLeft, index - 4);
-                    case 6 -> hasEnoughEnergy?1:0;
-                    case 7 -> redstoneMode.ordinal();
-                    case 8 -> comparatorMode.ordinal();
-                    case 9, 10 -> ByteUtils.get2Bytes(xOffset, index - 9);
-                    case 11, 12 -> ByteUtils.get2Bytes(yOffset, index - 11);
-                    case 13, 14 -> ByteUtils.get2Bytes(zOffset, index - 13);
-                    case 15 -> extractingFluid ?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> FluidPumpBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            FluidPumpBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> FluidPumpBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            FluidPumpBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6 -> {}
-                    case 7 -> FluidPumpBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 8 -> FluidPumpBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                    case 9, 10, 11, 12, 13, 14, 15 -> {}
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 16;
-            }
-        };
+        return new CombinedContainerData(
+                new ProgressValueContainerData(() -> progress, value -> progress = value),
+                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new IntegerValueContainerData(() -> xOffset, value -> {}),
+                new IntegerValueContainerData(() -> yOffset, value -> {}),
+                new IntegerValueContainerData(() -> zOffset, value -> {}),
+                new BooleanValueContainerData(() -> extractingFluid, value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Nullable

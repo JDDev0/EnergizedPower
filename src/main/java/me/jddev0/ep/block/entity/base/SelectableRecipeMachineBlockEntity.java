@@ -1,14 +1,13 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
@@ -60,40 +59,14 @@ public abstract class SelectableRecipeMachineBlockEntity<R extends Recipe<Contai
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(maxProgress, index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(energyConsumptionLeft, index - 4);
-                    case 6 -> hasEnoughEnergy?1:0;
-                    case 7 -> redstoneMode.ordinal();
-                    case 8 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> progress = ByteUtils.with2Bytes(
-                            progress, (short)value, index
-                    );
-                    case 2, 3 -> maxProgress = ByteUtils.with2Bytes(
-                            maxProgress, (short)value, index - 2
-                    );
-                    case 4, 5, 6 -> {}
-                    case 7 -> redstoneMode = RedstoneMode.fromIndex(value);
-                    case 8 -> comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 9;
-            }
-        };
+        return new CombinedContainerData(
+                new ProgressValueContainerData(() -> progress, value -> progress = value),
+                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Override

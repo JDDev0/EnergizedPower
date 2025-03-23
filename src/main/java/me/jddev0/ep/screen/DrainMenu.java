@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.inventory.data.SimpleProgressValueContainerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,24 +15,29 @@ import net.minecraftforge.fluids.FluidStack;
 public class DrainMenu extends AbstractContainerMenu {
     private final DrainBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
+
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
 
     public DrainMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(4));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
     }
 
     public DrainMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(EPMenuTypes.DRAIN_MENU.get(), id);
 
-        checkContainerDataCount(data, 4);
         this.blockEntity = (DrainBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(progressData);
+            addDataSlots(maxProgressData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public FluidStack getFluid() {
@@ -44,7 +49,7 @@ public class DrainMenu extends AbstractContainerMenu {
     }
 
     public boolean isDraining() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+        return progressData.getValue() > 0;
     }
 
     @Override

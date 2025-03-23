@@ -5,12 +5,11 @@ import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBl
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -101,55 +100,32 @@ public class ThermalGeneratorBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                if(index == 2)
-                    return redstoneMode.ordinal();
-                else if(index == 3)
-                    return comparatorMode.ordinal();
+        return new CombinedContainerData(
+                new EnergyValueContainerData(() -> {
+                    if(level == null)
+                        return 0;
 
-                if(level == null || index > 1)
-                    return 0;
+                    List<ThermalGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
 
-                List<ThermalGeneratorRecipe> recipes = level.getRecipeManager().getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
+                    int rawProduction = 0;
+                    outer:
+                    for(ThermalGeneratorRecipe recipe:recipes) {
+                        for(Fluid fluid:recipe.getInput()) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                                rawProduction = recipe.getEnergyProduction();
+                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
 
-                int rawProduction = 0;
-                outer:
-                for(ThermalGeneratorRecipe recipe:recipes) {
-                    for(Fluid fluid:recipe.getInput()) {
-                        if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
-                            rawProduction = recipe.getEnergyProduction();
-                            rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
-
-                            break outer;
+                                break outer;
+                            }
                         }
                     }
-                }
 
-                //Calculate real production (raw production is in x FE per 1000 mB, use fluid amount without cap)
-                int productionLeft = (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getFluidAmount() / 1000.f);
-
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(productionLeft, index);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> {}
-                    case 2 -> ThermalGeneratorBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 3 -> ThermalGeneratorBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
+                    //Calculate real production (raw production is in x FE per 1000 mB, use fluid amount without cap)
+                    return (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getFluidAmount() / 1000.f);
+                }, value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Nullable

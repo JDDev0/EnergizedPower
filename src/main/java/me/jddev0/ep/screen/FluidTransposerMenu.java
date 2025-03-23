@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -10,12 +11,10 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,14 +24,20 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransposerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
-    private final ContainerData data;
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
+    private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
+    private final SimpleShortValueContainerData modeData = new SimpleShortValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FluidTransposerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new SimpleContainerData(10));
+        ), null);
     }
 
     public FluidTransposerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -45,9 +50,6 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
 
                 upgradeModuleInventory, 3
         );
-
-        checkContainerDataCount(data, 10);
-        this.data = data;
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 80, 17) {
@@ -67,7 +69,17 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(progressData);
+            addDataSlots(maxProgressData);
+            addDataSlots(energyConsumptionLeftData);
+            addDataSlots(hasEnoughEnergyData);
+            addDataSlots(modeData);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public FluidStack getFluid() {
@@ -80,12 +92,12 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return energyConsumptionLeftData.getValue();
     }
 
     public int getScaledProgressArrowSize() {
-        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        int progress = progressData.getValue();
+        int maxProgress = maxProgressData.getValue();
         int progressArrowSize = 20;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
@@ -95,25 +107,25 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+        return progressData.getValue() > 0;
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
+        return progressData.getValue() > 0 && hasEnoughEnergyData.getValue();
     }
 
     public FluidTransposerBlockEntity.Mode getMode() {
-        return FluidTransposerBlockEntity.Mode.fromIndex(data.get(7));
+        return FluidTransposerBlockEntity.Mode.fromIndex(modeData.getValue());
     }
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(8));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(9));
+        return comparatorModeData.getValue();
     }
 
     @Override

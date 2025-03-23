@@ -2,9 +2,10 @@ package me.jddev0.ep.entity;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.MinecartBatteryBoxMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,31 +27,10 @@ public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
     private static final EntityDataAccessor<Integer> DATA_ID_ENERGY =
             SynchedEntityData.defineId(MinecartBatteryBox.class, EntityDataSerializers.INT);
 
-    protected final ContainerData data = new ContainerData() {
-        @Override
-        public int get(int index) {
-            return switch(index) {
-                case 0, 1 -> ByteUtils.get2Bytes(MinecartBatteryBox.this.getEnergy(), index);
-                case 2, 3 -> ByteUtils.get2Bytes(MinecartBatteryBox.this.getCapacity(), index);
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch(index) {
-                case 0, 1 -> MinecartBatteryBox.this.setEnergy(ByteUtils.with2Bytes(
-                        MinecartBatteryBox.this.getEnergy(), (short)value, index - 2
-                ));
-                case 2, 3 -> {}
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 4;
-        }
-    };
+    protected final ContainerData data = new CombinedContainerData(
+            new EnergyValueContainerData(MinecartBatteryBox.this::getEnergy, MinecartBatteryBox.this::setEnergy),
+            new EnergyValueContainerData(MinecartBatteryBox.this::getCapacity, value -> {})
+    );
 
     public MinecartBatteryBox(EntityType<? extends MinecartBatteryBox> entityType, Level level) {
         super(entityType, level);

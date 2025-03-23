@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
-import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.inventory.data.*;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -16,24 +16,24 @@ import net.minecraftforge.items.SlotItemHandler;
 public class AlloyFurnaceMenu extends AbstractContainerMenu {
     private final AlloyFurnaceBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
+
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData litDurationData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxLitDurationData = new SimpleProgressValueContainerData();
 
     public AlloyFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(8));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
     }
 
     public AlloyFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(EPMenuTypes.ALLOY_FURNACE_MENU.get(), id);
 
-        checkContainerDataCount(data, 8);
         this.blockEntity = (AlloyFurnaceBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
-
-        addDataSlots(this.data);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 14, 20));
@@ -43,27 +43,36 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
             addSlot(new SlotItemHandler(itemHandler, 4, 116, 35));
             addSlot(new SlotItemHandler(itemHandler, 5, 143, 35));
         });
+
+        if(data == null) {
+            addDataSlots(progressData);
+            addDataSlots(maxProgressData);
+            addDataSlots(litDurationData);
+            addDataSlots(maxLitDurationData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public boolean isCraftingActive() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+        return progressData.getValue() > 0;
     }
 
     public int getScaledProgressArrowSize() {
-        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        int progress = progressData.getValue();
+        int maxProgress = maxProgressData.getValue();
         int progressArrowSize = 24;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
     }
 
     public boolean isBurningFuel() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5)) > 0;
+        return litDurationData.getValue() > 0;
     }
 
     public int getScaledProgressFlameSize() {
-        int progress = ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(6), (short)data.get(7));
+        int progress = litDurationData.getValue();
+        int maxProgress = maxLitDurationData.getValue();
         int progressFlameSize = 14;
 
         return (maxProgress == 0 || progress == 0)?0:(progress * progressFlameSize / maxProgress);

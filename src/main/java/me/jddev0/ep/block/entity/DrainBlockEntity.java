@@ -3,8 +3,9 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.screen.DrainMenu;
-import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,33 +59,10 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(DrainBlockEntity.this.progress, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(DrainBlockEntity.this.maxProgress, index - 2);
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1 -> DrainBlockEntity.this.progress = ByteUtils.with2Bytes(
-                            DrainBlockEntity.this.progress, (short)value, index
-                    );
-                    case 2, 3 -> DrainBlockEntity.this.maxProgress = ByteUtils.with2Bytes(
-                            DrainBlockEntity.this.maxProgress, (short)value, index - 2
-                    );
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
+        return new CombinedContainerData(
+                new ProgressValueContainerData(() -> progress, value -> progress = value),
+                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value)
+        );
     }
 
     @Nullable

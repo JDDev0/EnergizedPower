@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ThermalGeneratorBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -10,7 +11,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,12 +21,14 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGeneratorBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
-    private final ContainerData data;
+    private final SimpleEnergyValueContainerData energyProductionLeftData = new SimpleEnergyValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public ThermalGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new SimpleContainerData(4));
+        ), null);
     }
 
     public ThermalGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -40,17 +42,20 @@ public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGen
                 upgradeModuleInventory, 1
         );
 
-        checkContainerDataCount(data, 4);
-        this.data = data;
-
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(energyProductionLeftData);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        return energyProductionLeftData.getValue();
     }
 
     public FluidStack getFluid() {
@@ -63,12 +68,12 @@ public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGen
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(2));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(3));
+        return comparatorModeData.getValue();
     }
 
     @Override

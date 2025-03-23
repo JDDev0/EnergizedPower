@@ -3,14 +3,13 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.FluidDrainerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidDrainerMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -159,32 +158,12 @@ public class FluidDrainerBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingLeft, index);
-                    case 2, 3 -> ByteUtils.get2Bytes(FluidDrainerBlockEntity.this.fluidDrainingSumPending, index - 2);
-                    case 4 -> redstoneMode.ordinal();
-                    case 5 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3 -> {}
-                    case 4 -> FluidDrainerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 5 -> FluidDrainerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 6;
-            }
-        };
+        return new CombinedContainerData(
+                new FluidValueContainerData(() -> fluidDrainingLeft, value -> {}),
+                new FluidValueContainerData(() -> fluidDrainingSumPending, value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Nullable

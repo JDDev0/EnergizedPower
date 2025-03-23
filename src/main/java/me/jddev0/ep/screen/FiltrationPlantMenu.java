@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -12,7 +13,6 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -26,14 +26,19 @@ import net.minecraftforge.items.SlotItemHandler;
 public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationPlantBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu,
         ISelectableRecipeMachineMenu<FiltrationPlantRecipe> {
-    private final ContainerData data;
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
+    private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FiltrationPlantMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new SimpleContainerData(9));
+        ), null);
     }
 
     public FiltrationPlantMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -46,9 +51,6 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
 
                 upgradeModuleInventory, 3
         );
-
-        checkContainerDataCount(data, 9);
-        this.data = data;
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 62, 44) {
@@ -80,12 +82,21 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(progressData);
+            addDataSlots(maxProgressData);
+            addDataSlots(energyConsumptionLeftData);
+            addDataSlots(hasEnoughEnergyData);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return energyConsumptionLeftData.getValue();
     }
 
     public FluidStack getFluid(int tank) {
@@ -100,16 +111,16 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+        return progressData.getValue() > 0;
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
+        return progressData.getValue() > 0 && hasEnoughEnergyData.getValue();
     }
 
     public int getScaledProgressArrowSize() {
-        int progress = ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        int progress = progressData.getValue();
+        int maxProgress = maxProgressData.getValue();
         int progressArrowSize = 78;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
@@ -117,12 +128,12 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(7));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(8));
+        return comparatorModeData.getValue();
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +15,8 @@ import net.minecraftforge.fluids.FluidStack;
 public class FluidTankMenu extends AbstractContainerMenu {
     private final FluidTankBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
+
+    private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
 
     public static MenuType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
         return switch(tier) {
@@ -25,21 +27,23 @@ public class FluidTankMenu extends AbstractContainerMenu {
     }
 
     public FluidTankMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(1));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
     }
 
     public FluidTankMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(getMenuTypeFromTier(((FluidTankBlockEntity)blockEntity).getTier()), id);
 
-        checkContainerDataCount(data, 1);
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(ignoreNBTData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public FluidTankBlock.Tier getTier() {
@@ -55,7 +59,7 @@ public class FluidTankMenu extends AbstractContainerMenu {
     }
 
     public boolean isIgnoreNBT() {
-        return data.get(0) != 0;
+        return ignoreNBTData.getValue();
     }
 
     @Override

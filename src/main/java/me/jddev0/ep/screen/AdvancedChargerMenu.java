@@ -3,6 +3,9 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleComparatorModeValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleRedstoneModeValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -10,7 +13,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,12 +24,18 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
-    private final ContainerData data;
+    private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData()
+    };
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new SimpleContainerData(8));
+        ), null);
     }
 
     public AdvancedChargerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -40,9 +48,6 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
 
                 upgradeModuleInventory, 1
         );
-
-        checkContainerDataCount(data, 8);
-        this.data = data;
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 41, 35) {
@@ -67,15 +72,23 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(energyConsumptionLeftData[0]);
+            addDataSlots(energyConsumptionLeftData[1]);
+            addDataSlots(energyConsumptionLeftData[2]);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     @Override
     public int getEnergyIndicatorBarValue() {
         int energyIndicatorBarValueSum = -1;
 
-        for(int i = 0;i < 6;i += 2) {
-            int value = ByteUtils.from2ByteChunks((short)data.get(i), (short)data.get(i + 1));
+        for(SimpleEnergyValueContainerData ele:energyConsumptionLeftData) {
+            int value = ele.getValue();
 
             //Prevent overflow
             if(energyIndicatorBarValueSum + value != (long)energyIndicatorBarValueSum + value)
@@ -94,12 +107,12 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedAut
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(6));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(7));
+        return comparatorModeData.getValue();
     }
 
     @Override

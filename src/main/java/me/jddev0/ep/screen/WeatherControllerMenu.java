@@ -3,6 +3,8 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleShortValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
@@ -14,12 +16,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherControllerBlockEntity> {
-    private final ContainerData data;
+    private final SimpleShortValueContainerData selectedWeatherTypeData = new SimpleShortValueContainerData();
+    private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
 
     public WeatherControllerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.DURATION
-        ), new SimpleContainerData(2));
+        ), null);
     }
 
     public WeatherControllerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -33,20 +36,22 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
                 upgradeModuleInventory, 1
         );
 
-        checkContainerDataCount(data, 2);
-        this.data = data;
-
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(selectedWeatherTypeData);
+            addDataSlots(hasEnoughEnergyData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public int getSelectedWeatherType() {
-        return data.get(0);
+        return selectedWeatherTypeData.getValue();
     }
 
     public boolean hasEnoughEnergy() {
-        return data.get(1) != 0;
+        return hasEnoughEnergyData.getValue();
     }
 
     @Override

@@ -67,12 +67,14 @@ public class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket {
             if(!(menu instanceof AdvancedAutoCrafterMenu advancedAutoCrafterMenu))
                 return;
 
+            int recipeIndex = advancedAutoCrafterBlockEntity.getCurrentRecipeIndex();
+
             for(int i = 0;i < itemStacks.size();i++)
-                advancedAutoCrafterMenu.getPatternSlots()[advancedAutoCrafterMenu.getRecipeIndex()].setItem(i, itemStacks.get(i));
+                advancedAutoCrafterMenu.getPatternSlots()[recipeIndex].setItem(i, itemStacks.get(i));
 
             advancedAutoCrafterBlockEntity.setRecipeIdForSetRecipe(recipeId);
 
-            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(advancedAutoCrafterMenu.getRecipeIndex());
+            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
         });
 
         return true;

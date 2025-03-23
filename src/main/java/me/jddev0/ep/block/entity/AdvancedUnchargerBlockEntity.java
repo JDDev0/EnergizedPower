@@ -2,14 +2,15 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedUnchargerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
-import me.jddev0.ep.machine.configuration.RedstoneMode;
+import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
+import me.jddev0.ep.inventory.data.EnergyValueContainerData;
+import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedUnchargerMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -140,33 +141,13 @@ public class AdvancedUnchargerBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[0], index);
-                    case 2, 3 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[1], index - 2);
-                    case 4, 5 -> ByteUtils.get2Bytes(AdvancedUnchargerBlockEntity.this.energyProductionLeft[2], index - 4);
-                    case 6 -> redstoneMode.ordinal();
-                    case 7 -> comparatorMode.ordinal();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2, 3, 4, 5 -> {}
-                    case 6 -> AdvancedUnchargerBlockEntity.this.redstoneMode = RedstoneMode.fromIndex(value);
-                    case 7 -> AdvancedUnchargerBlockEntity.this.comparatorMode = ComparatorMode.fromIndex(value);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 8;
-            }
-        };
+        return new CombinedContainerData(
+                new EnergyValueContainerData(() -> energyProductionLeft[0], value -> {}),
+                new EnergyValueContainerData(() -> energyProductionLeft[1], value -> {}),
+                new EnergyValueContainerData(() -> energyProductionLeft[2], value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
     }
 
     @Nullable

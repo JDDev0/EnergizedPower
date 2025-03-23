@@ -3,6 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -16,12 +17,27 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
     private final ItemConveyorBeltSorterBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
 
     private final Container patternSlots;
 
+    private final SimpleBooleanValueContainerData[] outputBeltConnectedData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] whitelistData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] ignoreNBTData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+
     public ItemConveyorBeltSorterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(15), new SimpleContainerData(9));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(15), null);
     }
 
     public ItemConveyorBeltSorterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, ContainerData data) {
@@ -29,10 +45,8 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
 
         this.patternSlots = patternSlots;
 
-        checkContainerDataCount(data, 9);
         this.blockEntity = (ItemConveyorBeltSorterBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -41,7 +55,19 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
             for(int j = 0;j < 5;j++)
                 addSlot(new PatternSlot(patternSlots, j + i * 5, 44 + j * 18, 17 + i * 18, () -> true));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(outputBeltConnectedData[0]);
+            addDataSlots(outputBeltConnectedData[1]);
+            addDataSlots(outputBeltConnectedData[2]);
+            addDataSlots(whitelistData[0]);
+            addDataSlots(whitelistData[1]);
+            addDataSlots(whitelistData[2]);
+            addDataSlots(ignoreNBTData[0]);
+            addDataSlots(ignoreNBTData[1]);
+            addDataSlots(ignoreNBTData[2]);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public Container getPatternSlots() {
@@ -49,15 +75,15 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
     }
 
     public boolean isOutputBeltConnected(int index) {
-        return data.get(index) != 0;
+        return outputBeltConnectedData[index].getValue();
     }
 
     public boolean isWhitelist(int index) {
-        return data.get(index + 3) != 0;
+        return whitelistData[index].getValue();
     }
 
     public boolean isIgnoreNBT(int index) {
-        return data.get(index + 6) != 0;
+        return ignoreNBTData[index].getValue();
     }
 
     @Override

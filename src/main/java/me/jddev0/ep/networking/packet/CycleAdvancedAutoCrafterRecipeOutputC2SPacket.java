@@ -40,12 +40,14 @@ public class CycleAdvancedAutoCrafterRecipeOutputC2SPacket {
 
             AbstractContainerMenu menu = context.getSender().containerMenu;
 
-            if(!(menu instanceof AdvancedAutoCrafterMenu advancedAutoCrafterMenu))
+            if(!(menu instanceof AdvancedAutoCrafterMenu))
                 return;
+
+            int recipeIndex = advancedAutoCrafterBlockEntity.getCurrentRecipeIndex();
 
             advancedAutoCrafterBlockEntity.cycleRecipe();
 
-            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(advancedAutoCrafterMenu.getRecipeIndex());
+            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
         });
 
         return true;
