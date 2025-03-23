@@ -32,7 +32,7 @@ public class CoalEngineScreen
     private void renderProgressFlame(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isProducingActive()) {
             int pos = menu.getScaledProgressFlameSize();
-            guiGraphics.blit(TEXTURE, x + 81, y + 28 + pos, 176, 53 + pos, 14, 14 - pos);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 81, y + 28 + pos, 0, 121 + pos, 14, 14 - pos);
         }
     }
 }

@@ -69,13 +69,13 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         if(menu.isEnergyProduction()) {
             //Energy Production checkbox
 
-            guiGraphics.blit(TEXTURE, x + 10, y + 28, 176, 0, 11, 11);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 10, y + 28, 0, 139, 11, 11);
         }
 
         if(menu.isEnergyConsumption()) {
             //Energy Consumption checkbox
 
-            guiGraphics.blit(TEXTURE, x + 10, y + 46, 176, 0, 11, 11);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 10, y + 46, 0, 139, 11, 11);
         }
     }
 

@@ -30,8 +30,6 @@ public class FiltrationPlantScreen
                 EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
 
         recipeSelectorPosX = 98;
-
-        recipeSelectorTexturePosY = 115;
     }
 
     @Override
@@ -87,13 +85,13 @@ public class FiltrationPlantScreen
     }
 
     private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(TEXTURE, x + (tank == 0?44:152), y + 17, 176, 53, 16, 52);
+        guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52);
     }
 
     private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive()) {
             for(int i = 0;i < 2;i++) {
-                guiGraphics.blit(TEXTURE, x + 67, y + 34 + 27*i, 176, 106, menu.getScaledProgressArrowSize(), 9);
+                guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 67, y + 34 + 27*i, 0, 108, menu.getScaledProgressArrowSize(), 9);
             }
         }
     }

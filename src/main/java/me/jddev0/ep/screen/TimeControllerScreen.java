@@ -74,19 +74,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            guiGraphics.blit(TEXTURE, x + 34, y + 34, 176, 52, 18, 18);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18);
         }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            guiGraphics.blit(TEXTURE, x + 70, y + 34, 176, 70, 18, 18);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18);
         }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            guiGraphics.blit(TEXTURE, x + 106, y + 34, 176, 88, 18, 18);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18);
         }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            guiGraphics.blit(TEXTURE, x + 142, y + 34, 176, 106, 18, 18);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18);
         }
     }
 

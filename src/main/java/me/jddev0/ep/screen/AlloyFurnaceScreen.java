@@ -37,13 +37,13 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
     private void renderProgressFlame(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isBurningFuel()) {
             int pos = menu.getScaledProgressFlameSize();
-            guiGraphics.blit(TEXTURE, x + 36, y + 37 + 14 - pos, 176, 14 - pos, 14, pos);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 36, y + 37 + 14 - pos, 0, 135 - pos, 14, pos);
         }
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(TEXTURE, x + 79, y + 34, 176, 14, menu.getScaledProgressArrowSize(), 17);
+            guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 79, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17);
     }
 
     @Override
