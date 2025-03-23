@@ -141,8 +141,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Text.literal("\n• ").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                         append(Text.translatable("book.energizedpower.page.credits.7")).append(": ").
-                        append(addLinkToComponent(Text.literal("Eyyüp Berk ÖZASLAN"),
-                                "https://github.com/EyyupBerkOZASLAN"))
+                        append(addLinkToComponent(Text.literal("Eyyup"),
+                                "https://github.com/msb-eyyup"))
         ).append(
                 Text.literal("\n• ").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).

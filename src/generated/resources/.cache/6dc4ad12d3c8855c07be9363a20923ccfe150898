@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-23T21:36:04.362377492	Energized Power/Tags for minecraft:item
+// 1.20.1	2025-03-23T21:37:18.300098556	Energized Power/Tags for minecraft:item
 dc1eecfb81d5eda9759e3ffd6a63e80990cd4b67 data/c/tags/items/energized_copper_plates.json
 f49f51e79d8efb9d3426fb99669723302f4a10b3 data/c/tags/items/emerald_ores.json
 1e9b2f170f3826ddfd6e8fa673f8abafba35b85f data/c/tags/items/nuggets.json
@@ -7,8 +7,8 @@ f49f51e79d8efb9d3426fb99669723302f4a10b3 data/c/tags/items/emerald_ores.json
 db5fafaa799bebc742e20a260c37647b14f5d995 data/c/tags/items/tin_blocks.json
 989b799a247e595b14e76a145d6ff3566337b58f data/c/tags/items/iron_nuggets.json
 118bd4683b62cec68ff478ca69ffa30f7d9b0bcc data/c/tags/items/plates.json
-b931e727f3ea7f25d6fba33c1fc5881a16f54081 data/c/tags/items/gold_ores.json
 e5aa41c7d7810a572967e761e7c5707aa36a9522 data/c/tags/items/iron_ores.json
+b931e727f3ea7f25d6fba33c1fc5881a16f54081 data/c/tags/items/gold_ores.json
 b5a6f0c17d4f677d238d20cdd070291058038b83 data/c/tags/items/iron_gears.json
 a05897408d9cafd0c65a22b0207bf5f050c6083c data/c/tags/items/energized_copper_ingots.json
 f614326002f8768e550175aab0f3c7dd7e4a7a3b data/c/tags/items/tin_ores.json
