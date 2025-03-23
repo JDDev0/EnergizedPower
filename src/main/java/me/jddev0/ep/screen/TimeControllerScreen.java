@@ -74,19 +74,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            drawContext.drawTexture(TEXTURE, x + 34, y + 34, 176, 52, 18, 18);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18);
         }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            drawContext.drawTexture(TEXTURE, x + 70, y + 34, 176, 70, 18, 18);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18);
         }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            drawContext.drawTexture(TEXTURE, x + 106, y + 34, 176, 88, 18, 18);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18);
         }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            drawContext.drawTexture(TEXTURE, x + 142, y + 34, 176, 106, 18, 18);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18);
         }
     }
 

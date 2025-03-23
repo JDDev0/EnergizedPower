@@ -86,7 +86,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + 48, y + 17, 176, 0, 80, 52);
+        drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 48, y + 17, 36, 0, 80, 52);
     }
 
     @Override

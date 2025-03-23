@@ -32,7 +32,6 @@ public class FluidPumpScreen
                 EPAPI.id("textures/gui/container/upgrade_view/fluid_pump.png"));
 
         backgroundWidth = 230;
-        energyMeterU = 230;
     }
 
     @Override
@@ -49,7 +48,7 @@ public class FluidPumpScreen
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(TEXTURE, x + 206, y + 17, 230, 53, 16, 52);
+        drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 206, y + 17, 16, 0, 16, 52);
     }
 
     private void renderInfoText(DrawContext drawContext, int x, int y) {

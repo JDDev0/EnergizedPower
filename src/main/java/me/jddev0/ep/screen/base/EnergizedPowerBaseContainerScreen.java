@@ -1,6 +1,7 @@
 package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,10 +17,13 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
 @Environment(EnvType.CLIENT)
 public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler> extends HandledScreen<T> {
+    protected final Identifier MACHINE_SPRITES_TEXTURE = EPAPI.id("textures/gui/container/sprites/machine_sprites.png");
+
     public EnergizedPowerBaseContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
         super(menu, inventory, titleComponent);
     }
