@@ -71,7 +71,7 @@ public class FluidPumpBlockEntity
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.RANGE,
+                UpgradeModuleModifier.EXTRACTION_RANGE,
                 UpgradeModuleModifier.EXTRACTION_DEPTH
         );
     }
@@ -303,6 +303,8 @@ public class FluidPumpBlockEntity
 
     public void goToNextOffset() {
         int range = (int)Math.ceil(RANGE *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_RANGE) *
+                //Also check old RANGE upgrade module for upgrade modules which were inserted before 2.13.0
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.RANGE));
         int depth = (int)Math.ceil(DEPTH *
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_DEPTH));

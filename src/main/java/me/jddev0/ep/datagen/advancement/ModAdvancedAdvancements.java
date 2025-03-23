@@ -190,6 +190,16 @@ public class ModAdvancedAdvancements implements ForgeAdvancementProvider.Advance
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4, "extraction_depth_upgrade_module_4", FrameType.TASK
         );
 
+        Advancement extractionRangeUpgradeModule3 = addAdvancement(
+                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3, "extraction_range_upgrade_module_3", FrameType.TASK
+        );
+
+        Advancement extractionRangeUpgradeModule4 = addAdvancement(
+                advancementOutput, existingFileHelper, extractionRangeUpgradeModule3,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4, "extraction_range_upgrade_module_4", FrameType.TASK
+        );
+
         Advancement moonLightUpgradeModule2 = addAdvancement(
                 advancementOutput, existingFileHelper, advancedUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_2, "moon_light_upgrade_module_2", FrameType.TASK
@@ -318,6 +328,11 @@ public class ModAdvancedAdvancements implements ForgeAdvancementProvider.Advance
         Advancement extractionDepthUpgradeModule5 = addAdvancement(
                 advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5, "extraction_depth_upgrade_module_5", FrameType.TASK
+        );
+
+        Advancement extractionRangeUpgradeModule5 = addAdvancement(
+                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5, "extraction_range_upgrade_module_5", FrameType.TASK
         );
 
         Advancement moonLightUpgradeModule3 = addAdvancement(
