@@ -1123,7 +1123,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.fluid_pipes.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new Block[] {
-                EPBlocks.FLUID_PUMP.get(),
+                EPBlocks.IRON_FLUID_PIPE.get(),
                 EPBlocks.GOLDEN_FLUID_PIPE.get()
         });
 
