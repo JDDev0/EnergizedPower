@@ -4,6 +4,9 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleComparatorModeValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleRedstoneModeValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -11,7 +14,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +22,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import team.reborn.energy.api.EnergyStorage;
@@ -28,7 +29,9 @@ import team.reborn.energy.api.EnergyStorageUtil;
 
 public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
-    private final PropertyDelegate data;
+    private final SimpleEnergyValueContainerData energyProductionLeftData = new SimpleEnergyValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public UnchargerMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
@@ -54,7 +57,7 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
             }
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new ArrayPropertyDelegate(6));
+        ), null);
     }
 
     public UnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -69,8 +72,6 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
         );
 
         checkSize(inv, 1);
-        checkDataCount(data, 6);
-        this.data = data;
 
         addSlot(new ConstraintInsertSlot(inv, 0, 80, 35) {
             @Override
@@ -81,22 +82,28 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(energyProductionLeftData);
+            addProperties(redstoneModeData);
+            addProperties(comparatorModeData);
+        }else {
+            addProperties(data);
+        }
     }
 
     @Override
     public long getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
+        return energyProductionLeftData.getValue();
     }
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(4));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(5));
+        return comparatorModeData.getValue();
     }
 
     @Override

@@ -4,13 +4,12 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
-import me.jddev0.ep.util.ByteUtils;
+import me.jddev0.ep.inventory.data.SimpleProgressValueContainerData;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -19,10 +18,12 @@ import net.minecraft.world.World;
 public class DrainMenu extends AbstractEnergizedPowerScreenHandler {
     private final DrainBlockEntity blockEntity;
     private final World level;
-    private final PropertyDelegate data;
+
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
 
     public DrainMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new ArrayPropertyDelegate(4));
+        this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, null);
     }
 
     public DrainMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
@@ -30,14 +31,17 @@ public class DrainMenu extends AbstractEnergizedPowerScreenHandler {
 
         this.blockEntity = (DrainBlockEntity)blockEntity;
 
-        checkDataCount(data, 4);
         this.level = playerInventory.player.getWorld();
-        this.data = data;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(progressData);
+            addProperties(maxProgressData);
+        }else {
+            addProperties(data);
+        }
     }
 
     public FluidStack getFluid() {
@@ -49,7 +53,7 @@ public class DrainMenu extends AbstractEnergizedPowerScreenHandler {
     }
 
     public boolean isDraining() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+        return progressData.getValue() > 0;
     }
 
     @Override

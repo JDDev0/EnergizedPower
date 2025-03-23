@@ -4,6 +4,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,7 +12,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -20,12 +20,27 @@ import net.minecraft.world.World;
 public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHandler {
     private final ItemConveyorBeltSorterBlockEntity blockEntity;
     private final World level;
-    private final PropertyDelegate data;
 
     private final Inventory patternSlots;
 
+    private final SimpleBooleanValueContainerData[] outputBeltConnectedData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] whitelistData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] ignoreNBTData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), new SimpleInventory(15), new ArrayPropertyDelegate(9));
+            this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), new SimpleInventory(15), null);
     }
 
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory playerInventory, BlockEntity blockEntity, Inventory patternSlots, PropertyDelegate data) {
@@ -33,10 +48,8 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
 
         this.patternSlots = patternSlots;
 
-        checkDataCount(data, 9);
         this.blockEntity = (ItemConveyorBeltSorterBlockEntity)blockEntity;
         this.level = playerInventory.player.getWorld();
-        this.data = data;
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -45,7 +58,19 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
             for(int j = 0;j < 5;j++)
                 addSlot(new PatternSlot(patternSlots, j + i * 5, 44 + j * 18, 17 + i * 18, () -> true));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(outputBeltConnectedData[0]);
+            addProperties(outputBeltConnectedData[1]);
+            addProperties(outputBeltConnectedData[2]);
+            addProperties(whitelistData[0]);
+            addProperties(whitelistData[1]);
+            addProperties(whitelistData[2]);
+            addProperties(ignoreNBTData[0]);
+            addProperties(ignoreNBTData[1]);
+            addProperties(ignoreNBTData[2]);
+        }else {
+            addProperties(data);
+        }
     }
 
     public Inventory getPatternSlots() {
@@ -53,15 +78,15 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
     }
 
     public boolean isOutputBeltConnected(int index) {
-        return data.get(index) != 0;
+        return outputBeltConnectedData[index].getValue();
     }
 
     public boolean isWhitelist(int index) {
-        return data.get(index + 3) != 0;
+        return whitelistData[index].getValue();
     }
 
     public boolean isIgnoreNBT(int index) {
-        return data.get(index + 6) != 0;
+        return ignoreNBTData[index].getValue();
     }
 
     @Override

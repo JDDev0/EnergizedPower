@@ -2,9 +2,10 @@ package me.jddev0.ep.entity;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.MinecartAdvancedBatteryBoxMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
@@ -25,30 +26,10 @@ public class MinecartAdvancedBatteryBox extends AbstractMinecartBatteryBox {
 
     private static final TrackedData<Long> DATA_ID_ENERGY = DataTracker.registerData(MinecartAdvancedBatteryBox.class, TrackedDataHandlerRegistry.LONG);
 
-    protected final PropertyDelegate data = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            return switch(index) {
-                case 0, 1, 2, 3 -> ByteUtils.get2Bytes(MinecartAdvancedBatteryBox.this.getEnergy(), index);
-                case 4, 5, 6, 7 -> ByteUtils.get2Bytes(MinecartAdvancedBatteryBox.this.getCapacity(), index - 4);
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch(index) {
-                case 0, 1, 2, 3 -> MinecartAdvancedBatteryBox.this.setEnergy(ByteUtils.with2Bytes(
-                        MinecartAdvancedBatteryBox.this.getEnergy(), (short)value, index));
-                case 4, 5, 6, 7 -> {}
-            }
-        }
-
-        @Override
-        public int size() {
-            return 8;
-        }
-    };
+    protected final PropertyDelegate data = new CombinedContainerData(
+            new EnergyValueContainerData(MinecartAdvancedBatteryBox.this::getEnergy, MinecartAdvancedBatteryBox.this::setEnergy),
+            new EnergyValueContainerData(MinecartAdvancedBatteryBox.this::getCapacity, value -> {})
+    );
 
     public MinecartAdvancedBatteryBox(EntityType<? extends MinecartAdvancedBatteryBox> entityType, World level) {
         super(entityType, level);

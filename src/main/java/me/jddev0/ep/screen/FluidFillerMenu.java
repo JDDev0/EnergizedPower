@@ -5,13 +5,15 @@ import me.jddev0.ep.block.entity.FluidFillerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleComparatorModeValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleFluidValueContainerData;
+import me.jddev0.ep.inventory.data.SimpleRedstoneModeValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,13 +23,15 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
 public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBlockEntity>
         implements IConfigurableMenu {
-    private final PropertyDelegate data;
+    private final SimpleFluidValueContainerData fluidFillingLeftData = new SimpleFluidValueContainerData();
+    private final SimpleFluidValueContainerData fluidFillingSumPendingData = new SimpleFluidValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FluidFillerMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
         this(id, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), inv, new SimpleInventory(1) {
@@ -46,7 +50,7 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new ArrayPropertyDelegate(10));
+        ), null);
     }
 
     public FluidFillerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -61,8 +65,6 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
         );
 
         checkSize(inv, 1);
-        checkDataCount(data, 10);
-        this.data = data;
 
         addSlot(new ConstraintInsertSlot(inv, 0, 80, 35) {
             @Override
@@ -74,7 +76,14 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
         for(int i = 0;i < upgradeModuleInventory.size();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(fluidFillingLeftData);
+            addProperties(fluidFillingSumPendingData);
+            addProperties(redstoneModeData);
+            addProperties(comparatorModeData);
+        }else {
+            addProperties(data);
+        }
     }
 
     public FluidStack getFluid() {
@@ -86,21 +95,21 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
     }
 
     public long getFluidIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1), (short)data.get(2), (short)data.get(3));
+        return fluidFillingLeftData.getValue();
     }
 
     public long getFluidIndicatorPendingBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5), (short)data.get(6), (short)data.get(7));
+        return fluidFillingSumPendingData.getValue();
     }
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(8));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(9));
+        return comparatorModeData.getValue();
     }
 
     @Override

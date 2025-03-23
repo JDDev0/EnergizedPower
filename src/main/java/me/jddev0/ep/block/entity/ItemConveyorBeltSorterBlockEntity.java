@@ -5,6 +5,8 @@ import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -64,31 +66,17 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
 
         patternSlots.addListener(updatePatternListener);
 
-        data = new PropertyDelegate() {
-            @Override
-            public int get(int index) {
-                return switch(index) {
-                    case 0, 1, 2 -> ItemConveyorBeltSorterBlockEntity.this.outputBeltConnected[index]?1:0;
-                    case 3, 4, 5 -> ItemConveyorBeltSorterBlockEntity.this.whitelist[index - 3]?1:0;
-                    case 6, 7, 8 -> ItemConveyorBeltSorterBlockEntity.this.ignoreNBT[index - 6]?1:0;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-                switch(index) {
-                    case 0, 1, 2 -> ItemConveyorBeltSorterBlockEntity.this.outputBeltConnected[index] = value != 0;
-                    case 3, 4, 5 -> ItemConveyorBeltSorterBlockEntity.this.whitelist[index - 3] = value != 0;
-                    case 6, 7, 8 -> ItemConveyorBeltSorterBlockEntity.this.ignoreNBT[index - 6] = value != 0;
-                }
-            }
-
-            @Override
-            public int size() {
-                return 9;
-            }
-        };
+        data = new CombinedContainerData(
+                new BooleanValueContainerData(() -> outputBeltConnected[0], value -> outputBeltConnected[0] = value),
+                new BooleanValueContainerData(() -> outputBeltConnected[1], value -> outputBeltConnected[1] = value),
+                new BooleanValueContainerData(() -> outputBeltConnected[2], value -> outputBeltConnected[2] = value),
+                new BooleanValueContainerData(() -> whitelist[0], value -> whitelist[0] = value),
+                new BooleanValueContainerData(() -> whitelist[1], value -> whitelist[1] = value),
+                new BooleanValueContainerData(() -> whitelist[2], value -> whitelist[2] = value),
+                new BooleanValueContainerData(() -> ignoreNBT[0], value -> ignoreNBT[0] = value),
+                new BooleanValueContainerData(() -> ignoreNBT[1], value -> ignoreNBT[1] = value),
+                new BooleanValueContainerData(() -> ignoreNBT[2], value -> ignoreNBT[2] = value)
+        );
     }
 
     @Override

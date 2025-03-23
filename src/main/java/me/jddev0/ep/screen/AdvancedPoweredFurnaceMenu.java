@@ -4,6 +4,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedPoweredFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -11,7 +12,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,13 +20,33 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 
 public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<AdvancedPoweredFurnaceBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
-    private final PropertyDelegate data;
+    private final SimpleProgressValueContainerData[] progressData = new SimpleProgressValueContainerData[] {
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData()
+    };
+    private final SimpleProgressValueContainerData[] maxProgressData = new SimpleProgressValueContainerData[] {
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData(),
+            new SimpleProgressValueContainerData()
+    };
+    private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData(),
+            new SimpleEnergyValueContainerData()
+    };
+    private final SimpleBooleanValueContainerData[] hasEnoughEnergyData = new SimpleBooleanValueContainerData[] {
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData(),
+            new SimpleBooleanValueContainerData()
+    };
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedPoweredFurnaceMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
         this(id, inv, (AdvancedPoweredFurnaceBlockEntity)inv.player.getWorld().getBlockEntity(buffer.readBlockPos()));
@@ -48,7 +68,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE
-        ), new ArrayPropertyDelegate(29));
+        ), null);
     }
 
     public AdvancedPoweredFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
@@ -63,8 +83,6 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
         );
 
         checkSize(inv, 6);
-        checkDataCount(data, 29);
-        this.data = data;
 
         addSlot(new ConstraintInsertSlot(inv, 0, 44, 17) {
             @Override
@@ -106,16 +124,32 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
         for(int i = 0;i < upgradeModuleInventory.size();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addProperties(this.data);
+        if(data == null) {
+            addProperties(progressData[0]);
+            addProperties(progressData[1]);
+            addProperties(progressData[2]);
+            addProperties(maxProgressData[0]);
+            addProperties(maxProgressData[1]);
+            addProperties(maxProgressData[2]);
+            addProperties(energyConsumptionLeftData[0]);
+            addProperties(energyConsumptionLeftData[1]);
+            addProperties(energyConsumptionLeftData[2]);
+            addProperties(hasEnoughEnergyData[0]);
+            addProperties(hasEnoughEnergyData[1]);
+            addProperties(hasEnoughEnergyData[2]);
+            addProperties(redstoneModeData);
+            addProperties(comparatorModeData);
+        }else {
+            addProperties(data);
+        }
     }
 
     @Override
     public long getEnergyIndicatorBarValue() {
         long energyIndicatorBarValueSum = -1;
 
-        for(int i = 0;i < 12;i += 4) {
-            long value = ByteUtils.from2ByteChunks((short)data.get(i), (short)data.get(i + 1),
-                    (short)data.get(i + 2), (short)data.get(i + 3));
+        for(SimpleEnergyValueContainerData ele:energyConsumptionLeftData) {
+            long value = ele.getValue();
 
             //Prevent overflow
             if(Math.max(0, energyIndicatorBarValueSum) + Math.max(0, value) < 0)
@@ -136,16 +170,16 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive(int index) {
-        return ByteUtils.from2ByteChunks((short)data.get(12 + 4 * index), (short)data.get(13 + 4 * index)) > 0;
+        return progressData[index].getValue() > 0;
     }
 
     public boolean isCrafting(int index) {
-        return ByteUtils.from2ByteChunks((short)data.get(14 + 4 * index), (short)data.get(15 + 4 * index)) > 0 && data.get(24 + index) == 1;
+        return progressData[index].getValue() > 0 && hasEnoughEnergyData[index].getValue();
     }
 
     public int getScaledProgressArrowSize(int index) {
-        int progress = ByteUtils.from2ByteChunks((short)data.get(12 + 4 * index), (short)data.get(13 + 4 * index));
-        int maxProgress = ByteUtils.from2ByteChunks((short)data.get(14 + 4 * index), (short)data.get(15 + 4 * index));
+        int progress = progressData[index].getValue();
+        int maxProgress = maxProgressData[index].getValue();
         int progressArrowSize = 17;
 
         return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
@@ -153,12 +187,12 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(27));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(28));
+        return comparatorModeData.getValue();
     }
 
     @Override
