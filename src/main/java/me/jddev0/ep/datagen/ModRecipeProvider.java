@@ -2035,6 +2035,59 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         addPulverizerRecipe(output, Ingredient.of(Items.CHARCOAL),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.CHARCOAL_DUST.get()),
                         1., 1.), "charcoal");
+
+        addPulverizerRecipe(output, Ingredient.of(Items.CLAY),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.CLAY_BALL), new double[] {
+                        1., 1., 1., 1.
+                }, new double[] {
+                        1., 1., 1., 1.
+                }), "clay");
+
+        addPulverizerRecipe(output, Ingredient.of(Items.GLOWSTONE),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.GLOWSTONE_DUST), new double[] {
+                        1., 1., 1., 1.
+                }, new double[] {
+                        1., 1., 1., 1.
+                }), "glowstone");
+
+        addPulverizerRecipe(output, Ingredient.of(Items.MAGMA_BLOCK),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.MAGMA_CREAM), new double[] {
+                        1., 1., 1., 1.
+                }, new double[] {
+                        1., 1., 1., 1.
+                }), "magma_block");
+
+        addPulverizerRecipe(output, Ingredient.of(Items.QUARTZ_BLOCK),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.QUARTZ), new double[] {
+                        1., 1., 1., 1.
+                }, new double[] {
+                        1., 1., 1., 1.
+                }), "quartz_block");
+
+        addPulverizerRecipe(output, Ingredient.of(ItemTags.WOOL),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.STRING), new double[] {
+                        1., 1., 1., 1.
+                }, new double[] {
+                        1., 1., 1., 1.
+                }), "wool");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.GRAVEL),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.FLINT),
+                        1., 1.), "gravels");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.BONES),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.BONE_MEAL), new double[] {
+                        1., 1., 1., .25, .25
+                }, new double[] {
+                        1., 1., 1., .5, .25, .125
+                }), "bones");
+
+        addPulverizerRecipe(output, Ingredient.of(Tags.Items.RODS_BLAZE),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.BLAZE_POWDER), new double[] {
+                        1., 1., .5
+                }, new double[] {
+                        1., 1., .75, .25
+                }), "blaze_rods");
     }
 
     private void buildSawmillRecipes(Consumer<FinishedRecipe> output) {

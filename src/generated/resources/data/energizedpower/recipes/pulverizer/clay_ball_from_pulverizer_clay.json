@@ -1,0 +1,23 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "output": {
+    "output": {
+      "item": "minecraft:clay_ball"
+    },
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  }
+}
