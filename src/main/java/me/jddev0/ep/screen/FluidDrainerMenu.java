@@ -4,13 +4,13 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,13 +22,16 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class FluidDrainerMenu extends UpgradableEnergyStorageMenu<FluidDrainerBlockEntity>
         implements IConfigurableMenu {
-    private final ContainerData data;
+    private final SimpleFluidValueContainerData fluidDrainingLeftData = new SimpleFluidValueContainerData();
+    private final SimpleFluidValueContainerData fluidDrainingSumPendingData = new SimpleFluidValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FluidDrainerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ), new SimpleContainerData(6));
+        ), null);
     }
 
     public FluidDrainerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -42,9 +45,6 @@ public class FluidDrainerMenu extends UpgradableEnergyStorageMenu<FluidDrainerBl
                 upgradeModuleInventory, 2
         );
 
-        checkContainerDataCount(data, 6);
-        this.data = data;
-
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 80, 35) {
                 @Override
@@ -57,7 +57,14 @@ public class FluidDrainerMenu extends UpgradableEnergyStorageMenu<FluidDrainerBl
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(fluidDrainingLeftData);
+            addDataSlots(fluidDrainingSumPendingData);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public FluidStack getFluid() {
@@ -69,21 +76,21 @@ public class FluidDrainerMenu extends UpgradableEnergyStorageMenu<FluidDrainerBl
     }
 
     public int getFluidIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        return fluidDrainingLeftData.getValue();
     }
 
     public int getFluidIndicatorPendingBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return fluidDrainingSumPendingData.getValue();
     }
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(4));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(5));
+        return comparatorModeData.getValue();
     }
 
     @Override

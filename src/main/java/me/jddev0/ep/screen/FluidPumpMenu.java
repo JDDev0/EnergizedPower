@@ -4,6 +4,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidPumpBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
@@ -11,13 +12,11 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,7 +25,16 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
-    private final ContainerData data;
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
+    private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
+    private final SimpleIntegerValueContainerData xOffsetData = new SimpleIntegerValueContainerData();
+    private final SimpleIntegerValueContainerData yOffsetData = new SimpleIntegerValueContainerData();
+    private final SimpleIntegerValueContainerData zOffsetData = new SimpleIntegerValueContainerData();
+    private final SimpleBooleanValueContainerData extractingFluidData = new SimpleBooleanValueContainerData();
+    private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
+    private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FluidPumpMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
@@ -35,7 +43,7 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.EXTRACTION_RANGE,
                 UpgradeModuleModifier.EXTRACTION_DEPTH
-        ), new SimpleContainerData(16));
+        ), null);
     }
 
     public FluidPumpMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
@@ -50,9 +58,6 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
                 upgradeModuleInventory, 4
         );
 
-        checkContainerDataCount(data, 16);
-        this.data = data;
-
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
             addSlot(new SlotItemHandler(itemHandler, 0, 107, 35) {
                 @Override
@@ -65,7 +70,20 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(progressData);
+            addDataSlots(maxProgressData);
+            addDataSlots(energyConsumptionLeftData);
+            addDataSlots(hasEnoughEnergyData);
+            addDataSlots(xOffsetData);
+            addDataSlots(yOffsetData);
+            addDataSlots(zOffsetData);
+            addDataSlots(extractingFluidData);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public FluidStack getFluid() {
@@ -78,40 +96,36 @@ public class FluidPumpMenu extends UpgradableEnergyStorageMenu<FluidPumpBlockEnt
 
     @Override
     public int getEnergyIndicatorBarValue() {
-        return ByteUtils.from2ByteChunks((short)data.get(4), (short)data.get(5));
+        return energyConsumptionLeftData.getValue();
     }
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0;
+        return progressData.getValue() > 0;
     }
 
     public boolean isCrafting() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1)) > 0 && data.get(6) == 1;
+        return progressData.getValue() > 0 && hasEnoughEnergyData.getValue();
+    }
+
+    public BlockPos getTargetOffset() {
+        return new BlockPos(xOffsetData.getValue(), yOffsetData.getValue(), zOffsetData.getValue());
+    }
+
+    public boolean isExtractingFluid() {
+        return extractingFluidData.getValue();
     }
 
     @Override
     public RedstoneMode getRedstoneMode() {
-        return RedstoneMode.fromIndex(data.get(7));
+        return redstoneModeData.getValue();
     }
 
     @Override
     public ComparatorMode getComparatorMode() {
-        return ComparatorMode.fromIndex(data.get(8));
-    }
-
-    public BlockPos getTargetOffset() {
-        int xOffset = ByteUtils.from2ByteChunks((short)data.get(9), (short)data.get(10));
-        int yOffset = ByteUtils.from2ByteChunks((short)data.get(11), (short)data.get(12));
-        int zOffset = ByteUtils.from2ByteChunks((short)data.get(13), (short)data.get(14));
-
-        return new BlockPos(xOffset, yOffset, zOffset);
-    }
-
-    public boolean isExtractingFluid() {
-        return data.get(15) != 0;
+        return comparatorModeData.getValue();
     }
 
     @Override

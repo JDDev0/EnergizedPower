@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.screen.base.IEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -14,34 +14,39 @@ import net.minecraft.world.level.Level;
 public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements IEnergyStorageMenu {
     private final Container container;
     private final Level level;
-    private final ContainerData data;
+
+    private final SimpleEnergyValueContainerData energyData = new SimpleEnergyValueContainerData();
+    private final SimpleEnergyValueContainerData capacityData = new SimpleEnergyValueContainerData();
 
     public MinecartBatteryBoxMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, new SimpleContainer(0), new SimpleContainerData(4));
+        this(id, inv, new SimpleContainer(0), null);
     }
 
     public MinecartBatteryBoxMenu(int id, Inventory inv, Container container, ContainerData data) {
         super(EPMenuTypes.MINECART_BATTERY_BOX_MENU.get(), id);
 
-        checkContainerDataCount(data, 4);
         this.container = container;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(energyData);
+            addDataSlots(capacityData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     @Override
     public int getEnergy() {
-        return ByteUtils.from2ByteChunks((short)data.get(0), (short)data.get(1));
+        return energyData.getValue();
     }
 
     @Override
     public int getCapacity() {
-        return ByteUtils.from2ByteChunks((short)data.get(2), (short)data.get(3));
+        return capacityData.getValue();
     }
 
     @Override

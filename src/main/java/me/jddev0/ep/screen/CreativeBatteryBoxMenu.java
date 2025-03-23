@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
+import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -13,32 +14,37 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class CreativeBatteryBoxMenu extends AbstractContainerMenu {
     private final CreativeBatteryBoxBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData data;
+
+    private final SimpleBooleanValueContainerData energyProductionData = new SimpleBooleanValueContainerData();
+    private final SimpleBooleanValueContainerData energyConsumptionData = new SimpleBooleanValueContainerData();
 
     public CreativeBatteryBoxMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainerData(2));
+        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
     }
 
     public CreativeBatteryBoxMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU.get(), id);
 
-        checkContainerDataCount(data, 2);
         this.blockEntity = (CreativeBatteryBoxBlockEntity)blockEntity;
         this.level = inv.player.level();
-        this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addDataSlots(this.data);
+        if(data == null) {
+            addDataSlots(energyProductionData);
+            addDataSlots(energyConsumptionData);
+        }else {
+            addDataSlots(data);
+        }
     }
 
     public boolean isEnergyProduction() {
-        return data.get(0) != 0;
+        return energyProductionData.getValue();
     }
 
     public boolean isEnergyConsumption() {
-        return data.get(1) != 0;
+        return energyConsumptionData.getValue();
     }
 
     @Override
