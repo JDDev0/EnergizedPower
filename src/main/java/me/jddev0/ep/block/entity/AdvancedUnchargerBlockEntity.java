@@ -199,7 +199,7 @@ public class AdvancedUnchargerBlockEntity
                 continue;
 
             int energyProduction = energyStorage.extractEnergy(Math.min(maxExtractPerSlot,
-                    this.energyStorage.getCapacity() - this.energyStorage.getEnergy()), false);
+                    this.energyStorage.getCapacity() - this.energyStorage.getEnergy()), true);
 
             if(energyProductionSum == -1)
                 energyProductionSum = energyProduction;
