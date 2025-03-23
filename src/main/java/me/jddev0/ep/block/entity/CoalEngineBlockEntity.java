@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -112,6 +113,7 @@ public class CoalEngineBlockEntity
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
+                new EnergyValueContainerData(() -> maxProgress > 0 || hasRecipe(this)?getEnergyProductionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft, value -> {}),
                 new BooleanValueContainerData(() -> hasEnoughCapacityForProduction, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
@@ -165,7 +167,15 @@ public class CoalEngineBlockEntity
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
+    
+    protected final int getEnergyProductionPerTick() {
+        //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
+        int energyProductionPerTick = (int)Math.ceil((float)energyProductionLeft / (maxProgress - progress));
+        if(progress == maxProgress - 1)
+            energyProductionPerTick = energyProductionLeft;
 
+        return energyProductionPerTick;
+    }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
         if(level.isClientSide)
@@ -191,11 +201,7 @@ public class CoalEngineBlockEntity
                     blockEntity.maxProgress = (int)Math.ceil((float)energyProduction / blockEntity.energyStorage.getMaxExtract());
             }
 
-            //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
-            int energyProductionPerTick = (int)Math.ceil((float)blockEntity.energyProductionLeft / (blockEntity.maxProgress - blockEntity.progress));
-            if(blockEntity.progress == blockEntity.maxProgress - 1)
-                energyProductionPerTick = blockEntity.energyProductionLeft;
-
+            int energyProductionPerTick = blockEntity.getEnergyProductionPerTick();
             if(energyProductionPerTick <= blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()) {
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated

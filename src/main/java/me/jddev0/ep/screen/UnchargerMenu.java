@@ -24,6 +24,7 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyProductionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
@@ -57,6 +58,7 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addDataSlots(energyProductionPerTickData);
             addDataSlots(energyProductionLeftData);
             addDataSlots(redstoneModeData);
             addDataSlots(comparatorModeData);
@@ -68,6 +70,11 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
     @Override
     public int getEnergyIndicatorBarValue() {
         return energyProductionLeftData.getValue();
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     @Override

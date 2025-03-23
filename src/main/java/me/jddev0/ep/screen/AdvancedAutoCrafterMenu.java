@@ -37,6 +37,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
             new SimpleProgressValueContainerData(),
             new SimpleProgressValueContainerData()
     };
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -122,6 +123,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
             addDataSlots(maxProgressData[0]);
             addDataSlots(maxProgressData[1]);
             addDataSlots(maxProgressData[2]);
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData[0]);
             addDataSlots(energyConsumptionLeftData[1]);
             addDataSlots(energyConsumptionLeftData[2]);
@@ -164,6 +166,11 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         }
 
         return energyIndicatorBarValueSum;
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     /**
