@@ -1,4 +1,4 @@
-// 1.20.1	2024-09-22T13:39:01.18024641	Energized Power/Advancements (Basics)
+// 1.20.1	2025-03-23T21:33:44.057042135	Energized Power/Advancements (Basics)
 11d7a188e79c7f0aabd67f79b2092dab9c73338c data/energizedpower/advancements/main/basics/moon_light_upgrade_module_1.json
 98e0a9fd6575fc865f7f50918043a50262e9c697 data/energizedpower/advancements/main/basics/press_molds.json
 743bc5a9c6f543d30cf5538590ac02543df7267e data/energizedpower/advancements/main/basics/battery_box.json
@@ -35,8 +35,8 @@ b9fc2780d0a4b73f8d17fcc9452894a630cd6334 data/energizedpower/advancements/main/b
 736b46ef93fcac22e21a9083fe05163859330b09 data/energizedpower/advancements/main/basics/energized_power_book.json
 ce84279114ac2b47a461163f1125faf07e47bf6f data/energizedpower/advancements/main/basics/blast_furnace_upgrade_module.json
 0a2e4132d1ae12ae3c35bd4e5e0437b37f7e4aac data/energizedpower/advancements/main/basics/basic_machine_frame.json
-dc5eac266deed33b118be717d97e4b89038bedc5 data/energizedpower/advancements/main/basics/gold_cable.json
 41379aa1b40719c4d4a8911341a743968e022e72 data/energizedpower/advancements/main/basics/silicon.json
+dc5eac266deed33b118be717d97e4b89038bedc5 data/energizedpower/advancements/main/basics/gold_cable.json
 38520aca7f7dbcf61012754fb97a010c12085cc0 data/energizedpower/advancements/main/basics/alloy_furnace.json
 24736f5b64e9fb946a0e60a21df075f6949df865 data/energizedpower/advancements/main/basics/energy_analyzer.json
 4af606648116533a0830c385771f275e3c3a7593 data/energizedpower/advancements/main/basics/redstone_alloy_ingot.json

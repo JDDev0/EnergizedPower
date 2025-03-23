@@ -110,7 +110,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Ingredient.fromTag(CommonItemTags.SILICON), EPBlocks.SILICON_BLOCK_ITEM,
                 CraftingRecipeCategory.MISC, "", "");
 
-        addMetalNuggetCraftingRecipe(output, CommonItemTags.TIN_NUGGETS, EPItems.TIN_NUGGET);
+        addMetalNuggetCraftingRecipe(output, CommonItemTags.TIN_INGOTS, EPItems.TIN_NUGGET);
         addMetalIngotCraftingRecipes(output, CommonItemTags.TIN_NUGGETS, CommonItemTags.TIN_BLOCKS,
                 EPItems.TIN_INGOT, "tin");
 
