@@ -16,6 +16,8 @@ public class CoalEngineScreen extends ConfigurableUpgradableEnergyStorageContain
                 "tooltip.energizedpower.coal_engine.txt",
                 EPAPI.id("textures/gui/container/coal_engine.png"),
                 EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+
+        energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }
 
     @Override

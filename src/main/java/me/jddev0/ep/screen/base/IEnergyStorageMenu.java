@@ -24,6 +24,9 @@ public interface IEnergyStorageMenu extends IUpgradeModuleMenu {
     }
 
     default int getScaledEnergyPerTickBarPos(int energyMeterHeight) {
-        return 0;
+        long energyPerTick = getEnergyPerTickBarValue();
+        long capacity = getCapacity();
+
+        return (int)((energyPerTick <= 0 || capacity == 0)?0:(Math.min(energyPerTick, capacity - 1) *energyMeterHeight / capacity + 1));
     }
 }

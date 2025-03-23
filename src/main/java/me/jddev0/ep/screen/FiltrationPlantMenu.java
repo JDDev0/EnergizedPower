@@ -31,6 +31,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
         ISelectableRecipeMachineMenu<FiltrationPlantRecipe> {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
@@ -97,6 +98,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
         if(data == null) {
             addProperties(progressData);
             addProperties(maxProgressData);
+            addProperties(energyConsumptionPerTickData);
             addProperties(energyConsumptionLeftData);
             addProperties(hasEnoughEnergyData);
             addProperties(redstoneModeData);
@@ -109,6 +111,11 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
     @Override
     public long getEnergyIndicatorBarValue() {
         return energyConsumptionLeftData.getValue();
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyConsumptionPerTickData.getValue();
     }
 
     public FluidStack getFluid(int tank) {

@@ -29,6 +29,7 @@ import team.reborn.energy.api.EnergyStorageUtil;
 
 public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedUnchargerBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyProductionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -99,6 +100,7 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
+            addProperties(energyProductionPerTickData);
             addProperties(energyProductionLeftData[0]);
             addProperties(energyProductionLeftData[1]);
             addProperties(energyProductionLeftData[2]);
@@ -129,6 +131,11 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         }
 
         return energyIndicatorBarValueSum;
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     @Override
