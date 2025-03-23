@@ -615,6 +615,65 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
+                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM)
+        ), new String[] {
+                "IRI",
+                "FBF",
+                "IRI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
+                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1)
+        ), new String[] {
+                "IRI",
+                "FBF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2)
+        ), new String[] {
+                "IRI",
+                "FAF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3)
+        ), new String[] {
+                "IRI",
+                "FAF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'r', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4)
+        ), new String[] {
+                "IrI",
+                "FRF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
                 'S', Ingredient.of(CommonItemTags.SILICON),
                 'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
@@ -967,7 +1026,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }, new ItemStack(EPBlocks.FLUID_TANK_MEDIUM_ITEM.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM.get()),
+                'F', Ingredient.of(EPBlocks.FLUID_TANK_MEDIUM_ITEM.get()),
                 'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON)
         ), new String[] {
                 "IFI",

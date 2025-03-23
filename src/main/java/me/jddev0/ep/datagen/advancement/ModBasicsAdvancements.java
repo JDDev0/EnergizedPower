@@ -195,6 +195,16 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2, "extraction_depth_upgrade_module_2", AdvancementType.TASK
         );
 
+        AdvancementHolder extractionRangeUpgradeModule1 = addAdvancement(
+                advancementOutput, existingFileHelper, basicUpgradeModule,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1, "extraction_range_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder extractionRangeUpgradeModule2 = addAdvancement(
+                advancementOutput, existingFileHelper, extractionRangeUpgradeModule1,
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2, "extraction_range_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder blastFurnaceUpgradeModule = addAdvancement(
                 advancementOutput, existingFileHelper, basicUpgradeModule,
                 EPItems.BLAST_FURNACE_UPGRADE_MODULE, "blast_furnace_upgrade_module", AdvancementType.TASK

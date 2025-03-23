@@ -143,6 +143,12 @@
   "item.energizedpower.extraction_depth_upgrade_module_4": "Extraction Depth Upgrade Module (Tier IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Extraction Depth Upgrade Module (Tier V)",
 
+  "item.energizedpower.extraction_range_upgrade_module_1": "Extraction Range Upgrade Module (Tier I)",
+  "item.energizedpower.extraction_range_upgrade_module_2": "Extraction Range Upgrade Module (Tier II)",
+  "item.energizedpower.extraction_range_upgrade_module_3": "Extraction Range Upgrade Module (Tier III)",
+  "item.energizedpower.extraction_range_upgrade_module_4": "Extraction Range Upgrade Module (Tier IV)",
+  "item.energizedpower.extraction_range_upgrade_module_5": "Extraction Range Upgrade Module (Tier V)",
+
   "item.energizedpower.blast_furnace_upgrade_module": "Blast Furnace Upgrade Module",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Blast Furnace",
   "item.energizedpower.smoker_upgrade_module": "Smoker Upgrade Module",
@@ -735,6 +741,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Duration",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Range",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Extraction Depth",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Extraction Range",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Furnace mode",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Moon Light",
 
@@ -911,6 +918,21 @@
 
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extraction Depth V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Craft an Extraction Depth Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Extraction Range I",
+  "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Craft an Extraction Range Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_2.title": "Extraction Range II",
+  "advancements.energizedpower.extraction_range_upgrade_module_2.description": "Craft an Extraction Range Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_3.title": "Extraction Range III",
+  "advancements.energizedpower.extraction_range_upgrade_module_3.description": "Craft an Extraction Range Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_4.title": "Extraction Range IV",
+  "advancements.energizedpower.extraction_range_upgrade_module_4.description": "Craft an Extraction Range Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Extraction Range V",
+  "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Craft an Extraction Range Upgrade Module (Tier V).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Furnace Mode: Blast Furnace",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Craft a Blast Upgrade Module.",
@@ -1379,9 +1401,11 @@
   "book.energizedpower.page.duration_upgrades.1": "Duration Upgrades increase the duration of the weather set by the Weather Controller.",
   "book.energizedpower.page.duration_upgrades.2": "The Duration Upgrade (Tier VI) will allow the Weather Controller to maintain the current Weather but requires constant supply of energy.",
 
-  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can operate in.",
+  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can send and receive electromagnetic waves in.",
 
   "book.energizedpower.page.extraction_depth_upgrades": "Extraction Depth Upgrades increase the depth a machine can operate in.",
+
+  "book.energizedpower.page.extraction_range_upgrades": "Extraction Range Upgrades increase the range a machine can operate in.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Furnace Mode Upgrades change the recipes a Powered Furnace can produce.",
 

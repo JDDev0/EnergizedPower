@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "F": {
-      "item": "energizedpower:fluid_tank_small"
+      "item": "energizedpower:fluid_tank_medium"
     },
     "I": {
       "tag": "c:storage_blocks/iron"
