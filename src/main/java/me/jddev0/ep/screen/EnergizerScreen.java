@@ -31,12 +31,12 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17);
     }
 
     private void renderActiveOverlay(DrawContext drawContext, int x, int y) {
         if(handler.isCrafting()) {
-            drawContext.drawTexture(TEXTURE, x + 31, y + 18, 176, 70, 50, 50);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50);
         }
     }
 }

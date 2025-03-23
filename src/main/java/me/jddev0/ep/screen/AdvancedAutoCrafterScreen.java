@@ -72,27 +72,27 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 89, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17);
     }
 
     private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(handler.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 16, 176, 70, 11, 11);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11);
         }
 
         if(handler.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 38, 187, 81, 11, 11);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 22, 139, 11, 11);
         }else {
             //Extract mode checkbox [1]
 
-            drawContext.drawTexture(TEXTURE, x + 158, y + 38, 176, 81, 11, 11);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11);
         }
 
-        drawContext.drawTexture(TEXTURE, x + 96, y + 16, 176 + 11 * handler.getRecipeIndex(), 81, 11, 11);
+        drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * handler.getRecipeIndex(), 139, 11, 11);
     }
 
     @Override

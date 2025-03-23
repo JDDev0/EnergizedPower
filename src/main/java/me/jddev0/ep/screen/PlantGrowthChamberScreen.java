@@ -30,6 +30,6 @@ public class PlantGrowthChamberScreen extends ConfigurableUpgradableEnergyStorag
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 94, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 94, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17);
     }
 }

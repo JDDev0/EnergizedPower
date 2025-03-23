@@ -31,6 +31,6 @@ public class InductionSmelterScreen
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 104, y + 34, 176, 53, handler.getScaledProgressArrowSize(), 17);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 104, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17);
     }
 }

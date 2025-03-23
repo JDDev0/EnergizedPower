@@ -30,6 +30,6 @@ public class CompressorScreen extends ConfigurableUpgradableEnergyStorageContain
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(TEXTURE, x + 79, y + 30, 176, 53, handler.getScaledProgressArrowSize(), 25);
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 79, y + 30, 16, 79, handler.getScaledProgressArrowSize(), 25);
     }
 }
