@@ -24,7 +24,7 @@
           {
             "clickEvent": {
               "action": "open_url",
-              "value": "https://github.com/JDDev0/EnergizedPower/wiki"
+              "value": "https://wiki.jddev0.com/books/energized-power/page/home"
             },
             "color": "blue",
             "hoverEvent": {
