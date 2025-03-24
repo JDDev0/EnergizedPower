@@ -124,7 +124,7 @@ public class ThermalGeneratorBlockEntity
                     int production = (int)(rawProduction * (Math.min(fluidStorage.getFluidAmount(), 50) / 1000.f));
 
                     //Cap production
-                    production = Math.min(production, energyStorage.getCapacity() - energyStorage.getEnergy());
+                    production = Math.max(0, Math.min(production, energyStorage.getCapacity() - energyStorage.getEnergy()));
 
                     int fluidAmount = (int)((float)production/rawProduction * 1000);
 
@@ -209,7 +209,7 @@ public class ThermalGeneratorBlockEntity
             int production = (int)(rawProduction * (Math.min(blockEntity.fluidStorage.getFluidAmount(), 50) / 1000.f));
 
             //Cap production
-            production = Math.min(production, blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy());
+            production = Math.max(0, Math.min(production, blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()));
 
             int fluidAmount = (int)((float)production/rawProduction * 1000);
 
