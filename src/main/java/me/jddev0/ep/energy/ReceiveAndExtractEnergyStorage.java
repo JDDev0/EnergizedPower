@@ -68,7 +68,7 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
         if(!canReceive())
             return 0;
 
-        int received = Math.min(getMaxEnergyStored() - energy, Math.min(getMaxTransfer(), maxReceive));
+        int received = Math.max(0, Math.min(getMaxEnergyStored() - energy, Math.min(getMaxTransfer(), maxReceive)));
 
         if(!simulate) {
             energy += received;

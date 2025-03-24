@@ -68,7 +68,7 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
         if(!canReceive())
             return 0;
 
-        int received = Math.min(getMaxEnergyStored() - energy, Math.min(getMaxReceive(), maxReceive));
+        int received = Math.max(0, Math.min(getMaxEnergyStored() - energy, Math.min(getMaxReceive(), maxReceive)));
 
         if(!simulate) {
             energy += received;

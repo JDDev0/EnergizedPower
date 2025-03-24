@@ -102,12 +102,9 @@ public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<Rec
             return;
 
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
-        int transferred = Math.min(Math.min(blockEntity.energyStorage.getEnergy(),
+        int transferred = Math.max(0, Math.min(Math.min(blockEntity.energyStorage.getEnergy(),
                         blockEntity.energyStorage.getMaxReceive()),
-                Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy()));
-
-        if(transferred < 0)
-            return;
+                Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy())));
 
         minecart.setEnergy(minecart.getEnergy() + transferred);
 

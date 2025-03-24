@@ -241,7 +241,7 @@ public class AdvancedChargerBlockEntity
                     if(energyStorage == null || !energyStorage.canReceive())
                         continue;
 
-                    blockEntity.energyConsumptionLeft[i] = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
+                    blockEntity.energyConsumptionLeft[i] = Math.max(0, energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
 
                     if(blockEntity.energyStorage.getEnergy() == 0) {
                         setChanged(level, blockPos, state);
