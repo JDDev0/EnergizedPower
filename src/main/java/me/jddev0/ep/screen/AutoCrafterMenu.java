@@ -27,8 +27,8 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
 
     private final Container patternResultSlots;
 
-    private final SimpleEnergyValueContainerData progressData = new SimpleEnergyValueContainerData();
-    private final SimpleEnergyValueContainerData maxProgressData = new SimpleEnergyValueContainerData();
+    private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
+    private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
