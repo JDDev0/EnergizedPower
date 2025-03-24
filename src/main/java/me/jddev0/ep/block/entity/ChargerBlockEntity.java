@@ -230,7 +230,7 @@ public class ChargerBlockEntity
                 if(!energyStorage.canReceive())
                     return;
 
-                blockEntity.energyConsumptionLeft = energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored();
+                blockEntity.energyConsumptionLeft = Math.max(0, energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
 
                 if(blockEntity.energyStorage.getEnergy() == 0) {
                     setChanged(level, blockPos, state);

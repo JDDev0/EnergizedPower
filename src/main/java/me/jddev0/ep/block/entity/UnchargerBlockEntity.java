@@ -203,8 +203,8 @@ public class UnchargerBlockEntity
         if(!energyStorage.canExtract())
             return -1;
 
-        return energyStorage.extractEnergy(Math.min(this.energyStorage.getMaxExtract(),
-                this.energyStorage.getCapacity() - this.energyStorage.getEnergy()), true);
+        return energyStorage.extractEnergy(Math.max(0, Math.min(this.energyStorage.getMaxExtract(),
+                this.energyStorage.getCapacity() - this.energyStorage.getEnergy())), true);
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
@@ -224,8 +224,8 @@ public class UnchargerBlockEntity
 
             blockEntity.energyProductionLeft = energyStorage.getEnergyStored();
 
-            int energyProductionPerTick = energyStorage.extractEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
-                    blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()), false);
+            int energyProductionPerTick = energyStorage.extractEnergy(Math.max(0, Math.min(blockEntity.energyStorage.getMaxExtract(),
+                    blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy())), false);
 
             if(blockEntity.energyProductionLeft < 0 || energyProductionPerTick < 0) {
                 //Reset progress for invalid values

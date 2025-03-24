@@ -199,8 +199,8 @@ public class AdvancedUnchargerBlockEntity
     }
 
     protected final int getEnergyProductionPerTickSum() {
-        final int maxExtractPerSlot = (int)Math.min(this.energyStorage.getMaxExtract() / 3.,
-                Math.ceil((this.energyStorage.getMaxEnergyStored() - this.energyStorage.getEnergy()) / 3.));
+        final int maxExtractPerSlot = Math.max(0, (int)Math.min(this.energyStorage.getMaxExtract() / 3.,
+                Math.ceil((this.energyStorage.getMaxEnergyStored() - this.energyStorage.getEnergy()) / 3.)));
 
         int energyProductionSum = -1;
 
@@ -214,8 +214,8 @@ public class AdvancedUnchargerBlockEntity
             if(!energyStorage.canExtract())
                 continue;
 
-            int energyProduction = energyStorage.extractEnergy(Math.min(maxExtractPerSlot,
-                    this.energyStorage.getCapacity() - this.energyStorage.getEnergy()), true);
+            int energyProduction = energyStorage.extractEnergy(Math.max(0, Math.min(maxExtractPerSlot,
+                    this.energyStorage.getCapacity() - this.energyStorage.getEnergy())), true);
 
             if(energyProductionSum == -1)
                 energyProductionSum = energyProduction;
@@ -233,8 +233,8 @@ public class AdvancedUnchargerBlockEntity
         if(level.isClientSide)
             return;
 
-        final int maxExtractPerSlot = (int)Math.min(blockEntity.energyStorage.getMaxExtract() / 3.,
-                Math.ceil((blockEntity.energyStorage.getMaxEnergyStored() - blockEntity.energyStorage.getEnergy()) / 3.));
+        final int maxExtractPerSlot = Math.max(0, (int)Math.min(blockEntity.energyStorage.getMaxExtract() / 3.,
+                Math.ceil((blockEntity.energyStorage.getMaxEnergyStored() - blockEntity.energyStorage.getEnergy()) / 3.)));
 
         for(int i = 0;i < 3;i++) {
             if(blockEntity.hasRecipe(i)) {
@@ -250,8 +250,8 @@ public class AdvancedUnchargerBlockEntity
 
                 blockEntity.energyProductionLeft[i] = energyStorage.getEnergyStored();
 
-                int energyProductionPerTick = energyStorage.extractEnergy(Math.min(maxExtractPerSlot,
-                        blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()), false);
+                int energyProductionPerTick = energyStorage.extractEnergy(Math.max(0, Math.min(maxExtractPerSlot,
+                        blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy())), false);
 
                 if(blockEntity.energyProductionLeft[i] < 0 || energyProductionPerTick < 0) {
                     //Reset progress for invalid values
