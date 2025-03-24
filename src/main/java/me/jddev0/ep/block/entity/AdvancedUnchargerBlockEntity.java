@@ -199,8 +199,8 @@ public class AdvancedUnchargerBlockEntity
     }
 
     protected final long getEnergyProductionPerTickSum() {
-        final long maxExtractPerSlot = (long)Math.min(this.limitingEnergyStorage.getMaxExtract() / 3.,
-                Math.ceil((this.energyStorage.getCapacity() - this.energyStorage.getAmount()) / 3.));
+        final long maxExtractPerSlot = Math.max(0, (long)Math.min(this.limitingEnergyStorage.getMaxExtract() / 3.,
+                Math.ceil((this.energyStorage.getCapacity() - this.energyStorage.getAmount()) / 3.)));
 
         long energyProductionSum = -1;
 
@@ -220,8 +220,8 @@ public class AdvancedUnchargerBlockEntity
 
             long energyProduction;
             try(Transaction transaction = Transaction.openOuter()) {
-                energyProduction = limitingEnergyStorage.insert(Math.min(maxExtractPerSlot,
-                        this.energyStorage.getCapacity() - this.energyStorage.getAmount()), transaction);
+                energyProduction = limitingEnergyStorage.insert(Math.max(0, Math.min(maxExtractPerSlot,
+                        this.energyStorage.getCapacity() - this.energyStorage.getAmount())), transaction);
             }
 
             if(energyProductionSum == -1)
@@ -237,8 +237,8 @@ public class AdvancedUnchargerBlockEntity
     }
 
     public static void tickRecipe(World level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
-        final long maxExtractPerSlot = (long)Math.min(blockEntity.limitingEnergyStorage.getMaxExtract() / 3.,
-                Math.ceil((blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount()) / 3.));
+        final long maxExtractPerSlot = Math.max(0, (long)Math.min(blockEntity.limitingEnergyStorage.getMaxExtract() / 3.,
+                Math.ceil((blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount()) / 3.)));
 
         for(int i = 0;i < 3;i++) {
             if(blockEntity.hasRecipe(i)) {
