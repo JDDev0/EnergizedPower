@@ -102,13 +102,10 @@ public class MinecartChargerBlockEntity
             return;
 
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
-        long transferred = Math.min(Math.min(blockEntity.energyStorage.getAmount(),
+        long transferred = Math.max(0, Math.min(Math.min(blockEntity.energyStorage.getAmount(),
                         blockEntity.limitingEnergyStorage.getMaxInsert()),
-                Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy()));
+                Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy())));
         minecart.setEnergy(minecart.getEnergy() + transferred);
-
-        if(transferred < 0)
-            return;
 
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.energyStorage.extract(transferred, transaction);

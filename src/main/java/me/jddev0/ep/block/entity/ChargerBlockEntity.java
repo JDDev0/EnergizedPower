@@ -231,7 +231,7 @@ public class ChargerBlockEntity
                 if(!limitingEnergyStorage.supportsInsertion())
                     return;
 
-                blockEntity.energyConsumptionLeft = limitingEnergyStorage.getCapacity() - limitingEnergyStorage.getAmount();
+                blockEntity.energyConsumptionLeft = Math.max(0, limitingEnergyStorage.getCapacity() - limitingEnergyStorage.getAmount());
 
                 if(blockEntity.energyStorage.getAmount() == 0) {
                     markDirty(level, blockPos, state);
