@@ -74,12 +74,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
         cableCoreTemplate = models().
                 withExistingParent("cable_core_template", ModelProvider.BLOCK_FOLDER + "/thin_block").
                 element().from(6, 6, 6).to(10, 10, 10).
-                face(Direction.DOWN).uvs(0, 7, 4, 11).cullface(Direction.DOWN).texture("#cable").end().
-                face(Direction.UP).uvs(0, 7, 4, 11).cullface(Direction.UP).texture("#cable").end().
-                face(Direction.NORTH).uvs(0, 7, 4, 11).cullface(Direction.NORTH).texture("#cable").end().
-                face(Direction.SOUTH).uvs(0, 7, 4, 11).cullface(Direction.SOUTH).texture("#cable").end().
-                face(Direction.WEST).uvs(0, 7, 4, 11).cullface(Direction.WEST).texture("#cable").end().
-                face(Direction.EAST).uvs(0, 7, 4, 11).cullface(Direction.EAST).texture("#cable").end().
+                face(Direction.DOWN).uvs(0, 7, 4, 11).texture("#cable").end().
+                face(Direction.UP).uvs(0, 7, 4, 11).texture("#cable").end().
+                face(Direction.NORTH).uvs(0, 7, 4, 11).texture("#cable").end().
+                face(Direction.SOUTH).uvs(0, 7, 4, 11).texture("#cable").end().
+                face(Direction.WEST).uvs(0, 7, 4, 11).texture("#cable").end().
+                face(Direction.EAST).uvs(0, 7, 4, 11).texture("#cable").end().
                 end();
 
         cableSideTemplate = models().
