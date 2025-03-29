@@ -1,4 +1,4 @@
-// 1.20.2	2024-09-21T22:02:00.335167833	Energized Power/Advancements (Basics)
+// 1.20.2	2025-03-29T18:55:16.664983069	Energized Power/Advancements (Basics)
 11d7a188e79c7f0aabd67f79b2092dab9c73338c data/energizedpower/advancements/main/basics/moon_light_upgrade_module_1.json
 98e0a9fd6575fc865f7f50918043a50262e9c697 data/energizedpower/advancements/main/basics/press_molds.json
 743bc5a9c6f543d30cf5538590ac02543df7267e data/energizedpower/advancements/main/basics/battery_box.json
@@ -63,8 +63,8 @@ eef5005ae8fb457ca1bb88c6431a4be982da7b3f data/energizedpower/advancements/main/b
 e9cdc2fc6fa96725a358b50df8c342a79a5505a4 data/energizedpower/advancements/main/basics/press_mold_maker.json
 e7207166c23407864069efabf805489b3bdb2dd6 data/energizedpower/advancements/main/basics/sawmill.json
 26c56684aa652a0b18b4b57cbf13fe6a0801c9bf data/energizedpower/advancements/main/basics/cable_insulator.json
-a08bf334366b8c7c72dcbe7c1d5153b235eadf22 data/energizedpower/advancements/main/basics/drain.json
 1d8d9beecea5525c69888e0560478a7c0141ee84 data/energizedpower/advancements/main/basics/energy_capacity_upgrade_module_2.json
+a08bf334366b8c7c72dcbe7c1d5153b235eadf22 data/energizedpower/advancements/main/basics/drain.json
 3454af7f3afd84d5a8358cf35191a241fec460b4 data/energizedpower/advancements/main/basics/fluid_tank_medium.json
 1cf342ed04a62d89b57de337a964ccbb2614a31c data/energizedpower/advancements/main/basics/battery_5.json
 9e75eb9c55fa22d7284894298eb4a11285b9661e data/energizedpower/advancements/main/basics/extraction_depth_upgrade_module_2.json
