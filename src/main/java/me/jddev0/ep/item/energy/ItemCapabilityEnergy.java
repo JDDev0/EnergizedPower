@@ -26,7 +26,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         if(!simulate) {
             Tag nbt = energyStorage.saveNBT();
             if(nbt instanceof IntTag nbtInt)
-                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.getAsInt());
+                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.intValue());
         }
 
         return ret;
@@ -39,7 +39,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         if(!simulate) {
             Tag nbt = energyStorage.saveNBT();
             if(nbt instanceof IntTag nbtInt)
-                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.getAsInt());
+                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.intValue());
         }
 
         return ret;
@@ -70,7 +70,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
 
         Tag nbt = energyStorage.saveNBT();
         if(nbt instanceof IntTag nbtInt)
-            itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.getAsInt());
+            itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.intValue());
     }
 
     public void setCapacity(int capacity) {

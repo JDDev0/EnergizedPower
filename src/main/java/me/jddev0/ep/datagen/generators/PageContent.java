@@ -8,19 +8,25 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public record PageContent(
         ResourceLocation pageId, Component chapterTitleComponent, Component pageComponent,
-        ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations
+        ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations,
+        Map<Integer, ResourceLocation> changePageIntToId
 ) {
     public PageContent(Component chapterTitleComponent, Component pageComponent, ResourceLocation[] imageResourceLocations,
-                       ResourceLocation[] blockResourceLocations) {
-        this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations);
+                       ResourceLocation[] blockResourceLocations, Map<Integer, ResourceLocation> changePageIntToId) {
+        this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
+                changePageIntToId == null?null:new HashMap<>(changePageIntToId));
     }
 
     public PageContent withPageId(ResourceLocation pageId) {
-        return new PageContent(pageId, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations);
+        return new PageContent(pageId, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
+                changePageIntToId == null?null:new HashMap<>(changePageIntToId));
     }
 
     public static final Codec<PageContent> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -47,15 +53,25 @@ public record PageContent(
                                         return Optional.of(Either.left(pageContent.blockResourceLocations[0]));
 
                                     return Optional.of(Either.right(Arrays.asList(pageContent.blockResourceLocations)));
+                                }),
+                        Codec.unboundedMap(Codec.STRING, ResourceLocation.CODEC).optionalFieldOf("changePageIntToId").
+                                forGetter(pageContent -> {
+                                    if(pageContent.changePageIntToId == null || pageContent.changePageIntToId.isEmpty())
+                                        return Optional.empty();
+
+                                    return Optional.of(pageContent.changePageIntToId.entrySet().stream().
+                                            collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue)));
                                 })).
-                apply(instance, (title, content, image, block) -> new PageContent(
+                apply(instance, (title, content, image, block, changePageIntToId) -> new PageContent(
                         title.orElse(null), content.orElse(null),
                         image.map(either -> either.map(singleImage -> new ResourceLocation[] {
                                 singleImage
                         }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null),
                         block.map(either -> either.map(singleImage -> new ResourceLocation[] {
                                 singleImage
-                        }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null)
+                        }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null),
+                        changePageIntToId.map(map -> map.entrySet().stream().
+                                collect(Collectors.toMap(entry -> Integer.parseInt(entry.getKey()), Map.Entry::getValue))).orElse(null)
                 ));
     });
 

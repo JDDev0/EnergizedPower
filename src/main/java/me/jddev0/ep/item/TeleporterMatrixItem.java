@@ -18,11 +18,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TeleporterMatrixItem extends Item {
     public TeleporterMatrixItem(Properties props) {
@@ -119,33 +121,33 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
         DimensionalPositionComponent dimPos = itemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = isLinked(itemStack) && dimPos != null;
 
 
-        components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
+        components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
                 append(Component.translatable("tooltip.energizedpower.teleporter_matrix.status." +
                         (linked?"linked":"unlinked")).withStyle(linked?ChatFormatting.GREEN:ChatFormatting.RED)));
 
         if(linked) {
-            components.add(Component.empty());
+            components.accept(Component.empty());
 
-           components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.location").
+           components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.location").
                    append(Component.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
-           components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
+           components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
                    append(Component.literal(dimPos.dimensionId().toString())));
         }
 
-        components.add(Component.empty());
+        components.accept(Component.empty());
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
+            components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").
+            components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 

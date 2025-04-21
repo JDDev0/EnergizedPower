@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -65,17 +67,8 @@ public class FluidTransposerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof FluidTransposerBlockEntity))
-            return;
-
-        ((FluidTransposerBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onRemove(state, level, blockPos, newState, isMoving);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override

@@ -27,14 +27,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/flashbulbs"
+              "url": "https://github.com/flashbulbs"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -54,14 +54,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/flashbulbs"
+              "url": "https://github.com/flashbulbs"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -81,14 +81,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/flashbulbs"
+              "url": "https://github.com/flashbulbs"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -108,14 +108,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/flashbulbs"
+              "url": "https://github.com/flashbulbs"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -135,14 +135,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/HanJiang-cn"
+              "url": "https://github.com/HanJiang-cn"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -162,14 +162,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/Roby1164"
+              "url": "https://github.com/Roby1164"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -189,14 +189,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/msb-eyyup"
+              "url": "https://github.com/msb-eyyup"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -229,14 +229,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/Lucanoria"
+              "url": "https://github.com/Lucanoria"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },

@@ -173,7 +173,7 @@ public class AdvancedUnchargerBlockEntity
         super.loadAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
-            energyProductionLeft[i] = nbt.getInt("recipe.energy_production_left." + i);
+            energyProductionLeft[i] = nbt.getIntOr("recipe.energy_production_left." + i, 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {

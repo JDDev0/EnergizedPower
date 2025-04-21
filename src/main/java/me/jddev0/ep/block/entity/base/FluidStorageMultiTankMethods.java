@@ -29,7 +29,7 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
     public void loadFluidStorage(@NotNull EnergizedPowerFluidStorage fluidStorage, @NotNull CompoundTag nbt,
                                   @NotNull HolderLookup.Provider registries) {
         for(int i = 0;i < fluidStorage.getTanks();i++)
-            fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompound("fluid." + i)));
+            fluidStorage.setFluid(i, FluidStack.parseOptional(registries, nbt.getCompoundOrEmpty("fluid." + i)));
     }
 
     @Override

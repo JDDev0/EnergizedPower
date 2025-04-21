@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +23,6 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;

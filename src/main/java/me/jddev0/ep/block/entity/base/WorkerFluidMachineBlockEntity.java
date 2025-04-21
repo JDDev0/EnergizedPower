@@ -76,9 +76,9 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+        progress = nbt.getIntOr("recipe.progress", 0);
+        maxProgress = nbt.getIntOr("recipe.max_progress", 0);
+        energyConsumptionLeft = nbt.getIntOr("recipe.energy_consumption_left", 0);
     }
 
     public static <F extends IFluidHandler, W> void tick(

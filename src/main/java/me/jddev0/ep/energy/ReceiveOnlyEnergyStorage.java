@@ -116,6 +116,6 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
             return;
         }
 
-        energy = ((IntTag)tag).getAsInt();
+        energy = ((IntTag)tag).intValue();
     }
 }

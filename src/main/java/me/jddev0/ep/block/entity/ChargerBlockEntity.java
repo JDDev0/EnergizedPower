@@ -194,7 +194,7 @@ public class ChargerBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+        energyConsumptionLeft = nbt.getIntOr("recipe.energy_consumption_left", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {

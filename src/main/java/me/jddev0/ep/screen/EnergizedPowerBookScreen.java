@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
@@ -35,6 +34,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergizedPowerBookScreen extends Screen {
@@ -97,19 +97,20 @@ public class EnergizedPowerBookScreen extends Screen {
         formattedPages.add(new FormattedPageContent(EPAPI.id("front_cover"),
                 null,
                 font.split(Component.translatable("book.energizedpower.front.cover.text").
-                        withStyle(ChatFormatting.GRAY), MAX_CHARS_PER_LINE), null, null));
+                        withStyle(ChatFormatting.GRAY), MAX_CHARS_PER_LINE), null, null, null));
         for(PageContent pageContent:pages) {
             ResourceLocation pageId = pageContent.getPageId();
             Component chapterTitleComponent = pageContent.getChapterTitleComponent();
             ResourceLocation[] imageResourceLocations = pageContent.getImageResourceLocations();
             ResourceLocation[] blockResourceLocations = pageContent.getBlockResourceLocations();
+            Map<Integer, ResourceLocation> changePageIntToId = pageContent.getChangePageIntToId();
 
             List<FormattedCharSequence> formattedPageComponents = pageContent.getPageComponent() == null?new ArrayList<>(0):
                     font.split(pageContent.getPageComponent(), MAX_CHARS_PER_LINE);
 
             if(chapterTitleComponent != null) {
                 formattedPages.add(new FormattedPageContent(pageId, chapterTitleComponent, formattedPageComponents,
-                        imageResourceLocations, blockResourceLocations));
+                        imageResourceLocations, blockResourceLocations, changePageIntToId));
 
                 continue;
             }
@@ -119,18 +120,18 @@ public class EnergizedPowerBookScreen extends Screen {
 
             formattedPages.add(new FormattedPageContent(pageId, chapterTitleComponent,
                     formattedPageComponents.subList(0, Math.min(maxLineCountFirstPage, formattedPageComponents.size())),
-                    imageResourceLocations, blockResourceLocations));
+                    imageResourceLocations, blockResourceLocations, changePageIntToId));
 
             for(int i = maxLineCountFirstPage, splitPageCount = 2;i < formattedPageComponents.size();i += MAX_LINES, splitPageCount++) {
                 ResourceLocation tmpPageId = ResourceLocation.fromNamespaceAndPath(pageId.getNamespace(), pageId.getPath() + "/tmp_page_" + splitPageCount);
 
                 formattedPages.add(new FormattedPageContent(tmpPageId, null,
                         formattedPageComponents.subList(i, Math.min(i + MAX_LINES, formattedPageComponents.size())),
-                        null, null));
+                        null, null, changePageIntToId));
             }
         }
         formattedPages.add(new FormattedPageContent(EPAPI.id("back_cover"),
-                null, new ArrayList<>(0), null, null));
+                null, new ArrayList<>(0), null, null, null));
 
         this.formattedPages = new ArrayList<>(formattedPages);
 
@@ -261,14 +262,16 @@ public class EnergizedPowerBookScreen extends Screen {
         if(clickEvent == null || formattedPages == null)
             return false;
 
-        if(clickEvent.getAction() == ClickEvent.Action.CHANGE_PAGE) {
+        if(clickEvent.action() == ClickEvent.Action.CHANGE_PAGE) {
+            FormattedPageContent formattedPageContent = formattedPages.get(currentPage);
+            Map<Integer, ResourceLocation> changePageIntToId = formattedPageContent.getChangePageIntToId();
+            ClickEvent.ChangePage changePageEvent = (ClickEvent.ChangePage)clickEvent;
+
             int oldCurrentPage = currentPage;
             try {
-                return setPage(Integer.parseInt(clickEvent.getValue()));
-            }catch(NumberFormatException e) {
-                String pageIdString = clickEvent.getValue();
+                int pageNum = changePageEvent.page();
 
-                ResourceLocation pageId = ResourceLocation.tryParse(pageIdString);
+                ResourceLocation pageId = changePageIntToId == null?null:changePageIntToId.get(pageNum);
                 if(pageId == null)
                     return false;
 
@@ -293,7 +296,7 @@ public class EnergizedPowerBookScreen extends Screen {
         }
 
         boolean flag = super.handleComponentClicked(style);
-        if(flag && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND)
+        if(flag && clickEvent.action() == ClickEvent.Action.RUN_COMMAND)
             onClose();
 
         return flag;
@@ -302,7 +305,7 @@ public class EnergizedPowerBookScreen extends Screen {
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         super.renderBackground(guiGraphics, mouseX, mouseY, delta);
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
+
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if(formattedPages == null)
@@ -442,10 +445,6 @@ public class EnergizedPowerBookScreen extends Screen {
         TextureManager textureManager = minecraft.getTextureManager();
 
         textureManager.getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
-        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
 
@@ -454,13 +453,12 @@ public class EnergizedPowerBookScreen extends Screen {
         guiGraphics.pose().scale(64.f, -64.f, 1.f);
 
         MultiBufferSource.BufferSource bufferSource = minecraft.renderBuffers().bufferSource();
-        Lighting.setupForEntityInInventory();
+        Lighting.setupLevel();
 
         itemRenderer.renderStatic(itemStack, ItemDisplayContext.GUI, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, guiGraphics.pose(), bufferSource,
                 null, 0);
 
         bufferSource.endBatch();
-        RenderSystem.enableDepthTest();
 
         guiGraphics.pose().popPose();
     }
@@ -543,14 +541,17 @@ public class EnergizedPowerBookScreen extends Screen {
         private final Component pageComponent;
         private final ResourceLocation[] imageResourceLocations;
         private final ResourceLocation[] blockResourceLocations;
+        private final Map<Integer, ResourceLocation> changePageIntToId;
 
         public PageContent(ResourceLocation pageId, Component chapterTitleComponent, Component pageComponent,
-                           ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations) {
+                           ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations,
+                           Map<Integer, ResourceLocation> changePageIntToId) {
             this.pageId = pageId;
             this.chapterTitleComponent = chapterTitleComponent;
             this.pageComponent = pageComponent;
             this.imageResourceLocations = imageResourceLocations;
             this.blockResourceLocations = blockResourceLocations;
+            this.changePageIntToId = changePageIntToId;
         }
 
         public ResourceLocation getPageId() {
@@ -572,6 +573,10 @@ public class EnergizedPowerBookScreen extends Screen {
         public ResourceLocation[] getBlockResourceLocations() {
             return blockResourceLocations;
         }
+
+        public Map<Integer, ResourceLocation> getChangePageIntToId() {
+            return changePageIntToId;
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -581,15 +586,17 @@ public class EnergizedPowerBookScreen extends Screen {
         private final List<FormattedCharSequence> pageFormattedTexts;
         private final ResourceLocation[] imageResourceLocations;
         private final ResourceLocation[] blockResourceLocations;
+        private final Map<Integer, ResourceLocation> changePageIntToId;
 
         public FormattedPageContent(ResourceLocation pageId, Component chapterTitleComponent,
                                     List<FormattedCharSequence> pageFormattedTexts, ResourceLocation[] imageResourceLocations,
-                                    ResourceLocation[] blockResourceLocations) {
+                                    ResourceLocation[] blockResourceLocations, Map<Integer, ResourceLocation> changePageIntToId) {
             this.pageId = pageId;
             this.chapterTitleComponent = chapterTitleComponent;
             this.pageFormattedTexts = pageFormattedTexts;
             this.imageResourceLocations = imageResourceLocations;
             this.blockResourceLocations = blockResourceLocations;
+            this.changePageIntToId = changePageIntToId;
         }
 
         public ResourceLocation getPageId() {
@@ -610,6 +617,10 @@ public class EnergizedPowerBookScreen extends Screen {
 
         public ResourceLocation[] getBlockResourceLocations() {
             return blockResourceLocations;
+        }
+
+        public Map<Integer, ResourceLocation> getChangePageIntToId() {
+            return changePageIntToId;
         }
     }
 }

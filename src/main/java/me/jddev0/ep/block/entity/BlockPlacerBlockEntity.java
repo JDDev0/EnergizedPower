@@ -140,7 +140,7 @@ public class BlockPlacerBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        inverseRotation = nbt.getBoolean("inverse_rotation");
+        inverseRotation = nbt.getBooleanOr("inverse_rotation", false);
     }
 
     @Override

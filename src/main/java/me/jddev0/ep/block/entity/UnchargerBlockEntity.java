@@ -166,7 +166,7 @@ public class UnchargerBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        energyProductionLeft = nbt.getInt("recipe.energy_production_left");
+        energyProductionLeft = nbt.getIntOr("recipe.energy_production_left", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {

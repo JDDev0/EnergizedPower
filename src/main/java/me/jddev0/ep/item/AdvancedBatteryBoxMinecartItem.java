@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class AdvancedBatteryBoxMinecartItem extends Item {
     private static final DefaultDispenseItemBehavior DISPENSE_ITEM_BEHAVIOR = new DefaultDispenseItemBehavior() {
@@ -75,16 +77,16 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.capacity.txt",
+            components.accept(Component.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.CAPACITY)).
                     withStyle(ChatFormatting.GRAY));
-            components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
+            components.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.MAX_TRANSFER)).
                     withStyle(ChatFormatting.GRAY));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 

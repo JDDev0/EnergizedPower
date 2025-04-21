@@ -106,9 +106,9 @@ public class FluidTankBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        ignoreNBT = nbt.getBoolean("ignore_nbt");
+        ignoreNBT = nbt.getBooleanOr("ignore_nbt", false);
 
-        fluidFilter = FluidStack.parseOptional(registries, nbt.getCompound("fluid_filter"));
+        fluidFilter = FluidStack.parseOptional(registries, nbt.getCompoundOrEmpty("fluid_filter"));
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {

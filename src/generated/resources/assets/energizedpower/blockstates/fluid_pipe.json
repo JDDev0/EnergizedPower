@@ -60,7 +60,7 @@
     {
       "apply": {
         "model": "energizedpower:block/fluid_pipe_side_connected",
-        "x": 180
+        "y": 180
       },
       "when": {
         "south": "connected"
@@ -69,7 +69,7 @@
     {
       "apply": {
         "model": "energizedpower:block/fluid_pipe_side_extract",
-        "x": 180
+        "y": 180
       },
       "when": {
         "south": "extract"

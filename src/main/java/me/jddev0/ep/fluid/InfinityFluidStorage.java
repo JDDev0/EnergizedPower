@@ -36,7 +36,7 @@ public class InfinityFluidStorage implements IFluidHandler {
     }
 
     public void readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-        this.fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompound("Fluid"));
+        this.fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompoundOrEmpty("Fluid"));
     }
 
     public CompoundTag writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {

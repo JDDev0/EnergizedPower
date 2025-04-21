@@ -1,4 +1,11 @@
 {
+  "changePageIntToId": {
+    "1": "energizedpower:chapters/0060_energy_blocks/0010_general/0000_general_chapter",
+    "2": "energizedpower:chapters/0060_energy_blocks/0020_energy_transportation/0000_energy_transportation_chapter",
+    "3": "energizedpower:chapters/0060_energy_blocks/0030_energy_storage/0000_energy_storage_chapter",
+    "4": "energizedpower:chapters/0060_energy_blocks/0040_energy_production/0000_energy_production_chapter",
+    "5": "energizedpower:chapters/0060_energy_blocks/0050_energy_consumption/0000_energy_consumption_chapter"
+  },
   "content": {
     "bold": true,
     "color": "gold",
@@ -8,14 +15,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "change_page",
-              "value": "energizedpower:chapters/0060_energy_blocks/0010_general/0000_general_chapter"
+              "page": 1
             },
             "color": "dark_green",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.page"
               }
             },
@@ -31,14 +38,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "change_page",
-              "value": "energizedpower:chapters/0060_energy_blocks/0020_energy_transportation/0000_energy_transportation_chapter"
+              "page": 2
             },
             "color": "dark_green",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.page"
               }
             },
@@ -54,14 +61,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "change_page",
-              "value": "energizedpower:chapters/0060_energy_blocks/0030_energy_storage/0000_energy_storage_chapter"
+              "page": 3
             },
             "color": "dark_green",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.page"
               }
             },
@@ -77,14 +84,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "change_page",
-              "value": "energizedpower:chapters/0060_energy_blocks/0040_energy_production/0000_energy_production_chapter"
+              "page": 4
             },
             "color": "dark_green",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.page"
               }
             },
@@ -100,14 +107,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "change_page",
-              "value": "energizedpower:chapters/0060_energy_blocks/0050_energy_consumption/0000_energy_consumption_chapter"
+              "page": 5
             },
             "color": "dark_green",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.page"
               }
             },

@@ -37,7 +37,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        currentInputIndex = nbt.getInt("current_input_index");
+        currentInputIndex = nbt.getIntOr("current_input_index", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltMergerBlockEntity blockEntity) {

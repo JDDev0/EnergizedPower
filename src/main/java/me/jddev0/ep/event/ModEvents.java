@@ -43,7 +43,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-        if(event.getType() == EPVillager.ELECTRICIAN_PROFESSION.get()) {
+        if(event.getType() == EPVillager.ELECTRICIAN_PROFESSION_KEY) {
             //Level 1
             addOffer(trades, 1,
                     new ItemCost(Items.EMERALD, 6),

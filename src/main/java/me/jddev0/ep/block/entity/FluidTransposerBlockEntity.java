@@ -166,7 +166,7 @@ public class FluidTransposerBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        mode = Mode.fromIndex(nbt.getInt("mode"));
+        mode = Mode.fromIndex(nbt.getIntOr("mode", 0));
     }
 
     @Override

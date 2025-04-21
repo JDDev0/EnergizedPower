@@ -5,9 +5,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class UpgradeModuleItem extends Item {
     protected final UpgradeModuleModifier mainModifier;
@@ -35,11 +37,11 @@ public abstract class UpgradeModuleItem extends Item {
     public abstract Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value);
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("tooltip.energizedpower.upgrade.values"));
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
+        components.accept(Component.translatable("tooltip.energizedpower.upgrade.values"));
 
         for(UpgradeModuleModifier modifier:getUpgradeModuleModifiers())
-            components.add(Component.translatable("tooltip.energizedpower.upgrade.value",
+            components.accept(Component.translatable("tooltip.energizedpower.upgrade.value",
                     Component.translatable("tooltip.energizedpower.upgrade_module_modifier." + modifier.getSerializedName()),
                     getUpgradeModuleModifierText(modifier, getUpgradeModuleModifierValue(modifier))));
     }

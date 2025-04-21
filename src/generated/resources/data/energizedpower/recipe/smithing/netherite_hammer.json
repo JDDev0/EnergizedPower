@@ -3,7 +3,6 @@
   "addition": "#c:ingots/netherite",
   "base": "energizedpower:diamond_hammer",
   "result": {
-    "count": 1,
     "id": "energizedpower:netherite_hammer"
   },
   "template": "minecraft:netherite_upgrade_smithing_template"

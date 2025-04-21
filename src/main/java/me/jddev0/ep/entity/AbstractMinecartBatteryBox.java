@@ -38,7 +38,7 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecart implem
     protected void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
 
-        setEnergy(nbt.getInt("energy"));
+        setEnergy(nbt.getIntOr("energy", 0));
     }
 
     @Override

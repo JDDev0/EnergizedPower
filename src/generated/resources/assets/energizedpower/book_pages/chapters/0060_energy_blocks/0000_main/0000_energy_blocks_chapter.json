@@ -1,4 +1,7 @@
 {
+  "changePageIntToId": {
+    "1": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
+  },
   "content": {
     "extra": [
       {
@@ -9,14 +12,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "change_page",
-              "value": "energizedpower:chapters/0000_welcome/0020_table_of_contents"
+              "page": 1
             },
             "color": "dark_green",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.page"
               }
             },

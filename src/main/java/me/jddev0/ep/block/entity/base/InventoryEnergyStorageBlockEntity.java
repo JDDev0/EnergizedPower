@@ -40,14 +40,17 @@ public abstract class InventoryEnergyStorageBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
+        itemHandler.deserializeNBT(registries, nbt.getCompoundOrEmpty("inventory"));
     }
 
-    public void drops(Level level, BlockPos worldPosition) {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
+    @Override
+    public void preRemoveSideEffects(BlockPos worldPosition, BlockState oldState) {
+        if(level != null) {
+            SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+            for(int i = 0;i < itemHandler.getSlots();i++)
+                inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        Containers.dropContents(level, worldPosition, inventory);
+            Containers.dropContents(level, worldPosition, inventory);
+        }
     }
 }

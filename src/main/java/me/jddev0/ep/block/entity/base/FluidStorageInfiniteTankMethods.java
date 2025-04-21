@@ -27,7 +27,7 @@ public final class FluidStorageInfiniteTankMethods implements FluidStorageMethod
     @Override
     public void loadFluidStorage(@NotNull InfinityFluidStorage fluidStorage, @NotNull CompoundTag nbt,
                                  @NotNull HolderLookup.Provider registries) {
-        fluidStorage.readFromNBT(registries, nbt.getCompound("fluid"));
+        fluidStorage.readFromNBT(registries, nbt.getCompoundOrEmpty("fluid"));
     }
 
     @Override

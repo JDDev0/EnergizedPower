@@ -200,8 +200,8 @@ public class FluidFillerBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        fluidFillingLeft = nbt.getInt("recipe.fluid_filling_left");
-        fluidFillingSumPending = nbt.getInt("recipe.fluid_filling_sum_pending");
+        fluidFillingLeft = nbt.getIntOr("recipe.fluid_filling_left", 0);
+        fluidFillingSumPending = nbt.getIntOr("recipe.fluid_filling_sum_pending", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {

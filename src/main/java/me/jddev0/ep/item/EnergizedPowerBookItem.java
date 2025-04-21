@@ -10,14 +10,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class EnergizedPowerBookItem extends WrittenBookItem {
     public EnergizedPowerBookItem(Item.Properties props) {
@@ -25,15 +28,15 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        components.add(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
-        components.add(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
+        components.accept(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
+        components.accept(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.energized_power_book.txt.shift.1").
+            components.accept(Component.translatable("tooltip.energizedpower.energized_power_book.txt.shift.1").
                     withStyle(ChatFormatting.GRAY));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -53,7 +56,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState state, Level level, BlockPos blockPos, Player player) {
+    public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos blockPos, LivingEntity player) {
         if(!level.isClientSide)
             return false;
 

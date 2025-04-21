@@ -10,11 +10,12 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.DataComponentMatchers;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
@@ -104,8 +105,8 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementType.CHALLENGE,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().
                         of(lookupProvider.lookupOrThrow(Registries.ITEM), EPItems.BATTERY_8).
-                        hasComponents(DataComponentPredicate.builder().
-                                expect(EPDataComponentTypes.ENERGY.get(), BatteryItem.Tier.BATTERY_8.getCapacity()).
+                        withComponents(DataComponentMatchers.Builder.components().
+                                exact(DataComponentExactPredicate.expect(EPDataComponentTypes.ENERGY.get(), BatteryItem.Tier.BATTERY_8.getCapacity())).
                                 build()).
                         build())
         );

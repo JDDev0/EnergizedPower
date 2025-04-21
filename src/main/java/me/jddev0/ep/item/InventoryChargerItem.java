@@ -10,15 +10,18 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -27,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class InventoryChargerItem extends Item implements MenuProvider {
     public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
@@ -61,7 +65,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new InventoryChargerMenu(id, inventory, getInventory(inventory.getSelected()));
+        return new InventoryChargerMenu(id, inventory, getInventory(inventory.getSelectedItem()));
     }
 
     @Override
@@ -87,25 +91,25 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
         SimpleContainer inventory = getInventory(itemStack);
 
         int energy = getEnergy(inventory);
         int capacity = getCapacity(inventory);
         int maxTransfer = getMaxTransfer(inventory);
 
-        components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+        components.accept(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(energy), EnergyUtils.getEnergyWithPrefix(capacity)).
                 withStyle(ChatFormatting.GRAY));
-        components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
+        components.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                         EnergyUtils.getEnergyWithPrefix(maxTransfer)).
                 withStyle(ChatFormatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
+            components.accept(Component.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -125,16 +129,13 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         return received;
     }
 
-    private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, int slot, boolean selected) {
+    private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, @Nullable EquipmentSlot slot) {
         Container inventoryChargerInventory = getInventory(itemStack);
 
         List<IEnergyStorage> consumerItems = new LinkedList<>();
         List<Integer> consumerEnergyValues = new LinkedList<>();
         int consumptionSum = 0;
         for(int i = 0;i < inventory.getContainerSize();i++) {
-            if(i == slot)
-                continue;
-
             ItemStack testItemStack = inventory.getItem(i);
 
             consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack, inventoryChargerInventory);
@@ -236,8 +237,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(itemStack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(itemStack, level, entity, slot);
 
         if(level.isClientSide)
             return;
@@ -252,7 +253,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         if(player.containerMenu instanceof InventoryChargerMenu)
             return;
 
-        distributeEnergy(itemStack, level, inventory, slot, selected);
+        distributeEnergy(itemStack, level, inventory, slot);
     }
 
     public static SimpleContainer getInventory(ItemStack itemStack) {
@@ -290,7 +291,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
                 @Override
                 public boolean stillValid(Player player) {
-                    return super.stillValid(player) && player.getInventory().getSelected() == itemStack;
+                    return super.stillValid(player) && player.getInventory().getSelectedItem() == itemStack;
                 }
 
                 @Override
@@ -324,7 +325,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
             @Override
             public boolean stillValid(Player player) {
-                return super.stillValid(player) && player.getInventory().getSelected() == itemStack;
+                return super.stillValid(player) && player.getInventory().getSelectedItem() == itemStack;
             }
 
             @Override

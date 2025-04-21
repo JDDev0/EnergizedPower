@@ -15,6 +15,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
@@ -38,6 +39,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
@@ -241,14 +243,14 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
+                components.accept(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.cable.txt.shift.2").
+                components.accept(Component.translatable("tooltip.energizedpower.cable.txt.shift.2").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

@@ -40,8 +40,8 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
+        redstoneMode = RedstoneMode.fromIndex(nbt.getIntOr("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getIntOr("configuration.comparator_mode", 0));
     }
 
     public int getRedstoneOutput() {

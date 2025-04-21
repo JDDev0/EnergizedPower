@@ -126,6 +126,6 @@ public class ReceiveAndExtractEnergyStorage implements IEnergizedPowerEnergyStor
             return;
         }
 
-        energy = ((IntTag)tag).getAsInt();
+        energy = ((IntTag)tag).intValue();
     }
 }

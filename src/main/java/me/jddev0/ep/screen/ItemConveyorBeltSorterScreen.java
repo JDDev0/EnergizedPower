@@ -6,7 +6,6 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -57,7 +56,6 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;

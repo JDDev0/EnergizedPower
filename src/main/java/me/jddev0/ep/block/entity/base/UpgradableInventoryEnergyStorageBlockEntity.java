@@ -43,17 +43,19 @@ public abstract class UpgradableInventoryEnergyStorageBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompoundOrEmpty("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         super.loadAdditional(nbt, registries);
     }
 
     @Override
-    public void drops(Level level, BlockPos worldPosition) {
-        super.drops(level, worldPosition);
+    public void preRemoveSideEffects(BlockPos worldPosition, BlockState oldState) {
+        super.preRemoveSideEffects(worldPosition, oldState);
 
-        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
+        if(level != null) {
+            Containers.dropContents(level, worldPosition, upgradeModuleInventory);
+        }
     }
 
     protected void updateUpgradeModules() {

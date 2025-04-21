@@ -6,7 +6,6 @@ import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -31,7 +30,6 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
 
     protected void renderFluidMeterContent(GuiGraphics guiGraphics, FluidStack fluidStack, int tankCapacity, int x, int y,
                                          int w, int h) {
-        RenderSystem.enableBlend();
         guiGraphics.pose().pushPose();
 
         guiGraphics.pose().translate(x, y, 0);
@@ -40,7 +38,6 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
 
         guiGraphics.pose().popPose();
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.disableBlend();
     }
 
     private void renderFluidStack(GuiGraphics guiGraphics, FluidStack fluidStack, int tankCapacity, int w, int h) {
@@ -50,8 +47,6 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
-        if(stillFluidImageId == null)
-            stillFluidImageId = ResourceLocation.withDefaultNamespace("air");
         TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).
                 apply(stillFluidImageId);
 
@@ -60,10 +55,6 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         int fluidMeterPos = tankCapacity == -1 || (fluidStack.getAmount() > 0 && fluidStack.getAmount() == tankCapacity)?
                 0:(h - ((fluidStack.getAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
-
-        RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
 
         Matrix4f mat = guiGraphics.pose().last().pose();
 

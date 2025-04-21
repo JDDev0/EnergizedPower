@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.FluidPumpBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -64,17 +66,8 @@ public class FluidPumpBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof FluidPumpBlockEntity))
-            return;
-
-        ((FluidPumpBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onRemove(state, level, blockPos, newState, isMoving);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override

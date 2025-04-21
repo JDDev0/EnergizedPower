@@ -201,7 +201,7 @@ public class AdvancedChargerBlockEntity
         super.loadAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
-            energyConsumptionLeft[i] = nbt.getInt("recipe.energy_consumption_left." + i);
+            energyConsumptionLeft[i] = nbt.getIntOr("recipe.energy_consumption_left." + i, 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedChargerBlockEntity blockEntity) {

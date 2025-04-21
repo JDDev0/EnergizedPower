@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
@@ -29,7 +30,7 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
     }
 
     @Override
-    public void render(ItemConveyorBeltBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(ItemConveyorBeltBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         Level level = blockEntity.getLevel();
         BlockPos pos = blockEntity.getBlockPos();
 

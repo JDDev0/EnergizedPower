@@ -13,6 +13,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TransformerBlock extends BaseEntityBlock {
     public static final MapCodec<TransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
@@ -121,19 +123,19 @@ public class TransformerBlock extends BaseEntityBlock {
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
+                components.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(TransformerBlockEntity.getMaxEnergyTransferFromTier(tier))).
                         withStyle(ChatFormatting.GRAY));
-                components.add(Component.empty());
-                components.add(Component.translatable("tooltip.energizedpower.transformer.txt.shift.1").withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.transformer.txt.shift.2").
+                components.accept(Component.empty());
+                components.accept(Component.translatable("tooltip.energizedpower.transformer.txt.shift.1").withStyle(ChatFormatting.GRAY));
+                components.accept(Component.translatable("tooltip.energizedpower.transformer.txt.shift.2").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-                components.add(Component.translatable("tooltip.energizedpower.transformer.txt.shift.3").
+                components.accept(Component.translatable("tooltip.energizedpower.transformer.txt.shift.3").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

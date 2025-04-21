@@ -20,14 +20,14 @@
         "color": "black",
         "extra": [
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://wiki.jddev0.com/books/energized-power/page/home"
+              "url": "https://wiki.jddev0.com/books/energized-power/page/home"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -47,14 +47,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://github.com/JDDev0/EnergizedPower/issues"
+              "url": "https://github.com/JDDev0/EnergizedPower/issues"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -74,14 +74,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://discord.gg/sAKDNAU7yH"
+              "url": "https://discord.gg/sAKDNAU7yH"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },
@@ -101,14 +101,14 @@
           },
           ": ",
           {
-            "clickEvent": {
+            "click_event": {
               "action": "open_url",
-              "value": "https://www.reddit.com/r/EnergizedPower/"
+              "url": "https://www.reddit.com/r/EnergizedPower/"
             },
             "color": "blue",
-            "hoverEvent": {
+            "hover_event": {
               "action": "show_text",
-              "contents": {
+              "value": {
                 "translate": "book.energizedpower.tooltip.link"
               }
             },

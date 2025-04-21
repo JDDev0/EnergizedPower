@@ -173,8 +173,8 @@ public class EnergizerBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+        progress = nbt.getIntOr("recipe.progress", 0);
+        energyConsumptionLeft = nbt.getIntOr("recipe.energy_consumption_left", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {

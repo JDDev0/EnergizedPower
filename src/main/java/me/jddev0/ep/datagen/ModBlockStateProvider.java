@@ -6,11 +6,14 @@ import me.jddev0.ep.datagen.model.ModModelTemplates;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import me.jddev0.ep.fluid.EPFluids;
 import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.*;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -320,8 +323,8 @@ public class ModBlockStateProvider {
                         copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                 ModelTemplates.CUBE).get(block.value()).create(block.value(), generator.modelOutput);
 
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value(),
-                Variant.variant().with(VariantProperties.MODEL, model)));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(),
+                new MultiVariant(WeightedList.of(new Variant(model)))));
 
         generator.registerSimpleItemModel(block.value(), model);
     }
@@ -337,26 +340,19 @@ public class ModBlockStateProvider {
                         copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                 ModelTemplates.CUBE).get(block.value()).create(block.value(), generator.modelOutput);
 
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value(),
-                Variant.variant().with(VariantProperties.MODEL, model)));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(),
+                new MultiVariant(WeightedList.of(new Variant(model)))));
 
         generator.registerSimpleItemModel(block.value(), model);
     }
 
     private void orientableBlockWithItem(Holder<Block> block, ResourceLocation model) {
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                with(PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING).
-                        select(Direction.NORTH, Variant.variant().
-                                with(VariantProperties.MODEL, model)).
-                        select(Direction.SOUTH, Variant.variant().
-                                with(VariantProperties.MODEL, model).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                        select(Direction.EAST, Variant.variant().
-                                with(VariantProperties.MODEL, model).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        select(Direction.WEST, Variant.variant().
-                                with(VariantProperties.MODEL, model).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(), new MultiVariant(WeightedList.of(new Variant(model)))).
+                with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, BlockModelGenerators.NOP).
+                        select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                        select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                        select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                 ));
 
         generator.registerSimpleItemModel(block.value(), model);
@@ -375,24 +371,18 @@ public class ModBlockStateProvider {
     }
 
     private void orientableSixDirsBlockWithItem(Holder<Block> block, ResourceLocation modelNormal, ResourceLocation modelVertical) {
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                with(PropertyDispatch.property(BlockStateProperties.FACING).
-                        select(Direction.UP, Variant.variant().
-                                with(VariantProperties.MODEL, modelVertical)).
-                        select(Direction.DOWN, Variant.variant().
-                                with(VariantProperties.MODEL, modelVertical).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
-                        select(Direction.NORTH, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal)).
-                        select(Direction.SOUTH, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                        select(Direction.EAST, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        select(Direction.WEST, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
+                with(PropertyDispatch.initial(BlockStateProperties.FACING).
+                        select(Direction.UP, new MultiVariant(WeightedList.of(new Variant(modelVertical)))).
+                        select(Direction.DOWN, new MultiVariant(WeightedList.of(new Variant(modelVertical).
+                                with(BlockModelGenerators.X_ROT_180)))).
+                        select(Direction.NORTH, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
+                        select(Direction.SOUTH, new MultiVariant(WeightedList.of(new Variant(modelNormal).
+                                with(BlockModelGenerators.Y_ROT_180)))).
+                        select(Direction.EAST, new MultiVariant(WeightedList.of(new Variant(modelNormal).
+                                with(BlockModelGenerators.Y_ROT_90)))).
+                        select(Direction.WEST, new MultiVariant(WeightedList.of(new Variant(modelNormal).
+                                with(BlockModelGenerators.Y_ROT_270))))
                 ));
 
         generator.registerSimpleItemModel(block.value(), modelNormal);
@@ -400,12 +390,10 @@ public class ModBlockStateProvider {
 
     private void activatableBlockWithItem(Holder<Block> block, ResourceLocation modelNormal,
                                           ResourceLocation modelActive, BooleanProperty isActiveProperty) {
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                with(PropertyDispatch.property(isActiveProperty).
-                        select(false, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal)).
-                        select(true, Variant.variant().
-                                with(VariantProperties.MODEL, modelActive))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
+                with(PropertyDispatch.initial(isActiveProperty).
+                        select(false, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
+                        select(true, new MultiVariant(WeightedList.of(new Variant(modelActive))))
                 ));
 
         generator.registerSimpleItemModel(block.value(), modelNormal);
@@ -413,30 +401,15 @@ public class ModBlockStateProvider {
 
     private void activatableOrientableBlockWithItem(Holder<Block> block, ResourceLocation modelNormal,
                                                     ResourceLocation modelActive, BooleanProperty isActiveProperty) {
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                with(PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, isActiveProperty).
-                        select(Direction.NORTH, false, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal)).
-                        select(Direction.NORTH, true, Variant.variant().
-                                with(VariantProperties.MODEL, modelActive)).
-                        select(Direction.SOUTH, false, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                        select(Direction.SOUTH, true, Variant.variant().
-                                with(VariantProperties.MODEL, modelActive).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                        select(Direction.EAST, false, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        select(Direction.EAST, true, Variant.variant().
-                                with(VariantProperties.MODEL, modelActive).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        select(Direction.WEST, false, Variant.variant().
-                                with(VariantProperties.MODEL, modelNormal).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)).
-                        select(Direction.WEST, true, Variant.variant().
-                                with(VariantProperties.MODEL, modelActive).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
+                with(PropertyDispatch.initial(isActiveProperty).
+                        select(false, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
+                        select(true, new MultiVariant(WeightedList.of(new Variant(modelActive))))).
+                with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, BlockModelGenerators.NOP).
+                        select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                        select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                        select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                 ));
 
         generator.registerSimpleItemModel(block.value(), modelNormal);
@@ -450,43 +423,29 @@ public class ModBlockStateProvider {
         ResourceLocation modelDescending = ModTexturedModel.ITEM_CONVEYOR_BELT_DESCENDING.get(block.value()).
                 createWithSuffix(block.value(), "_descending", generator.modelOutput);
 
-        PropertyDispatch.C1<EPBlockStateProperties.ConveyorBeltDirection> builder =
-                PropertyDispatch.property(ItemConveyorBeltBlock.FACING);
-
-        for(EPBlockStateProperties.ConveyorBeltDirection beltDir: EPBlockStateProperties.ConveyorBeltDirection.values()) {
-            Variant blockStateVariant = Variant.variant();
-
-            if(beltDir.isAscending()) {
-                switch(beltDir.getDirection()) {
-                    case NORTH -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
-                    case WEST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
-                    case EAST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
-                }
-
-                blockStateVariant.with(VariantProperties.MODEL, modelAscending);
-            }else if(beltDir.isDescending()) {
-                switch(beltDir.getDirection()) {
-                    case SOUTH -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
-                    case WEST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
-                    case EAST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
-                }
-
-                blockStateVariant.with(VariantProperties.MODEL, modelDescending);
-            }else {
-                switch(beltDir.getDirection()) {
-                    case NORTH -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180);
-                    case WEST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90);
-                    case EAST -> blockStateVariant.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270);
-                }
-
-                blockStateVariant.with(VariantProperties.MODEL, modelFlat);
-            }
-
-            builder.select(beltDir, blockStateVariant);
-        }
-
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                with(builder));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
+                with(PropertyDispatch.initial(ItemConveyorBeltBlock.FACING).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_NORTH_SOUTH, new MultiVariant(WeightedList.of(new Variant(modelAscending)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_SOUTH_NORTH, new MultiVariant(WeightedList.of(new Variant(modelAscending).
+                                with(BlockModelGenerators.Y_ROT_180)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_WEST_EAST, new MultiVariant(WeightedList.of(new Variant(modelAscending).
+                                with(BlockModelGenerators.Y_ROT_270)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_EAST_WEST, new MultiVariant(WeightedList.of(new Variant(modelAscending).
+                                with(BlockModelGenerators.Y_ROT_90)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_NORTH_SOUTH, new MultiVariant(WeightedList.of(new Variant(modelDescending).
+                                with(BlockModelGenerators.Y_ROT_180)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_SOUTH_NORTH, new MultiVariant(WeightedList.of(new Variant(modelDescending)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_WEST_EAST, new MultiVariant(WeightedList.of(new Variant(modelDescending).
+                                with(BlockModelGenerators.Y_ROT_90)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_EAST_WEST, new MultiVariant(WeightedList.of(new Variant(modelDescending).
+                                with(BlockModelGenerators.Y_ROT_270)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.NORTH_SOUTH, new MultiVariant(WeightedList.of(new Variant(modelFlat)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.SOUTH_NORTH, new MultiVariant(WeightedList.of(new Variant(modelFlat).
+                                with(BlockModelGenerators.Y_ROT_180)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.WEST_EAST, new MultiVariant(WeightedList.of(new Variant(modelFlat).
+                                with(BlockModelGenerators.Y_ROT_270)))).
+                        select(EPBlockStateProperties.ConveyorBeltDirection.EAST_WEST, new MultiVariant(WeightedList.of(new Variant(modelFlat).
+                                with(BlockModelGenerators.Y_ROT_90))))));
 
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.value()), TextureMapping.layer0(TextureMapping.getBlockTexture(block.value())), generator.modelOutput);
     }
@@ -499,44 +458,67 @@ public class ModBlockStateProvider {
         ResourceLocation fluidPipeSideExtract = ModTexturedModel.FLUID_PIPE_SIDE_EXTRACT.get(block.value()).
                 createWithSuffix(block.value(), "_side_extract", generator.modelOutput);
 
-        generator.blockStateOutput.accept(
-                MultiPartGenerator.multiPart(block.value()).
-                        with(Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeCore)).
-                        with(Condition.condition().term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideConnected).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
-                        with(Condition.condition().term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideExtract).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
-                        with(Condition.condition().term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideConnected).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
-                        with(Condition.condition().term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideExtract).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
-                        with(Condition.condition().term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideConnected)).
-                        with(Condition.condition().term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideExtract)).
-                        with(Condition.condition().term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideConnected).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
-                        with(Condition.condition().term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideExtract).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
-                        with(Condition.condition().term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideConnected).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        with(Condition.condition().term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideExtract).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        with(Condition.condition().term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.CONNECTED), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideConnected).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)).
-                        with(Condition.condition().term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.EXTRACT), Variant.variant().
-                                with(VariantProperties.MODEL, fluidPipeSideExtract).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block.value()).
+                with(
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeCore)))).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.X_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.X_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.X_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.X_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected)))).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract)))).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.Y_ROT_180)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.Y_ROT_180)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.Y_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.Y_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.Y_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.Y_ROT_270))
         );
 
         generator.registerSimpleItemModel(block.value(), fluidPipeCore);
@@ -545,19 +527,12 @@ public class ModBlockStateProvider {
     private void fluidTankBlockWithItem(Holder<Block> block) {
         ResourceLocation fluidTank = ModTexturedModel.FLUID_TANK.get(block.value()).create(block.value(), generator.modelOutput);
 
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                with(PropertyDispatch.property(FluidTankBlock.FACING).
-                        select(Direction.NORTH, Variant.variant().
-                                with(VariantProperties.MODEL, fluidTank)).
-                        select(Direction.SOUTH, Variant.variant().
-                                with(VariantProperties.MODEL, fluidTank).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                        select(Direction.EAST, Variant.variant().
-                                with(VariantProperties.MODEL, fluidTank).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        select(Direction.WEST, Variant.variant().
-                                with(VariantProperties.MODEL, fluidTank).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(), new MultiVariant(WeightedList.of(new Variant(fluidTank)))).
+                with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, BlockModelGenerators.NOP).
+                        select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                        select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                        select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                 ));
 
         generator.registerSimpleItemModel(block.value(), fluidTank);
@@ -567,27 +542,38 @@ public class ModBlockStateProvider {
         ResourceLocation cableCore = ModTexturedModel.CABLE_CORE.get(block.value()).createWithSuffix(block.value(), "_core", generator.modelOutput);
         ResourceLocation cableSide = ModTexturedModel.CABLE_SIDE.get(block.value()).createWithSuffix(block.value(), "_side", generator.modelOutput);
 
-        generator.blockStateOutput.accept(
-                MultiPartGenerator.multiPart(block.value()).
-                        with(Variant.variant().
-                                with(VariantProperties.MODEL, cableCore)).
-                        with(Condition.condition().term(CableBlock.UP, true), Variant.variant().
-                                with(VariantProperties.MODEL, cableSide).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
-                        with(Condition.condition().term(CableBlock.DOWN, true), Variant.variant().
-                                with(VariantProperties.MODEL, cableSide).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
-                        with(Condition.condition().term(CableBlock.NORTH, true), Variant.variant().
-                                with(VariantProperties.MODEL, cableSide)).
-                        with(Condition.condition().term(CableBlock.SOUTH, true), Variant.variant().
-                                with(VariantProperties.MODEL, cableSide).
-                                with(VariantProperties.X_ROT, VariantProperties.Rotation.R180)).
-                        with(Condition.condition().term(CableBlock.EAST, true), Variant.variant().
-                                with(VariantProperties.MODEL, cableSide).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                        with(Condition.condition().term(CableBlock.WEST, true), Variant.variant().
-                                with(VariantProperties.MODEL, cableSide).
-                                with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block.value()).
+                with(
+                        new MultiVariant(WeightedList.of(new Variant(cableCore)))).
+                with(
+                        new ConditionBuilder().
+                                term(CableBlock.UP, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(CableBlock.DOWN, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(CableBlock.NORTH, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide)))).
+                with(
+                        new ConditionBuilder().
+                                term(CableBlock.SOUTH, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
+                with(
+                        new ConditionBuilder().
+                                term(CableBlock.EAST, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(CableBlock.WEST, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.Y_ROT_270))
         );
 
         generator.registerSimpleItemModel(block.value(), cableCore);
@@ -615,25 +601,14 @@ public class ModBlockStateProvider {
                                 copySlot(TextureSlot.TOP, TextureSlot.PARTICLE),
                         ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block.value()).create(block.value(), generator.modelOutput);
 
-                generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                        with(PropertyDispatch.property(BlockStateProperties.FACING).
-                                select(Direction.UP, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
-                                select(Direction.DOWN, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).
-                                select(Direction.NORTH, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer)).
-                                select(Direction.SOUTH, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                                select(Direction.EAST, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                                select(Direction.WEST, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(), new MultiVariant(WeightedList.of(new Variant(transformer)))).
+                        with(PropertyDispatch.modify(BlockStateProperties.FACING).
+                                select(Direction.UP, BlockModelGenerators.X_ROT_270).
+                                select(Direction.DOWN, BlockModelGenerators.X_ROT_90).
+                                select(Direction.NORTH, BlockModelGenerators.NOP).
+                                select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                                select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                                select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                         ));
 
                 generator.registerSimpleItemModel(block.value(), transformer);
@@ -649,28 +624,17 @@ public class ModBlockStateProvider {
                                 copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                         ModelTemplates.CUBE).get(block.value()).create(block.value(), generator.modelOutput);
 
-                generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
-                        with(PropertyDispatch.property(BlockStateProperties.FACING).
-                                select(Direction.UP, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)).
-                                select(Direction.DOWN, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                                select(Direction.NORTH, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer)).
-                                select(Direction.SOUTH, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)).
-                                select(Direction.EAST, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).
-                                select(Direction.WEST, Variant.variant().
-                                        with(VariantProperties.MODEL, transformer).
-                                        with(VariantProperties.X_ROT, VariantProperties.Rotation.R90).
-                                        with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(), new MultiVariant(WeightedList.of(new Variant(transformer)))).
+                        with(PropertyDispatch.modify(BlockStateProperties.FACING).
+                                select(Direction.UP, BlockModelGenerators.X_ROT_270).
+                                select(Direction.DOWN, BlockModelGenerators.X_ROT_90.
+                                        then(BlockModelGenerators.Y_ROT_90)).
+                                select(Direction.NORTH, BlockModelGenerators.NOP).
+                                select(Direction.SOUTH, BlockModelGenerators.X_ROT_90.
+                                        then(BlockModelGenerators.Y_ROT_180)).
+                                select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                                select(Direction.WEST, BlockModelGenerators.X_ROT_90.
+                                        then(BlockModelGenerators.Y_ROT_270))
                         ));
 
                 generator.registerSimpleItemModel(block.value(), transformer);
@@ -681,8 +645,8 @@ public class ModBlockStateProvider {
     private void solarPanelBlockWithItem(Holder<Block> block) {
         ResourceLocation solarPanel = ModTexturedModel.SOLAR_PANEL.get(block.value()).create(block.value(), generator.modelOutput);
 
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value(),
-                Variant.variant().with(VariantProperties.MODEL, solarPanel)));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(),
+                new MultiVariant(WeightedList.of(new Variant(solarPanel)))));
 
         generator.registerSimpleItemModel(block.value(), solarPanel);
     }
@@ -703,15 +667,13 @@ public class ModBlockStateProvider {
                         put(TextureSlot.ALL, TextureMapping.getBlockTexture(block.value(), "_on")),
                 ModelTemplates.CUBE_ALL).get(block.value()).createWithSuffix(block.value(), "_on", generator.modelOutput);
 
-        PropertyDispatch.C1<Integer> builder = PropertyDispatch.property(BlockStateProperties.LEVEL).
-                select(0, Variant.variant().
-                        with(VariantProperties.MODEL, modelOff));
+        PropertyDispatch.C1<MultiVariant, Integer> builder = PropertyDispatch.initial(BlockStateProperties.LEVEL).
+                select(0, new MultiVariant(WeightedList.of(new Variant(modelOff))));
 
         for(int i = 1;i < 16;i++)
-            builder.select(i, Variant.variant().
-                    with(VariantProperties.MODEL, modelOn));
+            builder.select(i, new MultiVariant(WeightedList.of(new Variant(modelOn))));
 
-        generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block.value()).
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
                 with(builder));
 
         generator.registerSimpleItemModel(block.value(), modelOff);

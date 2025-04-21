@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +25,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CreativeBatteryBoxBlock extends BaseEntityBlock {
     public static final MapCodec<CreativeBatteryBoxBlock> CODEC = simpleCodec(CreativeBatteryBoxBlock::new);
@@ -74,18 +76,18 @@ public class CreativeBatteryBoxBlock extends BaseEntityBlock {
         }
 
         @Override
-        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
+        public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
             if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.capacity.txt",
+                components.accept(Component.translatable("tooltip.energizedpower.capacity.txt",
                                 Component.translatable("tooltip.energizedpower.infinite.txt").
                                         withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
                         withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
+                components.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 Component.translatable("tooltip.energizedpower.infinite.txt").
                                         withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
                         withStyle(ChatFormatting.GRAY));
             }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+                components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

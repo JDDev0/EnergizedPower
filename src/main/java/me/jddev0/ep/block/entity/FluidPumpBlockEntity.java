@@ -171,11 +171,11 @@ public class FluidPumpBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        xOffset = nbt.getInt("target.xOffset");
-        yOffset = nbt.getInt("target.yOffset");
-        zOffset = nbt.getInt("target.zOffset");
+        xOffset = nbt.getIntOr("target.xOffset", 0);
+        yOffset = nbt.getIntOr("target.yOffset", 0);
+        zOffset = nbt.getIntOr("target.zOffset", 0);
 
-        extractingFluid = nbt.getBoolean("recipe.extractingFluid");
+        extractingFluid = nbt.getBooleanOr("recipe.extractingFluid", false);
     }
 
     @Override

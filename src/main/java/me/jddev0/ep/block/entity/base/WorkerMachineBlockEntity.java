@@ -72,9 +72,9 @@ public abstract class WorkerMachineBlockEntity<W>
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+        progress = nbt.getIntOr("recipe.progress", 0);
+        maxProgress = nbt.getIntOr("recipe.max_progress", 0);
+        energyConsumptionLeft = nbt.getIntOr("recipe.energy_consumption_left", 0);
     }
 
     public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {

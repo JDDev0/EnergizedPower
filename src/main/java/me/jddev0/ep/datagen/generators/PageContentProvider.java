@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
+import java.net.URI;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.TreeMap;
@@ -68,71 +69,72 @@ public abstract  class PageContentProvider implements DataProvider {
 
     protected MutableComponent addLinkToComponent(MutableComponent component, String link) {
         return component.withStyle(ChatFormatting.BLUE, ChatFormatting.UNDERLINE).withStyle(Style.EMPTY.
-                withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link)).
-                withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        Component.translatable("book.energizedpower.tooltip.link"))));
+                withClickEvent(new ClickEvent.OpenUrl(URI.create(link))).
+                withHoverEvent(new HoverEvent.ShowText(Component.translatable("book.energizedpower.tooltip.link"))));
     }
 
-    protected PageContent addSimplePage(String pageId, @Nullable Component content) {
-        return addPage(pageId, null, content, null, null);
+    protected PageContent addSimplePage(String pageId, @Nullable Component content, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
+        return addPage(pageId, null, content, null, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        @Nullable ResourceLocation image) {
+                                        @Nullable ResourceLocation image, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         return addPage(pageId, null, content, image == null?null:new ResourceLocation[] {
                 image
-        }, null);
+        }, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        @Nullable ResourceLocation[] image) {
-        return addPage(pageId, null, content, image, null);
+                                        @Nullable ResourceLocation[] image, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
+        return addPage(pageId, null, content, image, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        Block block) {
+                                        Block block, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         return addSimplePage(pageId, content, new Block[] {
                 block
-        });
+        }, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        Block[] block) {
+                                        Block[] block, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         ResourceLocation[] blockIds = new ResourceLocation[block.length];
         for(int i = 0;i < blockIds.length;i++)
             blockIds[i] = BuiltInRegistries.BLOCK.getKey(block[i]);
 
-        return addPage(pageId, null, content, null, blockIds);
+        return addPage(pageId, null, content, null, blockIds, changePageIntToId);
     }
 
     protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
-                                         Block block) {
+                                         Block block, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         return addChapterPage(pageId, title, content, new Block[] {
                 block
-        });
+        }, changePageIntToId);
     }
     protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
-                                         Block[] block) {
+                                         Block[] block, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         ResourceLocation[] blockIds = new ResourceLocation[block.length];
         for(int i = 0;i < blockIds.length;i++)
             blockIds[i] = BuiltInRegistries.BLOCK.getKey(block[i]);
 
-        return addPage(pageId, title, content, null, blockIds);
-    }
-    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content) {
-        return addChapterPage(pageId, title, content, (ResourceLocation[])null);
+        return addPage(pageId, title, content, null, blockIds, changePageIntToId);
     }
     protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
-                                         @Nullable ResourceLocation image) {
+                                         @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
+        return addChapterPage(pageId, title, content, (ResourceLocation[])null, changePageIntToId);
+    }
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
+                                         @Nullable ResourceLocation image, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         return addPage(pageId, title, content, image == null?null:new ResourceLocation[] {
                 image
-        }, null);
+        }, null, changePageIntToId);
     }
     protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
-                                         @Nullable ResourceLocation[] image) {
-        return addPage(pageId, title, content, image, null);
+                                         @Nullable ResourceLocation[] image, @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
+        return addPage(pageId, title, content, image, null, changePageIntToId);
     }
 
     protected PageContent addPage(String pageId, @Nullable Component title, @Nullable Component content,
-                                  @Nullable ResourceLocation[] image, @Nullable ResourceLocation[] block) {
+                                  @Nullable ResourceLocation[] image, @Nullable ResourceLocation[] block,
+                                  @Nullable Map<Integer, ResourceLocation> changePageIntToId) {
         PageContent pageContent = new PageContent(ResourceLocation.fromNamespaceAndPath(modid, pageId),
-                title, content, image, block);
+                title, content, image, block, changePageIntToId);
         data.put(pageId, pageContent);
         return pageContent;
     }

@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -32,7 +33,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
 
     @Override
     public void render(AbstractFluidTankBlockEntity<?> blockEntity, float partialTick, PoseStack poseStack,
-                       MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+                       MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         int capacity = blockEntity.getTankCapacity(0);
         FluidStack fluidStack = blockEntity.getFluid(0);
 

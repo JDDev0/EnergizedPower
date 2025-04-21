@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -26,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements MenuProvider {
     public static final int CAPACITY = ModConfigs.COMMON_INVENTORY_TELEPORTER_CAPACITY.getValue();
@@ -61,12 +63,12 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new InventoryTeleporterMenu(id, inventory, getInventory(inventory.getSelected()));
+        return new InventoryTeleporterMenu(id, inventory, getInventory(inventory.getSelectedItem()));
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, context, components, tooltipFlag);
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, context, display, components, tooltipFlag);
 
         SimpleContainer inventory = getInventory(itemStack);
         ItemStack teleporterMatrixItemStack = inventory.getItem(0);
@@ -74,28 +76,28 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
         DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = TeleporterMatrixItem.isLinked(teleporterMatrixItemStack) && dimPos != null;
 
-        components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
+        components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
                 append(Component.translatable("tooltip.energizedpower.teleporter_matrix.status." +
                         (linked?"linked":"unlinked")).withStyle(linked?ChatFormatting.GREEN:ChatFormatting.RED)));
 
         if(linked) {
-            components.add(Component.empty());
+            components.accept(Component.empty());
 
-            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.location").
+            components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.location").
                     append(Component.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
-            components.add(Component.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
+            components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
                     append(Component.literal(dimPos.dimensionId().toString())));
         }
 
-        components.add(Component.empty());
+        components.accept(Component.empty());
 
         if(Screen.hasShiftDown()) {
-            components.add(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
+            components.accept(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            components.add(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
+            components.accept(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -133,7 +135,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
 
                 @Override
                 public boolean stillValid(Player player) {
-                    return super.stillValid(player) && player.getInventory().getSelected() == itemStack;
+                    return super.stillValid(player) && player.getInventory().getSelectedItem() == itemStack;
                 }
 
                 @Override
@@ -166,7 +168,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
 
             @Override
             public boolean stillValid(Player player) {
-                return super.stillValid(player) && player.getInventory().getSelected() == itemStack;
+                return super.stillValid(player) && player.getInventory().getSelectedItem() == itemStack;
             }
 
             @Override

@@ -198,11 +198,11 @@ public class AdvancedPoweredFurnaceBlockEntity
         super.loadAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
-            progress[i] = nbt.getInt("recipe.progress." + i);
+            progress[i] = nbt.getIntOr("recipe.progress." + i, 0);
         for(int i = 0;i < 3;i++)
-            maxProgress[i] = nbt.getInt("recipe.max_progress." + i);
+            maxProgress[i] = nbt.getIntOr("recipe.max_progress." + i, 0);
         for(int i = 0;i < 3;i++)
-            energyConsumptionLeft[i] = nbt.getInt("recipe.energy_consumption_left." + i);
+            energyConsumptionLeft[i] = nbt.getIntOr("recipe.energy_consumption_left." + i, 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {

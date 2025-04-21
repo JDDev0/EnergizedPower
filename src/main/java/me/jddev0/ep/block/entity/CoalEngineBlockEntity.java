@@ -153,9 +153,9 @@ public class CoalEngineBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyProductionLeft = nbt.getInt("recipe.energy_production_left");
+        progress = nbt.getIntOr("recipe.progress", 0);
+        maxProgress = nbt.getIntOr("recipe.max_progress", 0);
+        energyProductionLeft = nbt.getIntOr("recipe.energy_production_left", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {

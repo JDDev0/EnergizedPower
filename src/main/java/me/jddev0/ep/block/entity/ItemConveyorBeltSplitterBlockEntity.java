@@ -37,7 +37,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        currentOutputIndex = nbt.getInt("current_output_index");
+        currentOutputIndex = nbt.getIntOr("current_output_index", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSplitterBlockEntity blockEntity) {

@@ -112,12 +112,12 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        loadPatternContainer(nbt.getCompound("pattern"), registries);
+        loadPatternContainer(nbt.getCompoundOrEmpty("pattern"), registries);
 
         for(int i = 0;i < 3;i++)
-            whitelist[i] = nbt.getBoolean("recipe.whitelist." + i);
+            whitelist[i] = nbt.getBooleanOr("recipe.whitelist." + i, false);
         for(int i = 0;i < 3;i++)
-            ignoreNBT[i] = nbt.getBoolean("recipe.ignore_nbt." + i);
+            ignoreNBT[i] = nbt.getBooleanOr("recipe.ignore_nbt." + i, false);
     }
 
     private void loadPatternContainer(CompoundTag tag, HolderLookup.Provider registries) {

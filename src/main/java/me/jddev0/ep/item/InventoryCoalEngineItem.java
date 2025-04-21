@@ -10,19 +10,24 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements ActivatableItem, WorkingItem {
     public static final int CAPACITY = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_CAPACITY.getValue();
@@ -35,12 +40,12 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, context, components, tooltipFlag);
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
+        super.appendHoverText(itemStack, context, display, components, tooltipFlag);
 
         boolean active = isActive(itemStack);
 
-        components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.status").withStyle(ChatFormatting.GRAY).
+        components.accept(Component.translatable("tooltip.energizedpower.inventory_coal_engine.status").withStyle(ChatFormatting.GRAY).
                 append(Component.translatable("tooltip.energizedpower.inventory_coal_engine.status." +
                         (active?"activated":"deactivated")).withStyle(active?ChatFormatting.GREEN:ChatFormatting.RED)));
 
@@ -48,21 +53,21 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             int energyProductionLeft = getEnergyProductionLeft(itemStack);
             ItemStack item = getCurrentBurningItem(itemStack);
             if(energyProductionLeft > 0 && item != null) {
-                components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
+                components.accept(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning").
                         withStyle(ChatFormatting.GRAY).
                         append(item.getDisplayName()));
 
-                components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left",
+                components.accept(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left",
                                 EnergyUtils.getEnergyWithPrefix(energyProductionLeft)).
                         withStyle(ChatFormatting.GRAY));
             }
 
-            components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.1").
+            components.accept(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            components.add(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.2").
+            components.accept(Component.translatable("tooltip.energizedpower.inventory_coal_engine.txt.shift.2").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
+            components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
@@ -82,14 +87,11 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         return received;
     }
 
-    private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, int slot, boolean selected) {
+    private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, @Nullable EquipmentSlot slot) {
         List<IEnergyStorage> consumerItems = new LinkedList<>();
         List<Integer> consumerEnergyValues = new LinkedList<>();
         int consumptionSum = 0;
         for(int i = 0;i < inventory.getContainerSize();i++) {
-            if(i == slot)
-                continue;
-
             ItemStack testItemStack = inventory.getItem(i);
 
             consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);
@@ -135,8 +137,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(itemStack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(itemStack, level, entity, slot);
 
         if(level.isClientSide)
             return;
@@ -150,7 +152,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         Player player = (Player)entity;
         Inventory inventory = player.getInventory();
 
-        distributeEnergy(itemStack, level, inventory, slot, selected);
+        distributeEnergy(itemStack, level, inventory, slot);
 
         int energyProductionLeft = getEnergyProductionLeft(itemStack);
         if(energyProductionLeft > 0) {
@@ -191,10 +193,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
 
         //i: 0 - 8 -> Hotbar (Ignore)
         //"< items.size()": Ignore armor and offhand slots
-        for(int i = 9;i < inventory.items.size();i++) {
-            if(i == slot)
-                continue;
-
+        for(int i = 9;i < inventory.getNonEquipmentItems().size();i++) {
             ItemStack testItemStack = inventory.getItem(i);
             int energyProduction = testItemStack.getBurnTime(null, level.fuelValues());
             if(energyProduction <= 0)

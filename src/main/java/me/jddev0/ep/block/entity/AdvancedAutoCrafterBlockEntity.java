@@ -273,7 +273,7 @@ public class AdvancedAutoCrafterBlockEntity
         super.loadAdditional(nbt, registries);
 
         for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.getCompound("pattern." + i), registries);
+            loadPatternContainer(i, nbt.getCompoundOrEmpty("pattern." + i), registries);
 
         for(int i = 0;i < 3;i++) {
             if(nbt.contains("recipe.id." + i)) {
@@ -282,19 +282,19 @@ public class AdvancedAutoCrafterBlockEntity
                 if(!(tag instanceof StringTag stringTag))
                     throw new IllegalArgumentException("Tag must be of type StringTag!");
 
-                recipeIdForSetRecipe[i] = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(stringTag.getAsString()));
+                recipeIdForSetRecipe[i] = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(stringTag.asString().orElse("")));
             }
 
-            progress[i] = nbt.getInt("recipe.progress." + i);
-            maxProgress[i] = nbt.getInt("recipe.max_progress." + i);
-            energyConsumptionLeft[i] = nbt.getInt("recipe.energy_consumption_left." + i);
+            progress[i] = nbt.getIntOr("recipe.progress." + i, 0);
+            maxProgress[i] = nbt.getIntOr("recipe.max_progress." + i, 0);
+            energyConsumptionLeft[i] = nbt.getIntOr("recipe.energy_consumption_left." + i, 0);
 
-            ignoreNBT[i] = nbt.getBoolean("ignore_nbt." + i);
+            ignoreNBT[i] = nbt.getBooleanOr("ignore_nbt." + i, false);
         }
 
-        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+        secondaryExtractMode = nbt.getBooleanOr("secondary_extract_mode", false);
 
-        currentRecipeIndex = nbt.getInt("current_recipe_index");
+        currentRecipeIndex = nbt.getIntOr("current_recipe_index", 0);
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
             currentRecipeIndex = 0;
     }

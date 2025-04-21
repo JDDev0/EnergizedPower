@@ -211,7 +211,7 @@ public class AutoCrafterBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        loadPatternContainer(nbt.getCompound("pattern"), registries);
+        loadPatternContainer(nbt.getCompoundOrEmpty("pattern"), registries);
 
         if(nbt.contains("recipe.id")) {
             Tag tag = nbt.get("recipe.id");
@@ -219,15 +219,15 @@ public class AutoCrafterBlockEntity
             if(!(tag instanceof StringTag stringTag))
                 throw new IllegalArgumentException("Tag must be of type StringTag!");
 
-            recipeIdForSetRecipe = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(stringTag.getAsString()));
+            recipeIdForSetRecipe = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(stringTag.asString().orElse("")));
         }
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getInt("recipe.energy_consumption_left");
+        progress = nbt.getIntOr("recipe.progress", 0);
+        maxProgress = nbt.getIntOr("recipe.max_progress", 0);
+        energyConsumptionLeft = nbt.getIntOr("recipe.energy_consumption_left", 0);
 
-        ignoreNBT = nbt.getBoolean("ignore_nbt");
-        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+        ignoreNBT = nbt.getBooleanOr("ignore_nbt", false);
+        secondaryExtractMode = nbt.getBooleanOr("secondary_extract_mode", false);
     }
 
     private void loadPatternContainer(CompoundTag tag, HolderLookup.Provider registries) {

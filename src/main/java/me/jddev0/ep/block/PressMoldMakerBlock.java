@@ -3,6 +3,8 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -52,17 +54,8 @@ public class PressMoldMakerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof PressMoldMakerBlockEntity))
-            return;
-
-        ((PressMoldMakerBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onRemove(state, level, blockPos, newState, isMoving);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override

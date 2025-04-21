@@ -89,7 +89,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         super.loadAdditional(nbt, registries);
 
         if(nbt.contains("recipe.id"))
-            currentRecipeIdForLoad = ResourceLocation.tryParse(nbt.getString("recipe.id"));
+            currentRecipeIdForLoad = ResourceLocation.tryParse(nbt.getStringOr("recipe.id", ""));
     }
 
     @Nullable
