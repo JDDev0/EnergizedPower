@@ -20,6 +20,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
@@ -32,7 +33,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
     }
 
     @Override
-    public void render(AbstractFluidTankBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
+    public void render(AbstractFluidTankBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay, Vec3d cameraPos) {
         long capacity = blockEntity.getTankCapacity(0);
         FluidStack fluidStack = blockEntity.getFluid(0);
 

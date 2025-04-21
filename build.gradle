@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
 	
 }
@@ -75,9 +75,9 @@ dependencies {
 
 	// REI integration
 	modCompileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	modCompileOnlyApi "dev.architectury:architectury-fabric:15.0.1"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:18.0.796"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:18.0.796"
+	modCompileOnlyApi "dev.architectury:architectury-fabric:16.1.4"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:19.0.806"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:19.0.806"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"

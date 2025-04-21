@@ -4,6 +4,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -11,6 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class BatteryItem extends EnergizedPowerEnergyItem {
     private final Tier tier;
@@ -22,14 +24,14 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, displayComponent, tooltip, type);
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.battery.txt.shift.1",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.battery.txt.shift.1",
                             EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).formatted(Formatting.GRAY));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 

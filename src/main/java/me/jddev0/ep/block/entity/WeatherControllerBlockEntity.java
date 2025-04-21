@@ -95,7 +95,7 @@ public class WeatherControllerBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        selectedWeatherType = nbt.contains("selected_weather_type")?nbt.getInt("selected_weather_type"):-1;
+        selectedWeatherType = nbt.contains("selected_weather_type")?nbt.getInt("selected_weather_type", 0):-1;
     }
 
 

@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
@@ -39,6 +40,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CableBlock extends BlockWithEntity implements Waterloggable {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
@@ -260,14 +262,14 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.cable.txt.shift.1",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.cable.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.cable.txt.shift.2").
+                tooltip.accept(Text.translatable("tooltip.energizedpower.cable.txt.shift.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

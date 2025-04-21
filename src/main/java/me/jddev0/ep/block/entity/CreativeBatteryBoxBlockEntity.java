@@ -85,8 +85,8 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        energyProduction = !nbt.contains("energy_production") || nbt.getBoolean("energy_production");
-        energyConsumption = nbt.getBoolean("energy_consumption");
+        energyProduction = !nbt.contains("energy_production") || nbt.getBoolean("energy_production", false);
+        energyConsumption = nbt.getBoolean("energy_consumption", false);
     }
 
     public void setEnergyProduction(boolean energyProduction) {

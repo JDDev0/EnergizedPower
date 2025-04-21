@@ -6,16 +6,19 @@ import me.jddev0.ep.input.ModKeyBindings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -25,6 +28,7 @@ import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TeleporterBlock extends BlockWithEntity {
     public static final MapCodec<TeleporterBlock> CODEC = createCodec(TeleporterBlock::new);
@@ -79,17 +83,8 @@ public class TeleporterBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof TeleporterBlockEntity))
-            return;
-
-        ((TeleporterBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, level, blockPos);
     }
 
     @Override
@@ -139,14 +134,14 @@ public class TeleporterBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
                         Text.keybind(ModKeyBindings.KEY_TELEPORTER_USE)).formatted(Formatting.GRAY, Formatting.ITALIC));
-                tooltip.add(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.2").
+                tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

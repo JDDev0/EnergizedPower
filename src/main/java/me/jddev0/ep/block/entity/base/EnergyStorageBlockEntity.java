@@ -51,7 +51,7 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        energyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
+        energyStorage.setAmountWithoutUpdate(nbt.getLong("energy", 0));
     }
 
     protected final void syncEnergyToPlayer(PlayerEntity player) {

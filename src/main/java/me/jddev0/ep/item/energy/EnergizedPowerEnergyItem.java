@@ -2,6 +2,7 @@ package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.util.EnergyUtils;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -10,6 +11,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class EnergizedPowerEnergyItem extends Item {
     private final long capacity;
@@ -69,8 +71,8 @@ public class EnergizedPowerEnergyItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        tooltip.accept(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(getEnergy(stack)), EnergyUtils.getEnergyWithPrefix(getEnergyCapacity(stack))).
                 formatted(Formatting.GRAY));
     }

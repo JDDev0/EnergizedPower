@@ -186,7 +186,7 @@ public class AdvancedUnchargerBlockEntity
         super.readNbt(nbt, registries);
 
         for(int i = 0;i < 3;i++)
-            energyProductionLeft[i] = nbt.getLong("recipe.energy_production_left." + i);
+            energyProductionLeft[i] = nbt.getLong("recipe.energy_production_left." + i, 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {

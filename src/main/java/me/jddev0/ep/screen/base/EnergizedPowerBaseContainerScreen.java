@@ -6,14 +6,10 @@ import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.*;
-import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.screen.ScreenHandler;
@@ -31,7 +27,6 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
 
     protected void renderFluidMeterContent(DrawContext drawContext, FluidStack fluidStack, long tankCapacity, int x, int y,
                                            int w, int h) {
-        RenderSystem.enableBlend();
         drawContext.getMatrices().push();
 
         drawContext.getMatrices().translate(x, y, 0);
@@ -40,7 +35,6 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
 
         drawContext.getMatrices().pop();
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        RenderSystem.disableBlend();
     }
 
     private void renderFluidStack(DrawContext drawContext, FluidStack fluidStack, long tankCapacity, int w, int h) {
@@ -49,19 +43,12 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
 
         Fluid fluid = fluidStack.getFluid();
         Sprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
-        if(stillFluidSprite == null)
-            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).
-                    apply(MissingSprite.getMissingSpriteId());
 
         int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
 
         int fluidMeterPos = tankCapacity == -1 || (fluidStack.getDropletsAmount() > 0 && fluidStack.getDropletsAmount() == tankCapacity)?
                 0:(int)(h - ((fluidStack.getDropletsAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getDropletsAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
-
-        RenderSystem.setShaderTexture(0, SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
-
-        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
 
         Matrix4f mat = drawContext.getMatrices().peek().getPositionMatrix();
 

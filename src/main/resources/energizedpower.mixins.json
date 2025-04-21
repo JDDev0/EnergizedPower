@@ -5,7 +5,6 @@
 	"mixins": [
 		"entity.PlayerTeleporterCrashFixMixin",
 		"recipe.RepairItemRecipeMixin",
-		"recipe.ServerRecipeManagerGetter",
 		"world.village.StructurePoolElementGetterSetter"
 	],
 	"injectors": {

@@ -111,12 +111,12 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
+        Inventories.readNbt(nbt.getCompoundOrEmpty("pattern"), patternSlots.heldStacks, registries);
 
         for(int i = 0;i < 3;i++)
-            whitelist[i] = nbt.getBoolean("recipe.whitelist." + i);
+            whitelist[i] = nbt.getBoolean("recipe.whitelist." + i, false);
         for(int i = 0;i < 3;i++)
-            ignoreNBT[i] = nbt.getBoolean("recipe.ignore_nbt." + i);
+            ignoreNBT[i] = nbt.getBoolean("recipe.ignore_nbt." + i, false);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity) {

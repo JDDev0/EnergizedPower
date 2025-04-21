@@ -1,6 +1,7 @@
 package me.jddev0.ep.item.upgrade;
 
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -8,6 +9,7 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class UpgradeModuleItem extends Item {
     protected final UpgradeModuleModifier mainModifier;
@@ -35,11 +37,11 @@ public abstract class UpgradeModuleItem extends Item {
     public abstract Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value);
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("tooltip.energizedpower.upgrade.values"));
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        tooltip.accept(Text.translatable("tooltip.energizedpower.upgrade.values"));
 
         for(UpgradeModuleModifier modifier:getUpgradeModuleModifiers())
-            tooltip.add(Text.translatable("tooltip.energizedpower.upgrade.value",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.upgrade.value",
                     Text.translatable("tooltip.energizedpower.upgrade_module_modifier." + modifier.asString()),
                     getUpgradeModuleModifierText(modifier, getUpgradeModuleModifierValue(modifier))));
     }

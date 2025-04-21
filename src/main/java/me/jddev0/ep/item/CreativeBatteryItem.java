@@ -2,6 +2,7 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -9,6 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CreativeBatteryItem extends Item {
     public CreativeBatteryItem(Item.Settings props) {
@@ -31,22 +33,22 @@ public class CreativeBatteryItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        tooltip.accept(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE), EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE)).
                 formatted(Formatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.capacity.txt",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.capacity.txt",
                             Text.translatable("tooltip.energizedpower.infinite.txt").
                                     formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC)).
                     formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                             Text.translatable("tooltip.energizedpower.infinite.txt").
                                     formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC)).
                     formatted(Formatting.GRAY));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 }

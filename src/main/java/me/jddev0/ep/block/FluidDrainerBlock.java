@@ -9,10 +9,12 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -61,17 +63,8 @@ public class FluidDrainerBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof FluidDrainerBlockEntity))
-            return;
-
-        ((FluidDrainerBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, level, blockPos);
     }
 
     @Override

@@ -7,7 +7,6 @@ import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -57,7 +56,6 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;

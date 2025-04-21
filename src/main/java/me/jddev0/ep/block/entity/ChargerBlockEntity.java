@@ -206,7 +206,7 @@ public class ChargerBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {

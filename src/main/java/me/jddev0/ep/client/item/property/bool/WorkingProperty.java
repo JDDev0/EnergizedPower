@@ -7,8 +7,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.render.item.property.bool.BooleanProperty;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
@@ -16,7 +16,7 @@ public class WorkingProperty implements BooleanProperty {
     public static final MapCodec<WorkingProperty> CODEC = MapCodec.unit(new WorkingProperty());
 
     @Override
-    public boolean getValue(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity user, int seed, ModelTransformationMode modelTransformationMode) {
+    public boolean test(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity, int seed, ItemDisplayContext displayContext) {
         return stack.getOrDefault(EPDataComponentTypes.WORKING, false);
     }
 

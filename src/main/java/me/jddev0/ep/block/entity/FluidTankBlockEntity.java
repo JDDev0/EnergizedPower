@@ -112,9 +112,9 @@ public class FluidTankBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        ignoreNBT = nbt.getBoolean("ignore_nbt");
+        ignoreNBT = nbt.getBoolean("ignore_nbt", false);
 
-        fluidFilter = FluidStack.fromNbt(nbt.getCompound("fluid_filter"), registries);
+        fluidFilter = FluidStack.fromNbt(nbt.getCompoundOrEmpty("fluid_filter"), registries);
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {

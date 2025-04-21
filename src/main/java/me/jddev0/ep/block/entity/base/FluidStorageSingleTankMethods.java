@@ -27,7 +27,7 @@ public final class FluidStorageSingleTankMethods implements FluidStorageMethods<
     @Override
     public void loadFluidStorage(@NotNull SimpleFluidStorage fluidStorage, @NotNull NbtCompound nbt,
                                   @NotNull RegistryWrapper.WrapperLookup registries) {
-        fluidStorage.fromNBT(nbt.getCompound("fluid"), registries);
+        fluidStorage.fromNBT(nbt.getCompoundOrEmpty("fluid"), registries);
     }
 
     @Override

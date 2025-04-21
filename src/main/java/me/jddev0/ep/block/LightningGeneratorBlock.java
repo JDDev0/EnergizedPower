@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,7 @@ import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.ToIntFunction;
 
 public class LightningGeneratorBlock extends BlockWithEntity {
@@ -136,13 +138,13 @@ public class LightningGeneratorBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(ENERGY_PER_LIGHTNING_STRIKE)).formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").formatted(Formatting.GRAY));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").formatted(Formatting.GRAY));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

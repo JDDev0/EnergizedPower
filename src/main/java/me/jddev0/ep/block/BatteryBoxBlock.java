@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class BatteryBoxBlock extends BlockWithEntity {
     public static final MapCodec<BatteryBoxBlock> CODEC = createCodec(BatteryBoxBlock::new);
@@ -86,16 +88,16 @@ public class BatteryBoxBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.capacity.txt",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.capacity.txt",
                                 EnergyUtils.getEnergyWithPrefix(BatteryBoxBlockEntity.CAPACITY)).
                         formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(BatteryBoxBlockEntity.MAX_TRANSFER)).
                         formatted(Formatting.GRAY));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

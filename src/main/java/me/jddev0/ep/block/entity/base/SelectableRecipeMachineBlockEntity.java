@@ -87,7 +87,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         super.readNbt(nbt, registries);
 
         if(nbt.contains("recipe.id"))
-            currentRecipeIdForLoad = Identifier.tryParse(nbt.getString("recipe.id"));
+            currentRecipeIdForLoad = Identifier.tryParse(nbt.getString("recipe.id", ""));
     }
 
     @Nullable

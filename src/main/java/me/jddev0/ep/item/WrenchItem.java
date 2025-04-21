@@ -4,7 +4,10 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +15,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -20,8 +24,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import me.jddev0.ep.block.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class WrenchItem extends Item {
     public WrenchItem(Item.Settings props) {
@@ -94,7 +100,7 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public boolean canMine(BlockState state, World level, BlockPos blockPos, PlayerEntity player) {
+    public boolean canMine(ItemStack stack, BlockState state, World level, BlockPos pos, LivingEntity player) {
         if(level.isClient() || !(player instanceof ServerPlayerEntity))
             return false;
 
@@ -111,24 +117,24 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
         Direction currentFace = getCurrentFace(stack);
-        tooltip.add(Text.translatable("tooltip.energizedpower.wrench.select_face",
+        tooltip.accept(Text.translatable("tooltip.energizedpower.wrench.select_face",
                 Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
                         formatted(Formatting.WHITE, Formatting.BOLD)
         ).formatted(Formatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.wrench.txt.shift").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.wrench.txt.shift").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, World level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(itemStack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack itemStack, ServerWorld level, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(itemStack, level, entity, slot);
 
         if(level.isClient())
             return;

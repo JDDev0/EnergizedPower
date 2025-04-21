@@ -129,7 +129,7 @@ public class BlockPlacerBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        inverseRotation = nbt.getBoolean("inverse_rotation");
+        inverseRotation = nbt.getBoolean("inverse_rotation", false);
     }
 
     @Override

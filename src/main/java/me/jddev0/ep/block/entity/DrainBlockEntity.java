@@ -96,7 +96,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        progress = nbt.getInt("drain.progress");
+        progress = nbt.getInt("drain.progress", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, DrainBlockEntity blockEntity) {

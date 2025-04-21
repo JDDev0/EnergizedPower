@@ -39,7 +39,7 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
     protected void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
 
-        setEnergy(nbt.getLong("energy"));
+        setEnergy(nbt.getLong("energy", 0));
     }
 
     @Override

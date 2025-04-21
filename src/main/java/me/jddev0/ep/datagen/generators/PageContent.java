@@ -8,19 +8,25 @@ import net.minecraft.text.TextCodecs;
 import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public record PageContent(
         Identifier pageId, Text chapterTitleComponent, Text pageComponent,
-        Identifier[] imageResourceLocations, Identifier[] blockResourceLocations
+        Identifier[] imageResourceLocations, Identifier[] blockResourceLocations,
+        Map<Integer, Identifier> changePageIntToId
 ) {
     public PageContent(Text chapterTitleComponent, Text pageComponent, Identifier[] imageResourceLocations,
-                       Identifier[] blockResourceLocations) {
-        this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations);
+                       Identifier[] blockResourceLocations, Map<Integer, Identifier> changePageIntToId) {
+        this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
+                changePageIntToId == null?null:new HashMap<>(changePageIntToId));
     }
 
     public PageContent withPageId(Identifier pageId) {
-        return new PageContent(pageId, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations);
+        return new PageContent(pageId, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
+                changePageIntToId == null?null:new HashMap<>(changePageIntToId));
     }
 
     public static final Codec<PageContent> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -47,15 +53,25 @@ public record PageContent(
                                         return Optional.of(Either.left(pageContent.blockResourceLocations[0]));
 
                                     return Optional.of(Either.right(Arrays.asList(pageContent.blockResourceLocations)));
+                                }),
+                        Codec.unboundedMap(Codec.STRING, Identifier.CODEC).optionalFieldOf("changePageIntToId").
+                                forGetter(pageContent -> {
+                                    if(pageContent.changePageIntToId == null || pageContent.changePageIntToId.isEmpty())
+                                        return Optional.empty();
+
+                                    return Optional.of(pageContent.changePageIntToId.entrySet().stream().
+                                            collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue)));
                                 })).
-                apply(instance, (title, content, image, block) -> new PageContent(
+                apply(instance, (title, content, image, block, changePageIntToId) -> new PageContent(
                         title.orElse(null), content.orElse(null),
                         image.map(either -> either.map(singleImage -> new Identifier[] {
                                 singleImage
                         }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null),
                         block.map(either -> either.map(singleImage -> new Identifier[] {
                                 singleImage
-                        }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null)
+                        }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null),
+                        changePageIntToId.map(map -> map.entrySet().stream().
+                                collect(Collectors.toMap(entry -> Integer.parseInt(entry.getKey()), Map.Entry::getValue))).orElse(null)
                 ));
     });
 

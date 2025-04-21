@@ -45,14 +45,16 @@ public abstract class UpgradableFluidEnergyStorageBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.loadFromNBT(nbt.getCompoundOrEmpty("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
         super.readNbt(nbt, registries);
     }
 
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
+    @Override
+    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+        if(world != null)
+            ItemScatterer.spawn(world, pos, upgradeModuleInventory);
     }
 
     protected void updateUpgradeModules() {

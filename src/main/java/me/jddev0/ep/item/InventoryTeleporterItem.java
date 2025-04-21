@@ -9,6 +9,7 @@ import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements NamedScreenHandlerFactory {
     public static final long CAPACITY = ModConfigs.COMMON_INVENTORY_TELEPORTER_CAPACITY.getValue();
@@ -64,12 +66,12 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new InventoryTeleporterMenu(id, inventory, getInventory(inventory.getMainHandStack()));
+        return new InventoryTeleporterMenu(id, inventory, getInventory(player.getMainHandStack()));
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, displayComponent, tooltip, type);
 
         SimpleInventory inventory = getInventory(stack);
         ItemStack teleporterMatrixItemStack = inventory.getStack(0);
@@ -77,28 +79,28 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
         DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = TeleporterMatrixItem.isLinked(teleporterMatrixItemStack) && dimPos != null;
 
-        tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
+        tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
                 append(Text.translatable("tooltip.energizedpower.teleporter_matrix.status." +
                         (linked?"linked":"unlinked")).formatted(linked?Formatting.GREEN:Formatting.RED)));
 
         if(linked) {
-            tooltip.add(Text.empty());
+            tooltip.accept(Text.empty());
 
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.location").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.location").
                     append(Text.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
                     append(Text.literal(dimPos.dimensionId().toString())));
         }
 
-        tooltip.add(Text.empty());
+        tooltip.accept(Text.empty());
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
-            tooltip.add(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
@@ -132,7 +134,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
 
                 @Override
                 public boolean canPlayerUse(PlayerEntity player) {
-                    return super.canPlayerUse(player) && player.getInventory().getMainHandStack() == itemStack;
+                    return super.canPlayerUse(player) && player.getMainHandStack() == itemStack;
                 }
 
                 @Override
@@ -161,7 +163,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
 
             @Override
             public boolean canPlayerUse(PlayerEntity player) {
-                return super.canPlayerUse(player) && player.getInventory().getMainHandStack() == itemStack;
+                return super.canPlayerUse(player) && player.getMainHandStack() == itemStack;
             }
 
             @Override

@@ -85,9 +85,9 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+        progress = nbt.getInt("recipe.progress", 0);
+        maxProgress = nbt.getInt("recipe.max_progress", 0);
+        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left", 0);
     }
 
     public static <F extends Storage<FluidVariant>, W> void tick(

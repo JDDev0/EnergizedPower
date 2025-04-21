@@ -8,16 +8,19 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -26,6 +29,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.ToIntFunction;
 
 public class ChargingStationBlock extends BlockWithEntity {
@@ -60,17 +64,8 @@ public class ChargingStationBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof ChargingStationBlockEntity))
-            return;
-
-        ((ChargingStationBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, level, blockPos);
     }
 
     @Override
@@ -115,7 +110,7 @@ public class ChargingStationBlock extends BlockWithEntity {
                 double dy = randomSource.nextDouble() * .2;
                 double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .35:dxz;
 
-                level.addParticle(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
+                level.addParticleClient(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
             }
         }
     }
@@ -126,11 +121,11 @@ public class ChargingStationBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.charging_station.txt.shift.1").formatted(Formatting.GRAY));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.charging_station.txt.shift.1").formatted(Formatting.GRAY));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

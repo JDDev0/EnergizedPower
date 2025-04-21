@@ -180,7 +180,7 @@ public class UnchargerBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        energyProductionLeft = nbt.getLong("recipe.energy_production_left");
+        energyProductionLeft = nbt.getLong("recipe.energy_production_left", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {

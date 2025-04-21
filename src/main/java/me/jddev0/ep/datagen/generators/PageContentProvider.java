@@ -14,6 +14,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.net.URI;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.TreeMap;
@@ -67,71 +68,72 @@ public abstract  class PageContentProvider implements DataProvider {
 
     protected MutableText addLinkToComponent(MutableText component, String link) {
         return component.formatted(Formatting.BLUE, Formatting.UNDERLINE).fillStyle(Style.EMPTY.
-                withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link)).
-                withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        Text.translatable("book.energizedpower.tooltip.link"))));
+                withClickEvent(new ClickEvent.OpenUrl(URI.create(link))).
+                withHoverEvent(new HoverEvent.ShowText(Text.translatable("book.energizedpower.tooltip.link"))));
     }
 
-    protected PageContent addSimplePage(String pageId, @Nullable Text content) {
-        return addPage(pageId, null, content, null, null);
+    protected PageContent addSimplePage(String pageId, @Nullable Text content, @Nullable Map<Integer, Identifier> changePageIntToId) {
+        return addPage(pageId, null, content, null, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Text content,
-                                        @Nullable Identifier image) {
+                                        @Nullable Identifier image, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addPage(pageId, null, content, image == null?null:new Identifier[] {
                 image
-        }, null);
+        }, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Text content,
-                                        @Nullable Identifier[] image) {
-        return addPage(pageId, null, content, image, null);
+                                        @Nullable Identifier[] image, @Nullable Map<Integer, Identifier> changePageIntToId) {
+        return addPage(pageId, null, content, image, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Text content,
-                                        Block block) {
+                                        Block block, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addSimplePage(pageId, content, new Block[] {
                 block
-        });
+        }, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Text content,
-                                        Block[] block) {
+                                        Block[] block, @Nullable Map<Integer, Identifier> changePageIntToId) {
         Identifier[] blockIds = new Identifier[block.length];
         for(int i = 0;i < blockIds.length;i++)
             blockIds[i] = Registries.BLOCK.getId(block[i]);
 
-        return addPage(pageId, null, content, null, blockIds);
+        return addPage(pageId, null, content, null, blockIds, changePageIntToId);
     }
 
     protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                         Block block) {
+                                         Block block, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addChapterPage(pageId, title, content, new Block[] {
                 block
-        });
+        }, changePageIntToId);
     }
     protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                         Block[] block) {
+                                         Block[] block, @Nullable Map<Integer, Identifier> changePageIntToId) {
         Identifier[] blockIds = new Identifier[block.length];
         for(int i = 0;i < blockIds.length;i++)
             blockIds[i] = Registries.BLOCK.getId(block[i]);
 
-        return addPage(pageId, title, content, null, blockIds);
-    }
-    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content) {
-        return addChapterPage(pageId, title, content, (Identifier[])null);
+        return addPage(pageId, title, content, null, blockIds, changePageIntToId);
     }
     protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                         @Nullable Identifier image) {
+                                         @Nullable Map<Integer, Identifier> changePageIntToId) {
+        return addChapterPage(pageId, title, content, (Identifier[])null, changePageIntToId);
+    }
+    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
+                                         @Nullable Identifier image, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addPage(pageId, title, content, image == null?null:new Identifier[] {
                 image
-        }, null);
+        }, null, changePageIntToId);
     }
     protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                         @Nullable Identifier[] image) {
-        return addPage(pageId, title, content, image, null);
+                                         @Nullable Identifier[] image, @Nullable Map<Integer, Identifier> changePageIntToId) {
+        return addPage(pageId, title, content, image, null, changePageIntToId);
     }
 
     protected PageContent addPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                  @Nullable Identifier[] image, @Nullable Identifier[] block) {
+                                  @Nullable Identifier[] image, @Nullable Identifier[] block,
+                                  @Nullable Map<Integer, Identifier> changePageIntToId) {
         PageContent pageContent = new PageContent(Identifier.of(output.getModId(), pageId),
-                title, content, image, block);
+                title, content, image, block, changePageIntToId);
         data.put(pageId, pageContent);
         return pageContent;
     }

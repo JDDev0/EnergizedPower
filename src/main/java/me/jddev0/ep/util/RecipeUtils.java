@@ -1,6 +1,5 @@
 package me.jddev0.ep.util;
 
-import me.jddev0.ep.mixin.recipe.ServerRecipeManagerGetter;
 import me.jddev0.ep.recipe.EnergizedPowerBaseRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
@@ -16,7 +15,7 @@ public final class RecipeUtils {
     private RecipeUtils() {}
 
     public static <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeEntry<T>> getAllRecipesFor(ServerWorld level, RecipeType<T> recipeType) {
-        return ((ServerRecipeManagerGetter)level.getRecipeManager()).getPreparedRecipes().getAll(recipeType);
+        return level.getRecipeManager().getAllOfType(recipeType);
     }
 
     public static <C extends RecipeInput, T extends Recipe<C>> boolean isIngredientOfAny(ServerWorld level, RecipeType<T> recipeType, ItemStack itemStack) {

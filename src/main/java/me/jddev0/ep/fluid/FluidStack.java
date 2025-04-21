@@ -54,13 +54,13 @@ public class FluidStack {
         if(nbtCompound.isEmpty())
             return new FluidStack(Fluids.EMPTY, ComponentChanges.EMPTY, 0);
 
-        Fluid fluid = Registries.FLUID.get(Identifier.of(nbtCompound.getString("id")));
+        Fluid fluid = Registries.FLUID.get(Identifier.of(nbtCompound.getString("id", "")));
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
         //Save leftover droplets amount in "LeftoverDropletsAmount" for preventing rounding errors
-        long milliBucketsAmount = nbtCompound.getLong("amount");
+        long milliBucketsAmount = nbtCompound.getLong("amount", 0);
         long dropletsLeftOverAmount = nbtCompound.contains("leftoverDropletsAmount")?
-                nbtCompound.getLong("leftoverDropletsAmount"):0;
+                nbtCompound.getLong("leftoverDropletsAmount", 0):0;
         long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
 
         ComponentChanges fluidComponents = nbtCompound.contains("components")?

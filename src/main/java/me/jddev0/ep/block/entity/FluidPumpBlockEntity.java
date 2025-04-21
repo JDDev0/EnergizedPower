@@ -159,11 +159,11 @@ public class FluidPumpBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        xOffset = nbt.getInt("target.xOffset");
-        yOffset = nbt.getInt("target.yOffset");
-        zOffset = nbt.getInt("target.zOffset");
+        xOffset = nbt.getInt("target.xOffset", 0);
+        yOffset = nbt.getInt("target.yOffset", 0);
+        zOffset = nbt.getInt("target.zOffset", 0);
 
-        extractingFluid = nbt.getBoolean("recipe.extractingFluid");
+        extractingFluid = nbt.getBoolean("recipe.extractingFluid", false);
     }
 
     @Override

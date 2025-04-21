@@ -6,6 +6,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class EnergizedPowerBookItem extends WrittenBookItem {
     public EnergizedPowerBookItem(Item.Settings props) {
@@ -28,15 +31,15 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
-        tooltip.add(Text.translatable("book.generation.0").formatted(Formatting.GRAY));
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        tooltip.accept(Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
+        tooltip.accept(Text.translatable("book.generation.0").formatted(Formatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.energized_power_book.txt.shift.1").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.energized_power_book.txt.shift.1").
                     formatted(Formatting.GRAY));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
@@ -56,7 +59,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     }
 
     @Override
-    public boolean canMine(BlockState state, World level, BlockPos blockPos, PlayerEntity player) {
+    public boolean canMine(ItemStack stack, BlockState state, World level, BlockPos pos, LivingEntity player) {
         if(!level.isClient())
             return false;
 

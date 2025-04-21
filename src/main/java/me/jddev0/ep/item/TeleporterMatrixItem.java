@@ -6,6 +6,7 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TeleporterMatrixItem extends Item {
     public TeleporterMatrixItem(Item.Settings props) {
@@ -118,33 +120,33 @@ public class TeleporterMatrixItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
         DimensionalPositionComponent dimPos = stack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = isLinked(stack) && dimPos != null;
 
 
-        tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
+        tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
                 append(Text.translatable("tooltip.energizedpower.teleporter_matrix.status." +
                         (linked?"linked":"unlinked")).formatted(linked?Formatting.GREEN:Formatting.RED)));
 
         if(linked) {
-            tooltip.add(Text.empty());
+            tooltip.accept(Text.empty());
 
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.location").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.location").
                    append(Text.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
                    append(Text.literal(dimPos.dimensionId().toString())));
         }
 
-        tooltip.add(Text.empty());
+        tooltip.accept(Text.empty());
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
-            tooltip.add(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 

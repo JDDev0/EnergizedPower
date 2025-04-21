@@ -9,7 +9,9 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -19,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -33,6 +36,7 @@ import team.reborn.energy.api.EnergyStorageUtil;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class InventoryChargerItem extends Item implements NamedScreenHandlerFactory {
     public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
@@ -67,7 +71,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new InventoryChargerMenu(id, inventory, getInventory(inventory.getMainHandStack()));
+        return new InventoryChargerMenu(id, inventory, getInventory(inventory.player.getStackInHand(Hand.MAIN_HAND)));
     }
 
     @Override
@@ -93,38 +97,35 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
         SimpleInventory inventory = getInventory(stack);
 
         long energy = getEnergy(inventory);
         long capacity = getCapacity(inventory);
         long maxTransfer = getMaxTransfer(inventory, null);
 
-        tooltip.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+        tooltip.accept(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(energy), EnergyUtils.getEnergyWithPrefix(capacity)).
                 formatted(Formatting.GRAY));
-        tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+        tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                         EnergyUtils.getEnergyWithPrefix(maxTransfer)).
                 formatted(Formatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
+            tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 
-    private void distributeEnergy(ItemStack itemStack, World level, PlayerInventory inventory, int slot, boolean selected) {
+    private void distributeEnergy(ItemStack itemStack, ServerWorld level, PlayerInventory inventory, @Nullable EquipmentSlot slot) {
         SimpleInventory inventoryChargerInventory = getInventory(itemStack);
 
         List<EnergyStorage> consumerItems = new LinkedList<>();
         List<Long> consumerEnergyValues = new LinkedList<>();
         long consumptionSum = 0;
         for(int i = 0;i < inventory.size();i++) {
-            if(i == slot)
-                continue;
-
             ItemStack testItemStack = inventory.getStack(i);
 
             if(!EnergyStorageUtil.isEnergyStorage(testItemStack))
@@ -250,8 +251,8 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, World level, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(itemStack, level, entity, slot, selected);
+    public void inventoryTick(ItemStack itemStack, ServerWorld level, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(itemStack, level, entity, slot);
 
         if(level.isClient())
             return;
@@ -265,7 +266,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
         if(player.currentScreenHandler instanceof InventoryChargerMenu)
             return;
 
-        distributeEnergy(itemStack, level, inventory, slot, selected);
+        distributeEnergy(itemStack, level, inventory, slot);
     }
 
     public static SimpleInventory getInventory(ItemStack itemStack) {
@@ -305,7 +306,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
                 @Override
                 public boolean canPlayerUse(PlayerEntity player) {
-                    return super.canPlayerUse(player) && player.getInventory().getMainHandStack() == itemStack;
+                    return super.canPlayerUse(player) && player.getStackInHand(Hand.MAIN_HAND) == itemStack;
                 }
 
                 @Override
@@ -341,7 +342,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
 
             @Override
             public boolean canPlayerUse(PlayerEntity player) {
-                return super.canPlayerUse(player) && player.getInventory().getMainHandStack() == itemStack;
+                return super.canPlayerUse(player) && player.getStackInHand(Hand.MAIN_HAND) == itemStack;
             }
 
             @Override

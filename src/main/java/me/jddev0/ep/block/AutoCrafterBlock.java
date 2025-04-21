@@ -9,17 +9,20 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,6 +30,7 @@ import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class AutoCrafterBlock extends BlockWithEntity {
     public static final MapCodec<AutoCrafterBlock> CODEC = createCodec(AutoCrafterBlock::new);
@@ -70,17 +74,8 @@ public class AutoCrafterBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof AutoCrafterBlockEntity))
-            return;
-
-        ((AutoCrafterBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, level, blockPos);
     }
 
     @Override
@@ -131,12 +126,12 @@ public class AutoCrafterBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.auto_crafter.txt.shift.1",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.auto_crafter.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(AutoCrafterBlockEntity.ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT)).formatted(Formatting.GRAY));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

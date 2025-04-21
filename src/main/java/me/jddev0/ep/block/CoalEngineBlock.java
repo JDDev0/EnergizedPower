@@ -10,6 +10,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -19,6 +20,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -76,17 +78,8 @@ public class CoalEngineBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof CoalEngineBlockEntity))
-            return;
-
-        ((CoalEngineBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, level, blockPos);
     }
 
     @Override
@@ -144,7 +137,7 @@ public class CoalEngineBlock extends BlockWithEntity {
             double z = blockPos.getZ() + .5;
 
             if(randomSource.nextDouble() < .1)
-                level.playSound(x, y, z, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.f, 1.f, false);
+                level.playSoundAtBlockCenterClient(blockPos, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.f, 1.f, false);
 
             Direction direction = state.get(FACING);
             double dxz = randomSource.nextDouble() * .6 - .3;
@@ -153,8 +146,8 @@ public class CoalEngineBlock extends BlockWithEntity {
             double dy = randomSource.nextDouble() * 6. / 16.;
             double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .52:dxz;
 
-            level.addParticle(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0., 0., 0.);
-            level.addParticle(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0., 0., 0.);
+            level.addParticleClient(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0., 0., 0.);
+            level.addParticleClient(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0., 0., 0.);
         }
     }
 

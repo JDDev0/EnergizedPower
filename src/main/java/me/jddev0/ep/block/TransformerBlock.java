@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TransformerBlock extends BlockWithEntity {
     public static final MapCodec<TransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
@@ -122,19 +124,19 @@ public class TransformerBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(TransformerBlockEntity.getMaxEnergyTransferFromTier(tier))).
                         formatted(Formatting.GRAY));
-                tooltip.add(Text.empty());
-                tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.2").
+                tooltip.accept(Text.empty());
+                tooltip.accept(Text.translatable("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.transformer.txt.shift.2").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
-                tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.3").
+                tooltip.accept(Text.translatable("tooltip.energizedpower.transformer.txt.shift.3").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

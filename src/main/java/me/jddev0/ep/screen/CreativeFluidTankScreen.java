@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.minecraft.client.gl.ShaderProgramKeys;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -75,7 +74,6 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;

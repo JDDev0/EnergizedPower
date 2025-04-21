@@ -2354,6 +2354,12 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 })
         }, 16000, "pink_petals", "pink_petals");
 
+        addPlantGrowthChamberRecipe(Ingredient.ofItems(Items.WILDFLOWERS), new OutputItemStackWithPercentages[] {
+                new OutputItemStackWithPercentages(new ItemStack(Items.WILDFLOWERS), new double[] {
+                        1., 1., 1., .67, .33, .33, .15
+                })
+        }, 16000, "wildflowers", "wildflowers");
+
         addPlantGrowthChamberRecipe(Ingredient.ofItems(Items.SWEET_BERRIES), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.SWEET_BERRIES), new double[] {
                         1., 1., .33, .17
@@ -2822,7 +2828,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
         SmithingTransformRecipe recipe = new SmithingTransformRecipe(Optional.of(Ingredient.ofItems(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)),
-                Optional.of(base), Optional.of(ingredientFromTag(ConventionalItemTags.NETHERITE_INGOTS)), output);
+                base, Optional.of(ingredientFromTag(ConventionalItemTags.NETHERITE_INGOTS)),
+                new TransmuteRecipeResult(output.getRegistryEntry(), output.getCount(), output.getComponentChanges()));
         exporter.accept(getKey(recipeId), recipe, advancementBuilder.build(recipeId.withPrefixedPath("recipes/")));
     }
 

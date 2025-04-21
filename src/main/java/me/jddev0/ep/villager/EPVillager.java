@@ -11,7 +11,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.TradedItem;
@@ -27,8 +30,10 @@ public final class EPVillager {
     public static final PointOfInterestType BASIC_MACHINE_FRAME_POI = registerPOI("basic_machine_frame_poi",
             EPBlocks.BASIC_MACHINE_FRAME);
 
-    public static final VillagerProfession ELECTRICIAN_PROFESSION = registerProfession("electrician",
-            new VillagerProfession("electrician", poiType -> poiType.value() == BASIC_MACHINE_FRAME_POI,
+    public static final RegistryKey<VillagerProfession> ELECTRICIAN_PROFESSION_KEY = professionKey("electrician");
+
+    public static final VillagerProfession ELECTRICIAN_PROFESSION = registerProfession(ELECTRICIAN_PROFESSION_KEY,
+            new VillagerProfession(Text.translatable("entity.minecraft.villager.electrician"), poiType -> poiType.value() == BASIC_MACHINE_FRAME_POI,
                     poiType -> poiType.value() == BASIC_MACHINE_FRAME_POI, ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_TOOLSMITH));
 
     private static PointOfInterestType registerPOI(String name, Block block) {
@@ -36,8 +41,12 @@ public final class EPVillager {
             ImmutableSet.copyOf(block.getStateManager().getStates()));
     }
 
-    private static VillagerProfession registerProfession(String name, VillagerProfession profession) {
-        return Registry.register(Registries.VILLAGER_PROFESSION, EPAPI.id(name), profession);
+    private static RegistryKey<VillagerProfession> professionKey(String name) {
+        return RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, EPAPI.id(name));
+    }
+
+    private static VillagerProfession registerProfession(RegistryKey<VillagerProfession> professionKey, VillagerProfession profession) {
+        return Registry.register(Registries.VILLAGER_PROFESSION, professionKey, profession);
     }
 
     public static void register() {
@@ -45,7 +54,7 @@ public final class EPVillager {
     }
 
     private static void registerTrades() {
-        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 1, factories -> {
+        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION_KEY, 1, factories -> {
             addOffer(factories,
                     new TradedItem(Items.EMERALD, 6),
                     new TradedItem(Items.BOOK),
@@ -73,7 +82,7 @@ public final class EPVillager {
                     2, 3, .02f);
         });
 
-        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 2, factories -> {
+        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION_KEY, 2, factories -> {
             addOffer(factories,
                     new TradedItem(Items.EMERALD, 35),
                     new ItemStack(EPBlocks.COPPER_CABLE_ITEM, 6),
@@ -107,7 +116,7 @@ public final class EPVillager {
                     2, 8, .02f);
         });
 
-        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 3, factories -> {
+        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION_KEY, 3, factories -> {
             addOffer(factories,
                     new TradedItem(Items.EMERALD, 21),
                     new TradedItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
@@ -144,7 +153,7 @@ public final class EPVillager {
                     15, 9, .02f);
         });
 
-        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 4, factories -> {
+        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION_KEY, 4, factories -> {
             addOffer(factories,
                     new TradedItem(Items.EMERALD, 34),
                     new TradedItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
@@ -175,7 +184,7 @@ public final class EPVillager {
                     20, 18, .02f);
         });
 
-        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION, 5, factories -> {
+        TradeOfferHelper.registerVillagerOffers(ELECTRICIAN_PROFESSION_KEY, 5, factories -> {
             addOffer(factories,
                     new TradedItem(Items.EMERALD, 32),
                     new TradedItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),

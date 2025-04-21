@@ -148,9 +148,9 @@ public class CoalEngineBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyProductionLeft = nbt.getLong("recipe.energy_production_left");
+        progress = nbt.getInt("recipe.progress", 0);
+        maxProgress = nbt.getInt("recipe.max_progress", 0);
+        energyProductionLeft = nbt.getLong("recipe.energy_production_left", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {

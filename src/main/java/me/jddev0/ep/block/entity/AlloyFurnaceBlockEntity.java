@@ -172,10 +172,10 @@ public class AlloyFurnaceBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        litDuration = nbt.getInt("recipe.lit_duration");
-        maxLitDuration = nbt.getInt("recipe.max_lit_duration");
+        progress = nbt.getInt("recipe.progress", 0);
+        maxProgress = nbt.getInt("recipe.max_progress", 0);
+        litDuration = nbt.getInt("recipe.lit_duration", 0);
+        maxLitDuration = nbt.getInt("recipe.max_lit_duration", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AlloyFurnaceBlockEntity blockEntity) {

@@ -168,8 +168,8 @@ public class EnergizerBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        progress = nbt.getInt("recipe.progress");
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+        progress = nbt.getInt("recipe.progress", 0);
+        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {

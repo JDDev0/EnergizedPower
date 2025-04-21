@@ -38,10 +38,12 @@ public abstract class InventoryStorageBlockEntity<I extends SimpleInventory>
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("inventory"), itemHandler.heldStacks, registries);
+        Inventories.readNbt(nbt.getCompoundOrEmpty("inventory"), itemHandler.heldStacks, registries);
     }
 
-    public void drops(World level, BlockPos worldPosition) {
-        ItemScatterer.spawn(level, worldPosition, itemHandler);
+    @Override
+    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+        if(world != null)
+            ItemScatterer.spawn(world, pos, itemHandler);
     }
 }

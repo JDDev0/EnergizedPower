@@ -12,6 +12,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -48,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
@@ -386,17 +388,17 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.wrench_configurable").
+                tooltip.accept(Text.translatable("tooltip.energizedpower.wrench_configurable").
                         formatted(Formatting.GRAY, Formatting.ITALIC));
 
-                tooltip.add(Text.translatable("tooltip.energizedpower.fluid_pipe.max_extraction",
+                tooltip.accept(Text.translatable("tooltip.energizedpower.fluid_pipe.max_extraction",
                                 FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(
                                         tier.getTransferRate()))).
                         formatted(Formatting.GRAY));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
         }
     }

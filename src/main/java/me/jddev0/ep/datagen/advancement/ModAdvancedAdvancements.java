@@ -17,7 +17,8 @@ import net.minecraft.component.ComponentChanges;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.ComponentPredicate;
+import net.minecraft.predicate.component.ComponentMapPredicate;
+import net.minecraft.predicate.component.ComponentsPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -110,8 +111,8 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementFrame.CHALLENGE,
                 InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().
                         items(lookupProvider.getOrThrow(RegistryKeys.ITEM), EPItems.BATTERY_8).
-                        component(ComponentPredicate.builder().
-                                add(EPDataComponentTypes.ENERGY, BatteryItem.Tier.BATTERY_8.getCapacity()).
+                        components(ComponentsPredicate.Builder.create().
+                                exact(ComponentMapPredicate.of(EPDataComponentTypes.ENERGY, BatteryItem.Tier.BATTERY_8.getCapacity())).
                                 build()).
                         build())
         );

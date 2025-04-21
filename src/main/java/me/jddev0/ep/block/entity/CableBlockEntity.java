@@ -305,6 +305,6 @@ public class CableBlockEntity extends BlockEntity {
         super.readNbt(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            energyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
+            energyStorage.setAmountWithoutUpdate(nbt.getLong("energy", 0));
     }
 }

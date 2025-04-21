@@ -193,7 +193,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
+        Inventories.readNbt(nbt.getCompoundOrEmpty("pattern"), patternSlots.heldStacks, registries);
 
         if(nbt.contains("recipe.id")) {
             NbtElement tag = nbt.get("recipe.id");
@@ -201,15 +201,15 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
             if(!(tag instanceof NbtString stringTag))
                 throw new IllegalArgumentException("Tag must be of type StringTag!");
 
-            recipeIdForSetRecipe = RegistryKey.of(RegistryKeys.RECIPE, Identifier.tryParse(stringTag.asString()));
+            recipeIdForSetRecipe = RegistryKey.of(RegistryKeys.RECIPE, Identifier.tryParse(stringTag.asString().orElse("")));
         }
 
-        progress = nbt.getInt("recipe.progress");
-        maxProgress = nbt.getInt("recipe.max_progress");
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left");
+        progress = nbt.getInt("recipe.progress", 0);
+        maxProgress = nbt.getInt("recipe.max_progress", 0);
+        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left", 0);
 
-        ignoreNBT = nbt.getBoolean("ignore_nbt");
-        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+        ignoreNBT = nbt.getBoolean("ignore_nbt", false);
+        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode", false);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AutoCrafterBlockEntity blockEntity) {

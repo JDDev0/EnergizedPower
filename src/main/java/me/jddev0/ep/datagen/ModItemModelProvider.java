@@ -2,10 +2,13 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.client.item.property.bool.ActiveProperty;
 import me.jddev0.ep.client.item.property.bool.WorkingProperty;
+import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.item.property.bool.HasComponentProperty;
+import net.minecraft.client.render.item.property.select.ComponentSelectProperty;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 

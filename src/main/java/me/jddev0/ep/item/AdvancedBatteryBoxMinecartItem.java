@@ -9,6 +9,7 @@ import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.enums.RailShape;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class AdvancedBatteryBoxMinecartItem extends Item {
     private static final ItemDispenserBehavior DISPENSE_ITEM_BEHAVIOR = new ItemDispenserBehavior() {
@@ -75,16 +77,16 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.capacity.txt",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.CAPACITY)).
                     formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.MAX_TRANSFER)).
                     formatted(Formatting.GRAY));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 

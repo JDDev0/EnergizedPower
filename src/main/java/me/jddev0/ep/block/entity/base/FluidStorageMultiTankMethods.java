@@ -32,7 +32,7 @@ public final class FluidStorageMultiTankMethods
     public void loadFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
                                  @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompound("fluid." + i), registries));
+            fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompoundOrEmpty("fluid." + i), registries));
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        currentInputIndex = nbt.getInt("current_input_index");
+        currentInputIndex = nbt.getInt("current_input_index", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltMergerBlockEntity blockEntity) {

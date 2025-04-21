@@ -5,6 +5,7 @@ import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ import team.reborn.energy.api.EnergyStorage;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     public static final long ENERGY_CONSUMPTION_PER_USE = ModConfigs.COMMON_ENERGY_ANALYZER_ENERGY_CONSUMPTION_PER_USE.getValue();
@@ -30,15 +32,15 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, displayComponent, tooltip, type);
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
+            tooltip.accept(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").formatted(Formatting.GRAY));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
                     EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.GRAY));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
         }
     }
 

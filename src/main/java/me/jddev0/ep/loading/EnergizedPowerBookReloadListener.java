@@ -216,7 +216,46 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement
                     }
                 }
 
-                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageResourceLocations, blockResourceLocations));
+                Map<Integer, Identifier> changePageIntToId = null;
+                if(object.has("changePageIntToId")) {
+                    JsonElement changePageIntToIdElement = object.get("changePageIntToId");
+                    if(changePageIntToIdElement.isJsonObject()) {
+                        JsonObject changePageIntToIdObject = changePageIntToIdElement.getAsJsonObject();
+
+                        changePageIntToId = new HashMap<>();
+                        Map<String, JsonElement> changePageIntToIdJsonMap = changePageIntToIdObject.asMap();
+                        for(Map.Entry<String, JsonElement> changePageIntToIdEntry:changePageIntToIdJsonMap.entrySet()) {
+                            String jsonKey = changePageIntToIdEntry.getKey();
+                            JsonElement jsonValue = changePageIntToIdEntry.getValue();
+
+                            int pageNum;
+                            try {
+                                pageNum = Integer.parseInt(jsonKey);
+                            }catch(NumberFormatException e) {
+                                LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': changePageIntoToId must be a map from int to string",
+                                        pageId.getPath(), pageId.getNamespace()));
+
+                                continue;
+                            }
+
+                            if(jsonValue.isJsonPrimitive() && jsonValue.getAsJsonPrimitive().isString()) {
+                                changePageIntToId.put(pageNum, Identifier.tryParse(jsonValue.getAsJsonPrimitive().getAsString()));
+                            }else {
+                                LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': changePageIntoToId must be a map from int to string",
+                                        pageId.getPath(), pageId.getNamespace()));
+
+                                continue;
+                            }
+                        }
+                    }else {
+                        LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': changePageIntoToId must be a map from int to string",
+                                pageId.getPath(), pageId.getNamespace()));
+
+                        continue;
+                    }
+                }
+
+                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageResourceLocations, blockResourceLocations, changePageIntToId));
             }catch(Exception e) {
                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s'",
                         pageId.getPath(), pageId.getNamespace()), e);

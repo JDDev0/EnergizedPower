@@ -160,7 +160,7 @@ public class FluidTransposerBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        mode = Mode.fromIndex(nbt.getInt("mode"));
+        mode = Mode.fromIndex(nbt.getInt("mode", 0));
     }
 
     @Override

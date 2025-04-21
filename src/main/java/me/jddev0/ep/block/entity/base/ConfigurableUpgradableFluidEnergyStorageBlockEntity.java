@@ -42,9 +42,9 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode", 0));
         comparatorMode = nbt.contains("configuration.comparator_mode")?
-                ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode")):ComparatorMode.FLUID;
+                ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode", 0)):ComparatorMode.FLUID;
     }
 
     public int getRedstoneOutput() {

@@ -12,10 +12,11 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import org.joml.Quaternionf;
@@ -29,7 +30,7 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
     }
 
     @Override
-    public void render(ItemConveyorBeltBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
+    public void render(ItemConveyorBeltBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay, Vec3d cameraPos) {
         World level = blockEntity.getWorld();
         BlockPos pos = blockEntity.getPos();
 
@@ -90,7 +91,7 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
             if(itemStack.isEmpty())
                 continue;
 
-            itemRenderer.renderItem(itemStack, ModelTransformationMode.GROUND,
+            itemRenderer.renderItem(itemStack, ItemDisplayContext.GROUND,
                     LightmapTextureManager.pack(level.getLightLevel(LightType.BLOCK, pos), level.getLightLevel(LightType.SKY, pos)),
                     OverlayTexture.DEFAULT_UV, poseStack, bufferSource, null, 0);
         }

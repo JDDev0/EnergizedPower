@@ -40,8 +40,8 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
     protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
+        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode", 0));
     }
 
     public int getRedstoneOutput() {
