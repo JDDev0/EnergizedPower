@@ -54,6 +54,9 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<PlantGrowthChamberMenu>> PLANT_GROWTH_CHAMBER_MENU = registerMenuType("plant_growth_chamber",
             PlantGrowthChamberMenu::new);
 
+    public static final Supplier<MenuType<StoneLiquefierMenu>> STONE_LIQUEFIER_MENU = registerMenuType("stone_liquefier",
+            StoneLiquefierMenu::new);
+
     public static final Supplier<MenuType<StoneSolidifierMenu>> STONE_SOLIDIFIER_MENU = registerMenuType("stone_solidifier",
             StoneSolidifierMenu::new);
 

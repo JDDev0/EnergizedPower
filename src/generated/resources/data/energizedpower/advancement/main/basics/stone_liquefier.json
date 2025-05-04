@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/hardened_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:stone_liquefier"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.stone_liquefier.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:stone_liquefier"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.stone_liquefier.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

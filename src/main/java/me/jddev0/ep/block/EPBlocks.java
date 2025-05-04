@@ -365,6 +365,11 @@ public final class EPBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> FLUID_FILLER_ITEM = createBlockItem("fluid_filler", FLUID_FILLER);
 
+    public static final DeferredBlock<Block> STONE_LIQUEFIER = registerBlock("stone_liquefier",
+            StoneLiquefierBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> STONE_LIQUEFIER_ITEM = createBlockItem("stone_liquefier", STONE_LIQUEFIER);
+
     public static final DeferredBlock<Block> STONE_SOLIDIFIER = registerBlock("stone_solidifier",
             StoneSolidifierBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));

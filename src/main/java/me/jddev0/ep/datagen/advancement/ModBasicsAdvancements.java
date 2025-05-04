@@ -34,7 +34,7 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
                         Items.COPPER_INGOT,
                         Component.translatable("advancements.energizedpower.energizedpower_basics.title"),
                         Component.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        EPAPI.id("textures/block/basic_machine_frame_top.png"),
+                        EPAPI.id("block/basic_machine_frame_top"),
                         AdvancementType.TASK,
                         true,
                         false,
@@ -555,6 +555,11 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
         AdvancementHolder inductionSmelter = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
                 EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", AdvancementType.TASK
+        );
+
+        AdvancementHolder stoneLiquefier = addAdvancement(
+                advancementOutput, hardenedMachineFrame,
+                EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", AdvancementType.TASK
         );
 
         AdvancementHolder stoneSolidifier = addAdvancement(

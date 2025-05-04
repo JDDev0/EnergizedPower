@@ -10,9 +10,9 @@
     "i": "#c:gears/iron"
   },
   "pattern": [
-    "iSi",
-    "FHF",
-    "CIC"
+    "SiS",
+    "IHI",
+    "CFC"
   ],
   "result": {
     "count": 1,

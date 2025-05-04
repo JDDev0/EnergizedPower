@@ -34,7 +34,7 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
                         EPItems.ENERGIZED_COPPER_INGOT,
                         Component.translatable("advancements.energizedpower.energizedpower_advanced.title"),
                         Component.translatable("advancements.energizedpower.energizedpower_advanced.description"),
-                        EPAPI.id("textures/block/advanced_machine_frame_top.png"),
+                        EPAPI.id("block/advanced_machine_frame_top"),
                         AdvancementType.TASK,
                         true,
                         true,

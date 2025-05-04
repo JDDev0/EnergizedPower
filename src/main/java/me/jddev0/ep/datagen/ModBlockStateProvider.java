@@ -136,6 +136,9 @@ public class ModBlockStateProvider {
 
         horizontalBlockWithItem(EPBlocks.FLUID_FILLER, true);
 
+        orientableBlockWithItem(EPBlocks.STONE_LIQUEFIER,
+                orientableBlockModel(EPBlocks.STONE_LIQUEFIER, false));
+
         orientableBlockWithItem(EPBlocks.STONE_SOLIDIFIER,
                 orientableBlockModel(EPBlocks.STONE_SOLIDIFIER, false));
 

@@ -96,6 +96,12 @@ public final class EPRecipes {
     public static final Supplier<RecipeType<AssemblingMachineRecipe>> ASSEMBLING_MACHINE_TYPE = TYPES.
             register("assembling_machine", () -> AssemblingMachineRecipe.Type.INSTANCE);
 
+    public static final Supplier<RecipeBookCategory> STONE_LIQUEFIER_CATEGORY = createRecipeCategory("stone_liquefier");
+    public static final Supplier<RecipeSerializer<StoneLiquefierRecipe>> STONE_LIQUEFIER_SERIALIZER = SERIALIZERS.
+            register("stone_liquefier", () -> StoneLiquefierRecipe.Serializer.INSTANCE);
+    public static final Supplier<RecipeType<StoneLiquefierRecipe>> STONE_LIQUEFIER_TYPE = TYPES.
+            register("stone_liquefier", () -> StoneLiquefierRecipe.Type.INSTANCE);
+
     public static final Supplier<RecipeBookCategory> STONE_SOLIDIFIER_CATEGORY = createRecipeCategory("stone_solidifier");
     public static final Supplier<RecipeSerializer<StoneSolidifierRecipe>> STONE_SOLIDIFIER_SERIALIZER = SERIALIZERS.
             register("stone_solidifier", () -> StoneSolidifierRecipe.Serializer.INSTANCE);

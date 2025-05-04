@@ -12,7 +12,7 @@
     }
   },
   "display": {
-    "background": "energizedpower:textures/block/advanced_machine_frame_top.png",
+    "background": "energizedpower:block/advanced_machine_frame_top",
     "description": {
       "translate": "advancements.energizedpower.energizedpower_advanced.description"
     },

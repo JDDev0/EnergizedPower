@@ -153,6 +153,10 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("induction_smelter", () -> new BlockEntityType<>(InductionSmelterBlockEntity::new,
                     EPBlocks.INDUCTION_SMELTER.get()));
 
+    public static final Supplier<BlockEntityType<StoneLiquefierBlockEntity>> STONE_LIQUEFIER_ENTITY =
+            BLOCK_ENTITIES.register("stone_liquefier", () -> new BlockEntityType<>(StoneLiquefierBlockEntity::new,
+                    EPBlocks.STONE_LIQUEFIER.get()));
+
     public static final Supplier<BlockEntityType<StoneSolidifierBlockEntity>> STONE_SOLIDIFIER_ENTITY =
             BLOCK_ENTITIES.register("stone_solidifier", () -> new BlockEntityType<>(StoneSolidifierBlockEntity::new,
                     EPBlocks.STONE_SOLIDIFIER.get()));
@@ -480,6 +484,13 @@ public final class EPBlockEntities {
                 INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                STONE_LIQUEFIER_ENTITY.get(), StoneLiquefierBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                STONE_LIQUEFIER_ENTITY.get(), StoneLiquefierBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                STONE_LIQUEFIER_ENTITY.get(), StoneLiquefierBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::getItemHandlerCapability);
