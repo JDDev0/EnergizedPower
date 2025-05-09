@@ -52,10 +52,15 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
             int capacity = getTankCapacity(i);
 
             if(action.simulate()) {
+                int fluidAmountToAdd = 0;
+
                 if(fluid.isEmpty())
-                    filled += Math.min(capacity, amountLeft);
+                    fluidAmountToAdd = Math.min(capacity, amountLeft);
                 else if(FluidStack.isSameFluidSameComponents(fluid, resource))
-                    filled += Math.min(capacity - fluid.getAmount(), amountLeft);
+                    fluidAmountToAdd = Math.min(capacity - fluid.getAmount(), amountLeft);
+
+                filled += fluidAmountToAdd;
+                amountLeft -= fluidAmountToAdd;
 
                 continue;
             }
@@ -67,6 +72,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
                 fluidStacks.set(i, fluid);
 
                 filled += fluidAmountToAdd;
+                amountLeft -= fluidAmountToAdd;
 
                 continue;
             }
@@ -76,6 +82,7 @@ public class EnergizedPowerFluidStorage implements IFluidHandler {
 
                 fluid.grow(fluidAmountToAdd);
                 filled += fluidAmountToAdd;
+                amountLeft -= fluidAmountToAdd;
             }
         }
 
