@@ -181,6 +181,10 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("fluid_pump", () -> new BlockEntityType<>(FluidPumpBlockEntity::new,
                     EPBlocks.FLUID_PUMP.get()));
 
+    public static final Supplier<BlockEntityType<AdvancedFluidPumpBlockEntity>> ADVANCED_FLUID_PUMP_ENTITY =
+            BLOCK_ENTITIES.register("advanced_fluid_pump", () -> new BlockEntityType<>(AdvancedFluidPumpBlockEntity::new,
+                    EPBlocks.ADVANCED_FLUID_PUMP.get()));
+
     public static final Supplier<BlockEntityType<DrainBlockEntity>> DRAIN_ENTITY =
             BLOCK_ENTITIES.register("drain", () -> new BlockEntityType<>(DrainBlockEntity::new,
                     EPBlocks.DRAIN.get()));
@@ -533,6 +537,13 @@ public final class EPBlockEntities {
                 FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY.get(), AdvancedFluidPumpBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY.get(), AdvancedFluidPumpBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY.get(), AdvancedFluidPumpBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 DRAIN_ENTITY.get(), DrainBlockEntity::getFluidHandlerCapability);

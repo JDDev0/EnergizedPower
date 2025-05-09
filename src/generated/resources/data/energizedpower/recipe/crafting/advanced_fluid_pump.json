@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "energizedpower:advanced_machine_frame",
+    "F": "energizedpower:fluid_pump",
+    "G": "#c:plates/energized_gold",
+    "a": "#c:plates/advanced_alloy",
+    "f": "energizedpower:fluid_tank_large"
+  },
+  "pattern": [
+    "GFG",
+    "fAf",
+    "aFa"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:advanced_fluid_pump"
+  }
+}

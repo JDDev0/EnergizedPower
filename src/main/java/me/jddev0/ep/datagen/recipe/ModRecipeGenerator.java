@@ -6,6 +6,7 @@ import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
+import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -1515,6 +1516,18 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "FBF",
                 "IpI"
         }, new ItemStack(EPBlocks.FLUID_PUMP_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'F', ingredientOf(EPBlocks.FLUID_PUMP_ITEM),
+                'f', ingredientOf(EPBlocks.FLUID_TANK_LARGE_ITEM)
+        ), new String[] {
+                "GFG",
+                "fAf",
+                "aFa"
+        }, new ItemStack(EPBlocks.ADVANCED_FLUID_PUMP_ITEM.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(Tags.Items.STORAGE_BLOCKS_IRON), Map.of(
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),

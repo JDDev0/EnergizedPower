@@ -1,8 +1,9 @@
-// 1.21.5	2025-05-04T18:51:00.80605642	Loot Tables
+// 1.21.5	2025-05-09T17:00:47.170283613	Loot Tables
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
 d38f5e962e7380883f3915f2c1a171a33c454779 data/energizedpower/loot_table/blocks/advanced_charger.json
 37a37b36a02eb5cabf0aac2aa93baf72e9708673 data/energizedpower/loot_table/blocks/advanced_crusher.json
+6524ee08fd5f788bcdc1e397f14dd1c4c09c0236 data/energizedpower/loot_table/blocks/advanced_fluid_pump.json
 988e9074c0b31dddf4928803549354f6c81c934d data/energizedpower/loot_table/blocks/advanced_machine_frame.json
 297d66733b343cab5ce4ddf0f6ab175a98965d09 data/energizedpower/loot_table/blocks/advanced_minecart_charger.json
 4bf85e5e7ecb0874082d6fa8b6c253b5911fe163 data/energizedpower/loot_table/blocks/advanced_minecart_uncharger.json

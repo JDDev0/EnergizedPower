@@ -78,6 +78,9 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<FluidPumpMenu>> FLUID_PUMP_MENU = registerMenuType("fluid_pump",
             FluidPumpMenu::new);
 
+    public static final Supplier<MenuType<AdvancedFluidPumpMenu>> ADVANCED_FLUID_PUMP_MENU = registerMenuType("advanced_fluid_pump",
+            AdvancedFluidPumpMenu::new);
+
     public static final Supplier<MenuType<DrainMenu>> DRAIN_MENU = registerMenuType("drain",
             DrainMenu::new);
 
