@@ -1,16 +1,24 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TransformerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
 import me.jddev0.ep.energy.ReceiveExtractEnergyHandler;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
+import me.jddev0.ep.screen.TransformerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
@@ -18,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
+public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
     private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
@@ -60,9 +68,36 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndE
         };
     }
 
+    public static String getMachineNameFromTierAndType(TransformerBlock.Tier tier, TransformerBlock.Type type) {
+        return switch(tier) {
+            case TIER_LV -> switch(type) {
+                case TYPE_1_TO_N -> "lv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "lv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "lv_transformer_n_to_1";
+            };
+            case TIER_MV -> switch(type) {
+                case TYPE_1_TO_N -> "transformer_1_to_n";
+                case TYPE_3_TO_3 -> "transformer_3_to_3";
+                case TYPE_N_TO_1 -> "transformer_n_to_1";
+            };
+            case TIER_HV -> switch(type) {
+                case TYPE_1_TO_N -> "hv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "hv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "hv_transformer_n_to_1";
+            };
+            case TIER_EHV -> switch(type) {
+                case TYPE_1_TO_N -> "ehv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "ehv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "ehv_transformer_n_to_1";
+            };
+        };
+    }
+
     public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Tier tier, TransformerBlock.Type type) {
         super(
                 getEntityTypeFromTierAndType(tier, type), blockPos, blockState,
+
+                getMachineNameFromTierAndType(tier, type),
 
                 getMaxEnergyTransferFromTier(tier),
                 getMaxEnergyTransferFromTier(tier)
@@ -84,7 +119,32 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndE
                 setChanged();
                 syncEnergyToPlayers(32);
             }
+
+            @Override
+            public int extractEnergy(int maxExtract, boolean simulate) {
+                if(level != null && !redstoneMode.isActive(level.getBlockState(getBlockPos()).getValue(BlockStateProperties.POWERED))) {
+                    //This will make the output "disconnected"
+                    return 0;
+                }
+
+                return super.extractEnergy(maxExtract, simulate);
+            }
         };
+    }
+
+    @Override
+    protected ContainerData initContainerData() {
+        return new CombinedContainerData(
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value)
+        );
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        syncEnergyToPlayer(player);
+
+        return new TransformerMenu(id, inventory, this, this.data);
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -134,6 +194,9 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<ReceiveAndE
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
+
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
+            return; //This will make the output "disconnected"
 
         List<Direction> outputDirections = new LinkedList<>();
         Direction facing = state.getValue(TransformerBlock.FACING);

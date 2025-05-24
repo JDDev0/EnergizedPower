@@ -174,6 +174,34 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_6 = registerMenuType("solar_panel_6",
             SolarPanelMenu::new);
 
+    public static final Supplier<MenuType<TransformerMenu>> LV_TRANSFORMER_1_TO_N_MENU = registerMenuType("lv_transformer_1_to_n",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> LV_TRANSFORMER_3_TO_3_MENU = registerMenuType("lv_transformer_3_to_3",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> LV_TRANSFORMER_N_TO_1_MENU = registerMenuType("lv_transformer_n_to_1",
+            TransformerMenu::new);
+
+    public static final Supplier<MenuType<TransformerMenu>> MV_TRANSFORMER_1_TO_N_MENU = registerMenuType("mv_transformer_1_to_n",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> MV_TRANSFORMER_3_TO_3_MENU = registerMenuType("mv_transformer_3_to_3",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> MV_TRANSFORMER_N_TO_1_MENU = registerMenuType("mv_transformer_n_to_1",
+            TransformerMenu::new);
+
+    public static final Supplier<MenuType<TransformerMenu>> HV_TRANSFORMER_1_TO_N_MENU = registerMenuType("hv_transformer_1_to_n",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> HV_TRANSFORMER_3_TO_3_MENU = registerMenuType("hv_transformer_3_to_3",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> HV_TRANSFORMER_N_TO_1_MENU = registerMenuType("hv_transformer_n_to_1",
+            TransformerMenu::new);
+
+    public static final Supplier<MenuType<TransformerMenu>> EHV_TRANSFORMER_1_TO_N_MENU = registerMenuType("ehv_transformer_1_to_n",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> EHV_TRANSFORMER_3_TO_3_MENU = registerMenuType("ehv_transformer_3_to_3",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> EHV_TRANSFORMER_N_TO_1_MENU = registerMenuType("ehv_transformer_n_to_1",
+            TransformerMenu::new);
+
     public static final Supplier<MenuType<PressMoldMakerMenu>> PRESS_MOLD_MAKER_MENU = registerMenuType("press_mold_maker",
             PressMoldMakerMenu::new);
 

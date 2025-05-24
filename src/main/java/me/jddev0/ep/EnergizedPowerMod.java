@@ -499,6 +499,18 @@ public class EnergizedPowerMod {
             event.register(EPMenuTypes.SOLAR_PANEL_MENU_4.get(), SolarPanelScreen::new);
             event.register(EPMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
             event.register(EPMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
+            event.register(EPMenuTypes.LV_TRANSFORMER_1_TO_N_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.LV_TRANSFORMER_3_TO_3_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.LV_TRANSFORMER_N_TO_1_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.MV_TRANSFORMER_1_TO_N_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.MV_TRANSFORMER_3_TO_3_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.MV_TRANSFORMER_N_TO_1_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.HV_TRANSFORMER_1_TO_N_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.HV_TRANSFORMER_3_TO_3_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.HV_TRANSFORMER_N_TO_1_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.EHV_TRANSFORMER_1_TO_N_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.EHV_TRANSFORMER_3_TO_3_MENU.get(), TransformerScreen::new);
+            event.register(EPMenuTypes.EHV_TRANSFORMER_N_TO_1_MENU.get(), TransformerScreen::new);
             event.register(EPMenuTypes.PRESS_MOLD_MAKER_MENU.get(), PressMoldMakerScreen::new);
             event.register(EPMenuTypes.ALLOY_FURNACE_MENU.get(), AlloyFurnaceScreen::new);
             event.register(EPMenuTypes.METAL_PRESS_MENU.get(), MetalPressScreen::new);
