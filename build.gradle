@@ -161,7 +161,7 @@ dependencies {
     compileOnly "dev.emi:emi-neoforge:1.1.15+1.21.1:api"
 
     // Curios Continuation integration
-    compileOnly "top.theillusivec4.curios:curios-neoforge:9.0.14+1.21.1"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:11.0.1+1.21.5"
 
     // CCTweaked integration
     compileOnly "cc.tweaked:cc-tweaked-1.21.1-core-api:1.113.1"
