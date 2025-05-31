@@ -13,8 +13,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -26,7 +26,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.*;
 
 public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberRecipe>> {
-    public static final RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(PlantGrowthChamberRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<PlantGrowthChamberRecipe> TYPE = IRecipeHolderType.create(PlantGrowthChamberRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -39,7 +39,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> getRecipeType() {
+    public IRecipeHolderType<PlantGrowthChamberRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -60,7 +60,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PlantGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10).addIngredients(recipe.value().getInput());
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10).add(recipe.value().getInput());
 
         List<List<ItemStack>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)

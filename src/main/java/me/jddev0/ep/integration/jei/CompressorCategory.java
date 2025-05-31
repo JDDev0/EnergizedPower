@@ -9,18 +9,20 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CompressorCategory implements IRecipeCategory<RecipeHolder<CompressorRecipe>> {
-    public static final RecipeType<RecipeHolder<CompressorRecipe>> TYPE = RecipeType.createFromVanilla(CompressorRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<CompressorRecipe> TYPE = IRecipeHolderType.create(CompressorRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -33,7 +35,7 @@ public class CompressorCategory implements IRecipeCategory<RecipeHolder<Compress
     }
 
     @Override
-    public RecipeType<RecipeHolder<CompressorRecipe>> getRecipeType() {
+    public IRecipeHolderType<CompressorRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -54,12 +56,16 @@ public class CompressorCategory implements IRecipeCategory<RecipeHolder<Compress
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CompressorRecipe> recipe, IFocusGroup iFocusGroup) {
-        /*TODO fix
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addItemStacks(
-                Arrays.stream(recipe.value().getInput().getItems()).
-                        map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
-                        collect(Collectors.toList()));*/
+                recipe.value().getInput().input().items().
+                        map(Holder::unwrap).
+                        map(registryKeyItemEither -> registryKeyItemEither.map(
+                                l -> new ItemStack(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),
+                                ItemStack::new
+                        )).
+                        map(itemStack -> itemStack.copyWithCount(recipe.value().getInput().count())).
+                        collect(Collectors.toList()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).add(recipe.value().getOutput());
     }
 }

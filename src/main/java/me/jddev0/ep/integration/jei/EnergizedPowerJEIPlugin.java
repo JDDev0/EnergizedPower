@@ -11,23 +11,27 @@ import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 @JeiPlugin
 @REIPluginCompatIgnore
 public class EnergizedPowerJEIPlugin implements IModPlugin {
+    public static RecipeMap recipeMap = null;
+
     @Override
     public ResourceLocation getPluginUid() {
         return EPAPI.id("jei_plugin");
@@ -91,84 +95,87 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        /*TODO fix
-        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
+        if(recipeMap != null) {
+            registration.addRecipes(ChargerCategory.TYPE, new LinkedList<>(recipeMap.byType(ChargerRecipe.Type.INSTANCE)));
+            registration.addRecipes(CrusherCategory.TYPE, new LinkedList<>(recipeMap.byType(CrusherRecipe.Type.INSTANCE)));
+            registration.addRecipes(PulverizerCategory.TYPE, new LinkedList<>(recipeMap.byType(PulverizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(AdvancedPulverizerCategory.TYPE, new LinkedList<>(recipeMap.byType(PulverizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(SawmillCategory.TYPE, new LinkedList<>(recipeMap.byType(SawmillRecipe.Type.INSTANCE)));
+            registration.addRecipes(CompressorCategory.TYPE, new LinkedList<>(recipeMap.byType(CompressorRecipe.Type.INSTANCE)));
+            registration.addRecipes(MetalPressCategory.TYPE, new LinkedList<>(recipeMap.byType(MetalPressRecipe.Type.INSTANCE)));
+            registration.addRecipes(AssemblingMachineCategory.TYPE, new LinkedList<>(recipeMap.byType(AssemblingMachineRecipe.Type.INSTANCE)));
+            registration.addRecipes(PlantGrowthChamberCategory.TYPE, new LinkedList<>(recipeMap.byType(PlantGrowthChamberRecipe.Type.INSTANCE)));
+            registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, new LinkedList<>(recipeMap.byType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(EnergizerCategory.TYPE, new LinkedList<>(recipeMap.byType(EnergizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(CrystalGrowthChamberCategory.TYPE, new LinkedList<>(recipeMap.byType(CrystalGrowthChamberRecipe.Type.INSTANCE)));
+            registration.addRecipes(PressMoldMakerCategory.TYPE, new LinkedList<>(recipeMap.byType(PressMoldMakerRecipe.Type.INSTANCE)));
+            registration.addRecipes(AlloyFurnaceCategory.TYPE, new LinkedList<>(recipeMap.byType(AlloyFurnaceRecipe.Type.INSTANCE)));
+            registration.addRecipes(StoneLiquefierCategory.TYPE, new LinkedList<>(recipeMap.byType(StoneLiquefierRecipe.Type.INSTANCE)));
+            registration.addRecipes(StoneSolidifierCategory.TYPE, new LinkedList<>(recipeMap.byType(StoneSolidifierRecipe.Type.INSTANCE)));
+            registration.addRecipes(FiltrationPlantCategory.TYPE, new LinkedList<>(recipeMap.byType(FiltrationPlantRecipe.Type.INSTANCE)));
+            registration.addRecipes(FluidTransposerCategory.TYPE, new LinkedList<>(recipeMap.byType(FluidTransposerRecipe.Type.INSTANCE)));
 
-        registration.addRecipes(ChargerCategory.TYPE, recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE));
-        registration.addRecipes(CrusherCategory.TYPE, recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE));
-        registration.addRecipes(PulverizerCategory.TYPE, recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE));
-        registration.addRecipes(AdvancedPulverizerCategory.TYPE, recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE));
-        registration.addRecipes(SawmillCategory.TYPE, recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE));
-        registration.addRecipes(CompressorCategory.TYPE, recipeManager.getAllRecipesFor(CompressorRecipe.Type.INSTANCE));
-        registration.addRecipes(MetalPressCategory.TYPE, recipeManager.getAllRecipesFor(MetalPressRecipe.Type.INSTANCE));
-        registration.addRecipes(AssemblingMachineCategory.TYPE, recipeManager.getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE));
-        registration.addRecipes(PlantGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE));
-        registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE));
-        registration.addRecipes(EnergizerCategory.TYPE, recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE));
-        registration.addRecipes(CrystalGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE));
-        registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
-        registration.addRecipes(AlloyFurnaceCategory.TYPE, recipeManager.getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE));
-        registration.addRecipes(StoneLiquefierCategory.TYPE, recipeManager.getAllRecipesFor(StoneLiquefierRecipe.Type.INSTANCE));
-        registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE));
-        registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE));
-        registration.addRecipes(FluidTransposerCategory.TYPE, recipeManager.getAllRecipesFor(FluidTransposerRecipe.Type.INSTANCE));
+            registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
+                    new InWorldCategory.InWorldRecipe(
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(Tags.Items.TOOLS_SHEAR)),
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
+                            new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
+            ));
 
-        registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
-                new InWorldCategory.InWorldRecipe(Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
-                        new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
-        ));
-
-        registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
-                new DispenserCategory.DispenserRecipe(Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
-                        new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
-        ));*/
+            registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
+                    new DispenserCategory.DispenserRecipe(
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(Tags.Items.TOOLS_SHEAR)),
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
+                            new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
+            ));
+        }
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
+        registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.AUTO_CRAFTER_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()), RecipeTypes.CRAFTING);
+        registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.BLASTING);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()), RecipeTypes.SMOKING);
+        registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()));
+        registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()));
+        registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.BLASTING);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMOKING);
+        registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
+        registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
+        registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.AUTO_STONECUTTER_ITEM.get()), RecipeTypes.STONECUTTING);
+        registration.addCraftingStation(RecipeTypes.STONECUTTING, new ItemStack(EPBlocks.AUTO_STONECUTTER_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.COAL_ENGINE_ITEM.get()), RecipeTypes.FUELING);
+        registration.addCraftingStation(RecipeTypes.SMELTING_FUEL, new ItemStack(EPBlocks.COAL_ENGINE_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPItems.INVENTORY_COAL_ENGINE.get()), RecipeTypes.FUELING);
+        registration.addCraftingStation(RecipeTypes.SMELTING_FUEL, new ItemStack(EPItems.INVENTORY_COAL_ENGINE.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.CHARGER_ITEM.get()), ChargerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_CHARGER_ITEM.get()), ChargerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.CRUSHER_ITEM.get()), CrusherCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM.get()), CrusherCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.PULVERIZER_ITEM.get()), PulverizerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_PULVERIZER_ITEM.get()), AdvancedPulverizerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.SAWMILL_ITEM.get()), SawmillCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.COMPRESSOR_ITEM.get()), CompressorCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.METAL_PRESS_ITEM.get()), MetalPressCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM.get()), AssemblingMachineCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), PlantGrowthChamberFertilizerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ENERGIZER_ITEM.get()), EnergizerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()), CrystalGrowthChamberCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()), PressMoldMakerCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM.get()), AlloyFurnaceCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.INDUCTION_SMELTER_ITEM.get()), AlloyFurnaceCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.STONE_LIQUEFIER_ITEM.get()), StoneLiquefierCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.STONE_SOLIDIFIER_ITEM.get()), StoneSolidifierCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM.get()), FiltrationPlantCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(EPBlocks.FLUID_TRANSPOSER_ITEM.get()), FluidTransposerCategory.TYPE);
+        registration.addCraftingStation(ChargerCategory.TYPE, new ItemStack(EPBlocks.CHARGER_ITEM.get()));
+        registration.addCraftingStation(ChargerCategory.TYPE, new ItemStack(EPBlocks.ADVANCED_CHARGER_ITEM.get()));
+        registration.addCraftingStation(CrusherCategory.TYPE, new ItemStack(EPBlocks.CRUSHER_ITEM.get()));
+        registration.addCraftingStation(CrusherCategory.TYPE, new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM.get()));
+        registration.addCraftingStation(PulverizerCategory.TYPE, new ItemStack(EPBlocks.PULVERIZER_ITEM.get()));
+        registration.addCraftingStation(AdvancedPulverizerCategory.TYPE, new ItemStack(EPBlocks.ADVANCED_PULVERIZER_ITEM.get()));
+        registration.addCraftingStation(SawmillCategory.TYPE, new ItemStack(EPBlocks.SAWMILL_ITEM.get()));
+        registration.addCraftingStation(CompressorCategory.TYPE, new ItemStack(EPBlocks.COMPRESSOR_ITEM.get()));
+        registration.addCraftingStation(MetalPressCategory.TYPE, new ItemStack(EPBlocks.METAL_PRESS_ITEM.get()));
+        registration.addCraftingStation(AssemblingMachineCategory.TYPE, new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM.get()));
+        registration.addCraftingStation(PlantGrowthChamberCategory.TYPE, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
+        registration.addCraftingStation(PlantGrowthChamberFertilizerCategory.TYPE, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
+        registration.addCraftingStation(EnergizerCategory.TYPE, new ItemStack(EPBlocks.ENERGIZER_ITEM.get()));
+        registration.addCraftingStation(CrystalGrowthChamberCategory.TYPE, new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()));
+        registration.addCraftingStation(PressMoldMakerCategory.TYPE, new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM.get()));
+        registration.addCraftingStation(PressMoldMakerCategory.TYPE, new ItemStack(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()));
+        registration.addCraftingStation(AlloyFurnaceCategory.TYPE, new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM.get()));
+        registration.addCraftingStation(AlloyFurnaceCategory.TYPE, new ItemStack(EPBlocks.INDUCTION_SMELTER_ITEM.get()));
+        registration.addCraftingStation(StoneLiquefierCategory.TYPE, new ItemStack(EPBlocks.STONE_LIQUEFIER_ITEM.get()));
+        registration.addCraftingStation(StoneSolidifierCategory.TYPE, new ItemStack(EPBlocks.STONE_SOLIDIFIER_ITEM.get()));
+        registration.addCraftingStation(FiltrationPlantCategory.TYPE, new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM.get()));
+        registration.addCraftingStation(FluidTransposerCategory.TYPE, new ItemStack(EPBlocks.FLUID_TRANSPOSER_ITEM.get()));
 
-        registration.addRecipeCatalyst(new ItemStack(Items.SHEARS), InWorldCategory.TYPE);
-        registration.addRecipeCatalyst(new ItemStack(Items.DISPENSER), DispenserCategory.TYPE);
+        registration.addCraftingStation(InWorldCategory.TYPE, new ItemStack(Items.SHEARS));
+        registration.addCraftingStation(DispenserCategory.TYPE, new ItemStack(Items.DISPENSER));
     }
 
     @Override
@@ -189,9 +196,9 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
         registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.STONECUTTING);
 
-        registerRecipeClickArea(registration, CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.FUELING);
+        registerRecipeClickArea(registration, CoalEngineScreen.class, 79, 25, 18, 17, RecipeTypes.SMELTING_FUEL);
 
-        registration.addRecipeClickArea(AlloyFurnaceScreen.class, 35, 36, 15, 15, RecipeTypes.FUELING);
+        registration.addRecipeClickArea(AlloyFurnaceScreen.class, 35, 36, 15, 15, RecipeTypes.SMELTING_FUEL);
 
         registerRecipeClickArea(registration, ChargerScreen.class, 25, 16, 40, 54, ChargerCategory.TYPE);
         registerRecipeClickArea(registration, ChargerScreen.class, 111, 16, 58, 54, ChargerCategory.TYPE);
@@ -227,7 +234,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     private <T extends EnergyStorageContainerScreen<? extends IUpgradeModuleMenu>> void
     registerRecipeClickArea(IGuiHandlerRegistration registration, final Class<? extends T> containerScreenClass,
                             final int xPos, final int yPos, final int width, final int height,
-                            final RecipeType<?>... recipeTypes) {
+                            final IRecipeType<?>... recipeTypes) {
         registration.addGuiContainerHandler(containerScreenClass, UpgradeModuleScreenClickArea.createRecipeClickArea(
                 containerScreenClass, xPos, yPos, width, height, recipeTypes
         ));

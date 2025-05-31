@@ -9,8 +9,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class PulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
-    public static final RecipeType<RecipeHolder<PulverizerRecipe>> TYPE = RecipeType.createFromVanilla(PulverizerRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<PulverizerRecipe> TYPE = IRecipeHolderType.create(PulverizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -33,7 +33,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
     }
 
     @Override
-    public RecipeType<RecipeHolder<PulverizerRecipe>> getRecipeType() {
+    public IRecipeHolderType<PulverizerRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -54,11 +54,11 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PulverizerRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(false);
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).add(outputEntries[0]).
                 addRichTooltipCallback((view, tooltip) -> {
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 

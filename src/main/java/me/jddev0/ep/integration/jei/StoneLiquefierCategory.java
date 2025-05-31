@@ -9,8 +9,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class StoneLiquefierCategory implements IRecipeCategory<RecipeHolder<StoneLiquefierRecipe>> {
-    public static final RecipeType<RecipeHolder<StoneLiquefierRecipe>> TYPE = RecipeType.createFromVanilla(StoneLiquefierRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<StoneLiquefierRecipe> TYPE = IRecipeHolderType.create(StoneLiquefierRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -31,7 +31,7 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeHolder<Ston
     }
 
     @Override
-    public RecipeType<RecipeHolder<StoneLiquefierRecipe>> getRecipeType() {
+    public IRecipeHolderType<StoneLiquefierRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -54,9 +54,9 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeHolder<Ston
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<StoneLiquefierRecipe> recipe, IFocusGroup iFocusGroup) {
         FluidStack output = recipe.value().getOutput();
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).addFluidStack(output.getFluid(),
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(output.getFluid(),
                 output.getAmount(), output.getComponentsPatch());
     }
 }

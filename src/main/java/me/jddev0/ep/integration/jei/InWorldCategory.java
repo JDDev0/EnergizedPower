@@ -7,8 +7,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -16,8 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class InWorldCategory implements IRecipeCategory<InWorldCategory.InWorldRecipe> {
-    public static final ResourceLocation UID = EPAPI.id("in_world");
-    public static final RecipeType<InWorldRecipe> TYPE = new RecipeType<>(UID, InWorldRecipe.class);
+    public static final IRecipeType<InWorldRecipe> TYPE = IRecipeType.create(EPAPI.id("in_world"), InWorldRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -30,7 +29,7 @@ public class InWorldCategory implements IRecipeCategory<InWorldCategory.InWorldR
     }
 
     @Override
-    public RecipeType<InWorldRecipe> getRecipeType() {
+    public IRecipeType<InWorldRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -51,10 +50,10 @@ public class InWorldCategory implements IRecipeCategory<InWorldCategory.InWorldR
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, InWorldRecipe recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CATALYST, 1, 5).addIngredients(recipe.tool());
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).addIngredients(recipe.block());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 1, 5).add(recipe.tool());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(recipe.block());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).addItemStack(recipe.output());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).add(recipe.output());
     }
 
     record InWorldRecipe(Ingredient tool, Ingredient block, ItemStack output) {}

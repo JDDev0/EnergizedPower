@@ -16,12 +16,14 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
+import me.jddev0.ep.integration.jei.EnergizedPowerJEIPlugin;
+import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.ItemCapabilityEnergy;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.EPVillager;
 import net.minecraft.client.Camera;
@@ -44,17 +46,16 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
-import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -86,6 +87,28 @@ public class EnergizedPowerMod {
         modEventBus.addListener(this::registerCapabilities);
 
         modEventBus.addListener(ModMessages::register);
+
+        if(EnergizedPowerJEIUtils.isJEIAvailable()) {
+            NeoForge.EVENT_BUS.addListener(false, OnDatapackSyncEvent.class, e -> e.sendRecipes(
+                    ChargerRecipe.Type.INSTANCE,
+                    CrusherRecipe.Type.INSTANCE,
+                    PulverizerRecipe.Type.INSTANCE,
+                    SawmillRecipe.Type.INSTANCE,
+                    CompressorRecipe.Type.INSTANCE,
+                    MetalPressRecipe.Type.INSTANCE,
+                    AssemblingMachineRecipe.Type.INSTANCE,
+                    PlantGrowthChamberRecipe.Type.INSTANCE,
+                    PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
+                    EnergizerRecipe.Type.INSTANCE,
+                    CrystalGrowthChamberRecipe.Type.INSTANCE,
+                    PressMoldMakerRecipe.Type.INSTANCE,
+                    AlloyFurnaceRecipe.Type.INSTANCE,
+                    StoneLiquefierRecipe.Type.INSTANCE,
+                    StoneSolidifierRecipe.Type.INSTANCE,
+                    FiltrationPlantRecipe.Type.INSTANCE,
+                    FluidTransposerRecipe.Type.INSTANCE
+            ));
+        }
     }
 
     public void onLoadComplete(final FMLLoadCompleteEvent event) {
@@ -373,6 +396,16 @@ public class EnergizedPowerMod {
 
         //Block Entities
         EPBlockEntities.registerCapabilities(event);
+    }
+
+    @EventBusSubscriber(modid = EPAPI.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+    public static class ClientGameEvents {
+        @SubscribeEvent
+        public static void onRecipesReceived(RecipesReceivedEvent event) {
+            if(EnergizedPowerJEIUtils.isJEIAvailable()) {
+                EnergizedPowerJEIPlugin.recipeMap = event.getRecipeMap();
+            }
+        }
     }
 
     @EventBusSubscriber(modid = EPAPI.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

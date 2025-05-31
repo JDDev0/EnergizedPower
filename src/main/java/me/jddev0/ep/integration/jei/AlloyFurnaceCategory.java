@@ -12,23 +12,24 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyFurnaceRecipe>> {
-    public static final RecipeType<RecipeHolder<AlloyFurnaceRecipe>> TYPE = RecipeType.createFromVanilla(AlloyFurnaceRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<AlloyFurnaceRecipe> TYPE = IRecipeHolderType.create(AlloyFurnaceRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -41,7 +42,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
     }
 
     @Override
-    public RecipeType<RecipeHolder<AlloyFurnaceRecipe>> getRecipeType() {
+    public IRecipeHolderType<AlloyFurnaceRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -66,16 +67,20 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
         for(int i = 0;i < len;i++) {
             IngredientWithCount input = recipe.value().getInputs()[i];
 
-            /*TODO fix
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1 + 18 * i, 5).
-                    addItemStacks(Arrays.stream(input.input().getItems()).
+                    addItemStacks(input.input().items().
+                            map(Holder::unwrap).
+                            map(registryKeyItemEither -> registryKeyItemEither.map(
+                                    l -> new ItemStack(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),
+                                    ItemStack::new
+                            )).
                             map(itemStack -> itemStack.copyWithCount(input.count())).
-                            collect(Collectors.toList()));*/
+                            collect(Collectors.toList()));
         }
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 100, 5).addItemStack(outputEntries[0]);
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 100, 5).add(outputEntries[0]);
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 126, 5).
                 addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
                 addRichTooltipCallback((view, tooltip) -> {

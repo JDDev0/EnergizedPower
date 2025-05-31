@@ -12,8 +12,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<FluidTransposerRecipe>> {
-    public static final RecipeType<RecipeHolder<FluidTransposerRecipe>> TYPE = RecipeType.createFromVanilla(FluidTransposerRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<FluidTransposerRecipe> TYPE = IRecipeHolderType.create(FluidTransposerRecipe.Type.INSTANCE);
 
     private final IDrawable backgroundEmptying;
     private final IDrawable backgroundFilling;
@@ -38,7 +38,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     }
 
     @Override
-    public RecipeType<RecipeHolder<FluidTransposerRecipe>> getRecipeType() {
+    public IRecipeHolderType<FluidTransposerRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -62,17 +62,17 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
         FluidStack fluid = recipe.value().getFluid();
 
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
+            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).addItemStack(recipe.value().getOutput());
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).addFluidStack(fluid.getFluid(),
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(fluid.getFluid(),
                     fluid.getAmount(), fluid.getComponentsPatch());
         }else {
-            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInput());
-            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5).addFluidStack(fluid.getFluid(),
+            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
+            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(fluid.getFluid(),
                     fluid.getAmount(), fluid.getComponentsPatch());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).addItemStack(recipe.value().getOutput());
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(recipe.value().getOutput());
         }
     }
 

@@ -12,8 +12,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -24,8 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class EnergizerCategory implements IRecipeCategory<RecipeHolder<EnergizerRecipe>> {
-    public static final ResourceLocation UID = EPAPI.id("energizer");
-    public static final RecipeType<RecipeHolder<EnergizerRecipe>> TYPE = RecipeType.createFromVanilla(EnergizerRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<EnergizerRecipe> TYPE = IRecipeHolderType.create(EnergizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -38,7 +37,7 @@ public class EnergizerCategory implements IRecipeCategory<RecipeHolder<Energizer
     }
 
     @Override
-    public RecipeType<RecipeHolder<EnergizerRecipe>> getRecipeType() {
+    public IRecipeHolderType<EnergizerRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -59,9 +58,9 @@ public class EnergizerCategory implements IRecipeCategory<RecipeHolder<Energizer
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<EnergizerRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 17, 17).addIngredients(recipe.value().getInput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 17, 17).add(recipe.value().getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 17).addItemStack(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 17).add(recipe.value().getOutput());
     }
 
     @Override

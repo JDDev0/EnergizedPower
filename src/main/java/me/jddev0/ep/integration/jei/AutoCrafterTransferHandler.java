@@ -7,16 +7,17 @@ import me.jddev0.ep.screen.EPMenuTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -41,16 +42,17 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
     }
 
     @Override
-    public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
         return null;
     }
 
     @Override
     public @Nullable IRecipeTransferError transferRecipe(AutoCrafterMenu container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player,
                                                          boolean maxTransfer, boolean doTransfer) {
-        /*TODO fix
-        if(!recipe.value().canCraftInDimensions(3, 3))
-            return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));*/
+        //TODO fix: Improve check for non shaped recipes
+        if((recipe.value() instanceof ShapedRecipe shapedRecipe && (shapedRecipe.getWidth() > 3 || shapedRecipe.getHeight() > 3)) ||
+                recipe.value().display().size() > 9)
+            return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!doTransfer)
             return null;

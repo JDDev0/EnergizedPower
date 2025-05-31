@@ -12,8 +12,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -24,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerRecipe>> {
-    public static final RecipeType<RecipeHolder<ChargerRecipe>> TYPE = RecipeType.createFromVanilla(ChargerRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<ChargerRecipe> TYPE = IRecipeHolderType.create(ChargerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -37,7 +37,7 @@ public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerReci
     }
 
     @Override
-    public RecipeType<RecipeHolder<ChargerRecipe>> getRecipeType() {
+    public IRecipeHolderType<ChargerRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -58,9 +58,9 @@ public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerReci
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<ChargerRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 15, 15).addIngredients(recipe.value().getInput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 15, 15).add(recipe.value().getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).addItemStack(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).add(recipe.value().getOutput());
     }
 
     @Override

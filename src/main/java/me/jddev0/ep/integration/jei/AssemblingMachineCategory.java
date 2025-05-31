@@ -10,18 +10,20 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<AssemblingMachineRecipe>> {
-    public static final RecipeType<RecipeHolder<AssemblingMachineRecipe>> TYPE = RecipeType.createFromVanilla(AssemblingMachineRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<AssemblingMachineRecipe> TYPE = IRecipeHolderType.create(AssemblingMachineRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -34,7 +36,7 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<A
     }
 
     @Override
-    public RecipeType<RecipeHolder<AssemblingMachineRecipe>> getRecipeType() {
+    public IRecipeHolderType<AssemblingMachineRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -59,13 +61,17 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<A
         for(int i = 0;i < len;i++) {
             IngredientWithCount input = recipe.value().getInputs()[i];
 
-            /*TODO fix
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, i == 1?1:(i == 2?37:19), i == 0?1:(i == 3?37:19)).
-                    addItemStacks(Arrays.stream(input.input().getItems()).
+                    addItemStacks(input.input().items().
+                            map(Holder::unwrap).
+                            map(registryKeyItemEither -> registryKeyItemEither.map(
+                                    l -> new ItemStack(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),
+                                    ItemStack::new
+                            )).
                             map(itemStack -> itemStack.copyWithCount(input.count())).
-                            collect(Collectors.toList()));*/
+                            collect(Collectors.toList()));
         }
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).addItemStack(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).add(recipe.value().getOutput());
     }
 }

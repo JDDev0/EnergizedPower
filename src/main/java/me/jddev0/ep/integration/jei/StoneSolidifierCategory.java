@@ -9,8 +9,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluids;
 
 public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<StoneSolidifierRecipe>> {
-    public static final RecipeType<RecipeHolder<StoneSolidifierRecipe>> TYPE = RecipeType.createFromVanilla(StoneSolidifierRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<StoneSolidifierRecipe> TYPE = IRecipeHolderType.create(StoneSolidifierRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -31,7 +31,7 @@ public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<Sto
     }
 
     @Override
-    public RecipeType<RecipeHolder<StoneSolidifierRecipe>> getRecipeType() {
+    public IRecipeHolderType<StoneSolidifierRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -52,9 +52,9 @@ public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<Sto
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<StoneSolidifierRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addFluidStack(Fluids.WATER, recipe.value().getWaterAmount());
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).addFluidStack(Fluids.LAVA, recipe.value().getLavaAmount());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(Fluids.WATER, recipe.value().getWaterAmount());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(Fluids.LAVA, recipe.value().getLavaAmount());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).addItemStack(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).add(recipe.value().getOutput());
     }
 }

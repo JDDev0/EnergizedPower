@@ -9,8 +9,8 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -18,8 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class PressMoldMakerCategory implements IRecipeCategory<RecipeHolder<PressMoldMakerRecipe>> {
-    public static final ResourceLocation UID = EPAPI.id("press_mold_maker");
-    public static final RecipeType<RecipeHolder<PressMoldMakerRecipe>> TYPE = RecipeType.createFromVanilla(PressMoldMakerRecipe.Type.INSTANCE);
+    public static final IRecipeHolderType<PressMoldMakerRecipe> TYPE = IRecipeHolderType.create(PressMoldMakerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -32,7 +31,7 @@ public class PressMoldMakerCategory implements IRecipeCategory<RecipeHolder<Pres
     }
 
     @Override
-    public RecipeType<RecipeHolder<PressMoldMakerRecipe>> getRecipeType() {
+    public IRecipeHolderType<PressMoldMakerRecipe> getRecipeType() {
         return TYPE;
     }
 
@@ -53,8 +52,8 @@ public class PressMoldMakerCategory implements IRecipeCategory<RecipeHolder<Pres
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<PressMoldMakerRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addItemStack(new ItemStack(Items.CLAY_BALL, recipe.value().getClayCount()));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(new ItemStack(Items.CLAY_BALL, recipe.value().getClayCount()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).addItemStack(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
     }
 }
