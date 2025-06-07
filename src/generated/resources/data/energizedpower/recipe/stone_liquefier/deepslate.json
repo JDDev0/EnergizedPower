@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:stone_liquefier",
+  "ingredient": "minecraft:deepslate",
+  "result": {
+    "amount": 150,
+    "id": "minecraft:lava"
+  }
+}

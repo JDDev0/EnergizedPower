@@ -85,6 +85,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addWorkstation(AlloyFurnaceEMIRecipe.CATEGORY, AlloyFurnaceEMIRecipe.ITEM);
         registry.addWorkstation(AlloyFurnaceEMIRecipe.CATEGORY, EmiStack.of(EPBlocks.INDUCTION_SMELTER_ITEM));
 
+        registry.addCategory(StoneLiquefierEMIRecipe.CATEGORY);
+        registry.addWorkstation(StoneLiquefierEMIRecipe.CATEGORY, StoneLiquefierEMIRecipe.ITEM);
+
         registry.addCategory(StoneSolidifierEMIRecipe.CATEGORY);
         registry.addWorkstation(StoneSolidifierEMIRecipe.CATEGORY, StoneSolidifierEMIRecipe.ITEM);
 
@@ -147,6 +150,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeEntry<AlloyFurnaceRecipe> recipe:recipeManager.listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE))
             registry.addRecipe(new AlloyFurnaceEMIRecipe(recipe));
+
+        for(RecipeEntry<StoneLiquefierRecipe> recipe:recipeManager.listAllOfType(StoneLiquefierRecipe.Type.INSTANCE))
+            registry.addRecipe(new StoneLiquefierEMIRecipe(recipe));
 
         for(RecipeEntry<StoneSolidifierRecipe> recipe:recipeManager.listAllOfType(StoneSolidifierRecipe.Type.INSTANCE))
             registry.addRecipe(new StoneSolidifierEMIRecipe(recipe));

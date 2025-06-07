@@ -27,6 +27,7 @@ public class EnergizedPowerREIPlugin implements REICommonPlugin {
         registry.beginRecipeFiller(CrystalGrowthChamberRecipe.class).filterType(EPRecipes.CRYSTAL_GROWTH_CHAMBER_TYPE).fill(CrystalGrowthChamberDisplay::new);
         registry.beginRecipeFiller(PressMoldMakerRecipe.class).filterType(EPRecipes.PRESS_MOLD_MAKER_TYPE).fill(PressMoldMakerDisplay::new);
         registry.beginRecipeFiller(AlloyFurnaceRecipe.class).filterType(EPRecipes.ALLOY_FURNACE_TYPE).fill(AlloyFurnaceDisplay::new);
+        registry.beginRecipeFiller(StoneLiquefierRecipe.class).filterType(EPRecipes.STONE_LIQUEFIER_TYPE).fill(StoneLiquefierDisplay::new);
         registry.beginRecipeFiller(StoneSolidifierRecipe.class).filterType(EPRecipes.STONE_SOLIDIFIER_TYPE).fill(StoneSolidifierDisplay::new);
         registry.beginRecipeFiller(FiltrationPlantRecipe.class).filterType(EPRecipes.FILTRATION_PLANT_TYPE).fill(FiltrationPlantDisplay::new);
         registry.beginRecipeFiller(FluidTransposerRecipe.class).filterType(EPRecipes.FLUID_TRANSPOSER_TYPE).fill(FluidTransposerDisplay::new);
@@ -48,6 +49,7 @@ public class EnergizedPowerREIPlugin implements REICommonPlugin {
         registry.register(CrystalGrowthChamberDisplay.CATEGORY.getIdentifier(), CrystalGrowthChamberDisplay.SERIALIZER);
         registry.register(PressMoldMakerDisplay.CATEGORY.getIdentifier(), PressMoldMakerDisplay.SERIALIZER);
         registry.register(AlloyFurnaceDisplay.CATEGORY.getIdentifier(), AlloyFurnaceDisplay.SERIALIZER);
+        registry.register(StoneLiquefierDisplay.CATEGORY.getIdentifier(), StoneLiquefierDisplay.SERIALIZER);
         registry.register(StoneSolidifierDisplay.CATEGORY.getIdentifier(), StoneSolidifierDisplay.SERIALIZER);
         registry.register(FiltrationPlantDisplay.CATEGORY.getIdentifier(), FiltrationPlantDisplay.SERIALIZER);
         registry.register(FluidTransposerDisplay.CATEGORY.getIdentifier(), FluidTransposerDisplay.SERIALIZER);

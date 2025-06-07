@@ -72,6 +72,9 @@ public final class EPMenuTypes {
     public static final ScreenHandlerType<PlantGrowthChamberMenu> PLANT_GROWTH_CHAMBER_MENU = createScreenHandlerType("plant_growth_chamber",
             new ExtendedScreenHandlerType<>(PlantGrowthChamberMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<StoneLiquefierMenu> STONE_LIQUEFIER_MENU = createScreenHandlerType("stone_liquefier",
+            new ExtendedScreenHandlerType<>(StoneLiquefierMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<StoneSolidifierMenu> STONE_SOLIDIFIER_MENU = createScreenHandlerType("stone_solidifier",
             new ExtendedScreenHandlerType<>(StoneSolidifierMenu::new, BlockPos.PACKET_CODEC.cast()));
 

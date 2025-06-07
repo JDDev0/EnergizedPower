@@ -110,6 +110,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
 
         dropSelf(EPBlocks.FLUID_FILLER);
 
+        dropSelf(EPBlocks.STONE_LIQUEFIER);
         dropSelf(EPBlocks.STONE_SOLIDIFIER);
 
         dropSelf(EPBlocks.FLUID_TRANSPOSER);

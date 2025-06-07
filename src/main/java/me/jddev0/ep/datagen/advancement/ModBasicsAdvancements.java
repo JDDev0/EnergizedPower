@@ -40,7 +40,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                         Items.COPPER_INGOT,
                         Text.translatable("advancements.energizedpower.energizedpower_basics.title"),
                         Text.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        EPAPI.id("textures/block/basic_machine_frame_top.png"),
+                        EPAPI.id("block/basic_machine_frame_top"),
                         AdvancementFrame.TASK,
                         true,
                         false,
@@ -561,6 +561,11 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         AdvancementEntry inductionSmelter = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
                 EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", AdvancementFrame.TASK
+        );
+
+            AdvancementEntry stoneLiquefier = addAdvancement(
+                advancementOutput, hardenedMachineFrame,
+                EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", AdvancementFrame.TASK
         );
 
         AdvancementEntry stoneSolidifier = addAdvancement(

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/stone_liquefier",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/stone_liquefier"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/stone_liquefier",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/stone_liquefier",
+      "y": 270
+    }
+  }
+}

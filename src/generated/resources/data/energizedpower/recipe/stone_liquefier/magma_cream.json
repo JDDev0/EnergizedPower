@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:stone_liquefier",
+  "ingredient": "minecraft:magma_cream",
+  "result": {
+    "amount": 250,
+    "id": "minecraft:lava"
+  }
+}

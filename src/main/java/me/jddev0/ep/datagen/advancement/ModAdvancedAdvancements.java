@@ -40,7 +40,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                         EPItems.ENERGIZED_COPPER_INGOT,
                         Text.translatable("advancements.energizedpower.energizedpower_advanced.title"),
                         Text.translatable("advancements.energizedpower.energizedpower_advanced.description"),
-                        EPAPI.id("textures/block/advanced_machine_frame_top.png"),
+                        EPAPI.id("block/advanced_machine_frame_top"),
                         AdvancementFrame.TASK,
                         true,
                         true,

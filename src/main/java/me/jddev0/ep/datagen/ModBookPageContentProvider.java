@@ -1198,6 +1198,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
 
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("stone_liquefier"), Text.empty().append(
+                    Text.translatable("book.energizedpower.page.stone_liquefier.1").
+                            formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).append(" ")
+            ).append(
+                    Text.translatable("book.energizedpower.page.stone_liquefier.2").
+                            formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
+            ), EPBlocks.STONE_LIQUEFIER, changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("stone_solidifier"), Text.empty().append(
                     Text.translatable("book.energizedpower.page.stone_solidifier.1").
                             formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).append(" ")
