@@ -1275,10 +1275,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
 
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
-            addSimplePage(pageId("fluid_pump"), Text.empty().append(
-                    Text.translatable("book.energizedpower.page.fluid_pump").
+            addSimplePage(pageId("fluid_pumps"), Text.empty().append(
+                    Text.translatable("book.energizedpower.page.fluid_pumps").
                             formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-            ), EPBlocks.FLUID_PUMP, changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.FLUID_PUMP,
+                    EPBlocks.ADVANCED_FLUID_PUMP
+            }, changePageIntToId);
         }
 
         {

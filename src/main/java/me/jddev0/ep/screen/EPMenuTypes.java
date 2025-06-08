@@ -81,6 +81,9 @@ public final class EPMenuTypes {
     public static final ScreenHandlerType<FluidPumpMenu> FLUID_PUMP_MENU = createScreenHandlerType("fluid_pump",
             new ExtendedScreenHandlerType<>(FluidPumpMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<AdvancedFluidPumpMenu> ADVANCED_FLUID_PUMP_MENU = createScreenHandlerType("advanced_fluid_pump",
+            new ExtendedScreenHandlerType<>(AdvancedFluidPumpMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<FiltrationPlantMenu> FILTRATION_PLANT_MENU = createScreenHandlerType("filtration_plant",
             new ExtendedScreenHandlerType<>(FiltrationPlantMenu::new, BlockPos.PACKET_CODEC.cast()));
 

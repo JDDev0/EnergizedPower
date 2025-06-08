@@ -120,6 +120,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.FLUID_DRAINER);
 
         dropSelf(EPBlocks.FLUID_PUMP);
+        dropSelf(EPBlocks.ADVANCED_FLUID_PUMP);
 
         dropSelf(EPBlocks.DRAIN);
 

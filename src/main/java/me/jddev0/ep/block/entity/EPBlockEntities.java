@@ -325,6 +325,17 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
+    public static final BlockEntityType<AdvancedFluidPumpBlockEntity> ADVANCED_FLUID_PUMP_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("advanced_fluid_pump", EPBlocks.ADVANCED_FLUID_PUMP, AdvancedFluidPumpBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
+    );
+
     public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = registerFluidStorage(
             createBlockEntity("drain", EPBlocks.DRAIN, DrainBlockEntity::new),
             (blockEntity, direction) -> blockEntity.fluidStorage

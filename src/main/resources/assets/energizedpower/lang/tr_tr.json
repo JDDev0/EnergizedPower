@@ -611,6 +611,10 @@
   "item.energizedpower.fluid_pump": "Fluid Pump",
   "container.energizedpower.fluid_pump": "Fluid Pump",
 
+  "block.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+  "item.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+  "container.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "This process still needs %s to be finished.",
   "tooltip.energizedpower.fluid_pump.target": "Target: %d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "Target (Relative): %s, %s, %s",
@@ -1033,6 +1037,9 @@
 
   "advancements.energizedpower.fluid_pump.title": "Fluid Pump",
   "advancements.energizedpower.fluid_pump.description": "Craft a Fluid Pump.",
+
+  "advancements.energizedpower.advanced_fluid_pump.title": "Advanced Fluid Pump",
+  "advancements.energizedpower.advanced_fluid_pump.description": "Craft an Advanced Fluid Pump.",
 
   "advancements.energizedpower.drain.title": "The Drain",
   "advancements.energizedpower.drain.description": "Drain fluids source blocks.",
@@ -1596,7 +1603,7 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Sıvı Doldurucu öğelere sıvı doldurabilir ve Sıvı Boşaltıcı öğelerden sıvı boşaltabilir.",
 
-  "book.energizedpower.page.fluid_pump": "The Fluid Pump can pump fluids from the world and requires Cobblestone to do so.",
+  "book.energizedpower.page.fluid_pumps": "The Fluid Pump can pump fluids from the world and requires Cobblestone to do so.",
 
   "book.energizedpower.page.charger_uncharger.1": "Şarj Cihazı öğeleri şarj edebilir ve Şarj Cihazı öğelerin şarjını boşaltabilir.",
   "book.energizedpower.page.charger_uncharger.2": "Şarj Aletinin gelişmiş versiyonu ve Şarj Aletinin 3 yuvası vardır.",

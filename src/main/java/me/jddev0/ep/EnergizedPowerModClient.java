@@ -52,6 +52,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(EPMenuTypes.FLUID_FILLER_MENU, FluidFillerScreen::new);
         HandledScreens.register(EPMenuTypes.FLUID_DRAINER_MENU, FluidDrainerScreen::new);
         HandledScreens.register(EPMenuTypes.FLUID_PUMP_MENU, FluidPumpScreen::new);
+        HandledScreens.register(EPMenuTypes.ADVANCED_FLUID_PUMP_MENU, AdvancedFluidPumpScreen::new);
         HandledScreens.register(EPMenuTypes.DRAIN_MENU, DrainScreen::new);
         HandledScreens.register(EPMenuTypes.CHARGER_MENU, ChargerScreen::new);
         HandledScreens.register(EPMenuTypes.ADVANCED_CHARGER_MENU, AdvancedChargerScreen::new);
