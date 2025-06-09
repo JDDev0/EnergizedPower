@@ -159,6 +159,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(EPBlocks.INDUCTION_SMELTER_ITEM);
             event.accept(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+            event.accept(EPBlocks.STONE_LIQUEFIER_ITEM);
             event.accept(EPBlocks.STONE_SOLIDIFIER_ITEM);
             event.accept(EPBlocks.FILTRATION_PLANT_ITEM);
             event.accept(EPBlocks.FLUID_TRANSPOSER_ITEM);

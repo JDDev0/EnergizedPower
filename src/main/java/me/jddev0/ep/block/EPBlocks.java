@@ -342,6 +342,11 @@ public final class EPBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item FLUID_FILLER_ITEM = createBlockItem("fluid_filler", FLUID_FILLER);
 
+    public static final Block STONE_LIQUEFIER = registerBlock("stone_liquefier",
+            new StoneLiquefierBlock(AbstractBlock.Settings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item STONE_LIQUEFIER_ITEM = createBlockItem("stone_liquefier", STONE_LIQUEFIER);
+
     public static final Block STONE_SOLIDIFIER = registerBlock("stone_solidifier",
             new StoneSolidifierBlock(AbstractBlock.Settings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

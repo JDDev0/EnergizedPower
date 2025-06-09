@@ -548,6 +548,10 @@
   "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
 
+  "block.energizedpower.stone_liquefier": "Stein-Verflüssiger",
+  "item.energizedpower.stone_liquefier": "Stein-Verflüssiger",
+  "container.energizedpower.stone_liquefier": "Stein-Verflüssiger",
+
   "block.energizedpower.stone_solidifier": "Stein-Festiger",
   "item.energizedpower.stone_solidifier": "Stein-Festiger",
   "container.energizedpower.stone_solidifier": "Stein-Festiger",
@@ -784,6 +788,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
   "emi.category.energizedpower.press_mold_maker": "Pressform-Hersteller",
   "emi.category.energizedpower.alloy_furnace": "Legierungsofen",
+  "emi.category.energizedpower.stone_liquefier": "Stein-Verflüssiger",
   "emi.category.energizedpower.stone_solidifier": "Stein-Festiger",
   "emi.category.energizedpower.filtration_plant": "Filteranlage",
   "emi.category.energizedpower.fluid_transposer": "Flüssigkeits-Umsetzer",
@@ -1010,6 +1015,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Schnelleres Pflanzenwachstum",
   "advancements.energizedpower.plant_growth_chamber.description": "Verssere die Geschwindigkeit und den Ertrag mit der Pflanzenwachstums-Kammer.",
+
+  "advancements.energizedpower.stone_liquefier.title": "Stein-Verflüssiger",
+  "advancements.energizedpower.stone_liquefier.description": "Erstelle Lava aus Stein-Blöcken.",
 
   "advancements.energizedpower.stone_solidifier.title": "Stein-Festiger",
   "advancements.energizedpower.stone_solidifier.description": "Erstelle Stein-Blöcke aus Wasser und Lava.",
@@ -1567,6 +1575,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
   "book.energizedpower.page.plant_growth_chamber.6": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
   "book.energizedpower.page.plant_growth_chamber.7": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
+
+  "book.energizedpower.page.stone_liquefier.1": "Der Stein-Verflüssiger produziert Lava aus Stein-Blöcken.",
+  "book.energizedpower.page.stone_liquefier.2": "Flüssigkeiten müssen mit einem Rohr extrahiert werden.",
 
   "book.energizedpower.page.stone_solidifier.1": "Der Stein-Festiger produziert Stein-Blöcke von Wasser und Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Flüssigkeiten müssen mit einem Rohr eingegeben werden.",

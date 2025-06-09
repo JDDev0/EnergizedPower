@@ -972,6 +972,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
         ), EPBlocks.PLANT_GROWTH_CHAMBER);
 
+        addSimplePage(pageId("stone_liquefier"), Text.empty().append(
+                Text.translatable("book.energizedpower.page.stone_liquefier.1").
+                        formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).append(" ")
+        ).append(
+                Text.translatable("book.energizedpower.page.stone_liquefier.2").
+                        formatted(Formatting.BLACK, Formatting.ITALIC).fillStyle(UNIFORM)
+        ), EPBlocks.STONE_LIQUEFIER);
+
         addSimplePage(pageId("stone_solidifier"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.stone_solidifier.1").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).append(" ")

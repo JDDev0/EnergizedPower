@@ -548,6 +548,10 @@
   "item.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
   "container.energizedpower.plant_growth_chamber": "Plant Growth Chamber",
 
+  "block.energizedpower.stone_liquefier": "Stone Liquefier",
+  "item.energizedpower.stone_liquefier": "Stone Liquefier",
+  "container.energizedpower.stone_liquefier": "Stone Liquefier",
+
   "block.energizedpower.stone_solidifier": "Stone Solidifier",
   "item.energizedpower.stone_solidifier": "Stone Solidifier",
   "container.energizedpower.stone_solidifier": "Stone Solidifier",
@@ -784,6 +788,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Press Mold Maker",
   "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
+  "emi.category.energizedpower.stone_liquefier": "Stone Liquefier",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.fluid_transposer": "Fluid Transposer",
@@ -1010,6 +1015,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Faster Plant Growth",
   "advancements.energizedpower.plant_growth_chamber.description": "Improve the speed and the yields with the Plant Growth Chamber.",
+
+  "advancements.energizedpower.stone_liquefier.title": "Stone Liquefier",
+  "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
 
   "advancements.energizedpower.stone_solidifier.title": "Stone Solidifier",
   "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
@@ -1567,6 +1575,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
   "book.energizedpower.page.plant_growth_chamber.6": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
   "book.energizedpower.page.plant_growth_chamber.7": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+
+  "book.energizedpower.page.stone_liquefier.1": "The Stone Liquefier produces Lava from Stone blocks.",
+  "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",
 
   "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",

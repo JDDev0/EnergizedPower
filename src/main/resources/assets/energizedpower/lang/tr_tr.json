@@ -548,6 +548,10 @@
   "item.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
   "container.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
 
+  "block.energizedpower.stone_liquefier": "Stone Liquefier",
+  "item.energizedpower.stone_liquefier": "Stone Liquefier",
+  "container.energizedpower.stone_liquefier": "Stone Liquefier",
+
   "block.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
   "item.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
   "container.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
@@ -784,6 +788,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Pres Kalıbı Yapar",
   "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
+  "emi.category.energizedpower.stone_liquefier": "Stone Liquefier",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.fluid_transposer": "Fluid Transposer",
@@ -1010,6 +1015,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Hızlı bitki büyümesi",
   "advancements.energizedpower.plant_growth_chamber.description": "Bitki Büyütme Çemberi ile bitkilerin büyüme hızını arttır.",
+
+  "advancements.energizedpower.stone_liquefier.title": "Stone Liquefier",
+  "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
 
   "advancements.energizedpower.stone_solidifier.title": "Stone Solidifier",
   "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
@@ -1567,6 +1575,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Tohumlar kuzeyden, doğudan, güneyden ve batıdan yerleştirilebilir. Gübreler üstten ve alttan eklenebilir. Çıktılar tüm blok yüzeylerinden alınabilir.",
   "book.energizedpower.page.plant_growth_chamber.6": "Eğer bir gübre kullanmak istiyorsanız, önce gübre yerleştirilmelidir.",
   "book.energizedpower.page.plant_growth_chamber.7": "Bu blokları otomatikleştirmek isterseniz, verimlerin rastgele olduğunu aklınızda bulundurmanız gerekir.",
+
+  "book.energizedpower.page.stone_liquefier.1": "The Stone Liquefier produces Lava from Stone blocks.",
+  "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",
 
   "book.energizedpower.page.stone_solidifier.1": "The Stone Solidifier produces Stone blocks from Water and Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",

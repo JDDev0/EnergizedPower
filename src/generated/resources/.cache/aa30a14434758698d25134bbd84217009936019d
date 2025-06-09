@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-23T18:43:59.39888508	Energized Power/Advancements (Basics)
+// 1.21.1	2025-06-09T21:37:10.415561938	Energized Power/Advancements (Basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -13,6 +13,7 @@ b9b9cfbe6a3d0bf29b5a580923b3492ee982663f data/energizedpower/advancement/main/ba
 195b7ba55f22663025d033d5e5b340460ab1f4f4 data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_1.json
 4e080615d87de6a14a5cb28dcc153a23bc116a71 data/energizedpower/advancement/main/basics/basic_upgrade_module.json
 e198a3ab941192eff13e5cdf456c25918e45d442 data/energizedpower/advancement/main/basics/stone_solidifier.json
+e7ebc775728ae67cd5f12399e701ac0b1b8cf41a data/energizedpower/advancement/main/basics/stone_liquefier.json
 3f43674c06309dccae253b56da75470e1b2f8097 data/energizedpower/advancement/main/basics/basic_machine_frame.json
 ed209b59d7558d42ba0ed3495c698edba7ad62c0 data/energizedpower/advancement/main/basics/basic_circuit.json
 4b651bf4f860ad8cb1edacdafd18a53022e8a577 data/energizedpower/advancement/main/basics/fluid_tank_medium.json
