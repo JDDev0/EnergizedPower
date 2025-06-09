@@ -208,6 +208,7 @@ public class FluidTransposerBlockEntity
 
         return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
+                (mode != Mode.EMPTYING || fluidStorage.isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getFluid())) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
     }
 
