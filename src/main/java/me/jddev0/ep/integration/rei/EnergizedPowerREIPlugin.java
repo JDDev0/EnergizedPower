@@ -97,6 +97,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(EPBlocks.ALLOY_FURNACE_ITEM.get()));
         registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(EPBlocks.INDUCTION_SMELTER_ITEM.get()));
 
+        registry.add(new StoneLiquefierCategory());
+        registry.addWorkstations(StoneLiquefierDisplay.CATEGORY, EntryStacks.of(EPBlocks.STONE_LIQUEFIER_ITEM));
+
         registry.add(new StoneSolidifierCategory());
         registry.addWorkstations(StoneSolidifierCategory.CATEGORY, EntryStacks.of(EPBlocks.STONE_SOLIDIFIER_ITEM.get()));
 
@@ -151,6 +154,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(CrystalGrowthChamberRecipe.class, CrystalGrowthChamberRecipe.Type.INSTANCE, CrystalGrowthChamberDisplay::new);
         registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);
         registry.registerRecipeFiller(AlloyFurnaceRecipe.class, AlloyFurnaceRecipe.Type.INSTANCE, AlloyFurnaceDisplay::new);
+        registry.registerRecipeFiller(StoneLiquefierRecipe.class, EPRecipes.STONE_LIQUEFIER_TYPE.get(), StoneLiquefierDisplay::new);
         registry.registerRecipeFiller(StoneSolidifierRecipe.class, StoneSolidifierRecipe.Type.INSTANCE, StoneSolidifierDisplay::new);
         registry.registerRecipeFiller(FiltrationPlantRecipe.class, FiltrationPlantRecipe.Type.INSTANCE, FiltrationPlantDisplay::new);
         registry.registerRecipeFiller(FluidTransposerRecipe.class, FluidTransposerRecipe.Type.INSTANCE, FluidTransposerDisplay::new);
@@ -225,6 +229,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 AlloyFurnaceScreen.class, AlloyFurnaceCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(104, 34, 24, 17),
                 InductionSmelterScreen.class, AlloyFurnaceCategory.CATEGORY);
+        registerRecipeClickArea(registry, new Rectangle(112, 34, 24, 17),
+                StoneLiquefierScreen.class, StoneLiquefierDisplay.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),
                 StoneSolidifierScreen.class, StoneSolidifierCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(123, 45, 20, 14),

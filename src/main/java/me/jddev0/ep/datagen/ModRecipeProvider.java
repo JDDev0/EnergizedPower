@@ -60,6 +60,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         buildMetalPressRecipes(output);
         buildHeatGeneratorRecipes(output);
         buildThermalGeneratorRecipes(output);
+        buildStoneLiquefierRecipes(output);
         buildStoneSolidifierRecipes(output);
         buildAssemblingMachineRecipes(output);
         buildFiltrationPlantRecipes(output);
@@ -1446,6 +1447,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
                 'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
+                "SiS",
+                "IHI",
+                "CFC"
+        }, new ItemStack(EPBlocks.STONE_LIQUEFIER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'i', Ingredient.of(CommonItemTags.GEARS_IRON),
+                'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+        ), new String[] {
                 "iSi",
                 "FHF",
                 "CIC"
@@ -2489,6 +2503,37 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }, new ItemStack(EPItems.CRYSTAL_MATRIX.get()));
     }
 
+    private void buildStoneLiquefierRecipes(RecipeOutput output) {
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.STONE), 50, "stone");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.COBBLESTONE), 50, "cobblestone");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.DEEPSLATE), 150, "deepslate");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.COBBLED_DEEPSLATE), 150, "cobbled_deepslate");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.GRANITE), 50, "granite");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.DIORITE), 50, "diorite");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.ANDESITE), 50, "andesite");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.BLACKSTONE), 250, "blackstone");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.OBSIDIAN), 1000, "obsidian");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.NETHERRACK), 250, "netherrack");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.MAGMA_CREAM), 250, "magma_cream");
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.MAGMA_BLOCK), 1000, "magma_block");
+
+        addWaterOutputStoneLiquefierRecipe(output, Ingredient.of(Items.SNOWBALL), 125, "snowball");
+
+        addWaterOutputStoneLiquefierRecipe(output, Ingredient.of(Items.SNOW_BLOCK), 500, "snow_block");
+
+        addWaterOutputStoneLiquefierRecipe(output, Ingredient.of(Items.ICE), 1000, "ice");
+    }
+
     private void buildStoneSolidifierRecipes(RecipeOutput output) {
         addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.STONE));
 
@@ -3065,6 +3110,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 "energy_production_from_" + recipeIngredientName);
 
         ThermalGeneratorRecipe recipe = new ThermalGeneratorRecipe(input, energyProduction);
+        recipeOutput.accept(recipeId, recipe, null);
+    }
+
+    private void addLavaOutputStoneLiquefierRecipe(RecipeOutput recipeOutput, Ingredient input, int lavaAmount, String recipeIngredientName) {
+        addStoneLiquefierRecipe(recipeOutput, input, new FluidStack(Fluids.LAVA, lavaAmount), recipeIngredientName);
+    }
+    private void addWaterOutputStoneLiquefierRecipe(RecipeOutput recipeOutput, Ingredient input, int waterAmount, String recipeIngredientName) {
+        addStoneLiquefierRecipe(recipeOutput, input, new FluidStack(Fluids.WATER, waterAmount), recipeIngredientName);
+    }
+    private void addStoneLiquefierRecipe(RecipeOutput recipeOutput, Ingredient input, FluidStack output, String recipeIngredientName) {
+        ResourceLocation recipeId = EPAPI.id("stone_liquefier/" + recipeIngredientName);
+
+        StoneLiquefierRecipe recipe = new StoneLiquefierRecipe(input, output);
         recipeOutput.accept(recipeId, recipe, null);
     }
 

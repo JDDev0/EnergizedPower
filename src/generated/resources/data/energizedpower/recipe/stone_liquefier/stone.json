@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:stone_liquefier",
+  "ingredient": {
+    "item": "minecraft:stone"
+  },
+  "result": {
+    "amount": 50,
+    "id": "minecraft:lava"
+  }
+}

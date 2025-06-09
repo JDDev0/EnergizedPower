@@ -548,6 +548,10 @@
   "item.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
   "container.energizedpower.plant_growth_chamber": "Camera di crescita delle piante",
 
+  "block.energizedpower.stone_liquefier": "Stone Liquefier",
+  "item.energizedpower.stone_liquefier": "Stone Liquefier",
+  "container.energizedpower.stone_liquefier": "Stone Liquefier",
+
   "block.energizedpower.stone_solidifier": "Solidificatore per pietre",
   "item.energizedpower.stone_solidifier": "Solidificatore per pietre",
   "container.energizedpower.stone_solidifier": "Solidificatore per pietre",
@@ -784,6 +788,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Camera di crescita dei cristalli",
   "emi.category.energizedpower.press_mold_maker": "Pressa creatore di stampi",
   "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
+  "emi.category.energizedpower.stone_liquefier": "Stone Liquefier",
   "emi.category.energizedpower.stone_solidifier": "Solidificatore per pietre",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
   "emi.category.energizedpower.fluid_transposer": "Fluid Transposer",
@@ -1010,6 +1015,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Crescita delle piante più rapida",
   "advancements.energizedpower.plant_growth_chamber.description": "Migliora la velocità e le rese con la Camera di Crescita delle Piante.",
+
+  "advancements.energizedpower.stone_liquefier.title": "Stone Liquefier",
+  "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
 
   "advancements.energizedpower.stone_solidifier.title": "Solidificatore per pietre",
   "advancements.energizedpower.stone_solidifier.description": "Crea blocchi di pietra da Acqua e Lava.",
@@ -1567,6 +1575,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "I semi possono essere inseriti da nord, est, sud e ovest. I fertilizzanti possono essere inseriti dall'alto e dal basso. Gli output possono essere estratti da tutte le facce del blocco.",
   "book.energizedpower.page.plant_growth_chamber.6": "Se desideri utilizzare un fertilizzante, il fertilizzante deve essere inserito per primo.",
   "book.energizedpower.page.plant_growth_chamber.7": "Se desideri automatizzare questi blocchi, devi tenere presente che i rendimenti sono randomizzati.",
+
+  "book.energizedpower.page.stone_liquefier.1": "The Stone Liquefier produces Lava from Stone blocks.",
+  "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",
 
   "book.energizedpower.page.stone_solidifier.1": "Il Solidificatore della Pietra produce blocchi di Pietra da Acqua e Lava.",
   "book.energizedpower.page.stone_solidifier.2": "I fluidi devono essere inseriti tramite un tubo.",
