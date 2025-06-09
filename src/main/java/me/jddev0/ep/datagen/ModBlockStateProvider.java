@@ -141,6 +141,7 @@ class ModBlockStateProvider {
         horizontalBlockWithItem(EPBlocks.FLUID_DRAINER, true);
 
         horizontalBlockWithItem(EPBlocks.FLUID_PUMP, false);
+        horizontalBlockWithItem(EPBlocks.ADVANCED_FLUID_PUMP, false);
 
         horizontalBlockWithItem(EPBlocks.DRAIN, true);
 

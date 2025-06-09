@@ -34,6 +34,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Fluid Filler
 - Fluid Drainer
 - Fluid Pump
+- Advanced Fluid Pump (**In next release (v2.14.0)**)
 - Charger
 - Advanced Charger (3 slots)
 - Uncharger

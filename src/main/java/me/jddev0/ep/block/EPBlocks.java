@@ -374,6 +374,11 @@ public final class EPBlocks {
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
     public static final Item FLUID_PUMP_ITEM = createBlockItem("fluid_pump", FLUID_PUMP);
 
+    public static final Block ADVANCED_FLUID_PUMP = registerBlock("advanced_fluid_pump",
+            new AdvancedFluidPumpBlock(AbstractBlock.Settings.create().
+                    requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item ADVANCED_FLUID_PUMP_ITEM = createBlockItem("advanced_fluid_pump", ADVANCED_FLUID_PUMP);
+
     public static final Block DRAIN = registerBlock("drain",
             new DrainBlock(AbstractBlock.Settings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)));

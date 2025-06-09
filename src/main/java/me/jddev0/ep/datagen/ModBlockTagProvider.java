@@ -127,6 +127,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FLUID_DRAINER,
 
                         EPBlocks.FLUID_PUMP,
+                        EPBlocks.ADVANCED_FLUID_PUMP,
 
                         EPBlocks.DRAIN,
 
@@ -250,6 +251,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FLUID_DRAINER,
 
                         EPBlocks.FLUID_PUMP,
+                        EPBlocks.ADVANCED_FLUID_PUMP,
 
                         EPBlocks.DRAIN,
 

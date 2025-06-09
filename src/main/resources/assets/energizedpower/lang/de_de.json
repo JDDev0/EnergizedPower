@@ -611,6 +611,10 @@
   "item.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
   "container.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
 
+  "block.energizedpower.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
+  "item.energizedpower.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
+  "container.energizedpower.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
+
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Dieser Prozess muss noch %s konsumieren, um abgeschlossen werden zu können.",
   "tooltip.energizedpower.fluid_pump.target": "Ziel: %d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "Ziel (Relativ): %s, %s, %s",
@@ -1033,6 +1037,9 @@
 
   "advancements.energizedpower.fluid_pump.title": "Flüssigkeits-Pumpe",
   "advancements.energizedpower.fluid_pump.description": "Stelle eine Flüssigkeits-Pumpe her.",
+
+  "advancements.energizedpower.advanced_fluid_pump.title": "Fortgeschrittene Flüssigkeits-Pumpe",
+  "advancements.energizedpower.advanced_fluid_pump.description": "Stelle eine fortgeschrittene Flüssigkeits-Pumpe her.",
 
   "advancements.energizedpower.drain.title": "Der Ablauf",
   "advancements.energizedpower.drain.description": "Leite Flüssigkeits-Blöcke ab.",
@@ -1596,7 +1603,7 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Der Flüssigkeits-Befüller kann Items mit Flüssigkeiten befüllen und der Flüssigkeits-Entleerer kann Items mit Flüssigkeiten entleeren.",
 
-  "book.energizedpower.page.fluid_pump": "Die Flüssigkeits-Pumpe kann Flüssigkeiten von der Welt pumpen und benötigt dafür Bruchstein.",
+  "book.energizedpower.page.fluid_pumps": "Die Flüssigkeits-Pumpe kann Flüssigkeiten von der Welt pumpen und benötigt dafür Bruchstein.",
 
   "book.energizedpower.page.charger_uncharger.1": "Der Lader kann Items laden und der Entlader kann Items entladen.",
   "book.energizedpower.page.charger_uncharger.2": "Die fortgeschrittene Version vom Lader und Endlader haben 3 Slots.",

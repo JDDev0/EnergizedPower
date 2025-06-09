@@ -1028,10 +1028,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.FLUID_DRAINER
         });
 
-        addSimplePage(pageId("fluid_pump"), Text.empty().append(
-                Text.translatable("book.energizedpower.page.fluid_pump").
+        addSimplePage(pageId("fluid_pumps"), Text.empty().append(
+                Text.translatable("book.energizedpower.page.fluid_pumps").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.FLUID_PUMP);
+        ), new Block[] {
+                EPBlocks.FLUID_PUMP,
+                EPBlocks.ADVANCED_FLUID_PUMP
+        });
 
         addSimplePage(pageId("charger_uncharger"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.charger_uncharger.1").

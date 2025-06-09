@@ -354,6 +354,11 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM, "advanced_auto_crafter", AdvancementFrame.TASK
         );
 
+        AdvancementEntry advancedFluidPump = addAdvancement(
+                advancementOutput, energizedGoldIngot,
+                EPBlocks.ADVANCED_FLUID_PUMP_ITEM, "advanced_fluid_pump", AdvancementFrame.TASK
+        );
+
         AdvancementEntry advancedPoweredFurnace = addAdvancement(
                 advancementOutput, energizedGoldIngot,
                 EPBlocks.ADVANCED_POWERED_FURNACE_ITEM, "advanced_powered_furnace", AdvancementFrame.TASK
