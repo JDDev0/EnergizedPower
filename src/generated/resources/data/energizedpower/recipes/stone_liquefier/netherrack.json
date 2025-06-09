@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:stone_liquefier",
+  "ingredient": {
+    "item": "minecraft:netherrack"
+  },
+  "result": {
+    "Amount": 250,
+    "FluidName": "minecraft:lava"
+  }
+}

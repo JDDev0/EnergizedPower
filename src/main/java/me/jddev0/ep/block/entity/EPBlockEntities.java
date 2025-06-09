@@ -150,6 +150,10 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("induction_smelter", () -> BlockEntityType.Builder.of(InductionSmelterBlockEntity::new,
                     EPBlocks.INDUCTION_SMELTER.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<StoneLiquefierBlockEntity>> STONE_LIQUEFIER_ENTITY =
+            BLOCK_ENTITIES.register("stone_liquefier", () -> BlockEntityType.Builder.of(StoneLiquefierBlockEntity::new,
+                    EPBlocks.STONE_LIQUEFIER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<StoneSolidifierBlockEntity>> STONE_SOLIDIFIER_ENTITY =
             BLOCK_ENTITIES.register("stone_solidifier", () -> BlockEntityType.Builder.of(StoneSolidifierBlockEntity::new,
                     EPBlocks.STONE_SOLIDIFIER.get()).build(null));

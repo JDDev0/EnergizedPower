@@ -539,6 +539,11 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                 EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", FrameType.TASK
         );
 
+        Advancement stoneLiquefier = addAdvancement(
+                advancementOutput, existingFileHelper, hardenedMachineFrame,
+                EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", FrameType.TASK
+        );
+
         Advancement stoneSolidifier = addAdvancement(
                 advancementOutput, existingFileHelper, hardenedMachineFrame,
                 EPBlocks.STONE_SOLIDIFIER_ITEM, "stone_solidifier", FrameType.TASK

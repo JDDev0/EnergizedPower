@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-23T21:07:46.370953874	Block States: energizedpower
+// 1.20.1	2025-06-09T23:56:41.749697381	Block States: energizedpower
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -81,6 +81,7 @@ d3bdcfaf9c92e8181d1e9a6f9e1bb8a1a4ffb944 assets/energizedpower/blockstates/solar
 f6a82d8f2bdea9d493fbd5084b9fc267704e621f assets/energizedpower/blockstates/solar_panel_4.json
 ae591142a9e184953aee293f320cf2a9f2811568 assets/energizedpower/blockstates/solar_panel_5.json
 1d31d5b61a56b63a0a1cf0b7748831755293e4d6 assets/energizedpower/blockstates/solar_panel_6.json
+f86f4d1b035e18b50af440b1f10cb8d8e69b0ff1 assets/energizedpower/blockstates/stone_liquefier.json
 3328427a81c678d4d23ed70bb0f1004394f1551f assets/energizedpower/blockstates/stone_solidifier.json
 000018fa3ddb9cff6a9b4bfebbdbaaa0a8c5ed13 assets/energizedpower/blockstates/teleporter.json
 0aabe5f146ef495e6d64417e311c705ca7f62b37 assets/energizedpower/blockstates/thermal_generator.json
@@ -208,6 +209,7 @@ ac816331b8938069c3dc053ffdf0784c50b7b594 assets/energizedpower/models/block/sola
 786851405b4f3f1894f24acae5554af18690ac55 assets/energizedpower/models/block/solar_panel_5.json
 c5407aa1ef16ec170fea1b3b1de6e38bd8a4bf8b assets/energizedpower/models/block/solar_panel_6.json
 79c2b37463dfe77ad1912dfd92959416c5ce7f40 assets/energizedpower/models/block/solar_panel_template.json
+4ad46631ae1ddb96d05f48948d6445c1724bc8cb assets/energizedpower/models/block/stone_liquefier.json
 8b05c723aee62b923a4bb614f454735c7a6b4439 assets/energizedpower/models/block/stone_solidifier.json
 bf1c6c64fb56d819505da058864d3c7251a00e56 assets/energizedpower/models/block/teleporter.json
 83ef141dd246daaf8b787dee25eac9a3457652b4 assets/energizedpower/models/block/teleporter_ready.json
@@ -304,6 +306,7 @@ b08e1d59f901eac29fcb1e8654f4550119b907cb assets/energizedpower/models/item/solar
 f5ff8362f875e5e4cbf0c1a1d7d25bacdca12bd8 assets/energizedpower/models/item/solar_panel_4.json
 a5c9d00d355e75ccee5e735488714f5d153eece4 assets/energizedpower/models/item/solar_panel_5.json
 7eac4bee0d5ed4b1bed27b5d6890902b5b6dadcb assets/energizedpower/models/item/solar_panel_6.json
+0ae4f89991537a6ab41f159d58d5f498b9f36f8f assets/energizedpower/models/item/stone_liquefier.json
 9e69e956d8ee267ca2d285679546620c6d9ed484 assets/energizedpower/models/item/stone_solidifier.json
 01afe0a726480ad620e6048bcf88cacc94515969 assets/energizedpower/models/item/teleporter.json
 874c8edb01e0adadabd3a2b5e8ad7168ee9acc63 assets/energizedpower/models/item/thermal_generator.json

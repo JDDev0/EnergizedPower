@@ -26,6 +26,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Assembling Machine
 - Induction Smelter
 - Plant Growth Chamber
+- Stone Liquefier (**In next release (v2.14.0)**)
 - Stone Solidifier
 - Filtration Plant
 - Fluid Transposer

@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-23T21:07:46.36900948	Loot Tables
+// 1.20.1	2025-06-09T23:56:41.747096191	Loot Tables
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_tables/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_tables/blocks/advanced_battery_box.json
 d38f5e962e7380883f3915f2c1a171a33c454779 data/energizedpower/loot_tables/blocks/advanced_charger.json
@@ -79,6 +79,7 @@ ef2a5c23b88ac4263de3cfcb0fc053a27ff48640 data/energizedpower/loot_tables/blocks/
 241dc934fa6a49472051ec4849d4b97df2c6c8bb data/energizedpower/loot_tables/blocks/solar_panel_4.json
 cdd590122777b2e622c9221eff3e6b17fb79271e data/energizedpower/loot_tables/blocks/solar_panel_5.json
 63668a36a66a0abfe29e1cefec3a5cc14da4104e data/energizedpower/loot_tables/blocks/solar_panel_6.json
+2e494ba65a58818506aa9e6c3f1cb178c6c4c3bc data/energizedpower/loot_tables/blocks/stone_liquefier.json
 195d363bac8308567456a4bd6ad23de0a146997a data/energizedpower/loot_tables/blocks/stone_solidifier.json
 ce58b2a4adb3d0a997e155e3df7fbd437f294ab9 data/energizedpower/loot_tables/blocks/teleporter.json
 f7e38f621583922e18d0a09124236a55c54b2a32 data/energizedpower/loot_tables/blocks/thermal_generator.json

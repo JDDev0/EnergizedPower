@@ -180,6 +180,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(EPBlocks.INDUCTION_SMELTER_ITEM);
             event.accept(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+            event.accept(EPBlocks.STONE_LIQUEFIER_ITEM);
             event.accept(EPBlocks.STONE_SOLIDIFIER_ITEM);
             event.accept(EPBlocks.FILTRATION_PLANT_ITEM);
             event.accept(EPBlocks.FLUID_TRANSPOSER_ITEM);
@@ -374,6 +375,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(EPMenuTypes.SAWMILL_MENU.get(), SawmillScreen::new);
             MenuScreens.register(EPMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
             MenuScreens.register(EPMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), PlantGrowthChamberScreen::new);
+            MenuScreens.register(EPMenuTypes.STONE_LIQUEFIER_MENU.get(), StoneLiquefierScreen::new);
             MenuScreens.register(EPMenuTypes.STONE_SOLIDIFIER_MENU.get(), StoneSolidifierScreen::new);
             MenuScreens.register(EPMenuTypes.FILTRATION_PLANT_MENU.get(), FiltrationPlantScreen::new);
             MenuScreens.register(EPMenuTypes.FLUID_TRANSPOSER_MENU.get(), FluidTransposerScreen::new);
