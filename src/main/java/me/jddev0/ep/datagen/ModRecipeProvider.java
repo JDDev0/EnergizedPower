@@ -1517,6 +1517,18 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 "IpI"
         }, new ItemStack(EPBlocks.FLUID_PUMP_ITEM.get()), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(output, has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'a', Ingredient.of(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'F', Ingredient.of(EPBlocks.FLUID_PUMP_ITEM),
+                'f', Ingredient.of(EPBlocks.FLUID_TANK_LARGE_ITEM)
+        ), new String[] {
+                "GFG",
+                "fAf",
+                "aFa"
+        }, new ItemStack(EPBlocks.ADVANCED_FLUID_PUMP_ITEM.get()), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(output, has(Tags.Items.STORAGE_BLOCKS_IRON), Map.of(
                 'i', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),

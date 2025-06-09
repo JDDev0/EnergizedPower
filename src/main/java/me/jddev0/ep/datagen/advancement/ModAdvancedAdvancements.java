@@ -350,6 +350,11 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM, "advanced_auto_crafter", AdvancementType.TASK
         );
 
+        AdvancementHolder advancedFluidPump = addAdvancement(
+                advancementOutput, existingFileHelper, energizedGoldIngot,
+                EPBlocks.ADVANCED_FLUID_PUMP_ITEM, "advanced_fluid_pump", AdvancementType.TASK
+        );
+
         AdvancementHolder advancedPoweredFurnace = addAdvancement(
                 advancementOutput, existingFileHelper, energizedGoldIngot,
                 EPBlocks.ADVANCED_POWERED_FURNACE_ITEM, "advanced_powered_furnace", AdvancementType.TASK

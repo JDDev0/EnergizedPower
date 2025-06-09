@@ -131,6 +131,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.FLUID_DRAINER.get(),
 
                         EPBlocks.FLUID_PUMP.get(),
+                        EPBlocks.ADVANCED_FLUID_PUMP.get(),
 
                         EPBlocks.DRAIN.get(),
 
@@ -254,6 +255,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.FLUID_DRAINER.get(),
 
                         EPBlocks.FLUID_PUMP.get(),
+                        EPBlocks.ADVANCED_FLUID_PUMP.get(),
 
                         EPBlocks.DRAIN.get(),
 

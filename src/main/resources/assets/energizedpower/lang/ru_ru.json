@@ -611,6 +611,10 @@
   "item.energizedpower.fluid_pump": "Жидкостный насос",
   "container.energizedpower.fluid_pump": "Жидкостный насос",
 
+  "block.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+  "item.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+  "container.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Для завершения этого процесса все еще требуется %s.",
   "tooltip.energizedpower.fluid_pump.target": "Цель: %d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "Цель (Относительная): %s, %s, %s",
@@ -1033,6 +1037,9 @@
 
   "advancements.energizedpower.fluid_pump.title": "Жидкостный насос",
   "advancements.energizedpower.fluid_pump.description": "Создайте жидкостный насос.",
+
+  "advancements.energizedpower.advanced_fluid_pump.title": "Advanced Fluid Pump",
+  "advancements.energizedpower.advanced_fluid_pump.description": "Craft an Advanced Fluid Pump.",
 
   "advancements.energizedpower.drain.title": "Слив",
   "advancements.energizedpower.drain.description": "Слейте жидкостные источники.",
@@ -1596,7 +1603,7 @@
 
   "book.energizedpower.page.fluid_filler_fluid_drainer": "Наполнитель жидкости позволяет заливать жидкость в предметы, а устройство слив для жидкости позволяет сливать жидкость из предметов.",
 
-  "book.energizedpower.page.fluid_pump": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",
+  "book.energizedpower.page.fluid_pumps": "Жидкостный насос может перекачивать жидкости из окружающего мира и для этого требуется булыжник.",
 
   "book.energizedpower.page.charger_uncharger.1": "Зарядник может заряжать предметы, а разрядник устройство может разряжать предметы.",
   "book.energizedpower.page.charger_uncharger.2": "Продвинутая версия зарядника и разрядника имеет 3 слота.",

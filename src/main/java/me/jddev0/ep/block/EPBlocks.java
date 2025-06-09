@@ -393,6 +393,11 @@ public final class EPBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final DeferredItem<Item> FLUID_PUMP_ITEM = createBlockItem("fluid_pump", FLUID_PUMP);
 
+    public static final DeferredBlock<Block> ADVANCED_FLUID_PUMP = BLOCKS.register("advanced_fluid_pump",
+            () -> new AdvancedFluidPumpBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> ADVANCED_FLUID_PUMP_ITEM = createBlockItem("advanced_fluid_pump", ADVANCED_FLUID_PUMP);
+
     public static final DeferredBlock<Block> DRAIN = BLOCKS.register("drain",
             () -> new DrainBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
