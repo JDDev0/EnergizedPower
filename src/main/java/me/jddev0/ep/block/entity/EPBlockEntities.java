@@ -179,6 +179,10 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("fluid_pump", () -> BlockEntityType.Builder.of(FluidPumpBlockEntity::new,
                     EPBlocks.FLUID_PUMP.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<AdvancedFluidPumpBlockEntity>> ADVANCED_FLUID_PUMP_ENTITY =
+            BLOCK_ENTITIES.register("advanced_fluid_pump", () -> BlockEntityType.Builder.of(AdvancedFluidPumpBlockEntity::new,
+                    EPBlocks.ADVANCED_FLUID_PUMP.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<DrainBlockEntity>> DRAIN_ENTITY =
             BLOCK_ENTITIES.register("drain", () -> BlockEntityType.Builder.of(DrainBlockEntity::new,
                     EPBlocks.DRAIN.get()).build(null));

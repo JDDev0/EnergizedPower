@@ -192,6 +192,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.FLUID_FILLER_ITEM);
             event.accept(EPBlocks.FLUID_DRAINER_ITEM);
             event.accept(EPBlocks.FLUID_PUMP_ITEM);
+            event.accept(EPBlocks.ADVANCED_FLUID_PUMP_ITEM);
             event.accept(EPBlocks.DRAIN_ITEM);
             event.accept(EPBlocks.CHARGER_ITEM);
             event.accept(EPBlocks.ADVANCED_CHARGER_ITEM);
@@ -383,6 +384,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(EPMenuTypes.FLUID_FILLER_MENU.get(), FluidFillerScreen::new);
             MenuScreens.register(EPMenuTypes.FLUID_DRAINER_MENU.get(), FluidDrainerScreen::new);
             MenuScreens.register(EPMenuTypes.FLUID_PUMP_MENU.get(), FluidPumpScreen::new);
+            MenuScreens.register(EPMenuTypes.ADVANCED_FLUID_PUMP_MENU.get(), AdvancedFluidPumpScreen::new);
             MenuScreens.register(EPMenuTypes.DRAIN_MENU.get(), DrainScreen::new);
             MenuScreens.register(EPMenuTypes.CHARGER_MENU.get(), ChargerScreen::new);
             MenuScreens.register(EPMenuTypes.ADVANCED_CHARGER_MENU.get(), AdvancedChargerScreen::new);

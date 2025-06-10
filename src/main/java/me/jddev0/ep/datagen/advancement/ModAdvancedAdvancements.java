@@ -345,6 +345,11 @@ public class ModAdvancedAdvancements implements ForgeAdvancementProvider.Advance
                 EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM, "advanced_auto_crafter", FrameType.TASK
         );
 
+        Advancement advancedFluidPump = addAdvancement(
+                advancementOutput, existingFileHelper, energizedGoldIngot,
+                EPBlocks.ADVANCED_FLUID_PUMP_ITEM, "advanced_fluid_pump", FrameType.TASK
+        );
+
         Advancement advancedPoweredFurnace = addAdvancement(
                 advancementOutput, existingFileHelper, energizedGoldIngot,
                 EPBlocks.ADVANCED_POWERED_FURNACE_ITEM, "advanced_powered_furnace", FrameType.TASK

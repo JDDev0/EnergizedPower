@@ -1112,6 +1112,43 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.advanced_fluid_pump", "Advanced Fluid Pump", 16384
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.advanced_fluid_pump", "Advanced Fluid Pump", 1024
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
+            "block.advanced_fluid_pump", "Advanced Fluid Pump", 256
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.advanced_fluid_pump", "Advanced Fluid Pump", 128
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_NEXT_BLOCK_COOLDOWN = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_fluid_pump.next_block_cooldown",
+            "The time the Advanced Fluid Pump requires to check the next block in ticks",
+            4,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_DURATION = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_fluid_pump.extraction_duration",
+            "The time the Advanced Fluid Pump requires to extract fluids from a block in ticks",
+            20,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_RANGE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_fluid_pump.extraction_range",
+            "The horizontal extraction range of the Advanced Fluid Pump in blocks",
+            10,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_DEPTH = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.advanced_fluid_pump.extraction_depth",
+            "The vertical extraction depth of the Advanced Fluid Pump in blocks",
+            128,
+            1, null
+    ));
+
     public static final ConfigValue<Integer> COMMON_DRAIN_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
             "block.drain", "Drain", 2
     );

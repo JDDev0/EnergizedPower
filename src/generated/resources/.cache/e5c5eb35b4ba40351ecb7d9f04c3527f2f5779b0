@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-09T23:56:41.750763852	Advancements
+// 1.20.1	2025-06-10T20:23:39.027785299	Advancements
 5c8467d0c26882e6d650f33d4d6a05be1f156ccf data/energizedpower/advancements/main/advanced/advanced_alloy_ingot.json
 7e800804e37ed93a909434ded0bdd40287365077 data/energizedpower/advancements/main/advanced/advanced_alloy_plate.json
 96962293fc962eae4c1bca5b88dbf478a2904bca data/energizedpower/advancements/main/advanced/advanced_auto_crafter.json
@@ -7,6 +7,7 @@ a73edae96d17f270b7e4d756053918943033a3c6 data/energizedpower/advancements/main/a
 4d270c5336c2d4bdfdef09567dac3ad8e62c889b data/energizedpower/advancements/main/advanced/advanced_charger.json
 5b3f6373714c40e1f764fa31eacbcc921846f8be data/energizedpower/advancements/main/advanced/advanced_circuit.json
 10486947ea531f190bfb34e05bddc5c1a3f7f97c data/energizedpower/advancements/main/advanced/advanced_crusher.json
+b32589ef157b9c76537210f36ba48eedfbd01e4e data/energizedpower/advancements/main/advanced/advanced_fluid_pump.json
 133a3cbbe8797566d7feb4908537b0c3b97831d8 data/energizedpower/advancements/main/advanced/advanced_machine_frame.json
 930a8f47e51ea007c4288d417594f9e14910c6a7 data/energizedpower/advancements/main/advanced/advanced_minecart_charger.json
 5a122d410080811c4e45bd452a61e04c30145bb1 data/energizedpower/advancements/main/advanced/advanced_minecart_uncharger.json
