@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:stone_liquefier",
+  "ingredient": {
+    "item": "minecraft:snowball"
+  },
+  "result": {
+    "Amount": 125,
+    "FluidName": "minecraft:water"
+  }
+}

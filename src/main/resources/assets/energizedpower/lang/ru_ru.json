@@ -548,6 +548,10 @@
   "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
   "container.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
 
+  "block.energizedpower.stone_liquefier": "Stone Liquefier",
+  "item.energizedpower.stone_liquefier": "Stone Liquefier",
+  "container.energizedpower.stone_liquefier": "Stone Liquefier",
+
   "block.energizedpower.stone_solidifier": "Отвердитель камня",
   "item.energizedpower.stone_solidifier": "Отвердитель камня",
   "container.energizedpower.stone_solidifier": "Отвердитель камня",
@@ -784,6 +788,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Камера выращивания кристалов",
   "emi.category.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
   "emi.category.energizedpower.alloy_furnace": "Печь для сплавов",
+  "emi.category.energizedpower.stone_liquefier": "Stone Liquefier",
   "emi.category.energizedpower.stone_solidifier": "Отвердитель камня",
   "emi.category.energizedpower.filtration_plant": "Фильтрационная установка",
   "emi.category.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -1010,6 +1015,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Ускоренный рост растений",
   "advancements.energizedpower.plant_growth_chamber.description": "Повысьте скорость и урожайность с помощью камеры для выращивания растений.",
+
+  "advancements.energizedpower.stone_liquefier.title": "Stone Liquefier",
+  "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
 
   "advancements.energizedpower.stone_solidifier.title": "Отвердитель камня",
   "advancements.energizedpower.stone_solidifier.description": "Создайте камень с помощью воды и лавы",
@@ -1567,6 +1575,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Семена можно вставлять с севера, востока, юга и запада. Удобрения можно вставлять сверху и снизу. Выводы можно извлекать со всех сторон блока.",
   "book.energizedpower.page.plant_growth_chamber.6": "Если вы хотите использовать удобрение, его необходимо внести первым.",
   "book.energizedpower.page.plant_growth_chamber.7": "Если вы хотите автоматизировать эти блоки, вам нужно помнить, что доходность рандомизирована.",
+
+  "book.energizedpower.page.stone_liquefier.1": "The Stone Liquefier produces Lava from Stone blocks.",
+  "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",
 
   "book.energizedpower.page.stone_solidifier.1": "Отвердитель камня производит каменные блоки из воды и лавы.",
   "book.energizedpower.page.stone_solidifier.2": "Жидкости необходимо вводить с помощью труб.",

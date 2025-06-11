@@ -540,6 +540,11 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", AdvancementFrame.TASK
         );
 
+        Advancement stoneLiquefier = addAdvancement(
+                advancementOutput, hardenedMachineFrame,
+                EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", AdvancementFrame.TASK
+        );
+
         Advancement stoneSolidifier = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
                 EPBlocks.STONE_SOLIDIFIER_ITEM, "stone_solidifier", AdvancementFrame.TASK

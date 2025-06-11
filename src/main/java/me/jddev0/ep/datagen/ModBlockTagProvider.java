@@ -130,6 +130,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                         EPBlocks.DRAIN,
 
+                        EPBlocks.STONE_LIQUEFIER,
                         EPBlocks.STONE_SOLIDIFIER,
 
                         EPBlocks.FILTRATION_PLANT,
@@ -252,6 +253,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                         EPBlocks.DRAIN,
 
+                        EPBlocks.STONE_LIQUEFIER,
                         EPBlocks.STONE_SOLIDIFIER,
 
                         EPBlocks.FILTRATION_PLANT,

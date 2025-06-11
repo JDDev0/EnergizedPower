@@ -65,6 +65,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         buildMetalPressRecipes(output);
         buildHeatGeneratorRecipes(output);
         buildThermalGeneratorRecipes(output);
+        buildStoneLiquefierRecipes(output);
         buildStoneSolidifierRecipes(output);
         buildAssemblingMachineRecipes(output);
         buildFiltrationPlantRecipes(output);
@@ -1451,6 +1452,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
                 'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
+                "SiS",
+                "IHI",
+                "CFC"
+        }, new ItemStack(EPBlocks.STONE_LIQUEFIER_ITEM), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.fromTag(CommonItemTags.SILICON),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
+                'i', Ingredient.fromTag(CommonItemTags.IRON_GEARS),
+                'C', Ingredient.fromTag(CommonItemTags.COPPER_BLOCKS),
+                'H', Ingredient.ofItems(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+        ), new String[] {
                 "iSi",
                 "FHF",
                 "CIC"
@@ -2483,6 +2497,37 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         }, new ItemStack(EPItems.CRYSTAL_MATRIX));
     }
 
+    private void buildStoneLiquefierRecipes(Consumer<RecipeJsonProvider> output) {
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.STONE), FluidUtils.convertMilliBucketsToDroplets(50), "stone");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.COBBLESTONE), FluidUtils.convertMilliBucketsToDroplets(50), "cobblestone");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.DEEPSLATE), FluidUtils.convertMilliBucketsToDroplets(150), "deepslate");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.COBBLED_DEEPSLATE), FluidUtils.convertMilliBucketsToDroplets(150), "cobbled_deepslate");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.GRANITE), FluidUtils.convertMilliBucketsToDroplets(50), "granite");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.DIORITE), FluidUtils.convertMilliBucketsToDroplets(50), "diorite");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.ANDESITE), FluidUtils.convertMilliBucketsToDroplets(50), "andesite");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.BLACKSTONE), FluidUtils.convertMilliBucketsToDroplets(250), "blackstone");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.OBSIDIAN), FluidUtils.convertMilliBucketsToDroplets(1000), "obsidian");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.NETHERRACK), FluidUtils.convertMilliBucketsToDroplets(250), "netherrack");
+
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.MAGMA_CREAM), FluidUtils.convertMilliBucketsToDroplets(250), "magma_cream");
+        addLavaOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.MAGMA_BLOCK), FluidUtils.convertMilliBucketsToDroplets(1000), "magma_block");
+
+        addWaterOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.SNOWBALL), FluidUtils.convertMilliBucketsToDroplets(125), "snowball");
+
+        addWaterOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.SNOW_BLOCK), FluidUtils.convertMilliBucketsToDroplets(500), "snow_block");
+
+        addWaterOutputStoneLiquefierRecipe(output, Ingredient.ofItems(Items.ICE), FluidUtils.convertMilliBucketsToDroplets(1000), "ice");
+    }
+
     private void buildStoneSolidifierRecipes(Consumer<RecipeJsonProvider> output) {
         addStoneSolidifierRecipe(output, 1000, 50, new ItemStack(Items.STONE));
 
@@ -3142,6 +3187,22 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         ThermalGeneratorFinishedRecipe recipe = new ThermalGeneratorFinishedRecipe(
                 recipeId,
                 input, energyProduction
+        );
+        recipeOutput.accept(recipe);
+    }
+
+    private void addLavaOutputStoneLiquefierRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, long lavaAmount, String recipeIngredientName) {
+        addStoneLiquefierRecipe(recipeOutput, input, new FluidStack(Fluids.LAVA, lavaAmount), recipeIngredientName);
+    }
+    private void addWaterOutputStoneLiquefierRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, long waterAmount, String recipeIngredientName) {
+        addStoneLiquefierRecipe(recipeOutput, input, new FluidStack(Fluids.WATER, waterAmount), recipeIngredientName);
+    }
+    private void addStoneLiquefierRecipe(Consumer<RecipeJsonProvider> recipeOutput, Ingredient input, FluidStack output, String recipeIngredientName) {
+        Identifier recipeId = EPAPI.id("stone_liquefier/" + recipeIngredientName);
+
+        StoneLiquefierFinishedRecipe recipe = new StoneLiquefierFinishedRecipe(
+                recipeId,
+                input, output
         );
         recipeOutput.accept(recipe);
     }

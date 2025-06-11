@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:stone_liquefier",
+  "ingredient": {
+    "item": "minecraft:diorite"
+  },
+  "result": {
+    "Amount": 50,
+    "FluidName": "minecraft:lava"
+  }
+}
