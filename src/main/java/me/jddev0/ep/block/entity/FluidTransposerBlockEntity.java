@@ -202,6 +202,8 @@ public class FluidTransposerBlockEntity
 
         return world != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
+                (mode != Mode.EMPTYING || fluidStorage.isEmpty() || (fluidStorage.getResource().isOf(recipe.getFluid().getFluid()) &&
+                        fluidStorage.getResource().nbtMatches(recipe.getFluid().getFluidVariant().getNbt()))) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.getOutput(world.getRegistryManager()));
     }
 
