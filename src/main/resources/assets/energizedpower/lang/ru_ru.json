@@ -385,39 +385,51 @@
 
   "block.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
   "item.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
+  "container.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
 
   "block.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
   "item.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
+  "container.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
 
   "block.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
   "item.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
+  "container.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
 
   "block.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
   "item.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
+  "container.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
 
   "block.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
   "item.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
+  "container.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
 
   "block.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
   "item.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
+  "container.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
 
   "block.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
   "item.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
+  "container.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
 
   "block.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
   "item.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
+  "container.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
 
   "block.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
   "item.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
+  "container.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
 
   "block.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
   "item.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
+  "container.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
 
   "block.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
   "item.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
+  "container.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
 
   "block.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
   "item.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
+  "container.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "Этот блок можно использовать для соединения разноуровневых кабелей.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Более крупные, темные, ромбовидные стороны являются вводами.",

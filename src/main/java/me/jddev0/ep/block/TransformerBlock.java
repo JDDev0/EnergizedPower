@@ -7,6 +7,10 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,16 +23,45 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class TransformerBlock extends BaseEntityBlock {
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     private final Tier tier;
     private final Type type;
+
+    public static Block getBlockFromTierAndType(TransformerBlock.Tier tier, TransformerBlock.Type type) {
+        return switch(tier) {
+            case TIER_LV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.LV_TRANSFORMER_1_TO_N.get();
+                case TYPE_3_TO_3 -> EPBlocks.LV_TRANSFORMER_3_TO_3.get();
+                case TYPE_N_TO_1 -> EPBlocks.LV_TRANSFORMER_N_TO_1.get();
+            };
+            case TIER_MV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.MV_TRANSFORMER_1_TO_N.get();
+                case TYPE_3_TO_3 -> EPBlocks.MV_TRANSFORMER_3_TO_3.get();
+                case TYPE_N_TO_1 -> EPBlocks.MV_TRANSFORMER_N_TO_1.get();
+            };
+            case TIER_HV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.HV_TRANSFORMER_1_TO_N.get();
+                case TYPE_3_TO_3 -> EPBlocks.HV_TRANSFORMER_3_TO_3.get();
+                case TYPE_N_TO_1 -> EPBlocks.HV_TRANSFORMER_N_TO_1.get();
+            };
+            case TIER_EHV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.EHV_TRANSFORMER_1_TO_N.get();
+                case TYPE_3_TO_3 -> EPBlocks.EHV_TRANSFORMER_3_TO_3.get();
+                case TYPE_N_TO_1 -> EPBlocks.EHV_TRANSFORMER_N_TO_1.get();
+            };
+        };
+    }
 
     protected TransformerBlock(Properties props, Tier tier, Type type) {
         super(props);
@@ -36,7 +69,7 @@ public class TransformerBlock extends BaseEntityBlock {
         this.tier = tier;
         this.type = type;
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(FACING, Direction.NORTH));
     }
 
     public Tier getTier() {
@@ -59,8 +92,36 @@ public class TransformerBlock extends BaseEntityBlock {
     }
 
     @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand handItem, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.sidedSuccess(level.isClientSide());
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof TransformerBlockEntity) || ((TransformerBlockEntity)blockEntity).getTier() != tier ||
+                ((TransformerBlockEntity)blockEntity).getTransformerType() != type)
+            throw new IllegalStateException("Container is invalid");
+
+        NetworkHooks.openScreen((ServerPlayer)player, (TransformerBlockEntity)blockEntity, blockPos);
+
+        return InteractionResult.sidedSuccess(level.isClientSide());
+    }
+
+    @Override
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 3);
+    }
+
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite()).
+                setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos()));
     }
 
     @Override
@@ -75,7 +136,7 @@ public class TransformerBlock extends BaseEntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING);
+        stateBuilder.add(POWERED, FACING);
     }
 
     @Nullable
