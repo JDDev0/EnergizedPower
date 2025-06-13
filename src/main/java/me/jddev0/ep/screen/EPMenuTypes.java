@@ -155,6 +155,34 @@ public final class EPMenuTypes {
     public static final ScreenHandlerType<SolarPanelMenu> SOLAR_PANEL_MENU_6 = createScreenHandlerType("solar_panel_6",
             new ExtendedScreenHandlerType<>(SolarPanelMenu::new));
 
+    public static final ScreenHandlerType<TransformerMenu> LV_TRANSFORMER_1_TO_N_MENU = createScreenHandlerType("lv_transformer_1_to_n",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> LV_TRANSFORMER_3_TO_3_MENU = createScreenHandlerType("lv_transformer_3_to_3",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> LV_TRANSFORMER_N_TO_1_MENU = createScreenHandlerType("lv_transformer_n_to_1",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+
+    public static final ScreenHandlerType<TransformerMenu> MV_TRANSFORMER_1_TO_N_MENU = createScreenHandlerType("mv_transformer_1_to_n",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> MV_TRANSFORMER_3_TO_3_MENU = createScreenHandlerType("mv_transformer_3_to_3",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> MV_TRANSFORMER_N_TO_1_MENU = createScreenHandlerType("mv_transformer_n_to_1",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+
+    public static final ScreenHandlerType<TransformerMenu> HV_TRANSFORMER_1_TO_N_MENU = createScreenHandlerType("hv_transformer_1_to_n",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> HV_TRANSFORMER_3_TO_3_MENU = createScreenHandlerType("hv_transformer_3_to_3",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> HV_TRANSFORMER_N_TO_1_MENU = createScreenHandlerType("hv_transformer_n_to_1",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+
+    public static final ScreenHandlerType<TransformerMenu> EHV_TRANSFORMER_1_TO_N_MENU = createScreenHandlerType("ehv_transformer_1_to_n",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> EHV_TRANSFORMER_3_TO_3_MENU = createScreenHandlerType("ehv_transformer_3_to_3",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+    public static final ScreenHandlerType<TransformerMenu> EHV_TRANSFORMER_N_TO_1_MENU = createScreenHandlerType("ehv_transformer_n_to_1",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new));
+
     public static final ScreenHandlerType<PressMoldMakerMenu> PRESS_MOLD_MAKER_MENU = createScreenHandlerType("press_mold_maker",
             new ExtendedScreenHandlerType<>(PressMoldMakerMenu::new));
 

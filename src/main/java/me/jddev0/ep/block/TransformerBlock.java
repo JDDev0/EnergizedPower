@@ -13,16 +13,17 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -31,10 +32,36 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TransformerBlock extends BlockWithEntity {
+    public static final BooleanProperty POWERED = Properties.POWERED;
     public static final DirectionProperty FACING = Properties.FACING;
 
     private final Tier tier;
     private final Type type;
+
+    public static Block getBlockFromTierAndType(TransformerBlock.Tier tier, TransformerBlock.Type type) {
+        return switch(tier) {
+            case TIER_LV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.LV_TRANSFORMER_1_TO_N;
+                case TYPE_3_TO_3 -> EPBlocks.LV_TRANSFORMER_3_TO_3;
+                case TYPE_N_TO_1 -> EPBlocks.LV_TRANSFORMER_N_TO_1;
+            };
+            case TIER_MV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.MV_TRANSFORMER_1_TO_N;
+                case TYPE_3_TO_3 -> EPBlocks.MV_TRANSFORMER_3_TO_3;
+                case TYPE_N_TO_1 -> EPBlocks.MV_TRANSFORMER_N_TO_1;
+            };
+            case TIER_HV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.HV_TRANSFORMER_1_TO_N;
+                case TYPE_3_TO_3 -> EPBlocks.HV_TRANSFORMER_3_TO_3;
+                case TYPE_N_TO_1 -> EPBlocks.HV_TRANSFORMER_N_TO_1;
+            };
+            case TIER_EHV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.EHV_TRANSFORMER_1_TO_N;
+                case TYPE_3_TO_3 -> EPBlocks.EHV_TRANSFORMER_3_TO_3;
+                case TYPE_N_TO_1 -> EPBlocks.EHV_TRANSFORMER_N_TO_1;
+            };
+        };
+    }
 
     protected TransformerBlock(FabricBlockSettings props, Tier tier, Type type) {
         super(props);
@@ -42,7 +69,7 @@ public class TransformerBlock extends BlockWithEntity {
         this.tier = tier;
         this.type = type;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH));
     }
 
     public Tier getTier() {
@@ -65,8 +92,36 @@ public class TransformerBlock extends BlockWithEntity {
     }
 
     @Override
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof TransformerBlockEntity) || ((TransformerBlockEntity)blockEntity).getTier() != tier ||
+                ((TransformerBlockEntity)blockEntity).getTransformerType() != type)
+            throw new IllegalStateException("Container is invalid");
+
+        player.openHandledScreen((TransformerBlockEntity)blockEntity);
+
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, BlockPos fromPos, boolean isMoving) {
+        super.neighborUpdate(selfState, level, selfPos, fromBlock, fromPos, isMoving);
+
+        if(level.isClient())
+            return;
+
+        boolean isPowered = level.isReceivingRedstonePower(selfPos);
+        if(isPowered != selfState.get(POWERED))
+            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 3);
+    }
+
+    @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite());
+        return this.getDefaultState().with(FACING, context.getPlayerLookDirection().getOpposite()).
+                with(POWERED, context.getWorld().isReceivingRedstonePower(context.getBlockPos()));
     }
 
     @Override
@@ -81,7 +136,7 @@ public class TransformerBlock extends BlockWithEntity {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING);
+        stateBuilder.add(POWERED, FACING);
     }
 
     @Nullable

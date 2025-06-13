@@ -84,6 +84,18 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_4, SolarPanelScreen::new);
         HandledScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_5, SolarPanelScreen::new);
         HandledScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_6, SolarPanelScreen::new);
+        HandledScreens.register(EPMenuTypes.LV_TRANSFORMER_1_TO_N_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.LV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.LV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.MV_TRANSFORMER_1_TO_N_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.MV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.MV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.HV_TRANSFORMER_1_TO_N_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.HV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.HV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.EHV_TRANSFORMER_1_TO_N_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.EHV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
+        HandledScreens.register(EPMenuTypes.EHV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);
         HandledScreens.register(EPMenuTypes.PRESS_MOLD_MAKER_MENU, PressMoldMakerScreen::new);
         HandledScreens.register(EPMenuTypes.ALLOY_FURNACE_MENU, AlloyFurnaceScreen::new);
         HandledScreens.register(EPMenuTypes.METAL_PRESS_MENU, MetalPressScreen::new);

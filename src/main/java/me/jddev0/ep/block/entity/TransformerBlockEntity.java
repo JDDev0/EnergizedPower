@@ -1,15 +1,25 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TransformerBlock;
-import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
+import me.jddev0.ep.screen.TransformerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -17,7 +27,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private final TransformerBlock.Tier tier;
     private final TransformerBlock.Type type;
 
@@ -59,9 +69,36 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
         };
     }
 
+    public static String getMachineNameFromTierAndType(TransformerBlock.Tier tier, TransformerBlock.Type type) {
+        return switch(tier) {
+            case TIER_LV -> switch(type) {
+                case TYPE_1_TO_N -> "lv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "lv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "lv_transformer_n_to_1";
+            };
+            case TIER_MV -> switch(type) {
+                case TYPE_1_TO_N -> "transformer_1_to_n";
+                case TYPE_3_TO_3 -> "transformer_3_to_3";
+                case TYPE_N_TO_1 -> "transformer_n_to_1";
+            };
+            case TIER_HV -> switch(type) {
+                case TYPE_1_TO_N -> "hv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "hv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "hv_transformer_n_to_1";
+            };
+            case TIER_EHV -> switch(type) {
+                case TYPE_1_TO_N -> "ehv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "ehv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "ehv_transformer_n_to_1";
+            };
+        };
+    }
+
     public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Tier tier, TransformerBlock.Type type) {
         super(
                 getEntityTypeFromTierAndType(tier, type), blockPos, blockState,
+
+                getMachineNameFromTierAndType(tier, type),
 
                 getMaxEnergyTransferFromTier(tier),
                 getMaxEnergyTransferFromTier(tier)
@@ -83,13 +120,37 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
                 markDirty();
                 syncEnergyToPlayers(32);
             }
+
+            @Override
+            public long extract(long maxAmount, TransactionContext transaction) {
+                if(world != null && !redstoneMode.isActive(world.getBlockState(getPos()).get(Properties.POWERED))) {
+                    //This will make the output "disconnected"
+                    return 0;
+                }
+
+                return super.extract(maxAmount, transaction);
+            }
         };
     }
 
-    @Override
     protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
         //limitingEnergyStorage is unused
         return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, baseEnergyTransferRate);
+    }
+
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new CombinedContainerData(
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value)
+        );
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+        syncEnergyToPlayer(player);
+
+        return new TransformerMenu(id, this, inventory, this.data);
     }
 
     public TransformerBlock.Type getTransformerType() {
@@ -136,6 +197,9 @@ public class TransformerBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
     private static void transferEnergy(World level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
         if(level.isClient())
             return;
+
+        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
+            return; //This will make the output "disconnected"
 
         List<Direction> outputDirections = new LinkedList<>();
         Direction facing = state.get(TransformerBlock.FACING);
