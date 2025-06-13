@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.block.entity.StoneLiquefierBlockEntity;
+import me.jddev0.ep.block.entity.AdvancedFluidPumpBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
@@ -10,58 +10,69 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.StoneLiquefierRecipe;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 
-public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefierBlockEntity>
+public class AdvancedFluidPumpMenu extends UpgradableEnergyStorageMenu<AdvancedFluidPumpBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
+    private final SimpleIntegerValueContainerData xOffsetData = new SimpleIntegerValueContainerData();
+    private final SimpleIntegerValueContainerData yOffsetData = new SimpleIntegerValueContainerData();
+    private final SimpleIntegerValueContainerData zOffsetData = new SimpleIntegerValueContainerData();
+    private final SimpleBooleanValueContainerData extractingFluidData = new SimpleBooleanValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
-    public StoneLiquefierMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
+    public AdvancedFluidPumpMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                return slot == 0 && RecipeUtils.isIngredientOfAny(inv.player.getWorld(), StoneLiquefierRecipe.Type.INSTANCE, stack);
+                if(slot == 0) {
+                    return stack.isOf(Items.COBBLESTONE);
+                }
+
+                return super.isValid(slot, stack);
             }
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.EXTRACTION_RANGE,
+                UpgradeModuleModifier.EXTRACTION_DEPTH
         ), null);
     }
 
-    public StoneLiquefierMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv, UpgradeModuleInventory upgradeModuleInventory,
-                              PropertyDelegate data) {
+    public AdvancedFluidPumpMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
+                                 UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
-                EPMenuTypes.STONE_LIQUEFIER_MENU, id,
+                EPMenuTypes.ADVANCED_FLUID_PUMP_MENU, id,
 
                 playerInventory, blockEntity,
-                EPBlocks.STONE_LIQUEFIER,
+                EPBlocks.ADVANCED_FLUID_PUMP,
+                35, 84,
 
-                upgradeModuleInventory, 3
+                upgradeModuleInventory, 4
         );
 
         checkSize(inv, 1);
 
-        addSlot(new ConstraintInsertSlot(inv, 0, 80, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 0, 107, 35) {
             @Override
             public boolean isEnabled() {
                 return super.isEnabled() && !isInUpgradeModuleView();
@@ -69,7 +80,7 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
         });
 
         for(int i = 0;i < upgradeModuleInventory.size();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addProperties(progressData);
@@ -77,6 +88,10 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
             addProperties(energyConsumptionPerTickData);
             addProperties(energyConsumptionLeftData);
             addProperties(hasEnoughEnergyData);
+            addProperties(xOffsetData);
+            addProperties(yOffsetData);
+            addProperties(zOffsetData);
+            addProperties(extractingFluidData);
             addProperties(redstoneModeData);
             addProperties(comparatorModeData);
         }else {
@@ -84,12 +99,12 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
         }
     }
 
-    public FluidStack getFluid() {
-        return blockEntity.getFluid(0);
+    public FluidStack getFluid(int tank) {
+        return blockEntity.getFluid(tank);
     }
 
-    public long getTankCapacity() {
-        return blockEntity.getTankCapacity(0);
+    public long getTankCapacity(int tank) {
+        return blockEntity.getTankCapacity(tank);
     }
 
     @Override
@@ -102,14 +117,6 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
         return energyConsumptionPerTickData.getValue();
     }
 
-    public int getScaledProgressArrowSize() {
-        int progress = progressData.getValue();
-        int maxProgress = maxProgressData.getValue();
-        int progressArrowSize = 20;
-
-        return (maxProgress == 0 || progress == 0)?0:progress * progressArrowSize / maxProgress;
-    }
-
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
@@ -119,6 +126,14 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
 
     public boolean isCrafting() {
         return progressData.getValue() > 0 && hasEnoughEnergyData.getValue();
+    }
+
+    public BlockPos getTargetOffset() {
+        return new BlockPos(xOffsetData.getValue(), yOffsetData.getValue(), zOffsetData.getValue());
+    }
+
+    public boolean isExtractingFluid() {
+        return extractingFluidData.getValue();
     }
 
     @Override
@@ -142,11 +157,11 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 3, false) &&
+            if(!insertMaxCount1Item(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 5, false) &&
                     !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1 + 3) {
+        }else if(index < 4 * 9 + 1 + 5) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!insertItem(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

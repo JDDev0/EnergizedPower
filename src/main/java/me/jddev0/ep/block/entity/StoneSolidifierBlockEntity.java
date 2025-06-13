@@ -75,7 +75,7 @@ public class StoneSolidifierBlockEntity
 
     @Override
     protected CombinedStorage<FluidVariant, SimpleFluidStorage> initFluidStorage() {
-        return  new CombinedStorage<>(List.of(
+        return new CombinedStorage<>(List.of(
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {

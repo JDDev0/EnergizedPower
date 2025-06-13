@@ -1,4 +1,4 @@
-// 1.20.1	2025-06-11T22:54:49.998337717	Energized Power/Block Loot Tables
+// 1.20.1	2025-06-13T18:32:36.294370441	Energized Power/Block Loot Tables
 75cd2b9225591085c881138629a609012dfecb68 data/energizedpower/loot_tables/blocks/fluid_pipe.json
 616950a2a37d1032997d6adcc28ddc462e137e97 data/energizedpower/loot_tables/blocks/fluid_filler.json
 7609cb3e8c196b21ac938fed38933747b35ca45e data/energizedpower/loot_tables/blocks/advanced_powered_furnace.json
@@ -70,6 +70,7 @@ c80db79bffc249a90332ed219b99b3775d9eadda data/energizedpower/loot_tables/blocks/
 74539f909f57ab09d6b9390b28dfe4de0d9d1e5e data/energizedpower/loot_tables/blocks/sawdust_block.json
 c15b4e3a88834c70f8246a36358a970615c3244b data/energizedpower/loot_tables/blocks/ehv_transformer_1_to_n.json
 6ccc84dfa6f86f1d4b773e382978a055c0428a22 data/energizedpower/loot_tables/blocks/solar_panel_3.json
+4a8603a94473512d2b2e58feb2ef3d93141a702d data/energizedpower/loot_tables/blocks/advanced_fluid_pump.json
 a408b56eff6fb622db2745cff2de9a017a0605f3 data/energizedpower/loot_tables/blocks/lightning_generator.json
 44cf775e849ca5fcf0c7711436190b7b512a73e2 data/energizedpower/loot_tables/blocks/advanced_uncharger.json
 efb8dbc413d2a59d0b9f36ba3092a042275ba015 data/energizedpower/loot_tables/blocks/advanced_minecart_charger.json

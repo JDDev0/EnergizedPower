@@ -1522,6 +1522,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "IpI"
         }, new ItemStack(EPBlocks.FLUID_PUMP_ITEM), CraftingRecipeCategory.MISC);
 
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'G', Ingredient.fromTag(CommonItemTags.ENERGIZED_GOLD_PLATES),
+                'a', Ingredient.fromTag(CommonItemTags.ADVANCED_ALLOY_PLATES),
+                'A', Ingredient.ofItems(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'F', Ingredient.ofItems(EPBlocks.FLUID_PUMP_ITEM),
+                'f', Ingredient.ofItems(EPBlocks.FLUID_TANK_LARGE_ITEM)
+        ), new String[] {
+                "GFG",
+                "fAf",
+                "aFa"
+        }, new ItemStack(EPBlocks.ADVANCED_FLUID_PUMP_ITEM), CraftingRecipeCategory.MISC);
+
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.IRON_BLOCKS), Map.of(
                 'i', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_BLOCKS),

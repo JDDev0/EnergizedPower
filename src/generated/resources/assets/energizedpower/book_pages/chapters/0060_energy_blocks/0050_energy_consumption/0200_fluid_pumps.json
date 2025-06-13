@@ -1,12 +1,15 @@
 {
-  "block": "energizedpower:fluid_pump",
+  "block": [
+    "energizedpower:fluid_pump",
+    "energizedpower:advanced_fluid_pump"
+  ],
   "content": {
     "extra": [
       {
         "bold": true,
         "color": "black",
         "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.fluid_pump"
+        "translate": "book.energizedpower.page.fluid_pumps"
       }
     ],
     "text": ""

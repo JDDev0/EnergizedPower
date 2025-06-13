@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
@@ -8,7 +8,7 @@ import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.FluidPumpMenu;
+import me.jddev0.ep.screen.AdvancedFluidPumpMenu;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -35,15 +36,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
-public class FluidPumpBlockEntity
-        extends WorkerFluidMachineBlockEntity<SimpleFluidStorage, BlockPos> {
-    public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
-    public static final int EXTRACTION_DURATION = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_DURATION.getValue();
+public class AdvancedFluidPumpBlockEntity
+        extends WorkerFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, BlockPos> {
+    public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_ADVANCED_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
+    public static final int EXTRACTION_DURATION = ModConfigs.COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_DURATION.getValue();
 
-    public static final int RANGE = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_RANGE.getValue();
-    public static final int DEPTH = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_DEPTH.getValue();
+    public static final int RANGE = ModConfigs.COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_RANGE.getValue();
+    public static final int DEPTH = ModConfigs.COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_DEPTH.getValue();
 
     private int xOffset = -1;
     private int yOffset = 0;
@@ -52,20 +54,20 @@ public class FluidPumpBlockEntity
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
-    public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public AdvancedFluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
-                EPBlockEntities.FLUID_PUMP_ENTITY, blockPos, blockState,
+                EPBlockEntities.ADVANCED_FLUID_PUMP_ENTITY, blockPos, blockState,
 
-                "fluid_pump",
+                "advanced_fluid_pump",
 
                 1, 1,
 
-                ModConfigs.COMMON_FLUID_PUMP_CAPACITY.getValue(),
-                ModConfigs.COMMON_FLUID_PUMP_TRANSFER_RATE.getValue(),
-                ModConfigs.COMMON_FLUID_PUMP_CONSUMPTION_PER_TICK.getValue(),
+                ModConfigs.COMMON_ADVANCED_FLUID_PUMP_CAPACITY.getValue(),
+                ModConfigs.COMMON_ADVANCED_FLUID_PUMP_TRANSFER_RATE.getValue(),
+                ModConfigs.COMMON_ADVANCED_FLUID_PUMP_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
-                FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_FLUID_PUMP_FLUID_TANK_CAPACITY.getValue() * 1000),
+                FluidStorageMultiTankMethods.INSTANCE,
+                FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_ADVANCED_FLUID_PUMP_FLUID_TANK_CAPACITY.getValue() * 1000),
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -78,6 +80,13 @@ public class FluidPumpBlockEntity
     @Override
     protected SimpleInventory initInventoryStorage() {
         return new SimpleInventory(slotCount) {
+            @Override
+            public void markDirty() {
+                super.markDirty();
+
+                AdvancedFluidPumpBlockEntity.this.markDirty();
+            }
+
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0) {
@@ -97,25 +106,41 @@ public class FluidPumpBlockEntity
 
                 super.setStack(slot, stack);
             }
-
-            @Override
-            public void markDirty() {
-                super.markDirty();
-
-                FluidPumpBlockEntity.this.markDirty();
-            }
         };
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
-            @Override
-            protected void onFinalCommit() {
-                markDirty();
-                syncFluidToPlayers(32);
-            }
-        };
+    protected CombinedStorage<FluidVariant, SimpleFluidStorage> initFluidStorage() {
+        return new CombinedStorage<>(List.of(
+                new SimpleFluidStorage(baseTankCapacity) {
+                    @Override
+                    protected void onFinalCommit() {
+                        markDirty();
+                        syncFluidToPlayers(32);
+                    }
+                },
+                new SimpleFluidStorage(baseTankCapacity) {
+                    @Override
+                    protected void onFinalCommit() {
+                        markDirty();
+                        syncFluidToPlayers(32);
+                    }
+                },
+                new SimpleFluidStorage(baseTankCapacity) {
+                    @Override
+                    protected void onFinalCommit() {
+                        markDirty();
+                        syncFluidToPlayers(32);
+                    }
+                },
+                new SimpleFluidStorage(baseTankCapacity) {
+                    @Override
+                    protected void onFinalCommit() {
+                        markDirty();
+                        syncFluidToPlayers(32);
+                    }
+                }
+        ));
     }
 
     @Override
@@ -141,7 +166,7 @@ public class FluidPumpBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
-        return new FluidPumpMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
+        return new AdvancedFluidPumpMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
 
     @Override
@@ -269,9 +294,7 @@ public class FluidPumpBlockEntity
 
     public void goToNextOffset() {
         int range = (int)Math.ceil(RANGE *
-                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_RANGE) *
-                //Also check old RANGE upgrade module for upgrade modules which were inserted before 2.13.0
-                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.RANGE));
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_RANGE));
         int depth = (int)Math.ceil(DEPTH *
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_DEPTH));
 

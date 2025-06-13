@@ -1,9 +1,9 @@
-// 1.20.1	2025-06-11T22:54:49.997683062	Energized Power/Advancements (Basics)
+// 1.20.1	2025-06-13T18:32:36.293729356	Energized Power/Advancements (Basics)
 11d7a188e79c7f0aabd67f79b2092dab9c73338c data/energizedpower/advancements/main/basics/moon_light_upgrade_module_1.json
 98e0a9fd6575fc865f7f50918043a50262e9c697 data/energizedpower/advancements/main/basics/press_molds.json
 cb16ccd834e584f612bbaabf8f003663cfdced02 data/energizedpower/advancements/main/basics/copper_wire.json
-54e8b3257efc56aedec1d81cf1f52dabfcebbb69 data/energizedpower/advancements/main/basics/fluid_drainer.json
 743bc5a9c6f543d30cf5538590ac02543df7267e data/energizedpower/advancements/main/basics/battery_box.json
+54e8b3257efc56aedec1d81cf1f52dabfcebbb69 data/energizedpower/advancements/main/basics/fluid_drainer.json
 f7eb8ec2832d93c8924837f0c0950ede8e224a4e data/energizedpower/advancements/main/basics/hardened_machine_frame.json
 f2edd48f318a25847bf41dd7c2912df6fce79693 data/energizedpower/advancements/main/basics/thermal_generator.json
 573bf343e5169716b80ce112b316179ab13bc5b9 data/energizedpower/advancements/main/basics/mv_transformers.json
