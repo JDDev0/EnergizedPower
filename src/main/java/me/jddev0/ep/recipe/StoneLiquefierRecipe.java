@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +52,13 @@ public class StoneLiquefierRecipe implements Recipe<RecipeInput> {
     @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.createWithCapacity(1);
+        ingredients.add(0, input);
+        return ingredients;
     }
 
     @Override
