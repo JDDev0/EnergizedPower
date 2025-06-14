@@ -143,11 +143,11 @@
   "item.energizedpower.extraction_depth_upgrade_module_4": "Модуль улучшения глубины (Уровень IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Модуль улучшения глубины (Уровень V)",
 
-  "item.energizedpower.extraction_range_upgrade_module_1": "Extraction Range Upgrade Module (Tier I)",
-  "item.energizedpower.extraction_range_upgrade_module_2": "Extraction Range Upgrade Module (Tier II)",
-  "item.energizedpower.extraction_range_upgrade_module_3": "Extraction Range Upgrade Module (Tier III)",
-  "item.energizedpower.extraction_range_upgrade_module_4": "Extraction Range Upgrade Module (Tier IV)",
-  "item.energizedpower.extraction_range_upgrade_module_5": "Extraction Range Upgrade Module (Tier V)",
+  "item.energizedpower.extraction_range_upgrade_module_1": "Модуль улучшения радиуса (Уровень I)",
+  "item.energizedpower.extraction_range_upgrade_module_2": "Модуль улучшения радиуса (Уровень II)",
+  "item.energizedpower.extraction_range_upgrade_module_3": "Модуль улучшения радиуса (Уровень III)",
+  "item.energizedpower.extraction_range_upgrade_module_4": "Модуль улучшения радиуса (Уровень IV)",
+  "item.energizedpower.extraction_range_upgrade_module_5": "Модуль улучшения радиуса (Уровень V)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения доменной печи",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Доменная печь",
@@ -560,9 +560,9 @@
   "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
   "container.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
 
-  "block.energizedpower.stone_liquefier": "Stone Liquefier",
-  "item.energizedpower.stone_liquefier": "Stone Liquefier",
-  "container.energizedpower.stone_liquefier": "Stone Liquefier",
+  "block.energizedpower.stone_liquefier": "Разжижитель камня",
+  "item.energizedpower.stone_liquefier": "Разжижитель камня",
+  "container.energizedpower.stone_liquefier": "Разжижитель камня",
 
   "block.energizedpower.stone_solidifier": "Отвердитель камня",
   "item.energizedpower.stone_solidifier": "Отвердитель камня",
@@ -623,9 +623,9 @@
   "item.energizedpower.fluid_pump": "Жидкостный насос",
   "container.energizedpower.fluid_pump": "Жидкостный насос",
 
-  "block.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
-  "item.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
-  "container.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+  "block.energizedpower.advanced_fluid_pump": "Улучшенный жидкостный насос",
+  "item.energizedpower.advanced_fluid_pump": "Улучшенный жидкостный насос",
+  "container.energizedpower.advanced_fluid_pump": "Улучшенный жидкостный насос",
 
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Для завершения этого процесса все еще требуется %s.",
   "tooltip.energizedpower.fluid_pump.target": "Цель: %d, %d, %d",
@@ -720,8 +720,8 @@
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
-  "tooltip.energizedpower.energy_consumption_per_tick.txt": "Energy consumption: %s",
-  "tooltip.energizedpower.energy_production_per_tick.txt": "Energy production: %s",
+  "tooltip.energizedpower.energy_consumption_per_tick.txt": "Потребление энергии: %s",
+  "tooltip.energizedpower.energy_production_per_tick.txt": "Производство энергии: %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Для завершения этого рецепта требуется %s.",
   "tooltip.energizedpower.recipe.selector.next_recipe": "Следующий рецепт",
   "tooltip.energizedpower.recipe.selector.prev_recipe": "Предыдущий рецепт",
@@ -763,7 +763,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Продолжительность",
   "tooltip.energizedpower.upgrade_module_modifier.range": "Дальность",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Глубина извлечения",
-  "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Extraction Range",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Радиус извлечения",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Режим печи",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
 
@@ -804,7 +804,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Камера выращивания кристалов",
   "emi.category.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
   "emi.category.energizedpower.alloy_furnace": "Печь для сплавов",
-  "emi.category.energizedpower.stone_liquefier": "Stone Liquefier",
+  "emi.category.energizedpower.stone_liquefier": "Разжижитель камня",
   "emi.category.energizedpower.stone_solidifier": "Отвердитель камня",
   "emi.category.energizedpower.filtration_plant": "Фильтрационная установка",
   "emi.category.energizedpower.fluid_transposer": "Жидкостный транспозер",
@@ -942,20 +942,20 @@
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Глубина извлечения V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Создайте модуль улучшения глубины извлечения (Уровень V).",
 
-  "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Extraction Range I",
-  "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Craft an Extraction Range Upgrade Module (Tier I).",
+  "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Радиус извлечения I",
+  "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Создайте модуль улучшения радиуса извлечения (Уровень I).",
 
-  "advancements.energizedpower.extraction_range_upgrade_module_2.title": "Extraction Range II",
-  "advancements.energizedpower.extraction_range_upgrade_module_2.description": "Craft an Extraction Range Upgrade Module (Tier II).",
+  "advancements.energizedpower.extraction_range_upgrade_module_2.title": "Радиус извлечения II",
+  "advancements.energizedpower.extraction_range_upgrade_module_2.description": "Создайте модуль улучшения радиуса извлечения (Уровень II).",
 
-  "advancements.energizedpower.extraction_range_upgrade_module_3.title": "Extraction Range III",
-  "advancements.energizedpower.extraction_range_upgrade_module_3.description": "Craft an Extraction Range Upgrade Module (Tier III).",
+  "advancements.energizedpower.extraction_range_upgrade_module_3.title": "Радиус извлечения III",
+  "advancements.energizedpower.extraction_range_upgrade_module_3.description": "Создайте модуль улучшения радиуса извлечения (Уровень III).",
 
-  "advancements.energizedpower.extraction_range_upgrade_module_4.title": "Extraction Range IV",
-  "advancements.energizedpower.extraction_range_upgrade_module_4.description": "Craft an Extraction Range Upgrade Module (Tier IV).",
+  "advancements.energizedpower.extraction_range_upgrade_module_4.title": "Радиус извлечения IV",
+  "advancements.energizedpower.extraction_range_upgrade_module_4.description": "Создайте модуль улучшения радиуса извлечения (Уровень IV).",
 
-  "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Extraction Range V",
-  "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Craft an Extraction Range Upgrade Module (Tier V).",
+  "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Радиус извлечения V",
+  "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Создайте модуль улучшения радиуса извлечения (Уровень V).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Режим печи: доменная печь",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменной печи.",
@@ -1032,8 +1032,8 @@
   "advancements.energizedpower.plant_growth_chamber.title": "Ускоренный рост растений",
   "advancements.energizedpower.plant_growth_chamber.description": "Повысьте скорость и урожайность с помощью камеры для выращивания растений.",
 
-  "advancements.energizedpower.stone_liquefier.title": "Stone Liquefier",
-  "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
+  "advancements.energizedpower.stone_liquefier.title": "Разжижитель камня",
+  "advancements.energizedpower.stone_liquefier.description": "Создайте лаву из каменных блоков.",
 
   "advancements.energizedpower.stone_solidifier.title": "Отвердитель камня",
   "advancements.energizedpower.stone_solidifier.description": "Создайте камень с помощью воды и лавы",
@@ -1050,8 +1050,8 @@
   "advancements.energizedpower.fluid_pump.title": "Жидкостный насос",
   "advancements.energizedpower.fluid_pump.description": "Создайте жидкостный насос.",
 
-  "advancements.energizedpower.advanced_fluid_pump.title": "Advanced Fluid Pump",
-  "advancements.energizedpower.advanced_fluid_pump.description": "Craft an Advanced Fluid Pump.",
+  "advancements.energizedpower.advanced_fluid_pump.title": "Улучшенный жидкостный насос",
+  "advancements.energizedpower.advanced_fluid_pump.description": "Создайте улучшенный жидкостный насос.",
 
   "advancements.energizedpower.drain.title": "Слив",
   "advancements.energizedpower.drain.description": "Слейте жидкостные источники.",
@@ -1430,11 +1430,11 @@
   "book.energizedpower.page.duration_upgrades.1": "Улучшение продолжительности увеличивает продолжительность погоды, установленной контроллером погоды.",
   "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",
 
-  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can send and receive electromagnetic waves in.",
+  "book.energizedpower.page.range_upgrades": "Улучшения дальности действия увеличивают дальность, на которой машина может отправлять и принимать электромагнитные волны.",
 
   "book.energizedpower.page.extraction_depth_upgrades": "Улучшение глубины добычи увеличивают глубину, на которой может работать машина.",
 
-  "book.energizedpower.page.extraction_range_upgrades": "Extraction Range Upgrades increase the range a machine can operate in.",
+  "book.energizedpower.page.extraction_range_upgrades": "Улучшение радиуса добычи увеличивают радиус, в котором может работать машина.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
 
@@ -1595,8 +1595,8 @@
   "book.energizedpower.page.plant_growth_chamber.6": "Если вы хотите использовать удобрение, его необходимо внести первым.",
   "book.energizedpower.page.plant_growth_chamber.7": "Если вы хотите автоматизировать эти блоки, вам нужно помнить, что доходность рандомизирована.",
 
-  "book.energizedpower.page.stone_liquefier.1": "The Stone Liquefier produces Lava from Stone blocks.",
-  "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",
+  "book.energizedpower.page.stone_liquefier.1": "Разжижитель камня производит лаву из каменных блоков.",
+  "book.energizedpower.page.stone_liquefier.2": "Жидкости необходимо выводить с помощью труб",
 
   "book.energizedpower.page.stone_solidifier.1": "Отвердитель камня производит каменные блоки из воды и лавы.",
   "book.energizedpower.page.stone_solidifier.2": "Жидкости необходимо вводить с помощью труб.",
