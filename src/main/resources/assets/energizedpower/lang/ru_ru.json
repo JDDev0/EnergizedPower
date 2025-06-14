@@ -777,7 +777,7 @@
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Электрик",
+  "entity.minecraft.villager.electrician": "Электрик",
 
   "entity.energizedpower.battery_box_minecart": "Вагонетка с БатБоксом",
   "entity.energizedpower.advanced_battery_box_minecart": "Продвинутая вагонетка с БатБоксом",

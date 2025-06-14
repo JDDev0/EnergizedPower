@@ -777,7 +777,7 @@
 
   "itemGroup.energizedpower.tab": "Energized Power",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Electrician",
+  "entity.minecraft.villager.electrician": "Electrician",
 
   "entity.energizedpower.battery_box_minecart": "Battery Box Minecart",
   "entity.energizedpower.advanced_battery_box_minecart": "Advanced Battery Box Minecart",

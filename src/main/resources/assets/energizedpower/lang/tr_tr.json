@@ -777,7 +777,7 @@
 
   "itemGroup.energizedpower.tab": "Enerjilendirilmiş Güç",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Elektirikci",
+  "entity.minecraft.villager.electrician": "Elektirikci",
 
   "entity.energizedpower.battery_box_minecart": "Batarya Kutusu Maden Arabası",
   "entity.energizedpower.advanced_battery_box_minecart": "Gelişmiş Batarya Kutusu Maden Arabası",

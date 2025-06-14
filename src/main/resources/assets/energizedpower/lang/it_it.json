@@ -777,7 +777,7 @@
 
   "itemGroup.energizedpower.tab": "Potenza energizzata",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Elettricista",
+  "entity.minecraft.villager.electrician": "Elettricista",
 
   "entity.energizedpower.battery_box_minecart": "Carretto da miniera con vano batteria",
   "entity.energizedpower.advanced_battery_box_minecart": "Carrello da miniera con batteria avanzata",
