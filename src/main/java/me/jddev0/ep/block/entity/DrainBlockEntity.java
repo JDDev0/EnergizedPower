@@ -25,16 +25,14 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -86,17 +84,17 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.put("drain.progress", NbtInt.of(progress));
+        view.putInt("drain.progress", progress);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        progress = nbt.getInt("drain.progress", 0);
+        progress = view.getInt("drain.progress", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, DrainBlockEntity blockEntity) {

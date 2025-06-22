@@ -5,8 +5,8 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.jetbrains.annotations.NotNull;
 
 public class UpgradeModuleInventory extends SimpleInventory {
@@ -85,11 +85,11 @@ public class UpgradeModuleInventory extends SimpleInventory {
         return sum;
     }
 
-    public NbtCompound saveToNBT(RegistryWrapper.WrapperLookup registries) {
-        return Inventories.writeNbt(new NbtCompound(), heldStacks, registries);
+    public void saveData(WriteView view) {
+        Inventories.writeData(view, heldStacks);
     }
 
-    public void loadFromNBT(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        Inventories.readNbt(tag, heldStacks, registries);
+    public void readData(ReadView view) {
+        Inventories.readData(view, heldStacks);
     }
 }

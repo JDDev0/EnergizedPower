@@ -15,15 +15,14 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
@@ -100,21 +99,22 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.putBoolean("ignore_nbt", ignoreNBT);
+        view.putBoolean("ignore_nbt", ignoreNBT);
 
-        nbt.put("fluid_filter", fluidFilter.toNBT(new NbtCompound(), registries));
+        view.putNullable("fluid_filter", FluidStack.CODEC_MILLIBUCKETS, fluidFilter.isEmpty()?null:fluidFilter);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        ignoreNBT = nbt.getBoolean("ignore_nbt", false);
+        ignoreNBT = view.getBoolean("ignore_nbt", false);
 
-        fluidFilter = FluidStack.fromNbt(nbt.getCompoundOrEmpty("fluid_filter"), registries);
+        fluidFilter = view.read("fluid_filter", FluidStack.CODEC_MILLIBUCKETS).
+                orElseGet(() -> new FluidStack(FluidVariant.blank(), 1));
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {

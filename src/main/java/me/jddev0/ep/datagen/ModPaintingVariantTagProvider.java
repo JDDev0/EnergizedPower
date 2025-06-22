@@ -17,7 +17,7 @@ public class ModPaintingVariantTagProvider extends FabricTagProvider<PaintingVar
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
-        getOrCreateTagBuilder(PaintingVariantTags.PLACEABLE).
+        builder(PaintingVariantTags.PLACEABLE).
                 add(EPPaintingVariants.GEAR,
                         EPPaintingVariants.FACTORY);
     }

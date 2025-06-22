@@ -4,8 +4,8 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
@@ -83,9 +83,9 @@ public abstract class SelectableRecipeMachineContainerScreen
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        renderCurrentRecipeOutput(drawContext, x, y);
-
         renderButtons(drawContext, x, y, mouseX, mouseY);
+
+        renderCurrentRecipeOutput(drawContext, x, y);
     }
 
     private void renderCurrentRecipeOutput(DrawContext drawContext, int x, int y) {
@@ -95,26 +95,25 @@ public abstract class SelectableRecipeMachineContainerScreen
 
         ItemStack itemStackIcon = getRecipeIcon(currentRecipe);
         if(!itemStackIcon.isEmpty()) {
-            drawContext.getMatrices().push();
-            drawContext.getMatrices().translate(0.f, 0.f, 100.f);
+            drawContext.getMatrices().pushMatrix();
 
             drawContext.drawItem(itemStackIcon, x + recipeSelectorPosX, y + recipeSelectorPosY,
                     recipeSelectorPosX + recipeSelectorPosY * this.backgroundWidth);
 
-            drawContext.getMatrices().pop();
+            drawContext.getMatrices().popMatrix();
         }
     }
 
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         //Down button
         if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
 
         //Up button
         if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
     }

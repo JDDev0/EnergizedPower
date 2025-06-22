@@ -13,12 +13,11 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM.getValue();
@@ -30,17 +29,17 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.putInt("current_output_index", currentOutputIndex);
+        view.putInt("current_output_index", currentOutputIndex);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        currentOutputIndex = nbt.getInt("current_output_index", 0);
+        currentOutputIndex = view.getInt("current_output_index", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSplitterBlockEntity blockEntity) {

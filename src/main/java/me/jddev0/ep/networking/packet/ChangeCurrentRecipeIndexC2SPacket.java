@@ -32,7 +32,7 @@ public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) im
     }
 
     public static void receive(ChangeCurrentRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

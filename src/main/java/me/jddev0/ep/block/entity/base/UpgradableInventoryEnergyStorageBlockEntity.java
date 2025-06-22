@@ -7,12 +7,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableInventoryEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleInventory>
@@ -32,21 +30,21 @@ public abstract class UpgradableInventoryEnergyStorageBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+    protected void writeData(WriteView view) {
         //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+        upgradeModuleInventory.saveData(view.get("upgrade_module_inventory"));
 
-        super.writeNbt(nbt, registries);
+        super.writeData(view);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+    protected void readData(ReadView view) {
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompoundOrEmpty("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.readData(view.getReadView("upgrade_module_inventory"));
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        super.readNbt(nbt, registries);
+        super.readData(view);
     }
 
     @Override

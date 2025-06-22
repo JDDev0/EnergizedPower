@@ -7,8 +7,8 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.text.Text;
@@ -48,7 +48,7 @@ public class FluidPumpScreen
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 206, y + 17, 16, 0, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 206, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderInfoText(DrawContext drawContext, int x, int y) {
@@ -67,7 +67,7 @@ public class FluidPumpScreen
 
         int componentWidth = textRenderer.getWidth(component);
 
-        drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0, false);
+        drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0xFF000000, false);
 
 
         if(handler.getSlot(4 * 9).getStack().isEmpty()) {
@@ -76,7 +76,7 @@ public class FluidPumpScreen
 
             componentWidth = textRenderer.getWidth(component);
 
-            drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0, false);
+            drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
         }else if(handler.isExtractingFluid()) {
             FluidState targetFluidState = handler.getBlockEntity().getWorld().getFluidState(targetPos);
             if(!targetFluidState.isEmpty()) {
@@ -85,7 +85,7 @@ public class FluidPumpScreen
 
                 componentWidth = textRenderer.getWidth(component);
 
-                drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0, false);
+                drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
             }
         }
     }

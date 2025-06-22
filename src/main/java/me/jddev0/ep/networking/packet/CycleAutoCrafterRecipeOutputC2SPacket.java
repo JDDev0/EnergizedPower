@@ -33,7 +33,7 @@ public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements Cus
     }
 
     public static void receive(CycleAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

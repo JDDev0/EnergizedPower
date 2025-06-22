@@ -5,8 +5,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -29,17 +30,17 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.putLong("energy", getEnergy());
+    protected void writeCustomData(WriteView view) {
+        view.putLong("energy", getEnergy());
 
-        super.writeCustomDataToNbt(nbt);
+        super.writeCustomData(view);
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    protected void readCustomData(ReadView view) {
+        super.readCustomData(view);
 
-        setEnergy(nbt.getLong("energy", 0));
+        setEnergy(view.getLong("energy", 0));
     }
 
     @Override

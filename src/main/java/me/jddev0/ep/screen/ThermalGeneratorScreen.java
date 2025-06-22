@@ -5,8 +5,8 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 
@@ -37,7 +37,7 @@ public class ThermalGeneratorScreen extends ConfigurableUpgradableEnergyStorageC
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     @Override

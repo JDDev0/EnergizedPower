@@ -7,8 +7,8 @@ import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
@@ -74,19 +74,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18, 256, 256);
         }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18, 256, 256);
         }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18, 256, 256);
         }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18, 256, 256);
         }
     }
 
@@ -97,7 +97,7 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
 
         int componentWidth = textRenderer.getWidth(component);
 
-        drawContext.drawText(textRenderer, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0, false);
+        drawContext.drawText(textRenderer, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override

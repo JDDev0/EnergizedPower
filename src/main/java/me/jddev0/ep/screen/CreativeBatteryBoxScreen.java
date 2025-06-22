@@ -1,14 +1,13 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
@@ -54,11 +53,10 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
         renderCheckboxLabels(drawContext, x, y, mouseX, mouseY);
@@ -68,22 +66,22 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         if(handler.isEnergyProduction()) {
             //Energy Production checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 10, y + 28, 0, 139, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 10, y + 28, 0, 139, 11, 11, 256, 256);
         }
 
         if(handler.isEnergyConsumption()) {
             //Energy Consumption checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 10, y + 46, 0, 139, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 10, y + 46, 0, 139, 11, 11, 256, 256);
         }
     }
 
     private void renderCheckboxLabels(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         drawContext.drawText(textRenderer, Text.translatable("tooltip.energizedpower.creative_battery_box.cbx.energy_production"),
-                x + 25, y + 30, 0, false);
+                x + 25, y + 30, 0xFF000000, false);
 
         drawContext.drawText(textRenderer, Text.translatable("tooltip.energizedpower.creative_battery_box.cbx.energy_consumption"),
-                x + 25, y + 48, 0, false);
+                x + 25, y + 48, 0xFF000000, false);
     }
 
     @Override

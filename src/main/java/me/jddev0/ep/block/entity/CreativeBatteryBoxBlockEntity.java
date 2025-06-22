@@ -11,16 +11,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -74,19 +73,19 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.putBoolean("energy_production", energyProduction);
-        nbt.putBoolean("energy_consumption", energyConsumption);
+        view.putBoolean("energy_production", energyProduction);
+        view.putBoolean("energy_consumption", energyConsumption);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        energyProduction = !nbt.contains("energy_production") || nbt.getBoolean("energy_production", false);
-        energyConsumption = nbt.getBoolean("energy_consumption", false);
+        energyProduction = view.getBoolean("energy_production", true);
+        energyConsumption = view.getBoolean("energy_consumption", false);
     }
 
     public void setEnergyProduction(boolean energyProduction) {

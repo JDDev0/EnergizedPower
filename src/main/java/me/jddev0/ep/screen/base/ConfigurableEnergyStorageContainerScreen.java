@@ -6,8 +6,8 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
@@ -89,9 +89,9 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         int ordinal = redstoneMode.ordinal();
 
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20, 256, 256);
         }else {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20, 256, 256);
         }
     }
 

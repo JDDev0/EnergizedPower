@@ -33,7 +33,7 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
     }
 
     public static void receive(SetTimeFromTimeControllerC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 
@@ -62,9 +62,9 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
             int currentDayTime = (int)(currentTime % 24000);
 
             if(currentDayTime <= data.time)
-                context.player().getServerWorld().setTimeOfDay(currentTime - currentDayTime + data.time);
+                context.player().getWorld().setTimeOfDay(currentTime - currentDayTime + data.time);
             else
-                context.player().getServerWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + data.time);
+                context.player().getWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + data.time);
         });
     }
 }

@@ -9,14 +9,11 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.nbt.NbtLong;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.state.property.Properties;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -73,21 +70,21 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.put("recipe.progress", NbtInt.of(progress));
-        nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
-        nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
+        view.putInt("recipe.progress", progress);
+        view.putInt("recipe.max_progress", maxProgress);
+        view.putLong("recipe.energy_consumption_left", energyConsumptionLeft);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        progress = nbt.getInt("recipe.progress", 0);
-        maxProgress = nbt.getInt("recipe.max_progress", 0);
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left", 0);
+        progress = view.getInt("recipe.progress", 0);
+        maxProgress = view.getInt("recipe.max_progress", 0);
+        energyConsumptionLeft = view.getLong("recipe.energy_consumption_left", 0);
     }
 
     public static <F extends Storage<FluidVariant>, W> void tick(

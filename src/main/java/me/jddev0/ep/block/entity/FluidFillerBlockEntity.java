@@ -25,13 +25,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -212,23 +211,23 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidFillingLeft,
-                "recipe.fluid_filling_left", "recipe.fluid_filling_left_leftover_droplets", nbt);
+                "recipe.fluid_filling_left", "recipe.fluid_filling_left_leftover_droplets", view);
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidFillingSumPending,
-                "recipe.fluid_filling_sum_pending", "recipe.fluid_filling_sum_pending_leftover_droplets", nbt);
+                "recipe.fluid_filling_sum_pending", "recipe.fluid_filling_sum_pending_leftover_droplets", view);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
         fluidFillingLeft = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_filling_left",
-                "recipe.fluid_filling_left_leftover_droplets", nbt);
+                "recipe.fluid_filling_left_leftover_droplets", view);
         fluidFillingSumPending = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_filling_sum_pending",
-                "recipe.fluid_filling_sum_pending_leftover_droplets", nbt);
+                "recipe.fluid_filling_sum_pending_leftover_droplets", view);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {

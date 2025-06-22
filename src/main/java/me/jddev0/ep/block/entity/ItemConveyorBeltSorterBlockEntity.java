@@ -23,16 +23,15 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory<BlockPos>, CheckboxUpdate {
@@ -96,27 +95,27 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks, registries));
+        Inventories.writeData(view.get("pattern"), patternSlots.heldStacks);
 
         for(int i = 0;i < 3;i++)
-            nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
+            view.putBoolean("recipe.whitelist." + i, whitelist[i]);
         for(int i = 0;i < 3;i++)
-            nbt.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
+            view.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        Inventories.readNbt(nbt.getCompoundOrEmpty("pattern"), patternSlots.heldStacks, registries);
+        Inventories.readData(view.getReadView("pattern"), patternSlots.heldStacks);
 
         for(int i = 0;i < 3;i++)
-            whitelist[i] = nbt.getBoolean("recipe.whitelist." + i, false);
+            whitelist[i] = view.getBoolean("recipe.whitelist." + i, false);
         for(int i = 0;i < 3;i++)
-            ignoreNBT[i] = nbt.getBoolean("recipe.ignore_nbt." + i, false);
+            ignoreNBT[i] = view.getBoolean("recipe.ignore_nbt." + i, false);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity) {

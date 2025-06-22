@@ -33,7 +33,7 @@ public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements
     }
 
     public static void receive(PopEnergizedPowerBookFromLecternC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

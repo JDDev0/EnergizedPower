@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
@@ -15,8 +14,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.*;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -82,11 +81,10 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         for(int i = 0;i < 2;i++) {
             if(i == 0)
@@ -102,16 +100,16 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y, int tank) {
         if(tank == 0)
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
         else if(tank == 1)
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 152, y + 35, 0, 167, 16, 16, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 35, 0, 167, 16, 16, 256, 256);
     }
 
     private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(handler.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
     }
 

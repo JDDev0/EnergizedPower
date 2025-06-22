@@ -8,10 +8,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class FluidStorageBlockEntity<F extends Storage<FluidVariant>>
         extends BlockEntity
@@ -35,17 +34,17 @@ public abstract class FluidStorageBlockEntity<F extends Storage<FluidVariant>>
     protected abstract F initFluidStorage();
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        fluidStorageMethods.saveFluidStorage(fluidStorage, nbt, registries);
+        fluidStorageMethods.saveFluidStorage(fluidStorage, view);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        fluidStorageMethods.loadFluidStorage(fluidStorage, nbt, registries);
+        fluidStorageMethods.loadFluidStorage(fluidStorage, view);
     }
 
     protected final void syncFluidToPlayer(PlayerEntity player) {

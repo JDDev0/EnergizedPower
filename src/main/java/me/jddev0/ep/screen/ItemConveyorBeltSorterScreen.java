@@ -1,14 +1,13 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.sound.SoundEvents;
@@ -56,11 +55,10 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         renderOutputBeltConnectionState(drawContext, x, y, mouseX, mouseY);
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
@@ -69,20 +67,20 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     private void renderOutputBeltConnectionState(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++)
             if(handler.isOutputBeltConnected(i))
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 10, y + 18 + i * 18, 22, 169 + i * 14, 30, 14, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 10, y + 18 + i * 18, 22, 169 + i * 14, 30, 14, 256, 256);
     }
     private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++) {
             if(handler.isWhitelist(i)) {
                 //Whitelist checkbox [3x]
 
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 136, y + 19 + i * 18, 13, 150, 13, 13, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 136, y + 19 + i * 18, 13, 150, 13, 13, 256, 256);
             }
 
             if(handler.isIgnoreNBT(i)) {
                 //Ignore NBT checkbox [3x]
 
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 153, y + 19 + i * 18, 0, 150, 13, 13, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 153, y + 19 + i * 18, 0, 150, 13, 13, 256, 256);
             }
         }
     }

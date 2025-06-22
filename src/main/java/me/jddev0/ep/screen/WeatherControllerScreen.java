@@ -6,8 +6,8 @@ import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -67,23 +67,23 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
 
         //Weather clear button
         if(isPointWithinBounds(52, 34, 18, 18, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 56, 193, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 56, 193, 18, 18, 256, 256);
         }else if(selectedWeatherType == 0) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 74, 193, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 74, 193, 18, 18, 256, 256);
         }
 
         //Weather rain button
         if(isPointWithinBounds(88, 34, 18, 18, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 56, 211, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 56, 211, 18, 18, 256, 256);
         }else if(selectedWeatherType == 1) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 74, 211, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 74, 211, 18, 18, 256, 256);
         }
 
         //Weather thunder button
         if(isPointWithinBounds(124, 34, 18, 18, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 56, 229, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 56, 229, 18, 18, 256, 256);
         }else if(selectedWeatherType == 2) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 74, 229, 18, 18, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 74, 229, 18, 18, 256, 256);
         }
     }
 
@@ -94,7 +94,7 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
 
         int componentWidth = textRenderer.getWidth(component);
 
-        drawContext.drawText(textRenderer, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0, false);
+        drawContext.drawText(textRenderer, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override

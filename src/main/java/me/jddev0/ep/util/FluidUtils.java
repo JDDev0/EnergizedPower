@@ -4,7 +4,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Locale;
@@ -50,12 +51,12 @@ public final class FluidUtils {
      * For compatibility with "Forge"
      */
     public static long readFluidAmountInMilliBucketsWithLeftover(String milliBucketsKey, String leftoverKey,
-                                                                 NbtCompound nbtCompound) {
-        long milliBucketsAmount = nbtCompound.getLong(milliBucketsKey, 0);
+                                                                 ReadView view) {
+        long milliBucketsAmount = view.getLong(milliBucketsKey, 0);
         if(milliBucketsAmount == -1)
             return -1;
 
-        long dropletsLeftOverAmount = nbtCompound.contains(leftoverKey)?nbtCompound.getLong(leftoverKey, 0):0;
+        long dropletsLeftOverAmount = view.getLong(leftoverKey, 0);
 
         return FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
     }
@@ -64,9 +65,9 @@ public final class FluidUtils {
      * For compatibility with "Forge"
      */
     public static void writeFluidAmountInMilliBucketsWithLeftover(long droplets, String milliBucketsKey,
-                                                                 String leftoverKey, NbtCompound nbtCompound) {
+                                                                 String leftoverKey, WriteView view) {
         if(droplets == -1) {
-            nbtCompound.putLong(milliBucketsKey, -1);
+            view.putLong(milliBucketsKey, -1);
 
             return;
         }
@@ -74,9 +75,9 @@ public final class FluidUtils {
         long milliBucketsAmount = FluidUtils.convertDropletsToMilliBuckets(droplets);
         long dropletsLeftOverAmount = droplets - FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount);
 
-        nbtCompound.putLong(milliBucketsKey, milliBucketsAmount);
+        view.putLong(milliBucketsKey, milliBucketsAmount);
         if(dropletsLeftOverAmount > 0)
-            nbtCompound.putLong(leftoverKey, dropletsLeftOverAmount);
+            view.putLong(leftoverKey, dropletsLeftOverAmount);
     }
 
     public static int getRedstoneSignalFromFluidHandler(Storage<FluidVariant> fluidStorage) {

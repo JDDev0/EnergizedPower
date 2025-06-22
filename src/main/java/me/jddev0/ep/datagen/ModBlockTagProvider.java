@@ -17,13 +17,13 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE).
+        valueLookupBuilder(BlockTags.AXE_MINEABLE).
                 add(EPBlocks.SAWDUST_BLOCK);
 
-        getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
+        valueLookupBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
                 add(EPBlocks.ITEM_CONVEYOR_BELT);
 
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE).
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
@@ -158,7 +158,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
-        getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL).
+        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL).
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
@@ -282,26 +282,26 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
-        getOrCreateTagBuilder(ConventionalBlockTags.ORES).
+        valueLookupBuilder(ConventionalBlockTags.ORES).
                 addTag(CommonBlockTags.ORES_TIN);
-        getOrCreateTagBuilder(CommonBlockTags.ORES_TIN).
+        valueLookupBuilder(CommonBlockTags.ORES_TIN).
                 add(EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE);
 
-        getOrCreateTagBuilder(CommonBlockTags.ORES_IN_GROUND_STONE).
+        valueLookupBuilder(CommonBlockTags.ORES_IN_GROUND_STONE).
                 add(EPBlocks.TIN_ORE);
-        getOrCreateTagBuilder(CommonBlockTags.ORES_IN_GROUND_DEEPSLATE).
+        valueLookupBuilder(CommonBlockTags.ORES_IN_GROUND_DEEPSLATE).
                 add(EPBlocks.DEEPSLATE_TIN_ORE);
 
-        getOrCreateTagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).
+        valueLookupBuilder(ConventionalBlockTags.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
-        getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_SILICON).
+        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK);
-        getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_TIN).
+        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK);
-        getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
+        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK);
     }
 }

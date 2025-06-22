@@ -33,7 +33,7 @@ public record CycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implem
     }
 
     public static void receive(CycleAdvancedAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

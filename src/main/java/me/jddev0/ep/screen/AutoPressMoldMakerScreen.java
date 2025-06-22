@@ -5,8 +5,8 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -58,7 +58,7 @@ public class AutoPressMoldMakerScreen extends SelectableRecipeMachineContainerSc
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override

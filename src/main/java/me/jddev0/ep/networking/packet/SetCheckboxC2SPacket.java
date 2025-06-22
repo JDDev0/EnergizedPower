@@ -33,7 +33,7 @@ public record SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked
     }
 
     public static void receive(SetCheckboxC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

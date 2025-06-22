@@ -9,13 +9,12 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -293,18 +292,18 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            nbt.putLong("energy", energyStorage.getAmount());
+            view.putLong("energy", energyStorage.getAmount());
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            energyStorage.setAmountWithoutUpdate(nbt.getLong("energy", 0));
+            energyStorage.setAmountWithoutUpdate(view.getLong("energy", 0));
     }
 }

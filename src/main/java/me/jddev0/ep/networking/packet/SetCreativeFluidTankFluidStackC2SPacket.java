@@ -35,7 +35,7 @@ public record SetCreativeFluidTankFluidStackC2SPacket(BlockPos pos, FluidStack f
     }
 
     public static void receive(SetCreativeFluidTankFluidStackC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

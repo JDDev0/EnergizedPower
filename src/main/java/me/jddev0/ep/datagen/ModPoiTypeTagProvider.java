@@ -17,7 +17,7 @@ public class ModPoiTypeTagProvider extends FabricTagProvider<PointOfInterestType
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
-        getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE).
-                add(EPVillager.BASIC_MACHINE_FRAME_POI);
+        builder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE).
+                add(EPVillager.BASIC_MACHINE_FRAME_POI_KEY);
     }
 }

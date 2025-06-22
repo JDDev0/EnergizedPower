@@ -33,7 +33,7 @@ public record CraftPressMoldMakerRecipeC2SPacket(BlockPos pos, Identifier recipe
     }
 
     public static void receive(CraftPressMoldMakerRecipeC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

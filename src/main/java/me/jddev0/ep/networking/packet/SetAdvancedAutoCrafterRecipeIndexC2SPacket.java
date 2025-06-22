@@ -32,7 +32,7 @@ public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recip
     }
 
     public static void receive(SetAdvancedAutoCrafterRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

@@ -31,7 +31,7 @@ public record UseTeleporterC2SPacket(BlockPos pos) implements CustomPayload {
     }
 
     public static void receive(UseTeleporterC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

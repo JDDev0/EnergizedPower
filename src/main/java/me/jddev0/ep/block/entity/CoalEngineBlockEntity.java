@@ -14,17 +14,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.nbt.NbtLong;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.property.Properties;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -136,21 +133,21 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.put("recipe.progress", NbtInt.of(progress));
-        nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
-        nbt.put("recipe.energy_production_left", NbtLong.of(energyProductionLeft));
+        view.putInt("recipe.progress", progress);
+        view.putInt("recipe.max_progress", maxProgress);
+        view.putLong("recipe.energy_production_left", energyProductionLeft);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        progress = nbt.getInt("recipe.progress", 0);
-        maxProgress = nbt.getInt("recipe.max_progress", 0);
-        energyProductionLeft = nbt.getLong("recipe.energy_production_left", 0);
+        progress = view.getInt("recipe.progress", 0);
+        maxProgress = view.getInt("recipe.max_progress", 0);
+        energyProductionLeft = view.getLong("recipe.energy_production_left", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {

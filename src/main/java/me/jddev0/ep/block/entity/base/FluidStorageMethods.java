@@ -4,16 +4,16 @@ import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public interface FluidStorageMethods<F extends Storage<FluidVariant>> {
-    void saveFluidStorage(@NotNull F fluidStorage, @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries);
+    void saveFluidStorage(@NotNull F fluidStorage, WriteView view);
 
-    void loadFluidStorage(@NotNull F fluidStorage, @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries);
+    void loadFluidStorage(@NotNull F fluidStorage, ReadView view);
 
     void syncFluidToPlayer(F fluidStorage, PlayerEntity player, BlockPos pos);
 

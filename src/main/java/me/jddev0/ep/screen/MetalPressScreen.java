@@ -4,8 +4,8 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 
@@ -30,6 +30,6 @@ public class MetalPressScreen extends ConfigurableUpgradableEnergyStorageContain
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 80, y + 41, 52, 90, handler.getScaledProgressArrowSize(), 10, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 41, 52, 90, handler.getScaledProgressArrowSize(), 10, 256, 256);
     }
 }

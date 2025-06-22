@@ -5,8 +5,8 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import me.jddev0.ep.networking.packet.*;
@@ -72,27 +72,27 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderCheckboxes(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(handler.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
 
         if(handler.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 22, 139, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 22, 139, 11, 11, 256, 256);
         }else {
             //Extract mode checkbox [1]
 
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11, 256, 256);
         }
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * handler.getRecipeIndex(), 139, 11, 11, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * handler.getRecipeIndex(), 139, 11, 11, 256, 256);
     }
 
     @Override

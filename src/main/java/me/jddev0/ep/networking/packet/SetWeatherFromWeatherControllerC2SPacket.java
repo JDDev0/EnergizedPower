@@ -32,7 +32,7 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
     }
 
     public static void receive(SetWeatherFromWeatherControllerC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 
@@ -63,11 +63,11 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
 
             switch(data.weatherType) {
                 //Clear
-                case 0 -> context.player().getServerWorld().setWeather(duration, 0, false, false);
+                case 0 -> context.player().getWorld().setWeather(duration, 0, false, false);
                 //Rain
-                case 1 -> context.player().getServerWorld().setWeather(0, duration, true, false);
+                case 1 -> context.player().getWorld().setWeather(0, duration, true, false);
                 //Thunder
-                case 2 -> context.player().getServerWorld().setWeather(0, duration, true, true);
+                case 2 -> context.player().getWorld().setWeather(0, duration, true, true);
             }
         });
     }

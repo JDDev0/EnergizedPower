@@ -1,14 +1,13 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -79,11 +78,10 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
     @Override
     protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 
         renderButtons(drawContext, x, y, mouseX, mouseY);
     }
@@ -97,38 +95,37 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
             if(handler.getRecipeList().get(i).getSecond()) {
                 if(isPointWithinBounds(btnX, btnY, 20, 20, mouseX, mouseY)) {
-                    drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 211, 20, 20, 256, 256);
+                    drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 211, 20, 20, 256, 256);
                 }else {
-                    drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 231, 20, 20, 256, 256);
+                    drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 231, 20, 20, 256, 256);
                 }
             }
 
             ItemStack output = handler.getRecipeList().get(i).getFirst().value().getOutput();
             if(!output.isEmpty()) {
-                drawContext.getMatrices().push();
-                drawContext.getMatrices().translate(0.f, 0.f, 100.f);
+                drawContext.getMatrices().pushMatrix();
 
                 drawContext.drawItem(output, x + btnX + 2, y + btnY + 2, btnX + 2 + (btnY + 2) * this.backgroundWidth);
 
-                drawContext.getMatrices().pop();
+                drawContext.getMatrices().popMatrix();
             }
         }
 
         //Up button
         if(scrollIndexOffset > 0) {
             if(isPointWithinBounds(155, 19, 11, 12, mouseX, mouseY)) {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 187, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 187, 11, 12, 256, 256);
             }else {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 199, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 199, 11, 12, 256, 256);
             }
         }
 
         //Down button
         if(scrollIndexOffset + 8 < handler.getRecipeList().size()) {
             if(isPointWithinBounds(155, 55, 11, 12, mouseX, mouseY)) {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 187, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 187, 11, 12, 256, 256);
             }else {
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 199, 11, 12, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 199, 11, 12, 256, 256);
             }
         }
     }

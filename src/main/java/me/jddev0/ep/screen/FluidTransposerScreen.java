@@ -8,8 +8,8 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -62,32 +62,31 @@ public class FluidTransposerScreen
     }
 
     private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         if(isPointWithinBounds(114, 47, 20, 20, mouseX, mouseY))
-            drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20, 256, 256);
 
         ItemStack output = new ItemStack(handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
-        drawContext.getMatrices().push();
-        drawContext.getMatrices().translate(0.f, 0.f, 100.f);
+        drawContext.getMatrices().pushMatrix();
 
         drawContext.drawItem(output, x + 116, y + 49, 116 + 49 * this.backgroundWidth);
 
-        drawContext.getMatrices().pop();
+        drawContext.getMatrices().popMatrix();
     }
 
     private void renderProgressArrow(DrawContext drawContext, int x, int y) {
         int arrowPosY = handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?58:72;
 
-        drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14, 256, 256);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14, 256, 256);
 
         if(handler.isCraftingActive()) {
             if(handler.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING)
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 72, arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 72, arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
             else
-                drawContext.drawTexture(RenderLayer::getGuiTextured, MACHINE_SPRITES_TEXTURE, x + 134 - handler.getScaledProgressArrowSize(), y + 19,
+                drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 134 - handler.getScaledProgressArrowSize(), y + 19,
                         92 - handler.getScaledProgressArrowSize(), arrowPosY, handler.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }

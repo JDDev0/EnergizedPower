@@ -27,13 +27,12 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -171,25 +170,25 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.putInt("target.xOffset", xOffset);
-        nbt.putInt("target.yOffset", yOffset);
-        nbt.putInt("target.zOffset", zOffset);
+        view.putInt("target.xOffset", xOffset);
+        view.putInt("target.yOffset", yOffset);
+        view.putInt("target.zOffset", zOffset);
 
-        nbt.putBoolean("recipe.extractingFluid", extractingFluid);
+        view.putBoolean("recipe.extractingFluid", extractingFluid);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        xOffset = nbt.getInt("target.xOffset", 0);
-        yOffset = nbt.getInt("target.yOffset", 0);
-        zOffset = nbt.getInt("target.zOffset", 0);
+        xOffset = view.getInt("target.xOffset", 0);
+        yOffset = view.getInt("target.yOffset", 0);
+        zOffset = view.getInt("target.zOffset", 0);
 
-        extractingFluid = nbt.getBoolean("recipe.extractingFluid", false);
+        extractingFluid = view.getBoolean("recipe.extractingFluid", false);
     }
 
     @Override

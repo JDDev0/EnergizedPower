@@ -19,14 +19,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -228,70 +228,57 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
         for(int i = 0;i < 3;i++)
-            nbt.put("pattern." + i, savePatternContainer(i, registries));
+            Inventories.writeData(view.get("pattern." + i), patternSlots[i].heldStacks);
 
         for(int i = 0;i < 3;i++) {
             if(craftingRecipe[i] != null)
-                nbt.put("recipe.id." + i, NbtString.of(craftingRecipe[i].id().getValue().toString()));
+                view.putString("recipe.id." + i, craftingRecipe[i].id().getValue().toString());
 
-            nbt.put("recipe.progress." + i, NbtInt.of(progress[i]));
-            nbt.put("recipe.max_progress." + i, NbtInt.of(maxProgress[i]));
-            nbt.put("recipe.energy_consumption_left." + i, NbtLong.of(energyConsumptionLeft[i]));
+            view.putInt("recipe.progress." + i, progress[i]);
+            view.putInt("recipe.max_progress." + i, maxProgress[i]);
+            view.putLong("recipe.energy_consumption_left." + i, energyConsumptionLeft[i]);
 
-            nbt.putBoolean("ignore_nbt." + i, ignoreNBT[i]);
+            view.putBoolean("ignore_nbt." + i, ignoreNBT[i]);
         }
 
-        nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
+        view.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
-        nbt.putInt("current_recipe_index", currentRecipeIndex);
+        view.putInt("current_recipe_index", currentRecipeIndex);
 
-    }
-
-    private NbtElement savePatternContainer(int index, RegistryWrapper.WrapperLookup registries) {
-        return Inventories.writeNbt(new NbtCompound(), patternSlots[index].heldStacks, registries);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-
-        for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.getCompoundOrEmpty("pattern." + i), registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
         for(int i = 0;i < 3;i++) {
-            if(nbt.contains("recipe.id." + i)) {
-                NbtElement tag = nbt.get("recipe.id." + i);
-
-                if(!(tag instanceof NbtString stringTag))
-                    throw new IllegalArgumentException("Tag must be of type StringTag!");
-
-                recipeIdForSetRecipe[i] = RegistryKey.of(RegistryKeys.RECIPE, Identifier.tryParse(stringTag.asString().orElse("")));
-            }
-
-            progress[i] = nbt.getInt("recipe.progress." + i, 0);
-            maxProgress[i] = nbt.getInt("recipe.max_progress." + i, 0);
-            energyConsumptionLeft[i] = nbt.getLong("recipe.energy_consumption_left." + i, 0);
-
-            ignoreNBT[i] = nbt.getBoolean("ignore_nbt." + i, false);
+            patternSlots[i].removeListener(updatePatternListener[i]);
+            Inventories.readData(view.getReadView("pattern." + i), patternSlots[i].heldStacks);
+            patternSlots[i].addListener(updatePatternListener[i]);
         }
 
-        secondaryExtractMode = nbt.getBoolean("secondary_extract_mode", false);
+        for(int i = 0;i < 3;i++) {
+            final int index = i;
+            view.getOptionalString("recipe.id").ifPresent(recipeId ->
+                recipeIdForSetRecipe[index] = RegistryKey.of(RegistryKeys.RECIPE, Identifier.tryParse(recipeId))
+            );
 
-        currentRecipeIndex = nbt.getInt("current_recipe_index", 0);
+            progress[i] = view.getInt("recipe.progress." + i, 0);
+            maxProgress[i] = view.getInt("recipe.max_progress." + i, 0);
+            energyConsumptionLeft[i] = view.getLong("recipe.energy_consumption_left." + i, 0);
+
+            ignoreNBT[i] = view.getBoolean("ignore_nbt." + i, false);
+        }
+
+        secondaryExtractMode = view.getBoolean("secondary_extract_mode", false);
+
+        currentRecipeIndex = view.getInt("current_recipe_index", 0);
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
             currentRecipeIndex = 0;
-    }
-
-    private void loadPatternContainer(int index, NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        patternSlots[index].removeListener(updatePatternListener[index]);
-
-        Inventories.readNbt(tag, patternSlots[index].heldStacks, registries);
-
-        patternSlots[index].addListener(updatePatternListener[index]);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {

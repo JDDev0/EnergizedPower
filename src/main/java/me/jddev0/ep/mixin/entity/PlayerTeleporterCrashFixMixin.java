@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mixin(Entity.class)
 public abstract class PlayerTeleporterCrashFixMixin {
-    @ModifyVariable(method = "checkBlockCollision", at = @At("HEAD"))
-    private List<?> copyQueuedCollisionChecks(List<?> queuedCollisionChecks) {
-        //Fixes ConcurrentModificationException thrown in "Entity.checkBlockCollision()" if Teleporter or Inventory Teleporter is used
+    @ModifyVariable(method = "checkBlockCollisions", at = @At("HEAD"))
+    private List<?> copyQueuedCollisionsChecks(List<?> queuedCollisionChecks) {
+        //Fixes ConcurrentModificationException thrown in "Entity.checkBlockCollisions()" if Teleporter or Inventory Teleporter is used
         return new ArrayList<>(queuedCollisionChecks);
     }
 }

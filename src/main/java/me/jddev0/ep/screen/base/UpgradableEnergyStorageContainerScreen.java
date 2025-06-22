@@ -3,8 +3,8 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
@@ -95,7 +95,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
         int y = (height - backgroundHeight) / 2;
 
         if(handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
         }else {
             renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
         }
@@ -106,11 +106,11 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
     protected void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
         //Upgrade view
         if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20, 256, 256);
         }else if(handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20, 256, 256);
         }else {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20, 256, 256);
         }
     }
 

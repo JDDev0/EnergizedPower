@@ -7,10 +7,11 @@ import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -22,17 +23,20 @@ public final class FluidStorageMultiTankMethods
     private FluidStorageMultiTankMethods() {}
 
     @Override
-    public void saveFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                 @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        for(int i = 0;i < fluidStorage.parts.size();i++)
-            nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new NbtCompound(), registries));
+    public void saveFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage, WriteView view) {
+        for(int i = 0;i < fluidStorage.parts.size();i++) {
+            FluidStack fluid = fluidStorage.parts.get(i).getFluid();
+            view.putNullable("fluid." + i, SimpleFluidStorage.CODEC, fluid.isEmpty()?null:fluid);
+        }
     }
 
     @Override
-    public void loadFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                 @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        for(int i = 0;i < fluidStorage.parts.size();i++)
-            fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompoundOrEmpty("fluid." + i), registries));
+    public void loadFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage, ReadView view) {
+        for(int i = 0;i < fluidStorage.parts.size();i++) {
+            FluidStack fluid = view.read("fluid." + i, SimpleFluidStorage.CODEC).
+                    orElseGet(() -> new FluidStack(Fluids.EMPTY, 0));
+            fluidStorage.parts.get(i).setFluid(fluid);
+        }
     }
 
     @Override

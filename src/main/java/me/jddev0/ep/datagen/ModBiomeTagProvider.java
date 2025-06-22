@@ -17,11 +17,11 @@ public class ModBiomeTagProvider extends FabricTagProvider<Biome> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
-        getOrCreateTagBuilder(EnergizedPowerBiomeTags.HAS_STRUCTURE_FACTORY_1).
+        builder(EnergizedPowerBiomeTags.HAS_STRUCTURE_FACTORY_1).
                 add(BiomeKeys.FOREST,
                         BiomeKeys.FLOWER_FOREST);
 
-        getOrCreateTagBuilder(EnergizedPowerBiomeTags.HAS_STRUCTURE_SMALL_SOLAR_FARM).
+        builder(EnergizedPowerBiomeTags.HAS_STRUCTURE_SMALL_SOLAR_FARM).
                 add(BiomeKeys.DESERT,
                         BiomeKeys.BADLANDS,
                         BiomeKeys.SAVANNA);

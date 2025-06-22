@@ -10,9 +10,9 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,19 +34,19 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
+        view.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        view.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode", 0));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode", 0));
+        redstoneMode = RedstoneMode.fromIndex(view.getInt("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(view.getInt("configuration.comparator_mode", 0));
     }
 
     public int getRedstoneOutput() {

@@ -21,20 +21,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.nbt.NbtLong;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -157,19 +154,19 @@ public class EnergizerBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
-        nbt.put("recipe.progress", NbtInt.of(progress));
-        nbt.put("recipe.energy_consumption_left", NbtLong.of(energyConsumptionLeft));
+        view.putInt("recipe.progress", progress);
+        view.putLong("recipe.energy_consumption_left", energyConsumptionLeft);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        progress = nbt.getInt("recipe.progress", 0);
-        energyConsumptionLeft = nbt.getLong("recipe.energy_consumption_left", 0);
+        progress = view.getInt("recipe.progress", 0);
+        energyConsumptionLeft = view.getLong("recipe.energy_consumption_left", 0);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {

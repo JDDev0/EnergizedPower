@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
@@ -9,17 +8,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PageTurnWidget;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.NarratorManager;
-import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenTexts;
@@ -307,18 +302,18 @@ public class EnergizedPowerBookScreen extends Screen {
     public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         super.renderBackground(drawContext, mouseX, mouseY, delta);
 
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //TODO FIX: RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if(formattedPages == null)
             return;
 
         int startX = (width - 226) / 2;
         if(currentPage == 0) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, FRONT_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, FRONT_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
         }else if(currentPage == getPageCount() - 1) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, BACK_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, BACK_COVER, startX, 2, 0, 0, 226, 230, 256, 256);
         }else {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, TEXTURE, startX, 2, 0, 0, 226, 230, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, startX, 2, 0, 0, 226, 230, 256, 256);
         }
 
         if(!isCurrentPageCached) {
@@ -361,10 +356,10 @@ public class EnergizedPowerBookScreen extends Screen {
             if(blocks != null)
                 yOffset -= 60 * .5f / scaleFactor;
 
-            drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
+            drawContext.getMatrices().scale(scaleFactor, scaleFactor);
             drawContext.drawText(textRenderer, chapterTitleComponent, (int)((width / scaleFactor - textRenderer.getWidth(chapterTitleComponent)) * .5f),
-                    yOffset, 0, false);
-            drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
+                    yOffset, 0xFF000000, false);
+            drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor);
 
             yOffset *= scaleFactor;
         }
@@ -391,7 +386,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 else
                     x = (width - textRenderer.getWidth(formattedCharSequence)) * .5f;
 
-                drawContext.drawText(textRenderer, formattedCharSequence, (int)x, 20 + yOffset + 9 * i, 0, false);
+                drawContext.drawText(textRenderer, formattedCharSequence, (int)x, 20 + yOffset + 9 * i, 0xFF000000, false);
             }
 
             Style style = getComponentStyleAt(mouseX, mouseY);
@@ -408,18 +403,18 @@ public class EnergizedPowerBookScreen extends Screen {
         Text component = Text.literal("Energized Power").formatted(Formatting.GOLD);
         int textWidth = textRenderer.getWidth(component);
 
-        drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
+        drawContext.getMatrices().scale(scaleFactor, scaleFactor);
         drawContext.drawText(textRenderer, component, (int)((width / scaleFactor - textWidth) * .5f),
-                (int)(30 / scaleFactor), 0, false);
-        drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
+                (int)(30 / scaleFactor), 0xFF000000, false);
+        drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor);
 
         component = Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GOLD);
         textWidth = textRenderer.getWidth(component);
-        drawContext.drawText(textRenderer, component, (int)((width - textWidth) * .5f), 192 - 45, 0, false);
+        drawContext.drawText(textRenderer, component, (int)((width - textWidth) * .5f), 192 - 45, 0xFF000000, false);
 
         for(int i = 0;i < formattedPages.get(currentPage).getPageFormattedTexts().size();i++) {
             OrderedText formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(i);
-            drawContext.drawText(textRenderer, formattedCharSequence, startX + 36, 120 + 9 * i, 0, false);
+            drawContext.drawText(textRenderer, formattedCharSequence, startX + 36, 120 + 9 * i, 0xFF000000, false);
         }
 
         renderImageCentered(drawContext, ENERGIZED_COPPER_INGOT, 48);
@@ -431,9 +426,9 @@ public class EnergizedPowerBookScreen extends Screen {
         if(y == -1) //Centered
             y = (int)((230 - 256 * scaleFactor) * .5f) + 2;
 
-        drawContext.getMatrices().scale(scaleFactor, scaleFactor, 1.f);
-        drawContext.drawTexture(RenderLayer::getGuiTextured, image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256, 256, 256);
-        drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor, 1.f);
+        drawContext.getMatrices().scale(scaleFactor, scaleFactor);
+        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, image, (int)((width / scaleFactor - 256) * .5f), (int)(y / scaleFactor), 0, 0, 256, 256, 256, 256);
+        drawContext.getMatrices().scale(1/scaleFactor, 1/scaleFactor);
     }
 
     private void renderBlockCentered(DrawContext drawContext, Identifier blockResourceLocation, int y) {
@@ -443,26 +438,13 @@ public class EnergizedPowerBookScreen extends Screen {
         Block block = Registries.BLOCK.get(blockResourceLocation);
         ItemStack itemStack = new ItemStack(block);
 
-        ItemRenderer itemRenderer = client.getItemRenderer();
-        TextureManager textureManager = client.getTextureManager();
+        drawContext.getMatrices().pushMatrix();
+        drawContext.getMatrices().translate((width - 16.f * 4.f) * .5f, y - 4.f * .5f);
+        drawContext.getMatrices().scale(4.f, 4.f);
 
-        textureManager.getTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).setFilter(false, false);
+        drawContext.drawItemWithoutEntity(itemStack, 0, 0);
 
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-
-        drawContext.getMatrices().push();
-        drawContext.getMatrices().translate((int)(width * .5f), y + 64.f * .5f, 50.f);
-        drawContext.getMatrices().scale(64.f, -64.f, 1.f);
-
-        VertexConsumerProvider.Immediate bufferSource = client.getBufferBuilders().getEntityVertexConsumers();
-        DiffuseLighting.enableForLevel();
-
-        itemRenderer.renderItem(itemStack, ItemDisplayContext.GUI, 15728880, OverlayTexture.DEFAULT_UV,
-                drawContext.getMatrices(), bufferSource, null, 0);
-
-        bufferSource.draw();
-
-        drawContext.getMatrices().pop();
+        drawContext.getMatrices().popMatrix();
     }
 
     private Style getComponentStyleAt(double x, double y) {

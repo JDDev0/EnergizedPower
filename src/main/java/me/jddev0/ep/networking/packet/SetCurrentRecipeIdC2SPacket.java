@@ -40,7 +40,7 @@ public record SetCurrentRecipeIdC2SPacket(BlockPos pos, Identifier recipeId) imp
     }
 
     public static void receive(SetCurrentRecipeIdC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().server.execute(() -> {
+        context.player().getServer().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 

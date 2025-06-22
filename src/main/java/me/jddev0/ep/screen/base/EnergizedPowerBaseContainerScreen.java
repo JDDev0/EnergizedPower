@@ -1,21 +1,23 @@
 package me.jddev0.ep.screen.base;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.GpuTextureView;
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.client.rendering.FluidTankRenderState;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.*;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.TextureSetup;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.joml.Matrix4f;
+import org.joml.Matrix3x2f;
 
 @Environment(EnvType.CLIENT)
 public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler> extends HandledScreen<T> {
@@ -27,14 +29,13 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
 
     protected void renderFluidMeterContent(DrawContext drawContext, FluidStack fluidStack, long tankCapacity, int x, int y,
                                            int w, int h) {
-        drawContext.getMatrices().push();
+        drawContext.getMatrices().pushMatrix();
 
-        drawContext.getMatrices().translate(x, y, 0);
+        drawContext.getMatrices().translate(x, y);
 
         renderFluidStack(drawContext, fluidStack, tankCapacity, w, h);
 
-        drawContext.getMatrices().pop();
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
+        drawContext.getMatrices().popMatrix();
     }
 
     private void renderFluidStack(DrawContext drawContext, FluidStack fluidStack, long tankCapacity, int w, int h) {
@@ -50,31 +51,26 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
                 0:(int)(h - ((fluidStack.getDropletsAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getDropletsAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
-        Matrix4f mat = drawContext.getMatrices().peek().getPositionMatrix();
-
         for(int yOffset = h;yOffset > fluidMeterPos;yOffset -= 16) {
             for(int xOffset = 0;xOffset < w;xOffset += 16) {
-                Sprite finalStillFluidSprite = stillFluidSprite;
-                int finalXOffset = xOffset;
-                int finalYOffset = yOffset;
+                int width = Math.min(w - xOffset, 16);
+                int height = Math.min(yOffset - fluidMeterPos, 16);
 
-                drawContext.draw(vertexConsumers -> {
-                    int width = Math.min(w - finalXOffset, 16);
-                    int height = Math.min(finalYOffset - fluidMeterPos, 16);
+                float u0 = stillFluidSprite.getMinU();
+                float u1 = stillFluidSprite.getMaxU();
+                float v0 = stillFluidSprite.getMinV();
+                float v1 = stillFluidSprite.getMaxV();
+                u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
+                v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
-                    float u0 = finalStillFluidSprite.getMinU();
-                    float u1 = finalStillFluidSprite.getMaxU();
-                    float v0 = finalStillFluidSprite.getMinV();
-                    float v1 = finalStillFluidSprite.getMaxV();
-                    u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
-                    v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
-
-                    VertexConsumer bufferBuilder = vertexConsumers.getBuffer(RenderLayer.getGuiTextured(finalStillFluidSprite.getAtlasId()));
-                    bufferBuilder.vertex(mat, finalXOffset, finalYOffset, 0).color(fluidColorTint).texture(u0, v1);
-                    bufferBuilder.vertex(mat, finalXOffset + width, finalYOffset, 0).color(fluidColorTint).texture(u1, v1);
-                    bufferBuilder.vertex(mat, finalXOffset + width, finalYOffset - height, 0).color(fluidColorTint).texture(u1, v0);
-                    bufferBuilder.vertex(mat, finalXOffset, finalYOffset - height, 0).color(fluidColorTint).texture(u0, v0);
-                });
+                GpuTextureView gpuTextureView = this.client.getTextureManager().getTexture(stillFluidSprite.getAtlasId()).getGlTextureView();
+                drawContext.state.addSimpleElement(new FluidTankRenderState(
+                        RenderPipelines.GUI_TEXTURED, TextureSetup.withoutGlTexture(gpuTextureView),
+                        new Matrix3x2f(drawContext.getMatrices()),
+                        xOffset, yOffset, width, height,
+                        u0, u1, v0, v1, fluidColorTint,
+                        drawContext.scissorStack.peekLast()
+                ));
             }
         }
     }

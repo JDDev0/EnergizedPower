@@ -18,18 +18,16 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -79,19 +77,20 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void writeData(WriteView view) {
+        super.writeData(view);
 
         if(currentRecipe != null)
-            nbt.put("recipe.id", NbtString.of(currentRecipe.id().getValue().toString()));
+            view.putString("recipe.id", currentRecipe.id().getValue().toString());
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void readData(ReadView view) {
+        super.readData(view);
 
-        if(nbt.contains("recipe.id"))
-            currentRecipeIdForLoad = Identifier.tryParse(nbt.getString("recipe.id", ""));
+        view.getOptionalString("recipe.id").ifPresent(recipeId ->
+                currentRecipeIdForLoad = Identifier.tryParse(recipeId)
+        );
     }
 
     @Nullable

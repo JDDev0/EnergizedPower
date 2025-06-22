@@ -7,8 +7,8 @@ import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -66,18 +66,18 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
         int ordinal = redstoneMode.ordinal();
 
         if(isPointWithinBounds(-22, 26, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 20, 20, 20, 256, 256);
         }else {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 26, 20 * ordinal, 0, 20, 20, 256, 256);
         }
 
         ComparatorMode comparatorMode = handler.getComparatorMode();
         ordinal = comparatorMode.ordinal();
 
         if(isPointWithinBounds(-22, 50, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 60, 20, 20, 256, 256);
         }else {
-            drawContext.drawTexture(RenderLayer::getGuiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20, 256, 256);
+            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 50, 20 * ordinal, 40, 20, 20, 256, 256);
         }
     }
 

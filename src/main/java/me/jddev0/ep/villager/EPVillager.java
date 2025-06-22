@@ -30,6 +30,8 @@ public final class EPVillager {
     public static final PointOfInterestType BASIC_MACHINE_FRAME_POI = registerPOI("basic_machine_frame_poi",
             EPBlocks.BASIC_MACHINE_FRAME);
 
+    public static final RegistryKey<PointOfInterestType> BASIC_MACHINE_FRAME_POI_KEY = poiKey("basic_machine_frame_poi");
+
     public static final RegistryKey<VillagerProfession> ELECTRICIAN_PROFESSION_KEY = professionKey("electrician");
 
     public static final VillagerProfession ELECTRICIAN_PROFESSION = registerProfession(ELECTRICIAN_PROFESSION_KEY,
@@ -39,6 +41,10 @@ public final class EPVillager {
     private static PointOfInterestType registerPOI(String name, Block block) {
         return PointOfInterestHelper.register(EPAPI.id(name), 1, 1,
             ImmutableSet.copyOf(block.getStateManager().getStates()));
+    }
+
+    private static RegistryKey<PointOfInterestType> poiKey(String name) {
+        return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, EPAPI.id(name));
     }
 
     private static RegistryKey<VillagerProfession> professionKey(String name) {
