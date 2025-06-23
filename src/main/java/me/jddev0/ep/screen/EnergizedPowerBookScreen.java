@@ -302,8 +302,6 @@ public class EnergizedPowerBookScreen extends Screen {
     public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         super.renderBackground(drawContext, mouseX, mouseY, delta);
 
-        //TODO FIX: RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
         if(formattedPages == null)
             return;
 

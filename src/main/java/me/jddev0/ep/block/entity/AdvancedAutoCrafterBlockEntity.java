@@ -263,7 +263,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         for(int i = 0;i < 3;i++) {
             final int index = i;
-            view.getOptionalString("recipe.id").ifPresent(recipeId ->
+            view.getOptionalString("recipe.id" + i).ifPresent(recipeId ->
                 recipeIdForSetRecipe[index] = RegistryKey.of(RegistryKeys.RECIPE, Identifier.tryParse(recipeId))
             );
 
