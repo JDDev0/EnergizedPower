@@ -8,18 +8,15 @@ import me.jddev0.ep.registry.tags.CompatibilityItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends ItemTagsProvider {
-    public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
-                              CompletableFuture<TagsProvider.TagLookup<Block>> blockTagLookup) {
-        super(output, lookupProvider, blockTagLookup, EPAPI.MOD_ID);
+    public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, EPAPI.MOD_ID);
     }
 
     @Override

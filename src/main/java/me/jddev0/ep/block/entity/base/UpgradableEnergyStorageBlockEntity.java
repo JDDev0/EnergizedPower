@@ -4,14 +4,12 @@ import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.Containers;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
         extends MenuEnergyStorageBlockEntity<E> {
@@ -29,21 +27,21 @@ public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPow
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void saveAdditional(ValueOutput view) {
         //Save Upgrade Module Inventory first
-        nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
+        upgradeModuleInventory.saveData(view.child("upgrade_module_inventory"));
 
-        super.saveAdditional(nbt, registries);
+        super.saveAdditional(view);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+    protected void loadAdditional(ValueInput view) {
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
-        upgradeModuleInventory.loadFromNBT(nbt.getCompoundOrEmpty("upgrade_module_inventory"), registries);
+        upgradeModuleInventory.readData(view.childOrEmpty("upgrade_module_inventory"));
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        super.loadAdditional(nbt, registries);
+        super.loadAdditional(view);
     }
 
     @Override

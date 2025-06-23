@@ -6,7 +6,7 @@ import me.jddev0.ep.networking.packet.SetWeatherFromWeatherControllerC2SPacket;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
@@ -68,23 +68,23 @@ public class WeatherControllerScreen
 
         //Weather clear button
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 56, 193, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 56, 193, 18, 18, 256, 256);
         }else if(selectedWeatherType == 0) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 74, 193, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 52, y + 34, 74, 193, 18, 18, 256, 256);
         }
 
         //Weather rain button
         if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 56, 211, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 56, 211, 18, 18, 256, 256);
         }else if(selectedWeatherType == 1) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 74, 211, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 88, y + 34, 74, 211, 18, 18, 256, 256);
         }
 
         //Weather thunder button
         if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 56, 229, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 56, 229, 18, 18, 256, 256);
         }else if(selectedWeatherType == 2) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 74, 229, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 124, y + 34, 74, 229, 18, 18, 256, 256);
         }
     }
 
@@ -95,7 +95,7 @@ public class WeatherControllerScreen
 
         int componentWidth = font.width(component);
 
-        guiGraphics.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0, false);
+        guiGraphics.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override
@@ -108,21 +108,21 @@ public class WeatherControllerScreen
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.clear"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
             //Weather rain button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.rain"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
             //Weather thunder button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.weather_controller.btn.thunder"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

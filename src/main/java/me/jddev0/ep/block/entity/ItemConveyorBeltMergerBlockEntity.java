@@ -7,15 +7,14 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import org.jetbrains.annotations.NotNull;
 
 public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM.getValue();
@@ -27,17 +26,17 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putInt("current_input_index", currentInputIndex);
+        view.putInt("current_input_index", currentInputIndex);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        currentInputIndex = nbt.getIntOr("current_input_index", 0);
+        currentInputIndex = view.getIntOr("current_input_index", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltMergerBlockEntity blockEntity) {

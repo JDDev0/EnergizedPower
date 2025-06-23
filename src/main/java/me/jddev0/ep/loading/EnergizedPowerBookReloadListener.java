@@ -8,11 +8,9 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -22,7 +20,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.slf4j.Logger;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadListener<JsonElement> {
@@ -44,18 +41,6 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        HolderLookup.Provider registries = new HolderLookup.Provider() {
-            @Override
-            public Stream<ResourceKey<? extends Registry<?>>> listRegistryKeys() {
-                return Stream.empty();
-            }
-
-            @Override
-            public <T> Optional<HolderLookup.RegistryLookup<T>> lookup(ResourceKey<? extends Registry<? extends T>> resourceKey) {
-                return Optional.empty();
-            }
-        };
-
         List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
 
         List<Map.Entry<ResourceLocation, JsonElement>> elementEntries = elements.entrySet().stream().
@@ -113,11 +98,13 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
 
                 Component chapterTitleComponent = null;
                 if(object.has("title"))
-                    chapterTitleComponent = Component.Serializer.fromJson(object.get("title"), registries);
+                    chapterTitleComponent = ComponentSerialization.CODEC.stable().decode(JsonOps.INSTANCE, object.get("title")).result().
+                            map(Pair::getFirst).orElse(null);
 
                 Component contentComponent = null;
                 if(object.has("content"))
-                    contentComponent = Component.Serializer.fromJson(object.get("content"), registries);
+                    contentComponent = ComponentSerialization.CODEC.stable().decode(JsonOps.INSTANCE, object.get("content")).result().
+                            map(Pair::getFirst).orElse(null);
 
                 ResourceLocation[] imageResourceLocations = null;
                 if(object.has("image")) {

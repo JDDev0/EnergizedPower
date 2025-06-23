@@ -83,12 +83,12 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
         }
 
         ItemStack output = new ItemStack(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(0.f, 0.f, 100.f);
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(0.f, 0.f);
 
         guiGraphics.renderItem(output, 120, 5, 120 + 5 * 143);
 
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
     @Override

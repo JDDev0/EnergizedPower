@@ -5,8 +5,6 @@ import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -412,19 +410,5 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
-
-        //TODO
-    }
-
-    @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-
-        //TODO
     }
 }

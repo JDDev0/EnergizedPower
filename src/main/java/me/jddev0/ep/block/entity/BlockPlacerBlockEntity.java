@@ -12,9 +12,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.BlockPlacerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,6 +23,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -130,17 +130,17 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putBoolean("inverse_rotation", inverseRotation);
+        view.putBoolean("inverse_rotation", inverseRotation);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        inverseRotation = nbt.getBooleanOr("inverse_rotation", false);
+        inverseRotation = view.getBooleanOr("inverse_rotation", false);
     }
 
     @Override

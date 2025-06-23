@@ -12,9 +12,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidFillerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,6 +19,8 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -189,19 +188,19 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("recipe.fluid_filling_left", IntTag.valueOf(fluidFillingLeft));
-        nbt.put("recipe.fluid_filling_sum_pending", IntTag.valueOf(fluidFillingSumPending));
+        view.putInt("recipe.fluid_filling_left", fluidFillingLeft);
+        view.putInt("recipe.fluid_filling_sum_pending", fluidFillingSumPending);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        fluidFillingLeft = nbt.getIntOr("recipe.fluid_filling_left", 0);
-        fluidFillingSumPending = nbt.getIntOr("recipe.fluid_filling_sum_pending", 0);
+        fluidFillingLeft = view.getIntOr("recipe.fluid_filling_left", 0);
+        fluidFillingSumPending = view.getIntOr("recipe.fluid_filling_sum_pending", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {

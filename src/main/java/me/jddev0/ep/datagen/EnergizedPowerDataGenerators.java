@@ -10,7 +10,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = EPAPI.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = EPAPI.MOD_ID)
 public class EnergizedPowerDataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent.Client event) {
@@ -28,10 +28,8 @@ public class EnergizedPowerDataGenerators {
         generator.addProvider(true, ModLootTableProvider.create(output, lookupProvider));
         generator.addProvider(true, ModAdvancementProvider.create(output, lookupProvider));
 
-        ModBlockTagProvider blockTagProvider = generator.addProvider(true,
-                new ModBlockTagProvider(output, lookupProvider));
-        generator.addProvider(true, new ModItemTagProvider(output, lookupProvider,
-                blockTagProvider.contentsGetter()));
+        generator.addProvider(true, new ModBlockTagProvider(output, lookupProvider));
+        generator.addProvider(true, new ModItemTagProvider(output, lookupProvider));
         generator.addProvider(true, new ModPoiTypeTagProvider(output, lookupProvider));
         generator.addProvider(true, new ModBiomeTagProvider(output, lookupProvider));
         generator.addProvider(true, new ModPaintingVariantTagProvider(output, lookupProvider));

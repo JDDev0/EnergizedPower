@@ -9,9 +9,6 @@ import me.jddev0.ep.screen.DrainMenu;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -22,12 +19,13 @@ import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
@@ -81,17 +79,17 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("drain.progress", IntTag.valueOf(progress));
+        view.putInt("drain.progress", progress);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        progress = nbt.getIntOr("drain.progress", 0);
+        progress = view.getIntOr("drain.progress", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, DrainBlockEntity blockEntity) {

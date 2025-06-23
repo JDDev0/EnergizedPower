@@ -11,8 +11,6 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedFluidPumpMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -24,6 +22,8 @@ import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -159,25 +159,25 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putInt("target.xOffset", xOffset);
-        nbt.putInt("target.yOffset", yOffset);
-        nbt.putInt("target.zOffset", zOffset);
+        view.putInt("target.xOffset", xOffset);
+        view.putInt("target.yOffset", yOffset);
+        view.putInt("target.zOffset", zOffset);
 
-        nbt.putBoolean("recipe.extractingFluid", extractingFluid);
+        view.putBoolean("recipe.extractingFluid", extractingFluid);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        xOffset = nbt.getIntOr("target.xOffset", 0);
-        yOffset = nbt.getIntOr("target.yOffset", 0);
-        zOffset = nbt.getIntOr("target.zOffset", 0);
+        xOffset = view.getIntOr("target.xOffset", 0);
+        yOffset = view.getIntOr("target.yOffset", 0);
+        zOffset = view.getIntOr("target.zOffset", 0);
 
-        extractingFluid = nbt.getBooleanOr("recipe.extractingFluid", false);
+        extractingFluid = view.getBooleanOr("recipe.extractingFluid", false);
     }
 
     @Override

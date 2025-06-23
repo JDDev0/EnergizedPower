@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
@@ -8,7 +7,7 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -79,11 +78,10 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderButtons(guiGraphics, x, y, mouseX, mouseY);
     }
@@ -97,38 +95,37 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
             if(menu.getRecipeList().get(i).getSecond()) {
                 if(isHovering(btnX, btnY, 20, 20, mouseX, mouseY)) {
-                    guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 211, 20, 20, 256, 256);
+                    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 211, 20, 20, 256, 256);
                 }else {
-                    guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 231, 20, 20, 256, 256);
+                    guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + btnX, y + btnY, 0, 231, 20, 20, 256, 256);
                 }
             }
 
             ItemStack output = menu.getRecipeList().get(i).getFirst().value().getOutput();
             if(!output.isEmpty()) {
-                guiGraphics.pose().pushPose();
-                guiGraphics.pose().translate(0.f, 0.f, 100.f);
+                guiGraphics.pose().pushMatrix();
 
                 guiGraphics.renderItem(output, x + btnX + 2, y + btnY + 2, btnX + 2 + (btnY + 2) * this.imageWidth);
 
-                guiGraphics.pose().popPose();
+                guiGraphics.pose().popMatrix();
             }
         }
 
         //Up button
         if(scrollIndexOffset > 0) {
             if(isHovering(155, 19, 11, 12, mouseX, mouseY)) {
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 187, 11, 12, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 187, 11, 12, 256, 256);
             }else {
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 199, 11, 12, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 19, 11, 199, 11, 12, 256, 256);
             }
         }
 
         //Down button
         if(scrollIndexOffset + 8 < menu.getRecipeList().size()) {
             if(isHovering(155, 55, 11, 12, mouseX, mouseY)) {
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 187, 11, 12, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 187, 11, 12, 256, 256);
             }else {
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 199, 11, 12, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 155, y + 55, 0, 199, 11, 12, 256, 256);
             }
         }
     }
@@ -160,7 +157,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
                     components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", recipe.getClayCount(),
                             Component.translatable(Items.CLAY_BALL.getDescriptionId())).withStyle(ChatFormatting.ITALIC));
 
-                    guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                    guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
                 }
             }
         }
@@ -170,7 +167,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.up"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
 
         //Down button
@@ -178,7 +175,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.down"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

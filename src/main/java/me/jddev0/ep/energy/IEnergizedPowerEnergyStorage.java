@@ -1,6 +1,5 @@
 package me.jddev0.ep.energy;
 
-import net.minecraft.nbt.Tag;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 
 public interface IEnergizedPowerEnergyStorage extends IEnergyStorage {
@@ -11,8 +10,4 @@ public interface IEnergizedPowerEnergyStorage extends IEnergyStorage {
     int getCapacity();
     void setCapacity(int capacity);
     void setCapacityWithoutUpdate(int capacity);
-
-    Tag saveNBT();
-
-    void loadNBT(Tag tag);
 }

@@ -12,9 +12,6 @@ import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.StringTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,8 +23,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -77,19 +75,20 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         if(currentRecipe != null)
-            nbt.put("recipe.id", StringTag.valueOf(currentRecipe.id().location().toString()));
+            view.putString("recipe.id", currentRecipe.id().location().toString());
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        if(nbt.contains("recipe.id"))
-            currentRecipeIdForLoad = ResourceLocation.tryParse(nbt.getStringOr("recipe.id", ""));
+        view.getString("recipe.id").ifPresent(recipeId ->
+                currentRecipeIdForLoad = ResourceLocation.tryParse(recipeId)
+        );
     }
 
     @Nullable

@@ -14,9 +14,6 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -32,6 +29,8 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -158,23 +157,23 @@ public class AlloyFurnaceBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("recipe.progress", IntTag.valueOf(progress));
-        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
-        nbt.put("recipe.lit_duration", IntTag.valueOf(litDuration));
-        nbt.put("recipe.max_lit_duration", IntTag.valueOf(maxLitDuration));
+        view.putInt("recipe.progress", progress);
+        view.putInt("recipe.max_progress", maxProgress);
+        view.putInt("recipe.lit_duration", litDuration);
+        view.putInt("recipe.max_lit_duration", maxLitDuration);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        progress = nbt.getIntOr("recipe.progress", 0);
-        maxProgress = nbt.getIntOr("recipe.max_progress", 0);
-        litDuration = nbt.getIntOr("recipe.lit_duration", 0);
-        maxLitDuration = nbt.getIntOr("recipe.max_lit_duration", 0);
+        progress = view.getIntOr("recipe.progress", 0);
+        maxProgress = view.getIntOr("recipe.max_progress", 0);
+        litDuration = view.getIntOr("recipe.lit_duration", 0);
+        maxLitDuration = view.getIntOr("recipe.max_lit_duration", 0);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AlloyFurnaceBlockEntity blockEntity) {

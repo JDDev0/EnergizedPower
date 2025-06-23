@@ -1,8 +1,5 @@
 package me.jddev0.ep.energy;
 
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.Tag;
-
 public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     protected int energy;
     protected int capacity;
@@ -101,21 +98,5 @@ public class ReceiveOnlyEnergyStorage implements IEnergizedPowerEnergyStorage {
     @Override
     public boolean canReceive() {
         return true;
-    }
-
-    @Override
-    public Tag saveNBT() {
-        return IntTag.valueOf(energy);
-    }
-
-    @Override
-    public void loadNBT(Tag tag) {
-        if(!(tag instanceof IntTag)) {
-            energy = 0;
-
-            return;
-        }
-
-        energy = ((IntTag)tag).intValue();
     }
 }

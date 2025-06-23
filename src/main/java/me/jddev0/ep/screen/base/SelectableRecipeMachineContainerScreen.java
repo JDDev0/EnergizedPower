@@ -3,7 +3,7 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -95,26 +95,25 @@ public abstract class SelectableRecipeMachineContainerScreen
 
         ItemStack itemStackIcon = getRecipeIcon(currentRecipe);
         if(!itemStackIcon.isEmpty()) {
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(0.f, 0.f, 100.f);
+            guiGraphics.pose().pushMatrix();
 
             guiGraphics.renderItem(itemStackIcon, x + recipeSelectorPosX, y + recipeSelectorPosY,
                     recipeSelectorPosX + recipeSelectorPosY * this.imageWidth);
 
-            guiGraphics.pose().popPose();
+            guiGraphics.pose().popMatrix();
         }
     }
 
     private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         //Down button
         if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
 
         //Up button
         if(isHovering(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
     }
@@ -133,7 +132,7 @@ public abstract class SelectableRecipeMachineContainerScreen
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
 
         //Up button
@@ -141,7 +140,7 @@ public abstract class SelectableRecipeMachineContainerScreen
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

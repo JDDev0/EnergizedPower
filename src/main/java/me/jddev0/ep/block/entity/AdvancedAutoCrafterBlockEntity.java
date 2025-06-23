@@ -15,10 +15,8 @@ import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -33,6 +31,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -238,72 +238,68 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         for(int i = 0;i < 3;i++)
-            nbt.put("pattern." + i, savePatternContainer(i, registries));
+            savePatternContainer(i, view.child("pattern." + i));
 
         for(int i = 0;i < 3;i++) {
             if(craftingRecipe[i] != null)
-                nbt.put("recipe.id." + i, StringTag.valueOf(craftingRecipe[i].id().location().toString()));
+                view.putString("recipe.id." + i, craftingRecipe[i].id().location().toString());
 
-            nbt.put("recipe.progress." + i, IntTag.valueOf(progress[i]));
-            nbt.put("recipe.max_progress." + i, IntTag.valueOf(maxProgress[i]));
-            nbt.put("recipe.energy_consumption_left." + i, IntTag.valueOf(energyConsumptionLeft[i]));
+            view.putInt("recipe.progress." + i, progress[i]);
+            view.putInt("recipe.max_progress." + i, maxProgress[i]);
+            view.putInt("recipe.energy_consumption_left." + i, energyConsumptionLeft[i]);
 
-            nbt.putBoolean("ignore_nbt." + i, ignoreNBT[i]);
+            view.putBoolean("ignore_nbt." + i, ignoreNBT[i]);
         }
 
-        nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
+        view.putBoolean("secondary_extract_mode", secondaryExtractMode);
 
-        nbt.putInt("current_recipe_index", currentRecipeIndex);
+        view.putInt("current_recipe_index", currentRecipeIndex);
     }
 
-    private Tag savePatternContainer(int index, HolderLookup.Provider registries) {
+    private void savePatternContainer(int index, ValueOutput view) {
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[index].getContainerSize(), ItemStack.EMPTY);
         for(int i = 0;i < patternSlots[index].getContainerSize();i++)
             items.set(i, patternSlots[index].getItem(i));
 
-        return ContainerHelper.saveAllItems(new CompoundTag(), items, registries);
+        ContainerHelper.saveAllItems(view, items);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
         for(int i = 0;i < 3;i++)
-            loadPatternContainer(i, nbt.getCompoundOrEmpty("pattern." + i), registries);
+            loadPatternContainer(i, view.childOrEmpty("pattern." + i));
 
         for(int i = 0;i < 3;i++) {
-            if(nbt.contains("recipe.id." + i)) {
-                Tag tag = nbt.get("recipe.id." + i);
+            final int index = i;
+            view.getString("recipe.id." + i).ifPresent(recipeId ->
+                    recipeIdForSetRecipe[index] = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(recipeId))
+            );
 
-                if(!(tag instanceof StringTag stringTag))
-                    throw new IllegalArgumentException("Tag must be of type StringTag!");
+            progress[i] = view.getIntOr("recipe.progress." + i, 0);
+            maxProgress[i] = view.getIntOr("recipe.max_progress." + i, 0);
+            energyConsumptionLeft[i] = view.getIntOr("recipe.energy_consumption_left." + i, 0);
 
-                recipeIdForSetRecipe[i] = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(stringTag.asString().orElse("")));
-            }
-
-            progress[i] = nbt.getIntOr("recipe.progress." + i, 0);
-            maxProgress[i] = nbt.getIntOr("recipe.max_progress." + i, 0);
-            energyConsumptionLeft[i] = nbt.getIntOr("recipe.energy_consumption_left." + i, 0);
-
-            ignoreNBT[i] = nbt.getBooleanOr("ignore_nbt." + i, false);
+            ignoreNBT[i] = view.getBooleanOr("ignore_nbt." + i, false);
         }
 
-        secondaryExtractMode = nbt.getBooleanOr("secondary_extract_mode", false);
+        secondaryExtractMode = view.getBooleanOr("secondary_extract_mode", false);
 
-        currentRecipeIndex = nbt.getIntOr("current_recipe_index", 0);
+        currentRecipeIndex = view.getIntOr("current_recipe_index", 0);
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
             currentRecipeIndex = 0;
     }
 
-    private void loadPatternContainer(int index, CompoundTag tag, HolderLookup.Provider registries) {
+    private void loadPatternContainer(int index, ValueInput view) {
         patternSlots[index].removeListener(updatePatternListener[index]);
 
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[index].getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items, registries);
+        ContainerHelper.loadAllItems(view, items);
         for(int i = 0;i < patternSlots[index].getContainerSize();i++)
             patternSlots[index].setItem(i, items.get(i));
 

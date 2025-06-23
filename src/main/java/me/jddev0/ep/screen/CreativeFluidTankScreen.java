@@ -1,14 +1,12 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCreativeFluidTankFluidStackC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -64,18 +62,17 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderFluidMeterContent(guiGraphics, menu.getFluid(0), menu.getTankCapacity(0), x + 48, y + 17, 80, 52);
         renderFluidMeterOverlay(guiGraphics, x, y);
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 48, y + 17, 36, 0, 80, 52, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 48, y + 17, 36, 0, 80, 52, 256, 256);
     }
 
     @Override
@@ -110,7 +107,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
 
             components.add(tooltipComponent);
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

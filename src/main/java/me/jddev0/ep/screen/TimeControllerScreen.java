@@ -7,7 +7,7 @@ import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -74,19 +74,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18, 256, 256);
         }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18, 256, 256);
         }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18, 256, 256);
         }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18, 256, 256);
         }
     }
 
@@ -97,7 +97,7 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
 
         int componentWidth = font.width(component);
 
-        guiGraphics.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0, false);
+        guiGraphics.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override
@@ -110,28 +110,28 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.day"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.noon"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.night"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.midnight"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

@@ -2,7 +2,7 @@ package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -95,7 +95,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         int y = (height - imageHeight) / 2;
 
         if(menu.isInUpgradeModuleView()) {
-            guiGraphics.blit(RenderType::guiTextured, UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
         }else {
             renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
         }
@@ -106,11 +106,11 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     protected void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         //Upgrade view
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20, 256, 256);
         }else if(menu.isInUpgradeModuleView()) {
-            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20, 256, 256);
         }else {
-            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20, 256, 256);
         }
     }
 
@@ -124,7 +124,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
             components.add(Component.translatable("tooltip.energizedpower.upgrade_view.button." +
                     (menu.isInUpgradeModuleView()?"close":"open")));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 

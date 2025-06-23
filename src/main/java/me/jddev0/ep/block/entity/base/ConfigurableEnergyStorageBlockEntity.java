@@ -3,10 +3,10 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.machine.configuration.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableEnergyStorageBlockEntity
@@ -22,17 +22,17 @@ public abstract class ConfigurableEnergyStorageBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        view.putInt("configuration.redstone_mode", redstoneMode.ordinal());
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getIntOr("configuration.redstone_mode", 0));
+        redstoneMode = RedstoneMode.fromIndex(view.getIntOr("configuration.redstone_mode", 0));
     }
 
     @Override

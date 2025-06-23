@@ -7,7 +7,7 @@ import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -62,32 +62,31 @@ public class FluidTransposerScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(isHovering(114, 47, 20, 20, mouseX, mouseY))
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20, 256, 256);
 
         ItemStack output = new ItemStack(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(0.f, 0.f, 100.f);
+        guiGraphics.pose().pushMatrix();
 
         guiGraphics.renderItem(output, x + 116, y + 49, 116 + 49 * this.imageWidth);
 
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         int arrowPosY = menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?58:72;
 
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14, 256, 256);
 
         if(menu.isCraftingActive()) {
             if(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING)
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 72, arrowPosY, menu.getScaledProgressArrowSize(), 14, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 72, arrowPosY, menu.getScaledProgressArrowSize(), 14, 256, 256);
             else
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 134 - menu.getScaledProgressArrowSize(), y + 19,
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 134 - menu.getScaledProgressArrowSize(), y + 19,
                         92 - menu.getScaledProgressArrowSize(), arrowPosY, menu.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
@@ -115,7 +114,7 @@ public class FluidTransposerScreen
 
             components.add(tooltipComponent);
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
 
         if(isHovering(114, 47, 20, 20, mouseX, mouseY)) {
@@ -125,7 +124,7 @@ public class FluidTransposerScreen
             components.add(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
                     menu.getMode().getSerializedName()));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

@@ -6,10 +6,10 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,20 +30,19 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
+        view.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        view.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getIntOr("configuration.redstone_mode", 0));
-        comparatorMode = nbt.contains("configuration.comparator_mode")?
-                ComparatorMode.fromIndex(nbt.getIntOr("configuration.comparator_mode", 0)):ComparatorMode.FLUID;
+        redstoneMode = RedstoneMode.fromIndex(view.getIntOr("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(view.getIntOr("configuration.comparator_mode", ComparatorMode.FLUID.ordinal()));
     }
 
     public int getRedstoneOutput() {

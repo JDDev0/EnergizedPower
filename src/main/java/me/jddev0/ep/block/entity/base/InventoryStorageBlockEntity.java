@@ -1,16 +1,14 @@
 package me.jddev0.ep.block.entity.base;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryStorageBlockEntity<I extends ItemStackHandler>
         extends BlockEntity {
@@ -28,17 +26,17 @@ public abstract class InventoryStorageBlockEntity<I extends ItemStackHandler>
     protected abstract I initInventoryStorage();
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("inventory", itemHandler.serializeNBT(registries));
+        itemHandler.serialize(view.child("inventory"));
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        itemHandler.deserializeNBT(registries, nbt.getCompoundOrEmpty("inventory"));
+        itemHandler.deserialize(view.childOrEmpty("inventory"));
     }
 
     @Override

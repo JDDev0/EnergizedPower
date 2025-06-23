@@ -5,7 +5,7 @@ import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -89,9 +89,9 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         int ordinal = redstoneMode.ordinal();
 
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
-            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20, 256, 256);
         }else {
-            guiGraphics.blit(RenderType::guiTextured, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20, 256, 256);
         }
     }
 
@@ -106,7 +106,7 @@ public abstract class ConfigurableEnergyStorageContainerScreen
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 

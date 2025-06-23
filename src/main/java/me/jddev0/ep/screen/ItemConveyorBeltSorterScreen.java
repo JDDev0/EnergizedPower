@@ -1,12 +1,11 @@
 package me.jddev0.ep.screen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -56,11 +55,10 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
         renderOutputBeltConnectionState(guiGraphics, x, y, mouseX, mouseY);
         renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
@@ -69,20 +67,20 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     private void renderOutputBeltConnectionState(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++)
             if(menu.isOutputBeltConnected(i))
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 10, y + 18 + i * 18, 22, 169 + i * 14, 30, 14, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 10, y + 18 + i * 18, 22, 169 + i * 14, 30, 14, 256, 256);
     }
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++) {
             if(menu.isWhitelist(i)) {
                 //Whitelist checkbox [3x]
 
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 136, y + 19 + i * 18, 13, 150, 13, 13, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 136, y + 19 + i * 18, 13, 150, 13, 13, 256, 256);
             }
 
             if(menu.isIgnoreNBT(i)) {
                 //Ignore NBT checkbox [3x]
 
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 153, y + 19 + i * 18, 0, 150, 13, 13, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 153, y + 19 + i * 18, 0, 150, 13, 13, 256, 256);
             }
         }
     }
@@ -106,21 +104,21 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
                 components.add(Component.translatable("tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection." +
                         (menu.isOutputBeltConnected(i)?"connection":"no_connection"), i + 1));
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }else if(isHovering(136, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                 //Whitelist checkbox [3x]
 
                 List<Component> components = new ArrayList<>(2);
                 components.add(Component.translatable("tooltip.energizedpower.item_conveyor_belt_sorter.cbx." + (menu.isWhitelist(i)?"whitelist":"blacklist")));
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }else if(isHovering(153, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                 //Ignore NBT checkbox [3x]
 
                 List<Component> components = new ArrayList<>(2);
                 components.add(Component.translatable("tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt"));
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

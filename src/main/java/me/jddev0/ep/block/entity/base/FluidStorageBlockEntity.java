@@ -2,15 +2,14 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class FluidStorageBlockEntity<F extends IFluidHandler>
         extends BlockEntity
@@ -34,17 +33,17 @@ public abstract class FluidStorageBlockEntity<F extends IFluidHandler>
     protected abstract F initFluidStorage();
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        fluidStorageMethods.saveFluidStorage(fluidStorage, nbt, registries);
+        fluidStorageMethods.saveFluidStorage(fluidStorage, view);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        fluidStorageMethods.loadFluidStorage(fluidStorage, nbt, registries);
+        fluidStorageMethods.loadFluidStorage(fluidStorage, view);
     }
 
     protected final void syncFluidToPlayer(Player player) {

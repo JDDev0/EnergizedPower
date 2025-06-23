@@ -6,7 +6,7 @@ import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -67,7 +67,7 @@ public class FiltrationPlantScreen
         if(!components.isEmpty())
             components.remove(components.size() - 1);
 
-        guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+        guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
     }
 
     @Override
@@ -86,13 +86,13 @@ public class FiltrationPlantScreen
     }
 
     private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive()) {
             for(int i = 0;i < 2;i++) {
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 67, y + 34 + 27*i, 0, 108, menu.getScaledProgressArrowSize(), 9, 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 67, y + 34 + 27*i, 0, 108, menu.getScaledProgressArrowSize(), 9, 256, 256);
             }
         }
     }
@@ -121,7 +121,7 @@ public class FiltrationPlantScreen
 
                 components.add(tooltipComponent);
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
 
@@ -133,7 +133,7 @@ public class FiltrationPlantScreen
                 components.add(Component.translatable("tooltip.energizedpower.filtration_plant.charcoal_filter_missing").
                         withStyle(ChatFormatting.RED));
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

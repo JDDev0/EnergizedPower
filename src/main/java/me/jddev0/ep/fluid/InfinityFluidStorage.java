@@ -1,7 +1,5 @@
 package me.jddev0.ep.fluid;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
@@ -35,20 +33,16 @@ public class InfinityFluidStorage implements IFluidHandler {
         return Integer.MAX_VALUE;
     }
 
-    public void readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-        this.fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompoundOrEmpty("Fluid"));
-    }
-
-    public CompoundTag writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-        if(!this.fluid.isEmpty())
-            nbt.put("Fluid", this.fluid.save(lookupProvider));
-
-        return nbt;
-    }
-
     @Override
     public boolean isFluidValid(int tank, FluidStack fluidStack) {
         return true;
+    }
+
+    public void setFluidWithoutUpdate(FluidStack fluid) {
+        if(fluid.isEmpty())
+            this.fluid = FluidStack.EMPTY;
+        else
+            this.fluid = fluid.copyWithAmount(Integer.MAX_VALUE);
     }
 
     public void setFluid(FluidStack fluid) {

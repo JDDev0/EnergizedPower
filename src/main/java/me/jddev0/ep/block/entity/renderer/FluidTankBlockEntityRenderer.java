@@ -47,7 +47,7 @@ public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<Abstrac
 
         poseStack.pushPose();
 
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.translucent());
+        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.translucentMovingBlock());
 
         poseStack.mulPose(facing.getRotation());
         poseStack.mulPose(new Quaternionf().rotationX((float)Math.PI * .5f));

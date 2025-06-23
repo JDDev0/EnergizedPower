@@ -8,8 +8,6 @@ import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,9 +15,10 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<InfinityEnergyStorage>
@@ -76,19 +75,19 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putBoolean("energy_production", energyProduction);
-        nbt.putBoolean("energy_consumption", energyConsumption);
+        view.putBoolean("energy_production", energyProduction);
+        view.putBoolean("energy_consumption", energyConsumption);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        energyProduction = !nbt.contains("energy_production") || nbt.getBooleanOr("energy_production", false);
-        energyConsumption = nbt.getBooleanOr("energy_consumption", false);
+        energyProduction = view.getBooleanOr("energy_production", true);
+        energyConsumption = view.getBooleanOr("energy_consumption", false);
     }
 
     public void setEnergyProduction(boolean energyProduction) {

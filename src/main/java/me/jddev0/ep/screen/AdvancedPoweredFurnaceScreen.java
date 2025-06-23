@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
@@ -32,6 +32,6 @@ public class AdvancedPoweredFurnaceScreen
     private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
         for(int i = 0;i < 3;i++)
             if(menu.isCraftingActive(i))
-                guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 45 + 54 * i, y + 35, 0, 79, 12, menu.getScaledProgressArrowSize(i), 256, 256);
+                guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 45 + 54 * i, y + 35, 0, 79, 12, menu.getScaledProgressArrowSize(i), 256, 256);
     }
 }

@@ -5,15 +5,14 @@ import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
         extends BlockEntity
@@ -36,17 +35,17 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     protected abstract E initEnergyStorage();
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("energy", energyStorage.saveNBT());
+        view.putInt("energy", energyStorage.getEnergy());
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        energyStorage.loadNBT(nbt.get("energy"));
+        energyStorage.setEnergyWithoutUpdate(view.getIntOr("energy", 0));
     }
 
     protected final void syncEnergyToPlayer(Player player) {

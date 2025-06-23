@@ -5,7 +5,7 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +43,7 @@ public class AutoPressMoldMakerScreen
             components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", currentRecipe.value().getClayCount(),
                     Items.CLAY_BALL.getName()).withStyle(ChatFormatting.ITALIC));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 
@@ -59,7 +59,7 @@ public class AutoPressMoldMakerScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class AutoPressMoldMakerScreen
             components.add(Component.translatable("tooltip.energizedpower.auto_press_mold_maker.shovel_missing").
                     withStyle(ChatFormatting.RED));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

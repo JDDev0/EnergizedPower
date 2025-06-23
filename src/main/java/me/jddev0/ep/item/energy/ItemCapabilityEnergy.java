@@ -2,8 +2,6 @@ package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 
@@ -16,7 +14,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         this.energyStorage = energyStorage;
 
         if(itemStack.has(EPDataComponentTypes.ENERGY))
-            this.energyStorage.loadNBT(IntTag.valueOf(itemStack.getOrDefault(EPDataComponentTypes.ENERGY, 0)));
+            this.energyStorage.setEnergyWithoutUpdate(itemStack.getOrDefault(EPDataComponentTypes.ENERGY, 0));
     }
 
     @Override
@@ -24,9 +22,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         int ret = energyStorage.receiveEnergy(maxReceive, simulate);
 
         if(!simulate) {
-            Tag nbt = energyStorage.saveNBT();
-            if(nbt instanceof IntTag nbtInt)
-                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.intValue());
+            itemStack.set(EPDataComponentTypes.ENERGY, energyStorage.getEnergy());
         }
 
         return ret;
@@ -37,9 +33,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
         int ret = energyStorage.extractEnergy(maxExtract, simulate);
 
         if(!simulate) {
-            Tag nbt = energyStorage.saveNBT();
-            if(nbt instanceof IntTag nbtInt)
-                itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.intValue());
+            itemStack.set(EPDataComponentTypes.ENERGY, energyStorage.getEnergy());
         }
 
         return ret;
@@ -68,9 +62,7 @@ public class ItemCapabilityEnergy implements IEnergyStorage {
     public void setEnergy(int energy) {
         energyStorage.setEnergy(energy);
 
-        Tag nbt = energyStorage.saveNBT();
-        if(nbt instanceof IntTag nbtInt)
-            itemStack.set(EPDataComponentTypes.ENERGY, nbtInt.intValue());
+        itemStack.set(EPDataComponentTypes.ENERGY, energyStorage.getEnergy());
     }
 
     public void setCapacity(int capacity) {

@@ -1,11 +1,10 @@
 package me.jddev0.ep.screen.base;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -59,12 +58,11 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
         if(!menu.isInUpgradeModuleView()) {
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
             renderEnergyMeter(guiGraphics, x, y);
             renderEnergyPerTickBar(guiGraphics, x, y);
             renderEnergyIndicatorBar(guiGraphics, x, y);
@@ -73,21 +71,21 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
 
     protected void renderEnergyMeter(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyMeterPos(energyMeterHeight);
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                 energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos, 256, 256);
     }
 
     protected void renderEnergyIndicatorBar(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                     energyMeterV + energyMeterHeight, energyMeterWidth, 1, 256, 256);
     }
 
     protected void renderEnergyPerTickBar(GuiGraphics guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyPerTickBarPos(energyMeterHeight);
         if(pos > 0)
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                     energyMeterV + energyMeterHeight + 1, energyMeterWidth, 1, 256, 256);
     }
 
@@ -117,7 +115,7 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
                             EnergyUtils.getEnergyWithPrefix(menu.getEnergyPerTickBarValue()) + "/t").withStyle(ChatFormatting.YELLOW));
                 }
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

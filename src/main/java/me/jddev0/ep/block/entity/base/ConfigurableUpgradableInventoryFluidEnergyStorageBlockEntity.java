@@ -7,10 +7,10 @@ import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -33,19 +33,19 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
-        nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
+        view.putInt("configuration.redstone_mode", redstoneMode.ordinal());
+        view.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        redstoneMode = RedstoneMode.fromIndex(nbt.getIntOr("configuration.redstone_mode", 0));
-        comparatorMode = ComparatorMode.fromIndex(nbt.getIntOr("configuration.comparator_mode", 0));
+        redstoneMode = RedstoneMode.fromIndex(view.getIntOr("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(view.getIntOr("configuration.comparator_mode", 0));
     }
 
     public int getRedstoneOutput() {

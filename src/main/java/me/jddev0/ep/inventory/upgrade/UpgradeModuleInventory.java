@@ -2,13 +2,12 @@ package me.jddev0.ep.inventory.upgrade;
 
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public class UpgradeModuleInventory extends SimpleContainer {
@@ -87,17 +86,17 @@ public class UpgradeModuleInventory extends SimpleContainer {
         return sum;
     }
 
-    public Tag saveToNBT(HolderLookup.Provider registries) {
+    public void saveData(ValueOutput view) {
         NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
         for(int i = 0;i < getContainerSize();i++)
             items.set(i, getItem(i));
 
-        return ContainerHelper.saveAllItems(new CompoundTag(), items, registries);
+        ContainerHelper.saveAllItems(view, items);
     }
 
-    public void loadFromNBT(CompoundTag tag, HolderLookup.Provider registries) {
+    public void readData(ValueInput view) {
         NonNullList<ItemStack> items = NonNullList.withSize(getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items, registries);
+        ContainerHelper.loadAllItems(view, items);
         for(int i = 0;i < getContainerSize();i++)
             setItem(i, items.get(i));
     }

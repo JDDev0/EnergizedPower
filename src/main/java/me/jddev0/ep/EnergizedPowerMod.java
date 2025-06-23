@@ -29,13 +29,13 @@ import me.jddev0.ep.villager.EPVillager;
 import net.minecraft.client.Camera;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.FogParameters;
-import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
+import net.minecraft.client.renderer.fog.FogData;
+import net.minecraft.client.renderer.fog.environment.FogEnvironment;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -398,7 +398,7 @@ public class EnergizedPowerMod {
         EPBlockEntities.registerCapabilities(event);
     }
 
-    @EventBusSubscriber(modid = EPAPI.MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = EPAPI.MOD_ID, value = Dist.CLIENT)
     public static class ClientGameEvents {
         @SubscribeEvent
         public static void onRecipesReceived(RecipesReceivedEvent event) {
@@ -408,7 +408,7 @@ public class EnergizedPowerMod {
         }
     }
 
-    @EventBusSubscriber(modid = EPAPI.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = EPAPI.MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
@@ -421,8 +421,8 @@ public class EnergizedPowerMod {
                     entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                             ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
 
-            ItemBlockRenderTypes.setRenderLayer(EPFluids.DIRTY_WATER.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(EPFluids.FLOWING_DIRTY_WATER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(EPFluids.DIRTY_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(EPFluids.FLOWING_DIRTY_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
 
             BlockEntityRenderers.register(EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
@@ -466,16 +466,8 @@ public class EnergizedPowerMod {
                 }
 
                 @Override
-                public FogParameters modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, FogParameters fogParameters) {
-                    return new FogParameters(
-                            .25f,
-                            3.f,
-                            fogParameters.shape(),
-                            fogParameters.red(),
-                            fogParameters.green(),
-                            fogParameters.blue(),
-                            fogParameters.alpha()
-                    );
+                public void modifyFogRender(Camera camera, @Nullable FogEnvironment environment, float renderDistance, float partialTick, FogData fogData) {
+                    //TODO FIX
                 }
             }, EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get());
         }

@@ -4,12 +4,12 @@ import me.jddev0.ep.fluid.InfinityFluidStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,15 +19,16 @@ public final class FluidStorageInfiniteTankMethods implements FluidStorageMethod
     private FluidStorageInfiniteTankMethods() {}
 
     @Override
-    public void saveFluidStorage(@NotNull InfinityFluidStorage fluidStorage, @NotNull CompoundTag nbt,
-                                 @NotNull HolderLookup.Provider registries) {
-        nbt.put("fluid", fluidStorage.writeToNBT(registries, new CompoundTag()));
+    public void saveFluidStorage(@NotNull InfinityFluidStorage fluidStorage, ValueOutput view) {
+        FluidStack fluid = fluidStorage.getFluid();
+        view.child("fluid").storeNullable("Fluid", FluidStack.CODEC, fluid.isEmpty()?null:fluid);
     }
 
     @Override
-    public void loadFluidStorage(@NotNull InfinityFluidStorage fluidStorage, @NotNull CompoundTag nbt,
-                                 @NotNull HolderLookup.Provider registries) {
-        fluidStorage.readFromNBT(registries, nbt.getCompoundOrEmpty("fluid"));
+    public void loadFluidStorage(@NotNull InfinityFluidStorage fluidStorage, ValueInput view) {
+        FluidStack fluid = view.child("fluid").flatMap(subView -> subView.read("Fluid", FluidStack.CODEC)).
+                orElse(FluidStack.EMPTY);
+        fluidStorage.setFluidWithoutUpdate(fluid);
     }
 
     @Override

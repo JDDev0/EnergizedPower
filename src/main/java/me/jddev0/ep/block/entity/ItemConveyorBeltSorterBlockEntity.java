@@ -11,10 +11,7 @@ import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.ContainerListener;
@@ -28,9 +25,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements MenuProvider, CheckboxUpdate {
@@ -89,42 +87,42 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("pattern", savePatternContainer(registries));
+        savePatternContainer(view.child("pattern"));
 
         for(int i = 0;i < 3;i++)
-            nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
+            view.putBoolean("recipe.whitelist." + i, whitelist[i]);
         for(int i = 0;i < 3;i++)
-            nbt.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
+            view.putBoolean("recipe.ignore_nbt." + i, ignoreNBT[i]);
     }
 
-    private Tag savePatternContainer(HolderLookup.Provider registries) {
+    private void savePatternContainer(ValueOutput view) {
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             items.set(i, patternSlots.getItem(i));
 
-        return ContainerHelper.saveAllItems(new CompoundTag(), items, registries);
+        ContainerHelper.saveAllItems(view, items);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        loadPatternContainer(nbt.getCompoundOrEmpty("pattern"), registries);
+        loadPatternContainer(view.childOrEmpty("pattern"));
 
         for(int i = 0;i < 3;i++)
-            whitelist[i] = nbt.getBooleanOr("recipe.whitelist." + i, false);
+            whitelist[i] = view.getBooleanOr("recipe.whitelist." + i, false);
         for(int i = 0;i < 3;i++)
-            ignoreNBT[i] = nbt.getBooleanOr("recipe.ignore_nbt." + i, false);
+            ignoreNBT[i] = view.getBooleanOr("recipe.ignore_nbt." + i, false);
     }
 
-    private void loadPatternContainer(CompoundTag tag, HolderLookup.Provider registries) {
+    private void loadPatternContainer(ValueInput view) {
         patternSlots.removeListener(updatePatternListener);
 
         NonNullList<ItemStack> items = NonNullList.withSize(patternSlots.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(tag, items, registries);
+        ContainerHelper.loadAllItems(view, items);
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             patternSlots.setItem(i, items.get(i));
 

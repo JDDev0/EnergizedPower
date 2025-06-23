@@ -5,7 +5,7 @@ import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +42,7 @@ public class StoneSolidifierScreen
             components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                     output.getHoverName()));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 
@@ -62,13 +62,13 @@ public class StoneSolidifierScreen
     }
 
     private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive()) {
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 69, y + 45, 72, 58, menu.getScaledProgressArrowSize(), 14, 256, 256);
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 69, y + 45, 72, 58, menu.getScaledProgressArrowSize(), 14, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
                     92 - menu.getScaledProgressArrowSize(), 72, menu.getScaledProgressArrowSize(), 14, 256, 256);
         }
     }
@@ -97,7 +97,7 @@ public class StoneSolidifierScreen
 
                 components.add(tooltipComponent);
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

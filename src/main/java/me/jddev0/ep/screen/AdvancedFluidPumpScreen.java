@@ -6,7 +6,7 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -50,7 +50,7 @@ public class AdvancedFluidPumpScreen
     }
 
     private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y, int tank) {
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 206 + (tank%2) * 18, y + 17 + (tank/2) * 54, 16, 0, 16, 52, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 206 + (tank%2) * 18, y + 17 + (tank/2) * 54, 16, 0, 16, 52, 256, 256);
     }
 
     private void renderInfoText(GuiGraphics guiGraphics, int x, int y) {
@@ -69,7 +69,7 @@ public class AdvancedFluidPumpScreen
 
         int componentWidth = font.width(component);
 
-        guiGraphics.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0, false);
+        guiGraphics.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0xFF000000, false);
 
 
         if(menu.getSlot(4 * 9).getItem().isEmpty()) {
@@ -78,7 +78,7 @@ public class AdvancedFluidPumpScreen
 
             componentWidth = font.width(component);
 
-            guiGraphics.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0, false);
+            guiGraphics.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
         }else if(menu.isExtractingFluid()) {
             FluidState targetFluidState = menu.getBlockEntity().getLevel().getFluidState(targetPos);
             if(!targetFluidState.isEmpty()) {
@@ -87,7 +87,7 @@ public class AdvancedFluidPumpScreen
 
                 componentWidth = font.width(component);
 
-                guiGraphics.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0, false);
+                guiGraphics.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
             }
         }
     }
@@ -116,7 +116,7 @@ public class AdvancedFluidPumpScreen
 
                 components.add(tooltipComponent);
 
-                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

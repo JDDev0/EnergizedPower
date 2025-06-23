@@ -14,9 +14,6 @@ import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.DoubleTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -29,6 +26,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -128,19 +127,19 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("recipe.speed_multiplier", DoubleTag.valueOf(fertilizerSpeedMultiplier));
-        nbt.put("recipe.energy_consumption_multiplier", DoubleTag.valueOf(fertilizerEnergyConsumptionMultiplier));
+        view.putDouble("recipe.speed_multiplier", fertilizerSpeedMultiplier);
+        view.putDouble("recipe.energy_consumption_multiplier", fertilizerEnergyConsumptionMultiplier);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        fertilizerSpeedMultiplier = nbt.getDoubleOr("recipe.speed_multiplier", 0);
-        fertilizerEnergyConsumptionMultiplier = nbt.getDoubleOr("recipe.energy_consumption_multiplier", 0);
+        fertilizerSpeedMultiplier = view.getDoubleOr("recipe.speed_multiplier", 0);
+        fertilizerEnergyConsumptionMultiplier = view.getDoubleOr("recipe.energy_consumption_multiplier", 0);
     }
 
     @Override

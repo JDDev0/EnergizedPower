@@ -9,8 +9,6 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,9 +17,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
@@ -94,21 +93,22 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.putBoolean("ignore_nbt", ignoreNBT);
+        view.putBoolean("ignore_nbt", ignoreNBT);
 
-        nbt.put("fluid_filter", fluidFilter.saveOptional(registries));
+        view.storeNullable("fluid_filter", FluidStack.CODEC, fluidFilter.isEmpty()?null:fluidFilter);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        ignoreNBT = nbt.getBooleanOr("ignore_nbt", false);
+        ignoreNBT = view.getBooleanOr("ignore_nbt", false);
 
-        fluidFilter = FluidStack.parseOptional(registries, nbt.getCompoundOrEmpty("fluid_filter"));
+        fluidFilter = view.read("fluid_filter", FluidStack.CODEC).
+                orElse(FluidStack.EMPTY);
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {

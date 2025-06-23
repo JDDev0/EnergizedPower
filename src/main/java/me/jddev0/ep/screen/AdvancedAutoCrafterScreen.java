@@ -5,7 +5,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.*;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
@@ -74,27 +74,27 @@ public class AdvancedAutoCrafterScreen
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 16, 0, 139, 11, 11, 256, 256);
         }
 
         if(menu.isSecondaryExtractMode()) {
             //Extract mode checkbox [2]
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 22, 139, 11, 11, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 22, 139, 11, 11, 256, 256);
         }else {
             //Extract mode checkbox [1]
 
-            guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11, 256, 256);
         }
 
-        guiGraphics.blit(RenderType::guiTextured, MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * menu.getRecipeIndex(), 139, 11, 11, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * menu.getRecipeIndex(), 139, 11, 11, 256, 256);
     }
 
     @Override
@@ -107,28 +107,28 @@ public class AdvancedAutoCrafterScreen
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.ignore_nbt"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
             //Extract mode
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (menu.isSecondaryExtractMode()?"2":"1")));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
             //Cycle through recipes
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cycle_through_recipes"));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(96, 16, 12, 12, mouseX, mouseY)) {
             //Set recipe index
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.recipe_index", menu.getRecipeIndex() + 1));
 
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

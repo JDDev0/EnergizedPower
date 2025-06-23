@@ -3,16 +3,14 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -64,21 +62,21 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
-        nbt.put("recipe.progress", IntTag.valueOf(progress));
-        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
-        nbt.put("recipe.energy_consumption_left", IntTag.valueOf(energyConsumptionLeft));
+        view.putInt("recipe.progress", progress);
+        view.putInt("recipe.max_progress", maxProgress);
+        view.putInt("recipe.energy_consumption_left", energyConsumptionLeft);
     }
 
     @Override
-    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        progress = nbt.getIntOr("recipe.progress", 0);
-        maxProgress = nbt.getIntOr("recipe.max_progress", 0);
-        energyConsumptionLeft = nbt.getIntOr("recipe.energy_consumption_left", 0);
+        progress = view.getIntOr("recipe.progress", 0);
+        maxProgress = view.getIntOr("recipe.max_progress", 0);
+        energyConsumptionLeft = view.getIntOr("recipe.energy_consumption_left", 0);
     }
 
     public static <F extends IFluidHandler, W> void tick(

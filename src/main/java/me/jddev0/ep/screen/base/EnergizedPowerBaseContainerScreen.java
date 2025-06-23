@@ -1,12 +1,13 @@
 package me.jddev0.ep.screen.base;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.textures.GpuTextureView;
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.client.rendering.FluidTankRenderState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
@@ -18,7 +19,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
-import org.joml.Matrix4f;
+import org.joml.Matrix3x2f;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
@@ -30,14 +31,13 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
 
     protected void renderFluidMeterContent(GuiGraphics guiGraphics, FluidStack fluidStack, int tankCapacity, int x, int y,
                                          int w, int h) {
-        guiGraphics.pose().pushPose();
+        guiGraphics.pose().pushMatrix();
 
-        guiGraphics.pose().translate(x, y, 0);
+        guiGraphics.pose().translate(x, y);
 
         renderFluidStack(guiGraphics, fluidStack, tankCapacity, w, h);
 
-        guiGraphics.pose().popPose();
-        RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
+        guiGraphics.pose().popMatrix();
     }
 
     private void renderFluidStack(GuiGraphics guiGraphics, FluidStack fluidStack, int tankCapacity, int w, int h) {
@@ -56,30 +56,26 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
                 0:(h - ((fluidStack.getAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
-        Matrix4f mat = guiGraphics.pose().last().pose();
-
         for(int yOffset = h;yOffset > fluidMeterPos;yOffset -= 16) {
             for(int xOffset = 0;xOffset < w;xOffset += 16) {
-                int finalXOffset = xOffset;
-                int finalYOffset = yOffset;
+                int width = Math.min(w - xOffset, 16);
+                int height = Math.min(yOffset - fluidMeterPos, 16);
 
-                guiGraphics.drawSpecial(vertexConsumers -> {
-                    int width = Math.min(w - finalXOffset, 16);
-                    int height = Math.min(finalYOffset - fluidMeterPos, 16);
+                float u0 = stillFluidSprite.getU0();
+                float u1 = stillFluidSprite.getU1();
+                float v0 = stillFluidSprite.getV0();
+                float v1 = stillFluidSprite.getV1();
+                u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
+                v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
-                    float u0 = stillFluidSprite.getU0();
-                    float u1 = stillFluidSprite.getU1();
-                    float v0 = stillFluidSprite.getV0();
-                    float v1 = stillFluidSprite.getV1();
-                    u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
-                    v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
-
-                    VertexConsumer bufferBuilder = vertexConsumers.getBuffer(RenderType.guiTextured(stillFluidSprite.atlasLocation()));
-                    bufferBuilder.addVertex(mat, finalXOffset, finalYOffset, 0).setColor(fluidColorTint).setUv(u0, v1);
-                    bufferBuilder.addVertex(mat, finalXOffset + width, finalYOffset, 0).setColor(fluidColorTint).setUv(u1, v1);
-                    bufferBuilder.addVertex(mat, finalXOffset + width, finalYOffset - height, 0).setColor(fluidColorTint).setUv(u1, v0);
-                    bufferBuilder.addVertex(mat, finalXOffset, finalYOffset - height, 0).setColor(fluidColorTint).setUv(u0, v0);
-                });
+                GpuTextureView gpuTextureView = this.minecraft.getTextureManager().getTexture(stillFluidSprite.atlasLocation()).getTextureView();
+                guiGraphics.guiRenderState.submitGuiElement(new FluidTankRenderState(
+                        RenderPipelines.GUI_TEXTURED, TextureSetup.singleTexture(gpuTextureView),
+                        new Matrix3x2f(guiGraphics.pose()),
+                        xOffset, yOffset, width, height,
+                        u0, u1, v0, v1, fluidColorTint,
+                        guiGraphics.scissorStack.peek()
+                ));
             }
         }
     }
