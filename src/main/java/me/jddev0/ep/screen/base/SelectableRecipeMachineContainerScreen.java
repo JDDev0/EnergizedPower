@@ -11,14 +11,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
 public abstract class SelectableRecipeMachineContainerScreen
         <R extends Recipe<?>, T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu &
                 ISelectableRecipeMachineMenu<R>>

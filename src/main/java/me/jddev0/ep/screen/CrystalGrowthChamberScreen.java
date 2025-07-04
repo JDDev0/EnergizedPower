@@ -6,10 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class CrystalGrowthChamberScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<CrystalGrowthChamberMenu> {
     public CrystalGrowthChamberScreen(CrystalGrowthChamberMenu menu, Inventory inventory, Component component) {

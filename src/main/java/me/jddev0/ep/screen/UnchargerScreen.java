@@ -4,10 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class UnchargerScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<UnchargerMenu> {
     public UnchargerScreen(UnchargerMenu menu, Inventory inventory, Component component) {

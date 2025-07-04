@@ -21,15 +21,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-@OnlyIn(Dist.CLIENT)
 public class EnergizedPowerBookScreen extends Screen {
     public static final ResourceLocation TEXTURE = EPAPI.id("textures/gui/book/energized_power_book.png");
     public static final ResourceLocation FRONT_COVER = EPAPI.id("textures/gui/book/front_cover.png");
@@ -512,7 +509,6 @@ public class EnergizedPowerBookScreen extends Screen {
         currentTick++;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class PageContent {
         private final ResourceLocation pageId;
         private final Component chapterTitleComponent;
@@ -557,7 +553,6 @@ public class EnergizedPowerBookScreen extends Screen {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static class FormattedPageContent {
         private final ResourceLocation pageId;
         private final Component chapterTitleComponent;

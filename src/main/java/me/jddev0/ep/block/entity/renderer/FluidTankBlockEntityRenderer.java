@@ -16,14 +16,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
-@OnlyIn(Dist.CLIENT)
 public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<AbstractFluidTankBlockEntity<?>> {
     private final BlockEntityRendererProvider.Context context;
 

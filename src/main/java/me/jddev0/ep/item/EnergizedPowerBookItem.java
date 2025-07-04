@@ -1,8 +1,7 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.screen.EnergizedPowerBookScreen;
+import me.jddev0.ep.client.util.EnergizedPowerBookClientHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,10 +15,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class EnergizedPowerBookItem extends WrittenBookItem {
@@ -45,7 +41,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(level.isClientSide)
-            showBookViewScreen(null);
+            EnergizedPowerBookClientHelper.showBookViewScreen((ResourceLocation)null);
 
         return (level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER).heldItemTransformedTo(itemStack);
     }
@@ -60,14 +56,9 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         if(!level.isClientSide)
             return false;
 
-        showBookViewScreen(BuiltInRegistries.BLOCK.getKey(state.getBlock()));
+        EnergizedPowerBookClientHelper.showBookViewScreen(BuiltInRegistries.BLOCK.getKey(state.getBlock()));
 
         return false;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void showBookViewScreen(ResourceLocation openOnPageForBlock) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(openOnPageForBlock));
     }
 
     @Override

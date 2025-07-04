@@ -17,20 +17,13 @@ public final class ModMessages {
         final PayloadRegistrar registrar = event.registrar("1.0");
 
         //Server -> Client
-        registrar.playToClient(EnergySyncS2CPacket.ID, EnergySyncS2CPacket.STREAM_CODEC,
-                EnergySyncS2CPacket::handle);
-        registrar.playToClient(FluidSyncS2CPacket.ID, FluidSyncS2CPacket.STREAM_CODEC,
-                FluidSyncS2CPacket::handle);
-        registrar.playToClient(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.STREAM_CODEC,
-                ItemStackSyncS2CPacket::handle);
-        registrar.playToClient(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.STREAM_CODEC,
-                OpenEnergizedPowerBookS2CPacket::handle);
-        registrar.playToClient(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC,
-                SyncPressMoldMakerRecipeListS2CPacket::handle);
-        registrar.playToClient(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.STREAM_CODEC,
-                SyncCurrentRecipeS2CPacket::handle);
-        registrar.playToClient(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket.STREAM_CODEC,
-                SyncIngredientsS2CPacket::handle);
+        registrar.playToClient(EnergySyncS2CPacket.ID, EnergySyncS2CPacket.STREAM_CODEC);
+        registrar.playToClient(FluidSyncS2CPacket.ID, FluidSyncS2CPacket.STREAM_CODEC);
+        registrar.playToClient(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.STREAM_CODEC);
+        registrar.playToClient(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.STREAM_CODEC);
+        registrar.playToClient(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC);
+        registrar.playToClient(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.STREAM_CODEC);
+        registrar.playToClient(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket.STREAM_CODEC);
 
         //Client -> Server
         registrar.playToServer(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC,

@@ -23,6 +23,7 @@ import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.ItemCapabilityEnergy;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.ModMessagesClient;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
 import me.jddev0.ep.villager.EPVillager;
@@ -49,6 +50,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.IEventBus;
@@ -429,6 +431,11 @@ public class EnergizedPowerMod {
             BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+        }
+
+        @SubscribeEvent
+        public static void onRegisterClientPayloadHandlers(RegisterClientPayloadHandlersEvent event) {
+            ModMessagesClient.register(event);
         }
 
         @SubscribeEvent

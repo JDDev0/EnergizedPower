@@ -12,14 +12,11 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
 public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeControllerMenu> {
     public TimeControllerScreen(TimeControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,

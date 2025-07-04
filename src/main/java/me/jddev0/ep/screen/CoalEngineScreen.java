@@ -6,10 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class CoalEngineScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<CoalEngineMenu> {
     public CoalEngineScreen(CoalEngineMenu menu, Inventory inventory, Component component) {

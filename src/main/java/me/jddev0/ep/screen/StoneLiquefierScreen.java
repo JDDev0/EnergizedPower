@@ -7,14 +7,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
 public class StoneLiquefierScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<StoneLiquefierMenu> {
     public StoneLiquefierScreen(StoneLiquefierMenu menu, Inventory inventory, Component component) {

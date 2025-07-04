@@ -11,8 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
 public class FluidPumpScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidPumpMenu> {
     public static final boolean SHOW_RELATIVE_COORDINATES = ModConfigs.CLIENT_FLUID_PUMP_RELATIVE_TARGET_COORDINATES.getValue();

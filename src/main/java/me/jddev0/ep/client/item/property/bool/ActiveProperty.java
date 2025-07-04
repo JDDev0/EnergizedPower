@@ -7,12 +7,9 @@ import net.minecraft.client.renderer.item.properties.conditional.ConditionalItem
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
 public class ActiveProperty implements ConditionalItemModelProperty {
     public static final MapCodec<ActiveProperty> CODEC = MapCodec.unit(new ActiveProperty());
 

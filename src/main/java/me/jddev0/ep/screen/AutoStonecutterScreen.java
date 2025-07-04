@@ -11,14 +11,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@OnlyIn(Dist.CLIENT)
 public class AutoStonecutterScreen
         extends SelectableRecipeMachineContainerScreen<StonecutterRecipe, AutoStonecutterMenu> {
     public AutoStonecutterScreen(AutoStonecutterMenu menu, Inventory inventory, Component component) {

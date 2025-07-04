@@ -1,16 +1,13 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.EnergizedPowerBookScreen;
-import net.minecraft.client.Minecraft;
+import me.jddev0.ep.client.util.EnergizedPowerBookClientHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,13 +38,8 @@ public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPac
             if(blockEntity instanceof LecternBlockEntity) {
                 LecternBlockEntity lecternBlockEntity = (LecternBlockEntity)blockEntity;
 
-                showBookViewScreen(lecternBlockEntity);
+                EnergizedPowerBookClientHelper.showBookViewScreen(lecternBlockEntity);
             }
         });
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static void showBookViewScreen(LecternBlockEntity lecternBlockEntity) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
     }
 }
