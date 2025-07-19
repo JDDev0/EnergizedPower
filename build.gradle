@@ -164,8 +164,8 @@ dependencies {
     compileOnly "top.theillusivec4.curios:curios-neoforge:11.0.1+1.21.5"
 
     // CCTweaked integration
-    compileOnly "cc.tweaked:cc-tweaked-1.21.7-core-api:1.116.0"
-    compileOnly "cc.tweaked:cc-tweaked-1.21.7-forge-api:1.116.0"
+    compileOnly "cc.tweaked:cc-tweaked-1.21.8-core-api:1.116.1"
+    compileOnly "cc.tweaked:cc-tweaked-1.21.8-forge-api:1.116.1"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
