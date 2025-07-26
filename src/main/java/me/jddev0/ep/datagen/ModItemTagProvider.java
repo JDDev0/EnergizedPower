@@ -55,7 +55,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
                         EPBlocks.FLUID_TANK_SMALL_ITEM.get(),
                         EPBlocks.FLUID_TANK_MEDIUM_ITEM.get(),
-                        EPBlocks.FLUID_TANK_LARGE_ITEM.get()
+                        EPBlocks.FLUID_TANK_LARGE_ITEM.get(),
+                        EPBlocks.CREATIVE_FLUID_TANK_ITEM.get()
                 );
 
         tag(CompatibilityItemTags.AE2_FE_P2P_TUNNEL_ATTUNEMENTS).
