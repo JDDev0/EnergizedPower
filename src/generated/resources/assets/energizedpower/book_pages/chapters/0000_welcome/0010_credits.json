@@ -215,7 +215,23 @@
             "translate": "book.energizedpower.page.credits.8"
           },
           ": ",
-          "Imperial Officer"
+          "Imperial Officer",
+          ", ",
+          {
+            "click_event": {
+              "action": "open_url",
+              "url": "https://github.com/PlayboyX312"
+            },
+            "color": "blue",
+            "hover_event": {
+              "action": "show_text",
+              "value": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "PlayboyX312",
+            "underlined": true
+          }
         ],
         "font": "minecraft:uniform",
         "text": "\n• "
