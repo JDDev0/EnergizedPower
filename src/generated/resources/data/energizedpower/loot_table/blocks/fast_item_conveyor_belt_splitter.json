@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "energizedpower:fast_item_conveyor_belt_splitter"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "energizedpower:blocks/fast_item_conveyor_belt_splitter"
+}

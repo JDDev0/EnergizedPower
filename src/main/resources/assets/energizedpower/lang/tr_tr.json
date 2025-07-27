@@ -251,18 +251,40 @@
   "block.energizedpower.raw_tin_block": "Ham Kalay Bloğu",
   "item.energizedpower.raw_tin_block": "Ham Kalay Bloğu",
 
-  "block.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
-  "item.energizedpower.item_conveyor_belt": "Konveyor Bandı Eşyası",
+  "block.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+  "item.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+
+  "block.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+  "item.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+
+  "block.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
+  "item.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Eğim şuna ayarlandı %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Konveyor Bandı Yükleyicsi",
-  "item.energizedpower.item_conveyor_belt_loader": "Konveyor Bandı Yükleyicisi Eşyasır",
-  "container.energizedpower.item_conveyor_belt_loader": "Konveyor Bandı Yükleyicisi",
+  "block.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "item.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "container.energizedpower.item_conveyor_belt_loader": "Basic Conveyor Belt Loader",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Konveyor Bandı Ayırıcı",
-  "item.energizedpower.item_conveyor_belt_sorter": "Konveyor Bandı Ayırıcı Eşyası",
-  "container.energizedpower.item_conveyor_belt_sorter": "Konveyor Bandı Ayırıcı",
+  "block.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "item.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "container.energizedpower.fast_item_conveyor_belt_loader": "Fast Conveyor Belt Loader",
+
+  "block.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "item.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "container.energizedpower.express_item_conveyor_belt_loader": "Express Conveyor Belt Loader",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "item.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "container.energizedpower.item_conveyor_belt_sorter": "Basic Conveyor Belt Sorter",
+
+  "block.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "item.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "Fast Conveyor Belt Sorter",
+
+  "block.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "item.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "Express Conveyor Belt Sorter",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Çıkış %d: Band bağlanmamış!",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Çıkış %d: Band Bağlandı!",
@@ -270,14 +292,32 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Beyaz Liste",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Karaliste",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Konveyor Bandı Şalteri ",
-  "item.energizedpower.item_conveyor_belt_switch": "Konveyor Bandı Şalteri Eşyası",
+  "block.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
+  "item.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Konveyor Bandı Bölücü",
-  "item.energizedpower.item_conveyor_belt_splitter": "Konveyor Bandı Bölücü Eşyası",
+  "block.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
+  "item.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Konveyor Bandı Birleştirici Eşyası",
-  "item.energizedpower.item_conveyor_belt_merger": "Konveyor Bandı Birleştricisi",
+  "block.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+  "item.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+  "item.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+
+  "block.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+  "item.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+
+  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+  "item.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+
+  "block.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+  "item.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+
+  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
+  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
 
   "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
@@ -1161,17 +1201,53 @@
   "advancements.energizedpower.item_conveyor_belt.title": "Eşya Taşımacılığı",
   "advancements.energizedpower.item_conveyor_belt.description": "Eşyaları Konveyor ile taşı.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "Fast Item Transport",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "Craft a Fast Item Conveyor Belt.",
+
+  "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Express Item Conveyor Belt.",
+
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Eşya Yükleyici",
   "advancements.energizedpower.item_conveyor_belt_loader.description": "Topla gel abi! Tüm eşyaları Konveyora bırak.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Fast Item Conveyor Belt Loader",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Craft a Fast Item Conveyor Belt Loader.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express Item Conveyor Belt Loader",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Express Item Conveyor Belt Loader.",
 
   "advancements.energizedpower.item_conveyor_belt_sorter.title": "Oto Ayırma",
   "advancements.energizedpower.item_conveyor_belt_sorter.description": "Konveyor Ayırıcı ile eşyaları ayır.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Fast Item Conveyor Belt Sorter",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Craft a Fast Item Conveyor Belt Sorter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express Item Conveyor Belt Sorter",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Express Item Conveyor Belt Sorter.",
+
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Konveyor Şalteri",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Hangi yön?.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Fast Item Conveyor Belt Switch",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Craft a Fast Item Conveyor Belt Switch.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express Item Conveyor Belt Switch",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Express Item Conveyor Belt Switch.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Fast Item Conveyor Belt Splitter",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Craft a Fast Item Conveyor Belt Splitter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express Item Conveyor Belt Splitter",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Express Item Conveyor Belt Splitter.",
+
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Konveyor Ayırma",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Tüm eşyaları farklı çıkışlara ayır.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Fast Item Conveyor Belt Merger",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Craft a Fast Item Conveyor Belt Merger.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express Item Conveyor Belt Merger",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Express Item Conveyor Belt Merger.",
 
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Konveyor Birleştirici",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Eşyaları bir çok farklı çıkıştan birleştir.",

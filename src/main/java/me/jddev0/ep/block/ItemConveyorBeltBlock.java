@@ -1,8 +1,9 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -34,23 +36,36 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static me.jddev0.ep.block.EPBlockStateProperties.ConveyorBeltDirection;
 
 public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConfigurable {
-    public static final MapCodec<ItemConveyorBeltBlock> CODEC = simpleCodec(ItemConveyorBeltBlock::new);
+    public static final MapCodec<ItemConveyorBeltBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(
+                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
+                        forGetter(ItemConveyorBeltBlock::getTier),
+                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
+        ).apply(instance, ItemConveyorBeltBlock::new);
+    });
 
     public static final EnumProperty<ConveyorBeltDirection> FACING = EPBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.box(0., 0., 0., 16., 2., 16.);
     protected static final VoxelShape SHAPE_HALF_BLOCK = Block.box(0., 0., 0., 16., 8., 16.);
 
-    protected ItemConveyorBeltBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, ConveyorBeltDirection.NORTH_SOUTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Override
@@ -61,7 +76,7 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltBlockEntity(blockPos, state);
+        return new ItemConveyorBeltBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -168,13 +183,20 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltBlockEntityFromTier(), ItemConveyorBeltBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
+        private final ConveyorBeltTier tier;
 
-        public Item(Block block, Properties props) {
+        public Item(Block block, Properties props, ConveyorBeltTier tier) {
             super(block, props);
+
+            this.tier = tier;
+        }
+
+        public ConveyorBeltTier getTier() {
+            return tier;
         }
 
         @Override

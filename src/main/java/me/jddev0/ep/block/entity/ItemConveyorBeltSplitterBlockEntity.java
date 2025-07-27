@@ -3,8 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSplitterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -17,12 +17,26 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
-    private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM.getValue();
+    private final int ticksPerItem;
 
     private int currentOutputIndex;
 
-    public ItemConveyorBeltSplitterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(EPBlockEntities.ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get(), blockPos, blockState);
+    private final ConveyorBeltTier tier;
+
+    public ItemConveyorBeltSplitterBlockEntity(BlockPos blockPos, BlockState blockState, ConveyorBeltTier tier) {
+        super(tier.getItemConveyorBeltSplitterBlockEntityFromTier(), blockPos, blockState);
+
+        this.tier = tier;
+
+        ticksPerItem = switch(tier) {
+            case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM.getValue();
+            case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM.getValue();
+            case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM.getValue();
+        };
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Override
@@ -43,12 +57,12 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
         if(level.isClientSide)
             return;
 
-        if(level.getGameTime() % TICKS_PER_ITEM == 0) {
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
             Direction facing = state.getValue(ItemConveyorBeltSplitterBlock.FACING);
 
             BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
-            if(!inputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+            if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             //Conveyor belt must face towards Splitter and must not be ascending
@@ -83,7 +97,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
 
                 BlockPos outputPos = blockPos.relative(outputDirection);
                 BlockState outputBlockState = level.getBlockState(outputPos);
-                if(!outputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+                if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                     continue;
 
                 BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);

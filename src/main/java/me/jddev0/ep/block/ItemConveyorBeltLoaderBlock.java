@@ -1,11 +1,13 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -25,15 +27,29 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
-    public static final MapCodec<ItemConveyorBeltLoaderBlock> CODEC = simpleCodec(ItemConveyorBeltLoaderBlock::new);
+    public static final MapCodec<ItemConveyorBeltLoaderBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(
+                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
+                        forGetter(ItemConveyorBeltLoaderBlock::getTier),
+                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
+        ).apply(instance, ItemConveyorBeltLoaderBlock::new);
+    });
 
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
-    protected ItemConveyorBeltLoaderBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltLoaderBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ENABLED, true));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Override
@@ -44,7 +60,7 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltLoaderBlockEntity(blockPos, state);
+        return new ItemConveyorBeltLoaderBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -121,6 +137,6 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltLoaderBlockEntityFromTier(), ItemConveyorBeltLoaderBlockEntity::tick);
     }
 }

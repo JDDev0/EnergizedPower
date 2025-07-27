@@ -84,12 +84,12 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Item transportation
 
-- Item Conveyor Belt
-- Item Conveyor Belt Loader
-- Item Conveyor Belt Sorter
-- Item Conveyor Belt Switch
-- Item Conveyor Belt Splitter
-- Item Conveyor Belt Merger
+- Item Conveyor Belt (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Loader (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Sorter (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Switch (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Splitter (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Merger (3 tiers (**In next release (v2.15.0)**))
 
 ### Misc
 

@@ -1,10 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -24,15 +26,29 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
-    public static final MapCodec<ItemConveyorBeltSorterBlock> CODEC = simpleCodec(ItemConveyorBeltSorterBlock::new);
+    public static final MapCodec<ItemConveyorBeltSorterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
+        return instance.group(
+                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
+                        forGetter(ItemConveyorBeltSorterBlock::getTier),
+                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
+        ).apply(instance, ItemConveyorBeltSorterBlock::new);
+    });
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected ItemConveyorBeltSorterBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltSorterBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(FACING, Direction.NORTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Override
@@ -43,7 +59,7 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltSorterBlockEntity(blockPos, state);
+        return new ItemConveyorBeltSorterBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -124,7 +140,7 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
             return;
 
         BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
-        itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()));
+        itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.getBlock() instanceof ItemConveyorBeltBlock);
     }
 
     @Override
@@ -150,6 +166,6 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), ItemConveyorBeltSorterBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltSorterBlockEntityFromTier(), ItemConveyorBeltSorterBlockEntity::tick);
     }
 }

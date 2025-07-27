@@ -45,29 +45,89 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("creative_fluid_tank", () -> new BlockEntityType<>(CreativeFluidTankBlockEntity::new,
                     EPBlocks.CREATIVE_FLUID_TANK.get()));
 
-    public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> ITEM_CONVEYOR_BELT_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt", () -> new BlockEntityType<>(ItemConveyorBeltBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT.get()));
+    private static Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
+            String name,
+            Supplier<ItemConveyorBeltBlock> blockSupplier
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new ItemConveyorBeltBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()));
+    }
+    public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("item_conveyor_belt", EPBlocks.BASIC_ITEM_CONVEYOR_BELT);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> FAST_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("fast_item_conveyor_belt", EPBlocks.FAST_ITEM_CONVEYOR_BELT);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("express_item_conveyor_belt", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT);
 
-    public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> ITEM_CONVEYOR_BELT_LOADER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_loader", () -> new BlockEntityType<>(ItemConveyorBeltLoaderBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get()));
+    private static Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> createItemConveyorBeltLoaderBlockEntity(
+            String name,
+            Supplier<ItemConveyorBeltLoaderBlock> blockSupplier
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new ItemConveyorBeltLoaderBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()));
+    }
+    public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("item_conveyor_belt_loader", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("fast_item_conveyor_belt_loader", EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("express_item_conveyor_belt_loader", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
 
-    public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> ITEM_CONVEYOR_BELT_SORTER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_sorter", () -> new BlockEntityType<>(ItemConveyorBeltSorterBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get()));
+    private static Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> createItemConveyorBeltSorterBlockEntity(
+            String name,
+            Supplier<ItemConveyorBeltSorterBlock> blockSupplier
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new ItemConveyorBeltSorterBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()));
+    }
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("item_conveyor_belt_sorter", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> FAST_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("fast_item_conveyor_belt_sorter", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("express_item_conveyor_belt_sorter", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
 
-    public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_switch", () -> new BlockEntityType<>(ItemConveyorBeltSwitchBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_SWITCH.get()));
+    private static Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> createItemConveyorBeltSwitchBlockEntity(
+            String name,
+            Supplier<ItemConveyorBeltSwitchBlock> blockSupplier
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new ItemConveyorBeltSwitchBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()));
+    }
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("item_conveyor_belt_switch", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> FAST_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("fast_item_conveyor_belt_switch", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("express_item_conveyor_belt_switch", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
 
-    public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_splitter", () -> new BlockEntityType<>(ItemConveyorBeltSplitterBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get()));
+    private static Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> createItemConveyorBeltSplitterBlockEntity(
+            String name,
+            Supplier<ItemConveyorBeltSplitterBlock> blockSupplier
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new ItemConveyorBeltSplitterBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()));
+    }
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("item_conveyor_belt_splitter", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> FAST_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("fast_conveyor_belt_splitter", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("express_conveyor_belt_splitter", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
 
-    public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> ITEM_CONVEYOR_BELT_MERGER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_merger", () -> new BlockEntityType<>(ItemConveyorBeltMergerBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_MERGER.get()));
+    private static Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> createItemConveyorBeltMergerBlockEntity(
+            String name,
+            Supplier<ItemConveyorBeltMergerBlock> blockSupplier
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new ItemConveyorBeltMergerBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()));
+    }
+    public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("item_conveyor_belt_merger", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> FAST_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("fast_item_conveyor_belt_merger", EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("express_item_conveyor_belt_merger", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
     public static final Supplier<BlockEntityType<CableBlockEntity>> TIN_CABLE_ENTITY =
             BLOCK_ENTITIES.register("tin_cable", () -> new BlockEntityType<>((blockPos, state) ->
@@ -389,10 +449,18 @@ public final class EPBlockEntities {
                 CREATIVE_FLUID_TANK_ENTITY.get(), CreativeFluidTankBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+                BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                FAST_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+                BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
 
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 TIN_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);

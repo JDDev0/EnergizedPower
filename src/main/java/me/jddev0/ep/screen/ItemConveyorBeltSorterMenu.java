@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
@@ -41,7 +40,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
     }
 
     public ItemConveyorBeltSorterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, ContainerData data) {
-        super(EPMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU.get(), id);
+        super(((ItemConveyorBeltSorterBlockEntity)blockEntity).getTier().getItemConveyorBeltSorterMenuTypeFromTier(), id);
 
         this.patternSlots = patternSlots;
 
@@ -93,7 +92,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, blockEntity.getTier().getItemConveyorBeltSorterBlockFromTier());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

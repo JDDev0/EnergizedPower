@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "energizedpower:block/fast_item_conveyor_belt"
+  }
+}

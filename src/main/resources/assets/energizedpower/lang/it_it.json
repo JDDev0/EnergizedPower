@@ -251,18 +251,40 @@
   "block.energizedpower.raw_tin_block": "Block of Raw Tin",
   "item.energizedpower.raw_tin_block": "Block of Raw Tin",
 
-  "block.energizedpower.item_conveyor_belt": "Nastro trasportatore di articoli",
-  "item.energizedpower.item_conveyor_belt": "Nastro trasportatore di articoli",
+  "block.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+  "item.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+
+  "block.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+  "item.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+
+  "block.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
+  "item.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "La pendenza era impostata su %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
-  "item.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
-  "container.energizedpower.item_conveyor_belt_loader": "Caricatore nastro trasportatore",
+  "block.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "item.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "container.energizedpower.item_conveyor_belt_loader": "Basic Conveyor Belt Loader",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
-  "item.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
-  "container.energizedpower.item_conveyor_belt_sorter": "Selezionatore di nastri trasportatori di articoli",
+  "block.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "item.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "container.energizedpower.fast_item_conveyor_belt_loader": "Fast Conveyor Belt Loader",
+
+  "block.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "item.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "container.energizedpower.express_item_conveyor_belt_loader": "Express Conveyor Belt Loader",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "item.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "container.energizedpower.item_conveyor_belt_sorter": "Basic Conveyor Belt Sorter",
+
+  "block.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "item.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "Fast Conveyor Belt Sorter",
+
+  "block.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "item.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "Express Conveyor Belt Sorter",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Uscita %d: Nessun nastro trasportatore collegato",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Uscita %d: Nastro trasportatore collegato",
@@ -270,14 +292,32 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Lista bianca",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Lista nera",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Interruttore del nastro trasportatore",
-  "item.energizedpower.item_conveyor_belt_switch": "Interruttore del nastro trasportatore",
+  "block.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
+  "item.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Separatore di nastri trasportatori",
-  "item.energizedpower.item_conveyor_belt_splitter": "Separatore di nastri trasportatori",
+  "block.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
+  "item.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Unione nastri trasportatori",
-  "item.energizedpower.item_conveyor_belt_merger": "Unione nastri trasportatori",
+  "block.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+  "item.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+  "item.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+
+  "block.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+  "item.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+
+  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+  "item.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+
+  "block.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+  "item.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+
+  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
+  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
 
   "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
@@ -1161,20 +1201,56 @@
   "advancements.energizedpower.item_conveyor_belt.title": "Trasporto articoli",
   "advancements.energizedpower.item_conveyor_belt.description": "Trasportare articoli con nastri trasportatori.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "Fast Item Transport",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "Craft a Fast Item Conveyor Belt.",
+
+  "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Express Item Conveyor Belt.",
+
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Caricatore di articoli",
   "advancements.energizedpower.item_conveyor_belt_loader.description": "Carica gli articoli su un nastro trasportatore.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Fast Item Conveyor Belt Loader",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Craft a Fast Item Conveyor Belt Loader.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express Item Conveyor Belt Loader",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Express Item Conveyor Belt Loader.",
 
   "advancements.energizedpower.item_conveyor_belt_sorter.title": "Ordinamento automatico",
   "advancements.energizedpower.item_conveyor_belt_sorter.description": "Ordina gli articoli con lo smistatore del nastro trasportatore di articoli.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Fast Item Conveyor Belt Sorter",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Craft a Fast Item Conveyor Belt Sorter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express Item Conveyor Belt Sorter",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Express Item Conveyor Belt Sorter.",
+
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Interruttore del nastro trasportatore",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Seleziona una direzione.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Fast Item Conveyor Belt Switch",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Craft a Fast Item Conveyor Belt Switch.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express Item Conveyor Belt Switch",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Express Item Conveyor Belt Switch.",
 
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Separatore di nastri trasportatori",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribuire gli elementi in modo uniforme su più uscite.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Fast Item Conveyor Belt Splitter",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Craft a Fast Item Conveyor Belt Splitter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express Item Conveyor Belt Splitter",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Express Item Conveyor Belt Splitter.",
+
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Unione di nastri trasportatori",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Unisci elementi in modo uniforme da più ingressi.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Fast Item Conveyor Belt Merger",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Craft a Fast Item Conveyor Belt Merger.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express Item Conveyor Belt Merger",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Express Item Conveyor Belt Merger.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Trasporto fluido",
   "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with iron fluid pipes.",

@@ -1486,7 +1486,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ).append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt.6").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), EPBlocks.ITEM_CONVEYOR_BELT.get(), changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
+                    EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
+                    EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get(),
+            }, changePageIntToId);
         }
 
         {
@@ -1506,7 +1510,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ).append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.5").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get(), changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER.get(),
+                    EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get(),
+                    EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get(),
+            }, changePageIntToId);
         }
 
         {
@@ -1538,7 +1546,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ).append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.9").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get(), changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER.get(),
+                    EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get(),
+                    EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get(),
+            }, changePageIntToId);
         }
 
         {
@@ -1549,7 +1561,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ).append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), EPBlocks.ITEM_CONVEYOR_BELT_SWITCH.get(), changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                    EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                    EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get(),
+            }, changePageIntToId);
         }
 
         {
@@ -1557,7 +1573,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
             addSimplePage(pageId("item_conveyor_belt_splitter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_splitter").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get(), changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                    EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                    EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+            }, changePageIntToId);
         }
 
         {
@@ -1565,7 +1585,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
             addSimplePage(pageId("item_conveyor_belt_merger"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_merger").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), EPBlocks.ITEM_CONVEYOR_BELT_MERGER.get(), changePageIntToId);
+            ), new Block[] {
+                    EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER.get(),
+                    EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
+                    EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
+            }, changePageIntToId);
         }
     }
     private void registerFluidsChapter() {

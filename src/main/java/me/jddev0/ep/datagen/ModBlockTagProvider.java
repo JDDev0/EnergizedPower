@@ -22,7 +22,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 add(EPBlocks.SAWDUST_BLOCK.get());
 
         tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
-                add(EPBlocks.ITEM_CONVEYOR_BELT.get());
+                add(EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get());
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).
                 add(
@@ -34,12 +34,24 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.RAW_TIN_BLOCK.get(),
 
-                        EPBlocks.ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get(),
-                        EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get(),
-                        EPBlocks.ITEM_CONVEYOR_BELT_SWITCH.get(),
-                        EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get(),
-                        EPBlocks.ITEM_CONVEYOR_BELT_MERGER.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
 
                         EPBlocks.IRON_FLUID_PIPE.get(),
                         EPBlocks.GOLDEN_FLUID_PIPE.get(),
@@ -168,6 +180,20 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.DEEPSLATE_TIN_ORE.get(),
 
                         EPBlocks.RAW_TIN_BLOCK.get(),
+
+                        //Basic Item Conveyor Belts and Belt Machines do not require stone tools
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
 
                         EPBlocks.IRON_FLUID_PIPE.get(),
                         EPBlocks.GOLDEN_FLUID_PIPE.get(),
