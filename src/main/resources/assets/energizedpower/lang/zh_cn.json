@@ -471,6 +471,24 @@
   "item.energizedpower.ehv_transformer_n_to_1": "EHV Transformer (n to 1)",
   "container.energizedpower.ehv_transformer_n_to_1": "EHV Transformer (n to 1)",
 
+  "block.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
+  "item.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
+  "container.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
+
+  "block.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
+  "item.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
+  "container.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
+
+  "block.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
+  "item.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
+  "container.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
+
+  "block.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
+  "item.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
+  "container.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
+
+  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Connection type of face (%s) was set to %s.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "本方块可以链接不同类型的电缆。",
   "tooltip.energizedpower.transformer.txt.shift.2": "输入面是深色的，有一个较大的菱形。",
   "tooltip.energizedpower.transformer.txt.shift.3": "输出面是较浅的，有一个较小的正方形。",
@@ -783,6 +801,10 @@
   "block_state.energizedpower.pipe_connection.not_connected": "Not connected",
   "block_state.energizedpower.pipe_connection.connected": "Connected/Insertion",
   "block_state.energizedpower.pipe_connection.extract": "Extraction",
+
+  "block_state.energizedpower.transformer_connection.not_connected": "Not connected",
+  "block_state.energizedpower.transformer_connection.receive": "Insertion",
+  "block_state.energizedpower.transformer_connection.extract": "Extraction",
 
   "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Flat",
   "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Ascending",
@@ -1585,7 +1607,7 @@
   "book.energizedpower.page.transformers.2": "输入面是深色的，有一个较大的菱形。",
   "book.energizedpower.page.transformers.3": "输出面是较浅的，有一个较小的正方形。",
   "book.energizedpower.page.transformers.4": "There are four tiers of transformers: LV, MV, HV, and EHV.",
-  "book.energizedpower.page.transformers.5": "For each tier there are three types of transformers: 1 to n, 3 to 3, and n to 1.",
+  "book.energizedpower.page.transformers.5": "For each tier there are four types of transformers: 1 to n, 3 to 3, n to 1, and configurable.",
   "book.energizedpower.page.transformers.6": "使用变压器可以减轻电缆网络的延迟；要适当的使用变压器来代替电缆。",
   "book.energizedpower.page.transformers.7": "变压器可以连接充能的电缆和其它类型的电缆。",
   "book.energizedpower.page.transformers.8": "变压器可以当作一个电池组。",

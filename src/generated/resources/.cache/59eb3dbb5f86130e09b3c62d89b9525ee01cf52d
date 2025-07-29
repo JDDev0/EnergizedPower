@@ -1,4 +1,4 @@
-// 1.21.8	2025-07-26T21:07:18.335628615	Loot Tables
+// 1.21.8	2025-07-28T22:03:41.621154465	Loot Tables
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
 d38f5e962e7380883f3915f2c1a171a33c454779 data/energizedpower/loot_table/blocks/advanced_charger.json
@@ -22,6 +22,10 @@ d1954b5c198c650039c41ec2a3491049cf55d59a data/energizedpower/loot_table/blocks/c
 deb919d0eb73337a0b366fde4acb836dab0e4f07 data/energizedpower/loot_table/blocks/charging_station.json
 069975b6d3a6bb2c6d67b8c0324712631e879b72 data/energizedpower/loot_table/blocks/coal_engine.json
 38b243588cf4dc5b285c11882c2906ccc6202032 data/energizedpower/loot_table/blocks/compressor.json
+2a48896e42153249f5ec0a512054727483181d3b data/energizedpower/loot_table/blocks/configurable_ehv_transformer.json
+6993c564eb39ed8c844c68849ef17da67579cdca data/energizedpower/loot_table/blocks/configurable_hv_transformer.json
+bf36d8977ece4ae3ae82e33daf20dfd4333f6caf data/energizedpower/loot_table/blocks/configurable_lv_transformer.json
+d76fd8dab5f20e166b1daa4604983a6567a8e938 data/energizedpower/loot_table/blocks/configurable_mv_transformer.json
 ad5deec5464a27efc14234ff32f2a0678a64b965 data/energizedpower/loot_table/blocks/copper_cable.json
 2936da2c1f84990f5e9ee9d08e3e8eb10a1b7065 data/energizedpower/loot_table/blocks/crusher.json
 a482263c79d5b108bb424b685016d4396de74130 data/energizedpower/loot_table/blocks/crystal_growth_chamber.json

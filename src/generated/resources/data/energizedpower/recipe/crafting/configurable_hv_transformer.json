@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "energizedpower:advanced_circuit",
+    "G": "#c:plates/energized_gold",
+    "M": "energizedpower:advanced_machine_frame",
+    "T": "energizedpower:configurable_mv_transformer"
+  },
+  "pattern": [
+    "GTG",
+    "AMA",
+    "GTG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:configurable_hv_transformer"
+  }
+}

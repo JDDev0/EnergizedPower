@@ -17,6 +17,12 @@ public final class EPBlockStateProperties {
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_EAST = EnumProperty.create("east", PipeConnection.class);
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_SOUTH = EnumProperty.create("south", PipeConnection.class);
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_WEST = EnumProperty.create("west", PipeConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_UP = EnumProperty.create("up", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_DOWN = EnumProperty.create("down", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_NORTH = EnumProperty.create("north", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_EAST = EnumProperty.create("east", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_SOUTH = EnumProperty.create("south", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_WEST = EnumProperty.create("west", TransformerConnection.class);
     public static final EnumProperty<ConveyorBeltDirection> CONVEYOR_BELT_FACING = EnumProperty.create("facing", ConveyorBeltDirection.class);
 
     public enum PipeConnection implements StringRepresentable {
@@ -44,6 +50,34 @@ public final class EPBlockStateProperties {
 
         public String getTranslationKey() {
             return "block_state.energizedpower.pipe_connection." + getSerializedName();
+        }
+    }
+
+    public enum TransformerConnection implements StringRepresentable {
+        NOT_CONNECTED,
+        RECEIVE,
+        EXTRACT;
+
+        public boolean isConnected() {
+            return this != NOT_CONNECTED;
+        }
+
+        public boolean isReceive() {
+            return this == RECEIVE;
+        }
+
+        public boolean isExtract() {
+            return this == EXTRACT;
+        }
+
+        @Override
+        @NotNull
+        public String getSerializedName() {
+            return name().toLowerCase(Locale.US);
+        }
+
+        public String getTranslationKey() {
+            return "block_state.energizedpower.transformer_connection." + getSerializedName();
         }
     }
 

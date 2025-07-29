@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "energizedpower:basic_circuit",
+    "C": "#c:plates/copper",
+    "I": "#c:plates/iron",
+    "M": "energizedpower:basic_machine_frame",
+    "S": "#c:silicon"
+  },
+  "pattern": [
+    "CSI",
+    "BMB",
+    "CSI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:configurable_lv_transformer"
+  }
+}

@@ -301,6 +301,33 @@ public final class EPBlocks {
     public static final DeferredItem<Item> EHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("ehv_transformer_n_to_1",
             EHV_TRANSFORMER_N_TO_1);
 
+    private static DeferredItem<Item> createConfigurableTransformerBlockItem(String name, DeferredBlock<ConfigurableTransformerBlock> block) {
+        return createBlockItem(name, props -> new ConfigurableTransformerBlock.Item(block.get(), props, block.get().getTier()));
+    }
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_LV_TRANSFORMER = registerBlock("configurable_lv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.LV, props),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> CONFIGURABLE_LV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_lv_transformer",
+            CONFIGURABLE_LV_TRANSFORMER);
+
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_MV_TRANSFORMER = registerBlock("configurable_mv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.MV, props),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> CONFIGURABLE_MV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_mv_transformer",
+            CONFIGURABLE_MV_TRANSFORMER);
+
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_HV_TRANSFORMER = registerBlock("configurable_hv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.HV, props),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> CONFIGURABLE_HV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_hv_transformer",
+            CONFIGURABLE_HV_TRANSFORMER);
+
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_EHV_TRANSFORMER = registerBlock("configurable_ehv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.EHV, props),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> CONFIGURABLE_EHV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_ehv_transformer",
+            CONFIGURABLE_EHV_TRANSFORMER);
+
     public static final DeferredBlock<Block> BATTERY_BOX = registerBlock("battery_box",
             BatteryBoxBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));

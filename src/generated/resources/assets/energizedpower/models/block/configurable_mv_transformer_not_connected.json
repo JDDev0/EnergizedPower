@@ -1,0 +1,7 @@
+{
+  "parent": "energizedpower:block/single_side",
+  "textures": {
+    "particle": "energizedpower:block/mv_transformer_not_connected",
+    "side": "energizedpower:block/mv_transformer_not_connected"
+  }
+}

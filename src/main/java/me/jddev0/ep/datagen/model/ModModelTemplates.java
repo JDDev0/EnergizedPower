@@ -37,6 +37,9 @@ public final class ModModelTemplates {
     public static final ModelTemplate SOLAR_PANEL_TEMPLATE = block("solar_panel_template",
             TextureSlot.PARTICLE, TextureSlot.TOP, TextureSlot.SIDE);
 
+    public static final ModelTemplate SINGLE_SIDE = block("single_side",
+            TextureSlot.PARTICLE, TextureSlot.SIDE);
+
     private ModModelTemplates() {}
 
     private static ModelTemplate block(String parent, TextureSlot... requiredTextureSlots) {

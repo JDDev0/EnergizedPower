@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "energizedpower:block/configurable_ehv_transformer_cube"
+  }
+}

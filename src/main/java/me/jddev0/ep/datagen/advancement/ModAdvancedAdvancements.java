@@ -228,7 +228,8 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
                                 lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
-                                EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM
+                                EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM,
+                                EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM
                         ).build()
                 )
         );
@@ -437,7 +438,8 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
                                 lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
-                                EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM
+                                EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM,
+                                EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM
                         ).build()
                 )
         );

@@ -210,6 +210,15 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<TransformerMenu>> EHV_TRANSFORMER_N_TO_1_MENU = registerMenuType("ehv_transformer_n_to_1",
             TransformerMenu::new);
 
+    public static final Supplier<MenuType<TransformerMenu>> CONFIGURABLE_LV_TRANSFORMER_MENU = registerMenuType("configurable_lv_transformer",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> CONFIGURABLE_MV_TRANSFORMER_MENU = registerMenuType("configurable_mv_transformer",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> CONFIGURABLE_HV_TRANSFORMER_MENU = registerMenuType("configurable_hv_transformer",
+            TransformerMenu::new);
+    public static final Supplier<MenuType<TransformerMenu>> CONFIGURABLE_EHV_TRANSFORMER_MENU = registerMenuType("configurable_ehv_transformer",
+            TransformerMenu::new);
+
     public static final Supplier<MenuType<PressMoldMakerMenu>> PRESS_MOLD_MAKER_MENU = registerMenuType("press_mold_maker",
             PressMoldMakerMenu::new);
 

@@ -3,6 +3,7 @@ package me.jddev0.ep.datagen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ModModelTemplates;
+import me.jddev0.ep.datagen.model.ModTextureSlot;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.machine.tier.TransformerType;
@@ -127,6 +128,11 @@ public class ModBlockStateProvider {
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_1_TO_N);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_3_TO_3);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_N_TO_1);
+
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_LV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_MV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
 
         horizontalBlockWithItem(EPBlocks.BATTERY_BOX, true);
         horizontalBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX, true);
@@ -679,6 +685,130 @@ public class ModBlockStateProvider {
                 generator.registerSimpleItemModel(block.value(), transformer);
             }
         }
+    }
+
+    private void configurableTransformerBlockWithItem(DeferredBlock<ConfigurableTransformerBlock> block) {
+        String textureName = switch(block.value().getTier()) {
+            case LV -> "lv_transformer";
+            case MV -> "mv_transformer";
+            case HV -> "hv_transformer";
+            case EHV -> "ehv_transformer";
+        };
+
+        ResourceLocation allCube = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_output")).
+                        put(TextureSlot.SOUTH, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.EAST, EPAPI.id("block/" + textureName + "_input")).
+                        put(TextureSlot.WEST, EPAPI.id("block/" + textureName + "_not_connected")).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block.value()).createWithSuffix(block.value(), "_cube", generator.modelOutput);
+
+        ResourceLocation notConnectedSide = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_not_connected")).
+                        copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
+                ModModelTemplates.SINGLE_SIDE).get(block.value()).createWithSuffix(block.value(), "_not_connected", generator.modelOutput);
+        ResourceLocation receiveSide = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_input")).
+                        copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
+                ModModelTemplates.SINGLE_SIDE).get(block.value()).createWithSuffix(block.value(), "_input", generator.modelOutput);
+        ResourceLocation extractSide = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_output")).
+                        copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
+                ModModelTemplates.SINGLE_SIDE).get(block.value()).createWithSuffix(block.value(), "_output", generator.modelOutput);
+
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block.value()).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide)))).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide)))).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide)))).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.Y_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.Y_ROT_270)).
+                with(
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.Y_ROT_270))
+        );
+
+        generator.registerSimpleItemModel(block.value(), allCube);
     }
 
     private void solarPanelBlockWithItem(Holder<Block> block) {
