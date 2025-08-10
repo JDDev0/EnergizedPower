@@ -61,7 +61,7 @@ public class ItemSiloMenu extends AbstractContainerMenu {
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
-        /*TODO fix count is not synced to client
+        /*TODO fix extraction not synced correctly to server
         Slot sourceSlot = slots.get(index);
         if(sourceSlot == null || !sourceSlot.hasItem())
             return ItemStack.EMPTY;
@@ -85,7 +85,7 @@ public class ItemSiloMenu extends AbstractContainerMenu {
         }else if(index < 4 * 9 + 1) {
             Slot slot = this.getSlot(4 * 9);
             if(slot instanceof ViewOnlySlot viewOnlySlot && ItemStack.isSameItemSameComponents(viewOnlySlot.getItemHandler().getStack(), sourceItem)) {
-                sourceItem = viewOnlySlot.getItemHandler().extractItem(0, sourceItem.getMaxStackSize(), true);
+                sourceItem = sourceItem.copyWithCount(Math.min(getCount(), sourceItem.getMaxStackSize()));
 
                 if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                     return ItemStack.EMPTY;

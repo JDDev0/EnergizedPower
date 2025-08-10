@@ -149,13 +149,13 @@ dependencies {
 
     // REI integration
     compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
-    compileOnly "dev.architectury:architectury-neoforge:16.1.4"
-    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:19.0.806'
+    compileOnly "dev.architectury:architectury-neoforge:17.0.8"
+    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:20.0.811'
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly "mezz.jei:jei-1.21.7-common-api:23.1.0.4"
-    compileOnly "mezz.jei:jei-1.21.7-neoforge-api:23.1.0.4"
+    compileOnly "mezz.jei:jei-1.21.8-common-api:24.0.0.2"
+    compileOnly "mezz.jei:jei-1.21.8-neoforge-api:24.0.0.2"
 
     // EMI integration
     compileOnly "dev.emi:emi-neoforge:1.1.15+1.21.1:api"
