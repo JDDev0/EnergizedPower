@@ -3,7 +3,6 @@ package me.jddev0.ep.datagen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ModModelTemplates;
-import me.jddev0.ep.datagen.model.ModTextureSlot;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.machine.tier.TransformerType;
@@ -108,6 +107,12 @@ public class ModBlockStateProvider {
         fluidTankBlockWithItem(EPBlocks.FLUID_TANK_MEDIUM);
         fluidTankBlockWithItem(EPBlocks.FLUID_TANK_LARGE);
         fluidTankBlockWithItem(EPBlocks.CREATIVE_FLUID_TANK);
+
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_TINY, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_SMALL, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_MEDIUM, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_LARGE, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_GIANT, false);
 
         cableBlockWithItem(EPBlocks.TIN_CABLE);
         cableBlockWithItem(EPBlocks.COPPER_CABLE);

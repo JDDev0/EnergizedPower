@@ -1595,6 +1595,26 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
             }, changePageIntToId);
         }
+
+        {
+            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("item_silos"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.item_silos.1").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
+            ).append(
+                    Component.translatable("book.energizedpower.page.item_silos.2").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+            ).append(
+                    Component.translatable("book.energizedpower.page.item_silos.3").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+            ), new Block[] {
+                    EPBlocks.ITEM_SILO_TINY.get(),
+                    EPBlocks.ITEM_SILO_SMALL.get(),
+                    EPBlocks.ITEM_SILO_MEDIUM.get(),
+                    EPBlocks.ITEM_SILO_LARGE.get(),
+                    EPBlocks.ITEM_SILO_GIANT.get(),
+            }, changePageIntToId);
+        }
     }
     private void registerFluidsChapter() {
         chapterId("fluids");

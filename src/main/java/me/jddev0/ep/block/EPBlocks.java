@@ -199,6 +199,31 @@ public final class EPBlocks {
     public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
             CreativeFluidTankBlock.Item::new, CREATIVE_FLUID_TANK);
 
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_TINY = registerBlock("item_silo_tiny",
+            props -> new ItemSiloBlock(ItemSiloTier.TINY, props), ItemSiloTier.TINY.getProperties());
+    public static final DeferredItem<Item> ITEM_SILO_TINY_ITEM = createBlockItem("item_silo_tiny",
+            props -> new ItemSiloBlock.Item(ITEM_SILO_TINY.get(), props, ItemSiloTier.TINY));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_SMALL = registerBlock("item_silo_small",
+            props -> new ItemSiloBlock(ItemSiloTier.SMALL, props), ItemSiloTier.SMALL.getProperties());
+    public static final DeferredItem<Item> ITEM_SILO_SMALL_ITEM = createBlockItem("item_silo_small",
+            props -> new ItemSiloBlock.Item(ITEM_SILO_SMALL.get(), props, ItemSiloTier.SMALL));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_MEDIUM = registerBlock("item_silo_medium",
+            props -> new ItemSiloBlock(ItemSiloTier.MEDIUM, props), ItemSiloTier.MEDIUM.getProperties());
+    public static final DeferredItem<Item> ITEM_SILO_MEDIUM_ITEM = createBlockItem("item_silo_medium",
+            props -> new ItemSiloBlock.Item(ITEM_SILO_MEDIUM.get(), props, ItemSiloTier.MEDIUM));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_LARGE = registerBlock("item_silo_large",
+            props -> new ItemSiloBlock(ItemSiloTier.LARGE, props), ItemSiloTier.LARGE.getProperties());
+    public static final DeferredItem<Item> ITEM_SILO_LARGE_ITEM = createBlockItem("item_silo_large",
+            props -> new ItemSiloBlock.Item(ITEM_SILO_LARGE.get(), props, ItemSiloTier.LARGE));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_GIANT = registerBlock("item_silo_giant",
+            props -> new ItemSiloBlock(ItemSiloTier.GIANT, props), ItemSiloTier.GIANT.getProperties());
+    public static final DeferredItem<Item> ITEM_SILO_GIANT_ITEM = createBlockItem("item_silo_giant",
+            props -> new ItemSiloBlock.Item(ITEM_SILO_GIANT.get(), props, ItemSiloTier.GIANT));
+
     private static DeferredItem<Item> createCableBlockItem(String name, DeferredBlock<CableBlock> block) {
         return createBlockItem(name, props -> new CableBlock.Item(block.get(), props, block.get().getTier()));
     }

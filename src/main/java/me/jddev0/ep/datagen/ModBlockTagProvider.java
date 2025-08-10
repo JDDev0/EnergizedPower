@@ -60,6 +60,12 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.FLUID_TANK_MEDIUM.get(),
                         EPBlocks.FLUID_TANK_LARGE.get(),
 
+                        EPBlocks.ITEM_SILO_TINY.get(),
+                        EPBlocks.ITEM_SILO_SMALL.get(),
+                        EPBlocks.ITEM_SILO_MEDIUM.get(),
+                        EPBlocks.ITEM_SILO_LARGE.get(),
+                        EPBlocks.ITEM_SILO_GIANT.get(),
+
                         EPBlocks.AUTO_CRAFTER.get(),
                         EPBlocks.ADVANCED_AUTO_CRAFTER.get(),
 
@@ -206,6 +212,12 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.FLUID_TANK_SMALL.get(),
                         EPBlocks.FLUID_TANK_MEDIUM.get(),
                         EPBlocks.FLUID_TANK_LARGE.get(),
+
+                        EPBlocks.ITEM_SILO_TINY.get(),
+                        EPBlocks.ITEM_SILO_SMALL.get(),
+                        EPBlocks.ITEM_SILO_MEDIUM.get(),
+                        EPBlocks.ITEM_SILO_LARGE.get(),
+                        EPBlocks.ITEM_SILO_GIANT.get(),
 
                         EPBlocks.AUTO_CRAFTER.get(),
                         EPBlocks.ADVANCED_AUTO_CRAFTER.get(),
