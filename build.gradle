@@ -75,9 +75,9 @@ dependencies {
 
 	// REI integration
 	modCompileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	modCompileOnlyApi "dev.architectury:architectury-fabric:16.1.4"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:19.0.806"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:19.0.806"
+	modCompileOnlyApi "dev.architectury:architectury-fabric:17.0.8"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:20.0.811"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:20.0.811"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
