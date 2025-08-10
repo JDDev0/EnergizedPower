@@ -31,7 +31,7 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
         ResourceLocation texture = EPAPI.id("textures/gui/container/metal_press.png");
         background = helper.createDrawable(texture, 47, 22, 98, 34);
 
-        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.CRUSHER_ITEM.get()));
+        icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.METAL_PRESS_ITEM.get()));
     }
 
     @Override
