@@ -224,6 +224,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ITEM_SILO_GIANT_ITEM = createBlockItem("item_silo_giant",
             props -> new ItemSiloBlock.Item(ITEM_SILO_GIANT.get(), props, ItemSiloTier.GIANT));
 
+    public static final DeferredBlock<CreativeItemSiloBlock> CREATIVE_ITEM_SILO = registerBlock("creative_item_silo",
+            CreativeItemSiloBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
+                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());
+    public static final DeferredItem<Item> CREATIVE_ITEM_SILO_ITEM = createBlockItem("creative_item_silo",
+            CreativeItemSiloBlock.Item::new, CREATIVE_ITEM_SILO);
+
     private static DeferredItem<Item> createCableBlockItem(String name, DeferredBlock<CableBlock> block) {
         return createBlockItem(name, props -> new CableBlock.Item(block.get(), props, block.get().getTier()));
     }

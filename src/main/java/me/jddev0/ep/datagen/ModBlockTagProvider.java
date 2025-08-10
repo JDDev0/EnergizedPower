@@ -22,7 +22,11 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 add(EPBlocks.SAWDUST_BLOCK.get());
 
         tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
-                add(EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get());
+                add(
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get()
+                );
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).
                 add(

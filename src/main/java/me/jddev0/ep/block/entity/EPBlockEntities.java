@@ -61,6 +61,10 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_GIANT_ENTITY =
             createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
 
+    public static final Supplier<BlockEntityType<CreativeItemSiloBlockEntity>> CREATIVE_ITEM_SILO_ENTITY =
+            BLOCK_ENTITIES.register("creative_item_silo", () -> new BlockEntityType<>(CreativeItemSiloBlockEntity::new,
+                    EPBlocks.CREATIVE_ITEM_SILO.get()));
+
     private static Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
             String name,
             Supplier<ItemConveyorBeltBlock> blockSupplier
@@ -495,6 +499,9 @@ public final class EPBlockEntities {
                 ITEM_SILO_LARGE_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 ITEM_SILO_GIANT_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                CREATIVE_ITEM_SILO_ENTITY.get(), CreativeItemSiloBlockEntity::getItemHandlerCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);

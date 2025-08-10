@@ -61,10 +61,10 @@ public class SingleItemStackHandler extends ItemStackHandler {
         if(stack.isEmpty())
             return ItemStack.EMPTY;
 
+        validateSlotIndex(slot);
+
         if(!isItemValid(slot, stack))
             return stack;
-
-        validateSlotIndex(slot);
 
         int limit = Math.min(stack.getMaxStackSize(), slotCount * stack.getMaxStackSize() - count);
         if(limit <= 0)
