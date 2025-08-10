@@ -350,6 +350,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT ignorieren",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Extrahierungsmodus 1: Nur Ausgabe-Items und übrig bleibende Items",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Extrahierungsmodus 2: Alles außer Eingabe-Items",
+  "tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow": "Ausgabeüberlauf erlauben",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Rezepte durchlaufen",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Rezept %d",
 

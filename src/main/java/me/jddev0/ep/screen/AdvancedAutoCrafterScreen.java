@@ -42,6 +42,11 @@ public class AdvancedAutoCrafterScreen
 
                 ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
                 return true;
+            }else if(isHovering(158, 59, 11, 11, mouseX, mouseY)) {
+                //Allow Output Overflow checkbox
+
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 2, !menu.isAllowOutputOverflow()));
+                return true;
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
@@ -91,6 +96,12 @@ public class AdvancedAutoCrafterScreen
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11, 256, 256);
         }
 
+        if(menu.isAllowOutputOverflow()) {
+            //Allow Output Overflow checkbox
+
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 158, y + 59, 0, 139, 11, 11, 256, 256);
+        }
+
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * menu.getRecipeIndex(), 139, 11, 11, 256, 256);
     }
 
@@ -110,6 +121,13 @@ public class AdvancedAutoCrafterScreen
 
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (menu.isSecondaryExtractMode()?"2":"1")));
+
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(158, 59, 11, 11, mouseX, mouseY)) {
+            //Allow Output Overflow checkbox
+
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow"));
 
             guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
