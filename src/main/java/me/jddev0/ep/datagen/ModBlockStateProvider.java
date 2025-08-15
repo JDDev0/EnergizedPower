@@ -118,6 +118,11 @@ class ModBlockStateProvider {
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_3_TO_3);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_N_TO_1);
 
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_LV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_MV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
+
         horizontalBlockWithItem(EPBlocks.BATTERY_BOX, true);
         horizontalBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX, true);
         horizontalBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX, true);
@@ -667,6 +672,130 @@ class ModBlockStateProvider {
                 generator.registerParentedItemModel(block, transformer);
             }
         }
+    }
+
+    private void configurableTransformerBlockWithItem(ConfigurableTransformerBlock block) {
+        String textureName = switch(block.getTier()) {
+            case LV -> "lv_transformer";
+            case MV -> "mv_transformer";
+            case HV -> "hv_transformer";
+            case EHV -> "ehv_transformer";
+        };
+
+        Identifier allCube = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.UP, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureKey.DOWN, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureKey.NORTH, EPAPI.id("block/" + textureName + "_output")).
+                        put(TextureKey.SOUTH, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureKey.EAST, EPAPI.id("block/" + textureName + "_input")).
+                        put(TextureKey.WEST, EPAPI.id("block/" + textureName + "_not_connected")).
+                        copy(TextureKey.UP, TextureKey.PARTICLE),
+                Models.CUBE).get(block).upload(block, "_cube", generator.modelCollector);
+
+        Identifier notConnectedSide = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.SIDE, EPAPI.id("block/" + textureName + "_not_connected")).
+                        copy(TextureKey.SIDE, TextureKey.PARTICLE),
+                ModModels.SINGLE_SIDE).get(block).upload(block, "_not_connected", generator.modelCollector);
+        Identifier receiveSide = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.SIDE, EPAPI.id("block/" + textureName + "_input")).
+                        copy(TextureKey.SIDE, TextureKey.PARTICLE),
+                ModModels.SINGLE_SIDE).get(block).upload(block, "_input", generator.modelCollector);
+        Identifier extractSide = TexturedModel.makeFactory(unused -> new TextureMap().
+                        put(TextureKey.SIDE, EPAPI.id("block/" + textureName + "_output")).
+                        copy(TextureKey.SIDE, TextureKey.PARTICLE),
+                ModModels.SINGLE_SIDE).get(block).upload(block, "_output", generator.modelCollector);
+
+        generator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(block).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
+                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
+                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
+                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
+                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
+                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
+                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide)))).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide)))).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new WeightedVariant(Pool.of(new ModelVariant(extractSide)))).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_270)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_270)).
+                with(
+                        new MultipartModelConditionBuilder().
+                                put(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
+                                apply(BlockStateModelGenerator.ROTATE_Y_270))
+        );
+
+        generator.registerParentedItemModel(block, allCube);
     }
 
     private void solarPanelBlockWithItem(Block block) {

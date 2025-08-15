@@ -550,6 +550,27 @@ public final class EPBlockEntities {
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_LV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_lv_transformer", EPBlocks.CONFIGURABLE_LV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_MV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_mv_transformer", EPBlocks.CONFIGURABLE_MV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_HV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_hv_transformer", EPBlocks.CONFIGURABLE_HV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_EHV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_ehv_transformer", EPBlocks.CONFIGURABLE_EHV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+
     public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX_ENTITY = registerEnergyStorage(
             createBlockEntity("battery_box", EPBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage

@@ -301,6 +301,33 @@ public final class EPBlocks {
     public static final Item EHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("ehv_transformer_n_to_1",
             EHV_TRANSFORMER_N_TO_1);
 
+    private static Item createConfigurableTransformerBlockItem(String name, ConfigurableTransformerBlock block) {
+        return createBlockItem(name, props -> new ConfigurableTransformerBlock.Item(block, props, block.getTier()));
+    }
+    public static final ConfigurableTransformerBlock CONFIGURABLE_LV_TRANSFORMER = registerBlock("configurable_lv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.LV, props),
+            AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
+    public static final Item CONFIGURABLE_LV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_lv_transformer",
+            CONFIGURABLE_LV_TRANSFORMER);
+
+    public static final ConfigurableTransformerBlock CONFIGURABLE_MV_TRANSFORMER = registerBlock("configurable_mv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.MV, props),
+            AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
+    public static final Item CONFIGURABLE_MV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_mv_transformer",
+            CONFIGURABLE_MV_TRANSFORMER);
+
+    public static final ConfigurableTransformerBlock CONFIGURABLE_HV_TRANSFORMER = registerBlock("configurable_hv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.HV, props),
+            AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
+    public static final Item CONFIGURABLE_HV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_hv_transformer",
+            CONFIGURABLE_HV_TRANSFORMER);
+
+    public static final ConfigurableTransformerBlock CONFIGURABLE_EHV_TRANSFORMER = registerBlock("configurable_ehv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.EHV, props),
+            AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
+    public static final Item CONFIGURABLE_EHV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_ehv_transformer",
+            CONFIGURABLE_EHV_TRANSFORMER);
+
     public static final Block PRESS_MOLD_MAKER = registerBlock("press_mold_maker",
             PressMoldMakerBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.RED).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(2.0f, 6.0f).sounds(BlockSoundGroup.STONE));

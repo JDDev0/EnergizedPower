@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "energizedpower:energized_crystal_matrix",
+    "M": "energizedpower:reinforced_advanced_machine_frame",
+    "R": "energizedpower:processing_unit",
+    "T": "energizedpower:configurable_hv_transformer"
+  },
+  "pattern": [
+    "CTC",
+    "RMR",
+    "CTC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:configurable_ehv_transformer"
+  }
+}

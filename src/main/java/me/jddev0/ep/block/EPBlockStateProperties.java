@@ -17,6 +17,12 @@ public final class EPBlockStateProperties {
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_EAST = EnumProperty.of("east", PipeConnection.class);
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_SOUTH = EnumProperty.of("south", PipeConnection.class);
     public static final EnumProperty<PipeConnection> PIPE_CONNECTION_WEST = EnumProperty.of("west", PipeConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_UP = EnumProperty.of("up", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_DOWN = EnumProperty.of("down", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_NORTH = EnumProperty.of("north", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_EAST = EnumProperty.of("east", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_SOUTH = EnumProperty.of("south", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_WEST = EnumProperty.of("west", TransformerConnection.class);
     public static final EnumProperty<ConveyorBeltDirection> CONVEYOR_BELT_FACING = EnumProperty.of("facing", ConveyorBeltDirection.class);
 
     public enum PipeConnection implements StringIdentifiable {
@@ -44,6 +50,34 @@ public final class EPBlockStateProperties {
 
         public String getTranslationKey() {
             return "block_state.energizedpower.pipe_connection." + asString();
+        }
+    }
+
+    public enum TransformerConnection implements StringIdentifiable {
+        NOT_CONNECTED,
+        RECEIVE,
+        EXTRACT;
+
+        public boolean isConnected() {
+            return this != NOT_CONNECTED;
+        }
+
+        public boolean isReceive() {
+            return this == RECEIVE;
+        }
+
+        public boolean isExtract() {
+            return this == EXTRACT;
+        }
+
+        @Override
+        @NotNull
+        public String asString() {
+            return name().toLowerCase(Locale.US);
+        }
+
+        public String getTranslationKey() {
+            return "block_state.energizedpower.transformer_connection." + asString();
         }
     }
 

@@ -1,5 +1,7 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.ConfigurableTransformerBlock;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.TransformerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
@@ -105,6 +107,19 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         if(side == null)
             return energyStorage;
 
+        if(type == TransformerType.CONFIGURABLE) {
+            BlockState state = world.getBlockState(pos);
+
+            EPBlockStateProperties.TransformerConnection transformerConnection = state.get(ConfigurableTransformerBlock.
+                    getTransformerConnectionPropertyFromDirection(side));
+
+            return switch(transformerConnection) {
+                case NOT_CONNECTED -> null;
+                case RECEIVE -> limitingEnergyStorageInsert;
+                case EXTRACT -> limitingEnergyStorageExtract;
+            };
+        }
+
         Direction facing = getCachedState().get(TransformerBlock.FACING);
 
         return switch(type) {
@@ -124,6 +139,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
                 else
                     yield limitingEnergyStorageExtract;
             }
+            default -> null;
         };
     }
 
@@ -142,25 +158,35 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             return; //This will make the output "disconnected"
 
         List<Direction> outputDirections = new LinkedList<>();
-        Direction facing = state.get(TransformerBlock.FACING);
-        for(Direction side:Direction.values()) {
-            switch(blockEntity.getTransformerType()) {
-                case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                    boolean isOutputSingleSide = blockEntity.getTransformerType() != TransformerType.TYPE_1_TO_N;
-                    boolean isOutputMultipleSide = blockEntity.getTransformerType() == TransformerType.TYPE_1_TO_N;
+        if(blockEntity.type == TransformerType.CONFIGURABLE) {
+            for(Direction side:Direction.values()) {
+                EPBlockStateProperties.TransformerConnection transformerConnection = state.get(ConfigurableTransformerBlock.
+                        getTransformerConnectionPropertyFromDirection(side));
+                if(transformerConnection.isExtract()) {
+                    outputDirections.add(side);
+                }
+            }
+        }else {
+            Direction facing = state.get(TransformerBlock.FACING);
+            for(Direction side:Direction.values()) {
+                switch(blockEntity.getTransformerType()) {
+                    case TYPE_1_TO_N, TYPE_N_TO_1 -> {
+                        boolean isOutputSingleSide = blockEntity.getTransformerType() != TransformerType.TYPE_1_TO_N;
+                        boolean isOutputMultipleSide = blockEntity.getTransformerType() == TransformerType.TYPE_1_TO_N;
 
-                    if(facing == side) {
-                        if(isOutputSingleSide)
-                            outputDirections.add(side);
-                    }else {
-                        if(isOutputMultipleSide)
+                        if(facing == side) {
+                            if(isOutputSingleSide)
+                                outputDirections.add(side);
+                        }else {
+                            if(isOutputMultipleSide)
+                                outputDirections.add(side);
+                        }
+                    }
+                    case TYPE_3_TO_3 -> {
+                        if(!(facing.rotateCounterclockwise(Direction.Axis.X) == side || facing.rotateCounterclockwise(Direction.Axis.Y) == side
+                                || facing.rotateCounterclockwise(Direction.Axis.Z) == side))
                             outputDirections.add(side);
                     }
-                }
-                case TYPE_3_TO_3 -> {
-                    if(!(facing.rotateCounterclockwise(Direction.Axis.X) == side || facing.rotateCounterclockwise(Direction.Axis.Y) == side
-                            || facing.rotateCounterclockwise(Direction.Axis.Z) == side))
-                        outputDirections.add(side);
                 }
             }
         }

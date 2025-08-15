@@ -9,5 +9,5 @@ a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/block/storage_blocks/silico
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/block/storage_blocks/tin.json
 77ed7e57b3f7fa82f38f98eb25447052e66c9605 data/minecraft/tags/block/mineable/axe.json
 d1848a0ce803104218f67d4f4bdea6d10f01bf72 data/minecraft/tags/block/mineable/pickaxe.json
-62a849c9755284c9f13b2cdc222d176f15d355f0 data/minecraft/tags/block/needs_stone_tool.json
+d340899f66d22d43d1f76bd6b75ce52f815b7880 data/minecraft/tags/block/needs_stone_tool.json
 423e14500e3a76e1ff111e30d8ddebf83953f3f7 data/minecraft/tags/block/prevent_mob_spawning_inside.json
