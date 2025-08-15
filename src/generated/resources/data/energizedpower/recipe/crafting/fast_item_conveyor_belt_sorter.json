@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "energizedpower:item_conveyor_belt_sorter",
+    "F": "energizedpower:fast_item_conveyor_belt",
+    "S": "minecraft:smooth_stone",
+    "b": "minecraft:bricks"
+  },
+  "pattern": [
+    "bbb",
+    "bBb",
+    "SFS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:fast_item_conveyor_belt_sorter"
+  }
+}

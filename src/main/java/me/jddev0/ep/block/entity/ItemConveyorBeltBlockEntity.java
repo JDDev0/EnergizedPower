@@ -2,11 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -27,17 +27,27 @@ import org.jetbrains.annotations.NotNull;
 public class ItemConveyorBeltBlockEntity
         extends InventoryStorageBlockEntity<SimpleInventory>
         implements ItemStackPacketUpdate {
-    private static final int TICKS_PER_STEP = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
+    private final int ticksPerStep;
 
     final InputOutputItemHandler itemHandlerFrontSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
     final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
 
-    public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState) {
+    private final ConveyorBeltTier tier;
+
+    public ItemConveyorBeltBlockEntity(BlockPos blockPos, BlockState blockState, ConveyorBeltTier tier) {
         super(
-                EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, blockPos, blockState,
+                tier.getItemConveyorBeltBlockEntityFromTier(), blockPos, blockState,
 
                 4
         );
+
+        this.tier = tier;
+
+        ticksPerStep = switch(tier) {
+            case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
+            case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
+            case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
+        };
     }
 
     @Override
@@ -74,6 +84,10 @@ public class ItemConveyorBeltBlockEntity
         };
     }
 
+    public ConveyorBeltTier getTier() {
+        return tier;
+    }
+
     public int getRedstoneOutput() {
         return ScreenHandler.calculateComparatorOutput(itemHandler);
     }
@@ -102,7 +116,7 @@ public class ItemConveyorBeltBlockEntity
                             new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos)
                     );
 
-        if(level.getTime() % ItemConveyorBeltBlockEntity.TICKS_PER_STEP == 0) {
+        if(level.getTime() % blockEntity.ticksPerStep == 0) {
             int slotCount = blockEntity.itemHandler.size();
 
             if(!blockEntity.itemHandler.getStack(slotCount - 1).isEmpty())
@@ -141,7 +155,7 @@ public class ItemConveyorBeltBlockEntity
 
             testPos = testPos.offset(Direction.DOWN);
             BlockState testBlockState = level.getBlockState(testPos);
-            if(!testBlockState.isOf(EPBlocks.ITEM_CONVEYOR_BELT))
+            if(!(testBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             EPBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.get(ItemConveyorBeltBlock.FACING);

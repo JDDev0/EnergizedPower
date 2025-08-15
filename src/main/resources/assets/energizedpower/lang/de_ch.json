@@ -251,18 +251,40 @@
   "block.energizedpower.raw_tin_block": "Rohzinnblock",
   "item.energizedpower.raw_tin_block": "Rohzinnblock",
 
-  "block.energizedpower.item_conveyor_belt": "Item-Förderband",
-  "item.energizedpower.item_conveyor_belt": "Item-Förderband",
+  "block.energizedpower.item_conveyor_belt": "Basis Item-Förderband",
+  "item.energizedpower.item_conveyor_belt": "Basis Item-Förderband",
+
+  "block.energizedpower.fast_item_conveyor_belt": "Schnelles Item-Förderband",
+  "item.energizedpower.fast_item_conveyor_belt": "Schnelles Item-Förderband",
+
+  "block.energizedpower.express_item_conveyor_belt": "Express-Item-Förderband",
+  "item.energizedpower.express_item_conveyor_belt": "Express-Item-Förderband",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Steigung wurde zu %s gesetzt.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
-  "item.energizedpower.item_conveyor_belt_loader": "Item-Förderband-Lader",
-  "container.energizedpower.item_conveyor_belt_loader": "Förderband-Lader",
+  "block.energizedpower.item_conveyor_belt_loader": "Basis Item-Förderband-Lader",
+  "item.energizedpower.item_conveyor_belt_loader": "Basis Item-Förderband-Lader",
+  "container.energizedpower.item_conveyor_belt_loader": "Basis Förderband-Lader",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
-  "item.energizedpower.item_conveyor_belt_sorter": "Item-Förderband-Sortierer",
-  "container.energizedpower.item_conveyor_belt_sorter": "Förderband-Sortierer",
+  "block.energizedpower.fast_item_conveyor_belt_loader": "Schneller Item-Förderband-Lader",
+  "item.energizedpower.fast_item_conveyor_belt_loader": "Schneller Item-Förderband-Lader",
+  "container.energizedpower.fast_item_conveyor_belt_loader": "Schneller Förderband-Lader",
+
+  "block.energizedpower.express_item_conveyor_belt_loader": "Express-Item-Förderband-Lader",
+  "item.energizedpower.express_item_conveyor_belt_loader": "Express-Item-Förderband-Lader",
+  "container.energizedpower.express_item_conveyor_belt_loader": "Express-Förderband-Lader",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Basis Item-Förderband-Sortierer",
+  "item.energizedpower.item_conveyor_belt_sorter": "Basis Item-Förderband-Sortierer",
+  "container.energizedpower.item_conveyor_belt_sorter": "Basis Förderband-Sortierer",
+
+  "block.energizedpower.fast_item_conveyor_belt_sorter": "Schneller Item-Förderband-Sortierer",
+  "item.energizedpower.fast_item_conveyor_belt_sorter": "Schneller Item-Förderband-Sortierer",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "Schneller Förderband-Sortierer",
+
+  "block.energizedpower.express_item_conveyor_belt_sorter": "Express-Item-Förderband-Sortierer",
+  "item.energizedpower.express_item_conveyor_belt_sorter": "Express-Item-Förderband-Sortierer",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "Express-Förderband-Sortierer",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Ausgang %d: Kein Förderband verbunden",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Ausgang %d: Förderband verbunden",
@@ -270,14 +292,32 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Item-Förderband-Schalter",
-  "item.energizedpower.item_conveyor_belt_switch": "Item-Förderband-Schalter",
+  "block.energizedpower.item_conveyor_belt_switch": "Basis Item-Förderband-Schalter",
+  "item.energizedpower.item_conveyor_belt_switch": "Basis Item-Förderband-Schalter",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Item-Förderband-Verteiler",
-  "item.energizedpower.item_conveyor_belt_splitter": "Item-Förderband-Verteiler",
+  "block.energizedpower.fast_item_conveyor_belt_switch": "Schneller Item-Förderband-Schalter",
+  "item.energizedpower.fast_item_conveyor_belt_switch": "Schneller Item-Förderband-Schalter",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Item-Förderband-Vereiniger",
-  "item.energizedpower.item_conveyor_belt_merger": "Item-Förderband-Vereiniger",
+  "block.energizedpower.express_item_conveyor_belt_switch": "Express-Item-Förderband-Schalter",
+  "item.energizedpower.express_item_conveyor_belt_switch": "Express-Item-Förderband-Schalter",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Basis Item-Förderband-Verteiler",
+  "item.energizedpower.item_conveyor_belt_splitter": "Basis Item-Förderband-Verteiler",
+
+  "block.energizedpower.fast_item_conveyor_belt_splitter": "Schneller Item-Förderband-Verteiler",
+  "item.energizedpower.fast_item_conveyor_belt_splitter": "Schneller Item-Förderband-Verteiler",
+
+  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item-Förderband-Verteiler",
+  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item-Förderband-Verteiler",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Basis Item-Förderband-Vereiniger",
+  "item.energizedpower.item_conveyor_belt_merger": "Basis Item-Förderband-Vereiniger",
+
+  "block.energizedpower.fast_item_conveyor_belt_merger": "Schneller Item-Förderband-Vereiniger",
+  "item.energizedpower.fast_item_conveyor_belt_merger": "Schneller Item-Förderband-Vereiniger",
+
+  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
+  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
 
   "block.energizedpower.fluid_pipe": "Eisen-Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Eisen-Flüssigkeitsrohr",
@@ -1161,20 +1201,56 @@
   "advancements.energizedpower.item_conveyor_belt.title": "Item-Transport",
   "advancements.energizedpower.item_conveyor_belt.description": "Transportiere Items mit dem Item-Förderband.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "Schneller Item-Transport",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "Stelle ein schnelles Item-Förderband her.",
+
+  "advancements.energizedpower.express_item_conveyor_belt.title": "Express-Item-Transport",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "Stelle ein Express-Item-Förderband her.",
+
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Item-Lader",
   "advancements.energizedpower.item_conveyor_belt_loader.description": "Lade Items auf ein Item-Förderband.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Schneller Item-Förderband-Lader",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Stelle einen schnellen Item-Förderband-Lader her.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express-Item-Förderband-Lader",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Stelle einen Express-Item-Förderband-Lader her.",
 
   "advancements.energizedpower.item_conveyor_belt_sorter.title": "Automatisches Sortieren",
   "advancements.energizedpower.item_conveyor_belt_sorter.description": "Sortiere Items mit dem Item-Förderband-Sortierer.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Schneller Item-Förderband-Sortierer",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Stelle einen schnellen Item-Förderband-Sortierer her.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express-Item-Förderband-Sortierer",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Stelle einen Express-Item-Förderband-Sortierer her.",
+
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Förderband-Schalter",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Wähle eine Richtung.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Schneller Item-Förderband-Schalter",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Stelle einen schnellen Item-Förderband-Schalter her.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express-Item-Förderband-Schalter",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Stelle einen Express-Item-Förderband-Schalter her.",
 
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Förderband-Verteiler",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Verteile Items gleichmäßig auf mehrere Ausgänge.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Schneller Item-Förderband-Verteiler",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Stelle einen schnellen Item-Förderband-Verteiler her.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express-Item-Förderband-Verteiler",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Stelle einen Express-Item-Förderband-Verteiler her.",
+
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Förderband-Vereiniger",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Vereinige Items gleichmäßig von mehren Eingängen",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Schneller Item-Förderband-Vereiniger",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Stelle einen schnellen Item-Förderband-Vereiniger her.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express-Item-Förderband-Vereiniger",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Stelle einen Express-Item-Förderband-Vereiniger her.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.iron_fluid_pipe.description": "Transportiere Flüssigkeiten mit Eisen-Flüssigkeitsrohren.",

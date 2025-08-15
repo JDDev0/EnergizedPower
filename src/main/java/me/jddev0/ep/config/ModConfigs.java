@@ -1241,45 +1241,117 @@ public final class ModConfigs {
             1L, null
     ));
 
-    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt.ticks_per_step",
-            "The time required for the Item Conveyor Belt to transport an item one step in ticks per step",
+            "The time required for the Basic Item Conveyor Belt to transport an item one step in ticks per step",
             10,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_FAST_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fast_item_conveyor_belt.ticks_per_step",
+            "The time required for the Fast Item Conveyor Belt to transport an item one step in ticks per step",
+            6,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_EXPRESS_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.express_item_conveyor_belt.ticks_per_step",
+            "The time required for the Express Item Conveyor Belt to transport an item one step in ticks per step",
+            2,
+            1, null
+    ));
 
-    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_loader.ticks_per_item",
-            "The time required for the Item Conveyor Belt Loader to extract a single item in ticks",
+            "The time required for the Basic Item Conveyor Belt Loader to extract a single item in ticks",
             10,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_FAST_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fast_item_conveyor_belt_loader.ticks_per_item",
+            "The time required for the Fast Item Conveyor Belt Loader to extract a single item in ticks",
+            6,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_EXPRESS_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.express_item_conveyor_belt_loader.ticks_per_item",
+            "The time required for the Express Item Conveyor Belt Loader to extract a single item in ticks",
+            2,
+            1, null
+    ));
 
-    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_sorter.ticks_per_item",
-            "The time required for the Item Conveyor Belt Sorter to process a single item in ticks",
+            "The time required for the Basic Item Conveyor Belt Sorter to process a single item in ticks",
             10,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_FAST_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fast_item_conveyor_belt_sorter.ticks_per_item",
+            "The time required for the Fast Item Conveyor Belt Sorter to process a single item in ticks",
+            6,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.express_item_conveyor_belt_sorter.ticks_per_item",
+            "The time required for the Express Item Conveyor Belt Sorter to process a single item in ticks",
+            2,
+            1, null
+    ));
 
-    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_switch.ticks_per_item",
-            "The time required for the Item Conveyor Belt Switch to process a single item in ticks",
+            "The time required for the Basic Item Conveyor Belt Switch to process a single item in ticks",
             10,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_FAST_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fast_item_conveyor_belt_switch.ticks_per_item",
+            "The time required for the Fast Item Conveyor Belt Switch to process a single item in ticks",
+            6,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.express_item_conveyor_belt_switch.ticks_per_item",
+            "The time required for the Express Item Conveyor Belt Switch to process a single item in ticks",
+            2,
+            1, null
+    ));
 
-    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_splitter.ticks_per_item",
-            "The time required for the Item Conveyor Belt Splitter to process a single item in ticks",
+            "The time required for the Basic Item Conveyor Belt Splitter to process a single item in ticks",
             10,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_FAST_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fast_item_conveyor_belt_splitter.ticks_per_item",
+            "The time required for the Fast Item Conveyor Belt Splitter to process a single item in ticks",
+            6,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.express_item_conveyor_belt_splitter.ticks_per_item",
+            "The time required for the Express Item Conveyor Belt Splitter to process a single item in ticks",
+            2,
+            1, null
+    ));
 
-    public static final ConfigValue<Integer> COMMON_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_merger.ticks_per_item",
-            "The time required for the Item Conveyor Belt Merger to process a single item in ticks",
+            "The time required for the Basic Item Conveyor Belt Merger to process a single item in ticks",
             10,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_FAST_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.fast_item_conveyor_belt_merger.ticks_per_item",
+            "The time required for the Fast Item Conveyor Belt Merger to process a single item in ticks",
+            6,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_EXPRESS_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.express_item_conveyor_belt_merger.ticks_per_item",
+            "The time required for the Express Item Conveyor Belt Merger to process a single item in ticks",
+            2,
             1, null
     ));
 

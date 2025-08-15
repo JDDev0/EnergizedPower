@@ -35,17 +35,29 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
 
         dropSelf(EPBlocks.RAW_TIN_BLOCK);
 
-        dropSelf(EPBlocks.ITEM_CONVEYOR_BELT);
+        dropSelf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT);
+        dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT);
+        dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT);
 
-        dropSelf(EPBlocks.ITEM_CONVEYOR_BELT_LOADER);
+        dropSelf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER);
+        dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER);
+        dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
 
-        dropSelf(EPBlocks.ITEM_CONVEYOR_BELT_SORTER);
+        dropSelf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER);
+        dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER);
+        dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
 
-        dropSelf(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH);
+        dropSelf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH);
+        dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH);
+        dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
 
-        dropSelf(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER);
+        dropSelf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER);
+        dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER);
+        dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
 
-        dropSelf(EPBlocks.ITEM_CONVEYOR_BELT_MERGER);
+        dropSelf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER);
+        dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER);
+        dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
         dropSelf(EPBlocks.IRON_FLUID_PIPE);
         dropSelf(EPBlocks.GOLDEN_FLUID_PIPE);

@@ -1,0 +1,11 @@
+{
+  "parent": "energizedpower:block/orientable_vertical_with_back",
+  "textures": {
+    "back": "energizedpower:block/fast_item_conveyor_belt_loader_back",
+    "bottom": "energizedpower:block/fast_item_conveyor_belt_loader_top",
+    "front": "energizedpower:block/fast_item_conveyor_belt_loader_front",
+    "particle": "energizedpower:block/fast_item_conveyor_belt_loader_front",
+    "side": "energizedpower:block/fast_item_conveyor_belt_loader_side",
+    "top": "energizedpower:block/fast_item_conveyor_belt_loader_top"
+  }
+}

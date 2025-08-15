@@ -1,5 +1,9 @@
 {
-  "block": "energizedpower:item_conveyor_belt_sorter",
+  "block": [
+    "energizedpower:item_conveyor_belt_sorter",
+    "energizedpower:fast_item_conveyor_belt_sorter",
+    "energizedpower:express_item_conveyor_belt_sorter"
+  ],
   "content": {
     "extra": [
       {
