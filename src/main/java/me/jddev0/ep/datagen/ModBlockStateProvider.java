@@ -4,6 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ModModels;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
+import me.jddev0.ep.machine.tier.TransformerType;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.model.json.*;
@@ -573,17 +574,17 @@ class ModBlockStateProvider {
 
     private void transformerBlockWithItem(TransformerBlock block) {
         String textureName = switch(block.getTier()) {
-            case TIER_LV -> "lv_transformer";
-            case TIER_MV -> "mv_transformer";
-            case TIER_HV -> "hv_transformer";
-            case TIER_EHV -> "ehv_transformer";
+            case LV -> "lv_transformer";
+            case MV -> "mv_transformer";
+            case HV -> "hv_transformer";
+            case EHV -> "ehv_transformer";
         };
 
-        TransformerBlock.Type transformerType = block.getTransformerType();
+        TransformerType transformerType = block.getTransformerType();
         switch(transformerType) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                String singleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_input":"_output";
-                String multipleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_output":"_input";
+                String singleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_input":"_output";
+                String multipleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_output":"_input";
 
                 Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
                                 put(TextureKey.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).

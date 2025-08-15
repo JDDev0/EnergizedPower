@@ -3,7 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,7 +16,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -29,12 +28,11 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class FluidTankBlock extends BlockWithEntity {
     public static final MapCodec<FluidTankBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+        return instance.group(Codecs.NON_EMPTY_STRING.xmap(FluidTankTier::valueOf, FluidTankTier::toString).fieldOf("tier").
                 forGetter(FluidTankBlock::getTier),
                 Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
                 apply(instance, FluidTankBlock::new);
@@ -42,17 +40,9 @@ public class FluidTankBlock extends BlockWithEntity {
 
     public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
 
-    private final Tier tier;
+    private final FluidTankTier tier;
 
-    public static Block getBlockFromTier(Tier tier) {
-        return switch(tier) {
-            case SMALL -> EPBlocks.FLUID_TANK_SMALL;
-            case MEDIUM -> EPBlocks.FLUID_TANK_MEDIUM;
-            case LARGE -> EPBlocks.FLUID_TANK_LARGE;
-        };
-    }
-
-    public FluidTankBlock(Tier tier, Settings props) {
+    public FluidTankBlock(FluidTankTier tier, Settings props) {
         super(props);
 
         this.tier = tier;
@@ -60,7 +50,7 @@ public class FluidTankBlock extends BlockWithEntity {
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
-    public Tier getTier() {
+    public FluidTankTier getTier() {
         return tier;
     }
 
@@ -130,19 +120,19 @@ public class FluidTankBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, FluidTankBlockEntity.getEntityTypeFromTier(tier), FluidTankBlockEntity::tick);
+        return validateTicker(type, tier.getEntityTypeFromTier(), FluidTankBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final FluidTankTier tier;
 
-        public Item(Block block, Item.Settings props, Tier tier) {
+        public Item(Block block, Item.Settings props, FluidTankTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public FluidTankTier getTier() {
             return tier;
         }
 
@@ -158,40 +148,4 @@ public class FluidTankBlock extends BlockWithEntity {
         }
     }
 
-    public enum Tier {
-        SMALL("fluid_tank_small", FluidUtils.convertMilliBucketsToDroplets(
-                1000 * ModConfigs.COMMON_FLUID_TANK_SMALL_TANK_CAPACITY.getValue()),
-                AbstractBlock.Settings.create().
-                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        MEDIUM("fluid_tank_medium", FluidUtils.convertMilliBucketsToDroplets(
-                1000 * ModConfigs.COMMON_FLUID_TANK_MEDIUM_TANK_CAPACITY.getValue()),
-                AbstractBlock.Settings.create().
-                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        LARGE("fluid_tank_large", FluidUtils.convertMilliBucketsToDroplets(
-                1000 * ModConfigs.COMMON_FLUID_TANK_LARGE_TANK_CAPACITY.getValue()),
-                AbstractBlock.Settings.create().
-                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
-
-        private final String resourceId;
-        private final long tankCapacity;
-        private final AbstractBlock.Settings props;
-
-        Tier(String resourceId, long tankCapacity, AbstractBlock.Settings props) {
-            this.resourceId = resourceId;
-            this.tankCapacity = tankCapacity;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public long getTankCapacity() {
-            return tankCapacity;
-        }
-
-        public AbstractBlock.Settings getProperties() {
-            return props;
-        }
-    }
 }

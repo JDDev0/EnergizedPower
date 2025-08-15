@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.machine.tier.*;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ExperienceDroppingBlock;
@@ -115,29 +116,29 @@ public final class EPBlocks {
     public static final Item ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
 
     public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
-            props -> new FluidPipeBlock(FluidPipeBlock.Tier.IRON, props), FluidPipeBlock.Tier.IRON.getProperties());
+            props -> new FluidPipeBlock(FluidPipeTier.IRON, props), FluidPipeTier.IRON.getProperties());
     public static final Item IRON_FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
-            props -> new FluidPipeBlock.Item(IRON_FLUID_PIPE, props, FluidPipeBlock.Tier.IRON));
+            props -> new FluidPipeBlock.Item(IRON_FLUID_PIPE, props, FluidPipeTier.IRON));
 
     public static final FluidPipeBlock GOLDEN_FLUID_PIPE = registerBlock("golden_fluid_pipe",
-            props -> new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN, props), FluidPipeBlock.Tier.GOLDEN.getProperties());
+            props -> new FluidPipeBlock(FluidPipeTier.GOLDEN, props), FluidPipeTier.GOLDEN.getProperties());
     public static final Item GOLDEN_FLUID_PIPE_ITEM = createBlockItem("golden_fluid_pipe",
-            props -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, props, FluidPipeBlock.Tier.GOLDEN));
+            props -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, props, FluidPipeTier.GOLDEN));
 
     public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
-            props -> new FluidTankBlock(FluidTankBlock.Tier.SMALL, props), FluidTankBlock.Tier.SMALL.getProperties());
+            props -> new FluidTankBlock(FluidTankTier.SMALL, props), FluidTankTier.SMALL.getProperties());
     public static final Item FLUID_TANK_SMALL_ITEM = createBlockItem("fluid_tank_small",
-            props -> new FluidTankBlock.Item(FLUID_TANK_SMALL, props, FluidTankBlock.Tier.SMALL));
+            props -> new FluidTankBlock.Item(FLUID_TANK_SMALL, props, FluidTankTier.SMALL));
 
     public static final FluidTankBlock FLUID_TANK_MEDIUM = registerBlock("fluid_tank_medium",
-            props -> new FluidTankBlock(FluidTankBlock.Tier.MEDIUM, props), FluidTankBlock.Tier.MEDIUM.getProperties());
+            props -> new FluidTankBlock(FluidTankTier.MEDIUM, props), FluidTankTier.MEDIUM.getProperties());
     public static final Item FLUID_TANK_MEDIUM_ITEM = createBlockItem("fluid_tank_medium",
-            props -> new FluidTankBlock.Item(FLUID_TANK_MEDIUM, props, FluidTankBlock.Tier.MEDIUM));
+            props -> new FluidTankBlock.Item(FLUID_TANK_MEDIUM, props, FluidTankTier.MEDIUM));
 
     public static final FluidTankBlock FLUID_TANK_LARGE = registerBlock("fluid_tank_large",
-            props -> new FluidTankBlock(FluidTankBlock.Tier.LARGE, props), FluidTankBlock.Tier.LARGE.getProperties());
+            props -> new FluidTankBlock(FluidTankTier.LARGE, props), FluidTankTier.LARGE.getProperties());
     public static final Item FLUID_TANK_LARGE_ITEM = createBlockItem("fluid_tank_large",
-            props -> new FluidTankBlock.Item(FLUID_TANK_LARGE, props, FluidTankBlock.Tier.LARGE));
+            props -> new FluidTankBlock.Item(FLUID_TANK_LARGE, props, FluidTankTier.LARGE));
 
     public static final CreativeFluidTankBlock CREATIVE_FLUID_TANK = registerBlock("creative_fluid_tank",
             CreativeFluidTankBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).
@@ -149,29 +150,29 @@ public final class EPBlocks {
         return createBlockItem(name, props -> new CableBlock.Item(block, props, block.getTier()));
     }
     public static final CableBlock TIN_CABLE = registerBlock("tin_cable",
-            props -> new CableBlock(CableBlock.Tier.TIER_TIN, props), CableBlock.Tier.TIER_TIN.getProperties());
+            props -> new CableBlock(CableTier.TIN, props), CableTier.TIN.getProperties());
     public static final Item TIN_CABLE_ITEM = createCableBlockItem("tin_cable", TIN_CABLE);
 
     public static final CableBlock COPPER_CABLE = registerBlock("copper_cable",
-            props -> new CableBlock(CableBlock.Tier.TIER_COPPER, props), CableBlock.Tier.TIER_COPPER.getProperties());
+            props -> new CableBlock(CableTier.COPPER, props), CableTier.COPPER.getProperties());
     public static final Item COPPER_CABLE_ITEM = createCableBlockItem("copper_cable", COPPER_CABLE);
 
     public static final CableBlock GOLD_CABLE = registerBlock("gold_cable",
-            props -> new CableBlock(CableBlock.Tier.TIER_GOLD, props), CableBlock.Tier.TIER_GOLD.getProperties());
+            props -> new CableBlock(CableTier.GOLD, props), CableTier.GOLD.getProperties());
     public static final Item GOLD_CABLE_ITEM = createCableBlockItem("gold_cable", GOLD_CABLE);
 
     public static final CableBlock ENERGIZED_COPPER_CABLE = registerBlock("energized_copper_cable",
-            props -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER, props), CableBlock.Tier.TIER_ENERGIZED_COPPER.getProperties());
+            props -> new CableBlock(CableTier.ENERGIZED_COPPER, props), CableTier.ENERGIZED_COPPER.getProperties());
     public static final Item ENERGIZED_COPPER_CABLE_ITEM = createCableBlockItem("energized_copper_cable",
             ENERGIZED_COPPER_CABLE);
 
     public static final CableBlock ENERGIZED_GOLD_CABLE = registerBlock("energized_gold_cable",
-            props -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD, props), CableBlock.Tier.TIER_ENERGIZED_GOLD.getProperties());
+            props -> new CableBlock(CableTier.ENERGIZED_GOLD, props), CableTier.ENERGIZED_GOLD.getProperties());
     public static final Item ENERGIZED_GOLD_CABLE_ITEM = createCableBlockItem("energized_gold_cable",
             ENERGIZED_GOLD_CABLE);
 
     public static final CableBlock ENERGIZED_CRYSTAL_MATRIX_CABLE = registerBlock("energized_crystal_matrix_cable",
-            props -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX, props), CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX.getProperties());
+            props -> new CableBlock(CableTier.ENERGIZED_CRYSTAL_MATRIX, props), CableTier.ENERGIZED_CRYSTAL_MATRIX.getProperties());
     public static final Item ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = createCableBlockItem("energized_crystal_matrix_cable",
             ENERGIZED_CRYSTAL_MATRIX_CABLE);
 
@@ -179,73 +180,73 @@ public final class EPBlocks {
         return createBlockItem(name, props -> new TransformerBlock.Item(block, props, block.getTier(), block.getTransformerType()));
     }
     public static final TransformerBlock LV_TRANSFORMER_1_TO_N = registerBlock("lv_transformer_1_to_n",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N),
+            props -> new TransformerBlock(props, TransformerTier.LV, TransformerType.TYPE_1_TO_N),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item LV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("lv_transformer_1_to_n",
             LV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock LV_TRANSFORMER_3_TO_3 = registerBlock("lv_transformer_3_to_3",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3),
+            props -> new TransformerBlock(props, TransformerTier.LV, TransformerType.TYPE_3_TO_3),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item LV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("lv_transformer_3_to_3",
             LV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock LV_TRANSFORMER_N_TO_1 = registerBlock("lv_transformer_n_to_1",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1),
+            props -> new TransformerBlock(props, TransformerTier.LV, TransformerType.TYPE_N_TO_1),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item LV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("lv_transformer_n_to_1",
             LV_TRANSFORMER_N_TO_1);
 
     public static final TransformerBlock MV_TRANSFORMER_1_TO_N = registerBlock("transformer_1_to_n",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N),
+            props -> new TransformerBlock(props, TransformerTier.MV, TransformerType.TYPE_1_TO_N),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item MV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("transformer_1_to_n",
             MV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock MV_TRANSFORMER_3_TO_3 = registerBlock("transformer_3_to_3",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3),
+            props -> new TransformerBlock(props, TransformerTier.MV, TransformerType.TYPE_3_TO_3),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item MV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("transformer_3_to_3",
             MV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock MV_TRANSFORMER_N_TO_1 = registerBlock("transformer_n_to_1",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1),
+            props -> new TransformerBlock(props, TransformerTier.MV, TransformerType.TYPE_N_TO_1),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item MV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("transformer_n_to_1",
             MV_TRANSFORMER_N_TO_1);
 
     public static final TransformerBlock HV_TRANSFORMER_1_TO_N = registerBlock("hv_transformer_1_to_n",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N),
+            props -> new TransformerBlock(props, TransformerTier.HV, TransformerType.TYPE_1_TO_N),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item HV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("hv_transformer_1_to_n",
             HV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock HV_TRANSFORMER_3_TO_3 = registerBlock("hv_transformer_3_to_3",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3),
+            props -> new TransformerBlock(props, TransformerTier.HV, TransformerType.TYPE_3_TO_3),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item HV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("hv_transformer_3_to_3",
             HV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock HV_TRANSFORMER_N_TO_1 = registerBlock("hv_transformer_n_to_1",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1),
+            props -> new TransformerBlock(props, TransformerTier.HV, TransformerType.TYPE_N_TO_1),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item HV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("hv_transformer_n_to_1",
             HV_TRANSFORMER_N_TO_1);
 
     public static final TransformerBlock EHV_TRANSFORMER_1_TO_N = registerBlock("ehv_transformer_1_to_n",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N),
+            props -> new TransformerBlock(props, TransformerTier.EHV, TransformerType.TYPE_1_TO_N),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item EHV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("ehv_transformer_1_to_n",
             EHV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock EHV_TRANSFORMER_3_TO_3 = registerBlock("ehv_transformer_3_to_3",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3),
+            props -> new TransformerBlock(props, TransformerTier.EHV, TransformerType.TYPE_3_TO_3),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item EHV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("ehv_transformer_3_to_3",
             EHV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock EHV_TRANSFORMER_N_TO_1 = registerBlock("ehv_transformer_n_to_1",
-            props -> new TransformerBlock(props, TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1),
+            props -> new TransformerBlock(props, TransformerTier.EHV, TransformerType.TYPE_N_TO_1),
             AbstractBlock.Settings.create().requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
     public static final Item EHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("ehv_transformer_n_to_1",
             EHV_TRANSFORMER_N_TO_1);
@@ -459,27 +460,27 @@ public final class EPBlocks {
         return createBlockItem(name, props -> new SolarPanelBlock.Item(block, props, block.getTier()));
     }
     public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
-            props -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1, props), SolarPanelBlock.Tier.TIER_1.getProperties());
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_1, props), SolarPanelTier.TIER_1.getProperties());
     public static final Item SOLAR_PANEL_ITEM_1 = createSolarPanelBlockItem("solar_panel_1", SOLAR_PANEL_1);
 
     public static final SolarPanelBlock SOLAR_PANEL_2 = registerBlock("solar_panel_2",
-            props -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_2, props), SolarPanelBlock.Tier.TIER_2.getProperties());
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_2, props), SolarPanelTier.TIER_2.getProperties());
     public static final Item SOLAR_PANEL_ITEM_2 = createSolarPanelBlockItem("solar_panel_2", SOLAR_PANEL_2);
 
     public static final SolarPanelBlock SOLAR_PANEL_3 = registerBlock("solar_panel_3",
-            props -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_3, props), SolarPanelBlock.Tier.TIER_3.getProperties());
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_3, props), SolarPanelTier.TIER_3.getProperties());
     public static final Item SOLAR_PANEL_ITEM_3 = createSolarPanelBlockItem("solar_panel_3", SOLAR_PANEL_3);
 
     public static final SolarPanelBlock SOLAR_PANEL_4 = registerBlock("solar_panel_4",
-            props -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_4, props), SolarPanelBlock.Tier.TIER_4.getProperties());
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_4, props), SolarPanelTier.TIER_4.getProperties());
     public static final Item SOLAR_PANEL_ITEM_4 = createSolarPanelBlockItem("solar_panel_4", SOLAR_PANEL_4);
 
     public static final SolarPanelBlock SOLAR_PANEL_5 = registerBlock("solar_panel_5",
-            props -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_5, props), SolarPanelBlock.Tier.TIER_5.getProperties());
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_5, props), SolarPanelTier.TIER_5.getProperties());
     public static final Item SOLAR_PANEL_ITEM_5 = createSolarPanelBlockItem("solar_panel_5", SOLAR_PANEL_5);
 
     public static final SolarPanelBlock SOLAR_PANEL_6 = registerBlock("solar_panel_6",
-            props -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_6, props), SolarPanelBlock.Tier.TIER_6.getProperties());
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_6, props), SolarPanelTier.TIER_6.getProperties());
     public static final Item SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
 
     public static final Block COAL_ENGINE = registerBlock("coal_engine",

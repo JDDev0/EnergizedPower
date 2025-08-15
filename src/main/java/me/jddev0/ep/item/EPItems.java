@@ -4,6 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.registry.Registries;
@@ -230,21 +231,21 @@ public final class EPItems {
             InventoryTeleporterItem::new, new Item.Settings().maxCount(1));
 
     public static final Item BATTERY_1 = registerItem("battery_1",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_1));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_1));
     public static final Item BATTERY_2 = registerItem("battery_2",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_2));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_2));
     public static final Item BATTERY_3 = registerItem("battery_3",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_3));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_3));
     public static final Item BATTERY_4 = registerItem("battery_4",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_4));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_4));
     public static final Item BATTERY_5 = registerItem("battery_5",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_5));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_5));
     public static final Item BATTERY_6 = registerItem("battery_6",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_6));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_6));
     public static final Item BATTERY_7 = registerItem("battery_7",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_7));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_7));
     public static final Item BATTERY_8 = registerItem("battery_8",
-            props -> new BatteryItem(props, BatteryItem.Tier.BATTERY_8));
+            props -> new BatteryItem(props, BatteryTier.BATTERY_8));
     public static final Item CREATIVE_BATTERY = registerItem("creative_battery",
             CreativeBatteryItem::new, new Item.Settings().maxCount(1));
 

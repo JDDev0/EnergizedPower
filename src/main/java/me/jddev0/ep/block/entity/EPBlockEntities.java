@@ -2,6 +2,9 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
+import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.machine.tier.TransformerTier;
+import me.jddev0.ep.machine.tier.TransformerType;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -79,32 +82,32 @@ public final class EPBlockEntities {
 
     public static final BlockEntityType<CableBlockEntity> TIN_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("tin_cable", EPBlocks.TIN_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_TIN)),
+                    new CableBlockEntity(blockPos, state, CableTier.TIN)),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
     public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("copper_cable", EPBlocks.COPPER_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER)),
+                    new CableBlockEntity(blockPos, state, CableTier.COPPER)),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
     public static final BlockEntityType<CableBlockEntity> GOLD_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("gold_cable", EPBlocks.GOLD_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_GOLD)),
+                    new CableBlockEntity(blockPos, state, CableTier.GOLD)),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
     public static final BlockEntityType<CableBlockEntity> ENERGIZED_COPPER_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("energized_copper_cable", EPBlocks.ENERGIZED_COPPER_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_COPPER)),
+                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_COPPER)),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
     public static final BlockEntityType<CableBlockEntity> ENERGIZED_GOLD_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("energized_gold_cable", EPBlocks.ENERGIZED_GOLD_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_GOLD)),
+                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD)),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
     public static final BlockEntityType<CableBlockEntity> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = registerEnergyStorage(
             createBlockEntity("energized_crystal_matrix_cable", EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX)),
+                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX)),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
@@ -423,65 +426,65 @@ public final class EPBlockEntities {
 
     public static final BlockEntityType<TransformerBlockEntity> LV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("lv_transformer_1_to_n", EPBlocks.LV_TRANSFORMER_1_TO_N, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.TYPE_1_TO_N)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> LV_TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
             createBlockEntity("lv_transformer_3_to_3", EPBlocks.LV_TRANSFORMER_3_TO_3, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.TYPE_3_TO_3)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> LV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
             createBlockEntity("lv_transformer_n_to_1", EPBlocks.LV_TRANSFORMER_N_TO_1, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.TYPE_N_TO_1)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
     public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("transformer_1_to_n", EPBlocks.MV_TRANSFORMER_1_TO_N, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.TYPE_1_TO_N)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
             createBlockEntity("transformer_3_to_3", EPBlocks.MV_TRANSFORMER_3_TO_3, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.TYPE_3_TO_3)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> MV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
             createBlockEntity("transformer_n_to_1", EPBlocks.MV_TRANSFORMER_N_TO_1, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.TYPE_N_TO_1)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
     public static final BlockEntityType<TransformerBlockEntity> HV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("hv_transformer_1_to_n", EPBlocks.HV_TRANSFORMER_1_TO_N, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.TYPE_1_TO_N)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> HV_TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
             createBlockEntity("hv_transformer_3_to_3", EPBlocks.HV_TRANSFORMER_3_TO_3, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.TYPE_3_TO_3)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> HV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
             createBlockEntity("hv_transformer_n_to_1", EPBlocks.HV_TRANSFORMER_N_TO_1, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.TYPE_N_TO_1)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
     public static final BlockEntityType<TransformerBlockEntity> EHV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("ehv_transformer_1_to_n", EPBlocks.EHV_TRANSFORMER_1_TO_N, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_1_TO_N)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> EHV_TRANSFORMER_3_TO_3_ENTITY = registerEnergyStorage(
             createBlockEntity("ehv_transformer_3_to_3", EPBlocks.EHV_TRANSFORMER_3_TO_3, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_3_TO_3)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
     public static final BlockEntityType<TransformerBlockEntity> EHV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
             createBlockEntity("ehv_transformer_n_to_1", EPBlocks.EHV_TRANSFORMER_N_TO_1, (blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1)),
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_N_TO_1)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 

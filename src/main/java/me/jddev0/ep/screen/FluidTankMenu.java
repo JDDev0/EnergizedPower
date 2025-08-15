@@ -1,9 +1,9 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
+import me.jddev0.ep.machine.tier.FluidTankTier;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,20 +19,12 @@ public class FluidTankMenu extends ScreenHandler {
 
     private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
 
-    public static ScreenHandlerType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
-        return switch(tier) {
-            case SMALL -> EPMenuTypes.FLUID_TANK_SMALL;
-            case MEDIUM -> EPMenuTypes.FLUID_TANK_MEDIUM;
-            case LARGE -> EPMenuTypes.FLUID_TANK_LARGE;
-        };
-    }
-
     public FluidTankMenu(int id, PlayerInventory inv, BlockPos pos) {
         this(id, inv, inv.player.getWorld().getBlockEntity(pos), null);
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {
-        super(getMenuTypeFromTier(((FluidTankBlockEntity)blockEntity).getTier()), id);
+        super(((FluidTankBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id);
 
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
 
@@ -48,7 +40,7 @@ public class FluidTankMenu extends ScreenHandler {
         }
     }
 
-    public FluidTankBlock.Tier getTier() {
+    public FluidTankTier getTier() {
         return blockEntity.getTier();
     }
 
@@ -71,7 +63,7 @@ public class FluidTankMenu extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, FluidTankBlock.getBlockFromTier(getTier()));
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, getTier().getBlockFromTier());
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {
