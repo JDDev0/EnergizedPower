@@ -8,6 +8,6 @@ a525f9a4e52147a86f2f5c31a84fcd315cd235ea data/c/tags/block/storage_blocks.json
 a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/block/storage_blocks/silicon.json
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/block/storage_blocks/tin.json
 77ed7e57b3f7fa82f38f98eb25447052e66c9605 data/minecraft/tags/block/mineable/axe.json
-d1848a0ce803104218f67d4f4bdea6d10f01bf72 data/minecraft/tags/block/mineable/pickaxe.json
-d340899f66d22d43d1f76bd6b75ce52f815b7880 data/minecraft/tags/block/needs_stone_tool.json
+039b952a7c59a2dd6d088a2e27993443ce21d58d data/minecraft/tags/block/mineable/pickaxe.json
+eeecd85067e0d1a152fae8804b182dbc5011d4b5 data/minecraft/tags/block/needs_stone_tool.json
 423e14500e3a76e1ff111e30d8ddebf83953f3f7 data/minecraft/tags/block/prevent_mob_spawning_inside.json

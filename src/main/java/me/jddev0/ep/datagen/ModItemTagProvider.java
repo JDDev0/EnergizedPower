@@ -49,7 +49,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM,
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM,
+
+                        EPBlocks.ITEM_SILO_TINY_ITEM,
+                        EPBlocks.ITEM_SILO_SMALL_ITEM,
+                        EPBlocks.ITEM_SILO_MEDIUM_ITEM,
+                        EPBlocks.ITEM_SILO_LARGE_ITEM,
+                        EPBlocks.ITEM_SILO_GIANT_ITEM
                 );
 
         valueLookupBuilder(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).

@@ -114,6 +114,12 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM);
 
+            event.accept(EPBlocks.ITEM_SILO_TINY_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_SMALL_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_MEDIUM_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_LARGE_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_GIANT_ITEM);
+
             event.accept(EPBlocks.IRON_FLUID_PIPE_ITEM);
             event.accept(EPBlocks.GOLDEN_FLUID_PIPE_ITEM);
 

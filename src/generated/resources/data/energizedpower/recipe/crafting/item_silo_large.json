@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "#c:storage_blocks/iron",
+    "S": "energizedpower:item_silo_medium",
+    "s": "#c:ingots/steel"
+  },
+  "pattern": [
+    "IsI",
+    "sSs",
+    "IsI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:item_silo_large"
+  }
+}

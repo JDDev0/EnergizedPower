@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/item_silo_tiny",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:item_silo_small"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.item_silo_small.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:item_silo_small"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.item_silo_small.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

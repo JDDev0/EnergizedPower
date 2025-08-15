@@ -299,6 +299,31 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", AdvancementFrame.TASK
         );
 
+        AdvancementEntry itemSiloTiny = addAdvancement(
+                advancementOutput, ironPlate,
+                EPBlocks.ITEM_SILO_TINY_ITEM, "item_silo_tiny", AdvancementFrame.TASK
+        );
+
+        AdvancementEntry itemSiloSmall = addAdvancement(
+                advancementOutput, itemSiloTiny,
+                EPBlocks.ITEM_SILO_SMALL_ITEM, "item_silo_small", AdvancementFrame.TASK
+        );
+
+        AdvancementEntry itemSiloMedium = addAdvancement(
+                advancementOutput, itemSiloSmall,
+                EPBlocks.ITEM_SILO_MEDIUM_ITEM, "item_silo_medium", AdvancementFrame.TASK
+        );
+
+        AdvancementEntry itemSiloLarge = addAdvancement(
+                advancementOutput, itemSiloMedium,
+                EPBlocks.ITEM_SILO_LARGE_ITEM, "item_silo_large", AdvancementFrame.TASK
+        );
+
+        AdvancementEntry itemSiloGiant = addAdvancement(
+                advancementOutput, itemSiloLarge,
+                EPBlocks.ITEM_SILO_GIANT_ITEM, "item_silo_giant", AdvancementFrame.TASK
+        );
+
         AdvancementEntry ironFluidPipe = addAdvancement(
                 advancementOutput, ironPlate,
                 EPBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", AdvancementFrame.TASK

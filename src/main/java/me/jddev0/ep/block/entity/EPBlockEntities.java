@@ -58,6 +58,26 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
 
+    private static BlockEntityType<ItemSiloBlockEntity> createItemSiloBlockEntity(
+            String name,
+            ItemSiloBlock block
+    ) {
+        return registerInventoryStorage(
+                createBlockEntity(name, block, (blockPos, state) -> new ItemSiloBlockEntity(blockPos, state, block.getTier())),
+                ItemSiloBlockEntity::getInventoryStorageForDirection
+        );
+    }
+    public static final BlockEntityType<ItemSiloBlockEntity> ITEM_SILO_TINY_ENTITY =
+            createItemSiloBlockEntity("item_silo_tiny", EPBlocks.ITEM_SILO_TINY);
+    public static final BlockEntityType<ItemSiloBlockEntity> ITEM_SILO_SMALL_ENTITY =
+            createItemSiloBlockEntity("item_silo_small", EPBlocks.ITEM_SILO_SMALL);
+    public static final BlockEntityType<ItemSiloBlockEntity> ITEM_SILO_MEDIUM_ENTITY =
+            createItemSiloBlockEntity("item_silo_medium", EPBlocks.ITEM_SILO_MEDIUM);
+    public static final BlockEntityType<ItemSiloBlockEntity> ITEM_SILO_LARGE_ENTITY =
+            createItemSiloBlockEntity("item_silo_large", EPBlocks.ITEM_SILO_LARGE);
+    public static final BlockEntityType<ItemSiloBlockEntity> ITEM_SILO_GIANT_ENTITY =
+            createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
+
     private static BlockEntityType<ItemConveyorBeltBlockEntity> createItemConveyorBeltBlockEntity(
             String name,
             ItemConveyorBeltBlock block

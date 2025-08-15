@@ -1,0 +1,38 @@
+{
+  "block": [
+    "energizedpower:item_silo_tiny",
+    "energizedpower:item_silo_small",
+    "energizedpower:item_silo_medium",
+    "energizedpower:item_silo_large",
+    "energizedpower:item_silo_giant"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          " "
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_silos.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.item_silos.2"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.item_silos.3"
+      }
+    ],
+    "text": ""
+  }
+}
