@@ -161,7 +161,7 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 - Chinese (Simplified) translation ([HanJiang-cn](https://github.com/HanJiang-cn))
 - Italian translation ([Roby1164](https://github.com/Roby1164))
 - Turkish translation ([Eyyup](https://github.com/msb-eyyup))
-- Russian translation (Imperial Officer)
+- Russian translation (Imperial Officer, [PlayboyX312](https://github.com/PlayboyX312))
 - German translation ([Lucanoria](https://github.com/Lucanoria))
 
 ## Wiki
