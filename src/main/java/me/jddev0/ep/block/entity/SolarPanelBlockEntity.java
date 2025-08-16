@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import net.minecraft.core.BlockPos;
@@ -14,29 +14,17 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
 public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
-    private final SolarPanelBlock.Tier tier;
+    private final SolarPanelTier tier;
 
-    public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
-        return switch(tier) {
-            case TIER_1 -> EPBlockEntities.SOLAR_PANEL_ENTITY_1.get();
-            case TIER_2 -> EPBlockEntities.SOLAR_PANEL_ENTITY_2.get();
-            case TIER_3 -> EPBlockEntities.SOLAR_PANEL_ENTITY_3.get();
-            case TIER_4 -> EPBlockEntities.SOLAR_PANEL_ENTITY_4.get();
-            case TIER_5 -> EPBlockEntities.SOLAR_PANEL_ENTITY_5.get();
-            case TIER_6 -> EPBlockEntities.SOLAR_PANEL_ENTITY_6.get();
-        };
-    }
-
-    public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelBlock.Tier tier) {
+    public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelTier tier) {
         super(
-                getEntityTypeFromTier(tier), blockPos, blockState,
+                tier.getEntityTypeFromTier(), blockPos, blockState,
 
                 tier.getResourceId(),
 
@@ -81,7 +69,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
         return new SolarPanelMenu(id, inventory, this, upgradeModuleInventory);
     }
 
-    public SolarPanelBlock.Tier getTier() {
+    public SolarPanelTier getTier() {
         return tier;
     }
 

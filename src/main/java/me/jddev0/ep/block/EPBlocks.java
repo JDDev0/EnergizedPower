@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.machine.tier.*;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -90,29 +91,29 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
 
     public static final DeferredBlock<FluidPipeBlock> IRON_FLUID_PIPE = BLOCKS.register("fluid_pipe",
-            () -> new FluidPipeBlock(FluidPipeBlock.Tier.IRON));
+            () -> new FluidPipeBlock(FluidPipeTier.IRON));
     public static final DeferredItem<Item> IRON_FLUID_PIPE_ITEM = EPItems.ITEMS.register("fluid_pipe",
-            () -> new FluidPipeBlock.Item(IRON_FLUID_PIPE.get(), new Item.Properties(), FluidPipeBlock.Tier.IRON));
+            () -> new FluidPipeBlock.Item(IRON_FLUID_PIPE.get(), new Item.Properties(), FluidPipeTier.IRON));
 
     public static final DeferredBlock<FluidPipeBlock> GOLDEN_FLUID_PIPE = BLOCKS.register("golden_fluid_pipe",
-            () -> new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN));
+            () -> new FluidPipeBlock(FluidPipeTier.GOLDEN));
     public static final DeferredItem<Item> GOLDEN_FLUID_PIPE_ITEM = EPItems.ITEMS.register("golden_fluid_pipe",
-            () -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE.get(), new Item.Properties(), FluidPipeBlock.Tier.GOLDEN));
+            () -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE.get(), new Item.Properties(), FluidPipeTier.GOLDEN));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_SMALL = BLOCKS.register("fluid_tank_small",
-            () -> new FluidTankBlock(FluidTankBlock.Tier.SMALL));
+            () -> new FluidTankBlock(FluidTankTier.SMALL));
     public static final DeferredItem<Item> FLUID_TANK_SMALL_ITEM = EPItems.ITEMS.register("fluid_tank_small",
-            () -> new FluidTankBlock.Item(FLUID_TANK_SMALL.get(), new Item.Properties(), FluidTankBlock.Tier.SMALL));
+            () -> new FluidTankBlock.Item(FLUID_TANK_SMALL.get(), new Item.Properties(), FluidTankTier.SMALL));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_MEDIUM = BLOCKS.register("fluid_tank_medium",
-            () -> new FluidTankBlock(FluidTankBlock.Tier.MEDIUM));
+            () -> new FluidTankBlock(FluidTankTier.MEDIUM));
     public static final DeferredItem<Item> FLUID_TANK_MEDIUM_ITEM = EPItems.ITEMS.register("fluid_tank_medium",
-            () -> new FluidTankBlock.Item(FLUID_TANK_MEDIUM.get(), new Item.Properties(), FluidTankBlock.Tier.MEDIUM));
+            () -> new FluidTankBlock.Item(FLUID_TANK_MEDIUM.get(), new Item.Properties(), FluidTankTier.MEDIUM));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_LARGE = BLOCKS.register("fluid_tank_large",
-            () -> new FluidTankBlock(FluidTankBlock.Tier.LARGE));
+            () -> new FluidTankBlock(FluidTankTier.LARGE));
     public static final DeferredItem<Item> FLUID_TANK_LARGE_ITEM = EPItems.ITEMS.register("fluid_tank_large",
-            () -> new FluidTankBlock.Item(FLUID_TANK_LARGE.get(), new Item.Properties(), FluidTankBlock.Tier.LARGE));
+            () -> new FluidTankBlock.Item(FLUID_TANK_LARGE.get(), new Item.Properties(), FluidTankTier.LARGE));
 
     public static final DeferredBlock<CreativeFluidTankBlock> CREATIVE_FLUID_TANK = BLOCKS.register("creative_fluid_tank",
             () -> new CreativeFluidTankBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
@@ -121,130 +122,130 @@ public final class EPBlocks {
             () -> new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK.get(), new Item.Properties()));
 
     public static final DeferredBlock<CableBlock> TIN_CABLE = BLOCKS.register("tin_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_TIN));
+            () -> new CableBlock(CableTier.TIN));
     public static final DeferredItem<Item> TIN_CABLE_ITEM = EPItems.ITEMS.register("tin_cable",
-            () -> new CableBlock.Item(TIN_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_TIN));
+            () -> new CableBlock.Item(TIN_CABLE.get(), new Item.Properties(), CableTier.TIN));
 
     public static final DeferredBlock<CableBlock> COPPER_CABLE = BLOCKS.register("copper_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_COPPER));
+            () -> new CableBlock(CableTier.COPPER));
     public static final DeferredItem<Item> COPPER_CABLE_ITEM = EPItems.ITEMS.register("copper_cable",
-            () -> new CableBlock.Item(COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_COPPER));
+            () -> new CableBlock.Item(COPPER_CABLE.get(), new Item.Properties(), CableTier.COPPER));
 
     public static final DeferredBlock<CableBlock> GOLD_CABLE = BLOCKS.register("gold_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_GOLD));
+            () -> new CableBlock(CableTier.GOLD));
     public static final DeferredItem<Item> GOLD_CABLE_ITEM = EPItems.ITEMS.register("gold_cable",
-            () -> new CableBlock.Item(GOLD_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_GOLD));
+            () -> new CableBlock.Item(GOLD_CABLE.get(), new Item.Properties(), CableTier.GOLD));
 
     public static final DeferredBlock<CableBlock> ENERGIZED_COPPER_CABLE = BLOCKS.register("energized_copper_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
+            () -> new CableBlock(CableTier.ENERGIZED_COPPER));
     public static final DeferredItem<Item> ENERGIZED_COPPER_CABLE_ITEM = EPItems.ITEMS.register("energized_copper_cable",
-            () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_COPPER));
+            () -> new CableBlock.Item(ENERGIZED_COPPER_CABLE.get(), new Item.Properties(), CableTier.ENERGIZED_COPPER));
 
     public static final DeferredBlock<CableBlock> ENERGIZED_GOLD_CABLE = BLOCKS.register("energized_gold_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD));
+            () -> new CableBlock(CableTier.ENERGIZED_GOLD));
     public static final DeferredItem<Item> ENERGIZED_GOLD_CABLE_ITEM = EPItems.ITEMS.register("energized_gold_cable",
-            () -> new CableBlock.Item(ENERGIZED_GOLD_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_GOLD));
+            () -> new CableBlock.Item(ENERGIZED_GOLD_CABLE.get(), new Item.Properties(), CableTier.ENERGIZED_GOLD));
 
     public static final DeferredBlock<CableBlock> ENERGIZED_CRYSTAL_MATRIX_CABLE = BLOCKS.register("energized_crystal_matrix_cable",
-            () -> new CableBlock(CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
+            () -> new CableBlock(CableTier.ENERGIZED_CRYSTAL_MATRIX));
     public static final DeferredItem<Item> ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = EPItems.ITEMS.register("energized_crystal_matrix_cable",
-            () -> new CableBlock.Item(ENERGIZED_CRYSTAL_MATRIX_CABLE.get(), new Item.Properties(), CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
+            () -> new CableBlock.Item(ENERGIZED_CRYSTAL_MATRIX_CABLE.get(), new Item.Properties(), CableTier.ENERGIZED_CRYSTAL_MATRIX));
 
     public static final DeferredBlock<TransformerBlock> LV_TRANSFORMER_1_TO_N = BLOCKS.register("lv_transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.LV, TransformerType.TYPE_1_TO_N));
     public static final DeferredItem<Item> LV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("lv_transformer_1_to_n",
             () -> new TransformerBlock.Item(LV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.LV, TransformerType.TYPE_1_TO_N));
 
     public static final DeferredBlock<TransformerBlock> LV_TRANSFORMER_3_TO_3 = BLOCKS.register("lv_transformer_3_to_3",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.LV, TransformerType.TYPE_3_TO_3));
     public static final DeferredItem<Item> LV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("lv_transformer_3_to_3",
             () -> new TransformerBlock.Item(LV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.LV, TransformerType.TYPE_3_TO_3));
 
     public static final DeferredBlock<TransformerBlock> LV_TRANSFORMER_N_TO_1 = BLOCKS.register("lv_transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.LV, TransformerType.TYPE_N_TO_1));
     public static final DeferredItem<Item> LV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("lv_transformer_n_to_1",
             () -> new TransformerBlock.Item(LV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.LV, TransformerType.TYPE_N_TO_1));
 
     public static final DeferredBlock<TransformerBlock> MV_TRANSFORMER_1_TO_N = BLOCKS.register("transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.MV, TransformerType.TYPE_1_TO_N));
     public static final DeferredItem<Item> MV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("transformer_1_to_n",
             () -> new TransformerBlock.Item(MV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.MV, TransformerType.TYPE_1_TO_N));
 
     public static final DeferredBlock<TransformerBlock> MV_TRANSFORMER_3_TO_3 = BLOCKS.register("transformer_3_to_3",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.MV, TransformerType.TYPE_3_TO_3));
     public static final DeferredItem<Item> MV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("transformer_3_to_3",
             () -> new TransformerBlock.Item(MV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.MV, TransformerType.TYPE_3_TO_3));
 
     public static final DeferredBlock<TransformerBlock> MV_TRANSFORMER_N_TO_1 = BLOCKS.register("transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.MV, TransformerType.TYPE_N_TO_1));
     public static final DeferredItem<Item> MV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("transformer_n_to_1",
             () -> new TransformerBlock.Item(MV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.MV, TransformerType.TYPE_N_TO_1));
 
     public static final DeferredBlock<TransformerBlock> HV_TRANSFORMER_1_TO_N = BLOCKS.register("hv_transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.HV, TransformerType.TYPE_1_TO_N));
     public static final DeferredItem<Item> HV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("hv_transformer_1_to_n",
             () -> new TransformerBlock.Item(HV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.HV, TransformerType.TYPE_1_TO_N));
 
     public static final DeferredBlock<TransformerBlock> HV_TRANSFORMER_3_TO_3 = BLOCKS.register("hv_transformer_3_to_3",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.HV, TransformerType.TYPE_3_TO_3));
     public static final DeferredItem<Item> HV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("hv_transformer_3_to_3",
             () -> new TransformerBlock.Item(HV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.HV, TransformerType.TYPE_3_TO_3));
 
     public static final DeferredBlock<TransformerBlock> HV_TRANSFORMER_N_TO_1 = BLOCKS.register("hv_transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.HV, TransformerType.TYPE_N_TO_1));
     public static final DeferredItem<Item> HV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("hv_transformer_n_to_1",
             () -> new TransformerBlock.Item(HV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.HV, TransformerType.TYPE_N_TO_1));
 
     public static final DeferredBlock<TransformerBlock> EHV_TRANSFORMER_1_TO_N = BLOCKS.register("ehv_transformer_1_to_n",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.EHV, TransformerType.TYPE_1_TO_N));
     public static final DeferredItem<Item> EHV_TRANSFORMER_1_TO_N_ITEM = EPItems.ITEMS.register("ehv_transformer_1_to_n",
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_1_TO_N.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.EHV, TransformerType.TYPE_1_TO_N));
 
     public static final DeferredBlock<TransformerBlock> EHV_TRANSFORMER_3_TO_3 = BLOCKS.register("ehv_transformer_3_to_3",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.EHV, TransformerType.TYPE_3_TO_3));
     public static final DeferredItem<Item> EHV_TRANSFORMER_3_TO_3_ITEM = EPItems.ITEMS.register("ehv_transformer_3_to_3",
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_3_TO_3.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.EHV, TransformerType.TYPE_3_TO_3));
 
     public static final DeferredBlock<TransformerBlock> EHV_TRANSFORMER_N_TO_1 = BLOCKS.register("ehv_transformer_n_to_1",
             () -> new TransformerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.EHV, TransformerType.TYPE_N_TO_1));
     public static final DeferredItem<Item> EHV_TRANSFORMER_N_TO_1_ITEM = EPItems.ITEMS.register("ehv_transformer_n_to_1",
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.EHV, TransformerType.TYPE_N_TO_1));
 
     public static final DeferredBlock<Block> BATTERY_BOX = BLOCKS.register("battery_box",
             () -> new BatteryBoxBlock(BlockBehaviour.Properties.of().
@@ -456,27 +457,27 @@ public final class EPBlocks {
                 blockRegistryObject.get().getTier()));
     }
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_1 = BLOCKS.register("solar_panel_1",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1));
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_1));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_1 = createSolarPanelBlockItem("solar_panel_1", SOLAR_PANEL_1);
 
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_2 = BLOCKS.register("solar_panel_2",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_2));
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_2));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_2 = createSolarPanelBlockItem("solar_panel_2", SOLAR_PANEL_2);
 
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_3 = BLOCKS.register("solar_panel_3",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_3));
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_3));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_3 = createSolarPanelBlockItem("solar_panel_3", SOLAR_PANEL_3);
 
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_4 = BLOCKS.register("solar_panel_4",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_4));
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_4));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_4 = createSolarPanelBlockItem("solar_panel_4", SOLAR_PANEL_4);
 
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_5 = BLOCKS.register("solar_panel_5",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_5));
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_5));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_5 = createSolarPanelBlockItem("solar_panel_5", SOLAR_PANEL_5);
 
     public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_6 = BLOCKS.register("solar_panel_6",
-            () -> new SolarPanelBlock(SolarPanelBlock.Tier.TIER_6));
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_6));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
 
     public static final DeferredBlock<Block> COAL_ENGINE = BLOCKS.register("coal_engine",

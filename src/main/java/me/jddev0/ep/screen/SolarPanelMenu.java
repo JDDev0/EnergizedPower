@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -14,16 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity> {
-    public static MenuType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
-        return switch(tier) {
-            case TIER_1 -> EPMenuTypes.SOLAR_PANEL_MENU_1.get();
-            case TIER_2 -> EPMenuTypes.SOLAR_PANEL_MENU_2.get();
-            case TIER_3 -> EPMenuTypes.SOLAR_PANEL_MENU_3.get();
-            case TIER_4 -> EPMenuTypes.SOLAR_PANEL_MENU_4.get();
-            case TIER_5 -> EPMenuTypes.SOLAR_PANEL_MENU_5.get();
-            case TIER_6 -> EPMenuTypes.SOLAR_PANEL_MENU_6.get();
-        };
-    }
 
     public SolarPanelMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
@@ -34,10 +23,10 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
 
     public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
         super(
-                getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id,
+                ((SolarPanelBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id,
 
                 inv, blockEntity,
-                SolarPanelBlock.getBlockFromTier(((SolarPanelBlockEntity)blockEntity).getTier()),
+                ((SolarPanelBlockEntity)blockEntity).getTier().getBlockFromTier(),
 
                 upgradeModuleInventory, 2
         );

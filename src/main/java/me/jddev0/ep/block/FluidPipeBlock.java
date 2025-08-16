@@ -3,7 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.FluidPipeTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -47,7 +46,7 @@ import java.util.List;
 
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidPipeTier::valueOf, FluidPipeTier::toString).fieldOf("tier").
                 forGetter(FluidPipeBlock::getTier)).apply(instance, FluidPipeBlock::new);
     });
 
@@ -79,16 +78,9 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         };
     }
 
-    private final Tier tier;
+    private final FluidPipeTier tier;
 
-    public static Block getBlockFromTier(Tier tier) {
-        return switch(tier) {
-            case IRON -> EPBlocks.IRON_FLUID_PIPE.get();
-            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE.get();
-        };
-    }
-
-    public FluidPipeBlock(Tier tier) {
+    public FluidPipeBlock(FluidPipeTier tier) {
         super(tier.getProperties());
 
         this.tier = tier;
@@ -102,7 +94,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
                 setValue(WATERLOGGED, false));
     }
 
-    public Tier getTier() {
+    public FluidPipeTier getTier() {
         return tier;
     }
 
@@ -376,19 +368,19 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, FluidPipeBlockEntity.getEntityTypeFromTier(tier), FluidPipeBlockEntity::tick);
+        return createTickerHelper(type, tier.getEntityTypeFromTier(), FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final FluidPipeTier tier;
 
-        public Item(Block block, Properties props, Tier tier) {
+        public Item(Block block, Properties props, FluidPipeTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public FluidPipeTier getTier() {
             return tier;
         }
 
@@ -407,34 +399,4 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         }
     }
 
-    public enum Tier {
-        IRON("fluid_pipe", ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().
-                        requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)),
-        GOLDEN("golden_fluid_pipe", ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue(),
-                Properties.of().
-                        requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-
-        private final String resourceId;
-        private final int transferRate;
-        private final Properties props;
-
-        Tier(String resourceId, int transferRate, Properties props) {
-            this.resourceId = resourceId;
-            this.transferRate = transferRate;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public int getTransferRate() {
-            return transferRate;
-        }
-
-        public Properties getProperties() {
-            return props;
-        }
-    }
 }

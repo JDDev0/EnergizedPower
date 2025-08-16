@@ -2,6 +2,9 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
+import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.machine.tier.TransformerTier;
+import me.jddev0.ep.machine.tier.TransformerType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -68,22 +71,22 @@ public final class EPBlockEntities {
 
     public static final Supplier<BlockEntityType<CableBlockEntity>> TIN_CABLE_ENTITY =
             BLOCK_ENTITIES.register("tin_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_TIN), EPBlocks.TIN_CABLE.get()).build(null));
+                    new CableBlockEntity(blockPos, state, CableTier.TIN), EPBlocks.TIN_CABLE.get()).build(null));
     public static final Supplier<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY =
             BLOCK_ENTITIES.register("copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_COPPER), EPBlocks.COPPER_CABLE.get()).build(null));
+                    new CableBlockEntity(blockPos, state, CableTier.COPPER), EPBlocks.COPPER_CABLE.get()).build(null));
     public static final Supplier<BlockEntityType<CableBlockEntity>> GOLD_CABLE_ENTITY =
             BLOCK_ENTITIES.register("gold_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_GOLD), EPBlocks.GOLD_CABLE.get()).build(null));
+                    new CableBlockEntity(blockPos, state, CableTier.GOLD), EPBlocks.GOLD_CABLE.get()).build(null));
     public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_COPPER_CABLE_ENTITY =
             BLOCK_ENTITIES.register("energized_copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_COPPER), EPBlocks.ENERGIZED_COPPER_CABLE.get()).build(null));
+                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_COPPER), EPBlocks.ENERGIZED_COPPER_CABLE.get()).build(null));
     public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_GOLD_CABLE_ENTITY =
             BLOCK_ENTITIES.register("energized_gold_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_GOLD), EPBlocks.ENERGIZED_GOLD_CABLE.get()).build(null));
+                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD), EPBlocks.ENERGIZED_GOLD_CABLE.get()).build(null));
     public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY =
             BLOCK_ENTITIES.register("energized_crystal_matrix_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX), EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get()).build(null));
+                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX), EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get()).build(null));
 
     public static final Supplier<BlockEntityType<AutoCrafterBlockEntity>> AUTO_CRAFTER_ENTITY =
             BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,
@@ -241,64 +244,64 @@ public final class EPBlockEntities {
 
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("lv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV,
-                                    TransformerBlock.Type.TYPE_1_TO_N),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
+                                    TransformerType.TYPE_1_TO_N),
                     EPBlocks.LV_TRANSFORMER_1_TO_N.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_3_TO_3_ENTITY =
             BLOCK_ENTITIES.register("lv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV,
-                                    TransformerBlock.Type.TYPE_3_TO_3),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
+                                    TransformerType.TYPE_3_TO_3),
                     EPBlocks.LV_TRANSFORMER_3_TO_3.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_N_TO_1_ENTITY =
             BLOCK_ENTITIES.register("lv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_LV,
-                                    TransformerBlock.Type.TYPE_N_TO_1),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
+                                    TransformerType.TYPE_N_TO_1),
                     EPBlocks.LV_TRANSFORMER_N_TO_1.get()).build(null));
 
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV,
-                                    TransformerBlock.Type.TYPE_1_TO_N),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
+                                    TransformerType.TYPE_1_TO_N),
                     EPBlocks.MV_TRANSFORMER_1_TO_N.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_3_TO_3_ENTITY =
             BLOCK_ENTITIES.register("transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV,
-                                    TransformerBlock.Type.TYPE_3_TO_3),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
+                                    TransformerType.TYPE_3_TO_3),
                     EPBlocks.MV_TRANSFORMER_3_TO_3.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_N_TO_1_ENTITY =
             BLOCK_ENTITIES.register("transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_MV,
-                                    TransformerBlock.Type.TYPE_N_TO_1),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
+                                    TransformerType.TYPE_N_TO_1),
                     EPBlocks.MV_TRANSFORMER_N_TO_1.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("hv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV,
-                                    TransformerBlock.Type.TYPE_1_TO_N),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
+                                    TransformerType.TYPE_1_TO_N),
                     EPBlocks.HV_TRANSFORMER_1_TO_N.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_3_TO_3_ENTITY =
             BLOCK_ENTITIES.register("hv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV,
-                                    TransformerBlock.Type.TYPE_3_TO_3),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
+                                    TransformerType.TYPE_3_TO_3),
                     EPBlocks.HV_TRANSFORMER_3_TO_3.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_N_TO_1_ENTITY =
             BLOCK_ENTITIES.register("hv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_HV,
-                                    TransformerBlock.Type.TYPE_N_TO_1),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
+                                    TransformerType.TYPE_N_TO_1),
                     EPBlocks.HV_TRANSFORMER_N_TO_1.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("ehv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV,
-                                    TransformerBlock.Type.TYPE_1_TO_N),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
+                                    TransformerType.TYPE_1_TO_N),
                     EPBlocks.EHV_TRANSFORMER_1_TO_N.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_3_TO_3_ENTITY =
             BLOCK_ENTITIES.register("ehv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV,
-                                    TransformerBlock.Type.TYPE_3_TO_3),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
+                                    TransformerType.TYPE_3_TO_3),
                     EPBlocks.EHV_TRANSFORMER_3_TO_3.get()).build(null));
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_N_TO_1_ENTITY =
             BLOCK_ENTITIES.register("ehv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerBlock.Tier.TIER_EHV,
-                                    TransformerBlock.Type.TYPE_N_TO_1),
+                            new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
+                                    TransformerType.TYPE_N_TO_1),
                     EPBlocks.EHV_TRANSFORMER_N_TO_1.get()).build(null));
 
     public static final Supplier<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY =

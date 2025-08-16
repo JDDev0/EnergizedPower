@@ -3,7 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.CableBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,14 +22,12 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -41,7 +39,7 @@ import java.util.List;
 
 public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(CableTier::valueOf, CableTier::toString).fieldOf("tier").
                 forGetter(CableBlock::getTier)).apply(instance, CableBlock::new);
     });
 
@@ -61,9 +59,9 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     private static final VoxelShape SHAPE_EAST = Block.box(10.d, 6.d, 6.d, 16.d, 10.d, 10.d);
     private static final VoxelShape SHAPE_WEST = Block.box(0.d, 6.d, 6.d, 6.d, 10.d, 10.d);
 
-    private final Tier tier;
+    private final CableTier tier;
 
-    public CableBlock(Tier tier) {
+    public CableBlock(CableTier tier) {
         super(tier.getProperties());
 
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(DOWN, false).
@@ -73,7 +71,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         this.tier = tier;
     }
 
-    public Tier getTier() {
+    public CableTier getTier() {
         return tier;
     }
 
@@ -225,15 +223,15 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final CableTier tier;
 
-        public Item(Block block, Properties props, Tier tier) {
+        public Item(Block block, Properties props, CableTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public CableTier getTier() {
             return tier;
         }
 
@@ -264,44 +262,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, CableBlockEntity.getEntityTypeFromTier(tier), CableBlockEntity::tick);
-    }
-
-    public enum Tier {
-        TIER_TIN("tin_cable", ModConfigs.COMMON_TIN_CABLE_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
-        TIER_COPPER("copper_cable", ModConfigs.COMMON_COPPER_CABLE_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
-        TIER_GOLD("gold_cable", ModConfigs.COMMON_GOLD_CABLE_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
-        TIER_ENERGIZED_COPPER("energized_copper_cable", ModConfigs.COMMON_ENERGIZED_COPPER_CABLE_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
-        TIER_ENERGIZED_GOLD("energized_gold_cable", ModConfigs.COMMON_ENERGIZED_GOLD_CABLE_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
-        TIER_ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue(),
-                BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL));
-
-        private final String resourceId;
-        private final int maxTransfer;
-        private final Properties props;
-
-        Tier(String resourceId, int maxTransfer, Properties props) {
-            this.resourceId = resourceId;
-            this.maxTransfer = maxTransfer;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public int getMaxTransfer() {
-            return maxTransfer;
-        }
-
-        public Properties getProperties() {
-            return props;
-        }
+        return createTickerHelper(type, tier.getEntityTypeFromTier(), CableBlockEntity::tick);
     }
 
     public enum EnergyExtractionMode {

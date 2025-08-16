@@ -2,6 +2,7 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
+import me.jddev0.ep.machine.tier.TransformerType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
@@ -679,17 +680,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
     private void transformerBlockWithItem(DeferredHolder<Block, ? extends TransformerBlock> block) {
         ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
         String textureName = switch(block.get().getTier()) {
-            case TIER_LV -> "lv_transformer";
-            case TIER_MV -> "mv_transformer";
-            case TIER_HV -> "hv_transformer";
-            case TIER_EHV -> "ehv_transformer";
+            case LV -> "lv_transformer";
+            case MV -> "mv_transformer";
+            case HV -> "hv_transformer";
+            case EHV -> "ehv_transformer";
         };
 
-        TransformerBlock.Type transformerType = block.get().getTransformerType();
+        TransformerType transformerType = block.get().getTransformerType();
         switch(transformerType) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                String singleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_input":"_output";
-                String multipleSuffix = transformerType == TransformerBlock.Type.TYPE_1_TO_N?"_output":"_input";
+                String singleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_input":"_output";
+                String multipleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_output":"_input";
 
                 ModelFile transformer = models().
                         withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/orientable").

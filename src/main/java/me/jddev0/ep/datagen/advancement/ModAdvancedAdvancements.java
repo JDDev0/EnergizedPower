@@ -3,8 +3,8 @@ package me.jddev0.ep.datagen.advancement;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
-import me.jddev0.ep.item.BatteryItem;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -95,7 +95,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
 
         ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8.get());
         battery8FullyChargedIcon.applyComponentsAndValidate(DataComponentPatch.builder().
-                set(EPDataComponentTypes.ENERGY.get(), BatteryItem.Tier.BATTERY_8.getCapacity()).
+                set(EPDataComponentTypes.ENERGY.get(), BatteryTier.BATTERY_8.getCapacity()).
                 build());
         AdvancementHolder battery8FullyCharged = addAdvancement(
                 advancementOutput, existingFileHelper, battery8,
@@ -103,7 +103,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().
                         of(EPItems.BATTERY_8).
                         hasComponents(DataComponentPredicate.builder().
-                                expect(EPDataComponentTypes.ENERGY.get(), BatteryItem.Tier.BATTERY_8.getCapacity()).
+                                expect(EPDataComponentTypes.ENERGY.get(), BatteryTier.BATTERY_8.getCapacity()).
                                 build()).
                         build())
         );
