@@ -221,6 +221,12 @@ public final class EPBlocks {
     public static final Item ITEM_SILO_GIANT_ITEM = createBlockItem("item_silo_giant",
             props -> new ItemSiloBlock.Item(ITEM_SILO_GIANT, props, ItemSiloTier.GIANT));
 
+    public static final CreativeItemSiloBlock CREATIVE_ITEM_SILO = registerBlock("creative_item_silo",
+            CreativeItemSiloBlock::new, AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).
+                    requiresTool().strength(-1.f, 3600000.f).dropsNothing());
+    public static final Item CREATIVE_ITEM_SILO_ITEM = createBlockItem("creative_item_silo",
+            CreativeItemSiloBlock.Item::new, CREATIVE_ITEM_SILO);
+
     private static Item createCableBlockItem(String name, CableBlock block) {
         return createBlockItem(name, props -> new CableBlock.Item(block, props, block.getTier()));
     }

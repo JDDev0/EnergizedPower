@@ -78,6 +78,11 @@ public final class EPBlockEntities {
     public static final BlockEntityType<ItemSiloBlockEntity> ITEM_SILO_GIANT_ENTITY =
             createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
 
+    public static final BlockEntityType<CreativeItemSiloBlockEntity> CREATIVE_ITEM_SILO_ENTITY = registerInventoryStorage(
+            createBlockEntity("creative_item_silo", EPBlocks.CREATIVE_ITEM_SILO, CreativeItemSiloBlockEntity::new),
+            CreativeItemSiloBlockEntity::getInventoryStorageForDirection
+    );
+
     private static BlockEntityType<ItemConveyorBeltBlockEntity> createItemConveyorBeltBlockEntity(
             String name,
             ItemConveyorBeltBlock block
