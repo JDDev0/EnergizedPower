@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import net.minecraft.network.FriendlyByteBuf;
@@ -21,7 +20,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
     }
 
     public ItemConveyorBeltLoaderMenu(int id, Inventory inv, BlockEntity blockEntity) {
-        super(EPMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU.get(), id);
+        super(((ItemConveyorBeltLoaderBlockEntity)blockEntity).getTier().getItemConveyorBeltLoaderMenuTypeFromTier(), id);
 
         this.blockEntity = (ItemConveyorBeltLoaderBlockEntity)blockEntity;
         this.level = inv.player.level();
@@ -69,7 +68,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, blockEntity.getTier().getItemConveyorBeltLoaderBlockFromTier());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

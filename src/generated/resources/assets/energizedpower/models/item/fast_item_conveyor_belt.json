@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "energizedpower:block/fast_item_conveyor_belt"
+  }
+}

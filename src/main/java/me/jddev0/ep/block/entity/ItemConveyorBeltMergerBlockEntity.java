@@ -3,8 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltMergerBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -18,12 +18,26 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
-    private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM.getValue();
+    private final int ticksPerItem;
 
     private int currentInputIndex;
 
-    public ItemConveyorBeltMergerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(EPBlockEntities.ITEM_CONVEYOR_BELT_MERGER_ENTITY.get(), blockPos, blockState);
+    private final ConveyorBeltTier tier;
+
+    public ItemConveyorBeltMergerBlockEntity(BlockPos blockPos, BlockState blockState, ConveyorBeltTier tier) {
+        super(tier.getItemConveyorBeltMergerBlockEntityFromTier(), blockPos, blockState);
+
+        this.tier = tier;
+
+        ticksPerItem = switch(tier) {
+            case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM.getValue();
+            case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM.getValue();
+            case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM.getValue();
+        };
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Override
@@ -44,12 +58,12 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
         if(level.isClientSide)
             return;
 
-        if(level.getGameTime() % TICKS_PER_ITEM == 0) {
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
             Direction facing = state.getValue(ItemConveyorBeltMergerBlock.FACING);
 
             BlockPos outputPos = blockPos.relative(facing);
             BlockState outputBlockState = level.getBlockState(outputPos);
-            if(!outputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+            if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);
@@ -75,7 +89,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
 
                 BlockPos inputPos = blockPos.relative(inputDirection);
                 BlockState inputBlockState = level.getBlockState(inputPos);
-                if(!inputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+                if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                     continue;
 
                 //Conveyor belt must face towards Merger and must not be ascending
