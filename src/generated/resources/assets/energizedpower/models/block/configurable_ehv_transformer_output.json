@@ -1,0 +1,7 @@
+{
+  "parent": "energizedpower:block/single_side",
+  "textures": {
+    "particle": "#side",
+    "side": "energizedpower:block/ehv_transformer_output"
+  }
+}

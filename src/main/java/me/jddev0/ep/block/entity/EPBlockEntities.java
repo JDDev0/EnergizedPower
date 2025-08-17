@@ -364,6 +364,27 @@ public final class EPBlockEntities {
                                     TransformerType.TYPE_N_TO_1),
                     EPBlocks.EHV_TRANSFORMER_N_TO_1.get()).build(null));
 
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_LV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_lv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_LV_TRANSFORMER.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_MV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_mv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_MV_TRANSFORMER.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_HV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_hv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_HV_TRANSFORMER.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_EHV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_ehv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get()).build(null));
+
     public static final Supplier<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY =
             BLOCK_ENTITIES.register("battery_box", () -> BlockEntityType.Builder.of(BatteryBoxBlockEntity::new,
                     EPBlocks.BATTERY_BOX.get()).build(null));
@@ -688,6 +709,14 @@ public final class EPBlockEntities {
                 EHV_TRANSFORMER_3_TO_3_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 EHV_TRANSFORMER_N_TO_1_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                CONFIGURABLE_LV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                CONFIGURABLE_MV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                CONFIGURABLE_HV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                CONFIGURABLE_EHV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 BATTERY_BOX_ENTITY.get(), BatteryBoxBlockEntity::getEnergyStorageCapability);

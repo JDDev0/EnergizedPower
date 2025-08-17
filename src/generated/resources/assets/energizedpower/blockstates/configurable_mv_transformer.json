@@ -1,0 +1,163 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_not_connected",
+        "x": 270
+      },
+      "when": {
+        "up": "not_connected"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_input",
+        "x": 270
+      },
+      "when": {
+        "up": "receive"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_output",
+        "x": 270
+      },
+      "when": {
+        "up": "extract"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_not_connected",
+        "x": 90
+      },
+      "when": {
+        "down": "not_connected"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_input",
+        "x": 90
+      },
+      "when": {
+        "down": "receive"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_output",
+        "x": 90
+      },
+      "when": {
+        "down": "extract"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_not_connected"
+      },
+      "when": {
+        "north": "not_connected"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_input"
+      },
+      "when": {
+        "north": "receive"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_output"
+      },
+      "when": {
+        "north": "extract"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_not_connected",
+        "x": 180
+      },
+      "when": {
+        "south": "not_connected"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_input",
+        "x": 180
+      },
+      "when": {
+        "south": "receive"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_output",
+        "x": 180
+      },
+      "when": {
+        "south": "extract"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_not_connected",
+        "y": 90
+      },
+      "when": {
+        "east": "not_connected"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_input",
+        "y": 90
+      },
+      "when": {
+        "east": "receive"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_output",
+        "y": 90
+      },
+      "when": {
+        "east": "extract"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_not_connected",
+        "y": 270
+      },
+      "when": {
+        "west": "not_connected"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_input",
+        "y": 270
+      },
+      "when": {
+        "west": "receive"
+      }
+    },
+    {
+      "apply": {
+        "model": "energizedpower:block/configurable_mv_transformer_output",
+        "y": 270
+      },
+      "when": {
+        "west": "extract"
+      }
+    }
+  ]
+}

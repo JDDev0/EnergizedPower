@@ -1344,6 +1344,52 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         addShapedCraftingRecipe(output, has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.of(CommonItemTags.SILICON),
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'B', Ingredient.of(EPItems.BASIC_CIRCUIT),
+                'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "CSI",
+                "BMB",
+                "CSI"
+        }, new ItemStack(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'B', Ingredient.of(EPItems.BASIC_CIRCUIT),
+                'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'M', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM)
+        ), new String[] {
+                "CTI",
+                "BMB",
+                "CTI"
+        }, new ItemStack(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'A', Ingredient.of(EPItems.ADVANCED_CIRCUIT),
+                'G', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM)
+        ), new String[] {
+                "GTG",
+                "AMA",
+                "GTG"
+        }, new ItemStack(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
+                'R', Ingredient.of(EPItems.PROCESSING_UNIT),
+                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', Ingredient.of(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM)
+        ), new String[] {
+                "CTC",
+                "RMR",
+                "CTC"
+        }, new ItemStack(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
                 'B', Ingredient.of(EPItems.BATTERY_5),
                 'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {

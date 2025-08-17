@@ -297,6 +297,33 @@ public final class EPBlocks {
             () -> new TransformerBlock.Item(EHV_TRANSFORMER_N_TO_1.get(), new Item.Properties(),
                     TransformerTier.EHV, TransformerType.TYPE_N_TO_1));
 
+    private static DeferredItem<Item> createConfigurableTransformerBlockItem(String name, DeferredBlock<ConfigurableTransformerBlock> block) {
+        return EPItems.ITEMS.register(name, () -> new ConfigurableTransformerBlock.Item(block.get(), new Item.Properties(), block.get().getTier()));
+    }
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_LV_TRANSFORMER = BLOCKS.register("configurable_lv_transformer",
+            () -> new ConfigurableTransformerBlock(TransformerTier.LV, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> CONFIGURABLE_LV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_lv_transformer",
+            CONFIGURABLE_LV_TRANSFORMER);
+
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_MV_TRANSFORMER = BLOCKS.register("configurable_mv_transformer",
+            () -> new ConfigurableTransformerBlock(TransformerTier.MV, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> CONFIGURABLE_MV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_mv_transformer",
+            CONFIGURABLE_MV_TRANSFORMER);
+
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_HV_TRANSFORMER = BLOCKS.register("configurable_hv_transformer",
+            () -> new ConfigurableTransformerBlock(TransformerTier.HV, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> CONFIGURABLE_HV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_hv_transformer",
+            CONFIGURABLE_HV_TRANSFORMER);
+
+    public static final DeferredBlock<ConfigurableTransformerBlock> CONFIGURABLE_EHV_TRANSFORMER = BLOCKS.register("configurable_ehv_transformer",
+            () -> new ConfigurableTransformerBlock(TransformerTier.EHV, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> CONFIGURABLE_EHV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_ehv_transformer",
+            CONFIGURABLE_EHV_TRANSFORMER);
+
     public static final DeferredBlock<Block> BATTERY_BOX = BLOCKS.register("battery_box",
             () -> new BatteryBoxBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
