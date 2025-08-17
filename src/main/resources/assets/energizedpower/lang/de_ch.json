@@ -669,6 +669,30 @@
   "item.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
   "container.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
 
+  "block.energizedpower.item_silo_tiny": "Item-Silo (Winzig)",
+  "item.energizedpower.item_silo_tiny": "Item-Silo (Winzig)",
+  "container.energizedpower.item_silo_tiny": "Item-Silo (Winzig)",
+
+  "block.energizedpower.item_silo_small": "Item-Silo (Klein)",
+  "item.energizedpower.item_silo_small": "Item-Silo (Klein)",
+  "container.energizedpower.item_silo_small": "Item-Silo (Klein)",
+
+  "block.energizedpower.item_silo_medium": "Item-Silo (Mittel)",
+  "item.energizedpower.item_silo_medium": "Item-Silo (Mittel)",
+  "container.energizedpower.item_silo_medium": "Item-Silo (Mittel)",
+
+  "block.energizedpower.item_silo_large": "Item-Silo (Groß)",
+  "item.energizedpower.item_silo_large": "Item-Silo (Groß)",
+  "container.energizedpower.item_silo_large": "Item-Silo (Groß)",
+
+  "block.energizedpower.item_silo_giant": "Item-Silo (Riesig)",
+  "item.energizedpower.item_silo_giant": "Item-Silo (Riesig)",
+  "container.energizedpower.item_silo_giant": "Item-Silo (Riesig)",
+
+  "tooltip.energizedpower.item_silo.txt.shift": "Item-Silos können nur durch Trichter, Förderbändern und anderen automatischen Item-Transport-Mechanismen be- und entladen werden.",
+  "tooltip.energizedpower.item_silo_capacity.txt": "Kapazität: %d Stacks",
+  "tooltip.energizedpower.item_silo.amount": "%d / %d Items",
+
   "block.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "item.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "container.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
@@ -1274,6 +1298,21 @@
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express-Item-Förderband-Vereiniger",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Stelle einen Express-Item-Förderband-Vereiniger her.",
 
+  "advancements.energizedpower.item_silo_tiny.title": "Item-Silo (Winzig)",
+  "advancements.energizedpower.item_silo_tiny.description": "Stelle ein winziges Item-Silo her.",
+
+  "advancements.energizedpower.item_silo_small.title": "Item-Silo (Klein)",
+  "advancements.energizedpower.item_silo_small.description": "Stelle ein kleines Item-Silo her.",
+
+  "advancements.energizedpower.item_silo_medium.title": "Item-Silo (Mittel)",
+  "advancements.energizedpower.item_silo_medium.description": "Stelle ein mittleres Item-Silo her.",
+
+  "advancements.energizedpower.item_silo_large.title": "Item-Silo (Groß)",
+  "advancements.energizedpower.item_silo_large.description": "Stelle ein großes Item-Silo her.",
+
+  "advancements.energizedpower.item_silo_giant.title": "Item-Silo (Riesig)",
+  "advancements.energizedpower.item_silo_giant.description": "Stelle ein riesiges Item-Silo her.",
+
   "advancements.energizedpower.iron_fluid_pipe.title": "Flüssigkeits-Transport",
   "advancements.energizedpower.iron_fluid_pipe.description": "Transportiere Flüssigkeiten mit Eisen-Flüssigkeitsrohren.",
 
@@ -1785,6 +1824,10 @@
   "book.energizedpower.page.item_conveyor_belt_splitter": "Der Item-Förderband-Verteiler nimmt Items vom Eingabe-Förderband (Muss zum großen Quadrat zeigen und darf nicht aufsteigend sein) und legt diese gleichmäßig auf die verbundenen Ausgabe-Förderbänder.",
 
   "book.energizedpower.page.item_conveyor_belt_merger": "Der Item-Förderband-Vereiniger nimmt Items gleichmäßig von den verbundenen Eingabe-Förderbändern (Müssen zu einem großen Quadrat zeigen und dürfen nicht aufsteigend sein) und legt diese auf das Ausgabe-Förderband.",
+
+  "book.energizedpower.page.item_silos.1": "Item-Silos können nur ein Item-Typ speichern, dafür aber bis zu 1000 Stacks.",
+  "book.energizedpower.page.item_silos.2": "Item-Silos können nur durch Trichter, Förderbändern und anderen automatischen Item-Transport-Mechanismen be- und entladen werden.",
+  "book.energizedpower.page.item_silos.3": "Es gibt fünf Item-Silo-Typen: Winzig, Klein, Mittel, Groß und Riesig",
 
 
   "book.energizedpower.page.chapter.fluids.title": "Flüssigkeiten",

@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-17T18:05:13.097614358	Loot Tables
+// 1.21.1	2025-08-17T22:03:29.941371477	Loot Tables
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
 d38f5e962e7380883f3915f2c1a171a33c454779 data/energizedpower/loot_table/blocks/advanced_charger.json
@@ -73,6 +73,11 @@ ec2566ad743b6056acb47ada37fd7e9f14474d10 data/energizedpower/loot_table/blocks/i
 4e8768cb22eceac6c955fd8ef9de74ca713559d1 data/energizedpower/loot_table/blocks/item_conveyor_belt_sorter.json
 c65a080e960ecec3e20f9593a38d959010ef5bed data/energizedpower/loot_table/blocks/item_conveyor_belt_splitter.json
 b5b365c704d25932d8afdc22997f72b265ceea4f data/energizedpower/loot_table/blocks/item_conveyor_belt_switch.json
+7fc829d346a6d5bb142b65901de791bd3050e131 data/energizedpower/loot_table/blocks/item_silo_giant.json
+e9bda994d2382a88aaff21b7cd28f82e00115e4a data/energizedpower/loot_table/blocks/item_silo_large.json
+6804d0e29b7eacdf0f03cf6879339a9c1927d4fe data/energizedpower/loot_table/blocks/item_silo_medium.json
+ea7dc75769fa9b5e072708fccfc40ec2c3ec093b data/energizedpower/loot_table/blocks/item_silo_small.json
+3d49af696244803ff8a0e048297a670e7479fbe9 data/energizedpower/loot_table/blocks/item_silo_tiny.json
 8c27a099b4344a5855b98bf2bcc8ec878f11284c data/energizedpower/loot_table/blocks/lightning_generator.json
 25356e419eae6748069d09c54740b7dc3cdd283b data/energizedpower/loot_table/blocks/lv_transformer_1_to_n.json
 5b492fd65f7c37715f27ef07df83cbfcd55f3fef data/energizedpower/loot_table/blocks/lv_transformer_3_to_3.json

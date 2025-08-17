@@ -5,6 +5,11 @@
     "energizedpower:express_item_conveyor_belt",
     "energizedpower:item_conveyor_belt_loader",
     "energizedpower:fast_item_conveyor_belt_loader",
-    "energizedpower:express_item_conveyor_belt_loader"
+    "energizedpower:express_item_conveyor_belt_loader",
+    "energizedpower:item_silo_tiny",
+    "energizedpower:item_silo_small",
+    "energizedpower:item_silo_medium",
+    "energizedpower:item_silo_large",
+    "energizedpower:item_silo_giant"
   ]
 }

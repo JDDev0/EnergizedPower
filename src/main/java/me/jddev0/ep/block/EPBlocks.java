@@ -171,6 +171,31 @@ public final class EPBlocks {
     public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = EPItems.ITEMS.register("creative_fluid_tank",
             () -> new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK.get(), new Item.Properties()));
 
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_TINY = BLOCKS.register("item_silo_tiny",
+            () -> new ItemSiloBlock(ItemSiloTier.TINY, ItemSiloTier.TINY.getProperties()));
+    public static final DeferredItem<Item> ITEM_SILO_TINY_ITEM = EPItems.ITEMS.register("item_silo_tiny",
+            () -> new ItemSiloBlock.Item(ITEM_SILO_TINY.get(), new Item.Properties(), ItemSiloTier.TINY));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_SMALL = BLOCKS.register("item_silo_small",
+            () -> new ItemSiloBlock(ItemSiloTier.SMALL, ItemSiloTier.SMALL.getProperties()));
+    public static final DeferredItem<Item> ITEM_SILO_SMALL_ITEM = EPItems.ITEMS.register("item_silo_small",
+            () -> new ItemSiloBlock.Item(ITEM_SILO_SMALL.get(), new Item.Properties(), ItemSiloTier.SMALL));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_MEDIUM = BLOCKS.register("item_silo_medium",
+            () -> new ItemSiloBlock(ItemSiloTier.MEDIUM, ItemSiloTier.MEDIUM.getProperties()));
+    public static final DeferredItem<Item> ITEM_SILO_MEDIUM_ITEM = EPItems.ITEMS.register("item_silo_medium",
+            () -> new ItemSiloBlock.Item(ITEM_SILO_MEDIUM.get(), new Item.Properties(), ItemSiloTier.MEDIUM));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_LARGE = BLOCKS.register("item_silo_large",
+            () -> new ItemSiloBlock(ItemSiloTier.LARGE, ItemSiloTier.LARGE.getProperties()));
+    public static final DeferredItem<Item> ITEM_SILO_LARGE_ITEM = EPItems.ITEMS.register("item_silo_large",
+            () -> new ItemSiloBlock.Item(ITEM_SILO_LARGE.get(), new Item.Properties(), ItemSiloTier.LARGE));
+
+    public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_GIANT = BLOCKS.register("item_silo_giant",
+            () -> new ItemSiloBlock(ItemSiloTier.GIANT, ItemSiloTier.GIANT.getProperties()));
+    public static final DeferredItem<Item> ITEM_SILO_GIANT_ITEM = EPItems.ITEMS.register("item_silo_giant",
+            () -> new ItemSiloBlock.Item(ITEM_SILO_GIANT.get(), new Item.Properties(), ItemSiloTier.GIANT));
+
     public static final DeferredBlock<CableBlock> TIN_CABLE = BLOCKS.register("tin_cable",
             () -> new CableBlock(CableTier.TIN));
     public static final DeferredItem<Item> TIN_CABLE_ITEM = EPItems.ITEMS.register("tin_cable",

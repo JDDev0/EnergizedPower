@@ -280,6 +280,31 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", AdvancementType.TASK
         );
 
+        AdvancementHolder itemSiloTiny = addAdvancement(
+                advancementOutput, existingFileHelper, ironPlate,
+                EPBlocks.ITEM_SILO_TINY_ITEM, "item_silo_tiny", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemSiloSmall = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloTiny,
+                EPBlocks.ITEM_SILO_SMALL_ITEM, "item_silo_small", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemSiloMedium = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloSmall,
+                EPBlocks.ITEM_SILO_MEDIUM_ITEM, "item_silo_medium", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemSiloLarge = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloMedium,
+                EPBlocks.ITEM_SILO_LARGE_ITEM, "item_silo_large", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemSiloGiant = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloLarge,
+                EPBlocks.ITEM_SILO_GIANT_ITEM, "item_silo_giant", AdvancementType.TASK
+        );
+
         AdvancementHolder ironFluidPipe = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
                 EPBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", AdvancementType.TASK

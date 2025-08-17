@@ -45,6 +45,22 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("creative_fluid_tank", () -> BlockEntityType.Builder.of(CreativeFluidTankBlockEntity::new,
                     EPBlocks.CREATIVE_FLUID_TANK.get()).build(null));
 
+    private static Supplier<BlockEntityType<ItemSiloBlockEntity>> createItemSiloBlockEntity(String name,
+                                                                                            Supplier<ItemSiloBlock> blockSupplier) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemSiloBlockEntity(blockPos, state,
+                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    }
+    public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_TINY_ENTITY =
+            createItemSiloBlockEntity("item_silo_tiny", EPBlocks.ITEM_SILO_TINY);
+    public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_SMALL_ENTITY =
+            createItemSiloBlockEntity("item_silo_small", EPBlocks.ITEM_SILO_SMALL);
+    public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_MEDIUM_ENTITY =
+            createItemSiloBlockEntity("item_silo_medium", EPBlocks.ITEM_SILO_MEDIUM);
+    public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_LARGE_ENTITY =
+            createItemSiloBlockEntity("item_silo_large", EPBlocks.ITEM_SILO_LARGE);
+    public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_GIANT_ENTITY =
+            createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
+
     private static Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
             String name,
             Supplier<ItemConveyorBeltBlock> blockSupplier
@@ -468,6 +484,17 @@ public final class EPBlockEntities {
 
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
                 CREATIVE_FLUID_TANK_ENTITY.get(), CreativeFluidTankBlockEntity::getFluidHandlerCapability);
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ITEM_SILO_TINY_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ITEM_SILO_SMALL_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ITEM_SILO_MEDIUM_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ITEM_SILO_LARGE_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
+                ITEM_SILO_GIANT_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);

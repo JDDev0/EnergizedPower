@@ -73,6 +73,12 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         dropSelf(EPBlocks.FLUID_TANK_MEDIUM);
         dropSelf(EPBlocks.FLUID_TANK_LARGE);
 
+        dropSelf(EPBlocks.ITEM_SILO_TINY);
+        dropSelf(EPBlocks.ITEM_SILO_SMALL);
+        dropSelf(EPBlocks.ITEM_SILO_MEDIUM);
+        dropSelf(EPBlocks.ITEM_SILO_LARGE);
+        dropSelf(EPBlocks.ITEM_SILO_GIANT);
+
         dropSelf(EPBlocks.TIN_CABLE);
         dropSelf(EPBlocks.COPPER_CABLE);
         dropSelf(EPBlocks.GOLD_CABLE);

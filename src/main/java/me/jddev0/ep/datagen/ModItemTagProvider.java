@@ -55,7 +55,13 @@ public class ModItemTagProvider extends ItemTagsProvider {
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get(),
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get(),
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM.get(),
+
+                        EPBlocks.ITEM_SILO_TINY_ITEM.get(),
+                        EPBlocks.ITEM_SILO_SMALL_ITEM.get(),
+                        EPBlocks.ITEM_SILO_MEDIUM_ITEM.get(),
+                        EPBlocks.ITEM_SILO_LARGE_ITEM.get(),
+                        EPBlocks.ITEM_SILO_GIANT_ITEM.get()
                 );
 
         tag(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
