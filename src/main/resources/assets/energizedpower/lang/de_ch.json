@@ -693,6 +693,10 @@
   "tooltip.energizedpower.item_silo_capacity.txt": "Kapazität: %d Stacks",
   "tooltip.energizedpower.item_silo.amount": "%d / %d Items",
 
+  "block.energizedpower.creative_item_silo": "Creative-Item-Silo",
+  "item.energizedpower.creative_item_silo": "Creative-Item-Silo",
+  "container.energizedpower.creative_item_silo": "Creative-Item-Silo",
+
   "block.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "item.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
   "container.energizedpower.fluid_filler": "Flüssigkeits-Befüller",

@@ -21,7 +21,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 add(EPBlocks.SAWDUST_BLOCK);
 
         getOrCreateTagBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
-                add(EPBlocks.BASIC_ITEM_CONVEYOR_BELT);
+                add(
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
+                );
 
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE).
                 add(

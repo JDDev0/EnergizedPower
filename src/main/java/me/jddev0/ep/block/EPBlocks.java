@@ -184,6 +184,12 @@ public final class EPBlocks {
     public static final Item ITEM_SILO_GIANT_ITEM = createBlockItem("item_silo_giant",
             new ItemSiloBlock.Item(ITEM_SILO_GIANT, new Item.Settings(), ItemSiloTier.GIANT));
 
+    public static final CreativeItemSiloBlock CREATIVE_ITEM_SILO = registerBlock("creative_item_silo",
+            new CreativeItemSiloBlock(AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).
+                    requiresTool().strength(-1.f, 3600000.f).dropsNothing()));
+    public static final Item CREATIVE_ITEM_SILO_ITEM = createBlockItem("creative_item_silo",
+            new CreativeItemSiloBlock.Item(CREATIVE_ITEM_SILO, new Item.Settings()));
+
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registries.ITEM, EPAPI.id(name),
                 new CableBlock.Item(block, new Item.Settings(), block.getTier()));
