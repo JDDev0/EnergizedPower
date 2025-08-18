@@ -196,6 +196,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ITEM_SILO_GIANT_ITEM = EPItems.ITEMS.register("item_silo_giant",
             () -> new ItemSiloBlock.Item(ITEM_SILO_GIANT.get(), new Item.Properties(), ItemSiloTier.GIANT));
 
+    public static final DeferredBlock<CreativeItemSiloBlock> CREATIVE_ITEM_SILO = BLOCKS.register("creative_item_silo",
+            () -> new CreativeItemSiloBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
+                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable()));
+    public static final DeferredItem<Item> CREATIVE_ITEM_SILO_ITEM = EPItems.ITEMS.register("creative_item_silo",
+            () -> new CreativeItemSiloBlock.Item(CREATIVE_ITEM_SILO.get(), new Item.Properties()));
+
     public static final DeferredBlock<CableBlock> TIN_CABLE = BLOCKS.register("tin_cable",
             () -> new CableBlock(CableTier.TIN));
     public static final DeferredItem<Item> TIN_CABLE_ITEM = EPItems.ITEMS.register("tin_cable",

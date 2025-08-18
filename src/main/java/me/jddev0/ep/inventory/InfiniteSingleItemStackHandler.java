@@ -6,14 +6,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-public class SingleItemStackHandler extends ItemStackHandler {
-    protected final int slotCount;
-    protected int count;
+public class InfiniteSingleItemStackHandler extends ItemStackHandler {
     protected ItemStack stack = ItemStack.EMPTY;
-
-    public SingleItemStackHandler(int slotCount) {
-        this.slotCount = slotCount;
-    }
 
     @Override
     public void setSize(int size) {}
@@ -22,7 +16,6 @@ public class SingleItemStackHandler extends ItemStackHandler {
     public void setStackInSlot(int slot, ItemStack stack) {
         validateSlotIndex(slot);
 
-        this.count = stack.getCount();
         this.stack = stack.copyWithCount(1);
 
         onContentsChanged(slot);
@@ -30,11 +23,7 @@ public class SingleItemStackHandler extends ItemStackHandler {
 
     @Override
     public int getSlots() {
-        return slotCount;
-    }
-
-    public int getCount() {
-        return count;
+        return 1;
     }
 
     public ItemStack getStack() {
@@ -45,15 +34,10 @@ public class SingleItemStackHandler extends ItemStackHandler {
     public ItemStack getStackInSlot(int slot) {
         validateSlotIndex(slot);
 
-        if(count == 0)
+        if(stack.isEmpty())
             return ItemStack.EMPTY;
 
-        int maxStackSize = stack.getMaxStackSize();
-        if(count <= slot * maxStackSize)
-            return ItemStack.EMPTY;
-
-        int itemCount = Math.min(count - slot * maxStackSize, maxStackSize);
-        return stack.copyWithCount(itemCount);
+        return stack.copyWithCount(stack.getMaxStackSize());
     }
 
     @Override
@@ -63,25 +47,7 @@ public class SingleItemStackHandler extends ItemStackHandler {
 
         validateSlotIndex(slot);
 
-        if(!isItemValid(slot, stack))
-            return stack;
-
-        int limit = Math.min(stack.getMaxStackSize(), slotCount * stack.getMaxStackSize() - count);
-        if(limit <= 0)
-            return stack;
-
-        boolean reachedLimit = stack.getCount() > limit;
-
-        if(!simulate) {
-            if(this.stack.isEmpty()) {
-                this.stack = stack.copyWithCount(1);
-            }
-
-            count += reachedLimit?limit:stack.getCount();
-            onContentsChanged(slot);
-        }
-
-        return reachedLimit?stack.copyWithCount(stack.getCount() - limit):ItemStack.EMPTY;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -94,27 +60,7 @@ public class SingleItemStackHandler extends ItemStackHandler {
         if(this.stack.isEmpty())
             return ItemStack.EMPTY;
 
-        ItemStack existing = this.stack.copy();
-        int existingCount = this.count;
-
-        int toExtract = Math.min(amount, existing.getMaxStackSize());
-
-        if(this.count <= toExtract) {
-            if(!simulate) {
-                this.count = 0;
-                this.stack = ItemStack.EMPTY;
-                onContentsChanged(slot);
-            }
-
-            return existing.copyWithCount(existingCount);
-        }else {
-            if(!simulate) {
-                this.count -= toExtract;
-                onContentsChanged(slot);
-            }
-
-            return existing.copyWithCount(toExtract);
-        }
+        return this.stack.copyWithCount(Math.min(amount, this.stack.getMaxStackSize()));
     }
 
     @Override
@@ -128,14 +74,13 @@ public class SingleItemStackHandler extends ItemStackHandler {
 
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
-        return this.stack.isEmpty() || ItemStack.isSameItemSameComponents(this.stack, stack);
+        return true;
     }
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider lookupProvider) {
         CompoundTag nbt = new CompoundTag();
 
-        nbt.putInt("Count", this.count);
         if(!this.stack.isEmpty()) {
             nbt.put("Item", this.stack.save(lookupProvider, new CompoundTag()));
             nbt.getCompound("Item").remove("count");
@@ -146,10 +91,7 @@ public class SingleItemStackHandler extends ItemStackHandler {
 
     @Override
     public void deserializeNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-        this.count = nbt.getInt("Count");
-        if(this.count == 0) {
-            this.stack = ItemStack.EMPTY;
-        }else {
+        if(nbt.contains("Item")) {
             CompoundTag itemNbt = nbt.getCompound("Item");
             itemNbt.putInt("count", 1);
             this.stack = ItemStack.parse(lookupProvider, itemNbt).orElse(ItemStack.EMPTY).copyWithCount(1);
@@ -158,7 +100,7 @@ public class SingleItemStackHandler extends ItemStackHandler {
 
     @Override
     protected void validateSlotIndex(int slot) {
-        if(slot < 0 || slot >= slotCount)
-            throw new RuntimeException("Slot " + slot + " not in valid range - [0," + slotCount + ")");
+        if(slot != 0)
+            throw new RuntimeException("Slot " + slot + " not in valid range - [0,1)");
     }
 }
