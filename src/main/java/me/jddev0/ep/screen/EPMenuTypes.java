@@ -192,6 +192,15 @@ public final class EPMenuTypes {
     public static final ScreenHandlerType<TransformerMenu> EHV_TRANSFORMER_N_TO_1_MENU = createScreenHandlerType("ehv_transformer_n_to_1",
             new ExtendedScreenHandlerType<>(TransformerMenu::new, BlockPos.PACKET_CODEC.cast()));
 
+    public static final ScreenHandlerType<TransformerMenu> CONFIGURABLE_LV_TRANSFORMER_MENU = createScreenHandlerType("configurable_lv_transformer",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new, BlockPos.PACKET_CODEC.cast()));
+    public static final ScreenHandlerType<TransformerMenu> CONFIGURABLE_MV_TRANSFORMER_MENU = createScreenHandlerType("configurable_mv_transformer",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new, BlockPos.PACKET_CODEC.cast()));
+    public static final ScreenHandlerType<TransformerMenu> CONFIGURABLE_HV_TRANSFORMER_MENU = createScreenHandlerType("configurable_hv_transformer",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new, BlockPos.PACKET_CODEC.cast()));
+    public static final ScreenHandlerType<TransformerMenu> CONFIGURABLE_EHV_TRANSFORMER_MENU = createScreenHandlerType("configurable_ehv_transformer",
+            new ExtendedScreenHandlerType<>(TransformerMenu::new, BlockPos.PACKET_CODEC.cast()));
+
     public static final ScreenHandlerType<PressMoldMakerMenu> PRESS_MOLD_MAKER_MENU = createScreenHandlerType("press_mold_maker",
             new ExtendedScreenHandlerType<>(PressMoldMakerMenu::new, BlockPos.PACKET_CODEC.cast()));
 

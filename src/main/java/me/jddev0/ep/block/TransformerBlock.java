@@ -3,6 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
+import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.block.*;

@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-18T20:15:36.899273975	Energized Power/Advancements (Basics)
+// 1.21.1	2025-08-18T20:47:52.061148627	Energized Power/Advancements (Basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -39,7 +39,7 @@ a89fdef751aba99b95f4a163c73bf7e4b30be098 data/energizedpower/advancement/main/ba
 c1bd844b7f8917a7939deb1277fd423d65480a36 data/energizedpower/advancement/main/basics/battery_3.json
 2cd860cbd80de0488767ab73803e23f3aa87af4a data/energizedpower/advancement/main/basics/golden_fluid_pipe.json
 79b028e98f3a04f8ab917a46607b93abaf4b822a data/energizedpower/advancement/main/basics/uncharger.json
-7e5f28075e05fbac3c3bc8b3e923f07b8b4e81ea data/energizedpower/advancement/main/basics/mv_transformers.json
+03e0af64366498bf7adc1288d30727c429ecf200 data/energizedpower/advancement/main/basics/mv_transformers.json
 43e784cfa8e745b3ddc57942b1dbc22847fcb4cb data/energizedpower/advancement/main/basics/fluid_drainer.json
 c898ac33096ee1d86edce079e678936c5b02317a data/energizedpower/advancement/main/basics/item_conveyor_belt_loader.json
 a707221677312f81118ca3585d4f6cfa60dab694 data/energizedpower/advancement/main/basics/plant_growth_chamber.json
@@ -65,7 +65,7 @@ f772dde556df6c07fe3f915cb40456e311bc27e4 data/energizedpower/advancement/main/ba
 6229b7078eaba012be091199f524052293138456 data/energizedpower/advancement/main/basics/auto_stonecutter.json
 0cf5e22f44f2b45011b6e8d2c38438af36df7dbd data/energizedpower/advancement/main/basics/fluid_pump.json
 9a3c3b10e561f267ea501f22d43b66f05486ff5b data/energizedpower/advancement/main/basics/express_item_conveyor_belt_splitter.json
-5b61013747eae5671c8d2fc69810b1244ba0160c data/energizedpower/advancement/main/basics/lv_transformers.json
+f2364a311f3784dd4edd80b9da3828a50b191be3 data/energizedpower/advancement/main/basics/lv_transformers.json
 34c542d1e3802cd7f0ba7d894bdb1569d9cec409 data/energizedpower/advancement/main/basics/energizedpower_basics.json
 cb1a66ef4ac6400e6aeb17ad72619910a6f2d0fb data/energizedpower/advancement/main/basics/powered_lamp.json
 6f2825f233507b20bb06c071b0dfa99268f9a3e6 data/energizedpower/advancement/main/basics/smoker_upgrade_module.json

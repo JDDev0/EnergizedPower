@@ -1,9 +1,9 @@
-package me.jddev0.ep.block;
+package me.jddev0.ep.machine.tier;
 
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.screen.TransformerMenu;
 import net.minecraft.block.Block;
@@ -19,46 +19,54 @@ public enum TransformerTier {
                 case TYPE_1_TO_N -> EPMenuTypes.LV_TRANSFORMER_1_TO_N_MENU;
                 case TYPE_3_TO_3 -> EPMenuTypes.LV_TRANSFORMER_3_TO_3_MENU;
                 case TYPE_N_TO_1 -> EPMenuTypes.LV_TRANSFORMER_N_TO_1_MENU;
+                case CONFIGURABLE -> EPMenuTypes.CONFIGURABLE_LV_TRANSFORMER_MENU;
             };
             case MV -> switch(type) {
                 case TYPE_1_TO_N -> EPMenuTypes.MV_TRANSFORMER_1_TO_N_MENU;
                 case TYPE_3_TO_3 -> EPMenuTypes.MV_TRANSFORMER_3_TO_3_MENU;
                 case TYPE_N_TO_1 -> EPMenuTypes.MV_TRANSFORMER_N_TO_1_MENU;
+                case CONFIGURABLE -> EPMenuTypes.CONFIGURABLE_MV_TRANSFORMER_MENU;
             };
             case HV -> switch(type) {
                 case TYPE_1_TO_N -> EPMenuTypes.HV_TRANSFORMER_1_TO_N_MENU;
                 case TYPE_3_TO_3 -> EPMenuTypes.HV_TRANSFORMER_3_TO_3_MENU;
                 case TYPE_N_TO_1 -> EPMenuTypes.HV_TRANSFORMER_N_TO_1_MENU;
+                case CONFIGURABLE -> EPMenuTypes.CONFIGURABLE_HV_TRANSFORMER_MENU;
             };
             case EHV -> switch(type) {
                 case TYPE_1_TO_N -> EPMenuTypes.EHV_TRANSFORMER_1_TO_N_MENU;
                 case TYPE_3_TO_3 -> EPMenuTypes.EHV_TRANSFORMER_3_TO_3_MENU;
                 case TYPE_N_TO_1 -> EPMenuTypes.EHV_TRANSFORMER_N_TO_1_MENU;
+                case CONFIGURABLE -> EPMenuTypes.CONFIGURABLE_EHV_TRANSFORMER_MENU;
             };
         };
     }
 
     public BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerType type) {
         return switch(this) {
-            case LV -> switch (type) {
+            case LV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlockEntities.LV_TRANSFORMER_1_TO_N_ENTITY;
                 case TYPE_3_TO_3 -> EPBlockEntities.LV_TRANSFORMER_3_TO_3_ENTITY;
                 case TYPE_N_TO_1 -> EPBlockEntities.LV_TRANSFORMER_N_TO_1_ENTITY;
+                case CONFIGURABLE -> EPBlockEntities.CONFIGURABLE_LV_TRANSFORMER_ENTITY;
             };
-            case MV -> switch (type) {
+            case MV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY;
                 case TYPE_3_TO_3 -> EPBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY;
                 case TYPE_N_TO_1 -> EPBlockEntities.MV_TRANSFORMER_N_TO_1_ENTITY;
+                case CONFIGURABLE -> EPBlockEntities.CONFIGURABLE_MV_TRANSFORMER_ENTITY;
             };
             case HV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlockEntities.HV_TRANSFORMER_1_TO_N_ENTITY;
                 case TYPE_3_TO_3 -> EPBlockEntities.HV_TRANSFORMER_3_TO_3_ENTITY;
                 case TYPE_N_TO_1 -> EPBlockEntities.HV_TRANSFORMER_N_TO_1_ENTITY;
+                case CONFIGURABLE -> EPBlockEntities.CONFIGURABLE_HV_TRANSFORMER_ENTITY;
             };
             case EHV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlockEntities.EHV_TRANSFORMER_1_TO_N_ENTITY;
                 case TYPE_3_TO_3 -> EPBlockEntities.EHV_TRANSFORMER_3_TO_3_ENTITY;
                 case TYPE_N_TO_1 -> EPBlockEntities.EHV_TRANSFORMER_N_TO_1_ENTITY;
+                case CONFIGURABLE -> EPBlockEntities.CONFIGURABLE_EHV_TRANSFORMER_ENTITY;
             };
         };
     }
@@ -69,21 +77,25 @@ public enum TransformerTier {
                 case TYPE_1_TO_N -> EPBlocks.LV_TRANSFORMER_1_TO_N;
                 case TYPE_3_TO_3 -> EPBlocks.LV_TRANSFORMER_3_TO_3;
                 case TYPE_N_TO_1 -> EPBlocks.LV_TRANSFORMER_N_TO_1;
+                case CONFIGURABLE -> EPBlocks.CONFIGURABLE_LV_TRANSFORMER;
             };
             case MV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlocks.MV_TRANSFORMER_1_TO_N;
                 case TYPE_3_TO_3 -> EPBlocks.MV_TRANSFORMER_3_TO_3;
                 case TYPE_N_TO_1 -> EPBlocks.MV_TRANSFORMER_N_TO_1;
+                case CONFIGURABLE -> EPBlocks.CONFIGURABLE_MV_TRANSFORMER;
             };
             case HV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlocks.HV_TRANSFORMER_1_TO_N;
                 case TYPE_3_TO_3 -> EPBlocks.HV_TRANSFORMER_3_TO_3;
                 case TYPE_N_TO_1 -> EPBlocks.HV_TRANSFORMER_N_TO_1;
+                case CONFIGURABLE -> EPBlocks.CONFIGURABLE_HV_TRANSFORMER;
             };
             case EHV -> switch(type) {
                 case TYPE_1_TO_N -> EPBlocks.EHV_TRANSFORMER_1_TO_N;
                 case TYPE_3_TO_3 -> EPBlocks.EHV_TRANSFORMER_3_TO_3;
                 case TYPE_N_TO_1 -> EPBlocks.EHV_TRANSFORMER_N_TO_1;
+                case CONFIGURABLE -> EPBlocks.CONFIGURABLE_EHV_TRANSFORMER;
             };
         };
     }
@@ -94,21 +106,25 @@ public enum TransformerTier {
                 case TYPE_1_TO_N -> "lv_transformer_1_to_n";
                 case TYPE_3_TO_3 -> "lv_transformer_3_to_3";
                 case TYPE_N_TO_1 -> "lv_transformer_n_to_1";
+                case CONFIGURABLE -> "configurable_lv_transformer";
             };
             case MV -> switch(type) {
                 case TYPE_1_TO_N -> "transformer_1_to_n";
                 case TYPE_3_TO_3 -> "transformer_3_to_3";
                 case TYPE_N_TO_1 -> "transformer_n_to_1";
+                case CONFIGURABLE -> "configurable_mv_transformer";
             };
             case HV -> switch(type) {
                 case TYPE_1_TO_N -> "hv_transformer_1_to_n";
                 case TYPE_3_TO_3 -> "hv_transformer_3_to_3";
                 case TYPE_N_TO_1 -> "hv_transformer_n_to_1";
+                case CONFIGURABLE -> "configurable_hv_transformer";
             };
             case EHV -> switch(type) {
                 case TYPE_1_TO_N -> "ehv_transformer_1_to_n";
                 case TYPE_3_TO_3 -> "ehv_transformer_3_to_3";
                 case TYPE_N_TO_1 -> "ehv_transformer_n_to_1";
+                case CONFIGURABLE -> "configurable_ehv_transformer";
             };
         };
     }

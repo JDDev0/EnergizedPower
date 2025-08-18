@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -545,6 +546,27 @@ public final class EPBlockEntities {
     public static final BlockEntityType<TransformerBlockEntity> EHV_TRANSFORMER_N_TO_1_ENTITY = registerEnergyStorage(
             createBlockEntity("ehv_transformer_n_to_1", EPBlocks.EHV_TRANSFORMER_N_TO_1, (blockPos, state) ->
                     new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_N_TO_1)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_LV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_lv_transformer", EPBlocks.CONFIGURABLE_LV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_MV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_mv_transformer", EPBlocks.CONFIGURABLE_MV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_HV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_hv_transformer", EPBlocks.CONFIGURABLE_HV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.CONFIGURABLE)),
+            TransformerBlockEntity::getEnergyStorageForDirection
+    );
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_EHV_TRANSFORMER_ENTITY = registerEnergyStorage(
+            createBlockEntity("configurable_ehv_transformer", EPBlocks.CONFIGURABLE_EHV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.CONFIGURABLE)),
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 

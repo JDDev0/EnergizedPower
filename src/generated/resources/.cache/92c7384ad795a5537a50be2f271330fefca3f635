@@ -1,6 +1,6 @@
-// 1.21.1	2025-08-18T20:15:36.900587137	Energized Power/Tags for minecraft:block
+// 1.21.1	2025-08-18T20:47:52.062028042	Energized Power/Tags for minecraft:block
 a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/block/storage_blocks/silicon.json
-62a849c9755284c9f13b2cdc222d176f15d355f0 data/minecraft/tags/block/needs_stone_tool.json
+d340899f66d22d43d1f76bd6b75ce52f815b7880 data/minecraft/tags/block/needs_stone_tool.json
 3dd65c930d78a891766bed591b7962b592077cab data/c/tags/block/ores_in_ground/deepslate.json
 bb4186a3e465b9f0dc55195ffc40227269df8852 data/c/tags/block/ores.json
 d1848a0ce803104218f67d4f4bdea6d10f01bf72 data/minecraft/tags/block/mineable/pickaxe.json
