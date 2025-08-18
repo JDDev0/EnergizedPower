@@ -84,12 +84,12 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Item transportation
 
-- Item Conveyor Belt
-- Item Conveyor Belt Loader
-- Item Conveyor Belt Sorter
-- Item Conveyor Belt Switch
-- Item Conveyor Belt Splitter
-- Item Conveyor Belt Merger
+- Item Conveyor Belt (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Loader (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Sorter (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Switch (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Splitter (3 tiers (**In next release (v2.15.0)**))
+- Item Conveyor Belt Merger (3 tiers (**In next release (v2.15.0)**))
 
 ### Misc
 
@@ -161,7 +161,7 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 - Chinese (Simplified) translation ([HanJiang-cn](https://github.com/HanJiang-cn))
 - Italian translation ([Roby1164](https://github.com/Roby1164))
 - Turkish translation ([Eyyup](https://github.com/msb-eyyup))
-- Russian translation (Imperial Officer)
+- Russian translation (Imperial Officer, [PlayboyX312](https://github.com/PlayboyX312))
 - German translation ([Lucanoria](https://github.com/Lucanoria))
 
 ## Wiki
@@ -169,6 +169,7 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 Checkout the official Energized Power wiki here: [Energized Power wiki](https://wiki.jddev0.com/books/energized-power/page/home)
 
 ## Tutorial
+
 A tutorial world showcasing all the features of this mod can be downloaded on CurseForge: [Energized Power [Tutorial World]](https://www.curseforge.com/minecraft/worlds/energized-power-tutorial-world)
 
 ## Supported versions:

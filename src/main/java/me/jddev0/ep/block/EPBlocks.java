@@ -46,37 +46,87 @@ public final class EPBlocks {
             new Block(AbstractBlock.Settings.create().mapColor(MapColor.RAW_IRON_PINK)
                     .instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(5.0f, 6.0f)));
     public static final Item RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
-    
-    public static final ItemConveyorBeltBlock ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
-            new ItemConveyorBeltBlock(AbstractBlock.Settings.create().noCollision().
+
+    public static final ItemConveyorBeltBlock BASIC_ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
+            new ItemConveyorBeltBlock(ConveyorBeltTier.BASIC, AbstractBlock.Settings.create().noCollision().
                     strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
-    public static final Item ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
-            new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT, new Item.Settings()));
+    public static final Item BASIC_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
+            new ItemConveyorBeltBlock.Item(BASIC_ITEM_CONVEYOR_BELT, new Item.Settings(), ConveyorBeltTier.BASIC));
+    public static final ItemConveyorBeltBlock FAST_ITEM_CONVEYOR_BELT = registerBlock("fast_item_conveyor_belt",
+            new ItemConveyorBeltBlock(ConveyorBeltTier.FAST, AbstractBlock.Settings.create().noCollision().
+                    strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item FAST_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("fast_item_conveyor_belt",
+            new ItemConveyorBeltBlock.Item(FAST_ITEM_CONVEYOR_BELT, new Item.Settings(), ConveyorBeltTier.FAST));
+    public static final ItemConveyorBeltBlock EXPRESS_ITEM_CONVEYOR_BELT = registerBlock("express_item_conveyor_belt",
+            new ItemConveyorBeltBlock(ConveyorBeltTier.EXPRESS, AbstractBlock.Settings.create().noCollision().
+                    strength(2.5f, 3.0f).sounds(BlockSoundGroup.METAL)));
+    public static final Item EXPRESS_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("express_item_conveyor_belt",
+            new ItemConveyorBeltBlock.Item(EXPRESS_ITEM_CONVEYOR_BELT, new Item.Settings(), ConveyorBeltTier.EXPRESS));
 
-    public static final Block ITEM_CONVEYOR_BELT_LOADER = registerBlock("item_conveyor_belt_loader",
-            new ItemConveyorBeltLoaderBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+    public static final ItemConveyorBeltLoaderBlock BASIC_ITEM_CONVEYOR_BELT_LOADER = registerBlock("item_conveyor_belt_loader",
+            new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.BASIC, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
-    public static final Item ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", ITEM_CONVEYOR_BELT_LOADER);
+    public static final Item BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", BASIC_ITEM_CONVEYOR_BELT_LOADER);
+    public static final ItemConveyorBeltLoaderBlock FAST_ITEM_CONVEYOR_BELT_LOADER = registerBlock("fast_item_conveyor_belt_loader",
+            new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.FAST, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("fast_item_conveyor_belt_loader", FAST_ITEM_CONVEYOR_BELT_LOADER);
+    public static final ItemConveyorBeltLoaderBlock EXPRESS_ITEM_CONVEYOR_BELT_LOADER = registerBlock("express_item_conveyor_belt_loader",
+            new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.EXPRESS, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("express_item_conveyor_belt_loader", EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
 
-    public static final Block ITEM_CONVEYOR_BELT_SORTER = registerBlock("item_conveyor_belt_sorter",
-            new ItemConveyorBeltSorterBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+    public static final ItemConveyorBeltSorterBlock BASIC_ITEM_CONVEYOR_BELT_SORTER = registerBlock("item_conveyor_belt_sorter",
+            new ItemConveyorBeltSorterBlock(ConveyorBeltTier.BASIC, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
-    public static final Item ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", ITEM_CONVEYOR_BELT_SORTER);
+    public static final Item BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", BASIC_ITEM_CONVEYOR_BELT_SORTER);
+    public static final ItemConveyorBeltSorterBlock FAST_ITEM_CONVEYOR_BELT_SORTER = registerBlock("fast_item_conveyor_belt_sorter",
+            new ItemConveyorBeltSorterBlock(ConveyorBeltTier.FAST, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("fast_item_conveyor_belt_sorter", FAST_ITEM_CONVEYOR_BELT_SORTER);
+    public static final ItemConveyorBeltSorterBlock EXPRESS_ITEM_CONVEYOR_BELT_SORTER = registerBlock("express_item_conveyor_belt_sorter",
+            new ItemConveyorBeltSorterBlock(ConveyorBeltTier.EXPRESS, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("express_item_conveyor_belt_sorter", EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
 
-    public static final Block ITEM_CONVEYOR_BELT_SWITCH = registerBlock("item_conveyor_belt_switch",
-            new ItemConveyorBeltSwitchBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+    public static final ItemConveyorBeltSwitchBlock BASIC_ITEM_CONVEYOR_BELT_SWITCH = registerBlock("item_conveyor_belt_switch",
+            new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.BASIC, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
-    public static final Item ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("item_conveyor_belt_switch", ITEM_CONVEYOR_BELT_SWITCH);
+    public static final Item BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("item_conveyor_belt_switch", BASIC_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final ItemConveyorBeltSwitchBlock FAST_ITEM_CONVEYOR_BELT_SWITCH = registerBlock("fast_item_conveyor_belt_switch",
+            new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.FAST, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("fast_item_conveyor_belt_switch", FAST_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final ItemConveyorBeltSwitchBlock EXPRESS_ITEM_CONVEYOR_BELT_SWITCH = registerBlock("express_item_conveyor_belt_switch",
+            new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.EXPRESS, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("express_item_conveyor_belt_switch", EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
 
-    public static final Block ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("item_conveyor_belt_splitter",
-            new ItemConveyorBeltSplitterBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+    public static final ItemConveyorBeltSplitterBlock BASIC_ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("item_conveyor_belt_splitter",
+            new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.BASIC, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
-    public static final Item ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final Item BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", BASIC_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final ItemConveyorBeltSplitterBlock FAST_ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("fast_item_conveyor_belt_splitter",
+            new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.FAST, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("fast_item_conveyor_belt_splitter", FAST_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final ItemConveyorBeltSplitterBlock EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("express_item_conveyor_belt_splitter",
+            new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.EXPRESS, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("express_item_conveyor_belt_splitter", EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
 
-    public static final Block ITEM_CONVEYOR_BELT_MERGER = registerBlock("item_conveyor_belt_merger",
-            new ItemConveyorBeltMergerBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+    public static final ItemConveyorBeltMergerBlock BASIC_ITEM_CONVEYOR_BELT_MERGER = registerBlock("item_conveyor_belt_merger",
+            new ItemConveyorBeltMergerBlock(ConveyorBeltTier.BASIC, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
-    public static final Item ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
+    public static final Item BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", BASIC_ITEM_CONVEYOR_BELT_MERGER);
+    public static final ItemConveyorBeltMergerBlock FAST_ITEM_CONVEYOR_BELT_MERGER = registerBlock("fast_item_conveyor_belt_merger",
+            new ItemConveyorBeltMergerBlock(ConveyorBeltTier.FAST, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("fast_item_conveyor_belt_merger", FAST_ITEM_CONVEYOR_BELT_MERGER);
+    public static final ItemConveyorBeltMergerBlock EXPRESS_ITEM_CONVEYOR_BELT_MERGER = registerBlock("express_item_conveyor_belt_merger",
+            new ItemConveyorBeltMergerBlock(ConveyorBeltTier.EXPRESS, AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(3.5f).sounds(BlockSoundGroup.STONE)));
+    public static final Item EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("express_item_conveyor_belt_merger", EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
     public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FluidPipeTier.IRON));

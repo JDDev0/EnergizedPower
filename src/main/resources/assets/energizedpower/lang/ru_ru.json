@@ -251,18 +251,40 @@
   "block.energizedpower.raw_tin_block": "Блок необработанного олова",
   "item.energizedpower.raw_tin_block": "Блок необработанного олова",
 
-  "block.energizedpower.item_conveyor_belt": "Предметный ленточный конвеер",
-  "item.energizedpower.item_conveyor_belt": "Предметный ленточный конвеер",
+  "block.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+  "item.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+
+  "block.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+  "item.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+
+  "block.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
+  "item.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Наклон был установлен на %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Загрузчик предметов ленточного конвеера",
-  "item.energizedpower.item_conveyor_belt_loader": "Загрузчик предметов ленточного конвеера",
-  "container.energizedpower.item_conveyor_belt_loader": "Загрузчик ленточного конвеера",
+  "block.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "item.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "container.energizedpower.item_conveyor_belt_loader": "Basic Conveyor Belt Loader",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Сортировщик предметов ленточного конвеера",
-  "item.energizedpower.item_conveyor_belt_sorter": "Сортировщик предметов ленточного конвеера",
-  "container.energizedpower.item_conveyor_belt_sorter": "Сортировщик ленточного конвеера",
+  "block.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "item.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "container.energizedpower.fast_item_conveyor_belt_loader": "Fast Conveyor Belt Loader",
+
+  "block.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "item.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "container.energizedpower.express_item_conveyor_belt_loader": "Express Conveyor Belt Loader",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "item.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "container.energizedpower.item_conveyor_belt_sorter": "Basic Conveyor Belt Sorter",
+
+  "block.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "item.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "Fast Conveyor Belt Sorter",
+
+  "block.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "item.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "Express Conveyor Belt Sorter",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Вывод %d: Ленточный конвеер не присоединён",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Вывод %d: Ленточный конвеер присоединён",
@@ -270,14 +292,32 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Белый список",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Чёрный список",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Переключатель предметного ленточного конвеера",
-  "item.energizedpower.item_conveyor_belt_switch": "Переключатель предметного ленточного конвеера",
+  "block.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
+  "item.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Разветвитель предметного ленточного конвеера",
-  "item.energizedpower.item_conveyor_belt_splitter": "Разветвитель предметного ленточного конвеера",
+  "block.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
+  "item.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Объединитель предметного ленточного конвеера",
-  "item.energizedpower.item_conveyor_belt_merger": "Объединитель предметного ленточного конвеера",
+  "block.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+  "item.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+  "item.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+
+  "block.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+  "item.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+
+  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+  "item.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+
+  "block.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+  "item.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+
+  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
+  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
 
   "block.energizedpower.fluid_pipe": "Железная жидкостная труба",
   "item.energizedpower.fluid_pipe": "Железная жидкостная труба",
@@ -1161,20 +1201,56 @@
   "advancements.energizedpower.item_conveyor_belt.title": "Транспортировка предметов",
   "advancements.energizedpower.item_conveyor_belt.description": "Транспортируйте предметы с помощью ленточных конвейеров.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "Fast Item Transport",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "Craft a Fast Item Conveyor Belt.",
+
+  "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Express Item Conveyor Belt.",
+
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Загрузчик предметов",
   "advancements.energizedpower.item_conveyor_belt_loader.description": "Загрузите предметы на ленточный конвейер.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Fast Item Conveyor Belt Loader",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Craft a Fast Item Conveyor Belt Loader.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express Item Conveyor Belt Loader",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Express Item Conveyor Belt Loader.",
 
   "advancements.energizedpower.item_conveyor_belt_sorter.title": "Автоматическая сортировка",
   "advancements.energizedpower.item_conveyor_belt_sorter.description": "Сортируйте предметы с помощью сортировщика предметной конвейерной ленты.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Fast Item Conveyor Belt Sorter",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Craft a Fast Item Conveyor Belt Sorter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express Item Conveyor Belt Sorter",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Express Item Conveyor Belt Sorter.",
+
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Переключатель конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Выберите направление.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Fast Item Conveyor Belt Switch",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Craft a Fast Item Conveyor Belt Switch.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express Item Conveyor Belt Switch",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Express Item Conveyor Belt Switch.",
 
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Разветвитель конвеерных лент",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Равномерно распределите предметы по нескольким выходам.",
 
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Fast Item Conveyor Belt Splitter",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Craft a Fast Item Conveyor Belt Splitter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express Item Conveyor Belt Splitter",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Express Item Conveyor Belt Splitter.",
+
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Объединитель конвеерных лент",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Равномерно объединяйте предметы из нескольких источников.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Fast Item Conveyor Belt Merger",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Craft a Fast Item Conveyor Belt Merger.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express Item Conveyor Belt Merger",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Express Item Conveyor Belt Merger.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Транспортировка жидкости",
   "advancements.energizedpower.iron_fluid_pipe.description": "Транспортируйте жидкости с помощью железных жидкостных труб.",

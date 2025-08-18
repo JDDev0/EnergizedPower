@@ -1,5 +1,9 @@
 {
-  "block": "energizedpower:item_conveyor_belt",
+  "block": [
+    "energizedpower:item_conveyor_belt",
+    "energizedpower:fast_item_conveyor_belt",
+    "energizedpower:express_item_conveyor_belt"
+  ],
   "content": {
     "extra": [
       {

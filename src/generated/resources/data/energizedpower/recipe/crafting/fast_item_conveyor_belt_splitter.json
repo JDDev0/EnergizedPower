@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:item_conveyor_belt_splitter"
+    },
+    "F": {
+      "item": "energizedpower:fast_item_conveyor_belt"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "b": {
+      "item": "minecraft:bricks"
+    }
+  },
+  "pattern": [
+    "bbb",
+    "bBb",
+    "SFS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:fast_item_conveyor_belt_splitter"
+  }
+}

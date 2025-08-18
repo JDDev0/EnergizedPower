@@ -34,8 +34,12 @@ public class EnergizedPowerModClient implements ClientModInitializer {
     public void onInitializeClient() {
         ModConfigs.registerConfigs(false);
 
-        HandledScreens.register(EPMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
-        HandledScreens.register(EPMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU, ItemConveyorBeltSorterScreen::new);
+        HandledScreens.register(EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
+        HandledScreens.register(EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
+        HandledScreens.register(EPMenuTypes.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
+        HandledScreens.register(EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU, ItemConveyorBeltSorterScreen::new);
+        HandledScreens.register(EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_SORTER_MENU, ItemConveyorBeltSorterScreen::new);
+        HandledScreens.register(EPMenuTypes.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_MENU, ItemConveyorBeltSorterScreen::new);
         HandledScreens.register(EPMenuTypes.AUTO_CRAFTER_MENU, AutoCrafterScreen::new);
         HandledScreens.register(EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, AdvancedAutoCrafterScreen::new);
         HandledScreens.register(EPMenuTypes.CRUSHER_MENU, CrusherScreen::new);
@@ -146,7 +150,9 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(),
                 EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER);
 
-        BlockEntityRendererFactories.register(EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(EPBlockEntities.FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(EPBlockEntities.FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntityRenderer::new);

@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/fast_item_conveyor_belt",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:fast_item_conveyor_belt_loader"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.fast_item_conveyor_belt_loader.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:fast_item_conveyor_belt_loader"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fast_item_conveyor_belt_loader.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
