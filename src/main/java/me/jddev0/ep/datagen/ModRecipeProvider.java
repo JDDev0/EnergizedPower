@@ -1131,6 +1131,55 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 "sFs",
                 "SES"
         }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.PLATES_IRON), Map.of(
+                'B', Ingredient.fromTag(ConventionalItemTags.WOODEN_BARRELS),
+                'I', Ingredient.fromTag(CommonItemTags.PLATES_IRON)
+        ), new String[] {
+                "III",
+                "IBI",
+                "III"
+        }, new ItemStack(EPBlocks.ITEM_SILO_TINY_ITEM), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_SILO_TINY_ITEM), Map.of(
+                'S', Ingredient.ofItems(EPBlocks.ITEM_SILO_TINY_ITEM),
+                'I', Ingredient.fromTag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.fromTag(CommonItemTags.PLATES_IRON)
+        ), new String[] {
+                "IiI",
+                "iSi",
+                "IiI"
+        }, new ItemStack(EPBlocks.ITEM_SILO_SMALL_ITEM), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_SILO_SMALL_ITEM), Map.of(
+                'S', Ingredient.ofItems(EPBlocks.ITEM_SILO_SMALL_ITEM),
+                'I', Ingredient.fromTag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.fromTag(CommonItemTags.PLATES_IRON),
+                's', Ingredient.fromTag(CommonItemTags.INGOTS_STEEL)
+        ), new String[] {
+                "IsI",
+                "iSi",
+                "IsI"
+        }, new ItemStack(EPBlocks.ITEM_SILO_MEDIUM_ITEM), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_SILO_MEDIUM_ITEM), Map.of(
+                'S', Ingredient.ofItems(EPBlocks.ITEM_SILO_MEDIUM_ITEM),
+                'I', Ingredient.fromTag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                's', Ingredient.fromTag(CommonItemTags.INGOTS_STEEL)
+        ), new String[] {
+                "IsI",
+                "sSs",
+                "IsI"
+        }, new ItemStack(EPBlocks.ITEM_SILO_LARGE_ITEM), CraftingRecipeCategory.MISC);
+
+        addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.ITEM_SILO_LARGE_ITEM), Map.of(
+                'S', Ingredient.ofItems(EPBlocks.ITEM_SILO_LARGE_ITEM),
+                'I', Ingredient.fromTag(ConventionalItemTags.STORAGE_BLOCKS_IRON)
+        ), new String[] {
+                "III",
+                "ISI",
+                "III"
+        }, new ItemStack(EPBlocks.ITEM_SILO_GIANT_ITEM), CraftingRecipeCategory.MISC);
     }
     private void buildFluidTransportCraftingRecipes(RecipeExporter output) {
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.PLATES_IRON), Map.of(

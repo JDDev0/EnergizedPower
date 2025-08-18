@@ -59,6 +59,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FLUID_TANK_MEDIUM,
                         EPBlocks.FLUID_TANK_LARGE,
 
+                        EPBlocks.ITEM_SILO_TINY,
+                        EPBlocks.ITEM_SILO_SMALL,
+                        EPBlocks.ITEM_SILO_MEDIUM,
+                        EPBlocks.ITEM_SILO_LARGE,
+                        EPBlocks.ITEM_SILO_GIANT,
+
                         EPBlocks.AUTO_CRAFTER,
                         EPBlocks.ADVANCED_AUTO_CRAFTER,
 
@@ -200,6 +206,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FLUID_TANK_SMALL,
                         EPBlocks.FLUID_TANK_MEDIUM,
                         EPBlocks.FLUID_TANK_LARGE,
+
+                        EPBlocks.ITEM_SILO_TINY,
+                        EPBlocks.ITEM_SILO_SMALL,
+                        EPBlocks.ITEM_SILO_MEDIUM,
+                        EPBlocks.ITEM_SILO_LARGE,
+                        EPBlocks.ITEM_SILO_GIANT,
 
                         EPBlocks.AUTO_CRAFTER,
                         EPBlocks.ADVANCED_AUTO_CRAFTER,

@@ -115,6 +115,11 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         HandledScreens.register(EPMenuTypes.FLUID_TANK_MEDIUM, FluidTankScreen::new);
         HandledScreens.register(EPMenuTypes.FLUID_TANK_LARGE, FluidTankScreen::new);
         HandledScreens.register(EPMenuTypes.CREATIVE_FLUID_TANK, CreativeFluidTankScreen::new);
+        HandledScreens.register(EPMenuTypes.ITEM_SILO_TINY, ItemSiloScreen::new);
+        HandledScreens.register(EPMenuTypes.ITEM_SILO_SMALL, ItemSiloScreen::new);
+        HandledScreens.register(EPMenuTypes.ITEM_SILO_MEDIUM, ItemSiloScreen::new);
+        HandledScreens.register(EPMenuTypes.ITEM_SILO_LARGE, ItemSiloScreen::new);
+        HandledScreens.register(EPMenuTypes.ITEM_SILO_GIANT, ItemSiloScreen::new);
 
         HandledScreens.register(EPMenuTypes.INVENTORY_CHARGER_MENU, InventoryChargerScreen::new);
         HandledScreens.register(EPMenuTypes.INVENTORY_TELEPORTER_MENU, InventoryTeleporterScreen::new);

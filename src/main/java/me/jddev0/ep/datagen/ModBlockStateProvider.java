@@ -99,6 +99,12 @@ class ModBlockStateProvider {
         fluidTankBlockWithItem(EPBlocks.FLUID_TANK_LARGE);
         fluidTankBlockWithItem(EPBlocks.CREATIVE_FLUID_TANK);
 
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_TINY, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_SMALL, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_MEDIUM, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_LARGE, false);
+        horizontalBlockWithItem(EPBlocks.ITEM_SILO_GIANT, false);
+
         cableBlockWithItem(EPBlocks.TIN_CABLE);
         cableBlockWithItem(EPBlocks.COPPER_CABLE);
         cableBlockWithItem(EPBlocks.GOLD_CABLE);

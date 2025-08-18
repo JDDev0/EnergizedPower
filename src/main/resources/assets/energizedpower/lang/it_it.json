@@ -669,6 +669,30 @@
   "item.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
   "container.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
 
+  "block.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
+  "item.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
+  "container.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
+
+  "block.energizedpower.item_silo_small": "Item Silo (Small)",
+  "item.energizedpower.item_silo_small": "Item Silo (Small)",
+  "container.energizedpower.item_silo_small": "Item Silo (Small)",
+
+  "block.energizedpower.item_silo_medium": "Item Silo (Medium)",
+  "item.energizedpower.item_silo_medium": "Item Silo (Medium)",
+  "container.energizedpower.item_silo_medium": "Item Silo (Medium)",
+
+  "block.energizedpower.item_silo_large": "Item Silo (Large)",
+  "item.energizedpower.item_silo_large": "Item Silo (Large)",
+  "container.energizedpower.item_silo_large": "Item Silo (Large)",
+
+  "block.energizedpower.item_silo_giant": "Item Silo (Giant)",
+  "item.energizedpower.item_silo_giant": "Item Silo (Giant)",
+  "container.energizedpower.item_silo_giant": "Item Silo (Giant)",
+
+  "tooltip.energizedpower.item_silo.txt.shift": "Item silos can only be loaded and unloaded with hoppers, belts, and other means of automatic item transport.",
+  "tooltip.energizedpower.item_silo_capacity.txt": "Capacity: %d stacks",
+  "tooltip.energizedpower.item_silo.amount": "%d / %d items",
+
   "block.energizedpower.fluid_filler": "Riempitivo fluido",
   "item.energizedpower.fluid_filler": "Riempitivo fluido",
   "container.energizedpower.fluid_filler": "Riempitivo fluido",
@@ -1274,6 +1298,21 @@
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express Item Conveyor Belt Merger",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Express Item Conveyor Belt Merger.",
 
+  "advancements.energizedpower.item_silo_tiny.title": "Item Silo (Tiny)",
+  "advancements.energizedpower.item_silo_tiny.description": "Craft a tiny Item Silo.",
+
+  "advancements.energizedpower.item_silo_small.title": "Item Silo (Small)",
+  "advancements.energizedpower.item_silo_small.description": "Craft a small Item Silo.",
+
+  "advancements.energizedpower.item_silo_medium.title": "Item Silo (Medium)",
+  "advancements.energizedpower.item_silo_medium.description": "Craft a medium Item Silo.",
+
+  "advancements.energizedpower.item_silo_large.title": "Item Silo (Large)",
+  "advancements.energizedpower.item_silo_large.description": "Craft a large Item Silo.",
+
+  "advancements.energizedpower.item_silo_giant.title": "Item Silo (Giant)",
+  "advancements.energizedpower.item_silo_giant.description": "Craft a giant Item Silo.",
+
   "advancements.energizedpower.iron_fluid_pipe.title": "Trasporto fluido",
   "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with iron fluid pipes.",
 
@@ -1785,6 +1824,10 @@
   "book.energizedpower.page.item_conveyor_belt_splitter": "Il divisore del nastro trasportatore di articoli prende gli articoli dal nastro trasportatore di ingresso (deve essere rivolto verso il quadrato grande e non deve essere in salita) e li posiziona uniformemente sui nastri trasportatori di uscita collegati.",
 
   "book.energizedpower.page.item_conveyor_belt_merger": "L'unione del nastro trasportatore degli articoli preleva gli articoli in modo uniforme dai nastri trasportatori di ingresso collegati (devono essere rivolti verso un grande quadrato e non devono essere ascendenti) e li inserisce sul nastro trasportatore di uscita.",
+
+  "book.energizedpower.page.item_silos.1": "Item silos can only hold a single item type but can hold up to 1000 stacks of the item.",
+  "book.energizedpower.page.item_silos.2": "Item silos can only be loaded and unloaded with hoppers, belts, and other means of automatic item transport.",
+  "book.energizedpower.page.item_silos.3": "There are five tiers of item silos: Tiny, Small, Medium, Large, and Giant",
 
 
   "book.energizedpower.page.chapter.fluids.title": "Fluids",
