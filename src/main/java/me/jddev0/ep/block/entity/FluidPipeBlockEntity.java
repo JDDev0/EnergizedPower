@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.machine.tier.FluidPipeTier;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -10,7 +11,6 @@ import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FluidPipeBlockEntity extends BlockEntity {
-    private final FluidPipeBlock.Tier tier;
+    private final FluidPipeTier tier;
 
     private final long maxTransfer;
 
@@ -30,16 +30,9 @@ public class FluidPipeBlockEntity extends BlockEntity {
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> consumers = new HashMap<>();
     private final List<BlockPos> pipeBlocks = new LinkedList<>();
-    
-    public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
-        return switch(tier) {
-            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY;
-            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY;
-        };
-    }
 
-    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeBlock.Tier tier) {
-        super(getEntityTypeFromTier(tier), blockPos, blockState);
+    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeTier tier) {
+        super(tier.getEntityTypeFromTier(), blockPos, blockState);
 
         this.tier = tier;
 
@@ -48,7 +41,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         fluidStorage = Storage.empty();
     }
 
-    public FluidPipeBlock.Tier getTier() {
+    public FluidPipeTier getTier() {
         return tier;
     }
 

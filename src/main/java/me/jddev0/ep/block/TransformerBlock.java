@@ -3,6 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
+import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -35,9 +36,9 @@ import java.util.List;
 public class TransformerBlock extends BlockWithEntity {
     public static final MapCodec<TransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(createSettingsCodec(),
-                Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+                Codecs.NON_EMPTY_STRING.xmap(TransformerTier::valueOf, TransformerTier::toString).fieldOf("tier").
                         forGetter(TransformerBlock::getTier),
-                Codecs.NON_EMPTY_STRING.xmap(Type::valueOf, Type::toString).fieldOf("transformer_type").
+                Codecs.NON_EMPTY_STRING.xmap(TransformerType::valueOf, TransformerType::toString).fieldOf("transformer_type").
                         forGetter(TransformerBlock::getTransformerType)
         ).apply(instance, TransformerBlock::new);
     });
@@ -45,35 +46,10 @@ public class TransformerBlock extends BlockWithEntity {
     public static final BooleanProperty POWERED = Properties.POWERED;
     public static final DirectionProperty FACING = Properties.FACING;
 
-    private final Tier tier;
-    private final Type type;
+    private final TransformerTier tier;
+    private final TransformerType type;
 
-    public static Block getBlockFromTierAndType(TransformerBlock.Tier tier, TransformerBlock.Type type) {
-        return switch(tier) {
-            case TIER_LV -> switch(type) {
-                case TYPE_1_TO_N -> EPBlocks.LV_TRANSFORMER_1_TO_N;
-                case TYPE_3_TO_3 -> EPBlocks.LV_TRANSFORMER_3_TO_3;
-                case TYPE_N_TO_1 -> EPBlocks.LV_TRANSFORMER_N_TO_1;
-            };
-            case TIER_MV -> switch(type) {
-                case TYPE_1_TO_N -> EPBlocks.MV_TRANSFORMER_1_TO_N;
-                case TYPE_3_TO_3 -> EPBlocks.MV_TRANSFORMER_3_TO_3;
-                case TYPE_N_TO_1 -> EPBlocks.MV_TRANSFORMER_N_TO_1;
-            };
-            case TIER_HV -> switch(type) {
-                case TYPE_1_TO_N -> EPBlocks.HV_TRANSFORMER_1_TO_N;
-                case TYPE_3_TO_3 -> EPBlocks.HV_TRANSFORMER_3_TO_3;
-                case TYPE_N_TO_1 -> EPBlocks.HV_TRANSFORMER_N_TO_1;
-            };
-            case TIER_EHV -> switch(type) {
-                case TYPE_1_TO_N -> EPBlocks.EHV_TRANSFORMER_1_TO_N;
-                case TYPE_3_TO_3 -> EPBlocks.EHV_TRANSFORMER_3_TO_3;
-                case TYPE_N_TO_1 -> EPBlocks.EHV_TRANSFORMER_N_TO_1;
-            };
-        };
-    }
-
-    protected TransformerBlock(AbstractBlock.Settings props, Tier tier, Type type) {
+    protected TransformerBlock(AbstractBlock.Settings props, TransformerTier tier, TransformerType type) {
         super(props);
 
         this.tier = tier;
@@ -82,11 +58,11 @@ public class TransformerBlock extends BlockWithEntity {
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH));
     }
 
-    public Tier getTier() {
+    public TransformerTier getTier() {
         return tier;
     }
 
-    public Type getTransformerType() {
+    public TransformerType getTransformerType() {
         return type;
     }
 
@@ -157,25 +133,25 @@ public class TransformerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, TransformerBlockEntity.getEntityTypeFromTierAndType(this.tier, this.type), TransformerBlockEntity::tick);
+        return validateTicker(type, this.tier.getEntityTypeFromTierAndType(this.type), TransformerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
-        private final Type type;
+        private final TransformerTier tier;
+        private final TransformerType type;
 
-        public Item(Block block, Item.Settings props, Tier tier, Type type) {
+        public Item(Block block, Item.Settings props, TransformerTier tier, TransformerType type) {
             super(block, props);
 
             this.tier = tier;
             this.type = type;
         }
 
-        public Tier getTier() {
+        public TransformerTier getTier() {
             return tier;
         }
 
-        public Type getTransformerType() {
+        public TransformerType getTransformerType() {
             return type;
         }
 
@@ -183,7 +159,7 @@ public class TransformerBlock extends BlockWithEntity {
         public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
             if(Screen.hasShiftDown()) {
                 tooltip.add(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
-                                EnergyUtils.getEnergyWithPrefix(TransformerBlockEntity.getMaxEnergyTransferFromTier(tier))).
+                                EnergyUtils.getEnergyWithPrefix(tier.getMaxEnergyTransferFromTier())).
                         formatted(Formatting.GRAY));
                 tooltip.add(Text.empty());
                 tooltip.add(Text.translatable("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
@@ -197,11 +173,4 @@ public class TransformerBlock extends BlockWithEntity {
         }
     }
 
-    public enum Tier {
-        TIER_LV, TIER_MV, TIER_HV, TIER_EHV
-    }
-
-    public enum Type {
-        TYPE_1_TO_N, TYPE_3_TO_3, TYPE_N_TO_1
-    }
 }

@@ -3,8 +3,8 @@ package me.jddev0.ep.datagen.advancement;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
-import me.jddev0.ep.item.BatteryItem;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -99,7 +99,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
 
         ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8);
         battery8FullyChargedIcon.applyChanges(ComponentChanges.builder().
-                add(EPDataComponentTypes.ENERGY, BatteryItem.Tier.BATTERY_8.getCapacity()).
+                add(EPDataComponentTypes.ENERGY, BatteryTier.BATTERY_8.getCapacity()).
                 build());
         AdvancementEntry battery8FullyCharged = addAdvancement(
                 advancementOutput, battery8,
@@ -107,7 +107,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().
                         items(EPItems.BATTERY_8).
                         component(ComponentPredicate.builder().
-                                add(EPDataComponentTypes.ENERGY, BatteryItem.Tier.BATTERY_8.getCapacity()).
+                                add(EPDataComponentTypes.ENERGY, BatteryTier.BATTERY_8.getCapacity()).
                                 build()).
                         build())
         );

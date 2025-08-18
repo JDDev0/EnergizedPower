@@ -12,6 +12,7 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.item.*;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.EPMenuTypes;
@@ -195,14 +196,14 @@ public class EnergizedPowerMod implements ModInitializer {
 
             addEmptyAndFullyChargedItem(event, EPItems.INVENTORY_TELEPORTER, InventoryTeleporterItem.CAPACITY);
 
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_1, BatteryItem.Tier.BATTERY_1.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_2, BatteryItem.Tier.BATTERY_2.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_3, BatteryItem.Tier.BATTERY_3.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_4, BatteryItem.Tier.BATTERY_4.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_5, BatteryItem.Tier.BATTERY_5.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_6, BatteryItem.Tier.BATTERY_6.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_7, BatteryItem.Tier.BATTERY_7.getCapacity());
-            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_8, BatteryItem.Tier.BATTERY_8.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_1, BatteryTier.BATTERY_1.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_2, BatteryTier.BATTERY_2.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_3, BatteryTier.BATTERY_3.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_4, BatteryTier.BATTERY_4.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_5, BatteryTier.BATTERY_5.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_6, BatteryTier.BATTERY_6.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_7, BatteryTier.BATTERY_7.getCapacity());
+            addEmptyAndFullyChargedItem(event, EPItems.BATTERY_8, BatteryTier.BATTERY_8.getCapacity());
             event.accept(EPItems.CREATIVE_BATTERY);
 
             event.accept(EPItems.BATTERY_BOX_MINECART);

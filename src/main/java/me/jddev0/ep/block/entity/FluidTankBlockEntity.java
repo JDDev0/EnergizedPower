@@ -1,18 +1,17 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.BooleanValueContainerData;
 import me.jddev0.ep.machine.CheckboxUpdate;
+import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.NbtCompound;
@@ -29,22 +28,14 @@ import org.jetbrains.annotations.Nullable;
 public class FluidTankBlockEntity
         extends AbstractFluidTankBlockEntity<SimpleFluidStorage>
         implements CheckboxUpdate {
-    private final FluidTankBlock.Tier tier;
+    private final FluidTankTier tier;
 
     private boolean ignoreNBT;
     private FluidStack fluidFilter = new FluidStack(FluidVariant.blank(), 1);
 
-    public static BlockEntityType<FluidTankBlockEntity> getEntityTypeFromTier(FluidTankBlock.Tier tier) {
-        return switch(tier) {
-            case SMALL -> EPBlockEntities.FLUID_TANK_SMALL_ENTITY;
-            case MEDIUM -> EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY;
-            case LARGE -> EPBlockEntities.FLUID_TANK_LARGE_ENTITY;
-        };
-    }
-
-    public FluidTankBlockEntity(BlockPos blockPos, BlockState blockState, FluidTankBlock.Tier tier) {
+    public FluidTankBlockEntity(BlockPos blockPos, BlockState blockState, FluidTankTier tier) {
         super(
-                getEntityTypeFromTier(tier), blockPos, blockState,
+                tier.getEntityTypeFromTier(), blockPos, blockState,
 
                 tier.getResourceId(),
 
@@ -95,7 +86,7 @@ public class FluidTankBlockEntity
         return new FluidTankMenu(id, inventory, this, this.data);
     }
 
-    public FluidTankBlock.Tier getTier() {
+    public FluidTankTier getTier() {
         return tier;
     }
 

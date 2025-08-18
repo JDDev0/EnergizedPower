@@ -3,6 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
+import me.jddev0.ep.machine.tier.FluidPipeTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -22,7 +23,6 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -40,7 +40,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import me.jddev0.ep.config.ModConfigs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +47,7 @@ import java.util.List;
 
 public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(Codecs.NON_EMPTY_STRING.xmap(Tier::valueOf, Tier::toString).fieldOf("tier").
+        return instance.group(Codecs.NON_EMPTY_STRING.xmap(FluidPipeTier::valueOf, FluidPipeTier::toString).fieldOf("tier").
                 forGetter(FluidPipeBlock::getTier)).apply(instance, FluidPipeBlock::new);
     });
 
@@ -80,16 +79,9 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         };
     }
 
-    private final Tier tier;
+    private final FluidPipeTier tier;
 
-    public static Block getBlockFromTier(Tier tier) {
-        return switch(tier) {
-            case IRON -> EPBlocks.IRON_FLUID_PIPE;
-            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE;
-        };
-    }
-
-    public FluidPipeBlock(Tier tier) {
+    public FluidPipeBlock(FluidPipeTier tier) {
         super(tier.getProperties());
 
         this.tier = tier;
@@ -103,7 +95,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
                 with(WATERLOGGED, false));
     }
 
-    public Tier getTier() {
+    public FluidPipeTier getTier() {
         return tier;
     }
 
@@ -378,19 +370,19 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, FluidPipeBlockEntity.getEntityTypeFromTier(tier), FluidPipeBlockEntity::tick);
+        return validateTicker(type, tier.getEntityTypeFromTier(), FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final FluidPipeTier tier;
 
-        public Item(Block block, Item.Settings props, Tier tier) {
+        public Item(Block block, Item.Settings props, FluidPipeTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public FluidPipeTier getTier() {
             return tier;
         }
 
@@ -410,36 +402,4 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         }
     }
 
-    public enum Tier {
-        IRON("fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
-                ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
-                AbstractBlock.Settings.create().
-                        requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)),
-        GOLDEN("golden_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
-                ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
-                AbstractBlock.Settings.create().
-                        requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
-
-        private final String resourceId;
-        private final long transferRate;
-        private final AbstractBlock.Settings props;
-
-        Tier(String resourceId, long transferRate, AbstractBlock.Settings props) {
-            this.resourceId = resourceId;
-            this.transferRate = transferRate;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public long getTransferRate() {
-            return transferRate;
-        }
-
-        public AbstractBlock.Settings getProperties() {
-            return props;
-        }
-    }
 }
