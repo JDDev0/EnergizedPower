@@ -350,6 +350,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT'yi görmezden gel",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Çıkarma Modu 1: Çıkış ve Kalan Eşyalar Sadece",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Çıkarma Modu 2: Giriş Eşyaları dışında her şey",
+  "tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow": "Allow output overflow",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Tarifler arası döngü?",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Tarif %d",
 

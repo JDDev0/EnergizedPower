@@ -48,6 +48,7 @@ public class AdvancedAutoCrafterBlockEntity
     private final static int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue();
 
     private boolean secondaryExtractMode = false;
+    private boolean allowOutputOverflow = true;
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
@@ -210,6 +211,7 @@ public class AdvancedAutoCrafterBlockEntity
                 new BooleanValueContainerData(() -> ignoreNBT[1], value -> ignoreNBT[1] = value),
                 new BooleanValueContainerData(() -> ignoreNBT[2], value -> ignoreNBT[2] = value),
                 new BooleanValueContainerData(() -> secondaryExtractMode, value -> secondaryExtractMode = value),
+                new BooleanValueContainerData(() -> allowOutputOverflow, value -> allowOutputOverflow = value),
                 new ShortValueContainerData(() -> (short)currentRecipeIndex, value -> currentRecipeIndex = value),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -254,6 +256,7 @@ public class AdvancedAutoCrafterBlockEntity
         }
 
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
+        nbt.putBoolean("allow_output_overflow", allowOutputOverflow);
 
         nbt.putInt("current_recipe_index", currentRecipeIndex);
     }
@@ -291,6 +294,7 @@ public class AdvancedAutoCrafterBlockEntity
         }
 
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+        allowOutputOverflow = !nbt.contains("allow_output_overflow") || nbt.getBoolean("allow_output_overflow");
 
         currentRecipeIndex = nbt.getInt("current_recipe_index");
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
@@ -573,10 +577,11 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        List<Integer> emptyIndices = new ArrayList<>(27);
+        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():5;
+        List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
-            for(int i = 0;i < itemHandler.getSlots();i++) {
+            for(int i = 0;i < outputSlotCount;i++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
                     continue;
@@ -686,12 +691,13 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        List<Integer> checkedIndices = new ArrayList<>(27);
-        List<Integer> emptyIndices = new ArrayList<>(27);
+        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():5;
+        List<Integer> checkedIndices = new ArrayList<>(outputSlotCount);
+        List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
-            for(int j = 0;j < itemHandler.getSlots();j++) {
+            for(int j = 0;j < outputSlotCount;j++) {
                 if(checkedIndices.contains(j) || emptyIndices.contains(j))
                     continue;
 
@@ -863,9 +869,13 @@ public class AdvancedAutoCrafterBlockEntity
         setChanged(level, getBlockPos(), getBlockState());
     }
 
-
     public void setSecondaryExtractMode(boolean secondaryExtractMode) {
         this.secondaryExtractMode = secondaryExtractMode;
+        setChanged(level, getBlockPos(), getBlockState());
+    }
+
+    public void setAllowOutputOverflow(boolean allowOutputOverflow) {
+        this.allowOutputOverflow = allowOutputOverflow;
         setChanged(level, getBlockPos(), getBlockState());
     }
 
@@ -877,6 +887,9 @@ public class AdvancedAutoCrafterBlockEntity
 
             //Secondary extract mode
             case 1 -> setSecondaryExtractMode(checked);
+
+            //Allow Output Overflow
+            case 2 -> setAllowOutputOverflow(checked);
         }
     }
 }
