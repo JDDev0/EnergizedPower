@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
-	
+	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -132,6 +132,57 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
+	}
+}
+
+tasks.register("distJar", Copy) {
+	group = "build"
+
+	dependsOn(tasks.getByName("remapJar"))
+
+	var jarFile = project.rootDir.toPath().resolve("build/libs").resolve(project.archivesBaseName + "-" + project.version + ".jar").toFile()
+	from(jarFile)
+	doFirst {
+		file(project.rootDir.toPath().resolve("build/libs/dist")).mkdirs()
+	}
+	into(project.rootDir.toPath().resolve("build/libs/dist"))
+}
+
+tasks.publishUnified {
+	dependsOn(tasks.distJar)
+}
+
+unifiedPublishing {
+	project {
+		displayName = "Energized Power - " + project.minecraft_version + " - v" + project.mod_version.split("-")[1] + " [Fabric]"
+		version = project.mod_version
+		changelog = new File("CHANGELOG.md").getText("UTF-8")
+		releaseType = "release"
+		gameVersions = [project.minecraft_version]
+		gameLoaders = ["fabric"]
+
+		mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.archivesBaseName + "-" + project.version + ".jar").toFile())
+
+		relations {
+			depends {
+				modrinth = "fabric-api"
+				curseforge = "fabric-api"
+			}
+		}
+
+		if(project.hasProperty('MODRINTH_TOKEN')) {
+			modrinth {
+				token = getProperty('MODRINTH_TOKEN') as String
+				id = "6pku8gW1"
+			}
+		}
+
+		if(project.hasProperty('CURSEFORGE_TOKEN')) {
+			curseforge {
+				token = getProperty('CURSEFORGE_TOKEN') as String
+				id = "782147"
+			}
+		}
 	}
 }
 
