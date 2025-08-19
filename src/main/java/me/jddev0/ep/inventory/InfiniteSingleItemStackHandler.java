@@ -18,6 +18,7 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage {
         updateSnapshots(transaction);
 
         variant = itemVariant;
+        amount = itemVariant.isBlank()?0:1;
     }
 
     @Override
@@ -44,5 +45,6 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage {
     @Override
     public void readData(ReadView input) {
         this.variant = ItemVariant.of(input.read("Item", ItemStack.UNCOUNTED_CODEC).orElse(ItemStack.EMPTY));
+        this.amount = isEmpty()?0:1;
     }
 }
