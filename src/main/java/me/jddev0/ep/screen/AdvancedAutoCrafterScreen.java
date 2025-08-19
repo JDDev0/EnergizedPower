@@ -128,6 +128,7 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
             //Allow Output Overflow checkbox
 
             List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow"));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
