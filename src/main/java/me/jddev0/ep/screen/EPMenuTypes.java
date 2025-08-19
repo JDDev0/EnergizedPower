@@ -19,10 +19,18 @@ public final class EPMenuTypes {
         return MENUS.register(name, () -> IForgeMenuType.create(factory));
     }
 
-    public static final RegistryObject<MenuType<ItemConveyorBeltLoaderMenu>> ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("item_conveyor_belt_loader",
+    public static final RegistryObject<MenuType<ItemConveyorBeltLoaderMenu>> BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("item_conveyor_belt_loader",
+            ItemConveyorBeltLoaderMenu::new);
+    public static final RegistryObject<MenuType<ItemConveyorBeltLoaderMenu>> FAST_ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("fast_item_conveyor_belt_loader",
+            ItemConveyorBeltLoaderMenu::new);
+    public static final RegistryObject<MenuType<ItemConveyorBeltLoaderMenu>> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("express_item_conveyor_belt_loader",
             ItemConveyorBeltLoaderMenu::new);
 
-    public static final RegistryObject<MenuType<ItemConveyorBeltSorterMenu>> ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("item_conveyor_sorter_loader",
+    public static final RegistryObject<MenuType<ItemConveyorBeltSorterMenu>> BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("item_conveyor_sorter_loader",
+            ItemConveyorBeltSorterMenu::new);
+    public static final RegistryObject<MenuType<ItemConveyorBeltSorterMenu>> FAST_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("fast_conveyor_sorter_loader",
+            ItemConveyorBeltSorterMenu::new);
+    public static final RegistryObject<MenuType<ItemConveyorBeltSorterMenu>> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("express_conveyor_sorter_loader",
             ItemConveyorBeltSorterMenu::new);
 
     public static final RegistryObject<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter",

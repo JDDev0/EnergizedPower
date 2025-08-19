@@ -3,11 +3,11 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements MenuProvider, CheckboxUpdate {
-    private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM.getValue();
+    private final int ticksPerItem;
 
     private static final int PATTERN_SLOTS_PER_OUTPUT = 5;
 
@@ -59,8 +59,12 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
     private boolean loaded;
 
-    public ItemConveyorBeltSorterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(EPBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), blockPos, blockState);
+    private final ConveyorBeltTier tier;
+
+    public ItemConveyorBeltSorterBlockEntity(BlockPos blockPos, BlockState blockState, ConveyorBeltTier tier) {
+        super(tier.getItemConveyorBeltSorterBlockEntityFromTier(), blockPos, blockState);
+
+        this.tier = tier;
 
         patternSlots.addListener(updatePatternListener);
 
@@ -75,11 +79,25 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 new BooleanValueContainerData(() -> ignoreNBT[1], value -> ignoreNBT[1] = value),
                 new BooleanValueContainerData(() -> ignoreNBT[2], value -> ignoreNBT[2] = value)
         );
+
+        ticksPerItem = switch(tier) {
+            case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM.getValue();
+            case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM.getValue();
+            case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM.getValue();
+        };
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.energizedpower.item_conveyor_belt_sorter");
+        return Component.translatable("container.energizedpower." + switch(tier) {
+            case BASIC -> "item_conveyor_belt_sorter";
+            case FAST -> "fast_item_conveyor_belt_sorter";
+            case EXPRESS -> "express_item_conveyor_belt_sorter";
+        });
     }
 
     @Nullable
@@ -147,18 +165,18 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 };
 
                 BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
-                blockEntity.setOutputBeltConnected(i, outputBeltState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()));
+                blockEntity.setOutputBeltConnected(i, outputBeltState.getBlock() instanceof ItemConveyorBeltBlock);
             }
 
             blockEntity.loaded = true;
         }
 
-        if(level.getGameTime() % TICKS_PER_ITEM == 0) {
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
             Direction facing = state.getValue(ItemConveyorBeltSorterBlock.FACING);
 
             BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
-            if(!inputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get())) {
+            if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock)) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
                 return;
@@ -255,7 +273,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
         BlockPos outputPos = blockPos.relative(direction);
         BlockState outputBlockState = level.getBlockState(outputPos);
-        if(!outputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+        if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
             return null;
 
         BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);

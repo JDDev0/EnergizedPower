@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/basics/steel_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:fast_item_conveyor_belt"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.fast_item_conveyor_belt.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:fast_item_conveyor_belt"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.fast_item_conveyor_belt.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

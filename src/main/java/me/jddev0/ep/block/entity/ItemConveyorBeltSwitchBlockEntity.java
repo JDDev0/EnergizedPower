@@ -3,8 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSwitchBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -16,22 +16,36 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 
 public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
-    private static final int TICKS_PER_ITEM = ModConfigs.COMMON_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
+    private final int ticksPerItem;
 
-    public ItemConveyorBeltSwitchBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(EPBlockEntities.ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get(), blockPos, blockState);
+    private final ConveyorBeltTier tier;
+
+    public ItemConveyorBeltSwitchBlockEntity(BlockPos blockPos, BlockState blockState, ConveyorBeltTier tier) {
+        super(tier.getItemConveyorBeltSwitchBlockEntityFromTier(), blockPos, blockState);
+
+        this.tier = tier;
+
+        ticksPerItem = switch(tier) {
+            case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
+            case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
+            case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
+        };
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSwitchBlockEntity blockEntity) {
         if(level.isClientSide)
             return;
 
-        if(level.getGameTime() % TICKS_PER_ITEM == 0) {
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
             Direction facing = state.getValue(ItemConveyorBeltSwitchBlock.FACING);
 
             BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
-            if(!inputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+            if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             //Conveyor belt must face towards Switch and must not be ascending
@@ -57,7 +71,7 @@ public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
 
             BlockPos outputPos = blockPos.relative(outputDirection);
             BlockState outputBlockState = level.getBlockState(outputPos);
-            if(!outputBlockState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()))
+            if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             BlockEntity outputBlockEntity = level.getBlockEntity(outputPos);

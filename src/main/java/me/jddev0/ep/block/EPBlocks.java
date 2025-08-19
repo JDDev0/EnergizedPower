@@ -22,10 +22,10 @@ public final class EPBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EPAPI.MOD_ID);
 
-    private static RegistryObject<Item> createBlockItem(String name, RegistryObject<Block> blockRegistryObject, Item.Properties props) {
+    private static RegistryObject<Item> createBlockItem(String name, RegistryObject<? extends Block> blockRegistryObject, Item.Properties props) {
         return EPItems.ITEMS.register(name, () -> new BlockItem(blockRegistryObject.get(), props));
     }
-    private static RegistryObject<Item> createBlockItem(String name, RegistryObject<Block> blockRegistryObject) {
+    private static RegistryObject<Item> createBlockItem(String name, RegistryObject<? extends Block> blockRegistryObject) {
         return createBlockItem(name, blockRegistryObject, new Item.Properties());
     }
 
@@ -61,36 +61,86 @@ public final class EPBlocks {
                     .instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0f, 6.0f)));
     public static final RegistryObject<Item> RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
 
-    public static final RegistryObject<ItemConveyorBeltBlock> ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
-            () -> new ItemConveyorBeltBlock(BlockBehaviour.Properties.of().noCollission().
+    public static final RegistryObject<ItemConveyorBeltBlock> BASIC_ITEM_CONVEYOR_BELT = BLOCKS.register("item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock(ConveyorBeltTier.BASIC, BlockBehaviour.Properties.of().noCollission().
                     strength(2.5f, 3.0f).sound(SoundType.METAL)));
-    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_ITEM = EPItems.ITEMS.register("item_conveyor_belt",
-            () -> new ItemConveyorBeltBlock.Item(ITEM_CONVEYOR_BELT.get(), new Item.Properties()));
+    public static final RegistryObject<Item> BASIC_ITEM_CONVEYOR_BELT_ITEM = EPItems.ITEMS.register("item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock.Item(BASIC_ITEM_CONVEYOR_BELT.get(), new Item.Properties(), ConveyorBeltTier.BASIC));
+    public static final RegistryObject<ItemConveyorBeltBlock> FAST_ITEM_CONVEYOR_BELT = BLOCKS.register("fast_item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock(ConveyorBeltTier.FAST, BlockBehaviour.Properties.of().noCollission().
+                    strength(2.5f, 3.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> FAST_ITEM_CONVEYOR_BELT_ITEM = EPItems.ITEMS.register("fast_item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock.Item(FAST_ITEM_CONVEYOR_BELT.get(), new Item.Properties(), ConveyorBeltTier.FAST));
+    public static final RegistryObject<ItemConveyorBeltBlock> EXPRESS_ITEM_CONVEYOR_BELT = BLOCKS.register("express_item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock(ConveyorBeltTier.EXPRESS, BlockBehaviour.Properties.of().noCollission().
+                    strength(2.5f, 3.0f).sound(SoundType.METAL)));
+    public static final RegistryObject<Item> EXPRESS_ITEM_CONVEYOR_BELT_ITEM = EPItems.ITEMS.register("express_item_conveyor_belt",
+            () -> new ItemConveyorBeltBlock.Item(EXPRESS_ITEM_CONVEYOR_BELT.get(), new Item.Properties(), ConveyorBeltTier.EXPRESS));
 
-    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_LOADER = BLOCKS.register("item_conveyor_belt_loader",
-            () -> new ItemConveyorBeltLoaderBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+    public static final RegistryObject<ItemConveyorBeltLoaderBlock> BASIC_ITEM_CONVEYOR_BELT_LOADER = BLOCKS.register("item_conveyor_belt_loader",
+            () -> new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.BASIC, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
-    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", ITEM_CONVEYOR_BELT_LOADER);
+    public static final RegistryObject<Item> BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("item_conveyor_belt_loader", BASIC_ITEM_CONVEYOR_BELT_LOADER);
+    public static final RegistryObject<ItemConveyorBeltLoaderBlock> FAST_ITEM_CONVEYOR_BELT_LOADER = BLOCKS.register("fast_item_conveyor_belt_loader",
+            () -> new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.FAST, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("fast_item_conveyor_belt_loader", FAST_ITEM_CONVEYOR_BELT_LOADER);
+    public static final RegistryObject<ItemConveyorBeltLoaderBlock> EXPRESS_ITEM_CONVEYOR_BELT_LOADER = BLOCKS.register("express_item_conveyor_belt_loader",
+            () -> new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.EXPRESS, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("express_item_conveyor_belt_loader", EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
 
-    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_SORTER = BLOCKS.register("item_conveyor_belt_sorter",
-            () -> new ItemConveyorBeltSorterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+    public static final RegistryObject<ItemConveyorBeltSorterBlock> BASIC_ITEM_CONVEYOR_BELT_SORTER = BLOCKS.register("item_conveyor_belt_sorter",
+            () -> new ItemConveyorBeltSorterBlock(ConveyorBeltTier.BASIC, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
-    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", ITEM_CONVEYOR_BELT_SORTER);
+    public static final RegistryObject<Item> BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("item_conveyor_belt_sorter", BASIC_ITEM_CONVEYOR_BELT_SORTER);
+    public static final RegistryObject<ItemConveyorBeltSorterBlock> FAST_ITEM_CONVEYOR_BELT_SORTER = BLOCKS.register("fast_item_conveyor_belt_sorter",
+            () -> new ItemConveyorBeltSorterBlock(ConveyorBeltTier.FAST, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("fast_item_conveyor_belt_sorter", FAST_ITEM_CONVEYOR_BELT_SORTER);
+    public static final RegistryObject<ItemConveyorBeltSorterBlock> EXPRESS_ITEM_CONVEYOR_BELT_SORTER = BLOCKS.register("express_item_conveyor_belt_sorter",
+            () -> new ItemConveyorBeltSorterBlock(ConveyorBeltTier.EXPRESS, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("express_item_conveyor_belt_sorter", EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
 
-    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_SWITCH = BLOCKS.register("item_conveyor_belt_switch",
-            () -> new ItemConveyorBeltSwitchBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+    public static final RegistryObject<ItemConveyorBeltSwitchBlock> BASIC_ITEM_CONVEYOR_BELT_SWITCH = BLOCKS.register("item_conveyor_belt_switch",
+            () -> new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.BASIC, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
-    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("item_conveyor_belt_switch", ITEM_CONVEYOR_BELT_SWITCH);
+    public static final RegistryObject<Item> BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("item_conveyor_belt_switch", BASIC_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final RegistryObject<ItemConveyorBeltSwitchBlock> FAST_ITEM_CONVEYOR_BELT_SWITCH = BLOCKS.register("fast_item_conveyor_belt_switch",
+            () -> new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.FAST, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("fast_item_conveyor_belt_switch", FAST_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final RegistryObject<ItemConveyorBeltSwitchBlock> EXPRESS_ITEM_CONVEYOR_BELT_SWITCH = BLOCKS.register("express_item_conveyor_belt_switch",
+            () -> new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.EXPRESS, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("express_item_conveyor_belt_switch", EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
 
-    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_SPLITTER = BLOCKS.register("item_conveyor_belt_splitter",
-            () -> new ItemConveyorBeltSplitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+    public static final RegistryObject<ItemConveyorBeltSplitterBlock> BASIC_ITEM_CONVEYOR_BELT_SPLITTER = BLOCKS.register("item_conveyor_belt_splitter",
+            () -> new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.BASIC, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
-    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final RegistryObject<Item> BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("item_conveyor_belt_splitter", BASIC_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final RegistryObject<ItemConveyorBeltSplitterBlock> FAST_ITEM_CONVEYOR_BELT_SPLITTER = BLOCKS.register("fast_item_conveyor_belt_splitter",
+            () -> new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.FAST, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("fast_item_conveyor_belt_splitter", FAST_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final RegistryObject<ItemConveyorBeltSplitterBlock> EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER = BLOCKS.register("express_item_conveyor_belt_splitter",
+            () -> new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.EXPRESS, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("express_item_conveyor_belt_splitter", EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
 
-    public static final RegistryObject<Block> ITEM_CONVEYOR_BELT_MERGER = BLOCKS.register("item_conveyor_belt_merger",
-            () -> new ItemConveyorBeltMergerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+    public static final RegistryObject<ItemConveyorBeltMergerBlock> BASIC_ITEM_CONVEYOR_BELT_MERGER = BLOCKS.register("item_conveyor_belt_merger",
+            () -> new ItemConveyorBeltMergerBlock(ConveyorBeltTier.BASIC, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
-    public static final RegistryObject<Item> ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
+    public static final RegistryObject<Item> BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", BASIC_ITEM_CONVEYOR_BELT_MERGER);
+    public static final RegistryObject<ItemConveyorBeltMergerBlock> FAST_ITEM_CONVEYOR_BELT_MERGER = BLOCKS.register("fast_item_conveyor_belt_merger",
+            () -> new ItemConveyorBeltMergerBlock(ConveyorBeltTier.FAST, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("fast_item_conveyor_belt_merger", FAST_ITEM_CONVEYOR_BELT_MERGER);
+    public static final RegistryObject<ItemConveyorBeltMergerBlock> EXPRESS_ITEM_CONVEYOR_BELT_MERGER = BLOCKS.register("express_item_conveyor_belt_merger",
+            () -> new ItemConveyorBeltMergerBlock(ConveyorBeltTier.EXPRESS, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
+    public static final RegistryObject<Item> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("express_item_conveyor_belt_merger", EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
     public static final RegistryObject<FluidPipeBlock> IRON_FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(FluidPipeTier.IRON));

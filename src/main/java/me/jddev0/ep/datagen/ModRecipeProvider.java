@@ -916,7 +916,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         "   ",
                         "LLL",
                         "IRI"
-                }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
+                }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
                 "item_conveyor_belt", "_from_leather");
 
         addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_IRON), Map.of(
@@ -927,63 +927,205 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                         "   ",
                         "KKK",
                         "IRI"
-                }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
+                }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
                 "item_conveyor_belt", "_from_dried_kelp");
 
-        addShapedCraftingRecipe(output, has(EPBlocks.ITEM_CONVEYOR_BELT_ITEM), Map.of(
+        addShapedCraftingRecipe(output, has(CommonItemTags.INGOTS_STEEL), Map.of(
+                'S', Ingredient.of(CommonItemTags.INGOTS_STEEL),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get())
+        ), new String[] {
+                "RIR",
+                "SBS",
+                "RIR"
+        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(CommonItemTags.GEARS_IRON), Map.of(
+                'G', Ingredient.of(CommonItemTags.GEARS_IRON),
+                'R', Ingredient.of(CommonItemTags.RODS_IRON),
+                'r', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get())
+        ), new String[] {
+                "GRG",
+                "rFr",
+                "GRG"
+        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'C', Ingredient.of(Tags.Items.COBBLESTONE_NORMAL),
-                'c', Ingredient.of(EPBlocks.ITEM_CONVEYOR_BELT_ITEM.get()),
+                'c', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get()),
                 'H', Ingredient.of(Items.HOPPER)
         ), new String[] {
                 "CCC",
                 "CHC",
                 "CcC"
-        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(output, has(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'b', Ingredient.of(Items.BRICKS),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER.get())
+        ), new String[] {
+                "bbb",
+                "bBb",
+                "SFS"
+        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.of(CommonItemTags.GEARS_IRON),
+                's', Ingredient.of(CommonItemTags.INGOTS_STEEL),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
+        ), new String[] {
+                "IiI",
+                "sFs",
+                "SES"
+        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.of(Tags.Items.COBBLESTONE_NORMAL),
                 'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
                 'R', Ingredient.of(Tags.Items.STORAGE_BLOCKS_REDSTONE),
-                'L', Ingredient.of(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
+                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
         ), new String[] {
                 "CRC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(output, has(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'b', Ingredient.of(Items.BRICKS),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM.get())
+        ), new String[] {
+                "bbb",
+                "bBb",
+                "SFS"
+        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.of(CommonItemTags.GEARS_IRON),
+                's', Ingredient.of(CommonItemTags.INGOTS_STEEL),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM.get())
+        ), new String[] {
+                "IiI",
+                "sFs",
+                "SES"
+        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.of(Tags.Items.COBBLESTONE_NORMAL),
                 'I', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
                 'l', Ingredient.of(Items.LEVER),
-                'L', Ingredient.of(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
+                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
         ), new String[] {
                 "ClC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(output, has(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'b', Ingredient.of(Items.BRICKS),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get())
+        ), new String[] {
+                "bbb",
+                "bBb",
+                "SFS"
+        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.of(CommonItemTags.GEARS_IRON),
+                's', Ingredient.of(CommonItemTags.INGOTS_STEEL),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get())
+        ), new String[] {
+                "IiI",
+                "sFs",
+                "SES"
+        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.of(Tags.Items.COBBLESTONE_NORMAL),
                 'I', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
-                'L', Ingredient.of(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
+                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
         ), new String[] {
                 "CIC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(output, has(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
+        addShapedCraftingRecipe(output, has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'b', Ingredient.of(Items.BRICKS),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get())
+        ), new String[] {
+                "bbb",
+                "bBb",
+                "SFS"
+        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.of(CommonItemTags.GEARS_IRON),
+                's', Ingredient.of(CommonItemTags.INGOTS_STEEL),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get())
+        ), new String[] {
+                "IiI",
+                "sFs",
+                "SES"
+        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', Ingredient.of(Tags.Items.COBBLESTONE_NORMAL),
                 'I', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'R', Ingredient.of(Tags.Items.DUSTS_REDSTONE),
-                'L', Ingredient.of(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
+                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get())
         ), new String[] {
                 "CRC",
                 "ILI",
                 "CIC"
-        }, new ItemStack(EPBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'b', Ingredient.of(Items.BRICKS),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM.get())
+        ), new String[] {
+                "bbb",
+                "bBb",
+                "SFS"
+        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'I', Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON),
+                'i', Ingredient.of(CommonItemTags.GEARS_IRON),
+                's', Ingredient.of(CommonItemTags.INGOTS_STEEL),
+                'S', Ingredient.of(Items.SMOOTH_STONE),
+                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()),
+                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM.get())
+        ), new String[] {
+                "IiI",
+                "sFs",
+                "SES"
+        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
     }
     private void buildFluidTransportCraftingRecipes(Consumer<FinishedRecipe> output) {
         addShapedCraftingRecipe(output, has(CommonItemTags.PLATES_IRON), Map.of(

@@ -1,9 +1,10 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltSplitterBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -19,16 +20,24 @@ import org.jetbrains.annotations.Nullable;
 public class ItemConveyorBeltSplitterBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected ItemConveyorBeltSplitterBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltSplitterBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltSplitterBlockEntity(blockPos, state);
+        return new ItemConveyorBeltSplitterBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -59,6 +68,6 @@ public class ItemConveyorBeltSplitterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get(), ItemConveyorBeltSplitterBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltSplitterBlockEntityFromTier(), ItemConveyorBeltSplitterBlockEntity::tick);
     }
 }

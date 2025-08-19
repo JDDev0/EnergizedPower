@@ -1,9 +1,10 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltSwitchBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -21,16 +22,24 @@ public class ItemConveyorBeltSwitchBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected ItemConveyorBeltSwitchBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltSwitchBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(FACING, Direction.NORTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltSwitchBlockEntity(blockPos, state);
+        return new ItemConveyorBeltSwitchBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -74,6 +83,6 @@ public class ItemConveyorBeltSwitchBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get(), ItemConveyorBeltSwitchBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltSwitchBlockEntityFromTier(), ItemConveyorBeltSwitchBlockEntity::tick);
     }
 }

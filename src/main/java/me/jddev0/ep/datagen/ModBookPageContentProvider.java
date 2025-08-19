@@ -1194,7 +1194,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt.6").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT.get());
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get(),
+        });
 
         addSimplePage(pageId("item_conveyor_belt_loader"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.1").
@@ -1211,7 +1215,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.5").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get());
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER.get(),
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get(),
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get(),
+        });
 
         addSimplePage(pageId("item_conveyor_belt_sorter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.1").
@@ -1240,7 +1248,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.9").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get());
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER.get(),
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get(),
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get(),
+        });
 
         addSimplePage(pageId("item_conveyor_belt_switch"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.1").
@@ -1248,17 +1260,29 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_SWITCH.get());
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get(),
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get(),
+        });
 
         addSimplePage(pageId("item_conveyor_belt_splitter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_splitter").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get());
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get(),
+        });
 
         addSimplePage(pageId("item_conveyor_belt_merger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_merger").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_MERGER.get());
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER.get(),
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
+        });
     }
     private void registerFluidsChapter() {
         chapterId("fluids");

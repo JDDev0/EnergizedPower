@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -40,16 +40,24 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
     protected static final VoxelShape SHAPE_FLAT = Block.box(0., 0., 0., 16., 2., 16.);
     protected static final VoxelShape SHAPE_HALF_BLOCK = Block.box(0., 0., 0., 16., 8., 16.);
 
-    protected ItemConveyorBeltBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, ConveyorBeltDirection.NORTH_SOUTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltBlockEntity(blockPos, state);
+        return new ItemConveyorBeltBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -165,13 +173,20 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltBlockEntityFromTier(), ItemConveyorBeltBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
+        private final ConveyorBeltTier tier;
 
-        public Item(Block block, Properties props) {
+        public Item(Block block, Properties props, ConveyorBeltTier tier) {
             super(block, props);
+
+            this.tier = tier;
+        }
+
+        public ConveyorBeltTier getTier() {
+            return tier;
         }
 
         @Override

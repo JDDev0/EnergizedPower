@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,16 +27,24 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-    protected ItemConveyorBeltLoaderBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltLoaderBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(ENABLED, true));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltLoaderBlockEntity(blockPos, state);
+        return new ItemConveyorBeltLoaderBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -122,6 +130,6 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltLoaderBlockEntityFromTier(), ItemConveyorBeltLoaderBlockEntity::tick);
     }
 }

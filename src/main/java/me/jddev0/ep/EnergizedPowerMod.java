@@ -116,12 +116,24 @@ public class EnergizedPowerMod {
 
             event.accept(EPItems.WRENCH);
 
-            event.accept(EPBlocks.ITEM_CONVEYOR_BELT_ITEM);
-            event.accept(EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM);
-            event.accept(EPBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM);
-            event.accept(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM);
-            event.accept(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
-            event.accept(EPBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM);
+            event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM);
+            event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM);
+            event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM);
+            event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM);
+            event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM);
+            event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM);
+            event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM);
+            event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM);
+            event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM);
+            event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
+            event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
+            event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
+            event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
+            event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
+            event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
+            event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM);
+            event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM);
+            event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM);
 
             event.accept(EPBlocks.IRON_FLUID_PIPE_ITEM);
             event.accept(EPBlocks.GOLDEN_FLUID_PIPE_ITEM);
@@ -366,8 +378,12 @@ public class EnergizedPowerMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModConfigs.registerConfigs(false);
 
-            MenuScreens.register(EPMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
-            MenuScreens.register(EPMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU.get(), ItemConveyorBeltSorterScreen::new);
+            MenuScreens.register(EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
+            MenuScreens.register(EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
+            MenuScreens.register(EPMenuTypes.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_MENU.get(), ItemConveyorBeltLoaderScreen::new);
+            MenuScreens.register(EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU.get(), ItemConveyorBeltSorterScreen::new);
+            MenuScreens.register(EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_SORTER_MENU.get(), ItemConveyorBeltSorterScreen::new);
+            MenuScreens.register(EPMenuTypes.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_MENU.get(), ItemConveyorBeltSorterScreen::new);
             MenuScreens.register(EPMenuTypes.AUTO_CRAFTER_MENU.get(), AutoCrafterScreen::new);
             MenuScreens.register(EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU.get(), AdvancedAutoCrafterScreen::new);
             MenuScreens.register(EPMenuTypes.CRUSHER_MENU.get(), CrusherScreen::new);
@@ -467,7 +483,9 @@ public class EnergizedPowerMod {
             ItemBlockRenderTypes.setRenderLayer(EPFluids.DIRTY_WATER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(EPFluids.FLOWING_DIRTY_WATER.get(), RenderType.translucent());
 
-            BlockEntityRenderers.register(EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+            BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+            BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+            BlockEntityRenderers.register(EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);

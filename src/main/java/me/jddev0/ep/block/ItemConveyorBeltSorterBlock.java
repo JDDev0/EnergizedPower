@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,16 +28,24 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    protected ItemConveyorBeltSorterBlock(Properties props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltSorterBlock(ConveyorBeltTier tier, Properties props) {
         super(props);
 
+        this.tier = tier;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(FACING, Direction.NORTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltSorterBlockEntity(blockPos, state);
+        return new ItemConveyorBeltSorterBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -120,7 +128,7 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
             return;
 
         BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
-        itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.is(EPBlocks.ITEM_CONVEYOR_BELT.get()));
+        itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.getBlock() instanceof ItemConveyorBeltBlock);
     }
 
     @Override
@@ -146,6 +154,6 @@ public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.ITEM_CONVEYOR_BELT_SORTER_ENTITY.get(), ItemConveyorBeltSorterBlockEntity::tick);
+        return createTickerHelper(type, tier.getItemConveyorBeltSorterBlockEntityFromTier(), ItemConveyorBeltSorterBlockEntity::tick);
     }
 }

@@ -17,9 +17,9 @@ public final class EPBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, EPAPI.MOD_ID);
 
     private static RegistryObject<BlockEntityType<FluidPipeBlockEntity>> createFluidPipeBlockEntity(String name,
-                                                                                                    RegistryObject<FluidPipeBlock> blockSupplier) {
+                                                                                                    RegistryObject<FluidPipeBlock> blockRegistryObject) {
         return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidPipeBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
     }
     public static final RegistryObject<BlockEntityType<FluidPipeBlockEntity>> IRON_FLUID_PIPE_ENTITY =
             createFluidPipeBlockEntity("fluid_pipe", EPBlocks.IRON_FLUID_PIPE);
@@ -27,9 +27,9 @@ public final class EPBlockEntities {
             createFluidPipeBlockEntity("golden_fluid_pipe", EPBlocks.GOLDEN_FLUID_PIPE);
 
     private static RegistryObject<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name,
-                                                                                                    RegistryObject<FluidTankBlock> blockSupplier) {
+                                                                                                    RegistryObject<FluidTankBlock> blockRegistryObject) {
         return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidTankBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
     }
     public static final RegistryObject<BlockEntityType<FluidTankBlockEntity>> FLUID_TANK_SMALL_ENTITY =
             createFluidTankBlockEntity("fluid_tank_small", EPBlocks.FLUID_TANK_SMALL);
@@ -42,29 +42,89 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("creative_fluid_tank", () -> BlockEntityType.Builder.of(CreativeFluidTankBlockEntity::new,
                     EPBlocks.CREATIVE_FLUID_TANK.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> ITEM_CONVEYOR_BELT_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt", () -> BlockEntityType.Builder.of(ItemConveyorBeltBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT.get()).build(null));
+    private static RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
+            String name,
+            RegistryObject<ItemConveyorBeltBlock> blockRegistryObject
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("item_conveyor_belt", EPBlocks.BASIC_ITEM_CONVEYOR_BELT);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> FAST_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("fast_item_conveyor_belt", EPBlocks.FAST_ITEM_CONVEYOR_BELT);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("express_item_conveyor_belt", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT);
 
-    public static final RegistryObject<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> ITEM_CONVEYOR_BELT_LOADER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_loader", () -> BlockEntityType.Builder.of(ItemConveyorBeltLoaderBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_LOADER.get()).build(null));
+    private static RegistryObject<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> createItemConveyorBeltLoaderBlockEntity(
+            String name,
+            RegistryObject<ItemConveyorBeltLoaderBlock> blockRegistryObject
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltLoaderBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("item_conveyor_belt_loader", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("fast_item_conveyor_belt_loader", EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("express_item_conveyor_belt_loader", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
 
-    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> ITEM_CONVEYOR_BELT_SORTER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_sorter", () -> BlockEntityType.Builder.of(ItemConveyorBeltSorterBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_SORTER.get()).build(null));
+    private static RegistryObject<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> createItemConveyorBeltSorterBlockEntity(
+            String name,
+            RegistryObject<ItemConveyorBeltSorterBlock> blockRegistryObject
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltSorterBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("item_conveyor_belt_sorter", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> FAST_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("fast_item_conveyor_belt_sorter", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("express_item_conveyor_belt_sorter", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
 
-    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_switch", () -> BlockEntityType.Builder.of(ItemConveyorBeltSwitchBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_SWITCH.get()).build(null));
+    private static RegistryObject<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> createItemConveyorBeltSwitchBlockEntity(
+            String name,
+            RegistryObject<ItemConveyorBeltSwitchBlock> blockRegistryObject
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltSwitchBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("item_conveyor_belt_switch", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> FAST_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("fast_item_conveyor_belt_switch", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("express_item_conveyor_belt_switch", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
 
-    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_splitter", () -> BlockEntityType.Builder.of(ItemConveyorBeltSplitterBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER.get()).build(null));
+    private static RegistryObject<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> createItemConveyorBeltSplitterBlockEntity(
+            String name,
+            RegistryObject<ItemConveyorBeltSplitterBlock> blockRegistryObject
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltSplitterBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("item_conveyor_belt_splitter", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> FAST_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("fast_conveyor_belt_splitter", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("express_conveyor_belt_splitter", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
 
-    public static final RegistryObject<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> ITEM_CONVEYOR_BELT_MERGER_ENTITY =
-            BLOCK_ENTITIES.register("item_conveyor_belt_merger", () -> BlockEntityType.Builder.of(ItemConveyorBeltMergerBlockEntity::new,
-                    EPBlocks.ITEM_CONVEYOR_BELT_MERGER.get()).build(null));
+    private static RegistryObject<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> createItemConveyorBeltMergerBlockEntity(
+            String name,
+            RegistryObject<ItemConveyorBeltMergerBlock> blockRegistryObject
+    ) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltMergerBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("item_conveyor_belt_merger", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> FAST_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("fast_item_conveyor_belt_merger", EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER);
+    public static final RegistryObject<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("express_item_conveyor_belt_merger", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
     public static final RegistryObject<BlockEntityType<CableBlockEntity>> TIN_CABLE_ENTITY =
             BLOCK_ENTITIES.register("tin_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
