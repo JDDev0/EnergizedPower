@@ -57,6 +57,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
             new SimpleBooleanValueContainerData()
     };
     private final SimpleBooleanValueContainerData secondaryExtractModeData = new SimpleBooleanValueContainerData();
+    private final SimpleBooleanValueContainerData allowOutputOverflowData = new SimpleBooleanValueContainerData();
     private final SimpleShortValueContainerData currentRecipeIndexData = new SimpleShortValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
@@ -143,6 +144,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
             addProperties(ignoreNBTData[1]);
             addProperties(ignoreNBTData[2]);
             addProperties(secondaryExtractModeData);
+            addProperties(allowOutputOverflowData);
             addProperties(currentRecipeIndexData);
             addProperties(redstoneModeData);
             addProperties(comparatorModeData);
@@ -211,6 +213,10 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
 
     public boolean isSecondaryExtractMode() {
         return secondaryExtractModeData.getValue();
+    }
+
+    public boolean isAllowOutputOverflow() {
+        return allowOutputOverflowData.getValue();
     }
 
     public int getRecipeIndex() {
