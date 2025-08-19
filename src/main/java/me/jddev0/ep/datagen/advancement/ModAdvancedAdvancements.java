@@ -2,8 +2,8 @@ package me.jddev0.ep.datagen.advancement;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.item.BatteryItem;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
@@ -93,7 +93,7 @@ public class ModAdvancedAdvancements implements ForgeAdvancementProvider.Advance
 
         ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8.get());
         CompoundTag nbt = battery8FullyChargedIcon.getOrCreateTag();
-        nbt.putInt("energy", BatteryItem.Tier.BATTERY_8.getCapacity());
+        nbt.putInt("energy", BatteryTier.BATTERY_8.getCapacity());
         Advancement battery8FullyCharged = addAdvancement(
                 advancementOutput, existingFileHelper, battery8,
                 battery8FullyChargedIcon, "battery_8_fully_charged", FrameType.CHALLENGE,

@@ -4,12 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.machine.tier.CableTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -23,7 +23,7 @@ import java.util.*;
 public class CableBlockEntity extends BlockEntity {
     private static final CableBlock.EnergyExtractionMode ENERGY_EXTRACTION_MODE = ModConfigs.COMMON_CABLES_ENERGY_EXTRACTION_MODE.getValue();
 
-    private final CableBlock.Tier tier;
+    private final CableTier tier;
 
     private final ReceiveOnlyEnergyStorage energyStorage;
     private LazyOptional<IEnergyStorage> lazyEnergyStorage = LazyOptional.empty();
@@ -34,19 +34,8 @@ public class CableBlockEntity extends BlockEntity {
     private final Map<Pair<BlockPos, Direction>, IEnergyStorage> consumers = new HashMap<>();
     private final List<BlockPos> cableBlocks = new LinkedList<>();
 
-    public static BlockEntityType<CableBlockEntity> getEntityTypeFromTier(CableBlock.Tier tier) {
-        return switch(tier) {
-            case TIER_TIN -> EPBlockEntities.TIN_CABLE_ENTITY.get();
-            case TIER_COPPER -> EPBlockEntities.COPPER_CABLE_ENTITY.get();
-            case TIER_GOLD -> EPBlockEntities.GOLD_CABLE_ENTITY.get();
-            case TIER_ENERGIZED_COPPER -> EPBlockEntities.ENERGIZED_COPPER_CABLE_ENTITY.get();
-            case TIER_ENERGIZED_GOLD -> EPBlockEntities.ENERGIZED_GOLD_CABLE_ENTITY.get();
-            case TIER_ENERGIZED_CRYSTAL_MATRIX -> EPBlockEntities.ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY.get();
-        };
-    }
-
-    public CableBlockEntity(BlockPos blockPos, BlockState blockState, CableBlock.Tier tier) {
-        super(getEntityTypeFromTier(tier), blockPos, blockState);
+    public CableBlockEntity(BlockPos blockPos, BlockState blockState, CableTier tier) {
+        super(tier.getEntityTypeFromTier(), blockPos, blockState);
 
         this.tier = tier;
 
@@ -74,7 +63,7 @@ public class CableBlockEntity extends BlockEntity {
         }
     }
 
-    public CableBlock.Tier getTier() {
+    public CableTier getTier() {
         return tier;
     }
 

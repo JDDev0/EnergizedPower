@@ -3,12 +3,12 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.machine.tier.FluidPipeTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FluidPipeBlockEntity extends BlockEntity {
-    private final FluidPipeBlock.Tier tier;
+    private final FluidPipeTier tier;
 
     private final int maxTransfer;
 
@@ -34,16 +34,9 @@ public class FluidPipeBlockEntity extends BlockEntity {
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> consumers = new HashMap<>();
     private final List<BlockPos> pipeBlocks = new LinkedList<>();
-    
-    public static BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier(FluidPipeBlock.Tier tier) {
-        return switch(tier) {
-            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY.get();
-            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY.get();
-        };
-    }
 
-    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeBlock.Tier tier) {
-        super(getEntityTypeFromTier(tier), blockPos, blockState);
+    public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeTier tier) {
+        super(tier.getEntityTypeFromTier(), blockPos, blockState);
 
         this.tier = tier;
 
@@ -87,7 +80,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         };
     }
 
-    public FluidPipeBlock.Tier getTier() {
+    public FluidPipeTier getTier() {
         return tier;
     }
 

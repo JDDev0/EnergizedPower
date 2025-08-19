@@ -1,6 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -254,21 +255,21 @@ public final class EPItems {
             () -> new InventoryTeleporterItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> BATTERY_1 = ITEMS.register("battery_1",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_1));
+            () -> new BatteryItem(BatteryTier.BATTERY_1));
     public static final RegistryObject<Item> BATTERY_2 = ITEMS.register("battery_2",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_2));
+            () -> new BatteryItem(BatteryTier.BATTERY_2));
     public static final RegistryObject<Item> BATTERY_3 = ITEMS.register("battery_3",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_3));
+            () -> new BatteryItem(BatteryTier.BATTERY_3));
     public static final RegistryObject<Item> BATTERY_4 = ITEMS.register("battery_4",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_4));
+            () -> new BatteryItem(BatteryTier.BATTERY_4));
     public static final RegistryObject<Item> BATTERY_5 = ITEMS.register("battery_5",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_5));
+            () -> new BatteryItem(BatteryTier.BATTERY_5));
     public static final RegistryObject<Item> BATTERY_6 = ITEMS.register("battery_6",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_6));
+            () -> new BatteryItem(BatteryTier.BATTERY_6));
     public static final RegistryObject<Item> BATTERY_7 = ITEMS.register("battery_7",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_7));
+            () -> new BatteryItem(BatteryTier.BATTERY_7));
     public static final RegistryObject<Item> BATTERY_8 = ITEMS.register("battery_8",
-            () -> new BatteryItem(BatteryItem.Tier.BATTERY_8));
+            () -> new BatteryItem(BatteryTier.BATTERY_8));
     public static final RegistryObject<Item> CREATIVE_BATTERY = ITEMS.register("creative_battery",
             () -> new CreativeBatteryItem(new Item.Properties().stacksTo(1)));
 
