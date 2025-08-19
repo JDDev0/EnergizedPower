@@ -127,15 +127,19 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM);
             event.accept(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM);
             event.accept(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM);
+            event.accept(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM);
             event.accept(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM);
             event.accept(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM);
             event.accept(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM);
+            event.accept(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM);
             event.accept(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM);
             event.accept(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM);
             event.accept(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM);
+            event.accept(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM);
             event.accept(EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM);
             event.accept(EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM);
             event.accept(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM);
+            event.accept(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM);
 
             event.accept(EPBlocks.PRESS_MOLD_MAKER_ITEM);
             event.accept(EPBlocks.ALLOY_FURNACE_ITEM);

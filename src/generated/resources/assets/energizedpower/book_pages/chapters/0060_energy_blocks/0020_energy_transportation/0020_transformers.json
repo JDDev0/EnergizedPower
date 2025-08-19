@@ -3,15 +3,19 @@
     "energizedpower:lv_transformer_1_to_n",
     "energizedpower:lv_transformer_3_to_3",
     "energizedpower:lv_transformer_n_to_1",
+    "energizedpower:configurable_lv_transformer",
     "energizedpower:transformer_1_to_n",
     "energizedpower:transformer_3_to_3",
     "energizedpower:transformer_n_to_1",
+    "energizedpower:configurable_mv_transformer",
     "energizedpower:hv_transformer_1_to_n",
     "energizedpower:hv_transformer_3_to_3",
     "energizedpower:hv_transformer_n_to_1",
+    "energizedpower:configurable_hv_transformer",
     "energizedpower:ehv_transformer_1_to_n",
     "energizedpower:ehv_transformer_3_to_3",
-    "energizedpower:ehv_transformer_n_to_1"
+    "energizedpower:ehv_transformer_n_to_1",
+    "energizedpower:configurable_ehv_transformer"
   ],
   "content": {
     "extra": [

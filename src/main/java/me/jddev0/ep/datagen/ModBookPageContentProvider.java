@@ -700,15 +700,19 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.LV_TRANSFORMER_1_TO_N,
                 EPBlocks.LV_TRANSFORMER_3_TO_3,
                 EPBlocks.LV_TRANSFORMER_N_TO_1,
+                EPBlocks.CONFIGURABLE_LV_TRANSFORMER,
                 EPBlocks.MV_TRANSFORMER_1_TO_N,
                 EPBlocks.MV_TRANSFORMER_3_TO_3,
                 EPBlocks.MV_TRANSFORMER_N_TO_1,
+                EPBlocks.CONFIGURABLE_MV_TRANSFORMER,
                 EPBlocks.HV_TRANSFORMER_1_TO_N,
                 EPBlocks.HV_TRANSFORMER_3_TO_3,
                 EPBlocks.HV_TRANSFORMER_N_TO_1,
+                EPBlocks.CONFIGURABLE_HV_TRANSFORMER,
                 EPBlocks.EHV_TRANSFORMER_1_TO_N,
                 EPBlocks.EHV_TRANSFORMER_3_TO_3,
-                EPBlocks.EHV_TRANSFORMER_N_TO_1
+                EPBlocks.EHV_TRANSFORMER_N_TO_1,
+                EPBlocks.CONFIGURABLE_EHV_TRANSFORMER
         });
 
         addSimplePage(pageId("minecart_charger_uncharger"), Text.empty().append(

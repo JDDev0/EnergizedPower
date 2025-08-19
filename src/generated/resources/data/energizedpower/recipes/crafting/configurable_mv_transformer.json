@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_circuit"
+    },
+    "C": {
+      "tag": "c:copper_blocks"
+    },
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "M": {
+      "item": "energizedpower:hardened_machine_frame"
+    },
+    "T": {
+      "item": "energizedpower:configurable_lv_transformer"
+    }
+  },
+  "pattern": [
+    "CTI",
+    "BMB",
+    "CTI"
+  ],
+  "result": {
+    "item": "energizedpower:configurable_mv_transformer"
+  }
+}
