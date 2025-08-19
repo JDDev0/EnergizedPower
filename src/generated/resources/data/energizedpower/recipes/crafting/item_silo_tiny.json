@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:wooden_barrels"
+    },
+    "I": {
+      "tag": "c:iron_plates"
+    }
+  },
+  "pattern": [
+    "III",
+    "IBI",
+    "III"
+  ],
+  "result": {
+    "item": "energizedpower:item_silo_tiny"
+  }
+}

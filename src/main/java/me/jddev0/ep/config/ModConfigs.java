@@ -1191,6 +1191,26 @@ public final class ModConfigs {
             "block.fluid_tank_large", "Fluid Tank (Large)", 128
     );
 
+    public static final ConfigValue<Integer> COMMON_ITEM_SILO_TINY_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.item_silo_tiny", "Item Silo (Tiny)", 50
+    );
+
+    public static final ConfigValue<Integer> COMMON_ITEM_SILO_SMALL_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.item_silo_small", "Item Silo (Small)", 100
+    );
+
+    public static final ConfigValue<Integer> COMMON_ITEM_SILO_MEDIUM_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.item_silo_medium", "Item Silo (Medium)", 250
+    );
+
+    public static final ConfigValue<Integer> COMMON_ITEM_SILO_LARGE_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.item_silo_large", "Item Silo (Large)", 500
+    );
+
+    public static final ConfigValue<Integer> COMMON_ITEM_SILO_GIANT_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.item_silo_giant", "Item Silo (Giant)", 1000
+    );
+
     public static final ConfigValue<Long> COMMON_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.charger", "Charger", 8192
     );
@@ -1466,6 +1486,15 @@ public final class ModConfigs {
                 "The energy consumption of the " + itemName + " in E per use",
                 defaultValue,
                 1L, null
+        ));
+    }
+
+    private static ConfigValue<Integer> registerItemSiloCapacityConfigValue(String baseConfigKey, String itemName, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                baseConfigKey + ".item_silo_capacity",
+                "The item silo capacity of the " + itemName + " in stacks (= 64 for most items)",
+                defaultValue,
+                1, null
         ));
     }
 

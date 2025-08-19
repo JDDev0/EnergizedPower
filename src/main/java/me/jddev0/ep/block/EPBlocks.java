@@ -162,6 +162,31 @@ public final class EPBlocks {
     public static final Item CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
             new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new FabricItemSettings()));
 
+    public static final ItemSiloBlock ITEM_SILO_TINY = registerBlock("item_silo_tiny",
+            new ItemSiloBlock(ItemSiloTier.TINY, ItemSiloTier.TINY.getProperties()));
+    public static final Item ITEM_SILO_TINY_ITEM = createBlockItem("item_silo_tiny",
+            new ItemSiloBlock.Item(ITEM_SILO_TINY, new Item.Settings(), ItemSiloTier.TINY));
+
+    public static final ItemSiloBlock ITEM_SILO_SMALL = registerBlock("item_silo_small",
+            new ItemSiloBlock(ItemSiloTier.SMALL, ItemSiloTier.SMALL.getProperties()));
+    public static final Item ITEM_SILO_SMALL_ITEM = createBlockItem("item_silo_small",
+            new ItemSiloBlock.Item(ITEM_SILO_SMALL, new Item.Settings(), ItemSiloTier.SMALL));
+
+    public static final ItemSiloBlock ITEM_SILO_MEDIUM = registerBlock("item_silo_medium",
+            new ItemSiloBlock(ItemSiloTier.MEDIUM, ItemSiloTier.MEDIUM.getProperties()));
+    public static final Item ITEM_SILO_MEDIUM_ITEM = createBlockItem("item_silo_medium",
+            new ItemSiloBlock.Item(ITEM_SILO_MEDIUM, new Item.Settings(), ItemSiloTier.MEDIUM));
+
+    public static final ItemSiloBlock ITEM_SILO_LARGE = registerBlock("item_silo_large",
+            new ItemSiloBlock(ItemSiloTier.LARGE, ItemSiloTier.LARGE.getProperties()));
+    public static final Item ITEM_SILO_LARGE_ITEM = createBlockItem("item_silo_large",
+            new ItemSiloBlock.Item(ITEM_SILO_LARGE, new Item.Settings(), ItemSiloTier.LARGE));
+
+    public static final ItemSiloBlock ITEM_SILO_GIANT = registerBlock("item_silo_giant",
+            new ItemSiloBlock(ItemSiloTier.GIANT, ItemSiloTier.GIANT.getProperties()));
+    public static final Item ITEM_SILO_GIANT_ITEM = createBlockItem("item_silo_giant",
+            new ItemSiloBlock.Item(ITEM_SILO_GIANT, new Item.Settings(), ItemSiloTier.GIANT));
+
     private static Item createCableBlockItem(String name, CableBlock block) {
         return Registry.register(Registries.ITEM, EPAPI.id(name),
                 new CableBlock.Item(block, new FabricItemSettings(), block.getTier()));

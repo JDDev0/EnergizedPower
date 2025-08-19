@@ -90,6 +90,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Item Conveyor Belt Switch (3 tiers (**In next release (v2.15.0)**))
 - Item Conveyor Belt Splitter (3 tiers (**In next release (v2.15.0)**))
 - Item Conveyor Belt Merger (3 tiers (**In next release (v2.15.0)**))
+- Item Silos (Tiny, Small, Medium, Large, and Giant) (**In next release (v2.15.0)**)
 
 ### Misc
 

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "S": {
+      "item": "energizedpower:item_silo_large"
+    }
+  },
+  "pattern": [
+    "III",
+    "ISI",
+    "III"
+  ],
+  "result": {
+    "item": "energizedpower:item_silo_giant"
+  }
+}

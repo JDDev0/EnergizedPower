@@ -8,6 +8,8 @@ import net.minecraft.resource.featuretoggle.FeatureFlags;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 
+import java.util.function.Supplier;
+
 public final class EPMenuTypes {
     private EPMenuTypes() {}
 
@@ -241,6 +243,17 @@ public final class EPMenuTypes {
 
     public static final ScreenHandlerType<CreativeFluidTankMenu> CREATIVE_FLUID_TANK = createScreenHandlerType("creative_fluid_tank",
             new ExtendedScreenHandlerType<>(CreativeFluidTankMenu::new));
+
+    public static final ScreenHandlerType<ItemSiloMenu> ITEM_SILO_TINY = createScreenHandlerType("item_silo_tiny",
+            new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
+    public static final ScreenHandlerType<ItemSiloMenu> ITEM_SILO_SMALL = createScreenHandlerType("item_silo_small",
+            new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
+    public static final ScreenHandlerType<ItemSiloMenu> ITEM_SILO_MEDIUM = createScreenHandlerType("item_silo_medium",
+            new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
+    public static final ScreenHandlerType<ItemSiloMenu> ITEM_SILO_LARGE = createScreenHandlerType("item_silo_large",
+            new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
+    public static final ScreenHandlerType<ItemSiloMenu> ITEM_SILO_GIANT = createScreenHandlerType("item_silo_giant",
+            new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registries.SCREEN_HANDLER, EPAPI.id(name), screenHandlerType);

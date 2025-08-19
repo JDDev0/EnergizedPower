@@ -1,0 +1,140 @@
+package me.jddev0.ep.block;
+
+import me.jddev0.ep.block.entity.ItemSiloBlockEntity;
+import me.jddev0.ep.machine.tier.ItemSiloTier;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+public class ItemSiloBlock extends BlockWithEntity {
+    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+
+    private final ItemSiloTier tier;
+
+    public ItemSiloBlock(ItemSiloTier tier, AbstractBlock.Settings properties) {
+        super(properties);
+
+        this.tier = tier;
+
+        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    public ItemSiloTier getTier() {
+        return tier;
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+        return new ItemSiloBlockEntity(blockPos, state, tier);
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ItemSiloBlockEntity itemSiloBlockEntity))
+            return super.getComparatorOutput(state, level, blockPos);
+
+        return itemSiloBlockEntity.getRedstoneOutput();
+    }
+
+    @Override
+    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+        if(state.getBlock() == newState.getBlock())
+            return;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ItemSiloBlockEntity))
+            return;
+
+        ((ItemSiloBlockEntity)blockEntity).drops(level, blockPos);
+
+        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, Hand handItem, BlockHitResult hit) {
+        if(level.isClient())
+            return ActionResult.SUCCESS;
+
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        if(!(blockEntity instanceof ItemSiloBlockEntity) || ((ItemSiloBlockEntity)blockEntity).getTier() != tier)
+            throw new IllegalStateException("Container is invalid");
+
+        player.openHandledScreen((ItemSiloBlockEntity)blockEntity);
+
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext context) {
+        return this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing().getOpposite());
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+        stateBuilder.add(FACING);
+    }
+
+    public static class Item extends BlockItem {
+        private final ItemSiloTier tier;
+
+        public Item(Block block, Settings props, ItemSiloTier tier) {
+            super(block, props);
+
+            this.tier = tier;
+        }
+
+        public ItemSiloTier getTier() {
+            return tier;
+        }
+
+        @Override
+        public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+            if(Screen.hasShiftDown()) {
+                tooltip.add(Text.translatable("tooltip.energizedpower.item_silo_capacity.txt", tier.getItemSiloCapacity()).formatted(Formatting.GRAY));
+
+                tooltip.add(Text.translatable("tooltip.energizedpower.item_silo.txt.shift").formatted(Formatting.GRAY));
+            }else {
+                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            }
+        }
+    }
+}
