@@ -336,7 +336,8 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                         ItemPredicate.Builder.item().of(
                                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM.get(),
                                 EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM.get(),
-                                EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM.get()
+                                EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM.get(),
+                                EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM.get()
                         ).build()
                 )
         );
@@ -584,7 +585,8 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                         ItemPredicate.Builder.item().of(
                                 EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM.get(),
                                 EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM.get(),
-                                EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM.get()
+                                EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM.get(),
+                                EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM.get()
                         ).build()
                 )
         );

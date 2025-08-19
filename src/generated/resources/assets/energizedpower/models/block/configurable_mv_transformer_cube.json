@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/mv_transformer_not_connected",
+    "east": "energizedpower:block/mv_transformer_input",
+    "north": "energizedpower:block/mv_transformer_output",
+    "particle": "#up",
+    "south": "energizedpower:block/mv_transformer_not_connected",
+    "up": "energizedpower:block/mv_transformer_not_connected",
+    "west": "energizedpower:block/mv_transformer_not_connected"
+  }
+}

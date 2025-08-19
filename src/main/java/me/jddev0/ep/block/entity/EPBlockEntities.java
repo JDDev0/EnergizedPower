@@ -362,6 +362,27 @@ public final class EPBlockEntities {
                                     TransformerType.TYPE_N_TO_1),
                     EPBlocks.EHV_TRANSFORMER_N_TO_1.get()).build(null));
 
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_LV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_lv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_LV_TRANSFORMER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_MV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_mv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_MV_TRANSFORMER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_HV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_hv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_HV_TRANSFORMER.get()).build(null));
+    public static final RegistryObject<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_EHV_TRANSFORMER_ENTITY =
+            BLOCK_ENTITIES.register("configurable_ehv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
+                            TransformerType.CONFIGURABLE),
+                    EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get()).build(null));
+
     public static final RegistryObject<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY =
             BLOCK_ENTITIES.register("battery_box", () -> BlockEntityType.Builder.of(BatteryBoxBlockEntity::new,
                     EPBlocks.BATTERY_BOX.get()).build(null));

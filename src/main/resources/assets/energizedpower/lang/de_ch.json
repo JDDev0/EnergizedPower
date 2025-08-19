@@ -471,6 +471,24 @@
   "item.energizedpower.ehv_transformer_n_to_1": "EHV-Trafo (n zu 1)",
   "container.energizedpower.ehv_transformer_n_to_1": "EHV-Trafo (n zu 1)",
 
+  "block.energizedpower.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
+  "item.energizedpower.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
+  "container.energizedpower.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
+
+  "block.energizedpower.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
+  "item.energizedpower.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
+  "container.energizedpower.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
+
+  "block.energizedpower.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
+  "item.energizedpower.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
+  "container.energizedpower.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
+
+  "block.energizedpower.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
+  "item.energizedpower.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
+  "container.energizedpower.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
+
+  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "Dieser Block kann verschiedene Kabeltypen verbinden.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
@@ -783,6 +801,10 @@
   "block_state.energizedpower.pipe_connection.not_connected": "Nicht verbunden",
   "block_state.energizedpower.pipe_connection.connected": "Verbunden/Einfügung",
   "block_state.energizedpower.pipe_connection.extract": "Extraktion",
+
+  "block_state.energizedpower.transformer_connection.not_connected": "Nicht verbunden",
+  "block_state.energizedpower.transformer_connection.receive": "Einfügung",
+  "block_state.energizedpower.transformer_connection.extract": "Extraktion",
 
   "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Flach",
   "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Aufsteigend",
@@ -1585,7 +1607,7 @@
   "book.energizedpower.page.transformers.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "book.energizedpower.page.transformers.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
   "book.energizedpower.page.transformers.4": "Es gibt vier Trafostärken: LV, MV, HV und EHV.",
-  "book.energizedpower.page.transformers.5": "Für jeden dieser drei Typen gibt es drei Typen: 1 zu n, 3 zu 3 und n zu 1.",
+  "book.energizedpower.page.transformers.5": "Für jeden dieser Trafostärken gibt es vier Typen: 1 zu n, 3 zu 3, n zu 1 und konfigurierbar.",
   "book.energizedpower.page.transformers.6": "Trafos können Lags reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
   "book.energizedpower.page.transformers.7": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",
   "book.energizedpower.page.transformers.8": "Trafos können als Batterie-Block genutzt werden.",

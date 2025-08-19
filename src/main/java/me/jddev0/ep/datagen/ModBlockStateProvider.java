@@ -30,6 +30,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private ModelFile solarPanelTemplate;
 
+    private ModelFile singleSideTemplate;
+
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, EPAPI.MOD_ID, existingFileHelper);
     }
@@ -101,6 +103,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 face(Direction.WEST).uvs(0, 12, 16, 16).cullface(Direction.WEST).texture("#side").end().
                 face(Direction.EAST).uvs(0, 12, 16, 16).cullface(Direction.EAST).texture("#side").end().
                 end();
+
+        singleSideTemplate = models().getExistingFile(EPAPI.id("single_side"));
     }
 
     private void registerBlocks() {
@@ -199,6 +203,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_1_TO_N);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_3_TO_3);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_N_TO_1);
+
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_LV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_MV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
 
         horizontalBlockWithItem(EPBlocks.BATTERY_BOX, true);
         horizontalBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX, true);
@@ -763,6 +772,79 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 simpleBlockItem(block.get(), transformer);
             }
         }
+    }
+
+    private void configurableTransformerBlockWithItem(RegistryObject<ConfigurableTransformerBlock> block) {
+        ResourceLocation blockId = block.getId();
+        String textureName = switch(block.get().getTier()) {
+            case LV -> "lv_transformer";
+            case MV -> "mv_transformer";
+            case HV -> "hv_transformer";
+            case EHV -> "ehv_transformer";
+        };
+
+        ModelFile allCube = models().
+                withExistingParent(blockId.getPath() + "_cube", ModelProvider.BLOCK_FOLDER + "/cube").
+                texture("particle", "#up").
+                texture("up", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_not_connected").
+                texture("down", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_not_connected").
+                texture("north", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output").
+                texture("south", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_not_connected").
+                texture("east", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input").
+                texture("west", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_not_connected");;
+
+        ModelFile notConnectedSide = models().
+                getBuilder(blockId.getPath() + "_not_connected").parent(singleSideTemplate).
+                texture("particle", "#side").
+                texture("side", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_not_connected");
+        ModelFile receiveSide = models().
+                getBuilder(blockId.getPath() + "_input").parent(singleSideTemplate).
+                texture("particle", "#side").
+                texture("side", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_input");
+        ModelFile extractSide = models().
+                getBuilder(blockId.getPath() + "_output").parent(singleSideTemplate).
+                texture("particle", "#side").
+                texture("side", ModelProvider.BLOCK_FOLDER + "/" + textureName + "_output");
+
+        getMultipartBuilder(block.get()).part().
+                modelFile(notConnectedSide).rotationX(270).addModel().condition(ConfigurableTransformerBlock.UP,
+                        EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).end().part().
+                modelFile(receiveSide).rotationX(270).addModel().condition(ConfigurableTransformerBlock.UP,
+                        EPBlockStateProperties.TransformerConnection.RECEIVE).end().part().
+                modelFile(extractSide).rotationX(270).addModel().condition(ConfigurableTransformerBlock.UP,
+                        EPBlockStateProperties.TransformerConnection.EXTRACT).end().part().
+                modelFile(notConnectedSide).rotationX(90).addModel().condition(ConfigurableTransformerBlock.DOWN,
+                        EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).end().part().
+                modelFile(receiveSide).rotationX(90).addModel().condition(ConfigurableTransformerBlock.DOWN,
+                        EPBlockStateProperties.TransformerConnection.RECEIVE).end().part().
+                modelFile(extractSide).rotationX(90).addModel().condition(ConfigurableTransformerBlock.DOWN,
+                        EPBlockStateProperties.TransformerConnection.EXTRACT).end().part().
+                modelFile(notConnectedSide).addModel().condition(ConfigurableTransformerBlock.NORTH,
+                        EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).end().part().
+                modelFile(receiveSide).addModel().condition(ConfigurableTransformerBlock.NORTH,
+                        EPBlockStateProperties.TransformerConnection.RECEIVE).end().part().
+                modelFile(extractSide).addModel().condition(ConfigurableTransformerBlock.NORTH,
+                        EPBlockStateProperties.TransformerConnection.EXTRACT).end().part().
+                modelFile(notConnectedSide).rotationX(180).addModel().condition(ConfigurableTransformerBlock.SOUTH,
+                        EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).end().part().
+                modelFile(receiveSide).rotationX(180).addModel().condition(ConfigurableTransformerBlock.SOUTH,
+                        EPBlockStateProperties.TransformerConnection.RECEIVE).end().part().
+                modelFile(extractSide).rotationX(180).addModel().condition(ConfigurableTransformerBlock.SOUTH,
+                        EPBlockStateProperties.TransformerConnection.EXTRACT).end().part().
+                modelFile(notConnectedSide).rotationY(90).addModel().condition(ConfigurableTransformerBlock.EAST,
+                        EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).end().part().
+                modelFile(receiveSide).rotationY(90).addModel().condition(ConfigurableTransformerBlock.EAST,
+                        EPBlockStateProperties.TransformerConnection.RECEIVE).end().part().
+                modelFile(extractSide).rotationY(90).addModel().condition(ConfigurableTransformerBlock.EAST,
+                        EPBlockStateProperties.TransformerConnection.EXTRACT).end().part().
+                modelFile(notConnectedSide).rotationY(270).addModel().condition(ConfigurableTransformerBlock.WEST,
+                        EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).end().part().
+                modelFile(receiveSide).rotationY(270).addModel().condition(ConfigurableTransformerBlock.WEST,
+                        EPBlockStateProperties.TransformerConnection.RECEIVE).end().part().
+                modelFile(extractSide).rotationY(270).addModel().condition(ConfigurableTransformerBlock.WEST,
+                        EPBlockStateProperties.TransformerConnection.EXTRACT).end();
+
+        simpleBlockItem(block.get(), allCube);
     }
 
     private void solarPanelBlockWithItem(RegistryObject<? extends Block> block) {
