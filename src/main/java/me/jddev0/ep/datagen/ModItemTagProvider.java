@@ -55,7 +55,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
                         EPBlocks.FLUID_TANK_SMALL_ITEM,
                         EPBlocks.FLUID_TANK_MEDIUM_ITEM,
-                        EPBlocks.FLUID_TANK_LARGE_ITEM
+                        EPBlocks.FLUID_TANK_LARGE_ITEM,
+                        EPBlocks.CREATIVE_FLUID_TANK_ITEM
                 );
 
         getOrCreateTagBuilder(CompatibilityItemTags.AE2_FE_P2P_TUNNEL_ATTUNEMENTS).
