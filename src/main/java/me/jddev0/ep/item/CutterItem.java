@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
-import net.minecraft.item.ToolMaterials;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.item.Vanishable;
 import net.minecraft.util.math.random.Random;
 import me.jddev0.ep.block.CableBlock;
@@ -12,7 +12,7 @@ import me.jddev0.ep.block.CableBlock;
 public class CutterItem extends ToolItem implements Vanishable {
     private final Random random = Random.create();
 
-    public CutterItem(ToolMaterials tier, FabricItemSettings props) {
+    public CutterItem(ToolMaterial tier, FabricItemSettings props) {
         super(tier, props);
     }
 
