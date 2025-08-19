@@ -43,6 +43,11 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
 
                 ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 1, !handler.isSecondaryExtractMode()));
                 return true;
+            }else if(isPointWithinBounds(158, 59, 11, 11, mouseX, mouseY)) {
+                //Allow Output Overflow checkbox
+
+                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(handler.getBlockEntity().getPos(), 2, !handler.isAllowOutputOverflow()));
+                return true;
             }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
@@ -92,6 +97,12 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
             drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 158, y + 38, 11, 139, 11, 11);
         }
 
+        if(handler.isAllowOutputOverflow()) {
+            //Allow Output Overflow checkbox
+
+            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 158, y + 59, 0, 139, 11, 11, 256, 256);
+        }
+
         drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + 96, y + 16, 11 + 11 * handler.getRecipeIndex(), 139, 11, 11);
     }
 
@@ -111,6 +122,13 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
 
             List<Text> components = new ArrayList<>(2);
             components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.extract_mode." + (handler.isSecondaryExtractMode()?"2":"1")));
+
+            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+        }else if(isPointWithinBounds(158, 59, 11, 11, mouseX, mouseY)) {
+            //Allow Output Overflow checkbox
+
+            List<Text> components = new ArrayList<>(2);
+            components.add(Text.translatable("tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow"));
 
             drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
         }else if(isPointWithinBounds(126, 16, 12, 12, mouseX, mouseY)) {
