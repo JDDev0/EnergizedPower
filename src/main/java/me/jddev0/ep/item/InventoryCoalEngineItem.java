@@ -25,7 +25,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -88,8 +88,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     }
 
     private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, @Nullable EquipmentSlot slot) {
-        List<IEnergyStorage> consumerItems = new LinkedList<>();
-        List<Integer> consumerEnergyValues = new LinkedList<>();
+        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack testItemStack = inventory.getItem(i);
@@ -101,7 +101,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         for(ItemStack testItemStack:curiosItemStacks)
             consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);
 
-        List<Integer> consumerEnergyDistributed = new LinkedList<>();
+        List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 

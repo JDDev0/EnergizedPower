@@ -64,7 +64,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
         List<List<ItemStack>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
-            outputSlotEntries.add(new LinkedList<>());
+            outputSlotEntries.add(new ArrayList<>());
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
         for(int i = 0;i < outputEntries.length;i++)

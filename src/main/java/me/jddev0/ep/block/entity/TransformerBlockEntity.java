@@ -25,7 +25,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
@@ -153,7 +153,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return; //This will make the output "disconnected"
 
-        List<Direction> outputDirections = new LinkedList<>();
+        List<Direction> outputDirections = new ArrayList<>();
         if(blockEntity.type == TransformerType.CONFIGURABLE) {
             for(Direction side:Direction.values()) {
                 EPBlockStateProperties.TransformerConnection transformerConnection = state.getValue(ConfigurableTransformerBlock.
@@ -187,8 +187,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             }
         }
 
-        List<IEnergyStorage> consumerItems = new LinkedList<>();
-        List<Integer> consumerEnergyValues = new LinkedList<>();
+        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:outputDirections) {
             BlockPos testPos = blockPos.relative(direction);
@@ -210,7 +210,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             consumerEnergyValues.add(received);
         }
 
-        List<Integer> consumerEnergyDistributed = new LinkedList<>();
+        List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 

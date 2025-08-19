@@ -24,8 +24,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeMap;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 @JeiPlugin
 @REIPluginCompatIgnore
@@ -96,24 +96,24 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         if(recipeMap != null) {
-            registration.addRecipes(ChargerCategory.TYPE, new LinkedList<>(recipeMap.byType(ChargerRecipe.Type.INSTANCE)));
-            registration.addRecipes(CrusherCategory.TYPE, new LinkedList<>(recipeMap.byType(CrusherRecipe.Type.INSTANCE)));
-            registration.addRecipes(PulverizerCategory.TYPE, new LinkedList<>(recipeMap.byType(PulverizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(AdvancedPulverizerCategory.TYPE, new LinkedList<>(recipeMap.byType(PulverizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(SawmillCategory.TYPE, new LinkedList<>(recipeMap.byType(SawmillRecipe.Type.INSTANCE)));
-            registration.addRecipes(CompressorCategory.TYPE, new LinkedList<>(recipeMap.byType(CompressorRecipe.Type.INSTANCE)));
-            registration.addRecipes(MetalPressCategory.TYPE, new LinkedList<>(recipeMap.byType(MetalPressRecipe.Type.INSTANCE)));
-            registration.addRecipes(AssemblingMachineCategory.TYPE, new LinkedList<>(recipeMap.byType(AssemblingMachineRecipe.Type.INSTANCE)));
-            registration.addRecipes(PlantGrowthChamberCategory.TYPE, new LinkedList<>(recipeMap.byType(PlantGrowthChamberRecipe.Type.INSTANCE)));
-            registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, new LinkedList<>(recipeMap.byType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(EnergizerCategory.TYPE, new LinkedList<>(recipeMap.byType(EnergizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(CrystalGrowthChamberCategory.TYPE, new LinkedList<>(recipeMap.byType(CrystalGrowthChamberRecipe.Type.INSTANCE)));
-            registration.addRecipes(PressMoldMakerCategory.TYPE, new LinkedList<>(recipeMap.byType(PressMoldMakerRecipe.Type.INSTANCE)));
-            registration.addRecipes(AlloyFurnaceCategory.TYPE, new LinkedList<>(recipeMap.byType(AlloyFurnaceRecipe.Type.INSTANCE)));
-            registration.addRecipes(StoneLiquefierCategory.TYPE, new LinkedList<>(recipeMap.byType(StoneLiquefierRecipe.Type.INSTANCE)));
-            registration.addRecipes(StoneSolidifierCategory.TYPE, new LinkedList<>(recipeMap.byType(StoneSolidifierRecipe.Type.INSTANCE)));
-            registration.addRecipes(FiltrationPlantCategory.TYPE, new LinkedList<>(recipeMap.byType(FiltrationPlantRecipe.Type.INSTANCE)));
-            registration.addRecipes(FluidTransposerCategory.TYPE, new LinkedList<>(recipeMap.byType(FluidTransposerRecipe.Type.INSTANCE)));
+            registration.addRecipes(ChargerCategory.TYPE, new ArrayList<>(recipeMap.byType(ChargerRecipe.Type.INSTANCE)));
+            registration.addRecipes(CrusherCategory.TYPE, new ArrayList<>(recipeMap.byType(CrusherRecipe.Type.INSTANCE)));
+            registration.addRecipes(PulverizerCategory.TYPE, new ArrayList<>(recipeMap.byType(PulverizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(AdvancedPulverizerCategory.TYPE, new ArrayList<>(recipeMap.byType(PulverizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(SawmillCategory.TYPE, new ArrayList<>(recipeMap.byType(SawmillRecipe.Type.INSTANCE)));
+            registration.addRecipes(CompressorCategory.TYPE, new ArrayList<>(recipeMap.byType(CompressorRecipe.Type.INSTANCE)));
+            registration.addRecipes(MetalPressCategory.TYPE, new ArrayList<>(recipeMap.byType(MetalPressRecipe.Type.INSTANCE)));
+            registration.addRecipes(AssemblingMachineCategory.TYPE, new ArrayList<>(recipeMap.byType(AssemblingMachineRecipe.Type.INSTANCE)));
+            registration.addRecipes(PlantGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.byType(PlantGrowthChamberRecipe.Type.INSTANCE)));
+            registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, new ArrayList<>(recipeMap.byType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(EnergizerCategory.TYPE, new ArrayList<>(recipeMap.byType(EnergizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(CrystalGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.byType(CrystalGrowthChamberRecipe.Type.INSTANCE)));
+            registration.addRecipes(PressMoldMakerCategory.TYPE, new ArrayList<>(recipeMap.byType(PressMoldMakerRecipe.Type.INSTANCE)));
+            registration.addRecipes(AlloyFurnaceCategory.TYPE, new ArrayList<>(recipeMap.byType(AlloyFurnaceRecipe.Type.INSTANCE)));
+            registration.addRecipes(StoneLiquefierCategory.TYPE, new ArrayList<>(recipeMap.byType(StoneLiquefierRecipe.Type.INSTANCE)));
+            registration.addRecipes(StoneSolidifierCategory.TYPE, new ArrayList<>(recipeMap.byType(StoneSolidifierRecipe.Type.INSTANCE)));
+            registration.addRecipes(FiltrationPlantCategory.TYPE, new ArrayList<>(recipeMap.byType(FiltrationPlantRecipe.Type.INSTANCE)));
+            registration.addRecipes(FluidTransposerCategory.TYPE, new ArrayList<>(recipeMap.byType(FluidTransposerRecipe.Type.INSTANCE)));
 
             registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
                     new InWorldCategory.InWorldRecipe(

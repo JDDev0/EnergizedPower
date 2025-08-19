@@ -29,7 +29,7 @@ public class CableBlockEntity extends BlockEntity {
 
     private final Map<Pair<BlockPos, Direction>, IEnergyStorage> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IEnergyStorage> consumers = new HashMap<>();
-    private final List<BlockPos> cableBlocks = new LinkedList<>();
+    private final Deque<BlockPos> cableBlocks = new ArrayDeque<>();
 
     public CableBlockEntity(BlockPos blockPos, BlockState blockState, CableTier tier) {
         super(tier.getEntityTypeFromTier(), blockPos, blockState);
@@ -72,7 +72,7 @@ public class CableBlockEntity extends BlockEntity {
         return consumers;
     }
 
-    public List<BlockPos> getCableBlocks() {
+    public Deque<BlockPos> getCableBlocks() {
         return cableBlocks;
     }
 
@@ -111,10 +111,10 @@ public class CableBlockEntity extends BlockEntity {
         }
     }
 
-    public static List<IEnergyStorage> getConnectedConsumers(Level level, BlockPos blockPos, List<BlockPos> checkedCables) {
-        List<IEnergyStorage> consumers = new LinkedList<>();
+    public static Deque<IEnergyStorage> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedCables) {
+        Deque<IEnergyStorage> consumers = new ArrayDeque<>(1024);
 
-        LinkedList<BlockPos> cableBlocksLeft = new LinkedList<>();
+        Deque<BlockPos> cableBlocksLeft = new ArrayDeque<>(1024);
         cableBlocksLeft.add(blockPos);
 
         checkedCables.add(blockPos);
@@ -128,9 +128,7 @@ public class CableBlockEntity extends BlockEntity {
 
             CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
             cableBlockEntity.getCableBlocks().forEach(pos -> {
-                if(!checkedCables.contains(pos)) {
-                    checkedCables.add(pos);
-
+                if(checkedCables.add(pos)) {
                     cableBlocksLeft.add(pos);
                 }
             });
@@ -152,8 +150,8 @@ public class CableBlockEntity extends BlockEntity {
         }
 
         final int MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
-        List<IEnergyStorage> energyProduction = new LinkedList<>();
-        List<Integer> energyProductionValues = new LinkedList<>();
+        List<IEnergyStorage> energyProduction = new ArrayList<>();
+        List<Integer> energyProductionValues = new ArrayList<>();
 
         //Prioritize stored energy for PUSH mode
         int productionSum = blockEntity.energyStorage.getEnergy(); //Will always be 0 if in PULL only mode
@@ -170,10 +168,10 @@ public class CableBlockEntity extends BlockEntity {
         if(productionSum <= 0)
             return;
 
-        List<IEnergyStorage> energyConsumption = new LinkedList<>();
-        List<Integer> energyConsumptionValues = new LinkedList<>();
+        List<IEnergyStorage> energyConsumption = new ArrayList<>();
+        List<Integer> energyConsumptionValues = new ArrayList<>();
 
-        List<IEnergyStorage> consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
+        Deque<IEnergyStorage> consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
 
         int consumptionSum = 0;
         for(IEnergyStorage energyStorage:consumers) {
@@ -198,7 +196,7 @@ public class CableBlockEntity extends BlockEntity {
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - extractInternally);
         }
 
-        List<Integer> energyProductionDistributed = new LinkedList<>();
+        List<Integer> energyProductionDistributed = new ArrayList<>();
         for(int i = 0;i < energyProduction.size();i++)
             energyProductionDistributed.add(0);
 
@@ -231,7 +229,7 @@ public class CableBlockEntity extends BlockEntity {
                 energyProduction.get(i).extractEnergy(energy, false);
         }
 
-        List<Integer> energyConsumptionDistributed = new LinkedList<>();
+        List<Integer> energyConsumptionDistributed = new ArrayList<>();
         for(int i = 0;i < energyConsumption.size();i++)
             energyConsumptionDistributed.add(0);
 

@@ -28,7 +28,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -132,8 +132,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, @Nullable EquipmentSlot slot) {
         Container inventoryChargerInventory = getInventory(itemStack);
 
-        List<IEnergyStorage> consumerItems = new LinkedList<>();
-        List<Integer> consumerEnergyValues = new LinkedList<>();
+        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack testItemStack = inventory.getItem(i);
@@ -145,7 +145,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(ItemStack testItemStack:curiosItemStacks)
             consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack, inventoryChargerInventory);
 
-        List<Integer> consumerEnergyDistributed = new LinkedList<>();
+        List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
@@ -185,8 +185,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     }
 
     public void extractEnergyFromBatteries(int energyProductionLeft, Container inventory) {
-        List<IEnergyStorage> energyProduction = new LinkedList<>();
-        List<Integer> energyProductionValues = new LinkedList<>();
+        List<IEnergyStorage> energyProduction = new ArrayList<>();
+        List<Integer> energyProductionValues = new ArrayList<>();
 
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
@@ -203,7 +203,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             energyProductionValues.add(extracted);
         }
 
-        List<Integer> energyProductionDistributed = new LinkedList<>();
+        List<Integer> energyProductionDistributed = new ArrayList<>();
         for(int i = 0;i < energyProduction.size();i++)
             energyProductionDistributed.add(0);
 

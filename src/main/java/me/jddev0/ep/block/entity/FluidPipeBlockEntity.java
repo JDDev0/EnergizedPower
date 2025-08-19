@@ -15,10 +15,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FluidPipeBlockEntity extends BlockEntity {
     private final FluidPipeTier tier;
@@ -29,7 +26,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, IFluidHandler> consumers = new HashMap<>();
-    private final List<BlockPos> pipeBlocks = new LinkedList<>();
+    private final Deque<BlockPos> pipeBlocks = new ArrayDeque<>();
 
     public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeTier tier) {
         super(tier.getEntityTypeFromTier(), blockPos, blockState);
@@ -88,7 +85,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         return consumers;
     }
 
-    public List<BlockPos> getPipeBlocks() {
+    public Deque<BlockPos> getPipeBlocks() {
         return pipeBlocks;
     }
 
@@ -127,10 +124,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
     }
 
-    public static List<IFluidHandler> getConnectedConsumers(Level level, BlockPos blockPos, List<BlockPos> checkedPipes) {
-        List<IFluidHandler> consumers = new LinkedList<>();
+    public static Deque<IFluidHandler> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedPipes) {
+        Deque<IFluidHandler> consumers = new ArrayDeque<>(1024);
 
-        LinkedList<BlockPos> pipeBlocksLeft = new LinkedList<>();
+        Deque<BlockPos> pipeBlocksLeft = new ArrayDeque<>(1024);
         pipeBlocksLeft.add(blockPos);
 
         checkedPipes.add(blockPos);
@@ -143,9 +140,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
                 continue;
 
             fluidPipeBlockEntity.getPipeBlocks().forEach(pos -> {
-                if(!checkedPipes.contains(pos)) {
-                    checkedPipes.add(pos);
-
+                if(checkedPipes.add(pos)) {
                     pipeBlocksLeft.add(pos);
                 }
             });
@@ -163,7 +158,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //TODO improve do not update all the time
         updateConnections(level, blockPos, state, blockEntity);
 
-        List<IFluidHandler> consumers = null;
+        Deque<IFluidHandler> consumers = null;
 
         FluidStack extractedFluidType;
 
@@ -177,15 +172,15 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
 
         //List of all fluid types which where already checked
-        List<FluidStack> alreadyCheckedFluidTypes = new LinkedList<>();
+        List<FluidStack> alreadyCheckedFluidTypes = new ArrayList<>();
 
         //Try all fluid types but stop after the first fluid type which can be inserted somewhere
         while(true) {
-            fluidProduction = new LinkedList<>();
+            fluidProduction = new ArrayList<>();
 
             extractedFluidType = FluidStack.EMPTY;
 
-            fluidProductionValues = new LinkedList<>();
+            fluidProductionValues = new ArrayList<>();
 
             productionSum = 0;
             for(IFluidHandler fluidStorage:blockEntity.producers.values()) {
@@ -241,15 +236,15 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(productionSum <= 0 || extractedFluidType.isEmpty())
                 return;
 
-            fluidConsumption = new LinkedList<>();
+            fluidConsumption = new ArrayList<>();
 
-            fluidConsumptionValues = new LinkedList<>();
+            fluidConsumptionValues = new ArrayList<>();
 
             consumptionSum = 0;
 
             //Check consumers only if something was extracted
             if(consumers == null)
-                consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
+                consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
 
             //Set fluid amount to at most production sum (Fixes bug where 900 mB Lava would be tried to be inserted to a cauldron and vanishes)
             extractedFluidType.setAmount(Math.min(blockEntity.maxTransfer, productionSum));
@@ -291,7 +286,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
         int transferLeft = Math.min(productionSum, consumptionSum);
 
-        List<Integer> fluidProductionDistributed = new LinkedList<>();
+        List<Integer> fluidProductionDistributed = new ArrayList<>();
         for(int i = 0;i < fluidProduction.size();i++)
             fluidProductionDistributed.add(0);
 
@@ -348,7 +343,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
-        List<Integer> fluidConsumptionDistributed = new LinkedList<>();
+        List<Integer> fluidConsumptionDistributed = new ArrayList<>();
         for(int i = 0;i < fluidConsumption.size();i++)
             fluidConsumptionDistributed.add(0);
 

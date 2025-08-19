@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -13,7 +13,7 @@ import java.util.function.Function;
 public class Config {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private final List<ConfigValue<?>> configValues = new LinkedList<>();
+    private final List<ConfigValue<?>> configValues = new ArrayList<>();
 
     private final File configFile;
 

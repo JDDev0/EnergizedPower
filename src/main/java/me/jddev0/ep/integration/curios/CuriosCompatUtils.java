@@ -6,7 +6,7 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public final class CuriosCompatUtils {
     }
 
     public static List<ItemStack> getCuriosItemStacks(Inventory inventory) {
-        List<ItemStack> itemStacks = new LinkedList<>();
+        List<ItemStack> itemStacks = new ArrayList<>();
 
         if(!isCuriosAvailable())
             return itemStacks;

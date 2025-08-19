@@ -62,7 +62,7 @@ public class FiltrationPlantScreen
 
         //Remove trailing empty line
         if(!components.isEmpty())
-            components.remove(components.size() - 1);
+            components.removeLast();
 
         guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
     }

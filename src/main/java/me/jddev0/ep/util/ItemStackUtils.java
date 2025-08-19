@@ -2,14 +2,14 @@ package me.jddev0.ep.util;
 
 import net.minecraft.world.item.ItemStack;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class ItemStackUtils {
     private ItemStackUtils() {}
 
     public static List<ItemStack> combineItemStacks(List<ItemStack> itemStacks) {
-        List<ItemStack> combinedItemStacks = new LinkedList<>();
+        List<ItemStack> combinedItemStacks = new ArrayList<>();
         for(ItemStack itemStack:itemStacks) {
             boolean inserted = false;
             int amountLeft = itemStack.getCount();

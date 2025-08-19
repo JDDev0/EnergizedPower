@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ResourceLocationListConfigValue extends ConfigValue<List<@NotNull ResourceLocation>> {
@@ -53,7 +52,7 @@ public class ResourceLocationListConfigValue extends ConfigValue<List<@NotNull R
         if(rawValue.startsWith(",") || rawValue.endsWith(","))
             throw new ConfigValidationException("Value must not start with \"[,\" or end with \",]\"");
 
-        List<@NotNull ResourceLocation> resourceLocations = new LinkedList<>();
+        List<@NotNull ResourceLocation> resourceLocations = new ArrayList<>();
         String[] tokens = rawValue.split(",");
         for(int i = 0;i < tokens.length;i++) {
             String token = tokens[i].trim();
