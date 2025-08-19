@@ -4,6 +4,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.0.181'
+    id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
 version = mod_version
@@ -221,6 +222,41 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+tasks.publishUnified {
+    dependsOn tasks.getByName("build")
+}
+
+unifiedPublishing {
+    project {
+        displayName = "Energized Power - " + project.minecraft_version + " - v" + project.mod_version.split("-")[1] + " [NeoForge]"
+        version = project.mod_version
+        changelog = new File("CHANGELOG.md").getText("UTF-8")
+        releaseType = "release"
+        gameVersions = [project.minecraft_version]
+        gameLoaders = ["neoforge"]
+
+        mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.mod_id + "-" + project.version + ".jar").toFile())
+
+        relations {
+            //No dependencies
+        }
+
+        if(project.hasProperty('MODRINTH_TOKEN')) {
+            modrinth {
+                token = getProperty('MODRINTH_TOKEN') as String
+                id = "6pku8gW1"
+            }
+        }
+
+        if(project.hasProperty('CURSEFORGE_TOKEN')) {
+            curseforge {
+                token = getProperty('CURSEFORGE_TOKEN') as String
+                id = "782147"
+            }
+        }
+    }
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
