@@ -1,4 +1,4 @@
-// 1.21.8	2025-08-10T15:31:55.674708563	Model Definitions - energizedpower
+// 1.21.8	2025-08-19T13:51:45.178991807	Model Definitions - energizedpower
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -406,7 +406,7 @@ ab7336286d15bdbf2ca6eeed809ba21aa7b65259 assets/energizedpower/models/block/conf
 a6b104fa8caf7830dd99f3efba76aec320c7855e assets/energizedpower/models/block/copper_cable_side.json
 b75653de9bfc13188f1d1f71b6b7777ea60be5fd assets/energizedpower/models/block/creative_battery_box.json
 cc703e0de2c257122c68fa6648742f9a49f7ce0b assets/energizedpower/models/block/creative_fluid_tank.json
-47c03c0524ef463fba900e272687d56db6800839 assets/energizedpower/models/block/creative_item_silo.json
+975d55c408a54f1dd575c377de33bf4ae15398a1 assets/energizedpower/models/block/creative_item_silo.json
 e73535fee40d8352837128cbd45da0cd8586a19f assets/energizedpower/models/block/crusher.json
 3f6be765dedefb84f4d6fd6f00394a21d6892a74 assets/energizedpower/models/block/crystal_growth_chamber.json
 b76d1a0451e6be8441e472ac54a3ba278ea42c85 assets/energizedpower/models/block/deepslate_tin_ore.json
