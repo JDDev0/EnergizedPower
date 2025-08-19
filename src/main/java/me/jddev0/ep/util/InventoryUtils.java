@@ -1,5 +1,6 @@
 package me.jddev0.ep.util;
 
+import me.jddev0.ep.inventory.SingleItemStackHandler;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -29,5 +30,14 @@ public final class InventoryUtils {
         }
 
         return Math.min(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
+    }
+
+    public static int getRedstoneSignalFromItemStackHandler(SingleItemStackHandler itemHandler) {
+        boolean isEmptyFlag = itemHandler.getCount() == 0 && itemHandler.getStack().isEmpty();
+
+        int count = itemHandler.getCount();
+        int capacity = itemHandler.getSlots() * itemHandler.getStack().getMaxStackSize();
+
+        return Math.min(Mth.floor((double)count / (double)capacity * 14.d) + (isEmptyFlag?0:1), 15);
     }
 }

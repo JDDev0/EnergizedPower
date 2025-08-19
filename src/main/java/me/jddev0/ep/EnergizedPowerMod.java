@@ -135,6 +135,12 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM);
 
+            event.accept(EPBlocks.ITEM_SILO_TINY_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_SMALL_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_MEDIUM_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_LARGE_ITEM);
+            event.accept(EPBlocks.ITEM_SILO_GIANT_ITEM);
+
             event.accept(EPBlocks.IRON_FLUID_PIPE_ITEM);
             event.accept(EPBlocks.GOLDEN_FLUID_PIPE_ITEM);
 
@@ -463,6 +469,11 @@ public class EnergizedPowerMod {
             MenuScreens.register(EPMenuTypes.FLUID_TANK_MEDIUM.get(), FluidTankScreen::new);
             MenuScreens.register(EPMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
             MenuScreens.register(EPMenuTypes.CREATIVE_FLUID_TANK.get(), CreativeFluidTankScreen::new);
+            MenuScreens.register(EPMenuTypes.ITEM_SILO_TINY.get(), ItemSiloScreen::new);
+            MenuScreens.register(EPMenuTypes.ITEM_SILO_SMALL.get(), ItemSiloScreen::new);
+            MenuScreens.register(EPMenuTypes.ITEM_SILO_MEDIUM.get(), ItemSiloScreen::new);
+            MenuScreens.register(EPMenuTypes.ITEM_SILO_LARGE.get(), ItemSiloScreen::new);
+            MenuScreens.register(EPMenuTypes.ITEM_SILO_GIANT.get(), ItemSiloScreen::new);
 
             MenuScreens.register(EPMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
             MenuScreens.register(EPMenuTypes.INVENTORY_TELEPORTER_MENU.get(), InventoryTeleporterScreen::new);

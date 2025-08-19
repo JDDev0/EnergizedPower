@@ -279,6 +279,31 @@ public class ModBasicsAdvancements implements ForgeAdvancementProvider.Advanceme
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", FrameType.TASK
         );
 
+        Advancement itemSiloTiny = addAdvancement(
+                advancementOutput, existingFileHelper, ironPlate,
+                EPBlocks.ITEM_SILO_TINY_ITEM, "item_silo_tiny", FrameType.TASK
+        );
+
+        Advancement itemSiloSmall = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloTiny,
+                EPBlocks.ITEM_SILO_SMALL_ITEM, "item_silo_small", FrameType.TASK
+        );
+
+        Advancement itemSiloMedium = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloSmall,
+                EPBlocks.ITEM_SILO_MEDIUM_ITEM, "item_silo_medium", FrameType.TASK
+        );
+
+        Advancement itemSiloLarge = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloMedium,
+                EPBlocks.ITEM_SILO_LARGE_ITEM, "item_silo_large", FrameType.TASK
+        );
+
+        Advancement itemSiloGiant = addAdvancement(
+                advancementOutput, existingFileHelper, itemSiloLarge,
+                EPBlocks.ITEM_SILO_GIANT_ITEM, "item_silo_giant", FrameType.TASK
+        );
+
         Advancement ironFluidPipe = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
                 EPBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", FrameType.TASK

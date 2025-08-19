@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:storage_blocks/iron"
+    },
+    "S": {
+      "item": "energizedpower:item_silo_tiny"
+    },
+    "i": {
+      "tag": "forge:plates/iron"
+    }
+  },
+  "pattern": [
+    "IiI",
+    "iSi",
+    "IiI"
+  ],
+  "result": {
+    "item": "energizedpower:item_silo_small"
+  }
+}

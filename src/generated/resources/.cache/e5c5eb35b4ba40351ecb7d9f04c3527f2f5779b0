@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-19T10:34:22.70251018	Advancements
+// 1.20.1	2025-08-19T10:56:51.282704633	Advancements
 5c8467d0c26882e6d650f33d4d6a05be1f156ccf data/energizedpower/advancements/main/advanced/advanced_alloy_ingot.json
 7e800804e37ed93a909434ded0bdd40287365077 data/energizedpower/advancements/main/advanced/advanced_alloy_plate.json
 96962293fc962eae4c1bca5b88dbf478a2904bca data/energizedpower/advancements/main/advanced/advanced_auto_crafter.json
@@ -154,6 +154,11 @@ ab7979c283be411d2be137783085058cb797df94 data/energizedpower/advancements/main/b
 d4b97e0525159d546cf83a380b0c5f68b5529e95 data/energizedpower/advancements/main/basics/item_conveyor_belt_sorter.json
 4bc4fb0cc4d78230dba801fff00440a91d36ca2f data/energizedpower/advancements/main/basics/item_conveyor_belt_splitter.json
 8e21c84005b4cef325ccbee41797f2144d1ad154 data/energizedpower/advancements/main/basics/item_conveyor_belt_switch.json
+c912206076e3e86f3a44393079a0132e45b7949e data/energizedpower/advancements/main/basics/item_silo_giant.json
+5086f9185be5615b615528b18b522dc8684116af data/energizedpower/advancements/main/basics/item_silo_large.json
+c2dc52b7e47c980323c2b1fedca4584053591f65 data/energizedpower/advancements/main/basics/item_silo_medium.json
+6bd0713c817ae18706a8af803c207c44cd0c8b27 data/energizedpower/advancements/main/basics/item_silo_small.json
+7504f6cb460093ea7f2ec17319efdbf266aadba8 data/energizedpower/advancements/main/basics/item_silo_tiny.json
 dcb833ce9585d96d633bc1b62c82cb865500f8d0 data/energizedpower/advancements/main/basics/lv_transformers.json
 e40007173e3077e0562d26bdb15614dc45bc7198 data/energizedpower/advancements/main/basics/metal_press.json
 6bce692e6bda01fcb461de46fe4c637bf8c0370d data/energizedpower/advancements/main/basics/minecart_charger.json

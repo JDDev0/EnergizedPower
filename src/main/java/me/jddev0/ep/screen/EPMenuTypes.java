@@ -248,6 +248,17 @@ public final class EPMenuTypes {
     public static final RegistryObject<MenuType<CreativeFluidTankMenu>> CREATIVE_FLUID_TANK = registerMenuType("creative_fluid_tank",
             CreativeFluidTankMenu::new);
 
+    public static final RegistryObject<MenuType<ItemSiloMenu>> ITEM_SILO_TINY = registerMenuType("item_silo_tiny",
+            ItemSiloMenu::new);
+    public static final RegistryObject<MenuType<ItemSiloMenu>> ITEM_SILO_SMALL = registerMenuType("item_silo_small",
+            ItemSiloMenu::new);
+    public static final RegistryObject<MenuType<ItemSiloMenu>> ITEM_SILO_MEDIUM = registerMenuType("item_silo_medium",
+            ItemSiloMenu::new);
+    public static final RegistryObject<MenuType<ItemSiloMenu>> ITEM_SILO_LARGE = registerMenuType("item_silo_large",
+            ItemSiloMenu::new);
+    public static final RegistryObject<MenuType<ItemSiloMenu>> ITEM_SILO_GIANT = registerMenuType("item_silo_giant",
+            ItemSiloMenu::new);
+
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
     }

@@ -42,6 +42,22 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("creative_fluid_tank", () -> BlockEntityType.Builder.of(CreativeFluidTankBlockEntity::new,
                     EPBlocks.CREATIVE_FLUID_TANK.get()).build(null));
 
+    private static RegistryObject<BlockEntityType<ItemSiloBlockEntity>> createItemSiloBlockEntity(String name,
+                                                                                            RegistryObject<ItemSiloBlock> blockRegistryObject) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemSiloBlockEntity(blockPos, state,
+                blockRegistryObject.get().getTier()), blockRegistryObject.get()).build(null));
+    }
+    public static final RegistryObject<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_TINY_ENTITY =
+            createItemSiloBlockEntity("item_silo_tiny", EPBlocks.ITEM_SILO_TINY);
+    public static final RegistryObject<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_SMALL_ENTITY =
+            createItemSiloBlockEntity("item_silo_small", EPBlocks.ITEM_SILO_SMALL);
+    public static final RegistryObject<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_MEDIUM_ENTITY =
+            createItemSiloBlockEntity("item_silo_medium", EPBlocks.ITEM_SILO_MEDIUM);
+    public static final RegistryObject<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_LARGE_ENTITY =
+            createItemSiloBlockEntity("item_silo_large", EPBlocks.ITEM_SILO_LARGE);
+    public static final RegistryObject<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_GIANT_ENTITY =
+            createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
+
     private static RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
             String name,
             RegistryObject<ItemConveyorBeltBlock> blockRegistryObject
