@@ -64,7 +64,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Cables (6 Tiers: Tin, Copper, Gold, Energized Copper, Energized Gold, and Energized Crystal Matrix)
 - Transformers (Can be used to connect different tiers of cables):
   - 4 tiers: LV, MV, HV, and EHV
-  - 4 types (for each tier): 1 to n, 3 to 3, n to 1, and configurable (**In next release (v2.15.0)**)
+  - 4 types (for each tier): 1 to n, 3 to 3, n to 1, and configurable
 - Minecart with Battery Box
 - Minecart with Advanced Battery Box
 
@@ -84,13 +84,13 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Item transportation
 
-- Item Conveyor Belt (3 tiers (**In next release (v2.15.0)**))
-- Item Conveyor Belt Loader (3 tiers (**In next release (v2.15.0)**))
-- Item Conveyor Belt Sorter (3 tiers (**In next release (v2.15.0)**))
-- Item Conveyor Belt Switch (3 tiers (**In next release (v2.15.0)**))
-- Item Conveyor Belt Splitter (3 tiers (**In next release (v2.15.0)**))
-- Item Conveyor Belt Merger (3 tiers (**In next release (v2.15.0)**))
-- Item Silos (Tiny, Small, Medium, Large, and Giant) (**In next release (v2.15.0)**)
+- Item Conveyor Belt (3 tiers)
+- Item Conveyor Belt Loader (3 tiers)
+- Item Conveyor Belt Sorter (3 tiers)
+- Item Conveyor Belt Switch (3 tiers)
+- Item Conveyor Belt Splitter (3 tiers)
+- Item Conveyor Belt Merger (3 tiers)
+- Item Silos (Tiny, Small, Medium, Large, and Giant)
 
 ### Misc
 
@@ -175,6 +175,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.15.x: 1.21.8, 1.21.1, 1.20.1
 - 2.14.x: 1.21.8, 1.21.7, 1.21.6, 1.21.5, 1.21.1, 1.20.1
 - 2.13.x: 1.21.5, 1.21.4, 1.21.1, 1.20.1
 - 2.12.x: 1.21.4, 1.21.3, 1.21.2, 1.21.1, 1.21, 1.20.2, 1.20.1, 1.19.2
