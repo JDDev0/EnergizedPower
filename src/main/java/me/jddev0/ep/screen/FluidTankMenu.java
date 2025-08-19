@@ -1,8 +1,8 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,20 +20,12 @@ public class FluidTankMenu extends AbstractEnergizedPowerScreenHandler {
 
     private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
 
-    public static ScreenHandlerType<FluidTankMenu> getMenuTypeFromTier(FluidTankBlock.Tier tier) {
-        return switch(tier) {
-            case SMALL -> EPMenuTypes.FLUID_TANK_SMALL;
-            case MEDIUM -> EPMenuTypes.FLUID_TANK_MEDIUM;
-            case LARGE -> EPMenuTypes.FLUID_TANK_LARGE;
-        };
-    }
-
     public FluidTankMenu(int id, PlayerInventory inv, PacketByteBuf buffer) {
             this(id, inv, inv.player.getWorld().getBlockEntity(buffer.readBlockPos()), null);
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {
-        super(getMenuTypeFromTier(((FluidTankBlockEntity)blockEntity).getTier()), id);
+        super(((FluidTankBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id);
 
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
 
@@ -49,7 +41,7 @@ public class FluidTankMenu extends AbstractEnergizedPowerScreenHandler {
         }
     }
 
-    public FluidTankBlock.Tier getTier() {
+    public FluidTankTier getTier() {
         return blockEntity.getTier();
     }
 
@@ -72,7 +64,7 @@ public class FluidTankMenu extends AbstractEnergizedPowerScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, FluidTankBlock.getBlockFromTier(getTier()));
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, getTier().getBlockFromTier());
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

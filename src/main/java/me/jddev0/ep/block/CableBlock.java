@@ -1,10 +1,9 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.CableBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -16,7 +15,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
@@ -53,9 +51,9 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     private static final VoxelShape SHAPE_EAST = Block.createCuboidShape(10.d, 6.d, 6.d, 16.d, 10.d, 10.d);
     private static final VoxelShape SHAPE_WEST = Block.createCuboidShape(0.d, 6.d, 6.d, 6.d, 10.d, 10.d);
 
-    private final Tier tier;
+    private final CableTier tier;
 
-    public CableBlock(Tier tier) {
+    public CableBlock(CableTier tier) {
         super(tier.getProperties());
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(UP, false).with(DOWN, false).
@@ -65,7 +63,7 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
         this.tier = tier;
     }
 
-    public Tier getTier() {
+    public CableTier getTier() {
         return tier;
     }
 
@@ -226,19 +224,19 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, CableBlockEntity.getEntityTypeFromTier(tier), CableBlockEntity::tick);
+        return checkType(type, tier.getEntityTypeFromTier(), CableBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final CableTier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, FabricItemSettings props, CableTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public CableTier getTier() {
             return tier;
         }
 
@@ -252,43 +250,6 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
             }else {
                 tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
             }
-        }
-    }
-
-    public enum Tier {
-        TIER_TIN("tin_cable", ModConfigs.COMMON_TIN_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_COPPER("copper_cable", ModConfigs.COMMON_COPPER_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_GOLD("gold_cable", ModConfigs.COMMON_GOLD_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_COPPER("energized_copper_cable", ModConfigs.COMMON_ENERGIZED_COPPER_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_GOLD("energized_gold_cable", ModConfigs.COMMON_ENERGIZED_GOLD_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL)),
-        TIER_ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue(),
-                FabricBlockSettings.create().mapColor(MapColor.GRAY).strength(.5f).sounds(BlockSoundGroup.WOOL));
-
-        private final String resourceId;
-        private final long maxTransfer;
-        private final FabricBlockSettings props;
-
-        Tier(String resourceId, long maxTransfer, FabricBlockSettings props) {
-            this.resourceId = resourceId;
-            this.maxTransfer = maxTransfer;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public long getMaxTransfer() {
-            return maxTransfer;
-        }
-
-        public FabricBlockSettings getProperties() {
-            return props;
         }
     }
 

@@ -2,8 +2,8 @@ package me.jddev0.ep.datagen.advancement;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.item.BatteryItem;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -95,7 +95,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
 
         ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8);
         NbtCompound nbt = battery8FullyChargedIcon.getOrCreateNbt();
-        nbt.putLong(SimpleEnergyItem.ENERGY_KEY, BatteryItem.Tier.BATTERY_8.getCapacity());
+        nbt.putLong(SimpleEnergyItem.ENERGY_KEY, BatteryTier.BATTERY_8.getCapacity());
         Advancement battery8FullyCharged = addAdvancement(
                 advancementOutput, battery8,
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementFrame.CHALLENGE,

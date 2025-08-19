@@ -1,10 +1,9 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -18,7 +17,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
@@ -35,17 +33,9 @@ import java.util.List;
 public class FluidTankBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
-    private final Tier tier;
+    private final FluidTankTier tier;
 
-    public static Block getBlockFromTier(Tier tier) {
-        return switch(tier) {
-            case SMALL -> EPBlocks.FLUID_TANK_SMALL;
-            case MEDIUM -> EPBlocks.FLUID_TANK_MEDIUM;
-            case LARGE -> EPBlocks.FLUID_TANK_LARGE;
-        };
-    }
-
-    public FluidTankBlock(Tier tier) {
+    public FluidTankBlock(FluidTankTier tier) {
         super(tier.getProperties());
 
         this.tier = tier;
@@ -53,7 +43,7 @@ public class FluidTankBlock extends BlockWithEntity {
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
-    public Tier getTier() {
+    public FluidTankTier getTier() {
         return tier;
     }
 
@@ -118,19 +108,19 @@ public class FluidTankBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, FluidTankBlockEntity.getEntityTypeFromTier(tier), FluidTankBlockEntity::tick);
+        return checkType(type, tier.getEntityTypeFromTier(), FluidTankBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final FluidTankTier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, FabricItemSettings props, FluidTankTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public FluidTankTier getTier() {
             return tier;
         }
 
@@ -146,40 +136,4 @@ public class FluidTankBlock extends BlockWithEntity {
         }
     }
 
-    public enum Tier {
-        SMALL("fluid_tank_small", FluidUtils.convertMilliBucketsToDroplets(
-                1000 * ModConfigs.COMMON_FLUID_TANK_SMALL_TANK_CAPACITY.getValue()),
-                FabricBlockSettings.create().
-                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        MEDIUM("fluid_tank_medium", FluidUtils.convertMilliBucketsToDroplets(
-                1000 * ModConfigs.COMMON_FLUID_TANK_MEDIUM_TANK_CAPACITY.getValue()),
-                FabricBlockSettings.create().
-                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
-        LARGE("fluid_tank_large", FluidUtils.convertMilliBucketsToDroplets(
-                1000 * ModConfigs.COMMON_FLUID_TANK_LARGE_TANK_CAPACITY.getValue()),
-                FabricBlockSettings.create().
-                        requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
-
-        private final String resourceId;
-        private final long tankCapacity;
-        private final FabricBlockSettings props;
-
-        Tier(String resourceId, long tankCapacity, FabricBlockSettings props) {
-            this.resourceId = resourceId;
-            this.tankCapacity = tankCapacity;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public long getTankCapacity() {
-            return tankCapacity;
-        }
-
-        public FabricBlockSettings getProperties() {
-            return props;
-        }
-    }
 }

@@ -2,15 +2,15 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TransformerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
+import me.jddev0.ep.machine.tier.TransformerTier;
+import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.screen.TransformerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PropertyDelegate;
@@ -28,80 +28,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
-    private final TransformerBlock.Tier tier;
-    private final TransformerBlock.Type type;
+    private final TransformerTier tier;
+    private final TransformerType type;
 
     final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageInsert;
     final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageExtract;
 
-    public static BlockEntityType<TransformerBlockEntity> getEntityTypeFromTierAndType(TransformerBlock.Tier tier,
-                                                                                       TransformerBlock.Type type) {
-        return switch(tier) {
-            case TIER_LV -> switch (type) {
-                case TYPE_1_TO_N -> EPBlockEntities.LV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> EPBlockEntities.LV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> EPBlockEntities.LV_TRANSFORMER_N_TO_1_ENTITY;
-            };
-            case TIER_MV -> switch (type) {
-                case TYPE_1_TO_N -> EPBlockEntities.MV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> EPBlockEntities.MV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> EPBlockEntities.MV_TRANSFORMER_N_TO_1_ENTITY;
-            };
-            case TIER_HV -> switch(type) {
-                case TYPE_1_TO_N -> EPBlockEntities.HV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> EPBlockEntities.HV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> EPBlockEntities.HV_TRANSFORMER_N_TO_1_ENTITY;
-            };
-            case TIER_EHV -> switch(type) {
-                case TYPE_1_TO_N -> EPBlockEntities.EHV_TRANSFORMER_1_TO_N_ENTITY;
-                case TYPE_3_TO_3 -> EPBlockEntities.EHV_TRANSFORMER_3_TO_3_ENTITY;
-                case TYPE_N_TO_1 -> EPBlockEntities.EHV_TRANSFORMER_N_TO_1_ENTITY;
-            };
-        };
-    }
-
-    public static long getMaxEnergyTransferFromTier(TransformerBlock.Tier tier) {
-        return switch(tier) {
-            case TIER_LV -> ModConfigs.COMMON_LV_TRANSFORMERS_TRANSFER_RATE.getValue();
-            case TIER_MV -> ModConfigs.COMMON_MV_TRANSFORMERS_TRANSFER_RATE.getValue();
-            case TIER_HV -> ModConfigs.COMMON_HV_TRANSFORMERS_TRANSFER_RATE.getValue();
-            case TIER_EHV -> ModConfigs.COMMON_EHV_TRANSFORMERS_TRANSFER_RATE.getValue();
-        };
-    }
-
-    public static String getMachineNameFromTierAndType(TransformerBlock.Tier tier, TransformerBlock.Type type) {
-        return switch(tier) {
-            case TIER_LV -> switch(type) {
-                case TYPE_1_TO_N -> "lv_transformer_1_to_n";
-                case TYPE_3_TO_3 -> "lv_transformer_3_to_3";
-                case TYPE_N_TO_1 -> "lv_transformer_n_to_1";
-            };
-            case TIER_MV -> switch(type) {
-                case TYPE_1_TO_N -> "transformer_1_to_n";
-                case TYPE_3_TO_3 -> "transformer_3_to_3";
-                case TYPE_N_TO_1 -> "transformer_n_to_1";
-            };
-            case TIER_HV -> switch(type) {
-                case TYPE_1_TO_N -> "hv_transformer_1_to_n";
-                case TYPE_3_TO_3 -> "hv_transformer_3_to_3";
-                case TYPE_N_TO_1 -> "hv_transformer_n_to_1";
-            };
-            case TIER_EHV -> switch(type) {
-                case TYPE_1_TO_N -> "ehv_transformer_1_to_n";
-                case TYPE_3_TO_3 -> "ehv_transformer_3_to_3";
-                case TYPE_N_TO_1 -> "ehv_transformer_n_to_1";
-            };
-        };
-    }
-
-    public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerBlock.Tier tier, TransformerBlock.Type type) {
+    public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerTier tier, TransformerType type) {
         super(
-                getEntityTypeFromTierAndType(tier, type), blockPos, blockState,
+                tier.getEntityTypeFromTierAndType(type), blockPos, blockState,
 
-                getMachineNameFromTierAndType(tier, type),
+                tier.getMachineNameFromTierAndType(type),
 
-                getMaxEnergyTransferFromTier(tier),
-                getMaxEnergyTransferFromTier(tier)
+                tier.getMaxEnergyTransferFromTier(),
+                tier.getMaxEnergyTransferFromTier()
         );
 
         this.tier = tier;
@@ -153,11 +93,11 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return new TransformerMenu(id, this, inventory, this.data);
     }
 
-    public TransformerBlock.Type getTransformerType() {
+    public TransformerType getTransformerType() {
         return type;
     }
 
-    public TransformerBlock.Tier getTier() {
+    public TransformerTier getTier() {
         return tier;
     }
 
@@ -169,8 +109,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
 
         return switch(type) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                EnergyStorage singleSide = type == TransformerBlock.Type.TYPE_1_TO_N?limitingEnergyStorageInsert:limitingEnergyStorageExtract;
-                EnergyStorage multipleSide = type == TransformerBlock.Type.TYPE_1_TO_N?limitingEnergyStorageExtract:limitingEnergyStorageInsert;
+                EnergyStorage singleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageInsert:limitingEnergyStorageExtract;
+                EnergyStorage multipleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageExtract:limitingEnergyStorageInsert;
 
                 if(facing == side)
                     yield singleSide;
@@ -206,8 +146,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         for(Direction side:Direction.values()) {
             switch(blockEntity.getTransformerType()) {
                 case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                    boolean isOutputSingleSide = blockEntity.getTransformerType() != TransformerBlock.Type.TYPE_1_TO_N;
-                    boolean isOutputMultipleSide = blockEntity.getTransformerType() == TransformerBlock.Type.TYPE_1_TO_N;
+                    boolean isOutputSingleSide = blockEntity.getTransformerType() != TransformerType.TYPE_1_TO_N;
+                    boolean isOutputMultipleSide = blockEntity.getTransformerType() == TransformerType.TYPE_1_TO_N;
 
                     if(facing == side) {
                         if(isOutputSingleSide)

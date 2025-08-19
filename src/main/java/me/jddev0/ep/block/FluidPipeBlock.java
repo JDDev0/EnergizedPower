@@ -1,9 +1,9 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
+import me.jddev0.ep.machine.tier.FluidPipeTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -22,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -39,7 +38,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import me.jddev0.ep.config.ModConfigs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -74,16 +72,9 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         };
     }
 
-    private final Tier tier;
+    private final FluidPipeTier tier;
 
-    public static Block getBlockFromTier(Tier tier) {
-        return switch(tier) {
-            case IRON -> EPBlocks.IRON_FLUID_PIPE;
-            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE;
-        };
-    }
-
-    public FluidPipeBlock(Tier tier) {
+    public FluidPipeBlock(FluidPipeTier tier) {
         super(tier.getProperties());
 
         this.tier = tier;
@@ -97,7 +88,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
                 with(WATERLOGGED, false));
     }
 
-    public Tier getTier() {
+    public FluidPipeTier getTier() {
         return tier;
     }
 
@@ -367,19 +358,19 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, FluidPipeBlockEntity.getEntityTypeFromTier(tier), FluidPipeBlockEntity::tick);
+        return checkType(type, tier.getEntityTypeFromTier(), FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        private final Tier tier;
+        private final FluidPipeTier tier;
 
-        public Item(Block block, FabricItemSettings props, Tier tier) {
+        public Item(Block block, FabricItemSettings props, FluidPipeTier tier) {
             super(block, props);
 
             this.tier = tier;
         }
 
-        public Tier getTier() {
+        public FluidPipeTier getTier() {
             return tier;
         }
 
@@ -399,36 +390,4 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         }
     }
 
-    public enum Tier {
-        IRON("fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
-                ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
-                FabricBlockSettings.create().
-                        requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL)),
-        GOLDEN("golden_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
-                ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
-                FabricBlockSettings.create().
-                        requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL));
-
-        private final String resourceId;
-        private final long transferRate;
-        private final FabricBlockSettings props;
-
-        Tier(String resourceId, long transferRate, FabricBlockSettings props) {
-            this.resourceId = resourceId;
-            this.transferRate = transferRate;
-            this.props = props;
-        }
-
-        public String getResourceId() {
-            return resourceId;
-        }
-
-        public long getTransferRate() {
-            return transferRate;
-        }
-
-        public FabricBlockSettings getProperties() {
-            return props;
-        }
-    }
 }

@@ -2,6 +2,7 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
+import me.jddev0.ep.machine.tier.BatteryTier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ToolMaterials;
@@ -259,21 +260,21 @@ public final class EPItems {
             new InventoryTeleporterItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item BATTERY_1 = registerItem("battery_1",
-            new BatteryItem(BatteryItem.Tier.BATTERY_1));
+            new BatteryItem(BatteryTier.BATTERY_1));
     public static final Item BATTERY_2 = registerItem("battery_2",
-            new BatteryItem(BatteryItem.Tier.BATTERY_2));
+            new BatteryItem(BatteryTier.BATTERY_2));
     public static final Item BATTERY_3 = registerItem("battery_3",
-            new BatteryItem(BatteryItem.Tier.BATTERY_3));
+            new BatteryItem(BatteryTier.BATTERY_3));
     public static final Item BATTERY_4 = registerItem("battery_4",
-            new BatteryItem(BatteryItem.Tier.BATTERY_4));
+            new BatteryItem(BatteryTier.BATTERY_4));
     public static final Item BATTERY_5 = registerItem("battery_5",
-            new BatteryItem(BatteryItem.Tier.BATTERY_5));
+            new BatteryItem(BatteryTier.BATTERY_5));
     public static final Item BATTERY_6 = registerItem("battery_6",
-            new BatteryItem(BatteryItem.Tier.BATTERY_6));
+            new BatteryItem(BatteryTier.BATTERY_6));
     public static final Item BATTERY_7 = registerItem("battery_7",
-            new BatteryItem(BatteryItem.Tier.BATTERY_7));
+            new BatteryItem(BatteryTier.BATTERY_7));
     public static final Item BATTERY_8 = registerItem("battery_8",
-            new BatteryItem(BatteryItem.Tier.BATTERY_8));
+            new BatteryItem(BatteryTier.BATTERY_8));
     public static final Item CREATIVE_BATTERY = registerItem("creative_battery",
             new CreativeBatteryItem(new FabricItemSettings().maxCount(1)));
     //Register energy storage for creative battery

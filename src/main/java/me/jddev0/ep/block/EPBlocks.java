@@ -1,6 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.machine.tier.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
@@ -82,29 +83,29 @@ public final class EPBlocks {
     public static final Item ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("item_conveyor_belt_merger", ITEM_CONVEYOR_BELT_MERGER);
 
     public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
-            new FluidPipeBlock(FluidPipeBlock.Tier.IRON));
+            new FluidPipeBlock(FluidPipeTier.IRON));
     public static final Item IRON_FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
-            new FluidPipeBlock.Item(IRON_FLUID_PIPE, new FabricItemSettings(), FluidPipeBlock.Tier.IRON));
+            new FluidPipeBlock.Item(IRON_FLUID_PIPE, new FabricItemSettings(), FluidPipeTier.IRON));
 
     public static final FluidPipeBlock GOLDEN_FLUID_PIPE = registerBlock("golden_fluid_pipe",
-            new FluidPipeBlock(FluidPipeBlock.Tier.GOLDEN));
+            new FluidPipeBlock(FluidPipeTier.GOLDEN));
     public static final Item GOLDEN_FLUID_PIPE_ITEM = createBlockItem("golden_fluid_pipe",
-            new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, new FabricItemSettings(), FluidPipeBlock.Tier.GOLDEN));
+            new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, new FabricItemSettings(), FluidPipeTier.GOLDEN));
 
     public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
-            new FluidTankBlock(FluidTankBlock.Tier.SMALL));
+            new FluidTankBlock(FluidTankTier.SMALL));
     public static final Item FLUID_TANK_SMALL_ITEM = createBlockItem("fluid_tank_small",
-            new FluidTankBlock.Item(FLUID_TANK_SMALL, new FabricItemSettings(), FluidTankBlock.Tier.SMALL));
+            new FluidTankBlock.Item(FLUID_TANK_SMALL, new FabricItemSettings(), FluidTankTier.SMALL));
 
     public static final FluidTankBlock FLUID_TANK_MEDIUM = registerBlock("fluid_tank_medium",
-            new FluidTankBlock(FluidTankBlock.Tier.MEDIUM));
+            new FluidTankBlock(FluidTankTier.MEDIUM));
     public static final Item FLUID_TANK_MEDIUM_ITEM = createBlockItem("fluid_tank_medium",
-            new FluidTankBlock.Item(FLUID_TANK_MEDIUM, new FabricItemSettings(), FluidTankBlock.Tier.MEDIUM));
+            new FluidTankBlock.Item(FLUID_TANK_MEDIUM, new FabricItemSettings(), FluidTankTier.MEDIUM));
 
     public static final FluidTankBlock FLUID_TANK_LARGE = registerBlock("fluid_tank_large",
-            new FluidTankBlock(FluidTankBlock.Tier.LARGE));
+            new FluidTankBlock(FluidTankTier.LARGE));
     public static final Item FLUID_TANK_LARGE_ITEM = createBlockItem("fluid_tank_large",
-            new FluidTankBlock.Item(FLUID_TANK_LARGE, new FabricItemSettings(), FluidTankBlock.Tier.LARGE));
+            new FluidTankBlock.Item(FLUID_TANK_LARGE, new FabricItemSettings(), FluidTankTier.LARGE));
 
     public static final CreativeFluidTankBlock CREATIVE_FLUID_TANK = registerBlock("creative_fluid_tank",
             new CreativeFluidTankBlock(AbstractBlock.Settings.create().mapColor(MapColor.PURPLE).
@@ -117,29 +118,29 @@ public final class EPBlocks {
                 new CableBlock.Item(block, new FabricItemSettings(), block.getTier()));
     }
     public static final CableBlock TIN_CABLE = registerBlock("tin_cable",
-            new CableBlock(CableBlock.Tier.TIER_TIN));
+            new CableBlock(CableTier.TIN));
     public static final Item TIN_CABLE_ITEM = createCableBlockItem("tin_cable", TIN_CABLE);
 
     public static final CableBlock COPPER_CABLE = registerBlock("copper_cable",
-            new CableBlock(CableBlock.Tier.TIER_COPPER));
+            new CableBlock(CableTier.COPPER));
     public static final Item COPPER_CABLE_ITEM = createCableBlockItem("copper_cable", COPPER_CABLE);
 
     public static final CableBlock GOLD_CABLE = registerBlock("gold_cable",
-            new CableBlock(CableBlock.Tier.TIER_GOLD));
+            new CableBlock(CableTier.GOLD));
     public static final Item GOLD_CABLE_ITEM = createCableBlockItem("gold_cable", GOLD_CABLE);
 
     public static final CableBlock ENERGIZED_COPPER_CABLE = registerBlock("energized_copper_cable",
-            new CableBlock(CableBlock.Tier.TIER_ENERGIZED_COPPER));
+            new CableBlock(CableTier.ENERGIZED_COPPER));
     public static final Item ENERGIZED_COPPER_CABLE_ITEM = createCableBlockItem("energized_copper_cable",
             ENERGIZED_COPPER_CABLE);
 
     public static final CableBlock ENERGIZED_GOLD_CABLE = registerBlock("energized_gold_cable",
-            new CableBlock(CableBlock.Tier.TIER_ENERGIZED_GOLD));
+            new CableBlock(CableTier.ENERGIZED_GOLD));
     public static final Item ENERGIZED_GOLD_CABLE_ITEM = createCableBlockItem("energized_gold_cable",
             ENERGIZED_GOLD_CABLE);
 
     public static final CableBlock ENERGIZED_CRYSTAL_MATRIX_CABLE = registerBlock("energized_crystal_matrix_cable",
-            new CableBlock(CableBlock.Tier.TIER_ENERGIZED_CRYSTAL_MATRIX));
+            new CableBlock(CableTier.ENERGIZED_CRYSTAL_MATRIX));
     public static final Item ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = createCableBlockItem("energized_crystal_matrix_cable",
             ENERGIZED_CRYSTAL_MATRIX_CABLE);
 
@@ -150,84 +151,84 @@ public final class EPBlocks {
     public static final TransformerBlock LV_TRANSFORMER_1_TO_N = registerBlock("lv_transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.LV, TransformerType.TYPE_1_TO_N));
     public static final Item LV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("lv_transformer_1_to_n",
             LV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock LV_TRANSFORMER_3_TO_3 = registerBlock("lv_transformer_3_to_3",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.LV, TransformerType.TYPE_3_TO_3));
     public static final Item LV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("lv_transformer_3_to_3",
             LV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock LV_TRANSFORMER_N_TO_1 = registerBlock("lv_transformer_n_to_1",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_LV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.LV, TransformerType.TYPE_N_TO_1));
     public static final Item LV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("lv_transformer_n_to_1",
             LV_TRANSFORMER_N_TO_1);
 
     public static final TransformerBlock MV_TRANSFORMER_1_TO_N = registerBlock("transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.MV, TransformerType.TYPE_1_TO_N));
     public static final Item MV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("transformer_1_to_n",
             MV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock MV_TRANSFORMER_3_TO_3 = registerBlock("transformer_3_to_3",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.MV, TransformerType.TYPE_3_TO_3));
     public static final Item MV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("transformer_3_to_3",
             MV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock MV_TRANSFORMER_N_TO_1 = registerBlock("transformer_n_to_1",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_MV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.MV, TransformerType.TYPE_N_TO_1));
     public static final Item MV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("transformer_n_to_1",
             MV_TRANSFORMER_N_TO_1);
 
     public static final TransformerBlock HV_TRANSFORMER_1_TO_N = registerBlock("hv_transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.HV, TransformerType.TYPE_1_TO_N));
     public static final Item HV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("hv_transformer_1_to_n",
             HV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock HV_TRANSFORMER_3_TO_3 = registerBlock("hv_transformer_3_to_3",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.HV, TransformerType.TYPE_3_TO_3));
     public static final Item HV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("hv_transformer_3_to_3",
             HV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock HV_TRANSFORMER_N_TO_1 = registerBlock("hv_transformer_n_to_1",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_HV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.HV, TransformerType.TYPE_N_TO_1));
     public static final Item HV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("hv_transformer_n_to_1",
             HV_TRANSFORMER_N_TO_1);
 
     public static final TransformerBlock EHV_TRANSFORMER_1_TO_N = registerBlock("ehv_transformer_1_to_n",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_1_TO_N));
+                    TransformerTier.EHV, TransformerType.TYPE_1_TO_N));
     public static final Item EHV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("ehv_transformer_1_to_n",
             EHV_TRANSFORMER_1_TO_N);
 
     public static final TransformerBlock EHV_TRANSFORMER_3_TO_3 = registerBlock("ehv_transformer_3_to_3",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_3_TO_3));
+                    TransformerTier.EHV, TransformerType.TYPE_3_TO_3));
     public static final Item EHV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("ehv_transformer_3_to_3",
             EHV_TRANSFORMER_3_TO_3);
 
     public static final TransformerBlock EHV_TRANSFORMER_N_TO_1 = registerBlock("ehv_transformer_n_to_1",
             new TransformerBlock(FabricBlockSettings.create().
                     requiresTool().strength(5.0f, 6.0f).sounds(BlockSoundGroup.METAL),
-                    TransformerBlock.Tier.TIER_EHV, TransformerBlock.Type.TYPE_N_TO_1));
+                    TransformerTier.EHV, TransformerType.TYPE_N_TO_1));
     public static final Item EHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("ehv_transformer_n_to_1",
             EHV_TRANSFORMER_N_TO_1);
 
@@ -441,27 +442,27 @@ public final class EPBlocks {
                 new SolarPanelBlock.Item(block, new FabricItemSettings(), block.getTier()));
     }
     public static final SolarPanelBlock SOLAR_PANEL_1 = registerBlock("solar_panel_1",
-            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_1));
+            new SolarPanelBlock(SolarPanelTier.TIER_1));
     public static final Item SOLAR_PANEL_ITEM_1 = createSolarPanelBlockItem("solar_panel_1", SOLAR_PANEL_1);
 
     public static final SolarPanelBlock SOLAR_PANEL_2 = registerBlock("solar_panel_2",
-            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_2));
+            new SolarPanelBlock(SolarPanelTier.TIER_2));
     public static final Item SOLAR_PANEL_ITEM_2 = createSolarPanelBlockItem("solar_panel_2", SOLAR_PANEL_2);
 
     public static final SolarPanelBlock SOLAR_PANEL_3 = registerBlock("solar_panel_3",
-            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_3));
+            new SolarPanelBlock(SolarPanelTier.TIER_3));
     public static final Item SOLAR_PANEL_ITEM_3 = createSolarPanelBlockItem("solar_panel_3", SOLAR_PANEL_3);
 
     public static final SolarPanelBlock SOLAR_PANEL_4 = registerBlock("solar_panel_4",
-            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_4));
+            new SolarPanelBlock(SolarPanelTier.TIER_4));
     public static final Item SOLAR_PANEL_ITEM_4 = createSolarPanelBlockItem("solar_panel_4", SOLAR_PANEL_4);
 
     public static final SolarPanelBlock SOLAR_PANEL_5 = registerBlock("solar_panel_5",
-            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_5));
+            new SolarPanelBlock(SolarPanelTier.TIER_5));
     public static final Item SOLAR_PANEL_ITEM_5 = createSolarPanelBlockItem("solar_panel_5", SOLAR_PANEL_5);
 
     public static final SolarPanelBlock SOLAR_PANEL_6 = registerBlock("solar_panel_6",
-            new SolarPanelBlock(SolarPanelBlock.Tier.TIER_6));
+            new SolarPanelBlock(SolarPanelTier.TIER_6));
     public static final Item SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
 
     public static final Block COAL_ENGINE = registerBlock("coal_engine",

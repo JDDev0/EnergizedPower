@@ -1,9 +1,9 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,20 +11,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
 
 public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity> {
-    public static ScreenHandlerType<SolarPanelMenu> getMenuTypeFromTier(SolarPanelBlock.Tier tier) {
-        return switch(tier) {
-            case TIER_1 -> EPMenuTypes.SOLAR_PANEL_MENU_1;
-            case TIER_2 -> EPMenuTypes.SOLAR_PANEL_MENU_2;
-            case TIER_3 -> EPMenuTypes.SOLAR_PANEL_MENU_3;
-            case TIER_4 -> EPMenuTypes.SOLAR_PANEL_MENU_4;
-            case TIER_5 -> EPMenuTypes.SOLAR_PANEL_MENU_5;
-            case TIER_6 -> EPMenuTypes.SOLAR_PANEL_MENU_6;
-        };
-    }
 
     public SolarPanelMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new UpgradeModuleInventory(
@@ -36,10 +25,10 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
     public SolarPanelMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
                           UpgradeModuleInventory upgradeModuleInventory) {
         super(
-                getMenuTypeFromTier(((SolarPanelBlockEntity)blockEntity).getTier()), id,
+                ((SolarPanelBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id,
 
                 playerInventory, blockEntity,
-                SolarPanelBlock.getBlockFromTier(((SolarPanelBlockEntity)blockEntity).getTier()),
+                ((SolarPanelBlockEntity)blockEntity).getTier().getBlockFromTier(),
 
                 upgradeModuleInventory, 2
         );
@@ -48,7 +37,7 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
     }
 
-    public SolarPanelBlock.Tier getTier() {
+    public SolarPanelTier getTier() {
         return blockEntity.getTier();
     }
 

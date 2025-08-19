@@ -1,12 +1,11 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.SolarPanelBlock;
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
+import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
@@ -23,22 +22,11 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class SolarPanelBlockEntity
         extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
-    private final SolarPanelBlock.Tier tier;
+    private final SolarPanelTier tier;
 
-    public static BlockEntityType<SolarPanelBlockEntity> getEntityTypeFromTier(SolarPanelBlock.Tier tier) {
-        return switch(tier) {
-            case TIER_1 -> EPBlockEntities.SOLAR_PANEL_ENTITY_1;
-            case TIER_2 -> EPBlockEntities.SOLAR_PANEL_ENTITY_2;
-            case TIER_3 -> EPBlockEntities.SOLAR_PANEL_ENTITY_3;
-            case TIER_4 -> EPBlockEntities.SOLAR_PANEL_ENTITY_4;
-            case TIER_5 -> EPBlockEntities.SOLAR_PANEL_ENTITY_5;
-            case TIER_6 -> EPBlockEntities.SOLAR_PANEL_ENTITY_6;
-        };
-    }
-
-    public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelBlock.Tier tier) {
+    public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelTier tier) {
         super(
-                getEntityTypeFromTier(tier), blockPos, blockState,
+                tier.getEntityTypeFromTier(), blockPos, blockState,
 
                 tier.getResourceId(),
 
@@ -80,7 +68,7 @@ public class SolarPanelBlockEntity
         };
     }
 
-    public SolarPanelBlock.Tier getTier() {
+    public SolarPanelTier getTier() {
         return tier;
     }
 
