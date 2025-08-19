@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
@@ -44,7 +43,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
     }
 
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory playerInventory, BlockEntity blockEntity, Inventory patternSlots, PropertyDelegate data) {
-        super(EPMenuTypes.ITEM_CONVEYOR_BELT_SORTER_MENU, id);
+        super(((ItemConveyorBeltSorterBlockEntity)blockEntity).getTier().getItemConveyorBeltSorterMenuTypeFromTier(), id);
 
         this.patternSlots = patternSlots;
 
@@ -96,7 +95,7 @@ public class ItemConveyorBeltSorterMenu extends AbstractEnergizedPowerScreenHand
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_SORTER);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, blockEntity.getTier().getItemConveyorBeltSorterBlockFromTier());
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {

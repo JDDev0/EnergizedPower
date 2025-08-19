@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "energizedpower:item_conveyor_belt",
-    "energizedpower:item_conveyor_belt_loader"
+    "energizedpower:fast_item_conveyor_belt",
+    "energizedpower:express_item_conveyor_belt",
+    "energizedpower:item_conveyor_belt_loader",
+    "energizedpower:fast_item_conveyor_belt_loader",
+    "energizedpower:express_item_conveyor_belt_loader"
   ]
 }

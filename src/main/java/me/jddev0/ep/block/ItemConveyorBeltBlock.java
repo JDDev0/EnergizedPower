@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -42,16 +42,24 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
     protected static final VoxelShape SHAPE_FLAT = Block.createCuboidShape(0., 0., 0., 16., 2., 16.);
     protected static final VoxelShape SHAPE_HALF_BLOCK = Block.createCuboidShape(0., 0., 0., 16., 8., 16.);
 
-    protected ItemConveyorBeltBlock(FabricBlockSettings props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltBlock(ConveyorBeltTier tier, FabricBlockSettings props) {
         super(props);
 
+        this.tier = tier;
+
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, ConveyorBeltDirection.NORTH_SOUTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltBlockEntity(blockPos, state);
+        return new ItemConveyorBeltBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -168,12 +176,20 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, EPBlockEntities.ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::tick);
+        return checkType(type, tier.getItemConveyorBeltBlockEntityFromTier(), ItemConveyorBeltBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, FabricItemSettings props) {
+        private final ConveyorBeltTier tier;
+
+        public Item(Block block, FabricItemSettings props, ConveyorBeltTier tier) {
             super(block, props);
+
+            this.tier = tier;
+        }
+
+        public ConveyorBeltTier getTier() {
+            return tier;
         }
 
         @Override

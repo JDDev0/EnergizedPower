@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "energizedpower:express_item_conveyor_belt"
+    },
+    "F": {
+      "item": "energizedpower:fast_item_conveyor_belt_sorter"
+    },
+    "I": {
+      "tag": "c:iron_blocks"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "i": {
+      "tag": "c:iron_gears"
+    },
+    "s": {
+      "tag": "c:steel_ingots"
+    }
+  },
+  "pattern": [
+    "IiI",
+    "sFs",
+    "SES"
+  ],
+  "result": {
+    "item": "energizedpower:express_item_conveyor_belt_sorter"
+  }
+}

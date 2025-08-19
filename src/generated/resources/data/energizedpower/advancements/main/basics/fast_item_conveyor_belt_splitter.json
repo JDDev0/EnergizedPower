@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/basics/fast_item_conveyor_belt",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:fast_item_conveyor_belt_splitter"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.fast_item_conveyor_belt_splitter.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:fast_item_conveyor_belt_splitter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.fast_item_conveyor_belt_splitter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

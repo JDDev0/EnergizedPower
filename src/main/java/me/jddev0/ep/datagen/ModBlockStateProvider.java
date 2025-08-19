@@ -34,27 +34,61 @@ class ModBlockStateProvider {
 
         cubeAllBlockWithItem(EPBlocks.RAW_TIN_BLOCK);
 
-        itemConveyorBeltBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT);
+        itemConveyorBeltBlockWithItem(EPBlocks.BASIC_ITEM_CONVEYOR_BELT);
+        itemConveyorBeltBlockWithItem(EPBlocks.FAST_ITEM_CONVEYOR_BELT);
+        itemConveyorBeltBlockWithItem(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT);
 
-        orientableSixDirsBlockWithBackItem(EPBlocks.ITEM_CONVEYOR_BELT_LOADER, false);
+        orientableSixDirsBlockWithBackItem(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER, false);
+        orientableSixDirsBlockWithBackItem(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER, false);
+        orientableSixDirsBlockWithBackItem(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER, false);
 
-        orientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_SORTER,
-                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SORTER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER,
+                cubeBlockModel(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER, "", "_top", "_top",
+                        "_input", "_output_2", "_output_3", "_output_1"));
+        orientableBlockWithItem(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
+                cubeBlockModel(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER, "", "_top", "_top",
+                        "_input", "_output_2", "_output_3", "_output_1"));
+        orientableBlockWithItem(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+                cubeBlockModel(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER, "", "_top", "_top",
                         "_input", "_output_2", "_output_3", "_output_1"));
 
-        activatableOrientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH,
-                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH, "", "_top", "_top",
+        activatableOrientableBlockWithItem(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH,
+                cubeBlockModel(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH, "", "_top", "_top",
                         "_input", "_side", "_output_disabled", "_output_enabled"),
-                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SWITCH, "_powered", "_top", "_top",
+                cubeBlockModel(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH, "_powered", "_top", "_top",
+                        "_input", "_side", "_output_enabled", "_output_disabled"),
+                ItemConveyorBeltSwitchBlock.POWERED);
+        activatableOrientableBlockWithItem(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
+                cubeBlockModel(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH, "", "_top", "_top",
+                        "_input", "_side", "_output_disabled", "_output_enabled"),
+                cubeBlockModel(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH, "_powered", "_top", "_top",
+                        "_input", "_side", "_output_enabled", "_output_disabled"),
+                ItemConveyorBeltSwitchBlock.POWERED);
+        activatableOrientableBlockWithItem(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+                cubeBlockModel(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH, "", "_top", "_top",
+                        "_input", "_side", "_output_disabled", "_output_enabled"),
+                cubeBlockModel(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH, "_powered", "_top", "_top",
                         "_input", "_side", "_output_enabled", "_output_disabled"),
                 ItemConveyorBeltSwitchBlock.POWERED);
 
-        orientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER,
-                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER,
+                cubeBlockModel(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER, "", "_top", "_top",
+                        "_input", "_output", "_output", "_output"));
+        orientableBlockWithItem(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
+                cubeBlockModel(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER, "", "_top", "_top",
+                        "_input", "_output", "_output", "_output"));
+        orientableBlockWithItem(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+                cubeBlockModel(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER, "", "_top", "_top",
                         "_input", "_output", "_output", "_output"));
 
-        orientableBlockWithItem(EPBlocks.ITEM_CONVEYOR_BELT_MERGER,
-                cubeBlockModel(EPBlocks.ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
+        orientableBlockWithItem(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER,
+                cubeBlockModel(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
+                        "_output", "_input", "_input", "_input"));
+        orientableBlockWithItem(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
+                cubeBlockModel(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
+                        "_output", "_input", "_input", "_input"));
+        orientableBlockWithItem(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
+                cubeBlockModel(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
                         "_output", "_input", "_input", "_input"));
 
         fluidPipeBlockWithItem(EPBlocks.IRON_FLUID_PIPE);

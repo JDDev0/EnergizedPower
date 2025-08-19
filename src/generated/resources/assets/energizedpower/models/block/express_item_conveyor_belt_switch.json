@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/express_item_conveyor_belt_switch_top",
+    "east": "energizedpower:block/express_item_conveyor_belt_switch_output_enabled",
+    "north": "energizedpower:block/express_item_conveyor_belt_switch_input",
+    "particle": "energizedpower:block/express_item_conveyor_belt_switch_top",
+    "south": "energizedpower:block/express_item_conveyor_belt_switch_side",
+    "up": "energizedpower:block/express_item_conveyor_belt_switch_top",
+    "west": "energizedpower:block/express_item_conveyor_belt_switch_output_disabled"
+  }
+}

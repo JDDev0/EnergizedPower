@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltMergerBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
+import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -24,16 +24,24 @@ import org.jetbrains.annotations.Nullable;
 public class ItemConveyorBeltMergerBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 
-    protected ItemConveyorBeltMergerBlock(FabricBlockSettings props) {
+    private final ConveyorBeltTier tier;
+
+    protected ItemConveyorBeltMergerBlock(ConveyorBeltTier tier, FabricBlockSettings props) {
         super(props);
 
+        this.tier = tier;
+
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+    }
+
+    public ConveyorBeltTier getTier() {
+        return tier;
     }
 
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
-        return new ItemConveyorBeltMergerBlockEntity(blockPos, state);
+        return new ItemConveyorBeltMergerBlockEntity(blockPos, state, tier);
     }
 
     @Override
@@ -64,6 +72,6 @@ public class ItemConveyorBeltMergerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, EPBlockEntities.ITEM_CONVEYOR_BELT_MERGER_ENTITY, ItemConveyorBeltMergerBlockEntity::tick);
+        return checkType(type, tier.getItemConveyorBeltMergerBlockEntityFromTier(), ItemConveyorBeltMergerBlockEntity::tick);
     }
 }

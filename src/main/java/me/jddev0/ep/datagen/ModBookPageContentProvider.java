@@ -1195,7 +1195,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt.6").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT);
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+        });
 
         addSimplePage(pageId("item_conveyor_belt_loader"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_loader.1").
@@ -1212,7 +1216,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_loader.5").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_LOADER);
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
+        });
 
         addSimplePage(pageId("item_conveyor_belt_sorter"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_sorter.1").
@@ -1241,7 +1249,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_sorter.9").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_SORTER);
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+        });
 
         addSimplePage(pageId("item_conveyor_belt_switch"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_switch.1").
@@ -1249,17 +1261,29 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_switch.2").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_SWITCH);
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+        });
 
         addSimplePage(pageId("item_conveyor_belt_splitter"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_splitter").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER);
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+        });
 
         addSimplePage(pageId("item_conveyor_belt_merger"), Text.empty().append(
                 Text.translatable("book.energizedpower.page.item_conveyor_belt_merger").
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM)
-        ), EPBlocks.ITEM_CONVEYOR_BELT_MERGER);
+        ), new Block[] {
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
+        });
     }
     private void registerFluidsChapter() {
         chapterId("fluids");

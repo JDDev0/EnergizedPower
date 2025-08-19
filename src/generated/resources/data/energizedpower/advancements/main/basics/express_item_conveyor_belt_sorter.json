@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/basics/express_item_conveyor_belt",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:express_item_conveyor_belt_sorter"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.energizedpower.express_item_conveyor_belt_sorter.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "energizedpower:express_item_conveyor_belt_sorter"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.energizedpower.express_item_conveyor_belt_sorter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -11,10 +11,18 @@ import net.minecraft.screen.ScreenHandlerType;
 public final class EPMenuTypes {
     private EPMenuTypes() {}
 
-    public static final ScreenHandlerType<ItemConveyorBeltLoaderMenu> ITEM_CONVEYOR_BELT_LOADER_MENU = createScreenHandlerType("item_conveyor_belt_loader",
+    public static final ScreenHandlerType<ItemConveyorBeltLoaderMenu> BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU = createScreenHandlerType("item_conveyor_belt_loader",
+            new ExtendedScreenHandlerType<>(ItemConveyorBeltLoaderMenu::new));
+    public static final ScreenHandlerType<ItemConveyorBeltLoaderMenu> FAST_ITEM_CONVEYOR_BELT_LOADER_MENU = createScreenHandlerType("fast_item_conveyor_belt_loader",
+            new ExtendedScreenHandlerType<>(ItemConveyorBeltLoaderMenu::new));
+    public static final ScreenHandlerType<ItemConveyorBeltLoaderMenu> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_MENU = createScreenHandlerType("express_item_conveyor_belt_loader",
             new ExtendedScreenHandlerType<>(ItemConveyorBeltLoaderMenu::new));
 
-    public static final ScreenHandlerType<ItemConveyorBeltSorterMenu> ITEM_CONVEYOR_BELT_SORTER_MENU = createScreenHandlerType("item_conveyor_belt_sorter",
+    public static final ScreenHandlerType<ItemConveyorBeltSorterMenu> BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU = createScreenHandlerType("item_conveyor_sorter_loader",
+            new ExtendedScreenHandlerType<>(ItemConveyorBeltSorterMenu::new));
+    public static final ScreenHandlerType<ItemConveyorBeltSorterMenu> FAST_ITEM_CONVEYOR_BELT_SORTER_MENU = createScreenHandlerType("fast_conveyor_sorter_loader",
+            new ExtendedScreenHandlerType<>(ItemConveyorBeltSorterMenu::new));
+    public static final ScreenHandlerType<ItemConveyorBeltSorterMenu> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_MENU = createScreenHandlerType("express_conveyor_sorter_loader",
             new ExtendedScreenHandlerType<>(ItemConveyorBeltSorterMenu::new));
 
     public static final ScreenHandlerType<AutoCrafterMenu> AUTO_CRAFTER_MENU = createScreenHandlerType("auto_crafter",

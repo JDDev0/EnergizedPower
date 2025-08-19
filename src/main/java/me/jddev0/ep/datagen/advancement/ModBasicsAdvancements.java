@@ -80,6 +80,36 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 CommonItemTags.STEEL_INGOTS
         );
 
+        Advancement fastItemConveyorBelt = addAdvancement(
+                advancementOutput, steelIngot,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM, "fast_item_conveyor_belt", AdvancementFrame.TASK
+        );
+
+        Advancement fastItemConveyorBeltLoader = addAdvancement(
+                advancementOutput, fastItemConveyorBelt,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM, "fast_item_conveyor_belt_loader", AdvancementFrame.TASK
+        );
+
+        Advancement fastItemConveyorBeltSorter = addAdvancement(
+                advancementOutput, fastItemConveyorBelt,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM, "fast_item_conveyor_belt_sorter", AdvancementFrame.TASK
+        );
+
+        Advancement fastItemConveyorBeltSwitch = addAdvancement(
+                advancementOutput, fastItemConveyorBelt,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "fast_item_conveyor_belt_switch", AdvancementFrame.TASK
+        );
+
+        Advancement fastItemConveyorBeltSplitter = addAdvancement(
+                advancementOutput, fastItemConveyorBelt,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "fast_item_conveyor_belt_splitter", AdvancementFrame.TASK
+        );
+
+        Advancement fastItemConveyorBeltMerger = addAdvancement(
+                advancementOutput, fastItemConveyorBelt,
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM, "fast_item_conveyor_belt_merger", AdvancementFrame.TASK
+        );
+
         Advancement redstoneAlloyIngot = addAdvancement(
                 advancementOutput, alloyFurnace,
                 EPItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", AdvancementFrame.TASK,
@@ -222,32 +252,32 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
 
         Advancement itemConveyorBelt = addAdvancement(
                 advancementOutput, ironPlate,
-                EPBlocks.ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementFrame.TASK
         );
 
         Advancement itemConveyorBeltLoader = addAdvancement(
                 advancementOutput, itemConveyorBelt,
-                EPBlocks.ITEM_CONVEYOR_BELT_LOADER_ITEM, "item_conveyor_belt_loader", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM, "item_conveyor_belt_loader", AdvancementFrame.TASK
         );
 
         Advancement itemConveyorBeltSorter = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.ITEM_CONVEYOR_BELT_SORTER_ITEM, "item_conveyor_belt_sorter", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM, "item_conveyor_belt_sorter", AdvancementFrame.TASK
         );
 
         Advancement itemConveyorBeltSwitch = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.ITEM_CONVEYOR_BELT_SWITCH_ITEM, "item_conveyor_belt_switch", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "item_conveyor_belt_switch", AdvancementFrame.TASK
         );
 
         Advancement itemConveyorBeltSplitter = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "item_conveyor_belt_splitter", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "item_conveyor_belt_splitter", AdvancementFrame.TASK
         );
 
         Advancement itemConveyorBeltMerger = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", AdvancementFrame.TASK
         );
 
         Advancement ironFluidPipe = addAdvancement(
@@ -506,6 +536,36 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
         Advancement metalPress = addAdvancement(
                 advancementOutput, basicMachineFrame,
                 EPBlocks.METAL_PRESS_ITEM, "metal_press", AdvancementFrame.TASK
+        );
+
+        Advancement expressItemConveyorBelt = addAdvancement(
+                advancementOutput, metalPress,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM, "express_item_conveyor_belt", AdvancementFrame.TASK
+        );
+
+        Advancement expressItemConveyorBeltLoader = addAdvancement(
+                advancementOutput, expressItemConveyorBelt,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM, "express_item_conveyor_belt_loader", AdvancementFrame.TASK
+        );
+
+        Advancement expressItemConveyorBeltSorter = addAdvancement(
+                advancementOutput, expressItemConveyorBelt,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM, "express_item_conveyor_belt_sorter", AdvancementFrame.TASK
+        );
+
+        Advancement expressItemConveyorBeltSwitch = addAdvancement(
+                advancementOutput, expressItemConveyorBelt,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "express_item_conveyor_belt_switch", AdvancementFrame.TASK
+        );
+
+        Advancement expressItemConveyorBeltSplitter = addAdvancement(
+                advancementOutput, expressItemConveyorBelt,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "express_item_conveyor_belt_splitter", AdvancementFrame.TASK
+        );
+
+        Advancement expressItemConveyorBeltMerger = addAdvancement(
+                advancementOutput, expressItemConveyorBelt,
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM, "express_item_conveyor_belt_merger", AdvancementFrame.TASK
         );
 
         Advancement autoPressMoldMaker = addAdvancement(

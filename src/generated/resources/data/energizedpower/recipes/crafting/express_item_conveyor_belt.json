@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "energizedpower:fast_item_conveyor_belt"
+    },
+    "G": {
+      "tag": "c:iron_gears"
+    },
+    "R": {
+      "tag": "c:iron_rods"
+    },
+    "r": {
+      "tag": "c:redstone_dusts"
+    }
+  },
+  "pattern": [
+    "GRG",
+    "rFr",
+    "GRG"
+  ],
+  "result": {
+    "item": "energizedpower:express_item_conveyor_belt"
+  }
+}

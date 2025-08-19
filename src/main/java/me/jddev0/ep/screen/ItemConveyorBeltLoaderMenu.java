@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen;
 
-import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.screen.base.AbstractEnergizedPowerScreenHandler;
@@ -9,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -26,7 +24,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    return stack.getItem() instanceof BlockItem;
+                    return true;
                 }
 
                 return super.isValid(slot, stack);
@@ -40,7 +38,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
     }
 
     public ItemConveyorBeltLoaderMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv) {
-        super(EPMenuTypes.ITEM_CONVEYOR_BELT_LOADER_MENU, id);
+        super(((ItemConveyorBeltLoaderBlockEntity)blockEntity).getTier().getItemConveyorBeltLoaderMenuTypeFromTier(), id);
 
         this.blockEntity = (ItemConveyorBeltLoaderBlockEntity)blockEntity;
 
@@ -89,7 +87,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractEnergizedPowerScreenHand
 
     @Override
     public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.ITEM_CONVEYOR_BELT_LOADER);
+        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, blockEntity.getTier().getItemConveyorBeltLoaderBlockFromTier());
     }
 
     private void addPlayerInventory(PlayerInventory playerInventory) {
