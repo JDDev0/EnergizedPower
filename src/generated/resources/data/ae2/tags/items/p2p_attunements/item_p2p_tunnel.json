@@ -11,6 +11,7 @@
     "energizedpower:item_silo_small",
     "energizedpower:item_silo_medium",
     "energizedpower:item_silo_large",
-    "energizedpower:item_silo_giant"
+    "energizedpower:item_silo_giant",
+    "energizedpower:creative_item_silo"
   ]
 }

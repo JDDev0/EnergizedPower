@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-19T12:58:59.304695887	Energized Power/Advancements (Basics)
+// 1.20.1	2025-08-19T13:16:34.404982516	Energized Power/Advancements (Basics)
 115449907194c707f230fdef934293ffe23dd34d data/energizedpower/advancements/main/basics/express_item_conveyor_belt_loader.json
 cb16ccd834e584f612bbaabf8f003663cfdced02 data/energizedpower/advancements/main/basics/copper_wire.json
 0f1d6b22a525d9248be4f4bc13a1dd7896dd79f0 data/energizedpower/advancements/main/basics/fast_item_conveyor_belt_loader.json
@@ -61,8 +61,8 @@ e40007173e3077e0562d26bdb15614dc45bc7198 data/energizedpower/advancements/main/b
 7bc1894f163d8c6467d92a225e48317ea23660b8 data/energizedpower/advancements/main/basics/induction_smelter.json
 11d7a188e79c7f0aabd67f79b2092dab9c73338c data/energizedpower/advancements/main/basics/moon_light_upgrade_module_1.json
 98e0a9fd6575fc865f7f50918043a50262e9c697 data/energizedpower/advancements/main/basics/press_molds.json
-54e8b3257efc56aedec1d81cf1f52dabfcebbb69 data/energizedpower/advancements/main/basics/fluid_drainer.json
 743bc5a9c6f543d30cf5538590ac02543df7267e data/energizedpower/advancements/main/basics/battery_box.json
+54e8b3257efc56aedec1d81cf1f52dabfcebbb69 data/energizedpower/advancements/main/basics/fluid_drainer.json
 f7eb8ec2832d93c8924837f0c0950ede8e224a4e data/energizedpower/advancements/main/basics/hardened_machine_frame.json
 f2edd48f318a25847bf41dd7c2912df6fce79693 data/energizedpower/advancements/main/basics/thermal_generator.json
 0986f2dee468526b147a683e785fe5e16f9915ad data/energizedpower/advancements/main/basics/tin_wire.json
@@ -96,8 +96,8 @@ ab10ea1f18b7a14258571c616e1a96b1f22894a3 data/energizedpower/advancements/main/b
 5086f9185be5615b615528b18b522dc8684116af data/energizedpower/advancements/main/basics/item_silo_large.json
 1e178ccf5fff64044314342133ab35c45ccfa6aa data/energizedpower/advancements/main/basics/cutter.json
 e9cdc2fc6fa96725a358b50df8c342a79a5505a4 data/energizedpower/advancements/main/basics/press_mold_maker.json
-e7207166c23407864069efabf805489b3bdb2dd6 data/energizedpower/advancements/main/basics/sawmill.json
 fbddd8957281006b6f076c0cb4b083b5ebcf5ff9 data/energizedpower/advancements/main/basics/fast_item_conveyor_belt.json
+e7207166c23407864069efabf805489b3bdb2dd6 data/energizedpower/advancements/main/basics/sawmill.json
 c0abb2ecce0b0e61f0cfdd79d0de146546c55996 data/energizedpower/advancements/main/basics/express_item_conveyor_belt.json
 5992e273a4196a67b3cbcaf797c2e3d370560fce data/energizedpower/advancements/main/basics/extraction_range_upgrade_module_2.json
 a08bf334366b8c7c72dcbe7c1d5153b235eadf22 data/energizedpower/advancements/main/basics/drain.json
@@ -112,5 +112,5 @@ a08bf334366b8c7c72dcbe7c1d5153b235eadf22 data/energizedpower/advancements/main/b
 d3b92ecb759be231dcb569724cafaee80bbb9a43 data/energizedpower/advancements/main/basics/raw_press_molds.json
 609388546a22fc5d7bf7e71ed8a40a933ecabbe6 data/energizedpower/advancements/main/basics/crusher.json
 64c0f4ca3bc96fdcd1245e16dc81a0efb0d62cf6 data/energizedpower/advancements/main/basics/coal_engine.json
-8e21c84005b4cef325ccbee41797f2144d1ad154 data/energizedpower/advancements/main/basics/item_conveyor_belt_switch.json
 42316c06ac045e25618da59047d0ca3b2feca0f2 data/energizedpower/advancements/main/basics/hammer.json
+8e21c84005b4cef325ccbee41797f2144d1ad154 data/energizedpower/advancements/main/basics/item_conveyor_belt_switch.json

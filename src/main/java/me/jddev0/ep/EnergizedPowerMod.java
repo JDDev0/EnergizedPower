@@ -119,6 +119,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.ITEM_SILO_MEDIUM_ITEM);
             event.accept(EPBlocks.ITEM_SILO_LARGE_ITEM);
             event.accept(EPBlocks.ITEM_SILO_GIANT_ITEM);
+            event.accept(EPBlocks.CREATIVE_ITEM_SILO_ITEM);
 
             event.accept(EPBlocks.IRON_FLUID_PIPE_ITEM);
             event.accept(EPBlocks.GOLDEN_FLUID_PIPE_ITEM);

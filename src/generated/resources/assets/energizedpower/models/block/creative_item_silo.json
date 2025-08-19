@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/creative_item_silo_top",
+    "east": "energizedpower:block/creative_item_silo_side",
+    "north": "energizedpower:block/creative_item_silo_side",
+    "particle": "energizedpower:block/creative_item_silo_top",
+    "south": "energizedpower:block/creative_item_silo_side",
+    "up": "energizedpower:block/creative_item_silo_top",
+    "west": "energizedpower:block/creative_item_silo_side"
+  }
+}

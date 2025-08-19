@@ -254,6 +254,8 @@ public final class EPMenuTypes {
             new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
     public static final ScreenHandlerType<ItemSiloMenu> ITEM_SILO_GIANT = createScreenHandlerType("item_silo_giant",
             new ExtendedScreenHandlerType<>(ItemSiloMenu::new));
+    public static final ScreenHandlerType<CreativeItemSiloMenu> CREATIVE_ITEM_SILO_MENU = createScreenHandlerType("creative_item_silo",
+            new ExtendedScreenHandlerType<>(CreativeItemSiloMenu::new));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> createScreenHandlerType(String name, ScreenHandlerType<T> screenHandlerType) {
         return Registry.register(Registries.SCREEN_HANDLER, EPAPI.id(name), screenHandlerType);
