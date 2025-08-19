@@ -189,6 +189,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_MEDIUM, false);
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_LARGE, false);
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_GIANT, false);
+        horizontalBlockWithItem(EPBlocks.CREATIVE_ITEM_SILO, false);
 
         cableBlockWithItem(EPBlocks.TIN_CABLE);
         cableBlockWithItem(EPBlocks.COPPER_CABLE);

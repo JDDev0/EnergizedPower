@@ -140,6 +140,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.ITEM_SILO_MEDIUM_ITEM);
             event.accept(EPBlocks.ITEM_SILO_LARGE_ITEM);
             event.accept(EPBlocks.ITEM_SILO_GIANT_ITEM);
+            event.accept(EPBlocks.CREATIVE_ITEM_SILO_ITEM);
 
             event.accept(EPBlocks.IRON_FLUID_PIPE_ITEM);
             event.accept(EPBlocks.GOLDEN_FLUID_PIPE_ITEM);
@@ -474,6 +475,7 @@ public class EnergizedPowerMod {
             MenuScreens.register(EPMenuTypes.ITEM_SILO_MEDIUM.get(), ItemSiloScreen::new);
             MenuScreens.register(EPMenuTypes.ITEM_SILO_LARGE.get(), ItemSiloScreen::new);
             MenuScreens.register(EPMenuTypes.ITEM_SILO_GIANT.get(), ItemSiloScreen::new);
+            MenuScreens.register(EPMenuTypes.CREATIVE_ITEM_SILO_MENU.get(), CreativeItemSiloScreen::new);
 
             MenuScreens.register(EPMenuTypes.INVENTORY_CHARGER_MENU.get(), InventoryChargerScreen::new);
             MenuScreens.register(EPMenuTypes.INVENTORY_TELEPORTER_MENU.get(), InventoryTeleporterScreen::new);

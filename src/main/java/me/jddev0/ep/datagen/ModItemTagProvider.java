@@ -61,7 +61,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                         EPBlocks.ITEM_SILO_SMALL_ITEM.get(),
                         EPBlocks.ITEM_SILO_MEDIUM_ITEM.get(),
                         EPBlocks.ITEM_SILO_LARGE_ITEM.get(),
-                        EPBlocks.ITEM_SILO_GIANT_ITEM.get()
+                        EPBlocks.ITEM_SILO_GIANT_ITEM.get(),
+                        EPBlocks.CREATIVE_ITEM_SILO_ITEM.get()
                 );
 
         tag(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).

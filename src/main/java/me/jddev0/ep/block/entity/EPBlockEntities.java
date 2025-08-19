@@ -58,6 +58,10 @@ public final class EPBlockEntities {
     public static final RegistryObject<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_GIANT_ENTITY =
             createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
 
+    public static final RegistryObject<BlockEntityType<CreativeItemSiloBlockEntity>> CREATIVE_ITEM_SILO_ENTITY =
+            BLOCK_ENTITIES.register("creative_item_silo", () -> BlockEntityType.Builder.of(CreativeItemSiloBlockEntity::new,
+                    EPBlocks.CREATIVE_ITEM_SILO.get()).build(null));
+
     private static RegistryObject<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
             String name,
             RegistryObject<ItemConveyorBeltBlock> blockRegistryObject

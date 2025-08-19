@@ -258,6 +258,8 @@ public final class EPMenuTypes {
             ItemSiloMenu::new);
     public static final RegistryObject<MenuType<ItemSiloMenu>> ITEM_SILO_GIANT = registerMenuType("item_silo_giant",
             ItemSiloMenu::new);
+    public static final RegistryObject<MenuType<CreativeItemSiloMenu>> CREATIVE_ITEM_SILO_MENU = registerMenuType("creative_item_silo",
+            CreativeItemSiloMenu::new);
 
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
