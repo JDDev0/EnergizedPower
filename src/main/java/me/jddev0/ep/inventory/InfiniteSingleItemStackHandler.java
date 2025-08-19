@@ -95,6 +95,8 @@ public class InfiniteSingleItemStackHandler extends ItemStackHandler {
             CompoundTag itemNbt = nbt.getCompound("Item");
             itemNbt.putInt("count", 1);
             this.stack = ItemStack.parse(lookupProvider, itemNbt).orElse(ItemStack.EMPTY).copyWithCount(1);
+        }else {
+            this.stack = ItemStack.EMPTY;
         }
     }
 
