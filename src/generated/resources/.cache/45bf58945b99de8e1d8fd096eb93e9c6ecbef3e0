@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-19T12:10:35.629734336	Energized Power/Advancements (Advanced)
+// 1.20.1	2025-08-19T12:11:40.255493055	Energized Power/Advancements (Advanced)
 61912381bbadd3d183c469d7bdda7cab5a7906d9 data/energizedpower/advancements/main/advanced/speed_upgrade_module_4.json
 fd10a844426c129b484db08b9d8dee28286c9099 data/energizedpower/advancements/main/advanced/advanced_pulverizer.json
 ceb11f35bd8fed2f593b5c860c965f2b6dde4ebf data/energizedpower/advancements/main/advanced/energized_copper_plate.json
@@ -61,9 +61,9 @@ a73edae96d17f270b7e4d756053918943033a3c6 data/energizedpower/advancements/main/a
 bf86376dace9670ca9b295e32ad3beb58c2200af data/energizedpower/advancements/main/advanced/energized_gold_ingot.json
 7a75a9ff7ca960a99bb355d93c467310f24fcf1a data/energizedpower/advancements/main/advanced/advanced_alloy_ingot.json
 4a5bacfcef30db1d5b8db27881894db25502a65e data/energizedpower/advancements/main/advanced/weather_controller.json
-db8a84be7d78c928c6ee07562665d5655c9f19a5 data/energizedpower/advancements/main/advanced/advanced_alloy_plate.json
-57f58259e73c1534b00b61079a24f00dad1e2a29 data/energizedpower/advancements/main/advanced/range_upgrade_module_1.json
 1fed526c545a574a940f23ba3c61ff45f6e41eb3 data/energizedpower/advancements/main/advanced/teleporter_processing_unit.json
+57f58259e73c1534b00b61079a24f00dad1e2a29 data/energizedpower/advancements/main/advanced/range_upgrade_module_1.json
+db8a84be7d78c928c6ee07562665d5655c9f19a5 data/energizedpower/advancements/main/advanced/advanced_alloy_plate.json
 0a977fb6bca3b32f607ac41c0843d3e959c4e5c4 data/energizedpower/advancements/main/advanced/duration_upgrade_module_2.json
 930a8f47e51ea007c4288d417594f9e14910c6a7 data/energizedpower/advancements/main/advanced/advanced_minecart_charger.json
 b49447f17bf4f667fe4cce7becf0a750d42bf6bc data/energizedpower/advancements/main/advanced/speed_upgrade_module_3.json
