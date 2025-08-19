@@ -2,6 +2,7 @@ plugins {
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '6.0.+'
+    id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
 version = '1.20.1-2.15.0-forge'
@@ -227,6 +228,41 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+tasks.publishUnified {
+    dependsOn(tasks.build)
+}
+
+unifiedPublishing {
+    project {
+        displayName = "Energized Power - " + "1.20.1" + " - v" + project.version.split("-")[1] + " [Forge/NeoForge]"
+        version = project.version
+        changelog = new File("CHANGELOG.md").getText("UTF-8")
+        releaseType = "release"
+        gameVersions = ["1.20.1"]
+        gameLoaders = ["forge", "neoforge"]
+
+        mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.archivesBaseName + "-" + project.version + ".jar").toFile())
+
+        relations {
+            //No dependencies
+        }
+
+        if(project.hasProperty('MODRINTH_TOKEN')) {
+            modrinth {
+                token = getProperty('MODRINTH_TOKEN') as String
+                id = "6pku8gW1"
+            }
+        }
+
+        if(project.hasProperty('CURSEFORGE_TOKEN')) {
+            curseforge {
+                token = getProperty('CURSEFORGE_TOKEN') as String
+                id = "782147"
+            }
+        }
+    }
 }
 
 //Dummy task to fix post sync error caused by NeoGradle
