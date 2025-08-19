@@ -350,6 +350,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Игнорировать NBT теги",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Режим извлечения 1: только вывод и оставшиеся предметы",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Режим извлечения 2: все, кроме входящих предметов",
+  "tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow": "Allow output overflow",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Циклическое переключение рецептов",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Рецепт %d",
 

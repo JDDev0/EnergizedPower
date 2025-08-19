@@ -51,6 +51,7 @@ public class AutoCrafterBlockEntity
     public static final int RECIPE_DURATION = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_DURATION.getValue();
 
     private boolean secondaryExtractMode;
+    private boolean allowOutputOverflow = true;
 
     private final LazyOptional<IItemHandler> lazyItemHandlerSided = LazyOptional.of(
             () -> new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
@@ -158,6 +159,7 @@ public class AutoCrafterBlockEntity
                 new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
                 new BooleanValueContainerData(() -> ignoreNBT, value -> ignoreNBT = value),
                 new BooleanValueContainerData(() -> secondaryExtractMode, value -> secondaryExtractMode = value),
+                new BooleanValueContainerData(() -> allowOutputOverflow, value -> allowOutputOverflow = value),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
         );
@@ -202,6 +204,7 @@ public class AutoCrafterBlockEntity
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
         nbt.putBoolean("secondary_extract_mode", secondaryExtractMode);
+        nbt.putBoolean("allow_output_overflow", allowOutputOverflow);
     }
 
     @Override
@@ -230,6 +233,7 @@ public class AutoCrafterBlockEntity
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
         secondaryExtractMode = nbt.getBoolean("secondary_extract_mode");
+        allowOutputOverflow = !nbt.contains("allow_output_overflow") || nbt.getBoolean("allow_output_overflow");
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AutoCrafterBlockEntity blockEntity) {
@@ -474,10 +478,11 @@ public class AutoCrafterBlockEntity
 
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        List<Integer> emptyIndices = new ArrayList<>(18);
+        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():3;
+        List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
-            for(int i = 0;i < itemHandler.getSlots();i++) {
+            for(int i = 0;i < outputSlotCount;i++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
                     continue;
@@ -584,12 +589,13 @@ public class AutoCrafterBlockEntity
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        List<Integer> checkedIndices = new ArrayList<>(18);
-        List<Integer> emptyIndices = new ArrayList<>(18);
+        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():3;
+        List<Integer> checkedIndices = new ArrayList<>(outputSlotCount);
+        List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
-            for(int j = 0;j < itemHandler.getSlots();j++) {
+            for(int j = 0;j < outputSlotCount;j++) {
                 if(checkedIndices.contains(j) || emptyIndices.contains(j))
                     continue;
 
@@ -742,9 +748,13 @@ public class AutoCrafterBlockEntity
         setChanged(level, getBlockPos(), getBlockState());
     }
 
-
     public void setSecondaryExtractMode(boolean secondaryExtractMode) {
         this.secondaryExtractMode = secondaryExtractMode;
+        setChanged(level, getBlockPos(), getBlockState());
+    }
+
+    public void setAllowOutputOverflow(boolean allowOutputOverflow) {
+        this.allowOutputOverflow = allowOutputOverflow;
         setChanged(level, getBlockPos(), getBlockState());
     }
 
@@ -756,6 +766,9 @@ public class AutoCrafterBlockEntity
 
             //Secondary extract mode
             case 1 -> setSecondaryExtractMode(checked);
+
+            //Allow Output Overflow
+            case 2 -> setAllowOutputOverflow(checked);
         }
     }
 }
