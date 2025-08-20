@@ -22,7 +22,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
@@ -117,8 +117,8 @@ public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<E
         if(level.isClientSide)
             return;
 
-        List<IEnergyStorage> consumerItems = new LinkedList<>();
-        List<Integer> consumerEnergyValues = new LinkedList<>();
+        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.relative(direction);
@@ -140,7 +140,7 @@ public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<E
             consumerEnergyValues.add(received);
         }
 
-        List<Integer> consumerEnergyDistributed = new LinkedList<>();
+        List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 

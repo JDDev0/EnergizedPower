@@ -40,7 +40,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
             }
         };
 
-        List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
+        List<EnergizedPowerBookScreen.PageContent> pages = new ArrayList<>();
 
         List<Map.Entry<ResourceLocation, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).

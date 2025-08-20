@@ -52,7 +52,7 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 77, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0).map(stack -> {
-                    List<Component> tooltip = new LinkedList<>();
+                    List<Component> tooltip = new ArrayList<>();
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = display.recipe().value().getOutput().percentages();
