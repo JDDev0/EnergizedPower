@@ -50,7 +50,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
             }
         };
 
-        List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
+        List<EnergizedPowerBookScreen.PageContent> pages = new ArrayList<>();
 
         List<Map.Entry<Identifier, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).

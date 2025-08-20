@@ -26,7 +26,7 @@ import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
@@ -157,7 +157,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
             return; //This will make the output "disconnected"
 
-        List<Direction> outputDirections = new LinkedList<>();
+        List<Direction> outputDirections = new ArrayList<>();
         if(blockEntity.type == TransformerType.CONFIGURABLE) {
             for(Direction side:Direction.values()) {
                 EPBlockStateProperties.TransformerConnection transformerConnection = state.get(ConfigurableTransformerBlock.
@@ -191,8 +191,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             }
         }
 
-        List<EnergyStorage> consumerItems = new LinkedList<>();
-        List<Long> consumerEnergyValues = new LinkedList<>();
+        List<EnergyStorage> consumerItems = new ArrayList<>();
+        List<Long> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:outputDirections) {
             BlockPos testPos = blockPos.offset(direction);
@@ -220,7 +220,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             }
         }
 
-        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        List<Long> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
