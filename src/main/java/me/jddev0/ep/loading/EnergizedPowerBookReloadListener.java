@@ -34,7 +34,7 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader implements 
 
     @Override
     protected void apply(Map<Identifier, JsonElement> elements, ResourceManager resourceManager, Profiler profilerFiller) {
-        List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
+        List<EnergizedPowerBookScreen.PageContent> pages = new ArrayList<>();
 
         List<Map.Entry<Identifier, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).

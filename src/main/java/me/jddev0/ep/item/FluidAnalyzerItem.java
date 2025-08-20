@@ -22,8 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
@@ -113,7 +113,7 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
 
         BlockPos blockPos = useOnContext.getBlockPos();
 
-        List<Text> components = new LinkedList<>();
+        List<Text> components = new ArrayList<>();
         components.add(level.getBlockState(blockPos).getBlock().getName().formatted(Formatting.UNDERLINE, Formatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);

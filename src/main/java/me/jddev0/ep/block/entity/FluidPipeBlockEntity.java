@@ -15,10 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FluidPipeBlockEntity extends BlockEntity {
     private final FluidPipeTier tier;
@@ -29,7 +26,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> consumers = new HashMap<>();
-    private final List<BlockPos> pipeBlocks = new LinkedList<>();
+    private final Deque<BlockPos> pipeBlocks = new ArrayDeque<>();
 
     public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeTier tier) {
         super(tier.getEntityTypeFromTier(), blockPos, blockState);
@@ -53,7 +50,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         return consumers;
     }
 
-    public List<BlockPos> getPipeBlocks() {
+    public Deque<BlockPos> getPipeBlocks() {
         return pipeBlocks;
     }
 
@@ -97,10 +94,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
     }
 
-    public static List<Storage<FluidVariant>> getConnectedConsumers(World level, BlockPos blockPos, List<BlockPos> checkedPipes) {
-        List<Storage<FluidVariant>> consumers = new LinkedList<>();
+    public static Deque<Storage<FluidVariant>> getConnectedConsumers(World level, BlockPos blockPos, Set<BlockPos> checkedPipes) {
+        Deque<Storage<FluidVariant>> consumers = new ArrayDeque<>(1024);
 
-        LinkedList<BlockPos> pipeBlocksLeft = new LinkedList<>();
+        Deque<BlockPos> pipeBlocksLeft = new ArrayDeque<>(1024);
         pipeBlocksLeft.add(blockPos);
 
         checkedPipes.add(blockPos);
@@ -113,9 +110,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
                 continue;
 
             fluidPipeBlockEntity.getPipeBlocks().forEach(pos -> {
-                if(!checkedPipes.contains(pos)) {
-                    checkedPipes.add(pos);
-
+                if(checkedPipes.add(pos)) {
                     pipeBlocksLeft.add(pos);
                 }
             });
@@ -133,7 +128,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //TODO improve do not update all the time
         updateConnections(level, blockPos, state, blockEntity);
 
-        List<Storage<FluidVariant>> consumers = null;
+        Deque<Storage<FluidVariant>> consumers = null;
 
         FluidVariant extractedFluidType;
 
@@ -147,15 +142,15 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
 
         //List of all fluid types which where already checked
-        List<FluidVariant> alreadyCheckedFluidTypes = new LinkedList<>();
+        List<FluidVariant> alreadyCheckedFluidTypes = new ArrayList<>();
 
         //Try all fluid types but stop after the first fluid type which can be inserted somewhere
         while(true) {
-            fluidProduction = new LinkedList<>();
+            fluidProduction = new ArrayList<>();
 
             extractedFluidType = FluidVariant.blank();
 
-            fluidProductionValues = new LinkedList<>();
+            fluidProductionValues = new ArrayList<>();
 
             productionSum = 0;
             for(Storage<FluidVariant> fluidStorage:blockEntity.producers.values()) {
@@ -213,15 +208,15 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(productionSum <= 0 || extractedFluidType.isBlank())
                 return;
 
-            fluidConsumption = new LinkedList<>();
+            fluidConsumption = new ArrayList<>();
 
-            fluidConsumptionValues = new LinkedList<>();
+            fluidConsumptionValues = new ArrayList<>();
 
             consumptionSum = 0;
 
             //Check consumers only if something was extracted
             if(consumers == null)
-                consumers = getConnectedConsumers(level, blockPos, new LinkedList<>());
+                consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
 
             for(Storage<FluidVariant> fluidStorage:consumers) {
                 boolean receivedAnything = false;
@@ -262,7 +257,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
         long transferLeft = Math.min(productionSum, consumptionSum);
 
-        List<Long> fluidProductionDistributed = new LinkedList<>();
+        List<Long> fluidProductionDistributed = new ArrayList<>();
         for(int i = 0;i < fluidProduction.size();i++)
             fluidProductionDistributed.add(0L);
 
@@ -326,7 +321,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
-        List<Long> fluidConsumptionDistributed = new LinkedList<>();
+        List<Long> fluidConsumptionDistributed = new ArrayList<>();
         for(int i = 0;i < fluidConsumption.size();i++)
             fluidConsumptionDistributed.add(0L);
 

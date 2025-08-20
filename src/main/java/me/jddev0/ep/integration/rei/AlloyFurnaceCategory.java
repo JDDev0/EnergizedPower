@@ -14,7 +14,6 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,7 +65,7 @@ public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay
                 entries(display.getOutputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 125, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1).map(stack -> {
-                    List<Text> tooltip = new LinkedList<>();
+                    List<Text> tooltip = new ArrayList<>();
                     tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = display.recipe().getSecondaryOutput().percentages();
