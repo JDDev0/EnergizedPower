@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,7 +53,7 @@ public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulve
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 65, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0).map(stack -> {
-                    List<Component> tooltip = new LinkedList<>();
+                    List<Component> tooltip = new ArrayList<>();
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = display.recipe().getOutput().percentagesAdvanced();
@@ -65,7 +64,7 @@ public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulve
                 })));
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1).map(stack -> {
-                    List<Component> tooltip = new LinkedList<>();
+                    List<Component> tooltip = new ArrayList<>();
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = display.recipe().getSecondaryOutput().percentagesAdvanced();

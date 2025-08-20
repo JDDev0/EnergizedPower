@@ -78,7 +78,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
         List<List<EmiStack>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
-            outputSlotEntries.add(new LinkedList<>());
+            outputSlotEntries.add(new ArrayList<>());
 
         for(int i = 0;i < output.size();i++)
             outputSlotEntries.get(i % 4).add(output.get(i));

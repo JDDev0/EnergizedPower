@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
@@ -91,7 +91,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         BlockPos blockPos = useOnContext.getClickedPos();
 
-        List<Component> components = new LinkedList<>();
+        List<Component> components = new ArrayList<>();
         components.add(level.getBlockState(blockPos).getBlock().getName().withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);

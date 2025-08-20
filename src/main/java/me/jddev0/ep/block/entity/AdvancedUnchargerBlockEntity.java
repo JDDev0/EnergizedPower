@@ -32,7 +32,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedUnchargerBlockEntity
@@ -280,8 +280,8 @@ public class AdvancedUnchargerBlockEntity
         if(level.isClientSide)
             return;
 
-        List<IEnergyStorage> consumerItems = new LinkedList<>();
-        List<Integer> consumerEnergyValues = new LinkedList<>();
+        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.relative(direction);
@@ -307,7 +307,7 @@ public class AdvancedUnchargerBlockEntity
             consumerEnergyValues.add(received);
         }
 
-        List<Integer> consumerEnergyDistributed = new LinkedList<>();
+        List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 

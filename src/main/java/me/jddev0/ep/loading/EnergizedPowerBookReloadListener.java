@@ -24,7 +24,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        List<EnergizedPowerBookScreen.PageContent> pages = new LinkedList<>();
+        List<EnergizedPowerBookScreen.PageContent> pages = new ArrayList<>();
 
         List<Map.Entry<ResourceLocation, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).

@@ -17,7 +17,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,13 +57,13 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
 
         List<List<EntryStack<?>>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
-            outputSlotEntries.add(new LinkedList<>());
+            outputSlotEntries.add(new ArrayList<>());
 
         List<EntryIngredient> outputEntries = display.getOutputEntries();
         for(int i = 0;i < outputEntries.size();i++) {
             int index = i;
             outputSlotEntries.get(i % 4).addAll(outputEntries.get(i).map(stack -> {
-                List<Component> tooltip = new LinkedList<>();
+                List<Component> tooltip = new ArrayList<>();
                 tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                 double[] percentages = display.recipe().getOutputs()[index].percentages();
