@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -122,8 +122,8 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     private void distributeEnergy(ItemStack itemStack, ServerWorld level, PlayerInventory inventory, @Nullable EquipmentSlot slot) {
         SimpleInventory inventoryChargerInventory = getInventory(itemStack);
 
-        List<EnergyStorage> consumerItems = new LinkedList<>();
-        List<Long> consumerEnergyValues = new LinkedList<>();
+        List<EnergyStorage> consumerItems = new ArrayList<>();
+        List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(int i = 0;i < inventory.size();i++) {
             ItemStack testItemStack = inventory.getStack(i);
@@ -151,7 +151,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
             }
         }
 
-        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        List<Long> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 
@@ -192,8 +192,8 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     public void extractEnergyFromBatteries(long energyProductionLeft, Inventory inventory) {
-        List<EnergyStorage> energyProduction = new LinkedList<>();
-        List<Long> energyProductionValues = new LinkedList<>();
+        List<EnergyStorage> energyProduction = new ArrayList<>();
+        List<Long> energyProductionValues = new ArrayList<>();
 
         for(int i = 0;i < inventory.size();i++) {
             ItemStack stack = inventory.getStack(i);
@@ -214,7 +214,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
             }
         }
 
-        List<Long> energyProductionDistributed = new LinkedList<>();
+        List<Long> energyProductionDistributed = new ArrayList<>();
         for(int i = 0;i < energyProduction.size();i++)
             energyProductionDistributed.add(0L);
 

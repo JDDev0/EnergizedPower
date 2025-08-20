@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -93,7 +93,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
 
         BlockPos blockPos = useOnContext.getBlockPos();
 
-        List<Text> components = new LinkedList<>();
+        List<Text> components = new ArrayList<>();
         components.add(level.getBlockState(blockPos).getBlock().getName().formatted(Formatting.UNDERLINE, Formatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);

@@ -33,10 +33,7 @@ import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ThermalGeneratorBlockEntity
         extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
@@ -242,8 +239,8 @@ public class ThermalGeneratorBlockEntity
         if(level.isClient())
             return;
 
-        List<EnergyStorage> consumerItems = new LinkedList<>();
-        List<Long> consumerEnergyValues = new LinkedList<>();
+        List<EnergyStorage> consumerItems = new ArrayList<>();
+        List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.offset(direction);
@@ -272,7 +269,7 @@ public class ThermalGeneratorBlockEntity
             }
         }
 
-        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        List<Long> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 

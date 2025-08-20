@@ -24,8 +24,8 @@ import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 public class HeatGeneratorBlockEntity
@@ -119,8 +119,8 @@ public class HeatGeneratorBlockEntity
         if(level.isClient())
             return;
 
-        List<EnergyStorage> consumerItems = new LinkedList<>();
-        List<Long> consumerEnergyValues = new LinkedList<>();
+        List<EnergyStorage> consumerItems = new ArrayList<>();
+        List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
             BlockPos testPos = blockPos.offset(direction);
@@ -148,7 +148,7 @@ public class HeatGeneratorBlockEntity
             }
         }
 
-        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        List<Long> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 

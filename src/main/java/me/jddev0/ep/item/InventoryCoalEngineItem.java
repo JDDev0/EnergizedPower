@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -74,8 +74,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     }
 
     private void distributeEnergy(ItemStack itemStack, ServerWorld level, PlayerInventory inventory, @Nullable EquipmentSlot slot) {
-        List<EnergyStorage> consumerItems = new LinkedList<>();
-        List<Long> consumerEnergyValues = new LinkedList<>();
+        List<EnergyStorage> consumerItems = new ArrayList<>();
+        List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(int i = 0;i < inventory.size();i++) {
             ItemStack testItemStack = inventory.getStack(i);
@@ -103,7 +103,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             }
         }
 
-        List<Long> consumerEnergyDistributed = new LinkedList<>();
+        List<Long> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0L);
 

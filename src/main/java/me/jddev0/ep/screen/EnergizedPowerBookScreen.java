@@ -28,7 +28,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +44,7 @@ public class EnergizedPowerBookScreen extends Screen {
     private static final int MAX_CHARS_PER_LINE = 148;
     private static final int MAX_LINES = 19;
 
-    private static List<PageContent> pages = new LinkedList<>();
+    private static List<PageContent> pages = new ArrayList<>();
 
     private int currentTick;
 
@@ -89,7 +88,7 @@ public class EnergizedPowerBookScreen extends Screen {
         this.createMenuControls();
         this.createPageControlButtons();
 
-        List<FormattedPageContent> formattedPages = new LinkedList<>();
+        List<FormattedPageContent> formattedPages = new ArrayList<>();
         formattedPages.add(new FormattedPageContent(EPAPI.id("front_cover"),
                 null,
                 textRenderer.wrapLines(Text.translatable("book.energizedpower.front.cover.text").
