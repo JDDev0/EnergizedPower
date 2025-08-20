@@ -120,11 +120,11 @@
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Модуль улучшения энергоэффективности (Уровень IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Модуль улучшения энергоэффективности (Уровень V)",
 
-  "item.energizedpower.energy_capacity_upgrade_module_1": "Модуль повышения энергоемкости (Уровень I)",
-  "item.energizedpower.energy_capacity_upgrade_module_2": "Модуль повышения энергоемкости (Уровень II)",
-  "item.energizedpower.energy_capacity_upgrade_module_3": "Модуль повышения энергоемкости (Уровень III)",
-  "item.energizedpower.energy_capacity_upgrade_module_4": "Модуль повышения энергоемкости (Уровень IV)",
-  "item.energizedpower.energy_capacity_upgrade_module_5": "Модуль повышения энергоемкости (Уровень V)",
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Модуль улучшения энергоемкости (Уровень I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Модуль улучшения энергоемкости (Уровень II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Модуль улучшения энергоемкости (Уровень III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Модуль улучшения энергоемкости (Уровень IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Модуль улучшения энергоемкости (Уровень V)",
 
   "item.energizedpower.duration_upgrade_module_1": "Модуль улучшения продолжительности (Уровень I)",
   "item.energizedpower.duration_upgrade_module_2": "Модуль улучшения продолжительности (Уровень II)",
@@ -133,9 +133,9 @@
   "item.energizedpower.duration_upgrade_module_5": "Модуль улучшения продолжительности (Уровень V)",
   "item.energizedpower.duration_upgrade_module_6": "Модуль улучшения продолжительности (Уровень VI)",
 
-  "item.energizedpower.range_upgrade_module_1": "Модуль обновления дальности (Уровень I)",
-  "item.energizedpower.range_upgrade_module_2": "Модуль обновления дальности (Уровень II)",
-  "item.energizedpower.range_upgrade_module_3": "Модуль обновления дальности (Уровень III)",
+  "item.energizedpower.range_upgrade_module_1": "Модуль улучшения дальности (Уровень I)",
+  "item.energizedpower.range_upgrade_module_2": "Модуль улучшения дальности (Уровень II)",
+  "item.energizedpower.range_upgrade_module_3": "Модуль улучшения дальности (Уровень III)",
 
   "item.energizedpower.extraction_depth_upgrade_module_1": "Модуль улучшения глубины (Уровень I)",
   "item.energizedpower.extraction_depth_upgrade_module_2": "Модуль улучшения глубины (Уровень II)",
@@ -149,9 +149,9 @@
   "item.energizedpower.extraction_range_upgrade_module_4": "Модуль улучшения радиуса (Уровень IV)",
   "item.energizedpower.extraction_range_upgrade_module_5": "Модуль улучшения радиуса (Уровень V)",
 
-  "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения доменной печи",
+  "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения Доменная печь",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Доменная печь",
-  "item.energizedpower.smoker_upgrade_module": "Модуль модернизации коптильни",
+  "item.energizedpower.smoker_upgrade_module": "Модуль улучшения Коптильня",
   "item.energizedpower.smoker_upgrade_module.effect_text": "Коптильня",
 
   "item.energizedpower.moon_light_upgrade_module_1": "Модуль улучшения «Лунный свет» (Уровень I)",
@@ -251,73 +251,73 @@
   "block.energizedpower.raw_tin_block": "Блок необработанного олова",
   "item.energizedpower.raw_tin_block": "Блок необработанного олова",
 
-  "block.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
-  "item.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+  "block.energizedpower.item_conveyor_belt": "Базовая конвейерная лента",
+  "item.energizedpower.item_conveyor_belt": "Базовая конвейерная лента",
 
-  "block.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
-  "item.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+  "block.energizedpower.fast_item_conveyor_belt": "Быстрая конвейерная лента",
+  "item.energizedpower.fast_item_conveyor_belt": "Быстрая конвейерная лента",
 
-  "block.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
-  "item.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
+  "block.energizedpower.express_item_conveyor_belt": "Экспресс конвейерная лента",
+  "item.energizedpower.express_item_conveyor_belt": "Экспресс конвейерная лента",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Наклон был установлен на %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
-  "item.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
-  "container.energizedpower.item_conveyor_belt_loader": "Basic Conveyor Belt Loader",
+  "block.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
+  "item.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
+  "container.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
-  "item.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
-  "container.energizedpower.fast_item_conveyor_belt_loader": "Fast Conveyor Belt Loader",
+  "block.energizedpower.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
+  "item.energizedpower.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
+  "container.energizedpower.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
-  "item.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
-  "container.energizedpower.express_item_conveyor_belt_loader": "Express Conveyor Belt Loader",
+  "block.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
+  "item.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
+  "container.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
-  "item.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
-  "container.energizedpower.item_conveyor_belt_sorter": "Basic Conveyor Belt Sorter",
+  "block.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
+  "item.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
+  "container.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
-  "item.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
-  "container.energizedpower.fast_item_conveyor_belt_sorter": "Fast Conveyor Belt Sorter",
+  "block.energizedpower.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
+  "item.energizedpower.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
-  "item.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
-  "container.energizedpower.express_item_conveyor_belt_sorter": "Express Conveyor Belt Sorter",
+  "block.energizedpower.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
+  "item.energizedpower.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
 
-  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Вывод %d: Ленточный конвеер не присоединён",
-  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Вывод %d: Ленточный конвеер присоединён",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Вывод %d: Конвейерная лента не присоединёна",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Вывод %d: Конвейерная лента присоединёна",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Игнорировать NBT теги",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Белый список",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Чёрный список",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
-  "item.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
+  "block.energizedpower.item_conveyor_belt_switch": "Базовый переключатель конвейерной ленты",
+  "item.energizedpower.item_conveyor_belt_switch": "Базовый переключатель конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
-  "item.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
+  "block.energizedpower.fast_item_conveyor_belt_switch": "Быстрый переключатель конвейерной ленты",
+  "item.energizedpower.fast_item_conveyor_belt_switch": "Быстрый переключатель конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
-  "item.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+  "block.energizedpower.express_item_conveyor_belt_switch": "Экспресс переключатель конвейерной ленты",
+  "item.energizedpower.express_item_conveyor_belt_switch": "Экспресс переключатель конвейерной ленты",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
-  "item.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+  "block.energizedpower.item_conveyor_belt_splitter": "Базовый разветвитель конвейерной ленты",
+  "item.energizedpower.item_conveyor_belt_splitter": "Базовый разветвитель конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
-  "item.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+  "block.energizedpower.fast_item_conveyor_belt_splitter": "Быстрый разветвитель конвейерной ленты",
+  "item.energizedpower.fast_item_conveyor_belt_splitter": "Быстрый разветвитель конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
-  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+  "block.energizedpower.express_item_conveyor_belt_splitter": "Экспресс разветвитель конвейерной ленты",
+  "item.energizedpower.express_item_conveyor_belt_splitter": "Экспресс разветвитель конвейерной ленты",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
-  "item.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+  "block.energizedpower.item_conveyor_belt_merger": "Базовый объединитель конвейерной ленты",
+  "item.energizedpower.item_conveyor_belt_merger": "Базовый объединитель конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
-  "item.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+  "block.energizedpower.fast_item_conveyor_belt_merger": "Быстрый объединитель конвейерной ленты",
+  "item.energizedpower.fast_item_conveyor_belt_merger": "Быстрый объединитель конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
-  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
+  "block.energizedpower.express_item_conveyor_belt_merger": "Экспресс объединитель конвейерной ленты",
+  "item.energizedpower.express_item_conveyor_belt_merger": "Экспресс объединитель конвейерной ленты",
 
   "block.energizedpower.fluid_pipe": "Железная жидкостная труба",
   "item.energizedpower.fluid_pipe": "Железная жидкостная труба",
@@ -350,7 +350,7 @@
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Игнорировать NBT теги",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Режим извлечения 1: только вывод и оставшиеся предметы",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Режим извлечения 2: все, кроме входящих предметов",
-  "tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow": "Allow output overflow",
+  "tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow": "Разрешить переполнение вывода",
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Циклическое переключение рецептов",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Рецепт %d",
 
@@ -424,71 +424,71 @@
   "tooltip.energizedpower.cable.txt.shift.2": "Ножницы можно использовать для более быстрого разрыва кабелей.",
 
 
-  "block.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
-  "item.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
-  "container.energizedpower.lv_transformer_1_to_n": "Трансформатор низкого напряжения (1 к n)",
+  "block.energizedpower.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
+  "item.energizedpower.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
+  "container.energizedpower.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
 
-  "block.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
-  "item.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
-  "container.energizedpower.lv_transformer_3_to_3": "Трансформатор низкого напряжения (3 к 3)",
+  "block.energizedpower.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
+  "item.energizedpower.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
+  "container.energizedpower.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
 
-  "block.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
-  "item.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
-  "container.energizedpower.lv_transformer_n_to_1": "Трансформатор низкого напряжения (n к 1)",
+  "block.energizedpower.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
+  "item.energizedpower.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
+  "container.energizedpower.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
 
-  "block.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
-  "item.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
-  "container.energizedpower.transformer_1_to_n": "Трансформатор среднего напряжения (1 к n)",
+  "block.energizedpower.transformer_1_to_n": "MV трансформатор (1 к n)",
+  "item.energizedpower.transformer_1_to_n": "MV трансформатор (1 к n)",
+  "container.energizedpower.transformer_1_to_n": "MV трансформатор (1 к n)",
 
-  "block.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
-  "item.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
-  "container.energizedpower.transformer_3_to_3": "Трансформатор среднего напряжения (3 к 3)",
+  "block.energizedpower.transformer_3_to_3": "MV трансформатор (3 к 3)",
+  "item.energizedpower.transformer_3_to_3": "MV трансформатор (3 к 3)",
+  "container.energizedpower.transformer_3_to_3": "MV трансформатор (3 к 3)",
 
-  "block.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
-  "item.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
-  "container.energizedpower.transformer_n_to_1": "Трансформатор среднего напряжения (n к 1)",
+  "block.energizedpower.transformer_n_to_1": "MV трансформатор (n к 1)",
+  "item.energizedpower.transformer_n_to_1": "MV трансформатор (n к 1)",
+  "container.energizedpower.transformer_n_to_1": "MV трансформатор (n к 1)",
 
-  "block.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
-  "item.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
-  "container.energizedpower.hv_transformer_1_to_n": "Трансформатор высокого напряжения (1 к n)",
+  "block.energizedpower.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
+  "item.energizedpower.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
+  "container.energizedpower.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
 
-  "block.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
-  "item.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
-  "container.energizedpower.hv_transformer_3_to_3": "Трансформатор высокого напряжения (3 к 3)",
+  "block.energizedpower.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
+  "container.energizedpower.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
 
-  "block.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
-  "item.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
-  "container.energizedpower.hv_transformer_n_to_1": "Трансформатор высокого напряжения (n к 1)",
+  "block.energizedpower.hv_transformer_n_to_1": "HV трансформатор  (n к 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "HV трансформатор (n к 1)",
+  "container.energizedpower.hv_transformer_n_to_1": "HV трансформатор (n к 1)",
 
-  "block.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
-  "item.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
-  "container.energizedpower.ehv_transformer_1_to_n": "Трансформатор сверхвысокого напряжения (1 к n)",
+  "block.energizedpower.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
+  "item.energizedpower.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
+  "container.energizedpower.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
 
-  "block.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
-  "item.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
-  "container.energizedpower.ehv_transformer_3_to_3": "Трансформатор сверхвысокого напряжения (3 к 3)",
+  "block.energizedpower.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
+  "item.energizedpower.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
+  "container.energizedpower.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
 
-  "block.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
-  "item.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
-  "container.energizedpower.ehv_transformer_n_to_1": "Трансформатор сверхвысокого напряжения (n к 1)",
+  "block.energizedpower.ehv_transformer_n_to_1": "ENV трансформатор (n к 1)",
+  "item.energizedpower.ehv_transformer_n_to_1": "EHV трансформатор (n к 1)",
+  "container.energizedpower.ehv_transformer_n_to_1": "EHV трансформатор (n к 1)",
 
-  "block.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
-  "item.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
-  "container.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
+  "block.energizedpower.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
+  "item.energizedpower.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
+  "container.energizedpower.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
 
-  "block.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
-  "item.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
-  "container.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
+  "block.energizedpower.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
+  "item.energizedpower.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
+  "container.energizedpower.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
 
-  "block.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
-  "item.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
-  "container.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
+  "block.energizedpower.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
+  "item.energizedpower.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
+  "container.energizedpower.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
 
-  "block.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
-  "item.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
-  "container.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
+  "block.energizedpower.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
+  "item.energizedpower.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
+  "container.energizedpower.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
 
-  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Connection type of face (%s) was set to %s.",
+  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Тип соединения грани (%s) был установлен на %s.",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "Этот блок можно использовать для соединения разноуровневых кабелей.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Более крупные, темные, ромбовидные стороны являются вводами.",
@@ -605,7 +605,7 @@
   "item.energizedpower.auto_stonecutter": "Автоматический камнерез",
   "container.energizedpower.auto_stonecutter": "Автоматический камнерез",
 
-  "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Кирка отсутсвует!",
+  "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Кирка отсутствует!",
 
   "block.energizedpower.assembling_machine": "Сборочная машина",
   "item.energizedpower.assembling_machine": "Сборочная машина",
@@ -670,33 +670,33 @@
   "item.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
   "container.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
 
-  "block.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
-  "item.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
-  "container.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
+  "block.energizedpower.item_silo_tiny": "Предметный бункер (крошечный)",
+  "item.energizedpower.item_silo_tiny": "Предметный бункер (крошечный)",
+  "container.energizedpower.item_silo_tiny": "Предметный бункер (крошечный)",
 
-  "block.energizedpower.item_silo_small": "Item Silo (Small)",
-  "item.energizedpower.item_silo_small": "Item Silo (Small)",
-  "container.energizedpower.item_silo_small": "Item Silo (Small)",
+  "block.energizedpower.item_silo_small": "Предметный бункер (маленький)",
+  "item.energizedpower.item_silo_small": "Предметный бункер (маленький)",
+  "container.energizedpower.item_silo_small": "Предметный бункер (маленький)",
 
-  "block.energizedpower.item_silo_medium": "Item Silo (Medium)",
-  "item.energizedpower.item_silo_medium": "Item Silo (Medium)",
-  "container.energizedpower.item_silo_medium": "Item Silo (Medium)",
+  "block.energizedpower.item_silo_medium": "Предметный бункер (средний)",
+  "item.energizedpower.item_silo_medium": "Предметный бункер (средний)",
+  "container.energizedpower.item_silo_medium": "Предметный бункер (средний)",
 
-  "block.energizedpower.item_silo_large": "Item Silo (Large)",
-  "item.energizedpower.item_silo_large": "Item Silo (Large)",
-  "container.energizedpower.item_silo_large": "Item Silo (Large)",
+  "block.energizedpower.item_silo_large": "Предметный бункер (большой)",
+  "item.energizedpower.item_silo_large": "Предметный бункер (большой)",
+  "container.energizedpower.item_silo_large": "Предметный бункер (большой)",
 
-  "block.energizedpower.item_silo_giant": "Item Silo (Giant)",
-  "item.energizedpower.item_silo_giant": "Item Silo (Giant)",
-  "container.energizedpower.item_silo_giant": "Item Silo (Giant)",
+  "block.energizedpower.item_silo_giant": "Предметный бункер (гигантский)",
+  "item.energizedpower.item_silo_giant": "Предметный бункер (гигантский)",
+  "container.energizedpower.item_silo_giant": "Предметный бункер (гигантский)",
 
-  "tooltip.energizedpower.item_silo.txt.shift": "Item silos can only be loaded and unloaded with hoppers, belts, and other means of automatic item transport.",
-  "tooltip.energizedpower.item_silo_capacity.txt": "Capacity: %d stacks",
-  "tooltip.energizedpower.item_silo.amount": "%d / %d items",
+  "tooltip.energizedpower.item_silo.txt.shift": "Загрузка и разгрузка предметных бункеров может осуществляться только с помощью воронок, лент и других средств транспортировки.",
+  "tooltip.energizedpower.item_silo_capacity.txt": "Вместимость: %d стаков",
+  "tooltip.energizedpower.item_silo.amount": "%d / %d предметов",
 
-  "block.energizedpower.creative_item_silo": "Creative Item Silo",
-  "item.energizedpower.creative_item_silo": "Creative Item Silo",
-  "container.energizedpower.creative_item_silo": "Creative Item Silo",
+  "block.energizedpower.creative_item_silo": "Творческий предметный бункер",
+  "item.energizedpower.creative_item_silo": "Творческий предметный бункер",
+  "container.energizedpower.creative_item_silo": "Творческий предметный бункер",
 
   "block.energizedpower.fluid_filler": "Наполнитель жидкости",
   "item.energizedpower.fluid_filler": "Наполнитель жидкости",
@@ -818,7 +818,7 @@
   "tooltip.energizedpower.tank_capacity.txt": "Емкость резервуара: %s",
   "tooltip.energizedpower.not_enough_energy.txt": "Недостаточно энергии",
   "tooltip.energizedpower.ready.txt": "Готов",
-  "tooltip.energizedpower.infinite.txt": "Бесконечный",
+  "tooltip.energizedpower.infinite.txt": "Бесконечно",
 
   "tooltip.energizedpower.direction.down": "Вниз",
   "tooltip.energizedpower.direction.up": "Вверх",
@@ -831,9 +831,9 @@
   "block_state.energizedpower.pipe_connection.connected": "Подключено/Вставлено",
   "block_state.energizedpower.pipe_connection.extract": "Извлечение",
 
-  "block_state.energizedpower.transformer_connection.not_connected": "Not connected",
-  "block_state.energizedpower.transformer_connection.receive": "Insertion",
-  "block_state.energizedpower.transformer_connection.extract": "Extraction",
+  "block_state.energizedpower.transformer_connection.not_connected": "Не подключено",
+  "block_state.energizedpower.transformer_connection.receive": "Введение",
+  "block_state.energizedpower.transformer_connection.extract": "Извлечение",
 
   "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Плоский",
   "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "По возрастанию",
@@ -994,7 +994,7 @@
   "advancements.energizedpower.duration_upgrade_module_1.title": "Продолжительность I",
   "advancements.energizedpower.duration_upgrade_module_1.description": "Создайте модуль улучшения продолжительности (Уровень I).",
 
-  "advancements.energizedpower.duration_upgrade_module_2.title": "Перодолжительность II",
+  "advancements.energizedpower.duration_upgrade_module_2.title": "Продолжительность II",
   "advancements.energizedpower.duration_upgrade_module_2.description": "Создайте модуль улучшения продолжительности (Уровень II).",
 
   "advancements.energizedpower.duration_upgrade_module_3.title": "Продолжительность III",
@@ -1049,10 +1049,10 @@
   "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Создайте модуль улучшения радиуса извлечения (Уровень V).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Режим печи: доменная печь",
-  "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменной печи.",
+  "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменная печь.",
 
   "advancements.energizedpower.smoker_upgrade_module.title": "Режим печи: коптильня",
-  "advancements.energizedpower.smoker_upgrade_module.description": "Создайте модуль улучшения коптильни.",
+  "advancements.energizedpower.smoker_upgrade_module.description": "Создайте модуль улучшения коптильня.",
 
   "advancements.energizedpower.moon_light_upgrade_module_1.title": "Лунный свет I",
   "advancements.energizedpower.moon_light_upgrade_module_1.description": "Создайте модуль улучшения «Лунный свет» (Уровень I).",
@@ -1250,73 +1250,73 @@
   "advancements.energizedpower.advanced_powered_furnace.description": "Выплавляйте несколько предметов одновременно с помощью энергии.",
 
   "advancements.energizedpower.item_conveyor_belt.title": "Транспортировка предметов",
-  "advancements.energizedpower.item_conveyor_belt.description": "Транспортируйте предметы с помощью ленточных конвейеров.",
+  "advancements.energizedpower.item_conveyor_belt.description": "Транспортируйте предметы с помощью конвейерной ленты.",
 
-  "advancements.energizedpower.fast_item_conveyor_belt.title": "Fast Item Transport",
-  "advancements.energizedpower.fast_item_conveyor_belt.description": "Craft a Fast Item Conveyor Belt.",
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "Быстрая транспортировка предметов",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "Создайте быструю конвейерную ленту.",
 
-  "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
-  "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Express Item Conveyor Belt.",
+  "advancements.energizedpower.express_item_conveyor_belt.title": "Экспресс транспортировка предметов",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "Создайте экспресс конвейерную ленту.",
 
-  "advancements.energizedpower.item_conveyor_belt_loader.title": "Загрузчик предметов",
-  "advancements.energizedpower.item_conveyor_belt_loader.description": "Загрузите предметы на ленточный конвейер.",
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "Загрузка предметов",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "Загрузите предметы на конвейерную ленту.",
 
-  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Fast Item Conveyor Belt Loader",
-  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Craft a Fast Item Conveyor Belt Loader.",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Быстрая загрузка предметов",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Создайте быстрый загрузчик конвейерной ленты.",
 
-  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express Item Conveyor Belt Loader",
-  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Express Item Conveyor Belt Loader.",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Экспресс загрузка предметов",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Создайте экспресс загрузчик конвейерной ленты.",
 
   "advancements.energizedpower.item_conveyor_belt_sorter.title": "Автоматическая сортировка",
-  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Сортируйте предметы с помощью сортировщика предметной конвейерной ленты.",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Сортируйте предметы с помощью сортировщика конвейерной ленты.",
 
-  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Fast Item Conveyor Belt Sorter",
-  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Craft a Fast Item Conveyor Belt Sorter.",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Быстрая автоматическая сортировка",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Создайте быстрый сортировщик конвейерной ленты.",
 
-  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express Item Conveyor Belt Sorter",
-  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Express Item Conveyor Belt Sorter.",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Экспресс автоматическая сортировка",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Создайте экспресс сортировщик конвейерной ленты.",
 
-  "advancements.energizedpower.item_conveyor_belt_switch.title": "Переключатель конвейерной ленты",
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "Переключение конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Выберите направление.",
 
-  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Fast Item Conveyor Belt Switch",
-  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Craft a Fast Item Conveyor Belt Switch.",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Быстрое переключение конвейерной ленты",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Создайте быстрый переключатель конвейерной ленты.",
 
-  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express Item Conveyor Belt Switch",
-  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Express Item Conveyor Belt Switch.",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Экспресс переключение конвейерной ленты",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Создайте экспресс переключатель конвейерной ленты.",
 
-  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Разветвитель конвеерных лент",
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Разветвление конвейерных лент",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Равномерно распределите предметы по нескольким выходам.",
 
-  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Fast Item Conveyor Belt Splitter",
-  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Craft a Fast Item Conveyor Belt Splitter.",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Быстрое разветвление конвейерных лент",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Создайте быстрый разветвитель конвейерной ленты.",
 
-  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express Item Conveyor Belt Splitter",
-  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Express Item Conveyor Belt Splitter.",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Экспресс разветвление конвейерных лент",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Создайте экспресс разветвитель конвейерной ленты.",
 
-  "advancements.energizedpower.item_conveyor_belt_merger.title": "Объединитель конвеерных лент",
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Объединение конвейерных лент",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Равномерно объединяйте предметы из нескольких источников.",
 
-  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Fast Item Conveyor Belt Merger",
-  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Craft a Fast Item Conveyor Belt Merger.",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Быстрое объединение конвейерных лент",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Создайте быстрый объединитель конвейерной ленты.",
 
-  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express Item Conveyor Belt Merger",
-  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Express Item Conveyor Belt Merger.",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Экспресс объединение конвейерных лент",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Создайте экспресс объединитель конвейерной ленты.",
 
-  "advancements.energizedpower.item_silo_tiny.title": "Item Silo (Tiny)",
-  "advancements.energizedpower.item_silo_tiny.description": "Craft a tiny Item Silo.",
+  "advancements.energizedpower.item_silo_tiny.title": "Предметный бункер (крошечный)",
+  "advancements.energizedpower.item_silo_tiny.description": "Создайте крошечный предметный бункер.",
 
-  "advancements.energizedpower.item_silo_small.title": "Item Silo (Small)",
-  "advancements.energizedpower.item_silo_small.description": "Craft a small Item Silo.",
+  "advancements.energizedpower.item_silo_small.title": "Предметный бункер (маленький)",
+  "advancements.energizedpower.item_silo_small.description": "Создайте маленький предметный бункер.",
 
-  "advancements.energizedpower.item_silo_medium.title": "Item Silo (Medium)",
-  "advancements.energizedpower.item_silo_medium.description": "Craft a medium Item Silo.",
+  "advancements.energizedpower.item_silo_medium.title": "Предметный бункер (средний)",
+  "advancements.energizedpower.item_silo_medium.description": "Создайте средний предметный бункер.",
 
-  "advancements.energizedpower.item_silo_large.title": "Item Silo (Large)",
-  "advancements.energizedpower.item_silo_large.description": "Craft a large Item Silo.",
+  "advancements.energizedpower.item_silo_large.title": "Предметный бункер (большой)",
+  "advancements.energizedpower.item_silo_large.description": "Создайте большой предметный бункер.",
 
-  "advancements.energizedpower.item_silo_giant.title": "Item Silo (Giant)",
-  "advancements.energizedpower.item_silo_giant.description": "Craft a giant Item Silo.",
+  "advancements.energizedpower.item_silo_giant.title": "Предметный бункер (гигантский)",
+  "advancements.energizedpower.item_silo_giant.description": "Создайте гигантский предметный бункер.",
 
   "advancements.energizedpower.iron_fluid_pipe.title": "Транспортировка жидкости",
   "advancements.energizedpower.iron_fluid_pipe.description": "Транспортируйте жидкости с помощью железных жидкостных труб.",
@@ -1406,7 +1406,7 @@
   "advancements.energizedpower.gold_plate.description": "Создать золотую пластину.",
 
   "advancements.energizedpower.tin_wire.title": "Оловянный провод",
-  "advancements.energizedpower.tin_wire.description": "Моздайте оловянный провод.",
+  "advancements.energizedpower.tin_wire.description": "Создайте оловянный провод.",
 
   "advancements.energizedpower.copper_wire.title": "Медный провод",
   "advancements.energizedpower.copper_wire.description": "Создайте медный провод.",
@@ -1512,7 +1512,7 @@
   "book.energizedpower.page.credits.6": "Итальянский перевод",
   "book.energizedpower.page.credits.7": "Турецкий перевод",
   "book.energizedpower.page.credits.8": "Русский перевод",
-  "book.energizedpower.page.credits.9": "German translation",
+  "book.energizedpower.page.credits.9": "Немецкий перевод",
 
   "book.energizedpower.page.table_of_contents.title": "Оглавление",
 
@@ -1543,7 +1543,7 @@
   "book.energizedpower.page.alloys": "Сплавы используются во многих рецептах и могут быть произведены в печи для сплавов и индукционной плавильне.",
 
   "book.energizedpower.page.plates.1": "Пластины используются в качестве ингредиента крафта в большинстве машин. Пластины можно изготовить с помощью молотков или с помощью компрессора.",
-  "book.energizedpower.page.plates.2": "Пластины из продвин сплава и активированные пластины можно создавать только в компрессоре.",
+  "book.energizedpower.page.plates.2": "Пластины из продвинутого сплава и активированные пластины можно создавать только в компрессоре.",
 
   "book.energizedpower.page.metal_products.1": "Металлические изделия (шестерни, стержни, провода) используются во многих рецептах.",
   "book.energizedpower.page.metal_products.2": "Изделия из металла можно изготавливать в металлическом прессе.",
@@ -1551,7 +1551,7 @@
   "book.energizedpower.page.circuits": "В некоторых рецептах используются схемы.",
 
   "book.energizedpower.page.energized_copper_ingot.1": "Для таких современных машин, как генератор, требуются слитки активированной меди.",
-  "book.energizedpower.page.energized_copper_ingot.2": "Активироватор изготовлен из этого слитка, не так ли?",
+  "book.energizedpower.page.energized_copper_ingot.2": "Активатор изготовлен из этого слитка, не так ли?",
   "book.energizedpower.page.energized_copper_ingot.3": "Зарядное устройство можно использовать для изготовления этого слитка.",
   "book.energizedpower.page.energized_copper_ingot.4": " [Но это дорого]",
 
@@ -1563,24 +1563,24 @@
   "book.energizedpower.page.chapter.upgrades.title": "Улучшения",
   "book.energizedpower.page.chapter.upgrades": "Улучшения могут улучшать машины",
 
-  "book.energizedpower.page.speed_upgrades": "Улучшение скорости делает машины более быстрыми и увеличивает потребление энергии.",
+  "book.energizedpower.page.speed_upgrades": "Улучшения скорости делают машины более быстрыми и увеличивают потребление энергии.",
 
-  "book.energizedpower.page.energy_efficiency_upgrades": "Улучшение энергоэффективности сокращает потребление энергии.",
+  "book.energizedpower.page.energy_efficiency_upgrades": "Улучшения энергоэффективности сокращают потребление энергии.",
 
-  "book.energizedpower.page.energy_capacity_upgrades": "Улучшение энергоемкости увеличивает емкость хранения энергии и скорость передачи энергии.",
+  "book.energizedpower.page.energy_capacity_upgrades": "Улучшения энергоемкости увеличивают емкость хранения энергии и скорость передачи энергии.",
 
-  "book.energizedpower.page.duration_upgrades.1": "Улучшение продолжительности увеличивает продолжительность погоды, установленной контроллером погоды.",
+  "book.energizedpower.page.duration_upgrades.1": "Улучшения продолжительности увеличивают продолжительность погоды, установленной контроллером погоды.",
   "book.energizedpower.page.duration_upgrades.2": "Улучшение продолжительности (уровень VI) позволит контроллеру погоды поддерживать текущую погоду, но для этого потребуется постоянный запас энергии.",
 
   "book.energizedpower.page.range_upgrades": "Улучшения дальности действия увеличивают дальность, на которой машина может отправлять и принимать электромагнитные волны.",
 
-  "book.energizedpower.page.extraction_depth_upgrades": "Улучшение глубины добычи увеличивают глубину, на которой может работать машина.",
+  "book.energizedpower.page.extraction_depth_upgrades": "Улучшения глубины добычи увеличивают глубину, на которой может работать машина.",
 
-  "book.energizedpower.page.extraction_range_upgrades": "Улучшение радиуса добычи увеличивают радиус, в котором может работать машина.",
+  "book.energizedpower.page.extraction_range_upgrades": "Улучшения радиуса добычи увеличивают радиус, в котором может работать машина.",
 
   "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
 
-  "book.energizedpower.page.moon_light_upgrades": "Модернизация «Лунный свет» позволяет солнечным панелям вырабатывать энергию ночью.",
+  "book.energizedpower.page.moon_light_upgrades": "Улучшения «Лунный свет» позволяют солнечным панелям вырабатывать энергию ночью.",
 
 
   "book.energizedpower.page.chapter.tools.title": "Инструменты",
@@ -1650,8 +1650,8 @@
   "book.energizedpower.page.transformers.1": "Трансформаторы можно использовать для соединения кабелей различных уровней.",
   "book.energizedpower.page.transformers.2": "Более крупные, темные, ромбовидные стороны — это входы.",
   "book.energizedpower.page.transformers.3": "Меньшие, более яркие, квадратные стороны — это выходы.",
-  "book.energizedpower.page.transformers.4": "Существует четыре уровня трансформаторов: низкого, среднего, высокого и сверхвысокого напряжения.",
-  "book.energizedpower.page.transformers.5": "For each tier there are four types of transformers: 1 to n, 3 to 3, n to 1, and configurable.",
+  "book.energizedpower.page.transformers.4": "Существует четыре уровня трансформаторов: низкого (LV), среднего (MV), высокого (HV) и сверхвысокого (EHV) напряжения.",
+  "book.energizedpower.page.transformers.5": "Для каждого уровня имеется четыре типа трансформаторов: 1 к n, 3 к 3, n к 1 и конфигурируемый.",
   "book.energizedpower.page.transformers.6": "Трансформаторы можно использовать для уменьшения задержки в кабельных сетях, периодически используя их вместо кабеля.",
   "book.energizedpower.page.transformers.7": "Трансформаторы также можно использовать для подключения кабелей питания под напряжением к кабелям других модов.",
   "book.energizedpower.page.transformers.8": "Трансформаторы могут использоваться в качестве аккумуляторных блоков.",
@@ -1735,7 +1735,7 @@
   "book.energizedpower.page.plant_growth_chamber.4": "При использовании слота для внесения удобрений применяются множители энергии и скорости.",
   "book.energizedpower.page.plant_growth_chamber.5": "Семена можно вставлять с севера, востока, юга и запада. Удобрения можно вставлять сверху и снизу. Выводы можно извлекать со всех сторон блока.",
   "book.energizedpower.page.plant_growth_chamber.6": "Если вы хотите использовать удобрение, его необходимо внести первым.",
-  "book.energizedpower.page.plant_growth_chamber.7": "Если вы хотите автоматизировать эти блоки, вам нужно помнить, что доходность рандомизирована.",
+  "book.energizedpower.page.plant_growth_chamber.7": "Если вы хотите автоматизировать эти блоки, вам нужно помнить, что доходность рандомизированна.",
 
   "book.energizedpower.page.stone_liquefier.1": "Разжижитель камня производит лаву из каменных блоков.",
   "book.energizedpower.page.stone_liquefier.2": "Жидкости необходимо выводить с помощью труб",
@@ -1800,20 +1800,20 @@
   "book.energizedpower.page.chapter.item_transportation.title": "Транспортировка предметов",
   "book.energizedpower.page.chapter.item_transportation": "Блоки, которые могут транспортировать предметы.",
 
-  "book.energizedpower.page.item_conveyor_belt.1": "Предметные енточные конвейеры могут транспортировать предметы.",
+  "book.energizedpower.page.item_conveyor_belt.1": "Конвейерные ленты могут транспортировать предметы.",
   "book.energizedpower.page.item_conveyor_belt.2": "Наклон конвейерных лент можно настроить с помощью ключа.",
-  "book.energizedpower.page.item_conveyor_belt.3": "Конвейерные ленты могут быть загружены бункерами и любыми блоками, в которые можно вставлять предметы.",
+  "book.energizedpower.page.item_conveyor_belt.3": "Конвейерные ленты могут быть загружены воронками и любыми блоками, в которые можно вставлять предметы.",
   "book.energizedpower.page.item_conveyor_belt.4": "Конвейерные ленты могут вставлять предметы в блоки перед конвейерной лентой.",
   "book.energizedpower.page.item_conveyor_belt.5": "В качестве альтернативы их можно выгружать с помощью воронок и других блоков, которые могут извлекать предметы из блоков.",
   "book.energizedpower.page.item_conveyor_belt.6": "Конвейерные ленты совместимы с туннелем для предметов AE2.",
 
-  "book.energizedpower.page.item_conveyor_belt_loader.1": "Загрузчик предметного ленточного конвейера может извлекать предметы из любых складских блоков (даже с других конвейерных лент) и загружать их на ленту конвейера.",
+  "book.energizedpower.page.item_conveyor_belt_loader.1": "Загрузчик конвейерной ленты может извлекать предметы из любых складских блоков (даже с других конвейерных лент) и загружать их на ленту конвейера.",
   "book.energizedpower.page.item_conveyor_belt_loader.2": "Больший квадрат должен быть обращен к блоку, из которого извлекаются предметы, а меньший квадрат должен быть обращен к конвейерной ленте.",
-  "book.energizedpower.page.item_conveyor_belt_loader.3": "В качестве альтернативы предметы можно извлекать из загрузчика с помощью бункеров и других блоков, которые могут извлекать предметы из блоков.",
+  "book.energizedpower.page.item_conveyor_belt_loader.3": "В качестве альтернативы предметы можно извлекать из загрузчика с помощью воронок и других блоков, которые могут извлекать предметы из блоков.",
   "book.energizedpower.page.item_conveyor_belt_loader.4": "Можно складывать вертикально и горизонтально.",
   "book.energizedpower.page.item_conveyor_belt_loader.5": "Его можно отключить с помощью сигнала красного камня.",
 
-  "book.energizedpower.page.item_conveyor_belt_sorter.1": "Сортировщик предметного ленточного конвейера берет предметы с входного конвейера и направляет их на определенный выходной конвейер.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.1": "Сортировщик конвейерной ленты берет предметы с входного конвейера и направляет их на определенный выходной конвейер.",
   "book.energizedpower.page.item_conveyor_belt_sorter.2": "Входная конвейерная лента должна быть обращена к большому квадрату и не должна подниматься.",
   "book.energizedpower.page.item_conveyor_belt_sorter.3": "Для выходных конвейерных лент ограничений нет.",
   "book.energizedpower.page.item_conveyor_belt_sorter.4": "Выводы имеют цветовую кодировку (красный: первый выход и всегда с левой стороны относительно входа, желтый: второй выход и с противоположной стороны относительно входа, зеленый: третий выход и с правой стороны относительно входа).",
@@ -1823,16 +1823,16 @@
   "book.energizedpower.page.item_conveyor_belt_sorter.8": "Чтобы разрешить любые предметы, выберите черный список без каких-либо предметов шаблона. Если выход не подключен, фильтр должен быть установлен на белый список без каких-либо предметов шаблона.",
   "book.energizedpower.page.item_conveyor_belt_sorter.9": "Сигнал красного камня силой 15 будет излучаться, если ни один фильтр не соответствует (если выход не подключен или он заполнен, сигнал красного камня излучаться не будет).",
 
-  "book.energizedpower.page.item_conveyor_belt_switch.1": "Переключатель предметного ленточного конвейера берет предметы с входного конвейера (должен быть обращен к большому квадрату и не должен подниматься) и помещает их на выходной конвейер со стороны с зеленым индикатором.",
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "Переключатель конвейерной ленты берет предметы с входного конвейера (должен быть обращен к большому квадрату и не должен подниматься) и помещает их на выходной конвейер со стороны с зеленым индикатором.",
   "book.energizedpower.page.item_conveyor_belt_switch.2": "Пока подается сигнал красного камня, будет выбран другой выход.",
 
-  "book.energizedpower.page.item_conveyor_belt_splitter": "Разделитель предметного ленточного конвейера берет предметы с входного конвейера (должен быть обращен к большому квадрату и не должен подниматься) и равномерно размещает их на подключенных выходных конвейерных лентах.",
+  "book.energizedpower.page.item_conveyor_belt_splitter": "Разветвитель конвейерной ленты берет предметы с входного конвейера (должен быть обращен к большому квадрату и не должен подниматься) и равномерно размещает их на подключенных выходных конвейерных лентах.",
 
-  "book.energizedpower.page.item_conveyor_belt_merger": "Устройство объединения предметных ленточных конвейеров равномерно забирает предметы с подключенных входных конвейерных лент (они должны быть обращены в форме большого квадрата и не должны подниматься) и помещает их на выходную конвейерную ленту.",
+  "book.energizedpower.page.item_conveyor_belt_merger": "Объединитель конвейерной ленты равномерно забирает предметы с подключенных входных конвейерных лент (они должны быть обращены в форме большого квадрата и не должны подниматься) и помещает их на выходную конвейерную ленту.",
 
-  "book.energizedpower.page.item_silos.1": "Item silos can only hold a single item type but can hold up to 1000 stacks of the item.",
-  "book.energizedpower.page.item_silos.2": "Item silos can only be loaded and unloaded with hoppers, belts, and other means of automatic item transport.",
-  "book.energizedpower.page.item_silos.3": "There are five tiers of item silos: Tiny, Small, Medium, Large, and Giant",
+  "book.energizedpower.page.item_silos.1": "Предметные бункеры могут содержать только один тип предметов, но в них можно разместить до 1000 стаков предметов.",
+  "book.energizedpower.page.item_silos.2": "Загрузка и разгрузка предметных бункеров может осуществляться только с помощью воронок, лент и других средств автоматической транспортировки предметов.",
+  "book.energizedpower.page.item_silos.3": "Существует пять уровней предметных бункеров: крошечные, маленькие, средние, большие и гигантские.",
 
 
   "book.energizedpower.page.chapter.fluids.title": "Жидкости",
