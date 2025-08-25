@@ -1399,6 +1399,14 @@ public final class ModConfigs {
             0, 100
     ));
 
+    //Misc
+    public static final ConfigValue<Integer> COMMON_OFF_STATE_TIMEOUT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "off_state_timeout",
+            "Sets the timeout a machine needs to be off for to change the block state to off in ticks (Prevent light flickering)",
+            20,
+            5, 200
+    ));
+
 
     public static final Config SERVER_CONFIG = new Config(getRelativeConfigFile("server.conf"), "Energized Power Server Config");
     //TODO server config values

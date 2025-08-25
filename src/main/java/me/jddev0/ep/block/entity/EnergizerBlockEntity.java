@@ -46,6 +46,8 @@ public class EnergizerBlockEntity
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
+    private int timeoutOffState;
+
     public EnergizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 EPBlockEntities.ENERGIZER_ENTITY.get(), blockPos, blockState,
@@ -169,6 +171,15 @@ public class EnergizerBlockEntity
         if(level.isClientSide)
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            }
+        }
+
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
@@ -189,6 +200,7 @@ public class EnergizerBlockEntity
             int energyConsumptionPerTick = blockEntity.getEnergyConsumptionPerTick();
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
                 blockEntity.hasEnoughEnergy = true;
+                blockEntity.timeoutOffState = 0;
                 if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
                         !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
                     level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
@@ -214,17 +226,15 @@ public class EnergizerBlockEntity
                 setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
-                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                        level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+                if(blockEntity.timeoutOffState == 0) {
+                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
                 }
                 setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
-            if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
             setChanged(level, blockPos, state);
         }

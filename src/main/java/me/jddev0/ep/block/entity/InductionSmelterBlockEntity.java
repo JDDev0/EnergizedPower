@@ -127,7 +127,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
     }
 
     @Override
-    protected void onHasNotEnoughEnergy() {
+    protected void onHasNotEnoughEnergyWithOffTimeout() {
         if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
                 level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
             level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);

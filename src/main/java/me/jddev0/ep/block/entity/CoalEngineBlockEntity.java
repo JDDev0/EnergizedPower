@@ -55,6 +55,8 @@ public class CoalEngineBlockEntity
     private int energyProductionLeft = -1;
     private boolean hasEnoughCapacityForProduction;
 
+    private int timeoutOffState;
+
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 EPBlockEntities.COAL_ENGINE_ENTITY.get(), blockPos, blockState,
@@ -187,6 +189,15 @@ public class CoalEngineBlockEntity
         if(level.isClientSide)
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            }
+        }
+
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
             SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
             for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
@@ -219,6 +230,7 @@ public class CoalEngineBlockEntity
                 }
 
                 blockEntity.hasEnoughCapacityForProduction = true;
+                blockEntity.timeoutOffState = 0;
                 if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
                         !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
                     level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
@@ -244,17 +256,15 @@ public class CoalEngineBlockEntity
                 setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughCapacityForProduction = false;
-                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                        level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+                if(blockEntity.timeoutOffState == 0) {
+                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
                 }
                 setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
-            if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
             setChanged(level, blockPos, state);
         }

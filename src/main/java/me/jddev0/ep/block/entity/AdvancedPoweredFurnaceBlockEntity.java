@@ -68,6 +68,8 @@ public class AdvancedPoweredFurnaceBlockEntity
 
     private @NotNull RecipeType<? extends AbstractCookingRecipe> recipeType = RecipeType.SMELTING;
 
+    private int timeoutOffState;
+
     public AdvancedPoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 EPBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY.get(), blockPos, blockState,
@@ -211,6 +213,15 @@ public class AdvancedPoweredFurnaceBlockEntity
         if(level.isClientSide)
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            }
+        }
+
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
@@ -241,6 +252,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
                 if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getEnergy()) {
                     blockEntity.hasEnoughEnergy[i] = true;
+                    blockEntity.timeoutOffState = 0;
                     if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
                             !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
                         level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
@@ -277,9 +289,8 @@ public class AdvancedPoweredFurnaceBlockEntity
 
         //Unlit if nothing is being smelted
         if(hasNoRecipe || hasNotEnoughEnergyCount == 3) {
-            if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
         }
     }
