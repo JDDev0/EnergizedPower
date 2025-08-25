@@ -66,6 +66,8 @@ public class AdvancedPoweredFurnaceBlockEntity
 
     private @NotNull RecipeType<? extends AbstractCookingRecipe> recipeType = RecipeType.SMELTING;
 
+    private int timeoutOffState;
+
     public AdvancedPoweredFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 EPBlockEntities.ADVANCED_POWERED_FURNACE_ENTITY, blockPos, blockState,
@@ -203,6 +205,15 @@ public class AdvancedPoweredFurnaceBlockEntity
         if(level.isClient())
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).contains(Properties.LIT) &&
+                    level.getBlockState(blockPos).get(Properties.LIT)) {
+                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            }
+        }
+
         if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
             return;
 
@@ -233,6 +244,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
                 if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getAmount()) {
                     blockEntity.hasEnoughEnergy[i] = true;
+                    blockEntity.timeoutOffState = 0;
                     if(level.getBlockState(blockPos).contains(Properties.LIT) &&
                             !level.getBlockState(blockPos).get(Properties.LIT)) {
                         level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
@@ -272,9 +284,8 @@ public class AdvancedPoweredFurnaceBlockEntity
 
         //Unlit if nothing is being smelted
         if(hasNoRecipe || hasNotEnoughEnergyCount == 3) {
-            if(level.getBlockState(blockPos).contains(Properties.LIT) &&
-                    level.getBlockState(blockPos).get(Properties.LIT)) {
-                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
         }
     }
