@@ -48,6 +48,8 @@ public class CoalEngineBlockEntity
     private long energyProductionLeft = -1;
     private boolean hasEnoughCapacityForProduction;
 
+    private int timeoutOffState;
+
     public CoalEngineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 EPBlockEntities.COAL_ENGINE_ENTITY, blockPos, blockState,
@@ -173,6 +175,15 @@ public class CoalEngineBlockEntity
         if(level.isClient())
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).contains(Properties.LIT) &&
+                    level.getBlockState(blockPos).get(Properties.LIT)) {
+                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            }
+        }
+
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
             ItemStack item = blockEntity.itemHandler.getStack(0);
 
@@ -201,6 +212,7 @@ public class CoalEngineBlockEntity
                 }
 
                 blockEntity.hasEnoughCapacityForProduction = true;
+                blockEntity.timeoutOffState = 0;
                 if(level.getBlockState(blockPos).contains(Properties.LIT) &&
                         !level.getBlockState(blockPos).get(Properties.LIT)) {
                     level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
@@ -230,17 +242,15 @@ public class CoalEngineBlockEntity
                 markDirty(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughCapacityForProduction = false;
-                if(level.getBlockState(blockPos).contains(Properties.LIT) &&
-                        level.getBlockState(blockPos).get(Properties.LIT)) {
-                    level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+                if(blockEntity.timeoutOffState == 0) {
+                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
                 }
                 markDirty(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
-            if(level.getBlockState(blockPos).contains(Properties.LIT) &&
-                    level.getBlockState(blockPos).get(Properties.LIT)) {
-                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
             markDirty(level, blockPos, state);
         }
