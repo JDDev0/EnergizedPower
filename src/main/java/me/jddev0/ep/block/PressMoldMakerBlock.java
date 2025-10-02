@@ -3,9 +3,9 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -45,10 +45,10 @@ public class PressMoldMakerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof PressMoldMakerBlockEntity pressMoldMakerBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return pressMoldMakerBlockEntity.getRedstoneOutput();
     }

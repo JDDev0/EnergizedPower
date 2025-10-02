@@ -75,7 +75,7 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
 
     @Override
     public boolean matches(RecipeInput container, Level level) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return false;
 
         boolean[] usedIndices = new boolean[3];

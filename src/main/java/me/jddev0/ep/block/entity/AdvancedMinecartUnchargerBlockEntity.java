@@ -85,7 +85,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartUnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.hasMinecartOld != blockEntity.hasMinecart)
@@ -116,7 +116,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartUnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

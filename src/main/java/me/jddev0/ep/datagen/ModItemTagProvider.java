@@ -234,6 +234,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(CommonItemTags.TOOLS_HAMMERS).
                 add(EPItems.WOODEN_HAMMER.get()).
                 add(EPItems.STONE_HAMMER.get()).
+                add(EPItems.COPPER_HAMMER.get()).
                 add(EPItems.IRON_HAMMER.get()).
                 add(EPItems.GOLDEN_HAMMER.get()).
                 add(EPItems.DIAMOND_HAMMER.get()).

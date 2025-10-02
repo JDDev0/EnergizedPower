@@ -6,7 +6,7 @@ import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +33,6 @@ import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.ToIntFunction;
 
@@ -140,7 +139,7 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(ENERGY_PER_LIGHTNING_STRIKE)).withStyle(ChatFormatting.GRAY));
                 components.accept(Component.translatable("tooltip.energizedpower.lightning_generator.txt.shift.2").withStyle(ChatFormatting.GRAY));

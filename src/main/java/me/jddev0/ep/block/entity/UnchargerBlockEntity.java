@@ -168,7 +168,7 @@ public class UnchargerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.redstoneMode.isActive(state.getValue(UnchargerBlock.POWERED)))
@@ -189,7 +189,7 @@ public class UnchargerBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.hasRecipe()) {
@@ -227,7 +227,7 @@ public class UnchargerBlockEntity
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

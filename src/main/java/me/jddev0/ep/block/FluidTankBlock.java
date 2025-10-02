@@ -6,7 +6,7 @@ import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -78,10 +78,10 @@ public class FluidTankBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof FluidTankBlockEntity fluidTankBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return fluidTankBlockEntity.getRedstoneOutput();
     }
@@ -141,7 +141,7 @@ public class FluidTankBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.tank_capacity.txt",
                                 FluidUtils.getFluidAmountWithPrefix(tier.getTankCapacity())).withStyle(ChatFormatting.GRAY));
             }else {

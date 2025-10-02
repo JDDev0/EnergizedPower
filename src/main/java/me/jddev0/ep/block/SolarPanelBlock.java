@@ -6,7 +6,7 @@ import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -117,7 +117,7 @@ public class SolarPanelBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.solar_panel.txt.shift.1",
                         EnergyUtils.getEnergyWithPrefix(tier.getPeakFePerTick())).withStyle(ChatFormatting.GRAY));
                 components.accept(Component.translatable("tooltip.energizedpower.solar_panel.txt.shift.2").withStyle(ChatFormatting.GRAY));

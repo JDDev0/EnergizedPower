@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.entity.MinecartBatteryBox;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -79,7 +79,7 @@ public class BatteryBoxMinecartItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartBatteryBox.CAPACITY)).
                     withStyle(ChatFormatting.GRAY));
@@ -100,7 +100,7 @@ public class BatteryBoxMinecartItem extends Item {
             return InteractionResult.FAIL;
 
         ItemStack itemStack = useOnContext.getItemInHand();
-        if(!level.isClientSide) {
+        if(!level.isClientSide()) {
             RailShape railShape = blockState.getBlock() instanceof BaseRailBlock?
                     ((BaseRailBlock)blockState.getBlock()).getRailDirection(blockState, level, blockPos, null):
                     RailShape.NORTH_SOUTH;
@@ -117,6 +117,6 @@ public class BatteryBoxMinecartItem extends Item {
         }
 
         itemStack.shrink(1);
-        return level.isClientSide?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER;
+        return level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER;
     }
 }

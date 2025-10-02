@@ -9,7 +9,7 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,7 +44,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
         if(interactionHand == InteractionHand.OFF_HAND)
             return InteractionResult.PASS;
 
-        if(level.isClientSide || !(player instanceof ServerPlayer serverPlayer))
+        if(level.isClientSide() || !(player instanceof ServerPlayer serverPlayer))
             return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         if(player.isShiftKeyDown())
@@ -91,7 +91,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
 
         components.accept(Component.empty());
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             components.accept(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").

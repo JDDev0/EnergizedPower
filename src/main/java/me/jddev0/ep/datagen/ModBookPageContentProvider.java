@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBookPageContentProvider extends PageContentProvider {
-    private static final Style UNIFORM = Style.EMPTY.withFont(ResourceLocation.withDefaultNamespace("uniform"));
-    private static final Style DEFAULT_FONT = Style.EMPTY.withFont(Style.DEFAULT_FONT);
+    private static final Style UNIFORM = Style.EMPTY.withFont(new FontDescription.Resource(ResourceLocation.withDefaultNamespace("uniform")));
+    private static final Style DEFAULT_FONT = Style.EMPTY.withFont(FontDescription.DEFAULT);
 
     private int chapterSortingNumber = 0;
     private int subChapterSortingNumber = 0;

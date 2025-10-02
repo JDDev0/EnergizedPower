@@ -35,7 +35,7 @@ public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeI
 
     @Override
     public boolean matches(RecipeInput container, Level level) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return false;
 
         boolean[] usedIndices = new boolean[4];

@@ -40,7 +40,7 @@ public class PoweredLampBlockEntity extends EnergyStorageBlockEntity<ReceiveOnly
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, PoweredLampBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         boolean isEmptyFlag = blockEntity.energyStorage.getEnergy() == 0;

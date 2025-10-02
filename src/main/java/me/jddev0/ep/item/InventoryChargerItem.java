@@ -7,7 +7,7 @@ import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.screen.InventoryChargerMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +49,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         if(interactionHand == InteractionHand.OFF_HAND)
             return InteractionResult.PASS;
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         player.openMenu(this);
@@ -105,7 +105,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                         EnergyUtils.getEnergyWithPrefix(maxTransfer)).
                 withStyle(ChatFormatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
@@ -240,7 +240,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
     public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(itemStack, level, entity, slot);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!(entity instanceof Player))

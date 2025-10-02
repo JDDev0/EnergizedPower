@@ -10,6 +10,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -207,14 +209,16 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if(super.keyPressed(keyCode, scanCode, modifiers))
+    public boolean keyPressed(KeyEvent event) {
+        int keyCode = event.key();
+
+        if(super.keyPressed(event))
             return true;
 
         int oldCurrentPage = currentPage;
         return switch(keyCode) {
             case 266 -> {
-                backButton.onPress();
+                backButton.onPress(event);
 
                 if(currentPage != oldCurrentPage)
                     minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
@@ -222,7 +226,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 yield true;
             }
             case 267 -> {
-                forwardButton.onPress();
+                forwardButton.onPress(event);
 
                 if(currentPage != oldCurrentPage)
                     minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.f));
@@ -235,14 +239,17 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int mouseButton = click.button();
         if(mouseButton == 0) {
             Style style = getComponentStyleAt(mouseX, mouseY);
             if(style != null && handleComponentClicked(style))
                 return true;
         }
 
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(click, doubled);
     }
 
     @Override

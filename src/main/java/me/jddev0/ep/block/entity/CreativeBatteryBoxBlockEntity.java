@@ -112,14 +112,14 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CreativeBatteryBoxBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         transferInfiniteEnergy(level, blockPos, state, blockEntity);
     }
 
     private static void transferInfiniteEnergy(Level level, BlockPos blockPos, BlockState state, CreativeBatteryBoxBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.energyProduction)

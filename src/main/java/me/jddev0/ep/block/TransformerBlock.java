@@ -7,7 +7,7 @@ import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -159,7 +159,7 @@ public class TransformerBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(tier.getMaxEnergyTransferFromTier())).
                         withStyle(ChatFormatting.GRAY));

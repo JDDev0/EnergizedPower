@@ -216,6 +216,7 @@
 
   "item.energizedpower.wooden_hammer": "Martello Di Legno",
   "item.energizedpower.stone_hammer": "Martello di pietra",
+  "item.energizedpower.copper_hammer": "Copper Hammer",
   "item.energizedpower.iron_hammer": "Martello di ferro",
   "item.energizedpower.golden_hammer": "Martello d'oro",
   "item.energizedpower.diamond_hammer": "Martello di diamante",
@@ -909,7 +910,7 @@
   "painting.energizedpower.factory.title": "Factory",
   "painting.energizedpower.factory.author": "JDDev0",
 
-  "key.category.energizedpower": "Energized Power",
+  "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Usa il teletrasporto",
 
 

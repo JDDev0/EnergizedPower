@@ -88,17 +88,17 @@ public final class EPBlocks {
     public static final DeferredItem<Item> RAW_TIN_BLOCK_ITEM = createBlockItem("raw_tin_block", RAW_TIN_BLOCK);
 
     public static final DeferredBlock<ItemConveyorBeltBlock> BASIC_ITEM_CONVEYOR_BELT = registerBlock("item_conveyor_belt",
-            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().noCollission().
+            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().noCollision().
                     strength(2.5f, 3.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> BASIC_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("item_conveyor_belt",
             (block, props) -> new ItemConveyorBeltBlock.Item(block, props, ConveyorBeltTier.BASIC), BASIC_ITEM_CONVEYOR_BELT);
     public static final DeferredBlock<ItemConveyorBeltBlock> FAST_ITEM_CONVEYOR_BELT = registerBlock("fast_item_conveyor_belt",
-            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.FAST, props), BlockBehaviour.Properties.of().noCollission().
+            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.FAST, props), BlockBehaviour.Properties.of().noCollision().
                     strength(2.5f, 3.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> FAST_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("fast_item_conveyor_belt",
             (block, props) -> new ItemConveyorBeltBlock.Item(block, props, ConveyorBeltTier.FAST), FAST_ITEM_CONVEYOR_BELT);
     public static final DeferredBlock<ItemConveyorBeltBlock> EXPRESS_ITEM_CONVEYOR_BELT = registerBlock("express_item_conveyor_belt",
-            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().noCollission().
+            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().noCollision().
                     strength(2.5f, 3.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("express_item_conveyor_belt",
             (block, props) -> new ItemConveyorBeltBlock.Item(block, props, ConveyorBeltTier.EXPRESS), EXPRESS_ITEM_CONVEYOR_BELT);

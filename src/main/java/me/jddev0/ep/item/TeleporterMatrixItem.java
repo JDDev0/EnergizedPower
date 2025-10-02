@@ -4,7 +4,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.DimensionalPositionComponent;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -36,7 +36,7 @@ public class TeleporterMatrixItem extends Item {
     }
 
     public static BlockPos getBlockPos(Level level, ItemStack itemStack) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return null;
 
         if(!isLinked(itemStack))
@@ -51,7 +51,7 @@ public class TeleporterMatrixItem extends Item {
     }
 
     public static Level getDimension(Level level, ItemStack itemStack) {
-        if(level.isClientSide || !(level instanceof ServerLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel))
             return null;
 
         if(!isLinked(itemStack))
@@ -68,7 +68,7 @@ public class TeleporterMatrixItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
-        if(level.isClientSide || !(level instanceof ServerLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel))
             return InteractionResult.SUCCESS;
 
         Player player = useOnContext.getPlayer();
@@ -104,7 +104,7 @@ public class TeleporterMatrixItem extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         if(itemStack.has(EPDataComponentTypes.DIMENSIONAL_POSITION))
@@ -141,7 +141,7 @@ public class TeleporterMatrixItem extends Item {
 
         components.accept(Component.empty());
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             components.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").

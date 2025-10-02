@@ -148,7 +148,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.loaded) {

@@ -39,7 +39,7 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean matches(RecipeInput container, Level level) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return false;
 
         return input.input().test(container.getItem(0)) && container.getItem(0).getCount() >= input.count() &&

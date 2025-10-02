@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.ToIntFunction;
 
@@ -122,7 +121,7 @@ public class ChargingStationBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.charging_station.txt.shift.1").withStyle(ChatFormatting.GRAY));
             }else {
                 components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));

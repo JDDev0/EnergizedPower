@@ -7,7 +7,7 @@ import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -124,7 +124,7 @@ public class ConfigurableTransformerBlock extends BaseEntityBlock implements Sim
         Level level = useOnContext.getLevel();
         BlockPos blockPos = useOnContext.getClickedPos();
 
-        if(level.isClientSide || !(level.getBlockEntity(blockPos) instanceof TransformerBlockEntity))
+        if(level.isClientSide() || !(level.getBlockEntity(blockPos) instanceof TransformerBlockEntity))
             return InteractionResult.SUCCESS;
 
         BlockState state = level.getBlockState(blockPos);
@@ -252,7 +252,7 @@ public class ConfigurableTransformerBlock extends BaseEntityBlock implements Sim
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.wrench_configurable").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 

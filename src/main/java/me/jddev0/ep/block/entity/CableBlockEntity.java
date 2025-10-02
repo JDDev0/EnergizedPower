@@ -77,7 +77,7 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     public static void updateConnections(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         blockEntity.producers.clear();
@@ -140,7 +140,7 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.loaded) {

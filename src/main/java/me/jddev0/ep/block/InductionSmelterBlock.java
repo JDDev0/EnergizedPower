@@ -64,10 +64,10 @@ public class InductionSmelterBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof InductionSmelterBlockEntity inductionSmelterBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return inductionSmelterBlockEntity.getRedstoneOutput();
     }

@@ -4,8 +4,9 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class DrainBlock extends BaseEntityBlock {
@@ -56,10 +56,10 @@ public class DrainBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof DrainBlockEntity drainBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return drainBlockEntity.getRedstoneOutput();
     }
@@ -91,7 +91,7 @@ public class DrainBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.drain.txt.shift").
                         withStyle(ChatFormatting.GRAY));
             }else {

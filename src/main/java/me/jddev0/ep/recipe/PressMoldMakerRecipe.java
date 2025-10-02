@@ -35,7 +35,7 @@ public class PressMoldMakerRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
 
     @Override
     public boolean matches(RecipeInput container, Level level) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return false;
 
         ItemStack item = container.getItem(0);

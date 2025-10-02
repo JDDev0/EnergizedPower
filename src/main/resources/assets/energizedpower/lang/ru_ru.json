@@ -216,6 +216,7 @@
 
   "item.energizedpower.wooden_hammer": "Деревянный молот",
   "item.energizedpower.stone_hammer": "Каменный молот",
+  "item.energizedpower.copper_hammer": "Copper Hammer",
   "item.energizedpower.iron_hammer": "Железный молот",
   "item.energizedpower.golden_hammer": "Золотой молот",
   "item.energizedpower.diamond_hammer": "Алмазный молот",
@@ -909,7 +910,7 @@
   "painting.energizedpower.factory.title": "Фабрика",
   "painting.energizedpower.factory.author": "JDDev0",
 
-  "key.category.energizedpower": "Energized Power",
+  "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Используй телепорт",
 
 

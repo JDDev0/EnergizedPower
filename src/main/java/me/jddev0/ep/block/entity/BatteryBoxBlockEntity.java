@@ -62,14 +62,14 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveA
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

@@ -207,7 +207,7 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.timeoutOffState > 0) {

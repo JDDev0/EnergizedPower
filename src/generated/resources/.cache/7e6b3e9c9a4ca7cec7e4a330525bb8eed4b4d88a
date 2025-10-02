@@ -1,4 +1,4 @@
-// 1.21.8	2025-08-19T13:51:45.178991807	Model Definitions - energizedpower
+// 1.21.9	2025-10-02T22:40:40.011352488	Model Definitions - energizedpower
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -171,6 +171,7 @@ c77520d0017d5977fec8e3cea6c62c7a2cf253bd assets/energizedpower/items/configurabl
 f0dace2e87200e53151188bfd36303827d9b450c assets/energizedpower/items/configurable_mv_transformer.json
 cd5b9905036ef9aef4384b2cc17c377c52601a9c assets/energizedpower/items/copper_cable.json
 377aa1fd190132421d8ed916adc8c2f3b04efad7 assets/energizedpower/items/copper_dust.json
+b2f147b5fe7371d9f13de93a51190c8c2da8335c assets/energizedpower/items/copper_hammer.json
 904cf800fe006ebb6802f8ac1ff8fd24534785e3 assets/energizedpower/items/copper_plate.json
 047231cb3266aa86417b0ed09c216b2b291ab2ea assets/energizedpower/items/copper_wire.json
 b1e549faf8a7d9b87139443e40f3c61820ffe79a assets/energizedpower/items/creative_battery.json
@@ -551,6 +552,7 @@ c3b95c431272de3b9d2af2c4f4f2461434416639 assets/energizedpower/models/item/batte
 a46ab724d76d9aa83b2fa1aa3c2beb550f73a8e0 assets/energizedpower/models/item/charcoal_dust.json
 1cb5ed0951753092abf589bd019dce7019f8516e assets/energizedpower/models/item/charcoal_filter.json
 1f6138c9b38413e62e027e9e249bf9ba567d0d5c assets/energizedpower/models/item/copper_dust.json
+0c3df801658dd54000c5c618ab65e3055d7f8ce7 assets/energizedpower/models/item/copper_hammer.json
 b043ed0b7554c18d716faebec7b277e8bbc9e3ec assets/energizedpower/models/item/copper_plate.json
 fc3199a3a40ade13137276b08589ddce3ee1d4f3 assets/energizedpower/models/item/copper_wire.json
 d80e56e84556720ab23dfaeb4968be7372fa9cf1 assets/energizedpower/models/item/creative_battery.json

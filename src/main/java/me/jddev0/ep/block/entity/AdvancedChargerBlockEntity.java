@@ -204,7 +204,7 @@ public class AdvancedChargerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedChargerBlockEntity blockEntity) {
-        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedChargerBlock.POWERED)))

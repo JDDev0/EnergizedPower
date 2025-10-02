@@ -100,7 +100,7 @@ public class ItemConveyorBeltBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         //Sync item stacks to client every 5 seconds

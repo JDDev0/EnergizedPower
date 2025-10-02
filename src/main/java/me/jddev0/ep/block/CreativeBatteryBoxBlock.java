@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class CreativeBatteryBoxBlock extends BaseEntityBlock {
@@ -77,7 +76,7 @@ public class CreativeBatteryBoxBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.capacity.txt",
                                 Component.translatable("tooltip.energizedpower.infinite.txt").
                                         withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).

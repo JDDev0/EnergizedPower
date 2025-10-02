@@ -175,7 +175,7 @@ public class ThermalGeneratorBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.redstoneMode.isActive(state.getValue(ThermalGeneratorBlock.POWERED)))
@@ -185,7 +185,7 @@ public class ThermalGeneratorBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
         Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
@@ -223,7 +223,7 @@ public class ThermalGeneratorBlockEntity
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

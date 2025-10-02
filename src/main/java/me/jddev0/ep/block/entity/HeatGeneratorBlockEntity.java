@@ -79,7 +79,7 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
         Collection<RecipeHolder<HeatGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, HeatGeneratorRecipe.Type.INSTANCE);
@@ -112,7 +112,7 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

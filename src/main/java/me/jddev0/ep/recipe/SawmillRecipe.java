@@ -46,7 +46,7 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean matches(RecipeInput container, Level level) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return false;
 
         return input.test(container.getItem(0));

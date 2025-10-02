@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:bamboo_shelf",
+  "result": {
+    "count": 3,
+    "id": "minecraft:bamboo_planks"
+  },
+  "sawdustAmount": 1
+}

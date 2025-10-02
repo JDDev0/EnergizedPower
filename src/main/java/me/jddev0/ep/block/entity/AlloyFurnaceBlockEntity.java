@@ -177,7 +177,7 @@ public class AlloyFurnaceBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AlloyFurnaceBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         boolean hasNotEnoughFuel = false;

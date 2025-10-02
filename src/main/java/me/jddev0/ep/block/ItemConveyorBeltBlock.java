@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -90,10 +90,10 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof ItemConveyorBeltBlockEntity itemConveyorBeltBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return itemConveyorBeltBlockEntity.getRedstoneOutput();
     }
@@ -109,7 +109,7 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
         Level level = useOnContext.getLevel();
         BlockPos blockPos = useOnContext.getClickedPos();
 
-        if(level.isClientSide || !(level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
+        if(level.isClientSide() || !(level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
             return InteractionResult.SUCCESS;
         BlockState state = level.getBlockState(blockPos);
 
@@ -201,7 +201,7 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.wrench_configurable").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {

@@ -74,7 +74,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         int i = 4 * (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken()); //(0 - 15) * 4 => (0 - 60)
@@ -109,7 +109,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         BlockPos testPos = blockPos.relative(Direction.DOWN);

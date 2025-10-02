@@ -2,6 +2,7 @@ package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -69,7 +70,10 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     }
 
     @Override
-    public final boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public final boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int mouseButton = click.button();
         boolean clicked = false;
         if(!menu.isInUpgradeModuleView())
             clicked = mouseClickedNormalView(mouseX, mouseY, mouseButton);
@@ -79,7 +83,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         if(clicked)
             minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
 
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(click, doubled);
     }
 
     protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {}

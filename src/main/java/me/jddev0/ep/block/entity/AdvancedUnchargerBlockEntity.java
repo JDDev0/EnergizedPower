@@ -176,7 +176,7 @@ public class AdvancedUnchargerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.redstoneMode.isActive(state.getValue(AdvancedUnchargerBlock.POWERED)))
@@ -213,7 +213,7 @@ public class AdvancedUnchargerBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         final int maxExtractPerSlot = Math.max(0, (int)Math.min(blockEntity.energyStorage.getMaxExtract() / 3.,
@@ -256,7 +256,7 @@ public class AdvancedUnchargerBlockEntity
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

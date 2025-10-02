@@ -90,7 +90,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
     }
 
     public static void updateConnections(Level level, BlockPos blockPos, BlockState state, FluidPipeBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         blockEntity.producers.clear();
@@ -152,7 +152,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, FluidPipeBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         //TODO improve do not update all the time

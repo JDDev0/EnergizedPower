@@ -81,7 +81,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
 
     public static <F extends IFluidHandler, W> void tick(
             Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         blockEntity.onTickStart();

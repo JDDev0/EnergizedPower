@@ -22,7 +22,7 @@ public abstract class AbstractFluidTankBlockEntity<F extends IFluidHandler>
 
     public static <F extends IFluidHandler> void tick(Level level, BlockPos blockPos, BlockState state,
                                                       AbstractFluidTankBlockEntity<F> blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         //Sync item stacks to client every 5 seconds

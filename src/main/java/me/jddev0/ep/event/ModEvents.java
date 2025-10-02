@@ -218,7 +218,7 @@ public class ModEvents {
 
         Player player = event.getEntity();
 
-        if(!event.getLevel().isClientSide)
+        if(!event.getLevel().isClientSide())
             ModMessages.sendToPlayer(new OpenEnergizedPowerBookS2CPacket(blockPos), (ServerPlayer)player);
 
         event.setCanceled(true);
@@ -239,7 +239,7 @@ public class ModEvents {
 
         Player player = event.getEntity();
 
-        if(!event.getLevel().isClientSide) {
+        if(!event.getLevel().isClientSide()) {
             if(!player.isCreative())
                 itemStack.hurtAndBreak(1, player,
                         event.getHand() == InteractionHand.MAIN_HAND?EquipmentSlot.MAINHAND:EquipmentSlot.OFFHAND);

@@ -139,6 +139,7 @@ public class EnergizedPowerMod {
 
             event.accept(EPItems.WOODEN_HAMMER);
             event.accept(EPItems.STONE_HAMMER);
+            event.accept(EPItems.COPPER_HAMMER);
             event.accept(EPItems.IRON_HAMMER);
             event.accept(EPItems.GOLDEN_HAMMER);
             event.accept(EPItems.DIAMOND_HAMMER);

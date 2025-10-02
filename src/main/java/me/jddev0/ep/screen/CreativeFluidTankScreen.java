@@ -6,6 +6,7 @@ import me.jddev0.ep.networking.packet.SetCreativeFluidTankFluidStackC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -31,7 +32,10 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int mouseButton = click.button();
         if(mouseButton == 0) {
             boolean clicked = false;
 
@@ -54,7 +58,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
                 minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
         }
 
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(click, doubled);
     }
 
     @Override

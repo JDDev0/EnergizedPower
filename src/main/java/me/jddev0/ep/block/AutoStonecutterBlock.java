@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -57,10 +58,10 @@ public class AutoStonecutterBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AutoStonecutterBlockEntity autoStoneCutterBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return autoStoneCutterBlockEntity.getRedstoneOutput();
     }

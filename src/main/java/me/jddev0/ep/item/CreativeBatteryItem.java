@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -33,7 +33,7 @@ public class CreativeBatteryItem extends EnergizedPowerEnergyItem {
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, context, display, components, tooltipFlag);
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.capacity.txt",
                             Component.translatable("tooltip.energizedpower.infinite.txt").
                                     withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).

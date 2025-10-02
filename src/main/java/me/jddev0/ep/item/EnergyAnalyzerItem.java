@@ -5,7 +5,7 @@ import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -36,7 +36,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, context, display, components, tooltipFlag);
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
             components.accept(Component.translatable("tooltip.energizedpower.energy_analyzer.txt.shift.2",
                     EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.GRAY));
@@ -78,7 +78,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
-        if(level.isClientSide)
+        if(level.isClientSide())
             return InteractionResult.SUCCESS;
 
         if(getEnergy(stack) < ENERGY_CONSUMPTION_PER_USE) {

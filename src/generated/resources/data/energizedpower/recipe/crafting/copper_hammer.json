@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": "#minecraft:copper_tool_materials",
+    "S": "#c:rods/wooden"
+  },
+  "pattern": [
+    " M ",
+    " SM",
+    "S  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:copper_hammer"
+  }
+}

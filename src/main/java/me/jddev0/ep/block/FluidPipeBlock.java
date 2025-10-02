@@ -6,7 +6,7 @@ import me.jddev0.ep.block.entity.FluidPipeBlockEntity;
 import me.jddev0.ep.machine.tier.FluidPipeTier;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -123,7 +123,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         Level level = useOnContext.getLevel();
         BlockPos blockPos = useOnContext.getClickedPos();
 
-        if(level.isClientSide || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
+        if(level.isClientSide() || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
             return InteractionResult.SUCCESS;
 
         BlockState state = level.getBlockState(blockPos);
@@ -374,7 +374,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.wrench_configurable").
                         withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 

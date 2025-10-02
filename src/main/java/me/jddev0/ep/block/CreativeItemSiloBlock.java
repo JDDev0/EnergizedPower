@@ -3,7 +3,7 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeItemSiloBlockEntity;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -95,7 +95,7 @@ public class CreativeItemSiloBlock extends BaseEntityBlock {
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
 
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.item_silo_capacity.txt",
                                 Component.translatable("tooltip.energizedpower.infinite.txt").
                                         withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).

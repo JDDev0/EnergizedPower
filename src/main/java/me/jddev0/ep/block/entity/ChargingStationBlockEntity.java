@@ -79,7 +79,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargingStationBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         int maxChargingDistance = (int)Math.ceil(MAX_CHARGING_DISTANCE *

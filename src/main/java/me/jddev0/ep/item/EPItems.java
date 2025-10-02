@@ -254,6 +254,8 @@ public final class EPItems {
             props -> new HammerItem(ToolMaterial.WOOD, props));
     public static final DeferredItem<Item> STONE_HAMMER = registerItem("stone_hammer",
             props -> new HammerItem(ToolMaterial.STONE, props));
+    public static final DeferredItem<Item> COPPER_HAMMER = registerItem("copper_hammer",
+            props -> new HammerItem(ToolMaterial.COPPER, props));
     public static final DeferredItem<Item> IRON_HAMMER = registerItem("iron_hammer",
             props -> new HammerItem(ToolMaterial.IRON, props));
     public static final DeferredItem<Item> GOLDEN_HAMMER = registerItem("golden_hammer",

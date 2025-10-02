@@ -5,7 +5,7 @@ import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -26,7 +26,7 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
     public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, context, display, components, tooltipFlag);
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.battery.txt.shift.1",
                             EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
         }else {

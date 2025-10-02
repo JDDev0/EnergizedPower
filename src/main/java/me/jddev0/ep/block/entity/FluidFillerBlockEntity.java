@@ -204,7 +204,7 @@ public class FluidFillerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(FluidFillerBlock.POWERED)))

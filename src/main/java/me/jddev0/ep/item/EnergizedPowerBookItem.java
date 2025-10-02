@@ -2,7 +2,7 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.client.util.EnergizedPowerBookClientHelper;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -28,7 +28,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         components.accept(Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GRAY));
         components.accept(Component.translatable("book.generation.0").withStyle(ChatFormatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.energized_power_book.txt.shift.1").
                     withStyle(ChatFormatting.GRAY));
         }else {
@@ -40,7 +40,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             EnergizedPowerBookClientHelper.showBookViewScreen((ResourceLocation)null);
 
         return (level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER).heldItemTransformedTo(itemStack);
@@ -53,7 +53,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
 
     @Override
     public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos blockPos, LivingEntity player) {
-        if(!level.isClientSide)
+        if(!level.isClientSide())
             return false;
 
         EnergizedPowerBookClientHelper.showBookViewScreen(BuiltInRegistries.BLOCK.getKey(state.getBlock()));

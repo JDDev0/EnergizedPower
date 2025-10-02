@@ -93,7 +93,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, DrainBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(hasRecipe(blockEntity)) {

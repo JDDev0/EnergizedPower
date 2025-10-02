@@ -93,7 +93,7 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
 
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, WeatherControllerBlockEntity blockEntity) {
-        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
         if(!blockEntity.hasInfiniteWeatherChangedDuration() || blockEntity.selectedWeatherType == -1)

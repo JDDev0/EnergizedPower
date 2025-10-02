@@ -82,7 +82,7 @@ public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEn
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartChargerBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.hasMinecartOld != blockEntity.hasMinecart)

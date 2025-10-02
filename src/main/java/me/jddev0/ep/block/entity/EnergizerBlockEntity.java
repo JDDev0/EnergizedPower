@@ -179,7 +179,7 @@ public class EnergizerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
-        if(level.isClientSide || !(level instanceof ServerLevel serverLevel))
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
         if(blockEntity.timeoutOffState > 0) {

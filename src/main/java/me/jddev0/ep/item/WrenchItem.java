@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -57,7 +57,7 @@ public class WrenchItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
-        if(level.isClientSide)
+        if(level.isClientSide())
             return InteractionResult.SUCCESS;
 
         Player player = useOnContext.getPlayer();
@@ -85,7 +85,7 @@ public class WrenchItem extends Item {
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
        cycleCurrentFace(itemStack, (ServerPlayer)player);
@@ -101,7 +101,7 @@ public class WrenchItem extends Item {
 
     @Override
     public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos blockPos, LivingEntity player) {
-        if(level.isClientSide || !(player instanceof ServerPlayer))
+        if(level.isClientSide() || !(player instanceof ServerPlayer))
             return false;
 
         ItemStack itemStack = player.getMainHandItem();
@@ -124,7 +124,7 @@ public class WrenchItem extends Item {
                         withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
         ).withStyle(ChatFormatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             components.accept(Component.translatable("tooltip.energizedpower.wrench.txt.shift").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
@@ -136,7 +136,7 @@ public class WrenchItem extends Item {
     public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(itemStack, level, entity, slot);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!(entity instanceof Player))

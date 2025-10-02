@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.AdvancedMinecartUnchargerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class AdvancedMinecartUnchargerBlock extends BaseEntityBlock {
@@ -64,10 +63,10 @@ public class AdvancedMinecartUnchargerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos) {
+    public int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AdvancedMinecartUnchargerBlockEntity advancedMinecartUnchargerBlockEntity))
-            return super.getAnalogOutputSignal(state, level, blockPos);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return advancedMinecartUnchargerBlockEntity.getRedstoneOutput();
     }
@@ -119,7 +118,7 @@ public class AdvancedMinecartUnchargerBlock extends BaseEntityBlock {
 
         @Override
         public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-            if(Screen.hasShiftDown()) {
+            if(Minecraft.getInstance().hasShiftDown()) {
                 components.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(AdvancedMinecartUnchargerBlockEntity.MAX_TRANSFER)).
                         withStyle(ChatFormatting.GRAY));

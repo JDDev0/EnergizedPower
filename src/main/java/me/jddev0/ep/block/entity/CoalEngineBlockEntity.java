@@ -159,7 +159,7 @@ public class CoalEngineBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
@@ -178,7 +178,7 @@ public class CoalEngineBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(blockEntity.timeoutOffState > 0) {
@@ -263,7 +263,7 @@ public class CoalEngineBlockEntity
     }
 
     private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         List<IEnergyStorage> consumerItems = new ArrayList<>();

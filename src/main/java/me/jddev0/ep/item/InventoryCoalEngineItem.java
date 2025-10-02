@@ -8,7 +8,7 @@ import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -49,7 +49,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 append(Component.translatable("tooltip.energizedpower.inventory_coal_engine.status." +
                         (active?"activated":"deactivated")).withStyle(active?ChatFormatting.GREEN:ChatFormatting.RED)));
 
-        if(Screen.hasShiftDown()) {
+        if(Minecraft.getInstance().hasShiftDown()) {
             int energyProductionLeft = getEnergyProductionLeft(itemStack);
             ItemStack item = getCurrentBurningItem(itemStack);
             if(energyProductionLeft > 0 && item != null) {
@@ -140,7 +140,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(itemStack, level, entity, slot);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         if(!(entity instanceof Player))
@@ -230,7 +230,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
-        if(level.isClientSide)
+        if(level.isClientSide())
             return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
         itemStack.set(EPDataComponentTypes.ACTIVE, !isActive(itemStack));

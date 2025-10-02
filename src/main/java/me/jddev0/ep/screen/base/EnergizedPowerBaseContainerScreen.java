@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -44,8 +45,8 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
         ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
-        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).
-                apply(stillFluidImageId);
+        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getAtlasManager().get(new Material(
+                TextureAtlas.LOCATION_BLOCKS, stillFluidImageId));
 
         int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
 

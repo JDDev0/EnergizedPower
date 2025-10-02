@@ -79,7 +79,7 @@ public abstract class WorkerMachineBlockEntity<W>
     }
 
     public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
-        if(level.isClientSide)
+        if(level.isClientSide())
             return;
 
         blockEntity.onTickStart();

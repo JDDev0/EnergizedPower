@@ -216,6 +216,7 @@
 
   "item.energizedpower.wooden_hammer": "Kütük Çekiç",
   "item.energizedpower.stone_hammer": "Taş Çekiç",
+  "item.energizedpower.copper_hammer": "Copper Hammer",
   "item.energizedpower.iron_hammer": "Demir Çekiç",
   "item.energizedpower.golden_hammer": "Altın Çekiç",
   "item.energizedpower.diamond_hammer": "Elmas Çekiç",
@@ -909,7 +910,7 @@
   "painting.energizedpower.factory.title": "Fabrika",
   "painting.energizedpower.factory.author": "JDDev0",
 
-  "key.category.energizedpower": "Enerjilendirilmiş Güç",
+  "key.category.energizedpower.main": "Enerjilendirilmiş Güç",
   "key.energizedpower.teleporter.use": "Işınlayıcı Kullan",
 
 
