@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:birch_shelf",
+  "result": {
+    "count": 3,
+    "id": "minecraft:birch_planks"
+  },
+  "sawdustAmount": 1
+}

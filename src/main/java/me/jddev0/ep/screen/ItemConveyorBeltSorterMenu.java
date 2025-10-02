@@ -39,7 +39,7 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
     };
 
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(pos), new SimpleInventory(15), null);
+        this(id, inv, inv.player.getEntityWorld().getBlockEntity(pos), new SimpleInventory(15), null);
     }
 
     public ItemConveyorBeltSorterMenu(int id, PlayerInventory playerInventory, BlockEntity blockEntity, Inventory patternSlots, PropertyDelegate data) {
@@ -48,7 +48,7 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
         this.patternSlots = patternSlots;
 
         this.blockEntity = (ItemConveyorBeltSorterBlockEntity)blockEntity;
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

@@ -27,7 +27,7 @@ public class PressMoldMakerMenu extends ScreenHandler {
     private final World level;
 
     public PressMoldMakerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(2) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(2) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
@@ -46,7 +46,7 @@ public class PressMoldMakerMenu extends ScreenHandler {
 
         this.inv = inv;
         checkSize(inv, 2);
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

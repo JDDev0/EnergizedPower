@@ -1,4 +1,4 @@
-// 1.21.8	-999999999-01-01T00:00:00	Energized Power/Book Pages: energizedpower
+// 1.21.9	-999999999-01-01T00:00:00	Energized Power/Book Pages: energizedpower
 a668564b59345e35da3c6c90a48e544150fa8a57 assets/energizedpower/book_pages/chapters/0000_welcome/0000_welcome.json
 e6673bc92548fa127a5a8320067b36db4824cec6 assets/energizedpower/book_pages/chapters/0000_welcome/0010_credits.json
 756a73c7747cc5ee7e375459038296ba985d7b07 assets/energizedpower/book_pages/chapters/0000_welcome/0020_table_of_contents.json
@@ -29,7 +29,7 @@ ae4cf988308426b4120130ea4389672382ee01aa assets/energizedpower/book_pages/chapte
 9f7c6d7f427ba9e1ef64afb82984ebea08eaef10 assets/energizedpower/book_pages/chapters/0020_upgrades/0080_furnace_mode_upgrades.json
 c360dece31ef5d904a377248c962cdc321175976 assets/energizedpower/book_pages/chapters/0020_upgrades/0090_moon_light_upgrades.json
 77c5a88001225f4e511820e64134e37ac78a2510 assets/energizedpower/book_pages/chapters/0030_tools/0000_tools_chapter.json
-350da366179751e01e848ce0f2ad51e427eeb0e7 assets/energizedpower/book_pages/chapters/0030_tools/0010_hammers.json
+a7f963ca9f822967f71a4383c2e2fc63b9152526 assets/energizedpower/book_pages/chapters/0030_tools/0010_hammers.json
 97351f31f6080b27370889c1b5459ac87bb37438 assets/energizedpower/book_pages/chapters/0030_tools/0020_cutters.json
 29b46707ad91753c826af1648e598ab94368305c assets/energizedpower/book_pages/chapters/0030_tools/0030_wrench.json
 fa88802d35fa7a67114c04d8f4ad6a91bfdd7883 assets/energizedpower/book_pages/chapters/0040_workbenches/0000_workbenches_chapter.json

@@ -5,7 +5,7 @@ import me.jddev0.ep.component.DimensionalPositionComponent;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -140,7 +140,7 @@ public class TeleporterMatrixItem extends Item {
 
         tooltip.accept(Text.empty());
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
             tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.txt.shift.2").

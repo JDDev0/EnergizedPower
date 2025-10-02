@@ -1,7 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ public class CreativeBatteryItem extends Item {
                         EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE), EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE)).
                 formatted(Formatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.capacity.txt",
                             Text.translatable("tooltip.energizedpower.infinite.txt").
                                     formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC)).

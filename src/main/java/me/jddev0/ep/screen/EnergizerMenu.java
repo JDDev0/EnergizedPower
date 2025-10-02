@@ -34,11 +34,11 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public EnergizerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(2) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(2) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((EnergizerBlockEntity)inv.player.getWorld().
+                    case 0 -> RecipeUtils.isIngredientOfAny(((EnergizerBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> false;
                     default -> super.isValid(slot, stack);

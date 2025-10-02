@@ -23,7 +23,7 @@ public class DrainMenu extends ScreenHandler {
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
 
     public DrainMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, null);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, null);
     }
 
     public DrainMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
@@ -31,7 +31,7 @@ public class DrainMenu extends ScreenHandler {
 
         this.blockEntity = (DrainBlockEntity)blockEntity;
 
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

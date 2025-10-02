@@ -36,7 +36,7 @@ public final class ModStructures {
                         build(),
                 templatePools.getOrThrow(ModTemplatePools.FACTORY_1_START), Optional.empty(), 1,
                 ConstantHeightProvider.create(YOffset.fixed(-1)), false,
-                Optional.of(Heightmap.Type.WORLD_SURFACE_WG), 64,
+                Optional.of(Heightmap.Type.WORLD_SURFACE_WG), new JigsawStructure.MaxDistanceFromCenter(64, 64),
                 List.of(), JigsawStructure.DEFAULT_DIMENSION_PADDING, JigsawStructure.DEFAULT_LIQUID_SETTINGS)
         );
 
@@ -47,7 +47,7 @@ public final class ModStructures {
                         build(),
                 templatePools.getOrThrow(ModTemplatePools.SMALL_SOLAR_FARM_START), Optional.empty(), 1,
                 ConstantHeightProvider.create(YOffset.fixed(0)), false,
-                Optional.of(Heightmap.Type.WORLD_SURFACE_WG), 16,
+                Optional.of(Heightmap.Type.WORLD_SURFACE_WG), new JigsawStructure.MaxDistanceFromCenter(16, 16),
                 List.of(), JigsawStructure.DEFAULT_DIMENSION_PADDING, JigsawStructure.DEFAULT_LIQUID_SETTINGS)
         );
     }

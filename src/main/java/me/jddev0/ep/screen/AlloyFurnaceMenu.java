@@ -28,13 +28,13 @@ public class AlloyFurnaceMenu extends ScreenHandler {
     private final SimpleProgressValueContainerData maxLitDurationData = new SimpleProgressValueContainerData();
 
     public AlloyFurnaceMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(6) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(6) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((AlloyFurnaceBlockEntity)inv.player.getWorld().
+                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((AlloyFurnaceBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
-                    case 3 -> inv.player.getWorld().getFuelRegistry().getFuelTicks(stack) > 0;
+                    case 3 -> inv.player.getEntityWorld().getFuelRegistry().getFuelTicks(stack) > 0;
                     case 4, 5 -> false;
                     default -> super.isValid(slot, stack);
                 };
@@ -48,7 +48,7 @@ public class AlloyFurnaceMenu extends ScreenHandler {
 
         checkSize(inv, 6);
         this.blockEntity = (AlloyFurnaceBlockEntity)blockEntity;
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

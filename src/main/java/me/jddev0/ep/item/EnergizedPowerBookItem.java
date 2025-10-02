@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +35,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         tooltip.accept(Text.translatable("book.byAuthor", "JDDev0").formatted(Formatting.GRAY));
         tooltip.accept(Text.translatable("book.generation.0").formatted(Formatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.energized_power_book.txt.shift.1").
                     formatted(Formatting.GRAY));
         }else {

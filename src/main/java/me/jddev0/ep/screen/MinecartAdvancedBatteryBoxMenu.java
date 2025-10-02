@@ -28,7 +28,7 @@ public class MinecartAdvancedBatteryBoxMenu extends ScreenHandler implements IEn
 
         this.inv = inv;
         checkSize(inv, 0);
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

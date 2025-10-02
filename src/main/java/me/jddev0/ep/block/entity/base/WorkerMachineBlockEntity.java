@@ -86,7 +86,7 @@ public abstract class WorkerMachineBlockEntity<W>
     }
 
     public static <W> void tick(World level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
-        if(level.isClient)
+        if(level.isClient())
             return;
 
         blockEntity.onTickStart();

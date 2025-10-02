@@ -20,7 +20,7 @@ public class FluidTankMenu extends ScreenHandler {
     private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(pos), null);
+        this(id, inv, inv.player.getEntityWorld().getBlockEntity(pos), null);
     }
 
     public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {
@@ -28,7 +28,7 @@ public class FluidTankMenu extends ScreenHandler {
 
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
 
-        this.level = inv.player.getWorld();
+        this.level = inv.player.getEntityWorld();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);

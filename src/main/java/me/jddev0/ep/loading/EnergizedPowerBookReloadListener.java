@@ -7,14 +7,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.JsonDataLoader;
 import net.minecraft.resource.ResourceFinder;
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceReloader;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextCodecs;
 import net.minecraft.util.Identifier;
@@ -24,13 +23,8 @@ import org.slf4j.Logger;
 import java.util.*;
 
 @Environment(EnvType.CLIENT)
-public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement> implements IdentifiableResourceReloadListener {
+public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement> implements ResourceReloader {
     private static final Logger LOGGER = LogUtils.getLogger();
-
-    @Override
-    public Identifier getFabricId() {
-        return EPAPI.id("energizedpowerbook");
-    }
 
     public EnergizedPowerBookReloadListener() {
         super(new Codec<>() {

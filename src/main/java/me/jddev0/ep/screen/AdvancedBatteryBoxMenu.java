@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class AdvancedBatteryBoxMenu extends EnergyStorageMenu<AdvancedBatteryBoxBlockEntity> {
     public AdvancedBatteryBoxMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv);
     }
 
     public AdvancedBatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {

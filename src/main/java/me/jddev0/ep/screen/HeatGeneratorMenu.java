@@ -15,7 +15,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGeneratorBlockEntity> {
     public HeatGeneratorMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
         ));
     }

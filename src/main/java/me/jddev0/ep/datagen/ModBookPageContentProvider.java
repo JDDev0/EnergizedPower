@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBookPageContentProvider extends PageContentProvider {
-    private static final Style UNIFORM = Style.EMPTY.withFont(Identifier.ofVanilla("uniform"));
-    private static final Style DEFAULT_FONT = Style.EMPTY.withFont(Style.DEFAULT_FONT_ID);
+    private static final Style UNIFORM = Style.EMPTY.withFont(new StyleSpriteSource.Font(Identifier.ofVanilla("uniform")));
+    private static final Style DEFAULT_FONT = Style.EMPTY.withFont(StyleSpriteSource.DEFAULT);
 
     private int chapterSortingNumber = 0;
     private int subChapterSortingNumber = 0;
@@ -540,6 +540,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ), new Identifier[] {
                     EPAPI.id("textures/item/wooden_hammer.png"),
                     EPAPI.id("textures/item/stone_hammer.png"),
+                    EPAPI.id("textures/item/copper_hammer.png"),
                     EPAPI.id("textures/item/iron_hammer.png"),
                     EPAPI.id("textures/item/golden_hammer.png"),
                     EPAPI.id("textures/item/diamond_hammer.png"),

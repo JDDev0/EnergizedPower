@@ -8,7 +8,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -29,7 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements NamedScreenHandlerFactory {
@@ -94,7 +93,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
 
         tooltip.accept(Text.empty());
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
             tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
@@ -174,7 +173,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     }
 
     public static void teleportPlayer(ItemStack itemStack, ServerPlayerEntity player) {
-        World level = player.getWorld();
+        World level = player.getEntityWorld();
 
         EnergyStorage energyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.ofPlayerHand(player,
                 Hand.MAIN_HAND));

@@ -43,11 +43,11 @@ public record FluidTankRenderState(
     }
 
     @Override
-    public void setupVertices(VertexConsumer bufferBuilder, float depth) {
-        bufferBuilder.vertex(pose, x, y, depth).color(fluidColorTint).texture(u0, v1);
-        bufferBuilder.vertex(pose, x + width, y, depth).color(fluidColorTint).texture(u1, v1);
-        bufferBuilder.vertex(pose, x + width, y - height, depth).color(fluidColorTint).texture(u1, v0);
-        bufferBuilder.vertex(pose, x, y - height, depth).color(fluidColorTint).texture(u0, v0);
+    public void setupVertices(VertexConsumer bufferBuilder) {
+        bufferBuilder.vertex(pose, x, y).color(fluidColorTint).texture(u0, v1);
+        bufferBuilder.vertex(pose, x + width, y).color(fluidColorTint).texture(u1, v1);
+        bufferBuilder.vertex(pose, x + width, y - height).color(fluidColorTint).texture(u1, v0);
+        bufferBuilder.vertex(pose, x, y - height).color(fluidColorTint).texture(u0, v0);
     }
 
     @Nullable

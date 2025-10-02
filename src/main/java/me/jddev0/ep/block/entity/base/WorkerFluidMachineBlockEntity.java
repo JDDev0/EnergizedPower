@@ -89,7 +89,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
 
     public static <F extends Storage<FluidVariant>, W> void tick(
             World level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
-        if(level.isClient)
+        if(level.isClient())
             return;
 
         blockEntity.onTickStart();

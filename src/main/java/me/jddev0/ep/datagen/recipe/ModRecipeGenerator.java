@@ -738,6 +738,7 @@ public class ModRecipeGenerator extends RecipeGenerator {
     private void buildToolsCraftingRecipes() {
         addHammerCraftingRecipe(ItemTags.WOODEN_TOOL_MATERIALS, EPItems.WOODEN_HAMMER);
         addHammerCraftingRecipe(ItemTags.STONE_TOOL_MATERIALS, EPItems.STONE_HAMMER);
+        addHammerCraftingRecipe(ItemTags.COPPER_TOOL_MATERIALS, EPItems.COPPER_HAMMER);
         addHammerCraftingRecipe(ItemTags.IRON_TOOL_MATERIALS, EPItems.IRON_HAMMER);
         addHammerCraftingRecipe(ItemTags.GOLD_TOOL_MATERIALS, EPItems.GOLDEN_HAMMER);
         addHammerCraftingRecipe(ItemTags.DIAMOND_TOOL_MATERIALS, EPItems.DIAMOND_HAMMER);
@@ -2159,6 +2160,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
         addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_GOLD, new ItemStack(Items.GOLD_INGOT), CookingRecipeCategory.MISC,
                 100, .7f, "gold_ingot", "gold_dust");
 
+        addBlastingAndSmeltingRecipes(EPItems.COPPER_HAMMER, new ItemStack(Items.COPPER_NUGGET), CookingRecipeCategory.MISC,
+                100, .1f, "copper_nugget", "copper_hammer");
         addBlastingAndSmeltingRecipes(EPItems.IRON_HAMMER, new ItemStack(Items.IRON_NUGGET), CookingRecipeCategory.MISC,
                 100, .1f, "iron_nugget", "iron_hammer");
         addBlastingAndSmeltingRecipes(EPItems.GOLDEN_HAMMER, new ItemStack(Items.GOLD_NUGGET), CookingRecipeCategory.MISC,
@@ -2433,63 +2436,72 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 ingredientFromTag(ItemTags.OAK_LOGS), Ingredient.ofItems(Items.OAK_FENCE),
                 Ingredient.ofItems(Items.OAK_FENCE_GATE), Ingredient.ofItems(Items.OAK_DOOR),
                 Ingredient.ofItems(Items.OAK_TRAPDOOR), Ingredient.ofItems(Items.OAK_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.OAK_SIGN), Ingredient.ofItems(Items.OAK_BOAT), Ingredient.ofItems(Items.OAK_CHEST_BOAT),
+                Ingredient.ofItems(Items.OAK_SIGN), Ingredient.ofItems(Items.OAK_SHELF),
+                Ingredient.ofItems(Items.OAK_BOAT), Ingredient.ofItems(Items.OAK_CHEST_BOAT),
                 false, "oak");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.SPRUCE_PLANKS),
                 ingredientFromTag(ItemTags.SPRUCE_LOGS), Ingredient.ofItems(Items.SPRUCE_FENCE),
                 Ingredient.ofItems(Items.SPRUCE_FENCE_GATE), Ingredient.ofItems(Items.SPRUCE_DOOR),
                 Ingredient.ofItems(Items.SPRUCE_TRAPDOOR), Ingredient.ofItems(Items.SPRUCE_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.SPRUCE_SIGN), Ingredient.ofItems(Items.SPRUCE_BOAT), Ingredient.ofItems(Items.SPRUCE_CHEST_BOAT),
+                Ingredient.ofItems(Items.SPRUCE_SIGN), Ingredient.ofItems(Items.SPRUCE_SHELF),
+                Ingredient.ofItems(Items.SPRUCE_BOAT), Ingredient.ofItems(Items.SPRUCE_CHEST_BOAT),
                 false, "spruce");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.BIRCH_PLANKS),
                 ingredientFromTag(ItemTags.BIRCH_LOGS), Ingredient.ofItems(Items.BIRCH_FENCE),
                 Ingredient.ofItems(Items.BIRCH_FENCE_GATE), Ingredient.ofItems(Items.BIRCH_DOOR),
                 Ingredient.ofItems(Items.BIRCH_TRAPDOOR), Ingredient.ofItems(Items.BIRCH_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.BIRCH_SIGN), Ingredient.ofItems(Items.BIRCH_BOAT), Ingredient.ofItems(Items.BIRCH_CHEST_BOAT),
+                Ingredient.ofItems(Items.BIRCH_SIGN), Ingredient.ofItems(Items.BIRCH_SHELF),
+                Ingredient.ofItems(Items.BIRCH_BOAT), Ingredient.ofItems(Items.BIRCH_CHEST_BOAT),
                 false, "birch");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.JUNGLE_PLANKS),
                 ingredientFromTag(ItemTags.JUNGLE_LOGS), Ingredient.ofItems(Items.JUNGLE_FENCE),
                 Ingredient.ofItems(Items.JUNGLE_FENCE_GATE), Ingredient.ofItems(Items.JUNGLE_DOOR),
                 Ingredient.ofItems(Items.JUNGLE_TRAPDOOR), Ingredient.ofItems(Items.JUNGLE_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.JUNGLE_SIGN), Ingredient.ofItems(Items.JUNGLE_BOAT), Ingredient.ofItems(Items.JUNGLE_CHEST_BOAT),
+                Ingredient.ofItems(Items.JUNGLE_SIGN), Ingredient.ofItems(Items.JUNGLE_SHELF),
+                Ingredient.ofItems(Items.JUNGLE_BOAT), Ingredient.ofItems(Items.JUNGLE_CHEST_BOAT),
                 false, "jungle");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.ACACIA_PLANKS),
                 ingredientFromTag(ItemTags.ACACIA_LOGS), Ingredient.ofItems(Items.ACACIA_FENCE),
                 Ingredient.ofItems(Items.ACACIA_FENCE_GATE), Ingredient.ofItems(Items.ACACIA_DOOR),
                 Ingredient.ofItems(Items.ACACIA_TRAPDOOR), Ingredient.ofItems(Items.ACACIA_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.ACACIA_SIGN), Ingredient.ofItems(Items.ACACIA_BOAT), Ingredient.ofItems(Items.ACACIA_CHEST_BOAT),
+                Ingredient.ofItems(Items.ACACIA_SIGN), Ingredient.ofItems(Items.ACACIA_SHELF),
+                Ingredient.ofItems(Items.ACACIA_BOAT), Ingredient.ofItems(Items.ACACIA_CHEST_BOAT),
                 false, "acacia");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.DARK_OAK_PLANKS),
                 ingredientFromTag(ItemTags.DARK_OAK_LOGS), Ingredient.ofItems(Items.DARK_OAK_FENCE),
                 Ingredient.ofItems(Items.DARK_OAK_FENCE_GATE), Ingredient.ofItems(Items.DARK_OAK_DOOR),
                 Ingredient.ofItems(Items.DARK_OAK_TRAPDOOR), Ingredient.ofItems(Items.DARK_OAK_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.DARK_OAK_SIGN), Ingredient.ofItems(Items.DARK_OAK_BOAT), Ingredient.ofItems(Items.DARK_OAK_CHEST_BOAT),
+                Ingredient.ofItems(Items.DARK_OAK_SIGN), Ingredient.ofItems(Items.DARK_OAK_SHELF),
+                Ingredient.ofItems(Items.DARK_OAK_BOAT), Ingredient.ofItems(Items.DARK_OAK_CHEST_BOAT),
                 false, "dark_oak");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.MANGROVE_PLANKS),
                 ingredientFromTag(ItemTags.MANGROVE_LOGS), Ingredient.ofItems(Items.MANGROVE_FENCE),
                 Ingredient.ofItems(Items.MANGROVE_FENCE_GATE), Ingredient.ofItems(Items.MANGROVE_DOOR),
                 Ingredient.ofItems(Items.MANGROVE_TRAPDOOR), Ingredient.ofItems(Items.MANGROVE_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.MANGROVE_SIGN), Ingredient.ofItems(Items.MANGROVE_BOAT), Ingredient.ofItems(Items.MANGROVE_CHEST_BOAT),
+                Ingredient.ofItems(Items.MANGROVE_SIGN), Ingredient.ofItems(Items.MANGROVE_SHELF),
+                Ingredient.ofItems(Items.MANGROVE_BOAT), Ingredient.ofItems(Items.MANGROVE_CHEST_BOAT),
                 false, "mangrove");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.CHERRY_PLANKS),
                 ingredientFromTag(ItemTags.CHERRY_LOGS), Ingredient.ofItems(Items.CHERRY_FENCE),
                 Ingredient.ofItems(Items.CHERRY_FENCE_GATE), Ingredient.ofItems(Items.CHERRY_DOOR),
                 Ingredient.ofItems(Items.CHERRY_TRAPDOOR), Ingredient.ofItems(Items.CHERRY_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.CHERRY_SIGN), Ingredient.ofItems(Items.CHERRY_BOAT), Ingredient.ofItems(Items.CHERRY_CHEST_BOAT),
+                Ingredient.ofItems(Items.CHERRY_SIGN), Ingredient.ofItems(Items.CHERRY_SHELF),
+                Ingredient.ofItems(Items.CHERRY_BOAT), Ingredient.ofItems(Items.CHERRY_CHEST_BOAT),
                 false, "cherry");
 
         addBasicWoodSawmillRecipe(new ItemStack(Items.PALE_OAK_PLANKS),
                 ingredientFromTag(ItemTags.PALE_OAK_LOGS), Ingredient.ofItems(Items.PALE_OAK_FENCE),
                 Ingredient.ofItems(Items.PALE_OAK_FENCE_GATE), Ingredient.ofItems(Items.PALE_OAK_DOOR),
                 Ingredient.ofItems(Items.PALE_OAK_TRAPDOOR), Ingredient.ofItems(Items.PALE_OAK_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.PALE_OAK_SIGN), Ingredient.ofItems(Items.PALE_OAK_BOAT), Ingredient.ofItems(Items.PALE_OAK_CHEST_BOAT),
+                Ingredient.ofItems(Items.PALE_OAK_SIGN), Ingredient.ofItems(Items.PALE_OAK_SHELF),
+                Ingredient.ofItems(Items.PALE_OAK_BOAT), Ingredient.ofItems(Items.PALE_OAK_CHEST_BOAT),
                 false, "pale_oak");
 
         addSawmillRecipe(ingredientFromTag(ItemTags.BAMBOO_BLOCKS), new ItemStack(Items.BAMBOO_PLANKS, 3),
@@ -2497,7 +2509,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
         addBasicWoodWithoutLogsSawmillRecipe(new ItemStack(Items.BAMBOO_PLANKS),
                 Ingredient.ofItems(Items.BAMBOO_FENCE), Ingredient.ofItems(Items.BAMBOO_FENCE_GATE), Ingredient.ofItems(Items.BAMBOO_DOOR),
                 Ingredient.ofItems(Items.BAMBOO_TRAPDOOR), Ingredient.ofItems(Items.BAMBOO_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.BAMBOO_SIGN), Ingredient.ofItems(Items.BAMBOO_RAFT), Ingredient.ofItems(Items.BAMBOO_CHEST_RAFT),
+                Ingredient.ofItems(Items.BAMBOO_SIGN), Ingredient.ofItems(Items.BAMBOO_SHELF),
+                Ingredient.ofItems(Items.BAMBOO_RAFT), Ingredient.ofItems(Items.BAMBOO_CHEST_RAFT),
                 true, "bamboo");
 
         addSawmillRecipe(ingredientFromTag(ItemTags.CRIMSON_STEMS), new ItemStack(Items.CRIMSON_PLANKS, 6),
@@ -2505,14 +2518,14 @@ public class ModRecipeGenerator extends RecipeGenerator {
         addBasicWoodWithoutLogsAndBoatsSawmillRecipe(new ItemStack(Items.CRIMSON_PLANKS),
                 Ingredient.ofItems(Items.CRIMSON_FENCE), Ingredient.ofItems(Items.CRIMSON_FENCE_GATE), Ingredient.ofItems(Items.CRIMSON_DOOR),
                 Ingredient.ofItems(Items.CRIMSON_TRAPDOOR), Ingredient.ofItems(Items.CRIMSON_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.CRIMSON_SIGN), "crimson");
+                Ingredient.ofItems(Items.CRIMSON_SIGN), Ingredient.ofItems(Items.CRIMSON_SHELF), "crimson");
 
         addSawmillRecipe(ingredientFromTag(ItemTags.WARPED_STEMS), new ItemStack(Items.WARPED_PLANKS, 6),
                 1, "warped_planks", "warped_stems");
         addBasicWoodWithoutLogsAndBoatsSawmillRecipe(new ItemStack(Items.WARPED_PLANKS),
                 Ingredient.ofItems(Items.WARPED_FENCE), Ingredient.ofItems(Items.WARPED_FENCE_GATE), Ingredient.ofItems(Items.WARPED_DOOR),
                 Ingredient.ofItems(Items.WARPED_TRAPDOOR), Ingredient.ofItems(Items.WARPED_PRESSURE_PLATE),
-                Ingredient.ofItems(Items.WARPED_SIGN), "warped");
+                Ingredient.ofItems(Items.WARPED_SIGN), Ingredient.ofItems(Items.WARPED_SHELF), "warped");
 
         addSawmillRecipe(Ingredient.ofItems(Items.CRAFTING_TABLE), new ItemStack(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "crafting_table");
@@ -3223,23 +3236,23 @@ public class ModRecipeGenerator extends RecipeGenerator {
     }
 
     private void addBasicWoodSawmillRecipe(ItemStack planksItem,
-                                                  Ingredient logsInput, Ingredient fenceInput, Ingredient fenceGateInput,
-                                                  Ingredient doorInput, Ingredient trapdoorInput, Ingredient pressurePlateInput,
-                                                  Ingredient signInput, Ingredient boatInput, Ingredient chestBoatInput,
-                                                  boolean isRaft, String woodName) {
+                                           Ingredient logsInput, Ingredient fenceInput, Ingredient fenceGateInput,
+                                           Ingredient doorInput, Ingredient trapdoorInput, Ingredient pressurePlateInput,
+                                           Ingredient signInput, Ingredient shelfInput, Ingredient boatInput,
+                                           Ingredient chestBoatInput, boolean isRaft, String woodName) {
         addSawmillRecipe(logsInput, planksItem.copyWithCount(6), 1, getItemPath(planksItem.getItem()),
                 woodName + "_logs");
 
         addBasicWoodWithoutLogsSawmillRecipe(planksItem, fenceInput, fenceGateInput, doorInput, trapdoorInput,
-                pressurePlateInput, signInput, boatInput, chestBoatInput, isRaft, woodName);
+                pressurePlateInput, signInput, shelfInput, boatInput, chestBoatInput, isRaft, woodName);
     }
     private void addBasicWoodWithoutLogsSawmillRecipe(ItemStack planksItem,
-                                                             Ingredient fenceInput, Ingredient fenceGateInput,
-                                                             Ingredient doorInput, Ingredient trapdoorInput, Ingredient pressurePlateInput,
-                                                             Ingredient signInput, Ingredient boatInput, Ingredient chestBoatInput,
-                                                             boolean isRaft, String woodName) {
+                                                      Ingredient fenceInput, Ingredient fenceGateInput,
+                                                      Ingredient doorInput, Ingredient trapdoorInput, Ingredient pressurePlateInput,
+                                                      Ingredient signInput, Ingredient shelfInput, Ingredient boatInput,
+                                                      Ingredient chestBoatInput, boolean isRaft, String woodName) {
         addBasicWoodWithoutLogsAndBoatsSawmillRecipe(planksItem, fenceInput, fenceGateInput, doorInput,
-                trapdoorInput, pressurePlateInput, signInput, woodName);
+                trapdoorInput, pressurePlateInput, signInput, shelfInput, woodName);
 
         addSawmillRecipe(boatInput, planksItem.copyWithCount(4), 3, getItemPath(planksItem.getItem()),
                 woodName + (isRaft?"_raft":"_boat"));
@@ -3247,9 +3260,9 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 woodName + (isRaft?"_chest_raft":"_chest_boat"));
     }
     private void addBasicWoodWithoutLogsAndBoatsSawmillRecipe(ItemStack planksItem,
-                                                                     Ingredient fenceInput, Ingredient fenceGateInput,
-                                                                     Ingredient doorInput, Ingredient trapdoorInput, Ingredient pressurePlateInput,
-                                                                     Ingredient signInput, String woodName) {
+                                                              Ingredient fenceInput, Ingredient fenceGateInput,
+                                                              Ingredient doorInput, Ingredient trapdoorInput, Ingredient pressurePlateInput,
+                                                              Ingredient signInput, Ingredient shelfInput, String woodName) {
         addSawmillRecipe(fenceInput, planksItem, 2, getItemPath(planksItem.getItem()),
                 woodName + "_fence");
         addSawmillRecipe(fenceGateInput, planksItem.copyWithCount(2), 3, getItemPath(planksItem.getItem()),
@@ -3262,6 +3275,8 @@ public class ModRecipeGenerator extends RecipeGenerator {
                 woodName + "_pressure_plate");
         addSawmillRecipe(signInput, planksItem.copyWithCount(2), 1, getItemPath(planksItem.getItem()),
                 woodName + "_sign");
+        addSawmillRecipe(shelfInput, planksItem.copyWithCount(3), 1, getItemPath(planksItem.getItem()),
+                woodName + "_shelf");
     }
     private void addSawmillRecipe(Ingredient input, ItemStack output,
                                          int sawdustAmount, String outputName, String recipeIngredientName) {

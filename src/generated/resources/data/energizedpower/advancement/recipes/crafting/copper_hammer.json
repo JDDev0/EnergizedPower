@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_ingredient": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:copper_tool_materials"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "energizedpower:crafting/copper_hammer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_the_ingredient"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "energizedpower:crafting/copper_hammer"
+    ]
+  }
+}

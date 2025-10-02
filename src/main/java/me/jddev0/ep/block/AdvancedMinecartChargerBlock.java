@@ -8,7 +8,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -62,10 +62,10 @@ public class AdvancedMinecartChargerBlock extends BlockWithEntity {
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AdvancedMinecartChargerBlockEntity advancedMinecartChargerBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos);
+            return super.getComparatorOutput(state, level, blockPos, direction);
 
         return advancedMinecartChargerBlockEntity.getRedstoneOutput();
     }
@@ -117,7 +117,7 @@ public class AdvancedMinecartChargerBlock extends BlockWithEntity {
 
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(Screen.hasShiftDown()) {
+            if(MinecraftClient.getInstance().isShiftPressed()) {
                 tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(AdvancedMinecartChargerBlockEntity.MAX_TRANSFER)).
                         formatted(Formatting.GRAY));

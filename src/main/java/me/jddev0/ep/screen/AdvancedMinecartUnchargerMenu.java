@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class AdvancedMinecartUnchargerMenu extends EnergyStorageMenu<AdvancedMinecartUnchargerBlockEntity> {
     public AdvancedMinecartUnchargerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv);
     }
 
     public AdvancedMinecartUnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {

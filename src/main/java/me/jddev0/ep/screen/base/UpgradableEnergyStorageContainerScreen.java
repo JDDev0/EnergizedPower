@@ -4,6 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -72,7 +73,11 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
     }
 
     @Override
-    public final boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public boolean mouseClicked(Click click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int mouseButton = click.button();
+
         boolean clicked = false;
         if(!handler.isInUpgradeModuleView())
             clicked = mouseClickedNormalView(mouseX, mouseY, mouseButton);
@@ -82,7 +87,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
         if(clicked)
             client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.f));
 
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(click, doubled);
     }
 
     protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {}

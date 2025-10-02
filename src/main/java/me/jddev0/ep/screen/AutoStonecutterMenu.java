@@ -39,11 +39,11 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AutoStonecutterMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((AutoStonecutterBlockEntity)inv.player.getWorld().
+                    case 0 -> RecipeUtils.isIngredientOfAny(((AutoStonecutterBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> stack.isIn(ItemTags.PICKAXES);
                     case 2 -> false;

@@ -181,6 +181,7 @@ class ModItemModelProvider {
 
         basicItem(EPItems.WOODEN_HAMMER);
         basicItem(EPItems.STONE_HAMMER);
+        basicItem(EPItems.COPPER_HAMMER);
         basicItem(EPItems.IRON_HAMMER);
         basicItem(EPItems.GOLDEN_HAMMER);
         basicItem(EPItems.DIAMOND_HAMMER);

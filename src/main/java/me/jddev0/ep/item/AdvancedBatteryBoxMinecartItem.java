@@ -7,7 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.enums.RailShape;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
@@ -24,7 +24,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class AdvancedBatteryBoxMinecartItem extends Item {
@@ -78,7 +77,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.capacity.txt",
                             EnergyUtils.getEnergyWithPrefix(MinecartAdvancedBatteryBox.CAPACITY)).
                     formatted(Formatting.GRAY));
@@ -99,7 +98,7 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
             return ActionResult.FAIL;
 
         ItemStack itemStack = useOnContext.getStack();
-        if(!level.isClient) {
+        if(!level.isClient()) {
             RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ?
                     blockState.get(((AbstractRailBlock)blockState.getBlock()).getShapeProperty()):
                     RailShape.NORTH_SOUTH;
@@ -116,6 +115,6 @@ public class AdvancedBatteryBoxMinecartItem extends Item {
         }
 
         itemStack.decrement(1);
-        return level.isClient?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
+        return level.isClient()?ActionResult.SUCCESS:ActionResult.SUCCESS_SERVER;
     }
 }

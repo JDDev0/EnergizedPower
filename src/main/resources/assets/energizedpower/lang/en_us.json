@@ -216,6 +216,7 @@
 
   "item.energizedpower.wooden_hammer": "Wooden Hammer",
   "item.energizedpower.stone_hammer": "Stone Hammer",
+  "item.energizedpower.copper_hammer": "Copper Hammer",
   "item.energizedpower.iron_hammer": "Iron Hammer",
   "item.energizedpower.golden_hammer": "Golden Hammer",
   "item.energizedpower.diamond_hammer": "Diamond Hammer",
@@ -909,7 +910,7 @@
   "painting.energizedpower.factory.title": "Factory",
   "painting.energizedpower.factory.author": "JDDev0",
 
-  "key.category.energizedpower": "Energized Power",
+  "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Use Teleporter",
 
 

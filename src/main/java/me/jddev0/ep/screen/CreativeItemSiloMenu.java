@@ -18,14 +18,14 @@ public class CreativeItemSiloMenu extends ScreenHandler {
     private final World level;
 
     public CreativeItemSiloMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new InfiniteSingleItemStackHandler());
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new InfiniteSingleItemStackHandler());
     }
 
     public CreativeItemSiloMenu(int id, BlockEntity blockEntity, PlayerInventory inv, InfiniteSingleItemStackHandler itemStackHandler) {
         super(EPMenuTypes.CREATIVE_ITEM_SILO_MENU, id);
 
         this.blockEntity = (CreativeItemSiloBlockEntity)blockEntity;
-        this.level = inv.player.getWorld();
+        this.level = inv.player.getEntityWorld();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);

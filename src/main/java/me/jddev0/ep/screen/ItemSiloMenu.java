@@ -23,15 +23,15 @@ public class ItemSiloMenu extends ScreenHandler {
     private final World level;
 
     public ItemSiloMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SingleItemStackHandler(
-                ((ItemSiloBlockEntity)inv.player.getWorld().getBlockEntity(pos)).getTier().getItemSiloCapacity()), null);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SingleItemStackHandler(
+                ((ItemSiloBlockEntity)inv.player.getEntityWorld().getBlockEntity(pos)).getTier().getItemSiloCapacity()), null);
     }
 
     public ItemSiloMenu(int id, BlockEntity blockEntity, PlayerInventory inv, SingleItemStackHandler itemStackHandler, PropertyDelegate data) {
         super(((ItemSiloBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id);
 
         this.blockEntity = (ItemSiloBlockEntity)blockEntity;
-        this.level = inv.player.getWorld();
+        this.level = inv.player.getEntityWorld();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);

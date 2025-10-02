@@ -22,14 +22,14 @@ public class CreativeBatteryBoxMenu extends ScreenHandler {
     private final SimpleBooleanValueContainerData energyConsumptionData = new SimpleBooleanValueContainerData();
 
     public CreativeBatteryBoxMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, null);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, null);
     }
 
     public CreativeBatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
         super(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU, id);
 
         this.blockEntity = (CreativeBatteryBoxBlockEntity)blockEntity;
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

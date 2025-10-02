@@ -34,11 +34,11 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AssemblingMachineMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(5) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(5) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2, 3 -> RecipeUtils.isIngredientOfAny(((AssemblingMachineBlockEntity)inv.player.getWorld().
+                    case 0, 1, 2, 3 -> RecipeUtils.isIngredientOfAny(((AssemblingMachineBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 4 -> false;
                     default -> super.isValid(slot, stack);

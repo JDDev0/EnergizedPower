@@ -1,5 +1,6 @@
 package me.jddev0.ep.input;
 
+import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.UseTeleporterC2SPacket;
@@ -20,7 +21,7 @@ import org.lwjgl.glfw.GLFW;
 public final class ModKeyBindings {
     private ModKeyBindings() {}
 
-    public static final String KEY_CATEGORY_ENERGIZED_POWER = "key.category.energizedpower";
+    public static final KeyBinding.Category KEY_CATEGORY_ENERGIZED_POWER = KeyBinding.Category.create(EPAPI.id("main"));
     public static final String KEY_TELEPORTER_USE = "key.energizedpower.teleporter.use";
 
     public static final KeyBinding TELEPORTER_USE_KEY = KeyBindingHelper.registerKeyBinding(new KeyBinding(

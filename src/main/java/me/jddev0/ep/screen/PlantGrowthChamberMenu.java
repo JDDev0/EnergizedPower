@@ -34,13 +34,13 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public PlantGrowthChamberMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(6) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(6) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.getWorld().
+                    case 0 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
-                    case 1 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.getWorld().
+                    case 1 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfFertilizerRecipes(), stack);
                     case 2, 3, 4, 5 -> false;
                     default -> super.isValid(slot, stack);

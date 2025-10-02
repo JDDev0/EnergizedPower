@@ -7,7 +7,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -98,7 +98,7 @@ public class CreativeItemSiloBlock extends BlockWithEntity {
 
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(Screen.hasShiftDown()) {
+            if(MinecraftClient.getInstance().isShiftPressed()) {
                 tooltip.accept(Text.translatable("tooltip.energizedpower.item_silo_capacity.txt",
                                 Text.translatable("tooltip.energizedpower.infinite.txt").
                                         formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC)).

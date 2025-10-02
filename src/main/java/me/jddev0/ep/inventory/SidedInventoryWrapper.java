@@ -1,5 +1,6 @@
 package me.jddev0.ep.inventory;
 
+import net.minecraft.entity.ContainerUser;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -74,12 +75,12 @@ public class SidedInventoryWrapper implements SidedInventory {
     }
 
     @Override
-    public void onOpen(PlayerEntity player) {
+    public void onOpen(ContainerUser player) {
         handler.onOpen(player);
     }
 
     @Override
-    public void onClose(PlayerEntity player) {
+    public void onClose(ContainerUser player) {
         handler.onClose(player);
     }
 

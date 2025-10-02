@@ -264,6 +264,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(CommonItemTags.TOOLS_HAMMERS).
                 add(EPItems.WOODEN_HAMMER).
                 add(EPItems.STONE_HAMMER).
+                add(EPItems.COPPER_HAMMER).
                 add(EPItems.IRON_HAMMER).
                 add(EPItems.GOLDEN_HAMMER).
                 add(EPItems.DIAMOND_HAMMER).

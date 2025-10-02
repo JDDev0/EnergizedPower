@@ -33,11 +33,11 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
     }
 
     public static void receive(SetTimeFromTimeControllerC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().getServer().execute(() -> {
+        context.server().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 
-            World level = context.player().getWorld();
+            World level = context.player().getEntityWorld();
             if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
                 return;
 
@@ -45,7 +45,7 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
             if(!(blockEntity instanceof TimeControllerBlockEntity timeControllerBlockEntity))
                 return;
 
-            EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.player().getWorld(), data.pos, null);
+            EnergyStorage energyStorage = EnergyStorage.SIDED.find(context.player().getEntityWorld(), data.pos, null);
             if(energyStorage == null)
                 return;
 
@@ -57,14 +57,14 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
             if(data.time < 0 || data.time > 24000)
                 return;
 
-            long currentTime = context.player().getWorld().getTimeOfDay();
+            long currentTime = context.player().getEntityWorld().getTimeOfDay();
 
             int currentDayTime = (int)(currentTime % 24000);
 
             if(currentDayTime <= data.time)
-                context.player().getWorld().setTimeOfDay(currentTime - currentDayTime + data.time);
+                context.player().getEntityWorld().setTimeOfDay(currentTime - currentDayTime + data.time);
             else
-                context.player().getWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + data.time);
+                context.player().getEntityWorld().setTimeOfDay(currentTime + 24000 - currentDayTime + data.time);
         });
     }
 }

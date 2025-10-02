@@ -167,7 +167,7 @@ public class TeleporterBlockEntity
     }
 
     public void teleportPlayer(ServerPlayerEntity player) {
-        EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getWorld(), pos, null);
+        EnergyStorage energyStorage = EnergyStorage.SIDED.find(player.getEntityWorld(), pos, null);
         if(energyStorage == null)
             return;
 

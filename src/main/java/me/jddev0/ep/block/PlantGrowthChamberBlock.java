@@ -59,10 +59,10 @@ public class PlantGrowthChamberBlock extends BlockWithEntity {
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof PlantGrowthChamberBlockEntity plantGrowthChamberBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos);
+            return super.getComparatorOutput(state, level, blockPos, direction);
 
         return plantGrowthChamberBlockEntity.getRedstoneOutput();
     }

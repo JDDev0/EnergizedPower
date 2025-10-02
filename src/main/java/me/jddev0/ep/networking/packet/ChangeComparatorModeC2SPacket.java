@@ -31,11 +31,11 @@ public record ChangeComparatorModeC2SPacket(BlockPos pos) implements CustomPaylo
     }
 
     public static void receive(ChangeComparatorModeC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().getServer().execute(() -> {
+        context.server().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 
-            World level = context.player().getWorld();
+            World level = context.player().getEntityWorld();
             if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
                 return;
 

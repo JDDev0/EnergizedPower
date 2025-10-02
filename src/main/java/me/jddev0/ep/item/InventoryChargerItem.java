@@ -8,7 +8,7 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -111,7 +111,7 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
                         EnergyUtils.getEnergyWithPrefix(maxTransfer)).
                 formatted(Formatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {

@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,10 +46,10 @@ public class PressMoldMakerBlock extends BlockWithEntity {
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof PressMoldMakerBlockEntity pressMoldMakerBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos);
+            return super.getComparatorOutput(state, level, blockPos, direction);
 
         return pressMoldMakerBlockEntity.getRedstoneOutput();
     }

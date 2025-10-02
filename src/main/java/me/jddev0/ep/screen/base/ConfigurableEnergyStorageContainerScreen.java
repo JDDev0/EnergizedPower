@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.player.PlayerInventory;
@@ -59,7 +60,11 @@ public abstract class ConfigurableEnergyStorageContainerScreen
     }
 
     @Override
-    public final boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+    public final boolean mouseClicked(Click click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int mouseButton = click.button();
+
         boolean clicked = mouseClickedNormalView(mouseX, mouseY, mouseButton);
 
         clicked |= mouseClickedConfiguration(mouseX, mouseY, mouseButton);
@@ -67,7 +72,7 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         if(clicked)
             client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.f));
 
-        return super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(click, doubled);
     }
 
     protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {}

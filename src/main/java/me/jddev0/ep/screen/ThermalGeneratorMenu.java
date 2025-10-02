@@ -30,7 +30,7 @@ public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGen
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public ThermalGeneratorMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
         ), null);
     }

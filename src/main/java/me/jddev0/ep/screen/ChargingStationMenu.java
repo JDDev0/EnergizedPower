@@ -15,7 +15,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingStationBlockEntity> {
     public ChargingStationMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.RANGE
         ));

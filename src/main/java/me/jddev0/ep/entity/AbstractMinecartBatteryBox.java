@@ -26,7 +26,7 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
     public ActionResult interact(PlayerEntity player, Hand interactionHand) {
         player.openHandledScreen(this);
 
-        return player.getWorld().isClient?ActionResult.SUCCESS:ActionResult.CONSUME;
+        return player.getEntityWorld().isClient()?ActionResult.SUCCESS:ActionResult.CONSUME;
     }
 
     @Override
@@ -45,7 +45,7 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        return !isRemoved() && getPos().isInRange(player.getPos(), 8.);
+        return !isRemoved() && getBlockPos().isWithinDistance(player.getBlockPos(), 8.);
     }
 
     @Override

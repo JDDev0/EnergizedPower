@@ -35,11 +35,11 @@ public class MetalPressMenu extends UpgradableEnergyStorageMenu<MetalPressBlockE
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public MetalPressMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((MetalPressBlockEntity)inv.player.getWorld().
+                    case 0 -> RecipeUtils.isIngredientOfAny(((MetalPressBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
                             (getStack(1).isEmpty() || stack.getCount() == 1);

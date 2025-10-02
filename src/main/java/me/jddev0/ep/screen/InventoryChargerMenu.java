@@ -49,7 +49,7 @@ public class InventoryChargerMenu extends ScreenHandler {
 
         checkSize(inv, InventoryChargerItem.SLOT_COUNT);
         this.inv = inv;
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

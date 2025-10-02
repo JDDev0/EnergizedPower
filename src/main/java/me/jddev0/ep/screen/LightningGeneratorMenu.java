@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class LightningGeneratorMenu extends EnergyStorageMenu<LightningGeneratorBlockEntity> {
     public LightningGeneratorMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv);
     }
 
     public LightningGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {

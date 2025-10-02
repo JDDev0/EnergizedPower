@@ -3,6 +3,7 @@ package me.jddev0.ep.inventory;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.minecraft.entity.ContainerUser;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -113,12 +114,12 @@ public class InputOutputItemHandler implements SidedInventory, Function<Directio
     }
 
     @Override
-    public void onOpen(PlayerEntity player) {
+    public void onOpen(ContainerUser player) {
         handler.onOpen(player);
     }
 
     @Override
-    public void onClose(PlayerEntity player) {
+    public void onClose(ContainerUser player) {
         handler.onClose(player);
     }
 

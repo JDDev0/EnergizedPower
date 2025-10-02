@@ -23,7 +23,7 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
 
     public WeatherControllerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.DURATION
         ), null);
     }

@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -124,7 +124,7 @@ public class WrenchItem extends Item {
                         formatted(Formatting.WHITE, Formatting.BOLD)
         ).formatted(Formatting.GRAY));
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             tooltip.accept(Text.translatable("tooltip.energizedpower.wrench.txt.shift").
                     formatted(Formatting.GRAY, Formatting.ITALIC));
         }else {

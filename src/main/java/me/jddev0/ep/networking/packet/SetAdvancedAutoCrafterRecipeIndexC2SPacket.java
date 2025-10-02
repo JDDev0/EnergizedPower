@@ -32,11 +32,11 @@ public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recip
     }
 
     public static void receive(SetAdvancedAutoCrafterRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().getServer().execute(() -> {
+        context.server().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 
-            World level = context.player().getWorld();
+            World level = context.player().getEntityWorld();
             if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
                 return;
 

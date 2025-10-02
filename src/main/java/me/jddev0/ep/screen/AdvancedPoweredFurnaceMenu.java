@@ -51,7 +51,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedPoweredFurnaceMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, (AdvancedPoweredFurnaceBlockEntity)inv.player.getWorld().getBlockEntity(pos));
+        this(id, inv, (AdvancedPoweredFurnaceBlockEntity)inv.player.getEntityWorld().getBlockEntity(pos));
     }
     private AdvancedPoweredFurnaceMenu(int id, PlayerInventory inv, AdvancedPoweredFurnaceBlockEntity blockEntity) {
         this(id, blockEntity, inv, new SimpleInventory(6) {

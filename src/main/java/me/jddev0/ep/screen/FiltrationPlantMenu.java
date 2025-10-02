@@ -39,7 +39,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FiltrationPlantMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(4) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(4) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {

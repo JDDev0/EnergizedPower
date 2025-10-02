@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class MinecartChargerMenu extends EnergyStorageMenu<MinecartChargerBlockEntity> {
     public MinecartChargerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv);
     }
 
     public MinecartChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {

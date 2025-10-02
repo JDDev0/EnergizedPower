@@ -18,14 +18,14 @@ public class CreativeFluidTankMenu extends ScreenHandler {
     private final World level;
 
     public CreativeFluidTankMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, inv.player.getWorld().getBlockEntity(pos));
+        this(id, inv, inv.player.getEntityWorld().getBlockEntity(pos));
     }
 
     public CreativeFluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity) {
         super(EPMenuTypes.CREATIVE_FLUID_TANK, id);
 
         this.blockEntity = (CreativeFluidTankBlockEntity)blockEntity;
-        this.level = inv.player.getWorld();
+        this.level = inv.player.getEntityWorld();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);

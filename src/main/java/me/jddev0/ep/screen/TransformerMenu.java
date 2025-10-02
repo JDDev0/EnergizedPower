@@ -18,7 +18,7 @@ public class TransformerMenu extends EnergyStorageMenu<TransformerBlockEntity>
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
 
     public TransformerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, null);
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, null);
     }
 
     public TransformerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {

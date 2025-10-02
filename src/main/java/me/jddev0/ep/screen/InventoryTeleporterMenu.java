@@ -39,7 +39,7 @@ public class InventoryTeleporterMenu extends ScreenHandler {
 
         checkSize(inv, 1);
         this.inv = inv;
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

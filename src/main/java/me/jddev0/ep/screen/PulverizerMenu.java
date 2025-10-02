@@ -34,11 +34,11 @@ public class PulverizerMenu extends UpgradableEnergyStorageMenu<PulverizerBlockE
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public PulverizerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((PulverizerBlockEntity)inv.player.getWorld().
+                    case 0 -> RecipeUtils.isIngredientOfAny(((PulverizerBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1, 2 -> false;
                     default -> super.isValid(slot, stack);

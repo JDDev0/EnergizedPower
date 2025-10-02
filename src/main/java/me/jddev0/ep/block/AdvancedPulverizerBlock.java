@@ -7,7 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -24,6 +24,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
@@ -64,10 +65,10 @@ public class AdvancedPulverizerBlock extends BlockWithEntity {
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AdvancedPulverizerBlockEntity advancedPulverizerBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos);
+            return super.getComparatorOutput(state, level, blockPos, direction);
 
         return advancedPulverizerBlockEntity.getRedstoneOutput();
     }
@@ -126,7 +127,7 @@ public class AdvancedPulverizerBlock extends BlockWithEntity {
 
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(Screen.hasShiftDown()) {
+            if(MinecraftClient.getInstance().isShiftPressed()) {
                 tooltip.accept(Text.translatable("tooltip.energizedpower.advanced_pulverizer.txt.shift.1").formatted(Formatting.GRAY));
             }else {
                 tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));

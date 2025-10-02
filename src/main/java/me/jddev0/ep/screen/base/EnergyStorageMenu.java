@@ -32,7 +32,7 @@ public abstract class EnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
         super(menuType, id);
 
         this.blockEntity = (T)blockEntity;
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
         this.blockType = blockType;
 
         addPlayerInventorySlots(playerInventory, playerInventoryX, playerInventoryY);

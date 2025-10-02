@@ -28,7 +28,7 @@ public class MinecartBatteryBoxMenu extends ScreenHandler implements IEnergyStor
 
         this.inv = inv;
         checkSize(inv, 0);
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

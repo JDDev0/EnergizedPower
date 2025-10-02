@@ -34,11 +34,11 @@ public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionS
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public InductionSmelterMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(5) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(5) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((InductionSmelterBlockEntity)inv.player.getWorld().
+                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((InductionSmelterBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 3, 4 -> false;
                     default -> false;

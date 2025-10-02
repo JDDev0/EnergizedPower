@@ -34,7 +34,7 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public PoweredFurnaceMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, (PoweredFurnaceBlockEntity)inv.player.getWorld().getBlockEntity(pos));
+        this(id, inv, (PoweredFurnaceBlockEntity)inv.player.getEntityWorld().getBlockEntity(pos));
     }
     private PoweredFurnaceMenu(int id, PlayerInventory inv, PoweredFurnaceBlockEntity blockEntity) {
         this(id, blockEntity, inv, new SimpleInventory(2) {

@@ -35,10 +35,10 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public StoneLiquefierMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                return slot == 0 && RecipeUtils.isIngredientOfAny(((StoneLiquefierBlockEntity)inv.player.getWorld().
+                return slot == 0 && RecipeUtils.isIngredientOfAny(((StoneLiquefierBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
             }
         }, new UpgradeModuleInventory(

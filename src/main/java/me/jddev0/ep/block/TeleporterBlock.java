@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.input.ModKeyBindings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -64,10 +64,10 @@ public class TeleporterBlock extends BlockWithEntity {
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof TeleporterBlockEntity teleporterBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos);
+            return super.getComparatorOutput(state, level, blockPos, direction);
 
         return teleporterBlockEntity.getRedstoneOutput();
     }
@@ -135,7 +135,7 @@ public class TeleporterBlock extends BlockWithEntity {
 
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(Screen.hasShiftDown()) {
+            if(MinecraftClient.getInstance().isShiftPressed()) {
                 tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
                         Text.keybind(ModKeyBindings.KEY_TELEPORTER_USE)).formatted(Formatting.GRAY, Formatting.ITALIC));
                 tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter.txt.shift.2").

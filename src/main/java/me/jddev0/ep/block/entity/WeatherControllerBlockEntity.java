@@ -98,7 +98,7 @@ public class WeatherControllerBlockEntity
 
 
     public static void tick(World level, BlockPos blockPos, BlockState state, WeatherControllerBlockEntity blockEntity) {
-        if(level.isClient || !(level instanceof ServerWorld serverLevel))
+        if(level.isClient() || !(level instanceof ServerWorld serverLevel))
             return;
 
         if(!blockEntity.hasInfiniteWeatherChangedDuration() || blockEntity.selectedWeatherType == -1)

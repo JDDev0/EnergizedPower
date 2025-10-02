@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity> {
 
     public SolarPanelMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.MOON_LIGHT
         ));

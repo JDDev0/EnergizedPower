@@ -40,10 +40,10 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedChargerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
-                if(RecipeUtils.isIngredientOfAny(((AdvancedChargerBlockEntity)inv.player.getWorld().
+                if(RecipeUtils.isIngredientOfAny(((AdvancedChargerBlockEntity)inv.player.getEntityWorld().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack))
                     return true;
 

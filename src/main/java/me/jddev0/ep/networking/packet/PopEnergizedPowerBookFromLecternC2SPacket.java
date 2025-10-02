@@ -33,11 +33,11 @@ public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements
     }
 
     public static void receive(PopEnergizedPowerBookFromLecternC2SPacket data, ServerPlayNetworking.Context context) {
-        context.player().getServer().execute(() -> {
+        context.server().execute(() -> {
             if(!context.player().canModifyBlocks())
                 return;
 
-            World level = context.player().getWorld();
+            World level = context.player().getEntityWorld();
             if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
                 return;
 
@@ -48,7 +48,7 @@ public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements
             ItemStack itemStack = lecternBlockEntity.getBook();
 
             lecternBlockEntity.setBook(ItemStack.EMPTY);
-            LecternBlock.setHasBook(context.player(), context.player().getWorld(), data.pos, context.player().getWorld().getBlockState(data.pos), false);
+            LecternBlock.setHasBook(context.player(), context.player().getEntityWorld(), data.pos, context.player().getEntityWorld().getBlockState(data.pos), false);
             if(!context.player().getInventory().insertStack(itemStack))
                 context.player().dropItem(itemStack, false);
         });

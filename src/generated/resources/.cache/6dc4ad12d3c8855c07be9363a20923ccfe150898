@@ -1,4 +1,4 @@
-// 1.21.8	-999999999-01-01T00:00:00	Energized Power/Tags for minecraft:item
+// 1.21.9	-999999999-01-01T00:00:00	Energized Power/Tags for minecraft:item
 6af40b20a5859a5a3cdb0d6cbd6afe51ad578bcf data/ae2/tags/item/p2p_attunements/fe_p2p_tunnel.json
 9c13ddcf3b08e2ca014a40c9b9dc39bd46405834 data/ae2/tags/item/p2p_attunements/fluid_p2p_tunnel.json
 ffc429096520b17e4883f075eac0c840c0c62704 data/ae2/tags/item/p2p_attunements/item_p2p_tunnel.json
@@ -53,7 +53,7 @@ a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/item/storage_blocks/silicon
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/item/storage_blocks/tin.json
 4ddc781b4d6e897c77af5d6eccab56294ee426c3 data/c/tags/item/tools.json
 e78972be29f85789cf4ab42045ddb7d964c50f6e data/c/tags/item/tools/cutters.json
-951c3d59a7f0acbdfc024ae30ca4ac130e8d922c data/c/tags/item/tools/hammers.json
+3cb703f6d77ae2838652e926e4f17a1d31bf4125 data/c/tags/item/tools/hammers.json
 1a3b11b0ef61950ab6ad1190ea12a100dd0722ad data/c/tags/item/wires.json
 0459fe845fb698ab13a2c484237c0a2c5b85aac3 data/c/tags/item/wires/copper.json
 062f61925970fefca9cb139f81c8d3a1264a9f40 data/c/tags/item/wires/energized_copper.json

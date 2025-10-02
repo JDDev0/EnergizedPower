@@ -17,11 +17,11 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.client.render.entity.MinecartEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.item.property.bool.BooleanProperties;
@@ -130,16 +130,16 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         BooleanProperties.ID_MAPPER.put(EPAPI.id("active"), ActiveProperty.CODEC);
         BooleanProperties.ID_MAPPER.put(EPAPI.id("working"), WorkingProperty.CODEC);
 
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new EnergizedPowerBookReloadListener());
+        ResourceLoader.get(ResourceType.CLIENT_RESOURCES).registerReloader(EPAPI.id("energizedpowerbook"), new EnergizedPowerBookReloadListener());
 
         ModMessages.registerPacketsS2C();
 
         ModKeyBindings.register();
 
-        EntityRendererRegistry.register(EPEntityTypes.BATTERY_BOX_MINECART,
+        EntityRendererFactories.register(EPEntityTypes.BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer(entity, new EntityModelLayer(
                         Identifier.of("minecraft", "chest_minecart"), "main")));
-        EntityRendererRegistry.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
+        EntityRendererFactories.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
                 entity -> new MinecartEntityRenderer(entity, new EntityModelLayer(
                         Identifier.of("minecraft", "chest_minecart"), "main")));
 

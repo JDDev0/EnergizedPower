@@ -20,7 +20,7 @@ public class ItemConveyorBeltLoaderMenu extends ScreenHandler {
     private final World level;
 
     public ItemConveyorBeltLoaderMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
+        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
             @Override
             public boolean isValid(int slot, ItemStack stack) {
                 if(slot == 0) {
@@ -44,7 +44,7 @@ public class ItemConveyorBeltLoaderMenu extends ScreenHandler {
 
         this.inv = inv;
         checkSize(inv, 1);
-        this.level = playerInventory.player.getWorld();
+        this.level = playerInventory.player.getEntityWorld();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);

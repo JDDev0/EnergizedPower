@@ -6,7 +6,7 @@ import me.jddev0.ep.block.entity.ItemSiloBlockEntity;
 import me.jddev0.ep.machine.tier.ItemSiloTier;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -76,10 +76,10 @@ public class ItemSiloBlock extends BlockWithEntity {
     }
 
     @Override
-    public int getComparatorOutput(BlockState state, World level, BlockPos blockPos) {
+    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof ItemSiloBlockEntity itemSiloBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos);
+            return super.getComparatorOutput(state, level, blockPos, direction);
 
         return itemSiloBlockEntity.getRedstoneOutput();
     }
@@ -133,7 +133,7 @@ public class ItemSiloBlock extends BlockWithEntity {
 
         @Override
         public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(Screen.hasShiftDown()) {
+            if(MinecraftClient.getInstance().isShiftPressed()) {
                 tooltip.accept(Text.translatable("tooltip.energizedpower.item_silo_capacity.txt", tier.getItemSiloCapacity()).formatted(Formatting.GRAY));
 
                 tooltip.accept(Text.translatable("tooltip.energizedpower.item_silo.txt.shift").formatted(Formatting.GRAY));

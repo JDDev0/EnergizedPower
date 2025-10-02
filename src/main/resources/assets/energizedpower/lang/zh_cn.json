@@ -216,6 +216,7 @@
 
   "item.energizedpower.wooden_hammer": "木锤",
   "item.energizedpower.stone_hammer": "石锤",
+  "item.energizedpower.copper_hammer": "Copper Hammer",
   "item.energizedpower.iron_hammer": "铁锤",
   "item.energizedpower.golden_hammer": "金锤",
   "item.energizedpower.diamond_hammer": "钻石锤",
@@ -909,7 +910,7 @@
   "painting.energizedpower.factory.title": "工厂",
   "painting.energizedpower.factory.author": "JDDev0",
 
-  "key.category.energizedpower": "充能能源",
+  "key.category.energizedpower.main": "充能能源",
   "key.energizedpower.teleporter.use": "使用传送器",
 
 

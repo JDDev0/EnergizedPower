@@ -8,7 +8,7 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -51,7 +51,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 append(Text.translatable("tooltip.energizedpower.inventory_coal_engine.status." +
                         (active?"activated":"deactivated")).formatted(active?Formatting.GREEN:Formatting.RED)));
 
-        if(Screen.hasShiftDown()) {
+        if(MinecraftClient.getInstance().isShiftPressed()) {
             long energyProductionLeft = getEnergyProductionLeft(stack);
             ItemStack item = getCurrentBurningItem(stack);
             if(energyProductionLeft > 0 && item != null) {
