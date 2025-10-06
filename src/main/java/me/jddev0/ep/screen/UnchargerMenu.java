@@ -20,7 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
@@ -46,8 +46,8 @@ public class UnchargerMenu extends UpgradableEnergyStorageMenu<UnchargerBlockEnt
                 upgradeModuleInventory, 1
         );
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 80, 35) {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 35) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();

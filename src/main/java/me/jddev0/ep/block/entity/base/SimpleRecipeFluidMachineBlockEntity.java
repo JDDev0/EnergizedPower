@@ -19,7 +19,8 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
-        <F extends IFluidHandler, C extends RecipeInput, R extends Recipe<C>>
+        <F extends ResourceHandler<FluidResource>, C extends RecipeInput, R extends Recipe<C>>
         extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
         implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
@@ -84,8 +85,8 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
 
     @Override
     protected final Optional<RecipeHolder<R>> getCurrentWorkData() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         return getRecipeFor(inventory);
@@ -118,8 +119,8 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         if(level == null)
             return false;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Optional<RecipeHolder<R>> recipe = getRecipeFor(inventory);

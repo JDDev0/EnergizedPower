@@ -2,9 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
 import me.jddev0.ep.block.entity.base.MenuInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.screen.TeleporterMenu;
@@ -33,9 +35,10 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +48,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TeleporterBlockEntity
-        extends MenuInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
+        extends MenuInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull ResourceLocation> DIMENSION_BLACKLIST =
@@ -65,7 +68,7 @@ public class TeleporterBlockEntity
     public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -81,10 +84,10 @@ public class TeleporterBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChangedAndUpdateReadyState();
                 syncEnergyToPlayers(32);
             }
@@ -92,25 +95,30 @@ public class TeleporterBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
+    }
+
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChangedAndUpdateReadyState();
+            protected int getCapacity(int index, ItemResource resource) {
+                return 1;
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
                 if(slot == 0) {
                     return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override
-            public int getSlotLimit(int slot) {
-                return 1;
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChangedAndUpdateReadyState();
             }
         };
     }
@@ -127,15 +135,15 @@ public class TeleporterBlockEntity
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public void setChangedAndUpdateReadyState() {
@@ -144,7 +152,7 @@ public class TeleporterBlockEntity
 
         ItemStack teleporterMatrixItemStack = itemHandler.getStackInSlot(0);
 
-        boolean powered = energyStorage.getEnergy() == energyStorage.getCapacity() &&
+        boolean powered = energyStorage.getAmountAsInt() == energyStorage.getCapacityAsInt() &&
                 teleporterMatrixItemStack.is(EPItems.TELEPORTER_MATRIX.get()) &&
                 TeleporterMatrixItem.isLinked(teleporterMatrixItemStack);
 
@@ -173,21 +181,27 @@ public class TeleporterBlockEntity
     }
 
     public void teleportPlayer(ServerPlayer player) {
-        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, getBlockPos(),
+        EnergyHandler energyStorage = level.getCapability(Capabilities.Energy.BLOCK, getBlockPos(),
                 getBlockState(), this, null);
         if(energyStorage == null)
             return;
 
-        teleportPlayer(player, energyStorage, () -> this.energyStorage.setEnergy(0), getStack(0), level, worldPosition);
+        teleportPlayer(player, energyStorage, () -> {
+            try(Transaction transaction = Transaction.open(null)) {
+                this.energyStorage.extract(this.energyStorage.getCapacityAsInt(), transaction);
+
+                transaction.commit();
+            }
+        }, getStack(0), level, worldPosition);
     }
 
-    public static void teleportPlayer(ServerPlayer player, IEnergyStorage energyStorage, Runnable clearEnergyCallback,
+    public static void teleportPlayer(ServerPlayer player, EnergyHandler energyStorage, Runnable clearEnergyCallback,
                                       ItemStack teleporterMatrixItemStack, Level level, @Nullable BlockPos pos) {
         if(player.isSpectator()) {
             return;
         }
 
-        if(energyStorage.getEnergyStored() < energyStorage.getMaxEnergyStored()) {
+        if(energyStorage.getAmountAsInt() < energyStorage.getCapacityAsInt()) {
             player.connection.send(new ClientboundSetActionBarTextPacket(
                     Component.translatable("tooltip.energizedpower.teleporter.use.not_enough_energy").
                             withStyle(ChatFormatting.RED)
@@ -406,7 +420,7 @@ public class TeleporterBlockEntity
     }
 
     public int getSlotCount() {
-        return itemHandler.getSlots();
+        return itemHandler.size();
     }
 
     public ItemStack getStack(int slot) {

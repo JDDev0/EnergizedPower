@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecutterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu,
@@ -53,20 +53,20 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
                 upgradeModuleInventory, 3
         );
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 39, 44) {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 39, 44) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 1, 57, 44) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 57, 44) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 2, 124, 44) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 124, 44) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();

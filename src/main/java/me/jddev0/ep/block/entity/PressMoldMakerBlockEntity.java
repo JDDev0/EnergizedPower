@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
@@ -23,8 +24,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,10 +33,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
-        extends MenuInventoryStorageBlockEntity<ItemStackHandler> {
+        extends MenuInventoryStorageBlockEntity<EnergizedPowerItemStackHandler> {
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     public PressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -48,10 +49,19 @@ public class PressMoldMakerBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
+                return switch(slot) {
+                    case 0 -> level == null || stack.is(Items.CLAY_BALL);
+                    case 1 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 setChanged();
 
                 if(slot == 0) {
@@ -63,15 +73,6 @@ public class PressMoldMakerBlockEntity
                         );
                     }
                 }
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> level == null || stack.is(Items.CLAY_BALL);
-                    case 1 -> false;
-                    default -> super.isItemValid(slot, stack);
-                };
             }
         };
     }
@@ -89,7 +90,7 @@ public class PressMoldMakerBlockEntity
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
@@ -106,15 +107,15 @@ public class PressMoldMakerBlockEntity
         if(recipe.isEmpty() || !(recipe.get().value() instanceof PressMoldMakerRecipe pressMoldMakerRecipe))
             return;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(inventory), level) ||
                 !InventoryUtils.canInsertItemIntoSlot(inventory, 1, pressMoldMakerRecipe.assemble(null, level.registryAccess())))
             return;
 
-        itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount(), false);
+        itemHandler.extractItem(0, pressMoldMakerRecipe.getClayCount());
         itemHandler.setStackInSlot(1, pressMoldMakerRecipe.assemble(null, level.registryAccess()).copyWithCount(
                 itemHandler.getStackInSlot(1).getCount() + pressMoldMakerRecipe.assemble(null, level.registryAccess()).getCount()));
     }
@@ -123,8 +124,8 @@ public class PressMoldMakerBlockEntity
         if(!(level instanceof ServerLevel serverLevel))
             return List.of();
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Collection<RecipeHolder<PressMoldMakerRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, PressMoldMakerRecipe.Type.INSTANCE);

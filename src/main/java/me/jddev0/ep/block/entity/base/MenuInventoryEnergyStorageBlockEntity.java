@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -8,10 +9,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
 
 public abstract class MenuInventoryEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler>
+        <E extends IEnergizedPowerEnergyStorage, I extends IEnergizedPowerItemStackHandler>
         extends InventoryEnergyStorageBlockEntity<E, I>
         implements MenuProvider {
     protected final String machineName;

@@ -5,6 +5,7 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.screen.InventoryChargerMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -24,7 +25,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,7 +101,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
         int energy = getEnergy(inventory);
         int capacity = getCapacity(inventory);
-        int maxTransfer = getMaxTransfer(inventory);
+        int maxTransfer = getMaxTransfer(inventory, null);
 
         components.accept(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(energy), EnergyUtils.getEnergyWithPrefix(capacity)).
@@ -113,43 +118,43 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         }
     }
 
-    private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
-                                      ItemStack itemStack, ItemStack testItemStack, Container inventoryChargerInventory) {
-        IEnergyStorage energyStorage = testItemStack.getCapability(Capabilities.EnergyStorage.ITEM);
-        if(energyStorage == null || !energyStorage.canReceive())
-            return 0;
-
-        int received = energyStorage.receiveEnergy(getMaxTransfer(inventoryChargerInventory), true);
-        if(received <= 0)
-            return 0;
-
-        consumerItems.add(energyStorage);
-        consumerEnergyValues.add(received);
-
-        return received;
-    }
-
     private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, @Nullable EquipmentSlot slot) {
-        Container inventoryChargerInventory = getInventory(itemStack);
+        SimpleContainer inventoryChargerInventory = getInventory(itemStack);
 
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
-        for(int i = 0;i < inventory.getContainerSize();i++) {
+        //Limit the size to main + armor + offhand
+        for(int i = 0;i < Inventory.SLOT_BODY_ARMOR;i++) {
             ItemStack testItemStack = inventory.getItem(i);
 
-            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack, inventoryChargerInventory);
+            EnergyHandler energyStorage = testItemStack.getCapability(Capabilities.Energy.ITEM,
+                    ItemAccess.forPlayerSlot(inventory.player, i));
+            if(energyStorage == null || !CapabilityUtil.canInsert(energyStorage))
+                continue;
+
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = energyStorage.insert(getMaxTransfer(inventoryChargerInventory, transaction), transaction);
+
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(energyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
+        /* TODO FIX CURIOS INTEGRATION
         List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
         for(ItemStack testItemStack:curiosItemStacks)
-            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack, inventoryChargerInventory);
+            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack, inventoryChargerInventory);*/
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(getMaxTransfer(inventoryChargerInventory), consumptionSum);
+        int consumptionLeft = Math.min(getMaxTransfer(inventoryChargerInventory, null), consumptionSum);
 
         extractEnergyFromBatteries(consumptionLeft, inventoryChargerInventory);
 
@@ -176,31 +181,39 @@ public class InventoryChargerItem extends Item implements MenuProvider {
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
 
         //Fix for energy is not extracted from batteries
         inventoryChargerInventory.setChanged();
     }
 
-    public void extractEnergyFromBatteries(int energyProductionLeft, Container inventory) {
-        List<IEnergyStorage> energyProduction = new ArrayList<>();
+    public void extractEnergyFromBatteries(int energyProductionLeft, SimpleContainer inventory) {
+        List<EnergyHandler> energyProduction = new ArrayList<>();
         List<Integer> energyProductionValues = new ArrayList<>();
 
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            EnergyHandler energyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(
+                    VanillaContainerWrapper.of(inventory), i));
             if(energyStorage == null)
                 continue;
 
-            int extracted = energyStorage.extractEnergy(energyStorage.getMaxEnergyStored(), true);
-            if(extracted <= 0)
-                continue;
+            try(Transaction transaction = Transaction.open(null)) {
+                int extracted = energyStorage.extract(energyStorage.getCapacityAsInt(), transaction);
 
-            energyProduction.add(energyStorage);
-            energyProductionValues.add(extracted);
+                if(extracted <= 0)
+                    continue;
+
+                energyProduction.add(energyStorage);
+                energyProductionValues.add(extracted);
+            }
         }
 
         List<Integer> energyProductionDistributed = new ArrayList<>();
@@ -232,7 +245,10 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < energyProduction.size();i++) {
             int energy = energyProductionDistributed.get(i);
             if(energy > 0)
-                energyProduction.get(i).extractEnergy(energy, false);
+                try(Transaction transaction = Transaction.open(null)) {
+                    energyProduction.get(i).extract(energy, transaction);
+                    transaction.commit();
+                }
         }
     }
 
@@ -282,8 +298,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                 @Override
                 public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                     if(slot >= 0 && slot < getContainerSize()) {
-                        IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-                        return energyStorage != null && energyStorage.canExtract();
+                        EnergyHandler energyStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack);
+                        return energyStorage != null && CapabilityUtil.canExtract(energyStorage);
                     }
 
                     return super.canPlaceItem(slot, stack);
@@ -316,8 +332,8 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-                    return energyStorage != null && energyStorage.canExtract();
+                    EnergyHandler energyStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack);
+                    return energyStorage != null && CapabilityUtil.canExtract(energyStorage);
                 }
 
                 return super.canPlaceItem(slot, stack);
@@ -341,11 +357,11 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            EnergyHandler energyStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack);
             if(energyStorage == null)
                 continue;
 
-            int value = energyStorage.getEnergyStored();
+            int value = energyStorage.getAmountAsInt();
 
             //Prevent overflow
             if(energySum + value != (long)energySum + value)
@@ -363,11 +379,11 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            EnergyHandler energyStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack);
             if(energyStorage == null)
                 continue;
 
-            int value = energyStorage.getMaxEnergyStored();
+            int value = energyStorage.getCapacityAsInt();
 
             //Prevent overflow
             if(capacitySum + value != (long)capacitySum + value)
@@ -379,17 +395,21 @@ public class InventoryChargerItem extends Item implements MenuProvider {
         return capacitySum;
     }
 
-    public static int getMaxTransfer(Container inventory) {
+    public static int getMaxTransfer(SimpleContainer inventory, @Nullable Transaction outerTransaction) {
         int maxTransferSum = 0;
 
         for(int i = 0;i < inventory.getContainerSize();i++) {
             ItemStack stack = inventory.getItem(i);
 
-            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            EnergyHandler energyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(
+                    VanillaContainerWrapper.of(inventory), i));
             if(energyStorage == null)
                 continue;
 
-            int value = energyStorage.extractEnergy(energyStorage.getMaxEnergyStored(), true);
+            int value;
+            try(Transaction transaction = Transaction.open(outerTransaction)) {
+                value = energyStorage.extract(energyStorage.getCapacityAsInt(), transaction);
+            }
 
             //Prevent overflow
             if(maxTransferSum + value != (long)maxTransferSum + value)

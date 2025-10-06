@@ -5,13 +5,12 @@ import me.jddev0.ep.inventory.InfiniteSingleItemStackHandler;
 import me.jddev0.ep.screen.CreativeItemSiloMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeItemSiloBlockEntity
@@ -31,7 +30,7 @@ public class CreativeItemSiloBlockEntity
     protected InfiniteSingleItemStackHandler initInventoryStorage() {
         return new InfiniteSingleItemStackHandler() {
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onFinalCommit() {
                 setChanged();
             }
         };
@@ -43,7 +42,7 @@ public class CreativeItemSiloBlockEntity
         return new CreativeItemSiloMenu(id, inventory, this);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         return itemHandler;
     }
 

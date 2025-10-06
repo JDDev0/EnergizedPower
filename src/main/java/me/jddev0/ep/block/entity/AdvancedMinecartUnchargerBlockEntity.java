@@ -3,9 +3,11 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.AdvancedMinecartUnchargerBlock;
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.AdvancedMinecartUnchargerMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -19,13 +21,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
+public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -43,14 +46,19 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
     }
 
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
         };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate);
     }
 
     @Nullable
@@ -80,8 +88,8 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
         return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartUnchargerBlockEntity blockEntity) {
@@ -105,12 +113,15 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
             return;
 
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
-        int transferred = Math.max(0, Math.min(Math.min(blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy(),
-                        blockEntity.energyStorage.getMaxExtract()),
+        int transferred = Math.max(0, Math.min(Math.min(blockEntity.energyStorage.getCapacityAsInt() - blockEntity.energyStorage.getAmountAsInt(),
+                        blockEntity.limitingEnergyStorage.getMaxExtract()),
                 Math.min(minecart.getTransferRate(), minecart.getEnergy())));
         minecart.setEnergy(minecart.getEnergy() - transferred);
 
-        blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + transferred);
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.insert(transferred, transaction);
+            transaction.commit();
+        }
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
@@ -119,7 +130,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
         if(level.isClientSide())
             return;
 
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:Direction.values()) {
@@ -127,28 +138,34 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
-                    blockEntity.energyStorage.getEnergy()), true);
-            if(received <= 0)
-                continue;
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                        blockEntity.energyStorage.getCapacityAsInt()), transaction);
 
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(limitingEnergyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
-                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
-        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
+        int consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getAmountAsInt(), consumptionSum));
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
 
         int divisor = consumerItems.size();
         outer:
@@ -173,8 +190,12 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 }

@@ -1,44 +1,125 @@
 package me.jddev0.ep.inventory;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
-public class SingleItemStackHandler extends ItemStackHandler {
+public class SingleItemStackHandler extends SnapshotJournal<SingleItemStackHandler.ItemResourceWithAmount>
+        implements IEnergizedPowerItemStackHandler {
     protected final int slotCount;
     protected int count;
-    protected ItemStack stack = ItemStack.EMPTY;
+    protected ItemResource stack = ItemResource.EMPTY;
 
     public SingleItemStackHandler(int slotCount) {
         this.slotCount = slotCount;
-    }
-
-    @Override
-    public void setSize(int size) {}
-
-    @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
-        validateSlotIndex(slot);
-
-        this.count = stack.getCount();
-        this.stack = stack.copyWithCount(1);
-
-        onContentsChanged(slot);
-    }
-
-    @Override
-    public int getSlots() {
-        return slotCount;
     }
 
     public int getCount() {
         return count;
     }
 
-    public ItemStack getStack() {
-        return stack.copy();
+    public ItemResource getResource() {
+        return stack;
+    }
+
+    @Override
+    public ItemResource getResource(int slot) {
+        validateSlotIndex(slot);
+
+        if(count == 0)
+            return ItemResource.EMPTY;
+
+        int maxStackSize = stack.getMaxStackSize();
+        if(count <= slot * maxStackSize)
+            return ItemResource.EMPTY;
+
+        return stack;
+    }
+
+    @Override
+    public long getAmountAsLong(int slot) {
+        validateSlotIndex(slot);
+
+        if(count == 0)
+            return 0;
+
+        int maxStackSize = stack.getMaxStackSize();
+        if(count <= slot * maxStackSize)
+            return 0;
+
+        return Math.min(count - slot * maxStackSize, maxStackSize);
+    }
+
+    @Override
+    public long getCapacityAsLong(int index, ItemResource resource) {
+        return (long)slotCount * resource.toStack().getMaxStackSize();
+    }
+
+    @Override
+    public boolean isValid(int index, ItemResource stack) {
+        return this.stack.isEmpty() || this.stack.equals(stack);
+    }
+
+    @Override
+    protected ItemResourceWithAmount createSnapshot() {
+        return new ItemResourceWithAmount(stack, count);
+    }
+
+    @Override
+    protected void revertToSnapshot(ItemResourceWithAmount snapshot) {
+        stack = snapshot.item;
+        count = snapshot.amount;
+    }
+
+    protected void onFinalCommit() {}
+
+    @Override
+    protected void onRootCommit(ItemResourceWithAmount originalState) {
+        onFinalCommit();
+    }
+
+    @Override
+    public void serialize(ValueOutput output) {
+        output.putInt("Count", this.count);
+        output.storeNullable("Item", ItemStack.SINGLE_ITEM_CODEC, this.stack.isEmpty()?null:this.stack.toStack());
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        this.count = input.getIntOr("Count", 0);
+        if(this.count == 0) {
+            this.stack = ItemResource.EMPTY;
+        }else {
+            this.stack = ItemResource.of(input.read("Item", ItemStack.SINGLE_ITEM_CODEC).orElse(ItemStack.EMPTY));
+        }
+    }
+
+    @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        validateSlotIndex(slot);
+
+        this.count = stack.getCount();
+        this.stack = ItemResource.of(stack);
+
+        onFinalCommit();
+    }
+
+    @Override
+    public void set(int index, ItemResource resource, int amount) {
+        validateSlotIndex(index);
+
+        this.count = amount;
+        this.stack = resource;
+
+        onFinalCommit();
+    }
+
+    @Override
+    public int size() {
+        return slotCount;
     }
 
     @Override
@@ -53,39 +134,65 @@ public class SingleItemStackHandler extends ItemStackHandler {
             return ItemStack.EMPTY;
 
         int itemCount = Math.min(count - slot * maxStackSize, maxStackSize);
-        return stack.copyWithCount(itemCount);
+        return stack.toStack(itemCount);
     }
 
     @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+    public int insert(int slot, ItemResource stack, int amount, TransactionContext transaction) {
         if(stack.isEmpty())
-            return ItemStack.EMPTY;
+            return 0;
 
         validateSlotIndex(slot);
 
-        if(!isItemValid(slot, stack))
-            return stack;
+        if(!isValid(slot, stack))
+            return 0;
 
         int limit = Math.min(stack.getMaxStackSize(), slotCount * stack.getMaxStackSize() - count);
         if(limit <= 0)
-            return stack;
+            return 0;
 
-        boolean reachedLimit = stack.getCount() > limit;
+        boolean reachedLimit = amount > limit;
 
-        if(!simulate) {
-            if(this.stack.isEmpty()) {
-                this.stack = stack.copyWithCount(1);
-            }
-
-            count += reachedLimit?limit:stack.getCount();
-            onContentsChanged(slot);
+        updateSnapshots(transaction);
+        if(this.stack.isEmpty()) {
+            this.stack = stack;
         }
 
-        return reachedLimit?stack.copyWithCount(stack.getCount() - limit):ItemStack.EMPTY;
+        count += reachedLimit?limit:amount;
+
+        return reachedLimit?limit:amount;
     }
 
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+    public int extract(int slot, ItemResource stack, int amount, TransactionContext transaction) {
+        if(amount == 0)
+            return 0;
+
+        validateSlotIndex(slot);
+
+        if(this.stack.isEmpty())
+            return 0;
+
+        ItemStack existing = this.stack.toStack();
+        int existingCount = this.count;
+
+        int toExtract = Math.min(amount, existing.getMaxStackSize());
+
+        updateSnapshots(transaction);
+        if(this.count <= toExtract) {
+            this.count = 0;
+            this.stack = ItemResource.EMPTY;
+
+            return existingCount;
+        }else {
+            this.count -= toExtract;
+
+            return toExtract;
+        }
+    }
+
+    @Override
+    public ItemStack extractItem(int slot, int amount) {
         if(amount == 0)
             return ItemStack.EMPTY;
 
@@ -94,62 +201,29 @@ public class SingleItemStackHandler extends ItemStackHandler {
         if(this.stack.isEmpty())
             return ItemStack.EMPTY;
 
-        ItemStack existing = this.stack.copy();
+        ItemStack existing = this.stack.toStack();
         int existingCount = this.count;
 
         int toExtract = Math.min(amount, existing.getMaxStackSize());
 
         if(this.count <= toExtract) {
-            if(!simulate) {
-                this.count = 0;
-                this.stack = ItemStack.EMPTY;
-                onContentsChanged(slot);
-            }
+            this.count = 0;
+            this.stack = ItemResource.EMPTY;
+            onFinalCommit();
 
             return existing.copyWithCount(existingCount);
         }else {
-            if(!simulate) {
-                this.count -= toExtract;
-                onContentsChanged(slot);
-            }
+            this.count -= toExtract;
+            onFinalCommit();
 
             return existing.copyWithCount(toExtract);
         }
     }
 
-    @Override
-    public final int getSlotLimit(int slot) {
-        return Item.ABSOLUTE_MAX_STACK_SIZE;
-    }
-
-    protected final int getStackLimit(int slot, ItemStack stack) {
-        return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
-    }
-
-    @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
-        return this.stack.isEmpty() || ItemStack.isSameItemSameComponents(this.stack, stack);
-    }
-
-    @Override
-    public void serialize(ValueOutput output) {
-        output.putInt("Count", this.count);
-        output.storeNullable("Item", ItemStack.SINGLE_ITEM_CODEC, this.stack.isEmpty()?null:this.stack);
-    }
-
-    @Override
-    public void deserialize(ValueInput input) {
-        this.count = input.getIntOr("Count", 0);
-        if(this.count == 0) {
-            this.stack = ItemStack.EMPTY;
-        }else {
-            this.stack = input.read("Item", ItemStack.SINGLE_ITEM_CODEC).orElse(ItemStack.EMPTY).copyWithCount(1);
-        }
-    }
-
-    @Override
-    protected void validateSlotIndex(int slot) {
+    private void validateSlotIndex(int slot) {
         if(slot < 0 || slot >= slotCount)
             throw new RuntimeException("Slot " + slot + " not in valid range - [0," + slotCount + ")");
     }
+
+    public record ItemResourceWithAmount(ItemResource item, int amount) {}
 }

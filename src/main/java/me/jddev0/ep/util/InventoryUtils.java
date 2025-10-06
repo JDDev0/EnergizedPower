@@ -4,7 +4,8 @@ import me.jddev0.ep.inventory.SingleItemStackHandler;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public final class InventoryUtils {
     private InventoryUtils() {}
@@ -16,15 +17,14 @@ public final class InventoryUtils {
                 inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
-    public static int getRedstoneSignalFromItemStackHandler(ItemStackHandler itemHandler) {
-        float fullnessPercentSum = 0;
+    public static int getRedstoneSignalFromItemStackHandler(ResourceHandler<ItemResource> itemHandler) {
+        double fullnessPercentSum = 0;
         boolean isEmptyFlag = true;
 
-        int size = itemHandler.getSlots();
+        int size = itemHandler.size();
         for(int i = 0;i < size;i++) {
-            ItemStack item = itemHandler.getStackInSlot(i);
-            if(!item.isEmpty()) {
-                fullnessPercentSum += (float)item.getCount() / Math.min(item.getMaxStackSize(), itemHandler.getSlotLimit(i));
+            if(!itemHandler.getResource(i).isEmpty()) {
+                fullnessPercentSum += (double)itemHandler.getAmountAsLong(i) / Math.min(itemHandler.getResource(i).getMaxStackSize(), itemHandler.getCapacityAsLong(i, ItemResource.EMPTY));
                 isEmptyFlag = false;
             }
         }
@@ -33,10 +33,10 @@ public final class InventoryUtils {
     }
 
     public static int getRedstoneSignalFromItemStackHandler(SingleItemStackHandler itemHandler) {
-        boolean isEmptyFlag = itemHandler.getCount() == 0 && itemHandler.getStack().isEmpty();
+        boolean isEmptyFlag = itemHandler.getCount() == 0 && itemHandler.getResource().isEmpty();
 
         int count = itemHandler.getCount();
-        int capacity = itemHandler.getSlots() * itemHandler.getStack().getMaxStackSize();
+        int capacity = itemHandler.size() * itemHandler.getResource().getMaxStackSize();
 
         return Math.min(Mth.floor((double)count / (double)capacity * 14.d) + (isEmptyFlag?0:1), 15);
     }

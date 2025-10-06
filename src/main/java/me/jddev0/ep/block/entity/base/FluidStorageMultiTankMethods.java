@@ -20,7 +20,7 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
 
     @Override
     public void saveFluidStorage(@NotNull EnergizedPowerFluidStorage fluidStorage, ValueOutput view) {
-        for(int i = 0;i < fluidStorage.getTanks();i++) {
+        for(int i = 0;i < fluidStorage.size();i++) {
             FluidStack fluid = fluidStorage.getFluid(i);
             view.storeNullable("fluid." + i, FluidStack.CODEC, fluid.isEmpty()?null:fluid);
         }
@@ -28,7 +28,7 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
 
     @Override
     public void loadFluidStorage(@NotNull EnergizedPowerFluidStorage fluidStorage, ValueInput view) {
-        for(int i = 0;i < fluidStorage.getTanks();i++) {
+        for(int i = 0;i < fluidStorage.size();i++) {
             FluidStack fluid = view.read("fluid." + i, FluidStack.CODEC).
                     orElse(FluidStack.EMPTY);
             fluidStorage.setFluid(i, fluid);
@@ -37,16 +37,16 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
 
     @Override
     public void syncFluidToPlayer(EnergizedPowerFluidStorage fluidStorage, Player player, BlockPos pos) {
-        for(int i = 0;i < fluidStorage.getTanks();i++)
-            ModMessages.sendToPlayer(new FluidSyncS2CPacket(i, fluidStorage.getFluidInTank(i),
-                    fluidStorage.getTankCapacity(i), pos), (ServerPlayer)player);
+        for(int i = 0;i < fluidStorage.size();i++)
+            ModMessages.sendToPlayer(new FluidSyncS2CPacket(i, fluidStorage.getFluid(i),
+                    fluidStorage.getCapacity(i), pos), (ServerPlayer)player);
     }
 
     @Override
     public void syncFluidToPlayers(EnergizedPowerFluidStorage fluidStorage, Level level, BlockPos pos, int distance) {
-        for(int i = 0;i < fluidStorage.getTanks();i++)
+        for(int i = 0;i < fluidStorage.size();i++)
             ModMessages.sendToPlayersWithinXBlocks(
-                    new FluidSyncS2CPacket(i, fluidStorage.getFluidInTank(i), fluidStorage.getTankCapacity(i), pos),
+                    new FluidSyncS2CPacket(i, fluidStorage.getFluid(i), fluidStorage.getCapacity(i), pos),
                     pos, (ServerLevel)level, distance
             );
     }
@@ -68,6 +68,6 @@ public final class FluidStorageMultiTankMethods implements FluidStorageMethods<E
 
     @Override
     public void setTankCapacity(EnergizedPowerFluidStorage fluidStorage, int tank, int capacity) {
-        fluidStorage.setCapacity(tank, capacity);
+        //Does nothing (capacity is final)
     }
 }

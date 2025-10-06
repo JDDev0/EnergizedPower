@@ -3,10 +3,12 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -33,16 +35,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class AdvancedAutoCrafterBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
@@ -51,7 +54,7 @@ public class AdvancedAutoCrafterBlockEntity
     private boolean secondaryExtractMode = false;
     private boolean allowOutputOverflow = true;
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
     private final SimpleContainer[] patternSlots = new SimpleContainer[] {
@@ -152,22 +155,16 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
@@ -175,20 +172,31 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
+        };
+    }
 
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
                 if(slot < 0 || slot >= 27)
-                    return super.isItemValid(slot, stack);
+                    return super.isValid(slot, stack);
 
                 //Slot 0, 1, 2, 3, and 4 are for output items only
                 return slot >= 5;
+            }
+
+            @Override
+            protected void onFinalCommit(int index, ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -228,15 +236,15 @@ public class AdvancedAutoCrafterBlockEntity
         return new AdvancedAutoCrafterMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -364,8 +372,12 @@ public class AdvancedAutoCrafterBlockEntity
                     continue;
                 }
 
-                if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
-                    blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
+                    try(Transaction transaction = Transaction.open(null)) {
+                        blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
+                        transaction.commit();
+                    }
+
                     blockEntity.energyConsumptionLeft[i] -= energyConsumptionPerTick;
 
                     blockEntity.progress[i]++;
@@ -534,10 +546,10 @@ public class AdvancedAutoCrafterBlockEntity
         List<ItemStack> itemStacksExtract = ItemStackUtils.combineItemStacks(patternItemStacks);
 
         for(ItemStack itemStack:itemStacksExtract) {
-            for(int i = 0;i < itemHandler.getSlots();i++) {
+            for(int i = 0;i < itemHandler.size();i++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
-                    ItemStack ret = itemHandler.extractItem(i, itemStack.getCount(), false);
+                    ItemStack ret = itemHandler.extractItem(i, itemStack.getCount());
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
                         if(amount == itemStack.getCount())
@@ -569,7 +581,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():5;
+        int outputSlotCount = allowOutputOverflow?itemHandler.size():5;
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
@@ -628,7 +640,7 @@ public class AdvancedAutoCrafterBlockEntity
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
 
-            for(int j = 0;j < itemHandler.getSlots();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 if(checkedIndices.contains(j))
                     continue;
 
@@ -682,7 +694,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():5;
+        int outputSlotCount = allowOutputOverflow?itemHandler.size():5;
         List<Integer> checkedIndices = new ArrayList<>(outputSlotCount);
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
@@ -780,7 +792,7 @@ public class AdvancedAutoCrafterBlockEntity
             if(itemStack.isEmpty())
                 continue;
 
-            for(int j = 0;j < itemHandler.getSlots();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
@@ -794,7 +806,7 @@ public class AdvancedAutoCrafterBlockEntity
             }
 
             //Same item with same tag was not found -> check for same item without same tag and change if found
-            for(int j = 0;j < itemHandler.getSlots();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);

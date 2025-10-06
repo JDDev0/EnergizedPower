@@ -20,7 +20,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransposerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -52,14 +52,14 @@ public class FluidTransposerMenu extends UpgradableEnergyStorageMenu<FluidTransp
                 upgradeModuleInventory, 3
         );
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 80, 17) {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 17) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 1, 80, 49) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 80, 49) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();

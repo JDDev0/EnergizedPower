@@ -11,8 +11,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import org.jetbrains.annotations.NotNull;
 
 public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements CustomPacketPayload {
@@ -49,12 +49,12 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
             if(!(blockEntity instanceof TimeControllerBlockEntity timeControllerBlockEntity))
                 return;
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, data.pos,
+            EnergyHandler energyStorage = level.getCapability(Capabilities.Energy.BLOCK, data.pos,
                     level.getBlockState(data.pos), timeControllerBlockEntity, null);
             if(energyStorage == null)
                 return;
 
-            if(energyStorage.getEnergyStored() < TimeControllerBlockEntity.CAPACITY)
+            if(energyStorage.getAmountAsInt() < TimeControllerBlockEntity.CAPACITY)
                 return;
 
             timeControllerBlockEntity.clearEnergy();

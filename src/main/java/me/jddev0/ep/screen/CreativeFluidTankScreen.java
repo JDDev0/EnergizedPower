@@ -4,6 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCreativeFluidTankFluidStackC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -16,7 +17,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +48,9 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
 
                 ItemStack carriedItemStack = menu.getCarried();
 
-                IFluidHandlerItem fluidStorage = carriedItemStack.getCapability(Capabilities.FluidHandler.ITEM);
-                if(fluidStorage != null && fluidStorage.getTanks() > 0)
-                    fluidStack = fluidStorage.getFluidInTank(0);
+                ResourceHandler<FluidResource> fluidStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Fluid.ITEM, carriedItemStack);
+                if(fluidStorage != null && fluidStorage.size() > 0)
+                    fluidStack = fluidStorage.getResource(0).toStack(1);
 
                 ModMessages.sendToServer(new SetCreativeFluidTankFluidStackC2SPacket(menu.getBlockEntity().getBlockPos(), fluidStack));
                 clicked = true;

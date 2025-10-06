@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -19,11 +20,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends AbstractFluidTankBlockEntity<FluidTank>
+        extends AbstractFluidTankBlockEntity<SimpleFluidStorage>
         implements CheckboxUpdate {
     private final FluidTankTier tier;
 
@@ -44,21 +45,21 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
             @Override
-            protected void onContentsChanged() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(64);
             }
 
             @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack))
+            public boolean isValid(int tank, FluidResource resource) {
+                if(!super.isValid(tank, resource))
                     return false;
 
-                return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(stack.getFluid()):
-                        FluidStack.isSameFluidSameComponents(fluidFilter, stack));
+                return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(resource.getFluid()):
+                        resource.matches(fluidFilter));
             }
         };
     }

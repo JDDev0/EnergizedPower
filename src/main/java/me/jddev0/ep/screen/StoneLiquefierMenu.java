@@ -20,7 +20,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefierBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -51,8 +51,8 @@ public class StoneLiquefierMenu extends UpgradableEnergyStorageMenu<StoneLiquefi
                 upgradeModuleInventory, 3
         );
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 80, 35) {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 35) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();

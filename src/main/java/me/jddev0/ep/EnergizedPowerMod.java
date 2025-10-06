@@ -10,6 +10,7 @@ import me.jddev0.ep.client.item.property.bool.ActiveProperty;
 import me.jddev0.ep.client.item.property.bool.WorkingProperty;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.entity.EPEntityTypes;
 import me.jddev0.ep.fluid.EPFluidTypes;
 import me.jddev0.ep.fluid.EPFluids;
@@ -20,7 +21,7 @@ import me.jddev0.ep.integration.jei.EnergizedPowerJEIPlugin;
 import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
-import me.jddev0.ep.item.energy.ItemCapabilityEnergy;
+import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
@@ -414,10 +415,17 @@ public class EnergizedPowerMod {
     public void registerCapabilities(RegisterCapabilitiesEvent event) {
         //Items
         for(Item item:BuiltInRegistries.ITEM) {
-            if(item instanceof EnergizedPowerEnergyItem energizedPowerEnergyItem) {
-                event.registerItem(Capabilities.EnergyStorage.ITEM, (stack, ctx) -> {
-                    return new ItemCapabilityEnergy(stack, energizedPowerEnergyItem.getEnergyStorageProvider().apply(stack));
+            //EnergizedPower Energy Items
+            if(item instanceof EnergizedPowerEnergyItem energyItem) {
+                event.registerItem(Capabilities.Energy.ITEM, (stack, ctx) -> {
+                    return new EnergizedPowerEnergyItemStorage(ctx, energyItem.getEnergyCapacity(stack),
+                            energyItem.getEnergyMaxInput(stack), energyItem.getEnergyMaxOutput(stack));
                 }, item);
+            }
+
+            //Creative Battery
+            if(item instanceof CreativeBatteryItem) {
+                event.registerItem(Capabilities.Energy.ITEM, (stack, ctx) -> new InfinityEnergyStorage(), item);
             }
         }
 

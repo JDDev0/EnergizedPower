@@ -4,12 +4,15 @@ import me.jddev0.ep.block.ThermalGeneratorBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,16 +27,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, FluidTank> {
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -52,23 +55,18 @@ public class ThermalGeneratorBlockEntity
         );
     }
 
+
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxExtract() {
-                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
@@ -76,23 +74,34 @@ public class ThermalGeneratorBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
             @Override
-            protected void onContentsChanged() {
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
+    }
+
+    @Override
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
 
             @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || !(level instanceof ServerLevel serverLevel))
+            public boolean isValid(int tank, FluidResource resource) {
+                if(!super.isValid(tank, resource) || !(level instanceof ServerLevel serverLevel))
                     return false;
 
                 Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
                 return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
-                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
+                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> resource.getFluid() == input));
             }
         };
     }
@@ -120,10 +129,10 @@ public class ThermalGeneratorBlockEntity
                     }
 
                     //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
-                    int production = (int)(rawProduction * (Math.min(fluidStorage.getFluidAmount(), 50) / 1000.f));
+                    int production = (int)(rawProduction * (Math.min(fluidStorage.getAmountAsInt(0), 50) / 1000.f));
 
                     //Cap production
-                    production = Math.max(0, Math.min(production, energyStorage.getCapacity() - energyStorage.getEnergy()));
+                    production = Math.max(0, Math.min(production, energyStorage.getCapacityAsInt() - energyStorage.getAmountAsInt()));
 
                     int fluidAmount = (int)((float)production/rawProduction * 1000);
 
@@ -150,7 +159,7 @@ public class ThermalGeneratorBlockEntity
                     }
 
                     //Calculate real production (raw production is in x FE per 1000 mB, use fluid amount without cap)
-                    return (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getFluidAmount() / 1000.f);
+                    return (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getAmountAsInt(0) / 1000.f);
                 }, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -166,12 +175,12 @@ public class ThermalGeneratorBlockEntity
         return new ThermalGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
@@ -203,22 +212,24 @@ public class ThermalGeneratorBlockEntity
             }
         }
 
-        if(rawProduction > 0 && blockEntity.energyStorage.getEnergy() < blockEntity.energyStorage.getCapacity()) {
+        if(rawProduction > 0 && blockEntity.energyStorage.getAmountAsInt() < blockEntity.energyStorage.getCapacityAsInt()) {
             //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
-            int production = (int)(rawProduction * (Math.min(blockEntity.fluidStorage.getFluidAmount(), 50) / 1000.f));
+            int production = (int)(rawProduction * (Math.min(blockEntity.fluidStorage.getAmountAsInt(0), 50) / 1000.f));
 
             //Cap production
-            production = Math.max(0, Math.min(production, blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()));
+            production = Math.max(0, Math.min(production, blockEntity.energyStorage.getCapacityAsInt() - blockEntity.energyStorage.getAmountAsInt()));
 
             int fluidAmount = (int)((float)production/rawProduction * 1000);
 
             //Re-calculate energy production (Prevents draining of not enough fluid)
             production = (int)(rawProduction * fluidAmount / 1000.f);
 
-            blockEntity.fluidStorage.drain(fluidAmount, IFluidHandler.FluidAction.EXECUTE);
+            try(Transaction transaction = Transaction.open(null)) {
+                blockEntity.fluidStorage.extract(blockEntity.fluidStorage.getResource(0), fluidAmount, transaction);
 
-            blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
-                    blockEntity.energyStorage.getEnergy() + production));
+                blockEntity.energyStorage.insert(production, transaction);
+                transaction.commit();
+            }
         }
     }
 
@@ -226,7 +237,7 @@ public class ThermalGeneratorBlockEntity
         if(level.isClientSide())
             return;
 
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:Direction.values()) {
@@ -234,28 +245,34 @@ public class ThermalGeneratorBlockEntity
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
-                    blockEntity.energyStorage.getEnergy()), true);
-            if(received <= 0)
-                continue;
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                        blockEntity.energyStorage.getCapacityAsInt()), transaction);
 
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(limitingEnergyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
-                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
-        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
+        int consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getAmountAsInt(), consumptionSum));
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
 
         int divisor = consumerItems.size();
         outer:
@@ -280,8 +297,12 @@ public class ThermalGeneratorBlockEntity
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 }

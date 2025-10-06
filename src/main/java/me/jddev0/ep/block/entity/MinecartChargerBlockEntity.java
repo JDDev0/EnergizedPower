@@ -3,7 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.MinecartChargerBlock;
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.screen.MinecartChargerMenu;
 import net.minecraft.core.BlockPos;
@@ -17,12 +18,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
+public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -40,14 +42,19 @@ public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<Rec
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
         };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
     }
 
     @Nullable
@@ -77,8 +84,8 @@ public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<Rec
         return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, MinecartChargerBlockEntity blockEntity) {
@@ -102,12 +109,15 @@ public class MinecartChargerBlockEntity extends MenuEnergyStorageBlockEntity<Rec
             return;
 
         AbstractMinecartBatteryBox minecart = minecarts.get(0);
-        int transferred = Math.max(0, Math.min(Math.min(blockEntity.energyStorage.getEnergy(),
-                        blockEntity.energyStorage.getMaxReceive()),
+        int transferred = Math.max(0, Math.min(Math.min(blockEntity.energyStorage.getAmountAsInt(),
+                        blockEntity.limitingEnergyStorage.getMaxInsert()),
                 Math.min(minecart.getTransferRate(), minecart.getCapacity() - minecart.getEnergy())));
 
         minecart.setEnergy(minecart.getEnergy() + transferred);
 
-        blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - transferred);
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.extract(transferred, transaction);
+            transaction.commit();
+        }
     }
 }

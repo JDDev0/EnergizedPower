@@ -4,6 +4,7 @@ import me.jddev0.ep.block.BlockPlacerBlock;
 import me.jddev0.ep.block.entity.base.NoWorkData;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
@@ -25,9 +26,9 @@ import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +40,7 @@ public class BlockPlacerBlockEntity
         implements CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
     private boolean inverseRotation;
 
@@ -62,36 +63,31 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getCapacity(int index, ItemResource resource) {
+                return 1;
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
                 if(slot == 0) {
                     return stack.getItem() instanceof BlockItem;
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
+                setChanged();
             }
         };
     }
@@ -118,15 +114,15 @@ public class BlockPlacerBlockEntity
         return new BlockPlacerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override

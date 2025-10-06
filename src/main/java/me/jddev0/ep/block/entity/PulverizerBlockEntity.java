@@ -17,12 +17,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
 public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, PulverizerRecipe> {
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1 || i == 2);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1 || i == 2);
 
     public PulverizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -42,15 +43,15 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         );
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
 
         ItemStack[] outputs = recipe.value().generateOutputs(level.random, false);
 
-        itemHandler.extractItem(0, 1, false);
+        itemHandler.extractItem(0, 1);
         itemHandler.setStackInSlot(1, outputs[0].
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())

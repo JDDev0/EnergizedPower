@@ -9,9 +9,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
-public abstract class FluidStorageBlockEntity<F extends IFluidHandler>
+public abstract class FluidStorageBlockEntity<F extends ResourceHandler<FluidResource>>
         extends BlockEntity
         implements FluidStoragePacketUpdate {
     protected final FluidStorageMethods<F> fluidStorageMethods;

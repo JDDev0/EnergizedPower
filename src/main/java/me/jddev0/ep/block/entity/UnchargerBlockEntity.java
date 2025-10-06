@@ -2,13 +2,16 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.UnchargerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.UnchargerMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,9 +25,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandlerUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,17 +38,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnchargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler> {
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
         ItemStack stack = itemHandler.getStackInSlot(i);
-        IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-        if(energyStorage == null || !energyStorage.canExtract())
+        EnergyHandler limitingEnergyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(itemHandler, i));
+        if(limitingEnergyStorage == null || !CapabilityUtil.canExtract(limitingEnergyStorage))
             return true;
 
-        return energyStorage.extractEnergy(UnchargerBlockEntity.this.energyStorage.getMaxExtract(), true) == 0;
+        return limitingEnergyStorage.getAmountAsInt() == 0;
     });
 
     private int energyProductionLeft = -1;
@@ -63,22 +69,16 @@ public class UnchargerBlockEntity
     }
 
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxExtract() {
-                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
@@ -86,40 +86,49 @@ public class UnchargerBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
+            @Override
+            public int getCapacity(int index, ItemResource resource) {
+                return 1;
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
+
                 if(slot == 0) {
-                    IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-                    return energyStorage != null && energyStorage.canExtract();
+                    EnergyHandler limitingEnergyStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack);
+                    return limitingEnergyStorage != null && CapabilityUtil.canExtract(limitingEnergyStorage);
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, resource);
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && (!ItemStack.isSameItem(stack, previousItemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, previousItemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                    !(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null && itemStack.getCapability(Capabilities.EnergyStorage.ITEM) != null))))
+                                    !(CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack) != null &&
+                                            CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, previousItemStack) != null))))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
+                setChanged();
             }
         };
     }
@@ -142,15 +151,15 @@ public class UnchargerBlockEntity
         return new UnchargerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -180,12 +189,14 @@ public class UnchargerBlockEntity
     protected final int getEnergyProductionPerTick() {
         ItemStack stack = itemHandler.getStackInSlot(0);
 
-        IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-        if(energyStorage == null || !energyStorage.canExtract())
+        EnergyHandler limitingEnergyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(itemHandler, 0));
+        if(limitingEnergyStorage == null || !CapabilityUtil.canExtract(limitingEnergyStorage))
             return -1;
 
-        return energyStorage.extractEnergy(Math.max(0, Math.min(this.energyStorage.getMaxExtract(),
-                this.energyStorage.getCapacity() - this.energyStorage.getEnergy())), true);
+        try(Transaction transaction = Transaction.open(null)) {
+            return limitingEnergyStorage.extract(Math.max(0, Math.min(this.limitingEnergyStorage.getMaxExtract(),
+                    this.energyStorage.getCapacityAsInt() - this.energyStorage.getAmountAsInt())), transaction);
+        }
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
@@ -195,26 +206,14 @@ public class UnchargerBlockEntity
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);
 
-            IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-            if(energyStorage == null || !energyStorage.canExtract())
+            EnergyHandler limitingEnergyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(blockEntity.itemHandler, 0));
+            if(limitingEnergyStorage == null || !CapabilityUtil.canExtract(limitingEnergyStorage))
                 return;
 
-            blockEntity.energyProductionLeft = energyStorage.getEnergyStored();
+            blockEntity.energyProductionLeft = limitingEnergyStorage.getAmountAsInt();
 
-            int energyProductionPerTick = energyStorage.extractEnergy(Math.max(0, Math.min(blockEntity.energyStorage.getMaxExtract(),
-                    blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy())), false);
-
-            if(blockEntity.energyProductionLeft < 0 || energyProductionPerTick < 0) {
-                //Reset progress for invalid values
-
-                blockEntity.resetProgress();
-                setChanged(level, blockPos, state);
-
-                return;
-            }
-
-            blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
-            blockEntity.energyProductionLeft -= energyProductionPerTick;
+            blockEntity.energyProductionLeft -= EnergyHandlerUtil.move(limitingEnergyStorage, blockEntity.energyStorage,
+                    blockEntity.limitingEnergyStorage.getMaxExtract(), null);
 
             if(blockEntity.energyProductionLeft <= 0)
                 blockEntity.resetProgress();
@@ -230,7 +229,7 @@ public class UnchargerBlockEntity
         if(level.isClientSide())
             return;
 
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:Direction.values()) {
@@ -238,28 +237,34 @@ public class UnchargerBlockEntity
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(),
-                    blockEntity.energyStorage.getEnergy()), true);
-            if(received <= 0)
-                continue;
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                        blockEntity.energyStorage.getCapacityAsInt()), transaction);
 
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(limitingEnergyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(),
-                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
-        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
+        int consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getAmountAsInt(), consumptionSum));
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
 
         int divisor = consumerItems.size();
         outer:
@@ -284,8 +289,12 @@ public class UnchargerBlockEntity
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 
@@ -295,7 +304,7 @@ public class UnchargerBlockEntity
 
     private boolean hasRecipe() {
         ItemStack stack = itemHandler.getStackInSlot(0);
-        return stack.getCapability(Capabilities.EnergyStorage.ITEM) != null;
+        return CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack) != null;
     }
 
     @Override

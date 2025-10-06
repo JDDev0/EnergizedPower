@@ -3,9 +3,9 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.component.CurrentItemStackComponent;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
+import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -22,7 +22,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -36,7 +38,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public InventoryCoalEngineItem(Properties props) {
-        super(props, () -> new ExtractOnlyEnergyStorage(0, CAPACITY, MAX_EXTRACT));
+        super(props, CAPACITY, 0, MAX_EXTRACT);
     }
 
     @Override
@@ -71,35 +73,35 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         }
     }
 
-    private int addConsumerEnergyItem(List<IEnergyStorage> consumerItems, List<Integer> consumerEnergyValues,
-                                      ItemStack itemStack, ItemStack testItemStack) {
-        IEnergyStorage energyStorage = testItemStack.getCapability(Capabilities.EnergyStorage.ITEM);
-        if(energyStorage == null || !energyStorage.canReceive())
-            return 0;
-
-        int received = energyStorage.receiveEnergy(Math.min(MAX_EXTRACT, getEnergy(itemStack)), true);
-        if(received <= 0)
-            return 0;
-
-        consumerItems.add(energyStorage);
-        consumerEnergyValues.add(received);
-
-        return received;
-    }
-
     private void distributeEnergy(ItemStack itemStack, Level level, Inventory inventory, @Nullable EquipmentSlot slot) {
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
-        for(int i = 0;i < inventory.getContainerSize();i++) {
+        //Limit the size to main + armor + offhand
+        for(int i = 0;i < Inventory.SLOT_BODY_ARMOR;i++) {
             ItemStack testItemStack = inventory.getItem(i);
 
-            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);
+            EnergyHandler energyStorage = testItemStack.getCapability(Capabilities.Energy.ITEM,
+                    ItemAccess.forPlayerSlot(inventory.player, i));
+            if(energyStorage == null || !CapabilityUtil.canInsert(energyStorage))
+                continue;
+
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = energyStorage.insert(MAX_EXTRACT, transaction);
+
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(energyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
+        /* TODO FIX CURIOS INTEGRATION
         List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
         for(ItemStack testItemStack:curiosItemStacks)
-            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);
+            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack);*/
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
@@ -131,8 +133,12 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 
@@ -161,7 +167,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             ItemStack currentBurningItem = getCurrentBurningItem(itemStack);
             if(progress >= 0 && maxProgress > 0 && progress < maxProgress && currentBurningItem != null) {
                 int energyProductionPerTick = energyProductionLeft / (maxProgress - progress);
-                if(getCapacity(itemStack) - getEnergy(itemStack) < energyProductionPerTick) {
+                if(getEnergyCapacity(itemStack) - getEnergy(itemStack) < energyProductionPerTick) {
                     //Not enough energy storage for production
                     if(isWorking(itemStack))
                         itemStack.set(EPDataComponentTypes.WORKING, false);

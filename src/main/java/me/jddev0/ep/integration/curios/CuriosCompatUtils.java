@@ -23,6 +23,7 @@ public final class CuriosCompatUtils {
         }
     }
 
+    //TODO FIX CURIOS INTEGRATION
     public static List<ItemStack> getCuriosItemStacks(Inventory inventory) {
         List<ItemStack> itemStacks = new ArrayList<>();
 

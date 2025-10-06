@@ -3,19 +3,25 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class CableBlockEntity extends BlockEntity {
@@ -23,12 +29,13 @@ public class CableBlockEntity extends BlockEntity {
 
     private final CableTier tier;
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorage;
+    private final EnergizedPowerEnergyStorage energyStorage;
 
     private boolean loaded;
 
-    private final Map<Pair<BlockPos, Direction>, IEnergyStorage> producers = new HashMap<>();
-    private final Map<Pair<BlockPos, Direction>, IEnergyStorage> consumers = new HashMap<>();
+    private final Map<Pair<BlockPos, Direction>, EnergyHandler> producers = new HashMap<>();
+    private final Map<Pair<BlockPos, Direction>, EnergyHandler> consumers = new HashMap<>();
     private final Deque<BlockPos> cableBlocks = new ArrayDeque<>();
 
     public CableBlockEntity(BlockPos blockPos, BlockState blockState, CableTier tier) {
@@ -36,39 +43,33 @@ public class CableBlockEntity extends BlockEntity {
 
         this.tier = tier;
 
-        if(ENERGY_EXTRACTION_MODE.isPush()) {
-            energyStorage = new ReceiveOnlyEnergyStorage(0, tier.getMaxTransfer(), tier.getMaxTransfer()) {
-                @Override
-                protected void onChange() {
-                    setChanged();
-                }
-            };
-        }else {
-            //Do not allow energy insertion for PULL only mode
+        int capacity = ENERGY_EXTRACTION_MODE.isPush()?tier.getMaxTransfer():0;
 
-            energyStorage = new ReceiveOnlyEnergyStorage() {
-                @Override
-                public int receiveEnergy(int maxReceive, boolean simulate) {
-                    return 0;
-                }
+        energyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChanged();
 
-                @Override
-                public boolean canReceive() {
-                    return false;
+                if(level != null && !level.isClientSide()) {
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getAmountAsInt(), getCapacityAsInt(), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
                 }
-            };
-        }
+            }
+        };
+        limitingEnergyStorage = new EnergizedPowerLimitingEnergyStorage(energyStorage, capacity, 0);
     }
 
     public CableTier getTier() {
         return tier;
     }
 
-    public Map<Pair<BlockPos, Direction>, IEnergyStorage> getProducers() {
+    public Map<Pair<BlockPos, Direction>, EnergyHandler> getProducers() {
         return producers;
     }
 
-    public Map<Pair<BlockPos, Direction>, IEnergyStorage> getConsumers() {
+    public Map<Pair<BlockPos, Direction>, EnergyHandler> getConsumers() {
         return consumers;
     }
 
@@ -98,21 +99,21 @@ public class CableBlockEntity extends BlockEntity {
                 continue;
             }
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler energyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
             if(energyStorage == null)
                 continue;
 
-            if(ENERGY_EXTRACTION_MODE.isPull() && energyStorage.canExtract())
+            if(ENERGY_EXTRACTION_MODE.isPull() && CapabilityUtil.canExtract(energyStorage))
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
 
-            if(energyStorage.canReceive())
+            if(CapabilityUtil.canInsert(energyStorage))
                 blockEntity.consumers.put(Pair.of(testPos, direction.getOpposite()), energyStorage);
         }
     }
 
-    public static Deque<IEnergyStorage> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedCables) {
-        Deque<IEnergyStorage> consumers = new ArrayDeque<>(1024);
+    public static Deque<EnergyHandler> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedCables) {
+        Deque<EnergyHandler> consumers = new ArrayDeque<>(1024);
 
         Deque<BlockPos> cableBlocksLeft = new ArrayDeque<>(1024);
         cableBlocksLeft.add(blockPos);
@@ -150,38 +151,44 @@ public class CableBlockEntity extends BlockEntity {
         }
 
         final int MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
-        List<IEnergyStorage> energyProduction = new ArrayList<>();
+        List<EnergyHandler> energyProduction = new ArrayList<>();
         List<Integer> energyProductionValues = new ArrayList<>();
 
         //Prioritize stored energy for PUSH mode
-        int productionSum = blockEntity.energyStorage.getEnergy(); //Will always be 0 if in PULL only mode
-        for(IEnergyStorage energyStorage:blockEntity.producers.values()) {
-            int extracted = energyStorage.extractEnergy(MAX_TRANSFER, true);
-            if(extracted <= 0)
-                continue;
+        int productionSum = blockEntity.energyStorage.getAmountAsInt(); //Will always be 0 if in PULL only mode
+        for(EnergyHandler energyStorage:blockEntity.producers.values()) {
+            try(Transaction transaction = Transaction.open(null)) {
+                int extracted = energyStorage.extract(MAX_TRANSFER, transaction);
 
-            energyProduction.add(energyStorage);
-            energyProductionValues.add(extracted);
-            productionSum += extracted;
+                if(extracted <= 0)
+                    continue;
+
+                energyProduction.add(energyStorage);
+                energyProductionValues.add(extracted);
+                productionSum += extracted;
+            }
         }
 
         if(productionSum <= 0)
             return;
 
-        List<IEnergyStorage> energyConsumption = new ArrayList<>();
+        List<EnergyHandler> energyConsumption = new ArrayList<>();
         List<Integer> energyConsumptionValues = new ArrayList<>();
 
-        Deque<IEnergyStorage> consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
+        Deque<EnergyHandler> consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
 
         int consumptionSum = 0;
-        for(IEnergyStorage energyStorage:consumers) {
-            int received = energyStorage.receiveEnergy(MAX_TRANSFER, true);
-            if(received <= 0)
-                continue;
+        for(EnergyHandler energyStorage:consumers) {
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = energyStorage.insert(MAX_TRANSFER, transaction);
 
-            energyConsumption.add(energyStorage);
-            energyConsumptionValues.add(received);
-            consumptionSum += received;
+                if(received <= 0)
+                    continue;
+
+                energyConsumption.add(energyStorage);
+                energyConsumptionValues.add(received);
+                consumptionSum += received;
+            }
         }
 
         if(consumptionSum <= 0)
@@ -192,8 +199,12 @@ public class CableBlockEntity extends BlockEntity {
         int extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
             //Prioritize stored energy for PUSH mode
-            extractInternally = Math.min(blockEntity.energyStorage.getEnergy(), transferLeft);
-            blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - extractInternally);
+            extractInternally = Math.min(blockEntity.energyStorage.getAmountAsInt(), transferLeft);
+            try(Transaction transaction = Transaction.open(null)) {
+                blockEntity.energyStorage.extract(extractInternally, transaction);
+
+                transaction.commit();
+            }
         }
 
         List<Integer> energyProductionDistributed = new ArrayList<>();
@@ -226,7 +237,10 @@ public class CableBlockEntity extends BlockEntity {
         for(int i = 0;i < energyProduction.size();i++) {
             int energy = energyProductionDistributed.get(i);
             if(energy > 0)
-                energyProduction.get(i).extractEnergy(energy, false);
+                try(Transaction transaction = Transaction.open(null)) {
+                    energyProduction.get(i).extract(energy, transaction);
+                    transaction.commit();
+                }
         }
 
         List<Integer> energyConsumptionDistributed = new ArrayList<>();
@@ -258,12 +272,15 @@ public class CableBlockEntity extends BlockEntity {
         for(int i = 0;i < energyConsumption.size();i++) {
             int energy = energyConsumptionDistributed.get(i);
             if(energy > 0)
-                energyConsumption.get(i).receiveEnergy(energy, false);
+                try(Transaction transaction = Transaction.open(null)) {
+                    energyConsumption.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
         }
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -271,7 +288,7 @@ public class CableBlockEntity extends BlockEntity {
         super.saveAdditional(view);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            view.putInt("energy", energyStorage.getEnergy());
+            view.putInt("energy", energyStorage.getAmountAsInt());
     }
 
     @Override
@@ -279,6 +296,6 @@ public class CableBlockEntity extends BlockEntity {
         super.loadAdditional(view);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            energyStorage.setEnergyWithoutUpdate(view.getIntOr("energy", 0));
+            energyStorage.setAmountWithoutUpdate(view.getIntOr("energy", 0));
     }
 }

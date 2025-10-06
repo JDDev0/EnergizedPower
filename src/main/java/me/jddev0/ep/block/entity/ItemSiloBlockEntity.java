@@ -16,7 +16,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemSiloBlockEntity
@@ -43,7 +44,7 @@ public class ItemSiloBlockEntity
     protected SingleItemStackHandler initInventoryStorage() {
         return new SingleItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onFinalCommit() {
                 setChanged();
             }
         };
@@ -53,7 +54,7 @@ public class ItemSiloBlockEntity
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new IntegerValueContainerData(itemHandler::getCount, value -> {}),
-                new IntegerValueContainerData(() -> itemHandler.getSlots() * itemHandler.getStack().getMaxStackSize(), value -> {})
+                new IntegerValueContainerData(() -> itemHandler.getCapacityAsInt(0, itemHandler.getResource()), value -> {})
         );
     }
 
@@ -67,7 +68,7 @@ public class ItemSiloBlockEntity
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         return itemHandler;
     }
 
@@ -75,7 +76,7 @@ public class ItemSiloBlockEntity
     public void preRemoveSideEffects(BlockPos worldPosition, BlockState oldState) {
         if(level != null) {
             int count = itemHandler.getCount();
-            ItemStack stack = itemHandler.getStack();
+            ItemStack stack = itemHandler.getStackInSlot(0);
 
             if(count > 0 && !stack.isEmpty()) {
                 while(count > 0) {

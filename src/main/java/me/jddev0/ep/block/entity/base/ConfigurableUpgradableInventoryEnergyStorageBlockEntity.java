@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
@@ -10,11 +11,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler>
+        <E extends IEnergizedPowerEnergyStorage, I extends IEnergizedPowerItemStackHandler>
         extends UpgradableInventoryEnergyStorageBlockEntity<E, I>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;

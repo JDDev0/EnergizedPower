@@ -10,11 +10,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends IFluidHandler>
+        <E extends IEnergizedPowerEnergyStorage, F extends ResourceHandler<FluidResource>>
         extends UpgradableFluidEnergyStorageBlockEntity<E, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;

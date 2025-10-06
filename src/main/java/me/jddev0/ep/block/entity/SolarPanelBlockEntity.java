@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.SolarPanelMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -16,10 +18,11 @@ import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
+public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private final SolarPanelTier tier;
 
     public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelTier tier) {
@@ -39,24 +42,29 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
     }
 
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
+            @Override
             public int getMaxExtract() {
                 return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-                syncEnergyToPlayers(32);
             }
         };
     }
@@ -102,8 +110,10 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
             }
         }
 
-        blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
-                blockEntity.energyStorage.getEnergy() + energyProduction));
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.insert(energyProduction, transaction);
+            transaction.commit();
+        }
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
@@ -116,17 +126,20 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+        EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                 level.getBlockState(testPos), testBlockEntity, Direction.DOWN.getOpposite());
-        if(energyStorage == null || !energyStorage.canReceive())
+        if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
             return;
 
-        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.energyStorage.getMaxExtract()), false);
-        if(amount > 0)
-            blockEntity.energyStorage.extractEnergy(amount, false);
+        try(Transaction transaction = Transaction.open(null)) {
+            int amount = limitingEnergyStorage.insert(Math.min(blockEntity.energyStorage.getAmountAsInt(),
+                    blockEntity.limitingEnergyStorage.getMaxExtract()), transaction);
+            blockEntity.limitingEnergyStorage.extract(amount, transaction);
+            transaction.commit();
+        }
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
         if(side == null || side == Direction.DOWN)
             return energyStorage;
 

@@ -1,7 +1,9 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -10,12 +12,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.Optional;
 
 public abstract class WorkerMachineBlockEntity<W>
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, IEnergizedPowerItemStackHandler> {
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 
@@ -38,24 +40,29 @@ public abstract class WorkerMachineBlockEntity<W>
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
+            public long getCapacityAsLong() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
         };
     }
@@ -114,7 +121,7 @@ public abstract class WorkerMachineBlockEntity<W>
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
 
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
                 blockEntity.hasEnoughEnergy = true;
                 blockEntity.timeoutOffState = 0;
                 blockEntity.onHasEnoughEnergy();
@@ -130,7 +137,10 @@ public abstract class WorkerMachineBlockEntity<W>
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                try(Transaction transaction = Transaction.open(null)) {
+                    blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
+                    transaction.commit();
+                }
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;

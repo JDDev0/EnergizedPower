@@ -1,7 +1,6 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
@@ -18,7 +17,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
     public static final int ENERGY_CAPACITY = ModConfigs.COMMON_FLUID_ANALYZER_CAPACITY.getValue();
 
     public FluidAnalyzerItem(Properties props) {
-        super(props, () -> new ReceiveOnlyEnergyStorage(0, ENERGY_CAPACITY, ModConfigs.COMMON_FLUID_ANALYZER_TRANSFER_RATE.getValue()));
+        super(props, ENERGY_CAPACITY, ModConfigs.COMMON_FLUID_ANALYZER_TRANSFER_RATE.getValue(), 0);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
         player.displayClientMessage(Component.empty(), false);
     }
 
-    private void addOutputTextForFluidStorage(List<Component> components, @Nullable IFluidHandler fluidStorage, boolean blockFaceSpecificInformation) {
+    private void addOutputTextForFluidStorage(List<Component> components, @Nullable ResourceHandler<FluidResource> fluidStorage, boolean blockFaceSpecificInformation) {
         if(fluidStorage == null) {
             components.add(Component.translatable("txt.energizedpower.fluid_analyzer.no_fluid_block" + (blockFaceSpecificInformation?"_side":"")).
                     withStyle(ChatFormatting.RED));
@@ -64,17 +64,17 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
         }
 
         components.add(Component.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_count" + (blockFaceSpecificInformation?"_side":""),
-                fluidStorage.getTanks()).withStyle(ChatFormatting.BLUE));
+                fluidStorage.size()).withStyle(ChatFormatting.BLUE));
 
-        for(int i = 0;i < fluidStorage.getTanks();i++) {
-            boolean fluidEmpty = fluidStorage.getFluidInTank(i).isEmpty();
+        for(int i = 0;i < fluidStorage.size();i++) {
+            boolean fluidEmpty = fluidStorage.getResource(i).isEmpty();
 
-            int fluidAmount = fluidEmpty?0:fluidStorage.getFluidInTank(i).getAmount();
+            long fluidAmount = fluidEmpty?0:fluidStorage.getAmountAsLong(i);
 
             components.add(Component.literal("• ").append(
                     Component.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content",
-                    i + 1, fluidEmpty?"":Component.translatable(fluidStorage.getFluidInTank(i).getDescriptionId()).append(" "),
-                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(fluidStorage.getTankCapacity(i)))
+                    i + 1, fluidEmpty?"":Component.translatable(fluidStorage.getResource(i).toStack(fluidStorage.getAmountAsInt(i)).getDescriptionId()).append(" "),
+                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(fluidStorage.getCapacityAsLong(i, fluidStorage.getResource(i))))
             ).withStyle(ChatFormatting.BLUE));
         }
     }
@@ -101,11 +101,11 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
 
-        IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, null);
+        ResourceHandler<FluidResource> fluidStorage = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, null);
         addOutputTextForFluidStorage(components, fluidStorage, false);
 
         components.add(Component.translatable("txt.energizedpower.fluid_analyzer.output_side_information").withStyle(ChatFormatting.GOLD));
-        IFluidHandler fluidStorageSided = level.getCapability(Capabilities.FluidHandler.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, useOnContext.getClickedFace());
+        ResourceHandler<FluidResource> fluidStorageSided = level.getCapability(Capabilities.Fluid.BLOCK, blockPos, level.getBlockState(blockPos), blockEntity, useOnContext.getClickedFace());
         addOutputTextForFluidStorage(components, fluidStorageSided, true);
 
         useItem(stack, useOnContext.getPlayer(), components);

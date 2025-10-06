@@ -33,7 +33,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -221,7 +221,7 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
         if(blockEntity instanceof CableBlockEntity cableBlockEntity && cableBlockEntity.getTier() != this.getTier())
             return false;
 
-        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK,
+        EnergyHandler energyStorage = level.getCapability(Capabilities.Energy.BLOCK,
                 toPos, level.getBlockState(toPos), blockEntity, direction.getOpposite());
         return energyStorage != null;
     }

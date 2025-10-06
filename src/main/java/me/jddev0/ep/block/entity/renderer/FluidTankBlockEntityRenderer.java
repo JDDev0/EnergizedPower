@@ -23,12 +23,13 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
-public class FluidTankBlockEntityRenderer<F extends IFluidHandler>
+public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResource>>
         implements BlockEntityRenderer<AbstractFluidTankBlockEntity<F>, FluidTankBlockEntityRenderState> {
     private final BlockEntityRendererProvider.Context context;
 

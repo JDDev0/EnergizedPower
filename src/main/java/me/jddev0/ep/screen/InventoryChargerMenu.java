@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.item.InventoryChargerItem;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -12,7 +13,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class InventoryChargerMenu extends AbstractContainerMenu {
@@ -24,8 +25,8 @@ public class InventoryChargerMenu extends AbstractContainerMenu {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < getContainerSize()) {
-                    IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-                    return energyStorage != null && energyStorage.canExtract();
+                    EnergyHandler energyStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack);
+                    return energyStorage != null && CapabilityUtil.canExtract(energyStorage);
                 }
 
                 return super.canPlaceItem(slot, stack);

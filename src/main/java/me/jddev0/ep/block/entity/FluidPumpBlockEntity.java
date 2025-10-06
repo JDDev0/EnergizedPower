@@ -3,11 +3,14 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidPumpMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,20 +27,19 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class FluidPumpBlockEntity
-        extends WorkerFluidMachineBlockEntity<FluidTank, BlockPos> {
+        extends WorkerFluidMachineBlockEntity<SimpleFluidStorage, BlockPos> {
     public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
     public static final int EXTRACTION_DURATION = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_DURATION.getValue();
 
@@ -49,7 +51,7 @@ public class FluidPumpBlockEntity
     private int zOffset = -1;
     private boolean extractingFluid = false;
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -75,40 +77,35 @@ public class FluidPumpBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
                 if(slot == 0) {
                     return stack.is(Items.COBBLESTONE);
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
             @Override
-            protected void onContentsChanged() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
@@ -141,19 +138,19 @@ public class FluidPumpBlockEntity
         return new FluidPumpMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -213,8 +210,10 @@ public class FluidPumpBlockEntity
         if(targetFluidState.isEmpty())
             return;
 
-        if(fluidStorage.fill(new FluidStack(targetFluidState.getType(), 1000), IFluidHandler.FluidAction.SIMULATE) != 1000)
-            return;
+        try(Transaction transaction = Transaction.open(null)) {
+            if(fluidStorage.insert(FluidResource.of(targetFluidState.getType()), 1000, transaction) != 1000)
+                return;
+        }
 
         extractingFluid = true;
     }
@@ -228,16 +227,19 @@ public class FluidPumpBlockEntity
             if(!bucketItemStack.isEmpty()) {
                 level.gameEvent(null, GameEvent.FLUID_PICKUP, targetPos);
 
-                IFluidHandlerItem fluidStorage = bucketItemStack.getCapability(Capabilities.FluidHandler.ITEM);
-                if(fluidStorage != null && fluidStorage.getTanks() == 1) {
-                    FluidStack fluidStack = fluidStorage.getFluidInTank(0);
+                ResourceHandler<FluidResource> fluidStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Fluid.ITEM, bucketItemStack);
+                if(fluidStorage != null && fluidStorage.size() == 1) {
+                    FluidResource fluidVariant = fluidStorage.getResource(0);
 
-                    if(!fluidStack.isEmpty()) {
-                        this.fluidStorage.fill(fluidStack.copy(), IFluidHandler.FluidAction.EXECUTE);
+                    if(!fluidVariant.isEmpty()) {
+                        try(Transaction transaction = Transaction.open(null)) {
+                            this.fluidStorage.insert(fluidVariant, fluidStorage.getAmountAsInt(0), transaction);
+                            transaction.commit();
+                        }
 
                         BlockState newTargetState = level.getBlockState(targetPos);
                         if(newTargetState.isAir() || newTargetState.canBeReplaced()) {
-                            itemHandler.extractItem(0, 1, false);
+                            itemHandler.extractItem(0, 1);
 
                             level.setBlock(targetPos, Blocks.COBBLESTONE.defaultBlockState(), 3);
                         }

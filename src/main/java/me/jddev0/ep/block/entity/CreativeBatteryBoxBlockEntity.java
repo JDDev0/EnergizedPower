@@ -1,11 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,7 +20,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<InfinityEnergyStorage>
@@ -40,20 +44,20 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     protected InfinityEnergyStorage initEnergyStorage() {
         return new InfinityEnergyStorage() {
             @Override
-            public int extractEnergy(int maxExtract, boolean simulate) {
-                return energyProduction?super.extractEnergy(maxExtract, simulate):0;
+            public int extract(int maxAmount, TransactionContext transaction) {
+                return energyProduction?super.extract(maxAmount, transaction):0;
             }
 
             @Override
-            public int receiveEnergy(int maxReceive, boolean simulate) {
-                return energyConsumption?super.receiveEnergy(maxReceive, simulate):0;
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
+            public int insert(int maxAmount, TransactionContext transaction) {
+                return energyConsumption?super.insert(maxAmount, transaction):0;
             }
         };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 
     @Override
@@ -70,8 +74,8 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
         return new CreativeBatteryBoxMenu(id, inventory, this, data);
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -130,13 +134,20 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
                 continue;
 
-            int received = energyStorage.receiveEnergy(energyStorage.getMaxEnergyStored(), true);
-            energyStorage.receiveEnergy(received, false);
+            int received;
+            try(Transaction transaction = Transaction.open(null)) {
+                received = limitingEnergyStorage.insert(limitingEnergyStorage.getCapacityAsInt(), transaction);
+            }
+
+            try(Transaction transaction = Transaction.open(null)) {
+                limitingEnergyStorage.insert(received, transaction);
+                transaction.commit();
+            }
         }
     }
 }

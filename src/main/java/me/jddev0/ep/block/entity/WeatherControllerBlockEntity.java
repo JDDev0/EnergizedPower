@@ -2,7 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -18,10 +19,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
+public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private static final int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
 
     private int selectedWeatherType = -1;
@@ -49,19 +51,25 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
+            }
+
         };
     }
 
@@ -73,8 +81,8 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
         return new WeatherControllerMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -102,8 +110,11 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
         double energyConsumptionPerTick = blockEntity.upgradeModuleInventory.getModifierEffectSum(
                 UpgradeModuleModifier.ENERGY_CONSUMPTION);
 
-        if(blockEntity.energyStorage.getEnergy() >= energyConsumptionPerTick) {
-            blockEntity.energyStorage.setEnergy((int)(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick));
+        if(blockEntity.energyStorage.getAmountAsInt() >= energyConsumptionPerTick) {
+            try(Transaction transaction = Transaction.open(null)) {
+                blockEntity.energyStorage.extract((int)energyConsumptionPerTick, transaction);
+                transaction.commit();
+            }
 
             //Set weather every 5 seconds instead of for every tick
             if(level.getGameTime() % 100 == 0) {
@@ -124,7 +135,11 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
     }
 
     public void clearEnergy() {
-        energyStorage.setEnergy(0);
+        try(Transaction transaction = Transaction.open(null)) {
+            energyStorage.extract(energyStorage.getCapacityAsInt(), transaction);
+
+            transaction.commit();
+        }
     }
 
     public boolean hasEnoughEnergy() {
@@ -132,10 +147,10 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
             double energyConsumptionPerTick = upgradeModuleInventory.getModifierEffectSum(
                     UpgradeModuleModifier.ENERGY_CONSUMPTION);
 
-            return energyStorage.getEnergy() >= energyConsumptionPerTick;
+            return energyStorage.getAmountAsInt() >= energyConsumptionPerTick;
         }
 
-        return energyStorage.getEnergy() >= energyStorage.getCapacity();
+        return energyStorage.getAmountAsInt() >= energyStorage.getCapacityAsInt();
     }
 
     public boolean hasInfiniteWeatherChangedDuration() {

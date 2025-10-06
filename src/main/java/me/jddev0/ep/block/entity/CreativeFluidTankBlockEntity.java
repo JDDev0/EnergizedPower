@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeFluidTankBlockEntity
@@ -28,7 +29,7 @@ public class CreativeFluidTankBlockEntity
     protected InfinityFluidStorage initFluidStorage() {
         return new InfinityFluidStorage() {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(64);
             }
@@ -44,6 +45,10 @@ public class CreativeFluidTankBlockEntity
     }
 
     public void setFluidStack(FluidStack fluidStack) {
-        fluidStorage.setFluid(fluidStack);
+        try(Transaction transaction = Transaction.open(null)) {
+            fluidStorage.setFluid(fluidStack, transaction);
+
+            transaction.commit();
+        }
     }
 }

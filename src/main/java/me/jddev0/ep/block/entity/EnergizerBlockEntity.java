@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
@@ -33,9 +35,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,11 +47,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class EnergizerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements IngredientPacketUpdate {
     public static final float ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     private int progress;
     private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
@@ -75,22 +78,16 @@ public class EnergizerBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
@@ -98,33 +95,41 @@ public class EnergizerBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
+        };
+    }
 
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch (slot) {
                     case 0 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, EPRecipes.ENERGIZER_TYPE.get(), stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress(worldPosition, level.getBlockState(worldPosition));
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }
@@ -151,15 +156,15 @@ public class EnergizerBlockEntity
         return new EnergizerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -195,8 +200,8 @@ public class EnergizerBlockEntity
             return;
 
         if(hasRecipe(blockEntity)) {
-            SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-            for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+            SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+            for(int i = 0;i < blockEntity.itemHandler.size();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
             Optional<RecipeHolder<EnergizerRecipe>> recipe = serverLevel.recipeAccess().
@@ -210,7 +215,7 @@ public class EnergizerBlockEntity
                 blockEntity.energyConsumptionLeft = energyConsumption;
 
             int energyConsumptionPerTick = blockEntity.getEnergyConsumptionPerTick();
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
                 blockEntity.hasEnoughEnergy = true;
                 blockEntity.timeoutOffState = 0;
                 if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
@@ -228,7 +233,10 @@ public class EnergizerBlockEntity
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                try(Transaction transaction = Transaction.open(null)) {
+                    blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
+                    transaction.commit();
+                }
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;
@@ -256,8 +264,8 @@ public class EnergizerBlockEntity
         if(!(level instanceof ServerLevel serverLevel))
             return -1;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Optional<RecipeHolder<EnergizerRecipe>> recipe = serverLevel.recipeAccess().
@@ -288,8 +296,8 @@ public class EnergizerBlockEntity
         if(!(level instanceof ServerLevel serverLevel))
             return;
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
         Optional<RecipeHolder<EnergizerRecipe>> recipe = serverLevel.recipeAccess().
@@ -298,7 +306,7 @@ public class EnergizerBlockEntity
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
-        blockEntity.itemHandler.extractItem(0, 1, false);
+        blockEntity.itemHandler.extractItem(0, 1);
         blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
 
@@ -311,8 +319,8 @@ public class EnergizerBlockEntity
         if(!(level instanceof ServerLevel serverLevel))
             return false;
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
         Optional<RecipeHolder<EnergizerRecipe>> recipe = serverLevel.recipeAccess().

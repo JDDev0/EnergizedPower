@@ -29,7 +29,7 @@ public class ViewOnlySlot extends Slot {
 
     @Override
     public ItemStack getItem() {
-        return this.getItemHandler().getStack();
+        return this.getItemHandler().stack.toStack();
     }
 
     @Override

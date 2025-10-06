@@ -19,7 +19,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class AdvancedCrusherMenu extends UpgradableEnergyStorageMenu<AdvancedCrusherBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -50,14 +50,14 @@ public class AdvancedCrusherMenu extends UpgradableEnergyStorageMenu<AdvancedCru
                 upgradeModuleInventory, 3
         );
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 66, 35) {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 66, 35) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 1, 126, 35) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 126, 35) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();

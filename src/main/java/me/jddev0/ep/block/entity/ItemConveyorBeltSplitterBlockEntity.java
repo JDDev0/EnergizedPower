@@ -14,7 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     private final int ticksPerItem;
@@ -74,12 +76,26 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
             if(!(inputBlockEntity instanceof ItemConveyorBeltBlockEntity))
                 return;
 
-            IItemHandler inputBeltItemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, inputPos,
+            ResourceHandler<ItemResource> inputBeltItemStackStorage = level.getCapability(Capabilities.Item.BLOCK, inputPos,
                     inputBlockState, inputBlockEntity, facing.getOpposite());
             if(inputBeltItemStackStorage == null)
                 return;
 
-            ItemStack itemStackToSwitch = inputBeltItemStackStorage.getStackInSlot(inputBeltItemStackStorage.getSlots() - 1);
+            ItemStack itemStackToSwitch = ItemStack.EMPTY;
+            try(Transaction transaction = Transaction.open(null)) {
+                for(int i = 0;i < inputBeltItemStackStorage.size();i++) {
+                    if(inputBeltItemStackStorage.getResource(i).isEmpty())
+                        continue;
+
+                    ItemResource itemResource = inputBeltItemStackStorage.getResource(i);
+                    int amount = inputBeltItemStackStorage.extract(itemResource, 1, transaction);
+                    if(amount > 0) {
+                        itemStackToSwitch = itemResource.toStack(1);
+
+                        break;
+                    }
+                }
+            }
             if(itemStackToSwitch.isEmpty())
                 return;
 
@@ -104,15 +120,19 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
                 if(!(outputBlockEntity instanceof ItemConveyorBeltBlockEntity))
                     continue;
 
-                IItemHandler outputBeltItemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, outputPos,
+                ResourceHandler<ItemResource> outputBeltItemStackStorage = level.getCapability(Capabilities.Item.BLOCK, outputPos,
                         outputBlockState, outputBlockEntity, outputDirection.getOpposite());
                 if(outputBeltItemStackStorage == null)
                     continue;
 
-                for(int i = 0;i < outputBeltItemStackStorage.getSlots();i++) {
-                    if(outputBeltItemStackStorage.insertItem(i, itemStackToSwitch, false).isEmpty()) {
-                        inputBeltItemStackStorage.extractItem(inputBeltItemStackStorage.getSlots() - 1, 1, false);
+                try(Transaction transaction = Transaction.open(null)) {
+                    long amount = outputBeltItemStackStorage.insert(ItemResource.of(itemStackToSwitch), 1, transaction);
+                    if(amount > 0)
+                        inputBeltItemStackStorage.extract(ItemResource.of(itemStackToSwitch),1, transaction);
 
+                    transaction.commit();
+
+                    if(amount > 0) {
                         blockEntity.currentOutputIndex = (index + 1) % 3;
                         setChanged(level, blockPos, state);
 

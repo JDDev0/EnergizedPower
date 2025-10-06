@@ -2,9 +2,10 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -21,11 +22,12 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +36,7 @@ public class FiltrationPlantBlockEntity
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FILTRATION_PLANT_TANK_CAPACITY.getValue();
     public static final int DIRTY_WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_FILTRATION_PLANT_DIRTY_WATER_USAGE_PER_RECIPE.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2 || i == 3);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2 || i == 3);
 
     public FiltrationPlantBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -61,20 +63,20 @@ public class FiltrationPlantBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
                 return switch(slot) {
                     case 0, 1 -> stack.is(EPItems.CHARCOAL_FILTER.get());
                     case 2, 3 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -85,38 +87,38 @@ public class FiltrationPlantBlockEntity
                 baseTankCapacity, baseTankCapacity
         }) {
             @Override
-            protected void onContentsChanged() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
 
             @Override
-            public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
-                if(!super.isFluidValid(tank, stack))
+            public boolean isValid(int tank, @NotNull FluidResource stack) {
+                if(!super.isValid(tank, stack))
                     return false;
 
                 return switch(tank) {
-                    case 0 -> FluidStack.isSameFluid(stack, new FluidStack(EPFluids.DIRTY_WATER.get(), 1));
-                    case 1 -> FluidStack.isSameFluid(stack, new FluidStack(Fluids.WATER, 1));
+                    case 0 -> stack.matches(new FluidStack(EPFluids.DIRTY_WATER.get(), 1));
+                    case 1 -> stack.matches(new FluidStack(Fluids.WATER, 1));
                     default -> false;
                 };
             }
         };
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -124,8 +126,12 @@ public class FiltrationPlantBlockEntity
         if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverLevel))
             return;
 
-        fluidStorage.drain(new FluidStack(EPFluids.DIRTY_WATER.get(), DIRTY_WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
-        fluidStorage.fill(new FluidStack(Fluids.WATER, DIRTY_WATER_CONSUMPTION_PER_RECIPE), IFluidHandler.FluidAction.EXECUTE);
+        try(Transaction transaction = Transaction.open(null)) {
+            fluidStorage.extract(FluidResource.of(EPFluids.DIRTY_WATER), DIRTY_WATER_CONSUMPTION_PER_RECIPE, transaction);
+            fluidStorage.insert(FluidResource.of(Fluids.WATER), DIRTY_WATER_CONSUMPTION_PER_RECIPE, transaction);
+
+            transaction.commit();
+        }
 
         for(int i = 0;i < 2;i++) {
             ItemStack charcoalFilter = itemHandler.getStackInSlot(i).copy();

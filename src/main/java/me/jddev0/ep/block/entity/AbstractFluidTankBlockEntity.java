@@ -8,10 +8,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractFluidTankBlockEntity<F extends IFluidHandler>
+public abstract class AbstractFluidTankBlockEntity<F extends ResourceHandler<FluidResource>>
         extends MenuFluidStorageBlockEntity<F> {
 
     public AbstractFluidTankBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
@@ -20,7 +21,7 @@ public abstract class AbstractFluidTankBlockEntity<F extends IFluidHandler>
         super(type, blockPos, blockState, machineName, fluidStorageMethods, baseTankCapacity);
     }
 
-    public static <F extends IFluidHandler> void tick(Level level, BlockPos blockPos, BlockState state,
+    public static <F extends ResourceHandler<FluidResource>> void tick(Level level, BlockPos blockPos, BlockState state,
                                                       AbstractFluidTankBlockEntity<F> blockEntity) {
         if(level.isClientSide())
             return;
@@ -34,7 +35,7 @@ public abstract class AbstractFluidTankBlockEntity<F extends IFluidHandler>
         return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 }

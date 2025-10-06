@@ -28,7 +28,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements MenuProvider, CheckboxUpdate {
@@ -195,7 +197,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 return;
             }
 
-            IItemHandler inputBeltItemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, inputPos,
+            ResourceHandler<ItemResource> inputBeltItemStackStorage = level.getCapability(Capabilities.Item.BLOCK, inputPos,
                     level.getBlockState(inputPos), inputBlockEntity, facing.getOpposite());
             if(inputBeltItemStackStorage == null) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
@@ -203,7 +205,21 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
                 return;
             }
 
-            ItemStack itemStackToSort = inputBeltItemStackStorage.getStackInSlot(inputBeltItemStackStorage.getSlots() - 1);
+            ItemStack itemStackToSort = ItemStack.EMPTY;
+            try(Transaction transaction = Transaction.open(null)) {
+                for(int i = 0;i < inputBeltItemStackStorage.size();i++) {
+                    if(inputBeltItemStackStorage.getResource(i).isEmpty())
+                        continue;
+
+                    ItemResource itemResource = inputBeltItemStackStorage.getResource(i);
+                    int amount = inputBeltItemStackStorage.extract(itemResource, 1, transaction);
+                    if(amount > 0) {
+                        itemStackToSort = itemResource.toStack(1);
+
+                        break;
+                    }
+                }
+            }
             if(itemStackToSort.isEmpty()) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
@@ -212,7 +228,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
             for(int i = 0;i < 3;i++) {
                 if(filterMatches(blockEntity, i, itemStackToSort)) {
-                    IItemHandler outputBeltItemStackStorage = getOutputBeltItemStackStorage(level, blockPos, state, blockEntity, i);
+                    ResourceHandler<ItemResource> outputBeltItemStackStorage = getOutputBeltItemStackStorage(level, blockPos, state, blockEntity, i);
                     if(outputBeltItemStackStorage == null) {
                         //Filter matched but output belt is not present
 
@@ -257,7 +273,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
         return !blockEntity.whitelist[index];
     }
 
-    private static IItemHandler getOutputBeltItemStackStorage(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity,
+    private static ResourceHandler<ItemResource> getOutputBeltItemStackStorage(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity,
                                         int index) {
         Direction direction = state.getValue(ItemConveyorBeltSorterBlock.FACING);
         direction = switch(index) {
@@ -278,17 +294,20 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
         if(!(outputBlockEntity instanceof ItemConveyorBeltBlockEntity))
             return null;
 
-        return level.getCapability(Capabilities.ItemHandler.BLOCK, outputPos, level.getBlockState(outputPos),
+        return level.getCapability(Capabilities.Item.BLOCK, outputPos, level.getBlockState(outputPos),
                 outputBlockEntity, direction.getOpposite());
     }
 
-    private static boolean tryInsertItemStackIntoOutputBelt(ItemStack itemStackToSort, IItemHandler inputBeltItemStackStorage, IItemHandler outputBeltItemStackStorage) {
-        for(int i = 0;i < outputBeltItemStackStorage.getSlots();i++) {
-            if(outputBeltItemStackStorage.insertItem(i, itemStackToSort, false).isEmpty()) {
-                inputBeltItemStackStorage.extractItem(inputBeltItemStackStorage.getSlots() - 1, 1, false);
+    private static boolean tryInsertItemStackIntoOutputBelt(ItemStack itemStackToSort, ResourceHandler<ItemResource> inputBeltItemStackStorage, ResourceHandler<ItemResource> outputBeltItemStackStorage) {
+        try(Transaction transaction = Transaction.open(null)) {
+            int amount = outputBeltItemStackStorage.insert(ItemResource.of(itemStackToSort), 1, transaction);
+            if(amount > 0)
+                inputBeltItemStackStorage.extract(ItemResource.of(itemStackToSort),1, transaction);
 
+            transaction.commit();
+
+            if(amount > 0)
                 return true;
-            }
         }
 
         return false;

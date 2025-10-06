@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -61,10 +61,10 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
             for(int i = 0;i < 2;i++)
                 for(int j = 0;j < 9;j++)
-                    addSlot(new SlotItemHandler(itemHandler, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
+                    addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
         });
 
         for(int i = 0;i < 3;i++)

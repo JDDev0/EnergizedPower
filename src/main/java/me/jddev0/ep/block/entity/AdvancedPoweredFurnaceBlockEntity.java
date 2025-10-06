@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
@@ -30,9 +32,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +44,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AdvancedPoweredFurnaceBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements IngredientPacketUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
@@ -49,7 +52,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i >= 3 && i < 6);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i >= 3 && i < 6);
 
     private int[] progress = new int[] {
             0, 0, 0
@@ -87,22 +90,16 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
@@ -110,33 +107,41 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
+        };
+    }
 
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
                     case 0, 1, 2 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, getRecipeForFurnaceModeUpgrade(), stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 3, 4, 5 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress(slot, worldPosition, level.getBlockState(worldPosition));
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }
@@ -171,15 +176,15 @@ public class AdvancedPoweredFurnaceBlockEntity
         return new AdvancedPoweredFurnaceMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -247,7 +252,7 @@ public class AdvancedPoweredFurnaceBlockEntity
                 if(blockEntity.energyConsumptionLeft[i] < 0)
                     blockEntity.energyConsumptionLeft[i] = energyUsagePerInputPerTick * blockEntity.maxProgress[i];
 
-                if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getEnergy()) {
+                if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
                     blockEntity.hasEnoughEnergy[i] = true;
                     blockEntity.timeoutOffState = 0;
                     if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
@@ -264,7 +269,10 @@ public class AdvancedPoweredFurnaceBlockEntity
                         continue;
                     }
 
-                    blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyUsagePerInputPerTick);
+                    try(Transaction transaction = Transaction.open(null)) {
+                        blockEntity.energyStorage.extract(energyUsagePerInputPerTick, transaction);
+                        transaction.commit();
+                    }
                     blockEntity.energyConsumptionLeft[i] -= energyUsagePerInputPerTick;
 
                     blockEntity.progress[i]++;
@@ -341,7 +349,7 @@ public class AdvancedPoweredFurnaceBlockEntity
         if(!hasRecipe(index, blockEntity) || recipe.isEmpty())
             return;
 
-        blockEntity.itemHandler.extractItem(index, 1, false);
+        blockEntity.itemHandler.extractItem(index, 1);
         blockEntity.itemHandler.setStackInSlot(3 + index, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(3 + index).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
 
@@ -357,8 +365,8 @@ public class AdvancedPoweredFurnaceBlockEntity
 
         Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
-        inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+        inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
         return recipe.isPresent() &&

@@ -2,7 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.screen.TimeControllerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -10,10 +11,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage> {
+public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final int CAPACITY = ModConfigs.COMMON_TIME_CONTROLLER_CAPACITY.getValue();
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -28,14 +30,19 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Rece
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
         };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
     }
 
     @Nullable
@@ -46,11 +53,15 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Rece
         return new TimeControllerMenu(id, inventory, this);
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public void clearEnergy() {
-        energyStorage.setEnergy(0);
+        try(Transaction transaction = Transaction.open(null)) {
+            energyStorage.extract(CAPACITY, transaction);
+
+            transaction.commit();
+        }
     }
 }

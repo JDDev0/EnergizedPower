@@ -19,7 +19,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionSmelterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -50,32 +50,32 @@ public class InductionSmelterMenu extends UpgradableEnergyStorageMenu<InductionS
                 upgradeModuleInventory, 3
         );
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 36, 37) {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 36, 37) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 1, 57, 34) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 57, 34) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 2, 78, 37) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 78, 37) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 3, 141, 25) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 3, 141, 25) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 4, 141, 49) {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 4, 141, 49) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();

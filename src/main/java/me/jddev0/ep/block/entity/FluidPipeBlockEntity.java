@@ -10,9 +10,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -22,10 +23,10 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
     private final int maxTransfer;
 
-    private final IFluidHandler fluidStorage;
+    private final ResourceHandler<FluidResource> fluidStorage;
 
-    private final Map<Pair<BlockPos, Direction>, IFluidHandler> producers = new HashMap<>();
-    private final Map<Pair<BlockPos, Direction>, IFluidHandler> consumers = new HashMap<>();
+    private final Map<Pair<BlockPos, Direction>, ResourceHandler<FluidResource>> producers = new HashMap<>();
+    private final Map<Pair<BlockPos, Direction>, ResourceHandler<FluidResource>> consumers = new HashMap<>();
     private final Deque<BlockPos> pipeBlocks = new ArrayDeque<>();
 
     public FluidPipeBlockEntity(BlockPos blockPos, BlockState blockState, FluidPipeTier tier) {
@@ -35,40 +36,40 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
         maxTransfer = tier.getTransferRate();
 
-        fluidStorage = new IFluidHandler() {
+        fluidStorage = new ResourceHandler<>() {
             @Override
-            public int getTanks() {
+            public int size() {
                 return 0;
             }
 
             @Override
-            public @NotNull FluidStack getFluidInTank(int tank) {
-                return FluidStack.EMPTY;
+            public FluidResource getResource(int index) {
+                return FluidResource.EMPTY;
             }
 
             @Override
-            public int getTankCapacity(int tank) {
+            public long getAmountAsLong(int index) {
                 return 0;
             }
 
             @Override
-            public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
+            public long getCapacityAsLong(int index, FluidResource resource) {
+                return 0;
+            }
+
+            @Override
+            public boolean isValid(int index, FluidResource resource) {
                 return false;
             }
 
             @Override
-            public int fill(FluidStack resource, FluidAction action) {
+            public int insert(int index, FluidResource resource, int amount, TransactionContext transaction) {
                 return 0;
             }
 
             @Override
-            public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
-                return FluidStack.EMPTY;
-            }
-
-            @Override
-            public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
-                return FluidStack.EMPTY;
+            public int extract(int index, FluidResource resource, int amount, TransactionContext transaction) {
+                return 0;
             }
         };
     }
@@ -77,11 +78,11 @@ public class FluidPipeBlockEntity extends BlockEntity {
         return tier;
     }
 
-    public Map<Pair<BlockPos, Direction>, IFluidHandler> getProducers() {
+    public Map<Pair<BlockPos, Direction>, ResourceHandler<FluidResource>> getProducers() {
         return producers;
     }
 
-    public Map<Pair<BlockPos, Direction>, IFluidHandler> getConsumers() {
+    public Map<Pair<BlockPos, Direction>, ResourceHandler<FluidResource>> getConsumers() {
         return consumers;
     }
 
@@ -103,7 +104,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
             if(testBlockEntity instanceof FluidPipeBlockEntity fluidPipeBlockEntity) {
-                if(fluidPipeBlockEntity.getTier() != blockEntity.getTier()) //Do not connect to different cable tiers
+                if(fluidPipeBlockEntity.getTier() != blockEntity.getTier()) //Do not connect to different pipe tiers
                     continue;
 
                 blockEntity.pipeBlocks.add(testPos);
@@ -111,9 +112,9 @@ public class FluidPipeBlockEntity extends BlockEntity {
                 continue;
             }
 
-            IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, testPos,
+            ResourceHandler<FluidResource> fluidStorage = level.getCapability(Capabilities.Fluid.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(fluidStorage == null || fluidStorage.getTanks() == 0)
+            if(fluidStorage == null || fluidStorage.size() == 0)
                 continue;
 
             EPBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
@@ -124,8 +125,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
     }
 
-    public static Deque<IFluidHandler> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedPipes) {
-        Deque<IFluidHandler> consumers = new ArrayDeque<>(1024);
+    public static Deque<ResourceHandler<FluidResource>> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedPipes) {
+        Deque<ResourceHandler<FluidResource>> consumers = new ArrayDeque<>(1024);
 
         Deque<BlockPos> pipeBlocksLeft = new ArrayDeque<>(1024);
         pipeBlocksLeft.add(blockPos);
@@ -158,60 +159,62 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //TODO improve do not update all the time
         updateConnections(level, blockPos, state, blockEntity);
 
-        Deque<IFluidHandler> consumers = null;
+        Deque<ResourceHandler<FluidResource>> consumers = null;
 
-        FluidStack extractedFluidType;
+        FluidResource extractedFluidType;
 
-        List<IFluidHandler> fluidProduction;
+        List<ResourceHandler<FluidResource>> fluidProduction;
         List<Integer> fluidProductionValues;
         int productionSum;
 
-        List<IFluidHandler> fluidConsumption;
+        List<ResourceHandler<FluidResource>> fluidConsumption;
         List<Integer> fluidConsumptionValues;
         int consumptionSum;
 
 
         //List of all fluid types which where already checked
-        List<FluidStack> alreadyCheckedFluidTypes = new ArrayList<>();
+        List<FluidResource> alreadyCheckedFluidTypes = new ArrayList<>();
 
         //Try all fluid types but stop after the first fluid type which can be inserted somewhere
         while(true) {
             fluidProduction = new ArrayList<>();
 
-            extractedFluidType = FluidStack.EMPTY;
+            extractedFluidType = FluidResource.EMPTY;
 
             fluidProductionValues = new ArrayList<>();
 
             productionSum = 0;
-            for(IFluidHandler fluidStorage:blockEntity.producers.values()) {
+            for(ResourceHandler<FluidResource> fluidStorage:blockEntity.producers.values()) {
                 boolean extractedAnything = false;
 
                 int fluidProductionValuesIndex = -1;
 
                 tankLoop:
-                for(int i = 0;i < fluidStorage.getTanks();i++) {
-                    FluidStack fluidStackInTank = fluidStorage.getFluidInTank(i);
-                    if(fluidStackInTank.isEmpty())
+                for(int i = 0;i < fluidStorage.size();i++) {
+                    FluidResource fluidResourceInTank = fluidStorage.getResource(i);
+                    if(fluidResourceInTank.isEmpty())
                         continue;
 
                     boolean wasExtractedFluidTypeEmpty = extractedFluidType.isEmpty();
                     if(wasExtractedFluidTypeEmpty) {
-                        for(FluidStack alreadyCheckedFluidType:alreadyCheckedFluidTypes)
-                            if(FluidStack.isSameFluidSameComponents(alreadyCheckedFluidType, fluidStackInTank))
+                        for(FluidResource alreadyCheckedFluidType:alreadyCheckedFluidTypes)
+                            if(alreadyCheckedFluidType.equals(fluidResourceInTank))
                                 continue tankLoop;
 
-                        extractedFluidType = fluidStackInTank.copy();
-                        extractedFluidType.setAmount(blockEntity.maxTransfer);
+                        extractedFluidType = fluidResourceInTank;
                     }
 
-                    if(!FluidStack.isSameFluidSameComponents(fluidStackInTank, extractedFluidType))
+                    if(!fluidResourceInTank.equals(extractedFluidType))
                         continue;
 
-                    FluidStack extracted = fluidStorage.drain(extractedFluidType.copy(), IFluidHandler.FluidAction.SIMULATE);
-                    if(extracted.getAmount() <= 0 || extracted.isEmpty() ||
-                            !FluidStack.isSameFluidSameComponents(extracted, extractedFluidType)) {
+                    int extracted;
+                    try(Transaction transaction = Transaction.open(null)) {
+                        extracted = fluidStorage.extract(extractedFluidType, blockEntity.maxTransfer, transaction);
+                    }
+
+                    if(extracted <= 0) {
                         if(wasExtractedFluidTypeEmpty)
-                            extractedFluidType = FluidStack.EMPTY;
+                            extractedFluidType = FluidResource.EMPTY;
 
                         continue;
                     }
@@ -220,13 +223,13 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
                     if(fluidProductionValuesIndex == -1) {
                         fluidProductionValuesIndex = fluidProductionValues.size();
-                        fluidProductionValues.add(extracted.getAmount());
+                        fluidProductionValues.add(extracted);
                     }else {
                         fluidProductionValues.set(fluidProductionValuesIndex,
-                                fluidProductionValues.get(fluidProductionValuesIndex) + extracted.getAmount());
+                                fluidProductionValues.get(fluidProductionValuesIndex) + extracted);
                     }
 
-                    productionSum += extracted.getAmount();
+                    productionSum += extracted;
                 }
 
                 if(extractedAnything)
@@ -246,19 +249,16 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(consumers == null)
                 consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
 
-            //Set fluid amount to at most production sum (Fixes bug where 900 mB Lava would be tried to be inserted to a cauldron and vanishes)
-            extractedFluidType.setAmount(Math.min(blockEntity.maxTransfer, productionSum));
-
-            for(IFluidHandler fluidStorage:consumers) {
+            for(ResourceHandler<FluidResource> fluidStorage:consumers) {
                 boolean receivedAnything = false;
 
                 int fluidConsumptionValuesIndex = -1;
 
-                for(int i = 0;i < fluidStorage.getTanks();i++) {
-                    FluidStack extractedFluidTypeTmp = extractedFluidType.copy();
-                    int received = fluidStorage.fill(extractedFluidTypeTmp, IFluidHandler.FluidAction.SIMULATE);
-                    if(received <= 0)
-                        continue;
+                for(int i = 0;i < fluidStorage.size();i++) {
+                    int received;
+                    try(Transaction transaction = Transaction.open(null)) {
+                        received = fluidStorage.insert(extractedFluidType, Math.min(blockEntity.maxTransfer, productionSum), transaction);
+                    }
 
                     receivedAnything = true;
 
@@ -319,24 +319,31 @@ public class FluidPipeBlockEntity extends BlockEntity {
         for(int i = 0;i < fluidProduction.size();i++) {
             int amount = fluidProductionDistributed.get(i) + realProductionAmountMissing;
             if(amount > 0) {
-                FluidStack extract = extractedFluidType.copy();
-                extract.setAmount(amount);
+                FluidResource extract = extractedFluidType;
+                int realExtract;
+                try(Transaction transaction = Transaction.open(null)) {
+                    realExtract = fluidProduction.get(i).extract(extract, amount, transaction);
 
-                FluidStack realExtract = fluidProduction.get(i).drain(extract, IFluidHandler.FluidAction.EXECUTE);
-                realProduction += realExtract.getAmount();
-                realProductionAmountMissing = amount - realExtract.getAmount();
+                    transaction.commit();
+                }
+                realProduction += realExtract;
+                realProductionAmountMissing = amount - realExtract;
             }
         }
 
         //Retry extraction of all producers if something is missing
         if(realProductionAmountMissing > 0) {
-            for(IFluidHandler producer:fluidProduction) {
-                FluidStack extract = extractedFluidType.copy();
-                extract.setAmount(realProductionAmountMissing);
+            for(ResourceHandler<FluidResource> producer:fluidProduction) {
+                FluidResource extract = extractedFluidType;
+                int realExtract;
+                try(Transaction transaction = Transaction.open(null)) {
+                    realExtract = producer.extract(extract, realProductionAmountMissing, transaction);
 
-                FluidStack realExtract = producer.drain(extract, IFluidHandler.FluidAction.EXECUTE);
-                realProduction += realExtract.getAmount();
-                realProductionAmountMissing -= realExtract.getAmount();
+                    transaction.commit();
+                }
+
+                realProduction += realExtract;
+                realProductionAmountMissing -= realExtract;
 
                 if(realProductionAmountMissing == 0)
                     break;
@@ -373,21 +380,29 @@ public class FluidPipeBlockEntity extends BlockEntity {
         for(int i = 0;i < fluidConsumption.size();i++) {
             int amount = fluidConsumptionDistributed.get(i) + realConsumptionAmountMissing;
             if(amount > 0) {
-                FluidStack insert = extractedFluidType.copy();
-                insert.setAmount(amount);
+                FluidResource insert = extractedFluidType;
+                int realInsert;
+                try(Transaction transaction = Transaction.open(null)) {
+                    realInsert = fluidConsumption.get(i).insert(insert, amount, transaction);
 
-                int realInsert = fluidConsumption.get(i).fill(insert, IFluidHandler.FluidAction.EXECUTE);
+                    transaction.commit();
+                }
+
                 realConsumptionAmountMissing = amount - realInsert;
             }
         }
 
         //Retry insertion to all consumers if something is missing
         if(realConsumptionAmountMissing > 0) {
-            for(IFluidHandler consumer:fluidConsumption) {
-                FluidStack insert = extractedFluidType.copy();
-                insert.setAmount(realConsumptionAmountMissing);
+            for(ResourceHandler<FluidResource> consumer:fluidConsumption) {
+                FluidResource insert = extractedFluidType;
+                int realInsert;
+                try(Transaction transaction = Transaction.open(null)) {
+                    realInsert = consumer.insert(insert, realConsumptionAmountMissing, transaction);
 
-                int realInsert = consumer.fill(insert, IFluidHandler.FluidAction.EXECUTE);
+                    transaction.commit();
+                }
+
                 realConsumptionAmountMissing -= realInsert;
 
                 if(realConsumptionAmountMissing == 0)
@@ -396,7 +411,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 }

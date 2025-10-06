@@ -143,8 +143,8 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         if(level == null || currentRecipe == null)
             return false;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         return canCraftRecipe(inventory, currentRecipe);

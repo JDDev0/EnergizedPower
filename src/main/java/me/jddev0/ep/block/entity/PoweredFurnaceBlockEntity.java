@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
@@ -27,9 +28,9 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +45,7 @@ public class PoweredFurnaceBlockEntity
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
@@ -68,33 +69,30 @@ public class PoweredFurnaceBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
 
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, getRecipeForFurnaceModeUpgrade(), stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }
@@ -121,15 +119,15 @@ public class PoweredFurnaceBlockEntity
         return new PoweredFurnaceMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -152,8 +150,8 @@ public class PoweredFurnaceBlockEntity
     @SuppressWarnings("unchecked")
     protected Optional<RecipeHolder<? extends AbstractCookingRecipe>> getCurrentWorkData() {
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         return (Optional<RecipeHolder<? extends AbstractCookingRecipe>>)getRecipeFor(inventory, level);
@@ -181,8 +179,8 @@ public class PoweredFurnaceBlockEntity
     private static void craftItem(BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
         Level level = blockEntity.level;
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
         Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
@@ -190,7 +188,7 @@ public class PoweredFurnaceBlockEntity
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
-        blockEntity.itemHandler.extractItem(0, 1, false);
+        blockEntity.itemHandler.extractItem(0, 1);
         blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
 
@@ -200,8 +198,8 @@ public class PoweredFurnaceBlockEntity
     private static boolean hasRecipe(PoweredFurnaceBlockEntity blockEntity) {
         Level level = blockEntity.level;
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
         Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);

@@ -30,7 +30,7 @@ public class CreativeItemSiloMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
             if(itemHandler instanceof InfiniteSingleItemStackHandler singleItemStackHandler) {
                 addSlot(new CreativeItemSiloSlot(singleItemStackHandler, 0, 80, 35));
             }

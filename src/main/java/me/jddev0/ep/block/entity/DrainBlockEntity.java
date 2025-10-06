@@ -3,9 +3,11 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.screen.DrainMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,12 +25,12 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
+public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidStorage> {
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 
@@ -44,10 +46,10 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
             @Override
-            protected void onContentsChanged() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
@@ -74,7 +76,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
         return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 
@@ -118,12 +120,16 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
                     if(!bucketItemStack.isEmpty()) {
                         level.gameEvent(null, GameEvent.FLUID_PICKUP, aboveBlockPos);
 
-                        IFluidHandlerItem fluidStorage = bucketItemStack.getCapability(Capabilities.FluidHandler.ITEM);
-                        if(fluidStorage != null && fluidStorage.getTanks() == 1) {
-                            FluidStack fluidStack = fluidStorage.getFluidInTank(0);
+                        ResourceHandler<FluidResource> fluidStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Fluid.ITEM, bucketItemStack);
+                        if(fluidStorage != null && fluidStorage.size() == 1) {
+                            FluidResource fluidVariant = fluidStorage.getResource(0);
 
-                            if(!fluidStack.isEmpty())
-                                blockEntity.fluidStorage.fill(fluidStack.copy(), IFluidHandler.FluidAction.EXECUTE);
+                            if(!fluidVariant.isEmpty()) {
+                                try(Transaction transaction = Transaction.open(null)) {
+                                    blockEntity.fluidStorage.insert(fluidVariant, fluidStorage.getAmountAsInt(0), transaction);
+                                    transaction.commit();
+                                }
+                            }
                         }
                     }
                 }
@@ -157,6 +163,8 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<FluidTank> {
         if(fluidState.isEmpty())
             return false;
 
-        return blockEntity.fluidStorage.fill(new FluidStack(fluidState.getType(), 1000), IFluidHandler.FluidAction.SIMULATE) == 1000;
+        try(Transaction transaction = Transaction.open(null)) {
+            return blockEntity.fluidStorage.insert(FluidResource.of(fluidState.getType()), 1000, transaction) == 1000;
+        }
     }
 }

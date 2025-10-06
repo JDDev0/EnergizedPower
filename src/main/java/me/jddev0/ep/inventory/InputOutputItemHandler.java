@@ -1,55 +1,85 @@
 package me.jddev0.ep.inventory;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.TransferPreconditions;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class InputOutputItemHandler implements IItemHandlerModifiable {
-    private final IItemHandlerModifiable handler;
+public class InputOutputItemHandler implements ResourceHandler<ItemResource> {
+    private final ResourceHandler<ItemResource> handler;
     private final BiPredicate<Integer, ItemStack> canInput;
     private final Predicate<Integer> canOutput;
 
-    public InputOutputItemHandler(IItemHandlerModifiable handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public InputOutputItemHandler(ResourceHandler<ItemResource> handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this.handler = handler;
         this.canInput = canInput;
         this.canOutput = canOutput;
     }
 
     @Override
-    public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-        handler.setStackInSlot(slot, stack);
+    public int size() {
+        return handler.size();
     }
 
     @Override
-    public @NotNull ItemStack getStackInSlot(int slot) {
-        return handler.getStackInSlot(slot);
+    public ItemResource getResource(int index) {
+        return handler.getResource(index);
     }
 
     @Override
-    public int getSlots() {
-        return handler.getSlots();
+    public long getAmountAsLong(int index) {
+        return handler.getAmountAsLong(index);
     }
 
     @Override
-    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        return canInput.test(slot, stack)?handler.insertItem(slot, stack, simulate):stack;
+    public long getCapacityAsLong(int index, ItemResource resource) {
+        return handler.getCapacityAsLong(index, resource);
     }
 
     @Override
-    public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return canOutput.test(slot)?handler.extractItem(slot, amount, simulate):ItemStack.EMPTY;
-   }
-
-    @Override
-    public int getSlotLimit(int slot) {
-        return handler.getSlotLimit(slot);
+    public boolean isValid(int index, ItemResource resource) {
+        return handler.isValid(index, resource);
     }
 
     @Override
-    public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        return canInput.test(slot, stack) && handler.isItemValid(slot, stack);
+    public int insert(int index, ItemResource resource, int amount, TransactionContext transaction) {
+        return canInput.test(index, resource.toStack(amount))?handler.insert(index, resource, amount, transaction):0;
+    }
+
+    @Override
+    public int insert(ItemResource resource, int amount, TransactionContext transaction) {
+        //Keep default implementation, insert should always happen via index variant
+        TransferPreconditions.checkNonEmptyNonNegative(resource, amount);
+
+        int inserted = 0;
+        int size = size();
+        for (int index = 0; index < size; index++) {
+            inserted += insert(index, resource, amount - inserted, transaction);
+            if (inserted == amount) break;
+        }
+        return inserted;
+    }
+
+    @Override
+    public int extract(int index, ItemResource resource, int amount, TransactionContext transaction) {
+        return canOutput.test(index)?handler.extract(index, resource, amount, transaction):0;
+    }
+
+    @Override
+    public int extract(ItemResource resource, int amount, TransactionContext transaction) {
+        //Keep default implementation, insert should always happen via index variant
+        TransferPreconditions.checkNonEmptyNonNegative(resource, amount);
+
+        int extracted = 0;
+        int size = size();
+        for (int index = 0; index < size; index++) {
+            extracted += extract(index, resource, amount - extracted, transaction);
+            if (extracted == amount) break;
+        }
+        return extracted;
     }
 }

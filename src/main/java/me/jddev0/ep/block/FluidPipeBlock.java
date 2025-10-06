@@ -39,7 +39,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -148,7 +149,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             return InteractionResult.SUCCESS;
         }
 
-        IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, testPos,
+        ResourceHandler<FluidResource> fluidStorage = level.getCapability(Capabilities.Fluid.BLOCK, testPos,
                 level.getBlockState(testPos), testBlockEntity, selectedFace.getOpposite());
         if(fluidStorage == null) {
             if(player instanceof ServerPlayer serverPlayer) {
@@ -163,7 +164,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
             return InteractionResult.SUCCESS;
         }
 
-        if(fluidStorage.getTanks() == 0) {
+        if(fluidStorage.size() == 0) {
             if(player instanceof ServerPlayer serverPlayer) {
                 serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
                         Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
@@ -348,7 +349,7 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
         if(currentConnectionState == EPBlockStateProperties.PipeConnection.NOT_CONNECTED)
             currentConnectionState = EPBlockStateProperties.PipeConnection.CONNECTED;
 
-        IFluidHandler fluidStorage = level.getCapability(Capabilities.FluidHandler.BLOCK, toPos,
+        ResourceHandler<FluidResource> fluidStorage = level.getCapability(Capabilities.Fluid.BLOCK, toPos,
                 level.getBlockState(toPos), blockEntity, direction.getOpposite());
         return fluidStorage == null? EPBlockStateProperties.PipeConnection.NOT_CONNECTED:currentConnectionState;
     }

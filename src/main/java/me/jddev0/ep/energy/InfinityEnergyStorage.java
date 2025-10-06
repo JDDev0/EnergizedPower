@@ -1,67 +1,33 @@
 package me.jddev0.ep.energy;
 
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
+
 public class InfinityEnergyStorage implements IEnergizedPowerEnergyStorage {
     public InfinityEnergyStorage() {}
 
     @Override
-    public int getEnergy() {
+    public int insert(int maxAmount, TransactionContext transaction) {
+        return maxAmount;
+    }
+
+    @Override
+    public int extract(int maxAmount, TransactionContext transaction) {
+        return maxAmount;
+    }
+
+    @Override
+    public long getAmountAsLong() {
         return Integer.MAX_VALUE;
     }
 
     @Override
-    public void setEnergy(int energy) {}
-
-    @Override
-    public void setEnergyWithoutUpdate(int energy) {}
-
-    @Override
-    public int getCapacity() {
+    public long getCapacityAsLong() {
         return Integer.MAX_VALUE;
     }
-
-    @Override
-    public void setCapacity(int capacity) {}
 
     @Override
     public void setCapacityWithoutUpdate(int capacity) {}
 
-    public int getMaxTransfer() {
-        return Integer.MAX_VALUE;
-    }
-
-    public void setMaxTransfer(int maxTransfer) {}
-
-    public void setMaxTransferWithoutUpdate(int maxTransfer) {}
-
-    protected void onChange() {}
-
     @Override
-    public int receiveEnergy(int maxReceive, boolean simulate) {
-        return maxReceive;
-    }
-
-    @Override
-    public int extractEnergy(int maxExtract, boolean simulate) {
-        return maxExtract;
-    }
-
-    @Override
-    public int getEnergyStored() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public int getMaxEnergyStored() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public boolean canExtract() {
-        return true;
-    }
-
-    @Override
-    public boolean canReceive() {
-        return true;
-    }
+    public void setAmountWithoutUpdate(int energy) {}
 }

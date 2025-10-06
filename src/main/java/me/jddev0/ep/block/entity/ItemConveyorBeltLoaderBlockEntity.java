@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
@@ -18,15 +19,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlockEntity
-        extends MenuInventoryStorageBlockEntity<ItemStackHandler> {
+        extends MenuInventoryStorageBlockEntity<EnergizedPowerItemStackHandler> {
     private final int ticksPerItem;
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
 
     private final ConveyorBeltTier tier;
 
@@ -53,16 +55,16 @@ public class ItemConveyorBeltLoaderBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getCapacity(int index, ItemResource resource) {
+                return 1;
             }
 
             @Override
-            public int getSlotLimit(int slot) {
-                return 1;
+            protected void onFinalCommit(int index, ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -81,7 +83,7 @@ public class ItemConveyorBeltLoaderBlockEntity
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
@@ -114,17 +116,17 @@ public class ItemConveyorBeltLoaderBlockEntity
         if(!(testBlockEntity instanceof ItemConveyorBeltBlockEntity))
             return;
 
-        IItemHandler itemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, testPos, testBlockState,
+        ResourceHandler<ItemResource> itemStackStorage = level.getCapability(Capabilities.Item.BLOCK, testPos, testBlockState,
                 testBlockEntity, direction.getOpposite());
         if(itemStackStorage == null)
             return;
 
-        for(int i = 0;i < itemStackStorage.getSlots();i++) {
-            if(itemStackStorage.insertItem(i, itemStackToInsert, false).isEmpty()) {
-                blockEntity.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+        try(Transaction transaction = Transaction.open(null)) {
+            int amount = itemStackStorage.insert(ItemResource.of(itemStackToInsert), 1, transaction);
+            if(amount > 0)
+                blockEntity.itemHandler.setStackInSlot(blockEntity.itemHandler.size() - 1, ItemStack.EMPTY);
 
-                break;
-            }
+            transaction.commit();
         }
     }
 
@@ -134,18 +136,26 @@ public class ItemConveyorBeltLoaderBlockEntity
         BlockPos testPos = blockPos.relative(direction);
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-        IItemHandler itemStackStorage = level.getCapability(Capabilities.ItemHandler.BLOCK, testPos, level.getBlockState(testPos),
+        ResourceHandler<ItemResource> itemStackStorage = level.getCapability(Capabilities.Item.BLOCK, testPos, level.getBlockState(testPos),
                 testBlockEntity, direction.getOpposite());
         if(itemStackStorage == null)
             return;
 
-        for(int i = 0;i < itemStackStorage.getSlots();i++) {
-            ItemStack extracted = itemStackStorage.extractItem(i, 1, false);
-            if(!extracted.isEmpty()) {
-                blockEntity.itemHandler.setStackInSlot(0, extracted);
+        try(Transaction transaction = Transaction.open(null)) {
+            for(int i = 0;i < itemStackStorage.size();i++) {
+                ItemResource itemResource = itemStackStorage.getResource(i);
+                if(itemResource.isEmpty())
+                    continue;
 
-                break;
+                int amount = itemStackStorage.extract(itemResource, 1, transaction);
+                if(amount > 0) {
+                    blockEntity.itemHandler.setStackInSlot(0, itemResource.toStack(1));
+
+                    break;
+                }
             }
+
+            transaction.commit();
         }
     }
 }

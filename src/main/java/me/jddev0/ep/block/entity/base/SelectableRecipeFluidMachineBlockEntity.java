@@ -25,13 +25,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
-        <F extends IFluidHandler, C extends RecipeInput, R extends Recipe<C>>
+        <F extends ResourceHandler<FluidResource>, C extends RecipeInput, R extends Recipe<C>>
         extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate,
         IngredientPacketUpdate {
@@ -147,8 +148,8 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         if(level == null || currentRecipe == null)
             return false;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         return canCraftRecipe(inventory, currentRecipe);

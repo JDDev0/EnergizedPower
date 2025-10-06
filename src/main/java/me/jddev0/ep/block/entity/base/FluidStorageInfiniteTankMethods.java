@@ -28,7 +28,7 @@ public final class FluidStorageInfiniteTankMethods implements FluidStorageMethod
     public void loadFluidStorage(@NotNull InfinityFluidStorage fluidStorage, ValueInput view) {
         FluidStack fluid = view.child("fluid").flatMap(subView -> subView.read("Fluid", FluidStack.CODEC)).
                 orElse(FluidStack.EMPTY);
-        fluidStorage.setFluidWithoutUpdate(fluid);
+        fluidStorage.setFluid(fluid);
     }
 
     @Override

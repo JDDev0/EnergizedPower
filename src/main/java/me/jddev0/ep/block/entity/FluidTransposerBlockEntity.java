@@ -4,7 +4,9 @@ import com.mojang.serialization.Codec;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -29,12 +31,12 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,11 +44,11 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class FluidTransposerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<FluidTank, RecipeInput, FluidTransposerRecipe>
+        extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidTransposerRecipe>
         implements CheckboxUpdate {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     private Mode mode = Mode.EMPTYING;
 
@@ -86,73 +88,70 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
 
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected SimpleFluidStorage initFluidStorage() {
+        return new SimpleFluidStorage(baseTankCapacity) {
             @Override
-            protected void onContentsChanged() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
 
             @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || level == null)
+            public boolean isValid(int index, FluidResource resource) {
+                if(!super.isValid(index, resource) || level == null)
                     return false;
 
                 return !(level instanceof ServerLevel serverLevel) || //Always false on client side (Recipes are no longer synced)
                         RecipeUtils.getAllRecipesFor(serverLevel, recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
-                        anyMatch(fluidStack -> FluidStack.isSameFluidSameComponents(stack, fluidStack));
+                        anyMatch(resource::matches);
             }
         };
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         return fluidStorage;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -195,12 +194,21 @@ public class FluidTransposerBlockEntity
 
         FluidStack fluid = recipe.value().getFluid().copyWithAmount(recipe.value().getFluid().getAmount());
 
-        if(mode == Mode.EMPTYING)
-            fluidStorage.fill(fluid, IFluidHandler.FluidAction.EXECUTE);
-        else
-            fluidStorage.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
+        if(mode == Mode.EMPTYING) {
+            try(Transaction transaction = Transaction.open(null)) {
+                fluidStorage.insert(FluidResource.of(fluid), fluid.getAmount(), transaction);
 
-        itemHandler.extractItem(0, 1, false);
+                transaction.commit();
+            }
+        }else {
+            try(Transaction transaction = Transaction.open(null)) {
+                fluidStorage.extract(FluidResource.of(fluid), fluid.getAmount(), transaction);
+
+                transaction.commit();
+            }
+        }
+
+        itemHandler.extractItem(0, 1);
         itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(null, level.registryAccess()).getCount()));

@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AutoStonecutterMenu;
@@ -15,15 +16,15 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AutoStonecutterBlockEntity
         extends SelectableRecipeMachineBlockEntity<SingleRecipeInput, StonecutterRecipe> {
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -47,36 +48,38 @@ public class AutoStonecutterBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
 
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> stack.is(ItemTags.PICKAXES);
                     case 2 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -91,7 +94,7 @@ public class AutoStonecutterBlockEntity
         pickaxe.hurtAndBreak(1, serverLevel, null, item -> pickaxe.setCount(0));
         itemHandler.setStackInSlot(1, pickaxe);
 
-        itemHandler.extractItem(0, 1, false);
+        itemHandler.extractItem(0, 1);
         itemHandler.setStackInSlot(2, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
                         recipe.value().assemble(null, level.registryAccess()).getCount()));

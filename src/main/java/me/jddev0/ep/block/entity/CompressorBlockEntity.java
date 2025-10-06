@@ -14,12 +14,13 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
 public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, CompressorRecipe> {
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     public CompressorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -39,15 +40,15 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         );
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         if(level == null || !hasRecipe())
             return;
 
-        itemHandler.extractItem(0, recipe.value().getInput().count(), false);
+        itemHandler.extractItem(0, recipe.value().getInput().count());
         itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(null, level.registryAccess()).getCount()));

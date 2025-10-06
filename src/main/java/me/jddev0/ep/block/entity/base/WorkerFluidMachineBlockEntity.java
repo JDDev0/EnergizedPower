@@ -1,6 +1,8 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -9,14 +11,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.Optional;
 
-public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
+public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<FluidResource>, W>
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <ReceiveOnlyEnergyStorage, ItemStackHandler, F> {
+        <EnergizedPowerEnergyStorage, IEnergizedPowerItemStackHandler, F> {
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 
@@ -39,24 +42,29 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
+            public long getCapacityAsLong() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
         };
     }
@@ -79,7 +87,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
         energyConsumptionLeft = view.getIntOr("recipe.energy_consumption_left", 0);
     }
 
-    public static <F extends IFluidHandler, W> void tick(
+    public static <F extends ResourceHandler<FluidResource>, W> void tick(
             Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
         if(level.isClientSide())
             return;
@@ -108,7 +116,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
             if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
 
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
+            if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
                 blockEntity.hasEnoughEnergy = true;
                 blockEntity.onHasEnoughEnergy();
 
@@ -123,7 +131,10 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
+                try(Transaction transaction = Transaction.open(null)) {
+                    blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
+                    transaction.commit();
+                }
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
                 blockEntity.progress++;

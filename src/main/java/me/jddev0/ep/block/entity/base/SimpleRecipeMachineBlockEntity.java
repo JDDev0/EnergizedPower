@@ -1,6 +1,8 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
@@ -21,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,28 +54,25 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected IEnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
+
                 return slot == 0 && ((level instanceof ServerLevel serverLevel)?
                         RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
                         RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = itemHandler.getStackInSlot(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = itemHandler.getStackInSlot(slot);
+                    if(!stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
                 setChanged();
             }
         };
@@ -112,8 +111,8 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
 
     @Override
     protected final Optional<RecipeHolder<R>> getCurrentWorkData() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         return getRecipeFor(inventory);
@@ -146,8 +145,8 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
         if(level == null)
             return false;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Optional<RecipeHolder<R>> recipe = getRecipeFor(inventory);
@@ -171,11 +170,11 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
         if(level == null || !hasRecipe())
             return;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        itemHandler.extractItem(0, 1, false);
+        itemHandler.extractItem(0, 1);
         itemHandler.setStackInSlot(1, recipe.value().assemble(getRecipeInput(inventory), level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(getRecipeInput(inventory), level.registryAccess()).getCount()));

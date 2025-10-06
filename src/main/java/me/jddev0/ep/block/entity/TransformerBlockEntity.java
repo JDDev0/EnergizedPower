@@ -4,13 +4,14 @@ import me.jddev0.ep.block.ConfigurableTransformerBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.TransformerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
-import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
-import me.jddev0.ep.energy.ReceiveExtractEnergyHandler;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.screen.TransformerMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,18 +23,20 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
+public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private final TransformerTier tier;
     private final TransformerType type;
 
-    private final IEnergyStorage energyStorageSidedReceive;
-    private final IEnergyStorage energyStorageSidedExtract;
+    private final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageInsert;
+    private final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageExtract;
 
     public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerTier tier, TransformerType type) {
         super(
@@ -48,30 +51,35 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         this.tier = tier;
         this.type = type;
 
-        energyStorageSidedReceive = new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> true, (maxExtract, simulate) -> false);
+        limitingEnergyStorageInsert = new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
 
-        energyStorageSidedExtract = new ReceiveExtractEnergyHandler(energyStorage, (maxReceive, simulate) -> false, (maxExtract, simulate) -> true);
+        limitingEnergyStorageExtract = new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate);
     }
 
     @Override
-    protected ReceiveAndExtractEnergyStorage initEnergyStorage() {
-        return new ReceiveAndExtractEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyTransferRate, baseEnergyTransferRate, baseEnergyTransferRate) {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
 
             @Override
-            public int extractEnergy(int maxExtract, boolean simulate) {
+            public int extract(int maxAmount, TransactionContext transaction) {
                 if(level != null && !redstoneMode.isActive(level.getBlockState(getBlockPos()).getValue(BlockStateProperties.POWERED))) {
                     //This will make the output "disconnected"
                     return 0;
                 }
 
-                return super.extractEnergy(maxExtract, simulate);
+                return super.extract(maxAmount, transaction);
             }
         };
+    }
+
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        //limitingEnergyStorage is unused
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, baseEnergyTransferRate);
     }
 
     @Override
@@ -97,7 +105,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return tier;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
         if(side == null)
             return energyStorage;
 
@@ -109,8 +117,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
 
             return switch(transformerConnection) {
                 case NOT_CONNECTED -> null;
-                case RECEIVE -> energyStorageSidedReceive;
-                case EXTRACT -> energyStorageSidedExtract;
+                case RECEIVE -> limitingEnergyStorageInsert;
+                case EXTRACT -> limitingEnergyStorageExtract;
             };
         }
 
@@ -118,9 +126,9 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
 
         switch(type) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
-                IEnergyStorage singleSide = type == TransformerType.TYPE_1_TO_N?energyStorageSidedReceive:energyStorageSidedExtract;
+                EnergyHandler singleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageInsert:limitingEnergyStorageExtract;
 
-                IEnergyStorage multipleSide = type == TransformerType.TYPE_1_TO_N?energyStorageSidedExtract:energyStorageSidedReceive;
+                EnergyHandler multipleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageExtract:limitingEnergyStorageInsert;
 
                 if(facing == side)
                     return singleSide;
@@ -130,9 +138,9 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             case TYPE_3_TO_3 -> {
                 if(facing.getCounterClockWise(Direction.Axis.X) == side || facing.getCounterClockWise(Direction.Axis.Y) == side
                         || facing.getCounterClockWise(Direction.Axis.Z) == side)
-                    return energyStorageSidedReceive;
+                    return limitingEnergyStorageInsert;
                 else
-                    return energyStorageSidedExtract;
+                    return limitingEnergyStorageExtract;
             }
         }
 
@@ -187,7 +195,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             }
         }
 
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:outputDirections) {
@@ -195,28 +203,33 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxTransfer(),
-                    blockEntity.energyStorage.getEnergy()), true);
-            if(received <= 0)
-                continue;
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = limitingEnergyStorage.insert(Math.min(blockEntity.baseEnergyTransferRate, blockEntity.energyStorage.getAmountAsInt()), transaction);
 
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(limitingEnergyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxTransfer(),
-                Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
-        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
+        int consumptionLeft = Math.min(blockEntity.baseEnergyTransferRate,
+                Math.min(blockEntity.energyStorage.getCapacityAsInt(), consumptionSum));
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
 
         int divisor = consumerItems.size();
         outer:
@@ -241,8 +254,12 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -28,9 +29,9 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,8 +43,8 @@ import java.util.Optional;
 public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, PlantGrowthChamberRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final IItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
-    private final IItemHandler itemHandlerTopBottomSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6);
+    private final InputOutputItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
+    private final InputOutputItemHandler itemHandlerTopBottomSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6);
 
     private double fertilizerSpeedMultiplier = 1;
     private double fertilizerEnergyConsumptionMultiplier = 1;
@@ -69,15 +70,12 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
 
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
@@ -86,25 +84,25 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
                             RecipeUtils.isIngredientOfAny(serverLevel, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE.get(), stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfFertilizerRecipes, stack);
                     case 2, 3, 4, 5 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
@@ -114,8 +112,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         return itemHandlerSidesSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Nullable
@@ -165,8 +163,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         if(!(level instanceof ServerLevel serverLevel))
             return;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0;i < itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
 
         Optional<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = serverLevel.recipeAccess().
@@ -176,7 +174,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
             fertilizerSpeedMultiplier = fertilizerRecipe.get().value().getSpeedMultiplier();
             fertilizerEnergyConsumptionMultiplier = fertilizerRecipe.get().value().getEnergyConsumptionMultiplier();
 
-            itemHandler.extractItem(1, 1, false);
+            itemHandler.extractItem(1, 1);
         }
     }
 
@@ -190,7 +188,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         if(level == null || !hasRecipe())
             return;
 
-        itemHandler.extractItem(0, 1, false);
+        itemHandler.extractItem(0, 1);
 
         List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.value().generateOutputs(level.random)));
 
@@ -200,7 +198,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
             if(itemStack.isEmpty())
                 continue;
 
-            for(int i = 2;i < itemHandler.getSlots();i++) {
+            for(int i = 2;i < itemHandler.size();i++) {
                 ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
                     continue;

@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class AlloyFurnaceMenu extends AbstractContainerMenu {
     private final AlloyFurnaceBlockEntity blockEntity;
@@ -35,13 +35,13 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 14, 20));
-            addSlot(new SlotItemHandler(itemHandler, 1, 35, 17));
-            addSlot(new SlotItemHandler(itemHandler, 2, 56, 20));
-            addSlot(new SlotItemHandler(itemHandler, 3, 35, 53));
-            addSlot(new SlotItemHandler(itemHandler, 4, 116, 35));
-            addSlot(new SlotItemHandler(itemHandler, 5, 143, 35));
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 14, 20));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 35, 17));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 56, 20));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 3, 35, 53));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 4, 116, 35));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 5, 143, 35));
         });
 
         if(data == null) {

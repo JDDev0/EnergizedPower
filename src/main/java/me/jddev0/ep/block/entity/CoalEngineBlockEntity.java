@@ -1,13 +1,16 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
+import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
@@ -23,9 +26,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,10 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoalEngineBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
@@ -68,22 +72,16 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
+            public long getCapacityAsLong() {
+                return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_CAPACITY)));
             }
 
             @Override
-            public int getMaxExtract() {
-                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
             }
@@ -91,19 +89,33 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getMaxExtract() {
+                return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
+        };
+    }
 
+
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemResource resource) {
+                ItemStack stack = resource.toStack();
+
                 if(slot == 0)
                     return stack.getBurnTime(null, level.fuelValues()) > 0;
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, resource);
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -129,15 +141,15 @@ public class CoalEngineBlockEntity
         return new CoalEngineMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
-    public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
         return itemHandlerSided;
     }
 
-    public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -191,8 +203,8 @@ public class CoalEngineBlockEntity
         }
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
-            SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-            for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+            SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+            for(int i = 0;i < blockEntity.itemHandler.size();i++)
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
             ItemStack item = inventory.getItem(0);
@@ -204,21 +216,21 @@ public class CoalEngineBlockEntity
 
             //Change max progress if item would output more than max extract
             if(blockEntity.maxProgress == 0) {
-                if(energyProduction / 100 <= blockEntity.energyStorage.getMaxExtract())
+                if(energyProduction / 100 <= blockEntity.limitingEnergyStorage.getMaxExtract())
                     blockEntity.maxProgress = 100;
                 else
-                    blockEntity.maxProgress = (int)Math.ceil((float)energyProduction / blockEntity.energyStorage.getMaxExtract());
+                    blockEntity.maxProgress = (int)Math.ceil((float)energyProduction / blockEntity.limitingEnergyStorage.getMaxExtract());
             }
 
             int energyProductionPerTick = blockEntity.getEnergyProductionPerTick();
-            if(energyProductionPerTick <= blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()) {
+            if(energyProductionPerTick <= blockEntity.energyStorage.getCapacityAsInt() - blockEntity.energyStorage.getAmountAsInt()) {
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
                     if(!item.getCraftingRemainder().isEmpty())
                         blockEntity.itemHandler.setStackInSlot(0, item.getCraftingRemainder());
                     else
-                        blockEntity.itemHandler.extractItem(0, 1, false);
+                        blockEntity.itemHandler.extractItem(0, 1);
                 }
 
                 blockEntity.hasEnoughCapacityForProduction = true;
@@ -238,7 +250,11 @@ public class CoalEngineBlockEntity
                     return;
                 }
 
-                blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() + energyProductionPerTick);
+                try(Transaction transaction = Transaction.open(null)) {
+                    blockEntity.energyStorage.insert(energyProductionPerTick, transaction);
+                    transaction.commit();
+                }
+
                 blockEntity.energyProductionLeft -= energyProductionPerTick;
 
                 blockEntity.progress++;
@@ -266,7 +282,7 @@ public class CoalEngineBlockEntity
         if(level.isClientSide())
             return;
 
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
+        List<EnergyHandler> consumerItems = new ArrayList<>();
         List<Integer> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:Direction.values()) {
@@ -274,26 +290,34 @@ public class CoalEngineBlockEntity
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
 
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
+            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
                     level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
                 continue;
 
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(), blockEntity.energyStorage.getEnergy()), true);
-            if(received <= 0)
-                continue;
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                        blockEntity.energyStorage.getCapacityAsInt()), transaction);
 
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(limitingEnergyStorage);
+                consumerEnergyValues.add(received);
+            }
         }
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
             consumerEnergyDistributed.add(0);
 
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(), Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
-        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
+        int consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
+                Math.min(blockEntity.energyStorage.getAmountAsInt(), consumptionSum));
+        try(Transaction transaction = Transaction.open(null)) {
+            blockEntity.energyStorage.extract(consumptionLeft, transaction);
+            transaction.commit();
+        }
 
         int divisor = consumerItems.size();
         outer:
@@ -318,8 +342,12 @@ public class CoalEngineBlockEntity
 
         for(int i = 0;i < consumerItems.size();i++) {
             int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
+            if(energy > 0) {
+                try(Transaction transaction = Transaction.open(null)) {
+                    consumerItems.get(i).insert(energy, transaction);
+                    transaction.commit();
+                }
+            }
         }
     }
 
@@ -331,8 +359,8 @@ public class CoalEngineBlockEntity
     }
 
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.getSlots());
-        for(int i = 0;i < blockEntity.itemHandler.getSlots();i++)
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
             inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
 
         ItemStack item = inventory.getItem(0);

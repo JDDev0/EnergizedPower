@@ -36,7 +36,7 @@ public class ItemSiloMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
             if(itemHandler instanceof SingleItemStackHandler singleItemStackHandler) {
                 addSlot(new ViewOnlySlot(singleItemStackHandler, 0, 80, 35));
             }

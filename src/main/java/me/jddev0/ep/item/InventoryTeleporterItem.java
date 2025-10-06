@@ -5,7 +5,6 @@ import me.jddev0.ep.component.DimensionalPositionComponent;
 import me.jddev0.ep.component.InventoryComponent;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
 import net.minecraft.ChatFormatting;
@@ -22,11 +21,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements MenuProvider {
@@ -34,7 +33,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     public static final int MAX_RECEIVE = ModConfigs.COMMON_INVENTORY_TELEPORTER_TRANSFER_RATE.getValue();
 
     public InventoryTeleporterItem(Properties props) {
-        super(props, () -> new ReceiveOnlyEnergyStorage(0, CAPACITY, MAX_RECEIVE));
+        super(props, CAPACITY, MAX_RECEIVE, 0);
     }
 
     @Override
@@ -181,14 +180,14 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     public static void teleportPlayer(ItemStack itemStack, ServerPlayer player) {
         Level level = player.level();
 
-        IEnergyStorage energyStorage = itemStack.getCapability(Capabilities.EnergyStorage.ITEM);
+        EnergyHandler energyStorage = itemStack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forPlayerInteraction(player, InteractionHand.MAIN_HAND));
         if(energyStorage == null)
             return;
 
         SimpleContainer inventory = getInventory(itemStack);
         ItemStack teleporterMatrixItemStack = inventory.getItem(0);
 
-        TeleporterBlockEntity.teleportPlayer(player, energyStorage, () -> setEnergy(itemStack, 0),
+        TeleporterBlockEntity.teleportPlayer(player, energyStorage, () -> setStoredEnergyUnchecked(itemStack, 0),
                 teleporterMatrixItemStack, level, null);
     }
 }

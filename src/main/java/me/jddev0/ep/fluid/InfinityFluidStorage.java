@@ -1,9 +1,12 @@
 package me.jddev0.ep.fluid;
 
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
-public class InfinityFluidStorage implements IFluidHandler {
+public class InfinityFluidStorage extends SnapshotJournal<FluidStack> implements ResourceHandler<FluidResource> {
     protected FluidStack fluid;
 
     public InfinityFluidStorage() {
@@ -11,22 +14,27 @@ public class InfinityFluidStorage implements IFluidHandler {
     }
 
     @Override
-    public int getTanks() {
+    public int size() {
         return 1;
     }
 
     @Override
-    public FluidStack getFluidInTank(int tank) {
-        return fluid;
-    }
-
-    @Override
-    public int getTankCapacity(int tank) {
-        return Integer.MAX_VALUE;
+    public FluidResource getResource(int tank) {
+        return FluidResource.of(fluid);
     }
 
     public FluidStack getFluid() {
-        return fluid;
+        return fluid.copyWithAmount(Integer.MAX_VALUE);
+    }
+
+    @Override
+    public long getAmountAsLong(int tank) {
+        return fluid.isEmpty()?0:Integer.MAX_VALUE;
+    }
+
+    @Override
+    public long getCapacityAsLong(int tank, FluidResource resource) {
+        return Integer.MAX_VALUE;
     }
 
     public int getCapacity() {
@@ -34,41 +42,47 @@ public class InfinityFluidStorage implements IFluidHandler {
     }
 
     @Override
-    public boolean isFluidValid(int tank, FluidStack fluidStack) {
+    public boolean isValid(int index, FluidResource resource) {
         return true;
     }
 
-    public void setFluidWithoutUpdate(FluidStack fluid) {
-        if(fluid.isEmpty())
+    public void setFluid(FluidStack fluidStack) {
+        if(fluidStack.isEmpty())
             this.fluid = FluidStack.EMPTY;
         else
-            this.fluid = fluid.copyWithAmount(Integer.MAX_VALUE);
+            this.fluid = fluidStack.copyWithAmount(Integer.MAX_VALUE);
     }
 
-    public void setFluid(FluidStack fluid) {
-        if(fluid.isEmpty())
-            this.fluid = FluidStack.EMPTY;
-        else
-            this.fluid = fluid.copyWithAmount(Integer.MAX_VALUE);
+    public void setFluid(FluidStack fluidStack, TransactionContext transaction) {
+        updateSnapshots(transaction);
 
-        onChange();
-    }
-
-    protected void onChange() {}
-
-    @Override
-    public int fill(FluidStack fluidStack, FluidAction fluidAction) {
-        return fluidStack.getAmount();
+        fluid = fluidStack.copyWithAmount(Integer.MAX_VALUE);
     }
 
     @Override
-    public FluidStack drain(FluidStack fluidStack, FluidAction fluidAction) {
-        return !fluidStack.isEmpty() && FluidStack.isSameFluidSameComponents(fluidStack, this.fluid)?
-                drain(fluidStack.getAmount(), fluidAction):FluidStack.EMPTY;
+    protected FluidStack createSnapshot() {
+        return fluid.copy();
     }
 
     @Override
-    public FluidStack drain(int amount, FluidAction fluidAction) {
-        return fluid.copyWithAmount(amount);
+    protected void revertToSnapshot(FluidStack snapshot) {
+        fluid = snapshot;
+    }
+
+    protected void onFinalCommit() {}
+
+    @Override
+    protected void onRootCommit(FluidStack originalState) {
+        onFinalCommit();
+    }
+
+    @Override
+    public int insert(int index, FluidResource resource, int maxAmount, TransactionContext transaction) {
+        return maxAmount;
+    }
+
+    @Override
+    public int extract(int index, FluidResource resource, int maxAmount, TransactionContext transaction) {
+        return !resource.isEmpty() && resource.matches(fluid)?maxAmount:0;
     }
 }
