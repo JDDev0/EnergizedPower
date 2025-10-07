@@ -238,7 +238,7 @@ unifiedPublishing {
     project {
         displayName = "Energized Power - " + "1.20.1" + " - v" + project.version.split("-")[1] + " [Forge/NeoForge]"
         version = project.version
-        changelog = new File("CHANGELOG.md").getText("UTF-8")
+        changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
         releaseType = "release"
         gameVersions = ["1.20.1"]
         gameLoaders = ["forge", "neoforge"]
