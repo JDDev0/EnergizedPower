@@ -232,7 +232,7 @@ unifiedPublishing {
     project {
         displayName = "Energized Power - " + project.minecraft_version + " - v" + project.mod_version.split("-")[1] + " [NeoForge]"
         version = project.mod_version
-        changelog = new File("CHANGELOG.md").getText("UTF-8")
+        changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
         releaseType = "beta" //TODO change to "release" if NeoForge is no longer in beta
         gameVersions = [project.minecraft_version]
         gameLoaders = ["neoforge"]
