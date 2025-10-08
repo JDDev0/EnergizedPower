@@ -14,11 +14,6 @@ public class EnergizedPowerItemStackHandler extends ItemStacksResourceHandler im
     }
 
     @Override
-    public final long getCapacityAsLong(int index, ItemResource resource) {
-        return super.getCapacityAsLong(index, resource);
-    }
-
-    @Override
     protected final void onContentsChanged(int index, ItemStack previousContents) {
         onFinalCommit(index, previousContents);
     }
