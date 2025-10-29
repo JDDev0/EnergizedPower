@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
 	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
@@ -31,6 +31,13 @@ repositories {
 		content {
 			includeGroup("cc.tweaked")
 		}
+	}
+
+	maven {
+		url "https://cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+	    }
 	}
 
 	flatDir {
@@ -76,6 +83,9 @@ dependencies {
 	modCompileOnlyApi "dev.architectury:architectury-fabric:13.0.1"
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:16.0.729"
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:16.0.729"
+
+	//JEI integration
+	modCompileOnly "curse.maven:jei-238222:7129284"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
@@ -185,12 +195,4 @@ unifiedPublishing {
 //Dummy task to fix post sync error caused by NeoGradle
 tasks.register("idePostSync") {
 
-}
-
-// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
-idea {
-	module {
-		downloadSources = true
-		downloadJavadoc = true
-	}
 }
