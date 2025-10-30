@@ -219,7 +219,7 @@ public class AdvancedUnchargerBlockEntity
 
             long energyProduction;
             try(Transaction transaction = Transaction.openOuter()) {
-                energyProduction = limitingEnergyStorage.insert(Math.max(0, Math.min(maxExtractPerSlot,
+                energyProduction = limitingEnergyStorage.extract(Math.max(0, Math.min(maxExtractPerSlot,
                         this.energyStorage.getCapacity() - this.energyStorage.getAmount())), transaction);
             }
 
