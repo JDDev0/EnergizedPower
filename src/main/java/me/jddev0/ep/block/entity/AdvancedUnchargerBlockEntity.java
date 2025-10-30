@@ -195,7 +195,7 @@ public class AdvancedUnchargerBlockEntity
         for(int i = 0;i < 3;i++) {
             ItemStack stack = itemHandler.getStackInSlot(i);
             IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
-            if(energyStorage == null || !energyStorage.canReceive())
+            if(energyStorage == null || !energyStorage.canExtract())
                 continue;
 
             int energyProduction = energyStorage.extractEnergy(Math.max(0, Math.min(maxExtractPerSlot,
