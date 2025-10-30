@@ -337,9 +337,9 @@ public class AdvancedAutoCrafterBlockEntity
                     continue;
                 }
 
-                if(energyConsumptionPerTick <= blockEntity.limitingEnergyStorage.getAmount()) {
+                if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                     try(Transaction transaction = Transaction.openOuter()) {
-                        blockEntity.limitingEnergyStorage.extract(energyConsumptionPerTick, transaction);
+                        blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
                         transaction.commit();
                     }
 
