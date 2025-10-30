@@ -208,7 +208,7 @@ public class UnchargerBlockEntity
             return -1;
 
         try(Transaction transaction = Transaction.openOuter()) {
-            return limitingEnergyStorage.insert(Math.max(0, Math.min(this.limitingEnergyStorage.getMaxExtract(),
+            return limitingEnergyStorage.extract(Math.max(0, Math.min(this.limitingEnergyStorage.getMaxExtract(),
                     this.energyStorage.getCapacity() - this.energyStorage.getAmount())), transaction);
         }
     }
