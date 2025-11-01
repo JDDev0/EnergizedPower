@@ -540,6 +540,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ), new ResourceLocation[] {
                     EPAPI.id("textures/item/wooden_hammer.png"),
                     EPAPI.id("textures/item/stone_hammer.png"),
+                    EPAPI.id("textures/item/copper_hammer.png"),
                     EPAPI.id("textures/item/iron_hammer.png"),
                     EPAPI.id("textures/item/golden_hammer.png"),
                     EPAPI.id("textures/item/diamond_hammer.png"),
