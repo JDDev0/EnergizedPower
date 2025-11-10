@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
+	id 'fabric-loom' version '1.13-SNAPSHOT'
 	id 'maven-publish'
 	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
@@ -32,6 +32,13 @@ repositories {
 			includeGroup("cc.tweaked")
 		}
 	}
+
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 
 	flatDir {
 		dir 'libs'
@@ -78,6 +85,9 @@ dependencies {
 	modCompileOnlyApi "dev.architectury:architectury-fabric:17.0.8"
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:20.0.811"
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:20.0.811"
+
+    //JEI integration
+    modCompileOnly "curse.maven:jei-238222:7182173"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"

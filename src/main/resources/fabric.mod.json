@@ -32,6 +32,9 @@
 		"rei_client": [
 			"me.jddev0.ep.integration.rei.EnergizedPowerREIClientPlugin"
 		],
+		"jei_mod_plugin": [
+			"me.jddev0.ep.integration.jei.EnergizedPowerJEIPlugin"
+		],
 		"emi": [
 			"me.jddev0.ep.integration.emi.EnergizedPowerEMIPlugin"
 		]

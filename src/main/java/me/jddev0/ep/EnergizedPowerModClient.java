@@ -10,10 +10,13 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.EPEntityTypes;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.input.ModKeyBindings;
+import me.jddev0.ep.integration.jei.EnergizedPowerJEIPlugin;
+import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.*;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.recipe.v1.sync.ClientRecipeSynchronizedEvent;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
@@ -160,5 +163,11 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(EPBlockEntities.FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY, FluidTankBlockEntityRenderer::new);
+
+        ClientRecipeSynchronizedEvent.EVENT.register((minecraft, synchronizedRecipes) -> {
+            if(EnergizedPowerJEIUtils.isJEIAvailable()) {
+                EnergizedPowerJEIPlugin.recipeMap = synchronizedRecipes;
+            }
+        });
     }
 }

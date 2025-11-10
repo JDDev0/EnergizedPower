@@ -11,10 +11,11 @@ import me.jddev0.ep.event.ServerStartingHandler;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
+import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.villager.EPVillager;
 import me.jddev0.ep.world.gen.ModWorldGeneration;
@@ -22,6 +23,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -64,6 +66,26 @@ public class EnergizedPowerMod implements ModInitializer {
 
         if(EnergizedPowerCCTweakedUtils.isCCTweakedAvailable())
             EnergizedPowerCCTweakedIntegration.register();
+
+        if(EnergizedPowerJEIUtils.isJEIAvailable()) {
+            RecipeSynchronization.synchronizeRecipeSerializer(ChargerRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(CrusherRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(PulverizerRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(SawmillRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(CompressorRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(MetalPressRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(AssemblingMachineRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(PlantGrowthChamberRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(PlantGrowthChamberFertilizerRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(EnergizerRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(CrystalGrowthChamberRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(PressMoldMakerRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(AlloyFurnaceRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(StoneLiquefierRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(StoneSolidifierRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(FiltrationPlantRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(FluidTransposerRecipe.Serializer.INSTANCE);
+        }
     }
 
     private ItemStack getChargedItemStack(Item item, long energy) {
