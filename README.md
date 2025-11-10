@@ -98,7 +98,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Integrations
 
-- JEI (*Forge/NeoForge editions only*, also support on Fabric (1.20.1 and 1.21.1)), EMI, and REI support
+- JEI (*Forge/NeoForge editions only*, also support on Fabric (1.20.1, 1.21.1, and 1.21.10 or newer)), EMI, and REI support
 - Curios API (*Forge/NeoForge editions only*)
 - Curios API Continuation (*Forge/NeoForge editions only*, *MC 1.21/1.21.1 only*)
 - CCTweaked:
