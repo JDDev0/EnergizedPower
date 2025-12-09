@@ -8,6 +8,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.LecternBlockEntity;
+import net.minecraft.client.font.Alignment;
+import net.minecraft.client.font.DrawnTextConsumer;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
@@ -27,7 +29,6 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +104,13 @@ public class EnergizedPowerBookScreen extends Screen {
             Map<Integer, Identifier> changePageIntToId = pageContent.getChangePageIntToId();
 
             List<OrderedText> formattedPageComponents = pageContent.getPageComponent() == null?new ArrayList<>(0):
-                    textRenderer.wrapLines(pageContent.getPageComponent(), MAX_CHARS_PER_LINE);
+                    textRenderer.wrapLines(pageContent.getPageComponent().copy().styled(Style::withoutShadow).
+                            styled(style -> {
+                                if(style.getColor() == null)
+                                    return style.withColor(0xFF000000);
+
+                                return style;
+                            }), MAX_CHARS_PER_LINE);
 
             if(chapterTitleComponent != null) {
                 formattedPages.add(new FormattedPageContent(pageId, chapterTitleComponent, formattedPageComponents,
@@ -250,8 +257,11 @@ public class EnergizedPowerBookScreen extends Screen {
         double mouseY = click.y();
         int mouseButton = click.button();
 
+        DrawnTextConsumer.ClickHandler clickHandler = new DrawnTextConsumer.ClickHandler(this.textRenderer, (int)mouseX, (int)mouseY);
+        renderText(clickHandler);
+
         if(mouseButton == 0) {
-            Style style = getComponentStyleAt(mouseX, mouseY);
+            Style style = clickHandler.getStyle();
             if(style != null && handleTextClick(style))
                 return true;
         }
@@ -259,7 +269,6 @@ public class EnergizedPowerBookScreen extends Screen {
         return super.mouseClicked(click, doubled);
     }
 
-    @Override
     public boolean handleTextClick(Style style) {
         ClickEvent clickEvent = style.getClickEvent();
         if(clickEvent == null || formattedPages == null)
@@ -298,16 +307,23 @@ public class EnergizedPowerBookScreen extends Screen {
             }
         }
 
-        boolean flag = super.handleTextClick(style);
-        if(flag && clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND)
-            close();
+        if(clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND) {
+            ClickEvent.RunCommand runCommandEvent = (ClickEvent.RunCommand)clickEvent;
 
-        return flag;
+            close();
+            handleRunCommand(client.player, runCommandEvent.command(), null);
+        }else {
+            handleClickEvent(clickEvent, this.client, this);
+        }
+
+        return false;
     }
 
     @Override
     public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float delta) {
         super.renderBackground(drawContext, mouseX, mouseY, delta);
+
+        DrawnTextConsumer textDrawer = drawContext.getTextConsumer(DrawContext.HoverType.TOOLTIP_AND_CURSOR);
 
         if(formattedPages == null)
             return;
@@ -381,6 +397,44 @@ public class EnergizedPowerBookScreen extends Screen {
             yOffset += 60;
         }
 
+        renderText(textDrawer);
+    }
+
+    private void renderText(DrawnTextConsumer textDrawer) {
+        if(formattedPages == null)
+            return;
+
+        int startX = (width - 226) / 2;
+        int yOffset = 0;
+
+        Identifier[] images = formattedPages.get(currentPage).getImageResourceLocations();
+        Identifier[] blocks = formattedPages.get(currentPage).getBlockResourceLocations();
+
+        Text chapterTitleComponent = formattedPages.get(currentPage).getChapterTitleComponent();
+        if(chapterTitleComponent != null) {
+            float scaleFactor = 1.5f;
+
+            yOffset = (int)((230 / scaleFactor - textRenderer.fontHeight -
+                    (formattedPages.get(currentPage).getPageFormattedTexts().isEmpty()?0:
+                            ((formattedPages.get(currentPage).getPageFormattedTexts().size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
+
+            if(images != null)
+                yOffset -= 60 * .5f / scaleFactor;
+
+            if(blocks != null)
+                yOffset -= 60 * .5f / scaleFactor;
+
+            yOffset *= scaleFactor;
+        }
+
+        if(images != null) {
+            yOffset += 60;
+        }
+
+        if(blocks != null) {
+            yOffset += 60;
+        }
+
         if(!formattedPages.get(currentPage).getPageFormattedTexts().isEmpty()) {
             for(int i = 0;i < formattedPages.get(currentPage).getPageFormattedTexts().size();i++) {
                 OrderedText formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(i);
@@ -391,12 +445,8 @@ public class EnergizedPowerBookScreen extends Screen {
                 else
                     x = (width - textRenderer.getWidth(formattedCharSequence)) * .5f;
 
-                drawContext.drawText(textRenderer, formattedCharSequence, (int)x, 20 + yOffset + 9 * i, 0xFF000000, false);
+                textDrawer.text(Alignment.LEFT, (int)x, 20 + yOffset + 9 * i, textDrawer.getTransformation(), formattedCharSequence); //TODO 0xFF000000 and false
             }
-
-            Style style = getComponentStyleAt(mouseX, mouseY);
-            if(style != null)
-                drawContext.drawHoverEvent(textRenderer, style, mouseX, mouseY);
         }
     }
 
@@ -450,67 +500,6 @@ public class EnergizedPowerBookScreen extends Screen {
         drawContext.drawItemWithoutEntity(itemStack, 0, 0);
 
         drawContext.getMatrices().popMatrix();
-    }
-
-    private Style getComponentStyleAt(double x, double y) {
-        if(formattedPages == null || formattedPages.get(currentPage).getPageFormattedTexts().isEmpty())
-            return null;
-
-        int componentX = MathHelper.floor(x - (width - 226) * .5 - 36.);
-        int componentY = MathHelper.floor(y - 20.);
-
-        //Translate for chapter pages and pages with graphics
-        if(currentPage > 0 && currentPage < getPageCount() - 1) { //Ignore front and back cover pages
-            Identifier[] images = formattedPages.get(currentPage).getImageResourceLocations();
-            Identifier[] blocks = formattedPages.get(currentPage).getBlockResourceLocations();
-
-            Text chapterTitleComponent = formattedPages.get(currentPage).getChapterTitleComponent();
-            if(chapterTitleComponent != null) {
-                float scaleFactor = 1.5f;
-
-                componentY = -(int)((230 / scaleFactor - textRenderer.fontHeight -
-                        (formattedPages.get(currentPage).getPageFormattedTexts().isEmpty()?0:
-                                ((formattedPages.get(currentPage).getPageFormattedTexts().size() + 1) * textRenderer.fontHeight / scaleFactor))) * .5f);
-
-                if(images != null)
-                    componentY += 60 * .5f / scaleFactor;
-
-                if(blocks != null)
-                    componentY += 60 * .5f / scaleFactor;
-
-                componentY *= scaleFactor;
-
-                componentY += MathHelper.floor(y - 20.);
-            }
-
-            if(images != null)
-                componentY -= 60;
-
-            if(blocks != null)
-                componentY -= 60;
-
-            if(chapterTitleComponent != null) {
-                int componentIndex = componentY / 9;
-                if(componentIndex < 0 || componentIndex >= formattedPages.get(currentPage).getPageFormattedTexts().size())
-                    return null;
-
-                OrderedText formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(componentIndex);
-                componentX = MathHelper.floor(x - (width - textRenderer.getWidth(formattedCharSequence)) * .5f);
-            }
-        }
-
-        if(componentX < 0 || componentY < 0)
-            return null;
-
-        int componentCount = formattedPages.get(currentPage).getPageFormattedTexts().size();
-        if(componentX > 178 || componentY >= 9 * componentCount + componentCount)
-            return null;
-
-        int componentIndex = componentY / 9;
-        if(componentIndex >= formattedPages.get(currentPage).getPageFormattedTexts().size())
-            return null;
-
-        return client.textRenderer.getTextHandler().getStyleAt(formattedPages.get(currentPage).getPageFormattedTexts().get(componentIndex), componentX);
     }
 
     @Override

@@ -14,6 +14,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.command.ModelCommandRenderer;
@@ -55,7 +56,7 @@ public class FluidTankBlockEntityRenderer<F extends Storage<FluidVariant>>
 
     @Override
     public void render(FluidTankBlockEntityRenderState state, MatrixStack poseStack, OrderedRenderCommandQueue queue, CameraRenderState cameraRenderState) {
-        queue.submitCustom(poseStack, RenderLayer.getTranslucentMovingBlock(), (matrixEntry, vertexConsumer) -> {
+        queue.submitCustom(poseStack, RenderLayers.translucentMovingBlock(), (matrixEntry, vertexConsumer) -> {
             long capacity = state.tankCapacity;
             FluidStack fluidStack = state.fluidStack;
 

@@ -1,6 +1,5 @@
 package me.jddev0.ep.screen.base;
 
-import com.mojang.blaze3d.textures.GpuTextureView;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.client.rendering.FluidTankRenderState;
 import me.jddev0.ep.fluid.FluidStack;
@@ -10,6 +9,7 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.TextureSetup;
 import net.minecraft.entity.player.PlayerInventory;
@@ -63,9 +63,9 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
                 u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
                 v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
-                GpuTextureView gpuTextureView = this.client.getTextureManager().getTexture(stillFluidSprite.getAtlasId()).getGlTextureView();
+                AbstractTexture abstractTexture = this.client.getTextureManager().getTexture(stillFluidSprite.getAtlasId());
                 drawContext.state.addSimpleElement(new FluidTankRenderState(
-                        RenderPipelines.GUI_TEXTURED, TextureSetup.withoutGlTexture(gpuTextureView),
+                        RenderPipelines.GUI_TEXTURED, TextureSetup.of(abstractTexture.getGlTextureView(), abstractTexture.getSampler()),
                         new Matrix3x2f(drawContext.getMatrices()),
                         xOffset, yOffset, width, height,
                         u0, u1, v0, v1, fluidColorTint,

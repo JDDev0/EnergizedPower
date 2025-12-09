@@ -57,7 +57,7 @@ public final class EPDataComponentTypes {
                     builder.codec(DimensionalPositionComponent.CODEC).packetCodec(DimensionalPositionComponent.PACKET_CODEC));
 
     public static final ComponentType<Unit> NO_REPAIR = registerDataComponentType("no_repair", builder ->
-            builder.codec(Codec.unit(Unit.INSTANCE)).packetCodec(PacketCodec.unit(Unit.INSTANCE)));
+            builder.codec(Unit.CODEC).packetCodec(PacketCodec.unit(Unit.INSTANCE)));
 
     public static void register() {
 

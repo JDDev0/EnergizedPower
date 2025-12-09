@@ -223,6 +223,6 @@ public final class EPVillager {
 
     private static void addOffer(List<TradeOffers.Factory> factories, TradedItem costA, TradedItem costB, ItemStack result,
                                  int maxUses, int xp, float priceMultiplier) {
-        factories.add(((entity, rand) -> new TradeOffer(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier)));
+        factories.add(((world, entity, rand) -> new TradeOffer(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier)));
     }
 }

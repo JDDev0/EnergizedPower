@@ -387,7 +387,7 @@ class ModBlockStateProvider {
 
     private void orientableBlockWithItem(Block block, Identifier model) {
         generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(model)))).
-                coordinate(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
+                apply(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
                         register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
                         register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
                         register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
@@ -444,7 +444,7 @@ class ModBlockStateProvider {
                 with(BlockStateVariantMap.models(isActiveProperty).
                         register(false, new WeightedVariant(Pool.of(new ModelVariant(modelNormal)))).
                         register(true, new WeightedVariant(Pool.of(new ModelVariant(modelActive))))).
-                coordinate(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
+                apply(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
                         register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
                         register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
                         register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
@@ -567,7 +567,7 @@ class ModBlockStateProvider {
         Identifier fluidTank = ModTexturedModel.FLUID_TANK.get(block).upload(block, generator.modelCollector);
 
         generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(fluidTank)))).
-                coordinate(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
+                apply(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
                         register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
                         register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
                         register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
@@ -641,7 +641,7 @@ class ModBlockStateProvider {
                         Models.ORIENTABLE_WITH_BOTTOM).get(block).upload(block, generator.modelCollector);
 
                 generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(transformer)))).
-                        coordinate(BlockStateVariantMap.operations(Properties.FACING).
+                        apply(BlockStateVariantMap.operations(Properties.FACING).
                                 register(Direction.UP, BlockStateModelGenerator.ROTATE_X_270).
                                 register(Direction.DOWN, BlockStateModelGenerator.ROTATE_X_90).
                                 register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
@@ -664,7 +664,7 @@ class ModBlockStateProvider {
                         Models.CUBE).get(block).upload(block, generator.modelCollector);
 
                 generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(transformer)))).
-                        coordinate(BlockStateVariantMap.operations(Properties.FACING).
+                        apply(BlockStateVariantMap.operations(Properties.FACING).
                                 register(Direction.UP, BlockStateModelGenerator.ROTATE_X_270).
                                 register(Direction.DOWN, BlockStateModelGenerator.ROTATE_X_90.
                                         then(BlockStateModelGenerator.ROTATE_Y_90)).

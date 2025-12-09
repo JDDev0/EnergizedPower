@@ -1,4 +1,4 @@
-// 1.21.10	-999999999-01-01T00:00:00	Energized Power/Block Loot Tables
+// 1.21.11	-999999999-01-01T00:00:00	Energized Power/Block Loot Tables
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 adde86782777694287aaee2b339458cdcc6c4ce0 data/energizedpower/loot_table/blocks/advanced_battery_box.json
 c80db79bffc249a90332ed219b99b3775d9eadda data/energizedpower/loot_table/blocks/advanced_charger.json
