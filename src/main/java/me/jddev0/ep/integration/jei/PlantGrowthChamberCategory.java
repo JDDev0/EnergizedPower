@@ -50,8 +50,13 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeEntry<P
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -105,6 +110,8 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeEntry<P
 
     @Override
     public void draw(RecipeEntry<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         TextRenderer font = MinecraftClient.getInstance().textRenderer;
         int ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Text component = Text.translatable("recipes.energizedpower.info.ticks", ticks);

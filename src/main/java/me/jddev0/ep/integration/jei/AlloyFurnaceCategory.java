@@ -53,8 +53,13 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeEntry<AlloyFu
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -98,6 +103,8 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeEntry<AlloyFu
 
     @Override
     public void draw(RecipeEntry<AlloyFurnaceRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         TextRenderer font = MinecraftClient.getInstance().textRenderer;
         int ticks = (int)(recipe.value().getTicks() * AlloyFurnaceBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Text component = Text.translatable("recipes.energizedpower.info.ticks", ticks);

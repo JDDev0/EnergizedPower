@@ -48,8 +48,13 @@ public class ChargerCategory implements IRecipeCategory<RecipeEntry<ChargerRecip
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -66,6 +71,8 @@ public class ChargerCategory implements IRecipeCategory<RecipeEntry<ChargerRecip
 
     @Override
     public void draw(RecipeEntry<ChargerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         TextRenderer font = MinecraftClient.getInstance().textRenderer;
         int energyConsumption = (int)(recipe.value().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
         Text component = Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).formatted(Formatting.YELLOW);

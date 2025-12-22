@@ -47,8 +47,13 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -63,6 +68,8 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
 
     @Override
     public void draw(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         fertlizerSlot.draw(guiGraphics, 0, 0);
 
         TextRenderer font = MinecraftClient.getInstance().textRenderer;

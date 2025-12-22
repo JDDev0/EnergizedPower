@@ -51,8 +51,13 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeEntry
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -84,6 +89,8 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeEntry
 
     @Override
     public void draw(RecipeEntry<CrystalGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         TextRenderer font = MinecraftClient.getInstance().textRenderer;
         int ticks = (int)(recipe.value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Text component = Text.translatable("recipes.energizedpower.info.ticks", ticks);

@@ -49,8 +49,13 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<Flui
     }
 
     @Override
-    public IDrawable getBackground() {
-        return backgroundEmptying;
+    public int getWidth() {
+        return backgroundEmptying.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return backgroundEmptying.getHeight();
     }
 
     @Override
@@ -81,6 +86,8 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<Flui
     public void draw(RecipeEntry<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.FILLING) {
             backgroundFilling.draw(guiGraphics, 0, 0);
+        }else {
+            backgroundEmptying.draw(guiGraphics);
         }
 
         ItemStack output = new ItemStack(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);

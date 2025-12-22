@@ -87,7 +87,7 @@ dependencies {
 	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:20.0.811"
 
     //JEI integration
-    modCompileOnly "curse.maven:jei-238222:7182173"
+    modCompileOnly "curse.maven:jei-238222:7364662"
 
 	// EMI integration
 	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
