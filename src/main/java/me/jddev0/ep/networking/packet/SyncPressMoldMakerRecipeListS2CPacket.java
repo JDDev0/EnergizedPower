@@ -37,7 +37,7 @@ public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPacket
         pos = buffer.readBlockPos();
 
         int size = buffer.readInt();
-        recipeList = IntStream.range(0, size).mapToObj(i -> Pair.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, buffer.readResourceLocation()),
+        recipeList = IntStream.range(0, size).mapToObj(i -> Pair.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, buffer.readIdentifier()),
                 PressMoldMakerRecipe.Serializer.INSTANCE.streamCodec().decode(buffer)), buffer.readBoolean())).
                 collect(Collectors.toList());
     }
@@ -47,7 +47,7 @@ public final class SyncPressMoldMakerRecipeListS2CPacket implements CustomPacket
 
         buffer.writeInt(recipeList.size());
         recipeList.forEach(entry -> {
-            buffer.writeResourceLocation(entry.getFirst().id().location());
+            buffer.writeIdentifier(entry.getFirst().id().identifier());
             PressMoldMakerRecipe.Serializer.INSTANCE.streamCodec().encode(buffer, entry.getFirst().value());
             buffer.writeBoolean(entry.getSecond());
         });

@@ -40,7 +40,7 @@ import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.fog.FogData;
 import net.minecraft.client.renderer.fog.environment.FogEnvironment;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -451,10 +451,10 @@ public class EnergizedPowerMod {
 
             EntityRenderers.register(EPEntityTypes.BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer(entity, new ModelLayerLocation(
-                            ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
+                            Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
             EntityRenderers.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
                     entity -> new MinecartRenderer(entity, new ModelLayerLocation(
-                            ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
+                            Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
 
             ItemBlockRenderTypes.setRenderLayer(EPFluids.DIRTY_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
             ItemBlockRenderTypes.setRenderLayer(EPFluids.FLOWING_DIRTY_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
@@ -482,17 +482,17 @@ public class EnergizedPowerMod {
                 }
 
                 @Override
-                public ResourceLocation getStillTexture() {
+                public Identifier getStillTexture() {
                     return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getStillTexture();
                 }
 
                 @Override
-                public ResourceLocation getFlowingTexture() {
+                public Identifier getFlowingTexture() {
                     return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFlowingTexture();
                 }
 
                 @Override
-                public @Nullable ResourceLocation getOverlayTexture() {
+                public @Nullable Identifier getOverlayTexture() {
                     return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getOverlayTexture();
                 }
 

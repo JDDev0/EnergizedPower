@@ -11,7 +11,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<PressMoldMakerMenu> {
-    private final ResourceLocation TEXTURE;
+    private final Identifier TEXTURE;
 
     private int scrollIndexOffset = 0;
 
@@ -47,7 +47,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
                         if(index < menu.getRecipeList().size() && menu.getRecipeList().get(index).getSecond()) {
                             ModMessages.sendToServer(new CraftPressMoldMakerRecipeC2SPacket(menu.getBlockEntity().getBlockPos(),
-                                    menu.getRecipeList().get(index).getFirst().id().location()));
+                                    menu.getRecipeList().get(index).getFirst().id().identifier()));
                             clicked = true;
                         }
                     }

@@ -20,7 +20,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -35,7 +35,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
     private final IDrawable icon;
 
     public AlloyFurnaceCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 189, 147, 37);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM.get()));
@@ -52,8 +52,13 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -97,6 +102,8 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
 
     @Override
     public void draw(RecipeHolder<AlloyFurnaceRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         Font font = Minecraft.getInstance().font;
         int ticks = (int)(recipe.value().getTicks() * AlloyFurnaceBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);

@@ -10,7 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBookPageContentProvider extends PageContentProvider {
-    private static final Style UNIFORM = Style.EMPTY.withFont(new FontDescription.Resource(ResourceLocation.withDefaultNamespace("uniform")));
+    private static final Style UNIFORM = Style.EMPTY.withFont(new FontDescription.Resource(Identifier.withDefaultNamespace("uniform")));
     private static final Style DEFAULT_FONT = Style.EMPTY.withFont(FontDescription.DEFAULT);
 
     private int chapterSortingNumber = 0;
@@ -65,7 +65,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         chapterId("welcome");
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("welcome"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.welcome.title").
                             withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD).append("\n\n")
@@ -99,7 +99,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("credits"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.credits.title").
                             withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD).append("\n")
@@ -174,7 +174,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String resourcesChapterTitle = "book.energizedpower.page.chapter.resources.title";
         PageContent resourcesChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             resourcesChapterPage = addChapterPage(pageId("resources_chapter"),
                     Component.translatable(resourcesChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -189,7 +189,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("cable_insulator"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.cable_insulator.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -203,7 +203,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("saw_blade"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.saw_blade").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -211,7 +211,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("silicon"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.silicon.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -222,7 +222,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("sawdust"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.sawdust.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -233,11 +233,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fertilizers"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fertilizers").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/basic_fertilizer.png"),
                     EPAPI.id("textures/item/good_fertilizer.png"),
                     EPAPI.id("textures/item/advanced_fertilizer.png")
@@ -245,11 +245,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("ore_dusts"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.ore_dusts").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/tin_dust.png"),
                     EPAPI.id("textures/item/copper_dust.png"),
                     EPAPI.id("textures/item/iron_dust.png"),
@@ -258,7 +258,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("charcoal_dust"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.charcoal_dust").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -266,7 +266,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("charcoal_filter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.charcoal_filter").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -274,14 +274,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("plates"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.plates.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
             ).append(
                     Component.translatable("book.energizedpower.page.plates.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/tin_plate.png"),
                     EPAPI.id("textures/item/copper_plate.png"),
                     EPAPI.id("textures/item/iron_plate.png"),
@@ -293,11 +293,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("alloys"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.alloys").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/steel_ingot.png"),
                     EPAPI.id("textures/item/redstone_alloy_ingot.png"),
                     EPAPI.id("textures/item/advanced_alloy_ingot.png")
@@ -305,14 +305,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("metal_products"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.metal_products.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
             ).append(
                     Component.translatable("book.energizedpower.page.metal_products.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/iron_gear.png"),
                     EPAPI.id("textures/item/iron_rod.png"),
                     EPAPI.id("textures/item/tin_wire.png"),
@@ -324,11 +324,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("circuits"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.circuits").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/basic_circuit.png"),
                     EPAPI.id("textures/item/advanced_circuit.png"),
                     EPAPI.id("textures/item/processing_unit.png"),
@@ -337,7 +337,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energized_copper_ingot"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energized_copper_ingot.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -354,7 +354,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energized_gold_ingot"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energized_gold_ingot").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -362,7 +362,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energized_crystal_matrix"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energized_crystal_matrix").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -375,7 +375,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String upgradesChapterTitle = "book.energizedpower.page.chapter.upgrades.title";
         PageContent upgradesChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             upgradesChapterPage = addChapterPage(pageId("upgrades_chapter"),
                     Component.translatable(upgradesChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -390,11 +390,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("speed_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.speed_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/speed_upgrade_module_1.png"),
                     EPAPI.id("textures/item/speed_upgrade_module_2.png"),
                     EPAPI.id("textures/item/speed_upgrade_module_3.png"),
@@ -404,11 +404,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energy_efficiency_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energy_efficiency_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/energy_efficiency_upgrade_module_1.png"),
                     EPAPI.id("textures/item/energy_efficiency_upgrade_module_2.png"),
                     EPAPI.id("textures/item/energy_efficiency_upgrade_module_3.png"),
@@ -418,11 +418,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energy_capacity_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energy_capacity_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/energy_capacity_upgrade_module_1.png"),
                     EPAPI.id("textures/item/energy_capacity_upgrade_module_2.png"),
                     EPAPI.id("textures/item/energy_capacity_upgrade_module_3.png"),
@@ -432,14 +432,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("duration_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.duration_upgrades.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
             ).append(
                     Component.translatable("book.energizedpower.page.duration_upgrades.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/duration_upgrade_module_1.png"),
                     EPAPI.id("textures/item/duration_upgrade_module_2.png"),
                     EPAPI.id("textures/item/duration_upgrade_module_3.png"),
@@ -450,11 +450,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("range_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.range_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/range_upgrade_module_1.png"),
                     EPAPI.id("textures/item/range_upgrade_module_2.png"),
                     EPAPI.id("textures/item/range_upgrade_module_3.png")
@@ -462,11 +462,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("extraction_depth_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.extraction_depth_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/extraction_depth_upgrade_module_1.png"),
                     EPAPI.id("textures/item/extraction_depth_upgrade_module_2.png"),
                     EPAPI.id("textures/item/extraction_depth_upgrade_module_3.png"),
@@ -476,11 +476,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("extraction_range_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.extraction_range_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/extraction_range_upgrade_module_1.png"),
                     EPAPI.id("textures/item/extraction_range_upgrade_module_2.png"),
                     EPAPI.id("textures/item/extraction_range_upgrade_module_3.png"),
@@ -490,22 +490,22 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("furnace_mode_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.furnace_mode_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/blast_furnace_upgrade_module.png"),
                     EPAPI.id("textures/item/smoker_upgrade_module.png")
             }, changePageIntToId);
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("moon_light_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.moon_light_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/moon_light_upgrade_module_1.png"),
                     EPAPI.id("textures/item/moon_light_upgrade_module_2.png"),
                     EPAPI.id("textures/item/moon_light_upgrade_module_3.png")
@@ -518,7 +518,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String toolsChapterTitle = "book.energizedpower.page.chapter.tools.title";
         PageContent toolsChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             toolsChapterPage = addChapterPage(pageId("tools_chapter"),
                     Component.translatable(toolsChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -533,11 +533,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("hammers"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.hammers").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/wooden_hammer.png"),
                     EPAPI.id("textures/item/stone_hammer.png"),
                     EPAPI.id("textures/item/copper_hammer.png"),
@@ -549,7 +549,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("cutters"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.cutters.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -560,7 +560,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("wrench"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.wrench").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -573,7 +573,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String workbenchesChapterTitle = "book.energizedpower.page.chapter.workbenches.title";
         PageContent workbenchesChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             workbenchesChapterPage = addChapterPage(pageId("workbenches_chapter"),
                     Component.translatable(workbenchesChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -588,7 +588,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("press_mold_maker"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.press_mold_maker").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -596,7 +596,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("alloy_furnace"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.alloy_furnace.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -615,7 +615,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyItemsChapterTitle = "book.energizedpower.page.chapter.energy_items.title";
         PageContent energyItemsChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyItemsChapterPage = addChapterPage(pageId("energy_items_chapter"),
                     Component.translatable(energyItemsChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -630,7 +630,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("inventory_coal_engine"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.inventory_coal_engine.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -647,7 +647,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("inventory_charger"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.inventory_charger.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -658,7 +658,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("inventory_teleporter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.inventory_teleporter").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -666,7 +666,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energy_analyzer"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energy_analyzer.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -677,7 +677,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fluid_analyzer"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fluid_analyzer.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -688,14 +688,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("batteries"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.batteries.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
             ).append(
                     Component.translatable("book.energizedpower.page.batteries.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/battery_1.png"),
                     EPAPI.id("textures/item/battery_2.png"),
                     EPAPI.id("textures/item/battery_3.png"),
@@ -724,7 +724,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyBlocksMainChapterTitle = "book.energizedpower.page.chapter.energy_blocks.title";
         PageContent energyBlocksMainChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyBlocksMainChapterPage = addChapterPage(pageId("energy_blocks_chapter"),
                     Component.translatable(energyBlocksMainChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -748,7 +748,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyBlocksGeneralChapterTitle = "book.energizedpower.page.chapter.energy_blocks.general.title";
         PageContent energyBlocksGeneralChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyBlocksGeneralChapterPage = addChapterPage(pageId("general_chapter"),
                     Component.translatable(energyBlocksGeneralChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -763,7 +763,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("machine_frames"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.machine_frames.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -784,7 +784,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyBlocksEnergyTransportationChapterTitle = "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title";
         PageContent energyBlocksEnergyTransportationChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyBlocksEnergyTransportationChapterPage = addChapterPage(pageId("energy_transportation_chapter"),
                     Component.translatable(energyBlocksEnergyTransportationChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -799,7 +799,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("cables"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.cables.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -820,7 +820,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("transformers"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.transformers.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -869,7 +869,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("minecart_charger_uncharger"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.minecart_charger_uncharger.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -893,7 +893,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyBlocksEnergyStorageChapterTitle = "book.energizedpower.page.chapter.energy_blocks.energy_storage.title";
         PageContent energyBlocksEnergyStorageChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyBlocksEnergyStorageChapterPage = addChapterPage(pageId("energy_storage_chapter"),
                     Component.translatable(energyBlocksEnergyStorageChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -908,7 +908,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("battery_box"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.battery_box").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -924,7 +924,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyBlocksEnergyProductionChapterTitle = "book.energizedpower.page.chapter.energy_blocks.energy_production.title";
         PageContent energyBlocksEnergyProductionChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyBlocksEnergyProductionChapterPage = addChapterPage(pageId("energy_production_chapter"),
                     Component.translatable(energyBlocksEnergyProductionChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -939,14 +939,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("solar_cells"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.solar_cells.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
             ).append(
                     Component.translatable("book.energizedpower.page.solar_cells.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/basic_solar_cell.png"),
                     EPAPI.id("textures/item/advanced_solar_cell.png"),
                     EPAPI.id("textures/item/reinforced_advanced_solar_cell.png")
@@ -954,7 +954,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("solar_panels"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.solar_panels.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -972,7 +972,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("coal_engine"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.coal_engine.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -983,7 +983,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("heat_generator"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.heat_generator.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -1000,7 +1000,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("thermal_generator"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.thermal_generator.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1011,7 +1011,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("lightning_generator"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.lightning_generator.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -1027,7 +1027,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String energyBlocksEnergyConsumptionChapterTitle = "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title";
         PageContent energyBlocksEnergyConsumptionChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             energyBlocksEnergyConsumptionChapterPage = addChapterPage(pageId("energy_consumption_chapter"),
                     Component.translatable(energyBlocksEnergyConsumptionChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1042,7 +1042,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("powered_lamp"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.powered_lamp").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1050,7 +1050,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("powered_furnaces"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.powered_furnaces.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1064,7 +1064,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("auto_crafters"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.auto_crafters.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1084,7 +1084,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("crushers"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.crushers.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1098,7 +1098,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("pulverizers"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.pulverizers.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1112,7 +1112,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("sawmill"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.sawmill.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -1123,7 +1123,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("compressor"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.compressor").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1131,7 +1131,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("metal_press"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.metal_press.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1148,7 +1148,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("auto_press_mold_maker"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.auto_press_mold_maker").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1156,7 +1156,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("auto_stonecutter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.auto_stonecutter").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1164,7 +1164,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("assembling_machine"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.assembling_machine.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1178,7 +1178,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("plant_growth_chamber"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.plant_growth_chamber.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1204,7 +1204,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("stone_liquefier"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.stone_liquefier.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -1215,7 +1215,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("stone_solidifier"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.stone_solidifier.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -1226,7 +1226,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("filtration_plant"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.filtration_plant.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1237,7 +1237,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fluid_transposer"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fluid_transposer").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1245,7 +1245,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("induction_smelter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.induction_smelter.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1259,7 +1259,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("block_placer"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.block_placer.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -1270,7 +1270,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fluid_filler_fluid_drainer"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fluid_filler_fluid_drainer").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1281,7 +1281,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fluid_pumps"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fluid_pumps").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1292,7 +1292,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("charger_uncharger"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.charger_uncharger.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1308,7 +1308,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("charging_station"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.charging_station").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1316,7 +1316,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("crystal_growth_chamber"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.crystal_growth_chamber").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1324,7 +1324,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energizer"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energizer").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1332,7 +1332,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("weather_controller"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.weather_controller").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1340,7 +1340,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("time_controller"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.time_controller.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -1351,7 +1351,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("teleporter_matrix"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.teleporter_matrix.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -1362,7 +1362,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("teleporter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.teleporter.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
@@ -1391,7 +1391,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String fluidBlocksChapterTitle = "book.energizedpower.page.chapter.fluid_blocks.title";
         PageContent fluidBlocksChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             fluidBlocksChapterPage = addChapterPage(pageId("fluid_blocks_chapter"),
                     Component.translatable(fluidBlocksChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1406,7 +1406,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fluid_pipes"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fluid_pipes.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1426,7 +1426,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("fluid_tanks"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.fluid_tanks.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1441,7 +1441,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("drain"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.drain.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1457,7 +1457,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String itemTransportationChapterTitle = "book.energizedpower.page.chapter.item_transportation.title";
         PageContent itemTransportationChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             itemTransportationChapterPage = addChapterPage(pageId("item_transportation_chapter"),
                     Component.translatable(itemTransportationChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1472,7 +1472,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_conveyor_belt"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1499,7 +1499,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_conveyor_belt_loader"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1523,7 +1523,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_conveyor_belt_sorter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1559,7 +1559,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_conveyor_belt_switch"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -1574,7 +1574,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_conveyor_belt_splitter"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_splitter").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1586,7 +1586,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_conveyor_belt_merger"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_conveyor_belt_merger").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1598,7 +1598,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("item_silos"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.item_silos.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
@@ -1623,7 +1623,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String fluidsChapterTitle = "book.energizedpower.page.chapter.fluids.title";
         PageContent fluidsChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             fluidsChapterPage = addChapterPage(pageId("fluids_chapter"),
                     Component.translatable(fluidsChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1638,7 +1638,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("dirty_water"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.dirty_water.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1654,7 +1654,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String machineConfigurationChapterTitle = "book.energizedpower.page.chapter.machine_configuration.title";
         PageContent machineConfigurationChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             machineConfigurationChapterPage = addChapterPage(pageId("machine_configuration_chapter"),
                     Component.translatable(machineConfigurationChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1669,7 +1669,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("upgrade_configuration"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.upgrade_configuration").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1677,7 +1677,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("redstone_mode_configuration"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.redstone_mode_configuration.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1699,7 +1699,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                     Component.translatable("book.energizedpower.page.redstone_mode_configuration.4").
                                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
                             )
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/gui/book_icons/redstone_mode_ignore.png"),
                     EPAPI.id("textures/gui/book_icons/redstone_mode_high.png"),
                     EPAPI.id("textures/gui/book_icons/redstone_mode_low.png")
@@ -1707,7 +1707,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("comparator_mode_configuration"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.comparator_mode_configuration.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
@@ -1729,7 +1729,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                     Component.translatable("book.energizedpower.page.comparator_mode_configuration.4").
                                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
                             )
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/gui/book_icons/comparator_mode_item.png"),
                     EPAPI.id("textures/gui/book_icons/comparator_mode_fluid.png"),
                     EPAPI.id("textures/gui/book_icons/comparator_mode_energy.png")
@@ -1742,7 +1742,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String entitiesChapterTitle = "book.energizedpower.page.chapter.entities.title";
         PageContent entitiesChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             entitiesChapterPage = addChapterPage(pageId("entities_chapter"),
                     Component.translatable(entitiesChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1757,11 +1757,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("battery_box_minecarts"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.battery_box_minecarts").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-            ), new ResourceLocation[] {
+            ), new Identifier[] {
                     EPAPI.id("textures/item/battery_box_minecart.png"),
                     EPAPI.id("textures/item/advanced_battery_box_minecart.png")
             }, changePageIntToId);
@@ -1773,7 +1773,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         String structuresChapterTitle = "book.energizedpower.page.chapter.structures.title";
         PageContent structuresChapterPage;
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             structuresChapterPage = addChapterPage(pageId("structures_chapter"),
                     Component.translatable(structuresChapterTitle).
                             withStyle(ChatFormatting.GOLD),
@@ -1788,7 +1788,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("electrician"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.electrician.title").
                             withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD).append("\n\n")
@@ -1805,7 +1805,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("factory"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.factory.title").
                             withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD).append("\n\n")
@@ -1816,7 +1816,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         }
 
         {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("small_solar_farm"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.small_solar_farm.title").
                             withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD).append("\n\n")
@@ -1829,7 +1829,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
 
     private void registerTableOfContentsPages() {
         tableOfContentsEntries.forEach((pageId, entries) -> {
-            Map<Integer, ResourceLocation> changePageIntToId = new HashMap<>();
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
 
             MutableComponent content = Component.translatable(tableOfContentPageTitles.get(pageId)).
                     withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD);
@@ -1844,7 +1844,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
     }
 
     private MutableComponent tableOfContentEntryComponent(String chapterTitle, PageContent chapterPage,
-                                                          Map<Integer, ResourceLocation> changePageIntToId) {
+                                                          Map<Integer, Identifier> changePageIntToId) {
         int pageNum = changePageIntToId.keySet().stream().max(Integer::compareTo).orElse(0) + 1;
         changePageIntToId.put(pageNum, chapterPage.pageId());
 
@@ -1853,9 +1853,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         withClickEvent(new ClickEvent.ChangePage(pageNum)).
                         withHoverEvent(new HoverEvent.ShowText(Component.translatable("book.energizedpower.tooltip.page"))));
     }
-    private MutableComponent backToTableOfContentComponent(String tableOfContentPageId, Map<Integer, ResourceLocation> changePageIntToId) {
+    private MutableComponent backToTableOfContentComponent(String tableOfContentPageId, Map<Integer, Identifier> changePageIntToId) {
         int pageNum = changePageIntToId.keySet().stream().max(Integer::compareTo).orElse(0) + 1;
-        changePageIntToId.put(pageNum, ResourceLocation.fromNamespaceAndPath(EPAPI.MOD_ID, tableOfContentPageId));
+        changePageIntToId.put(pageNum, Identifier.fromNamespaceAndPath(EPAPI.MOD_ID, tableOfContentPageId));
 
         return Component.translatable(tableOfContentPageTitles.get(tableOfContentPageId)).
                 withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.UNDERLINE).withStyle(Style.EMPTY.

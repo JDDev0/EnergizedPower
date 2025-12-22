@@ -8,7 +8,7 @@ import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
@@ -20,15 +20,15 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
         <T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu>
         extends UpgradableEnergyStorageContainerScreen<T> {
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                              ResourceLocation texture,
-                                                              ResourceLocation upgradeViewTexture) {
+                                                              Identifier texture,
+                                                              Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture, upgradeViewTexture);
     }
 
     public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                               String energyIndicatorBarTooltipComponentID,
-                                                              ResourceLocation texture,
-                                                              ResourceLocation upgradeViewTexture) {
+                                                              Identifier texture,
+                                                              Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
                 upgradeViewTexture);
     }

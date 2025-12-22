@@ -5,7 +5,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
@@ -33,7 +33,7 @@ public class VillageAddition {
 
     private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry, String villageType,
                                         String buildingName, int weight) {
-        StructureTemplatePool pool = templatePoolRegistry.getValue(ResourceLocation.parse(String.format("minecraft:village/%s/houses", villageType)));
+        StructureTemplatePool pool = templatePoolRegistry.getValue(Identifier.parse(String.format("minecraft:village/%s/houses", villageType)));
         if(pool == null)
             return;
 

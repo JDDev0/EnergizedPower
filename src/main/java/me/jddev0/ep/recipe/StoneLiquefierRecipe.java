@@ -6,7 +6,7 @@ import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -95,7 +95,7 @@ public class StoneLiquefierRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = EPAPI.id("stone_liquefier");
+        public static final Identifier ID = EPAPI.id("stone_liquefier");
 
         private final MapCodec<StoneLiquefierRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {

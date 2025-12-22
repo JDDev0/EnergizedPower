@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.validation.ValueValidators;
 import me.jddev0.ep.config.value.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.loading.FMLPaths;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -504,42 +504,42 @@ public final class ModConfigs {
             "Inter dimensional teleportation (= across multiple dimension) is not allowed if set to false.",
             true
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_DIMENSION_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_DIMENSION_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.dimension_blacklist",
             "Teleportation within, from, and to dimensions in this list are not allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTRA_DIMENSIONAL_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTRA_DIMENSIONAL_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.intra_dimensional_blacklist",
             "Teleportation within dimensions in this list are not allowed.\nTeleportation to and from dimensions in this list are still allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.inter_dimension_from_blacklist",
             "Teleportation from dimensions in this list are not allowed.\nTeleportation within and to dimensions in this list are still allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.inter_dimension_to_blacklist",
             "Teleportation to dimensions in this list are not allowed.\nTeleportation within and from dimensions in this list are still allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_DIMENSION_TYPE_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_DIMENSION_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.dimension_type_blacklist",
             "Teleportation within, from, and to dimension types in this list are not allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTRA_DIMENSIONAL_TYPE_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTRA_DIMENSIONAL_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.intra_dimensional_type_blacklist",
             "Teleportation within dimension types in this list are not allowed.\nTeleportation to and from dimension types in this list are still allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.inter_dimension_from_type_blacklist",
             "Teleportation from dimension types in this list are not allowed.\nTeleportation within and to dimension types in this list are still allowed.",
             new ArrayList<>(0)
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.teleporter.inter_dimension_to_type_blacklist",
             "Teleportation to dimension types in this list are not allowed.\nTeleportation within and from dimension types in this list are still allowed.",
             new ArrayList<>(0)
@@ -810,7 +810,7 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
             "block.auto_crafter", "Auto Crafter", 100
     );
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.auto_crafter", "Auto Crafter", new ArrayList<>(0)
     );
 
@@ -829,7 +829,7 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
             "block.advanced_auto_crafter", "Advanced Auto Crafter", 50
     );
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.advanced_auto_crafter", "Advanced Auto Crafter", new ArrayList<>(0)
     );
 
@@ -871,7 +871,7 @@ public final class ModConfigs {
             20,
             1, null
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST = COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST = COMMON_CONFIG.register(new IdentifierListConfigValue(
             "block.block_placer.placement_blacklist",
             "Blocks in this list can not be placed by the Block Placer.",
             new ArrayList<>(0)
@@ -927,7 +927,7 @@ public final class ModConfigs {
             1.f,
             0.f, null
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.powered_furnace", "Powered Furnace", new ArrayList<>(0)
     );
 
@@ -950,7 +950,7 @@ public final class ModConfigs {
             1.f,
             0.f, null
     ));
-    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.advanced_powered_furnace", "Advanced Powered Furnace", new ArrayList<>(0)
     );
 
@@ -1526,9 +1526,9 @@ public final class ModConfigs {
         ));
     }
 
-    private static ConfigValue<List<@NotNull ResourceLocation>> registerRecipeBlacklistValue(String baseConfigKey, String itemName,
-                                                                                             @NotNull List<@NotNull ResourceLocation> defaultValue) {
-        return COMMON_CONFIG.register(new ResourceLocationListConfigValue(
+    private static ConfigValue<List<@NotNull Identifier>> registerRecipeBlacklistValue(String baseConfigKey, String itemName,
+                                                                                             @NotNull List<@NotNull Identifier> defaultValue) {
+        return COMMON_CONFIG.register(new IdentifierListConfigValue(
                 baseConfigKey + ".recipe_blacklist",
                 "The recipe blacklist for the " + itemName + ".\n" +
                         "The blacklist is a list of recipe ids which can not be crafted in the " + itemName,

@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu> extends EnergizedPowerBaseContainerScreen<T> {
-    protected final ResourceLocation TEXTURE;
+    protected final Identifier TEXTURE;
 
     protected int energyMeterX = 8;
     protected int energyMeterY = 17;
@@ -39,13 +39,13 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     }
 
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                        ResourceLocation texture) {
+                                        Identifier texture) {
         this(menu, inventory, titleComponent, null, texture);
     }
 
     public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                         String energyIndicatorBarTooltipComponentID,
-                                        ResourceLocation texture) {
+                                        Identifier texture) {
         super(menu, inventory, titleComponent);
 
         this.TEXTURE = texture;

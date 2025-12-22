@@ -6,16 +6,18 @@ import me.jddev0.ep.recipe.MetalPressRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -28,7 +30,7 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
     private final IDrawable icon;
 
     public MetalPressCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/metal_press.png");
+        Identifier texture = EPAPI.id("textures/gui/container/metal_press.png");
         background = helper.createDrawable(texture, 47, 22, 98, 34);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.METAL_PRESS_ITEM.get()));
@@ -45,8 +47,13 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -69,5 +76,10 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 37, 1).add(recipe.value().getPressMold());
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 13).add(recipe.value().getOutput());
+    }
+
+    @Override
+    public void draw(RecipeHolder<MetalPressRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
     }
 }

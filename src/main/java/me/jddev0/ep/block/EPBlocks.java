@@ -5,7 +5,7 @@ import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.tier.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -31,7 +31,7 @@ public final class EPBlocks {
     }
 
     public static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<Block.Properties, T> factory, Block.Properties props) {
-        ResourceLocation blockId = EPAPI.id(name);
+        Identifier blockId = EPAPI.id(name);
         return BLOCKS.register(name, () -> factory.apply(props.setId(ResourceKey.create(Registries.BLOCK, blockId))));
     }
 

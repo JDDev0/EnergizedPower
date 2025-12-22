@@ -12,7 +12,7 @@ import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
@@ -38,7 +38,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
 
-    protected ResourceLocation currentRecipeIdForLoad;
+    protected Identifier currentRecipeIdForLoad;
     protected RecipeHolder<R> currentRecipe;
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
@@ -76,7 +76,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         super.saveAdditional(view);
 
         if(currentRecipe != null)
-            view.putString("recipe.id", currentRecipe.id().location().toString());
+            view.putString("recipe.id", currentRecipe.id().identifier().toString());
     }
 
     @Override
@@ -84,7 +84,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         super.loadAdditional(view);
 
         view.getString("recipe.id").ifPresent(recipeId ->
-                currentRecipeIdForLoad = ResourceLocation.tryParse(recipeId)
+                currentRecipeIdForLoad = Identifier.tryParse(recipeId)
         );
     }
 
@@ -104,7 +104,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         if(currentRecipeIdForLoad != null && level instanceof ServerLevel serverLevel) {
             Collection<RecipeHolder<R>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, recipeType);
             currentRecipe = recipes.stream().
-                    filter(recipe -> recipe.id().location().equals(currentRecipeIdForLoad)).
+                    filter(recipe -> recipe.id().identifier().equals(currentRecipeIdForLoad)).
                     findFirst().orElse(null);
 
             currentRecipeIdForLoad = null;
@@ -173,13 +173,13 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
 
         List<RecipeHolder<R>> recipes = new ArrayList<>(RecipeUtils.getAllRecipesFor(serverLevel, recipeType));
         recipes = recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.id().location())).
+                sorted(Comparator.comparing(recipe -> recipe.id().identifier())).
                 toList();
 
         int currentIndex = -1;
         if(currentRecipe != null) {
             for(int i = 0;i < recipes.size();i++) {
-                if(currentRecipe.id().location().equals(recipes.get(i).id().location())) {
+                if(currentRecipe.id().identifier().equals(recipes.get(i).id().identifier())) {
                     currentIndex = i;
                     break;
                 }
@@ -201,7 +201,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     }
 
     @Override
-    public void setRecipeId(ResourceLocation recipeId) {
+    public void setRecipeId(Identifier recipeId) {
         if(!(level instanceof ServerLevel serverLevel))
             return;
 
@@ -209,7 +209,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
             currentRecipe = null;
         }else {
             Collection<RecipeHolder<R>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, recipeType);
-            Optional<RecipeHolder<R>> recipe = recipes.stream().filter(r -> r.id().location().equals(recipeId)).findFirst();
+            Optional<RecipeHolder<R>> recipe = recipes.stream().filter(r -> r.id().identifier().equals(recipeId)).findFirst();
 
             currentRecipe = recipe.orElse(null);
         }

@@ -3,24 +3,24 @@ package me.jddev0.ep.config.value;
 import me.jddev0.ep.config.ConfigValidationException;
 import me.jddev0.ep.config.ConfigValue;
 import me.jddev0.ep.config.validation.ValueValidator;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResourceLocationListConfigValue extends ConfigValue<List<@NotNull ResourceLocation>> {
-    public ResourceLocationListConfigValue(@NotNull String key, @NotNull List<@NotNull ResourceLocation> defaultValue) {
+public class IdentifierListConfigValue extends ConfigValue<List<@NotNull Identifier>> {
+    public IdentifierListConfigValue(@NotNull String key, @NotNull List<@NotNull Identifier> defaultValue) {
         this(key, null, defaultValue);
     }
 
-    public ResourceLocationListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull ResourceLocation> defaultValue) {
+    public IdentifierListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull Identifier> defaultValue) {
         this(key, comment, defaultValue, null);
     }
 
-    public ResourceLocationListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull ResourceLocation> defaultValue,
-                                           @Nullable ValueValidator<List<@NotNull ResourceLocation>> customValidator) {
+    public IdentifierListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull Identifier> defaultValue,
+                                           @Nullable ValueValidator<List<@NotNull Identifier>> customValidator) {
         super(key, comment, new ArrayList<>(defaultValue), customValidator);
     }
 
@@ -36,12 +36,12 @@ public class ResourceLocationListConfigValue extends ConfigValue<List<@NotNull R
     }
 
     @Override
-    public void validate(@NotNull List<@NotNull ResourceLocation> value) throws ConfigValidationException {
+    public void validate(@NotNull List<@NotNull Identifier> value) throws ConfigValidationException {
         super.validate(value);
     }
 
     @Override
-    protected @NotNull List<@NotNull ResourceLocation> readInternal(@NotNull String rawValue) throws ConfigValidationException {
+    protected @NotNull List<@NotNull Identifier> readInternal(@NotNull String rawValue) throws ConfigValidationException {
         if(rawValue.equals("[]"))
             return new ArrayList<>(0);
 
@@ -52,29 +52,29 @@ public class ResourceLocationListConfigValue extends ConfigValue<List<@NotNull R
         if(rawValue.startsWith(",") || rawValue.endsWith(","))
             throw new ConfigValidationException("Value must not start with \"[,\" or end with \",]\"");
 
-        List<@NotNull ResourceLocation> resourceLocations = new ArrayList<>();
+        List<@NotNull Identifier> identifiers = new ArrayList<>();
         String[] tokens = rawValue.split(",");
         for(int i = 0;i < tokens.length;i++) {
             String token = tokens[i].trim();
             if(token.isEmpty())
                 throw new ConfigValidationException("Value must not be empty at index " + i);
 
-            ResourceLocation resourceLocation = ResourceLocation.tryParse(token);
-            if(resourceLocation == null)
+            Identifier identifier = Identifier.tryParse(token);
+            if(identifier == null)
                 throw new ConfigValidationException("Invalid value at index " + i + ": \"" + token + "\"");
 
-            resourceLocations.add(resourceLocation);
+            identifiers.add(identifier);
         }
 
-        return new ArrayList<>(resourceLocations);
+        return new ArrayList<>(identifiers);
     }
 
     @Override
-    protected @NotNull String writeInternal(@NotNull List<@NotNull ResourceLocation> value) {
+    protected @NotNull String writeInternal(@NotNull List<@NotNull Identifier> value) {
         StringBuilder builder = new StringBuilder("[");
 
-        for(ResourceLocation resourceLocation:value)
-            builder.append(resourceLocation).append(", ");
+        for(Identifier identifier:value)
+            builder.append(identifier).append(", ");
 
         if(!value.isEmpty())
             builder.delete(builder.length() - 2, builder.length());

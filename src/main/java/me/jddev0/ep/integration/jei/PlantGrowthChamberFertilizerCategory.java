@@ -16,7 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -28,7 +28,7 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
     private final IDrawable icon;
 
     public PlantGrowthChamberFertilizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
+        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         fertilizerSlot = helper.createDrawable(texture, 34, 34, 18, 18);
         background = helper.createBlankDrawable(144, 30);
 
@@ -46,8 +46,13 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -62,6 +67,8 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
 
     @Override
     public void draw(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         fertilizerSlot.draw(guiGraphics, 0, 0);
 
         Font font = Minecraft.getInstance().font;

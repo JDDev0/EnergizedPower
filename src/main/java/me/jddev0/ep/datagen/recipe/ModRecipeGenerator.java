@@ -10,8 +10,8 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -19,7 +19,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -2990,7 +2990,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                                                 Map<Character, Ingredient> key, String[] pattern,
                                                 ItemStack result, CraftingBookCategory category,
                                                 String group, String recipeIdSuffix, String recipeIdPrefix) {
-        ResourceLocation recipeId = EPAPI.id("crafting/" +
+        Identifier recipeId = EPAPI.id("crafting/" +
                 recipeIdPrefix + getItemName(result.getItem()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -3019,7 +3019,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     private void addShapelessCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
                                                    List<Ingredient> inputs, ItemStack result, CraftingBookCategory category,
                                                    String group, String recipeIdSuffix, String recipeIdPrefix) {
-        ResourceLocation recipeId = EPAPI.id("crafting/" +
+        Identifier recipeId = EPAPI.id("crafting/" +
                 recipeIdPrefix + getItemName(result.getItem()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -3033,7 +3033,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addCustomCraftingRecipe(RecipeOutput output, Function<CraftingBookCategory, ? extends CustomRecipe> customRecipeFactory,
                                                 CraftingBookCategory category, String recipeIdString) {
-        ResourceLocation recipeId = EPAPI.id("crafting/" +
+        Identifier recipeId = EPAPI.id("crafting/" +
                 recipeIdString);
 
         CustomRecipe recipe = customRecipeFactory.apply(category);
@@ -3055,20 +3055,20 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void addSmeltingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group) {
-        ResourceLocation recipeId = EPAPI.id("smelting/" +
+        Identifier recipeId = EPAPI.id("smelting/" +
                 getItemName(result.getItem()));
 
         addSmeltingRecipe(output, ingredient, result, category, time, xp, group, recipeId);
     }
     private void addSmeltingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("smelting/" +
+        Identifier recipeId = EPAPI.id("smelting/" +
                 getItemName(result.getItem()) + "_from_smelting_" + recipeIngredientName);
 
         addSmeltingRecipe(output, ingredient, result, category, time, xp, group, recipeId);
     }
     private void addSmeltingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
-                                          int time, float xp, String group, ResourceLocation recipeId) {
+                                          int time, float xp, String group, Identifier recipeId) {
         Advancement.Builder advancementBuilder = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
                 .addCriterion("has_the_ingredient", has(ingredient))
@@ -3080,7 +3080,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addSmeltingRecipe(RecipeOutput output, TagKey<Item> ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("smelting/" +
+        Identifier recipeId = EPAPI.id("smelting/" +
                 getItemName(result.getItem()) + "_from_smelting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -3095,7 +3095,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void addBlastingRecipe(RecipeOutput output, ItemLike ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("blasting/" +
+        Identifier recipeId = EPAPI.id("blasting/" +
                 getItemName(result.getItem()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -3109,7 +3109,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addBlastingRecipe(RecipeOutput output, TagKey<Item> ingredient, ItemStack result, CookingBookCategory category,
                                           int time, float xp, String group, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("blasting/" +
+        Identifier recipeId = EPAPI.id("blasting/" +
                 getItemName(result.getItem()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
@@ -3123,7 +3123,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void addNetheriteSmithingUpgradeRecipe(RecipeOutput recipeOutput, Ingredient base, ItemStack output) {
-        ResourceLocation recipeId = EPAPI.id("smithing/" +
+        Identifier recipeId = EPAPI.id("smithing/" +
                 getItemName(output.getItem()));
 
         Advancement.Builder advancementBuilder = recipeOutput.advancement()
@@ -3142,7 +3142,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addAlloyFurnaceRecipe(RecipeOutput recipeOutput, IngredientWithCount[] inputs, ItemStack output,
                                               OutputItemStackWithPercentages secondaryOutput, int ticks) {
-        ResourceLocation recipeId = EPAPI.id("alloy_furnace/" +
+        Identifier recipeId = EPAPI.id("alloy_furnace/" +
                 getItemName(output.getItem()));
 
         AlloyFurnaceRecipe recipe = new AlloyFurnaceRecipe(output, secondaryOutput, inputs, ticks);
@@ -3150,7 +3150,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void addPressMoldMakerRecipe(RecipeOutput recipeOutput, int clayCount, ItemStack output) {
-        ResourceLocation recipeId = EPAPI.id("press_mold_maker/" +
+        Identifier recipeId = EPAPI.id("press_mold_maker/" +
                 getItemName(output.getItem()));
 
         PressMoldMakerRecipe recipe = new PressMoldMakerRecipe(output, clayCount);
@@ -3171,7 +3171,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addCompressorRecipe(RecipeOutput recipeOutput, IngredientWithCount input, ItemStack output,
                                             String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("compressing/" +
+        Identifier recipeId = EPAPI.id("compressing/" +
                 getItemName(output.getItem()) + "_from_compressing_" + recipeIngredientName);
 
         CompressorRecipe recipe = new CompressorRecipe(output, input);
@@ -3180,7 +3180,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void addCrusherRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                          String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("crusher/" +
+        Identifier recipeId = EPAPI.id("crusher/" +
                 getItemName(output.getItem()) + "_from_crushing_" + recipeIngredientName);
 
         CrusherRecipe recipe = new CrusherRecipe(output, input);
@@ -3226,7 +3226,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                                             PulverizerRecipe.OutputItemStackWithPercentages output,
                                             PulverizerRecipe.OutputItemStackWithPercentages secondaryOutput,
                                             String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("pulverizer/" +
+        Identifier recipeId = EPAPI.id("pulverizer/" +
                 getItemName(output.output().getItem()) + "_from_pulverizer_" + recipeIngredientName);
 
         PulverizerRecipe recipe = new PulverizerRecipe(output, secondaryOutput, input);
@@ -3278,7 +3278,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addSawmillRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                          int sawdustAmount, String outputName, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("sawmill/" +
+        Identifier recipeId = EPAPI.id("sawmill/" +
                 outputName + "_from_sawing_" + recipeIngredientName);
 
         SawmillRecipe recipe = new SawmillRecipe(output, input, sawdustAmount);
@@ -3286,7 +3286,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addSawmillRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                          ItemStack secondaryOutput, String outputName, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("sawmill/" +
+        Identifier recipeId = EPAPI.id("sawmill/" +
                 outputName + "_from_sawing_" + recipeIngredientName);
 
         SawmillRecipe recipe = new SawmillRecipe(output, secondaryOutput, input);
@@ -3323,7 +3323,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     private void addPlantGrowthChamberRecipe(RecipeOutput recipeOutput, Ingredient input,
                                                     OutputItemStackWithPercentages[] outputs, int ticks,
                                                     String outputName, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("growing/" +
+        Identifier recipeId = EPAPI.id("growing/" +
                 outputName + "_from_growing_" + recipeIngredientName);
 
         PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, ticks);
@@ -3333,7 +3333,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     private void addPlantGrowthChamberFertilizerRecipe(RecipeOutput recipeOutput, Ingredient input,
                                                               double speedMultiplier, double energyConsumptionMultiplier,
                                                               String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("growing/fertilizer/" +
+        Identifier recipeId = EPAPI.id("growing/fertilizer/" +
                 recipeIngredientName);
 
         PlantGrowthChamberFertilizerRecipe recipe = new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier,
@@ -3356,7 +3356,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addMetalPressRecipe(RecipeOutput recipeOutput, IngredientWithCount input, ItemStack output,
                                             ItemStack pressMold) {
-        ResourceLocation recipeId = EPAPI.id("metal_press/" +
+        Identifier recipeId = EPAPI.id("metal_press/" +
                 getItemName(output.getItem()));
 
         MetalPressRecipe recipe = new MetalPressRecipe(output, pressMold, input);
@@ -3371,7 +3371,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addHeatGeneratorRecipe(RecipeOutput recipeOutput, Fluid[] input, int energyProduction,
                                                String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("heat_generator/" +
+        Identifier recipeId = EPAPI.id("heat_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
         HeatGeneratorRecipe recipe = new HeatGeneratorRecipe(input, energyProduction);
@@ -3386,7 +3386,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addThermalGeneratorRecipe(RecipeOutput recipeOutput, Fluid[] input, int energyProduction,
                                                   String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("thermal_generator/" +
+        Identifier recipeId = EPAPI.id("thermal_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
         ThermalGeneratorRecipe recipe = new ThermalGeneratorRecipe(input, energyProduction);
@@ -3400,14 +3400,14 @@ public class ModRecipeGenerator extends RecipeProvider {
         addStoneLiquefierRecipe(recipeOutput, input, new FluidStack(Fluids.WATER, waterAmount), recipeIngredientName);
     }
     private void addStoneLiquefierRecipe(RecipeOutput recipeOutput, Ingredient input, FluidStack output, String recipeIngredientName) {
-        ResourceLocation recipeId = EPAPI.id("stone_liquefier/" + recipeIngredientName);
+        Identifier recipeId = EPAPI.id("stone_liquefier/" + recipeIngredientName);
 
         StoneLiquefierRecipe recipe = new StoneLiquefierRecipe(input, output);
         recipeOutput.accept(getKey(recipeId), recipe, null);
     }
 
     private void addStoneSolidifierRecipe(RecipeOutput recipeOutput, int waterAmount, int lavaAmount, ItemStack output) {
-        ResourceLocation recipeId = EPAPI.id("stone_solidifier/" +
+        Identifier recipeId = EPAPI.id("stone_solidifier/" +
                 getItemName(output.getItem()));
 
         StoneSolidifierRecipe recipe = new StoneSolidifierRecipe(output, waterAmount, lavaAmount);
@@ -3415,7 +3415,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void addAssemblingMachineRecipe(RecipeOutput recipeOutput, IngredientWithCount[] inputs, ItemStack output) {
-        ResourceLocation recipeId = EPAPI.id("assembling/" +
+        Identifier recipeId = EPAPI.id("assembling/" +
                 getItemName(output.getItem()));
 
         AssemblingMachineRecipe recipe = new AssemblingMachineRecipe(output, inputs);
@@ -3429,13 +3429,13 @@ public class ModRecipeGenerator extends RecipeProvider {
                 oreName + "_ore_filtration");
     }
     private void addFiltrationPlantRecipe(RecipeOutput recipeOutput, OutputItemStackWithPercentages output,
-                                                 ResourceLocation icon, String recipeName) {
+                                                 Identifier icon, String recipeName) {
         addFiltrationPlantRecipe(recipeOutput, output, OutputItemStackWithPercentages.EMPTY, icon, recipeName);
     }
     private void addFiltrationPlantRecipe(RecipeOutput recipeOutput, OutputItemStackWithPercentages output,
-                                                 OutputItemStackWithPercentages secondaryOutput, ResourceLocation icon,
+                                                 OutputItemStackWithPercentages secondaryOutput, Identifier icon,
                                                  String recipeName) {
-        ResourceLocation recipeId = EPAPI.id("filtration_plant/" +
+        Identifier recipeId = EPAPI.id("filtration_plant/" +
                 recipeName);
 
         FiltrationPlantRecipe recipe = new FiltrationPlantRecipe(output, secondaryOutput, icon);
@@ -3448,7 +3448,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addFluidTransposerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output,
                                                  FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
-        ResourceLocation recipeId = EPAPI.id("fluid_transposer/" +
+        Identifier recipeId = EPAPI.id("fluid_transposer/" +
                 getItemName(output.getItem()));
 
         FluidTransposerRecipe recipe = new FluidTransposerRecipe(mode, output, input, fluid);
@@ -3456,7 +3456,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void addChargerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
-        ResourceLocation recipeId = EPAPI.id("charger/" +
+        Identifier recipeId = EPAPI.id("charger/" +
                 getItemName(output.getItem()));
 
         ChargerRecipe recipe = new ChargerRecipe(output, input, energyConsumption);
@@ -3464,7 +3464,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void addEnergizerRecipe(RecipeOutput recipeOutput, Ingredient input, ItemStack output, int energyConsumption) {
-        ResourceLocation recipeId = EPAPI.id("energizer/" +
+        Identifier recipeId = EPAPI.id("energizer/" +
                 getItemName(output.getItem()));
 
         EnergizerRecipe recipe = new EnergizerRecipe(output, input, energyConsumption);
@@ -3477,7 +3477,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addCrystalGrowthChamberRecipe(RecipeOutput recipeOutput, IngredientWithCount input, OutputItemStackWithPercentages output,
                                                       int ticks) {
-        ResourceLocation recipeId = EPAPI.id("crystal_growing/" +
+        Identifier recipeId = EPAPI.id("crystal_growing/" +
                 getItemName(output.output().getItem()));
 
         CrystalGrowthChamberRecipe recipe = new CrystalGrowthChamberRecipe(output, input, ticks);
@@ -3496,7 +3496,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         return Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(tagKey));
     }
 
-    private static ResourceKey<Recipe<?>> getKey(ResourceLocation recipeId) {
+    private static ResourceKey<Recipe<?>> getKey(Identifier recipeId) {
         return ResourceKey.create(Registries.RECIPE, recipeId);
     }
 }

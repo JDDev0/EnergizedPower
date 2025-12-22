@@ -11,7 +11,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public class ModItemModelProvider {
@@ -227,7 +227,7 @@ public class ModItemModelProvider {
         ));
     }
 
-    private ResourceLocation basicItem(Holder<Item> item) {
+    private Identifier basicItem(Holder<Item> item) {
         generator.generateFlatItem(item.value(), ModelTemplates.FLAT_ITEM);
 
         return ModelLocationUtils.getModelLocation(item.value());

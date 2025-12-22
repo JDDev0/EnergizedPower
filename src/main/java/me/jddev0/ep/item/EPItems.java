@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 import net.neoforged.bus.api.IEventBus;
@@ -29,7 +29,7 @@ public final class EPItems {
     }
 
     public static <T extends Item> DeferredItem<T> registerItem(String name, Function<Item.Properties, T> factory, Item.Properties props) {
-        ResourceLocation itemId = EPAPI.id(name);
+        Identifier itemId = EPAPI.id(name);
         return ITEMS.register(name, () -> factory.apply(props.setId(ResourceKey.create(Registries.ITEM, itemId))));
     }
 

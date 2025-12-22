@@ -6,7 +6,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
-    private final ResourceLocation TEXTURE;
+    private final Identifier TEXTURE;
 
     public DrainScreen(DrainMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);

@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,18 +14,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public record PageContent(
-        ResourceLocation pageId, Component chapterTitleComponent, Component pageComponent,
-        ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations,
-        Map<Integer, ResourceLocation> changePageIntToId
+        Identifier pageId, Component chapterTitleComponent, Component pageComponent,
+        Identifier[] imageIdentifiers, Identifier[] blockIdentifiers,
+        Map<Integer, Identifier> changePageIntToId
 ) {
-    public PageContent(Component chapterTitleComponent, Component pageComponent, ResourceLocation[] imageResourceLocations,
-                       ResourceLocation[] blockResourceLocations, Map<Integer, ResourceLocation> changePageIntToId) {
-        this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
+    public PageContent(Component chapterTitleComponent, Component pageComponent, Identifier[] imageIdentifiers,
+                       Identifier[] blockIdentifiers, Map<Integer, Identifier> changePageIntToId) {
+        this(null, chapterTitleComponent, pageComponent, imageIdentifiers, blockIdentifiers,
                 changePageIntToId == null?null:new HashMap<>(changePageIntToId));
     }
 
-    public PageContent withPageId(ResourceLocation pageId) {
-        return new PageContent(pageId, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
+    public PageContent withPageId(Identifier pageId) {
+        return new PageContent(pageId, chapterTitleComponent, pageComponent, imageIdentifiers, blockIdentifiers,
                 changePageIntToId == null?null:new HashMap<>(changePageIntToId));
     }
 
@@ -34,27 +34,27 @@ public record PageContent(
                                 forGetter(pageContent -> Optional.ofNullable(pageContent.chapterTitleComponent)),
                         ComponentSerialization.CODEC.optionalFieldOf("content").
                                 forGetter(pageContent -> Optional.ofNullable(pageContent.pageComponent)),
-                        Codec.either(ResourceLocation.CODEC, Codec.list(ResourceLocation.CODEC)).optionalFieldOf("image").
+                        Codec.either(Identifier.CODEC, Codec.list(Identifier.CODEC)).optionalFieldOf("image").
                                 forGetter(pageContent -> {
-                                    if(pageContent.imageResourceLocations == null)
+                                    if(pageContent.imageIdentifiers == null)
                                         return Optional.empty();
 
-                                    if(pageContent.imageResourceLocations.length == 1)
-                                        return Optional.of(Either.left(pageContent.imageResourceLocations[0]));
+                                    if(pageContent.imageIdentifiers.length == 1)
+                                        return Optional.of(Either.left(pageContent.imageIdentifiers[0]));
 
-                                    return Optional.of(Either.right(Arrays.asList(pageContent.imageResourceLocations)));
+                                    return Optional.of(Either.right(Arrays.asList(pageContent.imageIdentifiers)));
                                 }),
-                        Codec.either(ResourceLocation.CODEC, Codec.list(ResourceLocation.CODEC)).optionalFieldOf("block").
+                        Codec.either(Identifier.CODEC, Codec.list(Identifier.CODEC)).optionalFieldOf("block").
                                 forGetter(pageContent -> {
-                                    if(pageContent.blockResourceLocations == null)
+                                    if(pageContent.blockIdentifiers == null)
                                         return Optional.empty();
 
-                                    if(pageContent.blockResourceLocations.length == 1)
-                                        return Optional.of(Either.left(pageContent.blockResourceLocations[0]));
+                                    if(pageContent.blockIdentifiers.length == 1)
+                                        return Optional.of(Either.left(pageContent.blockIdentifiers[0]));
 
-                                    return Optional.of(Either.right(Arrays.asList(pageContent.blockResourceLocations)));
+                                    return Optional.of(Either.right(Arrays.asList(pageContent.blockIdentifiers)));
                                 }),
-                        Codec.unboundedMap(Codec.STRING, ResourceLocation.CODEC).optionalFieldOf("changePageIntToId").
+                        Codec.unboundedMap(Codec.STRING, Identifier.CODEC).optionalFieldOf("changePageIntToId").
                                 forGetter(pageContent -> {
                                     if(pageContent.changePageIntToId == null || pageContent.changePageIntToId.isEmpty())
                                         return Optional.empty();
@@ -64,12 +64,12 @@ public record PageContent(
                                 })).
                 apply(instance, (title, content, image, block, changePageIntToId) -> new PageContent(
                         title.orElse(null), content.orElse(null),
-                        image.map(either -> either.map(singleImage -> new ResourceLocation[] {
+                        image.map(either -> either.map(singleImage -> new Identifier[] {
                                 singleImage
-                        }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null),
-                        block.map(either -> either.map(singleImage -> new ResourceLocation[] {
+                        }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null),
+                        block.map(either -> either.map(singleImage -> new Identifier[] {
                                 singleImage
-                        }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null),
+                        }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null),
                         changePageIntToId.map(map -> map.entrySet().stream().
                                 collect(Collectors.toMap(entry -> Integer.parseInt(entry.getKey()), Map.Entry::getValue))).orElse(null)
                 ));

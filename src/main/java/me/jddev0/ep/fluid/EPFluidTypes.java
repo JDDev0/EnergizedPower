@@ -1,7 +1,7 @@
 package me.jddev0.ep.fluid;
 
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,7 +17,7 @@ public final class EPFluidTypes {
 
     public static final Supplier<EnergizedPowerFluidType> DIRTY_WATER_FLUID_TYPE = FLUID_TYPES.register("dirty_water",
             () -> new EnergizedPowerFluidType(FluidType.Properties.create().density(1200).viscosity(1200).canExtinguish(true),
-                    ResourceLocation.withDefaultNamespace("block/water_still"), ResourceLocation.withDefaultNamespace("block/water_flow"),
+                    Identifier.withDefaultNamespace("block/water_still"), Identifier.withDefaultNamespace("block/water_flow"),
                     null, 0xC86F3900, new Vector3f(100.f / 255.f, 50.f / 255.f, 0.f)));
 
     public static void register(IEventBus modEventBus) {

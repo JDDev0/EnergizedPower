@@ -5,7 +5,7 @@ import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -27,15 +27,15 @@ public abstract class SelectableRecipeMachineContainerScreen
     protected int recipeSelectorTexturePosY = 187;
 
     public SelectableRecipeMachineContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                  ResourceLocation texture,
-                                                  ResourceLocation upgradeViewTexture) {
+                                                  Identifier texture,
+                                                  Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture, upgradeViewTexture);
     }
 
     public SelectableRecipeMachineContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   String energyIndicatorBarTooltipComponentID,
-                                                  ResourceLocation texture,
-                                                  ResourceLocation upgradeViewTexture) {
+                                                  Identifier texture,
+                                                  Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
                 upgradeViewTexture);
     }

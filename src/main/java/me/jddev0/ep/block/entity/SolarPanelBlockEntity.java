@@ -10,6 +10,7 @@ import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -86,7 +87,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
             return;
 
         int i = 4 * (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken()); //(0 - 15) * 4 => (0 - 60)
-        float f = level.getSunAngle(1.0F);
+        float f = level.environmentAttributes().getValue(EnvironmentAttributes.SUN_ANGLE, blockPos) * (float) (Math.PI / 180F);
         if(i > 0) {
             float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
 

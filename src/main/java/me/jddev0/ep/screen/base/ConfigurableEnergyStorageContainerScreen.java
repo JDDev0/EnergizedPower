@@ -9,7 +9,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,7 +21,7 @@ import java.util.Optional;
 public abstract class ConfigurableEnergyStorageContainerScreen
         <T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu>
         extends EnergyStorageContainerScreen<T> {
-    protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
+    protected final Identifier CONFIGURATION_ICONS_TEXTURE =
             EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
 
     public ConfigurableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent) {
@@ -29,13 +29,13 @@ public abstract class ConfigurableEnergyStorageContainerScreen
     }
 
     public ConfigurableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                    ResourceLocation texture) {
+                                                    Identifier texture) {
         super(menu, inventory, titleComponent, texture);
     }
 
     public ConfigurableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                     String energyIndicatorBarTooltipComponentID,
-                                                    ResourceLocation texture) {
+                                                    Identifier texture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture);
     }
 

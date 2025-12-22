@@ -6,7 +6,7 @@ import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
@@ -18,9 +18,9 @@ import java.util.Optional;
 public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final OutputItemStackWithPercentages output;
     private final OutputItemStackWithPercentages secondaryOutput;
-    private final ResourceLocation icon;
+    private final Identifier icon;
 
-    public FiltrationPlantRecipe(OutputItemStackWithPercentages output, OutputItemStackWithPercentages secondaryOutput, ResourceLocation icon) {
+    public FiltrationPlantRecipe(OutputItemStackWithPercentages output, OutputItemStackWithPercentages secondaryOutput, Identifier icon) {
         this.output = output;
         this.secondaryOutput = secondaryOutput;
         this.icon = icon;
@@ -34,7 +34,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         return secondaryOutput;
     }
 
-    public ResourceLocation getIcon() {
+    public Identifier getIcon() {
         return icon;
     }
 
@@ -125,14 +125,14 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = EPAPI.id("filtration_plant");
+        public static final Identifier ID = EPAPI.id("filtration_plant");
 
         private final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), OutputItemStackWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
-            }), ResourceLocation.CODEC.fieldOf("icon").forGetter((recipe) -> {
+            }), Identifier.CODEC.fieldOf("icon").forGetter((recipe) -> {
                 return recipe.icon;
             })).apply(instance, (output, secondaryOutput, icon) -> new FiltrationPlantRecipe(output,
                     secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), icon));
@@ -156,7 +156,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
             for(int i = 0;i < 2;i++)
                 outputs[i] = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
-            ResourceLocation icon = buffer.readResourceLocation();
+            Identifier icon = buffer.readIdentifier();
 
             return new FiltrationPlantRecipe(outputs[0], outputs[1], icon);
         }
@@ -167,7 +167,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
                 OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
             }
 
-            buffer.writeResourceLocation(recipe.icon);
+            buffer.writeIdentifier(recipe.icon);
         }
     }
 }

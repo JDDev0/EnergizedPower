@@ -16,7 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -30,7 +30,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     private final IDrawable icon;
 
     public FluidTransposerCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         backgroundEmptying = helper.createDrawable(texture, 1, 133, 143, 26);
         backgroundFilling = helper.createDrawable(texture, 1, 161, 143, 26);
 
@@ -48,8 +48,13 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     }
 
     @Override
-    public IDrawable getBackground() {
-        return backgroundEmptying;
+    public int getWidth() {
+        return backgroundEmptying.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return backgroundEmptying.getHeight();
     }
 
     @Override
@@ -80,6 +85,8 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
     public void draw(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.FILLING) {
             backgroundFilling.draw(guiGraphics, 0, 0);
+        }else {
+            backgroundEmptying.draw(guiGraphics);
         }
 
         ItemStack output = new ItemStack(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);

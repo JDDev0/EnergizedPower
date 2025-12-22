@@ -17,7 +17,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +43,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void addCustomTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-        if(event.getType() == EPVillager.ELECTRICIAN_PROFESSION_KEY) {
+        if(event.getType().compareTo(EPVillager.ELECTRICIAN_PROFESSION_KEY) == 0) {
             //Level 1
             addOffer(trades, 1,
                     new ItemCost(Items.EMERALD, 6),
@@ -183,7 +183,7 @@ public class ModEvents {
 
     private static void addOffer(Int2ObjectMap<List<VillagerTrades.ItemListing>> trades, int level,
                                  ItemCost costA, ItemCost costB, ItemStack result, int maxUses, int xp, float priceMultiplier) {
-        trades.get(level).add((trader, rand) -> new MerchantOffer(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier));
+        trades.get(level).add((serverLevel, trader, rand) -> new MerchantOffer(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier));
     }
 
     @SubscribeEvent

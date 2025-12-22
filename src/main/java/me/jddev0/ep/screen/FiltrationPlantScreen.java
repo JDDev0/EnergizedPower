@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -32,7 +32,7 @@ public class FiltrationPlantScreen
 
     @Override
     protected ItemStack getRecipeIcon(RecipeHolder<FiltrationPlantRecipe> currentRecipe) {
-        ResourceLocation icon = currentRecipe.value().getIcon();
+        Identifier icon = currentRecipe.value().getIcon();
         return new ItemStack(BuiltInRegistries.ITEM.getValue(icon));
     }
 

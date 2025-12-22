@@ -79,7 +79,7 @@ public class TeleporterMatrixItem extends Item {
         ItemStack itemStack = useOnContext.getItemInHand();
         itemStack.set(EPDataComponentTypes.DIMENSIONAL_POSITION,
                 new DimensionalPositionComponent(blockPos.getX(), blockPos.getY(), blockPos.getZ(),
-                        level.dimension().location()));
+                        level.dimension().identifier()));
 
         if(state.is(EPBlocks.TELEPORTER.get())) {
             if(player instanceof ServerPlayer serverPlayer) {

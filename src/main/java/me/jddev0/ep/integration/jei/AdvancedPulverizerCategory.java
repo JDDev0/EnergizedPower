@@ -6,13 +6,15 @@ import me.jddev0.ep.recipe.PulverizerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -26,7 +28,7 @@ public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<
     private final IDrawable icon;
 
     public AdvancedPulverizerCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/pulverizer.png");
+        Identifier texture = EPAPI.id("textures/gui/container/pulverizer.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.ADVANCED_PULVERIZER_ITEM.get()));
@@ -43,8 +45,13 @@ public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -79,5 +86,10 @@ public class AdvancedPulverizerCategory implements IRecipeCategory<RecipeHolder<
                     for(int i = 0;i < percentages.length;i++)
                         tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
+    }
+
+    @Override
+    public void draw(RecipeHolder<PulverizerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
     }
 }

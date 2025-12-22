@@ -19,7 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -32,7 +32,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     private final IDrawable icon;
 
     public PlantGrowthChamberCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
+        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         background = helper.createDrawable(texture, 61, 25, 108, 48);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
@@ -49,8 +49,13 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -104,6 +109,8 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
     @Override
     public void draw(RecipeHolder<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
+
         Font font = Minecraft.getInstance().font;
         int ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);

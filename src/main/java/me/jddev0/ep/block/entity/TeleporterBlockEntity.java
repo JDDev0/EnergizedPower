@@ -17,7 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -51,21 +51,21 @@ public class TeleporterBlockEntity
         extends MenuInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
-    public static final List<@NotNull ResourceLocation> DIMENSION_BLACKLIST =
+    public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_DIMENSION_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> INTRA_DIMENSIONAL_BLACKLIST =
+    public static final List<@NotNull Identifier> INTRA_DIMENSIONAL_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_FROM_BLACKLIST =
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_FROM_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_BLACKLIST =
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> DIMENSION_TYPE_BLACKLIST =
+    public static final List<@NotNull Identifier> DIMENSION_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_DIMENSION_TYPE_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> INTRA_DIMENSIONAL_TYPE_BLACKLIST =
+    public static final List<@NotNull Identifier> INTRA_DIMENSIONAL_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_TYPE_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST =
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_FROM_TYPE_BLACKLIST.getValue();
-    public static final List<@NotNull ResourceLocation> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
+    public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
@@ -257,8 +257,8 @@ public class TeleporterBlockEntity
             return;
         }
 
-        ResourceLocation fromDimensionId = level.dimension().location();
-        ResourceLocation toDimensionId = toDimension.dimension().location();
+        Identifier fromDimensionId = level.dimension().identifier();
+        Identifier toDimensionId = toDimension.dimension().identifier();
 
         boolean intraDimensional = fromDimensionId.equals(toDimensionId);
 
@@ -337,10 +337,10 @@ public class TeleporterBlockEntity
             return;
         }
 
-        ResourceLocation fromDimensionTypeId = level.dimensionTypeRegistration().unwrapKey().
-                map(ResourceKey::location).orElse(ResourceLocation.withDefaultNamespace("empty"));
-        ResourceLocation toDimensionTypeId = toDimension.dimensionTypeRegistration().unwrapKey().
-                map(ResourceKey::location).orElse(ResourceLocation.withDefaultNamespace("empty"));
+        Identifier fromDimensionTypeId = level.dimensionTypeRegistration().unwrapKey().
+                map(ResourceKey::identifier).orElse(Identifier.withDefaultNamespace("empty"));
+        Identifier toDimensionTypeId = toDimension.dimensionTypeRegistration().unwrapKey().
+                map(ResourceKey::identifier).orElse(Identifier.withDefaultNamespace("empty"));
 
         //Dimension Type Blacklist
         if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {

@@ -11,7 +11,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<CreativeFluidTankMenu> {
-    private final ResourceLocation TEXTURE;
+    private final Identifier TEXTURE;
 
     public CreativeFluidTankScreen(CreativeFluidTankMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);

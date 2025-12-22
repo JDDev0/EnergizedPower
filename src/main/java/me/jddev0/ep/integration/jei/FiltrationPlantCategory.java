@@ -8,13 +8,15 @@ import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -28,7 +30,7 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeHolder<Fil
     private final IDrawable icon;
 
     public FiltrationPlantCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 105, 112, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM.get()));
@@ -45,8 +47,13 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeHolder<Fil
     }
 
     @Override
-    public IDrawable getBackground() {
-        return background;
+    public int getWidth() {
+        return background.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return background.getHeight();
     }
 
     @Override
@@ -82,5 +89,10 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeHolder<Fil
                     for(int i = 0;i < percentages.length;i++)
                         tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
+    }
+
+    @Override
+    public void draw(RecipeHolder<FiltrationPlantRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        background.draw(guiGraphics);
     }
 }

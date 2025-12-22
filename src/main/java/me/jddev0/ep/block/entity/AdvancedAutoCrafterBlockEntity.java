@@ -20,7 +20,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
@@ -47,7 +47,7 @@ import java.util.*;
 public class AdvancedAutoCrafterBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements CheckboxUpdate {
-    private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
+    private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     private final static int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue();
 
@@ -256,7 +256,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         for(int i = 0;i < 3;i++) {
             if(craftingRecipe[i] != null)
-                view.putString("recipe.id." + i, craftingRecipe[i].id().location().toString());
+                view.putString("recipe.id." + i, craftingRecipe[i].id().identifier().toString());
 
             view.putInt("recipe.progress." + i, progress[i]);
             view.putInt("recipe.max_progress." + i, maxProgress[i]);
@@ -289,7 +289,7 @@ public class AdvancedAutoCrafterBlockEntity
         for(int i = 0;i < 3;i++) {
             final int index = i;
             view.getString("recipe.id." + i).ifPresent(recipeId ->
-                    recipeIdForSetRecipe[index] = ResourceKey.create(Registries.RECIPE, ResourceLocation.tryParse(recipeId))
+                    recipeIdForSetRecipe[index] = ResourceKey.create(Registries.RECIPE, Identifier.tryParse(recipeId))
             );
 
             progress[i] = view.getIntOr("recipe.progress." + i, 0);
@@ -466,7 +466,7 @@ public class AdvancedAutoCrafterBlockEntity
                     craftingRecipe[currentRecipeIndex].id() == null)?recipes.get(0).id():craftingRecipe[currentRecipeIndex].id();
 
         for(int i = 0;i < recipes.size();i++) {
-            if(Objects.equals(recipes.get(i).id().location(), recipeIdForSetRecipe[currentRecipeIndex].location())) {
+            if(Objects.equals(recipes.get(i).id().identifier(), recipeIdForSetRecipe[currentRecipeIndex].identifier())) {
                 recipeIdForSetRecipe[currentRecipeIndex] = recipes.get((i + 1) % recipes.size()).id();
 
                 break;
@@ -506,7 +506,7 @@ public class AdvancedAutoCrafterBlockEntity
             craftingRecipe[index] = recipe.get().getSecond();
 
             //Recipe with saved recipe id does not exist or pattern items are not compatible with recipe
-            if(recipeIdForSetRecipe[index] != null && !Objects.equals(craftingRecipe[index].id().location(), recipeIdForSetRecipe[index].location())) {
+            if(recipeIdForSetRecipe[index] != null && !Objects.equals(craftingRecipe[index].id().identifier(), recipeIdForSetRecipe[index].identifier())) {
                 recipeIdForSetRecipe[index] = craftingRecipe[index].id();
                 resetProgress(index);
             }
@@ -834,15 +834,15 @@ public class AdvancedAutoCrafterBlockEntity
             return List.of();
 
         return RecipeUtils.getAllRecipesFor(serverLevel, RecipeType.CRAFTING).
-                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id().location())).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id().identifier())).
                 filter(recipe -> recipe.value().matches(patternSlots.asCraftInput(), level)).
-                sorted(Comparator.comparing(recipe -> recipe.id().location())).
+                sorted(Comparator.comparing(recipe -> recipe.id().identifier())).
                 toList();
     }
 
     private Optional<Pair<ResourceKey<Recipe<?>>, RecipeHolder<CraftingRecipe>>> getRecipeFor(CraftingContainer patternSlots, Level level, ResourceKey<Recipe<?>> recipeId) {
         List<RecipeHolder<CraftingRecipe>> recipes = getRecipesFor(patternSlots, level);
-        Optional<RecipeHolder<CraftingRecipe>> recipe = recipes.stream().filter(r -> recipeId != null && r.id().location().equals(recipeId.location())).findFirst();
+        Optional<RecipeHolder<CraftingRecipe>> recipe = recipes.stream().filter(r -> recipeId != null && r.id().identifier().equals(recipeId.identifier())).findFirst();
 
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }

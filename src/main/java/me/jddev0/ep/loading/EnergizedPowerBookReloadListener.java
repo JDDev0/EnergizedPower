@@ -11,7 +11,7 @@ import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.resources.FileToIdConverter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -37,16 +37,16 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+    protected void apply(Map<Identifier, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         List<EnergizedPowerBookScreen.PageContent> pages = new ArrayList<>();
 
-        List<Map.Entry<ResourceLocation, JsonElement>> elementEntries = elements.entrySet().stream().
+        List<Map.Entry<Identifier, JsonElement>> elementEntries = elements.entrySet().stream().
                 sorted(Comparator.comparing(o -> o.getKey().getPath())).
                 toList();
 
         outer:
-        for(Map.Entry<ResourceLocation, JsonElement> elementEntry:elementEntries) {
-            ResourceLocation pageId = elementEntry.getKey();
+        for(Map.Entry<Identifier, JsonElement> elementEntry:elementEntries) {
+            Identifier pageId = elementEntry.getKey();
             JsonElement element = elementEntry.getValue();
 
             try {
@@ -69,7 +69,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
 
                         continue;
                     }
-                    ResourceLocation pageToRemove = ResourceLocation.tryParse(pageToRemoveElement.getAsJsonPrimitive().getAsString());
+                    Identifier pageToRemove = Identifier.tryParse(pageToRemoveElement.getAsJsonPrimitive().getAsString());
                     if(pageToRemove == null)
                         continue;
 
@@ -103,7 +103,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                     contentComponent = ComponentSerialization.CODEC.stable().decode(JsonOps.INSTANCE, object.get("content")).result().
                             map(Pair::getFirst).orElse(null);
 
-                ResourceLocation[] imageResourceLocations = null;
+                Identifier[] imageIdentifiers = null;
                 if(object.has("image")) {
                     JsonElement imageElement = object.get("image");
                     if(imageElement.isJsonPrimitive()) {
@@ -114,8 +114,8 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                             continue;
                         }
 
-                        imageResourceLocations = new ResourceLocation[] {
-                                ResourceLocation.tryParse(imageElement.getAsJsonPrimitive().getAsString())
+                        imageIdentifiers = new Identifier[] {
+                                Identifier.tryParse(imageElement.getAsJsonPrimitive().getAsString())
                         };
                     }else if(imageElement.isJsonArray()) {
                         JsonArray imageJsonArray = imageElement.getAsJsonArray();
@@ -127,7 +127,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                             continue;
                         }
 
-                        List<ResourceLocation> imageResourceLocationList = new ArrayList<>(imageJsonArray.size());
+                        List<Identifier> imageIdentifierList = new ArrayList<>(imageJsonArray.size());
                         for(JsonElement imageJsonEle:imageJsonArray) {
                             if(!imageJsonEle.isJsonPrimitive() || !imageJsonEle.getAsJsonPrimitive().isString()) {
                                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive or an array of string primitives",
@@ -136,10 +136,10 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                                 continue outer;
                             }
 
-                            imageResourceLocationList.add(ResourceLocation.tryParse(imageJsonEle.getAsJsonPrimitive().getAsString()));
+                            imageIdentifierList.add(Identifier.tryParse(imageJsonEle.getAsJsonPrimitive().getAsString()));
                         }
 
-                        imageResourceLocations = imageResourceLocationList.toArray(new ResourceLocation[0]);
+                        imageIdentifiers = imageIdentifierList.toArray(new Identifier[0]);
                     }else {
                         LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': image must be a string primitive or an array of string primitives",
                                 pageId.getPath(), pageId.getNamespace()));
@@ -148,7 +148,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                     }
                 }
 
-                ResourceLocation[] blockResourceLocations = null;
+                Identifier[] blockIdentifiers = null;
                 if(object.has("block")) {
                     JsonElement blockElement = object.get("block");
                     if(blockElement.isJsonPrimitive()) {
@@ -159,8 +159,8 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                             continue;
                         }
 
-                        blockResourceLocations = new ResourceLocation[] {
-                                ResourceLocation.tryParse(blockElement.getAsJsonPrimitive().getAsString())
+                        blockIdentifiers = new Identifier[] {
+                                Identifier.tryParse(blockElement.getAsJsonPrimitive().getAsString())
                         };
                     }else if(blockElement.isJsonArray()) {
                         JsonArray blockJsonArray = blockElement.getAsJsonArray();
@@ -172,7 +172,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                             continue;
                         }
 
-                        List<ResourceLocation> blockResourceLocationsList = new ArrayList<>(blockJsonArray.size());
+                        List<Identifier> blockIdentifiersList = new ArrayList<>(blockJsonArray.size());
                         for(JsonElement blockJsonEle:blockJsonArray) {
                             if(!blockJsonEle.isJsonPrimitive() || !blockJsonEle.getAsJsonPrimitive().isString()) {
                                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive or an array of string primitives",
@@ -181,10 +181,10 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                                 continue outer;
                             }
 
-                            blockResourceLocationsList.add(ResourceLocation.tryParse(blockJsonEle.getAsJsonPrimitive().getAsString()));
+                            blockIdentifiersList.add(Identifier.tryParse(blockJsonEle.getAsJsonPrimitive().getAsString()));
                         }
 
-                        blockResourceLocations = blockResourceLocationsList.toArray(new ResourceLocation[0]);
+                        blockIdentifiers = blockIdentifiersList.toArray(new Identifier[0]);
                     }else {
                         LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': block must be a string primitive or an array of string primitives",
                                 pageId.getPath(), pageId.getNamespace()));
@@ -193,7 +193,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                     }
                 }
 
-                Map<Integer, ResourceLocation> changePageIntToId = null;
+                Map<Integer, Identifier> changePageIntToId = null;
                 if(object.has("changePageIntToId")) {
                     JsonElement changePageIntToIdElement = object.get("changePageIntToId");
                     if(changePageIntToIdElement.isJsonObject()) {
@@ -216,7 +216,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                             }
 
                             if(jsonValue.isJsonPrimitive() && jsonValue.getAsJsonPrimitive().isString()) {
-                                changePageIntToId.put(pageNum, ResourceLocation.tryParse(jsonValue.getAsJsonPrimitive().getAsString()));
+                                changePageIntToId.put(pageNum, Identifier.tryParse(jsonValue.getAsJsonPrimitive().getAsString()));
                             }else {
                                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s': changePageIntoToId must be a map from int to string",
                                         pageId.getPath(), pageId.getNamespace()));
@@ -232,7 +232,7 @@ public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadLi
                     }
                 }
 
-                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageResourceLocations, blockResourceLocations, changePageIntToId));
+                pages.add(new EnergizedPowerBookScreen.PageContent(pageId, chapterTitleComponent, contentComponent, imageIdentifiers, blockIdentifiers, changePageIntToId));
             }catch(Exception e) {
                 LOGGER.error(String.format("Failed to load energized power book page '%s' from data pack '%s'",
                         pageId.getPath(), pageId.getNamespace()), e);

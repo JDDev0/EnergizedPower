@@ -10,7 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -96,7 +96,7 @@ public class HeatGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final ResourceLocation ID = EPAPI.id("heat_generator");
+        public static final Identifier ID = EPAPI.id("heat_generator");
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
@@ -129,7 +129,7 @@ public class HeatGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
-                input[i] = BuiltInRegistries.FLUID.getValue(buffer.readResourceLocation());
+                input[i] = BuiltInRegistries.FLUID.getValue(buffer.readIdentifier());
 
             int energyProduction = buffer.readInt();
 
@@ -139,11 +139,11 @@ public class HeatGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput
         private static void write(RegistryFriendlyByteBuf buffer, HeatGeneratorRecipe recipe) {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
-                ResourceLocation fluidId = BuiltInRegistries.FLUID.getKey(fluid);
-                if(fluidId == null || fluidId.equals(ResourceLocation.withDefaultNamespace("empty")))
+                Identifier fluidId = BuiltInRegistries.FLUID.getKey(fluid);
+                if(fluidId == null || fluidId.equals(Identifier.withDefaultNamespace("empty")))
                     throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
-                buffer.writeResourceLocation(fluidId);
+                buffer.writeIdentifier(fluidId);
             }
 
             buffer.writeInt(recipe.energyProduction);

@@ -10,7 +10,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -30,9 +30,9 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
-    private final ResourceLocation recipeId;
+    private final Identifier recipeId;
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
+    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -50,7 +50,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         for(int i = 0;i < 9;i++)
             itemStacks.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer));
 
-        recipeId = buffer.readResourceLocation();
+        recipeId = buffer.readIdentifier();
     }
 
      public void write(RegistryFriendlyByteBuf buffer) {
@@ -59,7 +59,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         for(ItemStack itemStack:itemStacks)
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, itemStack);
 
-        buffer.writeResourceLocation(recipeId);
+        buffer.writeIdentifier(recipeId);
     }
 
     @Override

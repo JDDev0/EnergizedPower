@@ -13,7 +13,7 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
@@ -97,12 +97,12 @@ public class PressMoldMakerBlockEntity
         return itemHandlerSided;
     }
 
-    public void craftItem(ResourceLocation recipeId) {
+    public void craftItem(Identifier recipeId) {
         if(!(level instanceof ServerLevel serverLevel))
             return;
 
         Optional<RecipeHolder<?>> recipe = serverLevel.recipeAccess().getRecipes().stream().
-                filter(recipeHolder -> recipeHolder.id().location().equals(recipeId)).findFirst();
+                filter(recipeHolder -> recipeHolder.id().identifier().equals(recipeId)).findFirst();
 
         if(recipe.isEmpty() || !(recipe.get().value() instanceof PressMoldMakerRecipe pressMoldMakerRecipe))
             return;
@@ -130,7 +130,7 @@ public class PressMoldMakerBlockEntity
 
         Collection<RecipeHolder<PressMoldMakerRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, PressMoldMakerRecipe.Type.INSTANCE);
         return recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.id().location())).
+                sorted(Comparator.comparing(recipe -> recipe.id().identifier())).
                 map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(inventory), level))).
                 collect(Collectors.toList());
     }

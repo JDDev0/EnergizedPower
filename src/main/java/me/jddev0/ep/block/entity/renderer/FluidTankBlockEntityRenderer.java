@@ -7,18 +7,18 @@ import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.block.entity.renderer.state.FluidTankBlockEntityRenderState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -53,7 +53,7 @@ public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResourc
 
     @Override
     public void submit(FluidTankBlockEntityRenderState state, PoseStack poseStack, SubmitNodeCollector queue, CameraRenderState cameraRenderState) {
-        queue.submitCustomGeometry(poseStack, RenderType.translucentMovingBlock(), (poseEntry, vertexConsumer) -> {
+        queue.submitCustomGeometry(poseStack, RenderTypes.translucentMovingBlock(), (poseEntry, vertexConsumer) -> {
 
             int capacity = state.tankCapacity;
             FluidStack fluidStack = state.fluidStack;
@@ -90,9 +90,9 @@ public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResourc
 
             Fluid fluid = fluidStack.getFluid();
             IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
-            ResourceLocation stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
+            Identifier stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
             if(stillFluidImageId == null)
-                stillFluidImageId = ResourceLocation.withDefaultNamespace("air");
+                stillFluidImageId = Identifier.withDefaultNamespace("air");
 
             TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getAtlasManager().get(new Material(
                         TextureAtlas.LOCATION_BLOCKS, stillFluidImageId));

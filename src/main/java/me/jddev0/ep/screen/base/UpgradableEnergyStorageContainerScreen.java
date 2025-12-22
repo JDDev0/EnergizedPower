@@ -6,7 +6,7 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -17,12 +17,12 @@ import java.util.Optional;
 
 public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
-    protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
+    protected final Identifier CONFIGURATION_ICONS_TEXTURE =
             EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
-    protected final ResourceLocation UPGRADE_VIEW_TEXTURE;
+    protected final Identifier UPGRADE_VIEW_TEXTURE;
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                  ResourceLocation upgradeViewTexture) {
+                                                  Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
@@ -30,23 +30,23 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   String energyIndicatorBarTooltipComponentID,
-                                                  ResourceLocation upgradeViewTexture) {
+                                                  Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                  ResourceLocation texture,
-                                                  ResourceLocation upgradeViewTexture) {
+                                                  Identifier texture,
+                                                  Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
     public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
-                                                  String energyIndicatorBarTooltipComponentID, ResourceLocation texture,
-                                                  ResourceLocation upgradeViewTexture) {
+                                                  String energyIndicatorBarTooltipComponentID, Identifier texture,
+                                                  Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;

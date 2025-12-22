@@ -13,7 +13,7 @@ import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -277,7 +277,7 @@ public class ModBlockStateProvider {
         generator.createTrivialCube(block.value());
     }
 
-    private ResourceLocation cubeBlockModel(Holder<Block> block, String fileSuffix, String upSuffix,
+    private Identifier cubeBlockModel(Holder<Block> block, String fileSuffix, String upSuffix,
                                             String bottomSuffix, String northSuffix, String southSuffix,
                                             String westSuffix, String eastSuffix) {
         return TexturedModel.createDefault(unused -> new TextureMapping().
@@ -291,17 +291,17 @@ public class ModBlockStateProvider {
                 ModelTemplates.CUBE).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ResourceLocation orientableBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
+    private Identifier orientableBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableBlockModel(block, "", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_side");
     }
 
-    private ResourceLocation orientableOnBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
+    private Identifier orientableOnBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableBlockModel(block, "_on", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front_on", "_side");
     }
 
-    private ResourceLocation orientableBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+    private Identifier orientableBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
                                             String bottomSuffix, String frontSuffix, String sideSuffix) {
         return TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.TOP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
@@ -312,12 +312,12 @@ public class ModBlockStateProvider {
                 ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ResourceLocation orientableWithBackBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
+    private Identifier orientableWithBackBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableWithBackBlockModel(block, "", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_back", "_side");
     }
 
-    private ResourceLocation orientableWithBackBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+    private Identifier orientableWithBackBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
                                                     String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
         return TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
@@ -330,12 +330,12 @@ public class ModBlockStateProvider {
                 ModelTemplates.CUBE).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ResourceLocation orientableVerticalWithBackBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
+    private Identifier orientableVerticalWithBackBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableVerticalWithBackBlockModel(block, "_vertical", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_back", "_side");
     }
 
-    private ResourceLocation orientableVerticalWithBackBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+    private Identifier orientableVerticalWithBackBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
                                                             String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
         return TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.TOP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
@@ -347,12 +347,12 @@ public class ModBlockStateProvider {
                 ModModelTemplates.ORIENTABLE_VERTICAL_WITH_BACK).get(block.value()).createWithSuffix(block.value(), fileSuffix, generator.modelOutput);
     }
 
-    private ResourceLocation orientableVerticalBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
+    private Identifier orientableVerticalBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         return orientableVerticalBlockModel(block, "_vertical", "_top", uniqueBottomTexture?"_bottom":"_top",
                 "_front", "_side");
     }
 
-    private ResourceLocation orientableVerticalBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
+    private Identifier orientableVerticalBlockModel(Holder<Block> block, String fileSuffix, String topSuffix,
                                                     String bottomSuffix, String frontSuffix, String sideSuffix) {
         return TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.TOP, TextureMapping.getBlockTexture(block.value(), topSuffix)).
@@ -364,7 +364,7 @@ public class ModBlockStateProvider {
     }
 
     private void horizontalBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
-        ResourceLocation model = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier model = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), "_top")).
                         put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block.value(), uniqueBottomTexture?"_bottom":"_top")).
                         put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block.value(), "_side")).
@@ -381,7 +381,7 @@ public class ModBlockStateProvider {
     }
 
     private void horizontalTwoSideBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
-        ResourceLocation model = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier model = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.UP, TextureMapping.getBlockTexture(block.value(), "_top")).
                         put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block.value(), uniqueBottomTexture?"_bottom":"_top")).
                         put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block.value(), "_front")).
@@ -397,7 +397,7 @@ public class ModBlockStateProvider {
         generator.registerSimpleItemModel(block.value(), model);
     }
 
-    private void orientableBlockWithItem(Holder<Block> block, ResourceLocation model) {
+    private void orientableBlockWithItem(Holder<Block> block, Identifier model) {
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(), new MultiVariant(WeightedList.of(new Variant(model)))).
                 with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
                         select(Direction.NORTH, BlockModelGenerators.NOP).
@@ -421,7 +421,7 @@ public class ModBlockStateProvider {
                 orientableVerticalBlockModel(block, uniqueBottomTexture));
     }
 
-    private void orientableSixDirsBlockWithItem(Holder<Block> block, ResourceLocation modelNormal, ResourceLocation modelVertical) {
+    private void orientableSixDirsBlockWithItem(Holder<Block> block, Identifier modelNormal, Identifier modelVertical) {
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
                 with(PropertyDispatch.initial(BlockStateProperties.FACING).
                         select(Direction.UP, new MultiVariant(WeightedList.of(new Variant(modelVertical)))).
@@ -439,8 +439,8 @@ public class ModBlockStateProvider {
         generator.registerSimpleItemModel(block.value(), modelNormal);
     }
 
-    private void activatableBlockWithItem(Holder<Block> block, ResourceLocation modelNormal,
-                                          ResourceLocation modelActive, BooleanProperty isActiveProperty) {
+    private void activatableBlockWithItem(Holder<Block> block, Identifier modelNormal,
+                                          Identifier modelActive, BooleanProperty isActiveProperty) {
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
                 with(PropertyDispatch.initial(isActiveProperty).
                         select(false, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
@@ -450,8 +450,8 @@ public class ModBlockStateProvider {
         generator.registerSimpleItemModel(block.value(), modelNormal);
     }
 
-    private void activatableOrientableBlockWithItem(Holder<Block> block, ResourceLocation modelNormal,
-                                                    ResourceLocation modelActive, BooleanProperty isActiveProperty) {
+    private void activatableOrientableBlockWithItem(Holder<Block> block, Identifier modelNormal,
+                                                    Identifier modelActive, BooleanProperty isActiveProperty) {
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
                 with(PropertyDispatch.initial(isActiveProperty).
                         select(false, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
@@ -467,11 +467,11 @@ public class ModBlockStateProvider {
     }
 
     private void itemConveyorBeltBlockWithItem(DeferredBlock<ItemConveyorBeltBlock> block) {
-        ResourceLocation modelFlat = ModTexturedModel.ITEM_CONVEYOR_BELT_FLAT.get(block.value()).
+        Identifier modelFlat = ModTexturedModel.ITEM_CONVEYOR_BELT_FLAT.get(block.value()).
                 createWithSuffix(block.value(), "_flat", generator.modelOutput);
-        ResourceLocation modelAscending = ModTexturedModel.ITEM_CONVEYOR_BELT_ASCENDING.get(block.value()).
+        Identifier modelAscending = ModTexturedModel.ITEM_CONVEYOR_BELT_ASCENDING.get(block.value()).
                 createWithSuffix(block.value(), "_ascending", generator.modelOutput);
-        ResourceLocation modelDescending = ModTexturedModel.ITEM_CONVEYOR_BELT_DESCENDING.get(block.value()).
+        Identifier modelDescending = ModTexturedModel.ITEM_CONVEYOR_BELT_DESCENDING.get(block.value()).
                 createWithSuffix(block.value(), "_descending", generator.modelOutput);
 
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value()).
@@ -502,11 +502,11 @@ public class ModBlockStateProvider {
     }
 
     private void fluidPipeBlockWithItem(Holder<Block> block) {
-        ResourceLocation fluidPipeCore = ModTexturedModel.FLUID_PIPE_CORE.get(block.value()).
+        Identifier fluidPipeCore = ModTexturedModel.FLUID_PIPE_CORE.get(block.value()).
                 createWithSuffix(block.value(), "_core", generator.modelOutput);
-        ResourceLocation fluidPipeSideConnected = ModTexturedModel.FLUID_PIPE_SIDE_CONNECTED.get(block.value()).
+        Identifier fluidPipeSideConnected = ModTexturedModel.FLUID_PIPE_SIDE_CONNECTED.get(block.value()).
                 createWithSuffix(block.value(), "_side_connected", generator.modelOutput);
-        ResourceLocation fluidPipeSideExtract = ModTexturedModel.FLUID_PIPE_SIDE_EXTRACT.get(block.value()).
+        Identifier fluidPipeSideExtract = ModTexturedModel.FLUID_PIPE_SIDE_EXTRACT.get(block.value()).
                 createWithSuffix(block.value(), "_side_extract", generator.modelOutput);
 
         generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block.value()).
@@ -576,7 +576,7 @@ public class ModBlockStateProvider {
     }
 
     private void fluidTankBlockWithItem(Holder<Block> block) {
-        ResourceLocation fluidTank = ModTexturedModel.FLUID_TANK.get(block.value()).create(block.value(), generator.modelOutput);
+        Identifier fluidTank = ModTexturedModel.FLUID_TANK.get(block.value()).create(block.value(), generator.modelOutput);
 
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(), new MultiVariant(WeightedList.of(new Variant(fluidTank)))).
                 with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
@@ -590,8 +590,8 @@ public class ModBlockStateProvider {
     }
 
     private void cableBlockWithItem(Holder<Block> block) {
-        ResourceLocation cableCore = ModTexturedModel.CABLE_CORE.get(block.value()).createWithSuffix(block.value(), "_core", generator.modelOutput);
-        ResourceLocation cableSide = ModTexturedModel.CABLE_SIDE.get(block.value()).createWithSuffix(block.value(), "_side", generator.modelOutput);
+        Identifier cableCore = ModTexturedModel.CABLE_CORE.get(block.value()).createWithSuffix(block.value(), "_core", generator.modelOutput);
+        Identifier cableSide = ModTexturedModel.CABLE_SIDE.get(block.value()).createWithSuffix(block.value(), "_side", generator.modelOutput);
 
         generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block.value()).
                 with(
@@ -644,7 +644,7 @@ public class ModBlockStateProvider {
                 String singleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_input":"_output";
                 String multipleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_output":"_input";
 
-                ResourceLocation transformer = TexturedModel.createDefault(unused -> new TextureMapping().
+                Identifier transformer = TexturedModel.createDefault(unused -> new TextureMapping().
                                 put(TextureSlot.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).
                                 put(TextureSlot.BOTTOM, EPAPI.id("block/" + textureName + multipleSuffix)).
                                 put(TextureSlot.FRONT, EPAPI.id("block/" + textureName + singleSuffix)).
@@ -665,7 +665,7 @@ public class ModBlockStateProvider {
                 generator.registerSimpleItemModel(block.value(), transformer);
             }
             case TYPE_3_TO_3 -> {
-                ResourceLocation transformer = TexturedModel.createDefault(unused -> new TextureMapping().
+                Identifier transformer = TexturedModel.createDefault(unused -> new TextureMapping().
                                 put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_input")).
                                 put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_output")).
                                 put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_input")).
@@ -701,7 +701,7 @@ public class ModBlockStateProvider {
             case EHV -> "ehv_transformer";
         };
 
-        ResourceLocation allCube = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier allCube = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_not_connected")).
                         put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_not_connected")).
                         put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_output")).
@@ -711,15 +711,15 @@ public class ModBlockStateProvider {
                         copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                 ModelTemplates.CUBE).get(block.value()).createWithSuffix(block.value(), "_cube", generator.modelOutput);
 
-        ResourceLocation notConnectedSide = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier notConnectedSide = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_not_connected")).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
                 ModModelTemplates.SINGLE_SIDE).get(block.value()).createWithSuffix(block.value(), "_not_connected", generator.modelOutput);
-        ResourceLocation receiveSide = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier receiveSide = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_input")).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
                 ModModelTemplates.SINGLE_SIDE).get(block.value()).createWithSuffix(block.value(), "_input", generator.modelOutput);
-        ResourceLocation extractSide = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier extractSide = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_output")).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
                 ModModelTemplates.SINGLE_SIDE).get(block.value()).createWithSuffix(block.value(), "_output", generator.modelOutput);
@@ -818,7 +818,7 @@ public class ModBlockStateProvider {
     }
 
     private void solarPanelBlockWithItem(Holder<Block> block) {
-        ResourceLocation solarPanel = ModTexturedModel.SOLAR_PANEL.get(block.value()).create(block.value(), generator.modelOutput);
+        Identifier solarPanel = ModTexturedModel.SOLAR_PANEL.get(block.value()).create(block.value(), generator.modelOutput);
 
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block.value(),
                 new MultiVariant(WeightedList.of(new Variant(solarPanel)))));
@@ -834,11 +834,11 @@ public class ModBlockStateProvider {
     }
 
     private void poweredLampBlockWithItem(Holder<Block> block) {
-        ResourceLocation modelOff = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier modelOff = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.ALL, TextureMapping.getBlockTexture(block.value())),
                 ModelTemplates.CUBE_ALL).get(block.value()).create(block.value(), generator.modelOutput);
 
-        ResourceLocation modelOn = TexturedModel.createDefault(unused -> new TextureMapping().
+        Identifier modelOn = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.ALL, TextureMapping.getBlockTexture(block.value(), "_on")),
                 ModelTemplates.CUBE_ALL).get(block.value()).createWithSuffix(block.value(), "_on", generator.modelOutput);
 

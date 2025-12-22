@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,7 +41,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if(level.isClientSide())
-            EnergizedPowerBookClientHelper.showBookViewScreen((ResourceLocation)null);
+            EnergizedPowerBookClientHelper.showBookViewScreen((Identifier)null);
 
         return (level.isClientSide()?InteractionResult.SUCCESS:InteractionResult.SUCCESS_SERVER).heldItemTransformedTo(itemStack);
     }
