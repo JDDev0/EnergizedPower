@@ -1,0 +1,1881 @@
+{
+  "item.energizedpower.energized_copper_ingot": "Lingote de cobre energizado",
+  "item.energizedpower.energized_gold_ingot": "Lingote de oro energizado",
+
+  "item.energizedpower.energized_copper_plate": "Lámina de cobre energizada",
+  "item.energizedpower.energized_gold_plate": "Lámina de oro energizada",
+
+  "item.energizedpower.energized_copper_wire": "Cable de cobre energizado",
+  "item.energizedpower.energized_gold_wire": "Cable de oro energizado",
+
+  "item.energizedpower.silicon": "Silicio",
+
+  "item.energizedpower.stone_pebble": "Guijarro de Piedra",
+
+  "item.energizedpower.raw_tin": "Estaño en bruto",
+
+  "item.energizedpower.tin_dust": "Polvo de estaño",
+  "item.energizedpower.copper_dust": "Polvo de cobre",
+  "item.energizedpower.iron_dust": "Polvo de hierro",
+  "item.energizedpower.gold_dust": "Polvo de oro",
+
+  "item.energizedpower.tin_nugget": "Pepita de estaño",
+
+  "item.energizedpower.tin_ingot": "Lingote de estaño",
+
+  "item.energizedpower.tin_plate": "Lámina de estaño",
+  "item.energizedpower.copper_plate": "Lámina de cobre",
+  "item.energizedpower.iron_plate": "Lámina de hierro",
+  "item.energizedpower.gold_plate": "Lámina de oro",
+
+  "item.energizedpower.steel_ingot": "Lingote de acero",
+
+  "item.energizedpower.redstone_alloy_ingot": "Lingote de aleación de redstone",
+  "item.energizedpower.advanced_alloy_ingot": "Lingote de aleación avanzada",
+
+  "item.energizedpower.advanced_alloy_plate": "Lámina de aleación avanzada",
+
+  "item.energizedpower.iron_gear": "Engrane de hierro",
+
+  "item.energizedpower.iron_rod": "Barra de hierro",
+
+  "item.energizedpower.tin_wire": "Cable de estaño",
+  "item.energizedpower.copper_wire": "Cable de cobre",
+  "item.energizedpower.gold_wire": "Cable de oro",
+
+  "item.energizedpower.sawdust": "Aserrín",
+
+  "item.energizedpower.charcoal_dust": "Polvo de carbón",
+
+  "item.energizedpower.basic_fertilizer": "Fertilizante básico",
+  "item.energizedpower.good_fertilizer": "Fertilizante bueno",
+  "item.energizedpower.advanced_fertilizer": "Fertilizante avanzado",
+
+  "item.energizedpower.raw_gear_press_mold": "Molde de prensa de engrane crudo",
+
+  "item.energizedpower.raw_rod_press_mold": "Molde de prensa de barra crudo",
+
+  "item.energizedpower.raw_wire_press_mold": "Molde de prensa de cable crudo",
+
+  "item.energizedpower.gear_press_mold": "Molde de prensa de engrane",
+
+  "item.energizedpower.rod_press_mold": "Molde de prensa de barra",
+
+  "item.energizedpower.wire_press_mold": "Molde de prensa de cable",
+
+  "item.energizedpower.basic_solar_cell": "Célula solar básica",
+  "item.energizedpower.advanced_solar_cell": "Célula solar avanzada",
+  "item.energizedpower.reinforced_advanced_solar_cell": "Célula solar avanzada reforzada",
+
+  "item.energizedpower.basic_circuit": "Circuito básico",
+  "item.energizedpower.advanced_circuit": "Circuito avanzado",
+  "item.energizedpower.processing_unit": "Unidad de procesamiento",
+
+  "item.energizedpower.energized_power_book": "Libro de Energized Power",
+  "tooltip.energizedpower.energized_power_book.txt.shift.1": "Click izquierdo a un bloque para verlo en el libro.",
+  "book.energizedpower.front.cover.text": "¡Este es el libro guía del mod!",
+
+  "item.energizedpower.cable_insulator": "Aislante de cable",
+  "tooltip.energizedpower.cable_insulator.txt.shift.1": "Puede obtenerse dándole click derecho a un bloque de lana con tijeras.",
+
+  "item.energizedpower.charcoal_filter": "Filtro de carbón",
+
+  "item.energizedpower.saw_blade": "Hoja de sierra",
+
+  "item.energizedpower.crystal_matrix": "Cristal matriz",
+
+  "item.energizedpower.energized_crystal_matrix": "Cristal matriz energizado",
+
+  "item.energizedpower.dirty_water_bucket": "Cubeta de agua sucia",
+
+  "item.energizedpower.teleporter_matrix": "Matriz de teletransportador",
+  "item.energizedpower.teleporter_matrix.linked": "Matriz de teletransportador [Vinculado]",
+  "item.energizedpower.teleporter_matrix.unlinked": "Matriz de teletransportador [Desvinculado]",
+  "tooltip.energizedpower.teleporter_matrix.cleared": "Los ajustes de la matriz de teletransportador fueron borrados con éxito.",
+  "tooltip.energizedpower.teleporter_matrix.set": "Los ajustes de la matriz de teletransportador se colocaron con éxito.",
+  "tooltip.energizedpower.teleporter_matrix.set.warning": "Ajustes de la matriz de teletransportador colocados pero no apuntan a la posición de un teletransportador.",
+  "tooltip.energizedpower.teleporter_matrix.status": "Estado: ",
+  "tooltip.energizedpower.teleporter_matrix.status.linked": "Vinculado",
+  "tooltip.energizedpower.teleporter_matrix.status.unlinked": "Desvinculado",
+  "tooltip.energizedpower.teleporter_matrix.location": "Ubicación: ",
+  "tooltip.energizedpower.teleporter_matrix.dimension": "Dimensión: ",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "Vincular con shift + click derecho al teletransportador.",
+  "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "Desvincular con click derecho en el aire.",
+
+  "item.energizedpower.teleporter_processing_unit": "Unidad de procesamiento de Teletransportador",
+
+  "item.energizedpower.basic_upgrade_module": "Módulo de mejora básico",
+  "item.energizedpower.advanced_upgrade_module": "Módulo de mejora avanzado",
+  "item.energizedpower.reinforced_advanced_upgrade_module": "Módulo de mejora avanzado reforzado",
+
+  "item.energizedpower.speed_upgrade_module_1": "Módulo de mejora de velocidad (Nivel I)",
+  "item.energizedpower.speed_upgrade_module_2": "Módulo de mejora de velocidad (Nivel II)",
+  "item.energizedpower.speed_upgrade_module_3": "Módulo de mejora de velocidad (Nivel III)",
+  "item.energizedpower.speed_upgrade_module_4": "Módulo de mejora de velocidad (Nivel IV)",
+  "item.energizedpower.speed_upgrade_module_5": "Módulo de mejora de velocidad (Nivel V)",
+
+  "item.energizedpower.energy_efficiency_upgrade_module_1": "Módulo de mejora de eficiencia energética (Nivel I)",
+  "item.energizedpower.energy_efficiency_upgrade_module_2": "Módulo de mejora de eficiencia energética (Nivel II)",
+  "item.energizedpower.energy_efficiency_upgrade_module_3": "Módulo de mejora de eficiencia energética (Nivel III)",
+  "item.energizedpower.energy_efficiency_upgrade_module_4": "Módulo de mejora de eficiencia energética (Nivel IV)",
+  "item.energizedpower.energy_efficiency_upgrade_module_5": "Módulo de mejora de eficiencia energética (Nivel V)",
+
+  "item.energizedpower.energy_capacity_upgrade_module_1": "Módulo de mejora de capacidad energética (Nivel I)",
+  "item.energizedpower.energy_capacity_upgrade_module_2": "Módulo de mejora de capacidad energética (Nivel II)",
+  "item.energizedpower.energy_capacity_upgrade_module_3": "Módulo de mejora de capacidad energética (Nivel III)",
+  "item.energizedpower.energy_capacity_upgrade_module_4": "Módulo de mejora de capacidad energética (Nivel IV)",
+  "item.energizedpower.energy_capacity_upgrade_module_5": "Módulo de mejora de capacidad energética (Nivel V)",
+
+  "item.energizedpower.duration_upgrade_module_1": "Módulo de mejora de duración (Nivel I)",
+  "item.energizedpower.duration_upgrade_module_2": "Módulo de mejora de duración (Nivel II)",
+  "item.energizedpower.duration_upgrade_module_3": "Módulo de mejora de duración (Nivel III)",
+  "item.energizedpower.duration_upgrade_module_4": "Módulo de mejora de duración (Nivel IV)",
+  "item.energizedpower.duration_upgrade_module_5": "Módulo de mejora de duración (Nivel V)",
+  "item.energizedpower.duration_upgrade_module_6": "Módulo de mejora de duración (Nivel VI)",
+
+  "item.energizedpower.range_upgrade_module_1": "Módulo de mejora de rango (Nivel I)",
+  "item.energizedpower.range_upgrade_module_2": "Módulo de mejora de rango (Nivel II)",
+  "item.energizedpower.range_upgrade_module_3": "Módulo de mejora de rango (Nivel III)",
+
+  "item.energizedpower.extraction_depth_upgrade_module_1": "Módulo de mejora de profundidad de extracción (Nivel I)",
+  "item.energizedpower.extraction_depth_upgrade_module_2": "Módulo de mejora de profundidad de extracción (Nivel II)",
+  "item.energizedpower.extraction_depth_upgrade_module_3": "Módulo de mejora de profundidad de extracción (Nivel III)",
+  "item.energizedpower.extraction_depth_upgrade_module_4": "Módulo de mejora de profundidad de extracción (Nivel IV)",
+  "item.energizedpower.extraction_depth_upgrade_module_5": "Módulo de mejora de profundidad de extracción (Nivel V)",
+
+  "item.energizedpower.extraction_range_upgrade_module_1": "Módulo de mejora de rango de extracción (Nivel I)",
+  "item.energizedpower.extraction_range_upgrade_module_2": "Módulo de mejora de rango de extracción (Nivel II)",
+  "item.energizedpower.extraction_range_upgrade_module_3": "Módulo de mejora de rango de extracción (Nivel III)",
+  "item.energizedpower.extraction_range_upgrade_module_4": "Módulo de mejora de rango de extracción (Nivel IV)",
+  "item.energizedpower.extraction_range_upgrade_module_5": "Módulo de mejora de rango de extracción (Nivel V)",
+
+  "item.energizedpower.blast_furnace_upgrade_module": "Módulo de mejora de Alto horno",
+  "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Alto horno",
+  "item.energizedpower.smoker_upgrade_module": "Módulo de mejora de Ahumador",
+  "item.energizedpower.smoker_upgrade_module.effect_text": "Ahumador",
+
+  "item.energizedpower.moon_light_upgrade_module_1": "Módulo de mejora de luz lunar (Nivel I)",
+  "item.energizedpower.moon_light_upgrade_module_2": "Módulo de mejora de luz lunar (Nivel II)",
+  "item.energizedpower.moon_light_upgrade_module_3": "Módulo de mejora de luz lunar (Nivel III)",
+
+  "item.energizedpower.inventory_coal_engine": "Motor a carbón de inventario",
+  "tooltip.energizedpower.inventory_coal_engine.status": "Estado: ",
+  "tooltip.energizedpower.inventory_coal_engine.status.activated": "Activado",
+  "tooltip.energizedpower.inventory_coal_engine.status.deactivated": "Desactivado",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.1": "El estado de activación puede cambiarse usando el objeto en el aire.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "Al estar activado consumira objetos del inventario menos de la barra de acceso rápido.",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "Actualmente quemando: ",
+  "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "Producción de energía sobrante: %s",
+
+  "item.energizedpower.inventory_charger": "Cargador de inventario",
+  "container.energizedpower.inventory_charger": "Cargador de inventario",
+  "tooltip.energizedpower.inventory_charger.txt.shift.1": "Abre el inventario de este objeto usandolo en el aire.",
+
+  "item.energizedpower.inventory_teleporter": "Teletransportador de inventario",
+  "container.energizedpower.inventory_teleporter": "Teletransportador de inventario",
+
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Abre su inventario con shift + click derecho en el aire.",
+  "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Teletransporta con click derecho en el aire.",
+
+  "item.energizedpower.battery_1": "Batería (Nivel I)",
+  "item.energizedpower.battery_2": "Batería (Nivel II)",
+  "item.energizedpower.battery_3": "Batería (Nivel III)",
+  "item.energizedpower.battery_4": "Batería (Nivel IV)",
+  "item.energizedpower.battery_5": "Batería (Nivel V)",
+  "item.energizedpower.battery_6": "Batería (Nivel VI)",
+  "item.energizedpower.battery_7": "Batería (Nivel VII)",
+  "item.energizedpower.battery_8": "Batería (Nivel VIII)",
+  "tooltip.energizedpower.battery.txt.shift.1": "Esta batería puede transferir %s/t.",
+
+  "item.energizedpower.creative_battery": "Batería de creativo",
+
+  "item.energizedpower.energy_analyzer": "Analizador de energía",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.1": "Click en un bloque de energía para recibir información.",
+  "tooltip.energizedpower.energy_analyzer.txt.shift.2": "%s será consumido por cada uso",
+  "txt.energizedpower.energy_analyzer.output_side_information": "Información sobre la cara del bloque seleccionada:",
+  "txt.energizedpower.energy_analyzer.no_energy_left": "El analizador de energía tiene poder insuficiente (Se requiere %s).",
+  "txt.energizedpower.energy_analyzer.no_block_entity": "Este no es un bloque de energía.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Este no es un (E) bloque de energía.",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Esta no es una cara de (E) energía del bloque.",
+  "txt.energizedpower.energy_analyzer.energy_output": "Energía: %s / %s.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive": "Este bloque consume energía.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract": "Este bloque produce energía.",
+  "txt.energizedpower.energy_analyzer.energy_can_receive_side": "Esta cara del bloque consume energía.",
+  "txt.energizedpower.energy_analyzer.energy_can_extract_side": "Esta cara del bloque produce energía.",
+
+  "item.energizedpower.fluid_analyzer": "Analizador de fluidos",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Click en un bloque que contenga fluidos para recibir información.",
+  "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s será consumido por cada uso",
+  "txt.energizedpower.fluid_analyzer.output_side_information": "Información sobre la cara del bloque seleccionada:",
+  "txt.energizedpower.fluid_analyzer.no_energy_left": "El analizador de fluidos tiene poder insuficiente (Se requiere %s).",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block": "Este bloque no contiene fluidos.",
+  "txt.energizedpower.fluid_analyzer.no_fluid_block_side": "Esta cara del bloque no contiene fluidos.",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "Contenido del tanque: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "Contenido del tanque de la cara seleccionada: %d",
+  "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "Tanque %d: %s%s / %s.",
+
+  "item.energizedpower.wooden_hammer": "Martillo de madera",
+  "item.energizedpower.stone_hammer": "Martillo de piedra",
+  "item.energizedpower.copper_hammer": "Martillo de cobre",
+  "item.energizedpower.iron_hammer": "Martillo de hierro",
+  "item.energizedpower.golden_hammer": "Martillo de oro",
+  "item.energizedpower.diamond_hammer": "Martillo de diamante",
+  "item.energizedpower.netherite_hammer": "Martillo de netherita",
+
+  "item.energizedpower.cutter": "Alicate",
+
+  "item.energizedpower.wrench": "Llave inglesa",
+  "tooltip.energizedpower.wrench.txt.shift": "La llave inglesa se usa para configurar bloques.",
+  "tooltip.energizedpower.wrench.select_face": "Cara seleccionada: %s",
+  "tooltip.energizedpower.wrench.not_configurable": "Este bloque no se puede configurar.",
+
+  "tooltip.energizedpower.wrench_configurable": "Este bloque se puede configurar con una llave inglesa.",
+
+  "item.energizedpower.battery_box_minecart": "Vagón con caja de baterías",
+  "item.energizedpower.advanced_battery_box_minecart": "Vagón con caja de baterías avanzada",
+
+  "block.energizedpower.silicon_block": "Bloque de silicio",
+  "item.energizedpower.silicon_block": "Bloque de silicio",
+
+  "block.energizedpower.tin_block": "Bloque de estaño",
+  "item.energizedpower.tin_block": "Bloque de estaño",
+
+  "block.energizedpower.sawdust_block": "Bloque de aserrín",
+  "item.energizedpower.sawdust_block": "Bloque de aserrín",
+
+  "block.energizedpower.tin_ore": "Mineral de estaño",
+  "item.energizedpower.tin_ore": "Mineral de estaño",
+
+  "block.energizedpower.deepslate_tin_ore": "Mineral de estaño de pizarra profunda",
+  "item.energizedpower.deepslate_tin_ore": "Mineral de estaño de pizarra profunda",
+
+  "block.energizedpower.raw_tin_block": "Bloque de estaño en bruto",
+  "item.energizedpower.raw_tin_block": "Bloque de estaño en bruto",
+
+  "block.energizedpower.item_conveyor_belt": "Cinta transportadora básica",
+  "item.energizedpower.item_conveyor_belt": "Cinta transportadora básica",
+
+  "block.energizedpower.fast_item_conveyor_belt": "Cinta transportadora rápida",
+  "item.energizedpower.fast_item_conveyor_belt": "Cinta transportadora rápida",
+
+  "block.energizedpower.express_item_conveyor_belt": "Cinta transportadora Express",
+  "item.energizedpower.express_item_conveyor_belt": "Cinta transportadora Express",
+
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "La inclinación se cambió a %s.",
+
+  "block.energizedpower.item_conveyor_belt_loader": "Cargadora de cinta transportadora básica",
+  "item.energizedpower.item_conveyor_belt_loader": "Cargadora de cinta transportadora básica",
+  "container.energizedpower.item_conveyor_belt_loader": "Cargadora de cinta transportadora básica",
+
+  "block.energizedpower.fast_item_conveyor_belt_loader": "Cargadora de cinta transportadora rápida",
+  "item.energizedpower.fast_item_conveyor_belt_loader": "Cargadora de cinta transportadora rápida",
+  "container.energizedpower.fast_item_conveyor_belt_loader": "Cargadora de cinta transportadora rápida",
+
+  "block.energizedpower.express_item_conveyor_belt_loader": "Cargadora de cinta transportadora Express",
+  "item.energizedpower.express_item_conveyor_belt_loader": "Cargadora de cinta transportadora Express",
+  "container.energizedpower.express_item_conveyor_belt_loader": "Cargadora de cinta transportadora Express",
+
+  "block.energizedpower.item_conveyor_belt_sorter": "Clasificador de cinta transportadora básica",
+  "item.energizedpower.item_conveyor_belt_sorter": "Clasificador de cinta transportadora básica",
+  "container.energizedpower.item_conveyor_belt_sorter": "Clasificador de cinta transportadora básica",
+
+  "block.energizedpower.fast_item_conveyor_belt_sorter": "Clasificador de cinta transportadora rápida",
+  "item.energizedpower.fast_item_conveyor_belt_sorter": "Clasificador de cinta transportadora rápida",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "Clasificador de cinta transportadora rápida",
+
+  "block.energizedpower.express_item_conveyor_belt_sorter": "Clasificador de cinta transportadora Express",
+  "item.energizedpower.express_item_conveyor_belt_sorter": "Clasificador de cinta transportadora Express",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "Clasificador de cinta transportadora Express",
+
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Output %d: Cinta desconectada",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "Output %d: Cinta conectada",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "Ignorar NBT",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
+  "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
+
+  "block.energizedpower.item_conveyor_belt_switch": "Interruptor de cinta transportadora básica",
+  "item.energizedpower.item_conveyor_belt_switch": "Interruptor de cinta transportadora básica",
+
+  "block.energizedpower.fast_item_conveyor_belt_switch": "Interruptor de cinta transportadora rápida",
+  "item.energizedpower.fast_item_conveyor_belt_switch": "Interruptor de cinta transportadora rápida",
+
+  "block.energizedpower.express_item_conveyor_belt_switch": "Interruptor de cinta transportadora Express",
+  "item.energizedpower.express_item_conveyor_belt_switch": "Interruptor de cinta transportadora Express",
+
+  "block.energizedpower.item_conveyor_belt_splitter": "Separador de cinta transportadora básica",
+  "item.energizedpower.item_conveyor_belt_splitter": "Separador de cinta transportadora básica",
+
+  "block.energizedpower.fast_item_conveyor_belt_splitter": "Separador de cinta transportadora rápida",
+  "item.energizedpower.fast_item_conveyor_belt_splitter": "Separador de cinta transportadora rápida",
+
+  "block.energizedpower.express_item_conveyor_belt_splitter": "Separador de cinta transportadora Express",
+  "item.energizedpower.express_item_conveyor_belt_splitter": "Separador de cinta transportadora Express",
+
+  "block.energizedpower.item_conveyor_belt_merger": "Mezclador de cinta transportadora básica",
+  "item.energizedpower.item_conveyor_belt_merger": "Mezclador de cinta transportadora básica",
+
+  "block.energizedpower.fast_item_conveyor_belt_merger": "Mezclador de cinta transportadora rápida",
+  "item.energizedpower.fast_item_conveyor_belt_merger": "Mezclador de cinta transportadora rápida",
+
+  "block.energizedpower.express_item_conveyor_belt_merger": "Mezclador de cinta transportadora Express",
+  "item.energizedpower.express_item_conveyor_belt_merger": "Mezclador de cinta transportadora Express",
+
+  "block.energizedpower.fluid_pipe": "Tubería de fluidos de hierro",
+  "item.energizedpower.fluid_pipe": "Tubería de fluidos de hierro",
+
+  "block.energizedpower.golden_fluid_pipe": "Tubería de fluidos de oro",
+  "item.energizedpower.golden_fluid_pipe": "Tubería de fluidos de oro",
+
+  "tooltip.energizedpower.fluid_pipe.max_extraction": "Extracción máxima por cara extractora: %s/t",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Tipo de conexión de la cara (%s) se cambió a %s.",
+  "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Tipo de conexión de la cara (%s) no se pudo cambiar.",
+
+  "block.energizedpower.press_mold_maker": "Mesa de moldes de prensa",
+  "item.energizedpower.press_mold_maker": "Mesa de moldes de prensa",
+  "container.energizedpower.press_mold_maker": "Mesa de moldes de prensa",
+
+  "tooltip.energizedpower.press_mold_maker.btn.up": "Desplaza hacia arriba",
+  "tooltip.energizedpower.press_mold_maker.btn.down": "Desplaza hacia abajo",
+
+  "tooltip.energizedpower.press_mold_maker.btn.recipes": "Requiere %dx %s",
+
+  "block.energizedpower.alloy_furnace": "Horno de aleación",
+  "item.energizedpower.alloy_furnace": "Horno de aleación",
+  "container.energizedpower.alloy_furnace": "Horno de aleación",
+
+  "block.energizedpower.auto_crafter": "Mesa de trabajo automática",
+  "item.energizedpower.auto_crafter": "Mesa de trabajo automática",
+  "container.energizedpower.auto_crafter": "Mesa de trabajo automática",
+
+  "tooltip.energizedpower.auto_crafter.txt.shift.1": "Este bloque usa %s/t por ingrediente.",
+  "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Ignorar NBT",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Modo de extracción 1: Output and leftover objetos only",
+  "tooltip.energizedpower.auto_crafter.cbx.extract_mode.2": "Modo de extracción 2: Everything except input objetos",
+  "tooltip.energizedpower.auto_crafter.cbx.allow_output_overflow": "Allow output overflow",
+  "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Rotar entre recetas",
+  "tooltip.energizedpower.auto_crafter.recipe_index": "Receta %d",
+
+  "block.energizedpower.advanced_auto_crafter": "Mesa de trabajo automática avanzada",
+  "item.energizedpower.advanced_auto_crafter": "Mesa de trabajo automática avanzada",
+  "container.energizedpower.advanced_auto_crafter": "Mesa de trabajo automática avanzada",
+
+  "block.energizedpower.charger": "Cargador",
+  "item.energizedpower.charger": "Cargador",
+  "container.energizedpower.charger": "Cargador",
+
+  "tooltip.energizedpower.chargers.txt.shift.1": "Los cargadores pueden usarse para fabricar lingotes de cobre energizados.",
+  "tooltip.energizedpower.chargers.txt.shift.2.1": "Pero deberías usar un energizador en su lugar,",
+  "tooltip.energizedpower.chargers.txt.shift.2.2": "ya que los cargadores energizan de forma muy ineficiente.",
+
+  "tooltip.energizedpower.charger.item_energy_left.txt": "Estos objetos requieren %s para cargarse completamente.",
+
+  "block.energizedpower.advanced_charger": "Cargador avanzado",
+  "item.energizedpower.advanced_charger": "Cargador avanzado",
+  "container.energizedpower.advanced_charger": "Cargador avanzado",
+
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Estos objetos requieren %s para cargarse completamente.",
+
+  "block.energizedpower.uncharger": "Descargador",
+  "item.energizedpower.uncharger": "Descargador",
+  "container.energizedpower.uncharger": "Descargador",
+
+  "tooltip.energizedpower.uncharger.item_energy_left.txt": "Este objeto tiene %s sobrante.",
+
+  "block.energizedpower.advanced_uncharger": "Descargador avanzado",
+  "item.energizedpower.advanced_uncharger": "Descargador avanzado",
+  "container.energizedpower.advanced_uncharger": "Descargador avanzado",
+
+  "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "Este objeto tiene %s sobrante.",
+
+  "block.energizedpower.minecart_charger": "Cargador de vagón",
+  "item.energizedpower.minecart_charger": "Cargador de vagón",
+  "container.energizedpower.minecart_charger": "Cargador de vagón",
+
+  "block.energizedpower.advanced_minecart_charger": "Cargador de vagón avanzado",
+  "item.energizedpower.advanced_minecart_charger": "Cargador de vagón avanzado",
+  "container.energizedpower.advanced_minecart_charger": "Cargador de vagón avanzado",
+
+  "block.energizedpower.minecart_uncharger": "Descargador de vagón",
+  "item.energizedpower.minecart_uncharger": "Descargador de vagón",
+  "container.energizedpower.minecart_uncharger": "Descargador de vagón",
+
+  "block.energizedpower.advanced_minecart_uncharger": "Descargador de vagón avanzado",
+  "item.energizedpower.advanced_minecart_uncharger": "Descargador de vagón avanzado",
+  "container.energizedpower.advanced_minecart_uncharger": "Descargador de vagón avanzado",
+
+  "block.energizedpower.tin_cable": "Cableado de estaño",
+  "item.energizedpower.tin_cable": "Cableado de estaño",
+
+  "block.energizedpower.copper_cable": "Cableado de cobre",
+  "item.energizedpower.copper_cable": "Cableado de cobre",
+
+  "block.energizedpower.gold_cable": "Cableado de oro",
+  "item.energizedpower.gold_cable": "Cableado de oro",
+
+  "block.energizedpower.energized_copper_cable": "Cableado de cobre energizado",
+  "item.energizedpower.energized_copper_cable": "Cableado de cobre energizado",
+
+  "block.energizedpower.energized_gold_cable": "Cableado de oro energizado",
+  "item.energizedpower.energized_gold_cable": "Cableado de oro energizado",
+
+  "block.energizedpower.energized_crystal_matrix_cable": "Cableado de cristal matriz energizado",
+  "item.energizedpower.energized_crystal_matrix_cable": "Cableado de cristal matriz energizado",
+
+  "tooltip.energizedpower.cable.txt.shift.1": "Este cableado puede transferir %s/t.",
+  "tooltip.energizedpower.cable.txt.shift.2": "El alicate puede romper cableados más rápido.",
+
+
+  "block.energizedpower.lv_transformer_1_to_n": "Transformador BT (1 to n)",
+  "item.energizedpower.lv_transformer_1_to_n": "Transformador BT (1 to n)",
+  "container.energizedpower.lv_transformer_1_to_n": "Transformador BT (1 to n)",
+
+  "block.energizedpower.lv_transformer_3_to_3": "Transformador BT (3 to 3)",
+  "item.energizedpower.lv_transformer_3_to_3": "Transformador BT (3 to 3)",
+  "container.energizedpower.lv_transformer_3_to_3": "Transformador BT (3 to 3)",
+
+  "block.energizedpower.lv_transformer_n_to_1": "Transformador BT (n to 1)",
+  "item.energizedpower.lv_transformer_n_to_1": "Transformador BT (n to 1)",
+  "container.energizedpower.lv_transformer_n_to_1": "Transformador BT (n to 1)",
+
+  "block.energizedpower.transformer_1_to_n": "Transformador MT (1 to n)",
+  "item.energizedpower.transformer_1_to_n": "Transformador MT (1 to n)",
+  "container.energizedpower.transformer_1_to_n": "Transformador MT (1 to n)",
+
+  "block.energizedpower.transformer_3_to_3": "Transformador MT (3 to 3)",
+  "item.energizedpower.transformer_3_to_3": "Transformador MT (3 to 3)",
+  "container.energizedpower.transformer_3_to_3": "Transformador MT (3 to 3)",
+
+  "block.energizedpower.transformer_n_to_1": "Transformador MT (n to 1)",
+  "item.energizedpower.transformer_n_to_1": "Transformador MT (n to 1)",
+  "container.energizedpower.transformer_n_to_1": "Transformador MT (n to 1)",
+
+  "block.energizedpower.hv_transformer_1_to_n": "Transformador AT (1 to n)",
+  "item.energizedpower.hv_transformer_1_to_n": "Transformador AT (1 to n)",
+  "container.energizedpower.hv_transformer_1_to_n": "Transformador AT (1 to n)",
+
+  "block.energizedpower.hv_transformer_3_to_3": "Transformador AT (3 to 3)",
+  "item.energizedpower.hv_transformer_3_to_3": "Transformador AT (3 to 3)",
+  "container.energizedpower.hv_transformer_3_to_3": "Transformador AT (3 to 3)",
+
+  "block.energizedpower.hv_transformer_n_to_1": "Transformador AT (n to 1)",
+  "item.energizedpower.hv_transformer_n_to_1": "Transformador AT (n to 1)",
+  "container.energizedpower.hv_transformer_n_to_1": "Transformador AT (n to 1)",
+
+  "block.energizedpower.ehv_transformer_1_to_n": "Transformador EAT (1 to n)",
+  "item.energizedpower.ehv_transformer_1_to_n": "Transformador EAT (1 to n)",
+  "container.energizedpower.ehv_transformer_1_to_n": "Transformador EAT (1 to n)",
+
+  "block.energizedpower.ehv_transformer_3_to_3": "Transformador EAT (3 to 3)",
+  "item.energizedpower.ehv_transformer_3_to_3": "Transformador EAT (3 to 3)",
+  "container.energizedpower.ehv_transformer_3_to_3": "Transformador EAT (3 to 3)",
+
+  "block.energizedpower.ehv_transformer_n_to_1": "Transformador EAT (n to 1)",
+  "item.energizedpower.ehv_transformer_n_to_1": "Transformador EAT (n to 1)",
+  "container.energizedpower.ehv_transformer_n_to_1": "Transformador EAT (n to 1)",
+
+  "block.energizedpower.configurable_lv_transformer": "Trandormador BT configurable",
+  "item.energizedpower.configurable_lv_transformer": "Trandormador BT configurable",
+  "container.energizedpower.configurable_lv_transformer": "Trandormador BT configurable",
+
+  "block.energizedpower.configurable_mv_transformer": "Transformador MT configurable",
+  "item.energizedpower.configurable_mv_transformer": "Transformador MT configurable",
+  "container.energizedpower.configurable_mv_transformer": "Transformador MT configurable",
+
+  "block.energizedpower.configurable_hv_transformer": "Transformador AT configurable",
+  "item.energizedpower.configurable_hv_transformer": "Transformador AT configurable",
+  "container.energizedpower.configurable_hv_transformer": "Transformador AT configurable",
+
+  "block.energizedpower.configurable_ehv_transformer": "Transformador EAT configurable",
+  "item.energizedpower.configurable_ehv_transformer": "Transformador EAT configurable",
+  "container.energizedpower.configurable_ehv_transformer": "Transformador EAT configurable",
+
+  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "El tipo de conección de la cara (%s) se fijó a %s.",
+
+  "tooltip.energizedpower.transformer.txt.shift.1": "Este bloque sirve para conectar diferentes niveles de cableados.",
+  "tooltip.energizedpower.transformer.txt.shift.2": "Los lados más grandes, oscuros, y con forma de diamante son las entradas.",
+  "tooltip.energizedpower.transformer.txt.shift.3": "Los lados más pequeños, brillantes, y con forma de cuadrado son las salidas.",
+
+  "block.energizedpower.battery_box": "Caja de baterías",
+  "item.energizedpower.battery_box": "Caja de baterías",
+  "container.energizedpower.battery_box": "Caja de baterías",
+
+  "block.energizedpower.advanced_battery_box": "Caja de baterías avanzada",
+  "item.energizedpower.advanced_battery_box": "Caja de baterías avanzada",
+  "container.energizedpower.advanced_battery_box": "Caja de baterías avanzada",
+
+  "block.energizedpower.creative_battery_box": "Caja de baterías de creativo",
+  "item.energizedpower.creative_battery_box": "Caja de baterías de creativo",
+  "container.energizedpower.creative_battery_box": "Caja de baterías de creativo",
+
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Producción de energía",
+  "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Consumo de energía",
+
+
+  "block.energizedpower.solar_panel_1": "Panel solar (Nivel I)",
+  "item.energizedpower.solar_panel_1": "Panel solar (Nivel I)",
+  "container.energizedpower.solar_panel_1": "Panel solar (Nivel I)",
+  "block.energizedpower.solar_panel_2": "Panel solar (Nivel II)",
+  "item.energizedpower.solar_panel_2": "Panel solar (Nivel II)",
+  "container.energizedpower.solar_panel_2": "Panel solar (Nivel II)",
+  "block.energizedpower.solar_panel_3": "Panel solar (Nivel III)",
+  "item.energizedpower.solar_panel_3": "Panel solar (Nivel III)",
+  "container.energizedpower.solar_panel_3": "Panel solar (Nivel III)",
+  "block.energizedpower.solar_panel_4": "Panel solar (Nivel IV)",
+  "item.energizedpower.solar_panel_4": "Panel solar (Nivel IV)",
+  "container.energizedpower.solar_panel_4": "Panel solar (Nivel IV)",
+  "block.energizedpower.solar_panel_5": "Panel solar (Nivel V)",
+  "item.energizedpower.solar_panel_5": "Panel solar (Nivel V)",
+  "container.energizedpower.solar_panel_5": "Panel solar (Nivel V)",
+  "block.energizedpower.solar_panel_6": "Panel solar (Nivel VI)",
+  "item.energizedpower.solar_panel_6": "Panel solar (Nivel VI)",
+  "container.energizedpower.solar_panel_6": "Panel solar (Nivel VI)",
+
+  "tooltip.energizedpower.solar_panel.txt.shift.1": "Este bloque produce hasta %s/t.",
+  "tooltip.energizedpower.solar_panel.txt.shift.2": "La eficiencia depende del tiempo actual",
+
+  "block.energizedpower.coal_engine": "Motor a carbón",
+  "item.energizedpower.coal_engine": "Motor a carbón",
+  "container.energizedpower.coal_engine": "Motor a carbón",
+
+  "tooltip.energizedpower.coal_engine.txt": "Estos objetos produciran %s hasta quemarse",
+
+  "block.energizedpower.heat_generator": "Generador de calor",
+  "item.energizedpower.heat_generator": "Generador de calor",
+  "container.energizedpower.heat_generator": "Generador de calor",
+
+  "block.energizedpower.thermal_generator": "Generador térmico",
+  "item.energizedpower.thermal_generator": "Generador térmico",
+  "container.energizedpower.thermal_generator": "Generador térmico",
+
+  "tooltip.energizedpower.thermal_generator.txt": "Este fluido producirá %s hasta que se acabe",
+
+  "block.energizedpower.powered_lamp": "Lámpara eléctrica",
+  "item.energizedpower.powered_lamp": "Lámpara eléctrica",
+
+  "block.energizedpower.powered_furnace": "Horno eléctrico",
+  "item.energizedpower.powered_furnace": "Horno eléctrico",
+  "container.energizedpower.powered_furnace": "Horno eléctrico",
+
+  "block.energizedpower.advanced_powered_furnace": "Horno eléctrico avanzado",
+  "item.energizedpower.advanced_powered_furnace": "Horno eléctrico avanzado",
+  "container.energizedpower.advanced_powered_furnace": "Horno eléctrico avanzado",
+
+  "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Estas recetas requieren %s.",
+
+  "block.energizedpower.crusher": "Trituradora",
+  "item.energizedpower.crusher": "Trituradora",
+  "container.energizedpower.crusher": "Trituradora",
+
+  "block.energizedpower.advanced_crusher": "Trituradora avanzada",
+  "item.energizedpower.advanced_crusher": "Trituradora avanzada",
+  "container.energizedpower.advanced_crusher": "Trituradora avanzada",
+
+  "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Esta máquina consume agua y produce agua sucia.",
+
+  "block.energizedpower.pulverizer": "Pulverizador",
+  "item.energizedpower.pulverizer": "Pulverizador",
+  "container.energizedpower.pulverizer": "Pulverizador",
+
+  "block.energizedpower.advanced_pulverizer": "Pulverizador avanzado",
+  "item.energizedpower.advanced_pulverizer": "Pulverizador avanzado",
+  "container.energizedpower.advanced_pulverizer": "Pulverizador avanzado",
+
+  "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Esta máquina consume agua y produce agua sucia.",
+
+  "block.energizedpower.sawmill": "Mesa de sierra",
+  "item.energizedpower.sawmill": "Mesa de sierra",
+  "container.energizedpower.sawmill": "Mesa de sierra",
+
+  "block.energizedpower.compressor": "Compresor",
+  "item.energizedpower.compressor": "Compresor",
+  "container.energizedpower.compressor": "Compresor",
+
+  "block.energizedpower.metal_press": "Prensa de metal",
+  "item.energizedpower.metal_press": "Prensa de metal",
+  "container.energizedpower.metal_press": "Prensa de metal",
+
+  "tooltip.energizedpower.metal_press.txt.shift.1": "Los moldes se crean en la mesa de moldes de prensa.",
+
+  "block.energizedpower.auto_press_mold_maker": "Mesa de moldes de prensa automática",
+  "item.energizedpower.auto_press_mold_maker": "Mesa de moldes de prensa automática",
+  "container.energizedpower.auto_press_mold_maker": "Mesa de moldes de prensa automática",
+
+  "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "¡Hace falta una pala!",
+
+  "block.energizedpower.auto_stonecutter": "Cortapiedras automático",
+  "item.energizedpower.auto_stonecutter": "Cortapiedras automático",
+  "container.energizedpower.auto_stonecutter": "Cortapiedras automático",
+
+  "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "¡Hace falta un pico!",
+
+  "block.energizedpower.assembling_machine": "Máquina de ensamblado",
+  "item.energizedpower.assembling_machine": "Máquina de ensamblado",
+  "container.energizedpower.assembling_machine": "Máquina de ensamblado",
+
+  "block.energizedpower.induction_smelter": "Fundidor de inducción",
+  "item.energizedpower.induction_smelter": "Fundidor de inducción",
+  "container.energizedpower.induction_smelter": "Fundidor de inducción",
+
+  "block.energizedpower.plant_growth_chamber": "Cámara de crecimiento de plantas",
+  "item.energizedpower.plant_growth_chamber": "Cámara de crecimiento de plantas",
+  "container.energizedpower.plant_growth_chamber": "Cámara de crecimiento de plantas",
+
+  "block.energizedpower.stone_liquefier": "Licuefactor de piedra",
+  "item.energizedpower.stone_liquefier": "Licuefactor de piedra",
+  "container.energizedpower.stone_liquefier": "Licuefactor de piedra",
+
+  "block.energizedpower.stone_solidifier": "Solidificador de piedra",
+  "item.energizedpower.stone_solidifier": "Solidificador de piedra",
+  "container.energizedpower.stone_solidifier": "Solidificador de piedra",
+
+  "block.energizedpower.filtration_plant": "Planta de filtración",
+  "item.energizedpower.filtration_plant": "Planta de filtración",
+  "container.energizedpower.filtration_plant": "Planta de filtración",
+
+  "tooltip.energizedpower.filtration_plant.txt.shift.1": "Este bloque requiere filtos de carbón.",
+  "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "¡Hace falta un filtro de carbón!",
+
+  "block.energizedpower.fluid_transposer": "Transportador de fluidos",
+  "item.energizedpower.fluid_transposer": "Transportador de fluidos",
+  "container.energizedpower.fluid_transposer": "Transportador de fluidos",
+
+  "tooltip.energizedpower.fluid_transposer.mode.emptying": "Modo: Vaceando",
+  "tooltip.energizedpower.fluid_transposer.mode.filling": "Modo: Llenando",
+
+  "block.energizedpower.block_placer": "Colocador de bloques",
+  "item.energizedpower.block_placer": "Colocador de bloques",
+  "container.energizedpower.block_placer": "Colocador de bloques",
+
+  "tooltip.energizedpower.block_placer.block_energy_left.txt": "Este bloque necesita %s para ser colocado.",
+  "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotación inversa",
+
+  "block.energizedpower.fluid_tank_small": "Tanque de fluidos (Pequeño)",
+  "item.energizedpower.fluid_tank_small": "Tanque de fluidos (Pequeño)",
+  "container.energizedpower.fluid_tank_small": "Tanque de fluidos (Pequeño)",
+
+  "block.energizedpower.fluid_tank_medium": "Tanque de fluidos (Mediano)",
+  "item.energizedpower.fluid_tank_medium": "Tanque de fluidos (Mediano)",
+  "container.energizedpower.fluid_tank_medium": "Tanque de fluidos (Mediano)",
+
+  "block.energizedpower.fluid_tank_large": "Tanque de fluidos (Grande)",
+  "item.energizedpower.fluid_tank_large": "Tanque de fluidos (Grande)",
+  "container.energizedpower.fluid_tank_large": "Tanque de fluidos (Grande)",
+
+  "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "Ignorar NBT",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Hace falta un filtro",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Filtro: %s",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Coloca un filtro dando click izquierdo con un objeto que contenga fluidos.",
+  "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Quita el filtro dando click izquierdo sin un objeto.",
+
+  "block.energizedpower.creative_fluid_tank": "Tanque de fluidos de creativo",
+  "item.energizedpower.creative_fluid_tank": "Tanque de fluidos de creativo",
+  "container.energizedpower.creative_fluid_tank": "Tanque de fluidos de creativo",
+
+  "block.energizedpower.item_silo_tiny": "Silo de objetos (Diminuto)",
+  "item.energizedpower.item_silo_tiny": "Silo de objetos (Diminuto)",
+  "container.energizedpower.item_silo_tiny": "Silo de objetos (Diminuto)",
+
+  "block.energizedpower.item_silo_small": "Silo de objetos (Pequeño)",
+  "item.energizedpower.item_silo_small": "Silo de objetos (Pequeño)",
+  "container.energizedpower.item_silo_small": "Silo de objetos (Pequeño)",
+
+  "block.energizedpower.item_silo_medium": "Silo de objetos (Mediano)",
+  "item.energizedpower.item_silo_medium": "Silo de objetos (Mediano)",
+  "container.energizedpower.item_silo_medium": "Silo de objetos (Mediano)",
+
+  "block.energizedpower.item_silo_large": "Silo de objetos (Grande)",
+  "item.energizedpower.item_silo_large": "Silo de objetos (Grande)",
+  "container.energizedpower.item_silo_large": "Silo de objetos (Grande)",
+
+  "block.energizedpower.item_silo_giant": "Silo de objetos (Gigante)",
+  "item.energizedpower.item_silo_giant": "Silo de objetos (Gigante)",
+  "container.energizedpower.item_silo_giant": "Silo de objetos (Gigante)",
+
+  "tooltip.energizedpower.item_silo.txt.shift": "Un silo de objetos solo se puede usar con tolvas, cintas, y otros métodos de transporte automático de objetos.",
+  "tooltip.energizedpower.item_silo_capacity.txt": "Capacidad: %d stacks",
+  "tooltip.energizedpower.item_silo.amount": "%d / %d objetos",
+
+  "block.energizedpower.creative_item_silo": "Silo de objetos de creativo",
+  "item.energizedpower.creative_item_silo": "Silo de objetos de creativo",
+  "container.energizedpower.creative_item_silo": "Silo de objetos de creativo",
+
+  "block.energizedpower.fluid_filler": "Llenador de fluidos",
+  "item.energizedpower.fluid_filler": "Llenador de fluidos",
+  "container.energizedpower.fluid_filler": "Llenador de fluidos",
+
+  "block.energizedpower.fluid_drainer": "Drenaje de fluidos",
+  "item.energizedpower.fluid_drainer": "Drenaje de fluidos",
+  "container.energizedpower.fluid_drainer": "Drenaje de fluidos",
+
+  "block.energizedpower.fluid_pump": "Bomba de fluidos",
+  "item.energizedpower.fluid_pump": "Bomba de fluidos",
+  "container.energizedpower.fluid_pump": "Bomba de fluidos",
+
+  "block.energizedpower.advanced_fluid_pump": "Bomba de fluidos avanzada",
+  "item.energizedpower.advanced_fluid_pump": "Bomba de fluidos avanzada",
+  "container.energizedpower.advanced_fluid_pump": "Bomba de fluidos avanzada",
+
+  "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Este proceso necesita %s para terminar.",
+  "tooltip.energizedpower.fluid_pump.target": "Objetivo: %d, %d, %d",
+  "tooltip.energizedpower.fluid_pump.target_relative": "Objetivo (Relativo): %s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.cobblestone_missing": "¡Hace falta piedra labrada!",
+  "tooltip.energizedpower.fluid_pump.extracting": "Extrayendo: %s",
+
+  "block.energizedpower.drain": "Desagüe",
+  "item.energizedpower.drain": "Desagüe",
+  "container.energizedpower.drain": "Desagüe",
+
+  "tooltip.energizedpower.drain.txt.shift": "El desagüe drena los bloques fuente de fluidos que tenga encima.",
+
+  "block.energizedpower.lightning_generator": "Generador de rayos",
+  "item.energizedpower.lightning_generator": "Generador de rayos",
+  "container.energizedpower.lightning_generator": "Generador de rayos",
+
+  "tooltip.energizedpower.lightning_generator.txt.shift.1": "Este bloque produce %s por cada rayo que le caiga.",
+  "tooltip.energizedpower.lightning_generator.txt.shift.2": "Un pararrayos debe colocarse encima para que funcione",
+
+  "block.energizedpower.energizer": "Energizador",
+  "item.energizedpower.energizer": "Energizador",
+  "container.energizedpower.energizer": "Energizador",
+
+  "block.energizedpower.charging_station": "Estación de carga",
+  "item.energizedpower.charging_station": "Estación de carga",
+  "container.energizedpower.charging_station": "Estación de carga",
+
+  "tooltip.energizedpower.charging_station.txt.shift.1": "La estación de carga se usa para cargar objetos dentro del inventario del jugador.",
+
+  "block.energizedpower.crystal_growth_chamber": "Cámara de crecimiento de cristales",
+  "item.energizedpower.crystal_growth_chamber": "Cámara de crecimiento de cristales",
+  "container.energizedpower.crystal_growth_chamber": "Cámara de crecimiento de cristales",
+
+  "block.energizedpower.weather_controller": "Controlador de clima",
+  "item.energizedpower.weather_controller": "Controlador de clima",
+  "container.energizedpower.weather_controller": "Controlador de clima",
+
+  "tooltip.energizedpower.weather_controller.btn.clear": "Establecer clima a despejado",
+  "tooltip.energizedpower.weather_controller.btn.rain": "Establecer clima a lluvia",
+  "tooltip.energizedpower.weather_controller.btn.thunder": "Establecer clima a tormenta",
+
+  "block.energizedpower.time_controller": "Controlador de tiempo",
+  "item.energizedpower.time_controller": "Controlador de tiempo",
+  "container.energizedpower.time_controller": "Controlador de tiempo",
+
+  "tooltip.energizedpower.time_controller.btn.day": "Establecer tiempo a día",
+  "tooltip.energizedpower.time_controller.btn.noon": "Establecer tiempo a mediodía",
+  "tooltip.energizedpower.time_controller.btn.night": "Establecer tiempo a noche",
+  "tooltip.energizedpower.time_controller.btn.midnight": "Establecer tiempo a medianoche",
+
+  "block.energizedpower.teleporter": "Teletransportador",
+  "item.energizedpower.teleporter": "Teletransportador",
+  "container.energizedpower.teleporter": "Teletransportador",
+
+  "tooltip.energizedpower.teleporter.txt.shift.1": "Presiona [%s] estando arriba del teletransportador para teletransportarte.",
+  "tooltip.energizedpower.teleporter.txt.shift.2": "La teletransportación de jugadores se puede activar con redstone.",
+
+  "tooltip.energizedpower.teleporter.use.not_enough_energy": "¡Enegía insuficiente!",
+  "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "¡La matriz de teletransportador no está presente!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "¡La matriz de teletransportador no está vinculada!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_position": "¡La matriz de teletransportador contiene una posición inválida!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_invalid_dimension": "¡La matriz de teletransportador contiene una dimensión inválida!",
+  "tooltip.energizedpower.teleporter.use.teleporter_self_position": "¡No es posible teletransportarse a este mismo teletransportador!",
+  "tooltip.energizedpower.teleporter.use.teleporter_matrix_no_teleporter": "¡No se encontró un teletransportador en las coordenadas de la matriz de teletransportador!",
+  "tooltip.energizedpower.teleporter.use.intra_dimensional_disabled": "¡La teletransportación intra dimensional está desactivada",
+  "tooltip.energizedpower.teleporter.use.inter_dimensional_disabled": "¡La teletransportación inter dimensional está desactivada",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension": "¡La teletransportación para la dimensión \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional": "¡La teletransportación dentro de la dimensión \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from": "¡La teletransportación desde la dimension \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to": "¡La teletransportación hacia la dimensión \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.dimension_type": "¡Teleportation for a dimension of dimension type \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "¡Teleportation within a dimension of dimension type \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "¡Teleportation from a dimension of dimension type \"%s\" está desactivada!",
+  "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "¡Teleportation to a dimension of dimension type \"%s\" está desactivada!",
+
+  "block.energizedpower.basic_machine_frame": "Marco de máquina básica",
+  "item.energizedpower.basic_machine_frame": "Marco de máquina básica",
+
+  "block.energizedpower.hardened_machine_frame": "Marco de máquina endurecida",
+  "item.energizedpower.hardened_machine_frame": "Marco de máquina endurecida",
+
+  "block.energizedpower.advanced_machine_frame": "Marco de máquina avanzada",
+  "item.energizedpower.advanced_machine_frame": "Marco de máquina avanzada",
+
+  "block.energizedpower.reinforced_advanced_machine_frame": "Marco de máquina avanzada reforzada",
+  "item.energizedpower.reinforced_advanced_machine_frame": "Marco de máquina avanzada reforzada",
+
+  "fluid_type.energizedpower.dirty_water": "Agua sucia",
+
+  "tooltip.energizedpower.count_with_item.txt": "%dx %s",
+
+  "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.energy_consumption_per_tick.txt": "Consumo de energía: %s",
+  "tooltip.energizedpower.energy_production_per_tick.txt": "Producción de energía: %s",
+  "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Esta receta requiere %s.",
+  "tooltip.energizedpower.recipe.selector.next_recipe": "Siguiente receta",
+  "tooltip.energizedpower.recipe.selector.prev_recipe": "Anterior receta",
+  "tooltip.energizedpower.shift_details.txt": "Mantén [SHIFT] para ver detalles",
+  "tooltip.energizedpower.capacity.txt": "Capacidad: %s",
+  "tooltip.energizedpower.transfer_rate.txt": "Tasa de transferencia: %s/t",
+  "tooltip.energizedpower.tank_capacity.txt": "Capacidad del tanque: %s",
+  "tooltip.energizedpower.not_enough_energy.txt": "Energía insuficiente",
+  "tooltip.energizedpower.ready.txt": "Listo",
+  "tooltip.energizedpower.infinite.txt": "Infinita",
+
+  "tooltip.energizedpower.direction.down": "Abajo",
+  "tooltip.energizedpower.direction.up": "Arriba",
+  "tooltip.energizedpower.direction.north": "Norte",
+  "tooltip.energizedpower.direction.south": "Sur",
+  "tooltip.energizedpower.direction.west": "Oeste",
+  "tooltip.energizedpower.direction.east": "Este",
+
+  "block_state.energizedpower.pipe_connection.not_connected": "desconectado",
+  "block_state.energizedpower.pipe_connection.connected": "conectado/Insertado",
+  "block_state.energizedpower.pipe_connection.extract": "Extracción",
+
+  "block_state.energizedpower.transformer_connection.not_connected": "desconectada",
+  "block_state.energizedpower.transformer_connection.receive": "Insertado",
+  "block_state.energizedpower.transformer_connection.extract": "Extracción",
+
+  "tooltip.energizedpower.conveyor_belt_direction.slope.flat": "Plano",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.ascending": "Ascendiendo",
+  "tooltip.energizedpower.conveyor_belt_direction.slope.descending": "Descendiendo",
+
+  "tooltip.energizedpower.machine_configuration.redstone_mode.ignore": "Modo de redstone: Ignorar",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.high": "Modo de redstone: Alto",
+  "tooltip.energizedpower.machine_configuration.redstone_mode.low": "Modo de redstone: Bajo",
+
+  "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Modo de comparador: Objeto",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Modo de comparador: Fluido",
+  "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Modo de comparador: Energía",
+
+  "tooltip.energizedpower.upgrade_module_modifier.speed": "Velocidad de producción",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Consumo de energía por tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Capacidad de energía",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Tasa de transferencia de energía",
+  "tooltip.energizedpower.upgrade_module_modifier.duration": "Duración",
+  "tooltip.energizedpower.upgrade_module_modifier.range": "Rango",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Profundidad de extracción",
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Rango de extracción",
+  "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Modo del horno",
+  "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Luz lunar",
+
+  "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Bloques",
+
+  "tooltip.energizedpower.upgrade.values": "Multiplicadores del módulo de mejora:",
+  "tooltip.energizedpower.upgrade.value": "• %s: %s",
+
+  "tooltip.energizedpower.upgrade_view.button.open": "Abrir vista de mejora",
+  "tooltip.energizedpower.upgrade_view.button.close": "Cerrar vista de mejora",
+
+  "itemGroup.energizedpower.tab": "Energized Power",
+
+  "entity.minecraft.villager.electrician": "Electricista",
+
+  "entity.energizedpower.battery_box_minecart": "Vagón con caja de baterías",
+  "entity.energizedpower.advanced_battery_box_minecart": "Vagón con caja de baterías avanzada",
+
+  "recipes.energizedpower.in_world_crafting": "In-World Crafting",
+  "recipes.energizedpower.info.ticks": "Ticks: %d",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "Cámara de crecimiento (Fertilizante)",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Velocidad",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Consumo de energía",
+  "recipes.energizedpower.transfer.too_large": "¡Esta receta es muy grande para este contenedor!",
+  "recipes.energizedpower.transfer.output_percentages": "Porcentaje por objeto:",
+
+  "emi.category.energizedpower.charger": "Cargador",
+  "emi.category.energizedpower.crusher": "Trituradora",
+  "emi.category.energizedpower.pulverizer": "Pulverizador",
+  "emi.category.energizedpower.advanced_pulverizer": "Pulverizador avanzado",
+  "emi.category.energizedpower.sawmill": "Mesa de sierra",
+  "emi.category.energizedpower.compressor": "Compresor",
+  "emi.category.energizedpower.metal_press": "Prensa de metal",
+  "emi.category.energizedpower.assembling_machine": "Máquina de ensamblado",
+  "emi.category.energizedpower.plant_growth_chamber": "Cámara de crecimiento de plantas",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Cámara de crecimiento (Fertilizante)",
+  "emi.category.energizedpower.energizer": "Energizador",
+  "emi.category.energizedpower.crystal_growth_chamber": "Cámara de crecimiento de cristales",
+  "emi.category.energizedpower.press_mold_maker": "Mesa de moldes de prensa",
+  "emi.category.energizedpower.alloy_furnace": "Horno de aleación",
+  "emi.category.energizedpower.stone_liquefier": "Licuefactor de piedra",
+  "emi.category.energizedpower.stone_solidifier": "Solidificador de piedra",
+  "emi.category.energizedpower.filtration_plant": "Planta de filtración",
+  "emi.category.energizedpower.fluid_transposer": "Transportador de fluidos",
+  "emi.category.energizedpower.dispenser": "Dispensador",
+  "emi.category.energizedpower.in_world_crafting": "In-World Crafting",
+
+
+  "painting.energizedpower.gear.title": "Engrane",
+  "painting.energizedpower.gear.author": "JDDev0",
+
+  "painting.energizedpower.factory.title": "Fábrica",
+  "painting.energizedpower.factory.author": "JDDev0",
+
+  "key.category.energizedpower.main": "Energized Power",
+  "key.energizedpower.teleporter.use": "Usar teletransportador",
+
+
+  "advancements.energizedpower.hardened_machine_frame.title": "Hardened Machines",
+  "advancements.energizedpower.hardened_machine_frame.description": "Required for better machines.",
+
+  "advancements.energizedpower.advanced_machine_frame.title": "Advanced Machines",
+  "advancements.energizedpower.advanced_machine_frame.description": "More advanced machines need this base crafting item.",
+
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Even more advanced Machines",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "The most advanced machines need this base crafting item.",
+
+  "advancements.energizedpower.advanced_solar_cell.title": "Advanced Solar Power",
+  "advancements.energizedpower.advanced_solar_cell.description": "Required for advanced Panel solars...",
+
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Even better solar energy",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the best Panel solars...",
+
+  "advancements.energizedpower.basic_circuit.title": "Basic Circuit",
+  "advancements.energizedpower.basic_circuit.description": "Craft a Basic Circuit.",
+
+  "advancements.energizedpower.advanced_circuit.title": "Advanced Circuit",
+  "advancements.energizedpower.advanced_circuit.description": "Craft an Advanced Circuit.",
+
+  "advancements.energizedpower.processing_unit.title": "Processing Unit",
+  "advancements.energizedpower.processing_unit.description": "Craft a Processing Unit.",
+
+  "advancements.energizedpower.basic_upgrade_module.title": "Basic Upgrade Module",
+  "advancements.energizedpower.basic_upgrade_module.description": "Craft a Basic Upgrade Module.",
+
+  "advancements.energizedpower.advanced_upgrade_module.title": "Advanced Upgrade Module",
+  "advancements.energizedpower.advanced_upgrade_module.description": "Craft an Advanced Upgrade Module.",
+
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Reinforced Advanced Upgrade Module",
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Craft a Reinforced Advanced Upgrade Module.",
+
+  "advancements.energizedpower.speed_upgrade_module_1.title": "Speed I",
+  "advancements.energizedpower.speed_upgrade_module_1.description": "Craft a Módulo de mejora de velocidad (Nivel I).",
+
+  "advancements.energizedpower.speed_upgrade_module_2.title": "Speed II",
+  "advancements.energizedpower.speed_upgrade_module_2.description": "Craft a Módulo de mejora de velocidad (Nivel II).",
+
+  "advancements.energizedpower.speed_upgrade_module_3.title": "Speed III",
+  "advancements.energizedpower.speed_upgrade_module_3.description": "Craft a Módulo de mejora de velocidad (Nivel III).",
+
+  "advancements.energizedpower.speed_upgrade_module_4.title": "Speed IV",
+  "advancements.energizedpower.speed_upgrade_module_4.description": "Craft a Módulo de mejora de velocidad (Nivel IV).",
+
+  "advancements.energizedpower.speed_upgrade_module_5.title": "Speed V",
+  "advancements.energizedpower.speed_upgrade_module_5.description": "Craft a Módulo de mejora de velocidad (Nivel V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Energy Efficiency I",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Craft a Módulo de mejora de eficiencia energética (Nivel I).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.title": "Energy Efficiency II",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Craft a Módulo de mejora de eficiencia energética (Nivel II).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.title": "Energy Efficiency III",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Craft a Módulo de mejora de eficiencia energética (Nivel III).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.title": "Energy Efficiency IV",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Craft a Módulo de mejora de eficiencia energética (Nivel IV).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Energy Efficiency V",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Craft a Módulo de mejora de eficiencia energética (Nivel V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Energy Capacidad I",
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Craft a Módulo de mejora de capacidad energética (Nivel I).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.title": "Energy Capacidad II",
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Craft a Módulo de mejora de capacidad energética (Nivel II).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.title": "Energy Capacidad III",
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Craft a Módulo de mejora de capacidad energética (Nivel III).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.title": "Energy Capacidad IV",
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Craft a Módulo de mejora de capacidad energética (Nivel IV).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Energy Capacidad V",
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Craft a Módulo de mejora de capacidad energética (Nivel V).",
+
+  "advancements.energizedpower.duration_upgrade_module_1.title": "Duration I",
+  "advancements.energizedpower.duration_upgrade_module_1.description": "Craft a Módulo de mejora de duración (Nivel I).",
+
+  "advancements.energizedpower.duration_upgrade_module_2.title": "Duration II",
+  "advancements.energizedpower.duration_upgrade_module_2.description": "Craft a Módulo de mejora de duración (Nivel II).",
+
+  "advancements.energizedpower.duration_upgrade_module_3.title": "Duration III",
+  "advancements.energizedpower.duration_upgrade_module_3.description": "Craft a Módulo de mejora de duración (Nivel III).",
+
+  "advancements.energizedpower.duration_upgrade_module_4.title": "Duration IV",
+  "advancements.energizedpower.duration_upgrade_module_4.description": "Craft a Módulo de mejora de duración (Nivel IV).",
+
+  "advancements.energizedpower.duration_upgrade_module_5.title": "Duration V",
+  "advancements.energizedpower.duration_upgrade_module_5.description": "Craft a Módulo de mejora de duración (Nivel V).",
+
+  "advancements.energizedpower.duration_upgrade_module_6.title": "Duration VI",
+  "advancements.energizedpower.duration_upgrade_module_6.description": "Craft a Módulo de mejora de duración (Nivel VI).",
+
+  "advancements.energizedpower.range_upgrade_module_1.title": "Range I",
+  "advancements.energizedpower.range_upgrade_module_1.description": "Craft a Módulo de mejora de rango (Nivel I).",
+
+  "advancements.energizedpower.range_upgrade_module_2.title": "Range II",
+  "advancements.energizedpower.range_upgrade_module_2.description": "Craft a Módulo de mejora de rango (Nivel II).",
+
+  "advancements.energizedpower.range_upgrade_module_3.title": "Range III",
+  "advancements.energizedpower.range_upgrade_module_3.description": "Craft a Módulo de mejora de rango (Nivel III).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.title": "Extracción Depth I",
+  "advancements.energizedpower.extraction_depth_upgrade_module_1.description": "Craft an Módulo de mejora de profundidad de extracción (Nivel I).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.title": "Extracción Depth II",
+  "advancements.energizedpower.extraction_depth_upgrade_module_2.description": "Craft an Módulo de mejora de profundidad de extracción (Nivel II).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.title": "Extracción Depth III",
+  "advancements.energizedpower.extraction_depth_upgrade_module_3.description": "Craft an Módulo de mejora de profundidad de extracción (Nivel III).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.title": "Extracción Depth IV",
+  "advancements.energizedpower.extraction_depth_upgrade_module_4.description": "Craft an Módulo de mejora de profundidad de extracción (Nivel IV).",
+
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extracción Depth V",
+  "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Craft an Módulo de mejora de profundidad de extracción (Nivel V).",
+
+  "advancements.energizedpower.extraction.range_upgrade_module_1.title": "Extracción Range I",
+  "advancements.energizedpower.extraction.range_upgrade_module_1.description": "Craft an Extracción Módulo de mejora de rango (Nivel I).",
+
+  "advancements.energizedpower.extraction.range_upgrade_module_2.title": "Extracción Range II",
+  "advancements.energizedpower.extraction.range_upgrade_module_2.description": "Craft an Extracción Módulo de mejora de rango (Nivel II).",
+
+  "advancements.energizedpower.extraction.range_upgrade_module_3.title": "Extracción Range III",
+  "advancements.energizedpower.extraction.range_upgrade_module_3.description": "Craft an Extracción Módulo de mejora de rango (Nivel III).",
+
+  "advancements.energizedpower.extraction.range_upgrade_module_4.title": "Extracción Range IV",
+  "advancements.energizedpower.extraction.range_upgrade_module_4.description": "Craft an Extracción Módulo de mejora de rango (Nivel IV).",
+
+  "advancements.energizedpower.extraction.range_upgrade_module_5.title": "Extracción Range V",
+  "advancements.energizedpower.extraction.range_upgrade_module_5.description": "Craft an Extracción Módulo de mejora de rango (Nivel V).",
+
+  "advancements.energizedpower.blast_furnace_upgrade_module.title": "Furnace Modo: Blast Furnace",
+  "advancements.energizedpower.blast_furnace_upgrade_module.description": "Craft a Blast Upgrade Module.",
+
+  "advancements.energizedpower.smoker_upgrade_module.title": "Furnace Modo: Smoker",
+  "advancements.energizedpower.smoker_upgrade_module.description": "Craft a Smoker Upgrade Module.",
+
+  "advancements.energizedpower.moon_light_upgrade_module_1.title": "Moon Light I",
+  "advancements.energizedpower.moon_light_upgrade_module_1.description": "Craft a Módulo de mejora de luz lunar (Nivel I).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_2.title": "Moon Light II",
+  "advancements.energizedpower.moon_light_upgrade_module_2.description": "Craft a Módulo de mejora de luz lunar (Nivel II).",
+
+  "advancements.energizedpower.moon_light_upgrade_module_3.title": "Moon Light III",
+  "advancements.energizedpower.moon_light_upgrade_module_3.description": "Craft a Módulo de mejora de luz lunar (Nivel III).",
+
+  "advancements.energizedpower.press_mold_maker.title": "Mesa de moldes de prensa",
+  "advancements.energizedpower.press_mold_maker.description": "Use this block to make press molds for the Prensa de metal.",
+
+  "advancements.energizedpower.raw_press_molds.title": "Raw Press Mold",
+  "advancements.energizedpower.raw_press_molds.description": "Use Clay Balls to make a Raw Press Mold. (Don't forget to cook it...)",
+
+  "advancements.energizedpower.press_molds.title": "Press Mold",
+  "advancements.energizedpower.press_molds.description": "Cooked Press Molds can be used in the Prensa de metal.",
+
+  "advancements.energizedpower.alloy_furnace.title": "Horno de aleación",
+  "advancements.energizedpower.alloy_furnace.description": "Create an Horno de aleación.",
+
+  "advancements.energizedpower.steel_ingot.title": "Steel Ingot",
+  "advancements.energizedpower.steel_ingot.description": "Create a Steel Ingot.",
+
+  "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone Alloy Ingot",
+  "advancements.energizedpower.redstone_alloy_ingot.description": "Create a Redstone Alloy Ingot.",
+
+  "advancements.energizedpower.advanced_alloy_ingot.title": "Advanced Alloy Ingot",
+  "advancements.energizedpower.advanced_alloy_ingot.description": "Create an Advanced Alloy Ingot.",
+
+  "advancements.energizedpower.advanced_alloy_plate.title": "Advanced Alloy Plate",
+  "advancements.energizedpower.advanced_alloy_plate.description": "Create an Advanced Alloy Plate.",
+
+  "advancements.energizedpower.auto_crafter.title": "Automation is the future",
+  "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",
+
+  "advancements.energizedpower.advanced_auto_crafter.title": "Power crafting",
+  "advancements.energizedpower.advanced_auto_crafter.description": "Craft multiple recipes with the same block.",
+
+  "advancements.energizedpower.crusher.title": "Crush it",
+  "advancements.energizedpower.crusher.description": "Crush Stone, Sandstone, Cobblestone, Gravel, or other blocks.",
+
+  "advancements.energizedpower.pulverizer.title": "Pulverization",
+  "advancements.energizedpower.pulverizer.description": "Pulverize ores to boost production.",
+
+  "advancements.energizedpower.charcoal_filter.title": "Charcoal Filtro",
+  "advancements.energizedpower.charcoal_filter.description": "Craft a charcoal filter.",
+
+  "advancements.energizedpower.sawmill.title": "Sawing",
+  "advancements.energizedpower.sawmill.description": "Saws wood.",
+
+  "advancements.energizedpower.compressor.title": "Compressing",
+  "advancements.energizedpower.compressor.description": "Creates plates.",
+
+  "advancements.energizedpower.metal_press.title": "Prensa de metal",
+  "advancements.energizedpower.metal_press.description": "Form metals.",
+
+  "advancements.energizedpower.auto_press_mold_maker.title": "Mesa de moldes de prensa automática",
+  "advancements.energizedpower.auto_press_mold_maker.description": "Craft an Mesa de moldes de prensa automática.",
+
+  "advancements.energizedpower.auto_stonecutter.title": "Cortapiedras automático",
+  "advancements.energizedpower.auto_stonecutter.description": "Craft an Cortapiedras automático.",
+
+  "advancements.energizedpower.assembling_machine.title": "Máquina de ensamblado",
+  "advancements.energizedpower.assembling_machine.description": "Craft electronic components in the Máquina de ensamblado.",
+
+  "advancements.energizedpower.plant_growth_chamber.title": "Faster Plant Growth",
+  "advancements.energizedpower.plant_growth_chamber.description": "Improve the speed and the yields with the Cámara de crecimiento de plantas.",
+
+  "advancements.energizedpower.stone_liquefier.title": "Licuefactor de piedra",
+  "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
+
+  "advancements.energizedpower.stone_solidifier.title": "Solidificador de piedra",
+  "advancements.energizedpower.stone_solidifier.description": "Create stone blocks from Water and Lava.",
+
+  "advancements.energizedpower.block_placer.title": "Place the block",
+  "advancements.energizedpower.block_placer.description": "Blocks are placed automatically in the world.",
+
+  "advancements.energizedpower.fluid_filler.title": "Fill the fluid item",
+  "advancements.energizedpower.fluid_filler.description": "Fill objetos with fluids.",
+
+  "advancements.energizedpower.fluid_drainer.title": "Desagüe the fluid item",
+  "advancements.energizedpower.fluid_drainer.description": "Desagüe fluids from objetos.",
+
+  "advancements.energizedpower.fluid_pump.title": "Bomba de fluidos",
+  "advancements.energizedpower.fluid_pump.description": "Craft a Bomba de fluidos.",
+
+  "advancements.energizedpower.advanced_fluid_pump.title": "Bomba de fluidos avanzada",
+  "advancements.energizedpower.advanced_fluid_pump.description": "Craft an Bomba de fluidos avanzada.",
+
+  "advancements.energizedpower.drain.title": "The Desagüe",
+  "advancements.energizedpower.drain.description": "Desagüe fluids source blocks.",
+
+  "advancements.energizedpower.basic_machine_frame.title": "The Foundation of Machines",
+  "advancements.energizedpower.basic_machine_frame.description": "This is the base crafting item for every basic machine.",
+
+  "advancements.energizedpower.basic_solar_cell.title": "Solar Power Basics",
+  "advancements.energizedpower.basic_solar_cell.description": "Your first solar cell of two required for your first Panel solar.",
+
+  "advancements.energizedpower.battery_1.title": "Batteries",
+  "advancements.energizedpower.battery_1.description": "Stores energy in item form.",
+
+  "advancements.energizedpower.battery_2.title": "Energy x4",
+  "advancements.energizedpower.battery_2.description": "This battery can store as much energy as 4 Nivel I batteries.",
+
+  "advancements.energizedpower.battery_3.title": "More Energy",
+  "advancements.energizedpower.battery_3.description": "Nivel III: Twice the power of Nivel II",
+
+  "advancements.energizedpower.battery_4.title": "You ask for even more Energy",
+  "advancements.energizedpower.battery_4.description": "Well this is Nivel IV - only four to go",
+
+  "advancements.energizedpower.battery_5.title": "The best normal copper can do",
+  "advancements.energizedpower.battery_5.description": "Nivel V: You will need to energize the next battery tier...",
+
+  "advancements.energizedpower.battery_6.title": "Energized Batteries",
+  "advancements.energizedpower.battery_6.description": "Nivel VI: You have energized your battery for even more storage capacity.",
+
+  "advancements.energizedpower.battery_7.title": "You said you need more Power?",
+  "advancements.energizedpower.battery_7.description": "Nivel VII: A quarter million E of storage capacity! Can we do better?",
+
+  "advancements.energizedpower.battery_8.title": "I need more POWER",
+  "advancements.energizedpower.battery_8.description": "This is the best battery of this mod (It can store more than 1 million E)",
+
+  "advancements.energizedpower.battery_8_fully_charged.title": "Master of Energy Storage",
+  "advancements.energizedpower.battery_8_fully_charged.description": "You have fully charged your 1 million E battery!",
+
+  "advancements.energizedpower.cable_insulator.title": "The Jacket for your Cable",
+  "advancements.energizedpower.cable_insulator.description": "Cover your cables with this ingredient. (Can be crafted by clicking on wool with shears [Dispenser can be used too])",
+
+  "advancements.energizedpower.charger.title": "Charge it",
+  "advancements.energizedpower.charger.description": "Charge your energy objetos with this block.",
+
+  "advancements.energizedpower.inventory_charger.title": "Local charging",
+  "advancements.energizedpower.inventory_charger.description": "Charge energy objetos in your inventory with batteries.",
+
+  "advancements.energizedpower.inventory_teleporter.title": "Portable Teleporter",
+  "advancements.energizedpower.inventory_teleporter.description": "Craft an Teletransportador de inventario.",
+
+  "advancements.energizedpower.advanced_charger.title": "Parallel charging",
+  "advancements.energizedpower.advanced_charger.description": "Charge energy objetos in parallel.",
+
+  "advancements.energizedpower.advanced_uncharger.title": "Parallel uncharging",
+  "advancements.energizedpower.advanced_uncharger.description": "Uncharge energy objetos in parallel.",
+
+  "advancements.energizedpower.charging_station.title": "Wireless charging",
+  "advancements.energizedpower.charging_station.description": "Charge energy objetos wirelessly.",
+
+  "advancements.energizedpower.crystal_growth_chamber.title": "Cristal growth",
+  "advancements.energizedpower.crystal_growth_chamber.description": "Grow crystals in the Cámara de crecimiento de cristales.",
+
+  "advancements.energizedpower.energized_crystal_matrix.title": "Energized Cristal Matrix",
+  "advancements.energizedpower.energized_crystal_matrix.description": "Used as a stabilizer in some advanced machines.",
+
+  "advancements.energizedpower.teleporter_matrix.title": "matriz de teletransportador",
+  "advancements.energizedpower.teleporter_matrix.description": "The first step to achieve teleportation.",
+
+  "advancements.energizedpower.teleporter_processing_unit.title": "Teleporter Processing Unit",
+  "advancements.energizedpower.teleporter_processing_unit.description": "The brain of Teleporters.",
+
+  "advancements.energizedpower.teleporter.title": "Faster than light",
+  "advancements.energizedpower.teleporter.description": "Craft a Teleporter.",
+
+  "advancements.energizedpower.weather_controller.title": "Control the weather",
+  "advancements.energizedpower.weather_controller.description": "Change the weather with the Controlador de clima.",
+
+  "advancements.energizedpower.time_controller.title": "Control the time",
+  "advancements.energizedpower.time_controller.description": "Change the time with the Controlador de tiempo.",
+
+  "advancements.energizedpower.coal_engine.title": "Powered by Coal",
+  "advancements.energizedpower.coal_engine.description": "Producing energy by burning stuff might not be the most efficient but good enough for the moment.",
+
+  "advancements.energizedpower.heat_generator.title": "Powered by Heat",
+  "advancements.energizedpower.heat_generator.description": "Convert heat to energy.",
+
+  "advancements.energizedpower.thermal_generator.title": "Powered by hot liquids",
+  "advancements.energizedpower.thermal_generator.description": "Consume hot liquids to generate energy.",
+
+  "advancements.energizedpower.filtration_plant.title": "Fluid filtration",
+  "advancements.energizedpower.filtration_plant.description": "Craft a Planta de filtración.",
+
+  "advancements.energizedpower.fluid_transposer.title": "Transportador de fluidos",
+  "advancements.energizedpower.fluid_transposer.description": "Craft a Transportador de fluidos.",
+
+  "advancements.energizedpower.induction_smelter.title": "Fundidor de inducción",
+  "advancements.energizedpower.induction_smelter.description": "Craft an Fundidor de inducción.",
+
+  "advancements.energizedpower.powered_lamp.title": "Electric lights",
+  "advancements.energizedpower.powered_lamp.description": "Convert power to light.",
+
+  "advancements.energizedpower.powered_furnace.title": "Horno eléctrico",
+  "advancements.energizedpower.powered_furnace.description": "Furnace with power.",
+
+  "advancements.energizedpower.advanced_powered_furnace.title": "Fast smelting",
+  "advancements.energizedpower.advanced_powered_furnace.description": "Smelt multiple objetos at once with power.",
+
+  "advancements.energizedpower.item_conveyor_belt.title": "Item Transport",
+  "advancements.energizedpower.item_conveyor_belt.description": "Transport objetos with item conveyor belts.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "Fast Item Transport",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "Craft a Cinta transportadora rápida.",
+
+  "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Cinta transportadora Express.",
+
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "Item Loader",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "Load Items on an item conveyor belt.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "Cinta transportadora rápida Loader",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "Craft a Cinta transportadora rápida Loader.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Cinta transportadora Express Loader",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Cinta transportadora Express Loader.",
+
+  "advancements.energizedpower.item_conveyor_belt_sorter.title": "Automatic Sorting",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "Sort Items with the Item Conveyor Belt Sorter.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "Cinta transportadora rápida Sorter",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "Craft a Cinta transportadora rápida Sorter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Cinta transportadora Express Sorter",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Cinta transportadora Express Sorter.",
+
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "Conveyor Belt Interruptor de",
+  "advancements.energizedpower.item_conveyor_belt_switch.description": "Select a direction.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "Cinta transportadora rápida Interruptor de",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "Craft a Cinta transportadora rápida Interruptor de.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Cinta transportadora Express Interruptor de",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Cinta transportadora Express Interruptor de.",
+
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "Conveyor Belt Splitter",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribute objetos evenly to multiple outputs.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Cinta transportadora rápida Splitter",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Craft a Cinta transportadora rápida Splitter.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Cinta transportadora Express Splitter",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Cinta transportadora Express Splitter.",
+
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "Conveyor Belt Mezclador de",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "Merge objetos evenly from multiple inputs.",
+
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Cinta transportadora rápida Mezclador de",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Craft a Cinta transportadora rápida Mezclador de.",
+
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Cinta transportadora Express Mezclador de",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Cinta transportadora Express Mezclador de.",
+
+  "advancements.energizedpower.item_silo_tiny.title": "Silo de objetos (Diminuto)",
+  "advancements.energizedpower.item_silo_tiny.description": "Craft a tiny Silo de objetos.",
+
+  "advancements.energizedpower.item_silo_small.title": "Silo de objetos (Pequeño)",
+  "advancements.energizedpower.item_silo_small.description": "Craft a small Silo de objetos.",
+
+  "advancements.energizedpower.item_silo_medium.title": "Silo de objetos (Mediano)",
+  "advancements.energizedpower.item_silo_medium.description": "Craft a medium Silo de objetos.",
+
+  "advancements.energizedpower.item_silo_large.title": "Silo de objetos (Grande)",
+  "advancements.energizedpower.item_silo_large.description": "Craft a large Silo de objetos.",
+
+  "advancements.energizedpower.item_silo_giant.title": "Silo de objetos (Gigante)",
+  "advancements.energizedpower.item_silo_giant.description": "Craft a giant Silo de objetos.",
+
+  "advancements.energizedpower.iron_fluid_pipe.title": "Fluid Transport",
+  "advancements.energizedpower.iron_fluid_pipe.description": "Transport fluids with Tubería de fluidos de hierros.",
+
+  "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
+  "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with Tubería de fluidos de oros.",
+
+  "advancements.energizedpower.fluid_tank_small.title": "Simple Fluid Storage",
+  "advancements.energizedpower.fluid_tank_small.description": "Store fluids in a small Tanque de fluidos.",
+
+  "advancements.energizedpower.fluid_tank_medium.title": "Better Fluid Storage",
+  "advancements.energizedpower.fluid_tank_medium.description": "Store fluids in a medium Tanque de fluidos.",
+
+  "advancements.energizedpower.fluid_tank_large.title": "Grande Fluid Storage",
+  "advancements.energizedpower.fluid_tank_large.description": "Store fluids in a large Tanque de fluidos.",
+
+  "advancements.energizedpower.tin_cable.title": "Basic Energy Transport",
+  "advancements.energizedpower.tin_cable.description": "Transport low amounts of energy with a Cableado de estaño.",
+
+  "advancements.energizedpower.copper_cable.title": "Energy Transport",
+  "advancements.energizedpower.copper_cable.description": "Transport energy with cables.",
+
+  "advancements.energizedpower.gold_cable.title": "The more power, the better",
+  "advancements.energizedpower.gold_cable.description": "More power with a better cable.",
+
+  "advancements.energizedpower.energized_copper_cable.title": "Too much Power to handle",
+  "advancements.energizedpower.energized_copper_cable.description": "Cable with very high Power throughput!",
+
+  "advancements.energizedpower.energized_gold_cable.title": "Power, power, power",
+  "advancements.energizedpower.energized_gold_cable.description": "This cable is the best of the best.",
+
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "¡MÁXIMA POTENCIA!",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
+
+  "advancements.energizedpower.lv_transformers.title": "Transformador BTs",
+  "advancements.energizedpower.lv_transformers.description": "Can connect different tiers of cables.",
+
+  "advancements.energizedpower.mv_transformers.title": "Transformador MTs",
+  "advancements.energizedpower.mv_transformers.description": "Can transfer more power.",
+
+  "advancements.energizedpower.hv_transformers.title": "Transformador ATs",
+  "advancements.energizedpower.hv_transformers.description": "Can transfer even more power.",
+
+  "advancements.energizedpower.ehv_transformers.title": "Transformador EATs",
+  "advancements.energizedpower.ehv_transformers.description": "Can transfer more than 2 million E per tick.",
+
+  "advancements.energizedpower.battery_box.title": "Caja de baterías",
+  "advancements.energizedpower.battery_box.description": "Store energy with the Caja de baterías block.",
+
+  "advancements.energizedpower.advanced_battery_box.title": "Better Caja de baterías",
+  "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
+
+  "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (Advanced)",
+  "advancements.energizedpower.energizedpower_advanced.description": "Energized Copper is better Copper.",
+
+  "advancements.energizedpower.energized_gold_ingot.title": "Shiny Ingot",
+  "advancements.energizedpower.energized_gold_ingot.description": "This Lingote de oro energizado is very shiny.",
+
+  "advancements.energizedpower.energized_power_book.title": "Las sagradas escrituras",
+  "advancements.energizedpower.energized_power_book.description": "El libro guía del mod.",
+
+  "advancements.energizedpower.hammer.title": "El aplasta metales",
+  "advancements.energizedpower.hammer.description": "Los martillos sirven para fabricar láminas.",
+
+  "advancements.energizedpower.cutter.title": "Cuidado con esas tenazas",
+  "advancements.energizedpower.cutter.description": "Los alicates sirven para fabricar cables.",
+
+  "advancements.energizedpower.wrench.title": "Solo le falta un ajuste...",
+  "advancements.energizedpower.wrench.description": "Puedes configurar bloques con la llave inglesa.",
+
+  "advancements.energizedpower.battery_box_minecart.title": "Energía sobre ruedas",
+  "advancements.energizedpower.battery_box_minecart.description": "Transporta energía con raíles.",
+
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
+
+  "advancements.energizedpower.tin_plate.title": "Tin Plate",
+  "advancements.energizedpower.tin_plate.description": "Create a tin plate.",
+
+  "advancements.energizedpower.copper_plate.title": "Copper Plate",
+  "advancements.energizedpower.copper_plate.description": "Create a copper plate.",
+
+  "advancements.energizedpower.iron_plate.title": "Hit it",
+  "advancements.energizedpower.iron_plate.description": "Create an iron plate.",
+
+  "advancements.energizedpower.gold_plate.title": "Gold Plate",
+  "advancements.energizedpower.gold_plate.description": "Create a gold plate.",
+
+  "advancements.energizedpower.tin_wire.title": "Tin Wire",
+  "advancements.energizedpower.tin_wire.description": "Create a tin wire.",
+
+  "advancements.energizedpower.copper_wire.title": "Copper Wire",
+  "advancements.energizedpower.copper_wire.description": "Create a copper wire.",
+
+  "advancements.energizedpower.gold_wire.title": "Gold Wire",
+  "advancements.energizedpower.gold_wire.description": "Create a gold wire.",
+
+  "advancements.energizedpower.energized_copper_plate.title": "Lámina de cobre energizada",
+  "advancements.energizedpower.energized_copper_plate.description": "Create an Lámina de cobre energizada.",
+
+  "advancements.energizedpower.energized_gold_plate.title": "Lámina de oro energizada",
+  "advancements.energizedpower.energized_gold_plate.description": "Create an Lámina de oro energizada.",
+
+  "advancements.energizedpower.energized_copper_wire.title": "Cable de cobre energizado",
+  "advancements.energizedpower.energized_copper_wire.description": "Create an Cable de cobre energizado.",
+
+  "advancements.energizedpower.energized_gold_wire.title": "Energized Gold Wire",
+  "advancements.energizedpower.energized_gold_wire.description": "Create an energized gold wire.",
+
+  "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basics)",
+  "advancements.energizedpower.energizedpower_basics.description": "This is the start of your energized power journey.",
+
+  "advancements.energizedpower.energizer.title": "More efficient energizing",
+  "advancements.energizedpower.energizer.description": "This machine can energize your copper ingots much faster and more efficient than the charger.",
+
+  "advancements.energizedpower.advanced_crusher.title": "Faster crusher",
+  "advancements.energizedpower.advanced_crusher.description": "Craft an Trituradora avanzada.",
+
+  "advancements.energizedpower.advanced_pulverizer.title": "Faster pulverizer",
+  "advancements.energizedpower.advanced_pulverizer.description": "Craft an Pulverizador avanzado.",
+
+  "advancements.energizedpower.lightning_generator.title": "Cloud power",
+  "advancements.energizedpower.lightning_generator.description": "Enables you to extract energy from lightning bolts.",
+
+  "advancements.energizedpower.energy_analyzer.title": "Master of Analysis",
+  "advancements.energizedpower.energy_analyzer.description": "Analyze every energy block - even if they have no GUI interface!",
+
+  "advancements.energizedpower.fluid_analyzer.title": "Fluid Analysis",
+  "advancements.energizedpower.fluid_analyzer.description": "Analyze blocks which contain fluids!",
+
+  "advancements.energizedpower.inventory_coal_engine.title": "Inventory Power",
+  "advancements.energizedpower.inventory_coal_engine.description": "Produce and distribute energy in your inventory.",
+
+  "advancements.energizedpower.silicon.title": "Silicio",
+  "advancements.energizedpower.silicon.description": "Now you can power-up your factory!",
+
+  "advancements.energizedpower.solar_panel_1.title": "Solar Power Student",
+  "advancements.energizedpower.solar_panel_1.description": "The Nivel I Panel solar...",
+
+  "advancements.energizedpower.solar_panel_2.title": "Solar Power Intern",
+  "advancements.energizedpower.solar_panel_2.description": "Nivel II is better than Nivel I",
+
+  "advancements.energizedpower.solar_panel_3.title": "Solar Power Employee",
+  "advancements.energizedpower.solar_panel_3.description": "Nivel III - The best of the basic Panel solars",
+
+  "advancements.energizedpower.solar_panel_4.title": "Solar Power Manager",
+  "advancements.energizedpower.solar_panel_4.description": "Nivel IV: More than basic!",
+
+  "advancements.energizedpower.solar_panel_5.title": "Solar Power Director",
+  "advancements.energizedpower.solar_panel_5.description": "Nivel V - Only one tier left!",
+
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Employer",
+  "advancements.energizedpower.solar_panel_6.description": "Nivel VI - You have got the best Panel solar!",
+
+  "advancements.energizedpower.uncharger.title": "Give it back!",
+  "advancements.energizedpower.uncharger.description": "Uncharges your energy objetos.",
+
+  "advancements.energizedpower.minecart_charger.title": "¡Carga el vagón!",
+  "advancements.energizedpower.minecart_charger.description": "Charges minecarts.",
+
+  "advancements.energizedpower.advanced_minecart_charger.title": "Advanced minecart charging",
+  "advancements.energizedpower.advanced_minecart_charger.description": "Charges minecarts quicker.",
+
+  "advancements.energizedpower.minecart_uncharger.title": "¡Descarga el vagón!",
+  "advancements.energizedpower.minecart_uncharger.description": "Uncharges minecarts.",
+
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "Advanced minecart uncharging",
+  "advancements.energizedpower.advanced_minecart_uncharger.description": "Uncharges minecarts quicker.",
+
+
+  "book.energizedpower.tooltip.link": "Abre el link",
+  "book.energizedpower.tooltip.page": "Ve a la página",
+
+
+  "book.energizedpower.page.welcome.title": "¡Bienvenido/a a Energized Power!",
+  "book.energizedpower.page.welcome.1": "Este mod añade muchas máquinas y objetos relacionados a la energía.",
+  "book.energizedpower.page.welcome.2": "Wiki oficial de Energized Power",
+  "book.energizedpower.page.welcome.3": "¿Encontraste un bug o tienes una sugerencia? Coméntanos aquí",
+  "book.energizedpower.page.welcome.3.link": "Problemas",
+  "book.energizedpower.page.welcome.4": "Servidor de Discord",
+  "book.energizedpower.page.welcome.4.link": "Discord",
+  "book.energizedpower.page.welcome.5": "Subreddit",
+  "book.energizedpower.page.welcome.5.link": "Reddit",
+
+  "book.energizedpower.page.credits.title": "Créditos",
+  "book.energizedpower.page.credits.subtitle": "¡Gracias por contribuir a Energized Power!",
+
+  "book.energizedpower.page.credits.1": "Texturas de los Lingotes de cobre/oro energizados",
+  "book.energizedpower.page.credits.2": "Texturas de Baterías",
+  "book.energizedpower.page.credits.3": "Texturas del Silicio",
+  "book.energizedpower.page.credits.4": "Textura del Analizador de energía",
+  "book.energizedpower.page.credits.5": "Traducción al Chino (Simplificado)",
+  "book.energizedpower.page.credits.6": "Traducción al Italiano",
+  "book.energizedpower.page.credits.7": "Traducción al Turco",
+  "book.energizedpower.page.credits.8": "Traducción al Ruso",
+  "book.energizedpower.page.credits.9": "Traducción al Alemán",
+
+  "book.energizedpower.page.table_of_contents.title": "Índice",
+
+
+  "book.energizedpower.page.chapter.resources.title": "Recursos",
+  "book.energizedpower.page.chapter.resources.1": "Los recursos que añade el mod que serán necesarios para crear máquinas.",
+
+  "book.energizedpower.page.cable_insulator.1": "El aislante de cable sirve para fabricar cableados.",
+  "book.energizedpower.page.cable_insulator.2": "Se puede conseguir dándole click derecho a un bloque de lana con tijeras, o combinándolos en el inventario.",
+  "book.energizedpower.page.cable_insulator.3": "También se puede fabricar usando un dispensador con tijeras dentro frente al bloque de lana.",
+
+  "book.energizedpower.page.saw_blade": "La hoja de sierra se utiliza para fabricar una mesa de sierra.",
+
+  "book.energizedpower.page.silicon.1": "El silicio es el ingrediente base del mod.",
+  "book.energizedpower.page.silicon.2": "Se consigue fundiendo cuarzo.",
+
+  "book.energizedpower.page.sawdust.1": "El aserrín es un subproducto de la mesa de sierra con el que puedes fabricar bloques de aserrín.",
+  "book.energizedpower.page.sawdust.2": "Los bloques de aserrín dan carbón vegetal al quemarse en un horno.",
+
+  "book.energizedpower.page.fertilizers": "Los fertilizantes se usan para acelerar la cámara de crecimiento de plantas.",
+
+  "book.energizedpower.page.ore_dusts": "El polvo de cada mineral se puede fundir a sus respectivos lingotes.",
+
+  "book.energizedpower.page.charcoal_dust": "El polvo de carbón sirve para fabricar filtros de carbón.",
+
+  "book.energizedpower.page.charcoal_filter": "Los filtros de carbón se usan para filtrar agua sucia en la planta de filtración.",
+
+  "book.energizedpower.page.alloys": "Las aleaciones se usan en muchas recetas, se fabrican en los hornos de aleación y fundidores de inducción.",
+
+  "book.energizedpower.page.plates.1": "Láminas, necesarias para casi toda máquina. Se pueden fabricar con un martillo o en un compresor.",
+  "book.energizedpower.page.plates.2": "La aleación avanzada y láminas energizadas solo se pueden hacer con el compresor.",
+
+  "book.energizedpower.page.metal_products.1": "Productos metálicos (engranes, barras, y cables) se usan en algunas recetas.",
+  "book.energizedpower.page.metal_products.2": "Se fabrican desde la prensa de metal.",
+
+  "book.energizedpower.page.circuits": "Los circuitos son necesarios para algunas recetas.",
+
+  "book.energizedpower.page.energized_copper_ingot.1": "Los lingotes de cobre energizados son necesarios para máquinas avanzadas como el energizador.",
+  "book.energizedpower.page.energized_copper_ingot.2": "El energizador se fabrica con ese lingote, ¿verdad?",
+  "book.energizedpower.page.energized_copper_ingot.3": "El cargador se puede usar para fabricar ese lingote.",
+  "book.energizedpower.page.energized_copper_ingot.4": " [Pero es caro]",
+
+  "book.energizedpower.page.energized_gold_ingot": "Los lingotes de oro energizados también se usan en máquinas avanzadas (p. ej. Estación de carga).",
+
+  "book.energizedpower.page.energized_crystal_matrix": "El cristal matriz energizado se usa como estabilizador en algunas máquinas avanzadas.",
+
+
+  "book.energizedpower.page.chapter.upgrades.title": "Mejoras",
+  "book.energizedpower.page.chapter.upgrades": "Los módulos de mejora se usan en las máquinas",
+
+  "book.energizedpower.page.speed_upgrades": "Los módulos de velocidad aumentan la velocidad y consumo de energía.",
+
+  "book.energizedpower.page.energy_efficiency_upgrades": "Los módulos de eficiencia energética reducen el consumo de energía.",
+
+  "book.energizedpower.page.energy_capacity_upgrades": "Las mejoras de capacidad energética aumentan la capacidad y velocidad de transferencia de energía.",
+
+  "book.energizedpower.page.duration_upgrades.1": "Duration Upgrades increase the duration of the weather set by the Controlador de clima.",
+  "book.energizedpower.page.duration_upgrades.2": "The Duration Upgrade (Nivel VI) will allow the Controlador de clima to maintain the current Weather but requires constant supply of energy.",
+
+  "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can send and receive electromagnetic waves in.",
+
+  "book.energizedpower.page.extraction_depth_upgrades": "Extracción Depth Upgrades increase the depth a machine can operate in.",
+
+  "book.energizedpower.page.extraction.range_upgrades": "Extracción Range Upgrades increase the range a machine can operate in.",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "Furnace Modo Upgrades change the recipes a Horno eléctrico can produce.",
+
+  "book.energizedpower.page.moon_light_upgrades": "Moon Light Upgrades allow Panel solars to produce energy during the night.",
+
+
+  "book.energizedpower.page.chapter.tools.title": "Herramientas",
+  "book.energizedpower.page.chapter.tools": "Te serán necesarias",
+
+  "book.energizedpower.page.hammers": "Los martillos se usan para fabricar láminas.",
+
+  "book.energizedpower.page.cutters.1": "Los alicates se usan para fabricar cables.",
+  "book.energizedpower.page.cutters.2": "También sirven para romper cableados más rápido.",
+
+  "book.energizedpower.page.wrench": "La llave inglesa te servirá para configurar bloques.",
+
+
+  "book.energizedpower.page.chapter.workbenches.title": "Mesas de trabajo",
+  "book.energizedpower.page.chapter.workbenches": "Máquinas de uso manual.",
+
+  "book.energizedpower.page.press_mold_maker": "The Mesa de moldes de prensa can be used to create Press Molds for the Prensa de metal.",
+
+  "book.energizedpower.page.alloy_furnace.1": "The Horno de aleación can be used to produce alloys.",
+  "book.energizedpower.page.alloy_furnace.2": "Outputs and consumed fuels can be extracted from all sides.",
+  "book.energizedpower.page.alloy_furnace.3": "Fuel can be inserted from the top and the bottom. Inputs can be inserted from all other sides (Front: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
+
+
+  "book.energizedpower.page.chapter.energy_items.title": "Objetos de energía",
+  "book.energizedpower.page.chapter.energy_items": "Objetos que producen, consumen, o almacenan energía.",
+
+  "book.energizedpower.page.inventory_coal_engine.1": "This item can produce and distribute energy in your inventory.",
+  "book.energizedpower.page.inventory_coal_engine.2": "It can be activated by clicking en el aire.",
+  "book.energizedpower.page.inventory_coal_engine.3": "Fuel will then automatically be taken from the inventory.",
+  "book.energizedpower.page.inventory_coal_engine.4": " [The hotbar is excluded]",
+
+  "book.energizedpower.page.inventory_charger.1": "This item distributes energy in your inventory.",
+  "book.energizedpower.page.inventory_charger.2": "Charged batteries must be inserted.",
+
+  "book.energizedpower.page.inventory_teleporter": "The Teletransportador de inventario can teleport players. It requires energy and a linked matriz de teletransportador to do so.",
+
+  "book.energizedpower.page.energy_analyzer.1": "The Energy Analyzer can be used to get energy statics. Mainly used for energy blocks without a GUI.",
+  "book.energizedpower.page.energy_analyzer.2": "It can be used by clicking on energy blocks.",
+
+  "book.energizedpower.page.fluid_analyzer.1": "The Fluid Analyzer can be used to get fluid statics.",
+  "book.energizedpower.page.fluid_analyzer.2": "It can be used by clicking on blocks which contain fluids.",
+
+  "book.energizedpower.page.batteries.1": "Batteries can store energy.",
+  "book.energizedpower.page.batteries.2": "They can be charged by the charger or with inventory generators and they can be uncharged by the uncharger.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.title": "Bloques de energía",
+  "book.energizedpower.page.chapter.energy_blocks": "Bloques que producen, necesitan, o transportan energía.",
+
+  "book.energizedpower.page.energy_blocks.table_of_contents.title": "Índice\n(Bloques de energía)",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.general.title": "General",
+  "book.energizedpower.page.chapter.energy_blocks.general": "Información general sobre bloques de energía",
+
+  "book.energizedpower.page.machine_frames.1": "Los marcos de máquina son la base de todas las máquinas.",
+  "book.energizedpower.page.machine_frames.2": "Hay 4 tipos: Básico, Endurecido, Avanzado, and Reforzado avanzado",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "Transportación",
+  "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "Bloques que transportan energía",
+
+  "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
+  "book.energizedpower.page.cables.2": "There are six cable tiers.",
+  "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
+
+  "book.energizedpower.page.transformers.1": "Transformers can be used to connect different tiers of cables.",
+  "book.energizedpower.page.transformers.2": "The larger, darker, diamond shaped sides are inputs.",
+  "book.energizedpower.page.transformers.3": "The smaller, brighter, square shaped sides are outputs.",
+  "book.energizedpower.page.transformers.4": "There are four tiers of transformers: LV, MV, HV, and EHV.",
+  "book.energizedpower.page.transformers.5": "For each tier there are four types of transformers: 1 to n, 3 to 3, n to 1, and configurable.",
+  "book.energizedpower.page.transformers.6": "Transformers can be used to reduce lag of cable networks by using them periodically instead of a cable block.",
+  "book.energizedpower.page.transformers.7": "Transformers can also be used to connect energized power cables to other mods' cables.",
+  "book.energizedpower.page.transformers.8": "Transformers can be used as battery blocks.",
+  "book.energizedpower.page.transformers.9": "Transformers can be used to extract energy from AE2 energy tunnels.",
+
+  "book.energizedpower.page.minecart_charger_uncharger.1": "The Cargador de vagón can charge the Vagón con Caja de baterías and the Uncharger can uncharge it.",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "A Redstone Comparator can be used to get the current power level of a Minecart which is being charged or uncharged.",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "The Advanced versions have a higher transfer rate.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "Almacenamiento",
+  "book.energizedpower.page.chapter.energy_blocks.energy_storage": "Bloques para almacenar energía",
+
+  "book.energizedpower.page.battery_box": "Caja de baterías, puede almacenar energía. Todos sus bloques adyacentes pueden transferir y consumir energía.",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_production.title": "Producción",
+  "book.energizedpower.page.chapter.energy_blocks.energy_production": "Bloques para producir energía",
+
+  "book.energizedpower.page.solar_cells.1": "Solar Cells are the base crafting item for every Panel solar.",
+  "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
+
+  "book.energizedpower.page.solar_panels.1": "Panel solars produce energy during the day. The efficiency depends on the time and on the weather.",
+  "book.energizedpower.page.solar_panels.2": "There are 6 Panel solar Tiers.",
+
+  "book.energizedpower.page.coal_engine.1": "The Motor a carbón produces energy by burning objetos.",
+  "book.energizedpower.page.coal_engine.2": "Remainder objetos can be extracted automatically.",
+
+  "book.energizedpower.page.heat_generator.1": "The Heat Generator produces energy if flowing or still lava touches the block.",
+  "book.energizedpower.page.heat_generator.2": "If the Heat Generator touches still lava, it will produce more energy than if it would touch flowing lava.",
+  "book.energizedpower.page.heat_generator.3": "The more lava blocks are touching, the more energy per tick will be produced.",
+  "book.energizedpower.page.heat_generator.4": "If you are playing a modpack, other hot fluids might be supported too.",
+
+  "book.energizedpower.page.thermal_generator.1": "The Generador térmico produces energy by consuming hot fluids.",
+  "book.energizedpower.page.thermal_generator.2": "If you are playing a modpack, other hot fluids might be supported too.",
+
+  "book.energizedpower.page.lightning_generator.1": "The Generador de rayos produces high amounts of energy por cada rayo que le caiga.",
+  "book.energizedpower.page.lightning_generator.2": "Un pararayos .",
+
+
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "Consumo",
+  "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "Blocks for energy consumption",
+
+  "book.energizedpower.page.powered_lamp": "The Powered Lamp is like a Redstone Lamp but requires energy instead of an active redstone signal.",
+
+  "book.energizedpower.page.powered_furnaces.1": "Horno eléctricos works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
+  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Horno eléctrico has 3 input/output slot pairs.",
+
+  "book.energizedpower.page.auto_crafters.1": "The Mesa de trabajo automática crafts objetos automatically.",
+  "book.energizedpower.page.auto_crafters.2": "The recipe can be set by using the pattern slots.",
+  "book.energizedpower.page.auto_crafters.3": "The Mesa de trabajo automática can handle recipe conflicts, that is recipes with the same inputs. To do this, use the \"Cycle through recipes\" button or set the pattern via a recipe viewer mod (like REI).",
+  "book.energizedpower.page.auto_crafters.4": "The advanced version of the Mesa de trabajo automática supports multiple recipes at once.",
+
+  "book.energizedpower.page.crushers.1": "The Trituradora can crush blocks like Stone, Sandstone, Cobblestone, and Gravel.",
+  "book.energizedpower.page.crushers.2": "The advanced version of the Trituradora consumes Water and produces Dirty Water.",
+
+  "book.energizedpower.page.pulverizers.1": "The Pulverizador produces ore dusts which can be smelted to ingots.",
+  "book.energizedpower.page.pulverizers.2": "The advanced version of the Pulverizador consumes Water and produces Dirty Water.",
+
+  "book.energizedpower.page.sawmill.1": "The Mesa de sierra can saw wood blocks and objetos.",
+  "book.energizedpower.page.sawmill.2": "Sawdust will be produced which can be crafted to sawdust blocks which can be used as fuel.",
+
+  "book.energizedpower.page.compressor": "The Compresor compresses ingots into plates.",
+
+  "book.energizedpower.page.metal_press.1": "The Prensa de metal creates metal products (e.g. wires) from metals.",
+  "book.energizedpower.page.metal_press.2": "Los moldes se pueden crear en lathe Mesa de moldes de prensa.",
+  "book.energizedpower.page.metal_press.3": "Press Molds can be inserted to and extracted from the top.",
+  "book.energizedpower.page.metal_press.4": "Inputs can be inserted to and outputs can be extracted from all other sides.",
+
+  "book.energizedpower.page.auto_press_mold_maker": "The Mesa de moldes de prensa automática is an automated version of the Mesa de moldes de prensa but requires a Shovel to craft recipes.",
+
+  "book.energizedpower.page.auto_stonecutter": "The Cortapiedras automático is an automated version of the Stonecutter but requires a Pickaxe to craft recipes.",
+
+  "book.energizedpower.page.assembling_machine.1": "The Máquina de ensamblado creates electronic components (e.g. circuits).",
+  "book.energizedpower.page.assembling_machine.2": "Outputs can be extracted from all sides.",
+  "book.energizedpower.page.assembling_machine.3": "Inputs can be inserted from all sides (Top/Bottom: All inputs slots, Front: Bottom slot, Back: Top slot, Left: Left slot, Right: Right slot).",
+
+  "book.energizedpower.page.plant_growth_chamber.1": "The Cámara de crecimiento de plantas can boost plant growth and yield.",
+  "book.energizedpower.page.plant_growth_chamber.2": "The right input slot is the seed slot.",
+  "book.energizedpower.page.plant_growth_chamber.3": "The left, optionally usable input slot is the fertilizer slot.",
+  "book.energizedpower.page.plant_growth_chamber.4": "When the fertilizer slot is used, energy and speed multipliers are applied.",
+  "book.energizedpower.page.plant_growth_chamber.5": "Seeds can be inserted from the north, east, south, and west. Fertilizers can be inserted from the top and bottom. Outputs can be extracted from all block faces.",
+  "book.energizedpower.page.plant_growth_chamber.6": "If you'd like to use a fertilizer, the fertilizer must be inserted first.",
+  "book.energizedpower.page.plant_growth_chamber.7": "If you'd like to automate this blocks, you need to keep in mind that yields are randomized.",
+
+  "book.energizedpower.page.stone_liquefier.1": "The Licuefactor de piedra produces Lava from Stone blocks.",
+  "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",
+
+  "book.energizedpower.page.stone_solidifier.1": "The Solidificador de piedra produces Stone blocks from Water and Lava.",
+  "book.energizedpower.page.stone_solidifier.2": "Fluids must be inserted with a pipe.",
+
+  "book.energizedpower.page.filtration_plant.1": "The Planta de filtración can filter raw ores from Dirty Water.",
+  "book.energizedpower.page.filtration_plant.2": "Charcoal Filters can be inserted from every block face. Outputs can be extracted from block face.",
+
+  "book.energizedpower.page.fluid_transposer": "The Transportador de fluidos can extract fluids from objetos (Modo: Vaceando) and can inject fluids into objetos (Modo: Llenando).",
+
+  "book.energizedpower.page.induction_smelter.1": "The Fundidor de inducción can be used to produce alloys.",
+  "book.energizedpower.page.induction_smelter.2": "Outputs can be extracted from all sides.",
+  "book.energizedpower.page.induction_smelter.3": "Inputs can be inserted from all sides (Front/Top/Bottom: All inputs slots, Left: Left input slot, Back: Middle input slot, Right: Right input slot).",
+
+  "book.energizedpower.page.block_placer.1": "The Colocador de bloques can place all blocks (Even doors and seeds).",
+  "book.energizedpower.page.block_placer.2": "Blocks will only be placed if possible.",
+
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "The Llenador de fluidos can fill fluids into objetos and the Drenaje de fluidos can drain fluids from objetos.",
+
+  "book.energizedpower.page.fluid_pumps": "The Bomba de fluidos can pump fluids from the world and requires Cobblestone to do so.",
+
+  "book.energizedpower.page.charger_uncharger.1": "The Cargador can charge objetos and the Uncharger can uncharge objetos.",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Cargador and the Uncharger have 3 slots.",
+
+  "book.energizedpower.page.charging_station": "The Estación de carga can charge objetos wirelessly.",
+
+  "book.energizedpower.page.crystal_growth_chamber": "The Cámara de crecimiento de cristales can be used to grow crystals like amethysts.",
+
+  "book.energizedpower.page.energizer": "The Energizador can energize objetos very efficiently.",
+
+  "book.energizedpower.page.weather_controller": "The Controlador de clima can change the weather temporarily. It requires energy to do so.",
+
+  "book.energizedpower.page.time_controller.1": "The Controlador de tiempo can change the time of the day. It requires energy to do so.",
+  "book.energizedpower.page.time_controller.2": "It can not go back in time, the time value will always be incremented.",
+
+  "book.energizedpower.page.teleporter_matrix.1": "Teleporter Matrices are used for linking Teleporters.",
+  "book.energizedpower.page.teleporter_matrix.2": "The settings of a matriz de teletransportador can be copied by putting a linkend and one or more unlinked Teleporter Matricies into a Crafting Table.",
+
+  "book.energizedpower.page.teleporter.1": "The Teleporter can teleport players. It requires energy and a linked matriz de teletransportador to do so.",
+  "book.energizedpower.page.teleporter.2": "It outputs a redstone signal if the Teleporter is ready for teleportation.",
+  "book.energizedpower.page.teleporter.3.1": "The Teleporter can be triggered manually by pressing",
+  "book.energizedpower.page.teleporter.3.2": "while above the Teleporter.",
+
+
+  "book.energizedpower.page.chapter.fluid_blocks.title": "Bloques de fluidos",
+  "book.energizedpower.page.chapter.fluid_blocks": "Blocks that can store and transfer fluids.",
+
+  "book.energizedpower.page.fluid_pipes.1": "Fluid pipes can transfer fluids.",
+  "book.energizedpower.page.fluid_pipes.2": "The mode of every pipe side can be configured with a Wrench.",
+  "book.energizedpower.page.fluid_pipes.3": "A single fluid pipe block can only extract one fluid type at once even when multiple sides are configured as Extracción.",
+  "book.energizedpower.page.fluid_pipes.4": "There are two tiers of fluid pipes: Iron and Golden.",
+
+  "book.energizedpower.page.fluid_tanks.1": "Tanque de fluidoss can store fluids.",
+  "book.energizedpower.page.fluid_tanks.2": "There are three tiers of Tanque de fluidoss: Pequeño, Mediano, and Grande.",
+
+  "book.energizedpower.page.drain.1": "The Desagüe drains fluid source blocks above the block.",
+  "book.energizedpower.page.drain.2": "On the Fabric version the Desagüe can extract fluids from Cauldrons.",
+
+
+  "book.energizedpower.page.chapter.item_transportation.title": "Transporte de obj.",
+  "book.energizedpower.page.chapter.item_transportation": "Blocks that can transport Items.",
+
+  "book.energizedpower.page.item_conveyor_belt.1": "Item Conveyor belts can transport objetos.",
+  "book.energizedpower.page.item_conveyor_belt.2": "The slope of conveyor belts can be configured with a Wrench.",
+  "book.energizedpower.page.item_conveyor_belt.3": "Conveyor belts can be loaded with hoppers and any block which can insert objetos into blocks.",
+  "book.energizedpower.page.item_conveyor_belt.4": "Conveyor belts can insert objetos into blocks in front of the conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt.5": "Alternatively they can be unloaded with hoppers and other blocks which can extract objetos from blocks.",
+  "book.energizedpower.page.item_conveyor_belt.6": "Conveyor belts are compatible with the AE2 item tunnel.",
+
+  "book.energizedpower.page.item_conveyor_belt_loader.1": "The Item Conveyor Belt Loader can extract objetos from any storage blocks (even other conveyor belts) and load them onto a conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader.2": "The larger square must face the block where objetos are extracted from and the smaller square must face a conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_loader.3": "Alternatively objetos can be extracted from the loader with hoppers and other blocks which can extract objetos from blocks.",
+  "book.energizedpower.page.item_conveyor_belt_loader.4": "It can be stacked vertically and horizontally.",
+  "book.energizedpower.page.item_conveyor_belt_loader.5": "It can be disabled with a redstone signal.",
+
+  "book.energizedpower.page.item_conveyor_belt_sorter.1": "The Item Conveyor Belt Sorter takes objetos from an input conveyor belt and routes them to certain output conveyor belt.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.2": "The input conveyor belt must face the large square and must not be ascending.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.3": "There are no restrictions for the output conveyor belts.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.4": "The outputs are color coded (red: first output and always on the left side relative to the input, yellow: second output and on the opposite side relative to the input, green: third output and on the right side relative to the input).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.5": "The item will be routed to the first output where the filter matched (Priority: OUT 1, OUT 2, OUT 3).",
+  "book.energizedpower.page.item_conveyor_belt_sorter.6": "The filter matches if at least one pattern item of the output filter row matches the input item.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.7": "Pattern objetos can be placed by taking the item from the inventory and left-clicking a pattern slot. The filter can be reset by left-clicking without an item.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.8": "To allow any objetos select blacklist without any pattern objetos. If an output is desconectada the filter should be set to whitelist without any pattern objetos.",
+  "book.energizedpower.page.item_conveyor_belt_sorter.9": "A redstone signal of strength 15 will be emitted if no filter matches (If no output is connected or if it is full no redstone signal will be emitted).",
+
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "The Item Conveyor Belt Interruptor de takes objetos from the input conveyor belt (Must face the large square and must not be ascending) and puts them onto the output conveyor belt on the side with the green indicator.",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "As long as a redstone signal is applied, the other output will be selected.",
+
+  "book.energizedpower.page.item_conveyor_belt_splitter": "The Item Conveyor Belt Splitter takes objetos from the input conveyor belt (Must face the large square and must not be ascending) and puts them evenly on the connected output conveyor belts.",
+
+  "book.energizedpower.page.item_conveyor_belt_merger": "The Item Conveyor Belt Mezclador de takes objetos evenly from the connected input conveyor belts (They must face a large square and must not be ascending) and puts them on the output conveyor belt.",
+
+  "book.energizedpower.page.item_silos.1": "Silo de objetoss can only hold a single item type but can hold up to 1000 stacks of the item.",
+  "book.energizedpower.page.item_silos.2": "Silo de objetoss can only be loaded and unloaded with hoppers, belts, and other means of automatic item transport.",
+  "book.energizedpower.page.item_silos.3": "There are five tiers of Silo de objetoss: Tiny, Pequeño, Mediano, Grande, and Gigante",
+
+
+  "book.energizedpower.page.chapter.fluids.title": "Fluidos",
+  "book.energizedpower.page.chapter.fluids": "Fluids added in Energized Power",
+
+  "book.energizedpower.page.dirty_water.1": "Dirty Water is produced as a by-product in some machines which consume Water.",
+  "book.energizedpower.page.dirty_water.2": "Dirty Water can be cleaned in the Planta de filtración.",
+
+
+  "book.energizedpower.page.chapter.machine_configuration.title": "Configuración",
+  "book.energizedpower.page.chapter.machine_configuration": "Configuration of machines",
+
+  "book.energizedpower.page.upgrade_configuration": "Most machines support Upgrade Modules. Upgrades can not be inserted automatically.",
+
+  "book.energizedpower.page.redstone_mode_configuration.1": "There are 3 Modo de redstones:",
+  "book.energizedpower.page.redstone_mode_configuration.2": "Ignore: The machine is always active",
+  "book.energizedpower.page.redstone_mode_configuration.3": "High: The machine is only active if a redstone signal of strength 1 or higher is present",
+  "book.energizedpower.page.redstone_mode_configuration.4": "Low: The machine is only active if no redstone signal is present",
+
+  "book.energizedpower.page.comparator_mode_configuration.1": "There are 3 Modo de comparadors:",
+  "book.energizedpower.page.comparator_mode_configuration.2": "Item: The comparator output is calculated based on how full the inventory of the machine is",
+  "book.energizedpower.page.comparator_mode_configuration.3": "Fluid: The comparator output is calculated based on how full the tank(s) of the machine is/are",
+  "book.energizedpower.page.comparator_mode_configuration.4": "Energy: The comparator output is calculated based on how much energy is stored in the machine",
+
+
+  "book.energizedpower.page.chapter.entities.title": "Entidades",
+  "book.energizedpower.page.chapter.entities": "Cosas que se pueden mover.",
+
+  "book.energizedpower.page.battery_box_minecarts": "Los vagones con caja de baterías pueden transportar energía por vías. Se pueden cargar con cargadores de vagones y se descargan con descargadores de vagones.",
+
+
+  "book.energizedpower.page.chapter.structures.title": "Estructuras",
+  "book.energizedpower.page.chapter.structures": "Estructuras que se encuentran por el mundo.",
+
+  "book.energizedpower.page.electrician.title": "Aldeano electricista",
+  "book.energizedpower.page.electrician.1": "El aldeano electricista se puede encontrar en su propia casa.",
+  "book.energizedpower.page.electrician.2": "La casa del electricista se encuentra en todas las aldeas vanilla.",
+  "book.energizedpower.page.electrician.3": "El marco de máquina básica se puede usar para obtener un aldeano electricista.",
+
+  "book.energizedpower.page.factory.title": "Edificio de fábrica",
+  "book.energizedpower.page.factory.1": "Contiene un par de máquinas y algo interesante en el centro. Se puede encontrar en los biomas de bosque y bosque floral.",
+
+  "book.energizedpower.page.small_solar_farm.title": "Pequeña granja solar",
+  "book.energizedpower.page.small_solar_farm.1": "Es una estructura con paneles solares produciendo energía. Se puede encontrar en biomas como el Desierto, Mesa, y sabana."
+}
