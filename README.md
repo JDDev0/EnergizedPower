@@ -141,6 +141,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Italian
 - Turkish
 - Russian
+- Spanish
 
 ## Information
 
