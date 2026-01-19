@@ -195,8 +195,8 @@
   "txt.energizedpower.energy_analyzer.output_side_information": "Информация для выбранной грани блока:",
   "txt.energizedpower.energy_analyzer.no_energy_left": "Анализатору энергии не хватает мощности (требуется %s).",
   "txt.energizedpower.energy_analyzer.no_block_entity": "Этот блок не является энергетическим блоком.",
-  "txt.energizedpower.energy_analyzer.no_energy_block": "Этот блок не является (E) энергетическим блоком.",
-  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Эта грань блока не является (E) энергетической гранью блока.",
+  "txt.energizedpower.energy_analyzer.no_energy_block": "Этот блок не является (FE) энергетическим блоком.",
+  "txt.energizedpower.energy_analyzer.no_energy_block_side": "Эта грань блока не является (FE) энергетической гранью блока.",
   "txt.energizedpower.energy_analyzer.energy_output": "Энергия: %s / %s.",
   "txt.energizedpower.energy_analyzer.energy_can_receive": "Этот блок потребляет энергию.",
   "txt.energizedpower.energy_analyzer.energy_can_extract": "Этот блок производит энергию.",
@@ -1175,10 +1175,10 @@
   "advancements.energizedpower.battery_7.description": "Уровень VII: четверть миллиона FE емкости хранилища! Можем ли мы сделать лучше?",
 
   "advancements.energizedpower.battery_8.title": "Мне нужно больше ЭНЕРГИИ",
-  "advancements.energizedpower.battery_8.description": "Это лучший аккумулятор этого мода (он может хранить более 1 миллиона FЕ).",
+  "advancements.energizedpower.battery_8.description": "Это лучший аккумулятор этого мода (он может хранить более 1 миллиона FE).",
 
   "advancements.energizedpower.battery_8_fully_charged.title": "Мастер хранения энергии",
-  "advancements.energizedpower.battery_8_fully_charged.description": "Вы полностью зарядили свой аккумулятор емкостью 1 миллион FЕ!",
+  "advancements.energizedpower.battery_8_fully_charged.description": "Вы полностью зарядили свой аккумулятор емкостью 1 миллион FE!",
 
   "advancements.energizedpower.cable_insulator.title": "Оболочка для вашего кабеля",
   "advancements.energizedpower.cable_insulator.description": "Покройте кабели этим ингредиентом. (Можно изготовить, нажав на шерсть ножницами [Можно также использовать раздатчик]).",
