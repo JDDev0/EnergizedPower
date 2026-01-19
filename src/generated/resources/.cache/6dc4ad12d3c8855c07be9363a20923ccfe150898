@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-20T23:00:52.057670947	Energized Power/Tags for minecraft:item
+// 1.21.1	2026-01-19T18:33:37.095386504	Energized Power/Tags for minecraft:item
 5aeb1d268a4af3b906f9030117d116c5e435f51b data/c/tags/item/ingots/redstone_alloy.json
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/item/storage_blocks/tin.json
 84765d7cb4a258a98ef9381bc0f7b5c2ef6f1e17 data/c/tags/item/ingots/tin.json
@@ -43,15 +43,15 @@ d56528e409960f498e933e25a7b732eabb64284b data/c/tags/item/ores/tin.json
 95954d79a231059a2e15c8f34adf5d963d8f8b4a data/c/tags/item/dusts/charcoal.json
 b2976eaac3153fccb562c7395583a156c65f6939 data/c/tags/item/dusts/gold.json
 a20ad2acb49486dc64f10165dfdfea32b1e7da33 data/c/tags/item/ores/redstone.json
-14773492ea506a31f59654552eba1fb96bfc1de8 data/c/tags/item/ores.json
 4ab2c8fb92268d9f91f8b4253ab231b449e58920 data/minecraft/tags/item/bookshelf_books.json
+14773492ea506a31f59654552eba1fb96bfc1de8 data/c/tags/item/ores.json
 b251af5a31ef778cbda899b7c7f6e98d14860bbd data/c/tags/item/dusts/iron.json
 3dd65c930d78a891766bed591b7962b592077cab data/c/tags/item/ores_in_ground/deepslate.json
 7142cc6e579bf3eaad7f55abba82b6e4d64ca925 data/c/tags/item/ingots/energized_copper.json
 6f2138a02e7fc5b73fb0baa772ba0817dcb634eb data/c/tags/item/ores/emerald.json
 1407f567b9f45a5c4fc900fd99bdf4c830aa00e8 data/c/tags/item/storage_blocks.json
-68dde9bd334ebc282493e6e6c9b0e5906ff3fee5 data/energizedpower/tags/item/metal_press/raw_press_molds.json
 d772e288e7520c6974ec3238c6aa3ecd2b8e686b data/c/tags/item/gravels.json
+68dde9bd334ebc282493e6e6c9b0e5906ff3fee5 data/energizedpower/tags/item/metal_press/raw_press_molds.json
 2ce36463dc907fa6829942a69c18ffe23773c97a data/c/tags/item/rods/iron.json
 9dd4719b6984752371161f3acc99182a119cfeb1 data/c/tags/item/ores/gold.json
 347d25297c4ae47a36c7b7e3a62548ec229d92ab data/c/tags/item/dusts/tin.json

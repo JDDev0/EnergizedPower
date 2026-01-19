@@ -262,6 +262,19 @@
         ],
         "font": "minecraft:uniform",
         "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.10"
+          },
+          ": ",
+          "Sebby"
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
       }
     ],
     "text": ""
