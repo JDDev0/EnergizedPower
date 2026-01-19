@@ -158,6 +158,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         append(Component.translatable("book.energizedpower.page.credits.9")).append(": ").
                         append(addLinkToComponent(Component.literal("Lucanoria"),
                                 "https://github.com/Lucanoria"))
+        ).append(
+                    Component.literal("\n• ").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
+                            append(Component.translatable("book.energizedpower.page.credits.10")).append(": ").
+                            append(Component.literal("Sebby"))
         ));
 
         mainTableOfContentPageId = pageId("table_of_contents");
