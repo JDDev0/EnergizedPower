@@ -5,7 +5,7 @@ plugins {
     id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
-version = '1.20.1-2.15.11-forge-dev'
+version = '1.20.1-2.15.11-forge'
 group = 'me.jddev0.energizedpower' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'energizedpower'
 
