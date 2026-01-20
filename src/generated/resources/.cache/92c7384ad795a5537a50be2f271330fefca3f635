@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-19T18:33:37.097557655	Energized Power/Tags for minecraft:block
+// 1.21.1	2026-01-20T17:34:34.817571668	Energized Power/Tags for minecraft:block
 a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/block/storage_blocks/silicon.json
 eeecd85067e0d1a152fae8804b182dbc5011d4b5 data/minecraft/tags/block/needs_stone_tool.json
 3dd65c930d78a891766bed591b7962b592077cab data/c/tags/block/ores_in_ground/deepslate.json
@@ -6,8 +6,8 @@ bb4186a3e465b9f0dc55195ffc40227269df8852 data/c/tags/block/ores.json
 e71345429ccb7f6c8d29f23cffb25e92e44431d3 data/minecraft/tags/block/mineable/pickaxe.json
 77ed7e57b3f7fa82f38f98eb25447052e66c9605 data/minecraft/tags/block/mineable/axe.json
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/block/storage_blocks/tin.json
-a525f9a4e52147a86f2f5c31a84fcd315cd235ea data/c/tags/block/storage_blocks.json
 967add2f3a1313d791084f90a54bd0ee8544a54c data/c/tags/block/ores_in_ground/stone.json
+a525f9a4e52147a86f2f5c31a84fcd315cd235ea data/c/tags/block/storage_blocks.json
 d56528e409960f498e933e25a7b732eabb64284b data/c/tags/block/ores/tin.json
 8430f9e22a6a485f892268a613514d5362c18f7e data/c/tags/block/storage_blocks/raw_tin.json
 146647a55796db54a377622d4f88579b80972ce0 data/minecraft/tags/block/prevent_mob_spawning_inside.json
