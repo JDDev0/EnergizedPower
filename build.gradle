@@ -82,9 +82,9 @@ dependencies {
 
 	// REI integration
 	modCompileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	modCompileOnlyApi "dev.architectury:architectury-fabric:17.0.8"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:20.0.811"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:20.0.811"
+	modCompileOnlyApi "dev.architectury:architectury-fabric:19.0.1"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:21.11.814"
+	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:21.11.814"
 
     //JEI integration
     modCompileOnly "curse.maven:jei-238222:7364662"
