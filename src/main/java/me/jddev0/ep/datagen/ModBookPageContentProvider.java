@@ -165,7 +165,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     Component.literal("\n• ").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
                             append(Component.translatable("book.energizedpower.page.credits.10")).append(": ").
-                            append(Component.literal("Sebby"))
+                            append(Component.literal("sebbyrenewed [Discord]"))
             ), changePageIntToId);
         }
 
