@@ -165,7 +165,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     Text.literal("\n• ").
                             formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                             append(Text.translatable("book.energizedpower.page.credits.10")).append(": ").
-                            append(Text.literal("Sebby"))
+                            append(Text.literal("sebbyrenewed [Discord]"))
             ), changePageIntToId);
         }
 
