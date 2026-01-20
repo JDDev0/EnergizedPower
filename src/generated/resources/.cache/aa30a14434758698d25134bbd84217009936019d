@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-19T18:42:08.703439055	Energized Power/Advancements (Basics)
+// 1.20.1	2026-01-20T17:37:23.861430918	Energized Power/Advancements (Basics)
 115449907194c707f230fdef934293ffe23dd34d data/energizedpower/advancements/main/basics/express_item_conveyor_belt_loader.json
 cb16ccd834e584f612bbaabf8f003663cfdced02 data/energizedpower/advancements/main/basics/copper_wire.json
 0f1d6b22a525d9248be4f4bc13a1dd7896dd79f0 data/energizedpower/advancements/main/basics/fast_item_conveyor_belt_loader.json
@@ -112,5 +112,5 @@ a08bf334366b8c7c72dcbe7c1d5153b235eadf22 data/energizedpower/advancements/main/b
 d3b92ecb759be231dcb569724cafaee80bbb9a43 data/energizedpower/advancements/main/basics/raw_press_molds.json
 609388546a22fc5d7bf7e71ed8a40a933ecabbe6 data/energizedpower/advancements/main/basics/crusher.json
 64c0f4ca3bc96fdcd1245e16dc81a0efb0d62cf6 data/energizedpower/advancements/main/basics/coal_engine.json
-42316c06ac045e25618da59047d0ca3b2feca0f2 data/energizedpower/advancements/main/basics/hammer.json
 8e21c84005b4cef325ccbee41797f2144d1ad154 data/energizedpower/advancements/main/basics/item_conveyor_belt_switch.json
+42316c06ac045e25618da59047d0ca3b2feca0f2 data/energizedpower/advancements/main/basics/hammer.json

@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-19T18:42:08.70118453	Energized Power/Advancements (Advanced)
+// 1.20.1	2026-01-20T17:37:23.858567123	Energized Power/Advancements (Advanced)
 61912381bbadd3d183c469d7bdda7cab5a7906d9 data/energizedpower/advancements/main/advanced/speed_upgrade_module_4.json
 fd10a844426c129b484db08b9d8dee28286c9099 data/energizedpower/advancements/main/advanced/advanced_pulverizer.json
 ceb11f35bd8fed2f593b5c860c965f2b6dde4ebf data/energizedpower/advancements/main/advanced/energized_copper_plate.json
@@ -19,8 +19,8 @@ f58133698320fd8e485409948f14502bdfd8c2ee data/energizedpower/advancements/main/a
 6a154ab6b1261cfec89296517fcf3ab83579bab5 data/energizedpower/advancements/main/advanced/lightning_generator.json
 ca9dd6d4bc470e85e2ad01d7e46c40f3d09c4b3e data/energizedpower/advancements/main/advanced/reinforced_advanced_solar_cell.json
 8e205e7370f79e7daf875b1357838c0553875ce3 data/energizedpower/advancements/main/advanced/reinforced_advanced_machine_frame.json
-75b902a75bc599749872db843721dcf8e8408569 data/energizedpower/advancements/main/advanced/battery_6.json
 2bb8c0f24b636c63614f6e47f47a6e185793fbdb data/energizedpower/advancements/main/advanced/energy_capacity_upgrade_module_3.json
+75b902a75bc599749872db843721dcf8e8408569 data/energizedpower/advancements/main/advanced/battery_6.json
 92bf664e74a70d8bcf6298748035057cd3df6e80 data/energizedpower/advancements/main/advanced/energized_gold_plate.json
 b01414b63fda34f7faa41abf1b777cc49ad552ed data/energizedpower/advancements/main/advanced/extraction_range_upgrade_module_4.json
 b32589ef157b9c76537210f36ba48eedfbd01e4e data/energizedpower/advancements/main/advanced/advanced_fluid_pump.json
