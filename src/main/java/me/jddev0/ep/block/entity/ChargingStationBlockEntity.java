@@ -23,8 +23,10 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
@@ -126,17 +128,21 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
                 }
             }
 
-            /* TODO FIX CURIOS INTEGRATION
-            List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
-            for(ItemStack itemStack:curiosItemStacks) {
-                IEnergyStorage energyStorage = itemStack.getCapability(Capabilities.EnergyStorage.ITEM);
-                if(energyStorage == null || !energyStorage.canInsert())
+            ResourceHandler<ItemResource> curiosItemResourceHandler = CuriosCompatUtils.getCuriosItemStacks(inventory);
+            for(int i = 0;i < curiosItemResourceHandler.size();i++) {
+                ItemStack stack = curiosItemResourceHandler.getResource(i).toStack(curiosItemResourceHandler.getAmountAsInt(i));
+
+                EnergyHandler energyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(curiosItemResourceHandler, i));
+                if(energyStorage == null || !CapabilityUtil.canInsert(energyStorage))
                     continue;
 
-                energyPerTickLeft -= energyStorage.receiveEnergy(energyPerTickLeft, false);
-                if(energyPerTickLeft == 0)
-                    break outer;
-            }*/
+                try(Transaction transaction = Transaction.open(null)) {
+                    energyPerTickLeft -= energyStorage.insert(energyPerTickLeft, transaction);
+                    transaction.commit();
+                    if(energyPerTickLeft == 0)
+                        break outer;
+                }
+            }
         }
 
         if(energyPerTickLeft == energyPerTick) {

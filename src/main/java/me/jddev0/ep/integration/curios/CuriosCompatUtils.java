@@ -1,14 +1,10 @@
 package me.jddev0.ep.integration.curios;
 
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import net.neoforged.neoforge.transfer.EmptyResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import top.theillusivec4.curios.api.CuriosCapability;
 
 public final class CuriosCompatUtils {
     private CuriosCompatUtils() {}
@@ -23,27 +19,14 @@ public final class CuriosCompatUtils {
         }
     }
 
-    //TODO FIX CURIOS INTEGRATION
-    public static List<ItemStack> getCuriosItemStacks(Inventory inventory) {
-        List<ItemStack> itemStacks = new ArrayList<>();
-
+    public static ResourceHandler<ItemResource> getCuriosItemStacks(Inventory inventory) {
         if(!isCuriosAvailable())
-            return itemStacks;
+            return EmptyResourceHandler.instance();
 
-        Optional<IItemHandlerModifiable> itemHandlerModifiableLazyOptional = CuriosApi.getCuriosInventory(inventory.player)
-                .map(ICuriosItemHandler::getEquippedCurios);
+        ResourceHandler<ItemResource> handler = inventory.player.getCapability(CuriosCapability.ITEM_HANDLER);
+        if(handler == null)
+            return EmptyResourceHandler.instance();
 
-        if(itemHandlerModifiableLazyOptional.isEmpty())
-            return itemStacks;
-
-        IItemHandlerModifiable itemHandlerModifiable = itemHandlerModifiableLazyOptional.orElseGet(null);
-        for(int i = 0;i < itemHandlerModifiable.getSlots();i++) {
-            ItemStack itemStack = itemHandlerModifiable.getStackInSlot(i);
-
-            if(!itemStack.isEmpty())
-                itemStacks.add(itemStack);
-        }
-
-        return itemStacks;
+        return handler;
     }
 }

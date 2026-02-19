@@ -25,8 +25,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.VanillaContainerWrapper;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
@@ -145,10 +147,25 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             }
         }
 
-        /* TODO FIX CURIOS INTEGRATION
-        List<ItemStack> curiosItemStacks = CuriosCompatUtils.getCuriosItemStacks(inventory);
-        for(ItemStack testItemStack:curiosItemStacks)
-            consumptionSum += addConsumerEnergyItem(consumerItems, consumerEnergyValues, itemStack, testItemStack, inventoryChargerInventory);*/
+        ResourceHandler<ItemResource> curiosItemResourceHandler = CuriosCompatUtils.getCuriosItemStacks(inventory);
+        for(int i = 0;i < curiosItemResourceHandler.size();i++) {
+            ItemStack stack = curiosItemResourceHandler.getResource(i).toStack(curiosItemResourceHandler.getAmountAsInt(i));
+
+            EnergyHandler energyStorage = stack.getCapability(Capabilities.Energy.ITEM, ItemAccess.forHandlerIndexStrict(curiosItemResourceHandler, i));
+            if(energyStorage == null || !CapabilityUtil.canInsert(energyStorage))
+                continue;
+
+            try(Transaction transaction = Transaction.open(null)) {
+                int received = energyStorage.insert(getMaxTransfer(inventoryChargerInventory, transaction), transaction);
+
+                if(received <= 0)
+                    continue;
+
+                consumptionSum += received;
+                consumerItems.add(energyStorage);
+                consumerEnergyValues.add(received);
+            }
+        }
 
         List<Integer> consumerEnergyDistributed = new ArrayList<>();
         for(int i = 0;i < consumerItems.size();i++)
