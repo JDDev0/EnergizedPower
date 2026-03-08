@@ -225,7 +225,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             consumerEnergyDistributed.add(0);
 
         int consumptionLeft = Math.min(blockEntity.baseEnergyTransferRate,
-                Math.min(blockEntity.energyStorage.getCapacityAsInt(), consumptionSum));
+                Math.min(blockEntity.energyStorage.getAmountAsInt(), consumptionSum));
         try(Transaction transaction = Transaction.open(null)) {
             blockEntity.energyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
