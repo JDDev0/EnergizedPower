@@ -7,19 +7,19 @@ import me.jddev0.ep.screen.ChargingStationMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.TypeFilter;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.phys.AABB;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -56,7 +56,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -75,37 +75,37 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         
         return new ChargingStationMenu(id, this, inventory, upgradeModuleInventory);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ChargingStationBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ChargingStationBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         int maxChargingDistance = (int)Math.ceil(MAX_CHARGING_DISTANCE *
                 blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.RANGE));
 
-        List<PlayerEntity> players = level.getEntitiesByType(TypeFilter.instanceOf(PlayerEntity.class), Box.from(BlockBox.create(
+        List<Player> players = level.getEntities(EntityTypeTest.forClass(Player.class), AABB.of(BoundingBox.fromCorners(
                 new Vec3i(blockPos.getX() - maxChargingDistance, blockPos.getY() - maxChargingDistance,
                         blockPos.getZ() - maxChargingDistance),
                 new Vec3i(blockPos.getX() + maxChargingDistance, blockPos.getY() + maxChargingDistance,
-                        blockPos.getZ() + maxChargingDistance))), EntityPredicates.EXCEPT_SPECTATOR.
-                and(entity -> entity.squaredDistanceTo(blockPos.toCenterPos()) <= maxChargingDistance*maxChargingDistance));
+                        blockPos.getZ() + maxChargingDistance))), EntitySelector.NO_SPECTATORS.
+                and(entity -> entity.distanceToSqr(blockPos.getCenter()) <= maxChargingDistance*maxChargingDistance));
 
         long energyPerTick = Math.min(blockEntity.limitingEnergyStorage.getMaxInsert(), blockEntity.energyStorage.getAmount());
         long energyPerTickLeft = energyPerTick;
 
         outer:
-        for(PlayerEntity player:players) {
-            if(player.isDead())
+        for(Player player:players) {
+            if(player.isDeadOrDying())
                 continue;
 
-            PlayerInventory inventory = player.getInventory();
-            for(int i = 0;i < inventory.size();i++) {
-                ItemStack itemStack = inventory.getStack(i);
+            Inventory inventory = player.getInventory();
+            for(int i = 0;i < inventory.getContainerSize();i++) {
+                ItemStack itemStack = inventory.getItem(i);
 
                 if(!EnergyStorageUtil.isEnergyStorage(itemStack))
                     continue;
@@ -128,11 +128,11 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
         }
 
         if(energyPerTickLeft == energyPerTick) {
-            if(!level.getBlockState(blockPos).contains(ChargingStationBlock.CHARGING) || level.getBlockState(blockPos).get(ChargingStationBlock.CHARGING))
-                level.setBlockState(blockPos, state.with(ChargingStationBlock.CHARGING, false), 3);
+            if(!level.getBlockState(blockPos).hasProperty(ChargingStationBlock.CHARGING) || level.getBlockState(blockPos).getValue(ChargingStationBlock.CHARGING))
+                level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, false), 3);
         }else {
-            if(!level.getBlockState(blockPos).contains(ChargingStationBlock.CHARGING) || !level.getBlockState(blockPos).get(ChargingStationBlock.CHARGING))
-                level.setBlockState(blockPos, state.with(ChargingStationBlock.CHARGING, Boolean.TRUE), 3);
+            if(!level.getBlockState(blockPos).hasProperty(ChargingStationBlock.CHARGING) || !level.getBlockState(blockPos).getValue(ChargingStationBlock.CHARGING))
+                level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, Boolean.TRUE), 3);
 
             try(Transaction transaction = Transaction.openOuter()) {
                 blockEntity.energyStorage.extract(energyPerTick - energyPerTickLeft, transaction);

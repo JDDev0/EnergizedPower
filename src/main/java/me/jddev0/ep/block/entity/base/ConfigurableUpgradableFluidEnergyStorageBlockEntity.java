@@ -7,11 +7,11 @@ import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
@@ -31,19 +31,19 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         view.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        redstoneMode = RedstoneMode.fromIndex(view.getInt("configuration.redstone_mode", 0));
-        comparatorMode = ComparatorMode.fromIndex(view.getInt("configuration.comparator_mode", ComparatorMode.FLUID.ordinal()));
+        redstoneMode = RedstoneMode.fromIndex(view.getIntOr("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(view.getIntOr("configuration.comparator_mode", ComparatorMode.FLUID.ordinal()));
     }
 
     public int getRedstoneOutput() {
@@ -57,7 +57,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        markDirty();
+        setChanged();
     }
 
     @Override
@@ -75,7 +75,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     @Override
     public boolean setRedstoneMode(@NotNull RedstoneMode redstoneMode) {
         this.redstoneMode = redstoneMode;
-        markDirty();
+        setChanged();
 
         return true;
     }
@@ -85,7 +85,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
         do {
             comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         }while(comparatorMode == ComparatorMode.ITEM);
-        markDirty();
+        setChanged();
     }
 
     @Override
@@ -109,7 +109,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
             return false;
 
         this.comparatorMode = comparatorMode;
-        markDirty();
+        setChanged();
 
         return true;
     }

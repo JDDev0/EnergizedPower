@@ -4,18 +4,18 @@ import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.LightType;
-import net.minecraft.world.World;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -52,7 +52,7 @@ public class SolarPanelBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -75,36 +75,36 @@ public class SolarPanelBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         
         return new SolarPanelMenu(id, this, inventory, upgradeModuleInventory);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        int i = 4 * (level.getLightLevel(LightType.SKY, blockPos) - level.getAmbientDarkness()); //(0 - 15) * 4 => (0 - 60)
-        float f = level.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.SUN_ANGLE_VISUAL, blockPos) * ((float)Math.PI / 180F);
+        int i = 4 * (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken()); //(0 - 15) * 4 => (0 - 60)
+        float f = level.environmentAttributes().getValue(EnvironmentAttributes.SUN_ANGLE, blockPos) * ((float)Math.PI / 180F);
         if(i > 0) {
             float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
 
             f += (f1 - f) * 0.2F;
 
-            i = Math.round((float)i * MathHelper.cos(f));
+            i = Math.round((float)i * Mth.cos(f));
         }
 
-        i = MathHelper.clamp(i, 0, 60);
+        i = Mth.clamp(i, 0, 60);
 
         long energyProduction = (long)(i/60.f * blockEntity.getTier().getPeakFePerTick());
 
         double moonLightUpgradeModuleEffect = blockEntity.upgradeModuleInventory.
                 getUpgradeModuleModifierEffect(1, UpgradeModuleModifier.MOON_LIGHT);
         if(moonLightUpgradeModuleEffect > 0) {
-            i = 15 - (level.getLightLevel(LightType.SKY, blockPos) - level.getAmbientDarkness());
+            i = 15 - (level.getBrightness(LightLayer.SKY, blockPos) - level.getSkyDarken());
             if(i < 14) {
-                i = MathHelper.clamp(i, 0, 15);
+                i = Mth.clamp(i, 0, 15);
 
                 energyProduction += (long)(i/15. * blockEntity.getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
             }
@@ -118,11 +118,11 @@ public class SolarPanelBlockEntity
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        BlockPos testPos = blockPos.offset(Direction.DOWN);
+        BlockPos testPos = blockPos.relative(Direction.DOWN);
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
         if(testBlockEntity == null)

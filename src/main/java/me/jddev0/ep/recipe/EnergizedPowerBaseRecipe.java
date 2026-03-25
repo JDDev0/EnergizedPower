@@ -1,11 +1,10 @@
 package me.jddev0.ep.recipe;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.input.RecipeInput;
-
 import java.util.List;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 
 public interface EnergizedPowerBaseRecipe<T extends RecipeInput> extends Recipe<T> {
     List<Ingredient> getIngredients();

@@ -2,29 +2,29 @@ package me.jddev0.ep.recipe;
 
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
-public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
-    public TeleporterMatrixSettingsCopyRecipe(CraftingRecipeCategory category) {
+public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
+    public TeleporterMatrixSettingsCopyRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
-    public boolean matches(CraftingRecipeInput container, World level) {
+    public boolean matches(CraftingInput container, Level level) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
         for(int i = 0;i < container.size();i++) {
-            ItemStack itemStack = container.getStackInSlot(i);
+            ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(!itemStack.isOf(EPItems.TELEPORTER_MATRIX))
+                if(!itemStack.is(EPItems.TELEPORTER_MATRIX))
                     return false;
 
                 if(TeleporterMatrixItem.isLinked(itemStack)) {
@@ -46,14 +46,14 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingRecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(CraftingInput container, HolderLookup.Provider registries) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
         for(int i = 0;i < container.size();i++) {
-            ItemStack itemStack = container.getStackInSlot(i);
+            ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(!itemStack.isOf(EPItems.TELEPORTER_MATRIX))
+                if(!itemStack.is(EPItems.TELEPORTER_MATRIX))
                     return ItemStack.EMPTY;
 
                 if(TeleporterMatrixItem.isLinked(itemStack)) {
@@ -76,15 +76,15 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public DefaultedList<ItemStack> getRecipeRemainders(CraftingRecipeInput container) {
-        DefaultedList<ItemStack> remainders = DefaultedList.ofSize(container.size(), ItemStack.EMPTY);
+    public NonNullList<ItemStack> getRemainingItems(CraftingInput container) {
+        NonNullList<ItemStack> remainders = NonNullList.withSize(container.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < remainders.size(); ++i) {
-            ItemStack itemstack = container.getStackInSlot(i);
+            ItemStack itemstack = container.getItem(i);
             if(!itemstack.isEmpty()) {
                 if(!itemstack.getRecipeRemainder().isEmpty()) {
                     remainders.set(i, itemstack.getRecipeRemainder());
-                }else if(itemstack.isOf(EPItems.TELEPORTER_MATRIX) && TeleporterMatrixItem.isLinked(itemstack)) {
+                }else if(itemstack.is(EPItems.TELEPORTER_MATRIX) && TeleporterMatrixItem.isLinked(itemstack)) {
                     remainders.set(i, itemstack.copyWithCount(1));
                 }
             }
@@ -94,7 +94,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return EPRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER;
     }
 }

@@ -1,9 +1,9 @@
 package me.jddev0.ep.inventory.data;
 
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
-public class SimpleBooleanValueContainerData implements PropertyDelegate {
+public class SimpleBooleanValueContainerData implements ContainerData {
     private boolean value;
 
     public boolean getValue() {
@@ -25,7 +25,7 @@ public class SimpleBooleanValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

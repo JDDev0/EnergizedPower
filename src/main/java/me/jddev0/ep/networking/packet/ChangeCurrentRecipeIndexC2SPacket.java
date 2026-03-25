@@ -3,41 +3,41 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPayload {
-    public static final CustomPayload.Id<ChangeCurrentRecipeIndexC2SPacket> ID =
-            new CustomPayload.Id<>(EPAPI.id("change_current_recipe_index"));
-    public static final PacketCodec<RegistryByteBuf, ChangeCurrentRecipeIndexC2SPacket> PACKET_CODEC =
-            PacketCodec.of(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
+public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<ChangeCurrentRecipeIndexC2SPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("change_current_recipe_index"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexC2SPacket> PACKET_CODEC =
+            StreamCodec.ofMember(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
 
-    public ChangeCurrentRecipeIndexC2SPacket(RegistryByteBuf buffer) {
+    public ChangeCurrentRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readBoolean());
     }
 
-    public void write(RegistryByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
         buffer.writeBoolean(downUp);
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(ChangeCurrentRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
-            if(!context.player().canModifyBlocks())
+            if(!context.player().mayBuild())
                 return;
 
-            World level = context.player().getEntityWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+            Level level = context.player().level();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);

@@ -7,7 +7,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.EPMenuTypes;
-import net.minecraft.recipe.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeAccess;
 
 public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
@@ -105,7 +105,7 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     }
 
     private void registerRecipes(EmiRegistry registry) {
-        RecipeManager recipeManager = registry.getRecipeManager();
+        RecipeAccess recipeManager = registry.getRecipeManager();
 
         //TODO fix
         /*

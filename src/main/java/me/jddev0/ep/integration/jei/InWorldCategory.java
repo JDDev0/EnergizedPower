@@ -10,12 +10,12 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class InWorldCategory implements IRecipeCategory<InWorldCategory.InWorldRecipe> {
     public static final IRecipeType<InWorldRecipe> TYPE = IRecipeType.create(EPAPI.id("in_world"), InWorldRecipe.class);
@@ -37,8 +37,8 @@ public class InWorldCategory implements IRecipeCategory<InWorldCategory.InWorldR
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("recipes.energizedpower.in_world_crafting");
+    public Component getTitle() {
+        return Component.translatable("recipes.energizedpower.in_world_crafting");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class InWorldCategory implements IRecipeCategory<InWorldCategory.InWorldR
     }
 
     @Override
-    public void draw(InWorldRecipe recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(InWorldRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 

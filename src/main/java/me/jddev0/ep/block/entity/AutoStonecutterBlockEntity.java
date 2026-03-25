@@ -7,20 +7,20 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AutoStonecutterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class AutoStonecutterBlockEntity
-        extends SelectableRecipeMachineBlockEntity<SingleStackRecipeInput, StonecuttingRecipe> {
+        extends SelectableRecipeMachineBlockEntity<SingleRecipeInput, StonecutterRecipe> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -31,7 +31,7 @@ public class AutoStonecutterBlockEntity
 
                 3,
                 RecipeType.STONECUTTING,
-                RecipeSerializer.STONECUTTING,
+                RecipeSerializer.STONECUTTER,
                 ModConfigs.COMMON_AUTO_STONECUTTER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_AUTO_STONECUTTER_CAPACITY.getValue(),
@@ -45,54 +45,54 @@ public class AutoStonecutterBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
-                    case 1 -> stack.isIn(ItemTags.PICKAXES);
+                    case 1 -> stack.is(ItemTags.PICKAXES);
                     case 2 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                AutoStonecutterBlockEntity.this.markDirty();
+                AutoStonecutterBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected void craftItem(RecipeEntry<StonecuttingRecipe> recipe) {
-        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
+    protected void craftItem(RecipeHolder<StonecutterRecipe> recipe) {
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverWorld))
             return;
 
-        ItemStack pickaxe = itemHandler.getStack(1).copy();
-        if(pickaxe.isEmpty() && !pickaxe.isIn(ItemTags.PICKAXES))
+        ItemStack pickaxe = itemHandler.getItem(1).copy();
+        if(pickaxe.isEmpty() && !pickaxe.is(ItemTags.PICKAXES))
             return;
 
-        pickaxe.damage(1, serverWorld, null, item -> pickaxe.setCount(0));
-        itemHandler.setStack(1, pickaxe);
+        pickaxe.hurtAndBreak(1, serverWorld, null, item -> pickaxe.setCount(0));
+        itemHandler.setItem(1, pickaxe);
 
-        itemHandler.removeStack(0, 1);
-        itemHandler.setStack(2, recipe.value().craft(null, world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(2).getCount() +
-                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, 1);
+        itemHandler.setItem(2, recipe.value().assemble(null, level.registryAccess()).
+                copyWithCount(itemHandler.getItem(2).getCount() +
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<StonecuttingRecipe> recipe) {
-        return world != null &&
-                recipe.value().matches(new SingleStackRecipeInput(inventory.getStack(0)), world) &&
-                itemHandler.getStack(1).isIn(ItemTags.PICKAXES) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().craft(null, world.getRegistryManager()));
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StonecutterRecipe> recipe) {
+        return level != null &&
+                recipe.value().matches(new SingleRecipeInput(inventory.getItem(0)), level) &&
+                itemHandler.getItem(1).is(ItemTags.PICKAXES) &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
     }
 }

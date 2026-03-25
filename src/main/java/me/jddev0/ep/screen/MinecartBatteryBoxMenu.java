@@ -2,42 +2,42 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.screen.base.IEnergyStorageMenu;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-public class MinecartBatteryBoxMenu extends ScreenHandler implements IEnergyStorageMenu {
-    private final Inventory inv;
-    private final World level;
+public class MinecartBatteryBoxMenu extends AbstractContainerMenu implements IEnergyStorageMenu {
+    private final Container inv;
+    private final Level level;
 
     private final SimpleEnergyValueContainerData energyData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData capacityData = new SimpleEnergyValueContainerData();
 
-    public MinecartBatteryBoxMenu(int id, PlayerInventory inv) {
-        this(id, inv, new SimpleInventory(0), null);
+    public MinecartBatteryBoxMenu(int id, Inventory inv) {
+        this(id, inv, new SimpleContainer(0), null);
     }
 
-    public MinecartBatteryBoxMenu(int id, PlayerInventory playerInventory, Inventory inv, PropertyDelegate data) {
+    public MinecartBatteryBoxMenu(int id, Inventory playerInventory, Container inv, ContainerData data) {
         super(EPMenuTypes.MINECART_BATTERY_BOX_MENU, id);
 
         this.inv = inv;
-        checkSize(inv, 0);
-        this.level = playerInventory.player.getEntityWorld();
+        checkContainerSize(inv, 0);
+        this.level = playerInventory.player.level();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
         if(data == null) {
-            addProperties(energyData);
-            addProperties(capacityData);
+            addDataSlots(energyData);
+            addDataSlots(capacityData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -52,16 +52,16 @@ public class MinecartBatteryBoxMenu extends ScreenHandler implements IEnergyStor
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return inv.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return inv.stillValid(player);
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -69,7 +69,7 @@ public class MinecartBatteryBoxMenu extends ScreenHandler implements IEnergyStor
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

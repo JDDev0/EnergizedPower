@@ -5,49 +5,56 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.util.FluidUtils;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.*;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class FluidTankBlock extends BlockWithEntity {
+public class FluidTankBlock extends BaseEntityBlock {
     public static final MapCodec<FluidTankBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(Codecs.NON_EMPTY_STRING.xmap(FluidTankTier::valueOf, FluidTankTier::toString).fieldOf("tier").
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidTankTier::valueOf, FluidTankTier::toString).fieldOf("tier").
                 forGetter(FluidTankBlock::getTier),
-                Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
                 apply(instance, FluidTankBlock::new);
     });
 
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final FluidTankTier tier;
 
-    public FluidTankBlock(FluidTankTier tier, Settings props) {
+    public FluidTankBlock(FluidTankTier tier, Properties props) {
         super(props);
 
         this.tier = tier;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
 
     public FluidTankTier getTier() {
@@ -55,78 +62,78 @@ public class FluidTankBlock extends BlockWithEntity {
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new FluidTankBlockEntity(blockPos, state, tier);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof FluidTankBlockEntity fluidTankBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos, direction);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return fluidTankBlockEntity.getRedstoneOutput();
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof FluidTankBlockEntity) || ((FluidTankBlockEntity)blockEntity).getTier() != tier)
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((FluidTankBlockEntity)blockEntity);
+        player.openMenu((FluidTankBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
-    }
-
-    @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, tier.getEntityTypeFromTier(), FluidTankBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, tier.getEntityTypeFromTier(), FluidTankBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
         private final FluidTankTier tier;
 
-        public Item(Block block, Item.Settings props, FluidTankTier tier) {
+        public Item(Block block, Properties props, FluidTankTier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -137,13 +144,13 @@ public class FluidTankBlock extends BlockWithEntity {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(MinecraftClient.getInstance().isShiftPressed()) {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.tank_capacity.txt",
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+            if(Minecraft.getInstance().hasShiftDown()) {
+                tooltip.accept(Component.translatable("tooltip.energizedpower.tank_capacity.txt",
                                 FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(tier.getTankCapacity()))).
-                                        formatted(Formatting.GRAY));
+                                        withStyle(ChatFormatting.GRAY));
             }else {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

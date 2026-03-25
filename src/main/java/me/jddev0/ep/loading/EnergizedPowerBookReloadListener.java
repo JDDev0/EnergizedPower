@@ -10,20 +10,20 @@ import com.mojang.serialization.JsonOps;
 import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.resource.JsonDataLoader;
-import net.minecraft.resource.ResourceFinder;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceReloader;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextCodecs;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.resources.FileToIdConverter;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
 import org.slf4j.Logger;
 
 import java.util.*;
 
 @Environment(EnvType.CLIENT)
-public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement> implements ResourceReloader {
+public class EnergizedPowerBookReloadListener extends SimpleJsonResourceReloadListener<JsonElement> implements PreparableReloadListener {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public EnergizedPowerBookReloadListener() {
@@ -37,11 +37,11 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement
             public <T> DataResult<T> encode(JsonElement input, DynamicOps<T> ops, T prefix) {
                 return DataResult.error(() -> "Not implemented");
             }
-        }, ResourceFinder.json("book_pages"));
+        }, FileToIdConverter.json("book_pages"));
     }
 
     @Override
-    protected void apply(Map<Identifier, JsonElement> elements, ResourceManager resourceManager, Profiler profilerFiller) {
+    protected void apply(Map<Identifier, JsonElement> elements, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         List<EnergizedPowerBookScreen.PageContent> pages = new ArrayList<>();
 
         List<Map.Entry<Identifier, JsonElement>> elementEntries = elements.entrySet().stream().
@@ -97,14 +97,14 @@ public class EnergizedPowerBookReloadListener extends JsonDataLoader<JsonElement
                     continue;
                 }
 
-                Text chapterTitleComponent = null;
+                Component chapterTitleComponent = null;
                 if(object.has("title"))
-                    chapterTitleComponent = TextCodecs.CODEC.stable().decode(JsonOps.INSTANCE, object.get("title")).result().
+                    chapterTitleComponent = ComponentSerialization.CODEC.stable().decode(JsonOps.INSTANCE, object.get("title")).result().
                             map(Pair::getFirst).orElse(null);
 
-                Text contentComponent = null;
+                Component contentComponent = null;
                 if(object.has("content"))
-                    contentComponent = TextCodecs.CODEC.stable().decode(JsonOps.INSTANCE, object.get("content")).result().
+                    contentComponent = ComponentSerialization.CODEC.stable().decode(JsonOps.INSTANCE, object.get("content")).result().
                             map(Pair::getFirst).orElse(null);
 
                 Identifier[] imageResourceLocations = null;

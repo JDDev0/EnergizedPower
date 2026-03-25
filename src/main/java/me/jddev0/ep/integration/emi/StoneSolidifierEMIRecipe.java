@@ -10,10 +10,9 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.FluidUtils;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
 public class StoneSolidifierEMIRecipe implements EmiRecipe {
@@ -26,8 +25,8 @@ public class StoneSolidifierEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public StoneSolidifierEMIRecipe(RecipeEntry<StoneSolidifierRecipe> recipe) {
-        this.id = recipe.id().getValue();
+    public StoneSolidifierEMIRecipe(RecipeHolder<StoneSolidifierRecipe> recipe) {
+        this.id = recipe.id().identifier();
         this.input = List.of(
                 EmiStack.of(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(recipe.value().getWaterAmount())),
                 EmiStack.of(Fluids.LAVA, FluidUtils.convertMilliBucketsToDroplets(recipe.value().getLavaAmount()))

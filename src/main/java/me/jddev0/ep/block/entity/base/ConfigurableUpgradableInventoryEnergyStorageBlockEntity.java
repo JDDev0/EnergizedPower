@@ -4,17 +4,17 @@ import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends SimpleInventory>
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
         extends UpgradableInventoryEnergyStorageBlockEntity<E, I>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
@@ -29,24 +29,24 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         view.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        redstoneMode = RedstoneMode.fromIndex(view.getInt("configuration.redstone_mode", 0));
-        comparatorMode = ComparatorMode.fromIndex(view.getInt("configuration.comparator_mode", 0));
+        redstoneMode = RedstoneMode.fromIndex(view.getIntOr("configuration.redstone_mode", 0));
+        comparatorMode = ComparatorMode.fromIndex(view.getIntOr("configuration.comparator_mode", 0));
     }
 
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
-            case ITEM -> ScreenHandler.calculateComparatorOutput(itemHandler);
+            case ITEM -> AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
             case FLUID -> 0;
             case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
         };
@@ -55,7 +55,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        markDirty();
+        setChanged();
     }
 
     @Override
@@ -73,7 +73,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
     @Override
     public boolean setRedstoneMode(@NotNull RedstoneMode redstoneMode) {
         this.redstoneMode = redstoneMode;
-        markDirty();
+        setChanged();
 
         return true;
     }
@@ -83,7 +83,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
         do {
             comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         }while(comparatorMode == ComparatorMode.FLUID);
-        markDirty();
+        setChanged();
     }
 
     @Override
@@ -107,7 +107,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
             return false;
 
         this.comparatorMode = comparatorMode;
-        markDirty();
+        setChanged();
 
         return true;
     }

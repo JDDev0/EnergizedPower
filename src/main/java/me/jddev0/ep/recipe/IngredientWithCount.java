@@ -3,10 +3,10 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.handler.codec.DecoderException;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.dynamic.Codecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
 
 public record IngredientWithCount(Ingredient input, int count) {
@@ -17,30 +17,30 @@ public record IngredientWithCount(Ingredient input, int count) {
     public static final Codec<IngredientWithCount> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Ingredient.CODEC.fieldOf("ingredient").forGetter((input) -> {
             return input.input;
-        }), Codecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter((input) -> {
+        }), ExtraCodecs.POSITIVE_INT.optionalFieldOf("count", 1).forGetter((input) -> {
             return input.count;
         })).apply(instance, IngredientWithCount::new);
     });
 
-    public static final PacketCodec<RegistryByteBuf, IngredientWithCount> STREAM_CODEC = new PacketCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, IngredientWithCount> STREAM_CODEC = new StreamCodec<>() {
         @Override
         @NotNull
-        public IngredientWithCount decode(@NotNull RegistryByteBuf buffer) {
+        public IngredientWithCount decode(@NotNull RegistryFriendlyByteBuf buffer) {
             int count = buffer.readInt();
             if(count <= 0)
                 throw new DecoderException("Empty IngredientWithCount not allowed");
 
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             return new IngredientWithCount(input, count);
         }
 
         @Override
-        public void encode(@NotNull RegistryByteBuf buffer, IngredientWithCount ingredient) {
+        public void encode(@NotNull RegistryFriendlyByteBuf buffer, IngredientWithCount ingredient) {
             if(ingredient.count <= 0)
                 throw new DecoderException("Empty IngredientWithCount not allowed");
 
             buffer.writeInt(ingredient.count);
-            Ingredient.PACKET_CODEC.encode(buffer, ingredient.input);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient.input);
         }
     };
 }

@@ -6,59 +6,59 @@ import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.MinecartBatteryBoxMenu;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
     public static final long CAPACITY = ModConfigs.COMMON_BATTERY_BOX_MINECART_CAPACITY.getValue();
     public static final long MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_MINECART_TRANSFER_RATE.getValue();
 
-    private static final TrackedData<Long> DATA_ID_ENERGY = DataTracker.registerData(MinecartBatteryBox.class, TrackedDataHandlerRegistry.LONG);
+    private static final EntityDataAccessor<Long> DATA_ID_ENERGY = SynchedEntityData.defineId(MinecartBatteryBox.class, EntityDataSerializers.LONG);
 
-    protected final PropertyDelegate data = new CombinedContainerData(
+    protected final ContainerData data = new CombinedContainerData(
             new EnergyValueContainerData(MinecartBatteryBox.this::getEnergy, MinecartBatteryBox.this::setEnergy),
             new EnergyValueContainerData(MinecartBatteryBox.this::getCapacity, value -> {})
     );
 
-    public MinecartBatteryBox(EntityType<? extends MinecartBatteryBox> entityType, World level) {
+    public MinecartBatteryBox(EntityType<? extends MinecartBatteryBox> entityType, Level level) {
         super(entityType, level);
     }
 
-    public MinecartBatteryBox(World level, double x, double y, double z) {
+    public MinecartBatteryBox(Level level, double x, double y, double z) {
         super(EPEntityTypes.BATTERY_BOX_MINECART, level, x, y, z);
     }
 
     @Override
-    protected Item asItem() {
+    protected Item getDropItem() {
         return EPItems.BATTERY_BOX_MINECART;
     }
 
-    public BlockState getDefaultContainedBlock() {
-        return EPBlocks.BATTERY_BOX.getDefaultState();
+    public BlockState getDefaultDisplayBlockState() {
+        return EPBlocks.BATTERY_BOX.defaultBlockState();
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new MinecartBatteryBoxMenu(id, inventory, this, data);
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {
-        super.initDataTracker(builder);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
 
-        builder.add(DATA_ID_ENERGY, 0L);
+        builder.define(DATA_ID_ENERGY, 0L);
     }
 
     @Override
@@ -72,15 +72,15 @@ public class MinecartBatteryBox extends AbstractMinecartBatteryBox {
     }
 
     public long getEnergy() {
-        return dataTracker.get(DATA_ID_ENERGY);
+        return entityData.get(DATA_ID_ENERGY);
     }
 
     public void setEnergy(long energy) {
-        dataTracker.set(DATA_ID_ENERGY, energy);
+        entityData.set(DATA_ID_ENERGY, energy);
     }
 
     @Override
-    public ItemStack getPickBlockStack() {
+    public ItemStack getPickResult() {
         return new ItemStack(EPItems.BATTERY_BOX_MINECART);
     }
 }

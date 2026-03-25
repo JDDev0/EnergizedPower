@@ -16,14 +16,14 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<FluidTransposerRecipe>> {
+public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<FluidTransposerRecipe>> {
     public static final IRecipeHolderType<FluidTransposerRecipe> TYPE = IRecipeHolderType.create(FluidTransposerRecipe.Type.INSTANCE);
 
     private final IDrawable backgroundEmptying;
@@ -39,13 +39,13 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<Flui
     }
 
     @Override
-    public IRecipeType<RecipeEntry<FluidTransposerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<FluidTransposerRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.fluid_transposer");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.fluid_transposer");
     }
 
     @Override
@@ -64,7 +64,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<Flui
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<FluidTransposerRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<FluidTransposerRecipe> recipe, IFocusGroup iFocusGroup) {
         FluidStack fluid = recipe.value().getFluid();
 
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
@@ -83,7 +83,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<Flui
     }
 
     @Override
-    public void draw(RecipeEntry<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.FILLING) {
             backgroundFilling.draw(guiGraphics, 0, 0);
         }else {
@@ -91,22 +91,22 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeEntry<Flui
         }
 
         ItemStack output = new ItemStack(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
-        guiGraphics.getMatrices().pushMatrix();
-        guiGraphics.getMatrices().translate(0.f, 0.f);
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(0.f, 0.f);
 
-        guiGraphics.drawItem(output, 120, 5, 120 + 5 * 143);
+        guiGraphics.renderItem(output, 120, 5, 120 + 5 * 143);
 
-        guiGraphics.getMatrices().popMatrix();
+        guiGraphics.pose().popMatrix();
     }
 
     @Override
-    public void getTooltip(ITooltipBuilder tooltip, RecipeEntry<FluidTransposerRecipe> recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public void getTooltip(ITooltipBuilder tooltip, RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
         int tooltipX = 119;
         int tooltipY = 4;
         if(mouseX >= (double)(tooltipX - 1) && mouseX < (double)(tooltipX + 20 + 1) &&
                 mouseY >= (double)(tooltipY - 1) && mouseY < (double)(tooltipY + 20 + 1)) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.fluid_transposer.mode." +
-                    recipe.value().getMode().asString()));
+            tooltip.add(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
+                    recipe.value().getMode().getSerializedName()));
         }
     }
 }

@@ -14,18 +14,17 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.stream.Collectors;
 
-public class AssemblingMachineCategory implements IRecipeCategory<RecipeEntry<AssemblingMachineRecipe>> {
+public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<AssemblingMachineRecipe>> {
     public static final IRecipeHolderType<AssemblingMachineRecipe> TYPE = IRecipeHolderType.create(AssemblingMachineRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -39,13 +38,13 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeEntry<As
     }
 
     @Override
-    public IRecipeType<RecipeEntry<AssemblingMachineRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<AssemblingMachineRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.assembling_machine");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.assembling_machine");
     }
 
     @Override
@@ -64,16 +63,16 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeEntry<As
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<AssemblingMachineRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<AssemblingMachineRecipe> recipe, IFocusGroup iFocusGroup) {
         int len = Math.min(recipe.value().getInputs().length, 4);
         for(int i = 0;i < len;i++) {
             IngredientWithCount input = recipe.value().getInputs()[i];
 
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, i == 1?1:(i == 2?37:19), i == 0?1:(i == 3?37:19)).
-                    addItemStacks(input.input().getMatchingItems().
-                            map(RegistryEntry::getKeyOrValue).
+                    addItemStacks(input.input().items().
+                            map(Holder::unwrap).
                             map(registryKeyItemEither -> registryKeyItemEither.map(
-                                    l -> new ItemStack(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(l)),
+                                    l -> new ItemStack(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),
                                     ItemStack::new
                             )).
                             map(itemStack -> itemStack.copyWithCount(input.count())).
@@ -84,7 +83,7 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeEntry<As
     }
 
     @Override
-    public void draw(RecipeEntry<AssemblingMachineRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<AssemblingMachineRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

@@ -5,15 +5,15 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
         extends BlockEntity
@@ -40,29 +40,29 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     protected abstract EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage();
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putLong("energy", energyStorage.getAmount());
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        energyStorage.setAmountWithoutUpdate(view.getLong("energy", 0));
+        energyStorage.setAmountWithoutUpdate(view.getLongOr("energy", 0));
     }
 
-    protected final void syncEnergyToPlayer(PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getPos()));
+    protected final void syncEnergyToPlayer(Player player) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos()));
     }
 
     protected final void syncEnergyToPlayers(int distance) {
-        if(world != null && !world.isClient())
+        if(level != null && !level.isClientSide())
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, distance,
-                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getPos())
+                    getBlockPos(), (ServerLevel)level, distance,
+                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos())
             );
     }
 

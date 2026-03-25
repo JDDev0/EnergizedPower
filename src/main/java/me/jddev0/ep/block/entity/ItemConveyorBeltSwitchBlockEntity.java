@@ -10,12 +10,12 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
     private final int ticksPerItem;
@@ -38,20 +38,20 @@ public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
         return tier;
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSwitchBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSwitchBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(level.getTime() % blockEntity.ticksPerItem == 0) {
-            Direction facing = state.get(ItemConveyorBeltSwitchBlock.FACING);
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
+            Direction facing = state.getValue(ItemConveyorBeltSwitchBlock.FACING);
 
-            BlockPos inputPos = blockPos.offset(facing);
+            BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
             if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             //Conveyor belt must face towards Switch and must not be ascending
-            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.get(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != facing)
                 return;
 
@@ -81,10 +81,10 @@ public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
             if(itemStackToSwitch.isEmpty())
                 return;
 
-            boolean isPowered = state.get(ItemConveyorBeltSwitchBlock.POWERED);
-            Direction outputDirection = isPowered?facing.rotateYCounterclockwise():facing.rotateYClockwise();
+            boolean isPowered = state.getValue(ItemConveyorBeltSwitchBlock.POWERED);
+            Direction outputDirection = isPowered?facing.getCounterClockWise():facing.getClockWise();
 
-            BlockPos outputPos = blockPos.offset(outputDirection);
+            BlockPos outputPos = blockPos.relative(outputDirection);
             BlockState outputBlockState = level.getBlockState(outputPos);
             if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;

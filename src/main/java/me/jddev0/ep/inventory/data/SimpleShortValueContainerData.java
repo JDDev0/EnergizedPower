@@ -1,9 +1,9 @@
 package me.jddev0.ep.inventory.data;
 
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
-public class SimpleShortValueContainerData implements PropertyDelegate {
+public class SimpleShortValueContainerData implements ContainerData {
     private short value;
 
     public short getValue() {
@@ -25,7 +25,7 @@ public class SimpleShortValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

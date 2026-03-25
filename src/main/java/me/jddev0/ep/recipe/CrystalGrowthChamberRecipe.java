@@ -3,18 +3,21 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
@@ -44,7 +47,7 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
         return output.output().copyWithCount(output.percentages().length);
     }
 
-    public ItemStack generateOutput(Random randomSource) {
+    public ItemStack generateOutput(RandomSource randomSource) {
         int count = 0;
 
         for(double percentage:output.percentages())
@@ -55,30 +58,30 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.input().test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= input.count();
+        return input.input().test(container.getItem(0)) && container.getItem(0).getCount() >= input.count();
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.CRYSTAL_GROWTH_CHAMBER_CATEGORY;
     }
 
@@ -104,7 +107,7 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output.output(), itemStack);
+        return ItemStack.isSameItemSameComponents(output.output(), itemStack);
     }
 
     public static final class Type implements RecipeType<CrystalGrowthChamberRecipe> {
@@ -125,12 +128,12 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
                 return recipe.output;
             }), IngredientWithCount.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
             })).apply(instance, CrystalGrowthChamberRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -139,11 +142,11 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, CrystalGrowthChamberRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static CrystalGrowthChamberRecipe read(RegistryByteBuf buffer) {
+        private static CrystalGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
             int ticks = buffer.readInt();
 
@@ -152,7 +155,7 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
             return new CrystalGrowthChamberRecipe(output, input, ticks);
         }
 
-        private static void write(RegistryByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
             IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.ticks);
 

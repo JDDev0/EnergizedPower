@@ -4,16 +4,19 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class CompressorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
@@ -34,30 +37,30 @@ public class CompressorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.input().test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= input.count();
+        return input.input().test(container.getItem(0)) && container.getItem(0).getCount() >= input.count();
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.COMPRESSOR_CATEGORY;
     }
 
@@ -83,7 +86,7 @@ public class CompressorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output, itemStack);
+        return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
     public static final class Type implements RecipeType<CompressorRecipe> {
@@ -107,7 +110,7 @@ public class CompressorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
             })).apply(instance, CompressorRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, CompressorRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, CompressorRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -116,20 +119,20 @@ public class CompressorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, CompressorRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, CompressorRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static CompressorRecipe read(RegistryByteBuf buffer) {
+        private static CompressorRecipe read(RegistryFriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new CompressorRecipe(output, input);
         }
 
-        private static void write(RegistryByteBuf buffer, CompressorRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, CompressorRecipe recipe) {
             IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

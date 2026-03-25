@@ -14,15 +14,15 @@ import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AlloyFurnaceRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.getValue();
@@ -51,12 +51,12 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0, 1, 2 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 3, 4 -> false;
@@ -65,21 +65,21 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                InductionSmelterBlockEntity.this.markDirty();
+                InductionSmelterBlockEntity.this.setChanged();
             }
         };
     }
@@ -88,15 +88,15 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
         if(side == null)
             return null;
 
-        Direction facing = getCachedState().get(InductionSmelterBlock.FACING);
+        Direction facing = getBlockState().getValue(InductionSmelterBlock.FACING);
 
         if(facing.getOpposite() == side)
             return itemHandlerSidedBack.apply(side);
 
-        if(facing.rotateYClockwise() == side)
+        if(facing.getClockWise() == side)
             return itemHandlerSidedLeft.apply(side);
 
-        if(facing.rotateYCounterclockwise() == side)
+        if(facing.getCounterClockWise() == side)
             return itemHandlerSidedRight.apply(side);
 
         return itemHandlerSidedFrontTopBottom.apply(side);
@@ -104,39 +104,39 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
 
     @Override
     protected void onHasEnoughEnergy() {
-        if(world.getBlockState(getPos()).contains(Properties.LIT) &&
-                !world.getBlockState(getPos()).get(Properties.LIT)) {
-            world.setBlockState(getPos(), getCachedState().with(Properties.LIT, true), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
+                !level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true), 3);
         }
     }
 
     @Override
     protected void onHasNotEnoughEnergyWithOffTimeout() {
-        if(world.getBlockState(getPos()).contains(Properties.LIT) &&
-                world.getBlockState(getPos()).get(Properties.LIT)) {
-            world.setBlockState(getPos(), getCachedState().with(Properties.LIT, false), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
+                level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);
         }
     }
 
     @Override
-    protected double getRecipeDependentRecipeDuration(RecipeEntry<AlloyFurnaceRecipe> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<AlloyFurnaceRecipe> recipe) {
         return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER / 2.f;
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
-    protected void craftItem(RecipeEntry<AlloyFurnaceRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<AlloyFurnaceRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
         IngredientWithCount[] inputs = recipe.value().getInputs();
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
-            usedIndices[i] = itemHandler.getStack(i).isEmpty();
+            usedIndices[i] = itemHandler.getItem(i).isEmpty();
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
@@ -149,7 +149,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = itemHandler.getStack(j);
+                ItemStack item = itemHandler.getItem(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -163,25 +163,25 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
 
             usedIndices[indexMinCount] = true;
 
-            itemHandler.removeStack(indexMinCount, input.count());
+            itemHandler.removeItem(indexMinCount, input.count());
         }
 
-        ItemStack[] outputs = recipe.value().generateOutputs(world.random);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.random);
 
-        itemHandler.setStack(3, outputs[0].
-                copyWithCount(itemHandler.getStack(3).getCount() + outputs[0].getCount()));
+        itemHandler.setItem(3, outputs[0].
+                copyWithCount(itemHandler.getItem(3).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            itemHandler.setStack(4, outputs[1].
-                    copyWithCount(itemHandler.getStack(4).getCount() + outputs[1].getCount()));
+            itemHandler.setItem(4, outputs[1].
+                    copyWithCount(itemHandler.getItem(4).getCount() + outputs[1].getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<AlloyFurnaceRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<AlloyFurnaceRecipe> recipe) {
         ItemStack[] maxOutputs = recipe.value().getMaxOutputCounts();
 
-        return world != null &&
+        return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 3, maxOutputs[0]) &&
                 (maxOutputs[1].isEmpty() ||
                         InventoryUtils.canInsertItemIntoSlot(inventory, 4, maxOutputs[1]));

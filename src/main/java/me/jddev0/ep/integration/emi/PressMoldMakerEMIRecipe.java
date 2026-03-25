@@ -9,11 +9,10 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class PressMoldMakerEMIRecipe implements EmiRecipe {
@@ -26,9 +25,9 @@ public class PressMoldMakerEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public PressMoldMakerEMIRecipe(RecipeEntry<PressMoldMakerRecipe> recipe) {
-        this.id = recipe.id().getValue();
-        this.input = List.of(EmiIngredient.of(Ingredient.ofItems(Items.CLAY_BALL), recipe.value().getClayCount()));
+    public PressMoldMakerEMIRecipe(RecipeHolder<PressMoldMakerRecipe> recipe) {
+        this.id = recipe.id().identifier();
+        this.input = List.of(EmiIngredient.of(Ingredient.of(Items.CLAY_BALL), recipe.value().getClayCount()));
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));
     }
 

@@ -16,15 +16,15 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBlockEntity>
         implements IConfigurableMenu {
@@ -33,18 +33,18 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
-    public FluidFillerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(1) {
+    public FluidFillerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(1) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0)
                     return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
         }, new UpgradeModuleInventory(
@@ -53,8 +53,8 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
         ), null);
     }
 
-    public FluidFillerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                           UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
+    public FluidFillerMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
+                           UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
         super(
                 EPMenuTypes.FLUID_FILLER_MENU, id,
 
@@ -64,25 +64,25 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
                 upgradeModuleInventory, 2
         );
 
-        checkSize(inv, 1);
+        checkContainerSize(inv, 1);
 
         addSlot(new ConstraintInsertSlot(inv, 0, 80, 35) {
             @Override
-            public boolean isEnabled() {
-                return super.isEnabled() && !isInUpgradeModuleView();
+            public boolean isActive() {
+                return super.isActive() && !isInUpgradeModuleView();
             }
         });
 
-        for(int i = 0;i < upgradeModuleInventory.size();i++)
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
-            addProperties(fluidFillingLeftData);
-            addProperties(fluidFillingSumPendingData);
-            addProperties(redstoneModeData);
-            addProperties(comparatorModeData);
+            addDataSlots(fluidFillingLeftData);
+            addDataSlots(fluidFillingSumPendingData);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -113,24 +113,24 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasStack())
+        if(sourceSlot == null || !sourceSlot.hasItem())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getStack();
+        ItemStack sourceItem = sourceSlot.getItem();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //Allow only 1 item
-            if(!insertItem(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 2, false) &&
-                    (slots.get(4 * 9).hasStack() || !insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false))) {
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 2, false) &&
+                    (slots.get(4 * 9).hasItem() || !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false))) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1 + 2) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
-            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else {
@@ -138,11 +138,11 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setStack(ItemStack.EMPTY);
+            sourceSlot.setByPlayer(ItemStack.EMPTY);
         else
-            sourceSlot.markDirty();
+            sourceSlot.setChanged();
 
-        sourceSlot.onTakeItem(player, sourceItem);
+        sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
     }

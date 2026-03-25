@@ -2,74 +2,74 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class PressMoldMakerBlock extends BlockWithEntity {
-    public static final MapCodec<PressMoldMakerBlock> CODEC = createCodec(PressMoldMakerBlock::new);
+public class PressMoldMakerBlock extends BaseEntityBlock {
+    public static final MapCodec<PressMoldMakerBlock> CODEC = simpleCodec(PressMoldMakerBlock::new);
 
-    public PressMoldMakerBlock(AbstractBlock.Settings props) {
+    public PressMoldMakerBlock(BlockBehaviour.Properties props) {
         super(props);
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new PressMoldMakerBlockEntity(blockPos, state);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof PressMoldMakerBlockEntity pressMoldMakerBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos, direction);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return pressMoldMakerBlockEntity.getRedstoneOutput();
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, level, blockPos);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof PressMoldMakerBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((PressMoldMakerBlockEntity)blockEntity);
+        player.openMenu((PressMoldMakerBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

@@ -6,18 +6,21 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import java.util.List;
 
 public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
@@ -38,27 +41,27 @@ public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeIn
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
+    public boolean matches(RecipeInput container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.THERMAL_GENERATOR_CATEGORY;
     }
 
@@ -101,8 +104,8 @@ public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeIn
         public static final Identifier ID = EPAPI.id("thermal_generator");
 
         private final MapCodec<ThermalGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
-                    Registries.FLUID.getCodec()).fieldOf("ingredient").forGetter((recipe) -> {
+            return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
+                    BuiltInRegistries.FLUID.byNameCodec()).fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
@@ -114,7 +117,7 @@ public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeIn
             });
         });
 
-        private final PacketCodec<RegistryByteBuf, ThermalGeneratorRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, ThermalGeneratorRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -123,26 +126,26 @@ public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeIn
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, ThermalGeneratorRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, ThermalGeneratorRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static ThermalGeneratorRecipe read(RegistryByteBuf buffer) {
+        private static ThermalGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
-                input[i] = Registries.FLUID.get(buffer.readIdentifier());
+                input[i] = BuiltInRegistries.FLUID.getValue(buffer.readIdentifier());
 
             long energyProduction = buffer.readLong();
 
             return new ThermalGeneratorRecipe(input, energyProduction);
         }
 
-        private static void write(RegistryByteBuf buffer, ThermalGeneratorRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, ThermalGeneratorRecipe recipe) {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
-                Identifier fluidId = Registries.FLUID.getId(fluid);
-                if(fluidId == null || fluidId.equals(Identifier.of("empty")))
+                Identifier fluidId = BuiltInRegistries.FLUID.getKey(fluid);
+                if(fluidId == null || fluidId.equals(Identifier.parse("empty")))
                     throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
                 buffer.writeIdentifier(fluidId);

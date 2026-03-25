@@ -6,22 +6,22 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TransformerMenu extends EnergyStorageMenu<TransformerBlockEntity>
         implements IConfigurableMenu {
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
 
-    public TransformerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, null);
+    public TransformerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, null);
     }
 
-    public TransformerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
+    public TransformerMenu(int id, BlockEntity blockEntity, Inventory playerInventory, ContainerData data) {
         super(
                 ((TransformerBlockEntity)blockEntity).getTier().getMenuTypeFromTierAndType(
                         ((TransformerBlockEntity)blockEntity).getTransformerType()
@@ -34,9 +34,9 @@ public class TransformerMenu extends EnergyStorageMenu<TransformerBlockEntity>
         );
 
         if(data == null) {
-            addProperties(redstoneModeData);
+            addDataSlots(redstoneModeData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -51,7 +51,7 @@ public class TransformerMenu extends EnergyStorageMenu<TransformerBlockEntity>
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 }

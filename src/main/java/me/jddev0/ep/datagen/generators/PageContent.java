@@ -3,9 +3,9 @@ package me.jddev0.ep.datagen.generators;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextCodecs;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.resources.Identifier;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,11 +14,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public record PageContent(
-        Identifier pageId, Text chapterTitleComponent, Text pageComponent,
+        Identifier pageId, Component chapterTitleComponent, Component pageComponent,
         Identifier[] imageResourceLocations, Identifier[] blockResourceLocations,
         Map<Integer, Identifier> changePageIntToId
 ) {
-    public PageContent(Text chapterTitleComponent, Text pageComponent, Identifier[] imageResourceLocations,
+    public PageContent(Component chapterTitleComponent, Component pageComponent, Identifier[] imageResourceLocations,
                        Identifier[] blockResourceLocations, Map<Integer, Identifier> changePageIntToId) {
         this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations,
                 changePageIntToId == null?null:new HashMap<>(changePageIntToId));
@@ -30,9 +30,9 @@ public record PageContent(
     }
 
     public static final Codec<PageContent> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(TextCodecs.CODEC.optionalFieldOf("title").
+        return instance.group(ComponentSerialization.CODEC.optionalFieldOf("title").
                                 forGetter(pageContent -> Optional.ofNullable(pageContent.chapterTitleComponent)),
-                        TextCodecs.CODEC.optionalFieldOf("content").
+                        ComponentSerialization.CODEC.optionalFieldOf("content").
                                 forGetter(pageContent -> Optional.ofNullable(pageContent.pageComponent)),
                         Codec.either(Identifier.CODEC, Codec.list(Identifier.CODEC)).optionalFieldOf("image").
                                 forGetter(pageContent -> {

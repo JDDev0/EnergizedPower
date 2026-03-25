@@ -6,13 +6,13 @@ import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.inventory.data.SimpleShortValueContainerData;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -22,14 +22,14 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
     private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
 
-    public WeatherControllerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+    public WeatherControllerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.DURATION
         ), null);
     }
 
-    public WeatherControllerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
-                                 UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
+    public WeatherControllerMenu(int id, BlockEntity blockEntity, Inventory playerInventory,
+                                 UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
         super(
                 EPMenuTypes.WEATHER_CONTROLLER_MENU, id,
 
@@ -42,11 +42,11 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
-            addProperties(selectedWeatherTypeData);
-            addProperties(energyConsumptionPerTickData);
-            addProperties(hasEnoughEnergyData);
+            addDataSlots(selectedWeatherTypeData);
+            addDataSlots(energyConsumptionPerTickData);
+            addDataSlots(hasEnoughEnergyData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -64,22 +64,22 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasStack())
+        if(sourceSlot == null || !sourceSlot.hasItem())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getStack();
+        ItemStack sourceItem = sourceSlot.getItem();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
-            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else {
@@ -87,11 +87,11 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setStack(ItemStack.EMPTY);
+            sourceSlot.setByPlayer(ItemStack.EMPTY);
         else
-            sourceSlot.markDirty();
+            sourceSlot.setChanged();
 
-        sourceSlot.onTakeItem(player, sourceItem);
+        sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
     }

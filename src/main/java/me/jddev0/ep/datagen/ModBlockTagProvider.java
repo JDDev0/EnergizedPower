@@ -5,19 +5,19 @@ import me.jddev0.ep.registry.tags.CommonBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
+    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup lookupProvider) {
-        valueLookupBuilder(BlockTags.AXE_MINEABLE).
+    protected void addTags(HolderLookup.Provider lookupProvider) {
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE).
                 add(EPBlocks.SAWDUST_BLOCK);
 
         valueLookupBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
@@ -27,7 +27,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
                 );
 
-        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE).
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,

@@ -6,21 +6,20 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.mixin.world.village.StructurePoolElementGetterSetter;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.structure.pool.SinglePoolElement;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.world.level.levelgen.structure.pools.SinglePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructurePoolElement;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarting {
     @Override
     public void onServerStarting(MinecraftServer server) {
-        Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().getOrThrow(RegistryKeys.TEMPLATE_POOL);
+        Registry<StructureTemplatePool> templatePoolRegistry = server.registryAccess().lookupOrThrow(Registries.TEMPLATE_POOL);
 
         //Electrician 1
         int weight = ModConfigs.COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT.getValue();
@@ -31,16 +30,16 @@ public class ServerStartingHandler implements ServerLifecycleEvents.ServerStarti
         addVillageHouse(templatePoolRegistry, "taiga", "electrician_1", weight);
     }
 
-    private static void addVillageHouse(Registry<StructurePool> templatePoolRegistry, String villageType, String buildingName, int weight) {
-        StructurePool pool = templatePoolRegistry.get(Identifier.of("minecraft", String.format("village/%s/houses", villageType)));
+    private static void addVillageHouse(Registry<StructureTemplatePool> templatePoolRegistry, String villageType, String buildingName, int weight) {
+        StructureTemplatePool pool = templatePoolRegistry.getValue(Identifier.fromNamespaceAndPath("minecraft", String.format("village/%s/houses", villageType)));
         if(pool == null)
             return;
 
         ObjectArrayList<StructurePoolElement> elements = ((StructurePoolElementGetterSetter)pool).getElements();
         List<Pair<StructurePoolElement, Integer>> elementCounts = ((StructurePoolElementGetterSetter)pool).getElementCounts();
 
-        SinglePoolElement element = SinglePoolElement.ofLegacySingle(String.format("%s:village/%s/houses/%s", EPAPI.MOD_ID, villageType, buildingName)).
-                apply(StructurePool.Projection.RIGID);
+        SinglePoolElement element = SinglePoolElement.legacy(String.format("%s:village/%s/houses/%s", EPAPI.MOD_ID, villageType, buildingName)).
+                apply(StructureTemplatePool.Projection.RIGID);
 
         for(int i = 0;i < weight;i++)
             elements.add(element);

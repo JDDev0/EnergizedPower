@@ -8,22 +8,22 @@ import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerMachineBlockEntity<RecipeEntry<R>>
+        extends WorkerMachineBlockEntity<RecipeHolder<R>>
         implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -53,37 +53,37 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                return slot == 0 && ((world instanceof ServerWorld serverWorld)?
+            public boolean canPlaceItem(int slot, ItemStack stack) {
+                return slot == 0 && ((level instanceof ServerLevel serverWorld)?
                         RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
                         RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                SimpleRecipeMachineBlockEntity.this.markDirty();
+                SimpleRecipeMachineBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -97,42 +97,42 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncIngredientListToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
 
-    protected abstract C getRecipeInput(SimpleInventory inventory);
+    protected abstract C getRecipeInput(SimpleContainer inventory);
 
-    protected Optional<RecipeEntry<R>> getRecipeFor(SimpleInventory inventory) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected Optional<RecipeHolder<R>> getRecipeFor(SimpleContainer inventory) {
+        if(!(level instanceof ServerLevel serverWorld))
             return Optional.empty();
 
-        return serverWorld.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
+        return serverWorld.recipeAccess().getRecipeFor(recipeType, getRecipeInput(inventory), level);
     }
 
     @Override
-    protected final Optional<RecipeEntry<R>> getCurrentWorkData() {
+    protected final Optional<RecipeHolder<R>> getCurrentWorkData() {
         return getRecipeFor(itemHandler);
     }
 
     @Override
-    protected final double getWorkDataDependentWorkDuration(RecipeEntry<R> workData) {
+    protected final double getWorkDataDependentWorkDuration(RecipeHolder<R> workData) {
         return getRecipeDependentRecipeDuration(workData);
     }
 
-    protected double getRecipeDependentRecipeDuration(RecipeEntry<R> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
         return 1;
     }
 
     @Override
-    protected final double getWorkDataDependentEnergyConsumption(RecipeEntry<R> workData) {
+    protected final double getWorkDataDependentEnergyConsumption(RecipeHolder<R> workData) {
         return getRecipeDependentEnergyConsumption(workData);
     }
 
-    protected double getRecipeDependentEnergyConsumption(RecipeEntry<R> recipe) {
+    protected double getRecipeDependentEnergyConsumption(RecipeHolder<R> recipe) {
         return 1;
     }
 
@@ -142,49 +142,49 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     }
 
     protected boolean hasRecipe() {
-        if(world == null)
+        if(level == null)
             return false;
 
-        Optional<RecipeEntry<R>> recipe = getRecipeFor(itemHandler);
+        Optional<RecipeHolder<R>> recipe = getRecipeFor(itemHandler);
 
         return recipe.isPresent() && canCraftRecipe(itemHandler, recipe.get());
     }
 
     @Override
-    protected final void onWorkStarted(RecipeEntry<R> workData) {
+    protected final void onWorkStarted(RecipeHolder<R> workData) {
         onStartCrafting(workData);
     }
 
-    protected void onStartCrafting(RecipeEntry<R> recipe) {}
+    protected void onStartCrafting(RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkCompleted(RecipeEntry<R> workData) {
+    protected final void onWorkCompleted(RecipeHolder<R> workData) {
         craftItem(workData);
     }
 
-    protected void craftItem(RecipeEntry<R> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<R> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
-        itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, recipe.value().craft(getRecipeInput(itemHandler), world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().craft(getRecipeInput(itemHandler), world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, 1);
+        itemHandler.setItem(1, recipe.value().assemble(getRecipeInput(itemHandler), level.registryAccess()).
+                copyWithCount(itemHandler.getItem(1).getCount() +
+                        recipe.value().assemble(getRecipeInput(itemHandler), level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<R> recipe) {
-        return world != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().craft(getRecipeInput(itemHandler), world.getRegistryManager()));
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe) {
+        return level != null &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(getRecipeInput(itemHandler), level.registryAccess()));
     }
 
-    protected void syncIngredientListToPlayer(PlayerEntity player) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected void syncIngredientListToPlayer(Player player) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)));
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

@@ -5,18 +5,21 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +63,7 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource) {
+    public ItemStack[] generateOutputs(RandomSource randomSource) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
         generatedOutputs[0] = output.copyWithCount(output.getCount());
@@ -76,13 +79,13 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
-            usedIndices[i] = container.getStackInSlot(i).isEmpty();
+            usedIndices[i] = container.getItem(i).isEmpty();
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
@@ -95,7 +98,7 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = container.getStackInSlot(j);
+                ItemStack item = container.getItem(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -118,22 +121,22 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.ALLOY_FURNACE_CATEGORY;
     }
 
@@ -159,8 +162,8 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output, itemStack) || (secondaryOutput != null &&
-                ItemStack.areItemsAndComponentsEqual(secondaryOutput.output(), itemStack));
+        return ItemStack.isSameItemSameComponents(output, itemStack) || (secondaryOutput != null &&
+                ItemStack.isSameItemSameComponents(secondaryOutput.output(), itemStack));
     }
 
     public static final class Type implements RecipeType<AlloyFurnaceRecipe> {
@@ -183,13 +186,13 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
                 return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
             }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("ingredients").forGetter((recipe) -> {
                 return recipe.inputs;
-            }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
             })).apply(instance, (output, secondaryOutput, inputs, ticks) -> new AlloyFurnaceRecipe(output,
                     secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), inputs, ticks));
         });
 
-        private final PacketCodec<RegistryByteBuf, AlloyFurnaceRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -198,11 +201,11 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, AlloyFurnaceRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static AlloyFurnaceRecipe read(RegistryByteBuf buffer) {
+        private static AlloyFurnaceRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
             for(int i = 0;i < len;i++)
@@ -210,21 +213,21 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
 
             int ticks = buffer.readInt();
 
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             OutputItemStackWithPercentages secondaryOutput = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new AlloyFurnaceRecipe(output, secondaryOutput, inputs, ticks);
         }
 
-        private static void write(RegistryByteBuf buffer, AlloyFurnaceRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, AlloyFurnaceRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
             for(int i = 0; i < recipe.inputs.length; i++)
                 IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.inputs[i]);
 
             buffer.writeInt(recipe.ticks);
 
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
 
             OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
         }

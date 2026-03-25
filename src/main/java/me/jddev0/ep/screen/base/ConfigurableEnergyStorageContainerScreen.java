@@ -6,37 +6,36 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public abstract class ConfigurableEnergyStorageContainerScreen
-        <T extends ScreenHandler & IEnergyStorageMenu & IConfigurableMenu>
+        <T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu>
         extends EnergyStorageContainerScreen<T> {
     protected final Identifier CONFIGURATION_ICONS_TEXTURE =
             EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
 
-    public ConfigurableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
+    public ConfigurableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent) {
         super(menu, inventory, titleComponent);
     }
 
-    public ConfigurableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public ConfigurableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                     Identifier texture) {
         super(menu, inventory, titleComponent, texture);
     }
 
-    public ConfigurableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public ConfigurableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                     String energyIndicatorBarTooltipComponentID,
                                                     Identifier texture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture);
@@ -48,10 +47,10 @@ public abstract class ConfigurableEnergyStorageContainerScreen
 
     protected boolean mouseClickedConfiguration(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
-            if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(handler.getBlockEntity().getPos()));
+                ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }
         }
@@ -60,7 +59,7 @@ public abstract class ConfigurableEnergyStorageContainerScreen
     }
 
     @Override
-    public final boolean mouseClicked(Click click, boolean doubled) {
+    public final boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
         double mouseX = click.x();
         double mouseY = click.y();
         int mouseButton = click.button();
@@ -70,54 +69,54 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         clicked |= mouseClickedConfiguration(mouseX, mouseY, mouseButton);
 
         if(clicked)
-            client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.f));
+            minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
 
         return super.mouseClicked(click, doubled);
     }
 
-    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {}
+    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {}
 
     @Override
-    protected final void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
+    protected final void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
 
-    protected void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
-        RedstoneMode redstoneMode = handler.getRedstoneMode();
+    protected void renderConfiguration(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+        RedstoneMode redstoneMode = menu.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20, 256, 256);
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 20, 20, 20, 256, 256);
         }else {
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20, 256, 256);
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20 * ordinal, 0, 20, 20, 256, 256);
         }
     }
 
-    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {}
+    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {}
 
-    protected void renderTooltipConfiguration(DrawContext drawContext, int mouseX, int mouseY) {
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+    protected void renderTooltipConfiguration(GuiGraphics drawContext, int mouseX, int mouseY) {
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
-            RedstoneMode redstoneMode = handler.getRedstoneMode();
+            RedstoneMode redstoneMode = menu.getRedstoneMode();
 
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.asString()));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.machine_configuration.redstone_mode." + redstoneMode.getSerializedName()));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 
     @Override
-    protected final void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+    protected final void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+        super.renderTooltip(drawContext, mouseX, mouseY);
 
         renderTooltipNormalView(drawContext, mouseX, mouseY);
 

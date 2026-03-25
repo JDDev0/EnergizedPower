@@ -10,8 +10,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-
+import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +23,8 @@ public class PressMoldMakerCategory implements DisplayCategory<PressMoldMakerDis
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.press_mold_maker");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.press_mold_maker");
     }
 
     @Override

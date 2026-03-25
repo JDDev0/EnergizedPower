@@ -5,16 +5,19 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class StoneSolidifierRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
@@ -41,27 +44,27 @@ public class StoneSolidifierRecipe implements EnergizedPowerBaseRecipe<RecipeInp
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
+    public boolean matches(RecipeInput container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.STONE_SOLIDIFIER_CATEGORY;
     }
 
@@ -87,7 +90,7 @@ public class StoneSolidifierRecipe implements EnergizedPowerBaseRecipe<RecipeInp
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output, itemStack);
+        return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
     public static final class Type implements RecipeType<StoneSolidifierRecipe> {
@@ -113,7 +116,7 @@ public class StoneSolidifierRecipe implements EnergizedPowerBaseRecipe<RecipeInp
             })).apply(instance, StoneSolidifierRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, StoneSolidifierRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -122,22 +125,22 @@ public class StoneSolidifierRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, StoneSolidifierRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static StoneSolidifierRecipe read(RegistryByteBuf buffer) {
+        private static StoneSolidifierRecipe read(RegistryFriendlyByteBuf buffer) {
             long waterAmount = buffer.readLong();
             long lavaAmount = buffer.readLong();
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new StoneSolidifierRecipe(output, waterAmount, lavaAmount);
         }
 
-        private static void write(RegistryByteBuf buffer, StoneSolidifierRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, StoneSolidifierRecipe recipe) {
             buffer.writeLong(recipe.waterAmount);
             buffer.writeLong(recipe.lavaAmount);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

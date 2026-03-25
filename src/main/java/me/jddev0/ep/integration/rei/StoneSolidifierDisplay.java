@@ -10,35 +10,34 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 import java.util.Optional;
 
-public record StoneSolidifierDisplay(RecipeEntry<StoneSolidifierRecipe> recipe) implements Display {
+public record StoneSolidifierDisplay(RecipeHolder<StoneSolidifierRecipe> recipe) implements Display {
     public static final CategoryIdentifier<StoneSolidifierDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "stone_solidifier");
     public static final DisplaySerializer<? extends StoneSolidifierDisplay> SERIALIZER = DisplaySerializer.of(
             RecordCodecBuilder.mapCodec((instance) -> {
                 return instance.group(Identifier.CODEC.fieldOf("recipeId").forGetter(display -> {
-                    return display.recipe.id().getValue();
+                    return display.recipe.id().identifier();
                 }), EPRecipes.STONE_SOLIDIFIER_SERIALIZER.codec().fieldOf("ingredient").forGetter(display -> {
                     return display.recipe.value();
-                })).apply(instance, (recipeId, recipe) -> new StoneSolidifierDisplay(new RecipeEntry<>(
-                        RegistryKey.of(RegistryKeys.RECIPE, recipeId), recipe
+                })).apply(instance, (recipeId, recipe) -> new StoneSolidifierDisplay(new RecipeHolder<>(
+                        ResourceKey.create(Registries.RECIPE, recipeId), recipe
                 )));
             }),
-            PacketCodec.tuple(
-                    Identifier.PACKET_CODEC,
-                    display -> display.recipe.id().getValue(),
-                    EPRecipes.STONE_SOLIDIFIER_SERIALIZER.packetCodec(),
+            StreamCodec.composite(
+                    Identifier.STREAM_CODEC,
+                    display -> display.recipe.id().identifier(),
+                    EPRecipes.STONE_SOLIDIFIER_SERIALIZER.streamCodec(),
                     display -> display.recipe.value(),
-                    (recipeId, recipe) -> new StoneSolidifierDisplay(new RecipeEntry<>(
-                            RegistryKey.of(RegistryKeys.RECIPE, recipeId), recipe
+                    (recipeId, recipe) -> new StoneSolidifierDisplay(new RecipeHolder<>(
+                            ResourceKey.create(Registries.RECIPE, recipeId), recipe
                     ))
             )
     );
@@ -65,7 +64,7 @@ public record StoneSolidifierDisplay(RecipeEntry<StoneSolidifierRecipe> recipe) 
 
     @Override
     public Optional<Identifier> getDisplayLocation() {
-        return Optional.of(recipe.id().getValue());
+        return Optional.of(recipe.id().identifier());
     }
 
     @Override

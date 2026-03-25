@@ -5,12 +5,12 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public abstract class FluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
@@ -36,26 +36,26 @@ public abstract class FluidEnergyStorageBlockEntity
     protected abstract F initFluidStorage();
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         fluidStorageMethods.saveFluidStorage(fluidStorage, view);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
         fluidStorageMethods.loadFluidStorage(fluidStorage, view);
     }
 
-    protected final void syncFluidToPlayer(PlayerEntity player) {
-        fluidStorageMethods.syncFluidToPlayer(fluidStorage, player, pos);
+    protected final void syncFluidToPlayer(Player player) {
+        fluidStorageMethods.syncFluidToPlayer(fluidStorage, player, worldPosition);
     }
 
     protected final void syncFluidToPlayers(int distance) {
-        if(world != null && !world.isClient())
-            fluidStorageMethods.syncFluidToPlayers(fluidStorage, world, pos, distance);
+        if(level != null && !level.isClientSide())
+            fluidStorageMethods.syncFluidToPlayers(fluidStorage, level, worldPosition, distance);
     }
 
     public FluidStack getFluid(int tank) {

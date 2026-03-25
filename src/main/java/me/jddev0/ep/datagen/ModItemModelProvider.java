@@ -2,20 +2,21 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.client.item.property.bool.ActiveProperty;
 import me.jddev0.ep.client.item.property.bool.WorkingProperty;
-import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.client.data.*;
-import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.item.property.bool.HasComponentProperty;
-import net.minecraft.client.render.item.property.select.ComponentSelectProperty;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 
 class ModItemModelProvider {
-    private final ItemModelGenerator generator;
+    private final ItemModelGenerators generator;
 
-    ModItemModelProvider(ItemModelGenerator generator) {
+    ModItemModelProvider(ItemModelGenerators generator) {
         this.generator = generator;
     }
 
@@ -198,25 +199,25 @@ class ModItemModelProvider {
     }
 
     private void registerSpecialModels() {
-        ItemModel.Unbaked inventoryCoalEngine = ItemModels.basic(Models.GENERATED.upload(
-                ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE),
-                TextureMap.layer0(ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE)),
-                generator.modelCollector
+        ItemModel.Unbaked inventoryCoalEngine = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE),
+                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE)),
+                generator.modelOutput
         ));
-        ItemModel.Unbaked inventoryCoalEngineOn = ItemModels.basic(Models.GENERATED.upload(
-                ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_on"),
-                TextureMap.layer0(ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_on")),
-                generator.modelCollector
+        ItemModel.Unbaked inventoryCoalEngineOn = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_on"),
+                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_on")),
+                generator.modelOutput
         ));
-        ItemModel.Unbaked inventoryCoalEngineActive = ItemModels.basic(Models.GENERATED.upload(
-                ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_active"),
-                TextureMap.layer0(ModelIds.getItemSubModelId(EPItems.INVENTORY_COAL_ENGINE, "_active")),
-                generator.modelCollector
+        ItemModel.Unbaked inventoryCoalEngineActive = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_active"),
+                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_active")),
+                generator.modelOutput
         ));
 
-        generator.output.accept(EPItems.INVENTORY_COAL_ENGINE, ItemModels.condition(
+        generator.itemModelOutput.accept(EPItems.INVENTORY_COAL_ENGINE, ItemModelUtils.conditional(
                 new ActiveProperty(),
-                ItemModels.condition(
+                ItemModelUtils.conditional(
                         new WorkingProperty(),
                         inventoryCoalEngineOn,
                         inventoryCoalEngineActive
@@ -226,8 +227,8 @@ class ModItemModelProvider {
     }
 
     private Identifier basicItem(Item item) {
-        generator.register(item, Models.GENERATED);
+        generator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 
-        return ModelIds.getItemModelId(item);
+        return ModelLocationUtils.getModelLocation(item);
     }
 }

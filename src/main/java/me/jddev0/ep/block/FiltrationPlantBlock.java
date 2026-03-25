@@ -3,134 +3,138 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-public class FiltrationPlantBlock extends BlockWithEntity {
-    public static final MapCodec<FiltrationPlantBlock> CODEC = createCodec(FiltrationPlantBlock::new);
+public class FiltrationPlantBlock extends BaseEntityBlock {
+    public static final MapCodec<FiltrationPlantBlock> CODEC = simpleCodec(FiltrationPlantBlock::new);
 
-    public static final BooleanProperty POWERED = Properties.POWERED;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
-    public FiltrationPlantBlock(AbstractBlock.Settings props) {
+    public FiltrationPlantBlock(BlockBehaviour.Properties props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new FiltrationPlantBlockEntity(blockPos, state);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof FiltrationPlantBlockEntity filtrationPlantBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos, direction);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return filtrationPlantBlockEntity.getRedstoneOutput();
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, level, blockPos);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof FiltrationPlantBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((FiltrationPlantBlockEntity)blockEntity);
+        player.openMenu((FiltrationPlantBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation wireOrientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
-        boolean isPowered = level.isReceivingRedstonePower(selfPos);
-        if(isPowered != selfState.get(POWERED))
-            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 3);
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 3);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(POWERED, context.getWorld().isReceivingRedstonePower(context.getBlockPos()));
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos()));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(POWERED);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, EPBlockEntities.FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, EPBlockEntities.FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, Item.Settings props) {
+        public Item(Block block, Properties props) {
             super(block, props);
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(MinecraftClient.getInstance().isShiftPressed()) {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.filtration_plant.txt.shift.1").formatted(Formatting.GRAY));
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+            if(Minecraft.getInstance().hasShiftDown()) {
+                tooltip.accept(Component.translatable("tooltip.energizedpower.filtration_plant.txt.shift.1").withStyle(ChatFormatting.GRAY));
             }else {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

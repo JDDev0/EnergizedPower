@@ -3,7 +3,7 @@ package me.jddev0.ep.config.value;
 import me.jddev0.ep.config.ConfigValidationException;
 import me.jddev0.ep.config.ConfigValue;
 import me.jddev0.ep.config.validation.ValueValidator;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -7,12 +7,12 @@ import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.codec.PacketCodecFix;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.material.Fluid;
 import org.slf4j.Logger;
 
 public class FluidStack {
@@ -20,16 +20,16 @@ public class FluidStack {
 
     public static final Codec<FluidStack> CODEC_MILLIBUCKETS = RecordCodecBuilder.create(instance -> {
         return instance.group(Identifier.CODEC.fieldOf("id").forGetter(fluidStack -> {
-            return Registries.FLUID.getId(fluidStack.fluidVariant.getFluid());
+            return BuiltInRegistries.FLUID.getKey(fluidStack.fluidVariant.getFluid());
         }),CodecFix.NON_NEGATIVE_LONG.fieldOf("amount").forGetter(fluidStack -> {
             return FluidUtils.convertDropletsToMilliBuckets(fluidStack.dropletsAmount);
         }), CodecFix.NON_NEGATIVE_LONG.optionalFieldOf("leftoverDropletsAmount", 0L).forGetter(fluidStack -> {
             long milliBucketsAmount = FluidUtils.convertDropletsToMilliBuckets(fluidStack.dropletsAmount);
             return fluidStack.dropletsAmount - FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount);
-        }), ComponentChanges.CODEC.optionalFieldOf("components", ComponentChanges.EMPTY).forGetter(fluidStack -> {
+        }), DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(fluidStack -> {
             return fluidStack.fluidVariant.getComponents();
         })).apply(instance, (id, milliBucketsAmount, leftoverDropletsAmount, fluidComponents) -> {
-            Fluid fluid = Registries.FLUID.get(id);
+            Fluid fluid = BuiltInRegistries.FLUID.getValue(id);
 
             long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + leftoverDropletsAmount;
 
@@ -37,7 +37,7 @@ public class FluidStack {
         });
     });
     
-    public static final PacketCodec<RegistryByteBuf, FluidStack> PACKET_CODEC = PacketCodec.tuple(
+    public static final StreamCodec<RegistryFriendlyByteBuf, FluidStack> PACKET_CODEC = StreamCodec.composite(
             FluidVariant.PACKET_CODEC, FluidStack::getFluidVariant,
             PacketCodecFix.LONG, FluidStack::getDropletsAmount,
             FluidStack::new
@@ -47,10 +47,10 @@ public class FluidStack {
     private long dropletsAmount;
 
     public FluidStack(Fluid fluid, long dropletsAmount) {
-        this(fluid, ComponentChanges.EMPTY, dropletsAmount);
+        this(fluid, DataComponentPatch.EMPTY, dropletsAmount);
     }
 
-    public FluidStack(Fluid fluid, ComponentChanges fluidComponents, long dropletsAmount) {
+    public FluidStack(Fluid fluid, DataComponentPatch fluidComponents, long dropletsAmount) {
         this(FluidVariant.of(fluid, fluidComponents), dropletsAmount);
     }
 
@@ -88,6 +88,6 @@ public class FluidStack {
     }
 
     public String getTranslationKey() {
-        return fluidVariant.getFluid().getDefaultState().getBlockState().getBlock().getTranslationKey();
+        return fluidVariant.getFluid().defaultFluidState().createLegacyBlock().getBlock().getDescriptionId();
     }
 }

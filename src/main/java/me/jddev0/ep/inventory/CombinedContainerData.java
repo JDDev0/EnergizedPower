@@ -1,25 +1,24 @@
 package me.jddev0.ep.inventory;
 
-import net.minecraft.screen.PropertyDelegate;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import net.minecraft.world.inventory.ContainerData;
 
-public class CombinedContainerData implements PropertyDelegate {
+public class CombinedContainerData implements ContainerData {
     private final int dataCount;
-    private final PropertyDelegate[] backingData;
+    private final ContainerData[] backingData;
     private final Map<Integer, Integer> backingDataIndexLookup;
     private final Map<Integer, Integer> dataOffsetIndexLookup;
 
-    public CombinedContainerData(PropertyDelegate... backingData) {
+    public CombinedContainerData(ContainerData... backingData) {
         this.backingData = Arrays.copyOf(backingData, backingData.length);
         this.backingDataIndexLookup = new HashMap<>();
         this.dataOffsetIndexLookup = new HashMap<>();
 
         int dataIndex = 0;
         for(int i = 0;i < backingData.length;i++) {
-            int dataCount = backingData[i].size();
+            int dataCount = backingData[i].getCount();
 
             for(int j = 0;j < dataCount;j++) {
                 backingDataIndexLookup.put(dataIndex + j, i);
@@ -53,7 +52,7 @@ public class CombinedContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return dataCount;
     }
 }

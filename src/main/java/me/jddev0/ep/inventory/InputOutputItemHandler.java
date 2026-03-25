@@ -3,13 +3,13 @@ package me.jddev0.ep.inventory;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.entity.ContainerUser;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.ContainerUser;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
@@ -17,18 +17,18 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class InputOutputItemHandler implements SidedInventory, Function<Direction, @Nullable Storage<ItemVariant>> {
+public class InputOutputItemHandler implements WorldlyContainer, Function<Direction, @Nullable Storage<ItemVariant>> {
     private final InventoryStorage[] cachedInventoryStorages = new InventoryStorage[Direction.values().length];
 
-    private final SidedInventory handler;
+    private final WorldlyContainer handler;
     private final BiPredicate<Integer, ItemStack> canInput;
     private final Predicate<Integer> canOutput;
 
-    public InputOutputItemHandler(Inventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public InputOutputItemHandler(Container handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this(new SidedInventoryWrapper(handler), canInput, canOutput);
     }
 
-    public InputOutputItemHandler(SidedInventory handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public InputOutputItemHandler(WorldlyContainer handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this.handler = handler;
         this.canInput = canInput;
         this.canOutput = canOutput;
@@ -49,23 +49,23 @@ public class InputOutputItemHandler implements SidedInventory, Function<Directio
     }
 
     @Override
-    public int[] getAvailableSlots(Direction side) {
-        return handler.getAvailableSlots(side);
+    public int[] getSlotsForFace(Direction side) {
+        return handler.getSlotsForFace(side);
     }
 
     @Override
-    public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return canInput.test(slot, stack) && handler.isValid(slot, stack) && handler.canInsert(slot, stack, dir);
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
+        return canInput.test(slot, stack) && handler.canPlaceItem(slot, stack) && handler.canPlaceItemThroughFace(slot, stack, dir);
     }
 
     @Override
-    public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return canOutput.test(slot) && handler.canExtract(slot, stack, dir);
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
+        return canOutput.test(slot) && handler.canTakeItemThroughFace(slot, stack, dir);
     }
 
     @Override
-    public int size() {
-        return handler.size();
+    public int getContainerSize() {
+        return handler.getContainerSize();
     }
 
     @Override
@@ -74,77 +74,77 @@ public class InputOutputItemHandler implements SidedInventory, Function<Directio
     }
 
     @Override
-    public ItemStack getStack(int slot) {
-        return handler.getStack(slot);
+    public ItemStack getItem(int slot) {
+        return handler.getItem(slot);
     }
 
     @Override
-    public ItemStack removeStack(int slot, int amount) {
-        return handler.removeStack(slot, amount);
+    public ItemStack removeItem(int slot, int amount) {
+        return handler.removeItem(slot, amount);
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
-        return handler.removeStack(slot);
+    public ItemStack removeItemNoUpdate(int slot) {
+        return handler.removeItemNoUpdate(slot);
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        handler.setStack(slot, stack);
+    public void setItem(int slot, ItemStack stack) {
+        handler.setItem(slot, stack);
     }
 
     @Override
-    public void markDirty() {
-        handler.markDirty();
+    public void setChanged() {
+        handler.setChanged();
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return handler.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return handler.stillValid(player);
     }
 
     @Override
-    public void clear() {
-        handler.clear();
+    public void clearContent() {
+        handler.clearContent();
     }
 
     @Override
-    public int getMaxCountPerStack() {
-        return handler.getMaxCountPerStack();
+    public int getMaxStackSize() {
+        return handler.getMaxStackSize();
     }
 
     @Override
-    public void onOpen(ContainerUser player) {
-        handler.onOpen(player);
+    public void startOpen(ContainerUser player) {
+        handler.startOpen(player);
     }
 
     @Override
-    public void onClose(ContainerUser player) {
-        handler.onClose(player);
+    public void stopOpen(ContainerUser player) {
+        handler.stopOpen(player);
     }
 
     @Override
-    public boolean isValid(int slot, ItemStack stack) {
-        return handler.isValid(slot, stack);
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return handler.canPlaceItem(slot, stack);
     }
 
     @Override
-    public int count(Item item) {
-        return handler.count(item);
+    public int countItem(Item item) {
+        return handler.countItem(item);
     }
 
     @Override
-    public boolean containsAny(Set<Item> items) {
-        return handler.containsAny(items);
+    public boolean hasAnyOf(Set<Item> items) {
+        return handler.hasAnyOf(items);
     }
 
     @Override
-    public boolean containsAny(Predicate<ItemStack> predicate) {
-        return handler.containsAny(predicate);
+    public boolean hasAnyMatching(Predicate<ItemStack> predicate) {
+        return handler.hasAnyMatching(predicate);
     }
 
     @Override
-    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
-        return handler.canTransferTo(hopperInventory, slot, stack);
+    public boolean canTakeItem(Container hopperInventory, int slot, ItemStack stack) {
+        return handler.canTakeItem(hopperInventory, slot, stack);
     }
 }

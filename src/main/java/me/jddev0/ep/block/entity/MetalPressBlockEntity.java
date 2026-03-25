@@ -11,18 +11,18 @@ import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.screen.MetalPressMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, MetalPressRecipe> {
     final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1) {
         @Override
-        public int getMaxCountPerStack() {
+        public int getMaxStackSize() {
             return 1;
         }
     };
@@ -47,70 +47,70 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
-                    case 1 -> world == null || stack.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
-                            (getStack(1).isEmpty() || stack.getCount() == 1);
+                    case 1 -> level == null || stack.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
+                            (getItem(1).isEmpty() || stack.getCount() == 1);
                     case 2 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0 || slot == 1) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                MetalPressBlockEntity.this.markDirty();
+                MetalPressBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
-    protected void craftItem(RecipeEntry<MetalPressRecipe> recipe) {
-        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
+    protected void craftItem(RecipeHolder<MetalPressRecipe> recipe) {
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverWorld))
             return;
 
-         ItemStack pressMold = itemHandler.getStack(1).copy();
-        if(pressMold.isEmpty() && !pressMold.isIn(EnergizedPowerItemTags.METAL_PRESS_MOLDS))
+         ItemStack pressMold = itemHandler.getItem(1).copy();
+        if(pressMold.isEmpty() && !pressMold.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS))
             return;
 
-        pressMold.damage(1, serverWorld, null, item -> pressMold.setCount(0));
-        itemHandler.setStack(1, pressMold);
+        pressMold.hurtAndBreak(1, serverWorld, null, item -> pressMold.setCount(0));
+        itemHandler.setItem(1, pressMold);
 
-        itemHandler.removeStack(0, recipe.value().getInput().count());
-        itemHandler.setStack(2, recipe.value().craft(null, world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(2).getCount() +
-                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, recipe.value().getInput().count());
+        itemHandler.setItem(2, recipe.value().assemble(null, level.registryAccess()).
+                copyWithCount(itemHandler.getItem(2).getCount() +
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<MetalPressRecipe> recipe) {
-        return world != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().craft(null, world.getRegistryManager()));
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<MetalPressRecipe> recipe) {
+        return level != null &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
     }
 }

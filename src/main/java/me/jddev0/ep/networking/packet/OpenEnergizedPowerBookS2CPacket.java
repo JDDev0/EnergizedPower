@@ -5,39 +5,39 @@ import me.jddev0.ep.screen.EnergizedPowerBookScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.LecternBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
 
-public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPayload {
-    public static final CustomPayload.Id<OpenEnergizedPowerBookS2CPacket> ID =
-            new CustomPayload.Id<>(EPAPI.id("open_energized_power_book"));
-    public static final PacketCodec<RegistryByteBuf, OpenEnergizedPowerBookS2CPacket> PACKET_CODEC =
-            PacketCodec.of(OpenEnergizedPowerBookS2CPacket::write, OpenEnergizedPowerBookS2CPacket::new);
+public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<OpenEnergizedPowerBookS2CPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("open_energized_power_book"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, OpenEnergizedPowerBookS2CPacket> PACKET_CODEC =
+            StreamCodec.ofMember(OpenEnergizedPowerBookS2CPacket::write, OpenEnergizedPowerBookS2CPacket::new);
 
-    public OpenEnergizedPowerBookS2CPacket(RegistryByteBuf buffer) {
+    public OpenEnergizedPowerBookS2CPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos());
     }
 
-    public void write(RegistryByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(OpenEnergizedPowerBookS2CPacket data, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
-            if(context.client().world == null)
+            if(context.client().level == null)
                 return;
 
-            BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
+            BlockEntity blockEntity = context.client().level.getBlockEntity(data.pos);
 
             if(blockEntity instanceof LecternBlockEntity lecternBlockEntity) {
                 showBookViewScreen(lecternBlockEntity);
@@ -47,6 +47,6 @@ public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPay
 
     @Environment(EnvType.CLIENT)
     private static void showBookViewScreen(LecternBlockEntity lecternBlockEntity) {
-        MinecraftClient.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
+        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
     }
 }

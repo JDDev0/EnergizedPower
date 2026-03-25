@@ -5,11 +5,11 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.InfinityFluidStorage;
 import me.jddev0.ep.screen.CreativeFluidTankMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeFluidTankBlockEntity
@@ -30,7 +30,7 @@ public class CreativeFluidTankBlockEntity
         return new InfinityFluidStorage() {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(64);
             }
         };
@@ -38,7 +38,7 @@ public class CreativeFluidTankBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFluidToPlayer(player);
 
         return new CreativeFluidTankMenu(id, inventory, this);

@@ -13,18 +13,17 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.stream.Collectors;
 
-public class CompressorCategory implements IRecipeCategory<RecipeEntry<CompressorRecipe>> {
+public class CompressorCategory implements IRecipeCategory<RecipeHolder<CompressorRecipe>> {
     public static final IRecipeHolderType<CompressorRecipe> TYPE = IRecipeHolderType.create(CompressorRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -38,13 +37,13 @@ public class CompressorCategory implements IRecipeCategory<RecipeEntry<Compresso
     }
 
     @Override
-    public IRecipeType<RecipeEntry<CompressorRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<CompressorRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.compressor");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.compressor");
     }
 
     @Override
@@ -63,12 +62,12 @@ public class CompressorCategory implements IRecipeCategory<RecipeEntry<Compresso
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<CompressorRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CompressorRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addItemStacks(
-                recipe.value().getInput().input().getMatchingItems().
-                        map(RegistryEntry::getKeyOrValue).
+                recipe.value().getInput().input().items().
+                        map(Holder::unwrap).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
-                                l -> new ItemStack(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(l)),
+                                l -> new ItemStack(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),
                                 ItemStack::new
                         )).
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInput().count())).
@@ -78,7 +77,7 @@ public class CompressorCategory implements IRecipeCategory<RecipeEntry<Compresso
     }
 
     @Override
-    public void draw(RecipeEntry<CompressorRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<CompressorRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

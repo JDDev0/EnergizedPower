@@ -8,11 +8,11 @@ import me.jddev0.ep.recipe.CompressorRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.CompressorMenu;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, CompressorRecipe> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
@@ -36,19 +36,19 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
-    protected void craftItem(RecipeEntry<CompressorRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<CompressorRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
-        itemHandler.removeStack(0, recipe.value().getInput().count());
-        itemHandler.setStack(1, recipe.value().craft(null, world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, recipe.value().getInput().count());
+        itemHandler.setItem(1, recipe.value().assemble(null, level.registryAccess()).
+                copyWithCount(itemHandler.getItem(1).getCount() +
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }

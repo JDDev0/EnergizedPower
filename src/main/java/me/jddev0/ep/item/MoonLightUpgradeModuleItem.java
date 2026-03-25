@@ -3,8 +3,8 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -20,7 +20,7 @@ public class MoonLightUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double MOON_LIGHT_3_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_MOON_LIGHT_3_EFFECT.getValue();
 
-    public MoonLightUpgradeModuleItem(Settings props, int tier) {
+    public MoonLightUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.MOON_LIGHT, tier);
     }
 
@@ -45,12 +45,12 @@ public class MoonLightUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
-    public Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
+    public Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
         return switch(modifier) {
-            case MOON_LIGHT -> Text.literal(String.format(Locale.US, "%.2f %%", 100 * value)).
-                    formatted(Formatting.GREEN);
+            case MOON_LIGHT -> Component.literal(String.format(Locale.US, "%.2f %%", 100 * value)).
+                    withStyle(ChatFormatting.GREEN);
 
-            default -> Text.empty();
+            default -> Component.empty();
         };
     }
 }

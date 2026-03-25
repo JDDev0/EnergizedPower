@@ -12,20 +12,20 @@ import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.RecipeUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -63,73 +63,73 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
-                    case 1 -> ((world instanceof ServerWorld serverWorld)?
+                    case 1 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfFertilizerRecipes, stack));
                     case 2, 3, 4, 5 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                PlantGrowthChamberBlockEntity.this.markDirty();
+                PlantGrowthChamberBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    public @Nullable ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public @Nullable AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFertilizerIngredientListToPlayer(player);
 
         return super.createMenu(id, inventory, player);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putDouble("recipe.speed_multiplier", fertilizerSpeedMultiplier);
         view.putDouble("recipe.energy_consumption_multiplier", fertilizerEnergyConsumptionMultiplier);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        fertilizerSpeedMultiplier = view.getDouble("recipe.speed_multiplier", 0);
-        fertilizerEnergyConsumptionMultiplier = view.getDouble("recipe.energy_consumption_multiplier", 0);
+        fertilizerSpeedMultiplier = view.getDoubleOr("recipe.speed_multiplier", 0);
+        fertilizerEnergyConsumptionMultiplier = view.getDoubleOr("recipe.energy_consumption_multiplier", 0);
     }
 
     @Override
-    protected double getRecipeDependentRecipeDuration(RecipeEntry<PlantGrowthChamberRecipe> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER / fertilizerSpeedMultiplier;
     }
 
     @Override
-    protected double getRecipeDependentEnergyConsumption(RecipeEntry<PlantGrowthChamberRecipe> recipe) {
+    protected double getRecipeDependentEnergyConsumption(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         return fertilizerEnergyConsumptionMultiplier;
     }
 
@@ -142,34 +142,34 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
     }
 
     @Override
-    protected void onStartCrafting(RecipeEntry<PlantGrowthChamberRecipe> recipe) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected void onStartCrafting(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        Optional<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = serverWorld.getRecipeManager().
-                getFirstMatch(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(itemHandler), world);
+        Optional<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = serverWorld.recipeAccess().
+                getRecipeFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(itemHandler), level);
 
         if(fertilizerRecipe.isPresent()) {
             fertilizerSpeedMultiplier = fertilizerRecipe.get().value().getSpeedMultiplier();
             fertilizerEnergyConsumptionMultiplier = fertilizerRecipe.get().value().getEnergyConsumptionMultiplier();
 
-            itemHandler.removeStack(1, 1);
+            itemHandler.removeItem(1, 1);
         }
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
-    protected void craftItem(RecipeEntry<PlantGrowthChamberRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
-        itemHandler.removeStack(0, 1);
+        itemHandler.removeItem(0, 1);
 
-        List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.value().generateOutputs(world.random)));
+        List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.value().generateOutputs(level.random)));
 
         List<Integer> emptyIndices = new ArrayList<>(4);
         outer:
@@ -177,8 +177,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
             if(itemStack.isEmpty())
                 continue;
 
-            for(int i = 2;i < itemHandler.size();i++) {
-                ItemStack testItemStack = itemHandler.getStack(i);
+            for(int i = 2;i < itemHandler.getContainerSize();i++) {
+                ItemStack testItemStack = itemHandler.getItem(i);
                 if(emptyIndices.contains(i))
                     continue;
 
@@ -188,10 +188,10 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
                     continue;
                 }
 
-                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
-                    int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
+                    int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
                     if(amount > 0) {
-                        itemHandler.setStack(i, itemHandler.getStack(i).
+                        itemHandler.setItem(i, itemHandler.getItem(i).
                                 copyWithCount(testItemStack.getCount() + amount));
 
                         itemStack.setCount(itemStack.getCount() - amount);
@@ -206,39 +206,39 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
             if(emptyIndices.isEmpty())
                 continue; //Excess items will be vanished
 
-            itemHandler.setStack(emptyIndices.remove(0), itemStack);
+            itemHandler.setItem(emptyIndices.remove(0), itemStack);
         }
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<PlantGrowthChamberRecipe> recipe) {
-        return world != null &&
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        return level != null &&
                 canInsertItemsIntoOutputSlots(inventory, new ArrayList<>(Arrays.asList(recipe.value().getMaxOutputCounts())));
     }
 
-    private static boolean canInsertItemsIntoOutputSlots(SimpleInventory inventory, List<ItemStack> itemsStacks) {
+    private static boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, List<ItemStack> itemsStacks) {
         List<Integer> checkedIndices = new ArrayList<>(4);
         List<Integer> emptyIndices = new ArrayList<>(4);
         outer:
         for(int i = Math.min(4, itemsStacks.size()) - 1;i >= 0;i--) {
             ItemStack itemStack = itemsStacks.get(i);
-            for(int j = 2;j < inventory.size();j++) {
+            for(int j = 2;j < inventory.getContainerSize();j++) {
                 if(checkedIndices.contains(j) || emptyIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = inventory.getStack(j);
+                ItemStack testItemStack = inventory.getItem(j);
                 if(testItemStack.isEmpty()) {
                     emptyIndices.add(j);
 
                     continue;
                 }
 
-                if(ItemStack.areItemsAndComponentsEqual(itemStack, testItemStack)) {
-                    int amount = Math.min(itemStack.getCount(), testItemStack.getMaxCount() - testItemStack.getCount());
+                if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
+                    int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
 
-                    if(amount + testItemStack.getCount() == testItemStack.getMaxCount())
+                    if(amount + testItemStack.getCount() == testItemStack.getMaxStackSize())
                         checkedIndices.add(j);
 
                     if(amount == itemStack.getCount()) {
@@ -246,7 +246,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
                         continue outer;
                     }else {
-                        itemStack.decrement(amount);
+                        itemStack.shrink(amount);
                     }
                 }
             }
@@ -256,7 +256,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
                 return false;
 
             int index = emptyIndices.remove(0);
-            if(itemStack.getCount() == itemStack.getMaxCount())
+            if(itemStack.getCount() == itemStack.getMaxStackSize())
                 checkedIndices.add(index);
 
             itemsStacks.remove(i);
@@ -265,12 +265,12 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         return itemsStacks.isEmpty();
     }
 
-    protected void syncFertilizerIngredientListToPlayer(PlayerEntity player) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected void syncFertilizerIngredientListToPlayer(Player player) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new SyncIngredientsS2CPacket(getPos(), 1, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE)));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new SyncIngredientsS2CPacket(getBlockPos(), 1, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE)));
     }
 
     public List<Ingredient> getIngredientsOfFertilizerRecipes() {

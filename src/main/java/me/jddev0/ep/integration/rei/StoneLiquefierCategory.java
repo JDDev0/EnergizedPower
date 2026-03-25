@@ -9,8 +9,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-
+import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,8 @@ public class StoneLiquefierCategory implements DisplayCategory<StoneLiquefierDis
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.stone_liquefier");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.stone_liquefier");
     }
 
     @Override

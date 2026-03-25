@@ -2,14 +2,13 @@ package me.jddev0.ep.item.energy;
 
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.MathHelper;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -18,7 +17,7 @@ public class EnergizedPowerEnergyItem extends Item {
     private final long maxReceive;
     private final long maxExtract;
 
-    public EnergizedPowerEnergyItem(Item.Settings props, long capacity, long maxReceive, long maxExtract) {
+    public EnergizedPowerEnergyItem(Item.Properties props, long capacity, long maxReceive, long maxExtract) {
         super(props);
 
         this.capacity = capacity;
@@ -55,25 +54,25 @@ public class EnergizedPowerEnergyItem extends Item {
     }
 
     @Override
-    public boolean isItemBarVisible(ItemStack stack) {
+    public boolean isBarVisible(ItemStack stack) {
         return true;
     }
 
     @Override
-    public int getItemBarStep(ItemStack stack) {
+    public int getBarWidth(ItemStack stack) {
         return Math.round(getEnergy(stack) * 13.f / getEnergyCapacity(stack));
     }
 
     @Override
-    public int getItemBarColor(ItemStack stack) {
+    public int getBarColor(ItemStack stack) {
         float f = Math.max(0.f, getEnergy(stack) / (float)getEnergyCapacity(stack));
-        return MathHelper.hsvToRgb(f * .33f, 1.f, 1.f);
+        return Mth.hsvToRgb(f * .33f, 1.f, 1.f);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-        tooltip.accept(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+        tooltip.accept(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(getEnergy(stack)), EnergyUtils.getEnergyWithPrefix(getEnergyCapacity(stack))).
-                formatted(Formatting.GRAY));
+                withStyle(ChatFormatting.GRAY));
     }
 }

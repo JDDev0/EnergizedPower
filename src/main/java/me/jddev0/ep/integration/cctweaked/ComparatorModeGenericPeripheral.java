@@ -23,14 +23,14 @@ public class ComparatorModeGenericPeripheral implements GenericPeripheral {
         ComparatorMode[] modes = comparatorModeHandler.getAvailableComparatorModes();
         String[] serializedModes = new String[modes.length];
         for(int i = 0;i < modes.length;i++)
-            serializedModes[i] = modes[i].asString();
+            serializedModes[i] = modes[i].getSerializedName();
 
         return serializedModes;
     }
 
     @LuaFunction(mainThread = true)
     public final String getComparatorMode(IComparatorModeHandler comparatorModeHandler) {
-        return comparatorModeHandler.getComparatorMode().asString();
+        return comparatorModeHandler.getComparatorMode().getSerializedName();
     }
 
     @LuaFunction(mainThread = true)

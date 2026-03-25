@@ -13,15 +13,14 @@ import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.*;
 import net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.DispenserScreen;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -113,15 +112,15 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
             registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
                     new InWorldCategory.InWorldRecipe(
-                            Ingredient.ofTag(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
-                            Ingredient.ofTag(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(ItemTags.WOOL)),
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
                             new ItemStack(EPItems.CABLE_INSULATOR, 18))
             ));
 
             registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
                     new DispenserCategory.DispenserRecipe(
-                            Ingredient.ofTag(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
-                            Ingredient.ofTag(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(ItemTags.WOOL)),
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
                             new ItemStack(EPItems.CABLE_INSULATOR, 18))
             ));
         }
@@ -223,8 +222,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 62, 78, 8, FiltrationPlantCategory.TYPE);
         registerRecipeClickArea(registration, FluidTransposerScreen.class, 114, 19, 20, 14, FluidTransposerCategory.TYPE);
 
-        registration.addRecipeClickArea(Generic3x3ContainerScreen.class, 7, 16, 54, 54, DispenserCategory.TYPE);
-        registration.addRecipeClickArea(Generic3x3ContainerScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);
+        registration.addRecipeClickArea(DispenserScreen.class, 7, 16, 54, 54, DispenserCategory.TYPE);
+        registration.addRecipeClickArea(DispenserScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);
     }
 
     private <T extends EnergyStorageContainerScreen<? extends IUpgradeModuleMenu>> void

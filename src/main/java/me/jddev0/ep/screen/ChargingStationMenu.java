@@ -3,25 +3,25 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingStationBlockEntity> {
-    public ChargingStationMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+    public ChargingStationMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.RANGE
         ));
     }
 
-    public ChargingStationMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
+    public ChargingStationMenu(int id, BlockEntity blockEntity, Inventory playerInventory,
                                UpgradeModuleInventory upgradeModuleInventory) {
         super(
                 EPMenuTypes.CHARGING_STATION_MENU, id,
@@ -32,27 +32,27 @@ public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingSta
                 upgradeModuleInventory, 2
         );
 
-        for(int i = 0;i < upgradeModuleInventory.size();i++)
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasStack())
+        if(sourceSlot == null || !sourceSlot.hasItem())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getStack();
+        ItemStack sourceItem = sourceSlot.getItem();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 2) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
-            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else {
@@ -60,11 +60,11 @@ public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingSta
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setStack(ItemStack.EMPTY);
+            sourceSlot.setByPlayer(ItemStack.EMPTY);
         else
-            sourceSlot.markDirty();
+            sourceSlot.setChanged();
 
-        sourceSlot.onTakeItem(player, sourceItem);
+        sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
     }

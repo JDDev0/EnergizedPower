@@ -8,15 +8,15 @@ import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AutoPressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class AutoPressMoldMakerBlockEntity
         extends SelectableRecipeMachineBlockEntity<RecipeInput, PressMoldMakerRecipe> {
@@ -44,53 +44,53 @@ public class AutoPressMoldMakerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> stack.isOf(Items.CLAY_BALL);
-                    case 1 -> stack.isIn(ItemTags.SHOVELS);
+                    case 0 -> stack.is(Items.CLAY_BALL);
+                    case 1 -> stack.is(ItemTags.SHOVELS);
                     case 2 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                AutoPressMoldMakerBlockEntity.this.markDirty();
+                AutoPressMoldMakerBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected void craftItem(RecipeEntry<PressMoldMakerRecipe> recipe) {
-        if(world == null || !hasRecipe() || !(world instanceof ServerWorld serverWorld))
+    protected void craftItem(RecipeHolder<PressMoldMakerRecipe> recipe) {
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverWorld))
             return;
 
-        ItemStack shovel = itemHandler.getStack(1).copy();
-        if(shovel.isEmpty() && !shovel.isIn(ItemTags.SHOVELS))
+        ItemStack shovel = itemHandler.getItem(1).copy();
+        if(shovel.isEmpty() && !shovel.is(ItemTags.SHOVELS))
             return;
 
-        shovel.damage(1, serverWorld, null, item -> shovel.setCount(0));
-        itemHandler.setStack(1, shovel);
+        shovel.hurtAndBreak(1, serverWorld, null, item -> shovel.setCount(0));
+        itemHandler.setItem(1, shovel);
 
-        itemHandler.removeStack(0, recipe.value().getClayCount());
-        itemHandler.setStack(2, recipe.value().craft(null, world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(2).getCount() +
-                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, recipe.value().getClayCount());
+        itemHandler.setItem(2, recipe.value().assemble(null, level.registryAccess()).
+                copyWithCount(itemHandler.getItem(2).getCount() +
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<PressMoldMakerRecipe> recipe) {
-        return world != null &&
-                itemHandler.getStack(0).isOf(Items.CLAY_BALL) &&
-                itemHandler.getStack(0).getCount() >= recipe.value().getClayCount() &&
-                itemHandler.getStack(1).isIn(ItemTags.SHOVELS) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().craft(null, world.getRegistryManager()));
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PressMoldMakerRecipe> recipe) {
+        return level != null &&
+                itemHandler.getItem(0).is(Items.CLAY_BALL) &&
+                itemHandler.getItem(0).getCount() >= recipe.value().getClayCount() &&
+                itemHandler.getItem(1).is(ItemTags.SHOVELS) &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
     }
 }

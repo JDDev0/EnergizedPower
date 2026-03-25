@@ -9,9 +9,8 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,8 +25,8 @@ public class AssemblingMachineEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public AssemblingMachineEMIRecipe(RecipeEntry<AssemblingMachineRecipe> recipe) {
-        this.id = recipe.id().getValue();
+    public AssemblingMachineEMIRecipe(RecipeHolder<AssemblingMachineRecipe> recipe) {
+        this.id = recipe.id().identifier();
         this.input = Arrays.stream(recipe.value().getInputs()).map(input ->
                 EmiIngredient.of(input.input(), input.count())).collect(Collectors.toList());
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));

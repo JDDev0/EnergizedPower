@@ -25,11 +25,10 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKey;
-
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import java.util.function.Consumer;
 
 public class EnergizedPowerMod implements ModInitializer {
@@ -380,7 +379,7 @@ public class EnergizedPowerMod implements ModInitializer {
         });
     }
 
-    private void addCreativeTabFor(RegistryKey<ItemGroup> groupKey,
+    private void addCreativeTabFor(ResourceKey<CreativeModeTab> groupKey,
                                    Consumer<CreativeTabEntriesHelper> consumer) {
         ItemGroupEvents.modifyEntriesEvent(groupKey).
                 register(entries -> consumer.accept(new CreativeTabEntriesHelper(entries)));

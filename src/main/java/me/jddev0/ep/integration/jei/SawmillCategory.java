@@ -13,16 +13,15 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SawmillCategory implements IRecipeCategory<RecipeEntry<SawmillRecipe>> {
+public class SawmillCategory implements IRecipeCategory<RecipeHolder<SawmillRecipe>> {
     public static final IRecipeHolderType<SawmillRecipe> TYPE = IRecipeHolderType.create(SawmillRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -36,13 +35,13 @@ public class SawmillCategory implements IRecipeCategory<RecipeEntry<SawmillRecip
     }
 
     @Override
-    public IRecipeType<RecipeEntry<SawmillRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<SawmillRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.sawmill");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.sawmill");
     }
 
     @Override
@@ -61,7 +60,7 @@ public class SawmillCategory implements IRecipeCategory<RecipeEntry<SawmillRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<SawmillRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<SawmillRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInputItem());
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).add(recipe.value().getOutputItem());
@@ -71,7 +70,7 @@ public class SawmillCategory implements IRecipeCategory<RecipeEntry<SawmillRecip
     }
 
     @Override
-    public void draw(RecipeEntry<SawmillRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<SawmillRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

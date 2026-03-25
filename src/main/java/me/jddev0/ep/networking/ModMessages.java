@@ -5,11 +5,11 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 
 public final class ModMessages {
     private ModMessages() {}
@@ -74,23 +74,23 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket::receive);
     }
 
-    public static void sendClientPacketToServer(CustomPayload payload) {
+    public static void sendClientPacketToServer(CustomPacketPayload payload) {
         ClientPlayNetworking.send(payload);
     }
 
-    public static void broadcastServerPacket(MinecraftServer server, CustomPayload payload) {
-        for(ServerPlayerEntity player:PlayerLookup.all(server)) {
+    public static void broadcastServerPacket(MinecraftServer server, CustomPacketPayload payload) {
+        for(ServerPlayer player:PlayerLookup.all(server)) {
             ServerPlayNetworking.send(player, payload);
         }
     }
 
-    public static void sendServerPacketToPlayersWithinXBlocks(BlockPos pos, ServerWorld dimension, double distance, CustomPayload payload) {
-        for(ServerPlayerEntity player:PlayerLookup.around(dimension, pos, distance)) {
+    public static void sendServerPacketToPlayersWithinXBlocks(BlockPos pos, ServerLevel dimension, double distance, CustomPacketPayload payload) {
+        for(ServerPlayer player:PlayerLookup.around(dimension, pos, distance)) {
             ServerPlayNetworking.send(player, payload);
         }
     }
 
-    public static void sendServerPacketToPlayer(ServerPlayerEntity player, CustomPayload payload) {
+    public static void sendServerPacketToPlayer(ServerPlayer player, CustomPacketPayload payload) {
         ServerPlayNetworking.send(player, payload);
     }
 }

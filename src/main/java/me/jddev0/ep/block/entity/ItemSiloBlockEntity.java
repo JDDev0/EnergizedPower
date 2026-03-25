@@ -9,17 +9,17 @@ import me.jddev0.ep.screen.ItemSiloMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemSiloBlockEntity
@@ -47,23 +47,23 @@ public class ItemSiloBlockEntity
         return new SingleItemStackHandler(slotCount) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
             }
         };
     }
 
     @Override
-    protected void readInventoryStorage(ReadView view) {
+    protected void readInventoryStorage(ValueInput view) {
         itemHandler.readData(view);
     }
 
     @Override
-    protected void writeInventoryStorage(WriteView view) {
+    protected void writeInventoryStorage(ValueOutput view) {
         itemHandler.writeData(view);
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new LongValueContainerData(itemHandler::getAmount, value -> {}),
                 new LongValueContainerData(itemHandler::getCapacity, value -> {})
@@ -72,7 +72,7 @@ public class ItemSiloBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new ItemSiloMenu(id, this, inventory, itemHandler, data);
     }
 
@@ -85,17 +85,17 @@ public class ItemSiloBlockEntity
     }
 
     @Override
-    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
-        if(world != null) {
+    public void preRemoveSideEffects(BlockPos pos, BlockState oldState) {
+        if(level != null) {
             long count = itemHandler.getAmount();
             ItemStack stack = itemHandler.variant.toStack();
 
             if(count > 0 && !stack.isEmpty()) {
                 while(count > 0) {
-                    long countItem = Math.min(count, stack.getMaxCount());
+                    long countItem = Math.min(count, stack.getMaxStackSize());
                     count -= countItem;
 
-                    ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount((int)countItem));
+                    Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount((int)countItem));
                 }
             }
         }

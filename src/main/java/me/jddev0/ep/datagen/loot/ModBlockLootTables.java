@@ -4,20 +4,19 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.item.EPItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.ApplyBonusLootFunction;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public class ModBlockLootTables extends FabricBlockLootTableProvider {
-    public ModBlockLootTables(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
+    public ModBlockLootTables(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 
@@ -197,22 +196,14 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME);
     }
 
-    private void dropSelf(Block block) {
-        addDrop(block);
-    }
-
-    private void add(Block block, Function<Block, LootTable.Builder> builderFunction) {
-        addDrop(block, builderFunction);
-    }
-
     private LootTable.Builder createTinOreDrops(Block block) {
-        RegistryWrapper.Impl<Enchantment> impl = registries.getOrThrow(RegistryKeys.ENCHANTMENT);
+        HolderLookup.RegistryLookup<Enchantment> impl = registries.lookupOrThrow(Registries.ENCHANTMENT);
 
-        return dropsWithSilkTouch(block,
+        return createSilkTouchDispatchTable(block,
                 applyExplosionDecay(
                         block,
-                        ItemEntry.builder(EPItems.RAW_TIN)
-                                .apply(ApplyBonusLootFunction.oreDrops(impl.getOrThrow(Enchantments.FORTUNE)))
+                        LootItem.lootTableItem(EPItems.RAW_TIN)
+                                .apply(ApplyBonusCount.addOreBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
                 )
         );
     }

@@ -20,21 +20,21 @@ import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer>
         implements IngredientPacketUpdate {
     public static final double CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
@@ -56,11 +56,11 @@ public class ChargerBlockEntity
         if(i != 0)
             return false;
 
-        ItemStack itemStack = itemHandler.getStack(i);
-        if(world instanceof ServerWorld serverWorld && RecipeUtils.isResultOfAny(serverWorld, ChargerRecipe.Type.INSTANCE, itemStack))
+        ItemStack itemStack = itemHandler.getItem(i);
+        if(level instanceof ServerLevel serverWorld && RecipeUtils.isResultOfAny(serverWorld, ChargerRecipe.Type.INSTANCE, itemStack))
             return true;
 
-        if(!(world instanceof ServerWorld serverWorld) || RecipeUtils.isIngredientOfAny(serverWorld, ChargerRecipe.Type.INSTANCE, itemStack))
+        if(!(level instanceof ServerLevel serverWorld) || RecipeUtils.isIngredientOfAny(serverWorld, ChargerRecipe.Type.INSTANCE, itemStack))
             return false;
 
         if(!EnergyStorageUtil.isEnergyStorage(itemStack))
@@ -105,7 +105,7 @@ public class ChargerBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -123,16 +123,16 @@ public class ChargerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                if(((world instanceof ServerWorld serverWorld)?
+            public boolean canPlaceItem(int slot, ItemStack stack) {
+                if(((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.CHARGER_TYPE, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack)))
                     return true;
@@ -148,34 +148,34 @@ public class ChargerBlockEntity
                     return limitingEnergyStorage.supportsInsertion();
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            (!ItemStack.areItemsAndComponentsEqual(stack, itemStack) &&
+                    ItemStack itemStack = getItem(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
                                     !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(itemStack)))))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                ChargerBlockEntity.this.markDirty();
+                ChargerBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new EnergyValueContainerData(() -> hasRecipe()?getEnergyConsumptionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
@@ -186,7 +186,7 @@ public class ChargerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncIngredientListToPlayer(player);
 
@@ -194,38 +194,38 @@ public class ChargerBlockEntity
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putLong("recipe.energy_consumption_left", energyConsumptionLeft);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        energyConsumptionLeft = view.getLong("recipe.energy_consumption_left", 0);
+        energyConsumptionLeft = view.getLongOr("recipe.energy_consumption_left", 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
-        if(!(level instanceof ServerWorld serverWorld))
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.get(ChargerBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(ChargerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
-            ItemStack stack = blockEntity.itemHandler.getStack(0);
+            ItemStack stack = blockEntity.itemHandler.getItem(0);
             long energyConsumptionPerTick;
 
-            Optional<RecipeEntry<ChargerRecipe>> recipe = serverWorld.getRecipeManager().
-                    getFirstMatch(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
+            Optional<RecipeHolder<ChargerRecipe>> recipe = serverWorld.recipeAccess().
+                    getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)
                     blockEntity.energyConsumptionLeft = (long)(recipe.get().value().getEnergyConsumption() * CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
 
                 if(blockEntity.energyStorage.getAmount() == 0) {
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
 
                     return;
                 }
@@ -247,7 +247,7 @@ public class ChargerBlockEntity
                 blockEntity.energyConsumptionLeft = Math.max(0, limitingEnergyStorage.getCapacity() - limitingEnergyStorage.getAmount());
 
                 if(blockEntity.energyStorage.getAmount() == 0) {
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
 
                     return;
                 }
@@ -263,7 +263,7 @@ public class ChargerBlockEntity
                 //Reset progress for invalid values
 
                 blockEntity.resetProgress();
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
 
                 return;
             }
@@ -277,25 +277,25 @@ public class ChargerBlockEntity
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.itemHandler.setStack(0, chargerRecipe.value().craft(null, level.getRegistryManager()).copyWithCount(1)));
+                        blockEntity.itemHandler.setItem(0, chargerRecipe.value().assemble(null, level.registryAccess()).copyWithCount(1)));
 
                 blockEntity.resetProgress();
             }
 
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
     
     protected final long getEnergyConsumptionPerTick() {
-        if(!(world instanceof ServerWorld serverWorld))
+        if(!(level instanceof ServerLevel serverWorld))
             return -1;
 
-        ItemStack stack = itemHandler.getStack(0);
-        Optional<RecipeEntry<ChargerRecipe>> recipe = serverWorld.getRecipeManager().
-                getFirstMatch(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(this.itemHandler), world);
+        ItemStack stack = itemHandler.getItem(0);
+        Optional<RecipeHolder<ChargerRecipe>> recipe = serverWorld.recipeAccess().
+                getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(this.itemHandler), level);
         if(recipe.isPresent()) {
             return Math.min(this.energyConsumptionLeft, Math.min(this.limitingEnergyStorage.getMaxInsert(),
                     this.energyStorage.getAmount()));
@@ -323,13 +323,13 @@ public class ChargerBlockEntity
     }
 
     private boolean hasRecipe() {
-        if(!(world instanceof ServerWorld serverWorld))
+        if(!(level instanceof ServerLevel serverWorld))
             return false;
 
-        ItemStack stack = itemHandler.getStack(0);
+        ItemStack stack = itemHandler.getItem(0);
 
-        Optional<RecipeEntry<ChargerRecipe>> recipe = serverWorld.getRecipeManager().getFirstMatch(ChargerRecipe.Type.INSTANCE,
-                        new ContainerRecipeInputWrapper(itemHandler), world);
+        Optional<RecipeHolder<ChargerRecipe>> recipe = serverWorld.recipeAccess().getRecipeFor(ChargerRecipe.Type.INSTANCE,
+                        new ContainerRecipeInputWrapper(itemHandler), level);
 
         if(recipe.isPresent())
             return true;
@@ -344,12 +344,12 @@ public class ChargerBlockEntity
         super.updateUpgradeModules();
     }
 
-    protected void syncIngredientListToPlayer(PlayerEntity player) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected void syncIngredientListToPlayer(Player player) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.CHARGER_TYPE)));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.CHARGER_TYPE)));
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

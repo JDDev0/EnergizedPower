@@ -5,73 +5,79 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.CableBlockEntity;
 import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.block.WireOrientation;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.function.Consumer;
 
-public class CableBlock extends BlockWithEntity implements Waterloggable {
+public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(Codecs.NON_EMPTY_STRING.xmap(CableTier::valueOf, CableTier::toString).fieldOf("tier").
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(CableTier::valueOf, CableTier::toString).fieldOf("tier").
                 forGetter(CableBlock::getTier),
-                Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
                 apply(instance, CableBlock::new);
     });
 
-    public static final BooleanProperty UP = Properties.UP;
-    public static final BooleanProperty DOWN = Properties.DOWN;
-    public static final BooleanProperty NORTH = Properties.NORTH;
-    public static final BooleanProperty SOUTH = Properties.SOUTH;
-    public static final BooleanProperty EAST = Properties.EAST;
-    public static final BooleanProperty WEST = Properties.WEST;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty UP = BlockStateProperties.UP;
+    public static final BooleanProperty DOWN = BlockStateProperties.DOWN;
+    public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
+    public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
+    public static final BooleanProperty EAST = BlockStateProperties.EAST;
+    public static final BooleanProperty WEST = BlockStateProperties.WEST;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape SHAPE_CORE = Block.createCuboidShape(6.d, 6.d, 6.d, 10.d, 10.d, 10.d);
-    private static final VoxelShape SHAPE_UP = Block.createCuboidShape(6.d, 10.d, 6.d, 10.d, 16.d, 10.d);
-    private static final VoxelShape SHAPE_DOWN = Block.createCuboidShape(6.d, 0.d, 6.d, 10.d, 6.d, 10.d);
-    private static final VoxelShape SHAPE_NORTH = Block.createCuboidShape(6.d, 6.d, 0.d, 10.d, 10.d, 6.d);
-    private static final VoxelShape SHAPE_SOUTH = Block.createCuboidShape(6.d, 6.d, 10.d, 10.d, 10.d, 16.d);
-    private static final VoxelShape SHAPE_EAST = Block.createCuboidShape(10.d, 6.d, 6.d, 16.d, 10.d, 10.d);
-    private static final VoxelShape SHAPE_WEST = Block.createCuboidShape(0.d, 6.d, 6.d, 6.d, 10.d, 10.d);
+    private static final VoxelShape SHAPE_CORE = Block.box(6.d, 6.d, 6.d, 10.d, 10.d, 10.d);
+    private static final VoxelShape SHAPE_UP = Block.box(6.d, 10.d, 6.d, 10.d, 16.d, 10.d);
+    private static final VoxelShape SHAPE_DOWN = Block.box(6.d, 0.d, 6.d, 10.d, 6.d, 10.d);
+    private static final VoxelShape SHAPE_NORTH = Block.box(6.d, 6.d, 0.d, 10.d, 10.d, 6.d);
+    private static final VoxelShape SHAPE_SOUTH = Block.box(6.d, 6.d, 10.d, 10.d, 10.d, 16.d);
+    private static final VoxelShape SHAPE_EAST = Block.box(10.d, 6.d, 6.d, 16.d, 10.d, 10.d);
+    private static final VoxelShape SHAPE_WEST = Block.box(0.d, 6.d, 6.d, 6.d, 10.d, 10.d);
 
     private final CableTier tier;
 
-    public CableBlock(CableTier tier, Settings props) {
+    public CableBlock(CableTier tier, Properties props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, false).with(DOWN, false).
-                with(NORTH, false).with(SOUTH, false).with(EAST, false).with(WEST, false).
-                with(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(UP, false).setValue(DOWN, false).
+                setValue(NORTH, false).setValue(SOUTH, false).setValue(EAST, false).setValue(WEST, false).
+                setValue(WATERLOGGED, false));
 
         this.tier = tier;
     }
@@ -81,132 +87,132 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext blockPlaceContext) {
-        World level = blockPlaceContext.getWorld();
-        BlockPos selfPos = blockPlaceContext.getBlockPos();
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        Level level = blockPlaceContext.getLevel();
+        BlockPos selfPos = blockPlaceContext.getClickedPos();
         FluidState fluidState = level.getFluidState(selfPos);
 
-        return getDefaultState().
-                with(UP, shouldConnectTo(level, selfPos, Direction.UP)).
-                with(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
-                with(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
-                with(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
-                with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
-                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return defaultBlockState().
+                setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
+                setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
+                setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
+                setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
+                setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
+                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
+    public BlockState rotate(BlockState state, Rotation rotation) {
         switch(rotation) {
             case CLOCKWISE_90:
                 return state.
-                        with(NORTH, state.get(WEST)).
-                        with(SOUTH, state.get(EAST)).
-                        with(EAST, state.get(NORTH)).
-                        with(WEST, state.get(SOUTH));
+                        setValue(NORTH, state.getValue(WEST)).
+                        setValue(SOUTH, state.getValue(EAST)).
+                        setValue(EAST, state.getValue(NORTH)).
+                        setValue(WEST, state.getValue(SOUTH));
             case CLOCKWISE_180:
                 return state.
-                        with(NORTH, state.get(SOUTH)).
-                        with(SOUTH, state.get(NORTH)).
-                        with(EAST, state.get(WEST)).
-                        with(WEST, state.get(EAST));
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH)).
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
             case COUNTERCLOCKWISE_90:
                 return state.
-                        with(NORTH, state.get(EAST)).
-                        with(SOUTH, state.get(WEST)).
-                        with(EAST, state.get(SOUTH)).
-                        with(WEST, state.get(NORTH));
+                        setValue(NORTH, state.getValue(EAST)).
+                        setValue(SOUTH, state.getValue(WEST)).
+                        setValue(EAST, state.getValue(SOUTH)).
+                        setValue(WEST, state.getValue(NORTH));
             default:
                 return state;
         }
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
+    public BlockState mirror(BlockState state, Mirror mirror) {
         switch(mirror) {
             case LEFT_RIGHT:
                 return state.
-                        with(NORTH, state.get(SOUTH)).
-                        with(SOUTH, state.get(NORTH));
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH));
             case FRONT_BACK:
                 return state.
-                        with(EAST, state.get(WEST)).
-                        with(WEST, state.get(EAST));
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
             default:
                 return state;
         }
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
+    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape = SHAPE_CORE;
 
-        if(blockState.get(UP))
-            shape = VoxelShapes.union(shape, SHAPE_UP);
+        if(blockState.getValue(UP))
+            shape = Shapes.or(shape, SHAPE_UP);
 
-        if(blockState.get(DOWN))
-            shape = VoxelShapes.union(shape, SHAPE_DOWN);
+        if(blockState.getValue(DOWN))
+            shape = Shapes.or(shape, SHAPE_DOWN);
 
-        if(blockState.get(NORTH))
-            shape = VoxelShapes.union(shape, SHAPE_NORTH);
+        if(blockState.getValue(NORTH))
+            shape = Shapes.or(shape, SHAPE_NORTH);
 
-        if(blockState.get(SOUTH))
-            shape = VoxelShapes.union(shape, SHAPE_SOUTH);
+        if(blockState.getValue(SOUTH))
+            shape = Shapes.or(shape, SHAPE_SOUTH);
 
-        if(blockState.get(EAST))
-            shape = VoxelShapes.union(shape, SHAPE_EAST);
+        if(blockState.getValue(EAST))
+            shape = Shapes.or(shape, SHAPE_EAST);
 
-        if(blockState.get(WEST))
-            shape = VoxelShapes.union(shape, SHAPE_WEST);
+        if(blockState.getValue(WEST))
+            shape = Shapes.or(shape, SHAPE_WEST);
 
         return shape;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED)?Fluids.WATER.getStill(false):super.getFluidState(state);
+        return state.getValue(WATERLOGGED)?Fluids.WATER.getSource(false):super.getFluidState(state);
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView level, ScheduledTickView tickView, BlockPos selfPos, Direction facing,
-                                                   BlockPos facingPos, BlockState facingState, Random random) {
-        if(state.get(WATERLOGGED))
-            tickView.scheduleFluidTick(selfPos, Fluids.WATER, Fluids.WATER.getTickRate(level));
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickView, BlockPos selfPos, Direction facing,
+                                                   BlockPos facingPos, BlockState facingState, RandomSource random) {
+        if(state.getValue(WATERLOGGED))
+            tickView.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
-        return super.getStateForNeighborUpdate(state, level, tickView, selfPos, facing, facingPos, facingState, random);
+        return super.updateShape(state, level, tickView, selfPos, facing, facingPos, facingState, random);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(UP).add(DOWN).add(NORTH).add(SOUTH).add(EAST).add(WEST).add(WATERLOGGED);
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation wireOrientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
         FluidState fluidState = level.getFluidState(selfPos);
 
-        BlockState newState = getDefaultState().
-                with(UP, shouldConnectTo(level, selfPos, Direction.UP)).
-                with(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
-                with(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
-                with(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
-                with(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
-                with(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
-                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        BlockState newState = defaultBlockState().
+                setValue(UP, shouldConnectTo(level, selfPos, Direction.UP)).
+                setValue(DOWN, shouldConnectTo(level, selfPos, Direction.DOWN)).
+                setValue(NORTH, shouldConnectTo(level, selfPos, Direction.NORTH)).
+                setValue(SOUTH, shouldConnectTo(level, selfPos, Direction.SOUTH)).
+                setValue(EAST, shouldConnectTo(level, selfPos, Direction.EAST)).
+                setValue(WEST, shouldConnectTo(level, selfPos, Direction.WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
 
-        level.setBlockState(selfPos, newState);
+        level.setBlockAndUpdate(selfPos, newState);
 
 
         BlockEntity blockEntity = level.getBlockEntity(selfPos);
@@ -216,8 +222,8 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
         CableBlockEntity.updateConnections(level, selfPos, newState, (CableBlockEntity)blockEntity);
     }
 
-    private boolean shouldConnectTo(World level, BlockPos selfPos, Direction direction) {
-        BlockPos toPos = selfPos.offset(direction);
+    private boolean shouldConnectTo(Level level, BlockPos selfPos, Direction direction) {
+        BlockPos toPos = selfPos.relative(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
             return false;
@@ -231,25 +237,25 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new CableBlockEntity(blockPos, state, tier);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, tier.getEntityTypeFromTier(), CableBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, tier.getEntityTypeFromTier(), CableBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
         private final CableTier tier;
 
-        public Item(Block block, Item.Settings props, CableTier tier) {
+        public Item(Block block, Properties props, CableTier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -260,14 +266,14 @@ public class CableBlock extends BlockWithEntity implements Waterloggable {
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(MinecraftClient.getInstance().isShiftPressed()) {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.cable.txt.shift.1",
-                        EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).formatted(Formatting.GRAY));
-                tooltip.accept(Text.translatable("tooltip.energizedpower.cable.txt.shift.2").
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+            if(Minecraft.getInstance().hasShiftDown()) {
+                tooltip.accept(Component.translatable("tooltip.energizedpower.cable.txt.shift.1",
+                        EnergyUtils.getEnergyWithPrefix(tier.getMaxTransfer())).withStyle(ChatFormatting.GRAY));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.cable.txt.shift.2").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

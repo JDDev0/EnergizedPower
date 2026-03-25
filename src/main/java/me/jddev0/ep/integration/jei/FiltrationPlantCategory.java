@@ -15,16 +15,15 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 import java.util.Locale;
 
-public class FiltrationPlantCategory implements IRecipeCategory<RecipeEntry<FiltrationPlantRecipe>> {
+public class FiltrationPlantCategory implements IRecipeCategory<RecipeHolder<FiltrationPlantRecipe>> {
     public static final IRecipeHolderType<FiltrationPlantRecipe> TYPE = IRecipeHolderType.create(FiltrationPlantRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -38,13 +37,13 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeEntry<Filt
     }
 
     @Override
-    public IRecipeType<RecipeEntry<FiltrationPlantRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<FiltrationPlantRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.filtration_plant");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.filtration_plant");
     }
 
     @Override
@@ -63,7 +62,7 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeEntry<Filt
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<FiltrationPlantRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<FiltrationPlantRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(EPFluids.DIRTY_WATER,
                 FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE);
 
@@ -71,11 +70,11 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeEntry<Filt
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(outputEntries[0]).
                 addRichTooltipCallback((view, tooltip) -> {
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
@@ -84,16 +83,16 @@ public class FiltrationPlantCategory implements IRecipeCategory<RecipeEntry<Filt
                     if(view.isEmpty())
                         return;
 
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getSecondaryOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
     }
 
     @Override
-    public void draw(RecipeEntry<FiltrationPlantRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<FiltrationPlantRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

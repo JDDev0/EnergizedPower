@@ -3,8 +3,8 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -29,7 +29,7 @@ public class SpeedUpgradeModuleItem extends UpgradeModuleItem {
     private static final double SPEED_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_5_EFFECT.getValue();
     private static final double SPEED_5_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_5_ENERGY_CONSUMPTION_EFFECT.getValue();
 
-    public SpeedUpgradeModuleItem(Settings props, int tier) {
+    public SpeedUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.SPEED, tier);
     }
 
@@ -65,14 +65,14 @@ public class SpeedUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
-    public Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
+    public Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
         return switch(modifier) {
-            case SPEED -> Text.literal(String.format(Locale.US, "• %.2f", value)).
-                    formatted(Formatting.GREEN);
-            case ENERGY_CONSUMPTION -> Text.literal(String.format(Locale.US, "%+.2f %%", 100 * value - 100)).
-                    formatted(Formatting.RED);
+            case SPEED -> Component.literal(String.format(Locale.US, "• %.2f", value)).
+                    withStyle(ChatFormatting.GREEN);
+            case ENERGY_CONSUMPTION -> Component.literal(String.format(Locale.US, "%+.2f %%", 100 * value - 100)).
+                    withStyle(ChatFormatting.RED);
 
-            default -> Text.empty();
+            default -> Component.empty();
         };
     }
 }

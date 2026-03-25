@@ -2,146 +2,146 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.EPBlockEntities;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
 
-public class AlloyFurnaceBlock extends BlockWithEntity {
-    public static final MapCodec<AlloyFurnaceBlock> CODEC = createCodec(AlloyFurnaceBlock::new);
+public class AlloyFurnaceBlock extends BaseEntityBlock {
+    public static final MapCodec<AlloyFurnaceBlock> CODEC = simpleCodec(AlloyFurnaceBlock::new);
 
-    public static final BooleanProperty LIT = Properties.LIT;
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
-            (state) -> state.get(LIT) ? 13 : 0;
+            (state) -> state.getValue(LIT) ? 13 : 0;
 
-    protected AlloyFurnaceBlock(Settings props) {
+    protected AlloyFurnaceBlock(Properties props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(LIT, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new AlloyFurnaceBlockEntity(blockPos, state);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AlloyFurnaceBlockEntity alloyFurnaceBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos, direction);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return alloyFurnaceBlockEntity.getRedstoneOutput();
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, level, blockPos);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof AlloyFurnaceBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((AlloyFurnaceBlockEntity)blockEntity);
+        player.openMenu((AlloyFurnaceBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING, LIT);
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
-        if(state.get(LIT)) {
+    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
+        if(state.getValue(LIT)) {
             double x = blockPos.getX() + .5;
             double y = blockPos.getY();
             double z = blockPos.getZ() + .5;
 
             if(randomSource.nextDouble() < .1)
-                level.playSoundAtBlockCenterClient(blockPos, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.f, 1.f, false);
+                level.playLocalSound(blockPos, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1.f, 1.f, false);
 
-            Direction direction = state.get(FACING);
+            Direction direction = state.getValue(FACING);
             double dxz = randomSource.nextDouble() * .6 - .3;
 
-            double dx = direction.getAxis() == Direction.Axis.X?direction.getOffsetX() * .52:dxz;
+            double dx = direction.getAxis() == Direction.Axis.X?direction.getStepX() * .52:dxz;
             double dy = randomSource.nextDouble() * 6. / 16.;
-            double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .52:dxz;
+            double dz = direction.getAxis() == Direction.Axis.Z?direction.getStepZ() * .52:dxz;
 
-            level.addParticleClient(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0., 0., 0.);
-            level.addParticleClient(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0., 0., 0.);
+            level.addParticle(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0., 0., 0.);
+            level.addParticle(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0., 0., 0.);
         }
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, EPBlockEntities.ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, EPBlockEntities.ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::tick);
     }
 }

@@ -23,14 +23,14 @@ public class RedstoneModeGenericPeripheral implements GenericPeripheral {
         RedstoneMode[] modes = redstoneModeHandler.getAvailableRedstoneModes();
         String[] serializedModes = new String[modes.length];
         for(int i = 0;i < modes.length;i++)
-            serializedModes[i] = modes[i].asString();
+            serializedModes[i] = modes[i].getSerializedName();
 
         return serializedModes;
     }
 
     @LuaFunction(mainThread = true)
     public final String getRedstoneMode(IRedstoneModeHandler redstoneModeHandler) {
-        return redstoneModeHandler.getRedstoneMode().asString();
+        return redstoneModeHandler.getRedstoneMode().getSerializedName();
     }
 
     @LuaFunction(mainThread = true)

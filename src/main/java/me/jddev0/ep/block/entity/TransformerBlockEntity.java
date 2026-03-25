@@ -11,16 +11,16 @@ import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.screen.TransformerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -59,13 +59,13 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return new EnergizedPowerEnergyStorage(baseEnergyTransferRate, baseEnergyTransferRate, baseEnergyTransferRate) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
 
             @Override
             public long extract(long maxAmount, TransactionContext transaction) {
-                if(world != null && !redstoneMode.isActive(world.getBlockState(getPos()).get(Properties.POWERED))) {
+                if(level != null && !redstoneMode.isActive(level.getBlockState(getBlockPos()).getValue(BlockStateProperties.POWERED))) {
                     //This will make the output "disconnected"
                     return 0;
                 }
@@ -81,7 +81,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value)
         );
@@ -89,7 +89,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
         return new TransformerMenu(id, this, inventory, this.data);
@@ -108,9 +108,9 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             return energyStorage;
 
         if(type == TransformerType.CONFIGURABLE) {
-            BlockState state = world.getBlockState(pos);
+            BlockState state = level.getBlockState(worldPosition);
 
-            EPBlockStateProperties.TransformerConnection transformerConnection = state.get(ConfigurableTransformerBlock.
+            EPBlockStateProperties.TransformerConnection transformerConnection = state.getValue(ConfigurableTransformerBlock.
                     getTransformerConnectionPropertyFromDirection(side));
 
             return switch(transformerConnection) {
@@ -120,7 +120,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             };
         }
 
-        Direction facing = getCachedState().get(TransformerBlock.FACING);
+        Direction facing = getBlockState().getValue(TransformerBlock.FACING);
 
         return switch(type) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
@@ -133,8 +133,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
                 yield multipleSide;
             }
             case TYPE_3_TO_3 -> {
-                if(facing.rotateCounterclockwise(Direction.Axis.X) == side || facing.rotateCounterclockwise(Direction.Axis.Y) == side
-                        || facing.rotateCounterclockwise(Direction.Axis.Z) == side)
+                if(facing.getCounterClockWise(Direction.Axis.X) == side || facing.getCounterClockWise(Direction.Axis.Y) == side
+                        || facing.getCounterClockWise(Direction.Axis.Z) == side)
                     yield limitingEnergyStorageInsert;
                 else
                     yield limitingEnergyStorageExtract;
@@ -143,31 +143,31 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         };
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, TransformerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return; //This will make the output "disconnected"
 
         List<Direction> outputDirections = new ArrayList<>();
         if(blockEntity.type == TransformerType.CONFIGURABLE) {
             for(Direction side:Direction.values()) {
-                EPBlockStateProperties.TransformerConnection transformerConnection = state.get(ConfigurableTransformerBlock.
+                EPBlockStateProperties.TransformerConnection transformerConnection = state.getValue(ConfigurableTransformerBlock.
                         getTransformerConnectionPropertyFromDirection(side));
                 if(transformerConnection.isExtract()) {
                     outputDirections.add(side);
                 }
             }
         }else {
-            Direction facing = state.get(TransformerBlock.FACING);
+            Direction facing = state.getValue(TransformerBlock.FACING);
             for(Direction side:Direction.values()) {
                 switch(blockEntity.getTransformerType()) {
                     case TYPE_1_TO_N, TYPE_N_TO_1 -> {
@@ -183,8 +183,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
                         }
                     }
                     case TYPE_3_TO_3 -> {
-                        if(!(facing.rotateCounterclockwise(Direction.Axis.X) == side || facing.rotateCounterclockwise(Direction.Axis.Y) == side
-                                || facing.rotateCounterclockwise(Direction.Axis.Z) == side))
+                        if(!(facing.getCounterClockWise(Direction.Axis.X) == side || facing.getCounterClockWise(Direction.Axis.Y) == side
+                                || facing.getCounterClockWise(Direction.Axis.Z) == side))
                             outputDirections.add(side);
                     }
                 }
@@ -195,7 +195,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         List<Long> consumerEnergyValues = new ArrayList<>();
         int consumptionSum = 0;
         for(Direction direction:outputDirections) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)

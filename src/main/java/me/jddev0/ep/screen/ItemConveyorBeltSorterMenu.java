@@ -3,24 +3,24 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class ItemConveyorBeltSorterMenu extends ScreenHandler {
+public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
     private final ItemConveyorBeltSorterBlockEntity blockEntity;
-    private final World level;
+    private final Level level;
 
-    private final Inventory patternSlots;
+    private final Container patternSlots;
 
     private final SimpleBooleanValueContainerData[] outputBeltConnectedData = new SimpleBooleanValueContainerData[] {
             new SimpleBooleanValueContainerData(),
@@ -38,17 +38,17 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
             new SimpleBooleanValueContainerData()
     };
 
-    public ItemConveyorBeltSorterMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, inv.player.getEntityWorld().getBlockEntity(pos), new SimpleInventory(15), null);
+    public ItemConveyorBeltSorterMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), new SimpleContainer(15), null);
     }
 
-    public ItemConveyorBeltSorterMenu(int id, PlayerInventory playerInventory, BlockEntity blockEntity, Inventory patternSlots, PropertyDelegate data) {
+    public ItemConveyorBeltSorterMenu(int id, Inventory playerInventory, BlockEntity blockEntity, Container patternSlots, ContainerData data) {
         super(((ItemConveyorBeltSorterBlockEntity)blockEntity).getTier().getItemConveyorBeltSorterMenuTypeFromTier(), id);
 
         this.patternSlots = patternSlots;
 
         this.blockEntity = (ItemConveyorBeltSorterBlockEntity)blockEntity;
-        this.level = playerInventory.player.getEntityWorld();
+        this.level = playerInventory.player.level();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -58,21 +58,21 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
                 addSlot(new PatternSlot(patternSlots, j + i * 5, 44 + j * 18, 17 + i * 18, () -> true));
 
         if(data == null) {
-            addProperties(outputBeltConnectedData[0]);
-            addProperties(outputBeltConnectedData[1]);
-            addProperties(outputBeltConnectedData[2]);
-            addProperties(whitelistData[0]);
-            addProperties(whitelistData[1]);
-            addProperties(whitelistData[2]);
-            addProperties(ignoreNBTData[0]);
-            addProperties(ignoreNBTData[1]);
-            addProperties(ignoreNBTData[2]);
+            addDataSlots(outputBeltConnectedData[0]);
+            addDataSlots(outputBeltConnectedData[1]);
+            addDataSlots(outputBeltConnectedData[2]);
+            addDataSlots(whitelistData[0]);
+            addDataSlots(whitelistData[1]);
+            addDataSlots(whitelistData[2]);
+            addDataSlots(ignoreNBTData[0]);
+            addDataSlots(ignoreNBTData[1]);
+            addDataSlots(ignoreNBTData[2]);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
-    public Inventory getPatternSlots() {
+    public Container getPatternSlots() {
         return patternSlots;
     }
 
@@ -89,16 +89,16 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, blockEntity.getTier().getItemConveyorBeltSorterBlockFromTier());
+    public boolean stillValid(Player player) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, blockEntity.getTier().getItemConveyorBeltSorterBlockFromTier());
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -106,7 +106,7 @@ public class ItemConveyorBeltSorterMenu extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

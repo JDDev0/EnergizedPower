@@ -16,18 +16,18 @@ import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -66,7 +66,7 @@ public class ThermalGeneratorBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -88,17 +88,17 @@ public class ThermalGeneratorBlockEntity
         return new SimpleFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(32);
             }
 
             private boolean isFluidValid(FluidVariant variant) {
-                if(!(world instanceof ServerWorld serverWorld))
+                if(!(level instanceof ServerLevel serverWorld))
                     return false;
 
-                Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+                Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
-                return recipes.stream().map(RecipeEntry::value).map(ThermalGeneratorRecipe::getInput).
+                return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
                         anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> variant.getFluid() == input));
             }
 
@@ -115,17 +115,17 @@ public class ThermalGeneratorBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new EnergyValueContainerData(() -> {
-                    if(!(world instanceof ServerWorld serverWorld))
+                    if(!(level instanceof ServerLevel serverWorld))
                         return 0L;
 
-                    Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
                     long rawProduction = 0;
                     outer:
-                    for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
+                    for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
                             if(fluidStorage.getFluid().getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
@@ -148,14 +148,14 @@ public class ThermalGeneratorBlockEntity
                     return (long)(rawProduction * fluidAmount / 1000.f);
                 }, value -> {}),
                 new EnergyValueContainerData(() -> {
-                    if(!(world instanceof ServerWorld serverWorld))
+                    if(!(level instanceof ServerLevel serverWorld))
                         return 0L;
 
-                    Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
                     long rawProduction = 0;
                     outer:
-                    for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
+                    for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
                             if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
@@ -176,32 +176,32 @@ public class ThermalGeneratorBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
         return new ThermalGeneratorMenu(id, this, inventory, upgradeModuleInventory, this.data);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.get(ThermalGeneratorBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(ThermalGeneratorBlock.POWERED)))
             tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
-    private static void tickRecipe(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClient() || !(level instanceof ServerWorld serverWorld))
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
+        if(level.isClientSide() || !(level instanceof ServerLevel serverWorld))
             return;
 
-        Collection<RecipeEntry<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+        Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
 
         long rawProduction = 0;
         outer:
-        for(RecipeEntry<ThermalGeneratorRecipe> recipe:recipes) {
+        for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
             for(Fluid fluid:recipe.value().getInput()) {
                 if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
                     rawProduction = recipe.value().getEnergyProduction();
@@ -235,15 +235,15 @@ public class ThermalGeneratorBlockEntity
         }
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         List<EnergyStorage> consumerItems = new ArrayList<>();
         List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)

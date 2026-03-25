@@ -7,9 +7,9 @@ import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.handler.codec.DecoderException;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -56,10 +56,10 @@ public record OutputItemStackWithPercentages(ItemStack output, double[] percenta
         })).apply(instance, OutputItemStackWithPercentages::new);
     });
 
-    public static final PacketCodec<RegistryByteBuf, OutputItemStackWithPercentages> OPTIONAL_STREAM_CODEC = new PacketCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, OutputItemStackWithPercentages> OPTIONAL_STREAM_CODEC = new StreamCodec<>() {
         @Override
         @NotNull
-        public OutputItemStackWithPercentages decode(@NotNull RegistryByteBuf buffer) {
+        public OutputItemStackWithPercentages decode(@NotNull RegistryFriendlyByteBuf buffer) {
             int percentageCount = buffer.readInt();
             if(percentageCount <= 0)
                 return OutputItemStackWithPercentages.EMPTY;
@@ -68,13 +68,13 @@ public record OutputItemStackWithPercentages(ItemStack output, double[] percenta
             for(int j = 0;j < percentageCount;j++)
                 percentages[j] = buffer.readDouble();
 
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new OutputItemStackWithPercentages(output, percentages);
         }
 
         @Override
-        public void encode(@NotNull RegistryByteBuf buffer, OutputItemStackWithPercentages output) {
+        public void encode(@NotNull RegistryFriendlyByteBuf buffer, OutputItemStackWithPercentages output) {
             if(output.isEmpty()) {
                 buffer.writeInt(0);
             }else {
@@ -82,15 +82,15 @@ public record OutputItemStackWithPercentages(ItemStack output, double[] percenta
                 for(double percentage:output.percentages)
                     buffer.writeDouble(percentage);
 
-                ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, output.output);
+                ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, output.output);
             }
         }
     };
 
-    public static final PacketCodec<RegistryByteBuf, OutputItemStackWithPercentages> STREAM_CODEC = new PacketCodec<>() {
+    public static final StreamCodec<RegistryFriendlyByteBuf, OutputItemStackWithPercentages> STREAM_CODEC = new StreamCodec<>() {
         @Override
         @NotNull
-        public OutputItemStackWithPercentages decode(@NotNull RegistryByteBuf buffer) {
+        public OutputItemStackWithPercentages decode(@NotNull RegistryFriendlyByteBuf buffer) {
             OutputItemStackWithPercentages ingredient = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
             if(ingredient.isEmpty())
                 throw new DecoderException("Empty OutputItemStackWithPercentages not allowed");
@@ -99,7 +99,7 @@ public record OutputItemStackWithPercentages(ItemStack output, double[] percenta
         }
 
         @Override
-        public void encode(@NotNull RegistryByteBuf buffer, OutputItemStackWithPercentages output) {
+        public void encode(@NotNull RegistryFriendlyByteBuf buffer, OutputItemStackWithPercentages output) {
             if(output.isEmpty())
                 throw new DecoderException("Empty OutputItemStackWithPercentages not allowed");
 

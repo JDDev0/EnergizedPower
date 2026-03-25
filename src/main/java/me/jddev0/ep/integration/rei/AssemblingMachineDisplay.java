@@ -10,38 +10,37 @@ import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public record AssemblingMachineDisplay(RecipeEntry<AssemblingMachineRecipe> recipe) implements Display {
+public record AssemblingMachineDisplay(RecipeHolder<AssemblingMachineRecipe> recipe) implements Display {
     public static final CategoryIdentifier<AssemblingMachineDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "assembling_machine");
     public static final DisplaySerializer<? extends AssemblingMachineDisplay> SERIALIZER = DisplaySerializer.of(
             RecordCodecBuilder.mapCodec((instance) -> {
                 return instance.group(Identifier.CODEC.fieldOf("recipeId").forGetter(display -> {
-                    return display.recipe.id().getValue();
+                    return display.recipe.id().identifier();
                 }), EPRecipes.ASSEMBLING_MACHINE_SERIALIZER.codec().fieldOf("ingredient").forGetter(display -> {
                     return display.recipe.value();
-                })).apply(instance, (recipeId, recipe) -> new AssemblingMachineDisplay(new RecipeEntry<>(
-                        RegistryKey.of(RegistryKeys.RECIPE, recipeId), recipe
+                })).apply(instance, (recipeId, recipe) -> new AssemblingMachineDisplay(new RecipeHolder<>(
+                        ResourceKey.create(Registries.RECIPE, recipeId), recipe
                 )));
             }),
-            PacketCodec.tuple(
-                    Identifier.PACKET_CODEC,
-                    display -> display.recipe.id().getValue(),
-                    EPRecipes.ASSEMBLING_MACHINE_SERIALIZER.packetCodec(),
+            StreamCodec.composite(
+                    Identifier.STREAM_CODEC,
+                    display -> display.recipe.id().identifier(),
+                    EPRecipes.ASSEMBLING_MACHINE_SERIALIZER.streamCodec(),
                     display -> display.recipe.value(),
-                    (recipeId, recipe) -> new AssemblingMachineDisplay(new RecipeEntry<>(
-                            RegistryKey.of(RegistryKeys.RECIPE, recipeId), recipe
+                    (recipeId, recipe) -> new AssemblingMachineDisplay(new RecipeHolder<>(
+                            ResourceKey.create(Registries.RECIPE, recipeId), recipe
                     ))
             )
     );
@@ -49,10 +48,10 @@ public record AssemblingMachineDisplay(RecipeEntry<AssemblingMachineRecipe> reci
     @Override
     public List<EntryIngredient> getInputEntries() {
         return Arrays.stream(recipe.value().getInputs()).map(input ->
-                EntryIngredients.ofItemStacks(input.input().entries.stream().
-                        map(RegistryEntry::getKeyOrValue).
+                EntryIngredients.ofItemStacks(input.input().values.stream().
+                        map(Holder::unwrap).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
-                                l -> new ItemStack(BasicDisplay.registryAccess().getOrThrow(RegistryKeys.ITEM).get(l)),
+                                l -> new ItemStack(BasicDisplay.registryAccess().lookupOrThrow(Registries.ITEM).getValue(l)),
                                 ItemStack::new
                         )).
                         map(itemStack -> itemStack.copyWithCount(input.count())).
@@ -73,7 +72,7 @@ public record AssemblingMachineDisplay(RecipeEntry<AssemblingMachineRecipe> reci
 
     @Override
     public Optional<Identifier> getDisplayLocation() {
-        return Optional.of(recipe.id().getValue());
+        return Optional.of(recipe.id().identifier());
     }
 
     @Override

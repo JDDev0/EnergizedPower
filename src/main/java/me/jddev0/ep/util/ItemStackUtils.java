@@ -1,9 +1,8 @@
 package me.jddev0.ep.util;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.item.ItemStack;
 
 public final class ItemStackUtils {
     private ItemStackUtils() {}
@@ -14,12 +13,12 @@ public final class ItemStackUtils {
             boolean inserted = false;
             int amountLeft = itemStack.getCount();
             for(ItemStack combinedItemStack:combinedItemStacks) {
-                if(ItemStack.areItemsAndComponentsEqual(itemStack, combinedItemStack) &&
-                        combinedItemStack.getMaxCount() > combinedItemStack.getCount()) {
-                    int amount = Math.min(amountLeft, combinedItemStack.getMaxCount() - combinedItemStack.getCount());
+                if(ItemStack.isSameItemSameComponents(itemStack, combinedItemStack) &&
+                        combinedItemStack.getMaxStackSize() > combinedItemStack.getCount()) {
+                    int amount = Math.min(amountLeft, combinedItemStack.getMaxStackSize() - combinedItemStack.getCount());
                     amountLeft -= amount;
 
-                    combinedItemStack.increment(amount);
+                    combinedItemStack.grow(amount);
 
                     if(amountLeft == 0) {
                         inserted = true;

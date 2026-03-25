@@ -1,11 +1,11 @@
 package me.jddev0.ep.machine.configuration;
 
-import net.minecraft.util.StringIdentifiable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
+import net.minecraft.util.StringRepresentable;
 
-public enum ComparatorMode implements StringIdentifiable {
+public enum ComparatorMode implements StringRepresentable {
     ITEM, FLUID, ENERGY;
 
     /**
@@ -22,7 +22,7 @@ public enum ComparatorMode implements StringIdentifiable {
 
     @Override
     @NotNull
-    public String asString() {
+    public String getSerializedName() {
         return name().toLowerCase(Locale.US);
     }
 }

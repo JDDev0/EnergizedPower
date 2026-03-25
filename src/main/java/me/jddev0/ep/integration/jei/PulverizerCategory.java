@@ -13,16 +13,15 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 import java.util.Locale;
 
-public class PulverizerCategory implements IRecipeCategory<RecipeEntry<PulverizerRecipe>> {
+public class PulverizerCategory implements IRecipeCategory<RecipeHolder<PulverizerRecipe>> {
     public static final IRecipeHolderType<PulverizerRecipe> TYPE = IRecipeHolderType.create(PulverizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -36,13 +35,13 @@ public class PulverizerCategory implements IRecipeCategory<RecipeEntry<Pulverize
     }
 
     @Override
-    public IRecipeType<RecipeEntry<PulverizerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<PulverizerRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.pulverizer");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.pulverizer");
     }
 
     @Override
@@ -61,18 +60,18 @@ public class PulverizerCategory implements IRecipeCategory<RecipeEntry<Pulverize
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<PulverizerRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PulverizerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(false);
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).add(outputEntries[0]).
                 addRichTooltipCallback((view, tooltip) -> {
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
@@ -81,16 +80,16 @@ public class PulverizerCategory implements IRecipeCategory<RecipeEntry<Pulverize
                     if(view.isEmpty())
                         return;
 
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getSecondaryOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
     }
 
     @Override
-    public void draw(RecipeEntry<PulverizerRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<PulverizerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

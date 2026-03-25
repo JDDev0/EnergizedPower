@@ -3,17 +3,20 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +52,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource) {
+    public ItemStack[] generateOutputs(RandomSource randomSource) {
         ItemStack[] generatedOutputs = new ItemStack[2];
         for(int i = 0;i < 2;i++) {
             int count = 0;
@@ -66,27 +69,27 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
+    public boolean matches(RecipeInput container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.FILTRATION_PLANT_CATEGORY;
     }
 
@@ -107,8 +110,8 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output.output(), itemStack) || (secondaryOutput != null &&
-                ItemStack.areItemsAndComponentsEqual(secondaryOutput.output(), itemStack));
+        return ItemStack.isSameItemSameComponents(output.output(), itemStack) || (secondaryOutput != null &&
+                ItemStack.isSameItemSameComponents(secondaryOutput.output(), itemStack));
     }
 
     @Override
@@ -140,7 +143,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
                     secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), icon));
         });
 
-        private final PacketCodec<RegistryByteBuf, FiltrationPlantRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -149,11 +152,11 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, FiltrationPlantRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static FiltrationPlantRecipe read(RegistryByteBuf buffer) {
+        private static FiltrationPlantRecipe read(RegistryFriendlyByteBuf buffer) {
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++)
                 outputs[i] = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
@@ -163,7 +166,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
             return new FiltrationPlantRecipe(outputs[0], outputs[1], icon);
         }
 
-        private static void write(RegistryByteBuf buffer, FiltrationPlantRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
                 OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);

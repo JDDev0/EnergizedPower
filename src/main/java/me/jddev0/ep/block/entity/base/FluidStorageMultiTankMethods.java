@@ -6,14 +6,14 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public final class FluidStorageMultiTankMethods
@@ -23,15 +23,15 @@ public final class FluidStorageMultiTankMethods
     private FluidStorageMultiTankMethods() {}
 
     @Override
-    public void saveFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage, WriteView view) {
+    public void saveFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage, ValueOutput view) {
         for(int i = 0;i < fluidStorage.parts.size();i++) {
             FluidStack fluid = fluidStorage.parts.get(i).getFluid();
-            view.putNullable("fluid." + i, SimpleFluidStorage.CODEC, fluid.isEmpty()?null:fluid);
+            view.storeNullable("fluid." + i, SimpleFluidStorage.CODEC, fluid.isEmpty()?null:fluid);
         }
     }
 
     @Override
-    public void loadFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage, ReadView view) {
+    public void loadFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage, ValueInput view) {
         for(int i = 0;i < fluidStorage.parts.size();i++) {
             FluidStack fluid = view.read("fluid." + i, SimpleFluidStorage.CODEC).
                     orElseGet(() -> new FluidStack(Fluids.EMPTY, 0));
@@ -41,18 +41,18 @@ public final class FluidStorageMultiTankMethods
 
     @Override
     public void syncFluidToPlayer(CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                  PlayerEntity player, BlockPos pos) {
+                                  Player player, BlockPos pos) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(i,
+            ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new FluidSyncS2CPacket(i,
                     fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), pos));
     }
 
     @Override
     public void syncFluidToPlayers(CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                   World level, BlockPos pos, int distance) {
+                                   Level level, BlockPos pos, int distance) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    pos, (ServerWorld)level, distance,
+                    pos, (ServerLevel)level, distance,
                     new FluidSyncS2CPacket(i, fluidStorage.parts.get(i).getFluid(),
                             fluidStorage.parts.get(i).getCapacity(), pos)
             );

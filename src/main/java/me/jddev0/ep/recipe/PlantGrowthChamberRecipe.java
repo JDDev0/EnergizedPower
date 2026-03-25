@@ -4,18 +4,21 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,7 +55,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource) {
+    public ItemStack[] generateOutputs(RandomSource randomSource) {
         ItemStack[] generatedOutputs = new ItemStack[outputs.length];
         for(int i = 0;i < outputs.length;i++) {
             int count = 0;
@@ -69,30 +72,30 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.test(container.getStackInSlot(0));
+        return input.test(container.getItem(0));
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.PLANT_GROWTH_CHAMBER_CATEGORY;
     }
 
@@ -119,7 +122,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
     @Override
     public boolean isResult(ItemStack itemStack) {
         return Arrays.stream(outputs).map(OutputItemStackWithPercentages::output).
-                anyMatch(output -> ItemStack.areItemsAndComponentsEqual(output, itemStack));
+                anyMatch(output -> ItemStack.isSameItemSameComponents(output, itemStack));
     }
 
     public static final class Type implements RecipeType<PlantGrowthChamberRecipe> {
@@ -141,12 +144,12 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
                 return recipe.outputs;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
             })).apply(instance, PlantGrowthChamberRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, PlantGrowthChamberRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -155,12 +158,12 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, PlantGrowthChamberRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static PlantGrowthChamberRecipe read(RegistryByteBuf buffer) {
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+        private static PlantGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int ticks = buffer.readInt();
 
             int outputCount = buffer.readInt();
@@ -171,8 +174,8 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
             return new PlantGrowthChamberRecipe(outputs, input, ticks);
         }
 
-        private static void write(RegistryByteBuf buffer, PlantGrowthChamberRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
+        private static void write(RegistryFriendlyByteBuf buffer, PlantGrowthChamberRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.ticks);
 
             buffer.writeInt(recipe.outputs.length);

@@ -10,10 +10,9 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.InputIngredient;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
             return Result.createNotApplicable();
 
         if(simpleGridMenuDisplay.getWidth() > 3 || simpleGridMenuDisplay.getHeight() > 3)
-            return Result.createFailed(Text.translatable("recipes.energizedpower.transfer.too_large"));
+            return Result.createFailed(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();
@@ -53,7 +52,7 @@ public class AdvancedAutoCrafterTransferHandler implements TransferHandler {
         while(itemStacks.size() < 9)
             itemStacks.add(ItemStack.EMPTY);
 
-        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(),
+        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(),
                 itemStacks, recipeIdOptional.get()));
 
         return Result.createSuccessful().blocksFurtherHandling();

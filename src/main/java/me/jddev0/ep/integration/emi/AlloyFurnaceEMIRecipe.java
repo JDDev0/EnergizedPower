@@ -12,12 +12,11 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -35,8 +34,8 @@ public class AlloyFurnaceEMIRecipe implements EmiRecipe {
     private final OutputItemStackWithPercentages secondaryOutputWithPercentages;
     private final int ticks;
 
-    public AlloyFurnaceEMIRecipe(RecipeEntry<AlloyFurnaceRecipe> recipe) {
-        this.id = recipe.id().getValue();
+    public AlloyFurnaceEMIRecipe(RecipeHolder<AlloyFurnaceRecipe> recipe) {
+        this.id = recipe.id().identifier();
         this.input = Arrays.stream(recipe.value().getInputs()).map(input ->
                 EmiIngredient.of(input.input(), input.count())).collect(Collectors.toList());
 
@@ -89,16 +88,16 @@ public class AlloyFurnaceEMIRecipe implements EmiRecipe {
         widgets.addSlot(output.get(0), 98, 0).large(true).recipeContext(this);
         SlotWidget secondaryOutputSlot = widgets.addSlot(output.size() == 2?output.get(1):EmiStack.EMPTY, 124, 0).large(true).recipeContext(this);
         if(output.size() == 2) {
-            secondaryOutputSlot.appendTooltip(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+            secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             double[] percentages = secondaryOutputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)
-                secondaryOutputSlot.appendTooltip(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                secondaryOutputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
         }
 
-        Text ticksText = Text.translatable("recipes.energizedpower.info.ticks", ticks);
-        widgets.addText(ticksText.asOrderedText(),
-                widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(ticksText),
-                widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight, Formatting.WHITE.getColorValue(), false);
+        Component ticksText = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+        widgets.addText(ticksText.getVisualOrderText(),
+                widgets.getWidth() - Minecraft.getInstance().font.width(ticksText),
+                widgets.getHeight() - Minecraft.getInstance().font.lineHeight, ChatFormatting.WHITE.getColor(), false);
     }
 }

@@ -10,14 +10,14 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     private final int ticksPerItem;
@@ -43,33 +43,33 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("current_output_index", currentOutputIndex);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        currentOutputIndex = view.getInt("current_output_index", 0);
+        currentOutputIndex = view.getIntOr("current_output_index", 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSplitterBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSplitterBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(level.getTime() % blockEntity.ticksPerItem == 0) {
-            Direction facing = state.get(ItemConveyorBeltSplitterBlock.FACING);
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
+            Direction facing = state.getValue(ItemConveyorBeltSplitterBlock.FACING);
 
-            BlockPos inputPos = blockPos.offset(facing);
+            BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
             if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
             //Conveyor belt must face towards Splitter and must not be ascending
-            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.get(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != facing)
                 return;
 
@@ -102,16 +102,16 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
             for(int j = 0;j < 3;j++) {
                 int index = (blockEntity.currentOutputIndex + j) % 3;
                 Direction outputDirection = switch(index) {
-                    case 0 -> facing.rotateYClockwise();
+                    case 0 -> facing.getClockWise();
                     case 1 -> facing.getOpposite();
-                    case 2 -> facing.rotateYCounterclockwise();
+                    case 2 -> facing.getCounterClockWise();
                     default -> null;
                 };
 
                 if(outputDirection == null)
                     return;
 
-                BlockPos outputPos = blockPos.offset(outputDirection);
+                BlockPos outputPos = blockPos.relative(outputDirection);
                 BlockState outputBlockState = level.getBlockState(outputPos);
                 if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                     continue;
@@ -133,7 +133,7 @@ public class ItemConveyorBeltSplitterBlockEntity extends BlockEntity {
 
                     if(amount > 0) {
                         blockEntity.currentOutputIndex = (index + 1) % 3;
-                        markDirty(level, blockPos, state);
+                        setChanged(level, blockPos, state);
 
                         return;
                     }

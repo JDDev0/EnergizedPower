@@ -4,39 +4,41 @@ import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
 import me.jddev0.ep.machine.tier.FluidTankTier;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.*;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class FluidTankMenu extends ScreenHandler {
+public class FluidTankMenu extends AbstractContainerMenu {
     private final FluidTankBlockEntity blockEntity;
-    private final World level;
+    private final Level level;
 
     private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
 
-    public FluidTankMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv, inv.player.getEntityWorld().getBlockEntity(pos), null);
+    public FluidTankMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), null);
     }
 
-    public FluidTankMenu(int id, PlayerInventory inv, BlockEntity blockEntity, PropertyDelegate data) {
+    public FluidTankMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(((FluidTankBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id);
 
         this.blockEntity = (FluidTankBlockEntity)blockEntity;
 
-        this.level = inv.player.getEntityWorld();
+        this.level = inv.player.level();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
         if(data == null) {
-            addProperties(ignoreNBTData);
+            addDataSlots(ignoreNBTData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -57,16 +59,16 @@ public class FluidTankMenu extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, getTier().getBlockFromTier());
+    public boolean stillValid(Player player) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, getTier().getBlockFromTier());
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -74,7 +76,7 @@ public class FluidTankMenu extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

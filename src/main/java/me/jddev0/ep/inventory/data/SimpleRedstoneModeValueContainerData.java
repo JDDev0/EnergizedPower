@@ -1,9 +1,9 @@
 package me.jddev0.ep.inventory.data;
 
 import me.jddev0.ep.machine.configuration.RedstoneMode;
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
-public class SimpleRedstoneModeValueContainerData implements PropertyDelegate {
+public class SimpleRedstoneModeValueContainerData implements ContainerData {
     private RedstoneMode value = RedstoneMode.IGNORE;
 
     public RedstoneMode getValue() {
@@ -25,7 +25,7 @@ public class SimpleRedstoneModeValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

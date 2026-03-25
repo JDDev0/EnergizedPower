@@ -5,7 +5,7 @@ import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class WeatherControllerGenericPeripheral implements GenericPeripheral {
     @Override
@@ -26,7 +26,7 @@ public class WeatherControllerGenericPeripheral implements GenericPeripheral {
         if(weatherType == -1 && !weatherController.hasInfiniteWeatherChangedDuration())
             throw new LuaException("Weather type -1 (reset) can only be used if an infinite duration upgrade module is installed");
 
-        if(!(weatherController.getWorld() instanceof ServerWorld level) || !weatherController.hasEnoughEnergy() ||
+        if(!(weatherController.getLevel() instanceof ServerLevel level) || !weatherController.hasEnoughEnergy() ||
                 weatherController.getSelectedWeatherType() == weatherType)
             return false;
 
@@ -43,11 +43,11 @@ public class WeatherControllerGenericPeripheral implements GenericPeripheral {
 
         switch(weatherType) {
             //Clear
-            case 0 -> level.setWeather(duration, 0, false, false);
+            case 0 -> level.setWeatherParameters(duration, 0, false, false);
             //Rain
-            case 1 -> level.setWeather(0, duration, true, false);
+            case 1 -> level.setWeatherParameters(0, duration, true, false);
             //Thunder
-            case 2 -> level.setWeather(0, duration, true, true);
+            case 2 -> level.setWeatherParameters(0, duration, true, true);
         }
 
         return true;

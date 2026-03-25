@@ -3,22 +3,22 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SyncIngredientsS2CPacket implements CustomPayload {
-    public static final Id<SyncIngredientsS2CPacket> ID =
-            new Id<>(EPAPI.id("sync_ingredients"));
-    public static final PacketCodec<RegistryByteBuf, SyncIngredientsS2CPacket> PACKET_CODEC =
-            PacketCodec.of(SyncIngredientsS2CPacket::write, SyncIngredientsS2CPacket::new);
+public final class SyncIngredientsS2CPacket implements CustomPacketPayload {
+    public static final Type<SyncIngredientsS2CPacket> ID =
+            new Type<>(EPAPI.id("sync_ingredients"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncIngredientsS2CPacket> PACKET_CODEC =
+            StreamCodec.ofMember(SyncIngredientsS2CPacket::write, SyncIngredientsS2CPacket::new);
 
     private final BlockPos pos;
     private final int index;
@@ -30,7 +30,7 @@ public final class SyncIngredientsS2CPacket implements CustomPayload {
         this.ingredientList = new ArrayList<>(ingredientList);
     }
 
-    public SyncIngredientsS2CPacket(RegistryByteBuf buffer) {
+    public SyncIngredientsS2CPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         index = buffer.readInt();
@@ -38,12 +38,12 @@ public final class SyncIngredientsS2CPacket implements CustomPayload {
         int len = buffer.readInt();
         ArrayList<Ingredient> ingredientList = new ArrayList<>(len);
         for(int i = 0;i < len;i++)
-            ingredientList.add(Ingredient.PACKET_CODEC.decode(buffer));
+            ingredientList.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
 
         this.ingredientList = ingredientList;
     }
 
-    public void write(RegistryByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         buffer.writeInt(index);
@@ -51,21 +51,21 @@ public final class SyncIngredientsS2CPacket implements CustomPayload {
         buffer.writeInt(ingredientList.size());
 
         for(Ingredient ingredient: ingredientList)
-            Ingredient.PACKET_CODEC.encode(buffer, ingredient);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
     }
 
     @Override
     @NotNull
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(SyncIngredientsS2CPacket data, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
-            if(context.client().world == null)
+            if(context.client().level == null)
                 return;
 
-            BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
+            BlockEntity blockEntity = context.client().level.getBlockEntity(data.pos);
             if(blockEntity instanceof IngredientPacketUpdate ingredientPacketUpdate)
                 ingredientPacketUpdate.setIngredients(data.index, new ArrayList<>(data.ingredientList));
         });

@@ -6,14 +6,14 @@ import me.jddev0.ep.block.entity.TransformerBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.screen.TransformerMenu;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public enum TransformerTier {
     LV, MV, HV, EHV;
 
-    public ScreenHandlerType<TransformerMenu> getMenuTypeFromTierAndType(TransformerType type) {
+    public MenuType<TransformerMenu> getMenuTypeFromTierAndType(TransformerType type) {
         return switch(this) {
             case LV -> switch(type) {
                 case TYPE_1_TO_N -> EPMenuTypes.LV_TRANSFORMER_1_TO_N_MENU;

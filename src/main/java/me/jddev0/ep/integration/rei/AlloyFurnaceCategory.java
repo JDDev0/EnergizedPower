@@ -10,8 +10,7 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-
+import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -25,8 +24,8 @@ public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.alloy_furnace");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.alloy_furnace");
     }
 
     @Override
@@ -62,19 +61,19 @@ public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay
                 entries(display.getOutputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 125, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1).map(stack -> {
-                    List<Text> tooltip = new ArrayList<>();
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    List<Component> tooltip = new ArrayList<>();
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = display.recipe().value().getSecondaryOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
                     return stack.tooltip(tooltip);
                 }):new ArrayList<>(0)));
 
         int ticks = (int)(display.recipe().value().getTicks() * AlloyFurnaceBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Text.translatable("recipes.energizedpower.info.ticks",
+                        Component.translatable("recipes.energizedpower.info.ticks",
                                 ticks)).
                 noShadow().rightAligned());
 

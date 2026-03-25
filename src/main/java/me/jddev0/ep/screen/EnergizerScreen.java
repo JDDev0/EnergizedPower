@@ -4,14 +4,14 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
 public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<EnergizerMenu> {
-    public EnergizerScreen(EnergizerMenu menu, PlayerInventory inventory, Text component) {
+    public EnergizerScreen(EnergizerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/energizer.png"),
@@ -19,24 +19,24 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
     }
 
     @Override
-    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
         super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         renderProgressArrow(drawContext, x, y);
         renderActiveOverlay(drawContext, x, y);
     }
 
-    private void renderProgressArrow(DrawContext drawContext, int x, int y) {
-        if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
+    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+        if(menu.isCraftingActive())
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
-    private void renderActiveOverlay(DrawContext drawContext, int x, int y) {
-        if(handler.isCrafting()) {
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50, 256, 256);
+    private void renderActiveOverlay(GuiGraphics drawContext, int x, int y) {
+        if(menu.isCrafting()) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50, 256, 256);
         }
     }
 }

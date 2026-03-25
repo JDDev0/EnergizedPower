@@ -1,10 +1,8 @@
 accessWidener	v1 named
 
-extendable    method    net/minecraft/entity/vehicle/VehicleEntity    asItem    ()Lnet/minecraft/item/Item;
+accessible    field    net/minecraft/client/gui/screens/inventory/AbstractContainerScreen    leftPos    I
+accessible    field    net/minecraft/client/gui/screens/inventory/AbstractContainerScreen    topPos    I
 
-accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x    I
-accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I
+accessible    method    net/minecraft/util/thread/BlockableEventLoop    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
 
-accessible    method    net/minecraft/util/thread/ThreadExecutor    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
-
-accessible    field    net/minecraft/recipe/Ingredient entries    Lnet/minecraft/registry/entry/RegistryEntryList;
+accessible    field    net/minecraft/world/item/crafting/Ingredient values    Lnet/minecraft/core/HolderSet;

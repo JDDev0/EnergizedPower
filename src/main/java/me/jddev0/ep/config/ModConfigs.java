@@ -4,8 +4,8 @@ import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.validation.ValueValidators;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.resources.Identifier;
 import me.jddev0.ep.config.value.*;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 

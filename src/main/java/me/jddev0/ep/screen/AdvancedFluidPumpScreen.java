@@ -7,14 +7,13 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.material.FluidState;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -25,99 +24,99 @@ public class AdvancedFluidPumpScreen
         extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedFluidPumpMenu> {
     public static final boolean SHOW_RELATIVE_COORDINATES = ModConfigs.CLIENT_FLUID_PUMP_RELATIVE_TARGET_COORDINATES.getValue();
 
-    public AdvancedFluidPumpScreen(AdvancedFluidPumpMenu menu, PlayerInventory inventory, Text component) {
+    public AdvancedFluidPumpScreen(AdvancedFluidPumpMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
                 EPAPI.id("textures/gui/container/advanced_fluid_pump.png"),
                 EPAPI.id("textures/gui/container/upgrade_view/advanced_fluid_pump.png"));
 
-        backgroundWidth = 248;
+        imageWidth = 248;
     }
 
     @Override
-    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
         super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         for(int i = 0;i < 4;i++) {
-            renderFluidMeterContent(drawContext, handler.getFluid(i), handler.getTankCapacity(i), x + 206 + (i%2) * 18, y + 17 + (i/2) * 54, 16, 52);
+            renderFluidMeterContent(drawContext, menu.getFluid(i), menu.getTankCapacity(i), x + 206 + (i%2) * 18, y + 17 + (i/2) * 54, 16, 52);
             renderFluidMeterOverlay(drawContext, x, y, i);
         }
 
         renderInfoText(drawContext, x, y);
     }
 
-    private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y, int tank) {
-        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 206 + (tank%2) * 18, y + 17 + (tank/2) * 54, 16, 0, 16, 52, 256, 256);
+    private void renderFluidMeterOverlay(GuiGraphics drawContext, int x, int y, int tank) {
+        drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 206 + (tank%2) * 18, y + 17 + (tank/2) * 54, 16, 0, 16, 52, 256, 256);
     }
 
-    private void renderInfoText(DrawContext drawContext, int x, int y) {
-        BlockPos targetPos = handler.getBlockEntity().getPos().add(handler.getTargetOffset());
+    private void renderInfoText(GuiGraphics drawContext, int x, int y) {
+        BlockPos targetPos = menu.getBlockEntity().getBlockPos().offset(menu.getTargetOffset());
 
-        Text component;
+        Component component;
         if(SHOW_RELATIVE_COORDINATES) {
-            component = Text.translatable("tooltip.energizedpower.fluid_pump.target_relative",
-                    String.format(Locale.ENGLISH, "%+d", handler.getTargetOffset().getX()),
-                    String.format(Locale.ENGLISH, "%+d", handler.getTargetOffset().getY()),
-                    String.format(Locale.ENGLISH, "%+d", handler.getTargetOffset().getZ()));
+            component = Component.translatable("tooltip.energizedpower.fluid_pump.target_relative",
+                    String.format(Locale.ENGLISH, "%+d", menu.getTargetOffset().getX()),
+                    String.format(Locale.ENGLISH, "%+d", menu.getTargetOffset().getY()),
+                    String.format(Locale.ENGLISH, "%+d", menu.getTargetOffset().getZ()));
         }else {
-            component = Text.translatable("tooltip.energizedpower.fluid_pump.target",
+            component = Component.translatable("tooltip.energizedpower.fluid_pump.target",
                     targetPos.getX(), targetPos.getY(), targetPos.getZ());
         }
 
-        int componentWidth = textRenderer.getWidth(component);
+        int componentWidth = font.width(component);
 
-        drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0xFF000000, false);
+        drawContext.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0xFF000000, false);
 
 
-        if(handler.getSlot(4 * 9).getStack().isEmpty()) {
-            component = Text.translatable("tooltip.energizedpower.fluid_pump.cobblestone_missing").
-                    formatted(Formatting.RED);
+        if(menu.getSlot(4 * 9).getItem().isEmpty()) {
+            component = Component.translatable("tooltip.energizedpower.fluid_pump.cobblestone_missing").
+                    withStyle(ChatFormatting.RED);
 
-            componentWidth = textRenderer.getWidth(component);
+            componentWidth = font.width(component);
 
-            drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
-        }else if(handler.isExtractingFluid()) {
-            FluidState targetFluidState = handler.getBlockEntity().getWorld().getFluidState(targetPos);
+            drawContext.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+        }else if(menu.isExtractingFluid()) {
+            FluidState targetFluidState = menu.getBlockEntity().getLevel().getFluidState(targetPos);
             if(!targetFluidState.isEmpty()) {
-                component = Text.translatable("tooltip.energizedpower.fluid_pump.extracting",
-                        Text.translatable(new FluidStack(targetFluidState.getFluid(), 1).getTranslationKey()));
+                component = Component.translatable("tooltip.energizedpower.fluid_pump.extracting",
+                        Component.translatable(new FluidStack(targetFluidState.getType(), 1).getTranslationKey()));
 
-                componentWidth = textRenderer.getWidth(component);
+                componentWidth = font.width(component);
 
-                drawContext.drawText(textRenderer, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+                drawContext.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
             }
         }
     }
 
     @Override
-    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {
+    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
         super.renderTooltipNormalView(drawContext, mouseX, mouseY);
 
         for(int i = 0;i < 4;i++) {
-            if(isPointWithinBounds(206 + (i%2) * 18, 17 + (i/2) * 54, 16, 52, mouseX, mouseY)) {
+            if(isHovering(206 + (i%2) * 18, 17 + (i/2) * 54, 16, 52, mouseX, mouseY)) {
                 //Fluid meter
 
-                List<Text> components = new ArrayList<>(2);
+                List<Component> components = new ArrayList<>(2);
 
-                boolean fluidEmpty =  handler.getFluid(i).isEmpty();
+                boolean fluidEmpty =  menu.getFluid(i).isEmpty();
 
-                long fluidAmount = fluidEmpty?0:handler.getFluid(i).getMilliBucketsAmount();
+                long fluidAmount = fluidEmpty?0:menu.getFluid(i).getMilliBucketsAmount();
 
-                Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
                         FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                convertDropletsToMilliBuckets(handler.getTankCapacity(i))));
+                                convertDropletsToMilliBuckets(menu.getTankCapacity(i))));
 
                 if(!fluidEmpty) {
-                    tooltipComponent = Text.translatable(handler.getFluid(i).getTranslationKey()).append(" ").
+                    tooltipComponent = Component.translatable(menu.getFluid(i).getTranslationKey()).append(" ").
                             append(tooltipComponent);
                 }
 
                 components.add(tooltipComponent);
 
-                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+                drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

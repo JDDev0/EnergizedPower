@@ -1,38 +1,38 @@
 package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class EnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
-        extends ScreenHandler
+        extends AbstractContainerMenu
         implements IEnergyStorageMenu {
     protected final T blockEntity;
-    protected final World level;
+    protected final Level level;
     protected final Block blockType;
 
-    protected EnergyStorageMenu(@Nullable ScreenHandlerType<?> menuType, int id, PlayerInventory playerInventory,
+    protected EnergyStorageMenu(@Nullable MenuType<?> menuType, int id, Inventory playerInventory,
                                 BlockEntity blockEntity, Block blockType) {
         this(menuType, id, playerInventory, blockEntity, blockType, 8, 84);
     }
 
     @SuppressWarnings("unchecked")
-    protected EnergyStorageMenu(@Nullable ScreenHandlerType<?> menuType, int id, PlayerInventory playerInventory,
+    protected EnergyStorageMenu(@Nullable MenuType<?> menuType, int id, Inventory playerInventory,
                                 BlockEntity blockEntity, Block blockType,
                                 int playerInventoryX, int playerInventoryY) {
         super(menuType, id);
 
         this.blockEntity = (T)blockEntity;
-        this.level = playerInventory.player.getEntityWorld();
+        this.level = playerInventory.player.level();
         this.blockType = blockType;
 
         addPlayerInventorySlots(playerInventory, playerInventoryX, playerInventoryY);
@@ -49,11 +49,11 @@ public abstract class EnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, blockType);
+    public boolean stillValid(@NotNull Player player) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, blockType);
     }
 
-    private void addPlayerInventorySlots(PlayerInventory playerInventory, int x, int y) {
+    private void addPlayerInventorySlots(Inventory playerInventory, int x, int y) {
         //Player Inventory
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 9;j++)

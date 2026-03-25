@@ -8,180 +8,180 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.function.Consumer;
 
-public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements NamedScreenHandlerFactory {
+public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements MenuProvider {
     public static final long CAPACITY = ModConfigs.COMMON_INVENTORY_TELEPORTER_CAPACITY.getValue();
     public static final long MAX_RECEIVE = ModConfigs.COMMON_INVENTORY_TELEPORTER_TRANSFER_RATE.getValue();
 
-    public InventoryTeleporterItem(Item.Settings props) {
+    public InventoryTeleporterItem(Item.Properties props) {
         super(props, CAPACITY, MAX_RECEIVE, 0);
     }
 
     @Override
-    public ActionResult use(World level, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
-        if(hand == Hand.OFF_HAND)
-            return ActionResult.PASS;
+        if(hand == InteractionHand.OFF_HAND)
+            return InteractionResult.PASS;
 
-        if(level.isClient() || !(player instanceof ServerPlayerEntity serverPlayer))
-            return ActionResult.SUCCESS.withNewHandStack(itemStack);
+        if(level.isClientSide() || !(player instanceof ServerPlayer serverPlayer))
+            return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
-        if(player.isSneaking())
-            player.openHandledScreen(this);
+        if(player.isShiftKeyDown())
+            player.openMenu(this);
         else
             teleportPlayer(itemStack, serverPlayer);
 
-        return ActionResult.SUCCESS.withNewHandStack(itemStack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.inventory_teleporter");
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower.inventory_teleporter");
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new InventoryTeleporterMenu(id, inventory, getInventory(player.getMainHandStack()));
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new InventoryTeleporterMenu(id, inventory, getInventory(player.getMainHandItem()));
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, tooltip, type);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+        super.appendHoverText(stack, context, displayComponent, tooltip, type);
 
-        SimpleInventory inventory = getInventory(stack);
-        ItemStack teleporterMatrixItemStack = inventory.getStack(0);
+        SimpleContainer inventory = getInventory(stack);
+        ItemStack teleporterMatrixItemStack = inventory.getItem(0);
 
         DimensionalPositionComponent dimPos = teleporterMatrixItemStack.get(EPDataComponentTypes.DIMENSIONAL_POSITION);
         boolean linked = TeleporterMatrixItem.isLinked(teleporterMatrixItemStack) && dimPos != null;
 
-        tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.status").formatted(Formatting.GRAY).
-                append(Text.translatable("tooltip.energizedpower.teleporter_matrix.status." +
-                        (linked?"linked":"unlinked")).formatted(linked?Formatting.GREEN:Formatting.RED)));
+        tooltip.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.status").withStyle(ChatFormatting.GRAY).
+                append(Component.translatable("tooltip.energizedpower.teleporter_matrix.status." +
+                        (linked?"linked":"unlinked")).withStyle(linked?ChatFormatting.GREEN:ChatFormatting.RED)));
 
         if(linked) {
-            tooltip.accept(Text.empty());
+            tooltip.accept(Component.empty());
 
-            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.location").
-                    append(Text.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
-            tooltip.accept(Text.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
-                    append(Text.literal(dimPos.dimensionId().toString())));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.location").
+                    append(Component.literal(dimPos.x() + " " + dimPos.y() + " " + dimPos.z())));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.teleporter_matrix.dimension").
+                    append(Component.literal(dimPos.dimensionId().toString())));
         }
 
-        tooltip.accept(Text.empty());
+        tooltip.accept(Component.empty());
 
-        if(MinecraftClient.getInstance().isShiftPressed()) {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
-                    formatted(Formatting.GRAY, Formatting.ITALIC));
-            tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
-                    formatted(Formatting.GRAY, Formatting.ITALIC));
+        if(Minecraft.getInstance().hasShiftDown()) {
+            tooltip.accept(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.1").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.inventory_teleporter.txt.shift.2").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
-    public static SimpleInventory getInventory(ItemStack itemStack) {
+    public static SimpleContainer getInventory(ItemStack itemStack) {
         InventoryComponent inventory = itemStack.get(EPDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
-            DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
+            NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
             for(int i = 0;i < items.size();i++) {
                 if(inventory.size() <= i)
                     break;
 
                 items.set(i, inventory.get(i));
             }
-            return new SimpleInventory(items.toArray(new ItemStack[0])) {
+            return new SimpleContainer(items.toArray(new ItemStack[0])) {
                 @Override
-                public void markDirty() {
-                    super.markDirty();
+                public void setChanged() {
+                    super.setChanged();
 
-                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
                 }
 
                 @Override
-                public boolean isValid(int slot, @NotNull ItemStack stack) {
-                    if(slot >= 0 && slot < size()) {
-                        return stack.isOf(EPItems.TELEPORTER_MATRIX);
+                public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+                    if(slot >= 0 && slot < getContainerSize()) {
+                        return stack.is(EPItems.TELEPORTER_MATRIX);
                     }
 
-                    return super.isValid(slot, stack);
+                    return super.canPlaceItem(slot, stack);
                 }
 
                 @Override
-                public boolean canPlayerUse(PlayerEntity player) {
-                    return super.canPlayerUse(player) && player.getMainHandStack() == itemStack;
+                public boolean stillValid(Player player) {
+                    return super.stillValid(player) && player.getMainHandItem() == itemStack;
                 }
 
                 @Override
-                public int getMaxCountPerStack() {
+                public int getMaxStackSize() {
                     return 1;
                 }
             };
         }
 
-        return new SimpleInventory(1) {
+        return new SimpleContainer(1) {
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
             }
 
             @Override
-            public boolean isValid(int slot, @NotNull ItemStack stack) {
-                if(slot >= 0 && slot < size()) {
-                    return stack.isOf(EPItems.TELEPORTER_MATRIX);
+            public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+                if(slot >= 0 && slot < getContainerSize()) {
+                    return stack.is(EPItems.TELEPORTER_MATRIX);
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public boolean canPlayerUse(PlayerEntity player) {
-                return super.canPlayerUse(player) && player.getMainHandStack() == itemStack;
+            public boolean stillValid(Player player) {
+                return super.stillValid(player) && player.getMainHandItem() == itemStack;
             }
 
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
         };
     }
 
-    public static void teleportPlayer(ItemStack itemStack, ServerPlayerEntity player) {
-        World level = player.getEntityWorld();
+    public static void teleportPlayer(ItemStack itemStack, ServerPlayer player) {
+        Level level = player.level();
 
         EnergyStorage energyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.ofPlayerHand(player,
-                Hand.MAIN_HAND));
+                InteractionHand.MAIN_HAND));
         if(energyStorage == null)
             return;
 
-        SimpleInventory inventory = getInventory(itemStack);
-        ItemStack teleporterMatrixItemStack = inventory.getStack(0);
+        SimpleContainer inventory = getInventory(itemStack);
+        ItemStack teleporterMatrixItemStack = inventory.getItem(0);
 
         TeleporterBlockEntity.teleportPlayer(player, energyStorage, () -> setStoredEnergyUnchecked(itemStack, 0),
                 teleporterMatrixItemStack, level, null);

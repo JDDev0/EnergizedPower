@@ -4,12 +4,12 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
 public class ChargingStationScreen extends UpgradableEnergyStorageContainerScreen<ChargingStationMenu> {
-    public ChargingStationScreen(ChargingStationMenu menu, PlayerInventory inventory, Text component) {
+    public ChargingStationScreen(ChargingStationMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_range.png"));
 

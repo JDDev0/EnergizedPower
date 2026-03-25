@@ -13,19 +13,19 @@ import me.jddev0.ep.screen.AdvancedUnchargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -36,12 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedUnchargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i < 0 || i > 2)
             return false;
 
-        ItemStack itemStack = itemHandler.getStack(i);
+        ItemStack itemStack = itemHandler.getItem(i);
 
         if(!EnergyStorageUtil.isEnergyStorage(itemStack))
             return true;
@@ -87,7 +87,7 @@ public class AdvancedUnchargerBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -105,15 +105,15 @@ public class AdvancedUnchargerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
@@ -125,34 +125,34 @@ public class AdvancedUnchargerBlockEntity
                     return limitingEnergyStorage.supportsExtraction();
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            (!ItemStack.areItemsAndComponentsEqual(stack, itemStack) &&
+                    ItemStack itemStack = getItem(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
                                     !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(itemStack)))))
                         resetProgress(slot);
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                AdvancedUnchargerBlockEntity.this.markDirty();
+                AdvancedUnchargerBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new EnergyValueContainerData(this::getEnergyProductionPerTickSum, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft[0], value -> {}),
@@ -165,33 +165,33 @@ public class AdvancedUnchargerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
         return new AdvancedUnchargerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         for(int i = 0;i < 3;i++)
             view.putLong("recipe.energy_production_left." + i, energyProductionLeft[i]);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
         for(int i = 0;i < 3;i++)
-            energyProductionLeft[i] = view.getLong("recipe.energy_production_left." + i, 0);
+            energyProductionLeft[i] = view.getLongOr("recipe.energy_production_left." + i, 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.get(AdvancedUnchargerBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(AdvancedUnchargerBlock.POWERED)))
             tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
@@ -204,7 +204,7 @@ public class AdvancedUnchargerBlockEntity
         long energyProductionSum = -1;
 
         for(int i = 0;i < 3;i++) {
-            ItemStack stack = itemHandler.getStack(i);
+            ItemStack stack = itemHandler.getItem(i);
 
             if(!EnergyStorageUtil.isEnergyStorage(stack))
                 continue;
@@ -235,13 +235,13 @@ public class AdvancedUnchargerBlockEntity
         return energyProductionSum;
     }
 
-    public static void tickRecipe(World level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
+    public static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
         final long maxExtractPerSlot = Math.max(0, (long)Math.min(blockEntity.limitingEnergyStorage.getMaxExtract() / 3.,
                 Math.ceil((blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount()) / 3.)));
 
         for(int i = 0;i < 3;i++) {
             if(blockEntity.hasRecipe(i)) {
-                ItemStack stack = blockEntity.itemHandler.getStack(i);
+                ItemStack stack = blockEntity.itemHandler.getItem(i);
 
                 if(!EnergyStorageUtil.isEnergyStorage(stack))
                     continue;
@@ -260,7 +260,7 @@ public class AdvancedUnchargerBlockEntity
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress(i);
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
 
                     continue;
                 }
@@ -270,23 +270,23 @@ public class AdvancedUnchargerBlockEntity
                 if(blockEntity.energyProductionLeft[i] <= 0)
                     blockEntity.resetProgress(i);
 
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.resetProgress(i);
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }
         }
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, AdvancedUnchargerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         List<EnergyStorage> consumerItems = new ArrayList<>();
         List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)
@@ -360,7 +360,7 @@ public class AdvancedUnchargerBlockEntity
     }
 
     private boolean hasRecipe(int index) {
-        ItemStack stack = itemHandler.getStack(index);
+        ItemStack stack = itemHandler.getItem(index);
         return EnergyStorageUtil.isEnergyStorage(stack);
     }
 

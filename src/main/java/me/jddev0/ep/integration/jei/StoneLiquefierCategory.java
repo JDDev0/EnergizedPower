@@ -14,13 +14,13 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class StoneLiquefierCategory implements IRecipeCategory<RecipeEntry<StoneLiquefierRecipe>> {
+public class StoneLiquefierCategory implements IRecipeCategory<RecipeHolder<StoneLiquefierRecipe>> {
     public static final IRecipeHolderType<StoneLiquefierRecipe> TYPE = IRecipeHolderType.create(StoneLiquefierRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -34,13 +34,13 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeEntry<Stone
     }
 
     @Override
-    public IRecipeType<RecipeEntry<StoneLiquefierRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<StoneLiquefierRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.stone_liquefier");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.stone_liquefier");
     }
 
     @Override
@@ -59,7 +59,7 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeEntry<Stone
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<StoneLiquefierRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<StoneLiquefierRecipe> recipe, IFocusGroup iFocusGroup) {
         FluidStack output = recipe.value().getOutput();
 
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
@@ -69,7 +69,7 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeEntry<Stone
     }
 
     @Override
-    public void draw(RecipeEntry<StoneLiquefierRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<StoneLiquefierRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

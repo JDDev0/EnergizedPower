@@ -5,50 +5,50 @@ import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.data.SimpleProgressValueContainerData;
 import me.jddev0.ep.util.RecipeUtils;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class AlloyFurnaceMenu extends ScreenHandler {
+public class AlloyFurnaceMenu extends AbstractContainerMenu {
     private final AlloyFurnaceBlockEntity blockEntity;
-    private final World level;
+    private final Level level;
 
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData litDurationData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxLitDurationData = new SimpleProgressValueContainerData();
 
-    public AlloyFurnaceMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(6) {
+    public AlloyFurnaceMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(6) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((AlloyFurnaceBlockEntity)inv.player.getEntityWorld().
+                    case 0, 1, 2 -> RecipeUtils.isIngredientOfAny(((AlloyFurnaceBlockEntity)inv.player.level().
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
-                    case 3 -> inv.player.getEntityWorld().getFuelRegistry().getFuelTicks(stack) > 0;
+                    case 3 -> inv.player.level().fuelValues().burnDuration(stack) > 0;
                     case 4, 5 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
         }, null);
     }
 
-    public AlloyFurnaceMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                            PropertyDelegate data) {
+    public AlloyFurnaceMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
+                            ContainerData data) {
         super(EPMenuTypes.ALLOY_FURNACE_MENU, id);
 
-        checkSize(inv, 6);
+        checkContainerSize(inv, 6);
         this.blockEntity = (AlloyFurnaceBlockEntity)blockEntity;
-        this.level = playerInventory.player.getEntityWorld();
+        this.level = playerInventory.player.level();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -61,12 +61,12 @@ public class AlloyFurnaceMenu extends ScreenHandler {
         addSlot(new ConstraintInsertSlot(inv, 5, 143, 35));
 
         if(data == null) {
-            addProperties(progressData);
-            addProperties(maxProgressData);
-            addProperties(litDurationData);
-            addProperties(maxLitDurationData);
+            addDataSlots(progressData);
+            addDataSlots(maxProgressData);
+            addDataSlots(litDurationData);
+            addDataSlots(maxLitDurationData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -95,23 +95,23 @@ public class AlloyFurnaceMenu extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasStack())
+        if(sourceSlot == null || !sourceSlot.hasItem())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getStack();
+        ItemStack sourceItem = sourceSlot.getItem();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            if(!insertItem(sourceItem, 4 * 9, 4 * 9 + 4, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 4, false)) {
                 //"+4" instead of "+6": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 6) {
             //Tile inventory slot -> Merge into player inventory
-            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else {
@@ -119,21 +119,21 @@ public class AlloyFurnaceMenu extends ScreenHandler {
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setStack(ItemStack.EMPTY);
+            sourceSlot.setByPlayer(ItemStack.EMPTY);
         else
-            sourceSlot.markDirty();
+            sourceSlot.setChanged();
 
-        sourceSlot.onTakeItem(player, sourceItem);
+        sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.ALLOY_FURNACE);
+    public boolean stillValid(Player player) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.ALLOY_FURNACE);
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -141,7 +141,7 @@ public class AlloyFurnaceMenu extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

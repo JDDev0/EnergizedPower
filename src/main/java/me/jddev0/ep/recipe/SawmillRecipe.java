@@ -5,17 +5,20 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,30 +50,30 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.test(container.getStackInSlot(0));
+        return input.test(container.getItem(0));
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.SAWMILL_CATEGORY;
     }
 
@@ -96,8 +99,8 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output, itemStack) || (secondaryOutput != null &&
-                ItemStack.areItemsAndComponentsEqual(secondaryOutput, itemStack));
+        return ItemStack.isSameItemSameComponents(output, itemStack) || (secondaryOutput != null &&
+                ItemStack.isSameItemSameComponents(secondaryOutput, itemStack));
     }
 
     public static final class Type implements RecipeType<SawmillRecipe> {
@@ -118,17 +121,17 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
                 return recipe.output;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.NON_NEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+            }), ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.of(0);
 
-                return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
+                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
                         Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
             }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.empty();
 
-                return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
+                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
                         Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
                 return secondaryOutput.map(o -> new SawmillRecipe(output, o, ingredient)).
@@ -137,7 +140,7 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
             });
         });
 
-        private final PacketCodec<RegistryByteBuf, SawmillRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -146,22 +149,22 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, SawmillRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static SawmillRecipe read(RegistryByteBuf buffer) {
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
-            ItemStack secondaryOutput = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+        private static SawmillRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStack secondaryOutput = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new SawmillRecipe(output, secondaryOutput, input);
         }
 
-        private static void write(RegistryByteBuf buffer, SawmillRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.secondaryOutput);
+        private static void write(RegistryFriendlyByteBuf buffer, SawmillRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
         }
     }
 }

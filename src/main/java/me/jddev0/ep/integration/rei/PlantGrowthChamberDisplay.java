@@ -9,35 +9,34 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public record PlantGrowthChamberDisplay(RecipeEntry<PlantGrowthChamberRecipe> recipe) implements Display {
+public record PlantGrowthChamberDisplay(RecipeHolder<PlantGrowthChamberRecipe> recipe) implements Display {
     public static final CategoryIdentifier<PlantGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "plant_growth_chamber");
     public static final DisplaySerializer<? extends PlantGrowthChamberDisplay> SERIALIZER = DisplaySerializer.of(
             RecordCodecBuilder.mapCodec((instance) -> {
                 return instance.group(Identifier.CODEC.fieldOf("recipeId").forGetter(display -> {
-                    return display.recipe.id().getValue();
+                    return display.recipe.id().identifier();
                 }), EPRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER.codec().fieldOf("ingredient").forGetter(display -> {
                     return display.recipe.value();
-                })).apply(instance, (recipeId, recipe) -> new PlantGrowthChamberDisplay(new RecipeEntry<>(
-                        RegistryKey.of(RegistryKeys.RECIPE, recipeId), recipe
+                })).apply(instance, (recipeId, recipe) -> new PlantGrowthChamberDisplay(new RecipeHolder<>(
+                        ResourceKey.create(Registries.RECIPE, recipeId), recipe
                 )));
             }),
-            PacketCodec.tuple(
-                    Identifier.PACKET_CODEC,
-                    display -> display.recipe.id().getValue(),
-                    EPRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER.packetCodec(),
+            StreamCodec.composite(
+                    Identifier.STREAM_CODEC,
+                    display -> display.recipe.id().identifier(),
+                    EPRecipes.PLANT_GROWTH_CHAMBER_SERIALIZER.streamCodec(),
                     display -> display.recipe.value(),
-                    (recipeId, recipe) -> new PlantGrowthChamberDisplay(new RecipeEntry<>(
-                            RegistryKey.of(RegistryKeys.RECIPE, recipeId), recipe
+                    (recipeId, recipe) -> new PlantGrowthChamberDisplay(new RecipeHolder<>(
+                            ResourceKey.create(Registries.RECIPE, recipeId), recipe
                     ))
             )
     );
@@ -61,7 +60,7 @@ public record PlantGrowthChamberDisplay(RecipeEntry<PlantGrowthChamberRecipe> re
 
     @Override
     public Optional<Identifier> getDisplayLocation() {
-        return Optional.of(recipe.id().getValue());
+        return Optional.of(recipe.id().identifier());
     }
 
     @Override

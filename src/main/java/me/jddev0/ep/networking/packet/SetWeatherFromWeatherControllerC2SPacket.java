@@ -3,41 +3,41 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements CustomPayload {
-    public static final CustomPayload.Id<SetWeatherFromWeatherControllerC2SPacket> ID =
-            new CustomPayload.Id<>(EPAPI.id("set_weather_from_weather_controller"));
-    public static final PacketCodec<RegistryByteBuf, SetWeatherFromWeatherControllerC2SPacket> PACKET_CODEC =
-            PacketCodec.of(SetWeatherFromWeatherControllerC2SPacket::write, SetWeatherFromWeatherControllerC2SPacket::new);
+public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SetWeatherFromWeatherControllerC2SPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("set_weather_from_weather_controller"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetWeatherFromWeatherControllerC2SPacket> PACKET_CODEC =
+            StreamCodec.ofMember(SetWeatherFromWeatherControllerC2SPacket::write, SetWeatherFromWeatherControllerC2SPacket::new);
 
-    public SetWeatherFromWeatherControllerC2SPacket(RegistryByteBuf buffer) {
+    public SetWeatherFromWeatherControllerC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readInt());
     }
 
-    public void write(RegistryByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
         buffer.writeInt(weatherType);
     }
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(SetWeatherFromWeatherControllerC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
-            if(!context.player().canModifyBlocks())
+            if(!context.player().mayBuild())
                 return;
 
-            World level = context.player().getEntityWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+            Level level = context.player().level();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
@@ -63,11 +63,11 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
 
             switch(data.weatherType) {
                 //Clear
-                case 0 -> context.player().getEntityWorld().setWeather(duration, 0, false, false);
+                case 0 -> context.player().level().setWeatherParameters(duration, 0, false, false);
                 //Rain
-                case 1 -> context.player().getEntityWorld().setWeather(0, duration, true, false);
+                case 1 -> context.player().level().setWeatherParameters(0, duration, true, false);
                 //Thunder
-                case 2 -> context.player().getEntityWorld().setWeather(0, duration, true, true);
+                case 2 -> context.player().level().setWeatherParameters(0, duration, true, true);
             }
         });
     }

@@ -3,41 +3,41 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPayload {
-    public static final CustomPayload.Id<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
-            new CustomPayload.Id<>(EPAPI.id("set_advanced_auto_crafter_recipe_index"));
-    public static final PacketCodec<RegistryByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> PACKET_CODEC =
-            PacketCodec.of(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
+public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_recipe_index"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> PACKET_CODEC =
+            StreamCodec.ofMember(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
 
-    public SetAdvancedAutoCrafterRecipeIndexC2SPacket(RegistryByteBuf buffer) {
+    public SetAdvancedAutoCrafterRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readInt());
     }
 
-    public void write(RegistryByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
         buffer.writeInt(recipeIndex);
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(SetAdvancedAutoCrafterRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
-            if(!context.player().canModifyBlocks())
+            if(!context.player().mayBuild())
                 return;
 
-            World level = context.player().getEntityWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+            Level level = context.player().level();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);

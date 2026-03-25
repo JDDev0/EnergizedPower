@@ -1,54 +1,53 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class CreativeBatteryItem extends Item {
-    public CreativeBatteryItem(Item.Settings props) {
+    public CreativeBatteryItem(Item.Properties props) {
         super(props);
     }
 
     @Override
-    public boolean isItemBarVisible(ItemStack stack) {
+    public boolean isBarVisible(ItemStack stack) {
         return true;
     }
 
     @Override
-    public int getItemBarStep(ItemStack stack) {
+    public int getBarWidth(ItemStack stack) {
         return 13;
     }
 
     @Override
-    public int getItemBarColor(ItemStack stack) {
+    public int getBarColor(ItemStack stack) {
         return 16733695; //ChatFormatting.LIGHT_PURPLE
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-        tooltip.accept(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+        tooltip.accept(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE), EnergyUtils.getEnergyWithPrefix(Long.MAX_VALUE)).
-                formatted(Formatting.GRAY));
+                withStyle(ChatFormatting.GRAY));
 
-        if(MinecraftClient.getInstance().isShiftPressed()) {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.capacity.txt",
-                            Text.translatable("tooltip.energizedpower.infinite.txt").
-                                    formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC)).
-                    formatted(Formatting.GRAY));
-            tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
-                            Text.translatable("tooltip.energizedpower.infinite.txt").
-                                    formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC)).
-                    formatted(Formatting.GRAY));
+        if(Minecraft.getInstance().hasShiftDown()) {
+            tooltip.accept(Component.translatable("tooltip.energizedpower.capacity.txt",
+                            Component.translatable("tooltip.energizedpower.infinite.txt").
+                                    withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
+                    withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
+                            Component.translatable("tooltip.energizedpower.infinite.txt").
+                                    withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
+                    withStyle(ChatFormatting.GRAY));
         }else {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 }

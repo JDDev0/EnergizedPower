@@ -8,9 +8,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Items;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +22,8 @@ public class InWorldCategory implements DisplayCategory<InWorldDisplay> {
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("recipes.energizedpower.in_world_crafting");
+    public Component getTitle() {
+        return Component.translatable("recipes.energizedpower.in_world_crafting");
     }
 
     @Override

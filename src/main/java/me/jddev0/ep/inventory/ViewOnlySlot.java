@@ -1,16 +1,15 @@
 package me.jddev0.ep.inventory;
 
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import java.util.Optional;
 
 public class ViewOnlySlot extends Slot {
-    private static final Inventory EMPTY_INVENTORY = new SimpleInventory(0);
+    private static final Container EMPTY_INVENTORY = new SimpleContainer(0);
     private final SingleItemStackHandler itemHandler;
     protected final int index;
 
@@ -21,45 +20,45 @@ public class ViewOnlySlot extends Slot {
     }
 
     @Override
-    protected void onCrafted(ItemStack itemStack, int amount) {}
+    protected void onQuickCraft(ItemStack itemStack, int amount) {}
 
     @Override
-    public boolean canInsert(ItemStack itemStack) {
+    public boolean mayPlace(ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public ItemStack getStack() {
+    public ItemStack getItem() {
         return this.getItemHandler().variant.toStack();
     }
 
     @Override
-    public void setStackNoCallbacks(ItemStack stack) {
+    public void set(ItemStack stack) {
         try(Transaction transaction = Transaction.openOuter()) {
             itemHandler.setItemStack(stack, transaction);
             transaction.commit();
         }
 
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
-    public boolean canTakeItems(PlayerEntity player) {
+    public boolean mayPickup(Player player) {
         return true;
     }
 
     @Override
-    public ItemStack insertStack(ItemStack itemStack, int amount) {
+    public ItemStack safeInsert(ItemStack itemStack, int amount) {
         return itemStack;
     }
 
     @Override
-    public Optional<ItemStack> tryTakeStackRange(int count, int limit, PlayerEntity player) {
+    public Optional<ItemStack> tryRemove(int count, int limit, Player player) {
         return Optional.empty();
     }
 
     @Override
-    public boolean disablesDynamicDisplay() {
+    public boolean isFake() {
         return true;
     }
 

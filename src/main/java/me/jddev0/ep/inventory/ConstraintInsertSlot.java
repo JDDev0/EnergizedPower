@@ -1,16 +1,16 @@
 package me.jddev0.ep.inventory;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 public class ConstraintInsertSlot extends Slot {
-    public ConstraintInsertSlot(Inventory inventory, int index, int x, int y) {
+    public ConstraintInsertSlot(Container inventory, int index, int x, int y) {
         super(inventory, index, x, y);
     }
 
     @Override
-    public boolean canInsert(ItemStack stack) {
-        return inventory.isValid(getIndex(), stack);
+    public boolean mayPlace(ItemStack stack) {
+        return container.canPlaceItem(getContainerSlot(), stack);
     }
 }

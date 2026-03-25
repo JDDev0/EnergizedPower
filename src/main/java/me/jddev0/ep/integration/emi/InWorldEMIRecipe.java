@@ -7,15 +7,14 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import java.util.List;
 
 public class InWorldEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of("textures/block/grass_block_side.png");
+    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.parse("textures/block/grass_block_side.png");
     public static final EmiStack ITEM = EmiStack.of(Items.GRASS_BLOCK);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("in_world_crafting"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));

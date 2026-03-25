@@ -3,18 +3,18 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AdvancedChargerBlockEntity;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AdvancedMinecartChargerMenu extends EnergyStorageMenu<AdvancedChargerBlockEntity> {
-    public AdvancedMinecartChargerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv);
+    public AdvancedMinecartChargerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv);
     }
 
-    public AdvancedMinecartChargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory) {
+    public AdvancedMinecartChargerMenu(int id, BlockEntity blockEntity, Inventory playerInventory) {
         super(
                 EPMenuTypes.ADVANCED_MINECART_CHARGER_MENU, id,
 
@@ -24,7 +24,7 @@ public class AdvancedMinecartChargerMenu extends EnergyStorageMenu<AdvancedCharg
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 }

@@ -15,16 +15,16 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class ChargerCategory implements IRecipeCategory<RecipeEntry<ChargerRecipe>> {
+public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerRecipe>> {
     public static final IRecipeHolderType<ChargerRecipe> TYPE = IRecipeHolderType.create(ChargerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -38,13 +38,13 @@ public class ChargerCategory implements IRecipeCategory<RecipeEntry<ChargerRecip
     }
 
     @Override
-    public IRecipeType<RecipeEntry<ChargerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<ChargerRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.charger");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.charger");
     }
 
     @Override
@@ -63,21 +63,21 @@ public class ChargerCategory implements IRecipeCategory<RecipeEntry<ChargerRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<ChargerRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<ChargerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 15, 15).add(recipe.value().getInputItem());
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).add(recipe.value().getOutputItem());
     }
 
     @Override
-    public void draw(RecipeEntry<ChargerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<ChargerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
-        TextRenderer font = MinecraftClient.getInstance().textRenderer;
+        Font font = Minecraft.getInstance().font;
         int energyConsumption = (int)(recipe.value().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
-        Text component = Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).formatted(Formatting.YELLOW);
-        int textWidth = font.getWidth(component);
+        Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW);
+        int textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 113 - textWidth, 38, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 113 - textWidth, 38, 0xFFFFFFFF, false);
     }
 }

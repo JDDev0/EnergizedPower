@@ -10,9 +10,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer");
+    public Component getTitle() {
+        return Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer");
     }
 
     @Override
@@ -50,11 +49,11 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
                 entries(display.getInputEntries().get(0)));
 
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 34),
-                        Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier",
+                        Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier",
                                 display.recipe().value().getSpeedMultiplier())).
                 noShadow().rightAligned());
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier",
+                        Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier",
                                 display.recipe().value().getEnergyConsumptionMultiplier())).
                 noShadow().rightAligned());
 

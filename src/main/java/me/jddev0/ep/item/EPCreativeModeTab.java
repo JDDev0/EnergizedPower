@@ -2,23 +2,23 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.text.Text;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 public final class EPCreativeModeTab {
-    public static ItemGroup registerItemGroup(RegistryKey<ItemGroup> key, ItemGroup itemGroup) {
-        return Registry.register(Registries.ITEM_GROUP, key.getValue(), itemGroup);
+    public static CreativeModeTab registerItemGroup(ResourceKey<CreativeModeTab> key, CreativeModeTab itemGroup) {
+        return Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, key.identifier(), itemGroup);
     }
 
-    public static final RegistryKey<ItemGroup> ENERGIZED_POWER_TAB_REG_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP,
+    public static final ResourceKey<CreativeModeTab> ENERGIZED_POWER_TAB_REG_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
             EPAPI.id("main"));
-    public static final ItemGroup ENERGIZED_POWER_TAB = registerItemGroup(ENERGIZED_POWER_TAB_REG_KEY, FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup.energizedpower.tab"))
+    public static final CreativeModeTab ENERGIZED_POWER_TAB = registerItemGroup(ENERGIZED_POWER_TAB_REG_KEY, FabricItemGroup.builder()
+            .title(Component.translatable("itemGroup.energizedpower.tab"))
             .icon(() -> new ItemStack(EPItems.ENERGIZED_COPPER_INGOT))
             .build());
 

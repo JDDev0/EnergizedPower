@@ -10,22 +10,22 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.BlockPlacerMenu;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.AutomaticItemPlacementContext;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.DirectionalPlaceContext;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -60,44 +60,44 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0) {
                     return stack.getItem() instanceof BlockItem;
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                BlockPlacerBlockEntity.this.markDirty();
+                BlockPlacerBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -112,33 +112,33 @@ public class BlockPlacerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
         return new BlockPlacerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putBoolean("inverse_rotation", inverseRotation);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        inverseRotation = view.getBoolean("inverse_rotation", false);
+        inverseRotation = view.getBooleanOr("inverse_rotation", false);
     }
 
     @Override
     protected boolean hasWork() {
-        ItemStack itemStack = itemHandler.getStack(0);
+        ItemStack itemStack = itemHandler.getItem(0);
         if(itemStack.isEmpty() || !(itemStack.getItem() instanceof BlockItem blockItemStack))
             return false;
 
-        return !PLACEMENT_BLACKLIST.contains(Registries.BLOCK.getId(blockItemStack.getBlock()));
+        return !PLACEMENT_BLACKLIST.contains(BuiltInRegistries.BLOCK.getKey(blockItemStack.getBlock()));
     }
 
     @Override
@@ -153,21 +153,21 @@ public class BlockPlacerBlockEntity
     protected void onWorkCompleted(NoWorkData workData) {
         long energyConsumptionPerTick = getEnergyConsumptionFor(workData);
 
-        ItemStack itemStack = itemHandler.getStack(0);
+        ItemStack itemStack = itemHandler.getItem(0);
         if(itemStack.isEmpty()) {
             energyConsumptionLeft = energyConsumptionPerTick;
-            markDirty();
+            setChanged();
 
             return;
         }
 
-        BlockPos blockPosPlacement = getPos().offset(getCachedState().get(BlockPlacerBlock.FACING));
+        BlockPos blockPosPlacement = getBlockPos().relative(getBlockState().getValue(BlockPlacerBlock.FACING));
 
         BlockItem blockItem = (BlockItem)itemStack.getItem();
         final Direction direction;
 
         if(inverseRotation) {
-            direction = switch(getCachedState().get(BlockPlacerBlock.FACING)) {
+            direction = switch(getBlockState().getValue(BlockPlacerBlock.FACING)) {
                 case DOWN -> Direction.UP;
                 case UP -> Direction.DOWN;
                 case NORTH -> Direction.SOUTH;
@@ -176,17 +176,17 @@ public class BlockPlacerBlockEntity
                 case EAST -> Direction.WEST;
             };
         }else {
-            direction = getCachedState().get(BlockPlacerBlock.FACING);
+            direction = getBlockState().getValue(BlockPlacerBlock.FACING);
         }
 
-        ActionResult result = blockItem.place(new AutomaticItemPlacementContext(world, blockPosPlacement, direction, itemStack, direction) {
+        InteractionResult result = blockItem.place(new DirectionalPlaceContext(level, blockPosPlacement, direction, itemStack, direction) {
             @Override
-            public @NotNull Direction getPlayerLookDirection() {
+            public @NotNull Direction getNearestLookingDirection() {
                 return direction;
             }
 
             @Override
-            public @NotNull Direction @NotNull [] getPlacementDirections() {
+            public @NotNull Direction @NotNull [] getNearestLookingDirections() {
                 return switch (direction) {
                     case DOWN ->
                             new Direction[] { Direction.DOWN, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.UP };
@@ -204,25 +204,25 @@ public class BlockPlacerBlockEntity
             }
 
             @Override
-            public boolean canReplaceExisting() {
+            public boolean replacingClickedOnBlock() {
                 return false;
             }
         });
 
-        if(result == ActionResult.FAIL) {
+        if(result == InteractionResult.FAIL) {
             energyConsumptionLeft = energyConsumptionPerTick;
-            markDirty();
+            setChanged();
 
             return;
         }
 
-        itemHandler.setStack(0, itemStack);
+        itemHandler.setItem(0, itemStack);
         resetProgress();
     }
 
     public void setInverseRotation(boolean inverseRotation) {
         this.inverseRotation = inverseRotation;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     @Override

@@ -1,9 +1,9 @@
 package me.jddev0.ep.inventory.data;
 
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
-public class SimpleComparatorModeValueContainerData implements PropertyDelegate {
+public class SimpleComparatorModeValueContainerData implements ContainerData {
     private ComparatorMode value = ComparatorMode.ITEM;
 
     public ComparatorMode getValue() {
@@ -25,7 +25,7 @@ public class SimpleComparatorModeValueContainerData implements PropertyDelegate 
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

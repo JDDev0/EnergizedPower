@@ -4,14 +4,14 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 public final class FluidStorageSingleTankMethods implements FluidStorageMethods<SimpleFluidStorage> {
@@ -20,28 +20,28 @@ public final class FluidStorageSingleTankMethods implements FluidStorageMethods<
     private FluidStorageSingleTankMethods() {}
 
     @Override
-    public void saveFluidStorage(@NotNull SimpleFluidStorage fluidStorage, WriteView view) {
+    public void saveFluidStorage(@NotNull SimpleFluidStorage fluidStorage, ValueOutput view) {
         FluidStack fluid = fluidStorage.getFluid();
-        view.get("fluid").putNullable("Fluid", SimpleFluidStorage.CODEC, fluid.isEmpty()?null:fluid);
+        view.child("fluid").storeNullable("Fluid", SimpleFluidStorage.CODEC, fluid.isEmpty()?null:fluid);
     }
 
     @Override
-    public void loadFluidStorage(@NotNull SimpleFluidStorage fluidStorage, ReadView view) {
-        FluidStack fluid = view.getOptionalReadView("fluid").flatMap(subView -> subView.read("Fluid", SimpleFluidStorage.CODEC)).
+    public void loadFluidStorage(@NotNull SimpleFluidStorage fluidStorage, ValueInput view) {
+        FluidStack fluid = view.child("fluid").flatMap(subView -> subView.read("Fluid", SimpleFluidStorage.CODEC)).
                 orElseGet(() -> new FluidStack(Fluids.EMPTY, 0));
         fluidStorage.setFluid(fluid);
     }
 
     @Override
-    public void syncFluidToPlayer(SimpleFluidStorage fluidStorage, PlayerEntity player, BlockPos pos) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
+    public void syncFluidToPlayer(SimpleFluidStorage fluidStorage, Player player, BlockPos pos) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
                 fluidStorage.getCapacity(), pos));
     }
 
     @Override
-    public void syncFluidToPlayers(SimpleFluidStorage fluidStorage, World level, BlockPos pos, int distance) {
+    public void syncFluidToPlayers(SimpleFluidStorage fluidStorage, Level level, BlockPos pos, int distance) {
         ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                pos, (ServerWorld)level, distance,
+                pos, (ServerLevel)level, distance,
                 new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), pos)
         );
     }

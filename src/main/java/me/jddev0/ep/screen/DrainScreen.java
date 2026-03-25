@@ -5,11 +5,11 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 
 import java.util.ArrayList;
@@ -20,59 +20,59 @@ import java.util.Optional;
 public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
     private final Identifier TEXTURE;
 
-    public DrainScreen(DrainMenu menu, PlayerInventory inventory, Text component) {
+    public DrainScreen(DrainMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
         TEXTURE = EPAPI.id("textures/gui/container/generic_fluid.png");
     }
 
     @Override
-    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
-        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 
-        renderFluidMeterContent(drawContext, handler.getFluid(), handler.getTankCapacity(), x + 80, y + 17, 16, 52);
+        renderFluidMeterContent(drawContext, menu.getFluid(), menu.getTankCapacity(), x + 80, y + 17, 16, 52);
         renderFluidMeterOverlay(drawContext, x, y);
     }
 
-    private void renderFluidMeterOverlay(DrawContext drawContext, int x, int y) {
-        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
+    private void renderFluidMeterOverlay(GuiGraphics drawContext, int x, int y) {
+        drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     @Override
-    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         super.render(drawContext, mouseX, mouseY, delta);
 
-        drawMouseoverTooltip(drawContext, mouseX, mouseY);
+        renderTooltip(drawContext, mouseX, mouseY);
     }
 
     @Override
-    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+        super.renderTooltip(drawContext, mouseX, mouseY);
 
-        if(isPointWithinBounds(80, 17, 16, 52, mouseX, mouseY)) {
+        if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter
 
-            List<Text> components = new ArrayList<>(2);
+            List<Component> components = new ArrayList<>(2);
 
-            boolean fluidEmpty =  handler.getFluid().isEmpty();
+            boolean fluidEmpty =  menu.getFluid().isEmpty();
 
-            long fluidAmount = fluidEmpty?0:handler.getFluid().getMilliBucketsAmount();
+            long fluidAmount = fluidEmpty?0:menu.getFluid().getMilliBucketsAmount();
 
-            Text tooltipComponent = Text.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+            Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
                     FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                            convertDropletsToMilliBuckets(handler.getTankCapacity())));
+                            convertDropletsToMilliBuckets(menu.getTankCapacity())));
 
             if(!fluidEmpty) {
-                tooltipComponent = Text.translatable(handler.getFluid().getTranslationKey()).append(" ").
+                tooltipComponent = Component.translatable(menu.getFluid().getTranslationKey()).append(" ").
                         append(tooltipComponent);
             }
 
             components.add(tooltipComponent);
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

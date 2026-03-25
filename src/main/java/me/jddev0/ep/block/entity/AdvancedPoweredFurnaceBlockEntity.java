@@ -13,27 +13,27 @@ import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AdvancedPoweredFurnaceBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer>
         implements IngredientPacketUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
@@ -100,7 +100,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -118,41 +118,41 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0, 1, 2 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0, 1, 2 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, getRecipeForFurnaceModeUpgrade(), stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 3, 4, 5 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
-                        resetProgress(slot, pos, world.getBlockState(pos));
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress(slot, worldPosition, level.getBlockState(worldPosition));
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                AdvancedPoweredFurnaceBlockEntity.this.markDirty();
+                AdvancedPoweredFurnaceBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
                 new ProgressValueContainerData(() -> progress[1], value -> progress[1] = value),
@@ -174,7 +174,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncIngredientListToPlayer(player);
 
@@ -182,8 +182,8 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         for(int i = 0;i < 3;i++)
             view.putInt("recipe.progress." + i, progress[i]);
@@ -194,31 +194,31 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
         for(int i = 0;i < 3;i++)
-            progress[i] = view.getInt("recipe.progress." + i, 0);
+            progress[i] = view.getIntOr("recipe.progress." + i, 0);
         for(int i = 0;i < 3;i++)
-            maxProgress[i] = view.getInt("recipe.max_progress." + i, 0);
+            maxProgress[i] = view.getIntOr("recipe.max_progress." + i, 0);
         for(int i = 0;i < 3;i++)
-            energyConsumptionLeft[i] = view.getLong("recipe.energy_consumption_left." + i, 0);
+            energyConsumptionLeft[i] = view.getLongOr("recipe.energy_consumption_left." + i, 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(blockEntity.timeoutOffState > 0) {
             blockEntity.timeoutOffState--;
 
-            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).contains(Properties.LIT) &&
-                    level.getBlockState(blockPos).get(Properties.LIT)) {
-                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
             }
         }
 
-        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
         boolean hasNoRecipe = true;
@@ -226,15 +226,15 @@ public class AdvancedPoweredFurnaceBlockEntity
         for(int i = 0;i < 3;i++) {
             if(hasRecipe(i, blockEntity)) {
                 hasNoRecipe = false;
-                SimpleInventory inventory = new SimpleInventory(2);
-                inventory.setStack(0, blockEntity.itemHandler.getStack(i));
-                inventory.setStack(1, blockEntity.itemHandler.getStack(3 + i));
+                SimpleContainer inventory = new SimpleContainer(2);
+                inventory.setItem(0, blockEntity.itemHandler.getItem(i));
+                inventory.setItem(1, blockEntity.itemHandler.getItem(3 + i));
 
-                Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+                Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
                 if(recipe.isEmpty())
                     continue;
 
-                int cookingTime = recipe.get().value().getCookingTime();
+                int cookingTime = recipe.get().value().cookingTime();
                 if(blockEntity.maxProgress[i] == 0)
                     //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
                     blockEntity.maxProgress[i] = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f /
@@ -249,16 +249,16 @@ public class AdvancedPoweredFurnaceBlockEntity
                 if(energyUsagePerInputPerTick <= blockEntity.energyStorage.getAmount()) {
                     blockEntity.hasEnoughEnergy[i] = true;
                     blockEntity.timeoutOffState = 0;
-                    if(level.getBlockState(blockPos).contains(Properties.LIT) &&
-                            !level.getBlockState(blockPos).get(Properties.LIT)) {
-                        level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
+                    if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                            !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                        level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
                     }
 
                     if(blockEntity.progress[i] < 0 || blockEntity.maxProgress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
                         //Reset progress for invalid values
 
                         blockEntity.resetProgress(i, blockPos, state);
-                        markDirty(level, blockPos, state);
+                        setChanged(level, blockPos, state);
 
                         continue;
                     }
@@ -273,16 +273,16 @@ public class AdvancedPoweredFurnaceBlockEntity
                     if(blockEntity.progress[i] >= blockEntity.maxProgress[i])
                         craftItem(i, blockPos, state, blockEntity);
 
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
                 }else {
                     blockEntity.hasEnoughEnergy[i] = false;
                     hasNotEnoughEnergyCount++;
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
                 }
             }else {
                 blockEntity.resetProgress(i, blockPos, state);
                 hasNotEnoughEnergyCount++;
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }
         }
 
@@ -301,11 +301,11 @@ public class AdvancedPoweredFurnaceBlockEntity
             if(!hasRecipe(i, this))
                 continue;
 
-            SimpleInventory inventory = new SimpleInventory(2);
-            inventory.setStack(0, this.itemHandler.getStack(i));
-            inventory.setStack(1, this.itemHandler.getStack(3 + i));
+            SimpleContainer inventory = new SimpleContainer(2);
+            inventory.setItem(0, this.itemHandler.getItem(i));
+            inventory.setItem(1, this.itemHandler.getItem(3 + i));
 
-            Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = getRecipeFor(inventory, world);
+            Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(inventory, level);
             if(recipe.isEmpty())
                 continue;
 
@@ -332,44 +332,44 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     private static void craftItem(int index, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
-        World level = blockEntity.world;
+        Level level = blockEntity.level;
 
-        SimpleInventory inventory = new SimpleInventory(2);
-        inventory.setStack(0, blockEntity.itemHandler.getStack(index));
-        inventory.setStack(1, blockEntity.itemHandler.getStack(3 + index));
+        SimpleContainer inventory = new SimpleContainer(2);
+        inventory.setItem(0, blockEntity.itemHandler.getItem(index));
+        inventory.setItem(1, blockEntity.itemHandler.getItem(3 + index));
 
-        Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
         if(!hasRecipe(index, blockEntity) || recipe.isEmpty())
             return;
 
-        blockEntity.itemHandler.removeStack(index, 1);
-        blockEntity.itemHandler.setStack(3 + index, recipe.get().value().craft(null, level.getRegistryManager()).copyWithCount(
-                blockEntity.itemHandler.getStack(3 + index).getCount() + recipe.get().value().craft(null, level.getRegistryManager()).getCount()));
+        blockEntity.itemHandler.removeItem(index, 1);
+        blockEntity.itemHandler.setItem(3 + index, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
+                blockEntity.itemHandler.getItem(3 + index).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
     }
 
     private static boolean hasRecipe(int index, AdvancedPoweredFurnaceBlockEntity blockEntity) {
-        World level = blockEntity.world;
+        Level level = blockEntity.level;
 
-        SimpleInventory inventory = new SimpleInventory(2);
-        inventory.setStack(0, blockEntity.itemHandler.getStack(index));
-        inventory.setStack(1, blockEntity.itemHandler.getStack(3 + index));
+        SimpleContainer inventory = new SimpleContainer(2);
+        inventory.setItem(0, blockEntity.itemHandler.getItem(index));
+        inventory.setItem(1, blockEntity.itemHandler.getItem(3 + index));
 
-        Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
         return recipe.isPresent() &&
-                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 3 + index, recipe.get().value().craft(null, level.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 3 + index, recipe.get().value().assemble(null, level.registryAccess()));
     }
 
-    private Optional<? extends RecipeEntry<? extends AbstractCookingRecipe>> getRecipeFor(Inventory container, World level) {
-        if(!(level instanceof ServerWorld serverWorld))
+    private Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> getRecipeFor(Container container, Level level) {
+        if(!(level instanceof ServerLevel serverWorld))
             return Optional.empty();
 
         return RecipeUtils.getAllRecipesFor(serverWorld, getRecipeForFurnaceModeUpgrade()).
-                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id().getValue())).
-                filter(recipe -> recipe.value().matches(new SingleStackRecipeInput(container.getStack(0)), level)).
+                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id().identifier())).
+                filter(recipe -> recipe.value().matches(new SingleRecipeInput(container.getItem(0)), level)).
                 findFirst();
     }
 
@@ -386,24 +386,24 @@ public class AdvancedPoweredFurnaceBlockEntity
     @Override
     protected void updateUpgradeModules() {
         for(int i = 0;i < 3;i++)
-            resetProgress(i, getPos(), getCachedState());
+            resetProgress(i, getBlockPos(), getBlockState());
 
         super.updateUpgradeModules();
 
-        if(world != null && !world.isClient()) {
+        if(level != null && !level.isClientSide()) {
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, 32,
-                    new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf((ServerWorld)world, getRecipeForFurnaceModeUpgrade()))
+                    getBlockPos(), (ServerLevel)level, 32,
+                    new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf((ServerLevel)level, getRecipeForFurnaceModeUpgrade()))
             );
         }
     }
 
-    protected void syncIngredientListToPlayer(PlayerEntity player) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected void syncIngredientListToPlayer(Player player) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, getRecipeForFurnaceModeUpgrade())));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, getRecipeForFurnaceModeUpgrade())));
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

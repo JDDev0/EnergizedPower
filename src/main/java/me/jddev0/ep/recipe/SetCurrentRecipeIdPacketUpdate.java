@@ -1,6 +1,6 @@
 package me.jddev0.ep.recipe;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 
 /**
  * Used for SetCurrentRecipeIdC2SPacket

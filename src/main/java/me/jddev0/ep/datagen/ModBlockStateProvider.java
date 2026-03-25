@@ -5,19 +5,25 @@ import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ModModels;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import me.jddev0.ep.machine.tier.TransformerType;
-import net.minecraft.block.Block;
-import net.minecraft.client.data.*;
-import net.minecraft.client.render.model.json.*;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.ConditionBuilder;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 class ModBlockStateProvider {
-    private final BlockStateModelGenerator generator;
+    private final BlockModelGenerators generator;
 
-    ModBlockStateProvider(BlockStateModelGenerator generator) {
+    ModBlockStateProvider(BlockModelGenerators generator) {
         this.generator = generator;
     }
 
@@ -262,21 +268,21 @@ class ModBlockStateProvider {
     }
 
     private void cubeAllBlockWithItem(Block block) {
-        generator.registerSimpleCubeAll(block);
+        generator.createTrivialCube(block);
     }
 
     private Identifier cubeBlockModel(Block block, String fileSuffix, String upSuffix,
                                       String bottomSuffix, String northSuffix, String southSuffix,
                                       String westSuffix, String eastSuffix) {
-        return TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.UP, TextureMap.getSubId(block, upSuffix)).
-                        put(TextureKey.DOWN, TextureMap.getSubId(block, bottomSuffix)).
-                        put(TextureKey.NORTH, TextureMap.getSubId(block, northSuffix)).
-                        put(TextureKey.SOUTH, TextureMap.getSubId(block, southSuffix)).
-                        put(TextureKey.EAST, TextureMap.getSubId(block, eastSuffix)).
-                        put(TextureKey.WEST, TextureMap.getSubId(block, westSuffix)).
-                        copy(TextureKey.UP, TextureKey.PARTICLE),
-                Models.CUBE).get(block).upload(block, fileSuffix, generator.modelCollector);
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block, upSuffix)).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, bottomSuffix)).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, northSuffix)).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, southSuffix)).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, eastSuffix)).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, westSuffix)).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private Identifier orientableBlockModel(Block block, boolean uniqueBottomTexture) {
@@ -291,13 +297,13 @@ class ModBlockStateProvider {
 
     private Identifier orientableBlockModel(Block block, String fileSuffix, String topSuffix,
                                             String bottomSuffix, String frontSuffix, String sideSuffix) {
-        return TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.TOP, TextureMap.getSubId(block, topSuffix)).
-                        put(TextureKey.BOTTOM, TextureMap.getSubId(block, bottomSuffix)).
-                        put(TextureKey.FRONT, TextureMap.getSubId(block, frontSuffix)).
-                        put(TextureKey.SIDE, TextureMap.getSubId(block, sideSuffix)).
-                        copy(TextureKey.TOP, TextureKey.PARTICLE),
-                Models.ORIENTABLE_WITH_BOTTOM).get(block).upload(block, fileSuffix, generator.modelCollector);
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, topSuffix)).
+                        put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, bottomSuffix)).
+                        put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, frontSuffix)).
+                        put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, sideSuffix)).
+                        copySlot(TextureSlot.TOP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private Identifier orientableWithBackBlockModel(Block block, boolean uniqueBottomTexture) {
@@ -307,15 +313,15 @@ class ModBlockStateProvider {
 
     private Identifier orientableWithBackBlockModel(Block block, String fileSuffix, String topSuffix,
                                                     String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
-        return TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.UP, TextureMap.getSubId(block, topSuffix)).
-                        put(TextureKey.DOWN, TextureMap.getSubId(block, bottomSuffix)).
-                        put(TextureKey.NORTH, TextureMap.getSubId(block, frontSuffix)).
-                        put(TextureKey.SOUTH, TextureMap.getSubId(block, backSuffix)).
-                        put(TextureKey.EAST, TextureMap.getSubId(block, sideSuffix)).
-                        put(TextureKey.WEST, TextureMap.getSubId(block, sideSuffix)).
-                        copy(TextureKey.UP, TextureKey.PARTICLE),
-                Models.CUBE).get(block).upload(block, fileSuffix, generator.modelCollector);
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block, topSuffix)).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, bottomSuffix)).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, frontSuffix)).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, backSuffix)).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, sideSuffix)).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, sideSuffix)).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private Identifier orientableVerticalWithBackBlockModel(Block block, boolean uniqueBottomTexture) {
@@ -325,14 +331,14 @@ class ModBlockStateProvider {
 
     private Identifier orientableVerticalWithBackBlockModel(Block block, String fileSuffix, String topSuffix,
                                                            String bottomSuffix, String frontSuffix, String backSuffix, String sideSuffix) {
-        return TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.TOP, TextureMap.getSubId(block, topSuffix)).
-                        put(TextureKey.BOTTOM, TextureMap.getSubId(block, bottomSuffix)).
-                        put(TextureKey.FRONT, TextureMap.getSubId(block, frontSuffix)).
-                        put(TextureKey.BACK, TextureMap.getSubId(block, backSuffix)).
-                        put(TextureKey.SIDE, TextureMap.getSubId(block, sideSuffix)).
-                        copy(TextureKey.FRONT, TextureKey.PARTICLE),
-                ModModels.ORIENTABLE_VERTICAL_WITH_BACK).get(block).upload(block, fileSuffix, generator.modelCollector);
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, topSuffix)).
+                        put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, bottomSuffix)).
+                        put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, frontSuffix)).
+                        put(TextureSlot.BACK, TextureMapping.getBlockTexture(block, backSuffix)).
+                        put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, sideSuffix)).
+                        copySlot(TextureSlot.FRONT, TextureSlot.PARTICLE),
+                ModModels.ORIENTABLE_VERTICAL_WITH_BACK).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private Identifier orientableVerticalBlockModel(Block block, boolean uniqueBottomTexture) {
@@ -342,59 +348,59 @@ class ModBlockStateProvider {
 
     private Identifier orientableVerticalBlockModel(Block block, String fileSuffix, String topSuffix,
                                                    String bottomSuffix, String frontSuffix, String sideSuffix) {
-        return TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.TOP, TextureMap.getSubId(block, topSuffix)).
-                        put(TextureKey.BOTTOM, TextureMap.getSubId(block, bottomSuffix)).
-                        put(TextureKey.FRONT, TextureMap.getSubId(block, frontSuffix)).
-                        put(TextureKey.SIDE, TextureMap.getSubId(block, sideSuffix)).
-                        copy(TextureKey.FRONT, TextureKey.PARTICLE),
-                ModModels.ORIENTABLE_VERTICAL).get(block).upload(block, fileSuffix, generator.modelCollector);
+        return TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, topSuffix)).
+                        put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, bottomSuffix)).
+                        put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, frontSuffix)).
+                        put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, sideSuffix)).
+                        copySlot(TextureSlot.FRONT, TextureSlot.PARTICLE),
+                ModModels.ORIENTABLE_VERTICAL).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private void horizontalBlockWithItem(Block block, boolean uniqueBottomTexture) {
-        Identifier model = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.UP, TextureMap.getSubId(block, "_top")).
-                        put(TextureKey.DOWN, TextureMap.getSubId(block, uniqueBottomTexture?"_bottom":"_top")).
-                        put(TextureKey.NORTH, TextureMap.getSubId(block, "_side")).
-                        put(TextureKey.SOUTH, TextureMap.getSubId(block, "_side")).
-                        put(TextureKey.EAST, TextureMap.getSubId(block, "_side")).
-                        put(TextureKey.WEST, TextureMap.getSubId(block, "_side")).
-                        copy(TextureKey.UP, TextureKey.PARTICLE),
-                Models.CUBE).get(block).upload(block, generator.modelCollector);
+        Identifier model = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block, "_top")).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, "_side")).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, "_side")).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, "_side")).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, "_side")).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block).create(block, generator.modelOutput);
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block,
-                new WeightedVariant(Pool.of(new ModelVariant(model)))));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block,
+                new MultiVariant(WeightedList.of(new Variant(model)))));
 
-        generator.registerParentedItemModel(block, model);
+        generator.registerSimpleItemModel(block, model);
     }
 
     private void horizontalTwoSideBlockWithItem(Block block, boolean uniqueBottomTexture) {
-        Identifier model = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.UP, TextureMap.getSubId(block, "_top")).
-                        put(TextureKey.DOWN, TextureMap.getSubId(block, uniqueBottomTexture?"_bottom":"_top")).
-                        put(TextureKey.NORTH, TextureMap.getSubId(block, "_front")).
-                        put(TextureKey.SOUTH, TextureMap.getSubId(block, "_side")).
-                        put(TextureKey.EAST, TextureMap.getSubId(block, "_side")).
-                        put(TextureKey.WEST, TextureMap.getSubId(block, "_front")).
-                        copy(TextureKey.UP, TextureKey.PARTICLE),
-                Models.CUBE).get(block).upload(block, generator.modelCollector);
+        Identifier model = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, TextureMapping.getBlockTexture(block, "_top")).
+                        put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
+                        put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, "_front")).
+                        put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(block, "_side")).
+                        put(TextureSlot.EAST, TextureMapping.getBlockTexture(block, "_side")).
+                        put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, "_front")).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block).create(block, generator.modelOutput);
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block,
-                new WeightedVariant(Pool.of(new ModelVariant(model)))));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block,
+                new MultiVariant(WeightedList.of(new Variant(model)))));
 
-        generator.registerParentedItemModel(block, model);
+        generator.registerSimpleItemModel(block, model);
     }
 
     private void orientableBlockWithItem(Block block, Identifier model) {
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(model)))).
-                apply(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
-                        register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
-                        register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
-                        register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
-                        register(Direction.WEST, BlockStateModelGenerator.ROTATE_Y_270)
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, new MultiVariant(WeightedList.of(new Variant(model)))).
+                with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, BlockModelGenerators.NOP).
+                        select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                        select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                        select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                 ));
 
-        generator.registerParentedItemModel(block, model);
+        generator.registerSimpleItemModel(block, model);
     }
 
     private void orientableSixDirsBlockWithBackItem(Block block, boolean uniqueBottomTexture) {
@@ -410,212 +416,212 @@ class ModBlockStateProvider {
     }
 
     private void orientableSixDirsBlockWithItem(Block block, Identifier modelNormal, Identifier modelVertical) {
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).
-                with(BlockStateVariantMap.models(Properties.FACING).
-                        register(Direction.UP, new WeightedVariant(Pool.of(new ModelVariant(modelVertical)))).
-                        register(Direction.DOWN, new WeightedVariant(Pool.of(new ModelVariant(modelVertical).
-                                with(BlockStateModelGenerator.ROTATE_X_180)))).
-                        register(Direction.NORTH, new WeightedVariant(Pool.of(new ModelVariant(modelNormal)))).
-                        register(Direction.SOUTH, new WeightedVariant(Pool.of(new ModelVariant(modelNormal).
-                                with(BlockStateModelGenerator.ROTATE_Y_180)))).
-                        register(Direction.EAST, new WeightedVariant(Pool.of(new ModelVariant(modelNormal).
-                                with(BlockStateModelGenerator.ROTATE_Y_90)))).
-                        register(Direction.WEST, new WeightedVariant(Pool.of(new ModelVariant(modelNormal).
-                                with(BlockStateModelGenerator.ROTATE_Y_270))))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).
+                with(PropertyDispatch.initial(BlockStateProperties.FACING).
+                        select(Direction.UP, new MultiVariant(WeightedList.of(new Variant(modelVertical)))).
+                        select(Direction.DOWN, new MultiVariant(WeightedList.of(new Variant(modelVertical).
+                                with(BlockModelGenerators.X_ROT_180)))).
+                        select(Direction.NORTH, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
+                        select(Direction.SOUTH, new MultiVariant(WeightedList.of(new Variant(modelNormal).
+                                with(BlockModelGenerators.Y_ROT_180)))).
+                        select(Direction.EAST, new MultiVariant(WeightedList.of(new Variant(modelNormal).
+                                with(BlockModelGenerators.Y_ROT_90)))).
+                        select(Direction.WEST, new MultiVariant(WeightedList.of(new Variant(modelNormal).
+                                with(BlockModelGenerators.Y_ROT_270))))
                 ));
 
-        generator.registerParentedItemModel(block, modelNormal);
+        generator.registerSimpleItemModel(block, modelNormal);
     }
 
     private void activatableBlockWithItem(Block block, Identifier modelNormal,
                                           Identifier modelActive, BooleanProperty isActiveProperty) {
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).
-                with(BlockStateVariantMap.models(isActiveProperty).
-                        register(false, new WeightedVariant(Pool.of(new ModelVariant(modelNormal)))).
-                        register(true, new WeightedVariant(Pool.of(new ModelVariant(modelActive))))
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).
+                with(PropertyDispatch.initial(isActiveProperty).
+                        select(false, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
+                        select(true, new MultiVariant(WeightedList.of(new Variant(modelActive))))
                 ));
 
-        generator.registerParentedItemModel(block, modelNormal);
+        generator.registerSimpleItemModel(block, modelNormal);
     }
 
     private void activatableOrientableBlockWithItem(Block block, Identifier modelNormal,
                                                     Identifier modelActive, BooleanProperty isActiveProperty) {
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).
-                with(BlockStateVariantMap.models(isActiveProperty).
-                        register(false, new WeightedVariant(Pool.of(new ModelVariant(modelNormal)))).
-                        register(true, new WeightedVariant(Pool.of(new ModelVariant(modelActive))))).
-                apply(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
-                        register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
-                        register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
-                        register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
-                        register(Direction.WEST, BlockStateModelGenerator.ROTATE_Y_270)
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).
+                with(PropertyDispatch.initial(isActiveProperty).
+                        select(false, new MultiVariant(WeightedList.of(new Variant(modelNormal)))).
+                        select(true, new MultiVariant(WeightedList.of(new Variant(modelActive))))).
+                with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, BlockModelGenerators.NOP).
+                        select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                        select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                        select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                 ));
 
-        generator.registerParentedItemModel(block, modelNormal);
+        generator.registerSimpleItemModel(block, modelNormal);
     }
 
     private void itemConveyorBeltBlockWithItem(ItemConveyorBeltBlock block) {
         Identifier modelFlat = ModTexturedModel.ITEM_CONVEYOR_BELT_FLAT.get(block).
-                upload(block, "_flat", generator.modelCollector);
+                createWithSuffix(block, "_flat", generator.modelOutput);
         Identifier modelAscending = ModTexturedModel.ITEM_CONVEYOR_BELT_ASCENDING.get(block).
-                upload(block, "_ascending", generator.modelCollector);
+                createWithSuffix(block, "_ascending", generator.modelOutput);
         Identifier modelDescending = ModTexturedModel.ITEM_CONVEYOR_BELT_DESCENDING.get(block).
-                upload(block, "_descending", generator.modelCollector);
+                createWithSuffix(block, "_descending", generator.modelOutput);
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).
-                with(BlockStateVariantMap.models(ItemConveyorBeltBlock.FACING).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_NORTH_SOUTH, new WeightedVariant(Pool.of(new ModelVariant(modelAscending)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_SOUTH_NORTH, new WeightedVariant(Pool.of(new ModelVariant(modelAscending).
-                                    with(BlockStateModelGenerator.ROTATE_Y_180)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_WEST_EAST, new WeightedVariant(Pool.of(new ModelVariant(modelAscending).
-                                    with(BlockStateModelGenerator.ROTATE_Y_270)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_EAST_WEST, new WeightedVariant(Pool.of(new ModelVariant(modelAscending).
-                                    with(BlockStateModelGenerator.ROTATE_Y_90)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_NORTH_SOUTH, new WeightedVariant(Pool.of(new ModelVariant(modelDescending).
-                                    with(BlockStateModelGenerator.ROTATE_Y_180)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_SOUTH_NORTH, new WeightedVariant(Pool.of(new ModelVariant(modelDescending)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_WEST_EAST, new WeightedVariant(Pool.of(new ModelVariant(modelDescending).
-                                    with(BlockStateModelGenerator.ROTATE_Y_90)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_EAST_WEST, new WeightedVariant(Pool.of(new ModelVariant(modelDescending).
-                                    with(BlockStateModelGenerator.ROTATE_Y_270)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.NORTH_SOUTH, new WeightedVariant(Pool.of(new ModelVariant(modelFlat)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.SOUTH_NORTH, new WeightedVariant(Pool.of(new ModelVariant(modelFlat).
-                                    with(BlockStateModelGenerator.ROTATE_Y_180)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.WEST_EAST, new WeightedVariant(Pool.of(new ModelVariant(modelFlat).
-                                    with(BlockStateModelGenerator.ROTATE_Y_270)))).
-                            register(EPBlockStateProperties.ConveyorBeltDirection.EAST_WEST, new WeightedVariant(Pool.of(new ModelVariant(modelFlat).
-                                    with(BlockStateModelGenerator.ROTATE_Y_90))))));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).
+                with(PropertyDispatch.initial(ItemConveyorBeltBlock.FACING).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_NORTH_SOUTH, new MultiVariant(WeightedList.of(new Variant(modelAscending)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_SOUTH_NORTH, new MultiVariant(WeightedList.of(new Variant(modelAscending).
+                                    with(BlockModelGenerators.Y_ROT_180)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_WEST_EAST, new MultiVariant(WeightedList.of(new Variant(modelAscending).
+                                    with(BlockModelGenerators.Y_ROT_270)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.ASCENDING_EAST_WEST, new MultiVariant(WeightedList.of(new Variant(modelAscending).
+                                    with(BlockModelGenerators.Y_ROT_90)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_NORTH_SOUTH, new MultiVariant(WeightedList.of(new Variant(modelDescending).
+                                    with(BlockModelGenerators.Y_ROT_180)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_SOUTH_NORTH, new MultiVariant(WeightedList.of(new Variant(modelDescending)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_WEST_EAST, new MultiVariant(WeightedList.of(new Variant(modelDescending).
+                                    with(BlockModelGenerators.Y_ROT_90)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.DESCENDING_EAST_WEST, new MultiVariant(WeightedList.of(new Variant(modelDescending).
+                                    with(BlockModelGenerators.Y_ROT_270)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.NORTH_SOUTH, new MultiVariant(WeightedList.of(new Variant(modelFlat)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.SOUTH_NORTH, new MultiVariant(WeightedList.of(new Variant(modelFlat).
+                                    with(BlockModelGenerators.Y_ROT_180)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.WEST_EAST, new MultiVariant(WeightedList.of(new Variant(modelFlat).
+                                    with(BlockModelGenerators.Y_ROT_270)))).
+                            select(EPBlockStateProperties.ConveyorBeltDirection.EAST_WEST, new MultiVariant(WeightedList.of(new Variant(modelFlat).
+                                    with(BlockModelGenerators.Y_ROT_90))))));
 
-        Models.GENERATED.upload(ModelIds.getBlockModelId(block), TextureMap.layer0(TextureMap.getId(block)), generator.modelCollector);
+        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block), TextureMapping.layer0(TextureMapping.getBlockTexture(block)), generator.modelOutput);
     }
 
     private void fluidPipeBlockWithItem(Block block) {
         Identifier fluidPipeCore = ModTexturedModel.FLUID_PIPE_CORE.get(block).
-                upload(block, "_core", generator.modelCollector);
+                createWithSuffix(block, "_core", generator.modelOutput);
         Identifier fluidPipeSideConnected = ModTexturedModel.FLUID_PIPE_SIDE_CONNECTED.get(block).
-                upload(block, "_side_connected", generator.modelCollector);
+                createWithSuffix(block, "_side_connected", generator.modelOutput);
         Identifier fluidPipeSideExtract = ModTexturedModel.FLUID_PIPE_SIDE_EXTRACT.get(block).
-                upload(block, "_side_extract", generator.modelCollector);
+                createWithSuffix(block, "_side_extract", generator.modelOutput);
 
-        generator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(block).
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block).
                 with(
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeCore)))).
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeCore)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideConnected))).
-                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.X_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideExtract))).
-                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.UP, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.X_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideConnected))).
-                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.X_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideExtract))).
-                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.DOWN, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.X_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideConnected)))).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideExtract)))).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.NORTH, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideConnected))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.Y_ROT_180)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideExtract))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.SOUTH, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.Y_ROT_180)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideConnected))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.Y_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideExtract))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.EAST, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.Y_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideConnected))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_270)).
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideConnected))).
+                                with(BlockModelGenerators.Y_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(fluidPipeSideExtract))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_270))
+                        new ConditionBuilder().
+                                term(FluidPipeBlock.WEST, EPBlockStateProperties.PipeConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(fluidPipeSideExtract))).
+                                with(BlockModelGenerators.Y_ROT_270))
         );
 
-        generator.registerParentedItemModel(block, fluidPipeCore);
+        generator.registerSimpleItemModel(block, fluidPipeCore);
     }
 
     private void fluidTankBlockWithItem(Block block) {
-        Identifier fluidTank = ModTexturedModel.FLUID_TANK.get(block).upload(block, generator.modelCollector);
+        Identifier fluidTank = ModTexturedModel.FLUID_TANK.get(block).create(block, generator.modelOutput);
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(fluidTank)))).
-                apply(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING).
-                        register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
-                        register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
-                        register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
-                        register(Direction.WEST, BlockStateModelGenerator.ROTATE_Y_270)
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, new MultiVariant(WeightedList.of(new Variant(fluidTank)))).
+                with(PropertyDispatch.modify(BlockStateProperties.HORIZONTAL_FACING).
+                        select(Direction.NORTH, BlockModelGenerators.NOP).
+                        select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                        select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                        select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                 ));
 
-        generator.registerParentedItemModel(block, fluidTank);
+        generator.registerSimpleItemModel(block, fluidTank);
     }
 
     private void cableBlockWithItem(Block block) {
-        Identifier cableCore = ModTexturedModel.CABLE_CORE.get(block).upload(block, "_core", generator.modelCollector);
-        Identifier cableSide = ModTexturedModel.CABLE_SIDE.get(block).upload(block, "_side", generator.modelCollector);
+        Identifier cableCore = ModTexturedModel.CABLE_CORE.get(block).createWithSuffix(block, "_core", generator.modelOutput);
+        Identifier cableSide = ModTexturedModel.CABLE_SIDE.get(block).createWithSuffix(block, "_side", generator.modelOutput);
 
-        generator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(block).
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block).
                 with(
-                        new WeightedVariant(Pool.of(new ModelVariant(cableCore)))).
+                        new MultiVariant(WeightedList.of(new Variant(cableCore)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(CableBlock.UP, true),
-                        new WeightedVariant(Pool.of(new ModelVariant(cableSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                        new ConditionBuilder().
+                                term(CableBlock.UP, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(CableBlock.DOWN, true),
-                        new WeightedVariant(Pool.of(new ModelVariant(cableSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                        new ConditionBuilder().
+                                term(CableBlock.DOWN, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(CableBlock.NORTH, true),
-                        new WeightedVariant(Pool.of(new ModelVariant(cableSide)))).
+                        new ConditionBuilder().
+                                term(CableBlock.NORTH, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(CableBlock.SOUTH, true),
-                        new WeightedVariant(Pool.of(new ModelVariant(cableSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                        new ConditionBuilder().
+                                term(CableBlock.SOUTH, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(CableBlock.EAST, true),
-                        new WeightedVariant(Pool.of(new ModelVariant(cableSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                        new ConditionBuilder().
+                                term(CableBlock.EAST, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(CableBlock.WEST, true),
-                        new WeightedVariant(Pool.of(new ModelVariant(cableSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_270))
+                        new ConditionBuilder().
+                                term(CableBlock.WEST, true),
+                        new MultiVariant(WeightedList.of(new Variant(cableSide))).
+                                with(BlockModelGenerators.Y_ROT_270))
         );
 
-        generator.registerParentedItemModel(block, cableCore);
+        generator.registerSimpleItemModel(block, cableCore);
     }
 
     private void transformerBlockWithItem(TransformerBlock block) {
@@ -632,51 +638,51 @@ class ModBlockStateProvider {
                 String singleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_input":"_output";
                 String multipleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_output":"_input";
 
-                Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
-                                put(TextureKey.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).
-                                put(TextureKey.BOTTOM, EPAPI.id("block/" + textureName + multipleSuffix)).
-                                put(TextureKey.FRONT, EPAPI.id("block/" + textureName + singleSuffix)).
-                                put(TextureKey.SIDE, EPAPI.id("block/" + textureName + multipleSuffix)).
-                                copy(TextureKey.TOP, TextureKey.PARTICLE),
-                        Models.ORIENTABLE_WITH_BOTTOM).get(block).upload(block, generator.modelCollector);
+                Identifier transformer = TexturedModel.createDefault(unused -> new TextureMapping().
+                                put(TextureSlot.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureSlot.BOTTOM, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureSlot.FRONT, EPAPI.id("block/" + textureName + singleSuffix)).
+                                put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                copySlot(TextureSlot.TOP, TextureSlot.PARTICLE),
+                        ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block).create(block, generator.modelOutput);
 
-                generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(transformer)))).
-                        apply(BlockStateVariantMap.operations(Properties.FACING).
-                                register(Direction.UP, BlockStateModelGenerator.ROTATE_X_270).
-                                register(Direction.DOWN, BlockStateModelGenerator.ROTATE_X_90).
-                                register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
-                                register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_Y_180).
-                                register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
-                                register(Direction.WEST, BlockStateModelGenerator.ROTATE_Y_270)
+                generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, new MultiVariant(WeightedList.of(new Variant(transformer)))).
+                        with(PropertyDispatch.modify(BlockStateProperties.FACING).
+                                select(Direction.UP, BlockModelGenerators.X_ROT_270).
+                                select(Direction.DOWN, BlockModelGenerators.X_ROT_90).
+                                select(Direction.NORTH, BlockModelGenerators.NOP).
+                                select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180).
+                                select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                                select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
                         ));
 
-                generator.registerParentedItemModel(block, transformer);
+                generator.registerSimpleItemModel(block, transformer);
             }
             case TYPE_3_TO_3 -> {
-                Identifier transformer = TexturedModel.makeFactory(unused -> new TextureMap().
-                                put(TextureKey.UP, EPAPI.id("block/" + textureName + "_input")).
-                                put(TextureKey.DOWN, EPAPI.id("block/" + textureName + "_output")).
-                                put(TextureKey.NORTH, EPAPI.id("block/" + textureName + "_input")).
-                                put(TextureKey.SOUTH, EPAPI.id("block/" + textureName + "_output")).
-                                put(TextureKey.EAST, EPAPI.id("block/" + textureName + "_output")).
-                                put(TextureKey.WEST, EPAPI.id("block/" + textureName + "_input")).
-                                copy(TextureKey.UP, TextureKey.PARTICLE),
-                        Models.CUBE).get(block).upload(block, generator.modelCollector);
+                Identifier transformer = TexturedModel.createDefault(unused -> new TextureMapping().
+                                put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureSlot.SOUTH, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureSlot.EAST, EPAPI.id("block/" + textureName + "_output")).
+                                put(TextureSlot.WEST, EPAPI.id("block/" + textureName + "_input")).
+                                copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                        ModelTemplates.CUBE).get(block).create(block, generator.modelOutput);
 
-                generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block, new WeightedVariant(Pool.of(new ModelVariant(transformer)))).
-                        apply(BlockStateVariantMap.operations(Properties.FACING).
-                                register(Direction.UP, BlockStateModelGenerator.ROTATE_X_270).
-                                register(Direction.DOWN, BlockStateModelGenerator.ROTATE_X_90.
-                                        then(BlockStateModelGenerator.ROTATE_Y_90)).
-                                register(Direction.NORTH, BlockStateModelGenerator.NO_OP).
-                                register(Direction.SOUTH, BlockStateModelGenerator.ROTATE_X_90.
-                                        then(BlockStateModelGenerator.ROTATE_Y_180)).
-                                register(Direction.EAST, BlockStateModelGenerator.ROTATE_Y_90).
-                                register(Direction.WEST, BlockStateModelGenerator.ROTATE_X_90.
-                                        then(BlockStateModelGenerator.ROTATE_Y_270))
+                generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, new MultiVariant(WeightedList.of(new Variant(transformer)))).
+                        with(PropertyDispatch.modify(BlockStateProperties.FACING).
+                                select(Direction.UP, BlockModelGenerators.X_ROT_270).
+                                select(Direction.DOWN, BlockModelGenerators.X_ROT_90.
+                                        then(BlockModelGenerators.Y_ROT_90)).
+                                select(Direction.NORTH, BlockModelGenerators.NOP).
+                                select(Direction.SOUTH, BlockModelGenerators.X_ROT_90.
+                                        then(BlockModelGenerators.Y_ROT_180)).
+                                select(Direction.EAST, BlockModelGenerators.Y_ROT_90).
+                                select(Direction.WEST, BlockModelGenerators.X_ROT_90.
+                                        then(BlockModelGenerators.Y_ROT_270))
                         ));
 
-                generator.registerParentedItemModel(block, transformer);
+                generator.registerSimpleItemModel(block, transformer);
             }
         }
     }
@@ -689,156 +695,156 @@ class ModBlockStateProvider {
             case EHV -> "ehv_transformer";
         };
 
-        Identifier allCube = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.UP, EPAPI.id("block/" + textureName + "_not_connected")).
-                        put(TextureKey.DOWN, EPAPI.id("block/" + textureName + "_not_connected")).
-                        put(TextureKey.NORTH, EPAPI.id("block/" + textureName + "_output")).
-                        put(TextureKey.SOUTH, EPAPI.id("block/" + textureName + "_not_connected")).
-                        put(TextureKey.EAST, EPAPI.id("block/" + textureName + "_input")).
-                        put(TextureKey.WEST, EPAPI.id("block/" + textureName + "_not_connected")).
-                        copy(TextureKey.UP, TextureKey.PARTICLE),
-                Models.CUBE).get(block).upload(block, "_cube", generator.modelCollector);
+        Identifier allCube = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_output")).
+                        put(TextureSlot.SOUTH, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.EAST, EPAPI.id("block/" + textureName + "_input")).
+                        put(TextureSlot.WEST, EPAPI.id("block/" + textureName + "_not_connected")).
+                        copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
+                ModelTemplates.CUBE).get(block).createWithSuffix(block, "_cube", generator.modelOutput);
 
-        Identifier notConnectedSide = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.SIDE, EPAPI.id("block/" + textureName + "_not_connected")).
-                        copy(TextureKey.SIDE, TextureKey.PARTICLE),
-                ModModels.SINGLE_SIDE).get(block).upload(block, "_not_connected", generator.modelCollector);
-        Identifier receiveSide = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.SIDE, EPAPI.id("block/" + textureName + "_input")).
-                        copy(TextureKey.SIDE, TextureKey.PARTICLE),
-                ModModels.SINGLE_SIDE).get(block).upload(block, "_input", generator.modelCollector);
-        Identifier extractSide = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.SIDE, EPAPI.id("block/" + textureName + "_output")).
-                        copy(TextureKey.SIDE, TextureKey.PARTICLE),
-                ModModels.SINGLE_SIDE).get(block).upload(block, "_output", generator.modelCollector);
+        Identifier notConnectedSide = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_not_connected")).
+                        copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
+                ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_not_connected", generator.modelOutput);
+        Identifier receiveSide = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_input")).
+                        copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
+                ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_input", generator.modelOutput);
+        Identifier extractSide = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_output")).
+                        copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
+                ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_output", generator.modelOutput);
 
-        generator.blockStateCollector.accept(MultipartBlockModelDefinitionCreator.create(block).
+        generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.RECEIVE),
-                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_270)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.UP, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.X_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.RECEIVE),
-                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
-                                apply(BlockStateModelGenerator.ROTATE_X_90)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.DOWN, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.X_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide)))).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
-                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide)))).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(extractSide)))).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.NORTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide)))).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
-                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_180)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.SOUTH, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.Y_ROT_180)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.RECEIVE),
-                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_90)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.EAST, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.Y_ROT_90)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
-                        new WeightedVariant(Pool.of(new ModelVariant(notConnectedSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_270)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED),
+                        new MultiVariant(WeightedList.of(new Variant(notConnectedSide))).
+                                with(BlockModelGenerators.Y_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.RECEIVE),
-                        new WeightedVariant(Pool.of(new ModelVariant(receiveSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_270)).
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.RECEIVE),
+                        new MultiVariant(WeightedList.of(new Variant(receiveSide))).
+                                with(BlockModelGenerators.Y_ROT_270)).
                 with(
-                        new MultipartModelConditionBuilder().
-                                put(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.EXTRACT),
-                        new WeightedVariant(Pool.of(new ModelVariant(extractSide))).
-                                apply(BlockStateModelGenerator.ROTATE_Y_270))
+                        new ConditionBuilder().
+                                term(ConfigurableTransformerBlock.WEST, EPBlockStateProperties.TransformerConnection.EXTRACT),
+                        new MultiVariant(WeightedList.of(new Variant(extractSide))).
+                                with(BlockModelGenerators.Y_ROT_270))
         );
 
-        generator.registerParentedItemModel(block, allCube);
+        generator.registerSimpleItemModel(block, allCube);
     }
 
     private void solarPanelBlockWithItem(Block block) {
-        Identifier solarPanel = ModTexturedModel.SOLAR_PANEL.get(block).upload(block, generator.modelCollector);
+        Identifier solarPanel = ModTexturedModel.SOLAR_PANEL.get(block).create(block, generator.modelOutput);
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block,
-                new WeightedVariant(Pool.of(new ModelVariant(solarPanel)))));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block,
+                new MultiVariant(WeightedList.of(new Variant(solarPanel)))));
 
-        generator.registerParentedItemModel(block, solarPanel);
+        generator.registerSimpleItemModel(block, solarPanel);
     }
 
     private void activatableOrientableMachineBlockWithItem(Block block, boolean uniqueBottomTexture) {
         activatableOrientableBlockWithItem(block,
                 orientableBlockModel(block, uniqueBottomTexture),
                 orientableOnBlockModel(block, uniqueBottomTexture),
-                Properties.LIT);
+                BlockStateProperties.LIT);
     }
 
     private void poweredLampBlockWithItem(Block block) {
-        Identifier modelOff = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.ALL, TextureMap.getId(block)),
-                Models.CUBE_ALL).get(block).upload(block, generator.modelCollector);
+        Identifier modelOff = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.ALL, TextureMapping.getBlockTexture(block)),
+                ModelTemplates.CUBE_ALL).get(block).create(block, generator.modelOutput);
 
-        Identifier modelOn = TexturedModel.makeFactory(unused -> new TextureMap().
-                        put(TextureKey.ALL, TextureMap.getSubId(block, "_on")),
-                Models.CUBE_ALL).get(block).upload(block, "_on", generator.modelCollector);
+        Identifier modelOn = TexturedModel.createDefault(unused -> new TextureMapping().
+                        put(TextureSlot.ALL, TextureMapping.getBlockTexture(block, "_on")),
+                ModelTemplates.CUBE_ALL).get(block).createWithSuffix(block, "_on", generator.modelOutput);
 
-        BlockStateVariantMap.SingleProperty<WeightedVariant, Integer> builder = BlockStateVariantMap.models(Properties.LEVEL_15).
-                register(0, new WeightedVariant(Pool.of(new ModelVariant(modelOff))));
+        PropertyDispatch.C1<MultiVariant, Integer> builder = PropertyDispatch.initial(BlockStateProperties.LEVEL).
+                select(0, new MultiVariant(WeightedList.of(new Variant(modelOff))));
 
         for(int i = 1;i < 16;i++)
-            builder.register(i, new WeightedVariant(Pool.of(new ModelVariant(modelOn))));
+            builder.select(i, new MultiVariant(WeightedList.of(new Variant(modelOn))));
 
-        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(block).
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).
                 with(builder));
 
-        generator.registerParentedItemModel(block, modelOff);
+        generator.registerSimpleItemModel(block, modelOff);
     }
 }

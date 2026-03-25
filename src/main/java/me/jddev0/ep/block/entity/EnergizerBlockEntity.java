@@ -16,22 +16,22 @@ import me.jddev0.ep.screen.EnergizerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class EnergizerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer>
         implements IngredientPacketUpdate {
     public static final double ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
@@ -82,7 +82,7 @@ public class EnergizerBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -100,41 +100,41 @@ public class EnergizerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.ENERGIZER_TYPE, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
-                        resetProgress(pos, world.getBlockState(pos));
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                        resetProgress(worldPosition, level.getBlockState(worldPosition));
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                EnergizerBlockEntity.this.markDirty();
+                EnergizerBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -148,7 +148,7 @@ public class EnergizerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncIngredientListToPlayer(player);
         
@@ -156,40 +156,40 @@ public class EnergizerBlockEntity
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("recipe.progress", progress);
         view.putLong("recipe.energy_consumption_left", energyConsumptionLeft);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        progress = view.getInt("recipe.progress", 0);
-        energyConsumptionLeft = view.getLong("recipe.energy_consumption_left", 0);
+        progress = view.getIntOr("recipe.progress", 0);
+        energyConsumptionLeft = view.getLongOr("recipe.energy_consumption_left", 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
-        if(level.isClient() || !(level instanceof ServerWorld serverWorld))
+    public static void tick(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
+        if(level.isClientSide() || !(level instanceof ServerLevel serverWorld))
             return;
 
         if(blockEntity.timeoutOffState > 0) {
             blockEntity.timeoutOffState--;
 
-            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).contains(Properties.LIT) &&
-                    level.getBlockState(blockPos).get(Properties.LIT)) {
-                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
             }
         }
 
-        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
         if(hasRecipe(blockEntity)) {
-            Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
-                    getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
+            Optional<RecipeHolder<EnergizerRecipe>> recipe = serverWorld.recipeAccess().
+                    getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isEmpty())
                 return;
 
@@ -202,16 +202,16 @@ public class EnergizerBlockEntity
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
                 blockEntity.timeoutOffState = 0;
-                if(level.getBlockState(blockPos).contains(Properties.LIT) &&
-                        !level.getBlockState(blockPos).get(Properties.LIT)) {
-                    level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
+                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                        !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
                 }
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress(blockPos, state);
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
 
                     return;
                 }
@@ -226,29 +226,29 @@ public class EnergizerBlockEntity
                 if(blockEntity.progress >= blockEntity.maxProgress)
                     craftItem(blockPos, state, blockEntity);
 
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
                 if(blockEntity.timeoutOffState == 0) {
                     blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
                 }
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
             if(blockEntity.timeoutOffState == 0) {
                 blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
     
     protected final long getEnergyConsumptionPerTick() {
-        if(!(world instanceof ServerWorld serverWorld))
+        if(!(level instanceof ServerLevel serverWorld))
             return -1;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
-                getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(this.itemHandler), world);
+        Optional<RecipeHolder<EnergizerRecipe>> recipe = serverWorld.recipeAccess().
+                getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(this.itemHandler), level);
         if(recipe.isEmpty())
             return -1;
 
@@ -270,50 +270,50 @@ public class EnergizerBlockEntity
     }
 
     private static void craftItem(BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
-        World level = blockEntity.world;
+        Level level = blockEntity.level;
 
-        if(!(level instanceof ServerWorld serverWorld))
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
-                getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
+        Optional<RecipeHolder<EnergizerRecipe>> recipe = serverWorld.recipeAccess().
+                getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
 
         if(!hasRecipe(blockEntity) || recipe.isEmpty())
             return;
 
-        blockEntity.itemHandler.removeStack(0, 1);
-        blockEntity.itemHandler.setStack(1, recipe.get().value().craft(null, level.getRegistryManager()).copyWithCount(
-                blockEntity.itemHandler.getStack(1).getCount() + recipe.get().value().craft(null, level.getRegistryManager()).getCount()));
+        blockEntity.itemHandler.removeItem(0, 1);
+        blockEntity.itemHandler.setItem(1, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
+                blockEntity.itemHandler.getItem(1).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
 
     private static boolean hasRecipe(EnergizerBlockEntity blockEntity) {
-        World level = blockEntity.world;
+        Level level = blockEntity.level;
 
-        if(!(level instanceof ServerWorld serverWorld))
+        if(!(level instanceof ServerLevel serverWorld))
             return false;
 
-        Optional<RecipeEntry<EnergizerRecipe>> recipe = serverWorld.getRecipeManager().
-                getFirstMatch(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
+        Optional<RecipeHolder<EnergizerRecipe>> recipe = serverWorld.recipeAccess().
+                getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
 
         return recipe.isPresent() &&
-                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 1, recipe.get().value().craft(null, level.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 1, recipe.get().value().assemble(null, level.registryAccess()));
     }
 
     @Override
     protected void updateUpgradeModules() {
-        resetProgress(getPos(), getCachedState());
+        resetProgress(getBlockPos(), getBlockState());
 
         super.updateUpgradeModules();
     }
 
-    protected void syncIngredientListToPlayer(PlayerEntity player) {
-        if(!(world instanceof ServerWorld serverWorld))
+    protected void syncIngredientListToPlayer(Player player) {
+        if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new SyncIngredientsS2CPacket(getPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.ENERGIZER_TYPE)));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.ENERGIZER_TYPE)));
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

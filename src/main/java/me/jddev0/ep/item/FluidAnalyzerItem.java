@@ -8,19 +8,19 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -32,36 +32,36 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
     public static final long ENERGY_CONSUMPTION_PER_USE = ModConfigs.COMMON_FLUID_ANALYZER_ENERGY_CONSUMPTION_PER_USE.getValue();
     public static final long ENERGY_CAPACITY = ModConfigs.COMMON_FLUID_ANALYZER_CAPACITY.getValue();
 
-    public FluidAnalyzerItem(Item.Settings props) {
+    public FluidAnalyzerItem(Item.Properties props) {
         super(props, ENERGY_CAPACITY, ModConfigs.COMMON_FLUID_ANALYZER_TRANSFER_RATE.getValue(), 0);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, displayComponent, tooltip, type);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+        super.appendHoverText(stack, context, displayComponent, tooltip, type);
 
-        if(MinecraftClient.getInstance().isShiftPressed()) {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.fluid_analyzer.txt.shift.1").formatted(Formatting.GRAY));
-            tooltip.accept(Text.translatable("tooltip.energizedpower.fluid_analyzer.txt.shift.2",
-                    EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.GRAY));
+        if(Minecraft.getInstance().hasShiftDown()) {
+            tooltip.accept(Component.translatable("tooltip.energizedpower.fluid_analyzer.txt.shift.1").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.fluid_analyzer.txt.shift.2",
+                    EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.GRAY));
         }else {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
-    private void useItem(ItemStack itemStack, PlayerEntity player, List<Text> lines) {
+    private void useItem(ItemStack itemStack, Player player, List<Component> lines) {
         if(getEnergy(itemStack) >= ENERGY_CONSUMPTION_PER_USE)
             setEnergy(itemStack, getEnergy(itemStack) - ENERGY_CONSUMPTION_PER_USE);
 
-        for(Text component:lines)
-            player.sendMessage(component, false);
-        player.sendMessage(Text.empty(), false);
+        for(Component component:lines)
+            player.displayClientMessage(component, false);
+        player.displayClientMessage(Component.empty(), false);
     }
 
-    private void addOutputTextForFluidStorage(List<Text> components, @Nullable Storage<FluidVariant> fluidStorage, boolean blockFaceSpecificInformation) {
+    private void addOutputTextForFluidStorage(List<Component> components, @Nullable Storage<FluidVariant> fluidStorage, boolean blockFaceSpecificInformation) {
         if(fluidStorage == null) {
-            components.add(Text.translatable("txt.energizedpower.fluid_analyzer.no_fluid_block" + (blockFaceSpecificInformation?"_side":"")).
-                    formatted(Formatting.RED));
+            components.add(Component.translatable("txt.energizedpower.fluid_analyzer.no_fluid_block" + (blockFaceSpecificInformation?"_side":"")).
+                    withStyle(ChatFormatting.RED));
 
             return;
         }
@@ -75,8 +75,8 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
             fluidStorageIterator.next();
         }
 
-        components.add(Text.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_count" + (blockFaceSpecificInformation?"_side":""),
-                tankCount).formatted(Formatting.BLUE));
+        components.add(Component.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_count" + (blockFaceSpecificInformation?"_side":""),
+                tankCount).withStyle(ChatFormatting.BLUE));
 
         int tankNum = 0;
         for(StorageView<FluidVariant> fluidView:fluidStorage) {
@@ -87,53 +87,53 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
 
             long fluidAmount = fluidEmpty?0:fluidView.getAmount();
 
-            components.add(Text.literal("• ").append(
-                    Text.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content",
-                            tankNum, fluidEmpty?"":Text.translatable(fluidView.getResource().getFluid().getDefaultState().getBlockState().getBlock().getTranslationKey()).append(" "),
+            components.add(Component.literal("• ").append(
+                    Component.translatable("txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content",
+                            tankNum, fluidEmpty?"":Component.translatable(fluidView.getResource().getFluid().defaultFluidState().createLegacyBlock().getBlock().getDescriptionId()).append(" "),
                     FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(fluidAmount)),
                             FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(fluidView.getCapacity())))
-            ).formatted(Formatting.BLUE));
+            ).withStyle(ChatFormatting.BLUE));
         }
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext useOnContext) {
-        World level = useOnContext.getWorld();
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useOn(UseOnContext useOnContext) {
+        Level level = useOnContext.getLevel();
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
-        ItemStack stack = useOnContext.getStack();
+        ItemStack stack = useOnContext.getItemInHand();
 
         if(getEnergy(stack) < ENERGY_CONSUMPTION_PER_USE) {
             useItem(stack, useOnContext.getPlayer(), List.of(
-                    Text.translatable("txt.energizedpower.fluid_analyzer.no_energy_left",
-                            EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).formatted(Formatting.RED)
+                    Component.translatable("txt.energizedpower.fluid_analyzer.no_energy_left",
+                            EnergyUtils.getEnergyWithPrefix(ENERGY_CONSUMPTION_PER_USE)).withStyle(ChatFormatting.RED)
             ));
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        BlockPos blockPos = useOnContext.getBlockPos();
+        BlockPos blockPos = useOnContext.getClickedPos();
 
-        List<Text> components = new ArrayList<>();
-        components.add(level.getBlockState(blockPos).getBlock().getName().formatted(Formatting.UNDERLINE, Formatting.AQUA));
+        List<Component> components = new ArrayList<>();
+        components.add(level.getBlockState(blockPos).getBlock().getName().withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(blockEntity == null) {
-            components.add(Text.translatable("txt.energizedpower.fluid_analyzer.no_fluid_block").formatted(Formatting.RED));
+            components.add(Component.translatable("txt.energizedpower.fluid_analyzer.no_fluid_block").withStyle(ChatFormatting.RED));
 
             useItem(stack, useOnContext.getPlayer(), components);
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         addOutputTextForFluidStorage(components, FluidStorage.SIDED.find(level, blockPos, null), false);
 
-        components.add(Text.translatable("txt.energizedpower.fluid_analyzer.output_side_information").formatted(Formatting.GOLD));
-        addOutputTextForFluidStorage(components, FluidStorage.SIDED.find(level, blockPos, useOnContext.getSide()), true);
+        components.add(Component.translatable("txt.energizedpower.fluid_analyzer.output_side_information").withStyle(ChatFormatting.GOLD));
+        addOutputTextForFluidStorage(components, FluidStorage.SIDED.find(level, blockPos, useOnContext.getClickedFace()), true);
 
         useItem(stack, useOnContext.getPlayer(), components);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

@@ -14,14 +14,14 @@ import me.jddev0.ep.screen.AdvancedCrusherMenu;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import me.jddev0.ep.util.*;
 
 import java.util.List;
@@ -57,36 +57,36 @@ public class AdvancedCrusherBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> ((world instanceof ServerWorld serverWorld)?
+                    case 0 -> ((level instanceof ServerLevel serverWorld)?
                             RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 1 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                AdvancedCrusherBlockEntity.this.markDirty();
+                AdvancedCrusherBlockEntity.this.setChanged();
             }
         };
     }
@@ -97,7 +97,7 @@ public class AdvancedCrusherBlockEntity
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
 
@@ -118,7 +118,7 @@ public class AdvancedCrusherBlockEntity
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
 
@@ -140,13 +140,13 @@ public class AdvancedCrusherBlockEntity
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
-    protected void craftItem(RecipeEntry<CrusherRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<CrusherRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
@@ -156,19 +156,19 @@ public class AdvancedCrusherBlockEntity
             transaction.commit();
         }
 
-        itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, recipe.value().craft(null, world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, 1);
+        itemHandler.setItem(1, recipe.value().assemble(null, level.registryAccess()).
+                copyWithCount(itemHandler.getItem(1).getCount() +
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<CrusherRecipe> recipe) {
-        return world != null &&
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<CrusherRecipe> recipe) {
+        return level != null &&
                 fluidStorage.parts.get(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
                 fluidStorage.parts.get(1).getCapacity() - fluidStorage.parts.get(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().craft(null, world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess()));
     }
 }

@@ -14,14 +14,13 @@ import me.jddev0.ep.util.InventoryUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
 public class StoneSolidifierBlockEntity
@@ -56,21 +55,21 @@ public class StoneSolidifierBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0)
                     return false;
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                StoneSolidifierBlockEntity.this.markDirty();
+                StoneSolidifierBlockEntity.this.setChanged();
             }
         };
     }
@@ -81,7 +80,7 @@ public class StoneSolidifierBlockEntity
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
 
@@ -102,7 +101,7 @@ public class StoneSolidifierBlockEntity
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
 
@@ -124,8 +123,8 @@ public class StoneSolidifierBlockEntity
     }
 
     @Override
-    protected void craftItem(RecipeEntry<StoneSolidifierRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<StoneSolidifierRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
@@ -137,18 +136,18 @@ public class StoneSolidifierBlockEntity
             transaction.commit();
         }
 
-        itemHandler.setStack(0, recipe.value().craft(null, world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(0).getCount() +
-                        recipe.value().craft(null, world.getRegistryManager()).getCount()));
+        itemHandler.setItem(0, recipe.value().assemble(null, level.registryAccess()).
+                copyWithCount(itemHandler.getItem(0).getCount() +
+                        recipe.value().assemble(null, level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<StoneSolidifierRecipe> recipe) {
-        return world != null &&
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StoneSolidifierRecipe> recipe) {
+        return level != null &&
                 fluidStorage.parts.get(0).getAmount() >= FluidUtils.convertMilliBucketsToDroplets(recipe.value().getWaterAmount()) &&
                 fluidStorage.parts.get(1).getAmount() >= FluidUtils.convertMilliBucketsToDroplets(recipe.value().getLavaAmount()) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().craft(null, world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null, level.registryAccess()));
     }
 }

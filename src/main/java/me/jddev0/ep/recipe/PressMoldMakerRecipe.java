@@ -4,18 +4,21 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class PressMoldMakerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
@@ -36,31 +39,31 @@ public class PressMoldMakerRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        ItemStack item = container.getStackInSlot(0);
-        return item.isOf(Items.CLAY_BALL) && item.getCount() >= clayCount;
+        ItemStack item = container.getItem(0);
+        return item.is(Items.CLAY_BALL) && item.getCount() >= clayCount;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.PRESS_MOLD_MAKER_CATEGORY;
     }
 
@@ -76,17 +79,17 @@ public class PressMoldMakerRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
 
     @Override
     public List<Ingredient> getIngredients() {
-        return List.of(Ingredient.ofItems(Items.CLAY_BALL));
+        return List.of(Ingredient.of(Items.CLAY_BALL));
     }
 
     @Override
     public boolean isIngredient(ItemStack itemStack) {
-        return itemStack.isOf(Items.CLAY_BALL);
+        return itemStack.is(Items.CLAY_BALL);
     }
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output, itemStack);
+        return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
     public static final class Type implements RecipeType<PressMoldMakerRecipe> {
@@ -105,12 +108,12 @@ public class PressMoldMakerRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
         private final MapCodec<PressMoldMakerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), Codecs.POSITIVE_INT.fieldOf("clayCount").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("clayCount").forGetter((recipe) -> {
                 return recipe.clayCount;
             })).apply(instance, PressMoldMakerRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, PressMoldMakerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -119,20 +122,20 @@ public class PressMoldMakerRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, PressMoldMakerRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static PressMoldMakerRecipe read(RegistryByteBuf buffer) {
+        private static PressMoldMakerRecipe read(RegistryFriendlyByteBuf buffer) {
             int clayCount = buffer.readInt();
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new PressMoldMakerRecipe(output, clayCount);
         }
 
-        private static void write(RegistryByteBuf buffer, PressMoldMakerRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, PressMoldMakerRecipe recipe) {
             buffer.writeInt(recipe.clayCount);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

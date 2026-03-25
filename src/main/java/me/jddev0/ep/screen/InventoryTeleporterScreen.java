@@ -4,34 +4,34 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
 public class InventoryTeleporterScreen extends EnergizedPowerBaseContainerScreen<InventoryTeleporterMenu> {
     private final Identifier TEXTURE;
 
-    public InventoryTeleporterScreen(InventoryTeleporterMenu menu, PlayerInventory inventory, Text component) {
+    public InventoryTeleporterScreen(InventoryTeleporterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
         TEXTURE = EPAPI.id("textures/gui/container/inventory_teleporter.png");
     }
 
     @Override
-    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
-        drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 
     @Override
-    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         super.render(drawContext, mouseX, mouseY, delta);
 
-        drawMouseoverTooltip(drawContext, mouseX, mouseY);
+        renderTooltip(drawContext, mouseX, mouseY);
     }
 }

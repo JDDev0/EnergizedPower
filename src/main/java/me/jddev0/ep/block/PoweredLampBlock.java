@@ -3,57 +3,61 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.PoweredLampBlockEntity;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.ToIntFunction;
 
-public class PoweredLampBlock extends BlockWithEntity {
-    public static final MapCodec<PoweredLampBlock> CODEC = createCodec(PoweredLampBlock::new);
+public class PoweredLampBlock extends BaseEntityBlock {
+    public static final MapCodec<PoweredLampBlock> CODEC = simpleCodec(PoweredLampBlock::new);
 
-    public static final IntProperty LEVEL = Properties.LEVEL_15;
+    public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
-            (state) -> state.get(LEVEL);
+            (state) -> state.getValue(LEVEL);
 
-    protected PoweredLampBlock(AbstractBlock.Settings props) {
+    protected PoweredLampBlock(BlockBehaviour.Properties props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(LEVEL, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(LEVEL, 0));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new PoweredLampBlockEntity(blockPos, state);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(LEVEL);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, EPBlockEntities.POWERED_LAMP_ENTITY, PoweredLampBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, EPBlockEntities.POWERED_LAMP_ENTITY, PoweredLampBlockEntity::tick);
     }
 }

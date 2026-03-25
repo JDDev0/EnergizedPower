@@ -8,52 +8,58 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.block.WireOrientation;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
+public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(Codecs.NON_EMPTY_STRING.xmap(FluidPipeTier::valueOf, FluidPipeTier::toString).fieldOf("tier").
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidPipeTier::valueOf, FluidPipeTier::toString).fieldOf("tier").
                 forGetter(FluidPipeBlock::getTier),
-                Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
                 apply(instance, FluidPipeBlock::new);
     });
 
@@ -63,15 +69,15 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> SOUTH = EPBlockStateProperties.PIPE_CONNECTION_SOUTH;
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> EAST = EPBlockStateProperties.PIPE_CONNECTION_EAST;
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> WEST = EPBlockStateProperties.PIPE_CONNECTION_WEST;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape SHAPE_CORE = Block.createCuboidShape(4.d, 4.d, 4.d, 12.d, 12.d, 12.d);
-    private static final VoxelShape SHAPE_UP = Block.createCuboidShape(4.d, 12.d, 4.d, 12.d, 16.d, 12.d);
-    private static final VoxelShape SHAPE_DOWN = Block.createCuboidShape(4.d, 0.d, 4.d, 12.d, 4.d, 12.d);
-    private static final VoxelShape SHAPE_NORTH = Block.createCuboidShape(4.d, 4.d, 0.d, 12.d, 12.d, 4.d);
-    private static final VoxelShape SHAPE_SOUTH = Block.createCuboidShape(4.d, 4.d, 12.d, 12.d, 12.d, 16.d);
-    private static final VoxelShape SHAPE_EAST = Block.createCuboidShape(12.d, 4.d, 4.d, 16.d, 12.d, 12.d);
-    private static final VoxelShape SHAPE_WEST = Block.createCuboidShape(0.d, 4.d, 4.d, 4.d, 12.d, 12.d);
+    private static final VoxelShape SHAPE_CORE = Block.box(4.d, 4.d, 4.d, 12.d, 12.d, 12.d);
+    private static final VoxelShape SHAPE_UP = Block.box(4.d, 12.d, 4.d, 12.d, 16.d, 12.d);
+    private static final VoxelShape SHAPE_DOWN = Block.box(4.d, 0.d, 4.d, 12.d, 4.d, 12.d);
+    private static final VoxelShape SHAPE_NORTH = Block.box(4.d, 4.d, 0.d, 12.d, 12.d, 4.d);
+    private static final VoxelShape SHAPE_SOUTH = Block.box(4.d, 4.d, 12.d, 12.d, 12.d, 16.d);
+    private static final VoxelShape SHAPE_EAST = Block.box(12.d, 4.d, 4.d, 16.d, 12.d, 12.d);
+    private static final VoxelShape SHAPE_WEST = Block.box(0.d, 4.d, 4.d, 4.d, 12.d, 12.d);
 
     @NotNull
     public static EnumProperty<EPBlockStateProperties.PipeConnection> getPipeConnectionPropertyFromDirection(@NotNull Direction dir) {
@@ -87,18 +93,18 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
 
     private final FluidPipeTier tier;
 
-    public FluidPipeBlock(FluidPipeTier tier, Settings props) {
+    public FluidPipeBlock(FluidPipeTier tier, Properties props) {
         super(props);
 
         this.tier = tier;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(DOWN, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(NORTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(SOUTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(EAST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(WEST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
-                with(WATERLOGGED, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(UP, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(DOWN, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(NORTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(SOUTH, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(EAST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(WEST, EPBlockStateProperties.PipeConnection.NOT_CONNECTED).
+                setValue(WATERLOGGED, false));
     }
 
     public FluidPipeTier getTier() {
@@ -106,231 +112,231 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new FluidPipeBlockEntity(blockPos, state, tier);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
     @NotNull
-    public ActionResult onUseWrench(ItemUsageContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
-        World level = useOnContext.getWorld();
-        BlockPos blockPos = useOnContext.getBlockPos();
+    public InteractionResult onUseWrench(UseOnContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
+        Level level = useOnContext.getLevel();
+        BlockPos blockPos = useOnContext.getClickedPos();
 
-        if(level.isClient() || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
-            return ActionResult.SUCCESS;
+        if(level.isClientSide() || !(level.getBlockEntity(blockPos) instanceof FluidPipeBlockEntity))
+            return InteractionResult.SUCCESS;
 
         BlockState state = level.getBlockState(blockPos);
 
-        BlockPos testPos = blockPos.offset(selectedFace);
+        BlockPos testPos = blockPos.relative(selectedFace);
 
-        PlayerEntity player = useOnContext.getPlayer();
+        Player player = useOnContext.getPlayer();
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
         if(testBlockEntity == null || testBlockEntity instanceof FluidPipeBlockEntity) {
             //Connections to non-fluid blocks nor connections to another pipe can not be modified
 
-            if(player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                        Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
-                                Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
-                                        formatted(Formatting.WHITE)
-                        ).formatted(Formatting.RED)
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
                 ));
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         Storage<FluidVariant> fluidStorage = FluidStorage.SIDED.find(level, testPos, selectedFace.getOpposite());
         if(fluidStorage == null) {
-            if(player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                        Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
-                                Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
-                                        formatted(Formatting.WHITE)
-                        ).formatted(Formatting.RED)
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
                 ));
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         //If first has no next, no tanks are present
         if(!fluidStorage.iterator().hasNext()) {
-            if(player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                        Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
-                                Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
-                                        formatted(Formatting.WHITE)
-                        ).formatted(Formatting.RED)
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible",
+                                Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                        withStyle(ChatFormatting.WHITE)
+                        ).withStyle(ChatFormatting.RED)
                 ));
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
         EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty =
                 FluidPipeBlock.getPipeConnectionPropertyFromDirection(selectedFace);
 
-        int diff = player != null && player.isSneaking()?-1:1;
+        int diff = player != null && player.isShiftKeyDown()?-1:1;
 
-        EPBlockStateProperties.PipeConnection pipeConnection = state.get(pipeConnectionProperty);
+        EPBlockStateProperties.PipeConnection pipeConnection = state.getValue(pipeConnectionProperty);
         pipeConnection = EPBlockStateProperties.PipeConnection.values()[(pipeConnection.ordinal() + diff +
                 EPBlockStateProperties.PipeConnection.values().length) %
                 EPBlockStateProperties.PipeConnection.values().length];
 
-        level.setBlockState(blockPos, state.with(pipeConnectionProperty, pipeConnection), 3);
+        level.setBlock(blockPos, state.setValue(pipeConnectionProperty, pipeConnection), 3);
 
-        if(player instanceof ServerPlayerEntity serverPlayer) {
-            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                    Text.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed",
-                            Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
-                                    formatted(Formatting.WHITE),
-                            Text.translatable(pipeConnection.getTranslationKey()).
-                                    formatted(Formatting.WHITE, Formatting.BOLD)
-                    ).formatted(Formatting.GREEN)
+        if(player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed",
+                            Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                    withStyle(ChatFormatting.WHITE),
+                            Component.translatable(pipeConnection.getTranslationKey()).
+                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+                    ).withStyle(ChatFormatting.GREEN)
             ));
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext blockPlaceContext) {
-        World level = blockPlaceContext.getWorld();
-        BlockPos selfPos = blockPlaceContext.getBlockPos();
+    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
+        Level level = blockPlaceContext.getLevel();
+        BlockPos selfPos = blockPlaceContext.getClickedPos();
         FluidState fluidState = level.getFluidState(selfPos);
 
-        return getDefaultState().
-                with(UP, shouldConnectTo(level, selfPos, getDefaultState(), Direction.UP)).
-                with(DOWN, shouldConnectTo(level, selfPos, getDefaultState(), Direction.DOWN)).
-                with(NORTH, shouldConnectTo(level, selfPos, getDefaultState(), Direction.NORTH)).
-                with(SOUTH, shouldConnectTo(level, selfPos, getDefaultState(), Direction.SOUTH)).
-                with(EAST, shouldConnectTo(level, selfPos, getDefaultState(), Direction.EAST)).
-                with(WEST, shouldConnectTo(level, selfPos, getDefaultState(), Direction.WEST)).
-                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        return defaultBlockState().
+                setValue(UP, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.UP)).
+                setValue(DOWN, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.DOWN)).
+                setValue(NORTH, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.NORTH)).
+                setValue(SOUTH, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.SOUTH)).
+                setValue(EAST, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.EAST)).
+                setValue(WEST, shouldConnectTo(level, selfPos, defaultBlockState(), Direction.WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
+    public BlockState rotate(BlockState state, Rotation rotation) {
         switch(rotation) {
             case CLOCKWISE_90:
                 return state.
-                        with(NORTH, state.get(WEST)).
-                        with(SOUTH, state.get(EAST)).
-                        with(EAST, state.get(NORTH)).
-                        with(WEST, state.get(SOUTH));
+                        setValue(NORTH, state.getValue(WEST)).
+                        setValue(SOUTH, state.getValue(EAST)).
+                        setValue(EAST, state.getValue(NORTH)).
+                        setValue(WEST, state.getValue(SOUTH));
             case CLOCKWISE_180:
                 return state.
-                        with(NORTH, state.get(SOUTH)).
-                        with(SOUTH, state.get(NORTH)).
-                        with(EAST, state.get(WEST)).
-                        with(WEST, state.get(EAST));
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH)).
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
             case COUNTERCLOCKWISE_90:
                 return state.
-                        with(NORTH, state.get(EAST)).
-                        with(SOUTH, state.get(WEST)).
-                        with(EAST, state.get(SOUTH)).
-                        with(WEST, state.get(NORTH));
+                        setValue(NORTH, state.getValue(EAST)).
+                        setValue(SOUTH, state.getValue(WEST)).
+                        setValue(EAST, state.getValue(SOUTH)).
+                        setValue(WEST, state.getValue(NORTH));
             default:
                 return state;
         }
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
+    public BlockState mirror(BlockState state, Mirror mirror) {
         switch(mirror) {
             case LEFT_RIGHT:
                 return state.
-                        with(NORTH, state.get(SOUTH)).
-                        with(SOUTH, state.get(NORTH));
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH));
             case FRONT_BACK:
                 return state.
-                        with(EAST, state.get(WEST)).
-                        with(WEST, state.get(EAST));
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
             default:
                 return state;
         }
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
+    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         VoxelShape shape = SHAPE_CORE;
 
-        if(blockState.get(UP).isConnected())
-            shape = VoxelShapes.union(shape, SHAPE_UP);
+        if(blockState.getValue(UP).isConnected())
+            shape = Shapes.or(shape, SHAPE_UP);
 
-        if(blockState.get(DOWN).isConnected())
-            shape = VoxelShapes.union(shape, SHAPE_DOWN);
+        if(blockState.getValue(DOWN).isConnected())
+            shape = Shapes.or(shape, SHAPE_DOWN);
 
-        if(blockState.get(NORTH).isConnected())
-            shape = VoxelShapes.union(shape, SHAPE_NORTH);
+        if(blockState.getValue(NORTH).isConnected())
+            shape = Shapes.or(shape, SHAPE_NORTH);
 
-        if(blockState.get(SOUTH).isConnected())
-            shape = VoxelShapes.union(shape, SHAPE_SOUTH);
+        if(blockState.getValue(SOUTH).isConnected())
+            shape = Shapes.or(shape, SHAPE_SOUTH);
 
-        if(blockState.get(EAST).isConnected())
-            shape = VoxelShapes.union(shape, SHAPE_EAST);
+        if(blockState.getValue(EAST).isConnected())
+            shape = Shapes.or(shape, SHAPE_EAST);
 
-        if(blockState.get(WEST).isConnected())
-            shape = VoxelShapes.union(shape, SHAPE_WEST);
+        if(blockState.getValue(WEST).isConnected())
+            shape = Shapes.or(shape, SHAPE_WEST);
 
         return shape;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED)?Fluids.WATER.getStill(false):super.getFluidState(state);
+        return state.getValue(WATERLOGGED)?Fluids.WATER.getSource(false):super.getFluidState(state);
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(BlockState state, WorldView level, ScheduledTickView tickView, BlockPos selfPos, Direction facing,
-                                                   BlockPos facingPos, BlockState facingState, Random random) {
-        if(state.get(WATERLOGGED))
-            tickView.scheduleFluidTick(selfPos, Fluids.WATER, Fluids.WATER.getTickRate(level));
+    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess tickView, BlockPos selfPos, Direction facing,
+                                                   BlockPos facingPos, BlockState facingState, RandomSource random) {
+        if(state.getValue(WATERLOGGED))
+            tickView.scheduleTick(selfPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 
-        return super.getStateForNeighborUpdate(state, level, tickView, selfPos, facing, facingPos, facingState, random);
+        return super.updateShape(state, level, tickView, selfPos, facing, facingPos, facingState, random);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(UP).add(DOWN).add(NORTH).add(SOUTH).add(EAST).add(WEST).add(WATERLOGGED);
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation wireOrientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
         FluidState fluidState = level.getFluidState(selfPos);
 
-        BlockState newState = getDefaultState().
-                with(UP, selfState.get(UP)).
-                with(DOWN, selfState.get(DOWN)).
-                with(NORTH, selfState.get(NORTH)).
-                with(SOUTH, selfState.get(SOUTH)).
-                with(EAST, selfState.get(EAST)).
-                with(WEST, selfState.get(WEST)).
-                with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+        BlockState newState = defaultBlockState().
+                setValue(UP, selfState.getValue(UP)).
+                setValue(DOWN, selfState.getValue(DOWN)).
+                setValue(NORTH, selfState.getValue(NORTH)).
+                setValue(SOUTH, selfState.getValue(SOUTH)).
+                setValue(EAST, selfState.getValue(EAST)).
+                setValue(WEST, selfState.getValue(WEST)).
+                setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         for(Direction dir:Direction.values()) {
             EnumProperty<EPBlockStateProperties.PipeConnection> pipeConnectionProperty = getPipeConnectionPropertyFromDirection(dir);
 
-            newState = newState.with(pipeConnectionProperty, shouldConnectTo(level, selfPos, selfState, dir));
-            level.setBlockState(selfPos, newState);
+            newState = newState.setValue(pipeConnectionProperty, shouldConnectTo(level, selfPos, selfState, dir));
+            level.setBlockAndUpdate(selfPos, newState);
         }
 
 
@@ -341,8 +347,8 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         FluidPipeBlockEntity.updateConnections(level, selfPos, newState, (FluidPipeBlockEntity)blockEntity);
     }
 
-    private EPBlockStateProperties.PipeConnection shouldConnectTo(World level, BlockPos selfPos, BlockState selfState, Direction direction) {
-        BlockPos toPos = selfPos.offset(direction);
+    private EPBlockStateProperties.PipeConnection shouldConnectTo(Level level, BlockPos selfPos, BlockState selfState, Direction direction) {
+        BlockPos toPos = selfPos.relative(direction);
         BlockEntity blockEntity = level.getBlockEntity(toPos);
         if(blockEntity == null)
             return EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
@@ -351,7 +357,7 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
             return EPBlockStateProperties.PipeConnection.NOT_CONNECTED;
 
         EPBlockStateProperties.PipeConnection currentConnectionState =
-                selfState.get(getPipeConnectionPropertyFromDirection(direction));
+                selfState.getValue(getPipeConnectionPropertyFromDirection(direction));
         if(currentConnectionState == EPBlockStateProperties.PipeConnection.NOT_CONNECTED)
             currentConnectionState = EPBlockStateProperties.PipeConnection.CONNECTED;
 
@@ -361,14 +367,14 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, tier.getEntityTypeFromTier(), FluidPipeBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, tier.getEntityTypeFromTier(), FluidPipeBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
         private final FluidPipeTier tier;
 
-        public Item(Block block, Item.Settings props, FluidPipeTier tier) {
+        public Item(Block block, Properties props, FluidPipeTier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -379,17 +385,17 @@ public class FluidPipeBlock extends BlockWithEntity implements Waterloggable, Wr
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(MinecraftClient.getInstance().isShiftPressed()) {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.wrench_configurable").
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+            if(Minecraft.getInstance().hasShiftDown()) {
+                tooltip.accept(Component.translatable("tooltip.energizedpower.wrench_configurable").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 
-                tooltip.accept(Text.translatable("tooltip.energizedpower.fluid_pipe.max_extraction",
+                tooltip.accept(Component.translatable("tooltip.energizedpower.fluid_pipe.max_extraction",
                                 FluidUtils.getFluidAmountWithPrefix(FluidUtils.convertDropletsToMilliBuckets(
                                         tier.getTransferRate()))).
-                        formatted(Formatting.GRAY));
+                        withStyle(ChatFormatting.GRAY));
             }else {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

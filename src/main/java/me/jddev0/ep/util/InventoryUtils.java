@@ -1,18 +1,18 @@
 package me.jddev0.ep.util;
 
 import me.jddev0.ep.inventory.SingleItemStackHandler;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 
 public final class InventoryUtils {
     private InventoryUtils() {}
 
-    public static boolean canInsertItemIntoSlot(Inventory inventory, int slot, ItemStack itemStack) {
-        ItemStack inventoryItemStack = inventory.getStack(slot);
+    public static boolean canInsertItemIntoSlot(Container inventory, int slot, ItemStack itemStack) {
+        ItemStack inventoryItemStack = inventory.getItem(slot);
 
-        return inventoryItemStack.isEmpty() || (ItemStack.areItemsAndComponentsEqual(inventoryItemStack, itemStack) &&
-                inventoryItemStack.getMaxCount() >= inventoryItemStack.getCount() + itemStack.getCount());
+        return inventoryItemStack.isEmpty() || (ItemStack.isSameItemSameComponents(inventoryItemStack, itemStack) &&
+                inventoryItemStack.getMaxStackSize() >= inventoryItemStack.getCount() + itemStack.getCount());
     }
 
     public static int getRedstoneSignalFromItemStackHandler(SingleItemStackHandler itemHandler) {
@@ -21,6 +21,6 @@ public final class InventoryUtils {
         long count = itemHandler.getAmount();
         long capacity = itemHandler.getCapacity();
 
-        return Math.min(MathHelper.floor((double)count / (double)capacity * 14.d) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor((double)count / (double)capacity * 14.d) + (isEmptyFlag?0:1), 15);
     }
 }

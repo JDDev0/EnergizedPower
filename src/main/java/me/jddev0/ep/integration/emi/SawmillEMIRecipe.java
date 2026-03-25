@@ -9,9 +9,8 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.SawmillRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class SawmillEMIRecipe implements EmiRecipe {
@@ -24,8 +23,8 @@ public class SawmillEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public SawmillEMIRecipe(RecipeEntry<SawmillRecipe> recipe) {
-        this.id = recipe.id().getValue();
+    public SawmillEMIRecipe(RecipeHolder<SawmillRecipe> recipe) {
+        this.id = recipe.id().identifier();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
 
         EmiStack emiOutputItem = EmiStack.of(recipe.value().getOutputItem());

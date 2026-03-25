@@ -4,23 +4,22 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public abstract class SelectableRecipeMachineContainerScreen
-        <R extends Recipe<?>, T extends ScreenHandler & IEnergyStorageMenu & IConfigurableMenu &
+        <R extends Recipe<?>, T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu &
                 ISelectableRecipeMachineMenu<R>>
         extends ConfigurableUpgradableEnergyStorageContainerScreen<T> {
     protected int recipeSelectorPosX = 80;
@@ -29,13 +28,13 @@ public abstract class SelectableRecipeMachineContainerScreen
     protected int recipeSelectorTexturePosX = 0;
     protected int recipeSelectorTexturePosY = 187;
 
-    public SelectableRecipeMachineContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public SelectableRecipeMachineContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   Identifier texture,
                                                   Identifier upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture, upgradeViewTexture);
     }
 
-    public SelectableRecipeMachineContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public SelectableRecipeMachineContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   String energyIndicatorBarTooltipComponentID,
                                                   Identifier texture,
                                                   Identifier upgradeViewTexture) {
@@ -43,9 +42,9 @@ public abstract class SelectableRecipeMachineContainerScreen
                 upgradeViewTexture);
     }
 
-    protected abstract ItemStack getRecipeIcon(RecipeEntry<R> currentRecipe);
+    protected abstract ItemStack getRecipeIcon(RecipeHolder<R> currentRecipe);
 
-    protected abstract void renderCurrentRecipeTooltip(DrawContext drawContext, int mouseX, int mouseY, RecipeEntry<R> currentRecipe);
+    protected abstract void renderCurrentRecipeTooltip(GuiGraphics drawContext, int mouseX, int mouseY, RecipeHolder<R> currentRecipe);
 
     @Override
     protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
@@ -56,17 +55,17 @@ public abstract class SelectableRecipeMachineContainerScreen
             int diff = 0;
 
             //Down button
-            if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
+            if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
                 diff = -1;
             }
 
             //Up button
-            if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
+            if(isHovering(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
                 diff = 1;
             }
 
             if(diff != 0) {
-                ModMessages.sendClientPacketToServer(new ChangeCurrentRecipeIndexC2SPacket(handler.getBlockEntity().getPos(),
+                ModMessages.sendClientPacketToServer(new ChangeCurrentRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
                         diff == 1));
 
                 return true;
@@ -77,70 +76,70 @@ public abstract class SelectableRecipeMachineContainerScreen
     }
 
     @Override
-    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
         super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         renderButtons(drawContext, x, y, mouseX, mouseY);
 
         renderCurrentRecipeOutput(drawContext, x, y);
     }
 
-    private void renderCurrentRecipeOutput(DrawContext drawContext, int x, int y) {
-        RecipeEntry<R> currentRecipe = handler.getCurrentRecipe();
+    private void renderCurrentRecipeOutput(GuiGraphics drawContext, int x, int y) {
+        RecipeHolder<R> currentRecipe = menu.getCurrentRecipe();
         if(currentRecipe == null)
             return;
 
         ItemStack itemStackIcon = getRecipeIcon(currentRecipe);
         if(!itemStackIcon.isEmpty()) {
-            drawContext.getMatrices().pushMatrix();
+            drawContext.pose().pushMatrix();
 
-            drawContext.drawItem(itemStackIcon, x + recipeSelectorPosX, y + recipeSelectorPosY,
-                    recipeSelectorPosX + recipeSelectorPosY * this.backgroundWidth);
+            drawContext.renderItem(itemStackIcon, x + recipeSelectorPosX, y + recipeSelectorPosY,
+                    recipeSelectorPosX + recipeSelectorPosY * this.imageWidth);
 
-            drawContext.getMatrices().popMatrix();
+            drawContext.pose().popMatrix();
         }
     }
 
-    private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
         //Down button
-        if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
+        if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
 
         //Up button
-        if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
+        if(isHovering(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX + 18, y + recipeSelectorPosY + 2,
                     recipeSelectorTexturePosX + 11, recipeSelectorTexturePosY, 11, 12, 256, 256);
         }
     }
 
     @Override
-    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {
+    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
         super.renderTooltipNormalView(drawContext, mouseX, mouseY);
 
         //Current recipe
-        RecipeEntry<R> currentRecipe = handler.getCurrentRecipe();
-        if(currentRecipe != null && isPointWithinBounds(recipeSelectorPosX, recipeSelectorPosY, 16, 16, mouseX, mouseY))
+        RecipeHolder<R> currentRecipe = menu.getCurrentRecipe();
+        if(currentRecipe != null && isHovering(recipeSelectorPosX, recipeSelectorPosY, 16, 16, mouseX, mouseY))
             renderCurrentRecipeTooltip(drawContext, mouseX, mouseY, currentRecipe);
 
         //Down button
-        if(isPointWithinBounds(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
+        if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.prev_recipe"));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
 
         //Up button
-        if(isPointWithinBounds(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
+        if(isHovering(recipeSelectorPosX + 18, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.recipe.selector.next_recipe"));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

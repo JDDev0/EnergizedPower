@@ -7,136 +7,135 @@ import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeControllerMenu> {
-    public TimeControllerScreen(TimeControllerMenu menu, PlayerInventory inventory, Text component) {
+    public TimeControllerScreen(TimeControllerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 EPAPI.id("textures/gui/container/time_controller.png"));
     }
 
     @Override
-    public boolean mouseClicked(Click click, boolean doubled) {
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
         double mouseX = click.x();
         double mouseY = click.y();
         int mouseButton = click.button();
 
         if(mouseButton == 0) {
             boolean clicked = false;
-            if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
+            if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
                 //Day button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 1000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1000));
                 clicked = true;
-            }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
                 //Noon button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 6000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 6000));
                 clicked = true;
-            }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
                 //Night button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 13000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 13000));
                 clicked = true;
-            }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
+            }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
                 //Midnight button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(handler.getBlockEntity().getPos(), 18000));
+                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 18000));
                 clicked = true;
             }
 
             if(clicked)
-                client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.f));
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
         }
 
         return super.mouseClicked(click, doubled);
     }
 
     @Override
-    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
+    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         renderButtons(drawContext, x, y, mouseX, mouseY);
         renderInfoText(drawContext, x, y);
     }
 
-    private void renderButtons(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
-        if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
+    private void renderButtons(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+        if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18, 256, 256);
-        }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 34, y + 34, 20, 211, 18, 18, 256, 256);
+        }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18, 256, 256);
-        }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 70, y + 34, 20, 229, 18, 18, 256, 256);
+        }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18, 256, 256);
-        }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 106, y + 34, 38, 211, 18, 18, 256, 256);
+        }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18, 256, 256);
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 142, y + 34, 38, 229, 18, 18, 256, 256);
         }
     }
 
-    private void renderInfoText(DrawContext drawContext, int x, int y) {
-        Text component = handler.getEnergy() < TimeControllerBlockEntity.CAPACITY?
-                Text.translatable("tooltip.energizedpower.not_enough_energy.txt").formatted(Formatting.RED):
-                Text.translatable("tooltip.energizedpower.ready.txt").formatted(Formatting.DARK_GREEN);
+    private void renderInfoText(GuiGraphics drawContext, int x, int y) {
+        Component component = menu.getEnergy() < TimeControllerBlockEntity.CAPACITY?
+                Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED):
+                Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN);
 
-        int componentWidth = textRenderer.getWidth(component);
+        int componentWidth = font.width(component);
 
-        drawContext.drawText(textRenderer, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+        drawContext.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override
-    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+        super.renderTooltip(drawContext, mouseX, mouseY);
 
-        if(isPointWithinBounds(34, 34, 18, 18, mouseX, mouseY)) {
+        if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.day"));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.day"));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(70, 34, 18, 18, mouseX, mouseY)) {
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
             //Noon button
 
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.noon"));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.noon"));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(106, 34, 18, 18, mouseX, mouseY)) {
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
             //Night button
 
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.night"));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.night"));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
-        }else if(isPointWithinBounds(142, 34, 18, 18, mouseX, mouseY)) {
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+        }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
             //Midnight button
 
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.time_controller.btn.midnight"));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.time_controller.btn.midnight"));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

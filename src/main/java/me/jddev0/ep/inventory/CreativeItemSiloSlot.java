@@ -1,16 +1,15 @@
 package me.jddev0.ep.inventory;
 
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import java.util.Optional;
 
 public class CreativeItemSiloSlot extends Slot {
-    private static final Inventory EMPTY_INVENTORY = new SimpleInventory(0);
+    private static final Container EMPTY_INVENTORY = new SimpleContainer(0);
     private final InfiniteSingleItemStackHandler itemHandler;
     protected final int index;
 
@@ -21,42 +20,42 @@ public class CreativeItemSiloSlot extends Slot {
     }
 
     @Override
-    protected void onCrafted(ItemStack itemStack, int amount) {}
+    protected void onQuickCraft(ItemStack itemStack, int amount) {}
 
     @Override
-    public boolean canInsert(ItemStack itemStack) {
+    public boolean mayPlace(ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public ItemStack getStack() {
+    public ItemStack getItem() {
         return this.getItemHandler().variant.toStack();
     }
 
     @Override
-    public void setStackNoCallbacks(ItemStack stack) {
+    public void set(ItemStack stack) {
         try(Transaction transaction = Transaction.openOuter()) {
             itemHandler.setItemStack(stack, transaction);
             transaction.commit();
         }
 
-        this.markDirty();
+        this.setChanged();
     }
 
     @Override
-    public boolean canTakeItems(PlayerEntity player) {
+    public boolean mayPickup(Player player) {
         return true;
     }
 
     @Override
-    public ItemStack insertStack(ItemStack itemStack, int amount) {
+    public ItemStack safeInsert(ItemStack itemStack, int amount) {
         if(!itemStack.isEmpty()) {
-            ItemStack selfItem = getStack();
-            if(selfItem.isEmpty() || !ItemStack.areItemsEqual(itemStack, selfItem) || !ItemStack.areItemsAndComponentsEqual(itemStack, selfItem)) {
-                setStack(itemStack.copyWithCount(1));
+            ItemStack selfItem = getItem();
+            if(selfItem.isEmpty() || !ItemStack.isSameItem(itemStack, selfItem) || !ItemStack.isSameItemSameComponents(itemStack, selfItem)) {
+                setByPlayer(itemStack.copyWithCount(1));
             }else {
-                selfItem.increment(1);
-                setStack(selfItem);
+                selfItem.grow(1);
+                setByPlayer(selfItem);
             }
         }
 
@@ -64,18 +63,18 @@ public class CreativeItemSiloSlot extends Slot {
     }
 
     @Override
-    public Optional<ItemStack> tryTakeStackRange(int count, int limit, PlayerEntity player) {
-        ItemStack selfItem = getStack();
+    public Optional<ItemStack> tryRemove(int count, int limit, Player player) {
+        ItemStack selfItem = getItem();
         if(!selfItem.isEmpty()) {
-            selfItem.decrement(1);
-            setStack(selfItem);
+            selfItem.shrink(1);
+            setByPlayer(selfItem);
         }
 
         return Optional.empty();
     }
 
     @Override
-    public boolean disablesDynamicDisplay() {
+    public boolean isFake() {
         return true;
     }
 

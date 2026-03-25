@@ -6,49 +6,54 @@ import me.jddev0.ep.block.entity.TransformerBlockEntity;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class ConfigurableTransformerBlock extends BlockWithEntity implements Waterloggable, WrenchConfigurable {
+public class ConfigurableTransformerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final MapCodec<ConfigurableTransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(Codecs.NON_EMPTY_STRING.xmap(TransformerTier::valueOf, TransformerTier::toString).fieldOf("tier").
+        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(TransformerTier::valueOf, TransformerTier::toString).fieldOf("tier").
                                 forGetter(ConfigurableTransformerBlock::getTier),
-                        Settings.CODEC.fieldOf("properties").forGetter(AbstractBlock::getSettings)).
+                        Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
                 apply(instance, ConfigurableTransformerBlock::new);
     });
 
-    public static final BooleanProperty POWERED = Properties.POWERED;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<EPBlockStateProperties.TransformerConnection> UP = EPBlockStateProperties.TRANSFORMER_CONNECTION_UP;
     public static final EnumProperty<EPBlockStateProperties.TransformerConnection> DOWN = EPBlockStateProperties.TRANSFORMER_CONNECTION_DOWN;
     public static final EnumProperty<EPBlockStateProperties.TransformerConnection> NORTH = EPBlockStateProperties.TRANSFORMER_CONNECTION_NORTH;
@@ -70,18 +75,18 @@ public class ConfigurableTransformerBlock extends BlockWithEntity implements Wat
 
     private final TransformerTier tier;
 
-    public ConfigurableTransformerBlock(TransformerTier tier, AbstractBlock.Settings properties) {
+    public ConfigurableTransformerBlock(TransformerTier tier, BlockBehaviour.Properties properties) {
         super(properties);
 
         this.tier = tier;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).
-                with(UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false).
+                setValue(UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED));
     }
 
     public TransformerTier getTier() {
@@ -89,157 +94,157 @@ public class ConfigurableTransformerBlock extends BlockWithEntity implements Wat
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new TransformerBlockEntity(blockPos, state, tier, TransformerType.CONFIGURABLE);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof TransformerBlockEntity) || ((TransformerBlockEntity)blockEntity).getTier() != tier ||
                 ((TransformerBlockEntity)blockEntity).getTransformerType() != TransformerType.CONFIGURABLE)
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((TransformerBlockEntity)blockEntity);
+        player.openMenu((TransformerBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
     @NotNull
-    public ActionResult onUseWrench(ItemUsageContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
-        World level = useOnContext.getWorld();
-        BlockPos blockPos = useOnContext.getBlockPos();
+    public InteractionResult onUseWrench(UseOnContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
+        Level level = useOnContext.getLevel();
+        BlockPos blockPos = useOnContext.getClickedPos();
 
-        if(level.isClient() || !(level.getBlockEntity(blockPos) instanceof TransformerBlockEntity))
-            return ActionResult.SUCCESS;
+        if(level.isClientSide() || !(level.getBlockEntity(blockPos) instanceof TransformerBlockEntity))
+            return InteractionResult.SUCCESS;
 
         BlockState state = level.getBlockState(blockPos);
 
-        PlayerEntity player = useOnContext.getPlayer();
+        Player player = useOnContext.getPlayer();
 
         EnumProperty<EPBlockStateProperties.TransformerConnection> transformerConnectionProperty =
                 ConfigurableTransformerBlock.getTransformerConnectionPropertyFromDirection(selectedFace);
 
         int diff = nextPreviousValue?-1:1;
 
-        EPBlockStateProperties.TransformerConnection transformerConnection = state.get(transformerConnectionProperty);
+        EPBlockStateProperties.TransformerConnection transformerConnection = state.getValue(transformerConnectionProperty);
         transformerConnection = EPBlockStateProperties.TransformerConnection.values()[(transformerConnection.ordinal() + diff +
                 EPBlockStateProperties.TransformerConnection.values().length) %
                 EPBlockStateProperties.TransformerConnection.values().length];
 
-        level.setBlockState(blockPos, state.with(transformerConnectionProperty, transformerConnection), 3);
+        level.setBlock(blockPos, state.setValue(transformerConnectionProperty, transformerConnection), 3);
 
-        if(player instanceof ServerPlayerEntity serverPlayer) {
-            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                    Text.translatable("tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed",
-                            Text.translatable("tooltip.energizedpower.direction." + selectedFace.asString()).
-                                    formatted(Formatting.WHITE),
-                            Text.translatable(transformerConnection.getTranslationKey()).
-                                    formatted(Formatting.WHITE, Formatting.BOLD)
-                    ).formatted(Formatting.GREEN)
+        if(player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed",
+                            Component.translatable("tooltip.energizedpower.direction." + selectedFace.getSerializedName()).
+                                    withStyle(ChatFormatting.WHITE),
+                            Component.translatable(transformerConnection.getTranslationKey()).
+                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+                    ).withStyle(ChatFormatting.GREEN)
             ));
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation wireOrientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
-        boolean isPowered = level.isReceivingRedstonePower(selfPos);
-        if(isPowered != selfState.get(POWERED))
-            level.setBlockState(selfPos, selfState.with(POWERED, isPowered), 3);
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(POWERED))
+            level.setBlock(selfPos, selfState.setValue(POWERED, isPowered), 3);
     }
 
     @Nullable
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return getDefaultState().
-                with(POWERED, context.getWorld().isReceivingRedstonePower(context.getBlockPos())).
-                with(UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
-                with(WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().
+                setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos())).
+                setValue(UP, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(DOWN, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(NORTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(SOUTH, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(EAST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED).
+                setValue(WEST, EPBlockStateProperties.TransformerConnection.NOT_CONNECTED);
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
+    public BlockState rotate(BlockState state, Rotation rotation) {
         switch(rotation) {
             case CLOCKWISE_90:
                 return state.
-                        with(NORTH, state.get(WEST)).
-                        with(SOUTH, state.get(EAST)).
-                        with(EAST, state.get(NORTH)).
-                        with(WEST, state.get(SOUTH));
+                        setValue(NORTH, state.getValue(WEST)).
+                        setValue(SOUTH, state.getValue(EAST)).
+                        setValue(EAST, state.getValue(NORTH)).
+                        setValue(WEST, state.getValue(SOUTH));
             case CLOCKWISE_180:
                 return state.
-                        with(NORTH, state.get(SOUTH)).
-                        with(SOUTH, state.get(NORTH)).
-                        with(EAST, state.get(WEST)).
-                        with(WEST, state.get(EAST));
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH)).
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
             case COUNTERCLOCKWISE_90:
                 return state.
-                        with(NORTH, state.get(EAST)).
-                        with(SOUTH, state.get(WEST)).
-                        with(EAST, state.get(SOUTH)).
-                        with(WEST, state.get(NORTH));
+                        setValue(NORTH, state.getValue(EAST)).
+                        setValue(SOUTH, state.getValue(WEST)).
+                        setValue(EAST, state.getValue(SOUTH)).
+                        setValue(WEST, state.getValue(NORTH));
             default:
                 return state;
         }
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
+    public BlockState mirror(BlockState state, Mirror mirror) {
         switch(mirror) {
             case LEFT_RIGHT:
                 return state.
-                        with(NORTH, state.get(SOUTH)).
-                        with(SOUTH, state.get(NORTH));
+                        setValue(NORTH, state.getValue(SOUTH)).
+                        setValue(SOUTH, state.getValue(NORTH));
             case FRONT_BACK:
                 return state.
-                        with(EAST, state.get(WEST)).
-                        with(WEST, state.get(EAST));
+                        setValue(EAST, state.getValue(WEST)).
+                        setValue(WEST, state.getValue(EAST));
             default:
                 return state;
         }
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(POWERED).add(UP).add(DOWN).add(NORTH).add(SOUTH).add(EAST).add(WEST);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, tier.getEntityTypeFromTierAndType(TransformerType.CONFIGURABLE), TransformerBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, tier.getEntityTypeFromTierAndType(TransformerType.CONFIGURABLE), TransformerBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
         private final TransformerTier tier;
 
-        public Item(Block block, Settings props, TransformerTier tier) {
+        public Item(Block block, net.minecraft.world.item.Item.Properties props, TransformerTier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -250,22 +255,22 @@ public class ConfigurableTransformerBlock extends BlockWithEntity implements Wat
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(MinecraftClient.getInstance().isShiftPressed()) {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.wrench_configurable").
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+            if(Minecraft.getInstance().hasShiftDown()) {
+                tooltip.accept(Component.translatable("tooltip.energizedpower.wrench_configurable").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 
-                tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                tooltip.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                                 EnergyUtils.getEnergyWithPrefix(tier.getMaxEnergyTransferFromTier())).
-                        formatted(Formatting.GRAY));
-                tooltip.accept(Text.empty());
-                tooltip.accept(Text.translatable("tooltip.energizedpower.transformer.txt.shift.1").formatted(Formatting.GRAY));
-                tooltip.accept(Text.translatable("tooltip.energizedpower.transformer.txt.shift.2").
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
-                tooltip.accept(Text.translatable("tooltip.energizedpower.transformer.txt.shift.3").
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
+                        withStyle(ChatFormatting.GRAY));
+                tooltip.accept(Component.empty());
+                tooltip.accept(Component.translatable("tooltip.energizedpower.transformer.txt.shift.1").withStyle(ChatFormatting.GRAY));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.transformer.txt.shift.2").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.transformer.txt.shift.3").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

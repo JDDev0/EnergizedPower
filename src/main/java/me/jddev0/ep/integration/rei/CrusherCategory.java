@@ -10,9 +10,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.crusher");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.crusher");
     }
 
     @Override

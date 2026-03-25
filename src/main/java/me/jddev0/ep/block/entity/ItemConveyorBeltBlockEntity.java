@@ -13,19 +13,19 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class ItemConveyorBeltBlockEntity
-        extends InventoryStorageBlockEntity<SimpleInventory>
+        extends InventoryStorageBlockEntity<SimpleContainer>
         implements ItemStackPacketUpdate {
     private final int ticksPerStep;
 
@@ -51,33 +51,33 @@ public class ItemConveyorBeltBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
-            public boolean isValid(int slot, @NotNull ItemStack stack) {
+            public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0, 1 -> true;
                     case 2, 3 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                ItemConveyorBeltBlockEntity.this.markDirty();
+                ItemConveyorBeltBlockEntity.this.setChanged();
 
-                for(int i = 0;i < size();i++)
-                    if(world != null && !world.isClient()) {
+                for(int i = 0;i < getContainerSize();i++)
+                    if(level != null && !level.isClientSide()) {
                         ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                                getPos(), (ServerWorld)world, 64,
-                                new ItemStackSyncS2CPacket(i, getStack(i), getPos())
+                                getBlockPos(), (ServerLevel)level, 64,
+                                new ItemStackSyncS2CPacket(i, getItem(i), getBlockPos())
                         );
                     }
             }
@@ -89,62 +89,62 @@ public class ItemConveyorBeltBlockEntity
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(itemHandler);
+        return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
     }
 
     static Storage<ItemVariant> getInventoryStorageForDirection(ItemConveyorBeltBlockEntity entity, Direction side) {
         if(side == null)
             return null;
 
-        Direction facing = entity.getCachedState().get(ItemConveyorBeltBlock.FACING).getDirection();
+        Direction facing = entity.getBlockState().getValue(ItemConveyorBeltBlock.FACING).getDirection();
         if(side.getOpposite() == facing)
             return entity.itemHandlerFrontSided.apply(side);
 
         return entity.itemHandlerOthersSided.apply(side);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         //Sync item stacks to client every 5 seconds
-        if(level.getTime() % 100 == 0) //TODO improve
-            for(int i = 0;i < blockEntity.itemHandler.size();i++)
-                if(!level.isClient())
+        if(level.getGameTime() % 100 == 0) //TODO improve
+            for(int i = 0;i < blockEntity.itemHandler.getContainerSize();i++)
+                if(!level.isClientSide())
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            blockPos, (ServerWorld)level, 64,
+                            blockPos, (ServerLevel)level, 64,
                             new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos)
                     );
 
-        if(level.getTime() % blockEntity.ticksPerStep == 0) {
-            int slotCount = blockEntity.itemHandler.size();
+        if(level.getGameTime() % blockEntity.ticksPerStep == 0) {
+            int slotCount = blockEntity.itemHandler.getContainerSize();
 
-            if(!blockEntity.itemHandler.getStack(slotCount - 1).isEmpty())
-                insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStack(slotCount - 1).copy());
+            if(!blockEntity.itemHandler.getItem(slotCount - 1).isEmpty())
+                insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.itemHandler.getItem(slotCount - 1).copy());
 
             for(int i = slotCount - 2;i >= 0;i--) {
-                ItemStack fromItemStack = blockEntity.itemHandler.getStack(i);
+                ItemStack fromItemStack = blockEntity.itemHandler.getItem(i);
                 if(fromItemStack.isEmpty())
                     continue;
 
-                ItemStack toItemStack = blockEntity.itemHandler.getStack(i + 1);
+                ItemStack toItemStack = blockEntity.itemHandler.getItem(i + 1);
                 if(!toItemStack.isEmpty())
                     continue;
 
-                blockEntity.itemHandler.setStack(i, ItemStack.EMPTY);
-                blockEntity.itemHandler.setStack(i + 1, fromItemStack);
+                blockEntity.itemHandler.setItem(i, ItemStack.EMPTY);
+                blockEntity.itemHandler.setItem(i + 1, fromItemStack);
             }
         }
     }
 
-    private static void insertItemStackIntoBlockEntity(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity,
+    private static void insertItemStackIntoBlockEntity(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity,
                                                        ItemStack itemStackToInsert) {
-        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getCachedState().get(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getBlockState().getValue(ItemConveyorBeltBlock.FACING);
         Direction facingDirection = facing.getDirection();
 
-        BlockPos testPos = blockPos.offset(facingDirection);
+        BlockPos testPos = blockPos.relative(facingDirection);
         if(facing.isAscending())
-            testPos = testPos.offset(Direction.UP);
+            testPos = testPos.relative(Direction.UP);
         //Descending will insert on same height because it came from one block higher
 
         BlockEntity testBlockEntity = level.getBlockEntity(testPos);
@@ -153,12 +153,12 @@ public class ItemConveyorBeltBlockEntity
         if(itemStackStorage == null) {
             //Check for descending belt facing the same direction one block lower (Will also work if this belt is ascending)
 
-            testPos = testPos.offset(Direction.DOWN);
+            testPos = testPos.relative(Direction.DOWN);
             BlockState testBlockState = level.getBlockState(testPos);
             if(!(testBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
 
-            EPBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.get(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection testFacing = testBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(!testFacing.isDescending() || testFacing.getDirection() != facingDirection)
                 return;
 
@@ -177,22 +177,22 @@ public class ItemConveyorBeltBlockEntity
         try(Transaction transaction = Transaction.openOuter()) {
             long amount = itemStackStorage.insert(ItemVariant.of(itemStackToInsert), 1, transaction);
             if(amount > 0)
-                blockEntity.itemHandler.setStack(blockEntity.itemHandler.size() - 1, ItemStack.EMPTY);
+                blockEntity.itemHandler.setItem(blockEntity.itemHandler.getContainerSize() - 1, ItemStack.EMPTY);
 
             transaction.commit();
         }
     }
 
     public int getSlotCount() {
-        return itemHandler.size();
+        return itemHandler.getContainerSize();
     }
 
     public ItemStack getStack(int slot) {
-        return itemHandler.getStack(slot);
+        return itemHandler.getItem(slot);
     }
 
     @Override
     public void setItemStack(int slot, ItemStack itemStack) {
-        itemHandler.setStack(slot, itemStack);
+        itemHandler.setItem(slot, itemStack);
     }
 }

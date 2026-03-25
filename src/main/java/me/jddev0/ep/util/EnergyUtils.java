@@ -1,9 +1,9 @@
 package me.jddev0.ep.util;
 
-import net.minecraft.util.math.MathHelper;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.Locale;
+import net.minecraft.util.Mth;
 
 public final class EnergyUtils {
     private static final String[] ENERGY_PREFIXES = new String[] {
@@ -31,6 +31,6 @@ public final class EnergyUtils {
     public static int getRedstoneSignalFromEnergyStorage(EnergyStorage energyStorage) {
         boolean isEmptyFlag = energyStorage.getAmount() == 0;
 
-        return Math.min(MathHelper.floor((double)energyStorage.getAmount() / energyStorage.getCapacity() * 14.) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor((double)energyStorage.getAmount() / energyStorage.getCapacity() * 14.) + (isEmptyFlag?0:1), 15);
     }
 }

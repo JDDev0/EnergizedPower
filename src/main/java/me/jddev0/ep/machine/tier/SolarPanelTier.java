@@ -6,51 +6,51 @@ import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.screen.SolarPanelMenu;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public enum SolarPanelTier {
     TIER_1("solar_panel_1", ModConfigs.COMMON_SOLAR_PANEL_1_ENERGY_PEAK_PRODUCTION.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_1_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_1_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     TIER_2("solar_panel_2", ModConfigs.COMMON_SOLAR_PANEL_2_ENERGY_PEAK_PRODUCTION.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_2_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_2_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     TIER_3("solar_panel_3", ModConfigs.COMMON_SOLAR_PANEL_3_ENERGY_PEAK_PRODUCTION.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_3_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_3_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     TIER_4("solar_panel_4", ModConfigs.COMMON_SOLAR_PANEL_4_ENERGY_PEAK_PRODUCTION.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_4_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_4_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     TIER_5("solar_panel_5", ModConfigs.COMMON_SOLAR_PANEL_5_ENERGY_PEAK_PRODUCTION.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_5_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_5_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     TIER_6("solar_panel_6", ModConfigs.COMMON_SOLAR_PANEL_6_ENERGY_PEAK_PRODUCTION.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_6_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_6_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 
     private final String resourceId;
     private final long peakFePerTick;
     private final long maxTransfer;
     private final long capacity;
-    private final AbstractBlock.Settings props;
+    private final BlockBehaviour.Properties props;
 
-    SolarPanelTier(String resourceId, long peakFePerTick, long maxTransfer, long capacity, AbstractBlock.Settings props) {
+    SolarPanelTier(String resourceId, long peakFePerTick, long maxTransfer, long capacity, BlockBehaviour.Properties props) {
         this.resourceId = resourceId;
         this.peakFePerTick = peakFePerTick;
         this.maxTransfer = maxTransfer;
@@ -58,7 +58,7 @@ public enum SolarPanelTier {
         this.props = props;
     }
 
-    public ScreenHandlerType<SolarPanelMenu> getMenuTypeFromTier() {
+    public MenuType<SolarPanelMenu> getMenuTypeFromTier() {
         return switch(this) {
             case TIER_1 -> EPMenuTypes.SOLAR_PANEL_MENU_1;
             case TIER_2 -> EPMenuTypes.SOLAR_PANEL_MENU_2;
@@ -107,7 +107,7 @@ public enum SolarPanelTier {
         return capacity;
     }
 
-    public AbstractBlock.Settings getProperties() {
+    public BlockBehaviour.Properties getProperties() {
         return props;
     }
 }

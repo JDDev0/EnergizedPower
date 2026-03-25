@@ -1,10 +1,10 @@
 package me.jddev0.ep.client.rendering;
 
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import net.minecraft.client.gui.ScreenRect;
-import net.minecraft.client.gui.render.state.SimpleGuiElementRenderState;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.texture.TextureSetup;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
+import net.minecraft.client.gui.render.TextureSetup;
+import net.minecraft.client.gui.render.state.GuiElementRenderState;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix3x2f;
 
@@ -21,9 +21,9 @@ public record FluidTankRenderState(
         float v0,
         float v1,
         int fluidColorTint,
-        @Nullable ScreenRect scissorArea,
-        @Nullable ScreenRect bounds
-) implements SimpleGuiElementRenderState {
+        @Nullable ScreenRectangle scissorArea,
+        @Nullable ScreenRectangle bounds
+) implements GuiElementRenderState {
     public FluidTankRenderState(
             RenderPipeline pipeline,
             TextureSetup textureSetup,
@@ -37,23 +37,23 @@ public record FluidTankRenderState(
             float v0,
             float v1,
             int fluidColorTint,
-            @Nullable ScreenRect scissorArea
+            @Nullable ScreenRectangle scissorArea
     ) {
         this(pipeline, textureSetup, pose, x, y, width, height, u0, u1, v0, v1, fluidColorTint, scissorArea, createBounds(x, y, width, height, pose, scissorArea));
     }
 
     @Override
-    public void setupVertices(VertexConsumer bufferBuilder) {
-        bufferBuilder.vertex(pose, x, y).color(fluidColorTint).texture(u0, v1);
-        bufferBuilder.vertex(pose, x + width, y).color(fluidColorTint).texture(u1, v1);
-        bufferBuilder.vertex(pose, x + width, y - height).color(fluidColorTint).texture(u1, v0);
-        bufferBuilder.vertex(pose, x, y - height).color(fluidColorTint).texture(u0, v0);
+    public void buildVertices(VertexConsumer bufferBuilder) {
+        bufferBuilder.addVertexWith2DPose(pose, x, y).setColor(fluidColorTint).setUv(u0, v1);
+        bufferBuilder.addVertexWith2DPose(pose, x + width, y).setColor(fluidColorTint).setUv(u1, v1);
+        bufferBuilder.addVertexWith2DPose(pose, x + width, y - height).setColor(fluidColorTint).setUv(u1, v0);
+        bufferBuilder.addVertexWith2DPose(pose, x, y - height).setColor(fluidColorTint).setUv(u0, v0);
     }
 
     @Nullable
-    private static ScreenRect createBounds(int x, int y, int width, int height, Matrix3x2f pose, @Nullable ScreenRect scissorArea) {
+    private static ScreenRectangle createBounds(int x, int y, int width, int height, Matrix3x2f pose, @Nullable ScreenRectangle scissorArea) {
         //Fixes rendering order for fluid tank overlay
-        ScreenRect screenRect = new ScreenRect(x - 1, y - 1, width - 2, height - 2).transformEachVertex(pose);
+        ScreenRectangle screenRect = new ScreenRectangle(x - 1, y - 1, width - 2, height - 2).transformMaxBounds(pose);
         return scissorArea != null?scissorArea.intersection(screenRect):screenRect;
     }
 }

@@ -13,19 +13,19 @@ import me.jddev0.ep.screen.UnchargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -36,12 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnchargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
-        ItemStack itemStack = itemHandler.getStack(i);
+        ItemStack itemStack = itemHandler.getItem(i);
 
         if(!EnergyStorageUtil.isEnergyStorage(itemStack))
             return true;
@@ -85,7 +85,7 @@ public class UnchargerBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -103,15 +103,15 @@ public class UnchargerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
@@ -123,34 +123,34 @@ public class UnchargerBlockEntity
                     return limitingEnergyStorage.supportsExtraction();
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.areItemsEqual(stack, itemStack) ||
-                            (!ItemStack.areItemsAndComponentsEqual(stack, itemStack) &&
+                    ItemStack itemStack = getItem(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
                                     !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(itemStack)))))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                UnchargerBlockEntity.this.markDirty();
+                UnchargerBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new EnergyValueContainerData(() -> hasRecipe()?getEnergyProductionPerTick():-1, value -> {}),
                 new EnergyValueContainerData(() -> energyProductionLeft, value -> {}),
@@ -161,38 +161,38 @@ public class UnchargerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         
         return new UnchargerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putLong("recipe.energy_production_left", energyProductionLeft);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        energyProductionLeft = view.getLong("recipe.energy_production_left", 0);
+        energyProductionLeft = view.getLongOr("recipe.energy_production_left", 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.get(UnchargerBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(UnchargerBlock.POWERED)))
            tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
     
     protected final long getEnergyProductionPerTick() {
-        ItemStack stack = itemHandler.getStack(0);
+        ItemStack stack = itemHandler.getItem(0);
 
         if(!EnergyStorageUtil.isEnergyStorage(stack))
             return -1;
@@ -211,9 +211,9 @@ public class UnchargerBlockEntity
         }
     }
 
-    public static void tickRecipe(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+    public static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
         if(blockEntity.hasRecipe()) {
-            ItemStack stack = blockEntity.itemHandler.getStack(0);
+            ItemStack stack = blockEntity.itemHandler.getItem(0);
 
             if(!EnergyStorageUtil.isEnergyStorage(stack))
                 return;
@@ -232,7 +232,7 @@ public class UnchargerBlockEntity
                 //Reset progress for invalid values
 
                 blockEntity.resetProgress();
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
 
                 return;
             }
@@ -243,22 +243,22 @@ public class UnchargerBlockEntity
             if(blockEntity.energyProductionLeft <= 0)
                 blockEntity.resetProgress();
 
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         List<EnergyStorage> consumerItems = new ArrayList<>();
         List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)
@@ -332,7 +332,7 @@ public class UnchargerBlockEntity
     }
 
     private boolean hasRecipe() {
-        ItemStack stack = itemHandler.getStack(0);
+        ItemStack stack = itemHandler.getItem(0);
         return EnergyStorageUtil.isEnergyStorage(stack);
     }
 

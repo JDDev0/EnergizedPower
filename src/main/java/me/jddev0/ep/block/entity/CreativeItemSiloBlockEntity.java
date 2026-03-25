@@ -5,14 +5,14 @@ import me.jddev0.ep.inventory.InfiniteSingleItemStackHandler;
 import me.jddev0.ep.screen.CreativeItemSiloMenu;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeItemSiloBlockEntity
@@ -33,24 +33,24 @@ public class CreativeItemSiloBlockEntity
         return new InfiniteSingleItemStackHandler() {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
             }
         };
     }
 
     @Override
-    protected void readInventoryStorage(ReadView view) {
+    protected void readInventoryStorage(ValueInput view) {
         itemHandler.readData(view);
     }
 
     @Override
-    protected void writeInventoryStorage(WriteView view) {
+    protected void writeInventoryStorage(ValueOutput view) {
         itemHandler.writeData(view);
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new CreativeItemSiloMenu(id, this, inventory, itemHandler);
     }
 
@@ -59,7 +59,7 @@ public class CreativeItemSiloBlockEntity
     }
 
     @Override
-    public void onBlockReplaced(BlockPos pos, BlockState oldState) {
+    public void preRemoveSideEffects(BlockPos pos, BlockState oldState) {
         //Do not drop anything
     }
 }

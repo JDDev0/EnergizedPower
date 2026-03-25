@@ -3,12 +3,12 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedMinecartChargerScreen extends EnergyStorageContainerScreen<AdvancedMinecartChargerMenu> {
-    public AdvancedMinecartChargerScreen(AdvancedMinecartChargerMenu menu, PlayerInventory inventory, Text component) {
+    public AdvancedMinecartChargerScreen(AdvancedMinecartChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
         energyMeterX = 80;

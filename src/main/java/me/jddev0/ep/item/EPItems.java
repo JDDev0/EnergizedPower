@@ -5,13 +5,13 @@ import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
 import me.jddev0.ep.machine.tier.BatteryTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ToolMaterial;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.function.Function;
@@ -20,21 +20,21 @@ public final class EPItems {
     private EPItems() {}
 
     public static Item registerItem(String name) {
-        return registerItem(name, Item::new, new Item.Settings());
+        return registerItem(name, Item::new, new Item.Properties());
     }
 
-    public static Item registerItem(String name, Item.Settings props) {
+    public static Item registerItem(String name, Item.Properties props) {
         return registerItem(name, Item::new, props);
     }
 
-    public static Item registerItem(String name, Function<Item.Settings, Item> factory) {
-        return registerItem(name, factory, new Item.Settings());
+    public static Item registerItem(String name, Function<Item.Properties, Item> factory) {
+        return registerItem(name, factory, new Item.Properties());
     }
 
-    public static  <T extends Item> T registerItem(String name, Function<Item.Settings, T> factory, Item.Settings props) {
+    public static  <T extends Item> T registerItem(String name, Function<Item.Properties, T> factory, Item.Properties props) {
         Identifier itemId = EPAPI.id(name);
-        return Registry.register(Registries.ITEM, itemId, factory.apply(props.
-                registryKey(RegistryKey.of(RegistryKeys.ITEM, itemId))));
+        return Registry.register(BuiltInRegistries.ITEM, itemId, factory.apply(props.
+                setId(ResourceKey.create(Registries.ITEM, itemId))));
     }
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot");
@@ -97,11 +97,11 @@ public final class EPItems {
     public static final Item RAW_WIRE_PRESS_MOLD = registerItem("raw_wire_press_mold");
 
     public static final Item GEAR_PRESS_MOLD = registerItem("gear_press_mold",
-            new Item.Settings().maxDamage(2000));
+            new Item.Properties().durability(2000));
     public static final Item ROD_PRESS_MOLD = registerItem("rod_press_mold",
-            new Item.Settings().maxDamage(2000));
+            new Item.Properties().durability(2000));
     public static final Item WIRE_PRESS_MOLD = registerItem("wire_press_mold",
-            new Item.Settings().maxDamage(2000));
+            new Item.Properties().durability(2000));
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell");
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell");
@@ -207,13 +207,13 @@ public final class EPItems {
             props -> new MoonLightUpgradeModuleItem(props, 3));
 
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
-            EnergizedPowerBookItem::new, new Item.Settings().maxCount(1));
+            EnergizedPowerBookItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item CABLE_INSULATOR = registerItem("cable_insulator",
             CableInsulatorItem::new);
 
     public static final Item CHARCOAL_FILTER = registerItem("charcoal_filter",
-            new Item.Settings().maxDamage(200));
+            new Item.Properties().durability(200));
 
     public static final Item SAW_BLADE = registerItem("saw_blade");
 
@@ -222,13 +222,13 @@ public final class EPItems {
     public static final Item ENERGIZED_CRYSTAL_MATRIX = registerItem("energized_crystal_matrix");
 
     public static final Item INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
-            InventoryCoalEngineItem::new, new Item.Settings().maxCount(1));
+            InventoryCoalEngineItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item INVENTORY_CHARGER = registerItem("inventory_charger",
-            InventoryChargerItem::new, new Item.Settings().maxCount(1));
+            InventoryChargerItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item INVENTORY_TELEPORTER = registerItem("inventory_teleporter",
-            InventoryTeleporterItem::new, new Item.Settings().maxCount(1));
+            InventoryTeleporterItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item BATTERY_1 = registerItem("battery_1",
             props -> new BatteryItem(props, BatteryTier.BATTERY_1));
@@ -247,13 +247,13 @@ public final class EPItems {
     public static final Item BATTERY_8 = registerItem("battery_8",
             props -> new BatteryItem(props, BatteryTier.BATTERY_8));
     public static final Item CREATIVE_BATTERY = registerItem("creative_battery",
-            CreativeBatteryItem::new, new Item.Settings().maxCount(1));
+            CreativeBatteryItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item ENERGY_ANALYZER = registerItem("energy_analyzer",
-            EnergyAnalyzerItem::new, new Item.Settings().maxCount(1));
+            EnergyAnalyzerItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item FLUID_ANALYZER = registerItem("fluid_analyzer",
-            FluidAnalyzerItem::new, new Item.Settings().maxCount(1));
+            FluidAnalyzerItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item WOODEN_HAMMER = registerItem("wooden_hammer",
             props -> new HammerItem(ToolMaterial.WOOD, props));
@@ -268,18 +268,18 @@ public final class EPItems {
     public static final Item DIAMOND_HAMMER = registerItem("diamond_hammer",
             props -> new HammerItem(ToolMaterial.DIAMOND, props));
     public static final Item NETHERITE_HAMMER = registerItem("netherite_hammer",
-            props -> new HammerItem(ToolMaterial.NETHERITE, props), new Item.Settings().fireproof());
+            props -> new HammerItem(ToolMaterial.NETHERITE, props), new Item.Properties().fireResistant());
 
     public static final Item CUTTER = registerItem("cutter",
             props -> new CutterItem(ToolMaterial.IRON, props));
 
     public static final Item WRENCH = registerItem("wrench",
-            WrenchItem::new, new Item.Settings().maxCount(1));
+            WrenchItem::new, new Item.Properties().stacksTo(1));
 
     public static final Item BATTERY_BOX_MINECART = registerItem("battery_box_minecart",
-            BatteryBoxMinecartItem::new, new Item.Settings().maxCount(1));
+            BatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
     public static final Item ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",
-            AdvancedBatteryBoxMinecartItem::new, new Item.Settings().maxCount(1));
+            AdvancedBatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
 
     //Register energy storage for items
     static {

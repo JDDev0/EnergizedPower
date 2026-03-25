@@ -17,9 +17,9 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.StonecuttingRecipe;
+import net.minecraft.client.gui.screens.inventory.DispenserScreen;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
 
 public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
     @Override
@@ -123,7 +123,7 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
                 PressMoldMakerRecipe.class));
 
         registry.register(new SelectableRecipeMachineTransferHandler<>(AutoStonecutterMenu.class,
-                StonecuttingRecipe.class));
+                StonecutterRecipe.class));
 
         registry.register(new SelectableRecipeMachineTransferHandler<>(StoneSolidifierMenu.class,
                 StoneSolidifierRecipe.class));
@@ -218,9 +218,9 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
                 FluidTransposerScreen.class, FluidTransposerDisplay.CATEGORY);
 
         registry.registerContainerClickArea(new Rectangle(7, 16, 54, 54),
-                Generic3x3ContainerScreen.class, DispenserDisplay.CATEGORY);
+                DispenserScreen.class, DispenserDisplay.CATEGORY);
         registry.registerContainerClickArea(new Rectangle(115, 16, 54, 54),
-                Generic3x3ContainerScreen.class, DispenserDisplay.CATEGORY);
+                DispenserScreen.class, DispenserDisplay.CATEGORY);
     }
 
     private <T extends EnergyStorageContainerScreen<? extends IUpgradeModuleMenu>> void

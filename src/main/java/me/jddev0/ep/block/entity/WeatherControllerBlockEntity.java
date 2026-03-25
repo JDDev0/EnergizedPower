@@ -7,16 +7,16 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.WeatherControllerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -42,7 +42,7 @@ public class WeatherControllerBlockEntity
 
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ShortValueContainerData(() -> (short)selectedWeatherType, value -> selectedWeatherType = value),
                 new EnergyValueContainerData(() -> (!hasInfiniteWeatherChangedDuration() || selectedWeatherType == -1)?-1:
@@ -56,7 +56,7 @@ public class WeatherControllerBlockEntity
         return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -76,29 +76,29 @@ public class WeatherControllerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         
         return new WeatherControllerMenu(id, this, inventory, upgradeModuleInventory, data);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("selected_weather_type", selectedWeatherType);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        selectedWeatherType = view.getInt("selected_weather_type", -1);
+        selectedWeatherType = view.getIntOr("selected_weather_type", -1);
     }
 
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, WeatherControllerBlockEntity blockEntity) {
-        if(level.isClient() || !(level instanceof ServerWorld serverLevel))
+    public static void tick(Level level, BlockPos blockPos, BlockState state, WeatherControllerBlockEntity blockEntity) {
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return;
 
         if(!blockEntity.hasInfiniteWeatherChangedDuration() || blockEntity.selectedWeatherType == -1)
@@ -114,16 +114,16 @@ public class WeatherControllerBlockEntity
             }
 
             //Set weather every 5 seconds instead of for every tick
-            if(level.getTime() % 100 == 0) {
+            if(level.getGameTime() % 100 == 0) {
                 int duration = blockEntity.getWeatherChangedDuration();
 
                 switch(blockEntity.selectedWeatherType) {
                     //Clear
-                    case 0 -> serverLevel.setWeather(duration, 0, false, false);
+                    case 0 -> serverLevel.setWeatherParameters(duration, 0, false, false);
                     //Rain
-                    case 1 -> serverLevel.setWeather(0, duration, true, false);
+                    case 1 -> serverLevel.setWeatherParameters(0, duration, true, false);
                     //Thunder
-                    case 2 -> serverLevel.setWeather(0, duration, true, true);
+                    case 2 -> serverLevel.setWeatherParameters(0, duration, true, true);
                 }
             }
         }else {
@@ -169,7 +169,7 @@ public class WeatherControllerBlockEntity
 
     public void setSelectedWeatherType(int selectedWeatherType) {
         this.selectedWeatherType = selectedWeatherType;
-        markDirty();
+        setChanged();
     }
 
     @Override

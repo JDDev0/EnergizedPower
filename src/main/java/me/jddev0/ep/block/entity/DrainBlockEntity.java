@@ -16,23 +16,23 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidDrainable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -57,14 +57,14 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
         return new SimpleFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(32);
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value)
@@ -73,7 +73,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFluidToPlayer(player);
 
         return new DrainMenu(id, this, inventory, this.data);
@@ -84,21 +84,21 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("drain.progress", progress);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        progress = view.getInt("drain.progress", 0);
+        progress = view.getIntOr("drain.progress", 0);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, DrainBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, DrainBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(hasRecipe(blockEntity)) {
@@ -106,7 +106,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
                 //Reset progress for invalid values
 
                 blockEntity.resetProgress(blockPos, state);
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
 
                 return;
             }
@@ -115,12 +115,12 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
                 blockEntity.progress++;
 
             if(blockEntity.progress >= blockEntity.maxProgress) {
-                BlockPos aboveBlockPos = blockPos.up();
+                BlockPos aboveBlockPos = blockPos.above();
                 BlockState aboveBlockState = level.getBlockState(aboveBlockPos);
-                if(aboveBlockState.getBlock() instanceof FluidDrainable aboveBlock) {
-                    ItemStack bucketItemStack = aboveBlock.tryDrainFluid(null, level, aboveBlockPos, aboveBlockState);
+                if(aboveBlockState.getBlock() instanceof BucketPickup aboveBlock) {
+                    ItemStack bucketItemStack = aboveBlock.pickupBlock(null, level, aboveBlockPos, aboveBlockState);
                     if(!bucketItemStack.isEmpty()) {
-                        level.emitGameEvent(null, GameEvent.FLUID_PICKUP, aboveBlockPos);
+                        level.gameEvent(null, GameEvent.FLUID_PICKUP, aboveBlockPos);
 
                         Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(bucketItemStack, ContainerItemContext.withConstant(bucketItemStack));
                         if(fluidStorage != null) {
@@ -146,13 +146,13 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
                         if(cauldronFluid != Fluids.EMPTY && (blockEntity.fluidStorage.isEmpty() ||
                                 blockEntity.fluidStorage.getFluid().getFluid() == cauldronFluid)) {
                             long cauldronAmountPerLevel = cauldronFluidContent.amountPerLevel;
-                            IntProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
+                            IntegerProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
 
                             long amountInsertable = blockEntity.fluidStorage.capacity - blockEntity.fluidStorage.amount;
 
                             long cauldronAmount;
-                            if(cauldronLevelProp != null && aboveBlockState.contains(cauldronLevelProp))
-                                cauldronAmount = cauldronAmountPerLevel * aboveBlockState.get(cauldronLevelProp);
+                            if(cauldronLevelProp != null && aboveBlockState.hasProperty(cauldronLevelProp))
+                                cauldronAmount = cauldronAmountPerLevel * aboveBlockState.getValue(cauldronLevelProp);
                             else
                                 cauldronAmount = cauldronAmountPerLevel;
 
@@ -166,7 +166,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
                                 }
 
                                 if(inserted == cauldronAmount) {
-                                    level.setBlockState(aboveBlockPos, Blocks.CAULDRON.getDefaultState(), 3);
+                                    level.setBlock(aboveBlockPos, Blocks.CAULDRON.defaultBlockState(), 3);
                                 }
                             }
                         }
@@ -176,10 +176,10 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
                 blockEntity.resetProgress(blockPos, state);
             }
 
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress(blockPos, state);
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
 
@@ -188,17 +188,17 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
     }
 
     private static boolean hasRecipe(DrainBlockEntity blockEntity) {
-        World level = blockEntity.getWorld();
-        BlockPos blockPos = blockEntity.getPos();
+        Level level = blockEntity.getLevel();
+        BlockPos blockPos = blockEntity.getBlockPos();
 
-        BlockPos aboveBlockPos = blockPos.up();
+        BlockPos aboveBlockPos = blockPos.above();
         BlockState aboveBlockState = level.getBlockState(aboveBlockPos);
 
-        if((aboveBlockState.getBlock() instanceof FluidDrainable)) {
+        if((aboveBlockState.getBlock() instanceof BucketPickup)) {
             FluidState fluidState = level.getFluidState(aboveBlockPos);
             if(!fluidState.isEmpty()) {
                 try(Transaction transaction = Transaction.openOuter()) {
-                    return blockEntity.fluidStorage.insert(FluidVariant.of(fluidState.getFluid()), FluidConstants.BLOCK,
+                    return blockEntity.fluidStorage.insert(FluidVariant.of(fluidState.getType()), FluidConstants.BLOCK,
                             transaction) == FluidConstants.BLOCK;
                 }
             }
@@ -214,13 +214,13 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
             return false;
 
         long cauldronAmountPerLevel = cauldronFluidContent.amountPerLevel;
-        IntProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
+        IntegerProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
 
         long amountInsertable = blockEntity.fluidStorage.capacity - blockEntity.fluidStorage.amount;
 
         long cauldronAmount;
-        if(cauldronLevelProp != null && aboveBlockState.contains(cauldronLevelProp))
-            cauldronAmount = cauldronAmountPerLevel * aboveBlockState.get(cauldronLevelProp);
+        if(cauldronLevelProp != null && aboveBlockState.hasProperty(cauldronLevelProp))
+            cauldronAmount = cauldronAmountPerLevel * aboveBlockState.getValue(cauldronLevelProp);
         else
             cauldronAmount = cauldronAmountPerLevel;
 

@@ -15,15 +15,15 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
 
@@ -38,10 +38,10 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
-    public AdvancedUnchargerMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, new SimpleInventory(3) {
+    public AdvancedUnchargerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(3) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
@@ -53,11 +53,11 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
                     return energyStorage.supportsExtraction();
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
         }, new UpgradeModuleInventory(
@@ -65,8 +65,8 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         ), null);
     }
 
-    public AdvancedUnchargerMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, Inventory inv,
-                                 UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
+    public AdvancedUnchargerMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
+                                 UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
         super(
                 EPMenuTypes.ADVANCED_UNCHARGER_MENU, id,
 
@@ -76,38 +76,38 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
                 upgradeModuleInventory, 1
         );
 
-        checkSize(inv, 3);
+        checkContainerSize(inv, 3);
 
         addSlot(new ConstraintInsertSlot(inv, 0, 41, 35) {
             @Override
-            public boolean isEnabled() {
-                return super.isEnabled() && !isInUpgradeModuleView();
+            public boolean isActive() {
+                return super.isActive() && !isInUpgradeModuleView();
             }
         });
         addSlot(new ConstraintInsertSlot(inv, 1, 89, 35) {
             @Override
-            public boolean isEnabled() {
-                return super.isEnabled() && !isInUpgradeModuleView();
+            public boolean isActive() {
+                return super.isActive() && !isInUpgradeModuleView();
             }
         });
         addSlot(new ConstraintInsertSlot(inv, 2, 137, 35) {
             @Override
-            public boolean isEnabled() {
-                return super.isEnabled() && !isInUpgradeModuleView();
+            public boolean isActive() {
+                return super.isActive() && !isInUpgradeModuleView();
             }
         });
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
-            addProperties(energyProductionPerTickData);
-            addProperties(energyProductionLeftData[0]);
-            addProperties(energyProductionLeftData[1]);
-            addProperties(energyProductionLeftData[2]);
-            addProperties(redstoneModeData);
-            addProperties(comparatorModeData);
+            addDataSlots(energyProductionPerTickData);
+            addDataSlots(energyProductionLeftData[0]);
+            addDataSlots(energyProductionLeftData[1]);
+            addDataSlots(energyProductionLeftData[2]);
+            addDataSlots(redstoneModeData);
+            addDataSlots(comparatorModeData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -149,12 +149,12 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         Slot sourceSlot = slots.get(index);
-        if(sourceSlot == null || !sourceSlot.hasStack())
+        if(sourceSlot == null || !sourceSlot.hasItem())
             return ItemStack.EMPTY;
 
-        ItemStack sourceItem = sourceSlot.getStack();
+        ItemStack sourceItem = sourceSlot.getItem();
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
@@ -162,16 +162,16 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
             //Allow only 1 item
             int minFreeSlotIndex = 4 * 9;
             for(;minFreeSlotIndex < 4 * 9 + 3;minFreeSlotIndex++)
-                if(!getSlot(minFreeSlotIndex).hasStack())
+                if(!getSlot(minFreeSlotIndex).hasItem())
                     break;
 
-            if(!insertItem(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 1, false) &&
-                    (minFreeSlotIndex >= 4 * 9 + 3 || !insertItem(sourceItem, minFreeSlotIndex, minFreeSlotIndex + 1, false))) {
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 1, false) &&
+                    (minFreeSlotIndex >= 4 * 9 + 3 || !moveItemStackTo(sourceItem, minFreeSlotIndex, minFreeSlotIndex + 1, false))) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 3 + 1) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
-            if(!insertItem(sourceItem, 0, 4 * 9, false)) {
+            if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else {
@@ -179,11 +179,11 @@ public class AdvancedUnchargerMenu extends UpgradableEnergyStorageMenu<AdvancedU
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setStack(ItemStack.EMPTY);
+            sourceSlot.setByPlayer(ItemStack.EMPTY);
         else
-            sourceSlot.markDirty();
+            sourceSlot.setChanged();
 
-        sourceSlot.onTakeItem(player, sourceItem);
+        sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
     }

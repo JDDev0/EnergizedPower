@@ -4,48 +4,52 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.block.WireOrientation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ItemConveyorBeltSorterBlock extends BlockWithEntity {
+public class ItemConveyorBeltSorterBlock extends BaseEntityBlock {
     public static final MapCodec<ItemConveyorBeltSorterBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(
-                Codecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
+                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
                         forGetter(ItemConveyorBeltSorterBlock::getTier),
-                Settings.CODEC.fieldOf("properties").forGetter(Block::getSettings)
+                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
         ).apply(instance, ItemConveyorBeltSorterBlock::new);
     });
 
-    public static final BooleanProperty POWERED = Properties.POWERED;
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final ConveyorBeltTier tier;
 
-    protected ItemConveyorBeltSorterBlock(ConveyorBeltTier tier, AbstractBlock.Settings props) {
+    protected ItemConveyorBeltSorterBlock(ConveyorBeltTier tier, BlockBehaviour.Properties props) {
         super(props);
 
         this.tier = tier;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(FACING, Direction.NORTH));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false).setValue(FACING, Direction.NORTH));
     }
 
     public ConveyorBeltTier getTier() {
@@ -53,54 +57,54 @@ public class ItemConveyorBeltSorterBlock extends BlockWithEntity {
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new ItemConveyorBeltSorterBlockEntity(blockPos, state, tier);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean emitsRedstonePower(BlockState state) {
+    public boolean isSignalSource(BlockState state) {
         return true;
     }
 
     @Override
-    public int getWeakRedstonePower(BlockState state, BlockView getter, BlockPos blockPos, Direction direction) {
-        return state.get(POWERED)?15:0;
+    public int getSignal(BlockState state, BlockGetter getter, BlockPos blockPos, Direction direction) {
+        return state.getValue(POWERED)?15:0;
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof ItemConveyorBeltSorterBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((ItemConveyorBeltSorterBlockEntity)blockEntity);
+        player.openMenu((ItemConveyorBeltSorterBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public void neighborUpdate(BlockState selfState, World level, BlockPos selfPos, Block fromBlock, @Nullable WireOrientation wireOrientation, boolean isMoving) {
-        super.neighborUpdate(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation wireOrientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, wireOrientation, isMoving);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
         for(Direction dir:Direction.values()) {
-            if(dir == Direction.UP || dir == Direction.DOWN || dir == selfState.get(FACING))
+            if(dir == Direction.UP || dir == Direction.DOWN || dir == selfState.getValue(FACING))
                 continue;
 
             updateOutputBeltConnectionStateOfDirection(level, selfPos, selfState, dir);
@@ -108,30 +112,30 @@ public class ItemConveyorBeltSorterBlock extends BlockWithEntity {
     }
 
     @Override
-    public void onBlockAdded(BlockState selfState, World level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
-        if(level.isClient())
+    public void onPlace(BlockState selfState, Level level, BlockPos selfPos, BlockState oldState, boolean isMoving) {
+        if(level.isClientSide())
             return;
 
-        Direction facing = selfState.get(FACING);
+        Direction facing = selfState.getValue(FACING);
 
         for(int i = 0;i < 3;i++)
             updateOutputBeltConnectionStateOfDirection(level, selfPos, selfState, switch(i) {
-                case 0 -> facing.rotateYClockwise();
+                case 0 -> facing.getClockWise();
                 case 1 -> facing.getOpposite();
-                case 2 -> facing.rotateYCounterclockwise();
+                case 2 -> facing.getCounterClockWise();
                 default -> null;
             });
     }
 
-    private void updateOutputBeltConnectionStateOfDirection(World level, BlockPos blockPos, BlockState state, Direction outputBeltDirection) {
-        Direction facing = state.get(FACING);
+    private void updateOutputBeltConnectionStateOfDirection(Level level, BlockPos blockPos, BlockState state, Direction outputBeltDirection) {
+        Direction facing = state.getValue(FACING);
 
         int index;
-        if(outputBeltDirection == facing.rotateYClockwise())
+        if(outputBeltDirection == facing.getClockWise())
             index = 0;
         else if(outputBeltDirection == facing.getOpposite())
             index = 1;
-        else if(outputBeltDirection == facing.rotateYCounterclockwise())
+        else if(outputBeltDirection == facing.getCounterClockWise())
             index = 2;
         else
             return;
@@ -140,33 +144,33 @@ public class ItemConveyorBeltSorterBlock extends BlockWithEntity {
         if(!(blockEntity instanceof ItemConveyorBeltSorterBlockEntity itemConveyorBeltSorterBlockEntity))
             return;
 
-        BlockState outputBeltState = level.getBlockState(blockPos.offset(outputBeltDirection));
+        BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
         itemConveyorBeltSorterBlockEntity.setOutputBeltConnected(index, outputBeltState.getBlock() instanceof ItemConveyorBeltBlock);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing().getOpposite());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(POWERED, FACING);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, tier.getItemConveyorBeltSorterBlockEntityFromTier(), ItemConveyorBeltSorterBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, tier.getItemConveyorBeltSorterBlockEntityFromTier(), ItemConveyorBeltSorterBlockEntity::tick);
     }
 }

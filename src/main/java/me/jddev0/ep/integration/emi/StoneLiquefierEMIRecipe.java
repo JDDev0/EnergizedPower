@@ -10,9 +10,8 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.recipe.StoneLiquefierRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class StoneLiquefierEMIRecipe implements EmiRecipe {
@@ -25,8 +24,8 @@ public class StoneLiquefierEMIRecipe implements EmiRecipe {
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public StoneLiquefierEMIRecipe(RecipeEntry<StoneLiquefierRecipe> recipe) {
-        this.id = recipe.id().getValue();
+    public StoneLiquefierEMIRecipe(RecipeHolder<StoneLiquefierRecipe> recipe) {
+        this.id = recipe.id().identifier();
 
         FluidStack output = recipe.value().getOutput();
 

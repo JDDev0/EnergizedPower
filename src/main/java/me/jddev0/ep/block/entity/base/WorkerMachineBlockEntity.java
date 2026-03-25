@@ -5,19 +5,18 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.state.property.Properties;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import java.util.Optional;
 
 public abstract class WorkerMachineBlockEntity<W>
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
     protected final long baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 
@@ -50,7 +49,7 @@ public abstract class WorkerMachineBlockEntity<W>
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -68,8 +67,8 @@ public abstract class WorkerMachineBlockEntity<W>
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("recipe.progress", progress);
         view.putInt("recipe.max_progress", maxProgress);
@@ -77,16 +76,16 @@ public abstract class WorkerMachineBlockEntity<W>
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        progress = view.getInt("recipe.progress", 0);
-        maxProgress = view.getInt("recipe.max_progress", 0);
-        energyConsumptionLeft = view.getLong("recipe.energy_consumption_left", 0);
+        progress = view.getIntOr("recipe.progress", 0);
+        maxProgress = view.getIntOr("recipe.max_progress", 0);
+        energyConsumptionLeft = view.getLongOr("recipe.energy_consumption_left", 0);
     }
 
-    public static <W> void tick(World level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
-        if(level.isClient())
+    public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
+        if(level.isClientSide())
             return;
 
         blockEntity.onTickStart();
@@ -99,7 +98,7 @@ public abstract class WorkerMachineBlockEntity<W>
             }
         }
 
-        if(!blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
         if(blockEntity.hasWork()) {
@@ -130,7 +129,7 @@ public abstract class WorkerMachineBlockEntity<W>
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress();
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
 
                     blockEntity.onTickEnd();
 
@@ -147,14 +146,14 @@ public abstract class WorkerMachineBlockEntity<W>
                 if(blockEntity.progress >= blockEntity.maxProgress)
                     blockEntity.onWorkCompleted(workData.get());
 
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
                 if(blockEntity.timeoutOffState == 0) {
                     blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
                 }
                 blockEntity.onHasNotEnoughEnergy();
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress();
@@ -162,7 +161,7 @@ public abstract class WorkerMachineBlockEntity<W>
                 blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
             blockEntity.onHasNotEnoughEnergy();
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
 
         blockEntity.onTickEnd();

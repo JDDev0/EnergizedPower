@@ -1,8 +1,8 @@
 package me.jddev0.ep.inventory;
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
-public class UpgradeModuleViewContainerData implements PropertyDelegate {
+public class UpgradeModuleViewContainerData implements ContainerData {
     private boolean inUpgradeModuleView = false;
 
     @Override
@@ -28,7 +28,7 @@ public class UpgradeModuleViewContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

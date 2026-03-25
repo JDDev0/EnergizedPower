@@ -1,23 +1,23 @@
 package me.jddev0.ep.recipe;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.input.RecipeInput;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
 
 public class ContainerRecipeInputWrapper implements RecipeInput {
-    private final Inventory inventory;
+    private final Container inventory;
 
-    public ContainerRecipeInputWrapper(Inventory inventory) {
+    public ContainerRecipeInputWrapper(Container inventory) {
         this.inventory = inventory;
     }
 
     @Override
-    public ItemStack getStackInSlot(int slot) {
-        return inventory.getStack(slot);
+    public ItemStack getItem(int slot) {
+        return inventory.getItem(slot);
     }
 
     @Override
     public int size() {
-        return inventory.size();
+        return inventory.getContainerSize();
     }
 }

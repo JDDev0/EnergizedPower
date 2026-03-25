@@ -13,15 +13,15 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> {
+public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> {
     public static final IRecipeHolderType<PlantGrowthChamberFertilizerRecipe> TYPE = IRecipeHolderType.create(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -37,13 +37,13 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
     }
 
     @Override
-    public IRecipeType<RecipeEntry<PlantGrowthChamberFertilizerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer");
+    public Component getTitle() {
+        return Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer");
     }
 
     @Override
@@ -62,25 +62,25 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 1).add(recipe.value().getInput());
     }
 
     @Override
-    public void draw(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         fertlizerSlot.draw(guiGraphics, 0, 0);
 
-        TextRenderer font = MinecraftClient.getInstance().textRenderer;
-        Text component = Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", recipe.value().getSpeedMultiplier());
-        int textWidth = font.getWidth(component);
+        Font font = Minecraft.getInstance().font;
+        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", recipe.value().getSpeedMultiplier());
+        int textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 144 - textWidth, 5, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 5, 0xFFFFFFFF, false);
 
-        component = Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", recipe.value().getEnergyConsumptionMultiplier());
-        textWidth = font.getWidth(component);
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", recipe.value().getEnergyConsumptionMultiplier());
+        textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 144 - textWidth, 22, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 22, 0xFFFFFFFF, false);
     }
 }

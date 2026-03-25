@@ -8,17 +8,20 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +60,7 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource, boolean advanced) {
+    public ItemStack[] generateOutputs(RandomSource randomSource, boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
         for(int i = 0;i < 2;i++) {
             int count = 0;
@@ -74,30 +77,30 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.test(container.getStackInSlot(0));
+        return input.test(container.getItem(0));
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
-        return IngredientPlacement.NONE;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return EPRecipes.PULVERIZER_CATEGORY;
     }
 
@@ -123,8 +126,8 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.areItemsAndComponentsEqual(output.output(), itemStack) || (secondaryOutput != null &&
-                ItemStack.areItemsAndComponentsEqual(secondaryOutput.output(), itemStack));
+        return ItemStack.isSameItemSameComponents(output.output(), itemStack) || (secondaryOutput != null &&
+                ItemStack.isSameItemSameComponents(secondaryOutput.output(), itemStack));
     }
 
     public static final class Type implements RecipeType<PulverizerRecipe> {
@@ -155,7 +158,7 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
                     input));
         });
 
-        private final PacketCodec<RegistryByteBuf, PulverizerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, PulverizerRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -164,16 +167,16 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, PulverizerRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, PulverizerRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static PulverizerRecipe read(RegistryByteBuf buffer) {
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+        private static PulverizerRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
 
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++) {
-                ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+                ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -191,12 +194,12 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
             return new PulverizerRecipe(outputs[0], outputs[1], input);
         }
 
-        private static void write(RegistryByteBuf buffer, PulverizerRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
+        private static void write(RegistryFriendlyByteBuf buffer, PulverizerRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
 
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, output.output);
+                ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)

@@ -1,8 +1,7 @@
 package me.jddev0.ep.recipe;
 
-import net.minecraft.recipe.Ingredient;
-
 import java.util.List;
+import net.minecraft.world.item.crafting.Ingredient;
 
 /**
  * Used for SyncIngredientsS2CPacket

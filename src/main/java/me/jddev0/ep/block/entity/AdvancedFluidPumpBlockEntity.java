@@ -18,21 +18,21 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidDrainable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -78,33 +78,33 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                AdvancedFluidPumpBlockEntity.this.markDirty();
+                AdvancedFluidPumpBlockEntity.this.setChanged();
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    return stack.isOf(Items.COBBLESTONE);
+                    return stack.is(Items.COBBLESTONE);
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
         };
     }
@@ -115,28 +115,28 @@ public class AdvancedFluidPumpBlockEntity
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
                 },
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
                 },
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
                 },
                 new SimpleFluidStorage(baseTankCapacity) {
                     @Override
                     protected void onFinalCommit() {
-                        markDirty();
+                        setChanged();
                         syncFluidToPlayers(32);
                     }
                 }
@@ -144,7 +144,7 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -162,7 +162,7 @@ public class AdvancedFluidPumpBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
@@ -170,8 +170,8 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
 
         view.putInt("target.xOffset", xOffset);
         view.putInt("target.yOffset", yOffset);
@@ -181,14 +181,14 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
 
-        xOffset = view.getInt("target.xOffset", 0);
-        yOffset = view.getInt("target.yOffset", 0);
-        zOffset = view.getInt("target.zOffset", 0);
+        xOffset = view.getIntOr("target.xOffset", 0);
+        yOffset = view.getIntOr("target.yOffset", 0);
+        zOffset = view.getIntOr("target.zOffset", 0);
 
-        extractingFluid = view.getBoolean("recipe.extractingFluid", false);
+        extractingFluid = view.getBooleanOr("recipe.extractingFluid", false);
     }
 
     @Override
@@ -197,18 +197,18 @@ public class AdvancedFluidPumpBlockEntity
 
         if(yOffset == 0) {
             goToNextOffset();
-            markDirty();
+            setChanged();
         }
     }
 
     @Override
     protected boolean hasWork() {
-        return yOffset != 0 && itemHandler.getStack(0).isOf(Items.COBBLESTONE);
+        return yOffset != 0 && itemHandler.getItem(0).is(Items.COBBLESTONE);
     }
 
     @Override
     protected Optional<BlockPos> getCurrentWorkData() {
-        return Optional.of(pos.add(xOffset, yOffset, zOffset));
+        return Optional.of(worldPosition.offset(xOffset, yOffset, zOffset));
     }
 
     @Override
@@ -218,16 +218,16 @@ public class AdvancedFluidPumpBlockEntity
 
     @Override
     protected void onWorkStarted(BlockPos targetPos) {
-        BlockState targetState = world.getBlockState(targetPos);
-        if(!(targetState.getBlock() instanceof FluidDrainable))
+        BlockState targetState = level.getBlockState(targetPos);
+        if(!(targetState.getBlock() instanceof BucketPickup))
             return;
 
-        FluidState targetFluidState = world.getFluidState(targetPos);
+        FluidState targetFluidState = level.getFluidState(targetPos);
         if(targetFluidState.isEmpty())
             return;
 
         try(Transaction transaction = Transaction.openOuter()) {
-            if(fluidStorage.insert(FluidVariant.of(targetFluidState.getFluid()), FluidConstants.BLOCK,
+            if(fluidStorage.insert(FluidVariant.of(targetFluidState.getType()), FluidConstants.BLOCK,
                     transaction) != FluidConstants.BLOCK)
                 return;
         }
@@ -237,12 +237,12 @@ public class AdvancedFluidPumpBlockEntity
 
     @Override
     protected void onWorkCompleted(BlockPos targetPos) {
-        BlockState targetState = world.getBlockState(targetPos);
-        if(extractingFluid && targetState.getBlock() instanceof FluidDrainable targetBlock) {
-            ItemStack bucketItemStack = targetBlock.tryDrainFluid(null, world, targetPos, targetState);
+        BlockState targetState = level.getBlockState(targetPos);
+        if(extractingFluid && targetState.getBlock() instanceof BucketPickup targetBlock) {
+            ItemStack bucketItemStack = targetBlock.pickupBlock(null, level, targetPos, targetState);
 
             if(!bucketItemStack.isEmpty()) {
-                world.emitGameEvent(null, GameEvent.FLUID_PICKUP, targetPos);
+                level.gameEvent(null, GameEvent.FLUID_PICKUP, targetPos);
 
                 Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(bucketItemStack, ContainerItemContext.withConstant(bucketItemStack));
                 if(fluidStorage != null) {
@@ -257,11 +257,11 @@ public class AdvancedFluidPumpBlockEntity
                                     transaction.commit();
                                 }
 
-                                BlockState newTargetState = world.getBlockState(targetPos);
-                                if(newTargetState.isAir() || newTargetState.isReplaceable()) {
-                                    itemHandler.removeStack(0, 1);
+                                BlockState newTargetState = level.getBlockState(targetPos);
+                                if(newTargetState.isAir() || newTargetState.canBeReplaced()) {
+                                    itemHandler.removeItem(0, 1);
 
-                                    world.setBlockState(targetPos, Blocks.COBBLESTONE.getDefaultState(), 3);
+                                    level.setBlock(targetPos, Blocks.COBBLESTONE.defaultBlockState(), 3);
                                 }
                             }
                         }
@@ -307,7 +307,7 @@ public class AdvancedFluidPumpBlockEntity
                 //Last position in depth = y was reached -> Go to depth = y - 1 or to depth = -1
 
                 yOffset--;
-                if(-yOffset >= depth || (getPos().getY() + yOffset) < world.getBottomY())
+                if(-yOffset >= depth || (getBlockPos().getY() + yOffset) < level.getMinY())
                     yOffset = -1;
 
                 xOffset = range;

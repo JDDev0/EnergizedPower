@@ -13,14 +13,14 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class PressMoldMakerCategory implements IRecipeCategory<RecipeEntry<PressMoldMakerRecipe>> {
+public class PressMoldMakerCategory implements IRecipeCategory<RecipeHolder<PressMoldMakerRecipe>> {
     public static final IRecipeHolderType<PressMoldMakerRecipe> TYPE = IRecipeHolderType.create(PressMoldMakerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -34,13 +34,13 @@ public class PressMoldMakerCategory implements IRecipeCategory<RecipeEntry<Press
     }
 
     @Override
-    public IRecipeType<RecipeEntry<PressMoldMakerRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<PressMoldMakerRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.press_mold_maker");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.press_mold_maker");
     }
 
     @Override
@@ -59,14 +59,14 @@ public class PressMoldMakerCategory implements IRecipeCategory<RecipeEntry<Press
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<PressMoldMakerRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<PressMoldMakerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(new ItemStack(Items.CLAY_BALL, recipe.value().getClayCount()));
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
     }
 
     @Override
-    public void draw(RecipeEntry<PressMoldMakerRecipe> recipe, IRecipeSlotsView recipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<PressMoldMakerRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

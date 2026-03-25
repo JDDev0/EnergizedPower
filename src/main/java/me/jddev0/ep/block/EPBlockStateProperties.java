@@ -1,31 +1,31 @@
 package me.jddev0.ep.block;
 
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public final class EPBlockStateProperties {
     private EPBlockStateProperties() {}
 
-    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_UP = EnumProperty.of("up", PipeConnection.class);
-    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_DOWN = EnumProperty.of("down", PipeConnection.class);
-    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_NORTH = EnumProperty.of("north", PipeConnection.class);
-    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_EAST = EnumProperty.of("east", PipeConnection.class);
-    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_SOUTH = EnumProperty.of("south", PipeConnection.class);
-    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_WEST = EnumProperty.of("west", PipeConnection.class);
-    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_UP = EnumProperty.of("up", TransformerConnection.class);
-    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_DOWN = EnumProperty.of("down", TransformerConnection.class);
-    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_NORTH = EnumProperty.of("north", TransformerConnection.class);
-    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_EAST = EnumProperty.of("east", TransformerConnection.class);
-    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_SOUTH = EnumProperty.of("south", TransformerConnection.class);
-    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_WEST = EnumProperty.of("west", TransformerConnection.class);
-    public static final EnumProperty<ConveyorBeltDirection> CONVEYOR_BELT_FACING = EnumProperty.of("facing", ConveyorBeltDirection.class);
+    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_UP = EnumProperty.create("up", PipeConnection.class);
+    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_DOWN = EnumProperty.create("down", PipeConnection.class);
+    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_NORTH = EnumProperty.create("north", PipeConnection.class);
+    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_EAST = EnumProperty.create("east", PipeConnection.class);
+    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_SOUTH = EnumProperty.create("south", PipeConnection.class);
+    public static final EnumProperty<PipeConnection> PIPE_CONNECTION_WEST = EnumProperty.create("west", PipeConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_UP = EnumProperty.create("up", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_DOWN = EnumProperty.create("down", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_NORTH = EnumProperty.create("north", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_EAST = EnumProperty.create("east", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_SOUTH = EnumProperty.create("south", TransformerConnection.class);
+    public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_WEST = EnumProperty.create("west", TransformerConnection.class);
+    public static final EnumProperty<ConveyorBeltDirection> CONVEYOR_BELT_FACING = EnumProperty.create("facing", ConveyorBeltDirection.class);
 
-    public enum PipeConnection implements StringIdentifiable {
+    public enum PipeConnection implements StringRepresentable {
         NOT_CONNECTED,
         CONNECTED,
         EXTRACT;
@@ -44,16 +44,16 @@ public final class EPBlockStateProperties {
 
         @Override
         @NotNull
-        public String asString() {
+        public String getSerializedName() {
             return name().toLowerCase(Locale.US);
         }
 
         public String getTranslationKey() {
-            return "block_state.energizedpower.pipe_connection." + asString();
+            return "block_state.energizedpower.pipe_connection." + getSerializedName();
         }
     }
 
-    public enum TransformerConnection implements StringIdentifiable {
+    public enum TransformerConnection implements StringRepresentable {
         NOT_CONNECTED,
         RECEIVE,
         EXTRACT;
@@ -72,16 +72,16 @@ public final class EPBlockStateProperties {
 
         @Override
         @NotNull
-        public String asString() {
+        public String getSerializedName() {
             return name().toLowerCase(Locale.US);
         }
 
         public String getTranslationKey() {
-            return "block_state.energizedpower.transformer_connection." + asString();
+            return "block_state.energizedpower.transformer_connection." + getSerializedName();
         }
     }
 
-    public enum ConveyorBeltDirection implements StringIdentifiable {
+    public enum ConveyorBeltDirection implements StringRepresentable {
         NORTH_SOUTH(Direction.SOUTH),
         SOUTH_NORTH(Direction.NORTH),
         WEST_EAST(Direction.EAST),
@@ -181,12 +181,12 @@ public final class EPBlockStateProperties {
 
         @Override
         @NotNull
-        public String asString() {
+        public String getSerializedName() {
             return name().toLowerCase(Locale.US);
         }
 
         public String getTranslationKey() {
-            return "block_state.energizedpower.conveyor_belt_direction." + asString();
+            return "block_state.energizedpower.conveyor_belt_direction." + getSerializedName();
         }
     }
 }

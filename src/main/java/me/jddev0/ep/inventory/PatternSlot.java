@@ -1,47 +1,46 @@
 package me.jddev0.ep.inventory;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 public class PatternSlot extends Slot {
     private final BooleanSupplier isEnabled;
 
-    public PatternSlot(Inventory container, int slot, int x, int y, BooleanSupplier isEnabled) {
+    public PatternSlot(Container container, int slot, int x, int y, BooleanSupplier isEnabled) {
         super(container, slot, x, y);
 
         this.isEnabled = isEnabled;
     }
 
     @Override
-    protected void onCrafted(ItemStack itemStack, int amount) {}
+    protected void onQuickCraft(ItemStack itemStack, int amount) {}
 
     @Override
-    public boolean canInsert(ItemStack itemStack) {
+    public boolean mayPlace(ItemStack itemStack) {
         return false;
     }
 
     @Override
-    public boolean canTakeItems(PlayerEntity player) {
+    public boolean mayPickup(Player player) {
         return true;
     }
 
     @Override
-    public ItemStack insertStack(ItemStack itemStack, int amount) {
+    public ItemStack safeInsert(ItemStack itemStack, int amount) {
         if(!isEnabled.getAsBoolean())
             return itemStack;
 
         if(!itemStack.isEmpty()) {
-            ItemStack selfItem = getStack();
-            if(selfItem.isEmpty() || !ItemStack.areItemsEqual(itemStack, selfItem) || !ItemStack.areItemsAndComponentsEqual(itemStack, selfItem)) {
-                setStack(itemStack.copyWithCount(1));
+            ItemStack selfItem = getItem();
+            if(selfItem.isEmpty() || !ItemStack.isSameItem(itemStack, selfItem) || !ItemStack.isSameItemSameComponents(itemStack, selfItem)) {
+                setByPlayer(itemStack.copyWithCount(1));
             }else {
-                selfItem.increment(1);
-                setStack(selfItem);
+                selfItem.grow(1);
+                setByPlayer(selfItem);
             }
         }
 
@@ -49,21 +48,21 @@ public class PatternSlot extends Slot {
     }
 
     @Override
-    public Optional<ItemStack> tryTakeStackRange(int count, int limit, PlayerEntity player) {
+    public Optional<ItemStack> tryRemove(int count, int limit, Player player) {
         if(!isEnabled.getAsBoolean())
             return Optional.empty();
 
-        ItemStack selfItem = getStack();
+        ItemStack selfItem = getItem();
         if(!selfItem.isEmpty()) {
-            selfItem.decrement(1);
-            setStack(selfItem);
+            selfItem.shrink(1);
+            setByPlayer(selfItem);
         }
 
         return Optional.empty();
     }
 
     @Override
-    public boolean disablesDynamicDisplay() {
+    public boolean isFake() {
         return true;
     }
 }

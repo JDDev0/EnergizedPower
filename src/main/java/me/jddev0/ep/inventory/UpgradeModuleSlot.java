@@ -2,36 +2,35 @@ package me.jddev0.ep.inventory;
 
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import java.util.function.BooleanSupplier;
 
 public class UpgradeModuleSlot extends Slot {
     private final BooleanSupplier active;
 
-    public UpgradeModuleSlot(Inventory container, int slot, int x, int y, BooleanSupplier active) {
+    public UpgradeModuleSlot(Container container, int slot, int x, int y, BooleanSupplier active) {
         super(container, slot, x, y);
 
         this.active = active;
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isActive() {
         return active.getAsBoolean();
     }
 
     @Override
-    public boolean canInsert(ItemStack itemStack) {
+    public boolean mayPlace(ItemStack itemStack) {
         return itemStack.getItem() instanceof UpgradeModuleItem upgradeModuleItem &&
-                (!(inventory instanceof UpgradeModuleInventory upgradeModuleInventory) ||
+                (!(container instanceof UpgradeModuleInventory upgradeModuleInventory) ||
                         upgradeModuleItem.getMainUpgradeModuleModifier() == upgradeModuleInventory.
-                                getUpgradeModifierSlots()[getIndex()]);
+                                getUpgradeModifierSlots()[getContainerSlot()]);
     }
 
     @Override
-    public int getMaxItemCount() {
+    public int getMaxStackSize() {
         return 1;
     }
 }

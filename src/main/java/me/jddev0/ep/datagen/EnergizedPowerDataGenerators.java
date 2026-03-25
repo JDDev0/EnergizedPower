@@ -5,8 +5,8 @@ import me.jddev0.ep.paintings.EPPaintingVariants;
 import me.jddev0.ep.world.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 
 public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
     @Override
@@ -30,12 +30,12 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
     }
 
     @Override
-    public void buildRegistry(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.TEMPLATE_POOL, ModTemplatePools::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.STRUCTURE, ModStructures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.STRUCTURE_SET, ModStructureSets::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PAINTING_VARIANT, EPPaintingVariants::bootstrap);
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
+        registryBuilder.add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap);
+        registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
+        registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
+        registryBuilder.add(Registries.PAINTING_VARIANT, EPPaintingVariants::bootstrap);
     }
 }

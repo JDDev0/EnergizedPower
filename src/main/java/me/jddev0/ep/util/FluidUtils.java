@@ -4,10 +4,9 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.MathHelper;
-
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import java.util.Locale;
 
 public final class FluidUtils {
@@ -51,12 +50,12 @@ public final class FluidUtils {
      * For compatibility with "Forge"
      */
     public static long readFluidAmountInMilliBucketsWithLeftover(String milliBucketsKey, String leftoverKey,
-                                                                 ReadView view) {
-        long milliBucketsAmount = view.getLong(milliBucketsKey, 0);
+                                                                 ValueInput view) {
+        long milliBucketsAmount = view.getLongOr(milliBucketsKey, 0);
         if(milliBucketsAmount == -1)
             return -1;
 
-        long dropletsLeftOverAmount = view.getLong(leftoverKey, 0);
+        long dropletsLeftOverAmount = view.getLongOr(leftoverKey, 0);
 
         return FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
     }
@@ -65,7 +64,7 @@ public final class FluidUtils {
      * For compatibility with "Forge"
      */
     public static void writeFluidAmountInMilliBucketsWithLeftover(long droplets, String milliBucketsKey,
-                                                                 String leftoverKey, WriteView view) {
+                                                                 String leftoverKey, ValueOutput view) {
         if(droplets == -1) {
             view.putLong(milliBucketsKey, -1);
 
@@ -95,6 +94,6 @@ public final class FluidUtils {
             }
         }
 
-        return Math.min(MathHelper.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }

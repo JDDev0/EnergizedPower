@@ -9,377 +9,377 @@ import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementCriterion;
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.text.Text;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementType;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModBasicsAdvancements extends FabricAdvancementProvider {
-    public ModBasicsAdvancements(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
+    public ModBasicsAdvancements(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 
     @Override
-    public void generateAdvancement(RegistryWrapper.WrapperLookup lookupProvider, Consumer<AdvancementEntry> advancementOutput) {
-        AdvancementEntry energizedPowerBasics = Advancement.Builder.create().
+    public void generateAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+        AdvancementHolder energizedPowerBasics = Advancement.Builder.advancement().
                 display(
                         Items.COPPER_INGOT,
-                        Text.translatable("advancements.energizedpower.energizedpower_basics.title"),
-                        Text.translatable("advancements.energizedpower.energizedpower_basics.description"),
+                        Component.translatable("advancements.energizedpower.energizedpower_basics.title"),
+                        Component.translatable("advancements.energizedpower.energizedpower_basics.description"),
                         EPAPI.id("block/basic_machine_frame_top"),
-                        AdvancementFrame.TASK,
+                        AdvancementType.TASK,
                         true,
                         false,
                         false
                 ).
-                criterion("has_the_item",
-                        InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
-                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
+                addCriterion("has_the_item",
+                        InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 ConventionalItemTags.COPPER_INGOTS
                         ))).
-                build(advancementOutput, EPAPI.MOD_ID + ":main/basics/energizedpower_basics");
+                save(advancementOutput, EPAPI.MOD_ID + ":main/basics/energizedpower_basics");
 
-        AdvancementEntry energizedPowerBook = addAdvancement(
+        AdvancementHolder energizedPowerBook = addAdvancement(
                 advancementOutput, energizedPowerBasics,
-                EPItems.ENERGIZED_POWER_BOOK, "energized_power_book", AdvancementFrame.TASK
+                EPItems.ENERGIZED_POWER_BOOK, "energized_power_book", AdvancementType.TASK
         );
 
-        AdvancementEntry pressMoldMaker = addAdvancement(
+        AdvancementHolder pressMoldMaker = addAdvancement(
                 advancementOutput, energizedPowerBasics,
-                EPBlocks.PRESS_MOLD_MAKER_ITEM, "press_mold_maker", AdvancementFrame.TASK
+                EPBlocks.PRESS_MOLD_MAKER_ITEM, "press_mold_maker", AdvancementType.TASK
         );
 
-        AdvancementEntry rawPressMolds = addAdvancement(
+        AdvancementHolder rawPressMolds = addAdvancement(
                 lookupProvider,
                 advancementOutput, pressMoldMaker,
-                EPItems.RAW_GEAR_PRESS_MOLD, "raw_press_molds", AdvancementFrame.TASK,
+                EPItems.RAW_GEAR_PRESS_MOLD, "raw_press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
         );
 
-        AdvancementEntry pressMolds = addAdvancement(
+        AdvancementHolder pressMolds = addAdvancement(
                 lookupProvider,
                 advancementOutput, rawPressMolds,
-                EPItems.GEAR_PRESS_MOLD, "press_molds", AdvancementFrame.TASK,
+                EPItems.GEAR_PRESS_MOLD, "press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS
         );
 
-        AdvancementEntry alloyFurnace = addAdvancement(
+        AdvancementHolder alloyFurnace = addAdvancement(
                 advancementOutput, energizedPowerBasics,
-                EPBlocks.ALLOY_FURNACE_ITEM, "alloy_furnace", AdvancementFrame.TASK
+                EPBlocks.ALLOY_FURNACE_ITEM, "alloy_furnace", AdvancementType.TASK
         );
 
-        AdvancementEntry steelIngot = addAdvancement(
+        AdvancementHolder steelIngot = addAdvancement(
                 lookupProvider,
                 advancementOutput, alloyFurnace,
-                EPItems.STEEL_INGOT, "steel_ingot", AdvancementFrame.TASK,
+                EPItems.STEEL_INGOT, "steel_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_STEEL
         );
 
-        AdvancementEntry fastItemConveyorBelt = addAdvancement(
+        AdvancementHolder fastItemConveyorBelt = addAdvancement(
                 advancementOutput, steelIngot,
-                EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM, "fast_item_conveyor_belt", AdvancementFrame.TASK
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM, "fast_item_conveyor_belt", AdvancementType.TASK
         );
 
-        AdvancementEntry fastItemConveyorBeltLoader = addAdvancement(
+        AdvancementHolder fastItemConveyorBeltLoader = addAdvancement(
                 advancementOutput, fastItemConveyorBelt,
-                EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM, "fast_item_conveyor_belt_loader", AdvancementFrame.TASK
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM, "fast_item_conveyor_belt_loader", AdvancementType.TASK
         );
 
-        AdvancementEntry fastItemConveyorBeltSorter = addAdvancement(
+        AdvancementHolder fastItemConveyorBeltSorter = addAdvancement(
                 advancementOutput, fastItemConveyorBelt,
-                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM, "fast_item_conveyor_belt_sorter", AdvancementFrame.TASK
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM, "fast_item_conveyor_belt_sorter", AdvancementType.TASK
         );
 
-        AdvancementEntry fastItemConveyorBeltSwitch = addAdvancement(
+        AdvancementHolder fastItemConveyorBeltSwitch = addAdvancement(
                 advancementOutput, fastItemConveyorBelt,
-                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "fast_item_conveyor_belt_switch", AdvancementFrame.TASK
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "fast_item_conveyor_belt_switch", AdvancementType.TASK
         );
 
-        AdvancementEntry fastItemConveyorBeltSplitter = addAdvancement(
+        AdvancementHolder fastItemConveyorBeltSplitter = addAdvancement(
                 advancementOutput, fastItemConveyorBelt,
-                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "fast_item_conveyor_belt_splitter", AdvancementFrame.TASK
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "fast_item_conveyor_belt_splitter", AdvancementType.TASK
         );
 
-        AdvancementEntry fastItemConveyorBeltMerger = addAdvancement(
+        AdvancementHolder fastItemConveyorBeltMerger = addAdvancement(
                 advancementOutput, fastItemConveyorBelt,
-                EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM, "fast_item_conveyor_belt_merger", AdvancementFrame.TASK
+                EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM, "fast_item_conveyor_belt_merger", AdvancementType.TASK
         );
 
-        AdvancementEntry redstoneAlloyIngot = addAdvancement(
+        AdvancementHolder redstoneAlloyIngot = addAdvancement(
                 lookupProvider,
                 advancementOutput, alloyFurnace,
-                EPItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", AdvancementFrame.TASK,
+                EPItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_REDSTONE_ALLOY
         );
 
-        AdvancementEntry wrench = addAdvancement(
+        AdvancementHolder wrench = addAdvancement(
                 advancementOutput, energizedPowerBasics,
-                EPItems.WRENCH, "wrench", AdvancementFrame.TASK
+                EPItems.WRENCH, "wrench", AdvancementType.TASK
         );
 
-        AdvancementEntry hammer = addAdvancement(
+        AdvancementHolder hammer = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedPowerBasics,
-                EPItems.IRON_HAMMER, "hammer", AdvancementFrame.TASK,
+                EPItems.IRON_HAMMER, "hammer", AdvancementType.TASK,
                 CommonItemTags.TOOLS_HAMMERS
         );
 
-        AdvancementEntry tinPlate = addAdvancement(
+        AdvancementHolder tinPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, hammer,
-                EPItems.TIN_PLATE, "tin_plate", AdvancementFrame.TASK,
+                EPItems.TIN_PLATE, "tin_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_TIN
         );
 
-        AdvancementEntry copperPlate = addAdvancement(
+        AdvancementHolder copperPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, hammer,
-                EPItems.COPPER_PLATE, "copper_plate", AdvancementFrame.TASK,
+                EPItems.COPPER_PLATE, "copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_COPPER
         );
 
-        AdvancementEntry goldPlate = addAdvancement(
+        AdvancementHolder goldPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, hammer,
-                EPItems.GOLD_PLATE, "gold_plate", AdvancementFrame.TASK,
+                EPItems.GOLD_PLATE, "gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_GOLD
         );
 
-        AdvancementEntry ironPlate = addAdvancement(
+        AdvancementHolder ironPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, hammer,
-                EPItems.IRON_PLATE, "iron_plate", AdvancementFrame.TASK,
+                EPItems.IRON_PLATE, "iron_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_IRON
         );
 
-        AdvancementEntry cutter = addAdvancement(
+        AdvancementHolder cutter = addAdvancement(
                 lookupProvider,
                 advancementOutput, ironPlate,
-                EPItems.CUTTER, "cutter", AdvancementFrame.TASK,
+                EPItems.CUTTER, "cutter", AdvancementType.TASK,
                 CommonItemTags.TOOLS_CUTTERS
         );
 
-        AdvancementEntry tinWire = addAdvancement(
+        AdvancementHolder tinWire = addAdvancement(
                 lookupProvider,
                 advancementOutput, cutter,
-                EPItems.TIN_WIRE, "tin_wire", AdvancementFrame.TASK,
+                EPItems.TIN_WIRE, "tin_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_TIN
         );
 
-        AdvancementEntry goldWire = addAdvancement(
+        AdvancementHolder goldWire = addAdvancement(
                 lookupProvider,
                 advancementOutput, cutter,
-                EPItems.GOLD_WIRE, "gold_wire", AdvancementFrame.TASK,
+                EPItems.GOLD_WIRE, "gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_GOLD
         );
 
-        AdvancementEntry copperWire = addAdvancement(
+        AdvancementHolder copperWire = addAdvancement(
                 lookupProvider,
                 advancementOutput, cutter,
-                EPItems.COPPER_WIRE, "copper_wire", AdvancementFrame.TASK,
+                EPItems.COPPER_WIRE, "copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_COPPER
         );
 
-        AdvancementEntry basicCircuit = addAdvancement(
+        AdvancementHolder basicCircuit = addAdvancement(
                 advancementOutput, copperWire,
-                EPItems.BASIC_CIRCUIT, "basic_circuit", AdvancementFrame.TASK
+                EPItems.BASIC_CIRCUIT, "basic_circuit", AdvancementType.TASK
         );
 
-        AdvancementEntry basicUpgradeModule = addAdvancement(
+        AdvancementHolder basicUpgradeModule = addAdvancement(
                 advancementOutput, basicCircuit,
-                EPItems.BASIC_UPGRADE_MODULE, "basic_upgrade_module", AdvancementFrame.TASK
+                EPItems.BASIC_UPGRADE_MODULE, "basic_upgrade_module", AdvancementType.TASK
         );
 
-        AdvancementEntry speedUpgradeUpgradeModule1 = addAdvancement(
+        AdvancementHolder speedUpgradeUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.SPEED_UPGRADE_MODULE_1, "speed_upgrade_module_1", AdvancementFrame.TASK
+                EPItems.SPEED_UPGRADE_MODULE_1, "speed_upgrade_module_1", AdvancementType.TASK
         );
 
-        AdvancementEntry speedUpgradeUpgradeModule2 = addAdvancement(
+        AdvancementHolder speedUpgradeUpgradeModule2 = addAdvancement(
                 advancementOutput, speedUpgradeUpgradeModule1,
-                EPItems.SPEED_UPGRADE_MODULE_2, "speed_upgrade_module_2", AdvancementFrame.TASK
+                EPItems.SPEED_UPGRADE_MODULE_2, "speed_upgrade_module_2", AdvancementType.TASK
         );
 
-        AdvancementEntry energyEfficiencyUpgradeModule1 = addAdvancement(
+        AdvancementHolder energyEfficiencyUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1, "energy_efficiency_upgrade_module_1", AdvancementFrame.TASK
+                EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1, "energy_efficiency_upgrade_module_1", AdvancementType.TASK
         );
 
-        AdvancementEntry energyEfficiencyUpgradeModule2 = addAdvancement(
+        AdvancementHolder energyEfficiencyUpgradeModule2 = addAdvancement(
                 advancementOutput, energyEfficiencyUpgradeModule1,
-                EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2, "energy_efficiency_upgrade_module_2", AdvancementFrame.TASK
+                EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2, "energy_efficiency_upgrade_module_2", AdvancementType.TASK
         );
 
-        AdvancementEntry energyCapacityUpgradeModule1 = addAdvancement(
+        AdvancementHolder energyCapacityUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1, "energy_capacity_upgrade_module_1", AdvancementFrame.TASK
+                EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1, "energy_capacity_upgrade_module_1", AdvancementType.TASK
         );
 
-        AdvancementEntry energyCapacityUpgradeModule2 = addAdvancement(
+        AdvancementHolder energyCapacityUpgradeModule2 = addAdvancement(
                 advancementOutput, energyCapacityUpgradeModule1,
-                EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2, "energy_capacity_upgrade_module_2", AdvancementFrame.TASK
+                EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2, "energy_capacity_upgrade_module_2", AdvancementType.TASK
         );
 
-        AdvancementEntry extractionDepthUpgradeModule1 = addAdvancement(
+        AdvancementHolder extractionDepthUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1, "extraction_depth_upgrade_module_1", AdvancementFrame.TASK
+                EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1, "extraction_depth_upgrade_module_1", AdvancementType.TASK
         );
 
-        AdvancementEntry extractionDepthUpgradeModule2 = addAdvancement(
+        AdvancementHolder extractionDepthUpgradeModule2 = addAdvancement(
                 advancementOutput, extractionDepthUpgradeModule1,
-                EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2, "extraction_depth_upgrade_module_2", AdvancementFrame.TASK
+                EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2, "extraction_depth_upgrade_module_2", AdvancementType.TASK
         );
 
-        AdvancementEntry extractionRangeUpgradeModule1 = addAdvancement(
+        AdvancementHolder extractionRangeUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1, "extraction_range_upgrade_module_1", AdvancementFrame.TASK
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1, "extraction_range_upgrade_module_1", AdvancementType.TASK
         );
 
-        AdvancementEntry extractionRangeUpgradeModule2 = addAdvancement(
+        AdvancementHolder extractionRangeUpgradeModule2 = addAdvancement(
                 advancementOutput, extractionRangeUpgradeModule1,
-                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2, "extraction_range_upgrade_module_2", AdvancementFrame.TASK
+                EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2, "extraction_range_upgrade_module_2", AdvancementType.TASK
         );
 
-        AdvancementEntry blastFurnaceUpgradeModule = addAdvancement(
+        AdvancementHolder blastFurnaceUpgradeModule = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.BLAST_FURNACE_UPGRADE_MODULE, "blast_furnace_upgrade_module", AdvancementFrame.TASK
+                EPItems.BLAST_FURNACE_UPGRADE_MODULE, "blast_furnace_upgrade_module", AdvancementType.TASK
         );
 
-        AdvancementEntry smokerUpgradeModule = addAdvancement(
+        AdvancementHolder smokerUpgradeModule = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.SMOKER_UPGRADE_MODULE, "smoker_upgrade_module", AdvancementFrame.TASK
+                EPItems.SMOKER_UPGRADE_MODULE, "smoker_upgrade_module", AdvancementType.TASK
         );
 
-        AdvancementEntry moonLightUpgradeModule1 = addAdvancement(
+        AdvancementHolder moonLightUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
-                EPItems.MOON_LIGHT_UPGRADE_MODULE_1, "moon_light_upgrade_module_1", AdvancementFrame.TASK
+                EPItems.MOON_LIGHT_UPGRADE_MODULE_1, "moon_light_upgrade_module_1", AdvancementType.TASK
         );
 
-        AdvancementEntry itemConveyorBelt = addAdvancement(
+        AdvancementHolder itemConveyorBelt = addAdvancement(
                 advancementOutput, ironPlate,
-                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementType.TASK
         );
 
-        AdvancementEntry itemConveyorBeltLoader = addAdvancement(
+        AdvancementHolder itemConveyorBeltLoader = addAdvancement(
                 advancementOutput, itemConveyorBelt,
-                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM, "item_conveyor_belt_loader", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM, "item_conveyor_belt_loader", AdvancementType.TASK
         );
 
-        AdvancementEntry itemConveyorBeltSorter = addAdvancement(
+        AdvancementHolder itemConveyorBeltSorter = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM, "item_conveyor_belt_sorter", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM, "item_conveyor_belt_sorter", AdvancementType.TASK
         );
 
-        AdvancementEntry itemConveyorBeltSwitch = addAdvancement(
+        AdvancementHolder itemConveyorBeltSwitch = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "item_conveyor_belt_switch", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "item_conveyor_belt_switch", AdvancementType.TASK
         );
 
-        AdvancementEntry itemConveyorBeltSplitter = addAdvancement(
+        AdvancementHolder itemConveyorBeltSplitter = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "item_conveyor_belt_splitter", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "item_conveyor_belt_splitter", AdvancementType.TASK
         );
 
-        AdvancementEntry itemConveyorBeltMerger = addAdvancement(
+        AdvancementHolder itemConveyorBeltMerger = addAdvancement(
                 advancementOutput, itemConveyorBeltLoader,
-                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", AdvancementFrame.TASK
+                EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM, "item_conveyor_belt_merger", AdvancementType.TASK
         );
 
-        AdvancementEntry itemSiloTiny = addAdvancement(
+        AdvancementHolder itemSiloTiny = addAdvancement(
                 advancementOutput, ironPlate,
-                EPBlocks.ITEM_SILO_TINY_ITEM, "item_silo_tiny", AdvancementFrame.TASK
+                EPBlocks.ITEM_SILO_TINY_ITEM, "item_silo_tiny", AdvancementType.TASK
         );
 
-        AdvancementEntry itemSiloSmall = addAdvancement(
+        AdvancementHolder itemSiloSmall = addAdvancement(
                 advancementOutput, itemSiloTiny,
-                EPBlocks.ITEM_SILO_SMALL_ITEM, "item_silo_small", AdvancementFrame.TASK
+                EPBlocks.ITEM_SILO_SMALL_ITEM, "item_silo_small", AdvancementType.TASK
         );
 
-        AdvancementEntry itemSiloMedium = addAdvancement(
+        AdvancementHolder itemSiloMedium = addAdvancement(
                 advancementOutput, itemSiloSmall,
-                EPBlocks.ITEM_SILO_MEDIUM_ITEM, "item_silo_medium", AdvancementFrame.TASK
+                EPBlocks.ITEM_SILO_MEDIUM_ITEM, "item_silo_medium", AdvancementType.TASK
         );
 
-        AdvancementEntry itemSiloLarge = addAdvancement(
+        AdvancementHolder itemSiloLarge = addAdvancement(
                 advancementOutput, itemSiloMedium,
-                EPBlocks.ITEM_SILO_LARGE_ITEM, "item_silo_large", AdvancementFrame.TASK
+                EPBlocks.ITEM_SILO_LARGE_ITEM, "item_silo_large", AdvancementType.TASK
         );
 
-        AdvancementEntry itemSiloGiant = addAdvancement(
+        AdvancementHolder itemSiloGiant = addAdvancement(
                 advancementOutput, itemSiloLarge,
-                EPBlocks.ITEM_SILO_GIANT_ITEM, "item_silo_giant", AdvancementFrame.TASK
+                EPBlocks.ITEM_SILO_GIANT_ITEM, "item_silo_giant", AdvancementType.TASK
         );
 
-        AdvancementEntry ironFluidPipe = addAdvancement(
+        AdvancementHolder ironFluidPipe = addAdvancement(
                 advancementOutput, ironPlate,
-                EPBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", AdvancementFrame.TASK
+                EPBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", AdvancementType.TASK
         );
 
-        AdvancementEntry goldenFluidPipe = addAdvancement(
+        AdvancementHolder goldenFluidPipe = addAdvancement(
                 advancementOutput, ironFluidPipe,
-                EPBlocks.GOLDEN_FLUID_PIPE_ITEM, "golden_fluid_pipe", AdvancementFrame.TASK
+                EPBlocks.GOLDEN_FLUID_PIPE_ITEM, "golden_fluid_pipe", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidTankSmall = addAdvancement(
+        AdvancementHolder fluidTankSmall = addAdvancement(
                 advancementOutput, ironFluidPipe,
-                EPBlocks.FLUID_TANK_SMALL_ITEM, "fluid_tank_small", AdvancementFrame.TASK
+                EPBlocks.FLUID_TANK_SMALL_ITEM, "fluid_tank_small", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidTankMedium = addAdvancement(
+        AdvancementHolder fluidTankMedium = addAdvancement(
                 advancementOutput, fluidTankSmall,
-                EPBlocks.FLUID_TANK_MEDIUM_ITEM, "fluid_tank_medium", AdvancementFrame.TASK
+                EPBlocks.FLUID_TANK_MEDIUM_ITEM, "fluid_tank_medium", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidTankLarge = addAdvancement(
+        AdvancementHolder fluidTankLarge = addAdvancement(
                 advancementOutput, fluidTankMedium,
-                EPBlocks.FLUID_TANK_LARGE_ITEM, "fluid_tank_large", AdvancementFrame.TASK
+                EPBlocks.FLUID_TANK_LARGE_ITEM, "fluid_tank_large", AdvancementType.TASK
         );
 
-        AdvancementEntry drain = addAdvancement(
+        AdvancementHolder drain = addAdvancement(
                 advancementOutput, ironPlate,
-                EPBlocks.DRAIN_ITEM, "drain", AdvancementFrame.TASK
+                EPBlocks.DRAIN_ITEM, "drain", AdvancementType.TASK
         );
 
-        AdvancementEntry cableInsulator = addAdvancement(
+        AdvancementHolder cableInsulator = addAdvancement(
                 advancementOutput, energizedPowerBasics,
-                EPItems.CABLE_INSULATOR, "cable_insulator", AdvancementFrame.TASK
+                EPItems.CABLE_INSULATOR, "cable_insulator", AdvancementType.TASK
         );
 
-        AdvancementEntry tinCable = addAdvancement(
+        AdvancementHolder tinCable = addAdvancement(
                 advancementOutput, cableInsulator,
-                EPBlocks.TIN_CABLE_ITEM, "tin_cable", AdvancementFrame.TASK
+                EPBlocks.TIN_CABLE_ITEM, "tin_cable", AdvancementType.TASK
         );
 
-        AdvancementEntry copperCable = addAdvancement(
+        AdvancementHolder copperCable = addAdvancement(
                 advancementOutput, tinCable,
-                EPBlocks.COPPER_CABLE_ITEM, "copper_cable", AdvancementFrame.TASK
+                EPBlocks.COPPER_CABLE_ITEM, "copper_cable", AdvancementType.TASK
         );
 
-        AdvancementEntry goldCable = addAdvancement(
+        AdvancementHolder goldCable = addAdvancement(
                 advancementOutput, copperCable,
-                EPBlocks.GOLD_CABLE_ITEM, "gold_cable", AdvancementFrame.TASK
+                EPBlocks.GOLD_CABLE_ITEM, "gold_cable", AdvancementType.TASK
         );
 
-        AdvancementEntry lvTransformers = addAdvancement(
+        AdvancementHolder lvTransformers = addAdvancement(
                 advancementOutput, tinCable,
-                EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementFrame.TASK,
-                InventoryChangedCriterion.Conditions.items(
-                        ItemPredicate.Builder.create().items(
-                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
+                EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementType.TASK,
+                InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM,
@@ -388,250 +388,250 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 )
         );
 
-        AdvancementEntry silicon = addAdvancement(
+        AdvancementHolder silicon = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedPowerBasics,
-                EPItems.SILICON, "silicon", AdvancementFrame.TASK,
+                EPItems.SILICON, "silicon", AdvancementType.TASK,
                 CommonItemTags.SILICON
         );
 
-        AdvancementEntry poweredLamp = addAdvancement(
+        AdvancementHolder poweredLamp = addAdvancement(
                 advancementOutput, silicon,
-                EPBlocks.POWERED_LAMP_ITEM, "powered_lamp", AdvancementFrame.TASK
+                EPBlocks.POWERED_LAMP_ITEM, "powered_lamp", AdvancementType.TASK
         );
 
-        AdvancementEntry basicSolarCell = addAdvancement(
+        AdvancementHolder basicSolarCell = addAdvancement(
                 advancementOutput, silicon,
-                EPItems.BASIC_SOLAR_CELL, "basic_solar_cell", AdvancementFrame.TASK
+                EPItems.BASIC_SOLAR_CELL, "basic_solar_cell", AdvancementType.TASK
         );
 
-        AdvancementEntry solarPanel1 = addAdvancement(
+        AdvancementHolder solarPanel1 = addAdvancement(
                 advancementOutput, basicSolarCell,
-                EPBlocks.SOLAR_PANEL_ITEM_1, "solar_panel_1", AdvancementFrame.TASK
+                EPBlocks.SOLAR_PANEL_ITEM_1, "solar_panel_1", AdvancementType.TASK
         );
 
-        AdvancementEntry solarPanel2 = addAdvancement(
+        AdvancementHolder solarPanel2 = addAdvancement(
                 advancementOutput, solarPanel1,
-                EPBlocks.SOLAR_PANEL_ITEM_2, "solar_panel_2", AdvancementFrame.TASK
+                EPBlocks.SOLAR_PANEL_ITEM_2, "solar_panel_2", AdvancementType.TASK
         );
 
-        AdvancementEntry solarPanel3 = addAdvancement(
+        AdvancementHolder solarPanel3 = addAdvancement(
                 advancementOutput, solarPanel2,
-                EPBlocks.SOLAR_PANEL_ITEM_3, "solar_panel_3", AdvancementFrame.TASK
+                EPBlocks.SOLAR_PANEL_ITEM_3, "solar_panel_3", AdvancementType.TASK
         );
 
-        AdvancementEntry basicMachineFrame = addAdvancement(
+        AdvancementHolder basicMachineFrame = addAdvancement(
                 advancementOutput, silicon,
-                EPBlocks.BASIC_MACHINE_FRAME_ITEM, "basic_machine_frame", AdvancementFrame.TASK
+                EPBlocks.BASIC_MACHINE_FRAME_ITEM, "basic_machine_frame", AdvancementType.TASK
         );
 
-        AdvancementEntry autoCrafter = addAdvancement(
+        AdvancementHolder autoCrafter = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.AUTO_CRAFTER_ITEM, "auto_crafter", AdvancementFrame.TASK
+                EPBlocks.AUTO_CRAFTER_ITEM, "auto_crafter", AdvancementType.TASK
         );
 
-        AdvancementEntry crusher = addAdvancement(
+        AdvancementHolder crusher = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.CRUSHER_ITEM, "crusher", AdvancementFrame.TASK
+                EPBlocks.CRUSHER_ITEM, "crusher", AdvancementType.TASK
         );
 
-        AdvancementEntry sawmill = addAdvancement(
+        AdvancementHolder sawmill = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.SAWMILL_ITEM, "sawmill", AdvancementFrame.TASK
+                EPBlocks.SAWMILL_ITEM, "sawmill", AdvancementType.TASK
         );
 
-        AdvancementEntry compressor = addAdvancement(
+        AdvancementHolder compressor = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.COMPRESSOR_ITEM, "compressor", AdvancementFrame.TASK
+                EPBlocks.COMPRESSOR_ITEM, "compressor", AdvancementType.TASK
         );
 
-        AdvancementEntry autoStonecutter = addAdvancement(
+        AdvancementHolder autoStonecutter = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.AUTO_STONECUTTER_ITEM, "auto_stonecutter", AdvancementFrame.TASK
+                EPBlocks.AUTO_STONECUTTER_ITEM, "auto_stonecutter", AdvancementType.TASK
         );
 
-        AdvancementEntry plantGrowthChamber = addAdvancement(
+        AdvancementHolder plantGrowthChamber = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.PLANT_GROWTH_CHAMBER_ITEM, "plant_growth_chamber", AdvancementFrame.TASK
+                EPBlocks.PLANT_GROWTH_CHAMBER_ITEM, "plant_growth_chamber", AdvancementType.TASK
         );
 
-        AdvancementEntry blockPlacer = addAdvancement(
+        AdvancementHolder blockPlacer = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.BLOCK_PLACER_ITEM, "block_placer", AdvancementFrame.TASK
+                EPBlocks.BLOCK_PLACER_ITEM, "block_placer", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidFiller = addAdvancement(
+        AdvancementHolder fluidFiller = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.FLUID_FILLER_ITEM, "fluid_filler", AdvancementFrame.TASK
+                EPBlocks.FLUID_FILLER_ITEM, "fluid_filler", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidDrainer = addAdvancement(
+        AdvancementHolder fluidDrainer = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.FLUID_DRAINER_ITEM, "fluid_drainer", AdvancementFrame.TASK
+                EPBlocks.FLUID_DRAINER_ITEM, "fluid_drainer", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidPump = addAdvancement(
+        AdvancementHolder fluidPump = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.FLUID_PUMP_ITEM, "fluid_pump", AdvancementFrame.TASK
+                EPBlocks.FLUID_PUMP_ITEM, "fluid_pump", AdvancementType.TASK
         );
 
-        AdvancementEntry poweredFurnace = addAdvancement(
+        AdvancementHolder poweredFurnace = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.POWERED_FURNACE_ITEM, "powered_furnace", AdvancementFrame.TASK
+                EPBlocks.POWERED_FURNACE_ITEM, "powered_furnace", AdvancementType.TASK
         );
 
-        AdvancementEntry pulverizer = addAdvancement(
+        AdvancementHolder pulverizer = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.PULVERIZER_ITEM, "pulverizer", AdvancementFrame.TASK
+                EPBlocks.PULVERIZER_ITEM, "pulverizer", AdvancementType.TASK
         );
 
-        AdvancementEntry charcoalFilter = addAdvancement(
+        AdvancementHolder charcoalFilter = addAdvancement(
                 advancementOutput, pulverizer,
-                EPItems.CHARCOAL_FILTER, "charcoal_filter", AdvancementFrame.TASK
+                EPItems.CHARCOAL_FILTER, "charcoal_filter", AdvancementType.TASK
         );
 
-        AdvancementEntry coalEngine = addAdvancement(
+        AdvancementHolder coalEngine = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.COAL_ENGINE_ITEM, "coal_engine", AdvancementFrame.TASK
+                EPBlocks.COAL_ENGINE_ITEM, "coal_engine", AdvancementType.TASK
         );
 
         ItemStack inventoryCoalEngineIcon = new ItemStack(EPItems.INVENTORY_COAL_ENGINE);
-        inventoryCoalEngineIcon.applyChanges(ComponentChanges.builder().
-                add(EPDataComponentTypes.ACTIVE, true).
-                add(EPDataComponentTypes.WORKING, true).
+        inventoryCoalEngineIcon.applyComponentsAndValidate(DataComponentPatch.builder().
+                set(EPDataComponentTypes.ACTIVE, true).
+                set(EPDataComponentTypes.WORKING, true).
                 build());
-        AdvancementEntry inventoryCoalEngine = addAdvancement(
+        AdvancementHolder inventoryCoalEngine = addAdvancement(
                 advancementOutput, coalEngine,
-                inventoryCoalEngineIcon, "inventory_coal_engine", AdvancementFrame.TASK,
-                InventoryChangedCriterion.Conditions.items(EPItems.INVENTORY_COAL_ENGINE)
+                inventoryCoalEngineIcon, "inventory_coal_engine", AdvancementType.TASK,
+                InventoryChangeTrigger.TriggerInstance.hasItems(EPItems.INVENTORY_COAL_ENGINE)
         );
 
-        AdvancementEntry heatGenerator = addAdvancement(
+        AdvancementHolder heatGenerator = addAdvancement(
                 advancementOutput, coalEngine,
-                EPBlocks.HEAT_GENERATOR_ITEM, "heat_generator", AdvancementFrame.TASK
+                EPBlocks.HEAT_GENERATOR_ITEM, "heat_generator", AdvancementType.TASK
         );
 
-        AdvancementEntry charger = addAdvancement(
+        AdvancementHolder charger = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.CHARGER_ITEM, "charger", AdvancementFrame.TASK
+                EPBlocks.CHARGER_ITEM, "charger", AdvancementType.TASK
         );
 
-        AdvancementEntry minecartCharger = addAdvancement(
+        AdvancementHolder minecartCharger = addAdvancement(
                 advancementOutput, charger,
-                EPBlocks.MINECART_CHARGER_ITEM, "minecart_charger", AdvancementFrame.TASK
+                EPBlocks.MINECART_CHARGER_ITEM, "minecart_charger", AdvancementType.TASK
         );
 
-        AdvancementEntry uncharger = addAdvancement(
+        AdvancementHolder uncharger = addAdvancement(
                 advancementOutput, charger,
-                EPBlocks.UNCHARGER_ITEM, "uncharger", AdvancementFrame.TASK
+                EPBlocks.UNCHARGER_ITEM, "uncharger", AdvancementType.TASK
         );
 
-        AdvancementEntry minecartUncharger = addAdvancement(
+        AdvancementHolder minecartUncharger = addAdvancement(
                 advancementOutput, uncharger,
-                EPBlocks.MINECART_UNCHARGER_ITEM, "minecart_uncharger", AdvancementFrame.TASK
+                EPBlocks.MINECART_UNCHARGER_ITEM, "minecart_uncharger", AdvancementType.TASK
         );
 
-        AdvancementEntry inventoryCharger = addAdvancement(
+        AdvancementHolder inventoryCharger = addAdvancement(
                 advancementOutput, charger,
-                EPItems.INVENTORY_CHARGER, "inventory_charger", AdvancementFrame.TASK
+                EPItems.INVENTORY_CHARGER, "inventory_charger", AdvancementType.TASK
         );
 
-        AdvancementEntry battery1 = addAdvancement(
+        AdvancementHolder battery1 = addAdvancement(
                 advancementOutput, charger,
-                EPItems.BATTERY_1, "battery_1", AdvancementFrame.TASK
+                EPItems.BATTERY_1, "battery_1", AdvancementType.TASK
         );
 
-        AdvancementEntry battery2 = addAdvancement(
+        AdvancementHolder battery2 = addAdvancement(
                 advancementOutput, battery1,
-                EPItems.BATTERY_2, "battery_2", AdvancementFrame.TASK
+                EPItems.BATTERY_2, "battery_2", AdvancementType.TASK
         );
 
-        AdvancementEntry battery3 = addAdvancement(
+        AdvancementHolder battery3 = addAdvancement(
                 advancementOutput, battery2,
-                EPItems.BATTERY_3, "battery_3", AdvancementFrame.TASK
+                EPItems.BATTERY_3, "battery_3", AdvancementType.TASK
         );
 
-        AdvancementEntry energyAnalyzer = addAdvancement(
+        AdvancementHolder energyAnalyzer = addAdvancement(
                 advancementOutput, battery3,
-                EPItems.ENERGY_ANALYZER, "energy_analyzer", AdvancementFrame.TASK
+                EPItems.ENERGY_ANALYZER, "energy_analyzer", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidAnalyzer = addAdvancement(
+        AdvancementHolder fluidAnalyzer = addAdvancement(
                 advancementOutput, battery3,
-                EPItems.FLUID_ANALYZER, "fluid_analyzer", AdvancementFrame.TASK
+                EPItems.FLUID_ANALYZER, "fluid_analyzer", AdvancementType.TASK
         );
 
-        AdvancementEntry battery4 = addAdvancement(
+        AdvancementHolder battery4 = addAdvancement(
                 advancementOutput, battery3,
-                EPItems.BATTERY_4, "battery_4", AdvancementFrame.TASK
+                EPItems.BATTERY_4, "battery_4", AdvancementType.TASK
         );
 
-        AdvancementEntry battery5 = addAdvancement(
+        AdvancementHolder battery5 = addAdvancement(
                 advancementOutput, battery4,
-                EPItems.BATTERY_5, "battery_5", AdvancementFrame.TASK
+                EPItems.BATTERY_5, "battery_5", AdvancementType.TASK
         );
 
-        AdvancementEntry batteryBox = addAdvancement(
+        AdvancementHolder batteryBox = addAdvancement(
                 advancementOutput, battery5,
-                EPBlocks.BATTERY_BOX_ITEM, "battery_box", AdvancementFrame.TASK
+                EPBlocks.BATTERY_BOX_ITEM, "battery_box", AdvancementType.TASK
         );
 
-        AdvancementEntry batteryBoxMinecart = addAdvancement(
+        AdvancementHolder batteryBoxMinecart = addAdvancement(
                 advancementOutput, batteryBox,
-                EPItems.BATTERY_BOX_MINECART, "battery_box_minecart", AdvancementFrame.TASK
+                EPItems.BATTERY_BOX_MINECART, "battery_box_minecart", AdvancementType.TASK
         );
 
-        AdvancementEntry metalPress = addAdvancement(
+        AdvancementHolder metalPress = addAdvancement(
                 advancementOutput, basicMachineFrame,
-                EPBlocks.METAL_PRESS_ITEM, "metal_press", AdvancementFrame.TASK
+                EPBlocks.METAL_PRESS_ITEM, "metal_press", AdvancementType.TASK
         );
 
-        AdvancementEntry expressItemConveyorBelt = addAdvancement(
+        AdvancementHolder expressItemConveyorBelt = addAdvancement(
                 advancementOutput, metalPress,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM, "express_item_conveyor_belt", AdvancementFrame.TASK
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM, "express_item_conveyor_belt", AdvancementType.TASK
         );
 
-        AdvancementEntry expressItemConveyorBeltLoader = addAdvancement(
+        AdvancementHolder expressItemConveyorBeltLoader = addAdvancement(
                 advancementOutput, expressItemConveyorBelt,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM, "express_item_conveyor_belt_loader", AdvancementFrame.TASK
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM, "express_item_conveyor_belt_loader", AdvancementType.TASK
         );
 
-        AdvancementEntry expressItemConveyorBeltSorter = addAdvancement(
+        AdvancementHolder expressItemConveyorBeltSorter = addAdvancement(
                 advancementOutput, expressItemConveyorBelt,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM, "express_item_conveyor_belt_sorter", AdvancementFrame.TASK
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM, "express_item_conveyor_belt_sorter", AdvancementType.TASK
         );
 
-        AdvancementEntry expressItemConveyorBeltSwitch = addAdvancement(
+        AdvancementHolder expressItemConveyorBeltSwitch = addAdvancement(
                 advancementOutput, expressItemConveyorBelt,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "express_item_conveyor_belt_switch", AdvancementFrame.TASK
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "express_item_conveyor_belt_switch", AdvancementType.TASK
         );
 
-        AdvancementEntry expressItemConveyorBeltSplitter = addAdvancement(
+        AdvancementHolder expressItemConveyorBeltSplitter = addAdvancement(
                 advancementOutput, expressItemConveyorBelt,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "express_item_conveyor_belt_splitter", AdvancementFrame.TASK
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "express_item_conveyor_belt_splitter", AdvancementType.TASK
         );
 
-        AdvancementEntry expressItemConveyorBeltMerger = addAdvancement(
+        AdvancementHolder expressItemConveyorBeltMerger = addAdvancement(
                 advancementOutput, expressItemConveyorBelt,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM, "express_item_conveyor_belt_merger", AdvancementFrame.TASK
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM, "express_item_conveyor_belt_merger", AdvancementType.TASK
         );
 
-        AdvancementEntry autoPressMoldMaker = addAdvancement(
+        AdvancementHolder autoPressMoldMaker = addAdvancement(
                 advancementOutput, metalPress,
-                EPBlocks.AUTO_PRESS_MOLD_MAKER, "auto_press_mold_maker", AdvancementFrame.TASK
+                EPBlocks.AUTO_PRESS_MOLD_MAKER, "auto_press_mold_maker", AdvancementType.TASK
         );
 
-        AdvancementEntry hardenedMachineFrame = addAdvancement(
+        AdvancementHolder hardenedMachineFrame = addAdvancement(
                 advancementOutput, metalPress,
-                EPBlocks.HARDENED_MACHINE_FRAME_ITEM, "hardened_machine_frame", AdvancementFrame.TASK
+                EPBlocks.HARDENED_MACHINE_FRAME_ITEM, "hardened_machine_frame", AdvancementType.TASK
         );
 
-        AdvancementEntry mvTransformers = addAdvancement(
+        AdvancementHolder mvTransformers = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementFrame.TASK,
-                InventoryChangedCriterion.Conditions.items(
-                        ItemPredicate.Builder.create().items(
-                                lookupProvider.getOrThrow(RegistryKeys.ITEM),
+                EPBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementType.TASK,
+                InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
                                 EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM,
@@ -640,82 +640,82 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 )
         );
 
-        AdvancementEntry assemblingMachine = addAdvancement(
+        AdvancementHolder assemblingMachine = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.ASSEMBLING_MACHINE_ITEM, "assembling_machine", AdvancementFrame.TASK
+                EPBlocks.ASSEMBLING_MACHINE_ITEM, "assembling_machine", AdvancementType.TASK
         );
 
-        AdvancementEntry inductionSmelter = addAdvancement(
+        AdvancementHolder inductionSmelter = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", AdvancementFrame.TASK
+                EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", AdvancementType.TASK
         );
 
-            AdvancementEntry stoneLiquefier = addAdvancement(
+            AdvancementHolder stoneLiquefier = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", AdvancementFrame.TASK
+                EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", AdvancementType.TASK
         );
 
-        AdvancementEntry stoneSolidifier = addAdvancement(
+        AdvancementHolder stoneSolidifier = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.STONE_SOLIDIFIER_ITEM, "stone_solidifier", AdvancementFrame.TASK
+                EPBlocks.STONE_SOLIDIFIER_ITEM, "stone_solidifier", AdvancementType.TASK
         );
 
-        AdvancementEntry fluidTransposer = addAdvancement(
+        AdvancementHolder fluidTransposer = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.FLUID_TRANSPOSER_ITEM, "fluid_transposer", AdvancementFrame.TASK
+                EPBlocks.FLUID_TRANSPOSER_ITEM, "fluid_transposer", AdvancementType.TASK
         );
 
-        AdvancementEntry filtrationPlant = addAdvancement(
+        AdvancementHolder filtrationPlant = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.FILTRATION_PLANT_ITEM, "filtration_plant", AdvancementFrame.TASK
+                EPBlocks.FILTRATION_PLANT_ITEM, "filtration_plant", AdvancementType.TASK
         );
 
-        AdvancementEntry thermalGenerator = addAdvancement(
+        AdvancementHolder thermalGenerator = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
-                EPBlocks.THERMAL_GENERATOR_ITEM, "thermal_generator", AdvancementFrame.TASK
+                EPBlocks.THERMAL_GENERATOR_ITEM, "thermal_generator", AdvancementType.TASK
         );
     }
 
-    private AdvancementEntry addAdvancement(Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
-                                            ItemConvertible icon, String advancementId, AdvancementFrame type) {
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
+                                            ItemLike icon, String advancementId, AdvancementType type) {
         return addAdvancement(advancementOutput, parent, icon, advancementId, type, icon);
     }
-    private AdvancementEntry addAdvancement(Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
-                                            ItemConvertible icon, String advancementId, AdvancementFrame type,
-                                            ItemConvertible trigger) {
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
+                                            ItemLike icon, String advancementId, AdvancementType type,
+                                            ItemLike trigger) {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
-                InventoryChangedCriterion.Conditions.items(trigger));
+                InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
-    private AdvancementEntry addAdvancement(RegistryWrapper.WrapperLookup lookupProvider, Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
-                                            ItemConvertible icon, String advancementId, AdvancementFrame type,
+    private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
+                                            ItemLike icon, String advancementId, AdvancementType type,
                                             TagKey<Item> trigger) {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
-                InventoryChangedCriterion.Conditions.items(ItemPredicate.Builder.create().tag(
-                        lookupProvider.getOrThrow(RegistryKeys.ITEM),
+                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                        lookupProvider.lookupOrThrow(Registries.ITEM),
                         trigger
                 )));
     }
-    private AdvancementEntry addAdvancement(Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
-                                            ItemConvertible icon, String advancementId, AdvancementFrame type,
-                                            AdvancementCriterion<?> trigger) {
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
+                                            ItemLike icon, String advancementId, AdvancementType type,
+                                            Criterion<?> trigger) {
         return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type, trigger);
     }
-    private AdvancementEntry addAdvancement(Consumer<AdvancementEntry> advancementOutput, AdvancementEntry parent,
-                                            ItemStack icon, String advancementId, AdvancementFrame type,
-                                            AdvancementCriterion<?> trigger) {
-        return Advancement.Builder.create().parent(parent).
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
+                                            ItemStack icon, String advancementId, AdvancementType type,
+                                            Criterion<?> trigger) {
+        return Advancement.Builder.advancement().parent(parent).
                 display(
                         icon,
-                        Text.translatable("advancements.energizedpower." + advancementId + ".title"),
-                        Text.translatable("advancements.energizedpower." + advancementId + ".description"),
+                        Component.translatable("advancements.energizedpower." + advancementId + ".title"),
+                        Component.translatable("advancements.energizedpower." + advancementId + ".description"),
                         null,
                         type,
                         true,
                         true,
                         false
                 ).
-                criterion("has_the_item", trigger).
-                build(advancementOutput, EPAPI.MOD_ID + ":main/basics/" + advancementId);
+                addCriterion("has_the_item", trigger).
+                save(advancementOutput, EPAPI.MOD_ID + ":main/basics/" + advancementId);
     }
 
     @Override

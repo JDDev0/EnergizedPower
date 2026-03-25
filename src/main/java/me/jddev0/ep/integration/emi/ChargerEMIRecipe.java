@@ -11,12 +11,11 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class ChargerEMIRecipe implements EmiRecipe {
@@ -30,8 +29,8 @@ public class ChargerEMIRecipe implements EmiRecipe {
     private final List<EmiStack> output;
     private final long energyConsumption;
 
-    public ChargerEMIRecipe(RecipeEntry<ChargerRecipe> recipe) {
-        this.id = recipe.id().getValue();
+    public ChargerEMIRecipe(RecipeHolder<ChargerRecipe> recipe) {
+        this.id = recipe.id().identifier();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
         this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
         this.energyConsumption = (long)(recipe.value().getEnergyConsumption() * ChargerBlockEntity.CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER);
@@ -77,9 +76,9 @@ public class ChargerEMIRecipe implements EmiRecipe {
         widgets.addSlot(input.get(0), 14, 14).drawBack(false);
         widgets.addSlot(output.get(0), 91, 14).recipeContext(this);
 
-        Text energyConsumptionText = Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption));
-        widgets.addText(energyConsumptionText.asOrderedText(),
-                widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(energyConsumptionText),
-                widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight, Formatting.YELLOW.getColorValue(), false);
+        Component energyConsumptionText = Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption));
+        widgets.addText(energyConsumptionText.getVisualOrderText(),
+                widgets.getWidth() - Minecraft.getInstance().font.width(energyConsumptionText),
+                widgets.getHeight() - Minecraft.getInstance().font.lineHeight, ChatFormatting.YELLOW.getColor(), false);
     }
 }

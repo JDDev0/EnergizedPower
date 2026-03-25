@@ -10,16 +10,15 @@ import dev.emi.emi.api.stack.EmiStack;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetAdvancedAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.item.ItemStack;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdvancedAutoCrafterRecipeHandler implements EmiRecipeHandler<AdvancedAutoCrafterMenu> {
     @Override
-    public EmiPlayerInventory getInventory(HandledScreen<AdvancedAutoCrafterMenu> screen) {
+    public EmiPlayerInventory getInventory(AbstractContainerScreen<AdvancedAutoCrafterMenu> screen) {
         return new EmiPlayerInventory(new ArrayList<>());
     }
 
@@ -51,9 +50,9 @@ public class AdvancedAutoCrafterRecipeHandler implements EmiRecipeHandler<Advanc
         while(itemStacks.size() < 9)
             itemStacks.add(ItemStack.EMPTY);
 
-        MinecraftClient.getInstance().setScreen(context.getScreen());
+        Minecraft.getInstance().setScreen(context.getScreen());
 
-        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getPos(),
+        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(),
                 itemStacks, recipe.getId()));
 
         return true;

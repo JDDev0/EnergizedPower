@@ -2,8 +2,8 @@ package me.jddev0.ep.item;
 
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 public class FurnaceModeUpgradeModuleItem extends UpgradeModuleItem {
@@ -11,7 +11,7 @@ public class FurnaceModeUpgradeModuleItem extends UpgradeModuleItem {
             UpgradeModuleModifier.FURNACE_MODE
     };
 
-    public FurnaceModeUpgradeModuleItem(Settings props, int tier) {
+    public FurnaceModeUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.FURNACE_MODE, tier);
     }
 
@@ -30,18 +30,18 @@ public class FurnaceModeUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
-    public Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
+    public Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
         return switch(modifier) {
             case FURNACE_MODE -> {
                 if(value == 1)
-                    yield Text.translatable("item.energizedpower.blast_furnace_upgrade_module.effect_text").formatted(Formatting.YELLOW);
+                    yield Component.translatable("item.energizedpower.blast_furnace_upgrade_module.effect_text").withStyle(ChatFormatting.YELLOW);
                 else if(value == 2)
-                    yield Text.translatable("item.energizedpower.smoker_upgrade_module.effect_text").formatted(Formatting.YELLOW);
+                    yield Component.translatable("item.energizedpower.smoker_upgrade_module.effect_text").withStyle(ChatFormatting.YELLOW);
 
-                yield Text.empty();
+                yield Component.empty();
             }
 
-            default -> Text.empty();
+            default -> Component.empty();
         };
     }
 }

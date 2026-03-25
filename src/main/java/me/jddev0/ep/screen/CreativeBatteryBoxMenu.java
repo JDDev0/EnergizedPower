@@ -3,42 +3,42 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class CreativeBatteryBoxMenu extends ScreenHandler {
+public class CreativeBatteryBoxMenu extends AbstractContainerMenu {
     private final CreativeBatteryBoxBlockEntity blockEntity;
-    private final World level;
+    private final Level level;
 
     private final SimpleBooleanValueContainerData energyProductionData = new SimpleBooleanValueContainerData();
     private final SimpleBooleanValueContainerData energyConsumptionData = new SimpleBooleanValueContainerData();
 
-    public CreativeBatteryBoxMenu(int id, PlayerInventory inv, BlockPos pos) {
-        this(id, inv.player.getEntityWorld().getBlockEntity(pos), inv, null);
+    public CreativeBatteryBoxMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, null);
     }
 
-    public CreativeBatteryBoxMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory, PropertyDelegate data) {
+    public CreativeBatteryBoxMenu(int id, BlockEntity blockEntity, Inventory playerInventory, ContainerData data) {
         super(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU, id);
 
         this.blockEntity = (CreativeBatteryBoxBlockEntity)blockEntity;
-        this.level = playerInventory.player.getEntityWorld();
+        this.level = playerInventory.player.level();
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
 
         if(data == null) {
-            addProperties(energyProductionData);
-            addProperties(energyConsumptionData);
+            addDataSlots(energyProductionData);
+            addDataSlots(energyConsumptionData);
         }else {
-            addProperties(data);
+            addDataSlots(data);
         }
     }
 
@@ -51,16 +51,16 @@ public class CreativeBatteryBoxMenu extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int index) {
+    public ItemStack quickMoveStack(Player player, int index) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(ScreenHandlerContext.create(level, blockEntity.getPos()), player, EPBlocks.CREATIVE_BATTERY_BOX);
+    public boolean stillValid(Player player) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.CREATIVE_BATTERY_BOX);
     }
 
-    private void addPlayerInventory(PlayerInventory playerInventory) {
+    private void addPlayerInventory(Inventory playerInventory) {
         for(int i = 0;i < 3;i++) {
             for(int j = 0;j < 9;j++) {
                 addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
@@ -68,7 +68,7 @@ public class CreativeBatteryBoxMenu extends ScreenHandler {
         }
     }
 
-    private void addPlayerHotbar(PlayerInventory playerInventory) {
+    private void addPlayerHotbar(Inventory playerInventory) {
         for(int i = 0;i < 9;i++) {
             addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }

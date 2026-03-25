@@ -2,7 +2,7 @@ package me.jddev0.ep.codec;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public final class CodecFix {
     private CodecFix() {}

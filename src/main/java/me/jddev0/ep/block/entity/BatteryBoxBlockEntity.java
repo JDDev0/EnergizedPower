@@ -4,14 +4,14 @@ import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.BatteryBoxMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import me.jddev0.ep.util.EnergyUtils;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -40,7 +40,7 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Energize
         return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -53,7 +53,7 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Energize
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
         return new BatteryBoxMenu(id, this, inventory);
@@ -63,22 +63,22 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Energize
         return EnergyUtils.getRedstoneSignalFromEnergyStorage(limitingEnergyStorage);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         List<EnergyStorage> consumerItems = new ArrayList<>();
         List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)

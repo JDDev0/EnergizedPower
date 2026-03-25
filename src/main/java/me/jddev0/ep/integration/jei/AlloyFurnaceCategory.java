@@ -15,21 +15,20 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class AlloyFurnaceCategory implements IRecipeCategory<RecipeEntry<AlloyFurnaceRecipe>> {
+public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyFurnaceRecipe>> {
     public static final IRecipeHolderType<AlloyFurnaceRecipe> TYPE = IRecipeHolderType.create(AlloyFurnaceRecipe.Type.INSTANCE);
 
     private final IDrawable background;
@@ -43,13 +42,13 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeEntry<AlloyFu
     }
 
     @Override
-    public IRecipeType<RecipeEntry<AlloyFurnaceRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<AlloyFurnaceRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.alloy_furnace");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.alloy_furnace");
     }
 
     @Override
@@ -68,16 +67,16 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeEntry<AlloyFu
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<AlloyFurnaceRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<AlloyFurnaceRecipe> recipe, IFocusGroup iFocusGroup) {
         int len = Math.min(recipe.value().getInputs().length, 3);
         for(int i = 0;i < len;i++) {
             IngredientWithCount input = recipe.value().getInputs()[i];
 
             iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1 + 18 * i, 5).
-                    addItemStacks(input.input().getMatchingItems().
-                            map(RegistryEntry::getKeyOrValue).
+                    addItemStacks(input.input().items().
+                            map(Holder::unwrap).
                             map(registryKeyItemEither -> registryKeyItemEither.map(
-                                    l -> new ItemStack(MinecraftClient.getInstance().world.getRegistryManager().getOrThrow(RegistryKeys.ITEM).getOrThrow(l)),
+                                    l -> new ItemStack(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(l)),
                                     ItemStack::new
                             )).
                             map(itemStack -> itemStack.copyWithCount(input.count())).
@@ -93,23 +92,23 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeEntry<AlloyFu
                     if(view.isEmpty())
                         return;
 
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getSecondaryOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
     }
 
     @Override
-    public void draw(RecipeEntry<AlloyFurnaceRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<AlloyFurnaceRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
-        TextRenderer font = MinecraftClient.getInstance().textRenderer;
+        Font font = Minecraft.getInstance().font;
         int ticks = (int)(recipe.value().getTicks() * AlloyFurnaceBlockEntity.RECIPE_DURATION_MULTIPLIER);
-        Text component = Text.translatable("recipes.energizedpower.info.ticks", ticks);
-        int textWidth = font.getWidth(component);
+        Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+        int textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 147 - textWidth, 29, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 147 - textWidth, 29, 0xFFFFFFFF, false);
     }
 }

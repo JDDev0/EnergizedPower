@@ -8,27 +8,27 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -38,95 +38,95 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class InventoryChargerItem extends Item implements NamedScreenHandlerFactory {
+public class InventoryChargerItem extends Item implements MenuProvider {
     public static final int SLOT_COUNT = ModConfigs.COMMON_INVENTORY_CHARGER_SLOT_COUNT.getValue();
 
     public static final boolean TRANSFER_RATE_LIMIT_ENABLED = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT_ENABLED.getValue();
     public static final long TRANSFER_RATE_LIMIT = ModConfigs.COMMON_INVENTORY_CHARGER_TRANSFER_RATE_LIMIT.getValue();
 
-    public InventoryChargerItem(Item.Settings props) {
+    public InventoryChargerItem(Item.Properties props) {
         super(props);
     }
 
     @Override
-    public ActionResult use(World level, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
-        if(hand == Hand.OFF_HAND)
-            return ActionResult.PASS;
+        if(hand == InteractionHand.OFF_HAND)
+            return InteractionResult.PASS;
 
-        if(level.isClient())
-            return ActionResult.SUCCESS.withNewHandStack(itemStack);
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
 
-        player.openHandledScreen(this);
+        player.openMenu(this);
 
-        return ActionResult.SUCCESS.withNewHandStack(itemStack);
+        return InteractionResult.SUCCESS.heldItemTransformedTo(itemStack);
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower.inventory_charger");
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower.inventory_charger");
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        return new InventoryChargerMenu(id, inventory, getInventory(inventory.player.getStackInHand(Hand.MAIN_HAND)));
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        return new InventoryChargerMenu(id, inventory, getInventory(inventory.player.getItemInHand(InteractionHand.MAIN_HAND)));
     }
 
     @Override
-    public boolean isItemBarVisible(ItemStack stack) {
-        SimpleInventory inventory = getInventory(stack);
+    public boolean isBarVisible(ItemStack stack) {
+        SimpleContainer inventory = getInventory(stack);
 
         return getCapacity(inventory) > 0;
     }
 
     @Override
-    public int getItemBarStep(ItemStack stack) {
-        SimpleInventory inventory = getInventory(stack);
+    public int getBarWidth(ItemStack stack) {
+        SimpleContainer inventory = getInventory(stack);
 
         return Math.round(getEnergy(inventory) * 13.f / getCapacity(inventory));
     }
 
     @Override
-    public int getItemBarColor(ItemStack stack) {
-        SimpleInventory inventory = getInventory(stack);
+    public int getBarColor(ItemStack stack) {
+        SimpleContainer inventory = getInventory(stack);
 
         float f = Math.max(0.f, getEnergy(inventory) / (float)getCapacity(inventory));
-        return MathHelper.hsvToRgb(f * .33f, 1.f, 1.f);
+        return Mth.hsvToRgb(f * .33f, 1.f, 1.f);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-        SimpleInventory inventory = getInventory(stack);
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+        SimpleContainer inventory = getInventory(stack);
 
         long energy = getEnergy(inventory);
         long capacity = getCapacity(inventory);
         long maxTransfer = getMaxTransfer(inventory, null);
 
-        tooltip.accept(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
+        tooltip.accept(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
                         EnergyUtils.getEnergyWithPrefix(energy), EnergyUtils.getEnergyWithPrefix(capacity)).
-                formatted(Formatting.GRAY));
-        tooltip.accept(Text.translatable("tooltip.energizedpower.transfer_rate.txt",
+                withStyle(ChatFormatting.GRAY));
+        tooltip.accept(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
                         EnergyUtils.getEnergyWithPrefix(maxTransfer)).
-                formatted(Formatting.GRAY));
+                withStyle(ChatFormatting.GRAY));
 
-        if(MinecraftClient.getInstance().isShiftPressed()) {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
-                    formatted(Formatting.GRAY, Formatting.ITALIC));
+        if(Minecraft.getInstance().hasShiftDown()) {
+            tooltip.accept(Component.translatable("tooltip.energizedpower.inventory_charger.txt.shift.1").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
-    private void distributeEnergy(ItemStack itemStack, ServerWorld level, PlayerInventory inventory, @Nullable EquipmentSlot slot) {
-        SimpleInventory inventoryChargerInventory = getInventory(itemStack);
+    private void distributeEnergy(ItemStack itemStack, ServerLevel level, Inventory inventory, @Nullable EquipmentSlot slot) {
+        SimpleContainer inventoryChargerInventory = getInventory(itemStack);
 
         List<EnergyStorage> consumerItems = new ArrayList<>();
         List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
-        for(int i = 0;i < inventory.size();i++) {
-            ItemStack testItemStack = inventory.getStack(i);
+        for(int i = 0;i < inventory.getContainerSize();i++) {
+            ItemStack testItemStack = inventory.getItem(i);
 
             if(!EnergyStorageUtil.isEnergyStorage(testItemStack))
                 continue;
@@ -191,12 +191,12 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
         }
     }
 
-    public void extractEnergyFromBatteries(long energyProductionLeft, Inventory inventory) {
+    public void extractEnergyFromBatteries(long energyProductionLeft, Container inventory) {
         List<EnergyStorage> energyProduction = new ArrayList<>();
         List<Long> energyProductionValues = new ArrayList<>();
 
-        for(int i = 0;i < inventory.size();i++) {
-            ItemStack stack = inventory.getStack(i);
+        for(int i = 0;i < inventory.getContainerSize();i++) {
+            ItemStack stack = inventory.getItem(i);
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
                     ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(i)));
@@ -251,46 +251,46 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, ServerWorld level, Entity entity, @Nullable EquipmentSlot slot) {
+    public void inventoryTick(ItemStack itemStack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(itemStack, level, entity, slot);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
-        if(!(entity instanceof PlayerEntity player))
+        if(!(entity instanceof Player player))
             return;
 
-        PlayerInventory inventory = player.getInventory();
+        Inventory inventory = player.getInventory();
 
         //Do not distribute energy if opened
-        if(player.currentScreenHandler instanceof InventoryChargerMenu)
+        if(player.containerMenu instanceof InventoryChargerMenu)
             return;
 
         distributeEnergy(itemStack, level, inventory, slot);
     }
 
-    public static SimpleInventory getInventory(ItemStack itemStack) {
+    public static SimpleContainer getInventory(ItemStack itemStack) {
         InventoryComponent inventory = itemStack.get(EPDataComponentTypes.INVENTORY);
 
         if(inventory != null) {
-            DefaultedList<ItemStack> items = DefaultedList.ofSize(SLOT_COUNT, ItemStack.EMPTY);
+            NonNullList<ItemStack> items = NonNullList.withSize(SLOT_COUNT, ItemStack.EMPTY);
             for(int i = 0;i < items.size();i++) {
                 if(inventory.size() <= i)
                     break;
 
                 items.set(i, inventory.get(i));
             }
-            return new SimpleInventory(items.toArray(new ItemStack[0])) {
+            return new SimpleContainer(items.toArray(new ItemStack[0])) {
                 @Override
-                public void markDirty() {
-                    super.markDirty();
+                public void setChanged() {
+                    super.setChanged();
 
-                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                    itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
                 }
 
                 @Override
-                public boolean isValid(int slot, @NotNull ItemStack stack) {
-                    if(slot >= 0 && slot < size()) {
+                public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+                    if(slot >= 0 && slot < getContainerSize()) {
                         if(!EnergyStorageUtil.isEnergyStorage(stack))
                             return false;
 
@@ -301,32 +301,32 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
                         return energyStorage.supportsExtraction();
                     }
 
-                    return super.isValid(slot, stack);
+                    return super.canPlaceItem(slot, stack);
                 }
 
                 @Override
-                public boolean canPlayerUse(PlayerEntity player) {
-                    return super.canPlayerUse(player) && player.getStackInHand(Hand.MAIN_HAND) == itemStack;
+                public boolean stillValid(Player player) {
+                    return super.stillValid(player) && player.getItemInHand(InteractionHand.MAIN_HAND) == itemStack;
                 }
 
                 @Override
-                public int getMaxCountPerStack() {
+                public int getMaxStackSize() {
                     return 1;
                 }
             };
         }
 
-        return new SimpleInventory(SLOT_COUNT) {
+        return new SimpleContainer(SLOT_COUNT) {
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(heldStacks));
+                itemStack.set(EPDataComponentTypes.INVENTORY, new InventoryComponent(items));
             }
 
             @Override
-            public boolean isValid(int slot, @NotNull ItemStack stack) {
-                if(slot >= 0 && slot < size()) {
+            public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+                if(slot >= 0 && slot < getContainerSize()) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
 
@@ -337,26 +337,26 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
                     return energyStorage.supportsExtraction();
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public boolean canPlayerUse(PlayerEntity player) {
-                return super.canPlayerUse(player) && player.getStackInHand(Hand.MAIN_HAND) == itemStack;
+            public boolean stillValid(Player player) {
+                return super.stillValid(player) && player.getItemInHand(InteractionHand.MAIN_HAND) == itemStack;
             }
 
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
         };
     }
 
-    public static long getEnergy(Inventory inventory) {
+    public static long getEnergy(Container inventory) {
         long energySum = 0;
 
-        for(int i = 0;i < inventory.size();i++) {
-            ItemStack stack = inventory.getStack(i);
+        for(int i = 0;i < inventory.getContainerSize();i++) {
+            ItemStack stack = inventory.getItem(i);
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.withConstant(stack));
             if(energyStorage == null)
@@ -374,11 +374,11 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
         return energySum;
     }
 
-    public static long getCapacity(Inventory inventory) {
+    public static long getCapacity(Container inventory) {
         long capacitySum = 0;
 
-        for(int i = 0;i < inventory.size();i++) {
-            ItemStack stack = inventory.getStack(i);
+        for(int i = 0;i < inventory.getContainerSize();i++) {
+            ItemStack stack = inventory.getItem(i);
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.withConstant(stack));
             if(energyStorage == null)
@@ -396,11 +396,11 @@ public class InventoryChargerItem extends Item implements NamedScreenHandlerFact
         return capacitySum;
     }
 
-    public static long getMaxTransfer(Inventory inventory, @Nullable Transaction outerTransaction) {
+    public static long getMaxTransfer(Container inventory, @Nullable Transaction outerTransaction) {
         long maxTransferSum = 0;
 
-        for(int i = 0;i < inventory.size();i++) {
-            ItemStack stack = inventory.getStack(i);
+        for(int i = 0;i < inventory.getContainerSize();i++) {
+            ItemStack stack = inventory.getItem(i);
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
                     ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(i)));

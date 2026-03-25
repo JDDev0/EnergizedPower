@@ -4,24 +4,23 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.StonecuttingRecipe;
-import net.minecraft.recipe.display.SlotDisplayContexts;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class AutoStonecutterScreen
-        extends SelectableRecipeMachineContainerScreen<StonecuttingRecipe, AutoStonecutterMenu> {
-    public AutoStonecutterScreen(AutoStonecutterMenu menu, PlayerInventory inventory, Text component) {
+        extends SelectableRecipeMachineContainerScreen<StonecutterRecipe, AutoStonecutterMenu> {
+    public AutoStonecutterScreen(AutoStonecutterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/auto_stonecutter.png"),
@@ -29,53 +28,53 @@ public class AutoStonecutterScreen
     }
 
     @Override
-    protected ItemStack getRecipeIcon(RecipeEntry<StonecuttingRecipe> currentRecipe) {
-        return currentRecipe.value().getDisplays().get(0).result().
-                getFirst(SlotDisplayContexts.createParameters(handler.getBlockEntity().getWorld()));
+    protected ItemStack getRecipeIcon(RecipeHolder<StonecutterRecipe> currentRecipe) {
+        return currentRecipe.value().display().get(0).result().
+                resolveForFirstStack(SlotDisplayContext.fromLevel(menu.getBlockEntity().getLevel()));
     }
 
     @Override
-    protected void renderCurrentRecipeTooltip(DrawContext drawContext, int mouseX, int mouseY, RecipeEntry<StonecuttingRecipe> currentRecipe) {
-        ItemStack output = currentRecipe.value().getDisplays().get(0).result().
-                getFirst(SlotDisplayContexts.createParameters(handler.getBlockEntity().getWorld()));
+    protected void renderCurrentRecipeTooltip(GuiGraphics drawContext, int mouseX, int mouseY, RecipeHolder<StonecutterRecipe> currentRecipe) {
+        ItemStack output = currentRecipe.value().display().get(0).result().
+                resolveForFirstStack(SlotDisplayContext.fromLevel(menu.getBlockEntity().getLevel()));
         if(!output.isEmpty()) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
-                    output.getName()));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
+                    output.getHoverName()));
 
             //TODO display cost
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
+    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
         super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
         renderProgressArrow(drawContext, x, y);
     }
 
-    private void renderProgressArrow(DrawContext drawContext, int x, int y) {
-        if(handler.isCraftingActive())
-            drawContext.drawTexture(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, handler.getScaledProgressArrowSize(), 17, 256, 256);
+    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+        if(menu.isCraftingActive())
+            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override
-    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {
+    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
         super.renderTooltipNormalView(drawContext, mouseX, mouseY);
 
         //Missing Pickaxe
-        if(isPointWithinBounds(57, 44, 16, 16, mouseX, mouseY) &&
-                handler.getSlot(4 * 9 + 1).getStack().isEmpty()) {
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.auto_stonecutter.pickaxe_missing").
-                    formatted(Formatting.RED));
+        if(isHovering(57, 44, 16, 16, mouseX, mouseY) &&
+                menu.getSlot(4 * 9 + 1).getItem().isEmpty()) {
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.auto_stonecutter.pickaxe_missing").
+                    withStyle(ChatFormatting.RED));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

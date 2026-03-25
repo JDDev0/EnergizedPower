@@ -2,33 +2,43 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.jddev0.ep.block.EPBlockStateProperties.ConveyorBeltDirection;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.text.Text;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.*;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,28 +46,28 @@ import java.util.function.Consumer;
 
 import static me.jddev0.ep.block.EPBlockStateProperties.ConveyorBeltDirection;
 
-public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConfigurable {
+public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConfigurable {
     public static final MapCodec<ItemConveyorBeltBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(
-                Codecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
+                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
                         forGetter(ItemConveyorBeltBlock::getTier),
-                Settings.CODEC.fieldOf("properties").forGetter(Block::getSettings)
+                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
         ).apply(instance, ItemConveyorBeltBlock::new);
     });
 
     public static final EnumProperty<ConveyorBeltDirection> FACING = EPBlockStateProperties.CONVEYOR_BELT_FACING;
 
-    protected static final VoxelShape SHAPE_FLAT = Block.createCuboidShape(0., 0., 0., 16., 2., 16.);
-    protected static final VoxelShape SHAPE_HALF_BLOCK = Block.createCuboidShape(0., 0., 0., 16., 8., 16.);
+    protected static final VoxelShape SHAPE_FLAT = Block.box(0., 0., 0., 16., 2., 16.);
+    protected static final VoxelShape SHAPE_HALF_BLOCK = Block.box(0., 0., 0., 16., 8., 16.);
 
     private final ConveyorBeltTier tier;
 
-    protected ItemConveyorBeltBlock(ConveyorBeltTier tier, AbstractBlock.Settings props) {
+    protected ItemConveyorBeltBlock(ConveyorBeltTier tier, BlockBehaviour.Properties props) {
         super(props);
 
         this.tier = tier;
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, ConveyorBeltDirection.NORTH_SOUTH));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, ConveyorBeltDirection.NORTH_SOUTH));
     }
 
     public ConveyorBeltTier getTier() {
@@ -65,54 +75,54 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new ItemConveyorBeltBlockEntity(blockPos, state, tier);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public boolean hasComparatorOutput(BlockState state) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World level, BlockPos blockPos, Direction direction) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos blockPos, Direction direction) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof ItemConveyorBeltBlockEntity itemConveyorBeltBlockEntity))
-            return super.getComparatorOutput(state, level, blockPos, direction);
+            return super.getAnalogOutputSignal(state, level, blockPos, direction);
 
         return itemConveyorBeltBlockEntity.getRedstoneOutput();
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld level, BlockPos blockPos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, level, blockPos);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos blockPos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, level, blockPos);
     }
 
     @Override
     @NotNull
-    public ActionResult onUseWrench(ItemUsageContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
-        World level = useOnContext.getWorld();
-        BlockPos blockPos = useOnContext.getBlockPos();
+    public InteractionResult onUseWrench(UseOnContext useOnContext, Direction selectedFace, boolean nextPreviousValue) {
+        Level level = useOnContext.getLevel();
+        BlockPos blockPos = useOnContext.getClickedPos();
 
-        if(level.isClient() || !(level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
-            return ActionResult.SUCCESS;
+        if(level.isClientSide() || !(level.getBlockEntity(blockPos) instanceof ItemConveyorBeltBlockEntity))
+            return InteractionResult.SUCCESS;
 
         BlockState state = level.getBlockState(blockPos);
 
-        PlayerEntity player = useOnContext.getPlayer();
+        Player player = useOnContext.getPlayer();
 
-        EPBlockStateProperties.ConveyorBeltDirection facing = state.get(ItemConveyorBeltBlock.FACING);
+        ConveyorBeltDirection facing = state.getValue(ItemConveyorBeltBlock.FACING);
         Boolean shape;
 
         if(nextPreviousValue) {
@@ -131,41 +141,41 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
                 shape = true;
         }
 
-        level.setBlockState(blockPos, state.with(ItemConveyorBeltBlock.FACING, EPBlockStateProperties.ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
+        level.setBlock(blockPos, state.setValue(ItemConveyorBeltBlock.FACING, ConveyorBeltDirection.of(facing.getDirection(), shape)), 3);
 
-        if(player instanceof ServerPlayerEntity serverPlayer) {
-            serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                    Text.translatable("tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed",
-                            Text.translatable("tooltip.energizedpower.conveyor_belt_direction.slope." + (shape == null?"flat":(shape?"ascending":"descending"))).
-                                    formatted(Formatting.WHITE, Formatting.BOLD)
-                    ).formatted(Formatting.GREEN)
+        if(player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                    Component.translatable("tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed",
+                            Component.translatable("tooltip.energizedpower.conveyor_belt_direction.slope." + (shape == null?"flat":(shape?"ascending":"descending"))).
+                                    withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+                    ).withStyle(ChatFormatting.GREEN)
             ));
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(FACING, ConveyorBeltDirection.of(context.getHorizontalPlayerFacing(), null));
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, ConveyorBeltDirection.of(context.getHorizontalDirection(), null));
     }
 
     @Override
-    public BlockState rotate(BlockState state, BlockRotation rotation) {
-        ConveyorBeltDirection facing = state.get(FACING);
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        ConveyorBeltDirection facing = state.getValue(FACING);
         Boolean slope = facing.getSlope();
 
-        return state.with(FACING, ConveyorBeltDirection.of(rotation.rotate(facing.getDirection()), slope));
+        return state.setValue(FACING, ConveyorBeltDirection.of(rotation.rotate(facing.getDirection()), slope));
     }
 
     @Override
-    public BlockState mirror(BlockState state, BlockMirror mirror) {
-        return state.rotate(mirror.getRotation(state.get(FACING).getDirection()));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING).getDirection()));
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState blockState, BlockView blockGetter, BlockPos blockPos, ShapeContext collisionContext) {
-        ConveyorBeltDirection facing = blockState.get(FACING);
+    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        ConveyorBeltDirection facing = blockState.getValue(FACING);
         if(facing.isAscending() || facing.isDescending())
             return SHAPE_HALF_BLOCK;
 
@@ -173,20 +183,20 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, tier.getItemConveyorBeltBlockEntityFromTier(), ItemConveyorBeltBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, tier.getItemConveyorBeltBlockEntityFromTier(), ItemConveyorBeltBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {
         private final ConveyorBeltTier tier;
 
-        public Item(Block block, Item.Settings props, ConveyorBeltTier tier) {
+        public Item(Block block, Properties props, ConveyorBeltTier tier) {
             super(block, props);
 
             this.tier = tier;
@@ -197,12 +207,12 @@ public class ItemConveyorBeltBlock extends BlockWithEntity implements WrenchConf
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> tooltip, TooltipType type) {
-            if(MinecraftClient.getInstance().isShiftPressed()) {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.wrench_configurable").
-                        formatted(Formatting.GRAY, Formatting.ITALIC));
+        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
+            if(Minecraft.getInstance().hasShiftDown()) {
+                tooltip.accept(Component.translatable("tooltip.energizedpower.wrench_configurable").
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             }else {
-                tooltip.accept(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }
