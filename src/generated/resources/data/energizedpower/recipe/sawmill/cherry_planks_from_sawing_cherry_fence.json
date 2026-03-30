@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "minecraft:cherry_fence",
   "result": {
-    "count": 1,
     "id": "minecraft:cherry_planks"
   },
   "sawdustAmount": 2

@@ -7,7 +7,6 @@
   "ingredient": "minecraft:sponge",
   "mode": "FILLING",
   "result": {
-    "count": 1,
     "id": "minecraft:wet_sponge"
   }
 }

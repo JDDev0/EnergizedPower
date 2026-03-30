@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
@@ -23,17 +23,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final OutputItemStackWithPercentages[] outputs;
+    private final OutputItemStackTemplateWithPercentages[] outputs;
     private final Ingredient input;
     private final int ticks;
 
-    public PlantGrowthChamberRecipe(OutputItemStackWithPercentages[] outputs, Ingredient input, int ticks) {
+    public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input, int ticks) {
         this.outputs = outputs;
         this.input = input;
         this.ticks = ticks;
     }
 
-    public OutputItemStackWithPercentages[] getOutputs() {
+    public OutputItemStackTemplateWithPercentages[] getOutputs() {
         return outputs;
     }
 
@@ -48,8 +48,11 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
     public ItemStack[] getMaxOutputCounts() {
         ItemStack[] generatedOutputs = new ItemStack[outputs.length];
         for(int i = 0;i < outputs.length;i++) {
-            OutputItemStackWithPercentages output = outputs[i];
-            generatedOutputs[i] = output.output().copyWithCount(output.percentages().length);
+            OutputItemStackTemplateWithPercentages output = outputs[i];
+
+            ItemStack outputItemStack = ItemStackUtils.fromNullableItemStackTemplate(output.output());
+
+            generatedOutputs[i] = outputItemStack.copyWithCount(output.percentages().length);
         }
 
         return generatedOutputs;
@@ -59,13 +62,15 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         ItemStack[] generatedOutputs = new ItemStack[outputs.length];
         for(int i = 0;i < outputs.length;i++) {
             int count = 0;
-            OutputItemStackWithPercentages output = outputs[i];
+            OutputItemStackTemplateWithPercentages output = outputs[i];
 
             for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = output.output().copyWithCount(count);
+            ItemStack outputItemStack = ItemStackUtils.fromNullableItemStackTemplate(output.output());
+
+            generatedOutputs[i] = outputItemStack.copyWithCount(count);
         }
 
         return generatedOutputs;
@@ -80,7 +85,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container) {
         return ItemStack.EMPTY;
     }
 
@@ -121,8 +126,12 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return Arrays.stream(outputs).map(OutputItemStackWithPercentages::output).
-                anyMatch(output -> ItemStack.isSameItemSameComponents(output, itemStack));
+        return Arrays.stream(outputs).map(OutputItemStackTemplateWithPercentages::output).
+                anyMatch(output -> {
+                    ItemStack outputItemStack = ItemStackUtils.fromNullableItemStackTemplate(output);
+
+                    return ItemStack.isSameItemSameComponents(outputItemStack, itemStack);
+                });
     }
 
     public static final class Type implements RecipeType<PlantGrowthChamberRecipe> {
@@ -132,14 +141,11 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         public static final String ID = "plant_growth_chamber";
     }
 
-    public static final class Serializer implements RecipeSerializer<PlantGrowthChamberRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("plant_growth_chamber");
-
-        private final MapCodec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(new ArrayCodec<>(OutputItemStackWithPercentages.CODEC_NONEMPTY, OutputItemStackWithPercentages[]::new).
+        private static final MapCodec<PlantGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(new ArrayCodec<>(OutputItemStackTemplateWithPercentages.CODEC_NONEMPTY, OutputItemStackTemplateWithPercentages[]::new).
                     fieldOf("results").forGetter((recipe) -> {
                 return recipe.outputs;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
@@ -149,27 +155,20 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
             })).apply(instance, PlantGrowthChamberRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<PlantGrowthChamberRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
+        public static final RecipeSerializer<PlantGrowthChamberRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("plant_growth_chamber");
 
         private static PlantGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int ticks = buffer.readInt();
 
             int outputCount = buffer.readInt();
-            OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[outputCount];
+            OutputItemStackTemplateWithPercentages[] outputs = new OutputItemStackTemplateWithPercentages[outputCount];
             for(int i = 0;i < outputCount;i++)
-                outputs[i] = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
+                outputs[i] = OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new PlantGrowthChamberRecipe(outputs, input, ticks);
         }
@@ -179,8 +178,8 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
             buffer.writeInt(recipe.ticks);
 
             buffer.writeInt(recipe.outputs.length);
-            for(OutputItemStackWithPercentages output:recipe.outputs)
-                OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
+            for(OutputItemStackTemplateWithPercentages output:recipe.outputs)
+                OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
         }
     }
 }

@@ -54,8 +54,8 @@ public class FluidAnalyzerItem extends EnergizedPowerEnergyItem {
             setEnergy(itemStack, getEnergy(itemStack) - ENERGY_CONSUMPTION_PER_USE);
 
         for(Component component:lines)
-            player.displayClientMessage(component, false);
-        player.displayClientMessage(Component.empty(), false);
+            player.sendSystemMessage(component);
+        player.sendSystemMessage(Component.empty());
     }
 
     private void addOutputTextForFluidStorage(List<Component> components, @Nullable Storage<FluidVariant> fluidStorage, boolean blockFaceSpecificInformation) {

@@ -9,6 +9,7 @@ import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.SawmillRecipe;
 import me.jddev0.ep.screen.SawmillMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -47,14 +48,14 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInp
             return;
 
         itemHandler.removeItem(0, 1);
-        itemHandler.setItem(1, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setItem(1, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getItem(1).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
-        if(!recipe.value().getSecondaryOutput().isEmpty())
-            itemHandler.setItem(2, recipe.value().getSecondaryOutput().
+        if(recipe.value().getSecondaryOutput() != null)
+            itemHandler.setItem(2, ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getSecondaryOutput()).
                     copyWithCount(itemHandler.getItem(2).getCount() +
-                            recipe.value().getSecondaryOutput().getCount()));
+                            recipe.value().getSecondaryOutput().count()));
 
         resetProgress();
     }
@@ -62,8 +63,8 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInp
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<SawmillRecipe> recipe) {
         return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess())) &&
-                (recipe.value().getSecondaryOutput().isEmpty() ||
-                        InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getSecondaryOutput()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null)) &&
+                (recipe.value().getSecondaryOutput() == null ||
+                        InventoryUtils.canInsertItemIntoSlot(inventory, 2, ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getSecondaryOutput())));
     }
 }

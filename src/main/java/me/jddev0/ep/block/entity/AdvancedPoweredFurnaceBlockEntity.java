@@ -344,8 +344,8 @@ public class AdvancedPoweredFurnaceBlockEntity
             return;
 
         blockEntity.itemHandler.removeItem(index, 1);
-        blockEntity.itemHandler.setItem(3 + index, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
-                blockEntity.itemHandler.getItem(3 + index).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
+        blockEntity.itemHandler.setItem(3 + index, recipe.get().value().assemble(null).copyWithCount(
+                blockEntity.itemHandler.getItem(3 + index).getCount() + recipe.get().value().assemble(null).getCount()));
 
         blockEntity.resetProgress(index, blockPos, state);
     }
@@ -360,7 +360,7 @@ public class AdvancedPoweredFurnaceBlockEntity
         Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
 
         return recipe.isPresent() &&
-                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 3 + index, recipe.get().value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 3 + index, recipe.get().value().assemble(null));
     }
 
     private Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> getRecipeFor(Container container, Level level) {

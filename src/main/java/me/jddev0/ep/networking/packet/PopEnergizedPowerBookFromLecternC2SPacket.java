@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<PopEnergizedPowerBookFromLecternC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("pop_energized_power_book_from_lectern"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, PopEnergizedPowerBookFromLecternC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, PopEnergizedPowerBookFromLecternC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(PopEnergizedPowerBookFromLecternC2SPacket::write, PopEnergizedPowerBookFromLecternC2SPacket::new);
 
     public PopEnergizedPowerBookFromLecternC2SPacket(RegistryFriendlyByteBuf buffer) {

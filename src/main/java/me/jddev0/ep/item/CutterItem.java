@@ -5,9 +5,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.block.state.BlockState;
 import me.jddev0.ep.block.CableBlock;
+import org.jspecify.annotations.Nullable;
 
 public class CutterItem extends Item {
     private final RandomSource random = RandomSource.create();
@@ -18,7 +20,7 @@ public class CutterItem extends Item {
     }
 
     @Override
-    public ItemStack getRecipeRemainder(ItemStack itemStack) {
+    public ItemStackTemplate getCraftingRemainder(ItemStack itemStack) {
         ItemStack copy = itemStack.copy();
         //TODO fix for durability enchantment -> Get ServerWorld somehow and use instead of if:
         //     "copy.damage(1, null, null, item -> copy.setCount(0));"
@@ -29,7 +31,7 @@ public class CutterItem extends Item {
                 copy.setCount(0);
         }
 
-        return copy;
+        return copy.isEmpty()?null:ItemStackTemplate.fromNonEmptyStack(copy);
     }
 
     @Override

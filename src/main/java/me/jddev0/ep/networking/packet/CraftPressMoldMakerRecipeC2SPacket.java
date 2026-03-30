@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record CraftPressMoldMakerRecipeC2SPacket(BlockPos pos, Identifier recipeId) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<CraftPressMoldMakerRecipeC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("craft_press_mold_maker_recipe"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, CraftPressMoldMakerRecipeC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, CraftPressMoldMakerRecipeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(CraftPressMoldMakerRecipeC2SPacket::write, CraftPressMoldMakerRecipeC2SPacket::new);
 
     public CraftPressMoldMakerRecipeC2SPacket(RegistryFriendlyByteBuf buffer) {

@@ -96,7 +96,7 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
 
         itemHandler.removeItem(0, recipe.value().getInput().count());
 
-        ItemStack output = recipe.value().generateOutput(level.random);
+        ItemStack output = recipe.value().generateOutput(level.getRandom());
 
         if(!output.isEmpty())
             itemHandler.setItem(1, output.copyWithCount(

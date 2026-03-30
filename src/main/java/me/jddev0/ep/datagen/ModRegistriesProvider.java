@@ -1,6 +1,6 @@
 package me.jddev0.ep.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -8,7 +8,7 @@ import net.minecraft.core.registries.Registries;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRegistriesProvider extends FabricDynamicRegistryProvider {
-    public ModRegistriesProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public ModRegistriesProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider);
     }
 
@@ -20,6 +20,8 @@ public class ModRegistriesProvider extends FabricDynamicRegistryProvider {
         entries.addAll(lookupProvider.lookupOrThrow(Registries.STRUCTURE));
         entries.addAll(lookupProvider.lookupOrThrow(Registries.STRUCTURE_SET));
         entries.addAll(lookupProvider.lookupOrThrow(Registries.PAINTING_VARIANT));
+        entries.addAll(lookupProvider.lookupOrThrow(Registries.VILLAGER_TRADE));
+        entries.addAll(lookupProvider.lookupOrThrow(Registries.TRADE_SET));
     }
 
     @Override

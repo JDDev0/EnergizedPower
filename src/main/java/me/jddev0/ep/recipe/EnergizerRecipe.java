@@ -3,13 +3,13 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -21,21 +21,21 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class EnergizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final Ingredient input;
     private final int energyConsumption;
 
-    public EnergizerRecipe(ItemStack output, Ingredient input, int energyConsumption) {
+    public EnergizerRecipe(ItemStackTemplate output, Ingredient input, int energyConsumption) {
         this.output = output;
         this.input = input;
         this.energyConsumption = energyConsumption;
     }
 
-    public ItemStack getOutputItem() {
+    public ItemStackTemplate getOutput() {
         return output;
     }
 
-    public Ingredient getInputItem() {
+    public Ingredient getInput() {
         return input;
     }
 
@@ -52,8 +52,8 @@ public class EnergizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
-        return output;
+    public ItemStack assemble(RecipeInput container) {
+        return ItemStackUtils.fromNullableItemStackTemplate(this.output);
     }
 
     @Override
@@ -93,6 +93,8 @@ public class EnergizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+
         return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
@@ -103,14 +105,11 @@ public class EnergizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         public static final String ID = "energizer";
     }
 
-    public static final class Serializer implements RecipeSerializer<EnergizerRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("energizer");
-
-        private final MapCodec<EnergizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<EnergizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
@@ -119,23 +118,16 @@ public class EnergizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
             })).apply(instance, EnergizerRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, EnergizerRecipe> PACKET_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, EnergizerRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<EnergizerRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, EnergizerRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
+        public static final RecipeSerializer<EnergizerRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("energizer");
 
         private static EnergizerRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int energyConsumption = buffer.readInt();
-            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new EnergizerRecipe(output, input, energyConsumption);
         }
@@ -143,7 +135,7 @@ public class EnergizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         private static void write(RegistryFriendlyByteBuf buffer, EnergizerRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.energyConsumption);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

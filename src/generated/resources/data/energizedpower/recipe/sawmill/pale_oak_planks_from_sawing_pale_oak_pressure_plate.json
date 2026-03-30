@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "minecraft:pale_oak_pressure_plate",
   "result": {
-    "count": 1,
     "id": "minecraft:pale_oak_planks"
   },
   "sawdustAmount": 2

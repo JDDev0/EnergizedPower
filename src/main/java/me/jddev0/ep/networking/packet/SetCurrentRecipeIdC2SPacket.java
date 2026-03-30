@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public record SetCurrentRecipeIdC2SPacket(BlockPos pos, Identifier recipeId) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetCurrentRecipeIdC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_current_recipe_id"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetCurrentRecipeIdC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetCurrentRecipeIdC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetCurrentRecipeIdC2SPacket::write, SetCurrentRecipeIdC2SPacket::new);
 
     public SetCurrentRecipeIdC2SPacket(RegistryFriendlyByteBuf buffer) {

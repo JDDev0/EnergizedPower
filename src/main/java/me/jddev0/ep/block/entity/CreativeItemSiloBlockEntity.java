@@ -40,12 +40,12 @@ public class CreativeItemSiloBlockEntity
 
     @Override
     protected void readInventoryStorage(ValueInput view) {
-        itemHandler.readData(view);
+        itemHandler.readValue(view);
     }
 
     @Override
     protected void writeInventoryStorage(ValueOutput view) {
-        itemHandler.writeData(view);
+        itemHandler.writeValue(view);
     }
 
     @Nullable

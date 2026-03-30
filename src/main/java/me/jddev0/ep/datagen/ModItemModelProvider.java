@@ -10,6 +10,7 @@ import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
@@ -201,17 +202,17 @@ class ModItemModelProvider {
     private void registerSpecialModels() {
         ItemModel.Unbaked inventoryCoalEngine = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
                 ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE),
-                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE)),
+                TextureMapping.layer0(new Material(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE))),
                 generator.modelOutput
         ));
         ItemModel.Unbaked inventoryCoalEngineOn = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
                 ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_on"),
-                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_on")),
+                TextureMapping.layer0(new Material(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_on"))),
                 generator.modelOutput
         ));
         ItemModel.Unbaked inventoryCoalEngineActive = ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(
                 ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_active"),
-                TextureMapping.layer0(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_active")),
+                TextureMapping.layer0(new Material(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE, "_active"))),
                 generator.modelOutput
         ));
 

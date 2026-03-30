@@ -6,7 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.InventoryChargerMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -132,7 +132,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
                 continue;
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(testItemStack, ContainerItemContext.
-                    ofPlayerSlot(inventory.player, InventoryStorage.of(inventory, null).getSlots().get(i)));
+                    ofPlayerSlot(inventory.player, ContainerStorage.of(inventory, null).getSlots().get(i)));
             if(energyStorage == null)
                 continue;
 
@@ -199,7 +199,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             ItemStack stack = inventory.getItem(i);
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(i)));
+                    ofSingleSlot(ContainerStorage.of(inventory, null).getSlots().get(i)));
             if(energyStorage == null)
                 continue;
 
@@ -403,7 +403,7 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             ItemStack stack = inventory.getItem(i);
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(inventory, null).getSlots().get(i)));
+                    ofSingleSlot(ContainerStorage.of(inventory, null).getSlots().get(i)));
             if(energyStorage == null)
                 continue;
 

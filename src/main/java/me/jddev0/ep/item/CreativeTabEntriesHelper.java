@@ -1,10 +1,10 @@
 package me.jddev0.ep.item;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
-public record CreativeTabEntriesHelper(FabricItemGroupEntries entries) {
+public record CreativeTabEntriesHelper(FabricCreativeModeTabOutput entries) {
     public void accept(ItemLike item) {
         entries.accept(item);
     }

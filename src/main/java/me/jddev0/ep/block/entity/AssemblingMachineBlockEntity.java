@@ -148,9 +148,9 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
             itemHandler.removeItem(indexMinCount, input.count());
         }
 
-        itemHandler.setItem(4, recipe.value().assemble(null, level.registryAccess()).copyWithCount(
+        itemHandler.setItem(4, recipe.value().assemble(null).copyWithCount(
                 itemHandler.getItem(4).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -158,6 +158,6 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<AssemblingMachineRecipe> recipe) {
         return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().assemble(null));
     }
 }

@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -76,7 +76,9 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
     }
 
     @Override
-    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackground(drawContext, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -86,20 +88,13 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
         renderFluidMeterOverlay(drawContext, x, y);
     }
 
-    private void renderFluidMeterOverlay(GuiGraphics drawContext, int x, int y) {
+    private void renderFluidMeterOverlay(GuiGraphicsExtractor drawContext, int x, int y) {
         drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 48, y + 17, 36, 0, 80, 52, 256, 256);
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        super.render(drawContext, mouseX, mouseY, delta);
-
-        renderTooltip(drawContext, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltip(drawContext, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabels(drawContext, mouseX, mouseY);
 
         if(isHovering(48, 17, 80, 52, mouseX, mouseY)) {
             //Fluid meter

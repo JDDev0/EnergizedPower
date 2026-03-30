@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,8 +21,8 @@ public class CoalEngineScreen extends ConfigurableUpgradableEnergyStorageContain
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -30,7 +30,7 @@ public class CoalEngineScreen extends ConfigurableUpgradableEnergyStorageContain
         renderProgressFlame(drawContext, x, y);
     }
 
-    private void renderProgressFlame(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressFlame(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isProducingActive()) {
             int pos = menu.getScaledProgressFlameSize();
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 81, y + 28 + pos, 0, 121 + pos, 14, 14 - pos, 256, 256);

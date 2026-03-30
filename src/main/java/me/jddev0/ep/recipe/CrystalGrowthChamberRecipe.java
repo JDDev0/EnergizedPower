@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
@@ -21,17 +21,17 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final OutputItemStackWithPercentages output;
+    private final OutputItemStackTemplateWithPercentages output;
     private final IngredientWithCount input;
     private final int ticks;
 
-    public CrystalGrowthChamberRecipe(OutputItemStackWithPercentages output, IngredientWithCount input, int ticks) {
+    public CrystalGrowthChamberRecipe(OutputItemStackTemplateWithPercentages output, IngredientWithCount input, int ticks) {
         this.output = output;
         this.input = input;
         this.ticks = ticks;
     }
 
-    public OutputItemStackWithPercentages getOutput() {
+    public OutputItemStackTemplateWithPercentages getOutput() {
         return output;
     }
 
@@ -44,7 +44,9 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
     }
 
     public ItemStack getMaxOutputCount() {
-        return output.output().copyWithCount(output.percentages().length);
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output());
+
+        return output.copyWithCount(this.output.percentages().length);
     }
 
     public ItemStack generateOutput(RandomSource randomSource) {
@@ -54,7 +56,9 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
             if(randomSource.nextDouble() <= percentage)
                 count++;
 
-        return output.output().copyWithCount(count);
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output());
+
+        return output.copyWithCount(count);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container) {
         return ItemStack.EMPTY;
     }
 
@@ -107,7 +111,9 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.isSameItemSameComponents(output.output(), itemStack);
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output());
+
+        return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
     public static final class Type implements RecipeType<CrystalGrowthChamberRecipe> {
@@ -117,14 +123,11 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
         public static final String ID = "crystal_growth_chamber";
     }
 
-    public static final class Serializer implements RecipeSerializer<CrystalGrowthChamberRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("crystal_growth_chamber");
-
-        private final MapCodec<CrystalGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<CrystalGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(OutputItemStackTemplateWithPercentages.CODEC_NONEMPTY.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), IngredientWithCount.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
@@ -133,24 +136,17 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
             })).apply(instance, CrystalGrowthChamberRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<CrystalGrowthChamberRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
+        public static final RecipeSerializer<CrystalGrowthChamberRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("crystal_growth_chamber");
 
         private static CrystalGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
             int ticks = buffer.readInt();
 
-            OutputItemStackWithPercentages output = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
+            OutputItemStackTemplateWithPercentages output = OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new CrystalGrowthChamberRecipe(output, input, ticks);
         }
@@ -159,7 +155,7 @@ public class CrystalGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Reci
             IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.ticks);
 
-            OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

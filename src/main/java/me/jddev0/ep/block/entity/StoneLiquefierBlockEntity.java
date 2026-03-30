@@ -99,7 +99,7 @@ public class StoneLiquefierBlockEntity
 
                 return recipes.stream().map(RecipeHolder::value).map(StoneLiquefierRecipe::getOutput).
                         anyMatch(output -> variant.isOf(output.getFluid()) &&
-                                variant.componentsMatch(output.getFluidVariant().getComponents()));
+                                variant.componentsMatch(output.getFluidVariant().getComponentsPatch()));
             }
 
             @Override
@@ -125,7 +125,7 @@ public class StoneLiquefierBlockEntity
             return;
 
         FluidStack output = new FluidStack(recipe.value().getOutput().getFluidVariant().getFluid(),
-                recipe.value().getOutput().getFluidVariant().getComponents(), recipe.value().getOutput().getDropletsAmount());
+                recipe.value().getOutput().getFluidVariant().getComponentsPatch(), recipe.value().getOutput().getDropletsAmount());
 
 
         try(Transaction transaction = Transaction.openOuter()) {
@@ -146,6 +146,6 @@ public class StoneLiquefierBlockEntity
 
         return level != null && fluidStorage.getCapacity() - fluidAmountInTank >= fluidAmountInRecipe &&
                 (fluidStorage.isEmpty() || (fluidStorage.getResource().isOf(recipe.value().getOutput().getFluid()) &&
-                        fluidStorage.getResource().componentsMatch(recipe.value().getOutput().getFluidVariant().getComponents())));
+                        fluidStorage.getResource().componentsMatch(recipe.value().getOutput().getFluidVariant().getComponentsPatch())));
     }
 }

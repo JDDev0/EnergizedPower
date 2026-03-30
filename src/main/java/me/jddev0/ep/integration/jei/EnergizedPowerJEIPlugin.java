@@ -1,32 +1,11 @@
 package me.jddev0.ep.integration.jei;
 
-import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.item.EPItems;
-import me.jddev0.ep.recipe.*;
-import me.jddev0.ep.screen.*;
-import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
-import me.jddev0.ep.screen.base.IUpgradeModuleMenu;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.recipe.types.IRecipeType;
-import mezz.jei.api.registration.*;
 import net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.DispenserScreen;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import java.util.Arrays;
-import java.util.LinkedList;
 
-public class EnergizedPowerJEIPlugin implements IModPlugin {
+public class EnergizedPowerJEIPlugin /*TODO implements IModPlugin*/ {
     public static SynchronizedRecipes recipeMap = null;
 
+    /*TODO
     @Override
     public Identifier getPluginUid() {
         return EPAPI.id("jei_plugin");
@@ -233,5 +212,5 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addGuiContainerHandler(containerScreenClass, UpgradeModuleScreenClickArea.createRecipeClickArea(
                 containerScreenClass, xPos, yPos, width, height, recipeTypes
         ));
-    }
+    }*/
 }

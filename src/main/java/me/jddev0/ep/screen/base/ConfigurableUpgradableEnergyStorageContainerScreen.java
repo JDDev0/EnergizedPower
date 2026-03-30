@@ -7,7 +7,7 @@ import me.jddev0.ep.networking.packet.ChangeComparatorModeC2SPacket;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -35,6 +35,15 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
                 upgradeViewTexture);
     }
 
+    public ConfigurableUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                                              String energyIndicatorBarTooltipComponentID,
+                                                              Identifier texture,
+                                                              Identifier upgradeViewTexture,
+                                                              int imageWidth, int imageHeight) {
+        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture,
+                upgradeViewTexture, imageWidth, imageHeight);
+    }
+
     @Override
     protected boolean mouseClickedConfiguration(double mouseX, double mouseY, int mouseButton) {
         if(super.mouseClickedConfiguration(mouseX, mouseY, mouseButton))
@@ -58,7 +67,7 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
     }
 
     @Override
-    protected void renderConfiguration(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    protected void renderConfiguration(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         super.renderConfiguration(drawContext, x, y, mouseX, mouseY);
 
         RedstoneMode redstoneMode = menu.getRedstoneMode();
@@ -81,8 +90,8 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
     }
 
     @Override
-    protected void renderTooltipConfiguration(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipConfiguration(drawContext, mouseX, mouseY);
+    protected void extractLabelsConfiguration(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsConfiguration(drawContext, mouseX, mouseY);
 
         if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode

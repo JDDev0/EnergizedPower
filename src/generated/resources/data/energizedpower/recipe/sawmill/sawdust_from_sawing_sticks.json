@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "#c:rods/wooden",
   "result": {
-    "count": 1,
     "id": "energizedpower:sawdust"
   },
   "sawdustAmount": 0

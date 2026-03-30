@@ -8,7 +8,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -28,14 +28,12 @@ public class AdvancedFluidPumpScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
                 EPAPI.id("textures/gui/container/advanced_fluid_pump.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/advanced_fluid_pump.png"));
-
-        imageWidth = 248;
+                EPAPI.id("textures/gui/container/upgrade_view/advanced_fluid_pump.png"), 248, 166);
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -48,11 +46,11 @@ public class AdvancedFluidPumpScreen
         renderInfoText(drawContext, x, y);
     }
 
-    private void renderFluidMeterOverlay(GuiGraphics drawContext, int x, int y, int tank) {
+    private void renderFluidMeterOverlay(GuiGraphicsExtractor drawContext, int x, int y, int tank) {
         drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 206 + (tank%2) * 18, y + 17 + (tank/2) * 54, 16, 0, 16, 52, 256, 256);
     }
 
-    private void renderInfoText(GuiGraphics drawContext, int x, int y) {
+    private void renderInfoText(GuiGraphicsExtractor drawContext, int x, int y) {
         BlockPos targetPos = menu.getBlockEntity().getBlockPos().offset(menu.getTargetOffset());
 
         Component component;
@@ -68,7 +66,7 @@ public class AdvancedFluidPumpScreen
 
         int componentWidth = font.width(component);
 
-        drawContext.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0xFF000000, false);
+        drawContext.text(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 22, 0xFF000000, false);
 
 
         if(menu.getSlot(4 * 9).getItem().isEmpty()) {
@@ -77,7 +75,7 @@ public class AdvancedFluidPumpScreen
 
             componentWidth = font.width(component);
 
-            drawContext.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+            drawContext.text(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
         }else if(menu.isExtractingFluid()) {
             FluidState targetFluidState = menu.getBlockEntity().getLevel().getFluidState(targetPos);
             if(!targetFluidState.isEmpty()) {
@@ -86,14 +84,14 @@ public class AdvancedFluidPumpScreen
 
                 componentWidth = font.width(component);
 
-                drawContext.drawString(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+                drawContext.text(font, component, (int)(x + 35 + (162 - componentWidth) * .5f), y + 58, 0xFF000000, false);
             }
         }
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         for(int i = 0;i < 4;i++) {
             if(isHovering(206 + (i%2) * 18, 17 + (i/2) * 54, 16, 52, mouseX, mouseY)) {

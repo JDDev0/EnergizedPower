@@ -15,7 +15,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -84,7 +84,9 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
     }
 
     @Override
-    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackground(drawContext, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -102,14 +104,14 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
     }
 
-    private void renderFluidMeterOverlay(GuiGraphics drawContext, int x, int y, int tank) {
+    private void renderFluidMeterOverlay(GuiGraphicsExtractor drawContext, int x, int y, int tank) {
         if(tank == 0)
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 17, 16, 0, 16, 52, 256, 256);
         else if(tank == 1)
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 35, 0, 167, 16, 16, 256, 256);
     }
 
-    private void renderCheckboxes(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
@@ -118,15 +120,8 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
     }
 
     @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        super.render(drawContext, mouseX, mouseY, delta);
-
-        renderTooltip(drawContext, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltip(drawContext, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabels(drawContext, mouseX, mouseY);
 
         if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter

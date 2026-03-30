@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
 
 public abstract class AbstractMinecartBatteryBox extends AbstractMinecart implements Container, MenuProvider {
     public AbstractMinecartBatteryBox(EntityType<? extends AbstractMinecartBatteryBox> entityType, Level level) {
@@ -23,7 +24,7 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecart implem
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand interactionHand) {
+    public InteractionResult interact(Player player, InteractionHand interactionHand, Vec3 location) {
         player.openMenu(this);
 
         return player.level().isClientSide()?InteractionResult.SUCCESS:InteractionResult.CONSUME;

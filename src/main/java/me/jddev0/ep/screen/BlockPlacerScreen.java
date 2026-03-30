@@ -6,7 +6,7 @@ import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -41,8 +41,8 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -50,7 +50,7 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
     }
 
-    private void renderCheckboxes(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         if(menu.isInverseRotation()) {
             //Inverse rotation checkbox
 
@@ -59,8 +59,8 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Inverse rotation checkbox

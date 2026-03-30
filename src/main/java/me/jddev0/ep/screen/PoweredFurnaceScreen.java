@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,8 +19,8 @@ public class PoweredFurnaceScreen extends ConfigurableUpgradableEnergyStorageCon
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -28,7 +28,7 @@ public class PoweredFurnaceScreen extends ConfigurableUpgradableEnergyStorageCon
         renderProgressArrow(drawContext, x, y);
     }
 
-    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive())
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }

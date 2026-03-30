@@ -169,7 +169,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
         itemHandler.removeItem(0, 1);
 
-        List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.value().generateOutputs(level.random)));
+        List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.value().generateOutputs(level.getRandom())));
 
         List<Integer> emptyIndices = new ArrayList<>(4);
         outer:

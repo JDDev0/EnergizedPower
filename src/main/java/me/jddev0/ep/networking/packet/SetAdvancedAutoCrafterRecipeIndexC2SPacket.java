@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_recipe_index"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
 
     public SetAdvancedAutoCrafterRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {

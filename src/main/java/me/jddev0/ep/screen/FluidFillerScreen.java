@@ -5,7 +5,7 @@ import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScre
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,8 +22,8 @@ public class FluidFillerScreen extends ConfigurableUpgradableEnergyStorageContai
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -32,13 +32,13 @@ public class FluidFillerScreen extends ConfigurableUpgradableEnergyStorageContai
         renderFluidMeterOverlay(drawContext, x, y);
     }
 
-    private void renderFluidMeterOverlay(GuiGraphics drawContext, int x, int y) {
+    private void renderFluidMeterOverlay(GuiGraphicsExtractor drawContext, int x, int y) {
         drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(152, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter

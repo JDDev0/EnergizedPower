@@ -6,7 +6,7 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.advancements.Advancement;
@@ -21,7 +21,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
@@ -29,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModBasicsAdvancements extends FabricAdvancementProvider {
-    public ModBasicsAdvancements(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public ModBasicsAdvancements(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 
@@ -495,8 +495,7 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPBlocks.COAL_ENGINE_ITEM, "coal_engine", AdvancementType.TASK
         );
 
-        ItemStack inventoryCoalEngineIcon = new ItemStack(EPItems.INVENTORY_COAL_ENGINE);
-        inventoryCoalEngineIcon.applyComponentsAndValidate(DataComponentPatch.builder().
+        ItemStackTemplate inventoryCoalEngineIcon = new ItemStackTemplate(EPItems.INVENTORY_COAL_ENGINE, DataComponentPatch.builder().
                 set(EPDataComponentTypes.ACTIVE, true).
                 set(EPDataComponentTypes.WORKING, true).
                 build());
@@ -683,13 +682,13 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
                                             ItemLike icon, String advancementId, AdvancementType type,
                                             ItemLike trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
     private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
                                             ItemLike icon, String advancementId, AdvancementType type,
                                             TagKey<Item> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                         lookupProvider.lookupOrThrow(Registries.ITEM),
                         trigger
@@ -698,10 +697,10 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
                                             ItemLike icon, String advancementId, AdvancementType type,
                                             Criterion<?> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type, trigger);
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type, trigger);
     }
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemStack icon, String advancementId, AdvancementType type,
+                                            ItemStackTemplate icon, String advancementId, AdvancementType type,
                                             Criterion<?> trigger) {
         return Advancement.Builder.advancement().parent(parent).
                 display(

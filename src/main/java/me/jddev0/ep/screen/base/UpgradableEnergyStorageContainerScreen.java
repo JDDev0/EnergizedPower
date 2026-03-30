@@ -3,7 +3,7 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -54,6 +54,15 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
+    public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                                  String energyIndicatorBarTooltipComponentID, Identifier texture,
+                                                  Identifier upgradeViewTexture,
+                                                  int imageWidth, int imageHeight) {
+        super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture, imageWidth, imageHeight);
+
+        this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
+    }
+
     protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
         return false;
     }
@@ -89,11 +98,11 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         return super.mouseClicked(click, doubled);
     }
 
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {}
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {}
 
     @Override
-    protected final void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(drawContext, partialTick, mouseX, mouseY);
+    public final void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackground(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -101,13 +110,13 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         if(menu.isInUpgradeModuleView()) {
             drawContext.blit(RenderPipelines.GUI_TEXTURED, UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
         }else {
-            renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+            extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
         }
 
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
 
-    protected void renderConfiguration(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    protected void renderConfiguration(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         //Upgrade view
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             drawContext.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20, 256, 256);
@@ -118,9 +127,9 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         }
     }
 
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {}
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {}
 
-    protected void renderTooltipConfiguration(GuiGraphics drawContext, int mouseX, int mouseY) {
+    protected void extractLabelsConfiguration(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Upgrade view
 
@@ -133,12 +142,12 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     }
 
     @Override
-    protected final void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltip(drawContext, mouseX, mouseY);
+    protected final void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabels(drawContext, mouseX, mouseY);
 
         if(!menu.isInUpgradeModuleView())
-            renderTooltipNormalView(drawContext, mouseX, mouseY);
+            extractLabelsNormalView(drawContext, mouseX, mouseY);
 
-        renderTooltipConfiguration(drawContext, mouseX, mouseY);
+        extractLabelsConfiguration(drawContext, mouseX, mouseY);
     }
 }

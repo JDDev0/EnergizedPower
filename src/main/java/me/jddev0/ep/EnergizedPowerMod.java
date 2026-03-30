@@ -17,12 +17,13 @@ import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.EPMenuTypes;
-import me.jddev0.ep.villager.EPVillager;
+import me.jddev0.ep.villager.EPPoiTypes;
+import me.jddev0.ep.villager.EPVillagerProfessions;
 import me.jddev0.ep.world.gen.ModWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.resources.ResourceKey;
@@ -43,7 +44,8 @@ public class EnergizedPowerMod implements ModInitializer {
         EPBlockEntities.register();
         EPRecipes.register();
         EPMenuTypes.register();
-        EPVillager.register();
+        EPPoiTypes.register();
+        EPVillagerProfessions.register();
         EPEntityTypes.register();
 
         EPFluids.register();
@@ -381,7 +383,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
     private void addCreativeTabFor(ResourceKey<CreativeModeTab> groupKey,
                                    Consumer<CreativeTabEntriesHelper> consumer) {
-        ItemGroupEvents.modifyEntriesEvent(groupKey).
+        CreativeModeTabEvents.modifyOutputEvent(groupKey).
                 register(entries -> consumer.accept(new CreativeTabEntriesHelper(entries)));
     }
 }

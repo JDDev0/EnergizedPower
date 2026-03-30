@@ -16,7 +16,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -54,7 +54,7 @@ public class FluidDrainerBlockEntity
             return true;
 
         Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(i)));
+                ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(i)));
         if(fluidStorage == null)
             return true;
 
@@ -238,7 +238,7 @@ public class FluidDrainerBlockEntity
                 return;
 
             Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
+                    ofSingleSlot(ContainerStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
             if(fluidStorage == null)
                 return;
 
@@ -307,7 +307,7 @@ public class FluidDrainerBlockEntity
         ItemStack itemStack = itemHandler.getItem(0);
         if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null) {
             Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(0)));
+                    ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(0)));
             if(fluidStorage == null)
                 return false;
             for(StorageView<FluidVariant> fluidView:fluidStorage) {

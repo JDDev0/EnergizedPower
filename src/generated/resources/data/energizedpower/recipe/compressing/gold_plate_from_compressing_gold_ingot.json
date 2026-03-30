@@ -4,7 +4,6 @@
     "ingredient": "#c:ingots/gold"
   },
   "result": {
-    "count": 1,
     "id": "energizedpower:gold_plate"
   }
 }

@@ -6,7 +6,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -74,21 +74,21 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         return super.mouseClicked(click, doubled);
     }
 
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {}
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {}
 
     @Override
-    protected final void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(drawContext, partialTick, mouseX, mouseY);
+    public final void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackground(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+        extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
 
-    protected void renderConfiguration(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    protected void renderConfiguration(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         RedstoneMode redstoneMode = menu.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
@@ -99,9 +99,9 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         }
     }
 
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {}
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {}
 
-    protected void renderTooltipConfiguration(GuiGraphics drawContext, int mouseX, int mouseY) {
+    protected void extractLabelsConfiguration(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
@@ -115,11 +115,11 @@ public abstract class ConfigurableEnergyStorageContainerScreen
     }
 
     @Override
-    protected final void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltip(drawContext, mouseX, mouseY);
+    protected final void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabels(drawContext, mouseX, mouseY);
 
-        renderTooltipNormalView(drawContext, mouseX, mouseY);
+        extractLabelsNormalView(drawContext, mouseX, mouseY);
 
-        renderTooltipConfiguration(drawContext, mouseX, mouseY);
+        extractLabelsConfiguration(drawContext, mouseX, mouseY);
     }
 }

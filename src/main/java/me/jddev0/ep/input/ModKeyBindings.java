@@ -8,7 +8,7 @@ import me.jddev0.ep.networking.packet.UseTeleporterC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -24,7 +24,7 @@ public final class ModKeyBindings {
     public static final KeyMapping.Category KEY_CATEGORY_ENERGIZED_POWER = KeyMapping.Category.register(EPAPI.id("main"));
     public static final String KEY_TELEPORTER_USE = "key.energizedpower.teleporter.use";
 
-    public static final KeyMapping TELEPORTER_USE_KEY = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+    public static final KeyMapping TELEPORTER_USE_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             KEY_TELEPORTER_USE, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, KEY_CATEGORY_ENERGIZED_POWER));
 
     public static void register() {

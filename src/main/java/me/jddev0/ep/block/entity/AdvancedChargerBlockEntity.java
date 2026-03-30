@@ -16,7 +16,7 @@ import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.screen.AdvancedChargerMenu;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -65,7 +65,7 @@ public class AdvancedChargerBlockEntity
             return true;
 
         EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(i)));
+                ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(i)));
         if(limitingEnergyStorage == null)
             return true;
 
@@ -248,7 +248,7 @@ public class AdvancedChargerBlockEntity
                         continue;
 
                     EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                            ofSingleSlot(InventoryStorage.of(blockEntity.itemHandler, null).getSlots().get(i)));
+                            ofSingleSlot(ContainerStorage.of(blockEntity.itemHandler, null).getSlots().get(i)));
                     if(limitingEnergyStorage == null)
                         continue;
 
@@ -289,7 +289,7 @@ public class AdvancedChargerBlockEntity
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(advancedChargerRecipe ->
-                            blockEntity.itemHandler.setItem(index, advancedChargerRecipe.value().assemble(null, level.registryAccess()).copyWithCount(1)));
+                            blockEntity.itemHandler.setItem(index, advancedChargerRecipe.value().assemble(null).copyWithCount(1)));
 
                     blockEntity.resetProgress(i);
                 }
@@ -327,7 +327,7 @@ public class AdvancedChargerBlockEntity
                     continue;
 
                 EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                        ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(i)));
+                        ofSingleSlot(ContainerStorage.of(this.itemHandler, null).getSlots().get(i)));
                 if(limitingEnergyStorage == null)
                     continue;
 

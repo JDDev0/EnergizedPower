@@ -9,7 +9,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.gui.ActiveTextCollector;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.TextAlignment;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -319,10 +319,10 @@ public class EnergizedPowerBookScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        super.renderBackground(drawContext, mouseX, mouseY, delta);
+    public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float delta) {
+        super.extractBackground(drawContext, mouseX, mouseY, delta);
 
-        ActiveTextCollector textDrawer = drawContext.textRenderer(GuiGraphics.HoveredTextEffects.TOOLTIP_AND_CURSOR);
+        ActiveTextCollector textDrawer = drawContext.textRenderer(GuiGraphicsExtractor.HoveredTextEffects.TOOLTIP_AND_CURSOR);
 
         if(formattedPages == null)
             return;
@@ -345,7 +345,7 @@ public class EnergizedPowerBookScreen extends Screen {
         }
 
         int textWidth = font.width(currentPageNumberOutput);
-        drawContext.drawString(font, currentPageNumberOutput, (int)((width - textWidth) / 2.f), 222, 0xFFFFFFFF, false);
+        drawContext.text(font, currentPageNumberOutput, (int)((width - textWidth) / 2.f), 222, 0xFFFFFFFF, false);
 
         if(currentPage == 0) {
             renderFrontCover(drawContext);
@@ -377,7 +377,7 @@ public class EnergizedPowerBookScreen extends Screen {
                 yOffset -= 60 * .5f / scaleFactor;
 
             drawContext.pose().scale(scaleFactor, scaleFactor);
-            drawContext.drawString(font, chapterTitleComponent, (int)((width / scaleFactor - font.width(chapterTitleComponent)) * .5f),
+            drawContext.text(font, chapterTitleComponent, (int)((width / scaleFactor - font.width(chapterTitleComponent)) * .5f),
                     yOffset, 0xFF000000, false);
             drawContext.pose().scale(1/scaleFactor, 1/scaleFactor);
 
@@ -449,7 +449,7 @@ public class EnergizedPowerBookScreen extends Screen {
         }
     }
 
-    private void renderFrontCover(GuiGraphics drawContext) {
+    private void renderFrontCover(GuiGraphicsExtractor drawContext) {
         int startX = (width - 226) / 2;
 
         float scaleFactor = 1.35f;
@@ -458,23 +458,23 @@ public class EnergizedPowerBookScreen extends Screen {
         int textWidth = font.width(component);
 
         drawContext.pose().scale(scaleFactor, scaleFactor);
-        drawContext.drawString(font, component, (int)((width / scaleFactor - textWidth) * .5f),
+        drawContext.text(font, component, (int)((width / scaleFactor - textWidth) * .5f),
                 (int)(30 / scaleFactor), 0xFF000000, false);
         drawContext.pose().scale(1/scaleFactor, 1/scaleFactor);
 
         component = Component.translatable("book.byAuthor", "JDDev0").withStyle(ChatFormatting.GOLD);
         textWidth = font.width(component);
-        drawContext.drawString(font, component, (int)((width - textWidth) * .5f), 192 - 45, 0xFF000000, false);
+        drawContext.text(font, component, (int)((width - textWidth) * .5f), 192 - 45, 0xFF000000, false);
 
         for(int i = 0;i < formattedPages.get(currentPage).getPageFormattedTexts().size();i++) {
             FormattedCharSequence formattedCharSequence = formattedPages.get(currentPage).getPageFormattedTexts().get(i);
-            drawContext.drawString(font, formattedCharSequence, startX + 36, 120 + 9 * i, 0xFF000000, false);
+            drawContext.text(font, formattedCharSequence, startX + 36, 120 + 9 * i, 0xFF000000, false);
         }
 
         renderImageCentered(drawContext, ENERGIZED_COPPER_INGOT, 48);
     }
 
-    private void renderImageCentered(GuiGraphics drawContext, Identifier image, int y) {
+    private void renderImageCentered(GuiGraphicsExtractor drawContext, Identifier image, int y) {
         float scaleFactor = .25f;
 
         if(y == -1) //Centered
@@ -485,7 +485,7 @@ public class EnergizedPowerBookScreen extends Screen {
         drawContext.pose().scale(1/scaleFactor, 1/scaleFactor);
     }
 
-    private void renderBlockCentered(GuiGraphics drawContext, Identifier blockResourceLocation, int y) {
+    private void renderBlockCentered(GuiGraphicsExtractor drawContext, Identifier blockResourceLocation, int y) {
         if(y == -1) //Centered
             y = (int)((230 - 64) * .5f) + 2;
 
@@ -496,7 +496,7 @@ public class EnergizedPowerBookScreen extends Screen {
         drawContext.pose().translate((width - 16.f * 4.f) * .5f, y - 4.f * .5f);
         drawContext.pose().scale(4.f, 4.f);
 
-        drawContext.renderFakeItem(itemStack, 0, 0);
+        drawContext.fakeItem(itemStack, 0, 0);
 
         drawContext.pose().popMatrix();
     }

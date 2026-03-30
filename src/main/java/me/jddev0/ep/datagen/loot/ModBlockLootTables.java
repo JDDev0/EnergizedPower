@@ -2,8 +2,8 @@ package me.jddev0.ep.datagen.loot;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.item.EPItems;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModBlockLootTables extends FabricBlockLootTableProvider {
-    public ModBlockLootTables(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+public class ModBlockLootTables extends FabricBlockLootSubProvider {
+    public ModBlockLootTables(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 

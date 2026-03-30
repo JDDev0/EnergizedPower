@@ -169,7 +169,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
                             if(alreadyCheckedFluidType.equals(fluidVariantInTank))
                                 continue tankLoop;
 
-                        extractedFluidType = FluidVariant.of(fluidVariantInTank.getFluid(), fluidVariantInTank.getComponents());
+                        extractedFluidType = FluidVariant.of(fluidVariantInTank.getFluid(), fluidVariantInTank.getComponentsPatch());
                     }
 
                     if(!fluidVariantInTank.equals(extractedFluidType))
@@ -289,7 +289,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         for(int i = 0;i < fluidProduction.size();i++) {
             long amount = fluidProductionDistributed.get(i) + realProductionAmountMissing;
             if(amount > 0) {
-                FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponents());
+                FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponentsPatch());
                 long realExtract;
                 try(Transaction transaction = Transaction.openOuter()) {
                     realExtract = fluidProduction.get(i).extract(extract, amount, transaction);
@@ -304,7 +304,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //Retry extraction of all producers if something is missing
         if(realProductionAmountMissing > 0) {
             for(Storage<FluidVariant> producer:fluidProduction) {
-                FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponents());
+                FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponentsPatch());
                 long realExtract;
                 try(Transaction transaction = Transaction.openOuter()) {
                     realExtract = producer.extract(extract, realProductionAmountMissing, transaction);
@@ -350,7 +350,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         for(int i = 0;i < fluidConsumption.size();i++) {
             long amount = fluidConsumptionDistributed.get(i) + realConsumptionAmountMissing;
             if(amount > 0) {
-                FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponents());
+                FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponentsPatch());
                 long realInsert;
                 try(Transaction transaction = Transaction.openOuter()) {
                     realInsert = fluidConsumption.get(i).insert(insert, amount, transaction);
@@ -365,7 +365,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         //Retry insertion to all consumers if something is missing
         if(realConsumptionAmountMissing > 0) {
             for(Storage<FluidVariant> consumer:fluidConsumption) {
-                FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponents());
+                FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponentsPatch());
                 long realInsert;
                 try(Transaction transaction = Transaction.openOuter()) {
                     realInsert = consumer.insert(insert, realConsumptionAmountMissing, transaction);

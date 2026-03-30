@@ -2,7 +2,6 @@
   "type": "energizedpower:crusher",
   "ingredient": "minecraft:red_sandstone",
   "result": {
-    "count": 1,
     "id": "minecraft:red_sand"
   }
 }

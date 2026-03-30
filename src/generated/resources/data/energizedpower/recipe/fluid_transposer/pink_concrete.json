@@ -7,7 +7,6 @@
   "ingredient": "minecraft:pink_concrete_powder",
   "mode": "FILLING",
   "result": {
-    "count": 1,
     "id": "minecraft:pink_concrete"
   }
 }

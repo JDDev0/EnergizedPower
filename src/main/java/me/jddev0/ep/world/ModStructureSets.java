@@ -36,7 +36,6 @@ public final class ModStructureSets {
     }
 
     public static ResourceKey<StructureSet> registerKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE_SET,
-                EPAPI.id(name));
+        return ResourceKey.create(Registries.STRUCTURE_SET, EPAPI.id(name));
     }
 }

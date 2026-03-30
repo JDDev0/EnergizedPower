@@ -33,7 +33,6 @@ public final class ModTemplatePools {
     }
 
     public static ResourceKey<StructureTemplatePool> registerKey(String name) {
-        return ResourceKey.create(Registries.TEMPLATE_POOL,
-                EPAPI.id(name));
+        return ResourceKey.create(Registries.TEMPLATE_POOL, EPAPI.id(name));
     }
 }

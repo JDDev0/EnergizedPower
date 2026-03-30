@@ -18,7 +18,7 @@ import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.screen.ChargerMenu;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -67,7 +67,7 @@ public class ChargerBlockEntity
             return true;
 
         EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(i)));
+                ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(i)));
         if(limitingEnergyStorage == null)
             return true;
 
@@ -237,7 +237,7 @@ public class ChargerBlockEntity
                     return;
 
                 EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                        ofSingleSlot(InventoryStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
+                        ofSingleSlot(ContainerStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
                 if(limitingEnergyStorage == null)
                     return;
 
@@ -277,7 +277,7 @@ public class ChargerBlockEntity
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.itemHandler.setItem(0, chargerRecipe.value().assemble(null, level.registryAccess()).copyWithCount(1)));
+                        blockEntity.itemHandler.setItem(0, chargerRecipe.value().assemble(null).copyWithCount(1)));
 
                 blockEntity.resetProgress();
             }
@@ -304,7 +304,7 @@ public class ChargerBlockEntity
                 return -1;
 
             EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(0)));
+                    ofSingleSlot(ContainerStorage.of(this.itemHandler, null).getSlots().get(0)));
             if(limitingEnergyStorage == null)
                 return -1;
 

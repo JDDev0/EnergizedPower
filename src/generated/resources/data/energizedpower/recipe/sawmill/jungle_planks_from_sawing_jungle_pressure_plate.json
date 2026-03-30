@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "minecraft:jungle_pressure_plate",
   "result": {
-    "count": 1,
     "id": "minecraft:jungle_planks"
   },
   "sawdustAmount": 2

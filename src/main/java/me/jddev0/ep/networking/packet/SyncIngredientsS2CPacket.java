@@ -17,7 +17,7 @@ import java.util.List;
 public final class SyncIngredientsS2CPacket implements CustomPacketPayload {
     public static final Type<SyncIngredientsS2CPacket> ID =
             new Type<>(EPAPI.id("sync_ingredients"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SyncIngredientsS2CPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncIngredientsS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(SyncIngredientsS2CPacket::write, SyncIngredientsS2CPacket::new);
 
     private final BlockPos pos;

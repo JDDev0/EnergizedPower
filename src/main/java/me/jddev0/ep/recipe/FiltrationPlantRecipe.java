@@ -3,7 +3,7 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
@@ -21,21 +21,21 @@ import java.util.List;
 import java.util.Optional;
 
 public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final OutputItemStackWithPercentages output;
-    private final OutputItemStackWithPercentages secondaryOutput;
+    private final OutputItemStackTemplateWithPercentages output;
+    private final OutputItemStackTemplateWithPercentages secondaryOutput;
     private final Identifier icon;
 
-    public FiltrationPlantRecipe(OutputItemStackWithPercentages output, OutputItemStackWithPercentages secondaryOutput, Identifier icon) {
+    public FiltrationPlantRecipe(OutputItemStackTemplateWithPercentages output, OutputItemStackTemplateWithPercentages secondaryOutput, Identifier icon) {
         this.output = output;
         this.secondaryOutput = secondaryOutput;
         this.icon = icon;
     }
 
-    public OutputItemStackWithPercentages getOutput() {
+    public OutputItemStackTemplateWithPercentages getOutput() {
         return output;
     }
 
-    public OutputItemStackWithPercentages getSecondaryOutput() {
+    public OutputItemStackTemplateWithPercentages getSecondaryOutput() {
         return secondaryOutput;
     }
 
@@ -46,8 +46,11 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
     public ItemStack[] getMaxOutputCounts() {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = output.output().copyWithCount(output.percentages().length);
-        generatedOutputs[1] = secondaryOutput.output().copyWithCount(secondaryOutput.percentages().length);
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output());
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output());
+
+        generatedOutputs[0] = output.copyWithCount(this.output.percentages().length);
+        generatedOutputs[1] = secondaryOutput.copyWithCount(this.secondaryOutput.percentages().length);
 
         return generatedOutputs;
     }
@@ -56,13 +59,15 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         ItemStack[] generatedOutputs = new ItemStack[2];
         for(int i = 0;i < 2;i++) {
             int count = 0;
-            OutputItemStackWithPercentages output = i == 0?this.output:this.secondaryOutput;
+            OutputItemStackTemplateWithPercentages output = i == 0?this.output:this.secondaryOutput;
 
             for(double percentage:output.percentages())
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = output.output().copyWithCount(count);
+            ItemStack outputItemStack = ItemStackUtils.fromNullableItemStackTemplate(output.output());
+
+            generatedOutputs[i] = outputItemStack.copyWithCount(count);
         }
 
         return generatedOutputs;
@@ -74,7 +79,7 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container) {
         return ItemStack.EMPTY;
     }
 
@@ -110,8 +115,11 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.isSameItemSameComponents(output.output(), itemStack) || (secondaryOutput != null &&
-                ItemStack.isSameItemSameComponents(secondaryOutput.output(), itemStack));
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output());
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output());
+
+        return ItemStack.isSameItemSameComponents(output, itemStack) || (!secondaryOutput.isEmpty() &&
+                ItemStack.isSameItemSameComponents(secondaryOutput, itemStack));
     }
 
     @Override
@@ -126,40 +134,30 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         public static final String ID = "filtration_plant";
     }
 
-    public static final class Serializer implements RecipeSerializer<FiltrationPlantRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("filtration_plant");
-
-        private final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<FiltrationPlantRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(OutputItemStackTemplateWithPercentages.CODEC_NONEMPTY.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
+            }), OutputItemStackTemplateWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
             }), Identifier.CODEC.fieldOf("icon").forGetter((recipe) -> {
                 return recipe.icon;
             })).apply(instance, (output, secondaryOutput, icon) -> new FiltrationPlantRecipe(output,
-                    secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), icon));
+                    secondaryOutput.orElse(OutputItemStackTemplateWithPercentages.EMPTY), icon));
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> PACKET_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<FiltrationPlantRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
+        public static final RecipeSerializer<FiltrationPlantRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("filtration_plant");
 
         private static FiltrationPlantRecipe read(RegistryFriendlyByteBuf buffer) {
-            OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
+            OutputItemStackTemplateWithPercentages[] outputs = new OutputItemStackTemplateWithPercentages[2];
             for(int i = 0;i < 2;i++)
-                outputs[i] = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
+                outputs[i] = OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             Identifier icon = buffer.readIdentifier();
 
@@ -168,8 +166,8 @@ public class FiltrationPlantRecipe implements EnergizedPowerBaseRecipe<RecipeInp
 
         private static void write(RegistryFriendlyByteBuf buffer, FiltrationPlantRecipe recipe) {
             for(int i = 0;i < 2;i++) {
-                OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
+                OutputItemStackTemplateWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
+                OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
             }
 
             buffer.writeIdentifier(recipe.icon);

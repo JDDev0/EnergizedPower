@@ -148,7 +148,7 @@ public class AdvancedPulverizerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        ItemStack[] outputs = recipe.value().generateOutputs(level.random, true);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom(), true);
 
         try(Transaction transaction = Transaction.openOuter()) {
             fluidStorage.extract(FluidVariant.of(Fluids.WATER), WATER_CONSUMPTION_PER_RECIPE, transaction);

@@ -4,12 +4,12 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
-import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -22,15 +22,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final IngredientWithCount[] inputs;
 
-    public AssemblingMachineRecipe(ItemStack output, IngredientWithCount[] inputs) {
+    public AssemblingMachineRecipe(ItemStackTemplate output, IngredientWithCount[] inputs) {
         this.output = output;
         this.inputs = inputs;
     }
 
-    public ItemStack getOutput() {
+    public ItemStackTemplate getOutput() {
         return output;
     }
 
@@ -82,8 +82,8 @@ public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeI
 
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
-        return output;
+    public ItemStack assemble(RecipeInput container) {
+        return ItemStackUtils.fromNullableItemStackTemplate(this.output);
     }
 
     @Override
@@ -123,6 +123,8 @@ public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeI
 
     @Override
     public boolean isResult(ItemStack itemStack) {
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+
         return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
@@ -133,32 +135,22 @@ public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeI
         public static final String ID = "assembling_machine";
     }
 
-    public static final class Serializer implements RecipeSerializer<AssemblingMachineRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("assembling_machine");
-
-        private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("ingredients").forGetter((recipe) -> {
                 return recipe.inputs;
             })).apply(instance, AssemblingMachineRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> PACKET_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<AssemblingMachineRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
+        public static final RecipeSerializer<AssemblingMachineRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("assembling_machine");
 
         private static AssemblingMachineRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
@@ -166,7 +158,7 @@ public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeI
             for(int i = 0;i < len;i++)
                 inputs[i] = IngredientWithCount.STREAM_CODEC.decode(buffer);
 
-            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new AssemblingMachineRecipe(output, inputs);
         }
@@ -176,7 +168,7 @@ public class AssemblingMachineRecipe implements EnergizedPowerBaseRecipe<RecipeI
             for(int i = 0; i < recipe.inputs.length; i++)
                 IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.inputs[i]);
 
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

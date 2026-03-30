@@ -7,6 +7,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -205,8 +206,8 @@ public class CoalEngineBlockEntity
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
-                    if(!item.getRecipeRemainder().isEmpty())
-                        blockEntity.itemHandler.setItem(0, item.getRecipeRemainder());
+                    if(item.getCraftingRemainder() != null)
+                        blockEntity.itemHandler.setItem(0, ItemStackUtils.fromNullableItemStackTemplate(item.getCraftingRemainder()));
                     else
                         blockEntity.itemHandler.removeItem(0, 1);
                 }
@@ -346,6 +347,6 @@ public class CoalEngineBlockEntity
         if(blockEntity.level == null || blockEntity.level.fuelValues().burnDuration(item) <= 0)
             return false;
 
-        return item.getRecipeRemainder().isEmpty() || item.getCount() == 1;
+        return item.getCraftingRemainder() == null || item.getCount() == 1;
     }
 }

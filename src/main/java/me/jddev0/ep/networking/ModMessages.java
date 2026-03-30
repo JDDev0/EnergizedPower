@@ -16,32 +16,32 @@ public final class ModMessages {
 
     public static void registerTypedPayloads() {
         //Server -> Client
-        PayloadTypeRegistry.playS2C().register(EnergySyncS2CPacket.ID, EnergySyncS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(FluidSyncS2CPacket.ID, FluidSyncS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playS2C().register(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket.PACKET_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(EnergySyncS2CPacket.ID, EnergySyncS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(FluidSyncS2CPacket.ID, FluidSyncS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncIngredientsS2CPacket.ID, SyncIngredientsS2CPacket.STREAM_CODEC);
 
         //Client -> Server
-        PayloadTypeRegistry.playC2S().register(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket.PACKET_CODEC);
-        PayloadTypeRegistry.playC2S().register(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket.PACKET_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetFluidTankFilterC2SPacket.ID, SetFluidTankFilterC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket.STREAM_CODEC);
     }
 
     public static void registerPacketsS2C() {

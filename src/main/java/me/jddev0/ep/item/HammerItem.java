@@ -5,6 +5,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.ToolMaterial;
 
 public class HammerItem extends Item {
@@ -16,7 +17,7 @@ public class HammerItem extends Item {
     }
 
     @Override
-    public ItemStack getRecipeRemainder(ItemStack itemStack) {
+    public ItemStackTemplate getCraftingRemainder(ItemStack itemStack) {
         ItemStack copy = itemStack.copy();
         //TODO fix for durability enchantment -> Get ServerWorld somehow and use instead of if:
         //     "copy.damage(1, null, null, item -> copy.setCount(0));"
@@ -27,6 +28,6 @@ public class HammerItem extends Item {
                 copy.setCount(0);
         }
 
-        return copy;
+        return copy.isEmpty()?null:ItemStackTemplate.fromNonEmptyStack(copy);
     }
 }

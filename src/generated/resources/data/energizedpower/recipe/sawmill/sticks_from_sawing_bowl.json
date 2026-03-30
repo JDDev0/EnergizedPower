@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "minecraft:bowl",
   "result": {
-    "count": 1,
     "id": "minecraft:stick"
   },
   "sawdustAmount": 2

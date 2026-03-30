@@ -7,7 +7,7 @@ import me.jddev0.ep.screen.base.UpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -51,8 +51,8 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -61,7 +61,7 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
         renderInfoText(drawContext, x, y);
     }
 
-    private void renderButtons(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         int selectedWeatherType = menu.getSelectedWeatherType();
 
         //Weather clear button
@@ -86,19 +86,19 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
         }
     }
 
-    private void renderInfoText(GuiGraphics drawContext, int x, int y) {
+    private void renderInfoText(GuiGraphicsExtractor drawContext, int x, int y) {
         Component component = menu.hasEnoughEnergy()?
                 Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN):
                 Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED);
 
         int componentWidth = font.width(component);
 
-        drawContext.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+        drawContext.text(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button

@@ -9,7 +9,6 @@
         0.33
       ],
       "result": {
-        "count": 1,
         "id": "minecraft:wheat_seeds"
       }
     },
@@ -20,7 +19,6 @@
         0.25
       ],
       "result": {
-        "count": 1,
         "id": "minecraft:wheat"
       }
     }

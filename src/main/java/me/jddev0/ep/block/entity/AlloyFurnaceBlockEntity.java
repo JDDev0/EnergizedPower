@@ -11,6 +11,7 @@ import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -207,8 +208,8 @@ public class AlloyFurnaceBlockEntity
                     blockEntity.onHasEnoughFuel();
                     hasNotEnoughFuel = false;
 
-                    if(!item.getRecipeRemainder().isEmpty())
-                        blockEntity.itemHandler.setItem(3, item.getRecipeRemainder());
+                    if(item.getCraftingRemainder() != null)
+                        blockEntity.itemHandler.setItem(3, ItemStackUtils.fromNullableItemStackTemplate(item.getCraftingRemainder()));
                     else
                         blockEntity.itemHandler.removeItem(3, 1);
                 }
@@ -327,7 +328,7 @@ public class AlloyFurnaceBlockEntity
             itemHandler.removeItem(indexMinCount, input.count());
         }
 
-        ItemStack[] outputs = recipe.value().generateOutputs(level.random);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom());
 
         itemHandler.setItem(4, outputs[0].
                 copyWithCount(itemHandler.getItem(4).getCount() + outputs[0].getCount()));

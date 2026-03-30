@@ -16,7 +16,7 @@ public final class InventoryComponent {
                 return component.stacks;
             });
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, InventoryComponent> PACKET_CODEC = ItemStack.OPTIONAL_STREAM_CODEC.
+    public static final StreamCodec<RegistryFriendlyByteBuf, InventoryComponent> STREAM_CODEC = ItemStack.OPTIONAL_STREAM_CODEC.
             apply(ByteBufCodecs.list()).map(InventoryComponent::new, (component) -> {
                 return component.stacks;
             });

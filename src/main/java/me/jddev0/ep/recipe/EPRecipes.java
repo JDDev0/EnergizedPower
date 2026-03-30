@@ -3,7 +3,6 @@ package me.jddev0.ep.recipe;
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -128,7 +127,7 @@ public final class EPRecipes {
 
     public static final RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = createSerializer("teleporter_matrix_settings_copy",
-            new CustomRecipe.Serializer<>(TeleporterMatrixSettingsCopyRecipe::new));
+            TeleporterMatrixSettingsCopyRecipe.SERIALIZER);
 
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, EPAPI.id(name), instance);

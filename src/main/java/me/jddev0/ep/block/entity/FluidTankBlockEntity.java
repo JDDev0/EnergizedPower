@@ -57,7 +57,7 @@ public class FluidTankBlockEntity
             private boolean isFluidValid(FluidVariant variant) {
                 return fluidFilter.isEmpty() || (ignoreNBT?(
                         fluidFilter.getFluidVariant().isOf(variant.getFluid()) &&
-                                fluidFilter.getFluidVariant().componentsMatch(variant.getComponents())):
+                                fluidFilter.getFluidVariant().componentsMatch(variant.getComponentsPatch())):
                         fluidFilter.getFluidVariant().isOf(variant.getFluid()));
             }
 
@@ -122,7 +122,7 @@ public class FluidTankBlockEntity
     }
 
     public void setFluidFilter(FluidStack fluidFilter, RegistryAccess registries) {
-        this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().getComponents(),
+        this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().getComponentsPatch(),
                 fluidFilter.getDropletsAmount());
         setChanged(level, getBlockPos(), getBlockState());
 
@@ -151,7 +151,7 @@ public class FluidTankBlockEntity
     public void setFluid(int tank, FluidStack fluidStack) {
         switch(tank) {
             case 0 -> super.setFluid(tank, fluidStack);
-            case 1 -> fluidFilter = new FluidStack(fluidStack.getFluid(), fluidStack.getFluidVariant().getComponents(),
+            case 1 -> fluidFilter = new FluidStack(fluidStack.getFluid(), fluidStack.getFluidVariant().getComponentsPatch(),
                     fluidStack.getDropletsAmount());
         }
     }

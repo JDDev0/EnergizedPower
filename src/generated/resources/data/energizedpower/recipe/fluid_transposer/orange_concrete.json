@@ -7,7 +7,6 @@
   "ingredient": "minecraft:orange_concrete_powder",
   "mode": "FILLING",
   "result": {
-    "count": 1,
     "id": "minecraft:orange_concrete"
   }
 }

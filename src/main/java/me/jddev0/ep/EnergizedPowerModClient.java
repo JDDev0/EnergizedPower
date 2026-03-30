@@ -17,17 +17,17 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.recipe.v1.sync.ClientRecipeSynchronizedEvent;
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.minecraft.client.color.block.BlockTintSources;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 
@@ -133,7 +133,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         ConditionalItemModelProperties.ID_MAPPER.put(EPAPI.id("active"), ActiveProperty.CODEC);
         ConditionalItemModelProperties.ID_MAPPER.put(EPAPI.id("working"), WorkingProperty.CODEC);
 
-        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(EPAPI.id("energizedpowerbook"), new EnergizedPowerBookReloadListener());
+        ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloadListener(EPAPI.id("energizedpowerbook"), new EnergizedPowerBookReloadListener());
 
         ModMessages.registerPacketsS2C();
 
@@ -146,15 +146,15 @@ public class EnergizedPowerModClient implements ClientModInitializer {
                 entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                         Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
 
-        FluidRenderHandlerRegistry.INSTANCE.register(EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER,
-                new SimpleFluidRenderHandler(
-                        Identifier.parse("block/water_still"),
-                        Identifier.parse("block/water_flow"),
-                        0xC86F3900
+        FluidRenderingRegistry.register(EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER,
+                new FluidModel.Unbaked(
+                        new Material(Identifier.parse("block/water_still")),
+                        new Material(Identifier.parse("block/water_flow")),
+                        null,
+                        BlockTintSources.constant(0xC86F3900)
                 ));
 
-        BlockRenderLayerMap.putFluids(ChunkSectionLayer.TRANSLUCENT,
-                EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER);
+        FluidRenderingRegistry.setBlockTransparency(EPFluids.DIRTY_WATER_BLOCK, true);
 
         BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);

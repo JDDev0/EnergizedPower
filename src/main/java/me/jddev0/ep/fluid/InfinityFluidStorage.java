@@ -45,6 +45,6 @@ public class InfinityFluidStorage extends SingleFluidStorage {
     @Override
     public long extract(FluidVariant extractedVariant, long maxAmount, TransactionContext transaction) {
         return !extractedVariant.isBlank() && extractedVariant.isOf(variant.getFluid()) &&
-                extractedVariant.componentsMatch(variant.getComponents())?maxAmount:0;
+                extractedVariant.componentsMatch(variant.getComponentsPatch())?maxAmount:0;
     }
 }

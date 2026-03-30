@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -18,17 +18,12 @@ public class CreativeItemSiloScreen extends EnergizedPowerBaseContainerScreen<Cr
     }
 
     @Override
-    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackground(drawContext, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
         drawContext.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
-    }
-
-    @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        super.render(drawContext, mouseX, mouseY, delta);
-
-        renderTooltip(drawContext, mouseX, mouseY);
     }
 }

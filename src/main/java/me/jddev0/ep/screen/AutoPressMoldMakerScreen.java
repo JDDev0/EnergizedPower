@@ -3,10 +3,11 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -28,26 +29,26 @@ public class AutoPressMoldMakerScreen extends SelectableRecipeMachineContainerSc
 
     @Override
     protected ItemStack getRecipeIcon(RecipeHolder<PressMoldMakerRecipe> currentRecipe) {
-        return currentRecipe.value().getOutput();
+        return ItemStackUtils.fromNullableItemStackTemplate(currentRecipe.value().getOutput());
     }
 
     @Override
-    protected void renderCurrentRecipeTooltip(GuiGraphics drawContext, int mouseX, int mouseY, RecipeHolder<PressMoldMakerRecipe> currentRecipe) {
-        ItemStack output = currentRecipe.value().getOutput();
+    protected void renderCurrentRecipeTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, RecipeHolder<PressMoldMakerRecipe> currentRecipe) {
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(currentRecipe.value().getOutput());
         if(!output.isEmpty()) {
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                     output.getHoverName()));
             components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", currentRecipe.value().getClayCount(),
-                    Items.CLAY_BALL.getName()).withStyle(ChatFormatting.ITALIC));
+                    new ItemStack(Items.CLAY_BALL).getItemName()).withStyle(ChatFormatting.ITALIC));
 
             drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -55,14 +56,14 @@ public class AutoPressMoldMakerScreen extends SelectableRecipeMachineContainerSc
         renderProgressArrow(drawContext, x, y);
     }
 
-    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive())
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         //Missing Shovel
         if(isHovering(57, 44, 16, 16, mouseX, mouseY) &&

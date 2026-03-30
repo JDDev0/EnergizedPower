@@ -4,18 +4,24 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.clock.ServerClockManager;
+import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.dimension.DimensionType;
 import team.reborn.energy.api.EnergyStorage;
+
+import java.util.Optional;
 
 public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetTimeFromTimeControllerC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_time_from_time_controller"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetTimeFromTimeControllerC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetTimeFromTimeControllerC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetTimeFromTimeControllerC2SPacket::write, SetTimeFromTimeControllerC2SPacket::new);
 
     public SetTimeFromTimeControllerC2SPacket(RegistryFriendlyByteBuf buffer) {
@@ -57,14 +63,28 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
             if(data.time < 0 || data.time > 24000)
                 return;
 
-            long currentTime = context.player().level().getDayTime();
+            Holder<DimensionType> dimensionType = context.player().level().dimensionTypeRegistration();
+            Optional<Holder<WorldClock>> defaultClockOptional = dimensionType.value().defaultClock();
+            if(defaultClockOptional.isEmpty()) {
+                //TODO send error to player (There is no time in dimension ...)
 
-            int currentDayTime = (int)(currentTime % 24000);
+                return;
+            }
+
+            Holder<WorldClock> defaultClock = defaultClockOptional.get();
+            ServerClockManager clockManager = context.server().clockManager();
+
+            //TODO dynamically get days timeline
+            long ticksPerDay = 24000;
+
+            long currentTime = clockManager.getTotalTicks(defaultClock);
+
+            int currentDayTime = (int)(currentTime % ticksPerDay);
 
             if(currentDayTime <= data.time)
-                context.player().level().setDayTime(currentTime - currentDayTime + data.time);
+                clockManager.setTotalTicks(defaultClock, currentTime - currentDayTime + data.time);
             else
-                context.player().level().setDayTime(currentTime + 24000 - currentDayTime + data.time);
+                clockManager.setTotalTicks(defaultClock, currentTime + ticksPerDay - currentDayTime + data.time);
         });
     }
 }

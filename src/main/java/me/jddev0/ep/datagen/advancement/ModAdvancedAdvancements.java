@@ -6,7 +6,7 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -22,14 +22,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModAdvancedAdvancements extends FabricAdvancementProvider {
-    public ModAdvancedAdvancements(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public ModAdvancedAdvancements(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 
@@ -102,8 +102,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPItems.BATTERY_8, "battery_8", AdvancementType.GOAL
         );
 
-        ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8);
-        battery8FullyChargedIcon.applyComponentsAndValidate(DataComponentPatch.builder().
+        ItemStackTemplate battery8FullyChargedIcon = new ItemStackTemplate(EPItems.BATTERY_8, DataComponentPatch.builder().
                 set(EPDataComponentTypes.ENERGY, BatteryTier.BATTERY_8.getCapacity()).
                 build());
         AdvancementHolder battery8FullyCharged = addAdvancement(
@@ -478,26 +477,26 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
                                             ItemLike icon, String advancementId, AdvancementType type,
                                             ItemLike trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
     private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
                                             ItemLike icon, String advancementId, AdvancementType type,
                                             TagKey<Item> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                         lookupProvider.lookupOrThrow(Registries.ITEM),
                         trigger
                 )));
     }
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemLike icon, String advancementId, AdvancementType type,
-                                            Criterion<?> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type, trigger);
+                                             ItemLike icon, String advancementId, AdvancementType type,
+                                             Criterion<?> trigger) {
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type, trigger);
     }
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemStack icon, String advancementId, AdvancementType type,
-                                            Criterion<?> trigger) {
+                                             ItemStackTemplate icon, String advancementId, AdvancementType type,
+                                             Criterion<?> trigger) {
         return Advancement.Builder.advancement().parent(parent).
                 display(
                         icon,

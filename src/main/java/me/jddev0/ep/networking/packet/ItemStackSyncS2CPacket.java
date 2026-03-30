@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record ItemStackSyncS2CPacket(int slot, ItemStack itemStack, BlockPos pos) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ItemStackSyncS2CPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("item_stack_sync"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ItemStackSyncS2CPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ItemStackSyncS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(ItemStackSyncS2CPacket::write, ItemStackSyncS2CPacket::new);
 
     public ItemStackSyncS2CPacket(RegistryFriendlyByteBuf buffer) {

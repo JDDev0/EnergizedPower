@@ -5,7 +5,7 @@ import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -34,7 +34,7 @@ public class AutoStonecutterScreen
     }
 
     @Override
-    protected void renderCurrentRecipeTooltip(GuiGraphics drawContext, int mouseX, int mouseY, RecipeHolder<StonecutterRecipe> currentRecipe) {
+    protected void renderCurrentRecipeTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, RecipeHolder<StonecutterRecipe> currentRecipe) {
         ItemStack output = currentRecipe.value().display().get(0).result().
                 resolveForFirstStack(SlotDisplayContext.fromLevel(menu.getBlockEntity().getLevel()));
         if(!output.isEmpty()) {
@@ -49,8 +49,8 @@ public class AutoStonecutterScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -58,14 +58,14 @@ public class AutoStonecutterScreen
         renderProgressArrow(drawContext, x, y);
     }
 
-    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive())
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 84, y + 43, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         //Missing Pickaxe
         if(isHovering(57, 44, 16, 16, mouseX, mouseY) &&

@@ -1,0 +1,15 @@
+{
+  "additional_wants": {
+    "id": "energizedpower:basic_machine_frame"
+  },
+  "gives": {
+    "id": "energizedpower:fluid_filler"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 33.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

@@ -7,7 +7,6 @@
   "ingredient": "minecraft:dirt",
   "mode": "FILLING",
   "result": {
-    "count": 1,
     "id": "minecraft:mud"
   }
 }

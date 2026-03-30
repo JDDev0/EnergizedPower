@@ -4,9 +4,10 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,12 +30,12 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
 
     @Override
     protected ItemStack getRecipeIcon(RecipeHolder<StoneSolidifierRecipe> currentRecipe) {
-        return currentRecipe.value().getOutput();
+        return ItemStackUtils.fromNullableItemStackTemplate(currentRecipe.value().getOutput());
     }
 
     @Override
-    protected void renderCurrentRecipeTooltip(GuiGraphics drawContext, int mouseX, int mouseY, RecipeHolder<StoneSolidifierRecipe> currentRecipe) {
-        ItemStack output = currentRecipe.value().getOutput();
+    protected void renderCurrentRecipeTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, RecipeHolder<StoneSolidifierRecipe> currentRecipe) {
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(currentRecipe.value().getOutput());
         if(!output.isEmpty()) {
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
@@ -45,8 +46,8 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -59,11 +60,11 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
         renderProgressArrows(drawContext, x, y);
     }
 
-    private void renderFluidMeterOverlay(int tank, GuiGraphics drawContext, int x, int y) {
+    private void renderFluidMeterOverlay(int tank, GuiGraphicsExtractor drawContext, int x, int y) {
         drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
-    private void renderProgressArrows(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrows(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive()) {
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 69, y + 45, 72, 58, menu.getScaledProgressArrowSize(), 14, 256, 256);
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 143 - menu.getScaledProgressArrowSize(), y + 45,
@@ -73,8 +74,8 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
 
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
             //Fluid meter

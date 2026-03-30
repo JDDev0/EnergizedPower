@@ -134,7 +134,7 @@ public class FluidTransposerBlockEntity
                     RecipeUtils.getAllRecipesFor(serverWorld, recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
                         anyMatch(fluidStack -> variant.isOf(fluidStack.getFluid()) &&
-                                variant.componentsMatch(fluidStack.getFluidVariant().getComponents()));
+                                variant.componentsMatch(fluidStack.getFluidVariant().getComponentsPatch()));
             }
 
             @Override
@@ -173,7 +173,7 @@ public class FluidTransposerBlockEntity
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
                         (recipe.value().getFluid().getFluidVariant().isOf(fluidStorage.getFluid().getFluid()) &&
-                                recipe.value().getFluid().getFluidVariant().componentsMatch(fluidStorage.getFluid().getFluidVariant().getComponents()))).
+                                recipe.value().getFluid().getFluidVariant().componentsMatch(fluidStorage.getFluid().getFluidVariant().getComponentsPatch()))).
                 findFirst();
     }
 
@@ -188,7 +188,7 @@ public class FluidTransposerBlockEntity
             return;
 
         FluidStack fluid = new FluidStack(recipe.value().getFluid().getFluidVariant().getFluid(),
-                recipe.value().getFluid().getFluidVariant().getComponents(), recipe.value().getFluid().getDropletsAmount());
+                recipe.value().getFluid().getFluidVariant().getComponentsPatch(), recipe.value().getFluid().getDropletsAmount());
 
         if(mode == Mode.EMPTYING) {
             try(Transaction transaction = Transaction.openOuter()) {
@@ -205,9 +205,9 @@ public class FluidTransposerBlockEntity
         }
 
         itemHandler.removeItem(0, 1);
-        itemHandler.setItem(1, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setItem(1, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getItem(1).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -220,8 +220,8 @@ public class FluidTransposerBlockEntity
         return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
                 (mode != Mode.EMPTYING || fluidStorage.isEmpty() || (fluidStorage.getResource().isOf(recipe.value().getFluid().getFluid()) &&
-                        fluidStorage.getResource().componentsMatch(recipe.value().getFluid().getFluidVariant().getComponents()))) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess()));
+                        fluidStorage.getResource().componentsMatch(recipe.value().getFluid().getFluidVariant().getComponentsPatch()))) &&
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null));
     }
 
     public void setMode(boolean isFillingMode) {

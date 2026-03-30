@@ -99,12 +99,12 @@ public class PressMoldMakerBlockEntity
             return;
 
         if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(itemHandler), level) ||
-                !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.assemble(null, level.registryAccess())))
+                !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.assemble(null)))
             return;
 
         itemHandler.removeItem(0, pressMoldMakerRecipe.getClayCount());
-        itemHandler.setItem(1, pressMoldMakerRecipe.assemble(null, level.registryAccess()).copyWithCount(
-                itemHandler.getItem(1).getCount() + pressMoldMakerRecipe.assemble(null, level.registryAccess()).getCount()));
+        itemHandler.setItem(1, pressMoldMakerRecipe.assemble(null).copyWithCount(
+                itemHandler.getItem(1).getCount() + pressMoldMakerRecipe.assemble(null).getCount()));
     }
 
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> createRecipeList() {

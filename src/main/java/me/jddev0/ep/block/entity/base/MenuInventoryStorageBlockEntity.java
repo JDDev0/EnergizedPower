@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class MenuInventoryStorageBlockEntity<I extends SimpleContainer>
         extends InventoryStorageBlockEntity<I>
-        implements ExtendedScreenHandlerFactory<BlockPos> {
+        implements ExtendedMenuProvider<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;

@@ -22,7 +22,7 @@ import java.util.List;
 public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_pattern_input_slots"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::write, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;

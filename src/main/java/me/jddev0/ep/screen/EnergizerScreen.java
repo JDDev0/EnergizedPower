@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,8 +19,8 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -29,12 +29,12 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
         renderActiveOverlay(drawContext, x, y);
     }
 
-    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive())
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
-    private void renderActiveOverlay(GuiGraphics drawContext, int x, int y) {
+    private void renderActiveOverlay(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCrafting()) {
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50, 256, 256);
         }

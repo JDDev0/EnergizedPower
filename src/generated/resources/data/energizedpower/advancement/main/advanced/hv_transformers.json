@@ -22,7 +22,6 @@
       "translate": "advancements.energizedpower.hv_transformers.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:hv_transformer_1_to_n"
     },
     "title": {

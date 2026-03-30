@@ -5,7 +5,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,9 +21,8 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/advanced_auto_crafter.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/advanced_auto_crafter.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/advanced_auto_crafter.png"), 176, 224);
 
-        imageHeight = 224;
         inventoryLabelY = imageHeight - 94;
     }
 
@@ -65,8 +64,8 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -75,12 +74,12 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
         renderCheckboxes(drawContext, x, y, mouseX, mouseY);
     }
 
-    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive())
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
-    private void renderCheckboxes(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
@@ -107,8 +106,8 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Ignore NBT checkbox

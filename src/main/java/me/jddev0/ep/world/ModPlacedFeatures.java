@@ -27,8 +27,7 @@ public final class ModPlacedFeatures {
     }
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE,
-                EPAPI.id(name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, EPAPI.id(name));
     }
 
     private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key,

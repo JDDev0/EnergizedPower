@@ -5,8 +5,9 @@ import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -84,7 +85,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 continue;
 
             EnergyStorage energyStorage = EnergyStorage.ITEM.find(testItemStack, ContainerItemContext.
-                    ofPlayerSlot(inventory.player, InventoryStorage.of(inventory, null).getSlots().get(i)));
+                    ofPlayerSlot(inventory.player, ContainerStorage.of(inventory, null).getSlots().get(i)));
             if(energyStorage == null)
                 continue;
 
@@ -220,8 +221,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             newItemStack.shrink(1);
             inventory.setItem(i, newItemStack);
 
-            if(!testItemStack.getRecipeRemainder().isEmpty()) {
-                ItemStack craftingRemainingItem = testItemStack.getRecipeRemainder();
+            if(testItemStack.getCraftingRemainder() != null) {
+                ItemStack craftingRemainingItem = ItemStackUtils.fromNullableItemStackTemplate(testItemStack.getCraftingRemainder());
 
                 if(inventory.add(craftingRemainingItem))
                     player.drop(craftingRemainingItem, false);

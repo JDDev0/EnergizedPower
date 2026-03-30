@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.14-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
 	id 'maven-publish'
 	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
@@ -64,11 +64,10 @@ fabricApi {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
@@ -76,25 +75,29 @@ dependencies {
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 	// Team Reborn: Fabric energy
-	include modApi('teamreborn:energy:4.2.0') {
+	include api('teamreborn:energy:5.0.0') {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
 	// REI integration
-	modCompileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	modCompileOnlyApi "dev.architectury:architectury-fabric:19.0.1"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:21.11.814"
-	modCompileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:21.11.814"
+	//TODO re-enable
+	//compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
+	//compileOnlyApi "dev.architectury:architectury-fabric:19.0.1"
+	//compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:21.11.814"
+	//compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:21.11.814"
 
     //JEI integration
-    modCompileOnly "curse.maven:jei-238222:7364662"
+	//TODO re-enable
+    //compileOnly "curse.maven:jei-238222:7364662"
 
 	// EMI integration
-	modCompileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
+	//TODO re-enable
+	//compileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
 
 	// CCTweaked integration
-	modCompileOnlyApi "cc.tweaked:cc-tweaked-1.21-core-api:1.111.0"
-	modCompileOnlyApi "cc.tweaked:cc-tweaked-1.21-fabric-api:1.111.0"
+	//TODO re-enable
+	//compileOnlyApi "cc.tweaked:cc-tweaked-1.21-core-api:1.111.0"
+	//compileOnlyApi "cc.tweaked:cc-tweaked-1.21-fabric-api:1.111.0"
 }
 
 processResources {
@@ -106,7 +109,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 25
 }
 
 java {
@@ -115,13 +118,20 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
 	from("LICENSE") {
 		rename { "${it}_${project.base.archivesName.get()}"}
+	}
+}
+
+//Show more errors for porting
+afterEvaluate {
+	tasks.withType(JavaCompile) {
+		options.compilerArgs << "-Xmaxerrs" << "2000"
 	}
 }
 
@@ -146,7 +156,7 @@ publishing {
 tasks.register("distJar", Copy) {
 	group = "build"
 
-	dependsOn(tasks.getByName("remapJar"))
+	dependsOn(tasks.getByName("jar"))
 
 	var jarFile = project.rootDir.toPath().resolve("build/libs").resolve(project.archives_base_name + "-" + project.version + ".jar").toFile()
 	from(jarFile)

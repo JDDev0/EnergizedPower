@@ -1,5 +1,6 @@
 package me.jddev0.ep.inventory.upgrade;
 
+import me.jddev0.ep.inventory.TrackedSimpleContainer;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.world.ContainerHelper;
@@ -9,7 +10,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
-public class UpgradeModuleInventory extends SimpleContainer {
+public class UpgradeModuleInventory extends TrackedSimpleContainer {
     private final UpgradeModuleModifier[] upgradeModifierSlots;
 
     public UpgradeModuleInventory(UpgradeModuleModifier... upgradeModifierSlots) {

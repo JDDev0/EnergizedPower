@@ -11,7 +11,7 @@ import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.UnchargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,7 +47,7 @@ public class UnchargerBlockEntity
             return true;
 
         EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(i)));
+                ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(i)));
         if(limitingEnergyStorage == null)
             return true;
 
@@ -198,7 +198,7 @@ public class UnchargerBlockEntity
             return -1;
 
         EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(0)));
+                ofSingleSlot(ContainerStorage.of(this.itemHandler, null).getSlots().get(0)));
         if(limitingEnergyStorage == null)
             return -1;
 
@@ -219,7 +219,7 @@ public class UnchargerBlockEntity
                 return;
 
             EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
+                    ofSingleSlot(ContainerStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
             if(limitingEnergyStorage == null)
                 return;
 

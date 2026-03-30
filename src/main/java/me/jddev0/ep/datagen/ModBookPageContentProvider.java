@@ -6,7 +6,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.datagen.generators.PageContent;
 import me.jddev0.ep.datagen.generators.PageContentProvider;
 import me.jddev0.ep.input.ModKeyBindings;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.*;
@@ -36,7 +36,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
     private final Map<String, String> tableOfContentPageTitles = new HashMap<>();
     private final Map<String, List<Pair<String, PageContent>>> tableOfContentsEntries = new HashMap<>();
 
-    public ModBookPageContentProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public ModBookPageContentProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider);
     }
 

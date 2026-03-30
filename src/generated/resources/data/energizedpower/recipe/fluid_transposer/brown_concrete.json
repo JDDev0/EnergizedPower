@@ -7,7 +7,6 @@
   "ingredient": "minecraft:brown_concrete_powder",
   "mode": "FILLING",
   "result": {
-    "count": 1,
     "id": "minecraft:brown_concrete"
   }
 }

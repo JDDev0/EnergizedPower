@@ -1,6 +1,6 @@
 package me.jddev0.ep.inventory;
 
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.Direction;
@@ -18,7 +18,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InputOutputItemHandler implements WorldlyContainer, Function<Direction, @Nullable Storage<ItemVariant>> {
-    private final InventoryStorage[] cachedInventoryStorages = new InventoryStorage[Direction.values().length];
+    private final ContainerStorage[] cachedInventoryStorages = new ContainerStorage[Direction.values().length];
 
     private final WorldlyContainer handler;
     private final BiPredicate<Integer, ItemStack> canInput;
@@ -43,7 +43,7 @@ public class InputOutputItemHandler implements WorldlyContainer, Function<Direct
         int index = side.ordinal();
 
         if(cachedInventoryStorages[index] == null)
-            cachedInventoryStorages[index] = InventoryStorage.of(this, side);
+            cachedInventoryStorages[index] = ContainerStorage.of(this, side);
 
         return cachedInventoryStorages[index];
     }

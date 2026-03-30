@@ -167,16 +167,16 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
             return;
 
         itemHandler.removeItem(0, 1);
-        itemHandler.setItem(1, recipe.value().assemble(getRecipeInput(itemHandler), level.registryAccess()).
+        itemHandler.setItem(1, recipe.value().assemble(getRecipeInput(itemHandler)).
                 copyWithCount(itemHandler.getItem(1).getCount() +
-                        recipe.value().assemble(getRecipeInput(itemHandler), level.registryAccess()).getCount()));
+                        recipe.value().assemble(getRecipeInput(itemHandler)).getCount()));
 
         resetProgress();
     }
 
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe) {
         return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(getRecipeInput(itemHandler), level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(getRecipeInput(itemHandler)));
     }
 
     protected void syncIngredientListToPlayer(Player player) {

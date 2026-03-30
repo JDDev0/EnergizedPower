@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.ChargingStationMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -111,7 +111,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
                     continue;
 
                 EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.
-                        ofPlayerSlot(inventory.player, InventoryStorage.of(inventory, null).getSlots().get(i)));
+                        ofPlayerSlot(inventory.player, ContainerStorage.of(inventory, null).getSlots().get(i)));
                 if(limitingEnergyStorage == null)
                     continue;
 

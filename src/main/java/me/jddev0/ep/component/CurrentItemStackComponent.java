@@ -13,7 +13,7 @@ public final class CurrentItemStackComponent {
         })).apply(instance, CurrentItemStackComponent::new);
     });
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, CurrentItemStackComponent> PACKET_CODEC = StreamCodec.ofMember(
+    public static final StreamCodec<RegistryFriendlyByteBuf, CurrentItemStackComponent> STREAM_CODEC = StreamCodec.ofMember(
             CurrentItemStackComponent::write, CurrentItemStackComponent::new);
 
     private final ItemStack currentItem;

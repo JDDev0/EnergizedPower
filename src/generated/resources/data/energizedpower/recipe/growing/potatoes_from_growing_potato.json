@@ -10,7 +10,6 @@
         0.25
       ],
       "result": {
-        "count": 1,
         "id": "minecraft:potato"
       }
     },
@@ -19,7 +18,6 @@
         0.125
       ],
       "result": {
-        "count": 1,
         "id": "minecraft:poisonous_potato"
       }
     }

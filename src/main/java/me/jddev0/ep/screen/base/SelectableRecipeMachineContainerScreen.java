@@ -4,7 +4,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeCurrentRecipeIndexC2SPacket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -44,7 +44,7 @@ public abstract class SelectableRecipeMachineContainerScreen
 
     protected abstract ItemStack getRecipeIcon(RecipeHolder<R> currentRecipe);
 
-    protected abstract void renderCurrentRecipeTooltip(GuiGraphics drawContext, int mouseX, int mouseY, RecipeHolder<R> currentRecipe);
+    protected abstract void renderCurrentRecipeTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, RecipeHolder<R> currentRecipe);
 
     @Override
     protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
@@ -76,8 +76,8 @@ public abstract class SelectableRecipeMachineContainerScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -87,7 +87,7 @@ public abstract class SelectableRecipeMachineContainerScreen
         renderCurrentRecipeOutput(drawContext, x, y);
     }
 
-    private void renderCurrentRecipeOutput(GuiGraphics drawContext, int x, int y) {
+    private void renderCurrentRecipeOutput(GuiGraphicsExtractor drawContext, int x, int y) {
         RecipeHolder<R> currentRecipe = menu.getCurrentRecipe();
         if(currentRecipe == null)
             return;
@@ -96,14 +96,14 @@ public abstract class SelectableRecipeMachineContainerScreen
         if(!itemStackIcon.isEmpty()) {
             drawContext.pose().pushMatrix();
 
-            drawContext.renderItem(itemStackIcon, x + recipeSelectorPosX, y + recipeSelectorPosY,
+            drawContext.item(itemStackIcon, x + recipeSelectorPosX, y + recipeSelectorPosY,
                     recipeSelectorPosX + recipeSelectorPosY * this.imageWidth);
 
             drawContext.pose().popMatrix();
         }
     }
 
-    private void renderButtons(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphicsExtractor drawContext, int x, int y, int mouseX, int mouseY) {
         //Down button
         if(isHovering(recipeSelectorPosX - 13, recipeSelectorPosY + 2, 11, 12, mouseX, mouseY)) {
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + recipeSelectorPosX - 13, y + recipeSelectorPosY + 2,
@@ -118,8 +118,8 @@ public abstract class SelectableRecipeMachineContainerScreen
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
 
         //Current recipe
         RecipeHolder<R> currentRecipe = menu.getCurrentRecipe();

@@ -12,7 +12,8 @@ import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.client.renderer.block.dispatch.Variant;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
@@ -639,10 +640,10 @@ class ModBlockStateProvider {
                 String multipleSuffix = transformerType == TransformerType.TYPE_1_TO_N?"_output":"_input";
 
                 Identifier transformer = TexturedModel.createDefault(unused -> new TextureMapping().
-                                put(TextureSlot.TOP, EPAPI.id("block/" + textureName + multipleSuffix)).
-                                put(TextureSlot.BOTTOM, EPAPI.id("block/" + textureName + multipleSuffix)).
-                                put(TextureSlot.FRONT, EPAPI.id("block/" + textureName + singleSuffix)).
-                                put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + multipleSuffix)).
+                                put(TextureSlot.TOP, new Material(EPAPI.id("block/" + textureName + multipleSuffix))).
+                                put(TextureSlot.BOTTOM, new Material(EPAPI.id("block/" + textureName + multipleSuffix))).
+                                put(TextureSlot.FRONT, new Material(EPAPI.id("block/" + textureName + singleSuffix))).
+                                put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + multipleSuffix))).
                                 copySlot(TextureSlot.TOP, TextureSlot.PARTICLE),
                         ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM).get(block).create(block, generator.modelOutput);
 
@@ -660,12 +661,12 @@ class ModBlockStateProvider {
             }
             case TYPE_3_TO_3 -> {
                 Identifier transformer = TexturedModel.createDefault(unused -> new TextureMapping().
-                                put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_input")).
-                                put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_output")).
-                                put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_input")).
-                                put(TextureSlot.SOUTH, EPAPI.id("block/" + textureName + "_output")).
-                                put(TextureSlot.EAST, EPAPI.id("block/" + textureName + "_output")).
-                                put(TextureSlot.WEST, EPAPI.id("block/" + textureName + "_input")).
+                                put(TextureSlot.UP, new Material(EPAPI.id("block/" + textureName + "_input"))).
+                                put(TextureSlot.DOWN, new Material(EPAPI.id("block/" + textureName + "_output"))).
+                                put(TextureSlot.NORTH, new Material(EPAPI.id("block/" + textureName + "_input"))).
+                                put(TextureSlot.SOUTH, new Material(EPAPI.id("block/" + textureName + "_output"))).
+                                put(TextureSlot.EAST, new Material(EPAPI.id("block/" + textureName + "_output"))).
+                                put(TextureSlot.WEST, new Material(EPAPI.id("block/" + textureName + "_input"))).
                                 copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                         ModelTemplates.CUBE).get(block).create(block, generator.modelOutput);
 
@@ -696,25 +697,25 @@ class ModBlockStateProvider {
         };
 
         Identifier allCube = TexturedModel.createDefault(unused -> new TextureMapping().
-                        put(TextureSlot.UP, EPAPI.id("block/" + textureName + "_not_connected")).
-                        put(TextureSlot.DOWN, EPAPI.id("block/" + textureName + "_not_connected")).
-                        put(TextureSlot.NORTH, EPAPI.id("block/" + textureName + "_output")).
-                        put(TextureSlot.SOUTH, EPAPI.id("block/" + textureName + "_not_connected")).
-                        put(TextureSlot.EAST, EPAPI.id("block/" + textureName + "_input")).
-                        put(TextureSlot.WEST, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.UP, new Material(EPAPI.id("block/" + textureName + "_not_connected"))).
+                        put(TextureSlot.DOWN, new Material(EPAPI.id("block/" + textureName + "_not_connected"))).
+                        put(TextureSlot.NORTH, new Material(EPAPI.id("block/" + textureName + "_output"))).
+                        put(TextureSlot.SOUTH, new Material(EPAPI.id("block/" + textureName + "_not_connected"))).
+                        put(TextureSlot.EAST, new Material(EPAPI.id("block/" + textureName + "_input"))).
+                        put(TextureSlot.WEST, new Material(EPAPI.id("block/" + textureName + "_not_connected"))).
                         copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                 ModelTemplates.CUBE).get(block).createWithSuffix(block, "_cube", generator.modelOutput);
 
         Identifier notConnectedSide = TexturedModel.createDefault(unused -> new TextureMapping().
-                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_not_connected")).
+                        put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + "_not_connected"))).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
                 ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_not_connected", generator.modelOutput);
         Identifier receiveSide = TexturedModel.createDefault(unused -> new TextureMapping().
-                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_input")).
+                        put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + "_input"))).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
                 ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_input", generator.modelOutput);
         Identifier extractSide = TexturedModel.createDefault(unused -> new TextureMapping().
-                        put(TextureSlot.SIDE, EPAPI.id("block/" + textureName + "_output")).
+                        put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + "_output"))).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
                 ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_output", generator.modelOutput);
 

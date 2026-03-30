@@ -30,8 +30,7 @@ public final class ModConfiguredFeatures {
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE,
-                EPAPI.id(name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, EPAPI.id(name));
     }
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(

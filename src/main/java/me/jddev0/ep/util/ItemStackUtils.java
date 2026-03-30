@@ -2,7 +2,12 @@ package me.jddev0.ep.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class ItemStackUtils {
     private ItemStackUtils() {}
@@ -32,5 +37,22 @@ public final class ItemStackUtils {
         }
 
         return combinedItemStacks;
+    }
+
+    public static @NotNull ItemStack fromNullableItemStackTemplate(@Nullable ItemStackTemplate itemStack) {
+        if(itemStack == null)
+            return ItemStack.EMPTY;
+
+        return itemStack.create();
+    }
+
+    public static boolean isSameItemSameComponents(ItemStackTemplate a, ItemStackTemplate b) {
+        if(a == null && b == null)
+            return true;
+
+        if(a == null || b == null || !a.is(b.item()))
+            return false;
+
+        return Objects.equals(a.components(), b.components());
     }
 }

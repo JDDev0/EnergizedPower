@@ -52,7 +52,6 @@ public final class ModStructures {
     }
 
     public static ResourceKey<Structure> registerKey(String name) {
-        return ResourceKey.create(Registries.STRUCTURE,
-                EPAPI.id(name));
+        return ResourceKey.create(Registries.STRUCTURE, EPAPI.id(name));
     }
 }

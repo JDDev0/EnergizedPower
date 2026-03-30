@@ -149,7 +149,7 @@ public class FiltrationPlantBlockEntity
             itemHandler.setItem(i, charcoalFilter);
         }
 
-        ItemStack[] outputs = recipe.value().generateOutputs(level.random);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom());
 
         if(!outputs[0].isEmpty())
             itemHandler.setItem(2, outputs[0].

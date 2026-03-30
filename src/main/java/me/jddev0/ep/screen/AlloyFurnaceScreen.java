@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -21,7 +21,9 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
     }
 
     @Override
-    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
+        super.extractBackground(drawContext, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -31,22 +33,15 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
         renderProgressArrow(drawContext, x, y);
     }
 
-    private void renderProgressFlame(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressFlame(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isBurningFuel()) {
             int pos = menu.getScaledProgressFlameSize();
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 36, y + 37 + 14 - pos, 0, 135 - pos, 14, pos, 256, 256);
         }
     }
 
-    private void renderProgressArrow(GuiGraphics drawContext, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
         if(menu.isCraftingActive())
             drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 79, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
-    }
-
-    @Override
-    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
-        super.render(drawContext, mouseX, mouseY, delta);
-
-        renderTooltip(drawContext, mouseX, mouseY);
     }
 }

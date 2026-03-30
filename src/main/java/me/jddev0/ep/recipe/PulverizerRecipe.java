@@ -7,13 +7,13 @@ import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -52,10 +52,13 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     public ItemStack[] getMaxOutputCounts(boolean advanced) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
-        generatedOutputs[0] = output.output.copyWithCount(advanced?output.percentagesAdvanced.length:
-                output.percentages.length);
-        generatedOutputs[1] = secondaryOutput.output.copyWithCount(advanced?secondaryOutput.percentagesAdvanced.length:
-                secondaryOutput.percentages.length);
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output);
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output);
+
+        generatedOutputs[0] = output.copyWithCount(advanced?this.output.percentagesAdvanced.length:
+                this.output.percentages.length);
+        generatedOutputs[1] = secondaryOutput.copyWithCount(advanced?this.secondaryOutput.percentagesAdvanced.length:
+                this.secondaryOutput.percentages.length);
 
         return generatedOutputs;
     }
@@ -70,7 +73,9 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
                 if(randomSource.nextDouble() <= percentage)
                     count++;
 
-            generatedOutputs[i] = output.output.copyWithCount(count);
+            ItemStack outputItemStack = ItemStackUtils.fromNullableItemStackTemplate(output.output);
+
+            generatedOutputs[i] = outputItemStack.copyWithCount(count);
         }
 
         return generatedOutputs;
@@ -85,7 +90,7 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container) {
         return ItemStack.EMPTY;
     }
 
@@ -126,8 +131,11 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.isSameItemSameComponents(output.output(), itemStack) || (secondaryOutput != null &&
-                ItemStack.isSameItemSameComponents(secondaryOutput.output(), itemStack));
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output.output);
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output());
+
+        return ItemStack.isSameItemSameComponents(output, itemStack) || (!secondaryOutput.isEmpty() &&
+                ItemStack.isSameItemSameComponents(secondaryOutput, itemStack));
     }
 
     public static final class Type implements RecipeType<PulverizerRecipe> {
@@ -137,46 +145,36 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         public static final String ID = "pulverizer";
     }
 
-    public static final class Serializer implements RecipeSerializer<PulverizerRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("pulverizer");
-
-        private final MapCodec<PulverizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+        private static final MapCodec<PulverizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryResult").forGetter((recipe) -> {
-                if(recipe.secondaryOutput.output.isEmpty() || recipe.secondaryOutput.percentages.length == 0)
+                if(recipe.secondaryOutput.output == null || recipe.secondaryOutput.percentages.length == 0)
                     return Optional.empty();
 
                 return Optional.of(recipe.secondaryOutput);
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             })).apply(instance, (output, secondaryOutput, input) -> new PulverizerRecipe(output,
-                    secondaryOutput.orElse(new OutputItemStackWithPercentages(ItemStack.EMPTY, new double[0], new double[0])),
+                    secondaryOutput.orElse(new OutputItemStackWithPercentages(null, new double[0], new double[0])),
                     input));
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, PulverizerRecipe> PACKET_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, PulverizerRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<PulverizerRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, PulverizerRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
+        public static final RecipeSerializer<PulverizerRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("pulverizer");
 
         private static PulverizerRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
 
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++) {
-                ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+                ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -199,7 +197,7 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, output.output);
+                ItemStackTemplate.STREAM_CODEC.encode(buffer, output.output);
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)
@@ -212,8 +210,8 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         }
     }
 
-    public record OutputItemStackWithPercentages(ItemStack output, double[] percentages, double[] percentagesAdvanced) {
-        public OutputItemStackWithPercentages(ItemStack output, double percentage, double percentageAdvanced) {
+    public record OutputItemStackWithPercentages(ItemStackTemplate output, double[] percentages, double[] percentagesAdvanced) {
+        public OutputItemStackWithPercentages(ItemStackTemplate output, double percentage, double percentageAdvanced) {
             this(output, new double[] {
                     percentage
             }, new double[] {
@@ -221,7 +219,7 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
             });
         }
 
-        public OutputItemStackWithPercentages(ItemStack output) {
+        public OutputItemStackWithPercentages(ItemStackTemplate output) {
             this(output, 1., 1.);
         }
 
@@ -251,7 +249,7 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
         public static Codec<OutputItemStackWithPercentages> createCodec(boolean atLeastOnePercentageValue) {
             return RecordCodecBuilder.create((instance) -> {
-                return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((output) -> {
+                return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((output) -> {
                     return output.output;
                 }), createDoubleArrayCodec(atLeastOnePercentageValue).fieldOf("percentages").forGetter((output) -> {
                     return output.percentages;

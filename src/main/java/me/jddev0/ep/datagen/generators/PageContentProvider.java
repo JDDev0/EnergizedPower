@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen.generators;
 
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -22,10 +22,10 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract  class PageContentProvider implements DataProvider {
     private final Map<String, PageContent> data = new TreeMap<>();
-    private final FabricDataOutput output;
+    private final FabricPackOutput output;
     private final CompletableFuture<HolderLookup.Provider> lookupProvider;
 
-    public PageContentProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public PageContentProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         this.output = output;
         this.lookupProvider = lookupProvider;
     }

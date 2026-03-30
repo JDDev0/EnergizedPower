@@ -19,7 +19,7 @@ public record DimensionalPositionComponent(int x, int y, int z, Identifier dimen
         })).apply(instance, DimensionalPositionComponent::new);
     });
 
-    public static final StreamCodec<FriendlyByteBuf, DimensionalPositionComponent> PACKET_CODEC = StreamCodec.ofMember(
+    public static final StreamCodec<FriendlyByteBuf, DimensionalPositionComponent> STREAM_CODEC = StreamCodec.ofMember(
             DimensionalPositionComponent::write, DimensionalPositionComponent::new);
 
     public DimensionalPositionComponent(FriendlyByteBuf buffer) {

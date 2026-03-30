@@ -49,8 +49,8 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
             setEnergy(itemStack, getEnergy(itemStack) - ENERGY_CONSUMPTION_PER_USE);
 
         for(Component component:lines)
-            player.displayClientMessage(component, false);
-        player.displayClientMessage(Component.empty(), false);
+            player.sendSystemMessage(component);
+        player.sendSystemMessage(Component.empty());
     }
 
     private void addOutputTextForEnergyStorage(List<Component> components, @Nullable EnergyStorage energyStorage, boolean blockFaceSpecificInformation) {

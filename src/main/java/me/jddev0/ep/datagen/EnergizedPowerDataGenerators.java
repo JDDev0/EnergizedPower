@@ -2,6 +2,8 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.datagen.loot.ModBlockLootTables;
 import me.jddev0.ep.paintings.EPPaintingVariants;
+import me.jddev0.ep.villager.EPTradeSets;
+import me.jddev0.ep.villager.EPVillagerTrades;
 import me.jddev0.ep.world.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -27,6 +29,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(ModPoiTypeTagProvider::new);
         pack.addProvider(ModBiomeTagProvider::new);
         pack.addProvider(ModPaintingVariantTagProvider::new);
+        pack.addProvider(ModVillagerTradeTagProvider::new);
     }
 
     @Override
@@ -37,5 +40,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
         registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
         registryBuilder.add(Registries.PAINTING_VARIANT, EPPaintingVariants::bootstrap);
+        registryBuilder.add(Registries.VILLAGER_TRADE, EPVillagerTrades::bootstrap);
+        registryBuilder.add(Registries.TRADE_SET, EPTradeSets::bootstrap);
     }
 }
