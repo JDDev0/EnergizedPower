@@ -23,6 +23,11 @@ repositories {
 	}
 
 	maven {
+		name = "ModMaven"
+		url = "https://modmaven.dev"
+	}
+
+	maven {
 		url "https://maven.terraformersmc.com/"
 	}
 
@@ -32,13 +37,6 @@ repositories {
 			includeGroup("cc.tweaked")
 		}
 	}
-
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
 
 	flatDir {
 		dir 'libs'
@@ -87,8 +85,7 @@ dependencies {
 	//compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:21.11.814"
 
     //JEI integration
-	//TODO re-enable
-    //compileOnly "curse.maven:jei-238222:7364662"
+	compileOnly "mezz.jei:jei-26.1-common-api:29.2.0.20"
 
 	// EMI integration
 	//TODO re-enable
