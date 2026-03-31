@@ -174,7 +174,8 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
             OutputItemStackWithPercentages[] outputs = new OutputItemStackWithPercentages[2];
             for(int i = 0;i < 2;i++) {
-                ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
+                boolean isNotEmpty = buffer.readBoolean();
+                ItemStackTemplate output = isNotEmpty?ItemStackTemplate.STREAM_CODEC.decode(buffer):null;
 
                 int percentageCount = buffer.readInt();
                 double[] percentages = new double[percentageCount];
@@ -197,7 +198,12 @@ public class PulverizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
             for(int i = 0;i < 2;i++) {
                 OutputItemStackWithPercentages output = i == 0?recipe.output:recipe.secondaryOutput;
-                ItemStackTemplate.STREAM_CODEC.encode(buffer, output.output);
+                if(output.output == null) {
+                    buffer.writeBoolean(false);
+                }else {
+                    buffer.writeBoolean(true);
+                    ItemStackTemplate.STREAM_CODEC.encode(buffer, output.output);
+                }
 
                 buffer.writeInt(output.percentages.length);
                 for(double percentage:output.percentages)
