@@ -77,14 +77,14 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
                 case 1 -> {
                     weatherData.setRainTime(duration);
                     weatherData.setRaining(true);
-                    weatherData.setThunderTime(0);
+                    weatherData.setThunderTime(duration);
                     weatherData.setThundering(false);
                     weatherData.setClearWeatherTime(0);
                 }
                 //Thunder
                 case 2 -> {
-                    weatherData.setRainTime(0);
-                    weatherData.setRaining(false);
+                    weatherData.setRainTime(duration);
+                    weatherData.setRaining(true);
                     weatherData.setThunderTime(duration);
                     weatherData.setThundering(true);
                     weatherData.setClearWeatherTime(0);
