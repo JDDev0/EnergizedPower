@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.saveddata.WeatherData;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
@@ -63,13 +64,32 @@ public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weather
 
             int duration = weatherControllerBlockEntity.getWeatherChangedDuration();
 
+            WeatherData weatherData = level.getWeatherData();
             switch(data.weatherType) {
                 //Clear
-                case 0 -> level.setWeatherParameters(duration, 0, false, false);
+                case 0 -> {
+                    weatherData.setRainTime(0);
+                    weatherData.setRaining(false);
+                    weatherData.setThunderTime(0);
+                    weatherData.setThundering(false);
+                    weatherData.setClearWeatherTime(duration);
+                }
                 //Rain
-                case 1 -> level.setWeatherParameters(0, duration, true, false);
+                case 1 -> {
+                    weatherData.setRainTime(duration);
+                    weatherData.setRaining(true);
+                    weatherData.setThunderTime(duration);
+                    weatherData.setThundering(false);
+                    weatherData.setClearWeatherTime(0);
+                }
                 //Thunder
-                case 2 -> level.setWeatherParameters(0, duration, true, true);
+                case 2 -> {
+                    weatherData.setRainTime(duration);
+                    weatherData.setRaining(true);
+                    weatherData.setThunderTime(duration);
+                    weatherData.setThundering(true);
+                    weatherData.setClearWeatherTime(0);
+                }
             }
         });
     }

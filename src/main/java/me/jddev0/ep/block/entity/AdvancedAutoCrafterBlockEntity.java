@@ -5,9 +5,7 @@ import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.*;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -57,20 +55,20 @@ public class AdvancedAutoCrafterBlockEntity
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
-    private final SimpleContainer[] patternSlots = new SimpleContainer[] {
-            new SimpleContainer(3 * 3) {
+    private final TrackedSimpleContainer[] patternSlots = new TrackedSimpleContainer[] {
+            new TrackedSimpleContainer(3 * 3) {
                 @Override
                 public int getMaxStackSize() {
                     return 1;
                 }
             },
-            new SimpleContainer(3 * 3) {
+            new TrackedSimpleContainer(3 * 3) {
                 @Override
                 public int getMaxStackSize() {
                     return 1;
                 }
             },
-            new SimpleContainer(3 * 3) {
+            new TrackedSimpleContainer(3 * 3) {
                 @Override
                 public int getMaxStackSize() {
                     return 1;
@@ -491,7 +489,7 @@ public class AdvancedAutoCrafterBlockEntity
         if(hasRecipeLoaded[index] && craftingRecipe[index] != null && oldCopyOfRecipe[index] != null) {
             oldRecipe = craftingRecipe[index];
 
-            oldResult = craftingRecipe[index].value().assemble(oldCopyOfRecipe[index].asCraftInput(), level.registryAccess());
+            oldResult = craftingRecipe[index].value().assemble(oldCopyOfRecipe[index].asCraftInput());
         }
 
         hasRecipeLoaded[index] = true;
@@ -511,7 +509,7 @@ public class AdvancedAutoCrafterBlockEntity
                 resetProgress(index);
             }
 
-            ItemStack resultItemStack = craftingRecipe[index].value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+            ItemStack resultItemStack = craftingRecipe[index].value().assemble(copyOfPatternSlots.asCraftInput());
 
             patternResultSlots[index].setItem(0, resultItemStack);
 
@@ -571,7 +569,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
 
-        ItemStack resultItemStack = craftingRecipe[index].value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+        ItemStack resultItemStack = craftingRecipe[index].value().assemble(copyOfPatternSlots.asCraftInput());
 
         outputItemStacks.add(resultItemStack);
 
@@ -683,7 +681,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
         ItemStack resultItemStack = craftingRecipe[index].value().
-                assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+                assemble(copyOfPatternSlots.asCraftInput());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
@@ -752,7 +750,7 @@ public class AdvancedAutoCrafterBlockEntity
             for(int j = 0;j < patternSlotsForRecipe.getContainerSize();j++)
                 copyOfPatternSlots.setItem(j, patternSlotsForRecipe.getItem(j));
 
-            ItemStack resultItemStack = craftingRecipe[i].value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+            ItemStack resultItemStack = craftingRecipe[i].value().assemble(copyOfPatternSlots.asCraftInput());
 
             if(ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
                 return true;

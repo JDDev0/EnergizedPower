@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "id": "energizedpower:cutter"
+  },
+  "max_uses": 2.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 12.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 8.0
+}

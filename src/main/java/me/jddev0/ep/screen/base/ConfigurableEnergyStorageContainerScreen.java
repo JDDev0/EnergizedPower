@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ChangeRedstoneModeC2SPacket;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -71,21 +71,21 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         return super.mouseClicked(click, doubled);
     }
 
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {}
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {}
 
     @Override
-    protected final void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
+    public final void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+        extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         renderConfiguration(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    protected void renderConfiguration(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    protected void renderConfiguration(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         RedstoneMode redstoneMode = menu.getRedstoneMode();
         int ordinal = redstoneMode.ordinal();
 
@@ -96,9 +96,9 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         }
     }
 
-    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {}
+    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {}
 
-    protected void renderTooltipConfiguration(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected void extractLabelsConfiguration(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
@@ -112,11 +112,11 @@ public abstract class ConfigurableEnergyStorageContainerScreen
     }
 
     @Override
-    protected final void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected final void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
-        renderTooltipNormalView(guiGraphics, mouseX, mouseY);
+        extractLabelsNormalView(guiGraphics, mouseX, mouseY);
 
-        renderTooltipConfiguration(guiGraphics, mouseX, mouseY);
+        extractLabelsConfiguration(guiGraphics, mouseX, mouseY);
     }
 }

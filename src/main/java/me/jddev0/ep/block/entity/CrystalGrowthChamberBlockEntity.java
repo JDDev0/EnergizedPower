@@ -109,7 +109,7 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
 
         itemHandler.extractItem(0, recipe.value().getInput().count());
 
-        ItemStack output = recipe.value().generateOutput(level.random);
+        ItemStack output = recipe.value().generateOutput(level.getRandom());
 
         if(!output.isEmpty())
             itemHandler.setStackInSlot(1, output.copyWithCount(

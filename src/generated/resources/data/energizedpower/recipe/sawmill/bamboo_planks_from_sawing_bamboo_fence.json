@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "minecraft:bamboo_fence",
   "result": {
-    "count": 1,
     "id": "minecraft:bamboo_planks"
   },
   "sawdustAmount": 2

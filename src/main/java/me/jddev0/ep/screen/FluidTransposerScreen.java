@@ -6,7 +6,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -45,8 +45,8 @@ public class FluidTransposerScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -58,23 +58,23 @@ public class FluidTransposerScreen
         renderProgressArrow(guiGraphics, x, y);
     }
 
-    private void renderFluidMeterOverlay(GuiGraphics guiGraphics, int x, int y) {
+    private void renderFluidMeterOverlay(GuiGraphicsExtractor guiGraphics, int x, int y) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
     }
 
-    private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(isHovering(114, 47, 20, 20, mouseX, mouseY))
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 47, 0, 211, 20, 20, 256, 256);
 
         ItemStack output = new ItemStack(menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?Items.BUCKET:Items.WATER_BUCKET);
         guiGraphics.pose().pushMatrix();
 
-        guiGraphics.renderItem(output, x + 116, y + 49, 116 + 49 * this.imageWidth);
+        guiGraphics.item(output, x + 116, y + 49, 116 + 49 * this.imageWidth);
 
         guiGraphics.pose().popMatrix();
     }
 
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor guiGraphics, int x, int y) {
         int arrowPosY = menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING?58:72;
 
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 114, y + 19, 52, arrowPosY, 20, 14, 256, 256);
@@ -89,8 +89,8 @@ public class FluidTransposerScreen
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(152, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter

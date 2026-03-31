@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 4.0,
+    "id": "minecraft:copper_ingot"
+  },
+  "gives": {
+    "id": "energizedpower:battery_2"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 6.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 7.0
+}

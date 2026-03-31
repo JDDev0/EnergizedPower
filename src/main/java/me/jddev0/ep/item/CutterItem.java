@@ -4,9 +4,7 @@ import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.Unit;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class CutterItem extends Item {
@@ -18,7 +16,18 @@ public class CutterItem extends Item {
     }
 
     @Override
-    public ItemStack getCraftingRemainder(ItemStack itemStack) {
+    public ItemStackTemplate getCraftingRemainder(ItemInstance itemInstance) {
+        if(itemInstance instanceof ItemStackTemplate itemStackTemplate) {
+            //TODO show durability decrease
+
+            //Return something if used as item display (DataComponentIngredient)
+            return itemStackTemplate;
+        }
+
+        if(!(itemInstance instanceof ItemStack itemStack)) {
+            return null;
+        }
+
         ItemStack copy = itemStack.copy();
         //TODO fix for durability enchantment -> Get ServerWorld somehow and use instead of if:
         //     "copy.hurtAndBreak(1, null, null, item -> copy.setCount(0));"
@@ -29,7 +38,7 @@ public class CutterItem extends Item {
                 copy.setCount(0);
         }
 
-        return copy;
+        return copy.isEmpty()?null:ItemStackTemplate.fromNonEmptyStack(copy);
     }
 
     @Override

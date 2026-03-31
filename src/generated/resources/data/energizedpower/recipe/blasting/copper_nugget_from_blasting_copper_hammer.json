@@ -6,7 +6,6 @@
   "group": "copper_nugget",
   "ingredient": "energizedpower:copper_hammer",
   "result": {
-    "count": 1,
     "id": "minecraft:copper_nugget"
   }
 }

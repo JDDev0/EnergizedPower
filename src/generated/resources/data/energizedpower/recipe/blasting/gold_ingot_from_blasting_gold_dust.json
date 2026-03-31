@@ -6,7 +6,6 @@
   "group": "gold_ingot",
   "ingredient": "#c:dusts/gold",
   "result": {
-    "count": 1,
     "id": "minecraft:gold_ingot"
   }
 }

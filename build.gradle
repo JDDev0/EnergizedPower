@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.181'
+    id 'net.neoforged.gradle.userdev' version '7.1.21'
     id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
@@ -36,7 +36,7 @@ base {
     archivesName = mod_id
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -149,24 +149,27 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     // REI integration
-    compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
-    compileOnly "dev.architectury:architectury-neoforge:19.0.1"
-    compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:21.11.814'
+    //TODO re-enable
+    //compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
+    //compileOnly "dev.architectury:architectury-neoforge:19.0.1"
+    //compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:21.11.814'
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly "mezz.jei:jei-1.21.11-common-api:27.3.0.10"
-    compileOnly "mezz.jei:jei-1.21.11-neoforge-api:27.3.0.10"
+    compileOnly "mezz.jei:jei-26.1-common-api:29.2.0.20"
+    compileOnly "mezz.jei:jei-26.1-neoforge-api:29.2.0.20"
 
     // EMI integration
-    compileOnly "dev.emi:emi-neoforge:1.1.15+1.21.1:api"
+    //TODO re-enable
+    //compileOnly "dev.emi:emi-neoforge:1.1.15+1.21.1:api"
 
     // Curios Continuation integration
-    compileOnly "top.theillusivec4.curios:curios-neoforge:14.0.0+1.21.11"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:15.0.0-beta.1+26.1"
 
     // CCTweaked integration
-    compileOnly "cc.tweaked:cc-tweaked-1.21.8-core-api:1.116.1"
-    compileOnly "cc.tweaked:cc-tweaked-1.21.8-forge-api:1.116.1"
+    //TODO re-enable
+    //compileOnly "cc.tweaked:cc-tweaked-1.21.8-core-api:1.116.1"
+    //compileOnly "cc.tweaked:cc-tweaked-1.21.8-forge-api:1.116.1"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
@@ -207,6 +210,13 @@ jar {
     }
 }
 
+//Show more errors for porting
+afterEvaluate {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "2000"
+    }
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -233,7 +243,7 @@ unifiedPublishing {
         displayName = "Energized Power - " + project.minecraft_version + " - v" + project.mod_version.split("-")[1] + " [NeoForge]"
         version = project.mod_version
         changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
-        releaseType = "release"
+        releaseType = "beta" //TODO change to "release" if NeoForge is no longer in beta
         gameVersions = [project.minecraft_version]
         gameLoaders = ["neoforge"]
 
@@ -259,7 +269,7 @@ unifiedPublishing {
     }
 }
 
-// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+// IDEA no longer automatically downloads sources/javafdoc jars for dependencies, so we need to explicitly enable the behavior.
 idea {
     module {
         downloadSources = true

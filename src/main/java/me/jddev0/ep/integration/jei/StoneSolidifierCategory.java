@@ -3,6 +3,7 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
+import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -12,7 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -62,11 +63,11 @@ public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<Sto
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(Fluids.WATER, recipe.value().getWaterAmount());
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(Fluids.LAVA, recipe.value().getLavaAmount());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).add(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
     }
 
     @Override
-    public void draw(RecipeHolder<StoneSolidifierRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<StoneSolidifierRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

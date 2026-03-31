@@ -6,7 +6,6 @@
   "group": "silicon",
   "ingredient": "#c:gems/quartz",
   "result": {
-    "count": 1,
     "id": "energizedpower:silicon"
   }
 }

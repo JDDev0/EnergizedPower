@@ -4,7 +4,6 @@
     "ingredient": "#c:plates/iron"
   },
   "pressMold": {
-    "count": 1,
     "id": "energizedpower:rod_press_mold"
   },
   "result": {

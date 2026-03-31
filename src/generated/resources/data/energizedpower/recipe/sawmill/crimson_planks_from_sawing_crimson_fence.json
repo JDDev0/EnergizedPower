@@ -2,7 +2,6 @@
   "type": "energizedpower:sawmill",
   "ingredient": "minecraft:crimson_fence",
   "result": {
-    "count": 1,
     "id": "minecraft:crimson_planks"
   },
   "sawdustAmount": 2

@@ -3,27 +3,32 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
 import java.util.List;
 
 public class CrusherRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final ItemStack output;
+    private final ItemStackTemplate output;
     private final Ingredient input;
 
-    public CrusherRecipe(ItemStack output, Ingredient input) {
+    public CrusherRecipe(ItemStackTemplate output, Ingredient input) {
         this.output = output;
         this.input = input;
     }
 
-    public ItemStack getOutput() {
+    public ItemStackTemplate getOutput() {
         return output;
     }
 
@@ -40,8 +45,8 @@ public class CrusherRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
-        return output;
+    public ItemStack assemble(RecipeInput container) {
+        return ItemStackUtils.fromNullableItemStackTemplate(this.output);
     }
 
     @Override
@@ -81,6 +86,8 @@ public class CrusherRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+
         return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
@@ -91,43 +98,33 @@ public class CrusherRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         public static final String ID = "crusher";
     }
 
-    public static final class Serializer implements RecipeSerializer<CrusherRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("crusher");
-
-        private final MapCodec<CrusherRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<CrusherRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             })).apply(instance, CrusherRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> STREAM_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<CrusherRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
+        public static final RecipeSerializer<CrusherRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("crusher");
 
         private static CrusherRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new CrusherRecipe(output, input);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, CrusherRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

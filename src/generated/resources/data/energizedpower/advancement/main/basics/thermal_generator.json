@@ -17,7 +17,6 @@
       "translate": "advancements.energizedpower.thermal_generator.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:thermal_generator"
     },
     "title": {

@@ -2,21 +2,18 @@ package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.client.rendering.FluidTankRenderState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import me.jddev0.ep.util.FluidRenderUtils;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.AbstractTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.joml.Matrix3x2f;
 
@@ -27,7 +24,12 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         super(menu, inventory, titleComponent);
     }
 
-    protected void renderFluidMeterContent(GuiGraphics guiGraphics, FluidStack fluidStack, int tankCapacity, int x, int y,
+    public EnergizedPowerBaseContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                             int imageWidth, int imageHeight) {
+        super(menu, inventory, titleComponent, imageWidth, imageHeight);
+    }
+
+    protected void renderFluidMeterContent(GuiGraphicsExtractor guiGraphics, FluidStack fluidStack, int tankCapacity, int x, int y,
                                          int w, int h) {
         guiGraphics.pose().pushMatrix();
 
@@ -38,17 +40,14 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
         guiGraphics.pose().popMatrix();
     }
 
-    private void renderFluidStack(GuiGraphics guiGraphics, FluidStack fluidStack, int tankCapacity, int w, int h) {
+    private void renderFluidStack(GuiGraphicsExtractor guiGraphics, FluidStack fluidStack, int tankCapacity, int w, int h) {
         if(fluidStack.isEmpty())
             return;
 
         Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
-        Identifier stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
-        TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getAtlasManager().get(new Material(
-                TextureAtlas.LOCATION_BLOCKS, stillFluidImageId));
+        TextureAtlasSprite stillFluidSprite = FluidRenderUtils.getStillSprite(fluidStack);
 
-        int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
+        int fluidColorTint = FluidRenderUtils.getTintColor(fluidStack);
 
         int fluidMeterPos = tankCapacity == -1 || (fluidStack.getAmount() > 0 && fluidStack.getAmount() == tankCapacity)?
                 0:(h - ((fluidStack.getAmount() <= 0 || tankCapacity == 0)?0:
@@ -67,7 +66,7 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
                 v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
                 AbstractTexture abstractTexture = this.minecraft.getTextureManager().getTexture(stillFluidSprite.atlasLocation());
-                guiGraphics.guiRenderState.submitGuiElement(new FluidTankRenderState(
+                guiGraphics.guiRenderState.addGuiElement(new FluidTankRenderState(
                         RenderPipelines.GUI_TEXTURED, TextureSetup.singleTexture(abstractTexture.getTextureView(), abstractTexture.getSampler()),
                         new Matrix3x2f(guiGraphics.pose()),
                         xOffset, yOffset, width, height,

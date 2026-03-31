@@ -17,7 +17,6 @@
       "translate": "advancements.energizedpower.charging_station.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:charging_station"
     },
     "title": {

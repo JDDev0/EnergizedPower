@@ -21,7 +21,6 @@
         "energizedpower:active": true,
         "energizedpower:working": true
       },
-      "count": 1,
       "id": "energizedpower:inventory_coal_engine"
     },
     "title": {

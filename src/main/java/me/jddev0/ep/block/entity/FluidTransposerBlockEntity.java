@@ -15,6 +15,7 @@ import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.FluidTransposerMenu;
+import me.jddev0.ep.util.FluidStackUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
@@ -177,8 +178,8 @@ public class FluidTransposerBlockEntity
                 stream().filter(recipe -> recipe.value().getMode() == mode).
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
-                        FluidStack.isSameFluidSameComponents(recipe.value().getFluid(),
-                                fluidStorage.getFluid())).
+                        FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(),
+                                recipe.value().getFluid())).
                 findFirst();
     }
 
@@ -192,7 +193,8 @@ public class FluidTransposerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack fluid = recipe.value().getFluid().copyWithAmount(recipe.value().getFluid().getAmount());
+        FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).
+                copyWithAmount(FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).getAmount());
 
         if(mode == Mode.EMPTYING) {
             try(Transaction transaction = Transaction.open(null)) {
@@ -209,9 +211,9 @@ public class FluidTransposerBlockEntity
         }
 
         itemHandler.extractItem(0, 1);
-        itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -219,12 +221,12 @@ public class FluidTransposerBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
         int fluidAmountInTank = fluidStorage.getFluid().getAmount();
-        int fluidAmountInRecipe = recipe.value().getFluid().getAmount();
+        int fluidAmountInRecipe = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).getAmount();
 
         return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
                 (mode != Mode.EMPTYING || fluidStorage.isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getFluid())) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null));
     }
 
     public void setMode(boolean isFillingMode) {

@@ -2,7 +2,6 @@
   "type": "energizedpower:stone_solidifier",
   "lavaAmount": 1000,
   "result": {
-    "count": 1,
     "id": "minecraft:obsidian"
   },
   "waterAmount": 1000

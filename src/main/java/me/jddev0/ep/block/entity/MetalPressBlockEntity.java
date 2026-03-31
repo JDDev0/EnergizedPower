@@ -119,9 +119,9 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         itemHandler.setStackInSlot(1, pressMold);
         
         itemHandler.extractItem(0, recipe.value().getInput().count());
-        itemHandler.setStackInSlot(2, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(2, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -129,6 +129,6 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<MetalPressRecipe> recipe) {
         return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null));
     }
 }

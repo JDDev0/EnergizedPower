@@ -6,7 +6,6 @@
   "group": "iron_ingot",
   "ingredient": "#c:dusts/iron",
   "result": {
-    "count": 1,
     "id": "minecraft:iron_ingot"
   }
 }

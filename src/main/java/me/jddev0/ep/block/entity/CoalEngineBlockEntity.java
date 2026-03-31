@@ -11,6 +11,7 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.CapabilityUtil;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
@@ -227,8 +228,8 @@ public class CoalEngineBlockEntity
                 if(blockEntity.progress == 0) {
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
-                    if(!item.getCraftingRemainder().isEmpty())
-                        blockEntity.itemHandler.setStackInSlot(0, item.getCraftingRemainder());
+                    if(item.getCraftingRemainder() != null)
+                        blockEntity.itemHandler.setStackInSlot(0, ItemStackUtils.fromNullableItemStackTemplate(item.getCraftingRemainder()));
                     else
                         blockEntity.itemHandler.extractItem(0, 1);
                 }
@@ -368,6 +369,6 @@ public class CoalEngineBlockEntity
         if(blockEntity.level != null && item.getBurnTime(null, blockEntity.level.fuelValues()) <= 0)
             return false;
 
-        return item.getCraftingRemainder().isEmpty() || item.getCount() == 1;
+        return item.getCraftingRemainder() == null || item.getCount() == 1;
     }
 }

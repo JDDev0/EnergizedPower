@@ -4,28 +4,33 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
-import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final ItemStack output;
-    private final OutputItemStackWithPercentages secondaryOutput;
+    private final ItemStackTemplate output;
+    private final OutputItemStackTemplateWithPercentages secondaryOutput;
     private final IngredientWithCount[] inputs;
     private final int ticks;
 
-    public AlloyFurnaceRecipe(ItemStack output, OutputItemStackWithPercentages secondaryOutput,
+    public AlloyFurnaceRecipe(ItemStackTemplate output, OutputItemStackTemplateWithPercentages secondaryOutput,
                               IngredientWithCount[] inputs, int ticks) {
         this.output = output;
         this.secondaryOutput = secondaryOutput;
@@ -33,11 +38,11 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
         this.ticks = ticks;
     }
 
-    public ItemStack getOutput() {
+    public ItemStackTemplate getOutput() {
         return output;
     }
 
-    public OutputItemStackWithPercentages getSecondaryOutput() {
+    public OutputItemStackTemplateWithPercentages getSecondaryOutput() {
         return secondaryOutput;
     }
 
@@ -52,8 +57,11 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
     public ItemStack[] getMaxOutputCounts() {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output());
+
         generatedOutputs[0] = output.copyWithCount(output.getCount());
-        generatedOutputs[1] = secondaryOutput.output().copyWithCount(secondaryOutput.percentages().length);
+        generatedOutputs[1] = secondaryOutput.copyWithCount(this.secondaryOutput.percentages().length);
 
         return generatedOutputs;
     }
@@ -61,14 +69,17 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
     public ItemStack[] generateOutputs(RandomSource randomSource) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output());
+
         generatedOutputs[0] = output.copyWithCount(output.getCount());
 
         int count = 0;
-        for(double percentage:secondaryOutput.percentages())
+        for(double percentage:this.secondaryOutput.percentages())
             if(randomSource.nextDouble() <= percentage)
                 count++;
 
-        generatedOutputs[1] = secondaryOutput.output().copyWithCount(count);
+        generatedOutputs[1] = secondaryOutput.copyWithCount(count);
 
         return generatedOutputs;
     }
@@ -116,8 +127,8 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
+    public ItemStack assemble(RecipeInput container) {
+        return ItemStackUtils.fromNullableItemStackTemplate(this.output);
     }
 
     @Override
@@ -157,8 +168,11 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.isSameItemSameComponents(output, itemStack) || (secondaryOutput != null &&
-                ItemStack.isSameItemSameComponents(secondaryOutput.output(), itemStack));
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput.output());
+
+        return ItemStack.isSameItemSameComponents(output, itemStack) || (!secondaryOutput.isEmpty() &&
+                ItemStack.isSameItemSameComponents(secondaryOutput, itemStack));
     }
 
     public static final class Type implements RecipeType<AlloyFurnaceRecipe> {
@@ -168,37 +182,27 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
         public static final String ID = "alloy_furnace";
     }
 
-    public static final class Serializer implements RecipeSerializer<AlloyFurnaceRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("alloy_furnace");
-
-        private final MapCodec<AlloyFurnaceRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<AlloyFurnaceRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
+            }), OutputItemStackTemplateWithPercentages.CODEC_NONEMPTY.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
                 return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
             }), new ArrayCodec<>(IngredientWithCount.CODEC, IngredientWithCount[]::new).fieldOf("ingredients").forGetter((recipe) -> {
                 return recipe.inputs;
             }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
             })).apply(instance, (output, secondaryOutput, inputs, ticks) -> new AlloyFurnaceRecipe(output,
-                    secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), inputs, ticks));
+                    secondaryOutput.orElse(OutputItemStackTemplateWithPercentages.EMPTY), inputs, ticks));
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> STREAM_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<AlloyFurnaceRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
+        public static final RecipeSerializer<AlloyFurnaceRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("alloy_furnace");
 
         private static AlloyFurnaceRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
@@ -208,9 +212,9 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
 
             int ticks = buffer.readInt();
 
-            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
-            OutputItemStackWithPercentages secondaryOutput = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
+            OutputItemStackTemplateWithPercentages secondaryOutput = OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new AlloyFurnaceRecipe(output, secondaryOutput, inputs, ticks);
         }
@@ -222,9 +226,9 @@ public class AlloyFurnaceRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
 
             buffer.writeInt(recipe.ticks);
 
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
 
-            OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
+            OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
         }
     }
 }

@@ -128,9 +128,9 @@ public class StoneSolidifierBlockEntity
             transaction.commit();
         }
 
-        itemHandler.setStackInSlot(0, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(0, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(0).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -140,6 +140,6 @@ public class StoneSolidifierBlockEntity
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= recipe.value().getWaterAmount() &&
                 fluidStorage.getFluid(1).getAmount() >= recipe.value().getLavaAmount() &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null));
     }
 }

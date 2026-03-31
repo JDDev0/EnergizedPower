@@ -5,23 +5,21 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.block.entity.renderer.state.FluidTankBlockEntityRenderState;
+import me.jddev0.ep.util.FluidRenderUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
@@ -89,15 +87,9 @@ public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResourc
             }
 
             Fluid fluid = fluidStack.getFluid();
-            IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(fluid);
-            Identifier stillFluidImageId = fluidTypeExtensions.getStillTexture(fluidStack);
-            if(stillFluidImageId == null)
-                stillFluidImageId = Identifier.withDefaultNamespace("air");
+            TextureAtlasSprite stillFluidSprite = FluidRenderUtils.getStillSprite(fluidStack);
 
-            TextureAtlasSprite stillFluidSprite = Minecraft.getInstance().getAtlasManager().get(new Material(
-                        TextureAtlas.LOCATION_BLOCKS, stillFluidImageId));
-
-            int fluidColorTint = fluidTypeExtensions.getTintColor(fluidStack);
+            int fluidColorTint = FluidRenderUtils.getTintColor(fluidStack);
 
             Matrix4f mat = poseEntry.pose();
 
@@ -125,34 +117,34 @@ public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResourc
                         .setColor(fluidColorTint)
                         .setUv(u0, v1)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .9375f, height * .0625f, 0.f)
                         .setColor(fluidColorTint)
                         .setUv(u1, v1)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .9375f, 0.f, 0.f)
                         .setColor(fluidColorTint)
                         .setUv(u1, v0)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .0625f, 0.f, 0.f)
                         .setColor(fluidColorTint)
                         .setUv(u0, v0)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
             }
 
             //Indicator bar
             {
-                TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getAtlasManager().get(new Material(
+                TextureAtlasSprite indicatorBarSprite = Minecraft.getInstance().getAtlasManager().get(new SpriteId(
                         TextureAtlas.LOCATION_BLOCKS, EPAPI.id("block/fluid_tank_indicator_bar")));
 
                 float translateForMinMaxIndicatorBarHeight = height < 2?(height - 2) / 16.f:(height > 12?(height - 12) / 16.f:0.f);
@@ -171,28 +163,28 @@ public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResourc
                         .setColor(255, 255, 255, 255)
                         .setUv(ibu0, ibv1)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .625f, .015f, -.05f)
                         .setColor(255, 255, 255, 255)
                         .setUv(ibu1, ibv1)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .625f, -.015f, -.05f)
                         .setColor(255, 255, 255, 255)
                         .setUv(ibu1, ibv0)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .375f, -.015f, -.05f)
                         .setColor(255, 255, 255, 255)
                         .setUv(ibu0, ibv0)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 poseEntry.translate(0.f, -translateForMinMaxIndicatorBarHeight, 0.f);
@@ -210,28 +202,28 @@ public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResourc
                         .setColor(fluidColorTint)
                         .setUv(u0, v1)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .9375f, .875f, 0.f)
                         .setColor(fluidColorTint)
                         .setUv(u1, v1)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .9375f, 0.f, 0.f)
                         .setColor(fluidColorTint)
                         .setUv(u1, v0)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
 
                 vertexConsumer.addVertex(mat, .0625f, 0.f, 0.f)
                         .setColor(fluidColorTint)
                         .setUv(u0, v0)
                         .setOverlay(OverlayTexture.NO_OVERLAY)
-                        .setLight(LightTexture.FULL_BRIGHT)
+                        .setLight(15728880)
                         .setNormal(poseEntry, 0.f, 0.f, 0.f);
             }
         });

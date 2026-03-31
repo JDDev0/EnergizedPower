@@ -5,9 +5,7 @@ import me.jddev0.ep.block.AutoCrafterBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.*;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -60,7 +58,7 @@ public class AutoCrafterBlockEntity
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
                     i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
-    private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
+    private final TrackedSimpleContainer patternSlots = new TrackedSimpleContainer(3 * 3) {
         @Override
         public int getMaxStackSize() {
             return 1;
@@ -403,7 +401,7 @@ public class AutoCrafterBlockEntity
         if(hasRecipeLoaded && craftingRecipe != null && oldCopyOfRecipe != null) {
             oldRecipe = craftingRecipe;
 
-            oldResult = craftingRecipe.value().assemble(oldCopyOfRecipe.asCraftInput(), level.registryAccess());
+            oldResult = craftingRecipe.value().assemble(oldCopyOfRecipe.asCraftInput());
         }
 
         hasRecipeLoaded = true;
@@ -423,7 +421,7 @@ public class AutoCrafterBlockEntity
                 resetProgress();
             }
 
-            ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+            ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput());
 
             patternResultSlots.setItem(0, resultItemStack);
 
@@ -482,7 +480,7 @@ public class AutoCrafterBlockEntity
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
 
-        ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+        ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput());
 
         outputItemStacks.add(resultItemStack);
 
@@ -591,7 +589,7 @@ public class AutoCrafterBlockEntity
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
-        ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+        ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput());
 
         if(!resultItemStack.isEmpty())
             outputItemStacks.add(resultItemStack);
@@ -658,7 +656,7 @@ public class AutoCrafterBlockEntity
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
-        ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess());
+        ItemStack resultItemStack = craftingRecipe.value().assemble(copyOfPatternSlots.asCraftInput());
 
         if(ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
             return true;

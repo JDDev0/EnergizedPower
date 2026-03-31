@@ -12,6 +12,7 @@ import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.AlloyFurnaceMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -206,8 +207,8 @@ public class AlloyFurnaceBlockEntity
                     blockEntity.onHasEnoughFuel();
                     hasNotEnoughFuel = false;
 
-                    if(!item.getCraftingRemainder().isEmpty())
-                        blockEntity.itemHandler.setStackInSlot(3, item.getCraftingRemainder());
+                    if(item.getCraftingRemainder() != null)
+                        blockEntity.itemHandler.setStackInSlot(3, ItemStackUtils.fromNullableItemStackTemplate(item.getCraftingRemainder()));
                     else
                         blockEntity.itemHandler.extractItem(3, 1);
                 }
@@ -334,7 +335,7 @@ public class AlloyFurnaceBlockEntity
             itemHandler.extractItem(indexMinCount, input.count());
         }
 
-        ItemStack[] outputs = recipe.value().generateOutputs(level.random);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom());
 
         itemHandler.setStackInSlot(4, outputs[0].
                 copyWithCount(itemHandler.getStackInSlot(4).getCount() + outputs[0].getCount()));

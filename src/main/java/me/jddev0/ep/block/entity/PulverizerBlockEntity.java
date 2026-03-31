@@ -64,7 +64,7 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         if(level == null || !hasRecipe())
             return;
 
-        ItemStack[] outputs = recipe.value().generateOutputs(level.random, false);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom(), false);
 
         itemHandler.extractItem(0, 1);
         itemHandler.setStackInSlot(1, outputs[0].

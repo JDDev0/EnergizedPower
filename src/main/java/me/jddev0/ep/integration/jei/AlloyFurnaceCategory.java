@@ -16,7 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -101,7 +101,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
     }
 
     @Override
-    public void draw(RecipeHolder<AlloyFurnaceRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<AlloyFurnaceRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         Font font = Minecraft.getInstance().font;
@@ -109,6 +109,6 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
         Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
         int textWidth = font.width(component);
 
-        guiGraphics.drawString(Minecraft.getInstance().font, component, 147 - textWidth, 29, 0xFFFFFFFF, false);
+        guiGraphics.text(Minecraft.getInstance().font, component, 147 - textWidth, 29, 0xFFFFFFFF, false);
     }
 }

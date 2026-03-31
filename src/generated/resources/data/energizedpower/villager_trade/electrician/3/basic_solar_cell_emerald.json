@@ -1,0 +1,13 @@
+{
+  "gives": {
+    "count": 9,
+    "id": "minecraft:emerald"
+  },
+  "max_uses": 15.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 3.0,
+    "id": "energizedpower:basic_solar_cell"
+  },
+  "xp": 9.0
+}

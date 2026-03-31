@@ -3,7 +3,7 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
+import me.jddev0.ep.recipe.OutputItemStackTemplateWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -17,7 +17,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -85,7 +85,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
             tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            OutputItemStackWithPercentages[] outputs = recipe.value().getOutputs();
+            OutputItemStackTemplateWithPercentages[] outputs = recipe.value().getOutputs();
             for(int i = 0;i < outputs.length;i++) {
                 if(ItemStack.isSameItemSameComponents(optionalItemStack.get(), outputs[i].output())) {
                     double[] percentages = outputs[i].percentages();
@@ -108,7 +108,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public void draw(RecipeHolder<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         Font font = Minecraft.getInstance().font;
@@ -116,6 +116,6 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
         int textWidth = font.width(component);
 
-        guiGraphics.drawString(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
+        guiGraphics.text(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
     }
 }

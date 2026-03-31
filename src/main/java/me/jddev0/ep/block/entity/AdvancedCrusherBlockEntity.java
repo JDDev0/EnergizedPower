@@ -148,9 +148,9 @@ public class AdvancedCrusherBlockEntity
         }
 
         itemHandler.extractItem(0, 1);
-        itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -160,6 +160,6 @@ public class AdvancedCrusherBlockEntity
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
                 fluidStorage.getCapacity(1) - fluidStorage.getFluid(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null));
     }
 }

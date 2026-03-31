@@ -4,7 +4,6 @@
     "ingredient": "#c:ingots/advanced_alloy"
   },
   "result": {
-    "count": 1,
     "id": "energizedpower:advanced_alloy_plate"
   }
 }

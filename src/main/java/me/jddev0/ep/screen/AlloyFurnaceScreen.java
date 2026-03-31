@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -18,7 +18,9 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -28,22 +30,15 @@ public class AlloyFurnaceScreen extends EnergizedPowerBaseContainerScreen<AlloyF
         renderProgressArrow(guiGraphics, x, y);
     }
 
-    private void renderProgressFlame(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressFlame(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isBurningFuel()) {
             int pos = menu.getScaledProgressFlameSize();
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 36, y + 37 + 14 - pos, 0, 135 - pos, 14, pos, 256, 256);
         }
     }
 
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 79, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
-    }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 }

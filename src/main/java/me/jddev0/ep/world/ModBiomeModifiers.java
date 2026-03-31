@@ -30,7 +30,6 @@ public final class ModBiomeModifiers {
     }
 
     public static ResourceKey<BiomeModifier> registerKey(String name) {
-        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-                EPAPI.id(name));
+        return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, EPAPI.id(name));
     }
 }

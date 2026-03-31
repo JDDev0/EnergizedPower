@@ -5,7 +5,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,9 +20,8 @@ public class AutoCrafterScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/auto_crafter.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/auto_crafter.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/auto_crafter.png"), 176, 206);
 
-        imageHeight = 206;
         inventoryLabelY = imageHeight - 94;
     }
 
@@ -59,8 +58,8 @@ public class AutoCrafterScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -69,12 +68,12 @@ public class AutoCrafterScreen
         renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 89, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
-    private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isIgnoreNBT()) {
             //Ignore NBT checkbox
 
@@ -99,8 +98,8 @@ public class AutoCrafterScreen
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Ignore NBT checkbox

@@ -5,6 +5,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.recipe.ChargerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -17,7 +18,7 @@ import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -65,11 +66,11 @@ public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerReci
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<ChargerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 15, 15).add(recipe.value().getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).add(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 92, 15).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
     }
 
     @Override
-    public void draw(RecipeHolder<ChargerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<ChargerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         Font font = Minecraft.getInstance().font;
@@ -77,6 +78,6 @@ public class ChargerCategory implements IRecipeCategory<RecipeHolder<ChargerReci
         Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW);
         int textWidth = font.width(component);
 
-        guiGraphics.drawString(Minecraft.getInstance().font, component, 113 - textWidth, 38, 0xFFFFFFFF, false);
+        guiGraphics.text(Minecraft.getInstance().font, component, 113 - textWidth, 38, 0xFFFFFFFF, false);
     }
 }

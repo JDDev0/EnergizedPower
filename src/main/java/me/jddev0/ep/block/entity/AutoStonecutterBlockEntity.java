@@ -34,7 +34,7 @@ public class AutoStonecutterBlockEntity
 
                 3,
                 RecipeType.STONECUTTING,
-                RecipeSerializer.STONECUTTER,
+                StonecutterRecipe.SERIALIZER,
                 ModConfigs.COMMON_AUTO_STONECUTTER_RECIPE_DURATION.getValue(),
 
                 ModConfigs.COMMON_AUTO_STONECUTTER_CAPACITY.getValue(),
@@ -95,9 +95,9 @@ public class AutoStonecutterBlockEntity
         itemHandler.setStackInSlot(1, pickaxe);
 
         itemHandler.extractItem(0, 1);
-        itemHandler.setStackInSlot(2, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(2, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -107,6 +107,6 @@ public class AutoStonecutterBlockEntity
         return level != null &&
                 recipe.value().matches(new SingleRecipeInput(inventory.getItem(0)), level) &&
                 itemHandler.getStackInSlot(1).is(ItemTags.PICKAXES) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null));
     }
 }

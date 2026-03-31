@@ -3,33 +3,38 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
 import java.util.List;
 
 public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final ItemStack output;
-    private final ItemStack pressMold;
+    private final ItemStackTemplate output;
+    private final ItemStackTemplate pressMold;
     private final IngredientWithCount input;
 
-    public MetalPressRecipe(ItemStack output, ItemStack pressMold, IngredientWithCount input) {
+    public MetalPressRecipe(ItemStackTemplate output, ItemStackTemplate pressMold, IngredientWithCount input) {
         this.output = output;
         this.pressMold = pressMold;
         this.input = input;
     }
 
-    public ItemStack getOutput() {
+    public ItemStackTemplate getOutput() {
         return output;
     }
 
-    public ItemStack getPressMold() {
+    public ItemStackTemplate getPressMold() {
         return pressMold;
     }
 
@@ -42,13 +47,15 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         if(level.isClientSide())
             return false;
 
+        ItemStack pressMold = ItemStackUtils.fromNullableItemStackTemplate(this.pressMold);
+
         return input.input().test(container.getItem(0)) && container.getItem(0).getCount() >= input.count() &&
                 ItemStack.isSameItem(pressMold, container.getItem(1));
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
-        return output;
+    public ItemStack assemble(RecipeInput container) {
+        return ItemStackUtils.fromNullableItemStackTemplate(this.output);
     }
 
     @Override
@@ -88,6 +95,8 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+
         return ItemStack.isSameItemSameComponents(output, itemStack);
     }
 
@@ -98,47 +107,37 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         public static final String ID = "metal_press";
     }
 
-    public static final class Serializer implements RecipeSerializer<MetalPressRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("metal_press");
-
-        private final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), CodecFix.ITEM_STACK_CODEC.fieldOf("pressMold").forGetter((recipe) -> {
+            }), ItemStackTemplate.CODEC.fieldOf("pressMold").forGetter((recipe) -> {
                 return recipe.pressMold;
             }), IngredientWithCount.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             })).apply(instance, MetalPressRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, MetalPressRecipe> STREAM_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, MetalPressRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<MetalPressRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, MetalPressRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
+        public static final RecipeSerializer<MetalPressRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("metal_press");
 
         private static MetalPressRecipe read(RegistryFriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
-            ItemStack pressMold = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
-            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStackTemplate pressMold = ItemStackTemplate.STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new MetalPressRecipe(output, pressMold, input);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, MetalPressRecipe recipe) {
             IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.pressMold);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.pressMold);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

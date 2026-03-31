@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -40,8 +40,8 @@ public class BlockPlacerScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -49,7 +49,7 @@ public class BlockPlacerScreen
         renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isInverseRotation()) {
             //Inverse rotation checkbox
 
@@ -58,8 +58,8 @@ public class BlockPlacerScreen
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Inverse rotation checkbox

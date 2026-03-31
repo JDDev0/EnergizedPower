@@ -17,7 +17,6 @@
       "translate": "advancements.energizedpower.heat_generator.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:heat_generator"
     },
     "title": {

@@ -1,0 +1,13 @@
+{
+  "gives": {
+    "count": 6,
+    "id": "energizedpower:copper_cable"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 35.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 5.0
+}

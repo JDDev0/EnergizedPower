@@ -7,7 +7,6 @@
   "ingredient": "minecraft:white_concrete_powder",
   "mode": "FILLING",
   "result": {
-    "count": 1,
     "id": "minecraft:white_concrete"
   }
 }

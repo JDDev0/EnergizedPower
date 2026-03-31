@@ -17,7 +17,6 @@
       "translate": "advancements.energizedpower.weather_controller.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:weather_controller"
     },
     "title": {

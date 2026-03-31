@@ -171,7 +171,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
             itemHandler.extractItem(indexMinCount, input.count());
         }
 
-        ItemStack[] outputs = recipe.value().generateOutputs(level.random);
+        ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom());
 
         itemHandler.setStackInSlot(3, outputs[0].
                 copyWithCount(itemHandler.getStackInSlot(3).getCount() + outputs[0].getCount()));

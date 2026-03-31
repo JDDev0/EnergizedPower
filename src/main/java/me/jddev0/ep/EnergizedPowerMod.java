@@ -28,17 +28,18 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.ModMessagesClient;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.*;
-import me.jddev0.ep.villager.EPVillager;
+import me.jddev0.ep.villager.EPPoiTypes;
+import me.jddev0.ep.villager.EPVillagerProfessions;
 import net.minecraft.client.Camera;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.fog.FogData;
 import net.minecraft.client.renderer.fog.environment.FogEnvironment;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -52,6 +53,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.fluid.FluidTintSources;
 import net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -76,7 +78,8 @@ public class EnergizedPowerMod {
         EPBlockEntities.register(modEventBus);
         EPRecipes.register(modEventBus);
         EPMenuTypes.register(modEventBus);
-        EPVillager.register(modEventBus);
+        EPPoiTypes.register(modEventBus);
+        EPVillagerProfessions.register(modEventBus);
         EPEntityTypes.register(modEventBus);
 
         EPFluids.register(modEventBus);
@@ -456,9 +459,6 @@ public class EnergizedPowerMod {
                     entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                             Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
 
-            ItemBlockRenderTypes.setRenderLayer(EPFluids.DIRTY_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
-            ItemBlockRenderTypes.setRenderLayer(EPFluids.FLOWING_DIRTY_WATER.get(), ChunkSectionLayer.TRANSLUCENT);
-
             BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
             BlockEntityRenderers.register(EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
@@ -474,37 +474,25 @@ public class EnergizedPowerMod {
         }
 
         @SubscribeEvent
+        static void onRegisterFluidModels(RegisterFluidModelsEvent event) {
+            event.register(new FluidModel.Unbaked(
+                    new Material(EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getStillTexture()),
+                    new Material(EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFlowingTexture()),
+                    EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getOverlayTexture() == null?
+                            null:new Material(EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getOverlayTexture()),
+                    FluidTintSources.constant(EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getTintColor())
+            ), EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER);
+        }
+
+        @SubscribeEvent
         static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
             event.registerFluidType(new IClientFluidTypeExtensions() {
                 @Override
-                public int getTintColor() {
-                    return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getTintColor();
-                }
-
-                @Override
-                public Identifier getStillTexture() {
-                    return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getStillTexture();
-                }
-
-                @Override
-                public Identifier getFlowingTexture() {
-                    return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFlowingTexture();
-                }
-
-                @Override
-                public @Nullable Identifier getOverlayTexture() {
-                    return EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getOverlayTexture();
-                }
-
-                @Override
-                public Vector4f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector4f fluidFogColor) {
+                public void modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector4f fluidFogColor) {
                     Vector3f fogColor = EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getFogColor();
-                    return new Vector4f(
-                            fogColor.x,
-                            fogColor.y,
-                            fogColor.z,
-                            fluidFogColor.w
-                    );
+                    fluidFogColor.x = fogColor.x;
+                    fluidFogColor.y = fogColor.y;
+                    fluidFogColor.z = fogColor.z;
                 }
 
                 @Override

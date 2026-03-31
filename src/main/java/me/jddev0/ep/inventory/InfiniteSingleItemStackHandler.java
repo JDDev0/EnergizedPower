@@ -1,5 +1,6 @@
 package me.jddev0.ep.inventory;
 
+import me.jddev0.ep.codec.CodecFix;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -50,12 +51,12 @@ public class InfiniteSingleItemStackHandler extends SnapshotJournal<ItemResource
 
     @Override
     public void serialize(ValueOutput output) {
-        output.storeNullable("Item", ItemStack.SINGLE_ITEM_CODEC, this.stack.isEmpty()?null:this.stack.toStack());
+        output.storeNullable("Item", CodecFix.SINGLE_ITEM_ITEM_STACK_CODEC, this.stack.isEmpty()?null:this.stack.toStack());
     }
 
     @Override
     public void deserialize(ValueInput input) {
-        this.stack = ItemResource.of(input.read("Item", ItemStack.SINGLE_ITEM_CODEC).orElse(ItemStack.EMPTY));
+        this.stack = ItemResource.of(input.read("Item", CodecFix.SINGLE_ITEM_ITEM_STACK_CODEC).orElse(ItemStack.EMPTY));
     }
 
     @Override

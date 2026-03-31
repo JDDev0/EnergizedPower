@@ -3,6 +3,7 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.StoneLiquefierRecipe;
+import me.jddev0.ep.util.FluidStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -12,7 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +60,7 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeHolder<Ston
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<StoneLiquefierRecipe> recipe, IFocusGroup iFocusGroup) {
-        FluidStack output = recipe.value().getOutput();
+        FluidStack output = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getOutput());
 
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
@@ -68,7 +69,7 @@ public class StoneLiquefierCategory implements IRecipeCategory<RecipeHolder<Ston
     }
 
     @Override
-    public void draw(RecipeHolder<StoneLiquefierRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<StoneLiquefierRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
     }
 }

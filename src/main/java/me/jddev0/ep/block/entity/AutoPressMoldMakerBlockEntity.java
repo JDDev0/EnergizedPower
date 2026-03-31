@@ -94,9 +94,9 @@ public class AutoPressMoldMakerBlockEntity
         itemHandler.setStackInSlot(1, shovel);
 
         itemHandler.extractItem(0, recipe.value().getClayCount());
-        itemHandler.setStackInSlot(2, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(2, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }
@@ -107,6 +107,6 @@ public class AutoPressMoldMakerBlockEntity
                 itemHandler.getStackInSlot(0).is(Items.CLAY_BALL) &&
                 itemHandler.getStackInSlot(0).getCount() >= recipe.value().getClayCount() &&
                 itemHandler.getStackInSlot(1).is(ItemTags.SHOVELS) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null));
     }
 }

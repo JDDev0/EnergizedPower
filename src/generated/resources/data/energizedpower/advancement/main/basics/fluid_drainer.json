@@ -17,7 +17,6 @@
       "translate": "advancements.energizedpower.fluid_drainer.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:fluid_drainer"
     },
     "title": {

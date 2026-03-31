@@ -62,9 +62,9 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
             return;
 
         itemHandler.extractItem(0, recipe.value().getInput().count());
-        itemHandler.setStackInSlot(1, recipe.value().assemble(null, level.registryAccess()).
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null).
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
-                        recipe.value().assemble(null, level.registryAccess()).getCount()));
+                        recipe.value().assemble(null).getCount()));
 
         resetProgress();
     }

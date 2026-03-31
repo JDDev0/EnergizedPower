@@ -6,7 +6,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetTimeFromTimeControllerC2SPacket;
 import me.jddev0.ep.screen.base.EnergyStorageContainerScreen;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -61,8 +61,8 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBg(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -71,7 +71,7 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         renderInfoText(guiGraphics, x, y);
     }
 
-    private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button
 
@@ -91,19 +91,19 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
         }
     }
 
-    private void renderInfoText(GuiGraphics guiGraphics, int x, int y) {
+    private void renderInfoText(GuiGraphicsExtractor guiGraphics, int x, int y) {
         Component component = menu.getEnergy() < TimeControllerBlockEntity.CAPACITY?
                 Component.translatable("tooltip.energizedpower.not_enough_energy.txt").withStyle(ChatFormatting.RED):
                 Component.translatable("tooltip.energizedpower.ready.txt").withStyle(ChatFormatting.DARK_GREEN);
 
         int componentWidth = font.width(component);
 
-        guiGraphics.drawString(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+        guiGraphics.text(font, component, (int)(x + 34 + (126 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
         if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button

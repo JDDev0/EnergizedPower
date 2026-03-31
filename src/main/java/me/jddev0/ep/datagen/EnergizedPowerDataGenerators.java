@@ -33,5 +33,6 @@ public class EnergizedPowerDataGenerators {
         generator.addProvider(true, new ModPoiTypeTagProvider(output, lookupProvider));
         generator.addProvider(true, new ModBiomeTagProvider(output, lookupProvider));
         generator.addProvider(true, new ModPaintingVariantTagProvider(output, lookupProvider));
+        generator.addProvider(true, new ModVillagerTradeTagProvider(output, lookupProvider));
     }
 }

@@ -271,7 +271,7 @@ public class ChargerBlockEntity
 
             if(blockEntity.energyConsumptionLeft <= 0) {
                 recipe.ifPresent(chargerRecipe ->
-                        blockEntity.itemHandler.setStackInSlot(0, chargerRecipe.value().assemble(null, level.registryAccess()).copyWithCount(1)));
+                        blockEntity.itemHandler.setStackInSlot(0, chargerRecipe.value().assemble(null).copyWithCount(1)));
 
                 blockEntity.resetProgress();
             }

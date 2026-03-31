@@ -2,7 +2,6 @@
   "type": "energizedpower:crusher",
   "ingredient": "minecraft:polished_granite",
   "result": {
-    "count": 1,
     "id": "minecraft:granite"
   }
 }

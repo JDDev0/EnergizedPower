@@ -281,7 +281,7 @@ public class AdvancedChargerBlockEntity
                 if(blockEntity.energyConsumptionLeft[i] <= 0) {
                     final int index = i;
                     recipe.ifPresent(chargerRecipe -> blockEntity.itemHandler.setStackInSlot(index,
-                            chargerRecipe.value().assemble(null, level.registryAccess()).copyWithCount(1)));
+                            chargerRecipe.value().assemble(null).copyWithCount(1)));
 
                     blockEntity.resetProgress(i);
                 }

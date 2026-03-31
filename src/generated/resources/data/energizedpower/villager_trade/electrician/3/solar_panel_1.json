@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 2.0,
+    "id": "energizedpower:basic_solar_cell"
+  },
+  "gives": {
+    "id": "energizedpower:solar_panel_1"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 31.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

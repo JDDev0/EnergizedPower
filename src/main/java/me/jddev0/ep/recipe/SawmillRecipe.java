@@ -3,40 +3,45 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.core.HolderLookup;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-
 import java.util.List;
 import java.util.Optional;
 
 public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final ItemStack output;
-    private final ItemStack secondaryOutput;
+    private final ItemStackTemplate output;
+    private final ItemStackTemplate secondaryOutput;
     private final Ingredient input;
 
-    public SawmillRecipe(ItemStack output, Ingredient input, int sawdustAmount) {
-        this(output, new ItemStack(EPItems.SAWDUST.get(), sawdustAmount), input);
+    public SawmillRecipe(ItemStackTemplate output, Ingredient input, int sawdustAmount) {
+        this(output, sawdustAmount == 0?null:new ItemStackTemplate(EPItems.SAWDUST, sawdustAmount), input);
     }
 
-    public SawmillRecipe(ItemStack output, ItemStack secondaryOutput, Ingredient input) {
+    public SawmillRecipe(ItemStackTemplate output, ItemStackTemplate secondaryOutput, Ingredient input) {
         this.output = output;
         this.secondaryOutput = secondaryOutput;
         this.input = input;
     }
 
-    public ItemStack getOutput() {
+    public ItemStackTemplate getOutput() {
         return output;
     }
 
-    public ItemStack getSecondaryOutput() {
+    public ItemStackTemplate getSecondaryOutput() {
         return secondaryOutput;
     }
 
@@ -53,8 +58,8 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
-        return output;
+    public ItemStack assemble(RecipeInput container) {
+        return ItemStackUtils.fromNullableItemStackTemplate(this.output);
     }
 
     @Override
@@ -94,7 +99,10 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
     @Override
     public boolean isResult(ItemStack itemStack) {
-        return ItemStack.isSameItemSameComponents(output, itemStack) || (secondaryOutput != null &&
+        ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(this.output);
+        ItemStack secondaryOutput = ItemStackUtils.fromNullableItemStackTemplate(this.secondaryOutput);
+
+        return ItemStack.isSameItemSameComponents(output, itemStack) || (!secondaryOutput.isEmpty() &&
                 ItemStack.isSameItemSameComponents(secondaryOutput, itemStack));
     }
 
@@ -105,61 +113,56 @@ public class SawmillRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         public static final String ID = "sawmill";
     }
 
-    public static final class Serializer implements RecipeSerializer<SawmillRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("sawmill");
-
-        private final MapCodec<SawmillRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("result").forGetter((recipe) -> {
+        private static final MapCodec<SawmillRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
-                if(recipe.secondaryOutput.isEmpty())
+                if(recipe.secondaryOutput == null)
                     return Optional.of(0);
 
-                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST.get()))?
-                        Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
-            }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
-                if(recipe.secondaryOutput.isEmpty())
+                return ItemStackUtils.isSameItemSameComponents(recipe.secondaryOutput, new ItemStackTemplate(EPItems.SAWDUST))?
+                        Optional.of(recipe.secondaryOutput.count()):Optional.empty();
+            }), ItemStackTemplate.CODEC.optionalFieldOf("secondaryResult").forGetter((recipe) -> {
+                if(recipe.secondaryOutput == null)
                     return Optional.empty();
 
-                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST.get()))?
+                return ItemStackUtils.isSameItemSameComponents(recipe.secondaryOutput, new ItemStackTemplate(EPItems.SAWDUST))?
                         Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
                 return secondaryOutput.map(o -> new SawmillRecipe(output, o, ingredient)).
                         orElseGet(() -> sawdustAmount.map(a -> new SawmillRecipe(output, ingredient, a)).
-                                orElseThrow(() -> new IllegalArgumentException("Either \"sawdustAmount\" or \"secondaryResult\" must be present")));
+                                orElseThrow(() -> new IllegalArgumentException("Either \"sawdustAmount\" or \"secondaryOutput\" must be present")));
             });
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> STREAM_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<SawmillRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
+        public static final RecipeSerializer<SawmillRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("sawmill");
 
         private static SawmillRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
-            ItemStack secondaryOutput = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
+            ItemStackTemplate secondaryOutput = buffer.readBoolean()?ItemStackTemplate.STREAM_CODEC.decode(buffer):null;
 
             return new SawmillRecipe(output, secondaryOutput, input);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, SawmillRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
+            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
+            if(recipe.secondaryOutput == null) {
+                buffer.writeBoolean(false);
+            }else {
+                buffer.writeBoolean(true);
+                ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
+            }
         }
     }
 }

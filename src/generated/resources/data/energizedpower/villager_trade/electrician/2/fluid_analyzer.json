@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 12.0,
+    "id": "minecraft:copper_ingot"
+  },
+  "gives": {
+    "id": "energizedpower:fluid_analyzer"
+  },
+  "max_uses": 2.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 6.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 8.0
+}

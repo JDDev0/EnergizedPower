@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,8 +19,8 @@ public class CoalEngineScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -28,7 +28,7 @@ public class CoalEngineScreen
         renderProgressFlame(guiGraphics, x, y);
     }
 
-    private void renderProgressFlame(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressFlame(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isProducingActive()) {
             int pos = menu.getScaledProgressFlameSize();
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 81, y + 28 + pos, 0, 121 + pos, 14, 14 - pos, 256, 256);

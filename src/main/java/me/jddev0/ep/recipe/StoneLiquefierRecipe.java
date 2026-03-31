@@ -3,22 +3,27 @@ package me.jddev0.ep.recipe;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 
 import java.util.List;
 
 public class StoneLiquefierRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final Ingredient input;
-    private final FluidStack output;
+    private final FluidStackTemplate output;
 
-    public StoneLiquefierRecipe(Ingredient input, FluidStack output) {
+    public StoneLiquefierRecipe(Ingredient input, FluidStackTemplate output) {
         this.input = input;
         this.output = output;
     }
@@ -27,7 +32,7 @@ public class StoneLiquefierRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
         return input;
     }
 
-    public FluidStack getOutput() {
+    public FluidStackTemplate getOutput() {
         return output;
     }
 
@@ -40,7 +45,7 @@ public class StoneLiquefierRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
     }
 
     @Override
-    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(RecipeInput container) {
         return ItemStack.EMPTY;
     }
 
@@ -91,43 +96,33 @@ public class StoneLiquefierRecipe implements EnergizedPowerBaseRecipe<RecipeInpu
         public static final String ID = "stone_liquefier";
     }
 
-    public static final class Serializer implements RecipeSerializer<StoneLiquefierRecipe> {
+    public static final class Serializer {
         private Serializer() {}
 
-        public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("stone_liquefier");
-
-        private final MapCodec<StoneLiquefierRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+        private static final MapCodec<StoneLiquefierRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), FluidStack.CODEC.fieldOf("result").forGetter((recipe) -> {
+            }), FluidStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
             })).apply(instance, StoneLiquefierRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, StoneLiquefierRecipe> STREAM_CODEC = StreamCodec.of(
+        private static final StreamCodec<RegistryFriendlyByteBuf, StoneLiquefierRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
-        @Override
-        public MapCodec<StoneLiquefierRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, StoneLiquefierRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
+        public static final RecipeSerializer<StoneLiquefierRecipe> INSTANCE = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+        public static final Identifier ID = EPAPI.id("stone_liquefier");
 
         private static StoneLiquefierRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            FluidStack output = FluidStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            FluidStackTemplate output = FluidStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new StoneLiquefierRecipe(input, output);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, StoneLiquefierRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
-            FluidStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            FluidStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

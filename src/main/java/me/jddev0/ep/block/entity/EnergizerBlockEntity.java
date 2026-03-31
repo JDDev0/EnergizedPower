@@ -307,8 +307,8 @@ public class EnergizerBlockEntity
             return;
 
         blockEntity.itemHandler.extractItem(0, 1);
-        blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().assemble(null, level.registryAccess()).copyWithCount(
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().assemble(null, level.registryAccess()).getCount()));
+        blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().assemble(null).copyWithCount(
+                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().assemble(null).getCount()));
 
         blockEntity.resetProgress(blockPos, state);
     }
@@ -327,7 +327,7 @@ public class EnergizerBlockEntity
                 getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
 
         return recipe.isPresent() &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().assemble(null, level.registryAccess()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().assemble(null));
     }
 
     @Override

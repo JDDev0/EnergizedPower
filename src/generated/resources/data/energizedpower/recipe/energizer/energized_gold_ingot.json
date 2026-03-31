@@ -3,7 +3,6 @@
   "energy": 131072,
   "ingredient": "#c:ingots/gold",
   "result": {
-    "count": 1,
     "id": "energizedpower:energized_gold_ingot"
   }
 }

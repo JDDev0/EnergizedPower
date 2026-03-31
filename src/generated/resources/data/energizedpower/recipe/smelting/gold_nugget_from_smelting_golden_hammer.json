@@ -6,7 +6,6 @@
   "group": "gold_nugget",
   "ingredient": "energizedpower:golden_hammer",
   "result": {
-    "count": 1,
     "id": "minecraft:gold_nugget"
   }
 }

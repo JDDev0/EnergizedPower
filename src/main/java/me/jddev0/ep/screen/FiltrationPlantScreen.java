@@ -5,7 +5,7 @@ import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -37,7 +37,7 @@ public class FiltrationPlantScreen
     }
 
     @Override
-    protected void renderCurrentRecipeTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, RecipeHolder<FiltrationPlantRecipe> currentRecipe) {
+    protected void renderCurrentRecipeTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, RecipeHolder<FiltrationPlantRecipe> currentRecipe) {
         List<Component> components = new ArrayList<>(2);
 
         ItemStack[] maxOutputs = currentRecipe.value().getMaxOutputCounts();
@@ -68,8 +68,8 @@ public class FiltrationPlantScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -82,11 +82,11 @@ public class FiltrationPlantScreen
         renderProgressArrows(guiGraphics, x, y);
     }
 
-    private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
+    private void renderFluidMeterOverlay(int tank, GuiGraphicsExtractor guiGraphics, int x, int y) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
-    private void renderProgressArrows(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressArrows(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isCraftingActive()) {
             for(int i = 0;i < 2;i++) {
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 67, y + 34 + 27*i, 0, 108, menu.getScaledProgressArrowSize(), 9, 256, 256);
@@ -95,8 +95,8 @@ public class FiltrationPlantScreen
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
             //Fluid meter

@@ -17,7 +17,6 @@
       "translate": "advancements.energizedpower.inventory_charger.description"
     },
     "icon": {
-      "count": 1,
       "id": "energizedpower:inventory_charger"
     },
     "title": {

@@ -3,7 +3,7 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -53,8 +53,21 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
         this.energyIndicatorBarTooltipComponentID = energyIndicatorBarTooltipComponentID;
     }
 
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                        String energyIndicatorBarTooltipComponentID,
+                                        Identifier texture,
+                                        int imageWidth, int imageHeight) {
+        super(menu, inventory, titleComponent, imageWidth, imageHeight);
+
+        this.TEXTURE = texture;
+
+        this.energyIndicatorBarTooltipComponentID = energyIndicatorBarTooltipComponentID;
+    }
+
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -66,20 +79,20 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
         }
     }
 
-    protected void renderEnergyMeter(GuiGraphics guiGraphics, int x, int y) {
+    protected void renderEnergyMeter(GuiGraphicsExtractor guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyMeterPos(energyMeterHeight);
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                 energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos, 256, 256);
     }
 
-    protected void renderEnergyIndicatorBar(GuiGraphics guiGraphics, int x, int y) {
+    protected void renderEnergyIndicatorBar(GuiGraphicsExtractor guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                     energyMeterV + energyMeterHeight, energyMeterWidth, 1, 256, 256);
     }
 
-    protected void renderEnergyPerTickBar(GuiGraphics guiGraphics, int x, int y) {
+    protected void renderEnergyPerTickBar(GuiGraphicsExtractor guiGraphics, int x, int y) {
         int pos = menu.getScaledEnergyPerTickBarPos(energyMeterHeight);
         if(pos > 0)
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
@@ -87,15 +100,8 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
         if(!menu.isInUpgradeModuleView()) {
             if(isHovering(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {

@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -55,7 +55,9 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -65,12 +67,12 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
         renderCheckboxes(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderOutputBeltConnectionState(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderOutputBeltConnectionState(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++)
             if(menu.isOutputBeltConnected(i))
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 10, y + 18 + i * 18, 22, 169 + i * 14, 30, 14, 256, 256);
     }
-    private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         for(int i = 0;i < 3;i++) {
             if(menu.isWhitelist(i)) {
                 //Whitelist checkbox [3x]
@@ -87,15 +89,8 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
         for(int i = 0; i < 3;i++) {
             if(isHovering(10, 18 + i * 18, 30, 14, mouseX, mouseY)) {

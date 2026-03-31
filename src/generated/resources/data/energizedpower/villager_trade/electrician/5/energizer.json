@@ -1,0 +1,15 @@
+{
+  "additional_wants": {
+    "id": "energizedpower:advanced_machine_frame"
+  },
+  "gives": {
+    "id": "energizedpower:energizer"
+  },
+  "max_uses": 1.0,
+  "reputation_discount": 0.02,
+  "wants": {
+    "count": 9.0,
+    "id": "minecraft:emerald_block"
+  },
+  "xp": 30.0
+}

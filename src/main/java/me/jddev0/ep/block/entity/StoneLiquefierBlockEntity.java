@@ -11,6 +11,7 @@ import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.StoneLiquefierRecipe;
 import me.jddev0.ep.screen.StoneLiquefierMenu;
+import me.jddev0.ep.util.FluidStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -133,7 +134,8 @@ public class StoneLiquefierBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack output = recipe.value().getOutput().copyWithAmount(recipe.value().getOutput().getAmount());
+        FluidStack output = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getOutput()).
+                copyWithAmount(FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getOutput()).getAmount());
 
         try(Transaction transaction = Transaction.open(null)) {
             fluidStorage.insert(FluidResource.of(output), output.getAmount(), transaction);
@@ -149,7 +151,7 @@ public class StoneLiquefierBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StoneLiquefierRecipe> recipe) {
         int fluidAmountInTank = fluidStorage.getFluid().getAmount();
-        int fluidAmountInRecipe = recipe.value().getOutput().getAmount();
+        int fluidAmountInRecipe = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getOutput()).getAmount();
 
         return level != null && fluidStorage.getCapacity() - fluidAmountInTank >= fluidAmountInRecipe &&
                 (fluidStorage.isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getOutput()));

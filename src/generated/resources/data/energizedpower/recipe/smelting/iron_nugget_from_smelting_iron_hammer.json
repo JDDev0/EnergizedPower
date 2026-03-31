@@ -6,7 +6,6 @@
   "group": "iron_nugget",
   "ingredient": "energizedpower:iron_hammer",
   "result": {
-    "count": 1,
     "id": "minecraft:iron_nugget"
   }
 }

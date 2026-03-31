@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -53,7 +53,9 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -63,7 +65,7 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         renderCheckboxLabels(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderCheckboxes(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderCheckboxes(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         if(menu.isEnergyProduction()) {
             //Energy Production checkbox
 
@@ -77,24 +79,17 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         }
     }
 
-    private void renderCheckboxLabels(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
-        guiGraphics.drawString(font, Component.translatable("tooltip.energizedpower.creative_battery_box.cbx.energy_production"),
+    private void renderCheckboxLabels(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
+        guiGraphics.text(font, Component.translatable("tooltip.energizedpower.creative_battery_box.cbx.energy_production"),
                 x + 25, y + 30, 0xFF000000, false);
 
-        guiGraphics.drawString(font, Component.translatable("tooltip.energizedpower.creative_battery_box.cbx.energy_consumption"),
+        guiGraphics.text(font, Component.translatable("tooltip.energizedpower.creative_battery_box.cbx.energy_consumption"),
                 x + 25, y + 48, 0xFF000000, false);
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
         if(isHovering(10, 28, 11, 11, mouseX, mouseY)) {
             //Ignore NBT checkbox

@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
 import me.jddev0.ep.util.FluidUtils;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,8 +22,8 @@ public class AdvancedPulverizerScreen
     }
 
     @Override
-    protected void renderBgNormalView(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        super.renderBgNormalView(guiGraphics, partialTick, mouseX, mouseY);
+    public void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
@@ -36,18 +36,18 @@ public class AdvancedPulverizerScreen
         renderProgressArrow(guiGraphics, x, y);
     }
 
-    private void renderFluidMeterOverlay(int tank, GuiGraphics guiGraphics, int x, int y) {
+    private void renderFluidMeterOverlay(int tank, GuiGraphicsExtractor guiGraphics, int x, int y) {
         guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + (tank == 0?44:152), y + 17, 16, 0, 16, 52, 256, 256);
     }
 
-    private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
+    private void renderProgressArrow(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 90, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
     }
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
             //Fluid meter

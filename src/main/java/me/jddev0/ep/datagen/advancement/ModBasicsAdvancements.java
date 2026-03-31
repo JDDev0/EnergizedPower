@@ -19,7 +19,7 @@ import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
@@ -489,8 +489,7 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
                 EPBlocks.COAL_ENGINE_ITEM, "coal_engine", AdvancementType.TASK
         );
 
-        ItemStack inventoryCoalEngineIcon = new ItemStack(EPItems.INVENTORY_COAL_ENGINE.get());
-        inventoryCoalEngineIcon.applyComponentsAndValidate(DataComponentPatch.builder().
+        ItemStackTemplate inventoryCoalEngineIcon = new ItemStackTemplate(EPItems.INVENTORY_COAL_ENGINE.get(), DataComponentPatch.builder().
                 set(EPDataComponentTypes.ACTIVE.get(), true).
                 set(EPDataComponentTypes.WORKING.get(), true).
                 build());
@@ -677,13 +676,13 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              ItemLike trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
     private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              TagKey<Item> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                         lookupProvider.lookupOrThrow(Registries.ITEM),
                         trigger
@@ -692,10 +691,10 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              Criterion<?> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type, trigger);
+        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type, trigger);
     }
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
-                                             AdvancementHolder parent, ItemStack icon, String advancementId, AdvancementType type,
+                                             AdvancementHolder parent, ItemStackTemplate icon, String advancementId, AdvancementType type,
                                              Criterion<?> trigger) {
         return Advancement.Builder.advancement().parent(parent).
                 display(

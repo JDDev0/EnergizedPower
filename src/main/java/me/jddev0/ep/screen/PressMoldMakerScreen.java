@@ -5,8 +5,9 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -78,7 +79,9 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -87,7 +90,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
         renderButtons(guiGraphics, x, y, mouseX, mouseY);
     }
 
-    private void renderButtons(GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    private void renderButtons(GuiGraphicsExtractor guiGraphics, int x, int y, int mouseX, int mouseY) {
         //Recipe buttons
         int buttonIndex = 0;
         for(int i = scrollIndexOffset;i < menu.getRecipeList().size() && buttonIndex < 8;i++,buttonIndex++) {
@@ -102,11 +105,11 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
                 }
             }
 
-            ItemStack output = menu.getRecipeList().get(i).getFirst().value().getOutput();
+            ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(menu.getRecipeList().get(i).getFirst().value().getOutput());
             if(!output.isEmpty()) {
                 guiGraphics.pose().pushMatrix();
 
-                guiGraphics.renderItem(output, x + btnX + 2, y + btnY + 2, btnX + 2 + (btnY + 2) * this.imageWidth);
+                guiGraphics.item(output, x + btnX + 2, y + btnY + 2, btnX + 2 + (btnY + 2) * this.imageWidth);
 
                 guiGraphics.pose().popMatrix();
             }
@@ -132,15 +135,8 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderTooltip(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
         //Recipe buttons
         int buttonIndex = 0;
@@ -150,13 +146,13 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
 
             if(isHovering(btnX, btnY, 20, 20, mouseX, mouseY)) {
                 PressMoldMakerRecipe recipe = menu.getRecipeList().get(i).getFirst().value();
-                ItemStack output = recipe.getOutput();
+                ItemStack output = ItemStackUtils.fromNullableItemStackTemplate(recipe.getOutput());
                 if(!output.isEmpty()) {
                     List<Component> components = new ArrayList<>(2);
                     components.add(Component.translatable("tooltip.energizedpower.count_with_item.txt", output.getCount(),
                             output.getHoverName()));
                     components.add(Component.translatable("tooltip.energizedpower.press_mold_maker.btn.recipes", recipe.getClayCount(),
-                            Component.translatable(Items.CLAY_BALL.getDescriptionId())).withStyle(ChatFormatting.ITALIC));
+                            new ItemStack(Items.CLAY_BALL).getItemName()).withStyle(ChatFormatting.ITALIC));
 
                     guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
                 }

@@ -2,6 +2,8 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.paintings.EPPaintingVariants;
+import me.jddev0.ep.villager.EPTradeSets;
+import me.jddev0.ep.villager.EPVillagerTrades;
 import me.jddev0.ep.world.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -21,6 +23,8 @@ public class ModRegistriesProvider extends DatapackBuiltinEntriesProvider {
             add(Registries.STRUCTURE, ModStructures::bootstrap).
             add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap).
             add(Registries.PAINTING_VARIANT, EPPaintingVariants::bootstrap).
+            add(Registries.VILLAGER_TRADE, EPVillagerTrades::bootstrap).
+            add(Registries.TRADE_SET, EPTradeSets::bootstrap).
             add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap);
 
     public ModRegistriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {

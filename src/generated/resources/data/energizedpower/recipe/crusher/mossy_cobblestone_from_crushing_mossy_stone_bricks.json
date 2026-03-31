@@ -2,7 +2,6 @@
   "type": "energizedpower:crusher",
   "ingredient": "minecraft:mossy_stone_bricks",
   "result": {
-    "count": 1,
     "id": "minecraft:mossy_cobblestone"
   }
 }

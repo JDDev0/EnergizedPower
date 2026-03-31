@@ -7,6 +7,7 @@ import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -238,8 +239,8 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             newItemStack.shrink(1);
             inventory.setItem(i, newItemStack);
 
-            if(!testItemStack.getCraftingRemainder().isEmpty()) {
-                ItemStack craftingRemainingItem = testItemStack.getCraftingRemainder();
+            if(testItemStack.getCraftingRemainder() != null) {
+                ItemStack craftingRemainingItem = ItemStackUtils.fromNullableItemStackTemplate(testItemStack.getCraftingRemainder());
 
                 if(inventory.add(craftingRemainingItem))
                     player.drop(craftingRemainingItem, false);

@@ -5,7 +5,6 @@
   "experience": 0.3,
   "ingredient": "energizedpower:raw_wire_press_mold",
   "result": {
-    "count": 1,
     "id": "energizedpower:wire_press_mold"
   }
 }

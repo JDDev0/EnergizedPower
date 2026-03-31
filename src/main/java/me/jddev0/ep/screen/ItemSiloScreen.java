@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -18,7 +18,9 @@ public class ItemSiloScreen extends EnergizedPowerBaseContainerScreen<ItemSiloMe
     }
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(guiGraphics, mouseX, mouseY, a);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
@@ -27,17 +29,10 @@ public class ItemSiloScreen extends EnergizedPowerBaseContainerScreen<ItemSiloMe
         renderInfoText(guiGraphics, x, y);
     }
 
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
-        super.render(guiGraphics, mouseX, mouseY, delta);
-
-        renderTooltip(guiGraphics, mouseX, mouseY);
-    }
-
-    private void renderInfoText(GuiGraphics guiGraphics, int x, int y) {
+    private void renderInfoText(GuiGraphicsExtractor guiGraphics, int x, int y) {
         Component component = Component.translatable("tooltip.energizedpower.item_silo.amount", menu.getCount(), menu.getMaxCount());
         int componentWidth = font.width(component);
 
-        guiGraphics.drawString(font, component, (int)(x + (176 - componentWidth) * .5f), y + 58, 0xFF000000, false);
+        guiGraphics.text(font, component, (int)(x + (176 - componentWidth) * .5f), y + 58, 0xFF000000, false);
     }
 }

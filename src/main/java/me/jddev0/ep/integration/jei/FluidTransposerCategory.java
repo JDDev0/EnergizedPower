@@ -4,6 +4,8 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
+import me.jddev0.ep.util.FluidStackUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -14,7 +16,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -64,12 +66,12 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<FluidTransposerRecipe> recipe, IFocusGroup iFocusGroup) {
-        FluidStack fluid = recipe.value().getFluid();
+        FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid());
 
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(fluid.getFluid(),
                     fluid.getAmount(), fluid.getComponentsPatch());
         }else {
@@ -77,12 +79,12 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(fluid.getFluid(),
                     fluid.getAmount(), fluid.getComponentsPatch());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(recipe.value().getOutput());
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
         }
     }
 
     @Override
-    public void draw(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<FluidTransposerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.FILLING) {
             backgroundFilling.draw(guiGraphics, 0, 0);
         }else {
@@ -93,7 +95,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
         guiGraphics.pose().pushMatrix();
         guiGraphics.pose().translate(0.f, 0.f);
 
-        guiGraphics.renderItem(output, 120, 5, 120 + 5 * 143);
+        guiGraphics.item(output, 120, 5, 120 + 5 * 143);
 
         guiGraphics.pose().popMatrix();
     }

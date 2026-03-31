@@ -5,6 +5,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.recipe.EnergizerRecipe;
 import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -17,7 +18,7 @@ import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -65,11 +66,11 @@ public class EnergizerCategory implements IRecipeCategory<RecipeHolder<Energizer
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<EnergizerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 17, 17).add(recipe.value().getInput());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 17).add(recipe.value().getOutput());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 17).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
     }
 
     @Override
-    public void draw(RecipeHolder<EnergizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<EnergizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         background.draw(guiGraphics);
 
         Font font = Minecraft.getInstance().font;
@@ -77,6 +78,6 @@ public class EnergizerCategory implements IRecipeCategory<RecipeHolder<Energizer
         Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW);
         int textWidth = font.width(component);
 
-        guiGraphics.drawString(Minecraft.getInstance().font, component, 114 - textWidth, 42, 0xFFFFFFFF, false);
+        guiGraphics.text(Minecraft.getInstance().font, component, 114 - textWidth, 42, 0xFFFFFFFF, false);
     }
 }

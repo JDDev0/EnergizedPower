@@ -4,7 +4,6 @@
     "ingredient": "#c:plates/energized_copper"
   },
   "pressMold": {
-    "count": 1,
     "id": "energizedpower:wire_press_mold"
   },
   "result": {

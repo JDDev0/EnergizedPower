@@ -1,0 +1,109 @@
+package me.jddev0.ep.recipe;
+
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.handler.codec.DecoderException;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStackTemplate;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+public record OutputItemStackTemplateWithPercentages(ItemStackTemplate output, double[] percentages) {
+    public static final OutputItemStackTemplateWithPercentages EMPTY = new OutputItemStackTemplateWithPercentages(null, new double[0]);
+
+    public OutputItemStackTemplateWithPercentages(ItemStackTemplate output, double percentage) {
+        this(output, new double[] {
+                percentage
+        });
+    }
+
+    public OutputItemStackTemplateWithPercentages(ItemStackTemplate output) {
+        this(output, 1.);
+    }
+
+    public boolean isEmpty() {
+        return output == null || percentages.length == 0;
+    }
+
+    private static final Codec<double[]> DOUBLE_ARRAY_CODEC = new Codec<>() {
+        private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
+
+        @Override
+        public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
+            return DOUBLE_LIST_CODEC.decode(ops, input).map(res -> {
+                return Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
+            });
+        }
+
+        @Override
+        public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
+            return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
+        }
+    };
+
+    public static final Codec<OutputItemStackTemplateWithPercentages> CODEC_NONEMPTY = RecordCodecBuilder.create((instance) -> {
+        return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((output) -> {
+            return output.output;
+        }), DOUBLE_ARRAY_CODEC.fieldOf("percentages").forGetter((output) -> {
+            return output.percentages;
+        })).apply(instance, OutputItemStackTemplateWithPercentages::new);
+    });
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, OutputItemStackTemplateWithPercentages> OPTIONAL_STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        @NotNull
+        public OutputItemStackTemplateWithPercentages decode(@NotNull RegistryFriendlyByteBuf buffer) {
+            int percentageCount = buffer.readInt();
+            if(percentageCount <= 0)
+                return OutputItemStackTemplateWithPercentages.EMPTY;
+
+            double[] percentages = new double[percentageCount];
+            for(int j = 0;j < percentageCount;j++)
+                percentages[j] = buffer.readDouble();
+
+            ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
+
+            return new OutputItemStackTemplateWithPercentages(output, percentages);
+        }
+
+        @Override
+        public void encode(@NotNull RegistryFriendlyByteBuf buffer, OutputItemStackTemplateWithPercentages output) {
+            if(output.isEmpty()) {
+                buffer.writeInt(0);
+            }else {
+                buffer.writeInt(output.percentages.length);
+                for(double percentage:output.percentages)
+                    buffer.writeDouble(percentage);
+
+                ItemStackTemplate.STREAM_CODEC.encode(buffer, output.output);
+            }
+        }
+    };
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, OutputItemStackTemplateWithPercentages> STREAM_CODEC = new StreamCodec<>() {
+        @Override
+        @NotNull
+        public OutputItemStackTemplateWithPercentages decode(@NotNull RegistryFriendlyByteBuf buffer) {
+            OutputItemStackTemplateWithPercentages ingredient = OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
+            if(ingredient.isEmpty())
+                throw new DecoderException("Empty OutputItemStackWithPercentages not allowed");
+
+            return ingredient;
+        }
+
+        @Override
+        public void encode(@NotNull RegistryFriendlyByteBuf buffer, OutputItemStackTemplateWithPercentages output) {
+            if(output.isEmpty())
+                throw new DecoderException("Empty OutputItemStackWithPercentages not allowed");
+
+            OutputItemStackTemplateWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, output);
+        }
+    };
+}

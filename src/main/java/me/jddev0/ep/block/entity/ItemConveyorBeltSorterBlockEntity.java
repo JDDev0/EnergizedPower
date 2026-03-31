@@ -5,6 +5,8 @@ import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.ContainerListener;
+import me.jddev0.ep.inventory.TrackedSimpleContainer;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
@@ -14,7 +16,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.ContainerListener;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,7 +39,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Me
 
     private static final int PATTERN_SLOTS_PER_OUTPUT = 5;
 
-    private final SimpleContainer patternSlots = new SimpleContainer(3 * PATTERN_SLOTS_PER_OUTPUT) {
+    private final TrackedSimpleContainer patternSlots = new TrackedSimpleContainer(3 * PATTERN_SLOTS_PER_OUTPUT) {
         @Override
         public int getMaxStackSize() {
             return 1;

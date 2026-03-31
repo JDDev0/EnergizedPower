@@ -1,18 +1,18 @@
 package me.jddev0.ep.recipe;
 
+import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
-    public TeleporterMatrixSettingsCopyRecipe(CraftingBookCategory category) {
-        super(category);
-    }
-
     @Override
     public boolean matches(CraftingInput container, Level level) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
@@ -21,7 +21,7 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(!itemStack.is(EPItems.TELEPORTER_MATRIX.get()))
+                if(!itemStack.is(EPItems.TELEPORTER_MATRIX))
                     return false;
 
                 if(TeleporterMatrixItem.isLinked(itemStack)) {
@@ -43,14 +43,14 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingInput container, HolderLookup.Provider registries) {
+    public ItemStack assemble(CraftingInput container) {
         ItemStack linkedTransportMatrix = ItemStack.EMPTY;
         int count = 0;
 
         for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(!itemStack.is(EPItems.TELEPORTER_MATRIX.get()))
+                if(!itemStack.is(EPItems.TELEPORTER_MATRIX))
                     return ItemStack.EMPTY;
 
                 if(TeleporterMatrixItem.isLinked(itemStack)) {
@@ -79,9 +79,9 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
         for(int i = 0; i < remainders.size(); ++i) {
             ItemStack itemstack = container.getItem(i);
             if(!itemstack.isEmpty()) {
-                if(!itemstack.getCraftingRemainder().isEmpty()) {
-                    remainders.set(i, itemstack.getCraftingRemainder());
-                }else if(itemstack.is(EPItems.TELEPORTER_MATRIX.get()) && TeleporterMatrixItem.isLinked(itemstack)) {
+                if(itemstack.getCraftingRemainder() != null) {
+                    remainders.set(i, itemstack.getCraftingRemainder().create());
+                }else if(itemstack.is(EPItems.TELEPORTER_MATRIX) && TeleporterMatrixItem.isLinked(itemstack)) {
                     remainders.set(i, itemstack.copyWithCount(1));
                 }
             }
@@ -91,7 +91,14 @@ public class TeleporterMatrixSettingsCopyRecipe extends CustomRecipe {
     }
 
     @Override
-    public RecipeSerializer<TeleporterMatrixSettingsCopyRecipe> getSerializer() {
-        return EPRecipes.TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER.get();
+    public RecipeSerializer<? extends CustomRecipe> getSerializer() {
+        return SERIALIZER;
     }
+
+    private static final MapCodec<TeleporterMatrixSettingsCopyRecipe> CODEC = MapCodec.unit(new TeleporterMatrixSettingsCopyRecipe());
+    private static final StreamCodec<RegistryFriendlyByteBuf, TeleporterMatrixSettingsCopyRecipe> STREAM_CODEC = StreamCodec.of(
+            (buffer, recipe) -> {},
+            buffer -> new TeleporterMatrixSettingsCopyRecipe()
+    );
+    public static final RecipeSerializer<TeleporterMatrixSettingsCopyRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 }

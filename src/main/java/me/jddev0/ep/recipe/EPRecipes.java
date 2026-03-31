@@ -2,7 +2,6 @@ package me.jddev0.ep.recipe;
 
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -134,7 +133,7 @@ public final class EPRecipes {
 
     public static final Supplier<RecipeSerializer<TeleporterMatrixSettingsCopyRecipe>>
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
-            () -> new CustomRecipe.Serializer<>(TeleporterMatrixSettingsCopyRecipe::new));
+            () -> TeleporterMatrixSettingsCopyRecipe.SERIALIZER);
 
     private static Supplier<RecipeBookCategory> createRecipeCategory(String name) {
         return CATEGORIES.register(name, RecipeBookCategory::new);
