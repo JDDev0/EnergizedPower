@@ -169,11 +169,11 @@ tasks.publishUnified {
 
 unifiedPublishing {
 	project {
-		displayName = "Energized Power - " + project.minecraft_version + " - v" + project.mod_version.split("-")[1] + " [Fabric]"
+		displayName = "Energized Power - " + "26.1.x" + " - v" + project.mod_version.split("-")[1] + " [Fabric]"
 		version = project.mod_version
 		changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
 		releaseType = "release"
-		gameVersions = [project.minecraft_version]
+		gameVersions = ["26.1", "26.1.1"]
 		gameLoaders = ["fabric"]
 
 		mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.archives_base_name + "-" + project.version + ".jar").toFile())
