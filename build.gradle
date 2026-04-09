@@ -173,7 +173,7 @@ unifiedPublishing {
 		version = project.mod_version
 		changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
 		releaseType = "release"
-		gameVersions = ["26.1", "26.1.1"]
+		gameVersions = ["26.1", "26.1.1", "26.1.2"]
 		gameLoaders = ["fabric"]
 
 		mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.archives_base_name + "-" + project.version + ".jar").toFile())
