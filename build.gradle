@@ -244,7 +244,7 @@ unifiedPublishing {
         version = project.mod_version
         changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
         releaseType = "beta" //TODO change to "release" if NeoForge is no longer in beta
-        gameVersions = ["26.1", "26.1.1"]
+        gameVersions = ["26.1", "26.1.1", "26.1.2"]
         gameLoaders = ["neoforge"]
 
         mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.mod_id + "-" + project.version + ".jar").toFile())
