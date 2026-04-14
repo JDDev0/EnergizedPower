@@ -1562,7 +1562,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.of(EPItems.SAW_BLADE),
-                's', Ingredient.of(EPItems.SILICON),
+                's', tag(CommonItemTags.SILICON),
                 'I', tag(CommonItemTags.PLATES_IRON),
                 'C', tag(CommonItemTags.PLATES_COPPER),
                 'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)

@@ -6,7 +6,7 @@
     "C": "#c:plates/copper",
     "I": "#c:plates/iron",
     "S": "energizedpower:saw_blade",
-    "s": "energizedpower:silicon"
+    "s": "#c:silicon"
   },
   "pattern": [
     "sSs",
