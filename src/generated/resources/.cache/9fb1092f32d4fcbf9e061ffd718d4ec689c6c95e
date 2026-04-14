@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-14T18:21:30.343238823	Recipes
+// 1.21.1	2026-04-14T23:05:28.177943437	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -429,7 +429,7 @@ b1be36eeb39fb37a82ebee91189374026bc2246a data/energizedpower/recipe/crafting/rei
 96b50c88bebca482bd791ba672c1a90636562e04 data/energizedpower/recipe/crafting/saw_blade.json
 0cea6650d4061921c84816087c65450473f8aaa8 data/energizedpower/recipe/crafting/sawdust_block.json
 99067fb839edbcf2fba3a583e384607f870c0718 data/energizedpower/recipe/crafting/sawdust_from_sawdust_block.json
-250592724a832ed9c999257b095714e35512589e data/energizedpower/recipe/crafting/sawmill.json
+222513d6bfcfaf5a4d0b3cc46c1ec528c1153615 data/energizedpower/recipe/crafting/sawmill.json
 7829ebd8ceb58ca1f40299a2bf7a93023194c408 data/energizedpower/recipe/crafting/silicon_block.json
 6e1f2df02d232aba761a2bbd3036f6a6bb080f49 data/energizedpower/recipe/crafting/silicon_from_silicon_block.json
 006fd3d285e5674c07b5ef3643fee433df11cd95 data/energizedpower/recipe/crafting/smoker_upgrade_module.json
