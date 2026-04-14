@@ -15,7 +15,7 @@
       "item": "energizedpower:saw_blade"
     },
     "s": {
-      "item": "energizedpower:silicon"
+      "tag": "forge:silicon"
     }
   },
   "pattern": [

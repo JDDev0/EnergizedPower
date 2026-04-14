@@ -1557,7 +1557,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         addShapedCraftingRecipe(output, has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.of(EPItems.SAW_BLADE.get()),
-                's', Ingredient.of(EPItems.SILICON.get()),
+                's', Ingredient.of(CommonItemTags.SILICON),
                 'I', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
                 'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get())
