@@ -1,9 +1,9 @@
-// 1.21.1	2026-04-14T18:25:45.966872531	Energized Power/Recipes
+// 1.21.1	2026-04-14T22:54:08.834387941	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 2bd7132e3a19885cc36314b9ccd515d696c698a1 data/energizedpower/advancement/recipes/crafting/battery_3.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
-250592724a832ed9c999257b095714e35512589e data/energizedpower/recipe/crafting/sawmill.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
+222513d6bfcfaf5a4d0b3cc46c1ec528c1153615 data/energizedpower/recipe/crafting/sawmill.json
 c589f9b610ebbd69ffa7cc76833052e86f9cd3b4 data/energizedpower/recipe/sawmill/dark_oak_planks_from_sawing_dark_oak_fence.json
 6582e922fb967bdb2ac38be0fb65be09829acb54 data/energizedpower/recipe/crafting/item_conveyor_belt_sorter.json
 cbbe26a66082ec51b3021b3e58c4065dd1a653a7 data/energizedpower/recipe/sawmill/warped_planks_from_sawing_warped_trapdoor.json
