@@ -161,6 +161,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
                         append(Text.translatable("book.energizedpower.page.credits.10")).append(": ").
                         append(Text.literal("sebbyrenewed [Discord]"))
+        ).append(
+                Text.literal("\n• ").
+                        formatted(Formatting.BLACK, Formatting.BOLD).fillStyle(UNIFORM).
+                        append(Text.translatable("book.energizedpower.page.credits.11")).append(": ").
+                        append(addLinkToComponent(Text.literal("hamutaromaru"),
+                                "https://github.com/hamu6251ren0725-hue"))
         ));
 
         mainTableOfContentPageId = pageId("table_of_contents");

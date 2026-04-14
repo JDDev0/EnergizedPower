@@ -142,6 +142,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Turkish
 - Russian
 - Spanish
+- Japanese
 
 ## Information
 
@@ -167,6 +168,7 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 - Russian translation (Imperial Officer, [PlayboyX312](https://github.com/PlayboyX312))
 - German translation ([Lucanoria](https://github.com/Lucanoria))
 - Spanish translation (sebbyrenewed [Discord])
+- Japanese translation ([hamutaromaru](https://github.com/hamu6251ren0725-hue))
 
 ## Wiki
 
