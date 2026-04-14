@@ -166,6 +166,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
                             append(Component.translatable("book.energizedpower.page.credits.10")).append(": ").
                             append(Component.literal("sebbyrenewed [Discord]"))
+            ).append(
+                    Component.literal("\n• ").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).
+                            append(Component.translatable("book.energizedpower.page.credits.11")).append(": ").
+                            append(addLinkToComponent(Component.literal("hamutaromaru"),
+                                    "https://github.com/hamu6251ren0725-hue"))
             ), changePageIntToId);
         }
 
