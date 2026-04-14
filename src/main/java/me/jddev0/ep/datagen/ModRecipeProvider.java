@@ -1566,7 +1566,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         addShapedCraftingRecipe(output, conditionsFromItem(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.ofItems(EPItems.SAW_BLADE),
-                's', Ingredient.ofItems(EPItems.SILICON),
+                's', Ingredient.fromTag(CommonItemTags.SILICON),
                 'I', Ingredient.fromTag(CommonItemTags.IRON_PLATES),
                 'C', Ingredient.fromTag(CommonItemTags.COPPER_PLATES),
                 'B', Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)

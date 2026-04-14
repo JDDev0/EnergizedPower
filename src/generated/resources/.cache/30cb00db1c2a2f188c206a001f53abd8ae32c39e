@@ -1,4 +1,4 @@
-// 1.20.1	2026-04-14T18:51:29.149448917	Energized Power/Block Loot Tables
+// 1.20.1	2026-04-14T22:50:02.015457751	Energized Power/Block Loot Tables
 75cd2b9225591085c881138629a609012dfecb68 data/energizedpower/loot_tables/blocks/fluid_pipe.json
 b876ace1f87f468a10290353d9f4dc322362fe6b data/energizedpower/loot_tables/blocks/ehv_transformer_3_to_3.json
 455ed01cf7195e9c2e04a84646e262796fb55f9d data/energizedpower/loot_tables/blocks/induction_smelter.json
@@ -40,8 +40,8 @@ e71636d9883b2f40257150476a39a2da398dbace data/energizedpower/loot_tables/blocks/
 8346ef2a3be7080e8d62caae229090f8ae9999de data/energizedpower/loot_tables/blocks/auto_press_mold_maker.json
 c80db79bffc249a90332ed219b99b3775d9eadda data/energizedpower/loot_tables/blocks/advanced_charger.json
 456ac9dbebbe9a7bb9296990b849cca6c447814b data/energizedpower/loot_tables/blocks/assembling_machine.json
-4faba20a4bd732aa7991f35e3d32298757e7ddd3 data/energizedpower/loot_tables/blocks/fast_item_conveyor_belt_merger.json
 4a8603a94473512d2b2e58feb2ef3d93141a702d data/energizedpower/loot_tables/blocks/advanced_fluid_pump.json
+4faba20a4bd732aa7991f35e3d32298757e7ddd3 data/energizedpower/loot_tables/blocks/fast_item_conveyor_belt_merger.json
 44cf775e849ca5fcf0c7711436190b7b512a73e2 data/energizedpower/loot_tables/blocks/advanced_uncharger.json
 efb8dbc413d2a59d0b9f36ba3092a042275ba015 data/energizedpower/loot_tables/blocks/advanced_minecart_charger.json
 4462b79cec61e4d09aedd42364ce99a6d292bfd7 data/energizedpower/loot_tables/blocks/item_silo_tiny.json
