@@ -143,6 +143,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - Russian
 - Spanish
 - Japanese
+- Brazilian Portuguese
 
 ## Information
 
@@ -169,6 +170,7 @@ Subreddit Link: [https://www.reddit.com/r/EnergizedPower/](https://www.reddit.co
 - German translation ([Lucanoria](https://github.com/Lucanoria))
 - Spanish translation (sebbyrenewed [Discord])
 - Japanese translation ([hamutaromaru](https://github.com/hamu6251ren0725-hue))
+- Brazilian Portuguese translation ([PrincessStellar](https://github.com/PrincessStellar))
 
 ## Wiki
 
