@@ -1,4 +1,4 @@
-// 1.21.1	2026-04-14T22:54:08.837533351	Energized Power/Block Loot Tables
+// 1.21.1	2026-04-20T17:24:27.55618104	Energized Power/Block Loot Tables
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_table/blocks/stone_solidifier.json
 e9b25d4563facbc5f36dacbbfbb80c947a35537b data/energizedpower/loot_table/blocks/golden_fluid_pipe.json
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
@@ -27,8 +27,8 @@ af759b432c5858f6b8b2b1d0de696d740573deda data/energizedpower/loot_table/blocks/t
 c7d667bc468942fe761152980c3844b543b04450 data/energizedpower/loot_table/blocks/fast_item_conveyor_belt_loader.json
 a03eaa26a0dd0518bb857d6a76ba74196b90fb83 data/energizedpower/loot_table/blocks/express_item_conveyor_belt_merger.json
 24f9eef34558ad8106ecee558fad3e9325a21fbc data/energizedpower/loot_table/blocks/fluid_tank_medium.json
-51841426549af6f04213ab1501e750383f4150ba data/energizedpower/loot_table/blocks/fluid_drainer.json
 a573ef14231d9cc8f15eb515117c456c5d5f09c2 data/energizedpower/loot_table/blocks/gold_cable.json
+51841426549af6f04213ab1501e750383f4150ba data/energizedpower/loot_table/blocks/fluid_drainer.json
 0834185a3d0dbfd976b7206df250f5fdd9a5639d data/energizedpower/loot_table/blocks/plant_growth_chamber.json
 4cbdabb03cd92cf53682b2d9e4b483410dd49c3d data/energizedpower/loot_table/blocks/block_placer.json
 8346ef2a3be7080e8d62caae229090f8ae9999de data/energizedpower/loot_table/blocks/auto_press_mold_maker.json
