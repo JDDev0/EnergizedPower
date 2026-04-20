@@ -302,6 +302,33 @@
         ],
         "font": "minecraft:uniform",
         "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "translate": "book.energizedpower.page.credits.12"
+          },
+          ": ",
+          {
+            "click_event": {
+              "action": "open_url",
+              "url": "https://github.com/PrincessStellar"
+            },
+            "color": "blue",
+            "hover_event": {
+              "action": "show_text",
+              "value": {
+                "translate": "book.energizedpower.tooltip.link"
+              }
+            },
+            "text": "PrincessStellar",
+            "underlined": true
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
       }
     ],
     "text": ""
