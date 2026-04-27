@@ -32,7 +32,7 @@ repositories {
 	}
 
 	maven {
-		url "https://squiddev.cc/maven/"
+		url "https://maven.squiddev.cc/"
 		content {
 			includeGroup("cc.tweaked")
 		}
@@ -92,9 +92,8 @@ dependencies {
 	//compileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
 
 	// CCTweaked integration
-	//TODO re-enable
-	//compileOnlyApi "cc.tweaked:cc-tweaked-1.21-core-api:1.111.0"
-	//compileOnlyApi "cc.tweaked:cc-tweaked-1.21-fabric-api:1.111.0"
+	compileOnlyApi "cc.tweaked:cc-tweaked-26.1.2-core-api:1.118.0"
+	compileOnlyApi "cc.tweaked:cc-tweaked-26.1.2-fabric-api:1.118.0"
 }
 
 processResources {
