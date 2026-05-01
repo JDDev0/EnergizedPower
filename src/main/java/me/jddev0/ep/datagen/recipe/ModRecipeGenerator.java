@@ -2552,6 +2552,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addSawmillRecipe(output, ingredientOf(Items.WOODEN_SWORD), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 1, "oak_planks", "wooden_sword");
+        addSawmillRecipe(output, ingredientOf(Items.WOODEN_SPEAR), new ItemStackTemplate(Items.OAK_PLANKS),
+                2, "oak_planks", "wooden_spear");
         addSawmillRecipe(output, ingredientOf(Items.WOODEN_SHOVEL), new ItemStackTemplate(Items.OAK_PLANKS),
                 2, "oak_planks", "wooden_shovel");
         addSawmillRecipe(output, ingredientOf(Items.WOODEN_PICKAXE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
