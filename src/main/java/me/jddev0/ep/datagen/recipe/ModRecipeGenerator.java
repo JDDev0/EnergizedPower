@@ -2117,6 +2117,13 @@ public class ModRecipeGenerator extends RecipeProvider {
                 ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new ItemStackTemplate(EPItems.ENERGIZED_POWER_BOOK.get()), CraftingBookCategory.MISC);
 
+        addShapelessCraftingRecipe(output, has(CommonItemTags.DUSTS_WOOD), List.of(
+                ingredientOf(CommonItemTags.DUSTS_WOOD),
+                ingredientOf(CommonItemTags.DUSTS_WOOD),
+                ingredientOf(CommonItemTags.DUSTS_WOOD),
+                ingredientOf(Items.WATER_BUCKET)
+        ), new ItemStackTemplate(Items.PAPER, 2), CraftingBookCategory.MISC, "", "_from_sawdust");
+
         addShapedCraftingRecipe(output, has(CommonItemTags.DUSTS_CHARCOAL), Map.of(
                 'P', ingredientOf(Items.PAPER),
                 'C', ingredientOf(CommonItemTags.DUSTS_CHARCOAL),
