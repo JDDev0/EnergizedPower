@@ -2122,6 +2122,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 Ingredient.ofItems(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new ItemStack(EPItems.ENERGIZED_POWER_BOOK), CraftingRecipeCategory.MISC);
 
+        addShapelessCraftingRecipe(output, conditionsFromTag(CommonItemTags.SAW_DUSTS), List.of(
+                Ingredient.fromTag(CommonItemTags.SAW_DUSTS),
+                Ingredient.fromTag(CommonItemTags.SAW_DUSTS),
+                Ingredient.fromTag(CommonItemTags.SAW_DUSTS),
+                Ingredient.ofItems(Items.WATER_BUCKET)
+        ), new ItemStack(Items.PAPER, 2), CraftingRecipeCategory.MISC, "", "_from_sawdust");
+
         addShapedCraftingRecipe(output, conditionsFromTag(CommonItemTags.CHARCOAL_DUSTS), Map.of(
                 'P', Ingredient.ofItems(Items.PAPER),
                 'C', Ingredient.fromTag(CommonItemTags.CHARCOAL_DUSTS),
