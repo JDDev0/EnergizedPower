@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:item_frame",
+  "result": {
+    "count": 8,
+    "id": "minecraft:stick"
+  },
+  "secondaryResult": {
+    "id": "minecraft:leather"
+  }
+}

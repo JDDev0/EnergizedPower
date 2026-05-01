@@ -2530,6 +2530,8 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new ItemStackTemplate(Items.PAPER, 2), "oak_planks", "cartography_table");
         addSawmillRecipe(Ingredient.of(Items.FLETCHING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
                 new ItemStackTemplate(Items.FLINT, 2), "oak_planks", "fletching_table");
+        addSawmillRecipe(Ingredient.of(Items.SMITHING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
+                new ItemStackTemplate(Items.IRON_INGOT, 2), "oak_planks", "smithing_table");
         addSawmillRecipe(Ingredient.of(Items.LOOM), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 new ItemStackTemplate(Items.STRING, 2), "oak_planks", "loom");
         addSawmillRecipe(Ingredient.of(Items.COMPOSTER), new ItemStackTemplate(Items.OAK_PLANKS, 3),
@@ -2566,6 +2568,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         addSawmillRecipe(Ingredient.of(EPItems.WOODEN_HAMMER), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hammer");
 
+        addSawmillRecipe(Ingredient.of(Items.SHIELD), new ItemStackTemplate(Items.OAK_PLANKS, 6),
+                new ItemStackTemplate(Items.IRON_INGOT), "oak_planks", "shield");
+
         addSawmillRecipe(tag(ItemTags.PLANKS), new ItemStackTemplate(Items.STICK, 3),
                 1, "sticks", "planks");
         addSawmillRecipe(Ingredient.of(Items.BAMBOO_MOSAIC), new ItemStackTemplate(Items.STICK, 3),
@@ -2591,6 +2596,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new ItemStackTemplate(Items.STRING, 3), "sticks", "bow");
         addSawmillRecipe(Ingredient.of(Items.FISHING_ROD), new ItemStackTemplate(Items.STICK, 3),
                 new ItemStackTemplate(Items.STRING, 2), "sticks", "fishing_rod");
+
+        addSawmillRecipe(Ingredient.of(Items.PAINTING), new ItemStackTemplate(Items.STICK, 8),
+                new ItemStackTemplate(Items.WHITE_WOOL), "sticks", "painting");
+        addSawmillRecipe(Ingredient.of(Items.ITEM_FRAME), new ItemStackTemplate(Items.STICK, 8),
+                new ItemStackTemplate(Items.LEATHER), "sticks", "item_frame");
 
         addSawmillRecipe(tag(ConventionalItemTags.WOODEN_RODS), new ItemStackTemplate(EPItems.SAWDUST),
                 0, "sawdust", "sticks");
