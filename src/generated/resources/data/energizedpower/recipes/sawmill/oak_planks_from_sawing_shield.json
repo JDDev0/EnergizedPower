@@ -1,0 +1,13 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:shield"
+  },
+  "output": {
+    "count": 6,
+    "item": "minecraft:oak_planks"
+  },
+  "secondaryOutput": {
+    "item": "minecraft:iron_ingot"
+  }
+}
