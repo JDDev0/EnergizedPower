@@ -1,0 +1,13 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": {
+    "item": "minecraft:painting"
+  },
+  "output": {
+    "count": 8,
+    "item": "minecraft:stick"
+  },
+  "secondaryOutput": {
+    "item": "minecraft:white_wool"
+  }
+}
