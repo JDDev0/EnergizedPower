@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:smithing_table",
+  "result": {
+    "count": 4,
+    "id": "minecraft:oak_planks"
+  },
+  "secondaryResult": {
+    "count": 2,
+    "id": "minecraft:iron_ingot"
+  }
+}
