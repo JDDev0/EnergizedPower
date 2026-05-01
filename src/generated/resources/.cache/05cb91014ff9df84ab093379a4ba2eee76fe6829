@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-01T20:50:02.43043644	Energized Power/Recipes
+// 1.21.1	2026-05-01T20:51:14.119628204	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 2bd7132e3a19885cc36314b9ccd515d696c698a1 data/energizedpower/advancement/recipes/crafting/battery_3.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
@@ -56,6 +56,7 @@ b8556b74f0432ee8a41af901c2f89a695cb0aad2 data/energizedpower/recipe/crafting/ene
 06f138111f9f20f12af65a67420df1d9bf98f484 data/energizedpower/recipe/crafting/hv_transformer_n_to_1.json
 41789e0ed409d7c3115ca7ebd9ebe53360ef3748 data/energizedpower/recipe/stone_liquefier/deepslate.json
 f347d3faa6c43a57e7adc7e39196b1fe70314f96 data/energizedpower/recipe/crusher/gravel_from_crushing_cobblestone.json
+eb2f495c35229d42ad97597eee75b114cdd205c3 data/energizedpower/advancement/recipes/crafting/paper_from_sawdust.json
 dc991f74f27c8efd74a703c01b69f0e71a162939 data/energizedpower/recipe/stone_liquefier/cobblestone.json
 b4c22472f371cf97107fc8f49f28a7e903461a92 data/energizedpower/recipe/crafting/auto_crafter.json
 a3e18d5451940ec597fab960528b326b29a5726e data/energizedpower/advancement/recipes/crafting/advanced_fertilizer.json
@@ -330,6 +331,7 @@ ea8c0683b22f62e833da79706c43501bfea34803 data/energizedpower/recipe/crusher/gran
 b76abb9ee9a4b473196b2a256df92c734f51adaf data/energizedpower/recipe/sawmill/oak_planks_from_sawing_chiseled_bookshelf.json
 b6f45e7fca41c36971938f2ea4c839d9b540d4c3 data/energizedpower/recipe/crafting/speed_upgrade_module_1.json
 8ba02e22b47831f21db5a6b768a99c6983cb536f data/energizedpower/recipe/crafting/solar_panel_6.json
+f91790492005880758e60c319e0dd4ca6c0a1527 data/energizedpower/recipe/crafting/paper_from_sawdust.json
 6e1f2df02d232aba761a2bbd3036f6a6bb080f49 data/energizedpower/recipe/crafting/silicon_from_silicon_block.json
 37ebc6a2e394031a676f6935de00416ad14560cf data/energizedpower/recipe/pulverizer/iron_dust_from_pulverizer_iron_ingots.json
 5bf0d61ae45b5087e2ea346f5395f59f7d7ed2c0 data/energizedpower/recipe/sawmill/spruce_planks_from_sawing_spruce_logs.json
