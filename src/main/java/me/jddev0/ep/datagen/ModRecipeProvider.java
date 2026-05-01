@@ -2113,6 +2113,13 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get())
         ), new ItemStack(EPItems.ENERGIZED_POWER_BOOK.get()), CraftingBookCategory.MISC);
 
+        addShapelessCraftingRecipe(output, has(CommonItemTags.DUSTS_WOOD), List.of(
+                Ingredient.of(CommonItemTags.DUSTS_WOOD),
+                Ingredient.of(CommonItemTags.DUSTS_WOOD),
+                Ingredient.of(CommonItemTags.DUSTS_WOOD),
+                Ingredient.of(Items.WATER_BUCKET)
+        ), new ItemStack(Items.PAPER, 2), CraftingBookCategory.MISC, "", "_from_sawdust");
+
         addShapedCraftingRecipe(output, has(CommonItemTags.DUSTS_CHARCOAL), Map.of(
                 'P', Ingredient.of(Items.PAPER),
                 'C', Ingredient.of(CommonItemTags.DUSTS_CHARCOAL),
