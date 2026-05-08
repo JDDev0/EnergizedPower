@@ -113,6 +113,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 - [Energized Power - Regions Unexplored](https://github.com/JDDev0/EnergizedPower-RegionsUnexplored)
 - [Energized Power - The Aether](https://github.com/JDDev0/EnergizedPower-TheAether)
 - [Energized Power - Farmer's Delight](https://github.com/JDDev0/EnergizedPower-FarmersDelight)
+- [Energized Power - Croptopia](https://github.com/JDDev0/EnergizedPower-Croptopia)
 
 ### World generation
 
