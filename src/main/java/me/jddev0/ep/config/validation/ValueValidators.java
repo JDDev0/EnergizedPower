@@ -22,7 +22,7 @@ public final class ValueValidators {
     public static final ValueValidator<String> STRING_NOT_BLANK = new ValueValidator<>() {
         @Override
         public void validate(@NotNull String value) throws ConfigValidationException {
-            if(value.isEmpty())
+            if(value.isBlank())
                 throw new ConfigValidationException("Value must not be blank");
         }
 
