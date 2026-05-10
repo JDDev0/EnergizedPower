@@ -2,8 +2,10 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,16 +14,19 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity> {
+public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockEntity>
+        implements IEnergyStorageProducerIndicatorBarMenu {
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
 
     public SolarPanelMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.MOON_LIGHT
-        ));
+        ), null);
     }
 
-    public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
+    public SolarPanelMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                          ContainerData data) {
         super(
                 ((SolarPanelBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id,
 
@@ -33,6 +38,22 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
+
+        if(data == null) {
+            addDataSlots(energyProductionPerTickData);
+        }else {
+            addDataSlots(data);
+        }
+    }
+
+    @Override
+    public int getEnergyIndicatorBarValue() {
+        return 0;
+    }
+
+    @Override
+    public int getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     @Override

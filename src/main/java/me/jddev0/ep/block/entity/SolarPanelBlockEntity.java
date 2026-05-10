@@ -3,17 +3,21 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -70,12 +74,49 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
         };
     }
 
+    @Override
+    protected ContainerData initContainerData() {
+        return new CombinedContainerData(
+                new EnergyValueContainerData(() -> {
+                    if(!(level instanceof ServerLevel))
+                        return 0;
+
+                    int i = 4 * (level.getBrightness(LightLayer.SKY, getBlockPos()) - level.getSkyDarken()); //(0 - 15) * 4 => (0 - 60)
+                    float f = level.environmentAttributes().getValue(EnvironmentAttributes.SUN_ANGLE, getBlockPos()) * (float) (Math.PI / 180F);
+                    if(i > 0) {
+                        float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
+
+                        f += (f1 - f) * 0.2F;
+
+                        i = Math.round((float)i * Mth.cos(f));
+                    }
+
+                    i = Mth.clamp(i, 0, 60);
+
+                    int energyProduction = (int)(i/60.f * getTier().getPeakFePerTick());
+
+                    double moonLightUpgradeModuleEffect = upgradeModuleInventory.
+                            getUpgradeModuleModifierEffect(1, UpgradeModuleModifier.MOON_LIGHT);
+                    if(moonLightUpgradeModuleEffect > 0) {
+                        i = 15 - (level.getBrightness(LightLayer.SKY, getBlockPos()) - level.getSkyDarken());
+                        if(i < 14) {
+                            i = Mth.clamp(i, 0, 15);
+
+                            energyProduction += (int)(i/15. * getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
+                        }
+                    }
+
+                    return Math.min(energyProduction, energyStorage.getCapacityAsInt() - energyStorage.getAmountAsInt());
+                }, value -> {})
+        );
+    }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new SolarPanelMenu(id, inventory, this, upgradeModuleInventory);
+        return new SolarPanelMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     public SolarPanelTier getTier() {
