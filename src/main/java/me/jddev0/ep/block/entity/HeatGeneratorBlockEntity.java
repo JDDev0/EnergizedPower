@@ -2,6 +2,10 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
@@ -13,7 +17,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -68,12 +74,45 @@ public class HeatGeneratorBlockEntity
         };
     }
 
+    @Override
+    protected PropertyDelegate initContainerData() {
+        return new CombinedContainerData(
+                new EnergyValueContainerData(() -> {
+                    if(!(world instanceof ServerWorld))
+                        return 0L;
+
+                    List<RecipeEntry<HeatGeneratorRecipe>> recipes = world.getRecipeManager().listAllOfType(HeatGeneratorRecipe.Type.INSTANCE);
+
+                    long productionSum = 0;
+                    for(Direction direction:Direction.values()) {
+                        BlockPos checkPos = getPos().offset(direction);
+                        FluidState fluidState = world.getFluidState(checkPos);
+
+                        outer:
+                        for(RecipeEntry<HeatGeneratorRecipe> recipe:recipes) {
+                            for(Fluid fluid:recipe.value().getInput()) {
+                                if(fluidState.isOf(fluid)) {
+                                    productionSum += recipe.value().getEnergyProduction();
+
+                                    break outer;
+                                }
+                            }
+                        }
+                    }
+
+                    productionSum = (long)(productionSum * ENERGY_PRODUCTION_MULTIPLIER);
+
+                    return Math.min(productionSum, energyStorage.getCapacity() - energyStorage.getAmount());
+                }, value -> {})
+        );
+    }
+
     @Nullable
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
         syncEnergyToPlayer(player);
-        
-        return new HeatGeneratorMenu(id, this, inventory, upgradeModuleInventory);
+
+        return new HeatGeneratorMenu(id, this, inventory, upgradeModuleInventory, this.data);
     }
 
     public static void tick(World level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
