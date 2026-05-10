@@ -12,5 +12,7 @@ public class HeatGeneratorScreen
                 EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
 
         energyMeterX = 80;
+
+        energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }
 }
