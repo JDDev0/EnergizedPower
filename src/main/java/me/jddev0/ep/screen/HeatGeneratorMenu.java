@@ -2,26 +2,32 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
+import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
-public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGeneratorBlockEntity> {
+public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGeneratorBlockEntity>
+        implements IEnergyStorageProducerIndicatorBarMenu {
+    private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
+
     public HeatGeneratorMenu(int id, PlayerInventory inv, PacketByteBuf buf) {
         this(id, inv.player.getWorld().getBlockEntity(buf.readBlockPos()), inv, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY
-        ));
+        ), null);
     }
 
     public HeatGeneratorMenu(int id, BlockEntity blockEntity, PlayerInventory playerInventory,
-                             UpgradeModuleInventory upgradeModuleInventory) {
+                             UpgradeModuleInventory upgradeModuleInventory, PropertyDelegate data) {
         super(
                 EPMenuTypes.HEAT_GENERATOR_MENU, id,
 
@@ -32,6 +38,22 @@ public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGenerator
         );
 
         addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
+
+        if(data == null) {
+            addProperties(energyProductionPerTickData);
+        }else {
+            addProperties(data);
+        }
+    }
+
+    @Override
+    public long getEnergyIndicatorBarValue() {
+        return 0;
+    }
+
+    @Override
+    public long getEnergyPerTickBarValue() {
+        return energyProductionPerTickData.getValue();
     }
 
     @Override
