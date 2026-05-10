@@ -15,5 +15,7 @@ public class SolarPanelScreen extends UpgradableEnergyStorageContainerScreen<Sol
                 EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
 
         energyMeterX = 80;
+
+        energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }
 }
