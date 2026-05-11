@@ -120,6 +120,12 @@
   "item.energizedpower.energy_efficiency_upgrade_module_4": "発電効率アップグレードモジュール (ティアー IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "発電効率アップグレードモジュール (ティアー V)",
 
+  "item.energizedpower.energy_production_upgrade_module_1": "Energy Production Upgrade Module (Tier I)",
+  "item.energizedpower.energy_production_upgrade_module_2": "Energy Production Upgrade Module (Tier II)",
+  "item.energizedpower.energy_production_upgrade_module_3": "Energy Production Upgrade Module (Tier III)",
+  "item.energizedpower.energy_production_upgrade_module_4": "Energy Production Upgrade Module (Tier IV)",
+  "item.energizedpower.energy_production_upgrade_module_5": "Energy Production Upgrade Module (Tier V)",
+
   "item.energizedpower.energy_capacity_upgrade_module_1": "蓄電量アップグレードモジュール (ティアー I)",
   "item.energizedpower.energy_capacity_upgrade_module_2": "蓄電量アップグレードモジュール (ティアー II)",
   "item.energizedpower.energy_capacity_upgrade_module_3": "蓄電量アップグレードモジュール (ティアー III)",
@@ -850,6 +856,7 @@
 
   "tooltip.energizedpower.upgrade_module_modifier.speed": "生産速度",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "ティックごとの発電量",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy production per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "蓄電量",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "送電速度",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "持続時間",
@@ -976,6 +983,21 @@
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "発電効率 V",
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "発電効率アップグレードモジュール (ティアー V)を作成する",
+
+  "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energy Production I",
+  "advancements.energizedpower.energy_production_upgrade_module_1.description": "Craft an Energy Production Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_2.title": "Energy Production II",
+  "advancements.energizedpower.energy_production_upgrade_module_2.description": "Craft an Energy Production Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_3.title": "Energy Production III",
+  "advancements.energizedpower.energy_production_upgrade_module_3.description": "Craft an Energy Production Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_4.title": "Energy Production IV",
+  "advancements.energizedpower.energy_production_upgrade_module_4.description": "Craft an Energy Production Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energy Production V",
+  "advancements.energizedpower.energy_production_upgrade_module_5.description": "Craft an Energy Production Upgrade Module (Tier V).",
 
   "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "蓄電量 I",
   "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "蓄電量アップグレードモジュール (ティアー I)を作成する",
@@ -1570,6 +1592,8 @@
   "book.energizedpower.page.speed_upgrades": "速度アップグレードは、機械の加工速度を向上させますが、電力消費も増加します。",
 
   "book.energizedpower.page.energy_efficiency_upgrades": "発電効率アップグレードは、電力消費を抑えられます。",
+
+  "book.energizedpower.page.energy_production_upgrades": "Energy Production Upgrades increase the energy production.",
 
   "book.energizedpower.page.energy_capacity_upgrades": "蓄電量アップグレードは、蓄電量と送電速度が向上します。",
 

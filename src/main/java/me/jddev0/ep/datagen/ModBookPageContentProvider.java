@@ -436,6 +436,20 @@ public class ModBookPageContentProvider extends PageContentProvider {
 
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("energy_production_upgrades"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.energy_production_upgrades").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+            ), new Identifier[] {
+                    EPAPI.id("textures/item/energy_production_upgrade_module_1.png"),
+                    EPAPI.id("textures/item/energy_production_upgrade_module_2.png"),
+                    EPAPI.id("textures/item/energy_production_upgrade_module_3.png"),
+                    EPAPI.id("textures/item/energy_production_upgrade_module_4.png"),
+                    EPAPI.id("textures/item/energy_production_upgrade_module_5.png")
+            }, changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("energy_capacity_upgrades"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.energy_capacity_upgrades").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)

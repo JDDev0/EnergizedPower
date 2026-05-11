@@ -51,7 +51,8 @@ public class ThermalGeneratorBlockEntity
                 FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ENERGY_PRODUCTION
         );
     }
 
@@ -121,7 +122,8 @@ public class ThermalGeneratorBlockEntity
                         for(Fluid fluid:recipe.value().getInput()) {
                             if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
-                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
+                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                                        upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
                                 break outer;
                             }
@@ -151,7 +153,8 @@ public class ThermalGeneratorBlockEntity
                         for(Fluid fluid:recipe.value().getInput()) {
                             if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
-                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
+                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                                        upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
                                 break outer;
                             }
@@ -205,7 +208,8 @@ public class ThermalGeneratorBlockEntity
             for(Fluid fluid:recipe.value().getInput()) {
                 if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
                     rawProduction = recipe.value().getEnergyProduction();
-                    rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER);
+                    rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                            blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
                     break outer;
                 }
