@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/basics/hardened_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:fluid_freezer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.fluid_freezer.description"
+    },
+    "icon": {
+      "id": "energizedpower:fluid_freezer"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.fluid_freezer.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

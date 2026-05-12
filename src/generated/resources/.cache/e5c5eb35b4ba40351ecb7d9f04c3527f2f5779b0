@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-12T20:20:22.54169793	Advancements
+// 26.1.2	2026-05-13T00:15:06.503374642	Advancements
 fb5392ad97a862dfe53b93781cae785f2c6f7a5a data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 b98434fb047d913459951b43db133561b927c557 data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 249508e6447826bcd2c8eee6309410ff7e2357cf data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -142,6 +142,7 @@ d5839f9f52edefb2fe103d69abb345bb27ff2269 data/energizedpower/advancement/main/ba
 2fd2b9ecc270a2454bf5c72756a3166ecb30d427 data/energizedpower/advancement/main/basics/fluid_analyzer.json
 0ab4cc2b925ecc30458d71c207ffed6b0f9a3b10 data/energizedpower/advancement/main/basics/fluid_drainer.json
 f1dd2e4636e291a16cb3d4af2f83fa5b67d772ea data/energizedpower/advancement/main/basics/fluid_filler.json
+f07ada4295c9141aedd662ae2c641fd940170a26 data/energizedpower/advancement/main/basics/fluid_freezer.json
 617228c15cc40db7ef6dac21febfdcf2aa300654 data/energizedpower/advancement/main/basics/fluid_pump.json
 95870784849b4c9b66f5ac5257ac98e0c4705478 data/energizedpower/advancement/main/basics/fluid_tank_large.json
 8867d671475b4c3bab9d370d024545f9ea7599bd data/energizedpower/advancement/main/basics/fluid_tank_medium.json

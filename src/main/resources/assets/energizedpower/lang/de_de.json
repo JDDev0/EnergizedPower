@@ -632,6 +632,10 @@
   "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
 
+  "block.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
+  "item.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
+  "container.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
+
   "block.energizedpower.stone_liquefier": "Stein-Verflüssiger",
   "item.energizedpower.stone_liquefier": "Stein-Verflüssiger",
   "container.energizedpower.stone_liquefier": "Stein-Verflüssiger",
@@ -909,6 +913,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
   "emi.category.energizedpower.press_mold_maker": "Pressform-Hersteller",
   "emi.category.energizedpower.alloy_furnace": "Legierungsofen",
+  "emi.category.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
   "emi.category.energizedpower.stone_liquefier": "Stein-Verflüssiger",
   "emi.category.energizedpower.stone_solidifier": "Stein-Festiger",
   "emi.category.energizedpower.filtration_plant": "Filteranlage",
@@ -1169,6 +1174,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Schnelleres Pflanzenwachstum",
   "advancements.energizedpower.plant_growth_chamber.description": "Verssere die Geschwindigkeit und den Ertrag mit der Pflanzenwachstums-Kammer.",
+
+  "advancements.energizedpower.fluid_freezer.title": "Flüssigkeits-Kühler",
+  "advancements.energizedpower.fluid_freezer.description": "Flüssigkeiten werden eingefrieren, meist zu Schnee und Eis.",
 
   "advancements.energizedpower.stone_liquefier.title": "Stein-Verflüssiger",
   "advancements.energizedpower.stone_liquefier.description": "Erstelle Lava aus Stein-Blöcken.",
@@ -1789,10 +1797,13 @@
   "book.energizedpower.page.plant_growth_chamber.6": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
   "book.energizedpower.page.plant_growth_chamber.7": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
 
+  "book.energizedpower.page.fluid_freezer.1": "Der Flüssigkeits-Kühler produziert Eis und Schnee aus Wasser.",
+  "book.energizedpower.page.fluid_freezer.2": "Flüssigkeiten müssen mit einem Rohr eingegeben werden.",
+
   "book.energizedpower.page.stone_liquefier.1": "Der Stein-Verflüssiger produziert Lava aus Stein-Blöcken.",
   "book.energizedpower.page.stone_liquefier.2": "Flüssigkeiten müssen mit einem Rohr extrahiert werden.",
 
-  "book.energizedpower.page.stone_solidifier.1": "Der Stein-Festiger produziert Stein-Blöcke von Wasser und Lava.",
+  "book.energizedpower.page.stone_solidifier.1": "Der Stein-Festiger produziert Stein-Blöcke aus Wasser und Lava.",
   "book.energizedpower.page.stone_solidifier.2": "Flüssigkeiten müssen mit einem Rohr eingegeben werden.",
 
   "book.energizedpower.page.filtration_plant.1": "Die Filteranlage kann rohe Erze aus schmutzigem Wasser filtern.",

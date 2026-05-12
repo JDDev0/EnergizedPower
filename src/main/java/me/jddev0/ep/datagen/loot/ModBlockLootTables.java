@@ -140,6 +140,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(EPBlocks.FLUID_FILLER);
 
+        dropSelf(EPBlocks.FLUID_FREEZER);
         dropSelf(EPBlocks.STONE_LIQUEFIER);
         dropSelf(EPBlocks.STONE_SOLIDIFIER);
 

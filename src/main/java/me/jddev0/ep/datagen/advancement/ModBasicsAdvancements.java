@@ -653,6 +653,11 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
                 EPBlocks.INDUCTION_SMELTER_ITEM, "induction_smelter", AdvancementType.TASK
         );
 
+        AdvancementHolder fluidFreezer = addAdvancement(
+                advancementOutput, hardenedMachineFrame,
+                EPBlocks.FLUID_FREEZER_ITEM, "fluid_freezer", AdvancementType.TASK
+        );
+
         AdvancementHolder stoneLiquefier = addAdvancement(
                 advancementOutput, hardenedMachineFrame,
                 EPBlocks.STONE_LIQUEFIER_ITEM, "stone_liquefier", AdvancementType.TASK

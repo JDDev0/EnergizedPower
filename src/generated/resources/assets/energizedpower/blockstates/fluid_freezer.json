@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/fluid_freezer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/fluid_freezer"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/fluid_freezer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/fluid_freezer",
+      "y": 270
+    }
+  }
+}

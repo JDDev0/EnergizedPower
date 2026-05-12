@@ -632,6 +632,10 @@
   "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
   "container.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
 
+  "block.energizedpower.fluid_freezer": "Fluid Freezer",
+  "item.energizedpower.fluid_freezer": "Fluid Freezer",
+  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+
   "block.energizedpower.stone_liquefier": "Разжижитель камня",
   "item.energizedpower.stone_liquefier": "Разжижитель камня",
   "container.energizedpower.stone_liquefier": "Разжижитель камня",
@@ -909,6 +913,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Камера выращивания кристалов",
   "emi.category.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
   "emi.category.energizedpower.alloy_furnace": "Печь для сплавов",
+  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
   "emi.category.energizedpower.stone_liquefier": "Разжижитель камня",
   "emi.category.energizedpower.stone_solidifier": "Отвердитель камня",
   "emi.category.energizedpower.filtration_plant": "Фильтрационная установка",
@@ -1169,6 +1174,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Ускоренный рост растений",
   "advancements.energizedpower.plant_growth_chamber.description": "Повысьте скорость и урожайность с помощью камеры для выращивания растений.",
+
+  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
 
   "advancements.energizedpower.stone_liquefier.title": "Разжижитель камня",
   "advancements.energizedpower.stone_liquefier.description": "Создайте лаву из каменных блоков.",
@@ -1788,6 +1796,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Семена можно вставлять с севера, востока, юга и запада. Удобрения можно вставлять сверху и снизу. Выводы можно извлекать со всех сторон блока.",
   "book.energizedpower.page.plant_growth_chamber.6": "Если вы хотите использовать удобрение, его необходимо внести первым.",
   "book.energizedpower.page.plant_growth_chamber.7": "Если вы хотите автоматизировать эти блоки, вам нужно помнить, что доходность рандомизированна.",
+
+  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
+  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.stone_liquefier.1": "Разжижитель камня производит лаву из каменных блоков.",
   "book.energizedpower.page.stone_liquefier.2": "Жидкости необходимо выводить с помощью труб",

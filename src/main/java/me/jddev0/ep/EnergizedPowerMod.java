@@ -110,6 +110,7 @@ public class EnergizedPowerMod {
                     CrystalGrowthChamberRecipe.Type.INSTANCE,
                     PressMoldMakerRecipe.Type.INSTANCE,
                     AlloyFurnaceRecipe.Type.INSTANCE,
+                    FluidFreezerRecipe.Type.INSTANCE,
                     StoneLiquefierRecipe.Type.INSTANCE,
                     StoneSolidifierRecipe.Type.INSTANCE,
                     FiltrationPlantRecipe.Type.INSTANCE,
@@ -241,6 +242,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(EPBlocks.INDUCTION_SMELTER_ITEM);
             event.accept(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+            event.accept(EPBlocks.FLUID_FREEZER_ITEM);
             event.accept(EPBlocks.STONE_LIQUEFIER_ITEM);
             event.accept(EPBlocks.STONE_SOLIDIFIER_ITEM);
             event.accept(EPBlocks.FILTRATION_PLANT_ITEM);
@@ -531,6 +533,7 @@ public class EnergizedPowerMod {
             event.register(EPMenuTypes.SAWMILL_MENU.get(), SawmillScreen::new);
             event.register(EPMenuTypes.COMPRESSOR_MENU.get(), CompressorScreen::new);
             event.register(EPMenuTypes.PLANT_GROWTH_CHAMBER_MENU.get(), PlantGrowthChamberScreen::new);
+            event.register(EPMenuTypes.FLUID_FREEZER_MENU.get(), FluidFreezerScreen::new);
             event.register(EPMenuTypes.STONE_LIQUEFIER_MENU.get(), StoneLiquefierScreen::new);
             event.register(EPMenuTypes.STONE_SOLIDIFIER_MENU.get(), StoneSolidifierScreen::new);
             event.register(EPMenuTypes.FILTRATION_PLANT_MENU.get(), FiltrationPlantScreen::new);

@@ -59,6 +59,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         buildMetalPressRecipes();
         buildHeatGeneratorRecipes();
         buildThermalGeneratorRecipes();
+        buildFluidFreezerRecipe();
         buildStoneLiquefierRecipes();
         buildStoneSolidifierRecipes();
         buildAssemblingMachineRecipes();
@@ -1804,6 +1805,19 @@ public class ModRecipeGenerator extends RecipeProvider {
         addShapedCraftingRecipe(output, has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'I', ingredientOf(CommonItemTags.GEARS_IRON),
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "STS",
+                "IHI",
+                "CFC"
+        }, new ItemStackTemplate(EPBlocks.FLUID_FREEZER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'i', ingredientOf(CommonItemTags.GEARS_IRON),
                 'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
@@ -2924,6 +2938,14 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.CRYSTAL_MATRIX.get()));
     }
 
+    private void buildFluidFreezerRecipe() {
+        addWaterInputFluidFreezerRecipe(output, 125, new ItemStackTemplate(Items.SNOWBALL));
+
+        addWaterInputFluidFreezerRecipe(output, 500, new ItemStackTemplate(Items.SNOW_BLOCK));
+
+        addWaterInputFluidFreezerRecipe(output, 1000, new ItemStackTemplate(Items.ICE));
+    }
+
     private void buildStoneLiquefierRecipes() {
         addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.STONE), 50, "stone");
 
@@ -3540,6 +3562,15 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "energy_production_from_" + recipeIngredientName);
 
         ThermalGeneratorRecipe recipe = new ThermalGeneratorRecipe(input, energyProduction);
+        recipeOutput.accept(getKey(recipeId), recipe, null);
+    }
+    private void addWaterInputFluidFreezerRecipe(RecipeOutput recipeOutput, int waterAmount, ItemStackTemplate output) {
+        addFluidFreezerRecipe(recipeOutput, new FluidStackTemplate(Fluids.WATER, waterAmount), output);
+    }
+    private void addFluidFreezerRecipe(RecipeOutput recipeOutput, FluidStackTemplate input, ItemStackTemplate output) {
+        Identifier recipeId = EPAPI.id("fluid_freezer/" + getItemName(output.item().value()));
+
+        FluidFreezerRecipe recipe = new FluidFreezerRecipe(input, output);
         recipeOutput.accept(getKey(recipeId), recipe, null);
     }
 
