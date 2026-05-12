@@ -24,6 +24,8 @@ public class EnergyProductionUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double ENERGY_PRODUCTION_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_5_EFFECT.getValue();
 
+    private static final double ENERGY_PRODUCTION_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_6_EFFECT.getValue();
+
     public EnergyProductionUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.ENERGY_PRODUCTION, tier);
     }
@@ -42,6 +44,7 @@ public class EnergyProductionUpgradeModuleItem extends UpgradeModuleItem {
                 case 3 -> ENERGY_PRODUCTION_3_EFFECT;
                 case 4 -> ENERGY_PRODUCTION_4_EFFECT;
                 case 5 -> ENERGY_PRODUCTION_5_EFFECT;
+                case 6 -> ENERGY_PRODUCTION_6_EFFECT;
 
                 default -> -1;
             };

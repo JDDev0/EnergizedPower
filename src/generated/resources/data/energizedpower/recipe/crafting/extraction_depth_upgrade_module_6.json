@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "energizedpower:extraction_depth_upgrade_module_5",
+    "F": "energizedpower:fluid_pipe",
+    "I": "#c:plates/iron",
+    "R": "energizedpower:reinforced_advanced_upgrade_module"
+  },
+  "pattern": [
+    "IEI",
+    "FRF",
+    "IEI"
+  ],
+  "result": {
+    "id": "energizedpower:extraction_depth_upgrade_module_6"
+  }
+}

@@ -113,24 +113,28 @@
   "item.energizedpower.speed_upgrade_module_3": "Модуль улучшения скорости (Уровень III)",
   "item.energizedpower.speed_upgrade_module_4": "Модуль улучшения скорости (Уровень IV)",
   "item.energizedpower.speed_upgrade_module_5": "Модуль улучшения скорости (Уровень V)",
+  "item.energizedpower.speed_upgrade_module_6": "Модуль улучшения скорости (Уровень VI)",
 
   "item.energizedpower.energy_efficiency_upgrade_module_1": "Модуль улучшения энергоэффективности (Уровень I)",
   "item.energizedpower.energy_efficiency_upgrade_module_2": "Модуль улучшения энергоэффективности (Уровень II)",
   "item.energizedpower.energy_efficiency_upgrade_module_3": "Модуль улучшения энергоэффективности (Уровень III)",
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Модуль улучшения энергоэффективности (Уровень IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Модуль улучшения энергоэффективности (Уровень V)",
+  "item.energizedpower.energy_efficiency_upgrade_module_6": "Модуль улучшения энергоэффективности (Уровень VI)",
 
   "item.energizedpower.energy_production_upgrade_module_1": "Energy Production Upgrade Module (Tier I)",
   "item.energizedpower.energy_production_upgrade_module_2": "Energy Production Upgrade Module (Tier II)",
   "item.energizedpower.energy_production_upgrade_module_3": "Energy Production Upgrade Module (Tier III)",
   "item.energizedpower.energy_production_upgrade_module_4": "Energy Production Upgrade Module (Tier IV)",
   "item.energizedpower.energy_production_upgrade_module_5": "Energy Production Upgrade Module (Tier V)",
+  "item.energizedpower.energy_production_upgrade_module_6": "Energy Production Upgrade Module (Tier VI)",
 
   "item.energizedpower.energy_capacity_upgrade_module_1": "Модуль улучшения энергоемкости (Уровень I)",
   "item.energizedpower.energy_capacity_upgrade_module_2": "Модуль улучшения энергоемкости (Уровень II)",
   "item.energizedpower.energy_capacity_upgrade_module_3": "Модуль улучшения энергоемкости (Уровень III)",
   "item.energizedpower.energy_capacity_upgrade_module_4": "Модуль улучшения энергоемкости (Уровень IV)",
   "item.energizedpower.energy_capacity_upgrade_module_5": "Модуль улучшения энергоемкости (Уровень V)",
+  "item.energizedpower.energy_capacity_upgrade_module_6": "Модуль улучшения энергоемкости (Уровень VI)",
 
   "item.energizedpower.duration_upgrade_module_1": "Модуль улучшения продолжительности (Уровень I)",
   "item.energizedpower.duration_upgrade_module_2": "Модуль улучшения продолжительности (Уровень II)",
@@ -148,12 +152,14 @@
   "item.energizedpower.extraction_depth_upgrade_module_3": "Модуль улучшения глубины (Уровень III)",
   "item.energizedpower.extraction_depth_upgrade_module_4": "Модуль улучшения глубины (Уровень IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Модуль улучшения глубины (Уровень V)",
+  "item.energizedpower.extraction_depth_upgrade_module_6": "Модуль улучшения глубины (Уровень VI)",
 
   "item.energizedpower.extraction_range_upgrade_module_1": "Модуль улучшения радиуса (Уровень I)",
   "item.energizedpower.extraction_range_upgrade_module_2": "Модуль улучшения радиуса (Уровень II)",
   "item.energizedpower.extraction_range_upgrade_module_3": "Модуль улучшения радиуса (Уровень III)",
   "item.energizedpower.extraction_range_upgrade_module_4": "Модуль улучшения радиуса (Уровень IV)",
   "item.energizedpower.extraction_range_upgrade_module_5": "Модуль улучшения радиуса (Уровень V)",
+  "item.energizedpower.extraction_range_upgrade_module_6": "Модуль улучшения радиуса (Уровень VI)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения Доменная печь",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Доменная печь",
@@ -969,6 +975,9 @@
   "advancements.energizedpower.speed_upgrade_module_5.title": "Скорость V",
   "advancements.energizedpower.speed_upgrade_module_5.description": "Создайте модуль улучшения скорости (Уровень V).",
 
+  "advancements.energizedpower.speed_upgrade_module_6.title": "Скорость VI",
+  "advancements.energizedpower.speed_upgrade_module_6.description": "Создайте модуль улучшения скорости (Уровень VI).",
+
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Энергоэффективность I",
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Создайте модуль улучшения энергоэффективности (Уровень I).",
 
@@ -983,6 +992,9 @@
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Энергоэффективность V",
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Создайте модуль улучшения энергоэффективности (Уровень V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_6.title": "Энергоэффективность VI",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_6.description": "Создайте модуль улучшения энергоэффективности (Уровень VI).",
 
   "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energy Production I",
   "advancements.energizedpower.energy_production_upgrade_module_1.description": "Craft an Energy Production Upgrade Module (Tier I).",
@@ -999,6 +1011,9 @@
   "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energy Production V",
   "advancements.energizedpower.energy_production_upgrade_module_5.description": "Craft an Energy Production Upgrade Module (Tier V).",
 
+  "advancements.energizedpower.energy_production_upgrade_module_6.title": "Energy Production VI",
+  "advancements.energizedpower.energy_production_upgrade_module_6.description": "Craft an Energy Production Upgrade Module (Tier VI).",
+
   "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Энергоёмкость I",
   "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Создайте модуль повышения энергетической емкости (Уровень I).",
 
@@ -1013,6 +1028,9 @@
 
   "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Энергоёмкость V",
   "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Создайте модуль повышения энергетической емкости (Уровень V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_6.title": "Энергоёмкость VI",
+  "advancements.energizedpower.energy_capacity_upgrade_module_6.description": "Создайте модуль повышения энергетической емкости (Уровень VI).",
 
   "advancements.energizedpower.duration_upgrade_module_1.title": "Продолжительность I",
   "advancements.energizedpower.duration_upgrade_module_1.description": "Создайте модуль улучшения продолжительности (Уровень I).",
@@ -1056,6 +1074,9 @@
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Глубина извлечения V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Создайте модуль улучшения глубины извлечения (Уровень V).",
 
+  "advancements.energizedpower.extraction_depth_upgrade_module_6.title": "Глубина извлечения VI",
+  "advancements.energizedpower.extraction_depth_upgrade_module_6.description": "Создайте модуль улучшения глубины извлечения (Уровень VI).",
+
   "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Радиус извлечения I",
   "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Создайте модуль улучшения радиуса извлечения (Уровень I).",
 
@@ -1070,6 +1091,9 @@
 
   "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Радиус извлечения V",
   "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Создайте модуль улучшения радиуса извлечения (Уровень V).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_6.title": "Радиус извлечения VI",
+  "advancements.energizedpower.extraction_range_upgrade_module_6.description": "Создайте модуль улучшения радиуса извлечения (Уровень VI).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Режим печи: доменная печь",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменная печь.",

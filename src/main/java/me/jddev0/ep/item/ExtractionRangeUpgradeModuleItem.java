@@ -24,6 +24,8 @@ public class ExtractionRangeUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double EXTRACTION_RANGE_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_5_EFFECT.getValue();
 
+    private static final double EXTRACTION_RANGE_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_6_EFFECT.getValue();
+
     public ExtractionRangeUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.EXTRACTION_RANGE, tier);
     }
@@ -42,6 +44,7 @@ public class ExtractionRangeUpgradeModuleItem extends UpgradeModuleItem {
                 case 3 -> EXTRACTION_RANGE_3_EFFECT;
                 case 4 -> EXTRACTION_RANGE_4_EFFECT;
                 case 5 -> EXTRACTION_RANGE_5_EFFECT;
+                case 6 -> EXTRACTION_RANGE_6_EFFECT;
 
                 default -> -1;
             };

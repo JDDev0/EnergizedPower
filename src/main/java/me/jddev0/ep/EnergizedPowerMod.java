@@ -315,24 +315,28 @@ public class EnergizedPowerMod {
             event.accept(EPItems.SPEED_UPGRADE_MODULE_3);
             event.accept(EPItems.SPEED_UPGRADE_MODULE_4);
             event.accept(EPItems.SPEED_UPGRADE_MODULE_5);
+            event.accept(EPItems.SPEED_UPGRADE_MODULE_6);
 
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
+            event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6);
 
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5);
+            event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6);
 
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5);
+            event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6);
 
             event.accept(EPItems.DURATION_UPGRADE_MODULE_1);
             event.accept(EPItems.DURATION_UPGRADE_MODULE_2);
@@ -350,12 +354,14 @@ public class EnergizedPowerMod {
             event.accept(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3);
             event.accept(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
             event.accept(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
+            event.accept(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_6);
 
             event.accept(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1);
             event.accept(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2);
             event.accept(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3);
             event.accept(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4);
             event.accept(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5);
+            event.accept(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_6);
 
             event.accept(EPItems.BLAST_FURNACE_UPGRADE_MODULE);
             event.accept(EPItems.SMOKER_UPGRADE_MODULE);
