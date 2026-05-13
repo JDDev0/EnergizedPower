@@ -2813,7 +2813,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void buildThermalGeneratorRecipes() {
-        addThermalGeneratorRecipe(Fluids.LAVA, 20000, "lava");
+        addThermalGeneratorRecipe(Fluids.LAVA, 50000, "lava");
     }
 
     private void buildAssemblingMachineRecipes() {
