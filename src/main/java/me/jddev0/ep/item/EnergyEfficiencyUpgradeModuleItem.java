@@ -24,6 +24,8 @@ public class EnergyEfficiencyUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double ENERGY_EFFICIENCY_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_5_EFFECT.getValue();
 
+    private static final double ENERGY_EFFICIENCY_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_6_EFFECT.getValue();
+
     public EnergyEfficiencyUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.ENERGY_CONSUMPTION, tier);
     }
@@ -42,6 +44,7 @@ public class EnergyEfficiencyUpgradeModuleItem extends UpgradeModuleItem {
                 case 3 -> ENERGY_EFFICIENCY_3_EFFECT;
                 case 4 -> ENERGY_EFFICIENCY_4_EFFECT;
                 case 5 -> ENERGY_EFFICIENCY_5_EFFECT;
+                case 6 -> ENERGY_EFFICIENCY_6_EFFECT;
 
                 default -> -1;
             };

@@ -108,24 +108,28 @@ class ModItemModelProvider {
         basicItem(EPItems.SPEED_UPGRADE_MODULE_3);
         basicItem(EPItems.SPEED_UPGRADE_MODULE_4);
         basicItem(EPItems.SPEED_UPGRADE_MODULE_5);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_6);
 
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6);
 
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6);
 
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6);
 
         basicItem(EPItems.DURATION_UPGRADE_MODULE_1);
         basicItem(EPItems.DURATION_UPGRADE_MODULE_2);
@@ -143,12 +147,14 @@ class ModItemModelProvider {
         basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3);
         basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4);
         basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5);
+        basicItem(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_6);
 
         basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1);
         basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2);
         basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3);
         basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4);
         basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5);
+        basicItem(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_6);
 
         basicItem(EPItems.BLAST_FURNACE_UPGRADE_MODULE);
         basicItem(EPItems.SMOKER_UPGRADE_MODULE);

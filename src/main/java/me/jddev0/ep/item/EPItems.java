@@ -129,6 +129,8 @@ public final class EPItems {
             props -> new SpeedUpgradeModuleItem(props, 4));
     public static final Item SPEED_UPGRADE_MODULE_5 = registerItem("speed_upgrade_module_5",
             props -> new SpeedUpgradeModuleItem(props, 5));
+    public static final Item SPEED_UPGRADE_MODULE_6 = registerItem("speed_upgrade_module_6",
+            props -> new SpeedUpgradeModuleItem(props, 6));
 
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = registerItem("energy_efficiency_upgrade_module_1",
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 1));
@@ -140,6 +142,8 @@ public final class EPItems {
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 4));
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = registerItem("energy_efficiency_upgrade_module_5",
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 5));
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_6 = registerItem("energy_efficiency_upgrade_module_6",
+            props -> new EnergyEfficiencyUpgradeModuleItem(props, 6));
 
     public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_1 = registerItem("energy_production_upgrade_module_1",
             props -> new EnergyProductionUpgradeModuleItem(props, 1));
@@ -151,6 +155,8 @@ public final class EPItems {
             props -> new EnergyProductionUpgradeModuleItem(props, 4));
     public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_5 = registerItem("energy_production_upgrade_module_5",
             props -> new EnergyProductionUpgradeModuleItem(props, 5));
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_6 = registerItem("energy_production_upgrade_module_6",
+            props -> new EnergyProductionUpgradeModuleItem(props, 6));
 
     public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_1 = registerItem("energy_capacity_upgrade_module_1",
             props -> new EnergyCapacityUpgradeModuleItem(props, 1));
@@ -162,6 +168,8 @@ public final class EPItems {
             props -> new EnergyCapacityUpgradeModuleItem(props, 4));
     public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_5 = registerItem("energy_capacity_upgrade_module_5",
             props -> new EnergyCapacityUpgradeModuleItem(props, 5));
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_6 = registerItem("energy_capacity_upgrade_module_6",
+            props -> new EnergyCapacityUpgradeModuleItem(props, 6));
 
     public static final Item DURATION_UPGRADE_MODULE_1 = registerItem("duration_upgrade_module_1",
             props -> new DurationUpgradeModuleItem(props, 1));
@@ -193,6 +201,8 @@ public final class EPItems {
             props -> new ExtractionDepthUpgradeModuleItem(props, 4));
     public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_5 = registerItem("extraction_depth_upgrade_module_5",
             props -> new ExtractionDepthUpgradeModuleItem(props, 5));
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_6 = registerItem("extraction_depth_upgrade_module_6",
+            props -> new ExtractionDepthUpgradeModuleItem(props, 6));
 
     public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_1 = registerItem("extraction_range_upgrade_module_1",
             props -> new ExtractionRangeUpgradeModuleItem(props, 1));
@@ -204,6 +214,8 @@ public final class EPItems {
             props -> new ExtractionRangeUpgradeModuleItem(props, 4));
     public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_5 = registerItem("extraction_range_upgrade_module_5",
             props -> new ExtractionRangeUpgradeModuleItem(props, 5));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_6 = registerItem("extraction_range_upgrade_module_6",
+            props -> new ExtractionRangeUpgradeModuleItem(props, 6));
 
     public static final Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
             props -> new FurnaceModeUpgradeModuleItem(props, 1));

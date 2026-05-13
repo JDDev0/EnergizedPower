@@ -113,24 +113,28 @@
   "item.energizedpower.speed_upgrade_module_3": "Speed Upgrade Module (Tier III)",
   "item.energizedpower.speed_upgrade_module_4": "Speed Upgrade Module (Tier IV)",
   "item.energizedpower.speed_upgrade_module_5": "Speed Upgrade Module (Tier V)",
+  "item.energizedpower.speed_upgrade_module_6": "Speed Upgrade Module (Tier VI)",
 
   "item.energizedpower.energy_efficiency_upgrade_module_1": "Energy Efficiency Upgrade Module (Tier I)",
   "item.energizedpower.energy_efficiency_upgrade_module_2": "Energy Efficiency Upgrade Module (Tier II)",
   "item.energizedpower.energy_efficiency_upgrade_module_3": "Energy Efficiency Upgrade Module (Tier III)",
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Energy Efficiency Upgrade Module (Tier IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Energy Efficiency Upgrade Module (Tier V)",
+  "item.energizedpower.energy_efficiency_upgrade_module_6": "Energy Efficiency Upgrade Module (Tier VI)",
 
   "item.energizedpower.energy_production_upgrade_module_1": "Energy Production Upgrade Module (Tier I)",
   "item.energizedpower.energy_production_upgrade_module_2": "Energy Production Upgrade Module (Tier II)",
   "item.energizedpower.energy_production_upgrade_module_3": "Energy Production Upgrade Module (Tier III)",
   "item.energizedpower.energy_production_upgrade_module_4": "Energy Production Upgrade Module (Tier IV)",
   "item.energizedpower.energy_production_upgrade_module_5": "Energy Production Upgrade Module (Tier V)",
+  "item.energizedpower.energy_production_upgrade_module_6": "Energy Production Upgrade Module (Tier VI)",
 
   "item.energizedpower.energy_capacity_upgrade_module_1": "Energy Capacity Upgrade Module (Tier I)",
   "item.energizedpower.energy_capacity_upgrade_module_2": "Energy Capacity Upgrade Module (Tier II)",
   "item.energizedpower.energy_capacity_upgrade_module_3": "Energy Capacity Upgrade Module (Tier III)",
   "item.energizedpower.energy_capacity_upgrade_module_4": "Energy Capacity Upgrade Module (Tier IV)",
   "item.energizedpower.energy_capacity_upgrade_module_5": "Energy Capacity Upgrade Module (Tier V)",
+  "item.energizedpower.energy_capacity_upgrade_module_6": "Energy Capacity Upgrade Module (Tier VI)",
 
   "item.energizedpower.duration_upgrade_module_1": "Duration Upgrade Module (Tier I)",
   "item.energizedpower.duration_upgrade_module_2": "Duration Upgrade Module (Tier II)",
@@ -148,12 +152,14 @@
   "item.energizedpower.extraction_depth_upgrade_module_3": "Extraction Depth Upgrade Module (Tier III)",
   "item.energizedpower.extraction_depth_upgrade_module_4": "Extraction Depth Upgrade Module (Tier IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Extraction Depth Upgrade Module (Tier V)",
+  "item.energizedpower.extraction_depth_upgrade_module_6": "Extraction Depth Upgrade Module (Tier VI)",
 
   "item.energizedpower.extraction_range_upgrade_module_1": "Extraction Range Upgrade Module (Tier I)",
   "item.energizedpower.extraction_range_upgrade_module_2": "Extraction Range Upgrade Module (Tier II)",
   "item.energizedpower.extraction_range_upgrade_module_3": "Extraction Range Upgrade Module (Tier III)",
   "item.energizedpower.extraction_range_upgrade_module_4": "Extraction Range Upgrade Module (Tier IV)",
   "item.energizedpower.extraction_range_upgrade_module_5": "Extraction Range Upgrade Module (Tier V)",
+  "item.energizedpower.extraction_range_upgrade_module_6": "Extraction Range Upgrade Module (Tier VI)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Blast Furnace Upgrade Module",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Blast Furnace",
@@ -969,6 +975,9 @@
   "advancements.energizedpower.speed_upgrade_module_5.title": "Speed V",
   "advancements.energizedpower.speed_upgrade_module_5.description": "Craft a Speed Upgrade Module (Tier V).",
 
+  "advancements.energizedpower.speed_upgrade_module_6.title": "Speed VI",
+  "advancements.energizedpower.speed_upgrade_module_6.description": "Craft a Speed Upgrade Module (Tier VI).",
+
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Energy Efficiency I",
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Craft an Energy Efficiency Upgrade Module (Tier I).",
 
@@ -983,6 +992,9 @@
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Energy Efficiency V",
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Craft a Energy Efficiency Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_6.title": "Energy Efficiency VI",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_6.description": "Craft a Energy Efficiency Upgrade Module (Tier VI).",
 
   "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energy Production I",
   "advancements.energizedpower.energy_production_upgrade_module_1.description": "Craft an Energy Production Upgrade Module (Tier I).",
@@ -999,6 +1011,9 @@
   "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energy Production V",
   "advancements.energizedpower.energy_production_upgrade_module_5.description": "Craft an Energy Production Upgrade Module (Tier V).",
 
+  "advancements.energizedpower.energy_production_upgrade_module_6.title": "Energy Production VI",
+  "advancements.energizedpower.energy_production_upgrade_module_6.description": "Craft an Energy Production Upgrade Module (Tier VI).",
+
   "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Energy Capacity I",
   "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Craft an Energy Capacity Upgrade Module (Tier I).",
 
@@ -1013,6 +1028,9 @@
 
   "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Energy Capacity V",
   "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Craft an Energy Capacity Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_6.title": "Energy Capacity VI",
+  "advancements.energizedpower.energy_capacity_upgrade_module_6.description": "Craft an Energy Capacity Upgrade Module (Tier VI).",
 
   "advancements.energizedpower.duration_upgrade_module_1.title": "Duration I",
   "advancements.energizedpower.duration_upgrade_module_1.description": "Craft a Duration Upgrade Module (Tier I).",
@@ -1056,6 +1074,9 @@
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extraction Depth V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Craft an Extraction Depth Upgrade Module (Tier V).",
 
+  "advancements.energizedpower.extraction_depth_upgrade_module_6.title": "Extraction Depth VI",
+  "advancements.energizedpower.extraction_depth_upgrade_module_6.description": "Craft an Extraction Depth Upgrade Module (Tier VI).",
+
   "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Extraction Range I",
   "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Craft an Extraction Range Upgrade Module (Tier I).",
 
@@ -1070,6 +1091,9 @@
 
   "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Extraction Range V",
   "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Craft an Extraction Range Upgrade Module (Tier V).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_6.title": "Extraction Range VI",
+  "advancements.energizedpower.extraction_range_upgrade_module_6.description": "Craft an Extraction Range Upgrade Module (Tier VI).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Furnace Mode: Blast Furnace",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Craft a Blast Upgrade Module.",
