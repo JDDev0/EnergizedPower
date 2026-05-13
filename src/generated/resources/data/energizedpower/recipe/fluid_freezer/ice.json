@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:fluid_freezer",
+  "ingredient": {
+    "amount": 1000,
+    "id": "minecraft:water"
+  },
+  "result": {
+    "id": "minecraft:ice"
+  }
+}

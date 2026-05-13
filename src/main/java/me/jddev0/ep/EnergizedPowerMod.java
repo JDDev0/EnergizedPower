@@ -82,6 +82,7 @@ public class EnergizedPowerMod implements ModInitializer {
             RecipeSynchronization.synchronizeRecipeSerializer(CrystalGrowthChamberRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(PressMoldMakerRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(AlloyFurnaceRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(FluidFreezerRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(StoneLiquefierRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(StoneSolidifierRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(FiltrationPlantRecipe.Serializer.INSTANCE);
@@ -207,6 +208,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.ASSEMBLING_MACHINE_ITEM);
             event.accept(EPBlocks.INDUCTION_SMELTER_ITEM);
             event.accept(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
+            event.accept(EPBlocks.FLUID_FREEZER_ITEM);
             event.accept(EPBlocks.STONE_LIQUEFIER_ITEM);
             event.accept(EPBlocks.STONE_SOLIDIFIER_ITEM);
             event.accept(EPBlocks.FILTRATION_PLANT_ITEM);

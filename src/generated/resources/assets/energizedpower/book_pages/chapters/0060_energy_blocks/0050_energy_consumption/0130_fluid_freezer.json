@@ -1,0 +1,23 @@
+{
+  "block": "energizedpower:fluid_freezer",
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          " "
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.fluid_freezer.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.fluid_freezer.2"
+      }
+    ],
+    "text": ""
+  }
+}

@@ -632,6 +632,10 @@
   "item.energizedpower.plant_growth_chamber": "植物生长室",
   "container.energizedpower.plant_growth_chamber": "植物生长室",
 
+  "block.energizedpower.fluid_freezer": "Fluid Freezer",
+  "item.energizedpower.fluid_freezer": "Fluid Freezer",
+  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+
   "block.energizedpower.stone_liquefier": "岩石液化器",
   "item.energizedpower.stone_liquefier": "岩石液化器",
   "container.energizedpower.stone_liquefier": "岩石液化器",
@@ -909,6 +913,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "水晶生长室",
   "emi.category.energizedpower.press_mold_maker": "压模制造机",
   "emi.category.energizedpower.alloy_furnace": "合金炉",
+  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
   "emi.category.energizedpower.stone_liquefier": "岩石液化器",
   "emi.category.energizedpower.stone_solidifier": "岩石固化器",
   "emi.category.energizedpower.filtration_plant": "过滤厂",
@@ -1169,6 +1174,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "更快植物生长",
   "advancements.energizedpower.plant_growth_chamber.description": "使用植物生长室提高速度和产量。",
+
+  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
 
   "advancements.energizedpower.stone_liquefier.title": "岩石液化器",
   "advancements.energizedpower.stone_liquefier.description": "从石头方块制造熔岩。",
@@ -1788,6 +1796,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "种子可以从北、东、南和西面插入。肥料可以从顶部和底部插入。输出可以从所有方块面提取。",
   "book.energizedpower.page.plant_growth_chamber.6": "如果您想使用肥料，必须先插入肥料。",
   "book.energizedpower.page.plant_growth_chamber.7": "如果您想自动化此方块，则需要记住产量是随机的。",
+
+  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
+  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.stone_liquefier.1": "岩石液化器从石头方块生产熔岩。",
   "book.energizedpower.page.stone_liquefier.2": "必须用管道提取流体。",
