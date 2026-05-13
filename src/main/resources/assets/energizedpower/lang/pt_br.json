@@ -113,24 +113,28 @@
   "item.energizedpower.speed_upgrade_module_3": "Módulo de Melhoria de Velocidade (Nível III)",
   "item.energizedpower.speed_upgrade_module_4": "Módulo de Melhoria de Velocidade (Nível IV)",
   "item.energizedpower.speed_upgrade_module_5": "Módulo de Melhoria de Velocidade (Nível V)",
+  "item.energizedpower.speed_upgrade_module_6": "Módulo de Melhoria de Velocidade (Nível VI)",
 
   "item.energizedpower.energy_efficiency_upgrade_module_1": "Módulo de Melhoria de Eficiência Energética (Nível I)",
   "item.energizedpower.energy_efficiency_upgrade_module_2": "Módulo de Melhoria de Eficiência Energética (Nível II)",
   "item.energizedpower.energy_efficiency_upgrade_module_3": "Módulo de Melhoria de Eficiência Energética (Nível III)",
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Módulo de Melhoria de Eficiência Energética (Nível IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Módulo de Melhoria de Eficiência Energética (Nível V)",
+  "item.energizedpower.energy_efficiency_upgrade_module_6": "Módulo de Melhoria de Eficiência Energética (Nível VI)",
 
   "item.energizedpower.energy_production_upgrade_module_1": "Energy Production Upgrade Module (Tier I)",
   "item.energizedpower.energy_production_upgrade_module_2": "Energy Production Upgrade Module (Tier II)",
   "item.energizedpower.energy_production_upgrade_module_3": "Energy Production Upgrade Module (Tier III)",
   "item.energizedpower.energy_production_upgrade_module_4": "Energy Production Upgrade Module (Tier IV)",
   "item.energizedpower.energy_production_upgrade_module_5": "Energy Production Upgrade Module (Tier V)",
+  "item.energizedpower.energy_production_upgrade_module_6": "Energy Production Upgrade Module (Tier VI)",
 
   "item.energizedpower.energy_capacity_upgrade_module_1": "Módulo de Melhoria de Capacidade de Energia (Nível I)",
   "item.energizedpower.energy_capacity_upgrade_module_2": "Módulo de Melhoria de Capacidade de Energia (Nível II)",
   "item.energizedpower.energy_capacity_upgrade_module_3": "Módulo de Melhoria de Capacidade de Energia (Nível III)",
   "item.energizedpower.energy_capacity_upgrade_module_4": "Módulo de Melhoria de Capacidade de Energia (Nível IV)",
   "item.energizedpower.energy_capacity_upgrade_module_5": "Módulo de Melhoria de Capacidade de Energia (Nível V)",
+  "item.energizedpower.energy_capacity_upgrade_module_6": "Módulo de Melhoria de Capacidade de Energia (Nível VI)",
 
   "item.energizedpower.duration_upgrade_module_1": "Módulo de Melhoria de Duração (Nível I)",
   "item.energizedpower.duration_upgrade_module_2": "Módulo de Melhoria de Duração (Nível II)",
@@ -148,12 +152,14 @@
   "item.energizedpower.extraction_depth_upgrade_module_3": "Módulo de Melhoria de Profundidade de Extração (Nível III)",
   "item.energizedpower.extraction_depth_upgrade_module_4": "Módulo de Melhoria de Profundidade de Extração (Nível IV)",
   "item.energizedpower.extraction_depth_upgrade_module_5": "Módulo de Melhoria de Profundidade de Extração (Nível V)",
+  "item.energizedpower.extraction_depth_upgrade_module_6": "Módulo de Melhoria de Profundidade de Extração (Nível VI)",
 
   "item.energizedpower.extraction_range_upgrade_module_1": "Módulo de Melhoria de Alcance de Extração (Nível I)",
   "item.energizedpower.extraction_range_upgrade_module_2": "Módulo de Melhoria de Alcance de Extração (Nível II)",
   "item.energizedpower.extraction_range_upgrade_module_3": "Módulo de Melhoria de Alcance de Extração (Nível III)",
   "item.energizedpower.extraction_range_upgrade_module_4": "Módulo de Melhoria de Alcance de Extração (Nível IV)",
   "item.energizedpower.extraction_range_upgrade_module_5": "Módulo de Melhoria de Alcance de Extração (Nível V)",
+  "item.energizedpower.extraction_range_upgrade_module_6": "Módulo de Melhoria de Alcance de Extração (Nível VI)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Módulo de Melhoria de Alto-forno",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Alto-forno",
@@ -969,6 +975,9 @@
   "advancements.energizedpower.speed_upgrade_module_5.title": "Velocidade V",
   "advancements.energizedpower.speed_upgrade_module_5.description": "Crie um Módulo de Melhoria de Velocidade (Nível V).",
 
+  "advancements.energizedpower.speed_upgrade_module_6.title": "Velocidade VI",
+  "advancements.energizedpower.speed_upgrade_module_6.description": "Crie um Módulo de Melhoria de Velocidade (Nível VI).",
+
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Eficiência Energética I",
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Crie um Módulo de Melhoria de Eficiência Energética (Nível I).",
 
@@ -983,6 +992,9 @@
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Eficiência Energética V",
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Crie um Módulo de Melhoria de Eficiência Energética (Nível V).",
+
+  "advancements.energizedpower.energy_efficiency_upgrade_module_6.title": "Eficiência Energética VI",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_6.description": "Crie um Módulo de Melhoria de Eficiência Energética (Nível VI).",
 
   "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energy Production I",
   "advancements.energizedpower.energy_production_upgrade_module_1.description": "Craft an Energy Production Upgrade Module (Tier I).",
@@ -999,6 +1011,9 @@
   "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energy Production V",
   "advancements.energizedpower.energy_production_upgrade_module_5.description": "Craft an Energy Production Upgrade Module (Tier V).",
 
+  "advancements.energizedpower.energy_production_upgrade_module_6.title": "Energy Production VI",
+  "advancements.energizedpower.energy_production_upgrade_module_6.description": "Craft an Energy Production Upgrade Module (Tier VI).",
+
   "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Capacidade de Energia I",
   "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Crie um Módulo de Melhoria de Capacidade de Energia (Nível I).",
 
@@ -1013,6 +1028,9 @@
 
   "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Capacidade de Energia V",
   "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Crie um Módulo de Melhoria de Capacidade de Energia (Nível V).",
+
+  "advancements.energizedpower.energy_capacity_upgrade_module_6.title": "Capacidade de Energia VI",
+  "advancements.energizedpower.energy_capacity_upgrade_module_6.description": "Crie um Módulo de Melhoria de Capacidade de Energia (Nível VI).",
 
   "advancements.energizedpower.duration_upgrade_module_1.title": "Duração I",
   "advancements.energizedpower.duration_upgrade_module_1.description": "Crie um Módulo de Melhoria de Duração (Nível I).",
@@ -1056,6 +1074,9 @@
   "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Profundidade de Extração V",
   "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Fabrique um Módulo de Melhoria de Profundidade de Extração (Nível V).",
 
+  "advancements.energizedpower.extraction_depth_upgrade_module_6.title": "Profundidade de Extração VI",
+  "advancements.energizedpower.extraction_depth_upgrade_module_6.description": "Fabrique um Módulo de Melhoria de Profundidade de Extração (Nível VI).",
+
   "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Alcance de Extração I",
   "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Fabrique um Módulo de Melhoria de Alcance de Extração (Nível I).",
 
@@ -1070,6 +1091,9 @@
 
   "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Alcance de Extração V",
   "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Fabrique um Módulo de Melhoria de Alcance de Extração (Nível V).",
+
+  "advancements.energizedpower.extraction_range_upgrade_module_6.title": "Alcance de Extração VI",
+  "advancements.energizedpower.extraction_range_upgrade_module_6.description": "Fabrique um Módulo de Melhoria de Alcance de Extração (Nível VI).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Modo de Fornalha: Alto-forno",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Fabrique um Módulo de Melhoria de Alto-forno.",

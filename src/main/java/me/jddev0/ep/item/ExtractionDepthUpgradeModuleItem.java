@@ -24,6 +24,8 @@ public class ExtractionDepthUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double EXTRACTION_DEPTH_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_5_EFFECT.getValue();
 
+    private static final double EXTRACTION_DEPTH_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_6_EFFECT.getValue();
+
     public ExtractionDepthUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.EXTRACTION_DEPTH, tier);
     }
@@ -42,6 +44,7 @@ public class ExtractionDepthUpgradeModuleItem extends UpgradeModuleItem {
                 case 3 -> EXTRACTION_DEPTH_3_EFFECT;
                 case 4 -> EXTRACTION_DEPTH_4_EFFECT;
                 case 5 -> EXTRACTION_DEPTH_5_EFFECT;
+                case 6 -> EXTRACTION_DEPTH_6_EFFECT;
 
                 default -> -1;
             };

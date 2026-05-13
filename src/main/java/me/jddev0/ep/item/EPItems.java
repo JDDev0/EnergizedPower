@@ -149,6 +149,8 @@ public final class EPItems {
             () -> new SpeedUpgradeModuleItem(new Item.Properties(), 4));
     public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_5 = ITEMS.register("speed_upgrade_module_5",
             () -> new SpeedUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_6 = ITEMS.register("speed_upgrade_module_6",
+            () -> new SpeedUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = ITEMS.register("energy_efficiency_upgrade_module_1",
             () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 1));
@@ -160,6 +162,8 @@ public final class EPItems {
             () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 4));
     public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = ITEMS.register("energy_efficiency_upgrade_module_5",
             () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_6 = ITEMS.register("energy_efficiency_upgrade_module_6",
+            () -> new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_1 = ITEMS.register("energy_production_upgrade_module_1",
             () -> new EnergyProductionUpgradeModuleItem(new Item.Properties(), 1));
@@ -171,6 +175,8 @@ public final class EPItems {
             () -> new EnergyProductionUpgradeModuleItem(new Item.Properties(), 4));
     public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_5 = ITEMS.register("energy_production_upgrade_module_5",
             () -> new EnergyProductionUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_6 = ITEMS.register("energy_production_upgrade_module_6",
+            () -> new EnergyProductionUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_1 = ITEMS.register("energy_capacity_upgrade_module_1",
             () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 1));
@@ -182,6 +188,8 @@ public final class EPItems {
             () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 4));
     public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_5 = ITEMS.register("energy_capacity_upgrade_module_5",
             () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_6 = ITEMS.register("energy_capacity_upgrade_module_6",
+            () -> new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final DeferredItem<Item> DURATION_UPGRADE_MODULE_1 = ITEMS.register("duration_upgrade_module_1",
             () -> new DurationUpgradeModuleItem(new Item.Properties(), 1));
@@ -213,6 +221,8 @@ public final class EPItems {
             () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties(), 4));
     public static final DeferredItem<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_5 = ITEMS.register("extraction_depth_upgrade_module_5",
             () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> EXTRACTION_DEPTH_UPGRADE_MODULE_6 = ITEMS.register("extraction_depth_upgrade_module_6",
+            () -> new ExtractionDepthUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final DeferredItem<Item> EXTRACTION_RANGE_UPGRADE_MODULE_1 = ITEMS.register("extraction_range_upgrade_module_1",
             () -> new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 1));
@@ -224,6 +234,8 @@ public final class EPItems {
             () -> new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 4));
     public static final DeferredItem<Item> EXTRACTION_RANGE_UPGRADE_MODULE_5 = ITEMS.register("extraction_range_upgrade_module_5",
             () -> new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> EXTRACTION_RANGE_UPGRADE_MODULE_6 = ITEMS.register("extraction_range_upgrade_module_6",
+            () -> new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final DeferredItem<Item> BLAST_FURNACE_UPGRADE_MODULE = ITEMS.register("blast_furnace_upgrade_module",
             () -> new FurnaceModeUpgradeModuleItem(new Item.Properties(), 1));

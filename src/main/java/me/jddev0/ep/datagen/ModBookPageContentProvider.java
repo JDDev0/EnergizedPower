@@ -357,7 +357,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/speed_upgrade_module_2.png"),
                 EPAPI.id("textures/item/speed_upgrade_module_3.png"),
                 EPAPI.id("textures/item/speed_upgrade_module_4.png"),
-                EPAPI.id("textures/item/speed_upgrade_module_5.png")
+                EPAPI.id("textures/item/speed_upgrade_module_5.png"),
+                EPAPI.id("textures/item/speed_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("energy_efficiency_upgrades"), Component.empty().append(
@@ -368,7 +369,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_3.png"),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_4.png"),
-                EPAPI.id("textures/item/energy_efficiency_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_5.png"),
+                EPAPI.id("textures/item/energy_efficiency_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("energy_production_upgrades"), Component.empty().append(
@@ -379,7 +381,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energy_production_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energy_production_upgrade_module_3.png"),
                 EPAPI.id("textures/item/energy_production_upgrade_module_4.png"),
-                EPAPI.id("textures/item/energy_production_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_production_upgrade_module_5.png"),
+                EPAPI.id("textures/item/energy_production_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("energy_capacity_upgrades"), Component.empty().append(
@@ -390,7 +393,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_3.png"),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_4.png"),
-                EPAPI.id("textures/item/energy_capacity_upgrade_module_5.png")
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_5.png"),
+                EPAPI.id("textures/item/energy_capacity_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("duration_upgrades"), Component.empty().append(
@@ -425,7 +429,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_2.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_3.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_4.png"),
-                EPAPI.id("textures/item/extraction_depth_upgrade_module_5.png")
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_5.png"),
+                EPAPI.id("textures/item/extraction_depth_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("extraction_range_upgrades"), Component.empty().append(
@@ -436,7 +441,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/extraction_range_upgrade_module_2.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_3.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_4.png"),
-                EPAPI.id("textures/item/extraction_range_upgrade_module_5.png")
+                EPAPI.id("textures/item/extraction_range_upgrade_module_5.png"),
+                EPAPI.id("textures/item/extraction_range_upgrade_module_6.png")
         });
 
         addSimplePage(pageId("furnace_mode_upgrades"), Component.empty().append(
