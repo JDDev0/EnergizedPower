@@ -5,7 +5,6 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
-import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -71,7 +70,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(fluid.getFluid(),
                     fluid.getDropletsAmount(), fluid.getFluidVariant().getComponentsPatch());
         }else {
@@ -79,7 +78,7 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(fluid.getFluid(),
                     fluid.getDropletsAmount(), fluid.getFluidVariant().getComponentsPatch());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(recipe.value().getOutput());
         }
     }
 

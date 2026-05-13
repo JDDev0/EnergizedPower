@@ -3,7 +3,6 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.CompressorRecipe;
-import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -74,7 +73,7 @@ public class CompressorCategory implements IRecipeCategory<RecipeHolder<Compress
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInput().count())).
                         collect(Collectors.toList()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).add(recipe.value().getOutput());
     }
 
     @Override

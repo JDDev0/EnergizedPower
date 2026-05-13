@@ -64,7 +64,7 @@ public class SawmillCategory implements IRecipeCategory<RecipeHolder<SawmillReci
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<SawmillRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).add(recipe.value().getOutput());
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
                 addItemStacks(recipe.value().getSecondaryOutput() == null?

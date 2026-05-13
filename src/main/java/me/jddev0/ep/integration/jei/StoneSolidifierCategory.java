@@ -4,7 +4,6 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.util.FluidUtils;
-import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -65,7 +64,7 @@ public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<Sto
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(recipe.value().getWaterAmount()));
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(Fluids.LAVA, FluidUtils.convertMilliBucketsToDroplets(recipe.value().getLavaAmount()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 82, 5).add(recipe.value().getOutput());
     }
 
     @Override

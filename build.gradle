@@ -85,7 +85,7 @@ dependencies {
 	//compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:21.11.814"
 
     //JEI integration
-	compileOnly "mezz.jei:jei-26.1-common-api:29.2.0.20"
+	compileOnly "mezz.jei:jei-26.1.2-common-api:29.5.0.28"
 
 	// EMI integration
 	//TODO re-enable

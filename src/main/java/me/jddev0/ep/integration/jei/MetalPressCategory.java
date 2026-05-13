@@ -3,7 +3,6 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.MetalPressRecipe;
-import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -74,9 +73,9 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInput().count())).
                         collect(Collectors.toList()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 37, 1).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getPressMold()));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CRAFTING_STATION, 37, 1).add(recipe.value().getPressMold());
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 13).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 13).add(recipe.value().getOutput());
     }
 
     @Override

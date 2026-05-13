@@ -4,7 +4,6 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
-import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -65,7 +64,7 @@ public class FluidFreezerCategory implements IRecipeCategory<RecipeHolder<FluidF
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(input.getFluid(),
                 input.getDropletsAmount(), input.getFluidVariant().getComponentsPatch());
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
     }
 
     @Override

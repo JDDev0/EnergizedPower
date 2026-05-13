@@ -4,7 +4,6 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.IngredientWithCount;
-import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -80,7 +79,7 @@ public class AssemblingMachineCategory implements IRecipeCategory<RecipeHolder<A
                             collect(Collectors.toList()));
         }
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 91, 19).add(recipe.value().getOutput());
     }
 
     @Override
