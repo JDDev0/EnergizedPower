@@ -81,6 +81,11 @@ public final class EPRecipes {
     public static final Supplier<RecipeType<AssemblingMachineRecipe>> ASSEMBLING_MACHINE_TYPE = TYPES.
             register("assembling_machine", () -> AssemblingMachineRecipe.Type.INSTANCE);
 
+    public static final Supplier<RecipeSerializer<FluidFreezerRecipe>> FLUID_FREEZER_SERIALIZER = SERIALIZERS.
+            register("fluid_freezer", () -> FluidFreezerRecipe.Serializer.INSTANCE);
+    public static final Supplier<RecipeType<FluidFreezerRecipe>> FLUID_FREEZER_TYPE = TYPES.
+            register("fluid_freezer", () -> FluidFreezerRecipe.Type.INSTANCE);
+
     public static final Supplier<RecipeSerializer<StoneLiquefierRecipe>> STONE_LIQUEFIER_SERIALIZER = SERIALIZERS.
             register("stone_liquefier", () -> StoneLiquefierRecipe.Serializer.INSTANCE);
     public static final Supplier<RecipeType<StoneLiquefierRecipe>> STONE_LIQUEFIER_TYPE = TYPES.

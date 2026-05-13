@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-13T22:56:41.64613239	Loot Tables
+// 1.21.1	2026-05-13T23:35:50.869648255	Loot Tables
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
 d38f5e962e7380883f3915f2c1a171a33c454779 data/energizedpower/loot_table/blocks/advanced_charger.json
@@ -53,6 +53,7 @@ a38b3a86333b397dbfcc0a122b9560d15361a332 data/energizedpower/loot_table/blocks/f
 f6da34690d17b1b43363788cd55e49ed462ce263 data/energizedpower/loot_table/blocks/filtration_plant.json
 cd12aaa658b490e99aac75637c3753ca47acb013 data/energizedpower/loot_table/blocks/fluid_drainer.json
 7c766492e750ff64f12151d86cb9fecc068ccaf6 data/energizedpower/loot_table/blocks/fluid_filler.json
+b5e4d4de95894048270ee95f1817ed2889085ea4 data/energizedpower/loot_table/blocks/fluid_freezer.json
 f8e85ef5bea21bc0b3d9155aa096486ead751968 data/energizedpower/loot_table/blocks/fluid_pipe.json
 2d3219265230839f9570feca6fc4c73d7e0b4c13 data/energizedpower/loot_table/blocks/fluid_pump.json
 ce8ab506b6caa736056de568c0723c1f9baa2213 data/energizedpower/loot_table/blocks/fluid_tank_large.json

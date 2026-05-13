@@ -631,6 +631,10 @@
   "item.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
   "container.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
 
+  "block.energizedpower.fluid_freezer": "Fluid Freezer",
+  "item.energizedpower.fluid_freezer": "Fluid Freezer",
+  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+
   "block.energizedpower.stone_liquefier": "Stone Liquefier",
   "item.energizedpower.stone_liquefier": "Stone Liquefier",
   "container.energizedpower.stone_liquefier": "Stone Liquefier",
@@ -908,6 +912,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
   "emi.category.energizedpower.press_mold_maker": "Pres Kalıbı Yapar",
   "emi.category.energizedpower.alloy_furnace": "Alloy Furnace",
+  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
   "emi.category.energizedpower.stone_liquefier": "Stone Liquefier",
   "emi.category.energizedpower.stone_solidifier": "Stone Solidifier",
   "emi.category.energizedpower.filtration_plant": "Filtration Plant",
@@ -1168,6 +1173,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Hızlı bitki büyümesi",
   "advancements.energizedpower.plant_growth_chamber.description": "Bitki Büyütme Çemberi ile bitkilerin büyüme hızını arttır.",
+
+  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
 
   "advancements.energizedpower.stone_liquefier.title": "Stone Liquefier",
   "advancements.energizedpower.stone_liquefier.description": "Create lava from stone blocks.",
@@ -1787,6 +1795,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "Tohumlar kuzeyden, doğudan, güneyden ve batıdan yerleştirilebilir. Gübreler üstten ve alttan eklenebilir. Çıktılar tüm blok yüzeylerinden alınabilir.",
   "book.energizedpower.page.plant_growth_chamber.6": "Eğer bir gübre kullanmak istiyorsanız, önce gübre yerleştirilmelidir.",
   "book.energizedpower.page.plant_growth_chamber.7": "Bu blokları otomatikleştirmek isterseniz, verimlerin rastgele olduğunu aklınızda bulundurmanız gerekir.",
+
+  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
+  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.stone_liquefier.1": "The Stone Liquefier produces Lava from Stone blocks.",
   "book.energizedpower.page.stone_liquefier.2": "Fluids must be extracted with a pipe.",

@@ -632,6 +632,10 @@
   "item.energizedpower.plant_growth_chamber": "Câmara de Crescimento de Plantas",
   "container.energizedpower.plant_growth_chamber": "Câmara de Crescimento de Plantas",
 
+  "block.energizedpower.fluid_freezer": "Fluid Freezer",
+  "item.energizedpower.fluid_freezer": "Fluid Freezer",
+  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+
   "block.energizedpower.stone_liquefier": "Liquidificador de Pedra",
   "item.energizedpower.stone_liquefier": "Liquidificador de Pedra",
   "container.energizedpower.stone_liquefier": "Liquidificador de Pedra",
@@ -909,6 +913,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "Câmara de Crescimento de Cristais",
   "emi.category.energizedpower.press_mold_maker": "Criador de Moldes de Prensa",
   "emi.category.energizedpower.alloy_furnace": "Fornalha de Liga",
+  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
   "emi.category.energizedpower.stone_liquefier": "Liquidificador de Pedra",
   "emi.category.energizedpower.stone_solidifier": "Solidificador de Pedra",
   "emi.category.energizedpower.filtration_plant": "Planta de Filtração",
@@ -1169,6 +1174,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "Crescimento de Plantas Mais Rápido",
   "advancements.energizedpower.plant_growth_chamber.description": "Melhore a velocidade e o rendimento com a Câmara de Crescimento de Plantas.",
+
+  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
 
   "advancements.energizedpower.stone_liquefier.title": "Liquidificador de Pedra",
   "advancements.energizedpower.stone_liquefier.description": "Fabrique lava a partir de blocos de pedra.",
@@ -1788,6 +1796,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "As sementes podem ser inseridas pelo norte, leste, sul e oeste. Os fertilizantes podem ser inseridos por cima e por baixo. As saídas podem ser extraídas de todas as faces do bloco.",
   "book.energizedpower.page.plant_growth_chamber.6": "Se você quiser usar um fertilizante, o fertilizante deve ser inserido primeiro.",
   "book.energizedpower.page.plant_growth_chamber.7": "Se você quiser automatizar esses blocos, lembre-se de que os rendimentos são aleatórios.",
+
+  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
+  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.stone_liquefier.1": "O Liquidificador de Pedra produz Lava a partir de blocos de Pedra.",
   "book.energizedpower.page.stone_liquefier.2": "Os fluidos devem ser extraídos com um tubo.",

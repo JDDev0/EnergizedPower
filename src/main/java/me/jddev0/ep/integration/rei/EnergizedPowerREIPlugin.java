@@ -97,6 +97,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(EPBlocks.ALLOY_FURNACE_ITEM.get()));
         registry.addWorkstations(AlloyFurnaceCategory.CATEGORY, EntryStacks.of(EPBlocks.INDUCTION_SMELTER_ITEM.get()));
 
+        registry.add(new FluidFreezerCategory());
+        registry.addWorkstations(FluidFreezerDisplay.CATEGORY, EntryStacks.of(EPBlocks.FLUID_FREEZER_ITEM));
+
         registry.add(new StoneLiquefierCategory());
         registry.addWorkstations(StoneLiquefierDisplay.CATEGORY, EntryStacks.of(EPBlocks.STONE_LIQUEFIER_ITEM));
 
@@ -129,6 +132,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.register(new SelectableRecipeMachineTransferHandler<>(AutoStonecutterMenu.class,
                 StonecutterRecipe.class));
 
+        registry.register(new SelectableRecipeMachineTransferHandler<>(FluidFreezerMenu.class,
+                FluidFreezerRecipe.class));
+
         registry.register(new SelectableRecipeMachineTransferHandler<>(StoneSolidifierMenu.class,
                 StoneSolidifierRecipe.class));
 
@@ -154,6 +160,7 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.registerRecipeFiller(CrystalGrowthChamberRecipe.class, CrystalGrowthChamberRecipe.Type.INSTANCE, CrystalGrowthChamberDisplay::new);
         registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);
         registry.registerRecipeFiller(AlloyFurnaceRecipe.class, AlloyFurnaceRecipe.Type.INSTANCE, AlloyFurnaceDisplay::new);
+        registry.registerRecipeFiller(FluidFreezerRecipe.class, EPRecipes.FLUID_FREEZER_TYPE.get(), FluidFreezerDisplay::new);
         registry.registerRecipeFiller(StoneLiquefierRecipe.class, EPRecipes.STONE_LIQUEFIER_TYPE.get(), StoneLiquefierDisplay::new);
         registry.registerRecipeFiller(StoneSolidifierRecipe.class, StoneSolidifierRecipe.Type.INSTANCE, StoneSolidifierDisplay::new);
         registry.registerRecipeFiller(FiltrationPlantRecipe.class, FiltrationPlantRecipe.Type.INSTANCE, FiltrationPlantDisplay::new);
@@ -229,6 +236,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 AlloyFurnaceScreen.class, AlloyFurnaceCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(104, 34, 24, 17),
                 InductionSmelterScreen.class, AlloyFurnaceCategory.CATEGORY);
+        registerRecipeClickArea(registry, new Rectangle(83, 43, 24, 17),
+                FluidFreezerScreen.class, FluidFreezerDisplay.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(112, 34, 24, 17),
                 StoneLiquefierScreen.class, StoneLiquefierDisplay.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),

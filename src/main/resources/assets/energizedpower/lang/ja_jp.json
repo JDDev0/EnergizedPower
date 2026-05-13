@@ -632,6 +632,10 @@
   "item.energizedpower.plant_growth_chamber": "植物育成機",
   "container.energizedpower.plant_growth_chamber": "植物育成機",
 
+  "block.energizedpower.fluid_freezer": "Fluid Freezer",
+  "item.energizedpower.fluid_freezer": "Fluid Freezer",
+  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+
   "block.energizedpower.stone_liquefier": "石材液化機",
   "item.energizedpower.stone_liquefier": "石材液化機",
   "container.energizedpower.stone_liquefier": "石材液化機",
@@ -909,6 +913,7 @@
   "emi.category.energizedpower.crystal_growth_chamber": "結晶育成機",
   "emi.category.energizedpower.press_mold_maker": "成形型作成機",
   "emi.category.energizedpower.alloy_furnace": "合金かまど",
+  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
   "emi.category.energizedpower.stone_liquefier": "石材液化機",
   "emi.category.energizedpower.stone_solidifier": "石材凝固機",
   "emi.category.energizedpower.filtration_plant": "ろ過プラント",
@@ -1169,6 +1174,9 @@
 
   "advancements.energizedpower.plant_growth_chamber.title": "高速育成",
   "advancements.energizedpower.plant_growth_chamber.description": "植物の成長速度と収穫量を大幅に向上させます",
+
+  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
 
   "advancements.energizedpower.stone_liquefier.title": "石材液化機",
   "advancements.energizedpower.stone_liquefier.description": "石材から溶岩を生成できます",
@@ -1788,6 +1796,9 @@
   "book.energizedpower.page.plant_growth_chamber.5": "種は東西南北の各面から、肥料は上面と下面から搬入できます。収穫物の搬出はすべての面に対応しています。",
   "book.energizedpower.page.plant_growth_chamber.6": "肥料を使うには、まず肥料を入れる必要があります。",
   "book.energizedpower.page.plant_growth_chamber.7": "このブロックを自動化する場合、収穫量に変動が起こることを考慮し、余裕を持った設計をする必要があります。",
+
+  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
+  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
 
   "book.energizedpower.page.stone_liquefier.1": "石材液化機は、石材から溶岩を生成します。",
   "book.energizedpower.page.stone_liquefier.2": "生成された液体は、パイプを使って搬出してください。",

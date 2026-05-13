@@ -60,6 +60,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         buildMetalPressRecipes(output);
         buildHeatGeneratorRecipes(output);
         buildThermalGeneratorRecipes(output);
+        buildFluidFreezerRecipe(output);
         buildStoneLiquefierRecipes(output);
         buildStoneSolidifierRecipes(output);
         buildAssemblingMachineRecipes(output);
@@ -1803,6 +1804,19 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addShapedCraftingRecipe(output, has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', Ingredient.of(CommonItemTags.SILICON),
                 'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'I', Ingredient.of(CommonItemTags.GEARS_IRON),
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
+                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "STS",
+                "IHI",
+                "CFC"
+        }, new ItemStack(EPBlocks.FLUID_FREEZER_ITEM.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
                 'I', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'i', Ingredient.of(CommonItemTags.GEARS_IRON),
                 'C', Ingredient.of(Tags.Items.STORAGE_BLOCKS_COPPER),
@@ -2893,6 +2907,14 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         }, new ItemStack(EPItems.CRYSTAL_MATRIX.get()));
     }
 
+    private void buildFluidFreezerRecipe(RecipeOutput output) {
+        addWaterInputFluidFreezerRecipe(output, 125, new ItemStack(Items.SNOWBALL));
+
+        addWaterInputFluidFreezerRecipe(output, 500, new ItemStack(Items.SNOW_BLOCK));
+
+        addWaterInputFluidFreezerRecipe(output, 1000, new ItemStack(Items.ICE));
+    }
+
     private void buildStoneLiquefierRecipes(RecipeOutput output) {
         addLavaOutputStoneLiquefierRecipe(output, Ingredient.of(Items.STONE), 50, "stone");
 
@@ -3500,6 +3522,15 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "energy_production_from_" + recipeIngredientName);
 
         ThermalGeneratorRecipe recipe = new ThermalGeneratorRecipe(input, energyProduction);
+        recipeOutput.accept(recipeId, recipe, null);
+    }
+    private void addWaterInputFluidFreezerRecipe(RecipeOutput recipeOutput, int waterAmount, ItemStack output) {
+        addFluidFreezerRecipe(recipeOutput, new FluidStack(Fluids.WATER, waterAmount), output);
+    }
+    private void addFluidFreezerRecipe(RecipeOutput recipeOutput, FluidStack input, ItemStack output) {
+        ResourceLocation recipeId = EPAPI.id("fluid_freezer/" + getItemName(output.getItem()));
+
+        FluidFreezerRecipe recipe = new FluidFreezerRecipe(input, output);
         recipeOutput.accept(recipeId, recipe, null);
     }
 
