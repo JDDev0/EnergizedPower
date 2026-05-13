@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:gems/amethyst"
+    },
+    "B": {
+      "item": "energizedpower:basic_upgrade_module"
+    },
+    "E": {
+      "item": "energizedpower:energy_production_upgrade_module_1"
+    },
+    "G": {
+      "tag": "c:plates/gold"
+    },
+    "R": {
+      "tag": "c:ingots/redstone_alloy"
+    }
+  },
+  "pattern": [
+    "GAG",
+    "RBR",
+    "GEG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:energy_production_upgrade_module_2"
+  }
+}

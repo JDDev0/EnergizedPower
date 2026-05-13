@@ -114,6 +114,12 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
 
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5);
+
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3);

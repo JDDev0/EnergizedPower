@@ -13,7 +13,7 @@ public class SolarPanelScreen
         extends UpgradableEnergyStorageContainerScreen<SolarPanelMenu> {
     public SolarPanelScreen(SolarPanelMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_moon_light_1_energy_production.png"));
 
         energyMeterX = 80;
 

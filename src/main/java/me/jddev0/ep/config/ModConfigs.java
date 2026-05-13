@@ -205,6 +205,31 @@ public final class ModConfigs {
             .2
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_1_EFFECT = registerEnergyProductionModuleEffectValue(
+            1, "I",
+            1.05
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_2_EFFECT = registerEnergyProductionModuleEffectValue(
+            2, "II",
+            1.15
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_3_EFFECT = registerEnergyProductionModuleEffectValue(
+            3, "III",
+            1.25
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_4_EFFECT = registerEnergyProductionModuleEffectValue(
+            4, "IV",
+            1.4
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_5_EFFECT = registerEnergyProductionModuleEffectValue(
+            8, "V",
+            1.6
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_1_EFFECT = registerEnergyCapacityModuleEffectValue(
             1, "I",
             1.5
@@ -1564,6 +1589,17 @@ public final class ModConfigs {
                         tierRomanNumerals + ")",
                 defaultValue,
                 0., 1.
+        ));
+    }
+
+    private static ConfigValue<Double> registerEnergyProductionModuleEffectValue(int tier, String tierRomanNumerals,
+                                                                                 double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.energy_production_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Energy Production per tick multiplier) of the Energy Production Upgrade Module (Tier " +
+                        tierRomanNumerals + ")",
+                defaultValue,
+                1., null
         ));
     }
 

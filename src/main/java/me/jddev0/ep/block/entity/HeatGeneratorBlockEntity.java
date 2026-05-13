@@ -39,7 +39,8 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
                 ModConfigs.COMMON_HEAT_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_HEAT_GENERATOR_TRANSFER_RATE.getValue(),
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ENERGY_PRODUCTION
         );
     }
 
@@ -92,7 +93,8 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
                         }
                     }
 
-                    productionSum = (int)(productionSum * ENERGY_PRODUCTION_MULTIPLIER);
+                    productionSum = (int)(productionSum * ENERGY_PRODUCTION_MULTIPLIER *
+                            upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
                     return Math.min(productionSum, energyStorage.getCapacity() - energyStorage.getEnergy());
                 }, value -> {})
@@ -135,7 +137,8 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
         }
 
         if(productionSum > 0) {
-            productionSum = (int)(productionSum * ENERGY_PRODUCTION_MULTIPLIER);
+            productionSum = (int)(productionSum * ENERGY_PRODUCTION_MULTIPLIER *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
             blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
                     blockEntity.energyStorage.getEnergy() + productionSum));

@@ -13,7 +13,7 @@ public class HeatGeneratorScreen
         extends UpgradableEnergyStorageContainerScreen<HeatGeneratorMenu> {
     public HeatGeneratorScreen(HeatGeneratorMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_energy_production.png"));
 
         energyMeterX = 80;
 

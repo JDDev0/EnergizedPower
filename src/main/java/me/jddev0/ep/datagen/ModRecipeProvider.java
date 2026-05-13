@@ -396,6 +396,65 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
+                'A', Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                'R', Ingredient.of(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+        ), new String[] {
+                "GAG",
+                "RBR",
+                "GAG"
+        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
+                'A', Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                'R', Ingredient.of(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1)
+        ), new String[] {
+                "GAG",
+                "RBR",
+                "GEG"
+        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
+                'a', Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                'R', Ingredient.of(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2)
+        ), new String[] {
+                "GaG",
+                "RAR",
+                "GEG"
+        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
+                'a', Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                'R', Ingredient.of(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3)
+        ), new String[] {
+                "GaG",
+                "RAR",
+                "GEG"
+        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
+                'A', Ingredient.of(Tags.Items.GEMS_AMETHYST),
+                'r', Ingredient.of(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4)
+        ), new String[] {
+                "GAG",
+                "rRr",
+                "GEG"
+        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
                 'T', Ingredient.of(CommonItemTags.PLATES_TIN),
                 'c', Ingredient.of(ItemTags.COALS),

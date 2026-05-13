@@ -21,7 +21,8 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
     public SolarPanelMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.MOON_LIGHT
+                UpgradeModuleModifier.MOON_LIGHT,
+                UpgradeModuleModifier.ENERGY_PRODUCTION
         ), null);
     }
 
@@ -33,11 +34,11 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
                 inv, blockEntity,
                 ((SolarPanelBlockEntity)blockEntity).getTier().getBlockFromTier(),
 
-                upgradeModuleInventory, 2
+                upgradeModuleInventory, 3
         );
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(energyProductionPerTickData);
@@ -67,10 +68,10 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 2) {
+        }else if(index < 4 * 9 + 3) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

@@ -36,7 +36,8 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
                 tier.getMaxTransfer(),
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.MOON_LIGHT
+                UpgradeModuleModifier.MOON_LIGHT,
+                UpgradeModuleModifier.ENERGY_PRODUCTION
         );
 
         this.tier = tier;
@@ -97,6 +98,9 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
                         }
                     }
 
+                    energyProduction = (int)(energyProduction *
+                            upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
+
                     return Math.min(energyProduction, energyStorage.getCapacity() - energyStorage.getEnergy());
                 }, value -> {})
         );
@@ -142,6 +146,9 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
                 energyProduction += (int)(i/15. * blockEntity.getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
             }
         }
+
+        energyProduction = (int)(energyProduction *
+                blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
         blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
                 blockEntity.energyStorage.getEnergy() + energyProduction));
