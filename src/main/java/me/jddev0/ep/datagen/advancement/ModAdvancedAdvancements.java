@@ -170,6 +170,16 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4, "energy_efficiency_upgrade_module_4", AdvancementType.TASK
         );
 
+        AdvancementHolder energyProductionUpgradeModule3 = addAdvancement(
+                advancementOutput, advancedUpgradeModule,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3, "energy_production_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyProductionUpgradeModule4 = addAdvancement(
+                advancementOutput, energyProductionUpgradeModule3,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4, "energy_production_upgrade_module_4", AdvancementType.TASK
+        );
+
         AdvancementHolder energyCapacityUpgradeModule3 = addAdvancement(
                 advancementOutput, advancedUpgradeModule,
                 EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3, "energy_capacity_upgrade_module_3", AdvancementType.TASK
@@ -308,6 +318,11 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         AdvancementHolder energyEfficiencyUpgradeModule5 = addAdvancement(
                 advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5, "energy_efficiency_upgrade_module_5", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyProductionUpgradeModule5 = addAdvancement(
+                advancementOutput, reinforcedAdvancedUpgradeModule,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5, "energy_production_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule5 = addAdvancement(

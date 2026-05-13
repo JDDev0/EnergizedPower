@@ -224,6 +224,16 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2, "energy_efficiency_upgrade_module_2", AdvancementType.TASK
         );
 
+        AdvancementHolder energyProductionUpgradeModule1 = addAdvancement(
+                advancementOutput, basicUpgradeModule,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1, "energy_production_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyProductionUpgradeModule2 = addAdvancement(
+                advancementOutput, energyProductionUpgradeModule1,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2, "energy_production_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder energyCapacityUpgradeModule1 = addAdvancement(
                 advancementOutput, basicUpgradeModule,
                 EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1, "energy_capacity_upgrade_module_1", AdvancementType.TASK

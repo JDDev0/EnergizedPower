@@ -62,7 +62,8 @@ public class CoalEngineBlockEntity
 
                 1,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ENERGY_PRODUCTION
         );
     }
 
@@ -189,7 +190,8 @@ public class CoalEngineBlockEntity
             ItemStack item = blockEntity.itemHandler.getItem(0);
 
             long energyProduction = level.fuelValues().burnDuration(item);
-            energyProduction = (long)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER);
+            energyProduction = (long)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                    blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
             if(blockEntity.progress == 0)
                 blockEntity.energyProductionLeft = energyProduction;
 

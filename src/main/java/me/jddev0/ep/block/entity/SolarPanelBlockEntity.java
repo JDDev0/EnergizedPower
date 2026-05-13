@@ -41,7 +41,8 @@ public class SolarPanelBlockEntity
                 tier.getMaxTransfer(),
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.MOON_LIGHT
+                UpgradeModuleModifier.MOON_LIGHT,
+                UpgradeModuleModifier.ENERGY_PRODUCTION
         );
 
         this.tier = tier;
@@ -98,7 +99,7 @@ public class SolarPanelBlockEntity
 
                     i = Mth.clamp(i, 0, 60);
 
-                    int energyProduction = (int)(i/60.f * getTier().getPeakFePerTick());
+                    long energyProduction = (long)(i/60.f * getTier().getPeakFePerTick());
 
                     double moonLightUpgradeModuleEffect = upgradeModuleInventory.
                             getUpgradeModuleModifierEffect(1, UpgradeModuleModifier.MOON_LIGHT);
@@ -107,9 +108,12 @@ public class SolarPanelBlockEntity
                         if(i < 14) {
                             i = Mth.clamp(i, 0, 15);
 
-                            energyProduction += (int)(i/15. * getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
+                            energyProduction += (long)(i/15. * getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
                         }
                     }
+
+                    energyProduction = (long)(energyProduction *
+                            upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
                     return Math.min(energyProduction, energyStorage.getCapacity() - energyStorage.getAmount());
                 }, value -> {})
@@ -152,6 +156,9 @@ public class SolarPanelBlockEntity
                 energyProduction += (long)(i/15. * blockEntity.getTier().getPeakFePerTick() * moonLightUpgradeModuleEffect);
             }
         }
+
+        energyProduction = (long)(energyProduction *
+                blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.energyStorage.insert(energyProduction, transaction);
