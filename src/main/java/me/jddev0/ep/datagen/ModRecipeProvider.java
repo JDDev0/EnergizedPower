@@ -2781,7 +2781,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void buildThermalGeneratorRecipes(RecipeOutput output) {
-        addThermalGeneratorRecipe(output, Fluids.LAVA, 20000, "lava");
+        addThermalGeneratorRecipe(output, Fluids.LAVA, 50000, "lava");
     }
 
     private void buildAssemblingMachineRecipes(RecipeOutput output) {

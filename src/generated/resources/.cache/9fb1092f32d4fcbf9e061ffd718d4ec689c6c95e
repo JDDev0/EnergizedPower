@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-13T22:36:17.235318253	Recipes
+// 1.21.1	2026-05-13T22:41:39.051720794	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -766,4 +766,4 @@ ea8722357a26471c5750006d7d437cecfcb4b32e data/energizedpower/recipe/stone_solidi
 9305ca13d436583a9c4e873bbbf09b7f0c3e8990 data/energizedpower/recipe/stone_solidifier/granite.json
 6e4f50bee85da3e4d39907765c6eece60f028be3 data/energizedpower/recipe/stone_solidifier/obsidian.json
 001c11e97bbd587812128f6a696b73a4833165d0 data/energizedpower/recipe/stone_solidifier/stone.json
-536bfba9b3ea54fdbe69afe64ec64cdf1a0c198a data/energizedpower/recipe/thermal_generator/energy_production_from_lava.json
+c37c0332a3e3824c9bae086d189f29ce4c655e64 data/energizedpower/recipe/thermal_generator/energy_production_from_lava.json
