@@ -1,4 +1,4 @@
-package me.jddev0.ep.datagen;
+package me.jddev0.ep.datagen.recipe;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -39,8 +39,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+public class ModRecipeGenerator extends RecipeProvider implements IConditionBuilder {
+    public ModRecipeGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider);
     }
 

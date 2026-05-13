@@ -1,6 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.datagen.recipe.ModRecipeGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -27,7 +28,7 @@ public class EnergizedPowerDataGenerators {
         generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModBookPageContentProvider(output, lookupProvider, existingFileHelper));
 
-        generator.addProvider(event.includeServer(), new ModRecipeProvider(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new ModRecipeGenerator(output, lookupProvider));
         generator.addProvider(event.includeServer(), ModLootTableProvider.create(output, lookupProvider));
         generator.addProvider(event.includeServer(), ModAdvancementProvider.create(output, lookupProvider, existingFileHelper));
 
