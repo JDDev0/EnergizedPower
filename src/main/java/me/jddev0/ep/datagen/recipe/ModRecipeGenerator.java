@@ -93,17 +93,17 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildItemIngredientsCraftingRecipes() {
         add3x3UnpackingCraftingRecipe(has(EPBlocks.SAWDUST_BLOCK),
-                Ingredient.of(EPBlocks.SAWDUST_BLOCK), EPItems.SAWDUST,
+                ingredientOf(EPBlocks.SAWDUST_BLOCK), EPItems.SAWDUST,
                 CraftingBookCategory.MISC, "", "_from_sawdust_block");
         add3x3PackingCraftingRecipe(has(CommonItemTags.DUSTS_WOOD),
-                tag(CommonItemTags.DUSTS_WOOD), EPBlocks.SAWDUST_BLOCK_ITEM,
+                ingredientOf(CommonItemTags.DUSTS_WOOD), EPBlocks.SAWDUST_BLOCK_ITEM,
                 CraftingBookCategory.MISC, "", "");
 
         add3x3UnpackingCraftingRecipe(has(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                tag(CommonItemTags.STORAGE_BLOCKS_SILICON), EPItems.SILICON,
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON), EPItems.SILICON,
                 CraftingBookCategory.MISC, "", "_from_silicon_block");
         add3x3PackingCraftingRecipe(has(CommonItemTags.SILICON),
-                tag(CommonItemTags.SILICON), EPBlocks.SILICON_BLOCK_ITEM,
+                ingredientOf(CommonItemTags.SILICON), EPBlocks.SILICON_BLOCK_ITEM,
                 CraftingBookCategory.MISC, "", "");
 
         addMetalNuggetCraftingRecipe(CommonItemTags.INGOTS_TIN, EPItems.TIN_NUGGET);
@@ -111,14 +111,14 @@ public class ModRecipeGenerator extends RecipeProvider {
                 EPItems.TIN_INGOT, "tin");
 
         add3x3PackingCraftingRecipe(has(CommonItemTags.INGOTS_TIN),
-                tag(CommonItemTags.INGOTS_TIN), EPBlocks.TIN_BLOCK_ITEM,
+                ingredientOf(CommonItemTags.INGOTS_TIN), EPBlocks.TIN_BLOCK_ITEM,
                 CraftingBookCategory.MISC, "", "");
 
         add3x3UnpackingCraftingRecipe(has(CommonItemTags.STORAGE_BLOCKS_RAW_TIN),
-                tag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), EPItems.RAW_TIN,
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), EPItems.RAW_TIN,
                 CraftingBookCategory.MISC, "", "");
         add3x3PackingCraftingRecipe(has(CommonItemTags.RAW_MATERIALS_TIN),
-                tag(CommonItemTags.RAW_MATERIALS_TIN), EPBlocks.RAW_TIN_BLOCK_ITEM,
+                ingredientOf(CommonItemTags.RAW_MATERIALS_TIN), EPBlocks.RAW_TIN_BLOCK_ITEM,
                 CraftingBookCategory.MISC, "", "");
 
         addMetalPlateCraftingRecipe(CommonItemTags.INGOTS_TIN, EPItems.TIN_PLATE);
@@ -131,10 +131,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         addMetalWireCraftingRecipe(CommonItemTags.PLATES_GOLD, EPItems.GOLD_WIRE);
 
         addShapedCraftingRecipe(has(CommonItemTags.SILICON), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'Q', tag(ConventionalItemTags.QUARTZ_GEMS),
-                'T', tag(CommonItemTags.INGOTS_TIN),
-                'C', tag(ConventionalItemTags.COPPER_INGOTS)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'Q', ingredientOf(ConventionalItemTags.QUARTZ_GEMS),
+                'T', ingredientOf(CommonItemTags.INGOTS_TIN),
+                'C', ingredientOf(ConventionalItemTags.COPPER_INGOTS)
         ), new String[] {
                 " C ",
                 "SQS",
@@ -142,10 +142,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BASIC_SOLAR_CELL), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.WIRES_COPPER), Map.of(
-                'C', tag(CommonItemTags.WIRES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'S', tag(CommonItemTags.SILICON)
+                'C', ingredientOf(CommonItemTags.WIRES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'S', ingredientOf(CommonItemTags.SILICON)
         ), new String[] {
                 "RCR",
                 "CIC",
@@ -153,9 +153,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BASIC_CIRCUIT), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_CIRCUIT), Map.of(
-                'G', tag(CommonItemTags.WIRES_GOLD),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPItems.BASIC_CIRCUIT)
+                'G', ingredientOf(CommonItemTags.WIRES_GOLD),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPItems.BASIC_CIRCUIT)
         ), new String[] {
                 "GGG",
                 "CBC",
@@ -163,10 +163,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BASIC_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ADVANCED_CIRCUIT), Map.of(
-                'G', tag(CommonItemTags.WIRES_ENERGIZED_GOLD),
-                'C', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'A', Ingredient.of(EPItems.ADVANCED_CIRCUIT),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+                'G', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'A', ingredientOf(EPItems.ADVANCED_CIRCUIT),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "GGG",
                 "CBC",
@@ -174,10 +174,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ADVANCED_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
-                'g', tag(CommonItemTags.WIRES_ENERGIZED_GOLD),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'P', Ingredient.of(EPItems.PROCESSING_UNIT),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE)
+                'g', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'P', ingredientOf(EPItems.PROCESSING_UNIT),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE)
         ), new String[] {
                 "ggg",
                 "GAG",
@@ -185,8 +185,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(ConventionalItemTags.IRON_INGOTS), Map.of(
-                'i', tag(ConventionalItemTags.IRON_NUGGETS),
-                'I', tag(ConventionalItemTags.IRON_INGOTS)
+                'i', ingredientOf(ConventionalItemTags.IRON_NUGGETS),
+                'I', ingredientOf(ConventionalItemTags.IRON_INGOTS)
         ), new String[] {
                 " i ",
                 "iIi",
@@ -194,9 +194,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SAW_BLADE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.SILICON), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'I', tag(ConventionalItemTags.IRON_INGOTS),
-                'C', tag(ConventionalItemTags.COPPER_INGOTS)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'I', ingredientOf(ConventionalItemTags.IRON_INGOTS),
+                'C', ingredientOf(ConventionalItemTags.COPPER_INGOTS)
         ), new String[] {
                 "CIC",
                 "ISI",
@@ -204,11 +204,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BASIC_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.GEARS_IRON), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'I', tag(CommonItemTags.GEARS_IRON),
-                'R', tag(CommonItemTags.RODS_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'I', ingredientOf(CommonItemTags.GEARS_IRON),
+                'R', ingredientOf(CommonItemTags.RODS_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "IsR",
                 "SBS",
@@ -216,10 +216,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.INGOTS_ENERGIZED_COPPER), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'A', tag(CommonItemTags.INGOTS_ADVANCED_ALLOY),
-                'E', tag(CommonItemTags.INGOTS_ENERGIZED_COPPER),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'A', ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                'E', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "ESE",
                 "AHA",
@@ -227,9 +227,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSC",
                 "SAS",
@@ -238,12 +238,12 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildFertilizerCraftingRecipes() {
         addShapedCraftingRecipe(has(Items.BONE_MEAL), Map.of(
-                'B', Ingredient.of(Items.BONE_MEAL),
-                'D', Ingredient.of(Items.DANDELION),
-                'b', Ingredient.of(Items.BLUE_ORCHID),
-                'L', tag(ConventionalItemTags.LAPIS_GEMS),
-                'A', Ingredient.of(Items.ALLIUM),
-                'P', Ingredient.of(Items.POPPY)
+                'B', ingredientOf(Items.BONE_MEAL),
+                'D', ingredientOf(Items.DANDELION),
+                'b', ingredientOf(Items.BLUE_ORCHID),
+                'L', ingredientOf(ConventionalItemTags.LAPIS_GEMS),
+                'A', ingredientOf(Items.ALLIUM),
+                'P', ingredientOf(Items.POPPY)
         ), new String[] {
                 "DBb",
                 "BLB",
@@ -251,12 +251,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BASIC_FERTILIZER, 4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_FERTILIZER), Map.of(
-                'B', Ingredient.of(EPItems.BASIC_FERTILIZER),
-                'S', Ingredient.of(Items.SUGAR_CANE),
-                'K', Ingredient.of(Items.KELP),
-                's', Ingredient.of(Items.SUGAR),
-                'b', Ingredient.of(Items.BAMBOO),
-                'W', Ingredient.of(Items.WHEAT_SEEDS)
+                'B', ingredientOf(EPItems.BASIC_FERTILIZER),
+                'S', ingredientOf(Items.SUGAR_CANE),
+                'K', ingredientOf(Items.KELP),
+                's', ingredientOf(Items.SUGAR),
+                'b', ingredientOf(Items.BAMBOO),
+                'W', ingredientOf(Items.WHEAT_SEEDS)
         ), new String[] {
                 "SBK",
                 "BsB",
@@ -264,12 +264,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.GOOD_FERTILIZER, 4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.GOOD_FERTILIZER), Map.of(
-                'G', Ingredient.of(EPItems.GOOD_FERTILIZER),
-                'M', Ingredient.of(Items.RED_MUSHROOM),
-                'S', Ingredient.of(Items.SWEET_BERRIES),
-                'r', tag(ConventionalItemTags.RED_DYES),
-                'T', Ingredient.of(Items.RED_TULIP),
-                'R', Ingredient.of(Items.ROSE_BUSH)
+                'G', ingredientOf(EPItems.GOOD_FERTILIZER),
+                'M', ingredientOf(Items.RED_MUSHROOM),
+                'S', ingredientOf(Items.SWEET_BERRIES),
+                'r', ingredientOf(ConventionalItemTags.RED_DYES),
+                'T', ingredientOf(Items.RED_TULIP),
+                'R', ingredientOf(Items.ROSE_BUSH)
         ), new String[] {
                 "MGS",
                 "GrG",
@@ -278,10 +278,10 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildUpgradeModuleCraftingRecipes() {
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "CSC",
                 "RBR",
@@ -289,11 +289,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_1), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                's', Ingredient.of(EPItems.SPEED_UPGRADE_MODULE_1)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                's', ingredientOf(EPItems.SPEED_UPGRADE_MODULE_1)
         ), new String[] {
                 "CSC",
                 "RBR",
@@ -301,11 +301,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_2), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                's', Ingredient.of(EPItems.SPEED_UPGRADE_MODULE_2)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                's', ingredientOf(EPItems.SPEED_UPGRADE_MODULE_2)
         ), new String[] {
                 "CSC",
                 "RAR",
@@ -313,11 +313,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_3), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                's', Ingredient.of(EPItems.SPEED_UPGRADE_MODULE_3)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                's', ingredientOf(EPItems.SPEED_UPGRADE_MODULE_3)
         ), new String[] {
                 "CSC",
                 "RAR",
@@ -325,11 +325,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_4), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                's', Ingredient.of(EPItems.SPEED_UPGRADE_MODULE_4)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                's', ingredientOf(EPItems.SPEED_UPGRADE_MODULE_4)
         ), new String[] {
                 "CSC",
                 "rRr",
@@ -337,10 +337,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'G', tag(ConventionalItemTags.GOLD_INGOTS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "CGC",
                 "RBR",
@@ -348,11 +348,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'G', tag(ConventionalItemTags.GOLD_INGOTS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1)
         ), new String[] {
                 "CGC",
                 "RBR",
@@ -360,11 +360,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'G', tag(ConventionalItemTags.GOLD_INGOTS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2)
         ), new String[] {
                 "CGC",
                 "RAR",
@@ -372,11 +372,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'G', tag(ConventionalItemTags.GOLD_INGOTS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3)
         ), new String[] {
                 "CGC",
                 "RAR",
@@ -384,11 +384,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'G', tag(ConventionalItemTags.GOLD_INGOTS),
-                'r', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                'r', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4)
         ), new String[] {
                 "CGC",
                 "rRr",
@@ -396,10 +396,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'A', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'A', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "GAG",
                 "RBR",
@@ -407,11 +407,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'A', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'A', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1)
         ), new String[] {
                 "GAG",
                 "RBR",
@@ -419,11 +419,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'a', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'a', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2)
         ), new String[] {
                 "GaG",
                 "RAR",
@@ -431,11 +431,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'a', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'a', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3)
         ), new String[] {
                 "GaG",
                 "RAR",
@@ -443,11 +443,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'A', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'r', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'A', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'r', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4)
         ), new String[] {
                 "GAG",
                 "rRr",
@@ -455,10 +455,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'T', tag(CommonItemTags.PLATES_TIN),
-                'c', tag(ItemTags.COALS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'c', ingredientOf(ItemTags.COALS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "CTC",
                 "cBc",
@@ -466,11 +466,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'T', tag(CommonItemTags.PLATES_TIN),
-                'c', tag(ItemTags.COALS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'c', ingredientOf(ItemTags.COALS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1)
         ), new String[] {
                 "CTC",
                 "cBc",
@@ -478,11 +478,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'T', tag(CommonItemTags.PLATES_TIN),
-                'c', tag(ItemTags.COALS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'c', ingredientOf(ItemTags.COALS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2)
         ), new String[] {
                 "CTC",
                 "cAc",
@@ -490,11 +490,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'T', tag(CommonItemTags.PLATES_TIN),
-                'c', tag(ItemTags.COALS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'c', ingredientOf(ItemTags.COALS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3)
         ), new String[] {
                 "CTC",
                 "cAc",
@@ -502,11 +502,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'T', tag(CommonItemTags.PLATES_TIN),
-                'c', tag(ItemTags.COALS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'E', Ingredient.of(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'c', ingredientOf(ItemTags.COALS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4)
         ), new String[] {
                 "CTC",
                 "cRc",
@@ -514,10 +514,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE)
         ), new String[] {
                 "GCG",
                 "rRr",
@@ -525,11 +525,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.DURATION_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_1), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.of(EPItems.DURATION_UPGRADE_MODULE_1)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', ingredientOf(EPItems.DURATION_UPGRADE_MODULE_1)
         ), new String[] {
                 "GCG",
                 "rRr",
@@ -537,11 +537,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.DURATION_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_2), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.of(EPItems.DURATION_UPGRADE_MODULE_2)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', ingredientOf(EPItems.DURATION_UPGRADE_MODULE_2)
         ), new String[] {
                 "GCG",
                 "rRr",
@@ -549,11 +549,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.DURATION_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_3), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.of(EPItems.DURATION_UPGRADE_MODULE_3)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', ingredientOf(EPItems.DURATION_UPGRADE_MODULE_3)
         ), new String[] {
                 "GCG",
                 "rRr",
@@ -561,11 +561,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.DURATION_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_4), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.of(EPItems.DURATION_UPGRADE_MODULE_4)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', ingredientOf(EPItems.DURATION_UPGRADE_MODULE_4)
         ), new String[] {
                 "GCG",
                 "rRr",
@@ -573,10 +573,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.DURATION_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_5), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'D', Ingredient.of(EPItems.DURATION_UPGRADE_MODULE_5)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'D', ingredientOf(EPItems.DURATION_UPGRADE_MODULE_5)
         ), new String[] {
                 "GDG",
                 "CRC",
@@ -584,9 +584,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.DURATION_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE)
         ), new String[] {
                 "GRG",
                 "RAR",
@@ -594,10 +594,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.RANGE_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.RANGE_UPGRADE_MODULE_1), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'R', Ingredient.of(EPItems.RANGE_UPGRADE_MODULE_1)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'R', ingredientOf(EPItems.RANGE_UPGRADE_MODULE_1)
         ), new String[] {
                 "GrG",
                 "rAr",
@@ -605,10 +605,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.RANGE_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.RANGE_UPGRADE_MODULE_2), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'R', Ingredient.of(EPItems.RANGE_UPGRADE_MODULE_2)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'R', ingredientOf(EPItems.RANGE_UPGRADE_MODULE_2)
         ), new String[] {
                 "GrG",
                 "rAr",
@@ -616,10 +616,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.RANGE_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM)
         ), new String[] {
                 "IFI",
                 "RBR",
@@ -627,11 +627,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1)
         ), new String[] {
                 "IFI",
                 "RBR",
@@ -639,11 +639,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2)
         ), new String[] {
                 "IFI",
                 "RAR",
@@ -651,11 +651,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3)
         ), new String[] {
                 "IFI",
                 "RAR",
@@ -663,11 +663,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4)
         ), new String[] {
                 "IFI",
                 "rRr",
@@ -675,11 +675,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'b', Ingredient.of(Items.BLAST_FURNACE)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'b', ingredientOf(Items.BLAST_FURNACE)
         ), new String[] {
                 "CSC",
                 "RBR",
@@ -687,10 +687,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BLAST_FURNACE_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM)
         ), new String[] {
                 "IRI",
                 "FBF",
@@ -698,11 +698,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1)
         ), new String[] {
                 "IRI",
                 "FBF",
@@ -710,11 +710,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2)
         ), new String[] {
                 "IRI",
                 "FAF",
@@ -722,11 +722,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3)
         ), new String[] {
                 "IRI",
                 "FAF",
@@ -734,11 +734,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', ingredientOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4)
         ), new String[] {
                 "IrI",
                 "FRF",
@@ -746,11 +746,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                's', tag(CommonItemTags.SILICON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
-                'S', Ingredient.of(Items.SMOKER)
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                's', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'S', ingredientOf(Items.SMOKER)
         ), new String[] {
                 "CsC",
                 "RBR",
@@ -758,10 +758,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.SMOKER_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'S', tag(CommonItemTags.SILICON),
-                'b', Ingredient.of(EPItems.BASIC_SOLAR_CELL),
-                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'b', ingredientOf(EPItems.BASIC_SOLAR_CELL),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
         ), new String[] {
                 "GSG",
                 "bBb",
@@ -769,11 +769,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'S', tag(CommonItemTags.SILICON),
-                'B', Ingredient.of(EPItems.BASIC_SOLAR_CELL),
-                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
-                'M', Ingredient.of(EPItems.MOON_LIGHT_UPGRADE_MODULE_1)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'M', ingredientOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_1)
         ), new String[] {
                 "GSG",
                 "BAB",
@@ -781,11 +781,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'S', tag(CommonItemTags.SILICON),
-                'B', Ingredient.of(EPItems.BASIC_SOLAR_CELL),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
-                'M', Ingredient.of(EPItems.MOON_LIGHT_UPGRADE_MODULE_2)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'M', ingredientOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_2)
         ), new String[] {
                 "GSG",
                 "BRB",
@@ -801,9 +801,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         addHammerCraftingRecipe(ItemTags.DIAMOND_TOOL_MATERIALS, EPItems.DIAMOND_HAMMER);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'i', tag(ConventionalItemTags.IRON_NUGGETS),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'S', tag(ConventionalItemTags.WOODEN_RODS)
+                'i', ingredientOf(ConventionalItemTags.IRON_NUGGETS),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'S', ingredientOf(ConventionalItemTags.WOODEN_RODS)
         ), new String[] {
                 "I I",
                 " i ",
@@ -811,8 +811,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.CUTTER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(ConventionalItemTags.IRON_INGOTS), Map.of(
-                'i', tag(ConventionalItemTags.IRON_NUGGETS),
-                'I', tag(ConventionalItemTags.IRON_INGOTS)
+                'i', ingredientOf(ConventionalItemTags.IRON_NUGGETS),
+                'I', ingredientOf(ConventionalItemTags.IRON_INGOTS)
         ), new String[] {
                 " I ",
                 " iI",
@@ -821,10 +821,10 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildEnergyItemsCraftingRecipes() {
         addShapedCraftingRecipe(has(ConventionalItemTags.COPPER_INGOTS), Map.of(
-                'T', tag(CommonItemTags.NUGGETS_TIN),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'c', tag(ItemTags.COALS)
+                'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'c', ingredientOf(ItemTags.COALS)
         ), new String[] {
                 "T T",
                 "CRC",
@@ -832,11 +832,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_1), Map.of(
-                'T', tag(CommonItemTags.NUGGETS_TIN),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'c', tag(ItemTags.COALS),
-                'B', Ingredient.of(EPItems.BATTERY_1)
+                'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'c', ingredientOf(ItemTags.COALS),
+                'B', ingredientOf(EPItems.BATTERY_1)
         ), new String[] {
                 "T T",
                 "CBC",
@@ -844,10 +844,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_2), Map.of(
-                'T', tag(CommonItemTags.NUGGETS_TIN),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'B', Ingredient.of(EPItems.BATTERY_2)
+                'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'B', ingredientOf(EPItems.BATTERY_2)
         ), new String[] {
                 "T T",
                 "BCB",
@@ -855,11 +855,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_3), Map.of(
-                'T', tag(CommonItemTags.NUGGETS_TIN),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'B', Ingredient.of(EPItems.BATTERY_3)
+                'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'B', ingredientOf(EPItems.BATTERY_3)
         ), new String[] {
                 "T T",
                 "CBC",
@@ -867,11 +867,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_4), Map.of(
-                'T', tag(CommonItemTags.NUGGETS_TIN),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'S', tag(CommonItemTags.SILICON),
-                'B', Ingredient.of(EPItems.BATTERY_4)
+                'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'B', ingredientOf(EPItems.BATTERY_4)
         ), new String[] {
                 "T T",
                 "BSB",
@@ -879,9 +879,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_5), Map.of(
-                'T', tag(CommonItemTags.NUGGETS_TIN),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'B', Ingredient.of(EPItems.BATTERY_5)
+                'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'B', ingredientOf(EPItems.BATTERY_5)
         ), new String[] {
                 "T T",
                 "EBE",
@@ -889,10 +889,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_6), Map.of(
-                'G', tag(ConventionalItemTags.GOLD_NUGGETS),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'S', tag(CommonItemTags.SILICON),
-                'B', Ingredient.of(EPItems.BATTERY_6)
+                'G', ingredientOf(ConventionalItemTags.GOLD_NUGGETS),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'B', ingredientOf(EPItems.BATTERY_6)
         ), new String[] {
                 "G G",
                 "EBE",
@@ -900,10 +900,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_7), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_7), Map.of(
-                'G', tag(ConventionalItemTags.GOLD_NUGGETS),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'A', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'B', Ingredient.of(EPItems.BATTERY_7)
+                'G', ingredientOf(ConventionalItemTags.GOLD_NUGGETS),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'B', ingredientOf(EPItems.BATTERY_7)
         ), new String[] {
                 "G G",
                 "EBE",
@@ -911,11 +911,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.BATTERY_8), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.COAL_ENGINE_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'c', tag(CommonItemTags.PLATES_COPPER),
-                'C', Ingredient.of(EPBlocks.COAL_ENGINE_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'c', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'C', ingredientOf(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
                 "SIS",
                 "RCR",
@@ -923,11 +923,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.INVENTORY_COAL_ENGINE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.CHARGER_ITEM), Map.of(
-                'c', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'S', tag(CommonItemTags.SILICON),
-                'C', Ingredient.of(EPBlocks.CHARGER_ITEM)
+                'c', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(EPBlocks.CHARGER_ITEM)
         ), new String[] {
                 "SIS",
                 "RCR",
@@ -935,11 +935,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.INVENTORY_CHARGER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.TELEPORTER_ITEM), Map.of(
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'c', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'T', Ingredient.of(EPBlocks.TELEPORTER_ITEM)
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'T', ingredientOf(EPBlocks.TELEPORTER_ITEM)
         ), new String[] {
                 "CcC",
                 "RTR",
@@ -947,11 +947,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.INVENTORY_TELEPORTER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_3), Map.of(
-                'b', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPItems.BATTERY_3)
+                'b', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPItems.BATTERY_3)
         ), new String[] {
                 "S S",
                 "bRb",
@@ -959,11 +959,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.ENERGY_ANALYZER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_3), Map.of(
-                'b', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'L', tag(ConventionalItemTags.LAPIS_GEMS),
-                'B', Ingredient.of(EPItems.BATTERY_3)
+                'b', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'L', ingredientOf(ConventionalItemTags.LAPIS_GEMS),
+                'B', ingredientOf(EPItems.BATTERY_3)
         ), new String[] {
                 "S S",
                 "bLb",
@@ -972,9 +972,9 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildItemTransportCraftingRecipes() {
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'L', tag(ConventionalItemTags.LEATHERS),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS)
+                'L', ingredientOf(ConventionalItemTags.LEATHERS),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS)
         ), new String[] {
                 "   ",
                 "LLL",
@@ -983,9 +983,9 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "item_conveyor_belt", "_from_leather");
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'K', Ingredient.of(Items.DRIED_KELP),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS)
+                'K', ingredientOf(Items.DRIED_KELP),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS)
         ), new String[] {
                 "   ",
                 "KKK",
@@ -994,10 +994,10 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "item_conveyor_belt", "_from_dried_kelp");
 
         addShapedCraftingRecipe(has(CommonItemTags.INGOTS_STEEL), Map.of(
-                'S', tag(CommonItemTags.INGOTS_STEEL),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM)
+                'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM)
         ), new String[] {
                 "RIR",
                 "SBS",
@@ -1005,10 +1005,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.GEARS_IRON), Map.of(
-                'G', tag(CommonItemTags.GEARS_IRON),
-                'R', tag(CommonItemTags.RODS_IRON),
-                'r', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM)
+                'G', ingredientOf(CommonItemTags.GEARS_IRON),
+                'R', ingredientOf(CommonItemTags.RODS_IRON),
+                'r', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM)
         ), new String[] {
                 "GRG",
                 "rFr",
@@ -1016,9 +1016,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.NORMAL_COBBLESTONES),
-                'c', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM),
-                'H', Ingredient.of(Items.HOPPER)
+                'C', ingredientOf(ConventionalItemTags.NORMAL_COBBLESTONES),
+                'c', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM),
+                'H', ingredientOf(Items.HOPPER)
         ), new String[] {
                 "CCC",
                 "CHC",
@@ -1026,10 +1026,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'b', Ingredient.of(Items.BRICKS),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
-                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER)
+                'b', ingredientOf(Items.BRICKS),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER)
         ), new String[] {
                 "bbb",
                 "bBb",
@@ -1037,12 +1037,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "IiI",
                 "sFs",
@@ -1050,10 +1050,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.NORMAL_COBBLESTONES),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'R', tag(ConventionalItemTags.STORAGE_BLOCKS_REDSTONE),
-                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'C', ingredientOf(ConventionalItemTags.NORMAL_COBBLESTONES),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'R', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_REDSTONE),
+                'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CRC",
                 "ILI",
@@ -1061,10 +1061,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'b', Ingredient.of(Items.BRICKS),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
-                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM)
+                'b', ingredientOf(Items.BRICKS),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM)
         ), new String[] {
                 "bbb",
                 "bBb",
@@ -1072,12 +1072,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM)
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM)
         ), new String[] {
                 "IiI",
                 "sFs",
@@ -1085,11 +1085,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.NORMAL_COBBLESTONES),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'l', Ingredient.of(Items.LEVER),
-                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'C', ingredientOf(ConventionalItemTags.NORMAL_COBBLESTONES),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'l', ingredientOf(Items.LEVER),
+                'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "ClC",
                 "ILI",
@@ -1097,10 +1097,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'b', Ingredient.of(Items.BRICKS),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
-                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM)
+                'b', ingredientOf(Items.BRICKS),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM)
         ), new String[] {
                 "bbb",
                 "bBb",
@@ -1108,12 +1108,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM)
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM)
         ), new String[] {
                 "IiI",
                 "sFs",
@@ -1121,10 +1121,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.NORMAL_COBBLESTONES),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'C', ingredientOf(ConventionalItemTags.NORMAL_COBBLESTONES),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CIC",
                 "ILI",
@@ -1132,10 +1132,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'b', Ingredient.of(Items.BRICKS),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
-                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM)
+                'b', ingredientOf(Items.BRICKS),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM)
         ), new String[] {
                 "bbb",
                 "bBb",
@@ -1143,12 +1143,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM)
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM)
         ), new String[] {
                 "IiI",
                 "sFs",
@@ -1156,10 +1156,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.NORMAL_COBBLESTONES),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'L', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
+                'C', ingredientOf(ConventionalItemTags.NORMAL_COBBLESTONES),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'L', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM)
         ), new String[] {
                 "CRC",
                 "ILI",
@@ -1167,10 +1167,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'b', Ingredient.of(Items.BRICKS),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
-                'B', Ingredient.of(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM)
+                'b', ingredientOf(Items.BRICKS),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM)
         ), new String[] {
                 "bbb",
                 "bBb",
@@ -1178,12 +1178,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'E', Ingredient.of(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
-                'F', Ingredient.of(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM)
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM)
         ), new String[] {
                 "IiI",
                 "sFs",
@@ -1191,8 +1191,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'B', tag(ConventionalItemTags.WOODEN_BARRELS),
-                'I', tag(CommonItemTags.PLATES_IRON)
+                'B', ingredientOf(ConventionalItemTags.WOODEN_BARRELS),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "III",
                 "IBI",
@@ -1200,9 +1200,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_TINY_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_TINY_ITEM), Map.of(
-                'S', Ingredient.of(EPBlocks.ITEM_SILO_TINY_ITEM),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.PLATES_IRON)
+                'S', ingredientOf(EPBlocks.ITEM_SILO_TINY_ITEM),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "IiI",
                 "iSi",
@@ -1210,10 +1210,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_SMALL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_SMALL_ITEM), Map.of(
-                'S', Ingredient.of(EPBlocks.ITEM_SILO_SMALL_ITEM),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.PLATES_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL)
+                'S', ingredientOf(EPBlocks.ITEM_SILO_SMALL_ITEM),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL)
         ), new String[] {
                 "IsI",
                 "iSi",
@@ -1221,9 +1221,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_MEDIUM_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_MEDIUM_ITEM), Map.of(
-                'S', Ingredient.of(EPBlocks.ITEM_SILO_MEDIUM_ITEM),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                's', tag(CommonItemTags.INGOTS_STEEL)
+                'S', ingredientOf(EPBlocks.ITEM_SILO_MEDIUM_ITEM),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL)
         ), new String[] {
                 "IsI",
                 "sSs",
@@ -1231,8 +1231,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_LARGE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_LARGE_ITEM), Map.of(
-                'S', Ingredient.of(EPBlocks.ITEM_SILO_LARGE_ITEM),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON)
+                'S', ingredientOf(EPBlocks.ITEM_SILO_LARGE_ITEM),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON)
         ), new String[] {
                 "III",
                 "ISI",
@@ -1241,8 +1241,8 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildFluidTransportCraftingRecipes() {
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                        'I', tag(ConventionalItemTags.IRON_INGOTS),
-                        'i', tag(CommonItemTags.PLATES_IRON)
+                        'I', ingredientOf(ConventionalItemTags.IRON_INGOTS),
+                        'i', ingredientOf(CommonItemTags.PLATES_IRON)
                 ), new String[] {
                         "IiI",
                         "IiI",
@@ -1251,8 +1251,8 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "", "", "iron_");
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_GOLD), Map.of(
-                'G', tag(ConventionalItemTags.GOLD_INGOTS),
-                'g', tag(CommonItemTags.PLATES_GOLD)
+                'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                'g', ingredientOf(CommonItemTags.PLATES_GOLD)
         ), new String[] {
                 "GgG",
                 "GgG",
@@ -1260,8 +1260,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.GOLDEN_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'I', tag(CommonItemTags.PLATES_IRON)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "IGI",
                 "IGI",
@@ -1269,8 +1269,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FLUID_TANK_SMALL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FLUID_TANK_SMALL_ITEM), Map.of(
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'S', tag(CommonItemTags.INGOTS_STEEL)
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'S', ingredientOf(CommonItemTags.INGOTS_STEEL)
         ), new String[] {
                 "SFS",
                 "SFS",
@@ -1278,8 +1278,8 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FLUID_TANK_MEDIUM_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_MEDIUM_ITEM),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON)
+                'F', ingredientOf(EPBlocks.FLUID_TANK_MEDIUM_ITEM),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON)
         ), new String[] {
                 "IFI",
                 "IFI",
@@ -1301,8 +1301,8 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new ItemStackTemplate(EPBlocks.ENERGIZED_GOLD_CABLE_ITEM, 3));
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
-                'I', Ingredient.of(EPItems.CABLE_INSULATOR),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX)
+                'I', ingredientOf(EPItems.CABLE_INSULATOR),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX)
         ), new String[] {
                 "ICI",
                 "ICI",
@@ -1310,11 +1310,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'M', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSI",
                 "RMR",
@@ -1322,11 +1322,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'M', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSI",
                 "SMR",
@@ -1334,11 +1334,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'M', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CRI",
                 "SMS",
@@ -1346,11 +1346,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                        'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                        'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                        'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                        'M', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                        'T', Ingredient.of(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM)
+                        'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                        'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                        'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                        'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                        'T', ingredientOf(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM)
                 ), new String[] {
                         "CTI",
                         "SMS",
@@ -1359,11 +1359,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "", "", "mv_");
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                        'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                        'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                        'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                        'M', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                        'T', Ingredient.of(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM)
+                        'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                        'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                        'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                        'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                        'T', ingredientOf(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM)
                 ), new String[] {
                         "CTI",
                         "SMS",
@@ -1372,11 +1372,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "", "", "mv_");
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                        'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                        'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                        'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                        'M', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                        'T', Ingredient.of(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM)
+                        'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                        'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                        'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                        'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                        'T', ingredientOf(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM)
                 ), new String[] {
                         "CTI",
                         "SMS",
@@ -1385,10 +1385,10 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "", "", "mv_");
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'M', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM)
         ), new String[] {
                 "GTG",
                 "SMS",
@@ -1396,10 +1396,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'M', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM)
         ), new String[] {
                 "GTG",
                 "SMS",
@@ -1407,10 +1407,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'M', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM)
         ), new String[] {
                 "GTG",
                 "SMS",
@@ -1418,10 +1418,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM)
         ), new String[] {
                 "CTC",
                 "SMS",
@@ -1429,10 +1429,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM)
         ), new String[] {
                 "CTC",
                 "SMS",
@@ -1440,10 +1440,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM)
         ), new String[] {
                 "CTC",
                 "SMS",
@@ -1451,11 +1451,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'B', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'B', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'M', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CSI",
                 "BMB",
@@ -1463,11 +1463,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'B', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'M', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM)
+                'B', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'M', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM)
         ), new String[] {
                 "CTI",
                 "BMB",
@@ -1475,10 +1475,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'A', Ingredient.of(EPItems.ADVANCED_CIRCUIT),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'M', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM)
+                'A', ingredientOf(EPItems.ADVANCED_CIRCUIT),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'M', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM)
         ), new String[] {
                 "GTG",
                 "AMA",
@@ -1486,10 +1486,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'R', Ingredient.of(EPItems.PROCESSING_UNIT),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'M', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM)
+                'R', ingredientOf(EPItems.PROCESSING_UNIT),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'M', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM)
         ), new String[] {
                 "CTC",
                 "RMR",
@@ -1497,10 +1497,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPItems.BATTERY_5),
-                'M', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPItems.BATTERY_5),
+                'M', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CBC",
                 "BMB",
@@ -1508,10 +1508,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'B', Ingredient.of(EPItems.BATTERY_8),
-                'M', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'B', ingredientOf(EPItems.BATTERY_8),
+                'M', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "EBE",
                 "BMB",
@@ -1519,20 +1519,20 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(EPBlocks.BATTERY_BOX_ITEM), List.of(
-                Ingredient.of(EPBlocks.BATTERY_BOX_ITEM),
-                Ingredient.of(Items.MINECART)
+                ingredientOf(EPBlocks.BATTERY_BOX_ITEM),
+                ingredientOf(Items.MINECART)
         ), new ItemStackTemplate(EPItems.BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), List.of(
-                Ingredient.of(EPBlocks.ADVANCED_BATTERY_BOX_ITEM),
-                Ingredient.of(Items.MINECART)
+                ingredientOf(EPBlocks.ADVANCED_BATTERY_BOX_ITEM),
+                ingredientOf(Items.MINECART)
         ), new ItemStackTemplate(EPItems.ADVANCED_BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
     }
     private void buildMachineCraftingRecipes() {
         addShapedCraftingRecipe(has(Items.SMOOTH_STONE), Map.of(
-                'S', Ingredient.of(Items.SMOOTH_STONE),
-                'B', Ingredient.of(Items.BRICKS),
-                's', tag(ItemTags.SHOVELS)
+                'S', ingredientOf(Items.SMOOTH_STONE),
+                'B', ingredientOf(Items.BRICKS),
+                's', ingredientOf(ItemTags.SHOVELS)
         ), new String[] {
                 "BBB",
                 "BsB",
@@ -1540,9 +1540,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.PRESS_MOLD_MAKER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Items.FURNACE), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'B', Ingredient.of(Items.BRICKS),
-                'F', Ingredient.of(Items.FURNACE)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'B', ingredientOf(Items.BRICKS),
+                'F', ingredientOf(Items.FURNACE)
         ), new String[] {
                 "III",
                 "FIF",
@@ -1550,11 +1550,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ALLOY_FURNACE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'b', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'T', Ingredient.of(Items.CRAFTING_TABLE)
+                'b', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(Items.CRAFTING_TABLE)
         ), new String[] {
                 "CTC",
                 "bBb",
@@ -1562,11 +1562,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.AUTO_CRAFTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME), Map.of(
-                'c', Ingredient.of(EPItems.ADVANCED_CIRCUIT),
-                'P', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'a', Ingredient.of(EPBlocks.AUTO_CRAFTER_ITEM)
+                'c', ingredientOf(EPItems.ADVANCED_CIRCUIT),
+                'P', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'a', ingredientOf(EPBlocks.AUTO_CRAFTER_ITEM)
         ), new String[] {
                 "GaG",
                 "cAc",
@@ -1574,11 +1574,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                's', tag(CommonItemTags.SILICON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'S', Ingredient.of(Items.STONECUTTER)
+                's', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'S', ingredientOf(Items.STONECUTTER)
         ), new String[] {
                 "CsC",
                 "SBS",
@@ -1586,11 +1586,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CRUSHER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'c', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'C', Ingredient.of(EPBlocks.CRUSHER_ITEM)
+                'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'C', ingredientOf(EPBlocks.CRUSHER_ITEM)
         ), new String[] {
                 "aCa",
                 "FAF",
@@ -1598,9 +1598,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_CRUSHER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'S', Ingredient.of(Items.STONECUTTER)
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'S', ingredientOf(Items.STONECUTTER)
         ), new String[] {
                 "ISI",
                 "SBS",
@@ -1608,11 +1608,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.PULVERIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'C', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'P', Ingredient.of(EPBlocks.PULVERIZER_ITEM)
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'P', ingredientOf(EPBlocks.PULVERIZER_ITEM)
         ), new String[] {
                 "aPa",
                 "FAF",
@@ -1620,11 +1620,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_PULVERIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', Ingredient.of(EPItems.SAW_BLADE),
-                's', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(EPItems.SAW_BLADE),
+                's', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "sSs",
                 "CBC",
@@ -1632,9 +1632,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SAWMILL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'P', Ingredient.of(Items.PISTON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'P', ingredientOf(Items.PISTON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "IPI",
                 "PBP",
@@ -1642,10 +1642,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.COMPRESSOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'P', Ingredient.of(Items.PISTON),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'S', tag(CommonItemTags.INGOTS_STEEL),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'P', ingredientOf(Items.PISTON),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SPS",
                 "IBI",
@@ -1653,10 +1653,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.METAL_PRESS_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'I', tag(CommonItemTags.GEARS_IRON),
-                'i', tag(CommonItemTags.RODS_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'P', Ingredient.of(EPBlocks.PRESS_MOLD_MAKER_ITEM)
+                'I', ingredientOf(CommonItemTags.GEARS_IRON),
+                'i', ingredientOf(CommonItemTags.RODS_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'P', ingredientOf(EPBlocks.PRESS_MOLD_MAKER_ITEM)
         ), new String[] {
                 "IPI",
                 "iBi",
@@ -1664,11 +1664,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                's', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'S', Ingredient.of(Items.STONECUTTER)
+                's', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'S', ingredientOf(Items.STONECUTTER)
         ), new String[] {
                 "CSC",
                 "sBs",
@@ -1676,12 +1676,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.AUTO_STONECUTTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'D', Ingredient.of(Items.DIRT),
-                'W', Ingredient.of(Items.WATER_BUCKET),
-                'S', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'D', ingredientOf(Items.DIRT),
+                'W', ingredientOf(Items.WATER_BUCKET),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SWS",
                 "GBG",
@@ -1689,11 +1689,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'D', Ingredient.of(Items.DISPENSER)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'D', ingredientOf(Items.DISPENSER)
         ), new String[] {
                 "IDS",
                 "DBD",
@@ -1701,12 +1701,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.BLOCK_PLACER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                's', tag(CommonItemTags.INGOTS_STEEL),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'B', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                's', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'B', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iRi",
                 "BHB",
@@ -1714,10 +1714,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ASSEMBLING_MACHINE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'B', Ingredient.of(EPItems.BASIC_CIRCUIT),
-                'S', tag(CommonItemTags.INGOTS_STEEL),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                'A', Ingredient.of(EPBlocks.ALLOY_FURNACE_ITEM)
+                'B', ingredientOf(EPItems.BASIC_CIRCUIT),
+                'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'A', ingredientOf(EPBlocks.ALLOY_FURNACE_ITEM)
         ), new String[] {
                 "SAS",
                 "BHB",
@@ -1725,11 +1725,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.INDUCTION_SMELTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SIS",
                 "IBI",
@@ -1737,12 +1737,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FLUID_FILLER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "SiS",
                 "IHI",
@@ -1750,12 +1750,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.STONE_LIQUEFIER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'i', tag(CommonItemTags.GEARS_IRON),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iSi",
                 "FHF",
@@ -1763,13 +1763,13 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.STONE_SOLIDIFIER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'i', tag(CommonItemTags.PLATES_IRON),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'D', Ingredient.of(EPBlocks.FLUID_DRAINER_ITEM),
-                'F', Ingredient.of(EPBlocks.FLUID_FILLER_ITEM),
-                'f', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'D', ingredientOf(EPBlocks.FLUID_DRAINER_ITEM),
+                'F', ingredientOf(EPBlocks.FLUID_FILLER_ITEM),
+                'f', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CiC",
                 "DHF",
@@ -1777,12 +1777,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FLUID_TRANSPOSER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'i', tag(CommonItemTags.GEARS_IRON),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'B', Ingredient.of(Items.IRON_BARS),
-                'f', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
+                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'B', ingredientOf(Items.IRON_BARS),
+                'f', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "iBi",
                 "FHF",
@@ -1790,11 +1790,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FILTRATION_PLANT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CFC",
                 "IBI",
@@ -1802,12 +1802,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FLUID_DRAINER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'P', Ingredient.of(Items.PISTON),
-                'p', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM)
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'P', ingredientOf(Items.PISTON),
+                'p', ingredientOf(EPBlocks.IRON_FLUID_PIPE_ITEM)
         ), new String[] {
                 "RPR",
                 "FBF",
@@ -1815,11 +1815,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.FLUID_PUMP_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'F', Ingredient.of(EPBlocks.FLUID_PUMP_ITEM),
-                'f', Ingredient.of(EPBlocks.FLUID_TANK_LARGE_ITEM)
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'F', ingredientOf(EPBlocks.FLUID_PUMP_ITEM),
+                'f', ingredientOf(EPBlocks.FLUID_TANK_LARGE_ITEM)
         ), new String[] {
                 "GFG",
                 "fAf",
@@ -1827,10 +1827,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_FLUID_PUMP_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(ConventionalItemTags.STORAGE_BLOCKS_IRON), Map.of(
-                'i', tag(CommonItemTags.PLATES_IRON),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'B', Ingredient.of(Items.IRON_BARS),
-                'G', tag(ConventionalItemTags.GLASS_BLOCKS_COLORLESS)
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'B', ingredientOf(Items.IRON_BARS),
+                'G', ingredientOf(ConventionalItemTags.GLASS_BLOCKS_COLORLESS)
         ), new String[] {
                 "IBI",
                 "iGi",
@@ -1838,11 +1838,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.DRAIN_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                's', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON)
+                's', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON)
         ), new String[] {
                 "sCs",
                 "IBI",
@@ -1850,11 +1850,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'C', Ingredient.of(EPBlocks.CHARGER_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'C', ingredientOf(EPBlocks.CHARGER_ITEM)
         ), new String[] {
                 "SGS",
                 "aAa",
@@ -1862,11 +1862,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                's', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON)
+                's', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON)
         ), new String[] {
                 "CSC",
                 "IBI",
@@ -1874,11 +1874,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'U', Ingredient.of(EPBlocks.UNCHARGER_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'U', ingredientOf(EPBlocks.UNCHARGER_ITEM)
         ), new String[] {
                 "GUG",
                 "aAa",
@@ -1886,12 +1886,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.CHARGER_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'c', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.PLATES_IRON),
-                'S', tag(CommonItemTags.SILICON),
-                'H', Ingredient.of(EPBlocks.CHARGER_ITEM)
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'c', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'H', ingredientOf(EPBlocks.CHARGER_ITEM)
         ), new String[] {
                 "cCc",
                 "SHS",
@@ -1899,12 +1899,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_CHARGER_ITEM), Map.of(
-                'G', tag(ConventionalItemTags.STORAGE_BLOCKS_GOLD),
-                'g', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'c', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'H', Ingredient.of(EPBlocks.ADVANCED_CHARGER_ITEM)
+                'G', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_GOLD),
+                'g', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'H', ingredientOf(EPBlocks.ADVANCED_CHARGER_ITEM)
         ), new String[] {
                 "gGg",
                 "SHS",
@@ -1912,12 +1912,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.UNCHARGER_ITEM), Map.of(
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'c', tag(CommonItemTags.PLATES_COPPER),
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', tag(CommonItemTags.PLATES_IRON),
-                'S', tag(CommonItemTags.SILICON),
-                'U', Ingredient.of(EPBlocks.UNCHARGER_ITEM)
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'c', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'U', ingredientOf(EPBlocks.UNCHARGER_ITEM)
         ), new String[] {
                 "iIi",
                 "SUS",
@@ -1925,12 +1925,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_UNCHARGER_ITEM), Map.of(
-                'G', tag(ConventionalItemTags.STORAGE_BLOCKS_GOLD),
-                'g', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'c', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'S', tag(CommonItemTags.SILICON),
-                'U', Ingredient.of(EPBlocks.ADVANCED_UNCHARGER_ITEM)
+                'G', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_GOLD),
+                'g', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'U', ingredientOf(EPBlocks.ADVANCED_UNCHARGER_ITEM)
         ), new String[] {
                 "cCc",
                 "SUS",
@@ -1938,11 +1938,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_SOLAR_CELL), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'I', tag(ConventionalItemTags.IRON_INGOTS),
-                'C', tag(ConventionalItemTags.COPPER_INGOTS),
-                'B', Ingredient.of(EPItems.BASIC_SOLAR_CELL)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'I', ingredientOf(ConventionalItemTags.IRON_INGOTS),
+                'C', ingredientOf(ConventionalItemTags.COPPER_INGOTS),
+                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "BRB",
@@ -1950,11 +1950,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SOLAR_PANEL_ITEM_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_1), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'C', tag(ConventionalItemTags.COPPER_INGOTS),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'S', Ingredient.of(EPBlocks.SOLAR_PANEL_ITEM_1),
-                'B', Ingredient.of(EPItems.BASIC_SOLAR_CELL)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'C', ingredientOf(ConventionalItemTags.COPPER_INGOTS),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_1),
+                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SBS",
@@ -1962,11 +1962,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SOLAR_PANEL_ITEM_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_2), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                's', tag(CommonItemTags.SILICON),
-                'S', Ingredient.of(EPBlocks.SOLAR_PANEL_ITEM_2),
-                'B', Ingredient.of(EPItems.BASIC_SOLAR_CELL)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                's', ingredientOf(CommonItemTags.SILICON),
+                'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_2),
+                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SBS",
@@ -1974,11 +1974,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SOLAR_PANEL_ITEM_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_3), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                's', tag(CommonItemTags.SILICON),
-                'R', tag(CommonItemTags.INGOTS_REDSTONE_ALLOY),
-                'S', Ingredient.of(EPBlocks.SOLAR_PANEL_ITEM_3),
-                'A', Ingredient.of(EPItems.ADVANCED_SOLAR_CELL)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                's', ingredientOf(CommonItemTags.SILICON),
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_3),
+                'A', ingredientOf(EPItems.ADVANCED_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SsS",
@@ -1986,11 +1986,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SOLAR_PANEL_ITEM_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_4), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'a', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'E', tag(CommonItemTags.INGOTS_ENERGIZED_GOLD),
-                'S', Ingredient.of(EPBlocks.SOLAR_PANEL_ITEM_4),
-                'A', Ingredient.of(EPItems.ADVANCED_SOLAR_CELL)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'a', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'E', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
+                'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_4),
+                'A', ingredientOf(EPItems.ADVANCED_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SaS",
@@ -1998,11 +1998,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SOLAR_PANEL_ITEM_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_5), Map.of(
-                'G', tag(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'A', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'E', tag(CommonItemTags.INGOTS_ENERGIZED_GOLD),
-                'S', Ingredient.of(EPBlocks.SOLAR_PANEL_ITEM_5),
-                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_SOLAR_CELL)
+                'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
+                'A', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'E', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
+                'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_5),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_SOLAR_CELL)
         ), new String[] {
                 "GGG",
                 "SAS",
@@ -2010,11 +2010,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.SOLAR_PANEL_ITEM_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'F', Ingredient.of(Items.FURNACE)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'F', ingredientOf(Items.FURNACE)
         ), new String[] {
                 "ISI",
                 "CBC",
@@ -2022,9 +2022,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.COAL_ENGINE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Items.REDSTONE_LAMP), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'C', tag(ConventionalItemTags.COPPER_INGOTS),
-                'R', Ingredient.of(Items.REDSTONE_LAMP)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(ConventionalItemTags.COPPER_INGOTS),
+                'R', ingredientOf(Items.REDSTONE_LAMP)
         ), new String[] {
                 "CSC",
                 "SRS",
@@ -2032,11 +2032,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.POWERED_LAMP_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'I', tag(CommonItemTags.PLATES_IRON),
-                'C', tag(CommonItemTags.PLATES_COPPER),
-                'B', Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
-                'F', Ingredient.of(Items.FURNACE)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM),
+                'F', ingredientOf(Items.FURNACE)
         ), new String[] {
                 "CFC",
                 "SBS",
@@ -2044,11 +2044,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.POWERED_FURNACE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'G', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
-                'P', Ingredient.of(EPBlocks.POWERED_FURNACE_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM),
+                'P', ingredientOf(EPBlocks.POWERED_FURNACE_ITEM)
         ), new String[] {
                 "GPG",
                 "SAS",
@@ -2056,12 +2056,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "RaR",
                 "GAG",
@@ -2069,12 +2069,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.LIGHTNING_GENERATOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'G', tag(CommonItemTags.PLATES_GOLD),
-                'R', tag(ConventionalItemTags.REDSTONE_DUSTS),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "RaR",
                 "GAG",
@@ -2082,12 +2082,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.ENERGIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'I', tag(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'R', tag(ConventionalItemTags.STORAGE_BLOCKS_REDSTONE),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
+                'R', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_REDSTONE),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "aRa",
                 "IAI",
@@ -2095,10 +2095,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CHARGING_STATION_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.COAL_ENGINE_ITEM), Map.of(
-                's', tag(CommonItemTags.SILICON),
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'c', tag(CommonItemTags.WIRES_COPPER),
-                'C', Ingredient.of(EPBlocks.COAL_ENGINE_ITEM)
+                's', ingredientOf(CommonItemTags.SILICON),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'c', ingredientOf(CommonItemTags.WIRES_COPPER),
+                'C', ingredientOf(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
                 "cSc",
                 "sCs",
@@ -2106,12 +2106,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.HEAT_GENERATOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
-                'S', tag(CommonItemTags.SILICON),
-                'F', Ingredient.of(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'c', tag(CommonItemTags.PLATES_COPPER),
-                'C', tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
-                'H', Ingredient.of(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
-                'E', Ingredient.of(EPBlocks.COAL_ENGINE_ITEM)
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'c', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
+                'H', ingredientOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM),
+                'E', ingredientOf(EPBlocks.COAL_ENGINE_ITEM)
         ), new String[] {
                 "cHc",
                 "SES",
@@ -2119,10 +2119,10 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.THERMAL_GENERATOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'a', Ingredient.of(Items.AMETHYST_BLOCK),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_COPPER),
-                'P', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'A', Ingredient.of(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
+                'a', ingredientOf(Items.AMETHYST_BLOCK),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
+                'P', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', ingredientOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "aPa",
                 "EAE",
@@ -2130,12 +2130,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'P', Ingredient.of(EPItems.PROCESSING_UNIT),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'a', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'A', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'R', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+                'P', ingredientOf(EPItems.PROCESSING_UNIT),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'a', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'A', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'R', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CAC",
                 "PRP",
@@ -2143,12 +2143,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.WEATHER_CONTROLLER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'P', Ingredient.of(EPItems.PROCESSING_UNIT),
-                'c', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'C', Ingredient.of(Items.CLOCK),
-                'A', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'R', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+                'P', ingredientOf(EPItems.PROCESSING_UNIT),
+                'c', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'C', ingredientOf(Items.CLOCK),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'R', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "cCc",
                 "PRP",
@@ -2156,12 +2156,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPBlocks.TIME_CONTROLLER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
-                'T', Ingredient.of(EPItems.TELEPORTER_PROCESSING_UNIT),
-                'C', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'A', tag(CommonItemTags.PLATES_ADVANCED_ALLOY),
-                'E', tag(CommonItemTags.PLATES_ENERGIZED_GOLD),
-                'S', tag(CommonItemTags.STORAGE_BLOCKS_SILICON),
-                'R', Ingredient.of(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+                'T', ingredientOf(EPItems.TELEPORTER_PROCESSING_UNIT),
+                'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'R', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CEC",
                 "TRT",
@@ -2173,21 +2173,21 @@ public class ModRecipeGenerator extends RecipeProvider {
                 Items.BOOK,
                 EPBlocks.BASIC_MACHINE_FRAME_ITEM
         ), List.of(
-                Ingredient.of(Items.BOOK),
-                Ingredient.of(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
+                ingredientOf(Items.BOOK),
+                ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new ItemStackTemplate(EPItems.ENERGIZED_POWER_BOOK), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(CommonItemTags.DUSTS_WOOD), List.of(
-                tag(CommonItemTags.DUSTS_WOOD),
-                tag(CommonItemTags.DUSTS_WOOD),
-                tag(CommonItemTags.DUSTS_WOOD),
-                Ingredient.of(Items.WATER_BUCKET)
+                ingredientOf(CommonItemTags.DUSTS_WOOD),
+                ingredientOf(CommonItemTags.DUSTS_WOOD),
+                ingredientOf(CommonItemTags.DUSTS_WOOD),
+                ingredientOf(Items.WATER_BUCKET)
         ), new ItemStackTemplate(Items.PAPER, 2), CraftingBookCategory.MISC, "", "_from_sawdust");
 
         addShapedCraftingRecipe(has(CommonItemTags.DUSTS_CHARCOAL), Map.of(
-                'P', Ingredient.of(Items.PAPER),
-                'C', tag(CommonItemTags.DUSTS_CHARCOAL),
-                'I', tag(CommonItemTags.PLATES_IRON)
+                'P', ingredientOf(Items.PAPER),
+                'C', ingredientOf(CommonItemTags.DUSTS_CHARCOAL),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON)
         ), new String[] {
                 "PCP",
                 "CIC",
@@ -2195,9 +2195,9 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.CHARCOAL_FILTER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
-                'A', tag(ConventionalItemTags.AMETHYST_GEMS),
-                'E', Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'e', tag(ConventionalItemTags.ENDER_PEARLS)
+                'A', ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
+                'E', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
+                'e', ingredientOf(ConventionalItemTags.ENDER_PEARLS)
         ), new String[] {
                 "AEA",
                 "EeE",
@@ -2245,7 +2245,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void buildSmithingRecipes() {
-        addNetheriteSmithingUpgradeRecipe(Ingredient.of(EPItems.DIAMOND_HAMMER),
+        addNetheriteSmithingUpgradeRecipe(ingredientOf(EPItems.DIAMOND_HAMMER),
                 new ItemStackTemplate(EPItems.NETHERITE_HAMMER));
     }
 
@@ -2257,117 +2257,117 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void buildAlloyFurnaceRecipes() {
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(tag(ConventionalItemTags.IRON_INGOTS)),
-                new IngredientWithCount(tag(ItemTags.COALS), 3)
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.IRON_INGOTS)),
+                new IngredientWithCount(ingredientOf(ItemTags.COALS), 3)
         }, new ItemStackTemplate(EPItems.STEEL_INGOT), 500);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_TIN)),
-                new IngredientWithCount(tag(CommonItemTags.SILICON)),
-                new IngredientWithCount(tag(ConventionalItemTags.REDSTONE_DUSTS), 2)
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN)),
+                new IngredientWithCount(ingredientOf(CommonItemTags.SILICON)),
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.REDSTONE_DUSTS), 2)
         }, new ItemStackTemplate(EPItems.REDSTONE_ALLOY_INGOT), 2500);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_STEEL), 3),
-                new IngredientWithCount(tag(ConventionalItemTags.COPPER_INGOTS), 3),
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_TIN), 3)
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_STEEL), 3),
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.COPPER_INGOTS), 3),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN), 3)
         }, new ItemStackTemplate(EPItems.ADVANCED_ALLOY_INGOT), 10000);
     }
 
     private void buildCompressorRecipes() {
-        addCompressorRecipe(new IngredientWithCount(Ingredient.of(EPItems.STONE_PEBBLE), 16), new ItemStackTemplate(Items.COBBLESTONE),
+        addCompressorRecipe(new IngredientWithCount(ingredientOf(EPItems.STONE_PEBBLE), 16), new ItemStackTemplate(Items.COBBLESTONE),
                 "stone_pebbles");
 
-        addPlateCompressorRecipes(tag(CommonItemTags.INGOTS_TIN),
-                tag(CommonItemTags.STORAGE_BLOCKS_TIN), new ItemStackTemplate(EPItems.TIN_PLATE),
+        addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_TIN),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_TIN), new ItemStackTemplate(EPItems.TIN_PLATE),
                 "tin");
-        addPlateCompressorRecipes(tag(ConventionalItemTags.COPPER_INGOTS),
-                tag(ConventionalItemTags.STORAGE_BLOCKS_COPPER), new ItemStackTemplate(EPItems.COPPER_PLATE),
+        addPlateCompressorRecipes(ingredientOf(ConventionalItemTags.COPPER_INGOTS),
+                ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER), new ItemStackTemplate(EPItems.COPPER_PLATE),
                 "copper");
-        addPlateCompressorRecipes(tag(ConventionalItemTags.IRON_INGOTS),
-                tag(ConventionalItemTags.STORAGE_BLOCKS_IRON), new ItemStackTemplate(EPItems.IRON_PLATE),
+        addPlateCompressorRecipes(ingredientOf(ConventionalItemTags.IRON_INGOTS),
+                ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON), new ItemStackTemplate(EPItems.IRON_PLATE),
                 "iron");
-        addPlateCompressorRecipes(tag(ConventionalItemTags.GOLD_INGOTS),
-                tag(ConventionalItemTags.STORAGE_BLOCKS_GOLD), new ItemStackTemplate(EPItems.GOLD_PLATE),
+        addPlateCompressorRecipes(ingredientOf(ConventionalItemTags.GOLD_INGOTS),
+                ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_GOLD), new ItemStackTemplate(EPItems.GOLD_PLATE),
                 "gold");
 
-        addPlateCompressorIngotRecipe(tag(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+        addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
                 new ItemStackTemplate(EPItems.ADVANCED_ALLOY_PLATE), "advanced_alloy");
-        addPlateCompressorIngotRecipe(tag(CommonItemTags.INGOTS_ENERGIZED_COPPER),
+        addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER),
                 new ItemStackTemplate(EPItems.ENERGIZED_COPPER_PLATE), "energized_copper");
-        addPlateCompressorIngotRecipe(tag(CommonItemTags.INGOTS_ENERGIZED_GOLD),
+        addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
                 new ItemStackTemplate(EPItems.ENERGIZED_GOLD_PLATE), "energized_gold");
     }
 
     private void buildCrusherRecipes() {
-        addCrusherRecipe(Ingredient.of(Items.STONE), new ItemStackTemplate(Items.COBBLESTONE),
+        addCrusherRecipe(ingredientOf(Items.STONE), new ItemStackTemplate(Items.COBBLESTONE),
                 "stone");
-        addCrusherRecipe(Ingredient.of(Items.STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.CRACKED_STONE_BRICKS,
+        addCrusherRecipe(ingredientOf(Items.STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.CRACKED_STONE_BRICKS,
                         Items.SMOOTH_STONE), new ItemStackTemplate(Items.COBBLESTONE),
                 "stone_variants");
 
-        addCrusherRecipe(Ingredient.of(Items.MOSSY_STONE_BRICKS), new ItemStackTemplate(Items.MOSSY_COBBLESTONE),
+        addCrusherRecipe(ingredientOf(Items.MOSSY_STONE_BRICKS), new ItemStackTemplate(Items.MOSSY_COBBLESTONE),
                 "mossy_stone_bricks");
 
-        addCrusherRecipe(Ingredient.of(Items.TUFF_BRICKS, Items.CHISELED_TUFF_BRICKS, Items.CHISELED_TUFF,
+        addCrusherRecipe(ingredientOf(Items.TUFF_BRICKS, Items.CHISELED_TUFF_BRICKS, Items.CHISELED_TUFF,
                         Items.POLISHED_TUFF), new ItemStackTemplate(Items.TUFF),
                 "tuff_variants");
 
-        addCrusherRecipe(Ingredient.of(Items.DEEPSLATE), new ItemStackTemplate(Items.COBBLED_DEEPSLATE),
+        addCrusherRecipe(ingredientOf(Items.DEEPSLATE), new ItemStackTemplate(Items.COBBLED_DEEPSLATE),
                 "deepslate");
-        addCrusherRecipe(Ingredient.of(Items.DEEPSLATE_BRICKS, Items.CHISELED_DEEPSLATE, Items.CRACKED_DEEPSLATE_BRICKS,
+        addCrusherRecipe(ingredientOf(Items.DEEPSLATE_BRICKS, Items.CHISELED_DEEPSLATE, Items.CRACKED_DEEPSLATE_BRICKS,
                         Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES, Items.POLISHED_DEEPSLATE), new ItemStackTemplate(Items.COBBLED_DEEPSLATE),
                 "deepslate_variants");
 
-        addCrusherRecipe(Ingredient.of(Items.POLISHED_GRANITE), new ItemStackTemplate(Items.GRANITE),
+        addCrusherRecipe(ingredientOf(Items.POLISHED_GRANITE), new ItemStackTemplate(Items.GRANITE),
                 "polished_granite");
-        addCrusherRecipe(Ingredient.of(Items.POLISHED_DIORITE), new ItemStackTemplate(Items.DIORITE),
+        addCrusherRecipe(ingredientOf(Items.POLISHED_DIORITE), new ItemStackTemplate(Items.DIORITE),
                 "polished_diorite");
-        addCrusherRecipe(Ingredient.of(Items.POLISHED_ANDESITE), new ItemStackTemplate(Items.ANDESITE),
+        addCrusherRecipe(ingredientOf(Items.POLISHED_ANDESITE), new ItemStackTemplate(Items.ANDESITE),
                 "polished_andesite");
 
-        addCrusherRecipe(tag(CommonItemTags.COBBLESTONES_NORMAL), new ItemStackTemplate(Items.GRAVEL),
+        addCrusherRecipe(ingredientOf(CommonItemTags.COBBLESTONES_NORMAL), new ItemStackTemplate(Items.GRAVEL),
                 "cobblestone");
 
-        addCrusherRecipe(tag(CommonItemTags.GRAVELS), new ItemStackTemplate(Items.SAND),
+        addCrusherRecipe(ingredientOf(CommonItemTags.GRAVELS), new ItemStackTemplate(Items.SAND),
                 "gravel");
 
-        addCrusherRecipe(Ingredient.of(Items.SANDSTONE), new ItemStackTemplate(Items.SAND),
+        addCrusherRecipe(ingredientOf(Items.SANDSTONE), new ItemStackTemplate(Items.SAND),
                 "sandstone");
-        addCrusherRecipe(Ingredient.of(Items.SMOOTH_SANDSTONE, Items.CUT_SANDSTONE,
+        addCrusherRecipe(ingredientOf(Items.SMOOTH_SANDSTONE, Items.CUT_SANDSTONE,
                         Items.CHISELED_SANDSTONE), new ItemStackTemplate(Items.SAND),
                 "sandstone_variants");
 
-        addCrusherRecipe(Ingredient.of(Items.RED_SANDSTONE), new ItemStackTemplate(Items.RED_SAND),
+        addCrusherRecipe(ingredientOf(Items.RED_SANDSTONE), new ItemStackTemplate(Items.RED_SAND),
                 "red_sandstone");
-        addCrusherRecipe(Ingredient.of(Items.SMOOTH_RED_SANDSTONE, Items.CUT_RED_SANDSTONE,
+        addCrusherRecipe(ingredientOf(Items.SMOOTH_RED_SANDSTONE, Items.CUT_RED_SANDSTONE,
                         Items.CHISELED_RED_SANDSTONE), new ItemStackTemplate(Items.RED_SAND),
                 "red_sandstone_variants");
 
-        addCrusherRecipe(Ingredient.of(Items.POLISHED_BLACKSTONE, Items.POLISHED_BLACKSTONE_BRICKS,
+        addCrusherRecipe(ingredientOf(Items.POLISHED_BLACKSTONE, Items.POLISHED_BLACKSTONE_BRICKS,
                         Items.CHISELED_POLISHED_BLACKSTONE, Items.CRACKED_POLISHED_BLACKSTONE_BRICKS,
                         Items.GILDED_BLACKSTONE), new ItemStackTemplate(Items.BLACKSTONE),
                 "blackstone_variants");
 
-        addCrusherRecipe(Ingredient.of(Items.SMOOTH_BASALT, Items.POLISHED_BASALT), new ItemStackTemplate(Items.BASALT),
+        addCrusherRecipe(ingredientOf(Items.SMOOTH_BASALT, Items.POLISHED_BASALT), new ItemStackTemplate(Items.BASALT),
                 "basalt_variants");
     }
 
     private void buildPulverizerRecipes() {
         addBasicMetalPulverizerRecipes(
-                tag(CommonItemTags.ORES_TIN), tag(CommonItemTags.RAW_MATERIALS_TIN),
-                tag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), tag(CommonItemTags.INGOTS_TIN),
+                ingredientOf(CommonItemTags.ORES_TIN), ingredientOf(CommonItemTags.RAW_MATERIALS_TIN),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), ingredientOf(CommonItemTags.INGOTS_TIN),
                 new ItemStackTemplate(EPItems.TIN_DUST), "tin");
         addBasicMetalPulverizerRecipes(
-                tag(CommonItemTags.ORES_IRON), tag(ConventionalItemTags.IRON_RAW_MATERIALS),
-                tag(ConventionalItemTags.STORAGE_BLOCKS_RAW_IRON), tag(ConventionalItemTags.IRON_INGOTS),
+                ingredientOf(CommonItemTags.ORES_IRON), ingredientOf(ConventionalItemTags.IRON_RAW_MATERIALS),
+                ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_RAW_IRON), ingredientOf(ConventionalItemTags.IRON_INGOTS),
                 new ItemStackTemplate(EPItems.IRON_DUST), "iron");
         addBasicMetalPulverizerRecipes(
-                tag(CommonItemTags.ORES_GOLD), tag(ConventionalItemTags.GOLD_RAW_MATERIALS),
-                tag(ConventionalItemTags.STORAGE_BLOCKS_RAW_GOLD), tag(ConventionalItemTags.GOLD_INGOTS),
+                ingredientOf(CommonItemTags.ORES_GOLD), ingredientOf(ConventionalItemTags.GOLD_RAW_MATERIALS),
+                ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_RAW_GOLD), ingredientOf(ConventionalItemTags.GOLD_INGOTS),
                 new ItemStackTemplate(EPItems.GOLD_DUST), "gold");
 
-        addPulverizerRecipe(tag(CommonItemTags.ORES_COPPER),
+        addPulverizerRecipe(ingredientOf(CommonItemTags.ORES_COPPER),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(EPItems.COPPER_DUST), new double[] {
                         1., 1., 1., 1., .5, .5
                 }, new double[] {
@@ -2376,117 +2376,117 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(EPItems.GOLD_DUST),
                         .1, .2), "copper_ores");
         addRawMetalAndIngotPulverizerRecipes(
-                tag(ConventionalItemTags.COPPER_RAW_MATERIALS),
-                tag(ConventionalItemTags.STORAGE_BLOCKS_RAW_COPPER), tag(ConventionalItemTags.COPPER_INGOTS),
+                ingredientOf(ConventionalItemTags.COPPER_RAW_MATERIALS),
+                ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_RAW_COPPER), ingredientOf(ConventionalItemTags.COPPER_INGOTS),
                 new ItemStackTemplate(EPItems.COPPER_DUST), "copper");
 
-        addPulverizerRecipe(tag(CommonItemTags.ORES_COAL),
+        addPulverizerRecipe(ingredientOf(CommonItemTags.ORES_COAL),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.COAL), new double[] {
                         1., 1., .25
                 }, new double[] {
                         1., 1., .5, .25
                 }), "coal_ores");
 
-        addPulverizerRecipe(tag(CommonItemTags.ORES_REDSTONE),
+        addPulverizerRecipe(ingredientOf(CommonItemTags.ORES_REDSTONE),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.REDSTONE), new double[] {
                         1., 1., 1., 1., 1., .67, .33, .33, .17
                 }, new double[] {
                         1., 1., 1., 1., 1., .67, .67, .33, .33, .17
                 }), "redstone_ores");
 
-        addPulverizerRecipe(tag(CommonItemTags.ORES_LAPIS),
+        addPulverizerRecipe(ingredientOf(CommonItemTags.ORES_LAPIS),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.LAPIS_LAZULI), new double[] {
                         1., 1., 1., 1., 1., 1., 1., 1., .5, .5, .25, .125
                 }, new double[] {
                         1., 1., 1., 1., 1., 1., 1., 1., .75, .5, .5, .25, .125
                 }), "lapis_ores");
 
-        addPulverizerRecipe(tag(CommonItemTags.ORES_EMERALD),
+        addPulverizerRecipe(ingredientOf(CommonItemTags.ORES_EMERALD),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.EMERALD), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "emerald_ores");
 
-        addPulverizerRecipe(tag(CommonItemTags.ORES_DIAMOND),
+        addPulverizerRecipe(ingredientOf(CommonItemTags.ORES_DIAMOND),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.DIAMOND), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "diamond_ores");
 
-        addPulverizerRecipe(tag(ConventionalItemTags.QUARTZ_ORES),
+        addPulverizerRecipe(ingredientOf(ConventionalItemTags.QUARTZ_ORES),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.QUARTZ), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "nether_quartz_ores");
 
-        addPulverizerRecipe(tag(ConventionalItemTags.NETHERITE_SCRAP_ORES),
+        addPulverizerRecipe(ingredientOf(ConventionalItemTags.NETHERITE_SCRAP_ORES),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.NETHERITE_SCRAP), new double[] {
                         1., .125, .125
                 }, new double[] {
                         1., .25, .25, .125
                 }), "ancient_debris");
 
-        addPulverizerRecipe(Ingredient.of(Items.CHARCOAL),
+        addPulverizerRecipe(ingredientOf(Items.CHARCOAL),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(EPItems.CHARCOAL_DUST),
                         1., 1.), "charcoal");
 
-        addPulverizerRecipe(Ingredient.of(Items.CLAY),
+        addPulverizerRecipe(ingredientOf(Items.CLAY),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.CLAY_BALL), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "clay");
 
-        addPulverizerRecipe(Ingredient.of(Items.GLOWSTONE),
+        addPulverizerRecipe(ingredientOf(Items.GLOWSTONE),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.GLOWSTONE_DUST), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "glowstone");
 
-        addPulverizerRecipe(Ingredient.of(Items.MAGMA_BLOCK),
+        addPulverizerRecipe(ingredientOf(Items.MAGMA_BLOCK),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.MAGMA_CREAM), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "magma_block");
 
-        addPulverizerRecipe(Ingredient.of(Items.QUARTZ_BLOCK),
+        addPulverizerRecipe(ingredientOf(Items.QUARTZ_BLOCK),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.QUARTZ), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "quartz_block");
 
-        addPulverizerRecipe(tag(ItemTags.WOOL),
+        addPulverizerRecipe(ingredientOf(ItemTags.WOOL),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.STRING), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "wool");
 
-        addPulverizerRecipe(tag(ConventionalItemTags.GRAVELS),
+        addPulverizerRecipe(ingredientOf(ConventionalItemTags.GRAVELS),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.FLINT),
                         1., 1.), "gravels");
 
-        addPulverizerRecipe(tag(ConventionalItemTags.BONES),
+        addPulverizerRecipe(ingredientOf(ConventionalItemTags.BONES),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.BONE_MEAL), new double[] {
                         1., 1., 1., .25, .25
                 }, new double[] {
                         1., 1., 1., .5, .25, .125
                 }), "bones");
 
-        addPulverizerRecipe(tag(ConventionalItemTags.BLAZE_RODS),
+        addPulverizerRecipe(ingredientOf(ConventionalItemTags.BLAZE_RODS),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.BLAZE_POWDER), new double[] {
                         1., 1., .5
                 }, new double[] {
                         1., 1., .75, .25
                 }), "blaze_rods");
 
-        addPulverizerRecipe(tag(ConventionalItemTags.BREEZE_RODS),
+        addPulverizerRecipe(ingredientOf(ConventionalItemTags.BREEZE_RODS),
                 new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.WIND_CHARGE), new double[] {
                         1., 1., 1., 1., .5, .5
                 }, new double[] {
@@ -2496,179 +2496,179 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void buildSawmillRecipes() {
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.OAK_PLANKS),
-                tag(ItemTags.OAK_LOGS), Ingredient.of(Items.OAK_FENCE),
-                Ingredient.of(Items.OAK_FENCE_GATE), Ingredient.of(Items.OAK_DOOR),
-                Ingredient.of(Items.OAK_TRAPDOOR), Ingredient.of(Items.OAK_PRESSURE_PLATE),
-                Ingredient.of(Items.OAK_SIGN), Ingredient.of(Items.OAK_SHELF),
-                Ingredient.of(Items.OAK_BOAT), Ingredient.of(Items.OAK_CHEST_BOAT),
+                ingredientOf(ItemTags.OAK_LOGS), ingredientOf(Items.OAK_FENCE),
+                ingredientOf(Items.OAK_FENCE_GATE), ingredientOf(Items.OAK_DOOR),
+                ingredientOf(Items.OAK_TRAPDOOR), ingredientOf(Items.OAK_PRESSURE_PLATE),
+                ingredientOf(Items.OAK_SIGN), ingredientOf(Items.OAK_SHELF),
+                ingredientOf(Items.OAK_BOAT), ingredientOf(Items.OAK_CHEST_BOAT),
                 false, "oak");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.SPRUCE_PLANKS),
-                tag(ItemTags.SPRUCE_LOGS), Ingredient.of(Items.SPRUCE_FENCE),
-                Ingredient.of(Items.SPRUCE_FENCE_GATE), Ingredient.of(Items.SPRUCE_DOOR),
-                Ingredient.of(Items.SPRUCE_TRAPDOOR), Ingredient.of(Items.SPRUCE_PRESSURE_PLATE),
-                Ingredient.of(Items.SPRUCE_SIGN), Ingredient.of(Items.SPRUCE_SHELF),
-                Ingredient.of(Items.SPRUCE_BOAT), Ingredient.of(Items.SPRUCE_CHEST_BOAT),
+                ingredientOf(ItemTags.SPRUCE_LOGS), ingredientOf(Items.SPRUCE_FENCE),
+                ingredientOf(Items.SPRUCE_FENCE_GATE), ingredientOf(Items.SPRUCE_DOOR),
+                ingredientOf(Items.SPRUCE_TRAPDOOR), ingredientOf(Items.SPRUCE_PRESSURE_PLATE),
+                ingredientOf(Items.SPRUCE_SIGN), ingredientOf(Items.SPRUCE_SHELF),
+                ingredientOf(Items.SPRUCE_BOAT), ingredientOf(Items.SPRUCE_CHEST_BOAT),
                 false, "spruce");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.BIRCH_PLANKS),
-                tag(ItemTags.BIRCH_LOGS), Ingredient.of(Items.BIRCH_FENCE),
-                Ingredient.of(Items.BIRCH_FENCE_GATE), Ingredient.of(Items.BIRCH_DOOR),
-                Ingredient.of(Items.BIRCH_TRAPDOOR), Ingredient.of(Items.BIRCH_PRESSURE_PLATE),
-                Ingredient.of(Items.BIRCH_SIGN), Ingredient.of(Items.BIRCH_SHELF),
-                Ingredient.of(Items.BIRCH_BOAT), Ingredient.of(Items.BIRCH_CHEST_BOAT),
+                ingredientOf(ItemTags.BIRCH_LOGS), ingredientOf(Items.BIRCH_FENCE),
+                ingredientOf(Items.BIRCH_FENCE_GATE), ingredientOf(Items.BIRCH_DOOR),
+                ingredientOf(Items.BIRCH_TRAPDOOR), ingredientOf(Items.BIRCH_PRESSURE_PLATE),
+                ingredientOf(Items.BIRCH_SIGN), ingredientOf(Items.BIRCH_SHELF),
+                ingredientOf(Items.BIRCH_BOAT), ingredientOf(Items.BIRCH_CHEST_BOAT),
                 false, "birch");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.JUNGLE_PLANKS),
-                tag(ItemTags.JUNGLE_LOGS), Ingredient.of(Items.JUNGLE_FENCE),
-                Ingredient.of(Items.JUNGLE_FENCE_GATE), Ingredient.of(Items.JUNGLE_DOOR),
-                Ingredient.of(Items.JUNGLE_TRAPDOOR), Ingredient.of(Items.JUNGLE_PRESSURE_PLATE),
-                Ingredient.of(Items.JUNGLE_SIGN), Ingredient.of(Items.JUNGLE_SHELF),
-                Ingredient.of(Items.JUNGLE_BOAT), Ingredient.of(Items.JUNGLE_CHEST_BOAT),
+                ingredientOf(ItemTags.JUNGLE_LOGS), ingredientOf(Items.JUNGLE_FENCE),
+                ingredientOf(Items.JUNGLE_FENCE_GATE), ingredientOf(Items.JUNGLE_DOOR),
+                ingredientOf(Items.JUNGLE_TRAPDOOR), ingredientOf(Items.JUNGLE_PRESSURE_PLATE),
+                ingredientOf(Items.JUNGLE_SIGN), ingredientOf(Items.JUNGLE_SHELF),
+                ingredientOf(Items.JUNGLE_BOAT), ingredientOf(Items.JUNGLE_CHEST_BOAT),
                 false, "jungle");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.ACACIA_PLANKS),
-                tag(ItemTags.ACACIA_LOGS), Ingredient.of(Items.ACACIA_FENCE),
-                Ingredient.of(Items.ACACIA_FENCE_GATE), Ingredient.of(Items.ACACIA_DOOR),
-                Ingredient.of(Items.ACACIA_TRAPDOOR), Ingredient.of(Items.ACACIA_PRESSURE_PLATE),
-                Ingredient.of(Items.ACACIA_SIGN), Ingredient.of(Items.ACACIA_SHELF),
-                Ingredient.of(Items.ACACIA_BOAT), Ingredient.of(Items.ACACIA_CHEST_BOAT),
+                ingredientOf(ItemTags.ACACIA_LOGS), ingredientOf(Items.ACACIA_FENCE),
+                ingredientOf(Items.ACACIA_FENCE_GATE), ingredientOf(Items.ACACIA_DOOR),
+                ingredientOf(Items.ACACIA_TRAPDOOR), ingredientOf(Items.ACACIA_PRESSURE_PLATE),
+                ingredientOf(Items.ACACIA_SIGN), ingredientOf(Items.ACACIA_SHELF),
+                ingredientOf(Items.ACACIA_BOAT), ingredientOf(Items.ACACIA_CHEST_BOAT),
                 false, "acacia");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.DARK_OAK_PLANKS),
-                tag(ItemTags.DARK_OAK_LOGS), Ingredient.of(Items.DARK_OAK_FENCE),
-                Ingredient.of(Items.DARK_OAK_FENCE_GATE), Ingredient.of(Items.DARK_OAK_DOOR),
-                Ingredient.of(Items.DARK_OAK_TRAPDOOR), Ingredient.of(Items.DARK_OAK_PRESSURE_PLATE),
-                Ingredient.of(Items.DARK_OAK_SIGN), Ingredient.of(Items.DARK_OAK_SHELF),
-                Ingredient.of(Items.DARK_OAK_BOAT), Ingredient.of(Items.DARK_OAK_CHEST_BOAT),
+                ingredientOf(ItemTags.DARK_OAK_LOGS), ingredientOf(Items.DARK_OAK_FENCE),
+                ingredientOf(Items.DARK_OAK_FENCE_GATE), ingredientOf(Items.DARK_OAK_DOOR),
+                ingredientOf(Items.DARK_OAK_TRAPDOOR), ingredientOf(Items.DARK_OAK_PRESSURE_PLATE),
+                ingredientOf(Items.DARK_OAK_SIGN), ingredientOf(Items.DARK_OAK_SHELF),
+                ingredientOf(Items.DARK_OAK_BOAT), ingredientOf(Items.DARK_OAK_CHEST_BOAT),
                 false, "dark_oak");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.MANGROVE_PLANKS),
-                tag(ItemTags.MANGROVE_LOGS), Ingredient.of(Items.MANGROVE_FENCE),
-                Ingredient.of(Items.MANGROVE_FENCE_GATE), Ingredient.of(Items.MANGROVE_DOOR),
-                Ingredient.of(Items.MANGROVE_TRAPDOOR), Ingredient.of(Items.MANGROVE_PRESSURE_PLATE),
-                Ingredient.of(Items.MANGROVE_SIGN), Ingredient.of(Items.MANGROVE_SHELF),
-                Ingredient.of(Items.MANGROVE_BOAT), Ingredient.of(Items.MANGROVE_CHEST_BOAT),
+                ingredientOf(ItemTags.MANGROVE_LOGS), ingredientOf(Items.MANGROVE_FENCE),
+                ingredientOf(Items.MANGROVE_FENCE_GATE), ingredientOf(Items.MANGROVE_DOOR),
+                ingredientOf(Items.MANGROVE_TRAPDOOR), ingredientOf(Items.MANGROVE_PRESSURE_PLATE),
+                ingredientOf(Items.MANGROVE_SIGN), ingredientOf(Items.MANGROVE_SHELF),
+                ingredientOf(Items.MANGROVE_BOAT), ingredientOf(Items.MANGROVE_CHEST_BOAT),
                 false, "mangrove");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.CHERRY_PLANKS),
-                tag(ItemTags.CHERRY_LOGS), Ingredient.of(Items.CHERRY_FENCE),
-                Ingredient.of(Items.CHERRY_FENCE_GATE), Ingredient.of(Items.CHERRY_DOOR),
-                Ingredient.of(Items.CHERRY_TRAPDOOR), Ingredient.of(Items.CHERRY_PRESSURE_PLATE),
-                Ingredient.of(Items.CHERRY_SIGN), Ingredient.of(Items.CHERRY_SHELF),
-                Ingredient.of(Items.CHERRY_BOAT), Ingredient.of(Items.CHERRY_CHEST_BOAT),
+                ingredientOf(ItemTags.CHERRY_LOGS), ingredientOf(Items.CHERRY_FENCE),
+                ingredientOf(Items.CHERRY_FENCE_GATE), ingredientOf(Items.CHERRY_DOOR),
+                ingredientOf(Items.CHERRY_TRAPDOOR), ingredientOf(Items.CHERRY_PRESSURE_PLATE),
+                ingredientOf(Items.CHERRY_SIGN), ingredientOf(Items.CHERRY_SHELF),
+                ingredientOf(Items.CHERRY_BOAT), ingredientOf(Items.CHERRY_CHEST_BOAT),
                 false, "cherry");
 
         addBasicWoodSawmillRecipe(new ItemStackTemplate(Items.PALE_OAK_PLANKS),
-                tag(ItemTags.PALE_OAK_LOGS), Ingredient.of(Items.PALE_OAK_FENCE),
-                Ingredient.of(Items.PALE_OAK_FENCE_GATE), Ingredient.of(Items.PALE_OAK_DOOR),
-                Ingredient.of(Items.PALE_OAK_TRAPDOOR), Ingredient.of(Items.PALE_OAK_PRESSURE_PLATE),
-                Ingredient.of(Items.PALE_OAK_SIGN), Ingredient.of(Items.PALE_OAK_SHELF),
-                Ingredient.of(Items.PALE_OAK_BOAT), Ingredient.of(Items.PALE_OAK_CHEST_BOAT),
+                ingredientOf(ItemTags.PALE_OAK_LOGS), ingredientOf(Items.PALE_OAK_FENCE),
+                ingredientOf(Items.PALE_OAK_FENCE_GATE), ingredientOf(Items.PALE_OAK_DOOR),
+                ingredientOf(Items.PALE_OAK_TRAPDOOR), ingredientOf(Items.PALE_OAK_PRESSURE_PLATE),
+                ingredientOf(Items.PALE_OAK_SIGN), ingredientOf(Items.PALE_OAK_SHELF),
+                ingredientOf(Items.PALE_OAK_BOAT), ingredientOf(Items.PALE_OAK_CHEST_BOAT),
                 false, "pale_oak");
 
-        addSawmillRecipe(tag(ItemTags.BAMBOO_BLOCKS), new ItemStackTemplate(Items.BAMBOO_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(ItemTags.BAMBOO_BLOCKS), new ItemStackTemplate(Items.BAMBOO_PLANKS, 3),
                 1, "bamboo_planks", "bamboo_blocks");
         addBasicWoodWithoutLogsSawmillRecipe(new ItemStackTemplate(Items.BAMBOO_PLANKS),
-                Ingredient.of(Items.BAMBOO_FENCE), Ingredient.of(Items.BAMBOO_FENCE_GATE), Ingredient.of(Items.BAMBOO_DOOR),
-                Ingredient.of(Items.BAMBOO_TRAPDOOR), Ingredient.of(Items.BAMBOO_PRESSURE_PLATE),
-                Ingredient.of(Items.BAMBOO_SIGN), Ingredient.of(Items.BAMBOO_SHELF),
-                Ingredient.of(Items.BAMBOO_RAFT), Ingredient.of(Items.BAMBOO_CHEST_RAFT),
+                ingredientOf(Items.BAMBOO_FENCE), ingredientOf(Items.BAMBOO_FENCE_GATE), ingredientOf(Items.BAMBOO_DOOR),
+                ingredientOf(Items.BAMBOO_TRAPDOOR), ingredientOf(Items.BAMBOO_PRESSURE_PLATE),
+                ingredientOf(Items.BAMBOO_SIGN), ingredientOf(Items.BAMBOO_SHELF),
+                ingredientOf(Items.BAMBOO_RAFT), ingredientOf(Items.BAMBOO_CHEST_RAFT),
                 true, "bamboo");
 
-        addSawmillRecipe(tag(ItemTags.CRIMSON_STEMS), new ItemStackTemplate(Items.CRIMSON_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(ItemTags.CRIMSON_STEMS), new ItemStackTemplate(Items.CRIMSON_PLANKS, 6),
                 1, "crimson_planks", "crimson_stems");
         addBasicWoodWithoutLogsAndBoatsSawmillRecipe(new ItemStackTemplate(Items.CRIMSON_PLANKS),
-                Ingredient.of(Items.CRIMSON_FENCE), Ingredient.of(Items.CRIMSON_FENCE_GATE), Ingredient.of(Items.CRIMSON_DOOR),
-                Ingredient.of(Items.CRIMSON_TRAPDOOR), Ingredient.of(Items.CRIMSON_PRESSURE_PLATE),
-                Ingredient.of(Items.CRIMSON_SIGN), Ingredient.of(Items.CRIMSON_SHELF), "crimson");
+                ingredientOf(Items.CRIMSON_FENCE), ingredientOf(Items.CRIMSON_FENCE_GATE), ingredientOf(Items.CRIMSON_DOOR),
+                ingredientOf(Items.CRIMSON_TRAPDOOR), ingredientOf(Items.CRIMSON_PRESSURE_PLATE),
+                ingredientOf(Items.CRIMSON_SIGN), ingredientOf(Items.CRIMSON_SHELF), "crimson");
 
-        addSawmillRecipe(tag(ItemTags.WARPED_STEMS), new ItemStackTemplate(Items.WARPED_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(ItemTags.WARPED_STEMS), new ItemStackTemplate(Items.WARPED_PLANKS, 6),
                 1, "warped_planks", "warped_stems");
         addBasicWoodWithoutLogsAndBoatsSawmillRecipe(new ItemStackTemplate(Items.WARPED_PLANKS),
-                Ingredient.of(Items.WARPED_FENCE), Ingredient.of(Items.WARPED_FENCE_GATE), Ingredient.of(Items.WARPED_DOOR),
-                Ingredient.of(Items.WARPED_TRAPDOOR), Ingredient.of(Items.WARPED_PRESSURE_PLATE),
-                Ingredient.of(Items.WARPED_SIGN), Ingredient.of(Items.WARPED_SHELF), "warped");
+                ingredientOf(Items.WARPED_FENCE), ingredientOf(Items.WARPED_FENCE_GATE), ingredientOf(Items.WARPED_DOOR),
+                ingredientOf(Items.WARPED_TRAPDOOR), ingredientOf(Items.WARPED_PRESSURE_PLATE),
+                ingredientOf(Items.WARPED_SIGN), ingredientOf(Items.WARPED_SHELF), "warped");
 
-        addSawmillRecipe(Ingredient.of(Items.CRAFTING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.CRAFTING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "crafting_table");
-        addSawmillRecipe(Ingredient.of(Items.CARTOGRAPHY_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
+        addSawmillRecipe(ingredientOf(Items.CARTOGRAPHY_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
                 new ItemStackTemplate(Items.PAPER, 2), "oak_planks", "cartography_table");
-        addSawmillRecipe(Ingredient.of(Items.FLETCHING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
+        addSawmillRecipe(ingredientOf(Items.FLETCHING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
                 new ItemStackTemplate(Items.FLINT, 2), "oak_planks", "fletching_table");
-        addSawmillRecipe(Ingredient.of(Items.SMITHING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
+        addSawmillRecipe(ingredientOf(Items.SMITHING_TABLE), new ItemStackTemplate(Items.OAK_PLANKS, 4),
                 new ItemStackTemplate(Items.IRON_INGOT, 2), "oak_planks", "smithing_table");
-        addSawmillRecipe(Ingredient.of(Items.LOOM), new ItemStackTemplate(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(Items.LOOM), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 new ItemStackTemplate(Items.STRING, 2), "oak_planks", "loom");
-        addSawmillRecipe(Ingredient.of(Items.COMPOSTER), new ItemStackTemplate(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.COMPOSTER), new ItemStackTemplate(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "composter");
-        addSawmillRecipe(Ingredient.of(Items.NOTE_BLOCK), new ItemStackTemplate(Items.OAK_PLANKS, 8),
+        addSawmillRecipe(ingredientOf(Items.NOTE_BLOCK), new ItemStackTemplate(Items.OAK_PLANKS, 8),
                 new ItemStackTemplate(Items.REDSTONE), "oak_planks", "note_block");
-        addSawmillRecipe(Ingredient.of(Items.JUKEBOX), new ItemStackTemplate(Items.OAK_PLANKS, 8),
+        addSawmillRecipe(ingredientOf(Items.JUKEBOX), new ItemStackTemplate(Items.OAK_PLANKS, 8),
                 new ItemStackTemplate(Items.DIAMOND), "oak_planks", "jukebox");
 
-        addSawmillRecipe(Ingredient.of(Items.BOOKSHELF), new ItemStackTemplate(Items.OAK_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(Items.BOOKSHELF), new ItemStackTemplate(Items.OAK_PLANKS, 6),
                 new ItemStackTemplate(Items.BOOK, 3), "oak_planks", "bookshelf");
-        addSawmillRecipe(Ingredient.of(Items.CHISELED_BOOKSHELF), new ItemStackTemplate(Items.OAK_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(Items.CHISELED_BOOKSHELF), new ItemStackTemplate(Items.OAK_PLANKS, 6),
                 5, "oak_planks", "chiseled_bookshelf");
-        addSawmillRecipe(Ingredient.of(Items.LECTERN), new ItemStackTemplate(Items.OAK_PLANKS, 8),
+        addSawmillRecipe(ingredientOf(Items.LECTERN), new ItemStackTemplate(Items.OAK_PLANKS, 8),
                 new ItemStackTemplate(Items.BOOK, 3), "oak_planks", "lectern");
 
-        addSawmillRecipe(Ingredient.of(Items.CHEST), new ItemStackTemplate(Items.OAK_PLANKS, 7),
+        addSawmillRecipe(ingredientOf(Items.CHEST), new ItemStackTemplate(Items.OAK_PLANKS, 7),
                 3, "oak_planks", "chest");
-        addSawmillRecipe(Ingredient.of(Items.BARREL), new ItemStackTemplate(Items.OAK_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(Items.BARREL), new ItemStackTemplate(Items.OAK_PLANKS, 6),
                 5, "oak_planks", "barrel");
 
-        addSawmillRecipe(Ingredient.of(Items.WOODEN_SWORD), new ItemStackTemplate(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_SWORD), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 1, "oak_planks", "wooden_sword");
-        addSawmillRecipe(Ingredient.of(Items.WOODEN_SPEAR), new ItemStackTemplate(Items.OAK_PLANKS),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_SPEAR), new ItemStackTemplate(Items.OAK_PLANKS),
                 2, "oak_planks", "wooden_spear");
-        addSawmillRecipe(Ingredient.of(Items.WOODEN_SHOVEL), new ItemStackTemplate(Items.OAK_PLANKS),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_SHOVEL), new ItemStackTemplate(Items.OAK_PLANKS),
                 2, "oak_planks", "wooden_shovel");
-        addSawmillRecipe(Ingredient.of(Items.WOODEN_PICKAXE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_PICKAXE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "wooden_pickaxe");
-        addSawmillRecipe(Ingredient.of(Items.WOODEN_AXE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_AXE), new ItemStackTemplate(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "wooden_axe");
-        addSawmillRecipe(Ingredient.of(Items.WOODEN_HOE), new ItemStackTemplate(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_HOE), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hoe");
-        addSawmillRecipe(Ingredient.of(EPItems.WOODEN_HAMMER), new ItemStackTemplate(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(EPItems.WOODEN_HAMMER), new ItemStackTemplate(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hammer");
 
-        addSawmillRecipe(Ingredient.of(Items.SHIELD), new ItemStackTemplate(Items.OAK_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(Items.SHIELD), new ItemStackTemplate(Items.OAK_PLANKS, 6),
                 new ItemStackTemplate(Items.IRON_INGOT), "oak_planks", "shield");
 
-        addSawmillRecipe(tag(ItemTags.PLANKS), new ItemStackTemplate(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(ItemTags.PLANKS), new ItemStackTemplate(Items.STICK, 3),
                 1, "sticks", "planks");
-        addSawmillRecipe(Ingredient.of(Items.BAMBOO_MOSAIC), new ItemStackTemplate(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(Items.BAMBOO_MOSAIC), new ItemStackTemplate(Items.STICK, 3),
                 3, "sticks", "bamboo_mosaic");
 
-        addSawmillRecipe(tag(ItemTags.WOODEN_STAIRS),
+        addSawmillRecipe(ingredientOf(ItemTags.WOODEN_STAIRS),
                 new ItemStackTemplate(Items.STICK, 3), 1, "sticks", "stairs");
-        addSawmillRecipe(Ingredient.of(Items.BAMBOO_MOSAIC_STAIRS),
+        addSawmillRecipe(ingredientOf(Items.BAMBOO_MOSAIC_STAIRS),
                 new ItemStackTemplate(Items.STICK, 3), 1, "sticks", "bamboo_mosaic_stairs");
-        addSawmillRecipe(tag(ItemTags.WOODEN_SLABS),
+        addSawmillRecipe(ingredientOf(ItemTags.WOODEN_SLABS),
                 new ItemStackTemplate(Items.STICK, 1), 1, "sticks", "slabs");
-        addSawmillRecipe(Ingredient.of(Items.BAMBOO_MOSAIC_SLAB),
+        addSawmillRecipe(ingredientOf(Items.BAMBOO_MOSAIC_SLAB),
                 new ItemStackTemplate(Items.STICK, 1), 1, "sticks", "bamboo_mosaic_slabs");
-        addSawmillRecipe(tag(ItemTags.WOODEN_BUTTONS), new ItemStackTemplate(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(ItemTags.WOODEN_BUTTONS), new ItemStackTemplate(Items.STICK, 3),
                 1, "sticks", "buttons");
 
-        addSawmillRecipe(Ingredient.of(Items.LADDER), new ItemStackTemplate(Items.STICK, 2),
+        addSawmillRecipe(ingredientOf(Items.LADDER), new ItemStackTemplate(Items.STICK, 2),
                 1, "sticks", "ladder");
 
-        addSawmillRecipe(Ingredient.of(Items.BOWL), new ItemStackTemplate(Items.STICK),
+        addSawmillRecipe(ingredientOf(Items.BOWL), new ItemStackTemplate(Items.STICK),
                 2, "sticks", "bowl");
-        addSawmillRecipe(Ingredient.of(Items.BOW), new ItemStackTemplate(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(Items.BOW), new ItemStackTemplate(Items.STICK, 3),
                 new ItemStackTemplate(Items.STRING, 3), "sticks", "bow");
-        addSawmillRecipe(Ingredient.of(Items.FISHING_ROD), new ItemStackTemplate(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(Items.FISHING_ROD), new ItemStackTemplate(Items.STICK, 3),
                 new ItemStackTemplate(Items.STRING, 2), "sticks", "fishing_rod");
 
-        addSawmillRecipe(Ingredient.of(Items.PAINTING), new ItemStackTemplate(Items.STICK, 8),
+        addSawmillRecipe(ingredientOf(Items.PAINTING), new ItemStackTemplate(Items.STICK, 8),
                 new ItemStackTemplate(Items.WHITE_WOOL), "sticks", "painting");
-        addSawmillRecipe(Ingredient.of(Items.ITEM_FRAME), new ItemStackTemplate(Items.STICK, 8),
+        addSawmillRecipe(ingredientOf(Items.ITEM_FRAME), new ItemStackTemplate(Items.STICK, 8),
                 new ItemStackTemplate(Items.LEATHER), "sticks", "item_frame");
 
-        addSawmillRecipe(tag(ConventionalItemTags.WOODEN_RODS), new ItemStackTemplate(EPItems.SAWDUST),
+        addSawmillRecipe(ingredientOf(ConventionalItemTags.WOODEN_RODS), new ItemStackTemplate(EPItems.SAWDUST),
                 0, "sawdust", "sticks");
     }
 
@@ -2699,31 +2699,31 @@ public class ModRecipeGenerator extends RecipeProvider {
         addBasicAncientFlowerGrowingRecipe(Items.TORCHFLOWER_SEEDS, Items.TORCHFLOWER, "torchflowers");
         addBasicAncientFlowerGrowingRecipe(Items.PITCHER_POD, Items.PITCHER_PLANT, "pitcher_plants");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.PINK_PETALS), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.PINK_PETALS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.PINK_PETALS), new double[] {
                         1., 1., 1., .67, .33, .33, .15
                 })
         }, 16000, "pink_petals", "pink_petals");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.WILDFLOWERS), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.WILDFLOWERS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.WILDFLOWERS), new double[] {
                         1., 1., 1., .67, .33, .33, .15
                 })
         }, 16000, "wildflowers", "wildflowers");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.SWEET_BERRIES), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.SWEET_BERRIES), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.SWEET_BERRIES), new double[] {
                         1., 1., .33, .17
                 })
         }, 16000, "sweet_berries", "sweet_berries");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.GLOW_BERRIES), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.GLOW_BERRIES), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.GLOW_BERRIES), new double[] {
                         1., 1., .67, .33, .17, .17
                 })
         }, 16000, "glow_berries", "glow_berries");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.WHEAT_SEEDS), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.WHEAT_SEEDS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.WHEAT_SEEDS), new double[] {
                         1., .33, .33
                 }),
@@ -2732,7 +2732,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 })
         }, 16000, "wheat", "wheat_seeds");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.BEETROOT_SEEDS), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.BEETROOT_SEEDS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.BEETROOT_SEEDS), new double[] {
                         1., .33, .33
                 }),
@@ -2741,7 +2741,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 })
         }, 16000, "beetroots", "beetroot_seeds");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.POTATO), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.POTATO), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.POTATO), new double[] {
                         1., .75, .25, .25
                 }),
@@ -2750,30 +2750,30 @@ public class ModRecipeGenerator extends RecipeProvider {
                 })
         }, 16000, "potatoes", "potato");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.CARROT), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.CARROT), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.CARROT), new double[] {
                         1., .75, .25, .25
                 })
         }, 16000, "carrots", "carrot");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.MELON_SEEDS), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.MELON_SEEDS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.MELON_SLICE), new double[] {
                         1., 1., .75, .25, .25
                 })
         }, 16000, "melon_slices", "melon_seeds");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.PUMPKIN_SEEDS), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.PUMPKIN_SEEDS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.PUMPKIN), new double[] {
                         1.
                 })
         }, 16000, "pumpkin", "pumpkin_seeds");
 
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.SUGAR_CANE), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.SUGAR_CANE), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.SUGAR_CANE), new double[] {
                         1., 1., .67, .67, .33, .17, .17
                 })
         }, 16000, "sugar_canes", "sugar_cane");
-        addPlantGrowthChamberRecipe(Ingredient.of(Items.BAMBOO), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(Items.BAMBOO), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.BAMBOO), new double[] {
                         1., 1., .67, .17
                 })
@@ -2781,30 +2781,30 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void buildPlantGrowthChamberFertilizerRecipes() {
-        addPlantGrowthChamberFertilizerRecipe(Ingredient.of(Items.BONE_MEAL),
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(Items.BONE_MEAL),
                 1.5, 3., "bone_meal");
 
-        addPlantGrowthChamberFertilizerRecipe(Ingredient.of(EPItems.BASIC_FERTILIZER),
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.BASIC_FERTILIZER),
                 2.5, 3.5, "basic_fertilizer");
 
-        addPlantGrowthChamberFertilizerRecipe(Ingredient.of(EPItems.GOOD_FERTILIZER),
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.GOOD_FERTILIZER),
                 3.5, 5., "good_fertilizer");
 
-        addPlantGrowthChamberFertilizerRecipe(Ingredient.of(EPItems.ADVANCED_FERTILIZER),
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.ADVANCED_FERTILIZER),
                 5., 6.5, "advanced_fertilizer");
     }
 
     private void buildMetalPressRecipes() {
-        addGearMetalPressRecipe(tag(CommonItemTags.PLATES_IRON), new ItemStackTemplate(EPItems.IRON_GEAR));
+        addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStackTemplate(EPItems.IRON_GEAR));
 
-        addRodMetalPressRecipe(tag(CommonItemTags.PLATES_IRON), new ItemStackTemplate(EPItems.IRON_ROD));
+        addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStackTemplate(EPItems.IRON_ROD));
 
-        addWireMetalPressRecipe(tag(CommonItemTags.PLATES_TIN), new ItemStackTemplate(EPItems.TIN_WIRE));
-        addWireMetalPressRecipe(tag(CommonItemTags.PLATES_COPPER), new ItemStackTemplate(EPItems.COPPER_WIRE));
-        addWireMetalPressRecipe(tag(CommonItemTags.PLATES_GOLD), new ItemStackTemplate(EPItems.GOLD_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_TIN), new ItemStackTemplate(EPItems.TIN_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_COPPER), new ItemStackTemplate(EPItems.COPPER_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_GOLD), new ItemStackTemplate(EPItems.GOLD_WIRE));
 
-        addWireMetalPressRecipe(tag(CommonItemTags.PLATES_ENERGIZED_COPPER), new ItemStackTemplate(EPItems.ENERGIZED_COPPER_WIRE));
-        addWireMetalPressRecipe(tag(CommonItemTags.PLATES_ENERGIZED_GOLD), new ItemStackTemplate(EPItems.ENERGIZED_GOLD_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER), new ItemStackTemplate(EPItems.ENERGIZED_COPPER_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD), new ItemStackTemplate(EPItems.ENERGIZED_GOLD_WIRE));
     }
 
     private void buildHeatGeneratorRecipes() {
@@ -2818,76 +2818,76 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void buildAssemblingMachineRecipes() {
         addAssemblingMachineRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.of(EPItems.BASIC_SOLAR_CELL), 2),
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_ENERGIZED_COPPER), 4),
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_TIN), 2),
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
+                new IngredientWithCount(ingredientOf(EPItems.BASIC_SOLAR_CELL), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
         }, new ItemStackTemplate(EPItems.ADVANCED_SOLAR_CELL));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.of(EPItems.ADVANCED_SOLAR_CELL), 2),
-                new IngredientWithCount(Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX), 4),
-                new IngredientWithCount(tag(CommonItemTags.SILICON), 2),
-                new IngredientWithCount(tag(ConventionalItemTags.REDSTONE_DUSTS), 2)
+                new IngredientWithCount(ingredientOf(EPItems.ADVANCED_SOLAR_CELL), 2),
+                new IngredientWithCount(ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 2),
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.REDSTONE_DUSTS), 2)
         }, new ItemStackTemplate(EPItems.REINFORCED_ADVANCED_SOLAR_CELL));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.of(EPItems.BASIC_CIRCUIT), 4),
-                new IngredientWithCount(tag(CommonItemTags.WIRES_ENERGIZED_COPPER), 4),
-                new IngredientWithCount(tag(CommonItemTags.SILICON), 4),
-                new IngredientWithCount(tag(ConventionalItemTags.REDSTONE_DUSTS), 2)
+                new IngredientWithCount(ingredientOf(EPItems.BASIC_CIRCUIT), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_COPPER), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 4),
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.REDSTONE_DUSTS), 2)
         }, new ItemStackTemplate(EPItems.ADVANCED_CIRCUIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.of(EPItems.ADVANCED_CIRCUIT), 4),
-                new IngredientWithCount(tag(CommonItemTags.WIRES_ENERGIZED_GOLD), 6),
-                new IngredientWithCount(tag(CommonItemTags.SILICON), 6)
+                new IngredientWithCount(ingredientOf(EPItems.ADVANCED_CIRCUIT), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD), 6),
+                new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 6)
         }, new ItemStackTemplate(EPItems.PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(Ingredient.of(EPItems.PROCESSING_UNIT), 4),
-                new IngredientWithCount(Ingredient.of(EPItems.TELEPORTER_MATRIX), 4),
-                new IngredientWithCount(Ingredient.of(EPItems.ENERGIZED_CRYSTAL_MATRIX), 2),
-                new IngredientWithCount(tag(CommonItemTags.SILICON), 2)
+                new IngredientWithCount(ingredientOf(EPItems.PROCESSING_UNIT), 4),
+                new IngredientWithCount(ingredientOf(EPItems.TELEPORTER_MATRIX), 4),
+                new IngredientWithCount(ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 2)
         }, new ItemStackTemplate(EPItems.TELEPORTER_PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
-                new IngredientWithCount(tag(ConventionalItemTags.AMETHYST_GEMS), 6),
-                new IngredientWithCount(tag(ConventionalItemTags.DIAMOND_GEMS), 2),
-                new IngredientWithCount(tag(ConventionalItemTags.EMERALD_GEMS), 2),
-                new IngredientWithCount(tag(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.AMETHYST_GEMS), 6),
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.DIAMOND_GEMS), 2),
+                new IngredientWithCount(ingredientOf(ConventionalItemTags.EMERALD_GEMS), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
         }, new ItemStackTemplate(EPItems.CRYSTAL_MATRIX));
     }
 
     private void buildStoneLiquefierRecipes() {
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.STONE), FluidUtils.convertMilliBucketsToDroplets(50), "stone");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.STONE), FluidUtils.convertMilliBucketsToDroplets(50), "stone");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.COBBLESTONE), FluidUtils.convertMilliBucketsToDroplets(50), "cobblestone");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.COBBLESTONE), FluidUtils.convertMilliBucketsToDroplets(50), "cobblestone");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.DEEPSLATE), FluidUtils.convertMilliBucketsToDroplets(150), "deepslate");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.DEEPSLATE), FluidUtils.convertMilliBucketsToDroplets(150), "deepslate");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.COBBLED_DEEPSLATE), FluidUtils.convertMilliBucketsToDroplets(150), "cobbled_deepslate");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.COBBLED_DEEPSLATE), FluidUtils.convertMilliBucketsToDroplets(150), "cobbled_deepslate");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.GRANITE), FluidUtils.convertMilliBucketsToDroplets(50), "granite");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.GRANITE), FluidUtils.convertMilliBucketsToDroplets(50), "granite");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.DIORITE), FluidUtils.convertMilliBucketsToDroplets(50), "diorite");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.DIORITE), FluidUtils.convertMilliBucketsToDroplets(50), "diorite");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.ANDESITE), FluidUtils.convertMilliBucketsToDroplets(50), "andesite");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.ANDESITE), FluidUtils.convertMilliBucketsToDroplets(50), "andesite");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.BLACKSTONE), FluidUtils.convertMilliBucketsToDroplets(250), "blackstone");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.BLACKSTONE), FluidUtils.convertMilliBucketsToDroplets(250), "blackstone");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.OBSIDIAN), FluidUtils.convertMilliBucketsToDroplets(1000), "obsidian");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.OBSIDIAN), FluidUtils.convertMilliBucketsToDroplets(1000), "obsidian");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.NETHERRACK), FluidUtils.convertMilliBucketsToDroplets(250), "netherrack");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.NETHERRACK), FluidUtils.convertMilliBucketsToDroplets(250), "netherrack");
 
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.MAGMA_CREAM), FluidUtils.convertMilliBucketsToDroplets(250), "magma_cream");
-        addLavaOutputStoneLiquefierRecipe(Ingredient.of(Items.MAGMA_BLOCK), FluidUtils.convertMilliBucketsToDroplets(1000), "magma_block");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.MAGMA_CREAM), FluidUtils.convertMilliBucketsToDroplets(250), "magma_cream");
+        addLavaOutputStoneLiquefierRecipe(ingredientOf(Items.MAGMA_BLOCK), FluidUtils.convertMilliBucketsToDroplets(1000), "magma_block");
 
-        addWaterOutputStoneLiquefierRecipe(Ingredient.of(Items.SNOWBALL), FluidUtils.convertMilliBucketsToDroplets(125), "snowball");
+        addWaterOutputStoneLiquefierRecipe(ingredientOf(Items.SNOWBALL), FluidUtils.convertMilliBucketsToDroplets(125), "snowball");
 
-        addWaterOutputStoneLiquefierRecipe(Ingredient.of(Items.SNOW_BLOCK), FluidUtils.convertMilliBucketsToDroplets(500), "snow_block");
+        addWaterOutputStoneLiquefierRecipe(ingredientOf(Items.SNOW_BLOCK), FluidUtils.convertMilliBucketsToDroplets(500), "snow_block");
 
-        addWaterOutputStoneLiquefierRecipe(Ingredient.of(Items.ICE), FluidUtils.convertMilliBucketsToDroplets(1000), "ice");
+        addWaterOutputStoneLiquefierRecipe(ingredientOf(Items.ICE), FluidUtils.convertMilliBucketsToDroplets(1000), "ice");
     }
 
     private void buildStoneSolidifierRecipes() {
@@ -2918,52 +2918,52 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void buildFluidTransposerRecipes() {
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.WHITE_CONCRETE_POWDER), new ItemStackTemplate(Items.WHITE_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.ORANGE_CONCRETE_POWDER), new ItemStackTemplate(Items.ORANGE_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.MAGENTA_CONCRETE_POWDER), new ItemStackTemplate(Items.MAGENTA_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.LIGHT_BLUE_CONCRETE_POWDER), new ItemStackTemplate(Items.LIGHT_BLUE_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.YELLOW_CONCRETE_POWDER), new ItemStackTemplate(Items.YELLOW_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.LIME_CONCRETE_POWDER), new ItemStackTemplate(Items.LIME_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.PINK_CONCRETE_POWDER), new ItemStackTemplate(Items.PINK_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.GRAY_CONCRETE_POWDER), new ItemStackTemplate(Items.GRAY_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.LIGHT_GRAY_CONCRETE_POWDER), new ItemStackTemplate(Items.LIGHT_GRAY_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.CYAN_CONCRETE_POWDER), new ItemStackTemplate(Items.CYAN_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.PURPLE_CONCRETE_POWDER), new ItemStackTemplate(Items.PURPLE_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.BLUE_CONCRETE_POWDER), new ItemStackTemplate(Items.BLUE_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.BROWN_CONCRETE_POWDER), new ItemStackTemplate(Items.BROWN_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.GREEN_CONCRETE_POWDER), new ItemStackTemplate(Items.GREEN_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.RED_CONCRETE_POWDER), new ItemStackTemplate(Items.RED_CONCRETE));
-        addConcreteFluidTransposerRecipe(Ingredient.of(Items.BLACK_CONCRETE_POWDER), new ItemStackTemplate(Items.BLACK_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.WHITE_CONCRETE_POWDER), new ItemStackTemplate(Items.WHITE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.ORANGE_CONCRETE_POWDER), new ItemStackTemplate(Items.ORANGE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.MAGENTA_CONCRETE_POWDER), new ItemStackTemplate(Items.MAGENTA_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_BLUE_CONCRETE_POWDER), new ItemStackTemplate(Items.LIGHT_BLUE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.YELLOW_CONCRETE_POWDER), new ItemStackTemplate(Items.YELLOW_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIME_CONCRETE_POWDER), new ItemStackTemplate(Items.LIME_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.PINK_CONCRETE_POWDER), new ItemStackTemplate(Items.PINK_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.GRAY_CONCRETE_POWDER), new ItemStackTemplate(Items.GRAY_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_GRAY_CONCRETE_POWDER), new ItemStackTemplate(Items.LIGHT_GRAY_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CYAN_CONCRETE_POWDER), new ItemStackTemplate(Items.CYAN_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.PURPLE_CONCRETE_POWDER), new ItemStackTemplate(Items.PURPLE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLUE_CONCRETE_POWDER), new ItemStackTemplate(Items.BLUE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.BROWN_CONCRETE_POWDER), new ItemStackTemplate(Items.BROWN_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.GREEN_CONCRETE_POWDER), new ItemStackTemplate(Items.GREEN_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.RED_CONCRETE_POWDER), new ItemStackTemplate(Items.RED_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLACK_CONCRETE_POWDER), new ItemStackTemplate(Items.BLACK_CONCRETE));
 
-        addFluidTransposerRecipe(Ingredient.of(Items.SPONGE), new ItemStackTemplate(Items.WET_SPONGE), FluidTransposerBlockEntity.Mode.FILLING,
+        addFluidTransposerRecipe(ingredientOf(Items.SPONGE), new ItemStackTemplate(Items.WET_SPONGE), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));
-        addFluidTransposerRecipe(Ingredient.of(Items.WET_SPONGE), new ItemStackTemplate(Items.SPONGE), FluidTransposerBlockEntity.Mode.EMPTYING,
+        addFluidTransposerRecipe(ingredientOf(Items.WET_SPONGE), new ItemStackTemplate(Items.SPONGE), FluidTransposerBlockEntity.Mode.EMPTYING,
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));
 
-        addFluidTransposerRecipe(Ingredient.of(Items.DIRT), new ItemStackTemplate(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
+        addFluidTransposerRecipe(ingredientOf(Items.DIRT), new ItemStackTemplate(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(250)));
     }
 
     private void buildChargerRecipes() {
-        addChargerRecipe(tag(ConventionalItemTags.COPPER_INGOTS),
+        addChargerRecipe(ingredientOf(ConventionalItemTags.COPPER_INGOTS),
                 new ItemStackTemplate(EPItems.ENERGIZED_COPPER_INGOT), 4194304);
     }
 
     private void buildEnergizerRecipes() {
-        addEnergizerRecipe(tag(ConventionalItemTags.COPPER_INGOTS),
+        addEnergizerRecipe(ingredientOf(ConventionalItemTags.COPPER_INGOTS),
                 new ItemStackTemplate(EPItems.ENERGIZED_COPPER_INGOT), 32768);
-        addEnergizerRecipe(tag(ConventionalItemTags.GOLD_INGOTS),
+        addEnergizerRecipe(ingredientOf(ConventionalItemTags.GOLD_INGOTS),
                 new ItemStackTemplate(EPItems.ENERGIZED_GOLD_INGOT), 131072);
-        addEnergizerRecipe(Ingredient.of(EPItems.CRYSTAL_MATRIX),
+        addEnergizerRecipe(ingredientOf(EPItems.CRYSTAL_MATRIX),
                 new ItemStackTemplate(EPItems.ENERGIZED_CRYSTAL_MATRIX), 524288);
     }
 
     private void buildCrystalGrowthChamberRecipes() {
-        addCrystalGrowthChamberRecipe(tag(ConventionalItemTags.AMETHYST_GEMS),
+        addCrystalGrowthChamberRecipe(ingredientOf(ConventionalItemTags.AMETHYST_GEMS),
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.AMETHYST_SHARD), new double[] {
                         1., 1., .67, .5, .25, .125
                 }), 16000);
-        addCrystalGrowthChamberRecipe(new IngredientWithCount(Ingredient.of(Items.AMETHYST_BLOCK), 4),
+        addCrystalGrowthChamberRecipe(new IngredientWithCount(ingredientOf(Items.AMETHYST_BLOCK), 4),
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.BUDDING_AMETHYST), .25),
                 32000);
     }
@@ -2988,32 +2988,32 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addMetalIngotCraftingRecipes(TagKey<Item> nuggetInput,
                                                      TagKey<Item> blockInput, ItemLike ingotItem, String metalName) {
-        add3x3PackingCraftingRecipe(has(nuggetInput), tag(nuggetInput), ingotItem,
+        add3x3PackingCraftingRecipe(has(nuggetInput), ingredientOf(nuggetInput), ingotItem,
                 CraftingBookCategory.MISC, metalName + "_ingot", "_from_nuggets");
-        add3x3UnpackingCraftingRecipe(has(blockInput), tag(blockInput), ingotItem,
+        add3x3UnpackingCraftingRecipe(has(blockInput), ingredientOf(blockInput), ingotItem,
                 CraftingBookCategory.MISC, metalName + "_ingot", "_from_" + metalName + "_block");
     }
     private void addMetalNuggetCraftingRecipe(TagKey<Item> ingotInput, ItemLike nuggetItem) {
         addShapelessCraftingRecipe(has(ingotInput), List.of(
-                tag(ingotInput)
+                ingredientOf(ingotInput)
         ), new ItemStackTemplate(nuggetItem.asItem(), 9), CraftingBookCategory.MISC);
     }
     private void addMetalPlateCraftingRecipe(TagKey<Item> ingotInput, ItemLike plateItem) {
         addShapelessCraftingRecipe(has(ingotInput), List.of(
-                tag(CommonItemTags.TOOLS_HAMMERS),
-                tag(ingotInput)
+                ingredientOf(CommonItemTags.TOOLS_HAMMERS),
+                ingredientOf(ingotInput)
         ), new ItemStackTemplate(plateItem.asItem()), CraftingBookCategory.MISC);
     }
     private void addMetalWireCraftingRecipe(TagKey<Item> plateInput, ItemLike wireItem) {
         addShapelessCraftingRecipe(has(plateInput), List.of(
-                tag(CommonItemTags.TOOLS_CUTTERS),
-                tag(plateInput)
+                ingredientOf(CommonItemTags.TOOLS_CUTTERS),
+                ingredientOf(plateInput)
         ), new ItemStackTemplate(wireItem.asItem(), 2), CraftingBookCategory.MISC);
     }
     private void addHammerCraftingRecipe(TagKey<Item> materialInput, ItemLike hammerItem) {
         addShapedCraftingRecipe(has(materialInput), Map.of(
-                'S', tag(ConventionalItemTags.WOODEN_RODS),
-                'M', tag(materialInput)
+                'S', ingredientOf(ConventionalItemTags.WOODEN_RODS),
+                'M', ingredientOf(materialInput)
         ), new String[] {
                 " M ",
                 " SM",
@@ -3028,8 +3028,8 @@ public class ModRecipeGenerator extends RecipeProvider {
     private void addCableUsingWireCraftingRecipe(TagKey<Item> wireInput,
                                                  ItemStackTemplate cableItem) {
         addShapedCraftingRecipe(has(wireInput), Map.of(
-                'W', tag(wireInput),
-                'I', Ingredient.of(EPItems.CABLE_INSULATOR)
+                'W', ingredientOf(wireInput),
+                'I', ingredientOf(EPItems.CABLE_INSULATOR)
         ), new String[] {
                 "IWI",
                 "IWI",
@@ -3039,8 +3039,8 @@ public class ModRecipeGenerator extends RecipeProvider {
     private void addCableCraftingRecipe(TagKey<Item> ingotInput,
                                         ItemStackTemplate cableItem) {
         addShapedCraftingRecipe(has(ingotInput), Map.of(
-                'I', tag(ingotInput),
-                'i', Ingredient.of(EPItems.CABLE_INSULATOR)
+                'I', ingredientOf(ingotInput),
+                'i', ingredientOf(EPItems.CABLE_INSULATOR)
         ), new String[] {
                 "iIi",
                 "iIi",
@@ -3156,7 +3156,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 .requirements(AdvancementRequirements.Strategy.OR);
         AbstractCookingRecipe recipe = new SmeltingRecipe(new Recipe.CommonInfo(true),
                 new AbstractCookingRecipe.CookingBookInfo(category, Objects.requireNonNullElse(group, "")),
-                Ingredient.of(ingredient), result, xp, time);
+                ingredientOf(ingredient), result, xp, time);
         this.output.accept(getKey(recipeId), recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
     private void addSmeltingRecipe(TagKey<Item> ingredient, ItemStackTemplate result, CookingBookCategory category,
@@ -3171,7 +3171,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 .requirements(AdvancementRequirements.Strategy.OR);
         AbstractCookingRecipe recipe = new SmeltingRecipe(new Recipe.CommonInfo(true),
                 new AbstractCookingRecipe.CookingBookInfo(category, Objects.requireNonNullElse(group, "")),
-                tag(ingredient), result, xp, time);
+                ingredientOf(ingredient), result, xp, time);
         this.output.accept(getKey(recipeId), recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
@@ -3187,7 +3187,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 .requirements(AdvancementRequirements.Strategy.OR);
         AbstractCookingRecipe recipe = new BlastingRecipe(new Recipe.CommonInfo(true),
                 new AbstractCookingRecipe.CookingBookInfo(category, Objects.requireNonNullElse(group, "")),
-                Ingredient.of(ingredient), result, xp, time);
+                ingredientOf(ingredient), result, xp, time);
         this.output.accept(getKey(recipeId), recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
     private void addBlastingRecipe(TagKey<Item> ingredient, ItemStackTemplate result, CookingBookCategory category,
@@ -3202,7 +3202,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 .requirements(AdvancementRequirements.Strategy.OR);
         AbstractCookingRecipe recipe = new BlastingRecipe(new Recipe.CommonInfo(true),
                 new AbstractCookingRecipe.CookingBookInfo(category, Objects.requireNonNullElse(group, "")),
-                tag(ingredient), result, xp, time);
+                ingredientOf(ingredient), result, xp, time);
         this.output.accept(getKey(recipeId), recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
@@ -3216,8 +3216,8 @@ public class ModRecipeGenerator extends RecipeProvider {
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
         SmithingTransformRecipe recipe = new SmithingTransformRecipe(new Recipe.CommonInfo(true),
-                Optional.of(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)), base,
-                Optional.of(tag(ConventionalItemTags.NETHERITE_INGOTS)), output);
+                Optional.of(ingredientOf(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)), base,
+                Optional.of(ingredientOf(ConventionalItemTags.NETHERITE_INGOTS)), output);
         this.output.accept(getKey(recipeId), recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
 
@@ -3378,7 +3378,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     private void addBasicFlowerGrowingRecipe(ItemLike flowerItem,
                                                     String outputName) {
-        addPlantGrowthChamberRecipe(Ingredient.of(flowerItem), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(flowerItem), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(flowerItem.asItem()), new double[] {
                         1., 1., .33
                 })
@@ -3386,7 +3386,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addBasicMushroomsGrowingRecipe(ItemLike mushroomItem,
                                                        String outputName) {
-        addPlantGrowthChamberRecipe(Ingredient.of(mushroomItem), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(mushroomItem), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(mushroomItem.asItem()), new double[] {
                         1., 1., .5, .25
                 })
@@ -3394,7 +3394,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addBasicAncientFlowerGrowingRecipe(ItemLike seedItem,
                                                            ItemLike flowerItem, String outputName) {
-        addPlantGrowthChamberRecipe(Ingredient.of(seedItem), new OutputItemStackTemplateWithPercentages[] {
+        addPlantGrowthChamberRecipe(ingredientOf(seedItem), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(seedItem.asItem()), new double[] {
                         1., .33, .15
                 }),
@@ -3565,6 +3565,18 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         CrystalGrowthChamberRecipe recipe = new CrystalGrowthChamberRecipe(output, input, ticks);
         this.output.accept(getKey(recipeId), recipe, null);
+    }
+
+    private Ingredient ingredientOf(ItemLike item) {
+        return Ingredient.of(item);
+    }
+
+    private Ingredient ingredientOf(ItemLike... items) {
+        return Ingredient.of(items);
+    }
+
+    private Ingredient ingredientOf(TagKey<Item> tagKey) {
+        return Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(tagKey));
     }
 
     private static ResourceKey<Recipe<?>> getKey(Identifier recipeId) {
