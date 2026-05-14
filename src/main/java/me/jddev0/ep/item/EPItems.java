@@ -156,6 +156,8 @@ public final class EPItems {
             new SpeedUpgradeModuleItem(new Item.Properties(), 4));
     public static final Item SPEED_UPGRADE_MODULE_5 = registerItem("speed_upgrade_module_5",
             new SpeedUpgradeModuleItem(new Item.Properties(), 5));
+    public static final Item SPEED_UPGRADE_MODULE_6 = registerItem("speed_upgrade_module_6",
+            new SpeedUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = registerItem("energy_efficiency_upgrade_module_1",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 1));
@@ -167,6 +169,8 @@ public final class EPItems {
             new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 4));
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = registerItem("energy_efficiency_upgrade_module_5",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 5));
+    public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_6 = registerItem("energy_efficiency_upgrade_module_6",
+            new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_1 = registerItem("energy_production_upgrade_module_1",
             new EnergyProductionUpgradeModuleItem(new Item.Properties(), 1));
@@ -178,6 +182,8 @@ public final class EPItems {
             new EnergyProductionUpgradeModuleItem(new Item.Properties(), 4));
     public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_5 = registerItem("energy_production_upgrade_module_5",
             new EnergyProductionUpgradeModuleItem(new Item.Properties(), 5));
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_6 = registerItem("energy_production_upgrade_module_6",
+            new EnergyProductionUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_1 = registerItem("energy_capacity_upgrade_module_1",
             new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 1));
@@ -189,6 +195,8 @@ public final class EPItems {
             new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 4));
     public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_5 = registerItem("energy_capacity_upgrade_module_5",
             new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 5));
+    public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_6 = registerItem("energy_capacity_upgrade_module_6",
+            new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final Item DURATION_UPGRADE_MODULE_1 = registerItem("duration_upgrade_module_1",
             new DurationUpgradeModuleItem(new Item.Properties(), 1));
@@ -220,6 +228,8 @@ public final class EPItems {
             new ExtractionDepthUpgradeModuleItem(new Item.Properties(), 4));
     public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_5 = registerItem("extraction_depth_upgrade_module_5",
             new ExtractionDepthUpgradeModuleItem(new Item.Properties(), 5));
+    public static final Item EXTRACTION_DEPTH_UPGRADE_MODULE_6 = registerItem("extraction_depth_upgrade_module_6",
+            new ExtractionDepthUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_1 = registerItem("extraction_range_upgrade_module_1",
             new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 1));
@@ -231,6 +241,8 @@ public final class EPItems {
             new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 4));
     public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_5 = registerItem("extraction_range_upgrade_module_5",
             new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 5));
+    public static final Item EXTRACTION_RANGE_UPGRADE_MODULE_6 = registerItem("extraction_range_upgrade_module_6",
+            new ExtractionRangeUpgradeModuleItem(new Item.Properties(), 6));
 
     public static final Item BLAST_FURNACE_UPGRADE_MODULE = registerItem("blast_furnace_upgrade_module",
             new FurnaceModeUpgradeModuleItem(new Item.Properties(), 1));

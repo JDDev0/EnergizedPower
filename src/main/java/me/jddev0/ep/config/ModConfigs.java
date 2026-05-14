@@ -180,6 +180,15 @@ public final class ModConfigs {
             10
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_6_EFFECT = registerSpeedModuleEffectValue(
+            6, "VI",
+            10
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_6_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            6, "VI",
+            20
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_1_EFFECT = registerEnergyEfficiencyModuleEffectValue(
             1, "I",
             .9
@@ -201,8 +210,13 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_5_EFFECT = registerEnergyEfficiencyModuleEffectValue(
-            8, "V",
+            5, "V",
             .2
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_6_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            6, "VI",
+            .1
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_1_EFFECT = registerEnergyProductionModuleEffectValue(
@@ -226,8 +240,13 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_5_EFFECT = registerEnergyProductionModuleEffectValue(
-            8, "V",
+            5, "V",
             1.6
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_6_EFFECT = registerEnergyProductionModuleEffectValue(
+            6, "VI",
+            1.8
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_1_EFFECT = registerEnergyCapacityModuleEffectValue(
@@ -273,6 +292,15 @@ public final class ModConfigs {
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_5_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
             5, "V",
             10
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_6_EFFECT = registerEnergyCapacityModuleEffectValue(
+            6, "VI",
+            20
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_6_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            6, "VI",
+            20
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_1_EFFECT = registerDurationUpgradeModuleEffectValue(
@@ -353,6 +381,11 @@ public final class ModConfigs {
             192
     );
 
+    public static final ConfigValue<Integer> COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_6_EFFECT = registerExtractionDepthUpgradeModuleEffectValue(
+            6, "VI",
+            320
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_1_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
             1, "I",
             1.25
@@ -376,6 +409,11 @@ public final class ModConfigs {
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_5_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
             5, "V",
             3
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_6_EFFECT = registerExtractionRangeUpgradeModuleEffectValue(
+            6, "VI",
+            5
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_1_EFFECT = registerMoonLightUpgradeModuleEffectValue(

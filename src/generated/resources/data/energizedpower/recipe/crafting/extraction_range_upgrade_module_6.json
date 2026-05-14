@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "energizedpower:extraction_range_upgrade_module_5"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_upgrade_module"
+    },
+    "r": {
+      "tag": "c:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "IEI",
+    "rRr",
+    "IEI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:extraction_range_upgrade_module_6"
+  }
+}

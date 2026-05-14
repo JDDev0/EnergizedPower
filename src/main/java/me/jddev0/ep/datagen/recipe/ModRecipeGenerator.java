@@ -336,6 +336,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "CsC"
         }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(output, has(EPItems.SPEED_UPGRADE_MODULE_5), Map.of(
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'S', Ingredient.of(CommonItemTags.SILICON),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                's', Ingredient.of(EPItems.SPEED_UPGRADE_MODULE_5)
+        ), new String[] {
+                "CsC",
+                "SRS",
+                "CsC"
+        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
                 'G', Ingredient.of(ConventionalItemTags.GOLD_INGOTS),
@@ -394,6 +405,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "rRr",
                 "CEC"
         }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), Map.of(
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'G', Ingredient.of(ConventionalItemTags.GOLD_INGOTS),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5)
+        ), new String[] {
+                "CEC",
+                "GRG",
+                "CEC"
+        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
@@ -454,6 +476,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "GEG"
         }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5), Map.of(
+                'G', Ingredient.of(CommonItemTags.PLATES_GOLD),
+                'A', Ingredient.of(ConventionalItemTags.AMETHYST_GEMS),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5)
+        ), new String[] {
+                "GEG",
+                "ARA",
+                "GEG"
+        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
                 'T', Ingredient.of(CommonItemTags.PLATES_TIN),
@@ -512,6 +545,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "cRc",
                 "CEC"
         }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), Map.of(
+                'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5)
+        ), new String[] {
+                "CEC",
+                "TRT",
+                "CEC"
+        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', Ingredient.of(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -674,6 +718,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "IEI"
         }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'F', Ingredient.of(EPBlocks.IRON_FLUID_PIPE_ITEM),
+                'E', Ingredient.of(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5)
+        ), new String[] {
+                "IEI",
+                "FRF",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'I', Ingredient.of(CommonItemTags.PLATES_IRON),
                 'R', Ingredient.of(ConventionalItemTags.REDSTONE_DUSTS),
@@ -732,6 +787,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "FRF",
                 "IEI"
         }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5), Map.of(
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'r', Ingredient.of(ConventionalItemTags.REDSTONE_DUSTS),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', Ingredient.of(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5)
+        ), new String[] {
+                "IEI",
+                "rRr",
+                "IEI"
+        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', Ingredient.of(CommonItemTags.PLATES_COPPER),
