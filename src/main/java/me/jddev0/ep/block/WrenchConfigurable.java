@@ -1,8 +1,8 @@
 package me.jddev0.ep.block;
 
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.context.UseOnContext;
 import org.jetbrains.annotations.NotNull;
 
 public interface WrenchConfigurable {
@@ -12,5 +12,5 @@ public interface WrenchConfigurable {
      *      <li>true: previous value</li>
      * </ul>
      */
-    @NotNull ActionResult onUseWrench(ItemUsageContext useOnContext, Direction selectedFace, boolean nextPreviousValue);
+    @NotNull InteractionResult onUseWrench(UseOnContext useOnContext, Direction selectedFace, boolean nextPreviousValue);
 }

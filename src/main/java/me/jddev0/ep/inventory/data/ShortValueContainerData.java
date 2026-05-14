@@ -1,12 +1,12 @@
 package me.jddev0.ep.inventory.data;
 
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ShortValueContainerData implements PropertyDelegate {
+public class ShortValueContainerData implements ContainerData {
     private final Supplier<Short> getter;
     private final Consumer<Short> setter;
 
@@ -30,7 +30,7 @@ public class ShortValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

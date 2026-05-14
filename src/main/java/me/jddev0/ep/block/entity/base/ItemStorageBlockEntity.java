@@ -2,13 +2,13 @@ package me.jddev0.ep.block.entity.base;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ItemStorageBlockEntity<I extends Storage<ItemVariant>>
@@ -25,22 +25,22 @@ public abstract class ItemStorageBlockEntity<I extends Storage<ItemVariant>>
     }
 
     protected abstract I initInventoryStorage();
-    protected abstract NbtCompound writeInventoryStorage(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries);
-    protected abstract void readInventoryStorage(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries);
+    protected abstract CompoundTag writeInventoryStorage(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries);
+    protected abstract void readInventoryStorage(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries);
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
-        nbt.put("inventory", writeInventoryStorage(new NbtCompound(), registries));
+        nbt.put("inventory", writeInventoryStorage(new CompoundTag(), registries));
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         readInventoryStorage(nbt.getCompound("inventory"), registries);
     }
 
-    public abstract void drops(World level, BlockPos worldPosition);
+    public abstract void drops(Level level, BlockPos worldPosition);
 }

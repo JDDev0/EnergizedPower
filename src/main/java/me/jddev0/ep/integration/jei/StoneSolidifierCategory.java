@@ -12,33 +12,33 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluids;
 
-public class StoneSolidifierCategory implements IRecipeCategory<RecipeEntry<StoneSolidifierRecipe>> {
-    public static final RecipeType<RecipeEntry<StoneSolidifierRecipe>> TYPE = RecipeType.createFromVanilla(StoneSolidifierRecipe.Type.INSTANCE);
+public class StoneSolidifierCategory implements IRecipeCategory<RecipeHolder<StoneSolidifierRecipe>> {
+    public static final RecipeType<RecipeHolder<StoneSolidifierRecipe>> TYPE = RecipeType.createFromVanilla(StoneSolidifierRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public StoneSolidifierCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 1, 103, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.STONE_SOLIDIFIER_ITEM));
     }
 
     @Override
-    public RecipeType<RecipeEntry<StoneSolidifierRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<StoneSolidifierRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.stone_solidifier");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.stone_solidifier");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class StoneSolidifierCategory implements IRecipeCategory<RecipeEntry<Ston
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<StoneSolidifierRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<StoneSolidifierRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addFluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(recipe.value().getWaterAmount()));
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 19, 5).addFluidStack(Fluids.LAVA, FluidUtils.convertMilliBucketsToDroplets(recipe.value().getLavaAmount()));
 

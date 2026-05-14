@@ -6,16 +6,16 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
+
 import java.util.Optional;
 
 public class SawmillRecipe implements Recipe<RecipeInput> {
@@ -46,42 +46,42 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.test(container.getStackInSlot(0));
+        return input.test(container.getItem(0));
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
     @Override
-    public DefaultedList<Ingredient> getIngredients() {
-        DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(1);
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> ingredients = NonNullList.createWithCapacity(1);
         ingredients.add(0, input);
         return ingredients;
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(EPBlocks.SAWMILL_ITEM);
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
@@ -106,24 +106,24 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("sawmill");
+        public static final ResourceLocation ID = EPAPI.id("sawmill");
 
         private final MapCodec<SawmillRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.NONNEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
+            }), ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("sawdustAmount").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.of(0);
 
-                return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
+                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
                         Optional.of(recipe.secondaryOutput.getCount()):Optional.empty();
             }), CodecFix.ITEM_STACK_CODEC.optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.isEmpty())
                     return Optional.empty();
 
-                return ItemStack.areItemsAndComponentsEqual(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
+                return ItemStack.isSameItemSameComponents(recipe.secondaryOutput, new ItemStack(EPItems.SAWDUST))?
                         Optional.empty():Optional.of(recipe.secondaryOutput);
             })).apply(instance, (output, ingredient, sawdustAmount, secondaryOutput) -> {
                 return secondaryOutput.map(o -> new SawmillRecipe(output, o, ingredient)).
@@ -132,7 +132,7 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
             });
         });
 
-        private final PacketCodec<RegistryByteBuf, SawmillRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -141,22 +141,22 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, SawmillRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static SawmillRecipe read(RegistryByteBuf buffer) {
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
-            ItemStack secondaryOutput = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+        private static SawmillRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            ItemStack secondaryOutput = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new SawmillRecipe(output, secondaryOutput, input);
         }
 
-        private static void write(RegistryByteBuf buffer, SawmillRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.secondaryOutput);
+        private static void write(RegistryFriendlyByteBuf buffer, SawmillRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
         }
     }
 }

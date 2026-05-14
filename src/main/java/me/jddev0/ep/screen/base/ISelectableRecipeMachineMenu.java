@@ -1,8 +1,8 @@
 package me.jddev0.ep.screen.base;
 
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public interface ISelectableRecipeMachineMenu<R extends Recipe<?>> {
-    RecipeEntry<R> getCurrentRecipe();
+    RecipeHolder<R> getCurrentRecipe();
 }

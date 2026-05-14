@@ -2,32 +2,32 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 
 public class CreativeItemSiloScreen extends EnergizedPowerBaseContainerScreen<CreativeItemSiloMenu> {
-    private final Identifier TEXTURE;
+    private final ResourceLocation TEXTURE;
 
-    public CreativeItemSiloScreen(CreativeItemSiloMenu menu, PlayerInventory inventory, Text component) {
+    public CreativeItemSiloScreen(CreativeItemSiloMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
 
         TEXTURE = EPAPI.id("textures/gui/container/generic_1x1.png");
     }
 
     @Override
-    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
-        drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+        drawContext.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 
     @Override
-    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         super.render(drawContext, mouseX, mouseY, delta);
 
-        drawMouseoverTooltip(drawContext, mouseX, mouseY);
+        renderTooltip(drawContext, mouseX, mouseY);
     }
 }

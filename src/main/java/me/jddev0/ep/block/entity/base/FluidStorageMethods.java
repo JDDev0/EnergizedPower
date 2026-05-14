@@ -3,21 +3,21 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public interface FluidStorageMethods<F extends Storage<FluidVariant>> {
-    void saveFluidStorage(@NotNull F fluidStorage, @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries);
+    void saveFluidStorage(@NotNull F fluidStorage, @NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries);
 
-    void loadFluidStorage(@NotNull F fluidStorage, @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries);
+    void loadFluidStorage(@NotNull F fluidStorage, @NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries);
 
-    void syncFluidToPlayer(F fluidStorage, PlayerEntity player, BlockPos pos);
+    void syncFluidToPlayer(F fluidStorage, Player player, BlockPos pos);
 
-    void syncFluidToPlayers(F fluidStorage, World level, BlockPos pos, int distance);
+    void syncFluidToPlayers(F fluidStorage, Level level, BlockPos pos, int distance);
 
     FluidStack getFluid(F fluidStorage, int tank);
 

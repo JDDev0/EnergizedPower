@@ -5,11 +5,10 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.recipe.RecipeEntry;
-
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
-public record PlantGrowthChamberFertilizerDisplay(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe) implements Display {
+public record PlantGrowthChamberFertilizerDisplay(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(

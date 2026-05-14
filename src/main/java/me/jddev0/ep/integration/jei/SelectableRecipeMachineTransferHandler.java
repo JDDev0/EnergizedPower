@@ -8,25 +8,25 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class SelectableRecipeMachineTransferHandler
-        <M extends ScreenHandler & IConfigurableMenu, R extends Recipe<?>>
-        implements IRecipeTransferHandler<M, RecipeEntry<R>> {
+        <M extends AbstractContainerMenu & IConfigurableMenu, R extends Recipe<?>>
+        implements IRecipeTransferHandler<M, RecipeHolder<R>> {
     private final IRecipeTransferHandlerHelper helper;
 
     private final Class<? extends M> menuClass;
-    private final ScreenHandlerType<M> menuType;
+    private final MenuType<M> menuType;
 
     public SelectableRecipeMachineTransferHandler(IRecipeTransferHandlerHelper helper, Class<? extends M> menuClass,
-                                                  ScreenHandlerType<M> menuType) {
+                                                  MenuType<M> menuType) {
         this.helper = helper;
 
         this.menuClass = menuClass;
@@ -39,22 +39,22 @@ public class SelectableRecipeMachineTransferHandler
     }
 
     @Override
-    public Optional<ScreenHandlerType<M>> getMenuType() {
+    public Optional<MenuType<M>> getMenuType() {
         return Optional.of(menuType);
     }
 
     @Override
-    public RecipeType<RecipeEntry<R>> getRecipeType() {
+    public RecipeType<RecipeHolder<R>> getRecipeType() {
         return null;
     }
 
     @Override
-    public @Nullable IRecipeTransferError transferRecipe(M container, RecipeEntry<R> recipe, IRecipeSlotsView recipeSlots, PlayerEntity player,
+    public @Nullable IRecipeTransferError transferRecipe(M container, RecipeHolder<R> recipe, IRecipeSlotsView recipeSlots, Player player,
                                                          boolean maxTransfer, boolean doTransfer) {
         if(!doTransfer)
             return null;
 
-        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getPos(), recipe.id()));
+        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getBlockPos(), recipe.id()));
 
         return null;
     }

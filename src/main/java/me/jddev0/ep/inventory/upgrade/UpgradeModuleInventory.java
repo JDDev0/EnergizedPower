@@ -2,14 +2,14 @@ package me.jddev0.ep.inventory.upgrade;
 
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class UpgradeModuleInventory extends SimpleInventory {
+public class UpgradeModuleInventory extends SimpleContainer {
     private final UpgradeModuleModifier[] upgradeModifierSlots;
 
     public UpgradeModuleInventory(UpgradeModuleModifier... upgradeModifierSlots) {
@@ -23,8 +23,8 @@ public class UpgradeModuleInventory extends SimpleInventory {
     }
 
     @Override
-    public boolean isValid(int slot, @NotNull ItemStack stack) {
-        if(slot >= 0 && slot < size()) {
+    public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+        if(slot >= 0 && slot < getContainerSize()) {
             return stack.getItem() instanceof UpgradeModuleItem upgradeModuleItem &&
                     upgradeModuleItem.getMainUpgradeModuleModifier() == upgradeModifierSlots[slot];
         }
@@ -33,12 +33,12 @@ public class UpgradeModuleInventory extends SimpleInventory {
     }
 
     @Override
-    public int getMaxCountPerStack() {
+    public int getMaxStackSize() {
         return 1;
     }
 
     public int getUpgradeModuleTier(int slot) {
-        ItemStack itemStack = getStack(slot);
+        ItemStack itemStack = getItem(slot);
         if(!(itemStack.getItem() instanceof UpgradeModuleItem upgradeModuleItem))
             return -1;
 
@@ -46,7 +46,7 @@ public class UpgradeModuleInventory extends SimpleInventory {
     }
 
     public UpgradeModuleModifier[] getUpgradeModuleModifiers(int slot) {
-        ItemStack itemStack = getStack(slot);
+        ItemStack itemStack = getItem(slot);
         if(!(itemStack.getItem() instanceof UpgradeModuleItem upgradeModuleItem))
             return new UpgradeModuleModifier[0];
 
@@ -54,7 +54,7 @@ public class UpgradeModuleInventory extends SimpleInventory {
     }
 
     public double getUpgradeModuleModifierEffect(int slot, UpgradeModuleModifier modifier) {
-        ItemStack itemStack = getStack(slot);
+        ItemStack itemStack = getItem(slot);
         if(!(itemStack.getItem() instanceof UpgradeModuleItem upgradeModuleItem))
             return -1;
 
@@ -64,7 +64,7 @@ public class UpgradeModuleInventory extends SimpleInventory {
     public double getModifierEffectProduct(UpgradeModuleModifier modifier) {
         double prod = 1;
 
-        for(int i = 0;i < size();i++) {
+        for(int i = 0;i < getContainerSize();i++) {
             double value = getUpgradeModuleModifierEffect(i, modifier);
             if(value != -1)
                 prod *= value;
@@ -76,7 +76,7 @@ public class UpgradeModuleInventory extends SimpleInventory {
     public double getModifierEffectSum(UpgradeModuleModifier modifier) {
         double sum = 0;
 
-        for(int i = 0;i < size();i++) {
+        for(int i = 0;i < getContainerSize();i++) {
             double value = getUpgradeModuleModifierEffect(i, modifier);
             if(value != -1)
                 sum += value;
@@ -85,11 +85,11 @@ public class UpgradeModuleInventory extends SimpleInventory {
         return sum;
     }
 
-    public NbtCompound saveToNBT(RegistryWrapper.WrapperLookup registries) {
-        return Inventories.writeNbt(new NbtCompound(), heldStacks, registries);
+    public CompoundTag saveToNBT(HolderLookup.Provider registries) {
+        return ContainerHelper.saveAllItems(new CompoundTag(), items, registries);
     }
 
-    public void loadFromNBT(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        Inventories.readNbt(tag, heldStacks, registries);
+    public void loadFromNBT(CompoundTag tag, HolderLookup.Provider registries) {
+        ContainerHelper.loadAllItems(tag, items, registries);
     }
 }

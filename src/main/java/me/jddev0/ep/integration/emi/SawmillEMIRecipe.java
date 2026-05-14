@@ -9,22 +9,21 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.SawmillRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class SawmillEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/sawmill_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/sawmill_side.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.SAWMILL_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("sawmill"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public SawmillEMIRecipe(RecipeEntry<SawmillRecipe> recipe) {
+    public SawmillEMIRecipe(RecipeHolder<SawmillRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem()));
 
@@ -42,7 +41,7 @@ public class SawmillEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -68,7 +67,7 @@ public class SawmillEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/sawmill.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/sawmill.png");
         widgets.addTexture(texture, 0, 0, 109, 26, 42, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

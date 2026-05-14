@@ -3,22 +3,22 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.InventoryChangedListener;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.ContainerListener;
+import net.minecraft.world.Containers;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableInventoryEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends SimpleInventory>
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
         extends MenuInventoryEnergyStorageBlockEntity<E, I> {
     protected final UpgradeModuleInventory upgradeModuleInventory;
-    protected final InventoryChangedListener updateUpgradeModuleListener = container -> updateUpgradeModules();
+    protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
     public UpgradableInventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                        String machineName,
@@ -32,32 +32,32 @@ public abstract class UpgradableInventoryEnergyStorageBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Save Upgrade Module Inventory first
         nbt.put("upgrade_module_inventory", upgradeModuleInventory.saveToNBT(registries));
 
-        super.writeNbt(nbt, registries);
+        super.saveAdditional(nbt, registries);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         //Load Upgrade Module Inventory first
         upgradeModuleInventory.removeListener(updateUpgradeModuleListener);
         upgradeModuleInventory.loadFromNBT(nbt.getCompound("upgrade_module_inventory"), registries);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
 
-        super.readNbt(nbt, registries);
+        super.loadAdditional(nbt, registries);
     }
 
     @Override
-    public void drops(World level, BlockPos worldPosition) {
+    public void drops(Level level, BlockPos worldPosition) {
         super.drops(level, worldPosition);
 
-        ItemScatterer.spawn(level, worldPosition, upgradeModuleInventory);
+        Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }
 
     protected void updateUpgradeModules() {
-        markDirty();
+        setChanged();
         syncEnergyToPlayers(32);
     }
 }

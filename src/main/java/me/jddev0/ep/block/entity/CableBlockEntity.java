@@ -3,22 +3,22 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import team.reborn.energy.api.EnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.*;
 
@@ -46,12 +46,12 @@ public class CableBlockEntity extends BlockEntity {
         energyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
 
-                if(world != null && !world.isClient()) {
+                if(level != null && !level.isClientSide()) {
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getPos())
+                            getBlockPos(), (ServerLevel)level, 32,
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getBlockPos())
                     );
                 }
             }
@@ -75,8 +75,8 @@ public class CableBlockEntity extends BlockEntity {
         return cableBlocks;
     }
 
-    public static void updateConnections(World level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void updateConnections(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         blockEntity.producers.clear();
@@ -84,7 +84,7 @@ public class CableBlockEntity extends BlockEntity {
         blockEntity.cableBlocks.clear();
 
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)
@@ -111,7 +111,7 @@ public class CableBlockEntity extends BlockEntity {
         }
     }
 
-    public static Deque<EnergyStorage> getConnectedConsumers(World level, BlockPos blockPos, Set<BlockPos> checkedCables) {
+    public static Deque<EnergyStorage> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedCables) {
         Deque<EnergyStorage> consumers = new ArrayDeque<>(1024);
 
         Deque<BlockPos> cableBlocksLeft = new ArrayDeque<>(1024);
@@ -139,8 +139,8 @@ public class CableBlockEntity extends BlockEntity {
         return consumers;
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.loaded) {
@@ -280,16 +280,16 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
             nbt.putLong("energy", energyStorage.getAmount());
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    public void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
             energyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));

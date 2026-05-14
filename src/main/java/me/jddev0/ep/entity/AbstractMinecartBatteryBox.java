@@ -1,22 +1,22 @@
 package me.jddev0.ep.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
-public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity implements Inventory, NamedScreenHandlerFactory {
-    public AbstractMinecartBatteryBox(EntityType<? extends AbstractMinecartBatteryBox> entityType, World level) {
+public abstract class AbstractMinecartBatteryBox extends AbstractMinecart implements Container, MenuProvider {
+    public AbstractMinecartBatteryBox(EntityType<? extends AbstractMinecartBatteryBox> entityType, Level level) {
         super(entityType, level);
     }
 
-    public AbstractMinecartBatteryBox(EntityType<? extends AbstractMinecartBatteryBox> entityType, World level,
+    public AbstractMinecartBatteryBox(EntityType<? extends AbstractMinecartBatteryBox> entityType, Level level,
                                       double x, double y, double z) {
         super(entityType, level, x, y, z);
     }
@@ -27,33 +27,33 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
     }
 
     @Override
-    public ActionResult interact(PlayerEntity player, Hand interactionHand) {
-        player.openHandledScreen(this);
+    public InteractionResult interact(Player player, InteractionHand interactionHand) {
+        player.openMenu(this);
 
-        return player.getWorld().isClient?ActionResult.SUCCESS:ActionResult.CONSUME;
+        return player.level().isClientSide?InteractionResult.SUCCESS:InteractionResult.CONSUME;
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
+    protected void addAdditionalSaveData(CompoundTag nbt) {
         nbt.putLong("energy", getEnergy());
 
-        super.writeCustomDataToNbt(nbt);
+        super.addAdditionalSaveData(nbt);
     }
 
     @Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    protected void readAdditionalSaveData(CompoundTag nbt) {
+        super.readAdditionalSaveData(nbt);
 
         setEnergy(nbt.getLong("energy"));
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return !isRemoved() && getPos().isInRange(player.getPos(), 8.);
+    public boolean stillValid(Player player) {
+        return !isRemoved() && position().closerThan(player.position(), 8.);
     }
 
     @Override
-    public int size() {
+    public int getContainerSize() {
         return 0;
     }
 
@@ -63,32 +63,32 @@ public abstract class AbstractMinecartBatteryBox extends AbstractMinecartEntity 
     }
 
     @Override
-    public ItemStack getStack(int slot) {
+    public ItemStack getItem(int slot) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack removeStack(int slot, int amount) {
+    public ItemStack removeItem(int slot, int amount) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack removeStack(int slot) {
+    public ItemStack removeItemNoUpdate(int slot) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void setStack(int slot, ItemStack stack) {
+    public void setItem(int slot, ItemStack stack) {
 
     }
 
     @Override
-    public void markDirty() {
+    public void setChanged() {
 
     }
 
     @Override
-    public void clear() {
+    public void clearContent() {
 
     }
 

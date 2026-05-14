@@ -3,51 +3,50 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu>
+public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu>
         extends EnergyStorageContainerScreen<T> {
-    protected final Identifier CONFIGURATION_ICONS_TEXTURE =
+    protected final ResourceLocation CONFIGURATION_ICONS_TEXTURE =
             EPAPI.id("textures/gui/machine_configuration/configuration_buttons.png");
-    protected final Identifier UPGRADE_VIEW_TEXTURE;
+    protected final ResourceLocation UPGRADE_VIEW_TEXTURE;
 
-    public UpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                  Identifier upgradeViewTexture) {
+    public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                                  ResourceLocation upgradeViewTexture) {
         super(menu, inventory, titleComponent);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
-    public UpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                   String energyIndicatorBarTooltipComponentID,
-                                                  Identifier upgradeViewTexture) {
+                                                  ResourceLocation upgradeViewTexture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
-    public UpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                  Identifier texture,
-                                                  Identifier upgradeViewTexture) {
+    public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                                  ResourceLocation texture,
+                                                  ResourceLocation upgradeViewTexture) {
         super(menu, inventory, titleComponent, texture);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
     }
 
-    public UpgradableEnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                                  String energyIndicatorBarTooltipComponentID, Identifier texture,
-                                                  Identifier upgradeViewTexture) {
+    public UpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                                  String energyIndicatorBarTooltipComponentID, ResourceLocation texture,
+                                                  ResourceLocation upgradeViewTexture) {
         super(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID, texture);
 
         this.UPGRADE_VIEW_TEXTURE = upgradeViewTexture;
@@ -59,10 +58,10 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
 
     protected boolean mouseClickedConfiguration(double mouseX, double mouseY, int mouseButton) {
         if(mouseButton == 0) {
-            if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+            if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Upgrade view
 
-                client.interactionManager.clickButton(handler.syncId, 0);
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, 0);
                 return true;
             }
         }
@@ -73,28 +72,28 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
     @Override
     public final boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         boolean clicked = false;
-        if(!handler.isInUpgradeModuleView())
+        if(!menu.isInUpgradeModuleView())
             clicked = mouseClickedNormalView(mouseX, mouseY, mouseButton);
 
         clicked |= mouseClickedConfiguration(mouseX, mouseY, mouseButton);
 
         if(clicked)
-            client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.f));
+            minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
 
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
-    protected void renderBgNormalView(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {}
+    protected void renderBgNormalView(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {}
 
     @Override
-    protected final void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        super.drawBackground(drawContext, partialTick, mouseX, mouseY);
+    protected final void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        super.renderBg(drawContext, partialTick, mouseX, mouseY);
 
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
-        if(handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        if(menu.isInUpgradeModuleView()) {
+            drawContext.blit(UPGRADE_VIEW_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
         }else {
             renderBgNormalView(drawContext, partialTick, mouseX, mouseY);
         }
@@ -102,36 +101,36 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends ScreenHan
         renderConfiguration(drawContext, x, y, mouseX, mouseY);
     }
 
-    protected void renderConfiguration(DrawContext drawContext, int x, int y, int mouseX, int mouseY) {
+    protected void renderConfiguration(GuiGraphics drawContext, int x, int y, int mouseX, int mouseY) {
         //Upgrade view
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
-        }else if(handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
+            drawContext.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 40, 80, 20, 20);
+        }else if(menu.isInUpgradeModuleView()) {
+            drawContext.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 20, 80, 20, 20);
         }else {
-            drawContext.drawTexture(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
+            drawContext.blit(CONFIGURATION_ICONS_TEXTURE, x - 22, y + 2, 0, 80, 20, 20);
         }
     }
 
-    protected void renderTooltipNormalView(DrawContext drawContext, int mouseX, int mouseY) {}
+    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {}
 
-    protected void renderTooltipConfiguration(DrawContext drawContext, int mouseX, int mouseY) {
-        if(isPointWithinBounds(-22, 2, 20, 20, mouseX, mouseY)) {
+    protected void renderTooltipConfiguration(GuiGraphics drawContext, int mouseX, int mouseY) {
+        if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Upgrade view
 
-            List<Text> components = new ArrayList<>(2);
-            components.add(Text.translatable("tooltip.energizedpower.upgrade_view.button." +
-                    (handler.isInUpgradeModuleView()?"close":"open")));
+            List<Component> components = new ArrayList<>(2);
+            components.add(Component.translatable("tooltip.energizedpower.upgrade_view.button." +
+                    (menu.isInUpgradeModuleView()?"close":"open")));
 
-            drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+            drawContext.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 
     @Override
-    protected final void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+    protected final void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+        super.renderTooltip(drawContext, mouseX, mouseY);
 
-        if(!handler.isInUpgradeModuleView())
+        if(!menu.isInUpgradeModuleView())
             renderTooltipNormalView(drawContext, mouseX, mouseY);
 
         renderTooltipConfiguration(drawContext, mouseX, mouseY);

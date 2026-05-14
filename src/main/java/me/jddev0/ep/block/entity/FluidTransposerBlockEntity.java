@@ -12,25 +12,25 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
-import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.screen.FluidTransposerMenu;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -68,7 +68,7 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -82,34 +82,34 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                FluidTransposerBlockEntity.this.markDirty();
+                FluidTransposerBlockEntity.this.setChanged();
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack);
+                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
                     case 1 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(world != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
         };
     }
@@ -119,15 +119,15 @@ public class FluidTransposerBlockEntity
         return new SimpleFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(32);
             }
 
             private boolean isFluidValid(FluidVariant variant) {
-                if(world == null)
+                if(level == null)
                     return false;
 
-                return world.getRecipeManager().listAllOfType(recipeType).stream().map(RecipeEntry::value).
+                return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
                         anyMatch(fluidStack -> variant.isOf(fluidStack.getFluid()) &&
                                 variant.componentsMatch(fluidStack.getFluidVariant().getComponents()));
@@ -146,24 +146,24 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putInt("mode", mode.ordinal());
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         mode = Mode.fromIndex(nbt.getInt("mode"));
     }
 
     @Override
-    protected Optional<RecipeEntry<FluidTransposerRecipe>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().listAllOfType(recipeType).
+    protected Optional<RecipeHolder<FluidTransposerRecipe>> getRecipeFor(SimpleContainer inventory) {
+        return level.getRecipeManager().getAllRecipesFor(recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
-                filter(recipe -> recipe.value().matches(getRecipeInput(inventory), world)).
+                filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
                         (recipe.value().getFluid().getFluidVariant().isOf(fluidStorage.getFluid().getFluid()) &&
                                 recipe.value().getFluid().getFluidVariant().componentsMatch(fluidStorage.getFluid().getFluidVariant().getComponents()))).
@@ -171,13 +171,13 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
-    protected void craftItem(RecipeEntry<FluidTransposerRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<FluidTransposerRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
         FluidStack fluid = new FluidStack(recipe.value().getFluid().getFluidVariant().getFluid(),
@@ -197,30 +197,30 @@ public class FluidTransposerBlockEntity
             }
         }
 
-        itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, recipe.value().getResult(world.getRegistryManager()).
-                copyWithCount(itemHandler.getStack(1).getCount() +
-                        recipe.value().getResult(world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, 1);
+        itemHandler.setItem(1, recipe.value().getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getItem(1).getCount() +
+                        recipe.value().getResultItem(level.registryAccess()).getCount()));
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<FluidTransposerRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
         long fluidAmountInTank = fluidStorage.getFluid().getDropletsAmount();
         long fluidAmountInRecipe = recipe.value().getFluid().getDropletsAmount();
 
-        return world != null &&
+        return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
                 (mode != Mode.EMPTYING || fluidStorage.isEmpty() || (fluidStorage.getResource().isOf(recipe.value().getFluid().getFluid()) &&
                         fluidStorage.getResource().componentsMatch(recipe.value().getFluid().getFluidVariant().getComponents()))) &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResult(world.getRegistryManager()));
+                InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
     }
 
     public void setMode(boolean isFillingMode) {
         this.mode = isFillingMode?Mode.FILLING:Mode.EMPTYING;
         resetProgress();
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     @Override
@@ -231,12 +231,12 @@ public class FluidTransposerBlockEntity
         }
     }
 
-    public enum Mode implements StringIdentifiable {
+    public enum Mode implements StringRepresentable {
         EMPTYING, FILLING;
 
-        public static final Codec<Mode> CODEC = Codecs.orCompressed(
+        public static final Codec<Mode> CODEC = ExtraCodecs.orCompressed(
                 Codec.stringResolver(Mode::name, Mode::valueOf),
-                Codecs.rawIdChecked(Mode::ordinal, i -> i >= 0 && i < Mode.values().length?Mode.values()[i]:null, -1)
+                ExtraCodecs.idResolverCodec(Mode::ordinal, i -> i >= 0 && i < Mode.values().length?Mode.values()[i]:null, -1)
         );
 
         /**
@@ -253,7 +253,7 @@ public class FluidTransposerBlockEntity
 
         @Override
         @NotNull
-        public String asString() {
+        public String getSerializedName() {
             return name().toLowerCase(Locale.US);
         }
     }

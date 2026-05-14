@@ -11,19 +11,19 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AdvancedAutoCrafterTransferHandler implements IRecipeTransferHandler<AdvancedAutoCrafterMenu, RecipeEntry<CraftingRecipe>> {
+public class AdvancedAutoCrafterTransferHandler implements IRecipeTransferHandler<AdvancedAutoCrafterMenu, RecipeHolder<CraftingRecipe>> {
     private final IRecipeTransferHandlerHelper helper;
 
     public AdvancedAutoCrafterTransferHandler(IRecipeTransferHandlerHelper helper) {
@@ -36,20 +36,20 @@ public class AdvancedAutoCrafterTransferHandler implements IRecipeTransferHandle
     }
 
     @Override
-    public Optional<ScreenHandlerType<AdvancedAutoCrafterMenu>> getMenuType() {
+    public Optional<MenuType<AdvancedAutoCrafterMenu>> getMenuType() {
         return Optional.of(EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU);
     }
 
     @Override
-    public RecipeType<RecipeEntry<CraftingRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
         return null;
     }
 
     @Override
-    public @Nullable IRecipeTransferError transferRecipe(AdvancedAutoCrafterMenu container, RecipeEntry<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, PlayerEntity player,
+    public @Nullable IRecipeTransferError transferRecipe(AdvancedAutoCrafterMenu container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlots, Player player,
                                                          boolean maxTransfer, boolean doTransfer) {
-        if(!recipe.value().fits(3, 3))
-            return helper.createUserErrorWithTooltip(Text.translatable("recipes.energizedpower.transfer.too_large"));
+        if(!recipe.value().canCraftInDimensions(3, 3))
+            return helper.createUserErrorWithTooltip(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!doTransfer)
             return null;
@@ -61,7 +61,7 @@ public class AdvancedAutoCrafterTransferHandler implements IRecipeTransferHandle
         for(int i = 0;i < len;i++)
             itemStacks.add(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY).copy());
 
-        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(), itemStacks, recipe.id()));
+        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.id()));
 
         return null;
     }

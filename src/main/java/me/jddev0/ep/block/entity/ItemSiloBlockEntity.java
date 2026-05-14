@@ -9,18 +9,18 @@ import me.jddev0.ep.screen.ItemSiloMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Containers;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,24 +49,24 @@ public class ItemSiloBlockEntity
         return new SingleItemStackHandler(slotCount) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
             }
         };
     }
 
     @Override
-    protected NbtCompound writeInventoryStorage(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+    protected CompoundTag writeInventoryStorage(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         itemHandler.writeNbt(nbt, registries);
         return nbt;
     }
 
     @Override
-    protected void readInventoryStorage(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+    protected void readInventoryStorage(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         itemHandler.readNbt(nbt, registries);
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new LongValueContainerData(itemHandler::getAmount, value -> {}),
                 new LongValueContainerData(itemHandler::getCapacity, value -> {})
@@ -75,7 +75,7 @@ public class ItemSiloBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new ItemSiloMenu(id, this, inventory, itemHandler, data);
     }
 
@@ -88,17 +88,17 @@ public class ItemSiloBlockEntity
     }
 
     @Override
-    public void drops(World level, BlockPos worldPosition) {
-        if(world != null) {
+    public void drops(Level level, BlockPos worldPosition) {
+        if(level != null) {
             long count = itemHandler.getAmount();
             ItemStack stack = itemHandler.variant.toStack();
 
             if(count > 0 && !stack.isEmpty()) {
                 while(count > 0) {
-                    long countItem = Math.min(count, stack.getMaxCount());
+                    long countItem = Math.min(count, stack.getMaxStackSize());
                     count -= countItem;
 
-                    ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack.copyWithCount((int)countItem));
+                    Containers.dropItemStack(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), stack.copyWithCount((int)countItem));
                 }
             }
         }

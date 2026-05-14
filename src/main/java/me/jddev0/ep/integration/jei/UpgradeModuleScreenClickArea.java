@@ -22,7 +22,7 @@ public record UpgradeModuleScreenClickArea<T extends EnergyStorageContainerScree
     @Override
     @NotNull
     public Collection<IGuiClickableArea> getGuiClickableAreas(@NotNull T containerScreen, double mouseX, double mouseY) {
-        if(containerScreen.getScreenHandler().isInUpgradeModuleView())
+        if(containerScreen.getMenu().isInUpgradeModuleView())
             return List.of();
 
         return List.of(IGuiClickableArea.createBasic(xPos, yPos, width, height, recipeTypes));

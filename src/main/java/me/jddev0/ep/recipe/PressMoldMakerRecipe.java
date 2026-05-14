@@ -5,18 +5,18 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 public class PressMoldMakerRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
@@ -36,36 +36,36 @@ public class PressMoldMakerRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        ItemStack item = container.getStackInSlot(0);
-        return item.isOf(Items.CLAY_BALL) && item.getCount() >= clayCount;
+        ItemStack item = container.getItem(0);
+        return item.is(Items.CLAY_BALL) && item.getCount() >= clayCount;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM);
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
@@ -90,17 +90,17 @@ public class PressMoldMakerRecipe implements Recipe<RecipeInput> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("press_mold_maker");
+        public static final ResourceLocation ID = EPAPI.id("press_mold_maker");
 
         private final MapCodec<PressMoldMakerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), Codecs.POSITIVE_INT.fieldOf("clayCount").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("clayCount").forGetter((recipe) -> {
                 return recipe.clayCount;
             })).apply(instance, PressMoldMakerRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, PressMoldMakerRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -109,20 +109,20 @@ public class PressMoldMakerRecipe implements Recipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, PressMoldMakerRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static PressMoldMakerRecipe read(RegistryByteBuf buffer) {
+        private static PressMoldMakerRecipe read(RegistryFriendlyByteBuf buffer) {
             int clayCount = buffer.readInt();
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new PressMoldMakerRecipe(output, clayCount);
         }
 
-        private static void write(RegistryByteBuf buffer, PressMoldMakerRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, PressMoldMakerRecipe recipe) {
             buffer.writeInt(recipe.clayCount);
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

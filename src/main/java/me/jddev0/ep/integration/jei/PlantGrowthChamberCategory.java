@@ -15,37 +15,40 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
-public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeEntry<PlantGrowthChamberRecipe>> {
-    public static final RecipeType<RecipeEntry<PlantGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(PlantGrowthChamberRecipe.Type.INSTANCE);
+public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberRecipe>> {
+    public static final RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(PlantGrowthChamberRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public PlantGrowthChamberCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         background = helper.createDrawable(texture, 61, 25, 108, 48);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM));
     }
 
     @Override
-    public RecipeType<RecipeEntry<PlantGrowthChamberRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<PlantGrowthChamberRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.plant_growth_chamber");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.plant_growth_chamber");
     }
 
     @Override
@@ -59,7 +62,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeEntry<P
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<PlantGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PlantGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10).addIngredients(recipe.value().getInput());
 
         List<List<ItemStack>> outputSlotEntries = new ArrayList<>(4);
@@ -78,14 +81,14 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeEntry<P
             if(optionalItemStack.isEmpty())
                 return;
 
-            tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+            tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             OutputItemStackWithPercentages[] outputs = recipe.value().getOutputs();
             for(int i = 0;i < outputs.length;i++) {
-                if(ItemStack.areItemsAndComponentsEqual(optionalItemStack.get(), outputs[i].output())) {
+                if(ItemStack.isSameItemSameComponents(optionalItemStack.get(), outputs[i].output())) {
                     double[] percentages = outputs[i].percentages();
                     for(int j = 0;j < percentages.length;j++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
 
                     return;
                 }
@@ -103,12 +106,12 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeEntry<P
     }
 
     @Override
-    public void draw(RecipeEntry<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
-        TextRenderer font = MinecraftClient.getInstance().textRenderer;
+    public void draw(RecipeHolder<PlantGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
         int ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
-        Text component = Text.translatable("recipes.energizedpower.info.ticks", ticks);
-        int textWidth = font.getWidth(component);
+        Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+        int textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
     }
 }

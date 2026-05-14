@@ -1,43 +1,43 @@
 package me.jddev0.ep.block.entity.renderer;
 
-import me.jddev0.ep.block.ItemConveyorBeltBlock;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.LightType;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<ItemConveyorBeltBlockEntity> {
-    private final BlockEntityRendererFactory.Context context;
+    private final BlockEntityRendererProvider.Context context;
 
-    public ItemConveyorBeltBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+    public ItemConveyorBeltBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         this.context = context;
     }
 
     @Override
-    public void render(ItemConveyorBeltBlockEntity blockEntity, float partialTick, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, int packedOverlay) {
-        World level = blockEntity.getWorld();
-        BlockPos pos = blockEntity.getPos();
+    public void render(ItemConveyorBeltBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+        Level level = blockEntity.getLevel();
+        BlockPos pos = blockEntity.getBlockPos();
 
-        poseStack.push();
+        poseStack.pushPose();
         poseStack.translate(.0f, .2f, .0f);
 
-        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getCachedState().get(ItemConveyorBeltBlock.FACING);
+        EPBlockStateProperties.ConveyorBeltDirection facing = blockEntity.getBlockState().getValue(ItemConveyorBeltBlock.FACING);
         Direction facingDirection = facing.getDirection();
         Boolean slope = facing.getSlope();
 
@@ -45,41 +45,41 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
             poseStack.translate(.5f, 0.f, 1.f);
 
             if(facing.isAscending()) {
-                poseStack.multiply(new Quaternionf().rotateX((float)Math.PI * .25f));
+                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * .25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.multiply(new Quaternionf().rotateX((float)Math.PI * -.25f));
+                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * -.25f));
             }
         }else if(facingDirection == Direction.SOUTH) {
             poseStack.translate(.5f, 0.f, 0.f);
 
             if(facing.isAscending()) {
-                poseStack.multiply(new Quaternionf().rotateX((float)Math.PI * -.25f));
+                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * -.25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.multiply(new Quaternionf().rotateX((float)Math.PI * .25f));
+                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * .25f));
             }
         }else if(facingDirection == Direction.EAST) {
             poseStack.translate(0.f, 0.f, .5f);
 
             if(facing.isAscending()) {
-                poseStack.multiply(new Quaternionf().rotateZ((float)Math.PI * .25f));
+                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * .25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.multiply(new Quaternionf().rotateZ((float)Math.PI * -.25f));
+                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * -.25f));
             }
         }else if(facingDirection == Direction.WEST) {
             poseStack.translate(1.f, 0.f, .5f);
 
             if(facing.isAscending()) {
-                poseStack.multiply(new Quaternionf().rotateZ((float)Math.PI * -.25f));
+                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * -.25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.multiply(new Quaternionf().rotateZ((float)Math.PI * .25f));
+                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * .25f));
             }
         }
 
-        poseStack.multiply(facingDirection.getRotationQuaternion());
+        poseStack.mulPose(facingDirection.getRotation());
 
         poseStack.scale(.75f, .75f, .75f);
         ItemRenderer itemRenderer = context.getItemRenderer();
@@ -92,11 +92,11 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
                 continue;
 
             BakedModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
-            itemRenderer.renderItem(itemStack, ModelTransformationMode.GROUND, false, poseStack, bufferSource,
-                    LightmapTextureManager.pack(level.getLightLevel(LightType.BLOCK, pos), level.getLightLevel(LightType.SKY, pos)),
-                    OverlayTexture.DEFAULT_UV, bakedModel);
+            itemRenderer.render(itemStack, ItemDisplayContext.GROUND, false, poseStack, bufferSource,
+                    LightTexture.pack(level.getBrightness(LightLayer.BLOCK, pos), level.getBrightness(LightLayer.SKY, pos)),
+                    OverlayTexture.NO_OVERLAY, bakedModel);
         }
 
-        poseStack.pop();
+        poseStack.popPose();
     }
 }

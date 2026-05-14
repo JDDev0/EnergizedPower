@@ -3,11 +3,11 @@ package me.jddev0.ep.screen.base;
 import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
@@ -15,31 +15,31 @@ public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEn
     protected final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
     protected final UpgradeModuleInventory upgradeModuleInventory;
 
-    protected UpgradableEnergyStorageMenu(@Nullable ScreenHandlerType<?> menuType, int id, PlayerInventory playerInventory,
+    protected UpgradableEnergyStorageMenu(@Nullable MenuType<?> menuType, int id, Inventory playerInventory,
                                           BlockEntity blockEntity, Block blockType,
                                           UpgradeModuleInventory upgradeModuleInventory, int upgradeModuleCount) {
         super(menuType, id, playerInventory, blockEntity, blockType);
 
-        checkSize(upgradeModuleInventory, upgradeModuleCount);
+        checkContainerSize(upgradeModuleInventory, upgradeModuleCount);
 
         this.upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
         this.upgradeModuleInventory = upgradeModuleInventory;
 
-        addProperties(upgradeModuleViewContainerData);
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
-    protected UpgradableEnergyStorageMenu(@Nullable ScreenHandlerType<?> menuType, int id, PlayerInventory playerInventory,
+    protected UpgradableEnergyStorageMenu(@Nullable MenuType<?> menuType, int id, Inventory playerInventory,
                                           BlockEntity blockEntity, Block blockType,
                                           int playerInventoryX, int playerInventoryY,
                                           UpgradeModuleInventory upgradeModuleInventory, int upgradeModuleCount) {
         super(menuType, id, playerInventory, blockEntity, blockType, playerInventoryX, playerInventoryY);
 
-        checkSize(upgradeModuleInventory, upgradeModuleCount);
+        checkContainerSize(upgradeModuleInventory, upgradeModuleCount);
 
         this.upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
         this.upgradeModuleInventory = upgradeModuleInventory;
 
-        addProperties(upgradeModuleViewContainerData);
+        addDataSlots(upgradeModuleViewContainerData);
     }
 
     @Override
@@ -48,11 +48,11 @@ public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEn
     }
 
     @Override
-    public boolean onButtonClick(PlayerEntity player, int index) {
+    public boolean clickMenuButton(Player player, int index) {
         if(index == 0) {
             upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
-            sendContentUpdates();
+            broadcastChanges();
         }
 
         return false;

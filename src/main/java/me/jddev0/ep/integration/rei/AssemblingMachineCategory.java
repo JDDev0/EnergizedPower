@@ -10,9 +10,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,8 @@ public class AssemblingMachineCategory implements DisplayCategory<AssemblingMach
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.assembling_machine");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.assembling_machine");
     }
 
     @Override
@@ -45,7 +44,7 @@ public class AssemblingMachineCategory implements DisplayCategory<AssemblingMach
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/assembling_machine.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/assembling_machine.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 43, 18, 115, 54));
 
         int len = Math.min(display.getInputEntries().size(), 4);

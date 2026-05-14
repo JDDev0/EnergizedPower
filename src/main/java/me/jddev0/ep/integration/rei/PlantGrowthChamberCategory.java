@@ -13,9 +13,8 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -31,8 +30,8 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.plant_growth_chamber");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.plant_growth_chamber");
     }
 
     @Override
@@ -49,7 +48,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 48));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().
@@ -63,12 +62,12 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         for(int i = 0;i < outputEntries.size();i++) {
             int index = i;
             outputSlotEntries.get(i % 4).addAll(outputEntries.get(i).map(stack -> {
-                List<Text> tooltip = new ArrayList<>();
-                tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                List<Component> tooltip = new ArrayList<>();
+                tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                 double[] percentages = display.recipe().value().getOutputs()[index].percentages();
                 for(int j = 0;j < percentages.length;j++)
-                    tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
+                    tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
 
                 return stack.tooltip(tooltip);
             }));
@@ -85,7 +84,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
 
         int ticks = (int)(display.recipe().value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Text.translatable("recipes.energizedpower.info.ticks", ticks)).
+                        Component.translatable("recipes.energizedpower.info.ticks", ticks)).
                 noShadow().rightAligned());
 
         return widgets;

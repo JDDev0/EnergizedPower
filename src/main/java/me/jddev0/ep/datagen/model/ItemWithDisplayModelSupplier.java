@@ -3,14 +3,14 @@ package me.jddev0.ep.datagen.model;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
+import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
 public record ItemWithDisplayModelSupplier(
-        Identifier parent,
+        ResourceLocation parent,
         Vector3f scaleFirstPersonLeftHand,
         Vector3f scaleFirstPersonRightHand,
         Vector3f scaleThirdPersonLeftHand,
@@ -19,7 +19,7 @@ public record ItemWithDisplayModelSupplier(
         Vector3f scaleGround,
         Vector3f scaleGui, Vec3i rotationGui
 ) implements Supplier<JsonElement> {
-    public ItemWithDisplayModelSupplier(Identifier parent, Vector3f scaleWorld, Vector3f scaleGui, Vec3i rotationGui) {
+    public ItemWithDisplayModelSupplier(ResourceLocation parent, Vector3f scaleWorld, Vector3f scaleGui, Vec3i rotationGui) {
         this(parent, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleWorld, scaleGui, rotationGui);
     }
 

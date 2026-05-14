@@ -1,15 +1,15 @@
 package me.jddev0.ep.fluid;
 
-import net.minecraft.block.FluidBlock;
-import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.material.FlowingFluid;
 
-public class DirtyWaterFluidBlock extends FluidBlock {
-    public DirtyWaterFluidBlock(FlowableFluid fluid, Settings settings) {
+public class DirtyWaterFluidBlock extends LiquidBlock {
+    public DirtyWaterFluidBlock(FlowingFluid fluid, Properties settings) {
         super(fluid, settings);
     }
 
     @Override
-    public String getTranslationKey() {
+    public String getDescriptionId() {
         return "fluid_type.energizedpower.dirty_water";
     }
 }

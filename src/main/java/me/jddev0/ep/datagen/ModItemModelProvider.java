@@ -4,18 +4,17 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.datagen.model.ItemWithOverridesModelSupplier;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.ModelIds;
-import net.minecraft.data.client.Models;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import java.util.List;
 
 class ModItemModelProvider {
-    private final ItemModelGenerator generator;
+    private final ItemModelGenerators generator;
 
-    ModItemModelProvider(ItemModelGenerator generator) {
+    ModItemModelProvider(ItemModelGenerators generator) {
         this.generator = generator;
     }
 
@@ -197,11 +196,11 @@ class ModItemModelProvider {
     }
 
     private void registerSpecialModels() {
-        Identifier inventoryCoalEngineActive = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_active");
-        Identifier inventoryCoalEngineOn = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_on");
+        ResourceLocation inventoryCoalEngineActive = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_active");
+        ResourceLocation inventoryCoalEngineOn = basicItem(EPItems.INVENTORY_COAL_ENGINE, "_on");
 
-        generator.writer.accept(ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE), new ItemWithOverridesModelSupplier(
-                ModelIds.getItemModelId(EPItems.INVENTORY_COAL_ENGINE),
+        generator.output.accept(ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE), new ItemWithOverridesModelSupplier(
+                ModelLocationUtils.getModelLocation(EPItems.INVENTORY_COAL_ENGINE),
                 List.of(
                         new ItemWithOverridesModelSupplier.ItemPredicateOverrides(
                                 List.of(
@@ -229,15 +228,15 @@ class ModItemModelProvider {
         ));
     }
 
-    private Identifier basicItem(Item item) {
-        generator.register(item, Models.GENERATED);
+    private ResourceLocation basicItem(Item item) {
+        generator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
 
-        return ModelIds.getItemModelId(item);
+        return ModelLocationUtils.getModelLocation(item);
     }
 
-    private Identifier basicItem(Item item, String suffix) {
-        generator.register(item, suffix, Models.GENERATED);
+    private ResourceLocation basicItem(Item item, String suffix) {
+        generator.generateFlatItem(item, suffix, ModelTemplates.FLAT_ITEM);
 
-        return ModelIds.getItemSubModelId(item, suffix);
+        return ModelLocationUtils.getModelLocation(item, suffix);
     }
 }

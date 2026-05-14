@@ -1,12 +1,11 @@
 package me.jddev0.ep.inventory.data;
 
 import me.jddev0.ep.util.ByteUtils;
-import net.minecraft.screen.PropertyDelegate;
-
+import net.minecraft.world.inventory.ContainerData;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class IntegerValueContainerData implements PropertyDelegate {
+public class IntegerValueContainerData implements ContainerData {
     private final Supplier<Integer> getter;
     private final Consumer<Integer> setter;
 
@@ -33,7 +32,7 @@ public class IntegerValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 2;
     }
 }

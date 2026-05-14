@@ -1,6 +1,6 @@
 package me.jddev0.ep.inventory;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * Used for ItemStackSyncS2CPacket

@@ -1,7 +1,7 @@
 package me.jddev0.ep.recipe;
 
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
 
 /**
  * Used for SyncFurnaceRecipeTypeS2CPacket

@@ -1,56 +1,57 @@
 package me.jddev0.ep.screen.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.*;
-import net.minecraft.client.texture.MissingSprite;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.screen.PlayerScreenHandler;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.material.Fluid;
 import org.joml.Matrix4f;
 
 @Environment(EnvType.CLIENT)
-public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler> extends HandledScreen<T> {
-    protected final Identifier MACHINE_SPRITES_TEXTURE = EPAPI.id("textures/gui/container/sprites/machine_sprites.png");
+public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+    protected final ResourceLocation MACHINE_SPRITES_TEXTURE = EPAPI.id("textures/gui/container/sprites/machine_sprites.png");
 
-    public EnergizedPowerBaseContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
+    public EnergizedPowerBaseContainerScreen(T menu, Inventory inventory, Component titleComponent) {
         super(menu, inventory, titleComponent);
     }
 
-    protected void renderFluidMeterContent(DrawContext drawContext, FluidStack fluidStack, long tankCapacity, int x, int y,
+    protected void renderFluidMeterContent(GuiGraphics drawContext, FluidStack fluidStack, long tankCapacity, int x, int y,
                                            int w, int h) {
         RenderSystem.enableBlend();
-        drawContext.getMatrices().push();
+        drawContext.pose().pushPose();
 
-        drawContext.getMatrices().translate(x, y, 0);
+        drawContext.pose().translate(x, y, 0);
 
         renderFluidStack(drawContext, fluidStack, tankCapacity, w, h);
 
-        drawContext.getMatrices().pop();
+        drawContext.pose().popPose();
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
         RenderSystem.disableBlend();
     }
 
-    private void renderFluidStack(DrawContext drawContext, FluidStack fluidStack, long tankCapacity, int w, int h) {
+    private void renderFluidStack(GuiGraphics drawContext, FluidStack fluidStack, long tankCapacity, int w, int h) {
         if(fluidStack.isEmpty())
             return;
 
         Fluid fluid = fluidStack.getFluid();
-        Sprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
+        TextureAtlasSprite stillFluidSprite = FluidVariantRendering.getSprite(fluidStack.getFluidVariant());
         if(stillFluidSprite == null)
-            stillFluidSprite = MinecraftClient.getInstance().getSpriteAtlas(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).
-                    apply(MissingSprite.getMissingSpriteId());
+            stillFluidSprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).
+                    apply(MissingTextureAtlasSprite.getLocation());
 
         int fluidColorTint = FluidVariantRendering.getColor(fluidStack.getFluidVariant());
 
@@ -58,34 +59,34 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends ScreenHandler>
                 0:(int)(h - ((fluidStack.getDropletsAmount() <= 0 || tankCapacity == 0)?0:
                 (Math.min(fluidStack.getDropletsAmount(), tankCapacity - 1) * h / tankCapacity + 1)));
 
-        RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
+        RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor((fluidColorTint >> 16 & 0xFF) / 255.f,
                 (fluidColorTint >> 8 & 0xFF) / 255.f, (fluidColorTint & 0xFF) / 255.f,
                 (fluidColorTint >> 24 & 0xFF) / 255.f);
 
-        Matrix4f mat = drawContext.getMatrices().peek().getPositionMatrix();
+        Matrix4f mat = drawContext.pose().last().pose();
 
         for(int yOffset = h;yOffset > fluidMeterPos;yOffset -= 16) {
             for(int xOffset = 0;xOffset < w;xOffset += 16) {
                 int width = Math.min(w - xOffset, 16);
                 int height = Math.min(yOffset - fluidMeterPos, 16);
 
-                float u0 = stillFluidSprite.getMinU();
-                float u1 = stillFluidSprite.getMaxU();
-                float v0 = stillFluidSprite.getMinV();
-                float v1 = stillFluidSprite.getMaxV();
+                float u0 = stillFluidSprite.getU0();
+                float u1 = stillFluidSprite.getU1();
+                float v0 = stillFluidSprite.getV0();
+                float v1 = stillFluidSprite.getV1();
                 u1 = u1 - ((16 - width) / 16.f * (u1 - u0));
                 v0 = v0 - ((16 - height) / 16.f * (v0 - v1));
 
-                Tessellator tesselator = Tessellator.getInstance();
-                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-                bufferBuilder.vertex(mat, xOffset, yOffset, 0).texture(u0, v1);
-                bufferBuilder.vertex(mat, xOffset + width, yOffset, 0).texture(u1, v1);
-                bufferBuilder.vertex(mat, xOffset + width, yOffset - height, 0).texture(u1, v0);
-                bufferBuilder.vertex(mat, xOffset, yOffset - height, 0).texture(u0, v0);
-                BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+                Tesselator tesselator = Tesselator.getInstance();
+                BufferBuilder bufferBuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                bufferBuilder.addVertex(mat, xOffset, yOffset, 0).setUv(u0, v1);
+                bufferBuilder.addVertex(mat, xOffset + width, yOffset, 0).setUv(u1, v1);
+                bufferBuilder.addVertex(mat, xOffset + width, yOffset - height, 0).setUv(u1, v0);
+                bufferBuilder.addVertex(mat, xOffset, yOffset - height, 0).setUv(u0, v0);
+                BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
             }
         }
     }

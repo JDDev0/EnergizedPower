@@ -9,21 +9,21 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class DispenserCategory implements IRecipeCategory<DispenserCategory.DispenserRecipe> {
-    public static final Identifier UID = EPAPI.id("dispenser");
+    public static final ResourceLocation UID = EPAPI.id("dispenser");
     public static final RecipeType<DispenserRecipe> TYPE = new RecipeType<>(UID, DispenserRecipe.class);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public DispenserCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
         background = helper.createDrawable(texture, 1, 1, 103, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(Items.DISPENSER));
@@ -35,8 +35,8 @@ public class DispenserCategory implements IRecipeCategory<DispenserCategory.Disp
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.dispenser");
+    public Component getTitle() {
+        return Component.translatable("container.dispenser");
     }
 
     @Override

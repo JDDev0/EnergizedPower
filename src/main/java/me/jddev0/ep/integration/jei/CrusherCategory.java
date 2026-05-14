@@ -11,32 +11,32 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class CrusherCategory implements IRecipeCategory<RecipeEntry<CrusherRecipe>> {
-    public static final RecipeType<RecipeEntry<CrusherRecipe>> TYPE = RecipeType.createFromVanilla(CrusherRecipe.Type.INSTANCE);
+public class CrusherCategory implements IRecipeCategory<RecipeHolder<CrusherRecipe>> {
+    public static final RecipeType<RecipeHolder<CrusherRecipe>> TYPE = RecipeType.createFromVanilla(CrusherRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public CrusherCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/container/crusher.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crusher.png");
         background = helper.createDrawable(texture, 47, 30, 98, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.CRUSHER_ITEM));
     }
 
     @Override
-    public RecipeType<RecipeEntry<CrusherRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<CrusherRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.crusher");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.crusher");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CrusherCategory implements IRecipeCategory<RecipeEntry<CrusherRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<CrusherRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CrusherRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInputItem());
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getOutputItem());

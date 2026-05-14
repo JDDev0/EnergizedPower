@@ -10,11 +10,11 @@ import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.EPMenuTypes;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 
 public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
@@ -114,68 +114,68 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
     private void registerRecipes(EmiRegistry registry) {
         RecipeManager recipeManager = registry.getRecipeManager();
 
-        for(RecipeEntry<ChargerRecipe> recipe:recipeManager.listAllOfType(ChargerRecipe.Type.INSTANCE))
+        for(RecipeHolder<ChargerRecipe> recipe:recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE))
             registry.addRecipe(new ChargerEMIRecipe(recipe));
 
-        for(RecipeEntry<CrusherRecipe> recipe:recipeManager.listAllOfType(CrusherRecipe.Type.INSTANCE))
+        for(RecipeHolder<CrusherRecipe> recipe:recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE))
             registry.addRecipe(new CrusherEMIRecipe(recipe));
 
-        for(RecipeEntry<PulverizerRecipe> recipe:recipeManager.listAllOfType(PulverizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<PulverizerRecipe> recipe:recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PulverizerEMIRecipe(recipe));
 
-        for(RecipeEntry<PulverizerRecipe> recipe:recipeManager.listAllOfType(PulverizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<PulverizerRecipe> recipe:recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE))
             registry.addRecipe(new AdvancedPulverizerEMIRecipe(recipe));
 
-        for(RecipeEntry<SawmillRecipe> recipe:recipeManager.listAllOfType(SawmillRecipe.Type.INSTANCE))
+        for(RecipeHolder<SawmillRecipe> recipe:recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE))
             registry.addRecipe(new SawmillEMIRecipe(recipe));
 
-        for(RecipeEntry<CompressorRecipe> recipe:recipeManager.listAllOfType(CompressorRecipe.Type.INSTANCE))
+        for(RecipeHolder<CompressorRecipe> recipe:recipeManager.getAllRecipesFor(CompressorRecipe.Type.INSTANCE))
             registry.addRecipe(new CompressorEMIRecipe(recipe));
 
-        for(RecipeEntry<MetalPressRecipe> recipe:recipeManager.listAllOfType(MetalPressRecipe.Type.INSTANCE))
+        for(RecipeHolder<MetalPressRecipe> recipe:recipeManager.getAllRecipesFor(MetalPressRecipe.Type.INSTANCE))
             registry.addRecipe(new MetalPressEMIRecipe(recipe));
 
-        for(RecipeEntry<AssemblingMachineRecipe> recipe:recipeManager.listAllOfType(AssemblingMachineRecipe.Type.INSTANCE))
+        for(RecipeHolder<AssemblingMachineRecipe> recipe:recipeManager.getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE))
             registry.addRecipe(new AssemblingMachineEMIRecipe(recipe));
 
-        for(RecipeEntry<PlantGrowthChamberRecipe> recipe:recipeManager.listAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE))
+        for(RecipeHolder<PlantGrowthChamberRecipe> recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberEMIRecipe(recipe));
 
-        for(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe:recipeManager.listAllOfType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberFertilizerEMIRecipe(recipe));
 
-        for(RecipeEntry<EnergizerRecipe> recipe:recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE))
+        for(RecipeHolder<EnergizerRecipe> recipe:recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));
 
-        for(RecipeEntry<CrystalGrowthChamberRecipe> recipe:recipeManager.listAllOfType(CrystalGrowthChamberRecipe.Type.INSTANCE))
+        for(RecipeHolder<CrystalGrowthChamberRecipe> recipe:recipeManager.getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE))
             registry.addRecipe(new CrystalGrowthChamberEMIRecipe(recipe));
 
-        for(RecipeEntry<PressMoldMakerRecipe> recipe:recipeManager.listAllOfType(PressMoldMakerRecipe.Type.INSTANCE))
+        for(RecipeHolder<PressMoldMakerRecipe> recipe:recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE))
             registry.addRecipe(new PressMoldMakerEMIRecipe(recipe));
 
-        for(RecipeEntry<AlloyFurnaceRecipe> recipe:recipeManager.listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE))
+        for(RecipeHolder<AlloyFurnaceRecipe> recipe:recipeManager.getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE))
             registry.addRecipe(new AlloyFurnaceEMIRecipe(recipe));
 
-        for(RecipeEntry<StoneLiquefierRecipe> recipe:recipeManager.listAllOfType(StoneLiquefierRecipe.Type.INSTANCE))
+        for(RecipeHolder<StoneLiquefierRecipe> recipe:recipeManager.getAllRecipesFor(StoneLiquefierRecipe.Type.INSTANCE))
             registry.addRecipe(new StoneLiquefierEMIRecipe(recipe));
 
-        for(RecipeEntry<StoneSolidifierRecipe> recipe:recipeManager.listAllOfType(StoneSolidifierRecipe.Type.INSTANCE))
+        for(RecipeHolder<StoneSolidifierRecipe> recipe:recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE))
             registry.addRecipe(new StoneSolidifierEMIRecipe(recipe));
 
-        for(RecipeEntry<FiltrationPlantRecipe> recipe:recipeManager.listAllOfType(FiltrationPlantRecipe.Type.INSTANCE))
+        for(RecipeHolder<FiltrationPlantRecipe> recipe:recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE))
             registry.addRecipe(new FiltrationPlantEMIRecipe(recipe));
 
-        for(RecipeEntry<FluidTransposerRecipe> recipe:recipeManager.listAllOfType(FluidTransposerRecipe.Type.INSTANCE))
+        for(RecipeHolder<FluidTransposerRecipe> recipe:recipeManager.getAllRecipesFor(FluidTransposerRecipe.Type.INSTANCE))
             registry.addRecipe(new FluidTransposerEMIRecipe(recipe));
 
         registry.addRecipe(new DispenserEMIRecipe(new DispenserEMIRecipe.DispenserRecipe(
                 EPAPI.id("dispenser/energizedpower/cable_insulator"),
-                Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
+                Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Ingredient.of(ItemTags.WOOL),
                 new ItemStack(EPItems.CABLE_INSULATOR, 18))));
 
         registry.addRecipe(new InWorldEMIRecipe(new InWorldEMIRecipe.InWorldRecipe(
                 EPAPI.id("in_world_crafting/energizedpower/cable_insulator"),
-                Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
+                Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Ingredient.of(ItemTags.WOOL),
                 new ItemStack(EPItems.CABLE_INSULATOR, 18))));
     }
 

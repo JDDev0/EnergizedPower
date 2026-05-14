@@ -3,8 +3,8 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -24,7 +24,7 @@ public class ExtractionRangeUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double EXTRACTION_RANGE_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_EXTRACTION_RANGE_5_EFFECT.getValue();
 
-    public ExtractionRangeUpgradeModuleItem(Settings props, int tier) {
+    public ExtractionRangeUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.EXTRACTION_RANGE, tier);
     }
 
@@ -51,12 +51,12 @@ public class ExtractionRangeUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
-    public Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
+    public Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
         return switch(modifier) {
-            case EXTRACTION_RANGE -> Text.literal(String.format(Locale.US, "%+.2f %%", 100 * value - 100)).
-                    formatted(Formatting.GREEN);
+            case EXTRACTION_RANGE -> Component.literal(String.format(Locale.US, "%+.2f %%", 100 * value - 100)).
+                    withStyle(ChatFormatting.GREEN);
 
-            default -> Text.empty();
+            default -> Component.empty();
         };
     }
 }

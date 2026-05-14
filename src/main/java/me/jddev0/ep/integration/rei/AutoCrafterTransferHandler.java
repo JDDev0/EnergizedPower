@@ -10,11 +10,10 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +25,11 @@ public class AutoCrafterTransferHandler implements TransferHandler {
 
         Display display = context.getDisplay();
         Object origin = DisplayRegistry.getInstance().getDisplayOrigin(display);
-        if(!(origin instanceof RecipeEntry<?> recipeEntry) || !(recipeEntry.value() instanceof CraftingRecipe recipe))
+        if(!(origin instanceof RecipeHolder<?> recipeEntry) || !(recipeEntry.value() instanceof CraftingRecipe recipe))
             return Result.createNotApplicable();
 
-        if(!recipe.fits(3, 3))
-            return Result.createFailed(Text.translatable("recipes.energizedpower.transfer.too_large"));
+        if(!recipe.canCraftInDimensions(3, 3))
+            return Result.createFailed(Component.translatable("recipes.energizedpower.transfer.too_large"));
 
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();
@@ -46,11 +45,11 @@ public class AutoCrafterTransferHandler implements TransferHandler {
 
             itemStacks.add(entryStack.castValue());
 
-            if((recipe.fits(1, 2) || recipe.fits(1, 3))) {
+            if((recipe.canCraftInDimensions(1, 2) || recipe.canCraftInDimensions(1, 3))) {
                 //1xX recipe: Add 2nd and 3rd column items
                 itemStacks.add(ItemStack.EMPTY);
                 itemStacks.add(ItemStack.EMPTY);
-            }else if((recipe.fits(2, 2) || recipe.fits(2, 3)) && i % 2 == 1) {
+            }else if((recipe.canCraftInDimensions(2, 2) || recipe.canCraftInDimensions(2, 3)) && i % 2 == 1) {
                 //2xX recipe: Add 3rd column item
                 itemStacks.add(ItemStack.EMPTY);
             }
@@ -59,7 +58,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
         while(itemStacks.size() < 9)
             itemStacks.add(ItemStack.EMPTY);
 
-        ModMessages.sendClientPacketToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getPos(),
+        ModMessages.sendClientPacketToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(),
                 itemStacks, recipeEntry.id()));
 
         return Result.createSuccessful().blocksFurtherHandling();

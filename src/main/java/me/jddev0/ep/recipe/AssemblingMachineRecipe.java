@@ -6,16 +6,16 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
@@ -35,13 +35,13 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
         boolean[] usedIndices = new boolean[4];
         for(int i = 0;i < 4;i++)
-            usedIndices[i] = container.getStackInSlot(i).isEmpty();
+            usedIndices[i] = container.getItem(i).isEmpty();
 
         int len = Math.min(inputs.length, 4);
         for(int i = 0;i < len;i++) {
@@ -54,7 +54,7 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = container.getStackInSlot(j);
+                ItemStack item = container.getItem(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -78,27 +78,27 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
 
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM);
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
@@ -123,7 +123,7 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("assembling_machine");
+        public static final ResourceLocation ID = EPAPI.id("assembling_machine");
 
         private final MapCodec<AssemblingMachineRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
@@ -133,7 +133,7 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
             })).apply(instance, AssemblingMachineRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, AssemblingMachineRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -142,27 +142,27 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, AssemblingMachineRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static AssemblingMachineRecipe read(RegistryByteBuf buffer) {
+        private static AssemblingMachineRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
             for(int i = 0;i < len;i++)
                 inputs[i] = IngredientWithCount.OPTIONAL_STREAM_CODEC.decode(buffer);
 
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new AssemblingMachineRecipe(output, inputs);
         }
 
-        private static void write(RegistryByteBuf buffer, AssemblingMachineRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, AssemblingMachineRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
             for(int i = 0; i < recipe.inputs.length; i++)
                 IngredientWithCount.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.inputs[i]);
 
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

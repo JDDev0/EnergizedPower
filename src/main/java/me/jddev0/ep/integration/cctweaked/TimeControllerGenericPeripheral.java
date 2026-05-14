@@ -5,7 +5,7 @@ import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.TimeControllerBlockEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
 
 public class TimeControllerGenericPeripheral implements GenericPeripheral {
     @Override
@@ -18,19 +18,19 @@ public class TimeControllerGenericPeripheral implements GenericPeripheral {
         if(time < 0 || time >= 24000)
             throw new LuaException("Time must be >= 0 and < 24000");
 
-        if(!(timeController.getWorld() instanceof ServerWorld level) || timeController.getEnergy() < TimeControllerBlockEntity.CAPACITY)
+        if(!(timeController.getLevel() instanceof ServerLevel level) || timeController.getEnergy() < TimeControllerBlockEntity.CAPACITY)
             return false;
 
         timeController.clearEnergy();
 
-        long currentTime = level.getTimeOfDay();
+        long currentTime = level.getDayTime();
 
         int currentDayTime = (int)(currentTime % 24000);
 
         if(currentDayTime <= time)
-            level.setTimeOfDay(currentTime - currentDayTime + time);
+            level.setDayTime(currentTime - currentDayTime + time);
         else
-            level.setTimeOfDay(currentTime + 24000 - currentDayTime + time);
+            level.setDayTime(currentTime + 24000 - currentDayTime + time);
 
         return true;
     }

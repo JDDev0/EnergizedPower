@@ -12,10 +12,9 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.energizer");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.energizer");
     }
 
     @Override
@@ -48,7 +47,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/energizer.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/energizer.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 31, 18, 114, 50));
 
         widgets.add(Widgets.createSlot(new Point(x + 17, y + 17)).disableBackground().markInput().
@@ -58,7 +57,7 @@ public class EnergizerCategory implements DisplayCategory<EnergizerDisplay> {
 
         long energyConsumption = (long)(display.recipe().value().getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).formatted(Formatting.YELLOW)).
+                        Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW)).
                 noShadow().rightAligned());
 
         return widgets;

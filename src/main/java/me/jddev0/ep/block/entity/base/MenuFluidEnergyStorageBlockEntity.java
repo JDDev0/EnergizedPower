@@ -4,13 +4,13 @@ import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class MenuFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
@@ -18,7 +18,7 @@ public abstract class MenuFluidEnergyStorageBlockEntity
         implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final String machineName;
 
-    protected final PropertyDelegate data;
+    protected final ContainerData data;
 
     public MenuFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                         String machineName,
@@ -32,17 +32,17 @@ public abstract class MenuFluidEnergyStorageBlockEntity
         data = initContainerData();
     }
 
-    protected PropertyDelegate initContainerData() {
-        return new ArrayPropertyDelegate(0);
+    protected ContainerData initContainerData() {
+        return new SimpleContainerData(0);
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + machineName);
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower." + machineName);
     }
 
     @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
+    public BlockPos getScreenOpeningData(ServerPlayer player) {
+        return worldPosition;
     }
 }

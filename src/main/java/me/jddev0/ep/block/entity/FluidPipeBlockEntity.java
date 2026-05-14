@@ -1,19 +1,19 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.machine.tier.FluidPipeTier;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.*;
 
@@ -54,8 +54,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
         return pipeBlocks;
     }
 
-    public static void updateConnections(World level, BlockPos blockPos, BlockState state, FluidPipeBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void updateConnections(Level level, BlockPos blockPos, BlockState state, FluidPipeBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         blockEntity.producers.clear();
@@ -63,7 +63,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         blockEntity.pipeBlocks.clear();
 
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)
@@ -86,7 +86,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
             if(!fluidStorage.iterator().hasNext())
                 continue;
 
-            EPBlockStateProperties.PipeConnection pipeConnection = state.get(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
+            EPBlockStateProperties.PipeConnection pipeConnection = state.getValue(FluidPipeBlock.getPipeConnectionPropertyFromDirection(direction));
             if(pipeConnection.isExtract())
                 blockEntity.producers.put(Pair.of(testPos, direction.getOpposite()), fluidStorage);
             else if(pipeConnection.isInsert())
@@ -94,7 +94,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
         }
     }
 
-    public static Deque<Storage<FluidVariant>> getConnectedConsumers(World level, BlockPos blockPos, Set<BlockPos> checkedPipes) {
+    public static Deque<Storage<FluidVariant>> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedPipes) {
         Deque<Storage<FluidVariant>> consumers = new ArrayDeque<>(1024);
 
         Deque<BlockPos> pipeBlocksLeft = new ArrayDeque<>(1024);
@@ -121,8 +121,8 @@ public class FluidPipeBlockEntity extends BlockEntity {
         return consumers;
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, FluidPipeBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, FluidPipeBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         //TODO improve do not update all the time

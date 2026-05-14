@@ -10,27 +10,26 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PulverizerRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/advanced_pulverizer_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/advanced_pulverizer_side.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.ADVANCED_PULVERIZER_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("advanced_pulverizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
     private final PulverizerRecipe.OutputItemStackWithPercentages outputWithPercentages;
     private final PulverizerRecipe.OutputItemStackWithPercentages secondaryOutputWithPercentages;
 
-    public AdvancedPulverizerEMIRecipe(RecipeEntry<PulverizerRecipe> recipe) {
+    public AdvancedPulverizerEMIRecipe(RecipeHolder<PulverizerRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
 
@@ -45,7 +44,7 @@ public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -71,26 +70,26 @@ public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/pulverizer.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/pulverizer.png");
         widgets.addTexture(texture, 0, 0, 109, 26, 42, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
         SlotWidget outputSlot = widgets.addSlot(output.get(0), 64, 4).drawBack(false).recipeContext(this);
         {
-            outputSlot.appendTooltip(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+            outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             double[] percentages = outputWithPercentages.percentagesAdvanced();
             for(int i = 0;i < percentages.length;i++)
-                outputSlot.appendTooltip(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                outputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
         }
         SlotWidget secondaryOutputSlot = widgets.addSlot(output.size() == 2?output.get(1):EmiStack.EMPTY, 91, 4).drawBack(false).recipeContext(this);
         if(output.size() == 2) {
-            secondaryOutputSlot.appendTooltip(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+            secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
             double[] percentages = secondaryOutputWithPercentages.percentagesAdvanced();
             for(int i = 0;i < percentages.length;i++)
-                secondaryOutputSlot.appendTooltip(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                secondaryOutputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
         }
     }

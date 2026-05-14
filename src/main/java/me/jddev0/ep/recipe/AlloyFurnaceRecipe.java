@@ -6,19 +6,18 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import java.util.Optional;
 
 public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
@@ -60,7 +59,7 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
         return generatedOutputs;
     }
 
-    public ItemStack[] generateOutputs(Random randomSource) {
+    public ItemStack[] generateOutputs(RandomSource randomSource) {
         ItemStack[] generatedOutputs = new ItemStack[2];
 
         generatedOutputs[0] = output.copyWithCount(output.getCount());
@@ -76,13 +75,13 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient)
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide)
             return false;
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
-            usedIndices[i] = container.getStackInSlot(i).isEmpty();
+            usedIndices[i] = container.getItem(i).isEmpty();
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
@@ -95,7 +94,7 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = container.getStackInSlot(j);
+                ItemStack item = container.getItem(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -118,27 +117,27 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return output;
     }
 
     @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM);
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
@@ -163,7 +162,7 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("alloy_furnace");
+        public static final ResourceLocation ID = EPAPI.id("alloy_furnace");
 
         private final MapCodec<AlloyFurnaceRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
@@ -172,13 +171,13 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
                 return Optional.ofNullable(recipe.secondaryOutput.isEmpty()?null:recipe.secondaryOutput);
             }), new ArrayCodec<>(IngredientWithCount.CODEC_NONEMPTY, IngredientWithCount[]::new).fieldOf("inputs").forGetter((recipe) -> {
                 return recipe.inputs;
-            }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
             })).apply(instance, (output, secondaryOutput, inputs, ticks) -> new AlloyFurnaceRecipe(output,
                     secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), inputs, ticks));
         });
 
-        private final PacketCodec<RegistryByteBuf, AlloyFurnaceRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -187,11 +186,11 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, AlloyFurnaceRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static AlloyFurnaceRecipe read(RegistryByteBuf buffer) {
+        private static AlloyFurnaceRecipe read(RegistryFriendlyByteBuf buffer) {
             int len = buffer.readInt();
             IngredientWithCount[] inputs = new IngredientWithCount[len];
             for(int i = 0;i < len;i++)
@@ -199,21 +198,21 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
 
             int ticks = buffer.readInt();
 
-            ItemStack output = ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer);
+            ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             OutputItemStackWithPercentages secondaryOutput = OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new AlloyFurnaceRecipe(output, secondaryOutput, inputs, ticks);
         }
 
-        private static void write(RegistryByteBuf buffer, AlloyFurnaceRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, AlloyFurnaceRecipe recipe) {
             buffer.writeInt(recipe.inputs.length);
             for(int i = 0; i < recipe.inputs.length; i++)
                 IngredientWithCount.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.inputs[i]);
 
             buffer.writeInt(recipe.ticks);
 
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, recipe.output);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
 
             OutputItemStackWithPercentages.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.secondaryOutput);
         }

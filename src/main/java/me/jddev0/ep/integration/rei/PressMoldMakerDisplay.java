@@ -5,13 +5,12 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeEntry;
-
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
-public record PressMoldMakerDisplay(RecipeEntry<PressMoldMakerRecipe> recipe) implements Display {
+public record PressMoldMakerDisplay(RecipeHolder<PressMoldMakerRecipe> recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(

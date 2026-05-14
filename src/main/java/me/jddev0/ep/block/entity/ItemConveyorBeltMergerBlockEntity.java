@@ -1,8 +1,8 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltMergerBlock;
-import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -10,14 +10,14 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
@@ -44,27 +44,27 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putInt("current_input_index", currentInputIndex);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         currentInputIndex = nbt.getInt("current_input_index");
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltMergerBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltMergerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(level.getTime() % blockEntity.ticksPerItem == 0) {
-            Direction facing = state.get(ItemConveyorBeltMergerBlock.FACING);
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
+            Direction facing = state.getValue(ItemConveyorBeltMergerBlock.FACING);
 
-            BlockPos outputPos = blockPos.offset(facing);
+            BlockPos outputPos = blockPos.relative(facing);
             BlockState outputBlockState = level.getBlockState(outputPos);
             if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                 return;
@@ -80,22 +80,22 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
             for(int j = 0;j < 3;j++) {
                 int index = (blockEntity.currentInputIndex + j) % 3;
                 Direction inputDirection = switch(index) {
-                    case 0 -> facing.rotateYClockwise();
+                    case 0 -> facing.getClockWise();
                     case 1 -> facing.getOpposite();
-                    case 2 -> facing.rotateYCounterclockwise();
+                    case 2 -> facing.getCounterClockWise();
                     default -> null;
                 };
 
                 if(inputDirection == null)
                     return;
 
-                BlockPos inputPos = blockPos.offset(inputDirection);
+                BlockPos inputPos = blockPos.relative(inputDirection);
                 BlockState inputBlockState = level.getBlockState(inputPos);
                 if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
                     continue;
 
                 //Conveyor belt must face towards Merger and must not be ascending
-                EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.get(ItemConveyorBeltBlock.FACING);
+                EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
                 if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != inputDirection)
                     continue;
 
@@ -134,7 +134,7 @@ public class ItemConveyorBeltMergerBlockEntity extends BlockEntity {
 
                     if(amount > 0) {
                         blockEntity.currentInputIndex = (index + 1) % 3;
-                        markDirty(level, blockPos, state);
+                        setChanged(level, blockPos, state);
 
                         return;
                     }

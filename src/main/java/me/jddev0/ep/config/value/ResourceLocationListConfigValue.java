@@ -3,24 +3,24 @@ package me.jddev0.ep.config.value;
 import me.jddev0.ep.config.ConfigValidationException;
 import me.jddev0.ep.config.ConfigValue;
 import me.jddev0.ep.config.validation.ValueValidator;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IdentifierListConfigValue extends ConfigValue<List<@NotNull Identifier>> {
-    public IdentifierListConfigValue(@NotNull String key, @NotNull List<@NotNull Identifier> defaultValue) {
+public class ResourceLocationListConfigValue extends ConfigValue<List<@NotNull ResourceLocation>> {
+    public ResourceLocationListConfigValue(@NotNull String key, @NotNull List<@NotNull ResourceLocation> defaultValue) {
         this(key, null, defaultValue);
     }
 
-    public IdentifierListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull Identifier> defaultValue) {
+    public ResourceLocationListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull ResourceLocation> defaultValue) {
         this(key, comment, defaultValue, null);
     }
 
-    public IdentifierListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull Identifier> defaultValue,
-                                     @Nullable ValueValidator<List<@NotNull Identifier>> customValidator) {
+    public ResourceLocationListConfigValue(@NotNull String key, @Nullable String comment, @NotNull List<@NotNull ResourceLocation> defaultValue,
+                                           @Nullable ValueValidator<List<@NotNull ResourceLocation>> customValidator) {
         super(key, comment, new ArrayList<>(defaultValue), customValidator);
     }
 
@@ -36,12 +36,12 @@ public class IdentifierListConfigValue extends ConfigValue<List<@NotNull Identif
     }
 
     @Override
-    public void validate(@NotNull List<@NotNull Identifier> value) throws ConfigValidationException {
+    public void validate(@NotNull List<@NotNull ResourceLocation> value) throws ConfigValidationException {
         super.validate(value);
     }
 
     @Override
-    protected @NotNull List<@NotNull Identifier> readInternal(@NotNull String rawValue) throws ConfigValidationException {
+    protected @NotNull List<@NotNull ResourceLocation> readInternal(@NotNull String rawValue) throws ConfigValidationException {
         if(rawValue.equals("[]"))
             return new ArrayList<>(0);
 
@@ -52,14 +52,14 @@ public class IdentifierListConfigValue extends ConfigValue<List<@NotNull Identif
         if(rawValue.startsWith(",") || rawValue.endsWith(","))
             throw new ConfigValidationException("Value must not start with \"[,\" or end with \",]\"");
 
-        List<@NotNull Identifier> identifiers = new ArrayList<>();
+        List<@NotNull ResourceLocation> identifiers = new ArrayList<>();
         String[] tokens = rawValue.split(",");
         for(int i = 0;i < tokens.length;i++) {
             String token = tokens[i].trim();
             if(token.isEmpty())
                 throw new ConfigValidationException("Value must not be empty at index " + i);
 
-            Identifier identifier = Identifier.tryParse(token);
+            ResourceLocation identifier = ResourceLocation.tryParse(token);
             if(identifier == null)
                 throw new ConfigValidationException("Invalid value at index " + i + ": \"" + token + "\"");
 
@@ -70,10 +70,10 @@ public class IdentifierListConfigValue extends ConfigValue<List<@NotNull Identif
     }
 
     @Override
-    protected @NotNull String writeInternal(@NotNull List<@NotNull Identifier> value) {
+    protected @NotNull String writeInternal(@NotNull List<@NotNull ResourceLocation> value) {
         StringBuilder builder = new StringBuilder("[");
 
-        for(Identifier Identifier:value)
+        for(ResourceLocation Identifier:value)
             builder.append(Identifier).append(", ");
 
         if(!value.isEmpty())

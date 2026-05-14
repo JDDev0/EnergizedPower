@@ -5,21 +5,20 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEnergyStorageMenu> extends EnergizedPowerBaseContainerScreen<T> {
-    protected final Identifier TEXTURE;
+public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMenu & IEnergyStorageMenu> extends EnergizedPowerBaseContainerScreen<T> {
+    protected final ResourceLocation TEXTURE;
 
     protected int energyMeterX = 8;
     protected int energyMeterY = 17;
@@ -32,24 +31,24 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     protected String energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_consumption_per_tick.txt";
     protected final String energyIndicatorBarTooltipComponentID;
 
-    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent) {
         this(menu, inventory, titleComponent, (String)null);
     }
 
-    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                         String energyIndicatorBarTooltipComponentID) {
         this(menu, inventory, titleComponent, energyIndicatorBarTooltipComponentID,
                 EPAPI.id("textures/gui/container/generic_energy.png"));
     }
 
-    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
-                                        Identifier texture) {
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
+                                        ResourceLocation texture) {
         this(menu, inventory, titleComponent, null, texture);
     }
 
-    public EnergyStorageContainerScreen(T menu, PlayerInventory inventory, Text titleComponent,
+    public EnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                         String energyIndicatorBarTooltipComponentID,
-                                        Identifier texture) {
+                                        ResourceLocation texture) {
         super(menu, inventory, titleComponent);
 
         this.TEXTURE = texture;
@@ -58,67 +57,67 @@ public abstract class EnergyStorageContainerScreen<T extends ScreenHandler & IEn
     }
 
     @Override
-    protected void drawBackground(DrawContext drawContext, float partialTick, int mouseX, int mouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+    protected void renderBg(GuiGraphics drawContext, float partialTick, int mouseX, int mouseY) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.f, 1.f, 1.f, 1.f);
-        int x = (width - backgroundWidth) / 2;
-        int y = (height - backgroundHeight) / 2;
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
 
-        if(!handler.isInUpgradeModuleView()) {
-            drawContext.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+        if(!menu.isInUpgradeModuleView()) {
+            drawContext.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
             renderEnergyMeter(drawContext, x, y);
             renderEnergyPerTickBar(drawContext, x, y);
             renderEnergyIndicatorBar(drawContext, x, y);
         }
     }
 
-    protected void renderEnergyMeter(DrawContext drawContext, int x, int y) {
-        int pos = handler.getScaledEnergyMeterPos(energyMeterHeight);
-        drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+    protected void renderEnergyMeter(GuiGraphics drawContext, int x, int y) {
+        int pos = menu.getScaledEnergyMeterPos(energyMeterHeight);
+        drawContext.blit(MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                 energyMeterV + energyMeterHeight - pos, energyMeterWidth, pos);
     }
 
-    protected void renderEnergyIndicatorBar(DrawContext drawContext, int x, int y) {
-        int pos = handler.getScaledEnergyIndicatorBarPos(energyMeterHeight);
+    protected void renderEnergyIndicatorBar(GuiGraphics drawContext, int x, int y) {
+        int pos = menu.getScaledEnergyIndicatorBarPos(energyMeterHeight);
         if(pos > 0)
-            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+            drawContext.blit(MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                     energyMeterV + energyMeterHeight, energyMeterWidth, 1);
     }
 
-    protected void renderEnergyPerTickBar(DrawContext drawContext, int x, int y) {
-        int pos = handler.getScaledEnergyPerTickBarPos(energyMeterHeight);
+    protected void renderEnergyPerTickBar(GuiGraphics drawContext, int x, int y) {
+        int pos = menu.getScaledEnergyPerTickBarPos(energyMeterHeight);
         if(pos > 0)
-            drawContext.drawTexture(MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
+            drawContext.blit(MACHINE_SPRITES_TEXTURE, x + energyMeterX, y + energyMeterY + energyMeterHeight - pos, energyMeterU,
                     energyMeterV + energyMeterHeight + 1, energyMeterWidth, 1);
     }
 
     @Override
-    public void render(DrawContext drawContext, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics drawContext, int mouseX, int mouseY, float delta) {
         super.render(drawContext, mouseX, mouseY, delta);
 
-        drawMouseoverTooltip(drawContext, mouseX, mouseY);
+        renderTooltip(drawContext, mouseX, mouseY);
     }
 
     @Override
-    protected void drawMouseoverTooltip(DrawContext drawContext, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(drawContext, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
+        super.renderTooltip(drawContext, mouseX, mouseY);
 
-        if(!handler.isInUpgradeModuleView()) {
-            if(isPointWithinBounds(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
-                List<Text> components = new ArrayList<>(2);
-                components.add(Text.translatable("tooltip.energizedpower.energy_meter.content.txt",
-                        EnergyUtils.getEnergyWithPrefix(handler.getEnergy()), EnergyUtils.getEnergyWithPrefix(handler.getCapacity())));
-                if(handler.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
-                    components.add(Text.translatable(energyIndicatorBarTooltipComponentID,
-                            EnergyUtils.getEnergyWithPrefix(handler.getEnergyIndicatorBarValue())).formatted(Formatting.YELLOW));
+        if(!menu.isInUpgradeModuleView()) {
+            if(isHovering(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.energy_meter.content.txt",
+                        EnergyUtils.getEnergyWithPrefix(menu.getEnergy()), EnergyUtils.getEnergyWithPrefix(menu.getCapacity())));
+                if(menu.getEnergyIndicatorBarValue() > 0 && energyIndicatorBarTooltipComponentID != null) {
+                    components.add(Component.translatable(energyIndicatorBarTooltipComponentID,
+                            EnergyUtils.getEnergyWithPrefix(menu.getEnergyIndicatorBarValue())).withStyle(ChatFormatting.YELLOW));
                 }
 
-                if(handler.getEnergyPerTickBarValue() > 0 && energyPerTickBarTooltipComponentID != null) {
-                    components.add(Text.translatable(energyPerTickBarTooltipComponentID,
-                            EnergyUtils.getEnergyWithPrefix(handler.getEnergyPerTickBarValue()) + "/t").formatted(Formatting.YELLOW));
+                if(menu.getEnergyPerTickBarValue() > 0 && energyPerTickBarTooltipComponentID != null) {
+                    components.add(Component.translatable(energyPerTickBarTooltipComponentID,
+                            EnergyUtils.getEnergyWithPrefix(menu.getEnergyPerTickBarValue()) + "/t").withStyle(ChatFormatting.YELLOW));
                 }
 
-                drawContext.drawTooltip(textRenderer, components, Optional.empty(), mouseX, mouseY);
+                drawContext.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
             }
         }
     }

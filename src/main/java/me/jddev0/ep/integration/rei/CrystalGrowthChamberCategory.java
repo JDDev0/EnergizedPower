@@ -11,10 +11,12 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrowthChamberDisplay> {
     public static final CategoryIdentifier<CrystalGrowthChamberDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "crystal_growth_chamber");
@@ -27,8 +29,8 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.crystal_growth_chamber");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.crystal_growth_chamber");
     }
 
     @Override
@@ -45,26 +47,26 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 38));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
         widgets.add(Widgets.createSlot(new Point(x + 77, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().get(0).map(stack -> {
-                    List<Text> tooltip = new ArrayList<>();
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    List<Component> tooltip = new ArrayList<>();
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = display.recipe().value().getOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
                     return stack.tooltip(tooltip);
                 })));
 
         int ticks = (int)(display.recipe().value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Text.translatable("recipes.energizedpower.info.ticks", ticks)).
+                        Component.translatable("recipes.energizedpower.info.ticks", ticks)).
                 noShadow().rightAligned());
 
         return widgets;

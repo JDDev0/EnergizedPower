@@ -4,6 +4,8 @@ import me.jddev0.ep.block.FluidFillerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -20,25 +22,23 @@ import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class FluidFillerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, SimpleInventory, SimpleFluidStorage> {
+        <EnergizedPowerEnergyStorage, SimpleContainer, SimpleFluidStorage> {
     /**
      * MAX_FLUID_DRAINING_PER_TICK is in Milli Buckets
      */
@@ -49,7 +49,7 @@ public class FluidFillerBlockEntity
         if(i != 0)
             return false;
 
-        ItemStack itemStack = itemHandler.getStack(i);
+        ItemStack itemStack = itemHandler.getItem(i);
 
         if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) == null)
             return true;
@@ -124,7 +124,7 @@ public class FluidFillerBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -142,41 +142,41 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public int getMaxCountPerStack() {
+            public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0)
                     return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
+                    ItemStack itemStack = getItem(slot);
                     if(!forceAllowStackUpdateFlag && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            (!ItemStack.areItemsEqual(stack, itemStack) || (!ItemStack.areItemsAndComponentsEqual(stack, itemStack) &&
+                            (!ItemStack.isSameItem(stack, itemStack) || (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no fluid item
                                     !(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null &&
                                             ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null))))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                FluidFillerBlockEntity.this.markDirty();
+                FluidFillerBlockEntity.this.setChanged();
             }
         };
     }
@@ -186,14 +186,14 @@ public class FluidFillerBlockEntity
         return new SimpleFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(32);
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new FluidValueContainerData(() -> fluidFillingLeft, value -> {}),
                 new FluidValueContainerData(() -> fluidFillingSumPending, value -> {}),
@@ -204,7 +204,7 @@ public class FluidFillerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
@@ -212,8 +212,8 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         FluidUtils.writeFluidAmountInMilliBucketsWithLeftover(fluidFillingLeft,
                 "recipe.fluid_filling_left", "recipe.fluid_filling_left_leftover_droplets", nbt);
@@ -222,8 +222,8 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         fluidFillingLeft = FluidUtils.readFluidAmountInMilliBucketsWithLeftover("recipe.fluid_filling_left",
                 "recipe.fluid_filling_left_leftover_droplets", nbt);
@@ -231,15 +231,15 @@ public class FluidFillerBlockEntity
                 "recipe.fluid_filling_sum_pending_leftover_droplets", nbt);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(!blockEntity.redstoneMode.isActive(state.get(FluidFillerBlock.POWERED)))
+        if(!blockEntity.redstoneMode.isActive(state.getValue(FluidFillerBlock.POWERED)))
             return;
 
         if(blockEntity.hasRecipe()) {
-            ItemStack itemStack = blockEntity.itemHandler.getStack(0);
+            ItemStack itemStack = blockEntity.itemHandler.getItem(0);
             long fluidFillingSum = 0;
             long fluidFillingLeftSum = 0;
 
@@ -319,10 +319,10 @@ public class FluidFillerBlockEntity
             if(blockEntity.fluidFillingLeft <= 0)
                 blockEntity.resetProgress();
 
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress();
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
 
@@ -332,7 +332,7 @@ public class FluidFillerBlockEntity
     }
 
     private boolean hasRecipe() {
-        ItemStack itemStack = itemHandler.getStack(0);
+        ItemStack itemStack = itemHandler.getItem(0);
         if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null) {
             Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
                     ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(0)));

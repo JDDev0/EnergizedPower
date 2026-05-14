@@ -11,35 +11,34 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SawmillCategory implements IRecipeCategory<RecipeEntry<SawmillRecipe>> {
-    public static final RecipeType<RecipeEntry<SawmillRecipe>> TYPE = RecipeType.createFromVanilla(SawmillRecipe.Type.INSTANCE);
+public class SawmillCategory implements IRecipeCategory<RecipeHolder<SawmillRecipe>> {
+    public static final RecipeType<RecipeHolder<SawmillRecipe>> TYPE = RecipeType.createFromVanilla(SawmillRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public SawmillCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/container/sawmill.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/sawmill.png");
         background = helper.createDrawable(texture, 42, 30, 109, 26);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.SAWMILL_ITEM));
     }
 
     @Override
-    public RecipeType<RecipeEntry<SawmillRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<SawmillRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.sawmill");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.sawmill");
     }
 
     @Override
@@ -53,7 +52,7 @@ public class SawmillCategory implements IRecipeCategory<RecipeEntry<SawmillRecip
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeEntry<SawmillRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<SawmillRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).addIngredients(recipe.value().getInputItem());
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(recipe.value().getOutputItem());

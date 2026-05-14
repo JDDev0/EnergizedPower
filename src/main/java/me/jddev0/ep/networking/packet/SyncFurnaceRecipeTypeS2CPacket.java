@@ -3,22 +3,22 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.FurnaceRecipeTypePacketUpdate;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPayload {
-    public static final Id<SyncFurnaceRecipeTypeS2CPacket> ID =
-            new Id<>(EPAPI.id("sync_furnace_recipe_type"));
-    public static final PacketCodec<RegistryByteBuf, SyncFurnaceRecipeTypeS2CPacket> PACKET_CODEC =
-            PacketCodec.of(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
+public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPacketPayload {
+    public static final Type<SyncFurnaceRecipeTypeS2CPacket> ID =
+            new Type<>(EPAPI.id("sync_furnace_recipe_type"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncFurnaceRecipeTypeS2CPacket> PACKET_CODEC =
+            StreamCodec.ofMember(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
 
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;
     private final BlockPos pos;
@@ -29,10 +29,10 @@ public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPayload {
     }
 
     @SuppressWarnings("unchecked")
-    public SyncFurnaceRecipeTypeS2CPacket(RegistryByteBuf buffer) {
+    public SyncFurnaceRecipeTypeS2CPacket(RegistryFriendlyByteBuf buffer) {
         if(buffer.readBoolean()) {
-            this.recipeType = (RecipeType<? extends AbstractCookingRecipe>)Registries.RECIPE_TYPE.
-                    getOrEmpty(buffer.readIdentifier()).orElse(RecipeType.SMELTING);
+            this.recipeType = (RecipeType<? extends AbstractCookingRecipe>)BuiltInRegistries.RECIPE_TYPE.
+                    getOptional(buffer.readResourceLocation()).orElse(RecipeType.SMELTING);
         }else {
             this.recipeType = RecipeType.SMELTING;
         }
@@ -40,29 +40,29 @@ public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPayload {
         this.pos = buffer.readBlockPos();
     }
 
-    public void write(RegistryByteBuf buffer) {
-        Identifier recipeTypeKey = Registries.RECIPE_TYPE.getId(recipeType);
+    public void write(RegistryFriendlyByteBuf buffer) {
+        ResourceLocation recipeTypeKey = BuiltInRegistries.RECIPE_TYPE.getKey(recipeType);
         if(recipeTypeKey == null) {
             buffer.writeBoolean(false);
         }else {
             buffer.writeBoolean(true);
-            buffer.writeIdentifier(recipeTypeKey);
+            buffer.writeResourceLocation(recipeTypeKey);
         }
         buffer.writeBlockPos(pos);
     }
 
     @Override
     @NotNull
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(SyncFurnaceRecipeTypeS2CPacket data, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
-            if(context.client().world == null)
+            if(context.client().level == null)
                 return;
 
-            BlockEntity blockEntity = context.client().world.getBlockEntity(data.pos);
+            BlockEntity blockEntity = context.client().level.getBlockEntity(data.pos);
             if(blockEntity instanceof FurnaceRecipeTypePacketUpdate recipeTypePacketUpdate)
                 recipeTypePacketUpdate.setRecipeType(data.recipeType);
         });

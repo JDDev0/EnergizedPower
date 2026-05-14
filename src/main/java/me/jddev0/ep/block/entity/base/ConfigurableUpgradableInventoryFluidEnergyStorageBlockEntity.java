@@ -7,17 +7,17 @@ import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends SimpleInventory, F extends Storage<FluidVariant>>
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
         extends UpgradableInventoryFluidEnergyStorageBlockEntity<E, I, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
@@ -34,16 +34,16 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putInt("configuration.redstone_mode", redstoneMode.ordinal());
         nbt.putInt("configuration.comparator_mode", comparatorMode.ordinal());
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
@@ -51,7 +51,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
 
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
-            case ITEM -> ScreenHandler.calculateComparatorOutput(itemHandler);
+            case ITEM -> AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
             case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
             case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
         };
@@ -60,7 +60,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     @Override
     public void setNextRedstoneMode() {
         redstoneMode = RedstoneMode.fromIndex(redstoneMode.ordinal() + 1);
-        markDirty();
+        setChanged();
     }
 
     @Override
@@ -78,7 +78,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     @Override
     public boolean setRedstoneMode(@NotNull RedstoneMode redstoneMode) {
         this.redstoneMode = redstoneMode;
-        markDirty();
+        setChanged();
 
         return true;
     }
@@ -86,7 +86,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     @Override
     public void setNextComparatorMode() {
         comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        markDirty();
+        setChanged();
     }
 
     @Override
@@ -108,7 +108,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
     @Override
     public boolean setComparatorMode(@NotNull ComparatorMode comparatorMode) {
         this.comparatorMode = comparatorMode;
-        markDirty();
+        setChanged();
 
         return true;
     }

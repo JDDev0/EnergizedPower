@@ -1,31 +1,31 @@
 package me.jddev0.ep.item;
 
+import me.jddev0.ep.block.WrenchConfigurable;
 import me.jddev0.ep.component.EPDataComponentTypes;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-import me.jddev0.ep.block.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
 public class WrenchItem extends Item {
-    public WrenchItem(Item.Settings props) {
+    public WrenchItem(Item.Properties props) {
         super(props);
     }
 
@@ -33,78 +33,78 @@ public class WrenchItem extends Item {
         return itemStack.getOrDefault(EPDataComponentTypes.CURRENT_FACE, Direction.DOWN);
     }
 
-    public static void cycleCurrentFace(ItemStack itemStack, ServerPlayerEntity player) {
-        int diff = player.isSneaking() ? -1 : 1;
+    public static void cycleCurrentFace(ItemStack itemStack, ServerPlayer player) {
+        int diff = player.isShiftKeyDown() ? -1 : 1;
         Direction currentFace = getCurrentFace(itemStack);
         currentFace = Direction.values()[(currentFace.ordinal() + diff + Direction.values().length) %
                 Direction.values().length];
 
         itemStack.set(EPDataComponentTypes.CURRENT_FACE, currentFace);
 
-        player.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                Text.translatable("tooltip.energizedpower.wrench.select_face",
-                        Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
-                                formatted(Formatting.WHITE, Formatting.BOLD)
-                ).formatted(Formatting.GRAY)
+        player.connection.send(new ClientboundSetActionBarTextPacket(
+                Component.translatable("tooltip.energizedpower.wrench.select_face",
+                        Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
+                                withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+                ).withStyle(ChatFormatting.GRAY)
         ));
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext useOnContext) {
-        World level = useOnContext.getWorld();
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useOn(UseOnContext useOnContext) {
+        Level level = useOnContext.getLevel();
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
-        PlayerEntity player = useOnContext.getPlayer();
+        Player player = useOnContext.getPlayer();
 
-        BlockPos blockPos = useOnContext.getBlockPos();
+        BlockPos blockPos = useOnContext.getClickedPos();
         BlockState state = level.getBlockState(blockPos);
         Block block = state.getBlock();
         if(!(block instanceof WrenchConfigurable wrenchConfigurableBlock)) {
-            if(player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new OverlayMessageS2CPacket(
-                        Text.translatable("tooltip.energizedpower.wrench.not_configurable").formatted(Formatting.RED)
+            if(player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("tooltip.energizedpower.wrench.not_configurable").withStyle(ChatFormatting.RED)
                 ));
             }
 
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        ItemStack itemStack = useOnContext.getStack();
+        ItemStack itemStack = useOnContext.getItemInHand();
         Direction currentFace = getCurrentFace(itemStack);
 
-        return wrenchConfigurableBlock.onUseWrench(useOnContext, currentFace, player != null && player.isSneaking());
+        return wrenchConfigurableBlock.onUseWrench(useOnContext, currentFace, player != null && player.isShiftKeyDown());
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World level, PlayerEntity player, Hand interactionHand) {
-        ItemStack itemStack = player.getStackInHand(interactionHand);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        ItemStack itemStack = player.getItemInHand(interactionHand);
 
-        if(level.isClient())
-            return TypedActionResult.success(itemStack);
+        if(level.isClientSide())
+            return InteractionResultHolder.success(itemStack);
 
-       cycleCurrentFace(itemStack, (ServerPlayerEntity)player);
+       cycleCurrentFace(itemStack, (ServerPlayer)player);
 
-        return TypedActionResult.success(itemStack);
+        return InteractionResultHolder.success(itemStack);
     }
 
     @Override
-    public float getMiningSpeed(ItemStack itemStack, BlockState blockState) {
+    public float getDestroySpeed(ItemStack itemStack, BlockState blockState) {
         //Allow current face swap in survival in a reasonable amount of time
         return 1000.f;
     }
 
     @Override
-    public boolean canMine(BlockState state, World level, BlockPos blockPos, PlayerEntity player) {
-        if(level.isClient() || !(player instanceof ServerPlayerEntity))
+    public boolean canAttackBlock(BlockState state, Level level, BlockPos blockPos, Player player) {
+        if(level.isClientSide() || !(player instanceof ServerPlayer))
             return false;
 
-        ItemStack itemStack = player.getMainHandStack();
+        ItemStack itemStack = player.getMainHandItem();
 
-        if(itemStack.contains(EPDataComponentTypes.ACTION_COOLDOWN))
+        if(itemStack.has(EPDataComponentTypes.ACTION_COOLDOWN))
             return false;
 
-        cycleCurrentFace(itemStack, (ServerPlayerEntity)player);
+        cycleCurrentFace(itemStack, (ServerPlayer)player);
 
         itemStack.set(EPDataComponentTypes.ACTION_COOLDOWN, 5);
 
@@ -112,32 +112,32 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag type) {
         Direction currentFace = getCurrentFace(stack);
-        tooltip.add(Text.translatable("tooltip.energizedpower.wrench.select_face",
-                Text.translatable("tooltip.energizedpower.direction." + currentFace.asString()).
-                        formatted(Formatting.WHITE, Formatting.BOLD)
-        ).formatted(Formatting.GRAY));
+        tooltip.add(Component.translatable("tooltip.energizedpower.wrench.select_face",
+                Component.translatable("tooltip.energizedpower.direction." + currentFace.getSerializedName()).
+                        withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD)
+        ).withStyle(ChatFormatting.GRAY));
 
         if(Screen.hasShiftDown()) {
-            tooltip.add(Text.translatable("tooltip.energizedpower.wrench.txt.shift").
-                    formatted(Formatting.GRAY, Formatting.ITALIC));
+            tooltip.add(Component.translatable("tooltip.energizedpower.wrench.txt.shift").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }else {
-            tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+            tooltip.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
         }
     }
 
     @Override
-    public void inventoryTick(ItemStack itemStack, World level, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int slot, boolean selected) {
         super.inventoryTick(itemStack, level, entity, slot, selected);
 
-        if(level.isClient())
+        if(level.isClientSide())
             return;
 
-        if(!(entity instanceof PlayerEntity))
+        if(!(entity instanceof Player))
             return;
 
-        if(itemStack.contains(EPDataComponentTypes.ACTION_COOLDOWN)) {
+        if(itemStack.has(EPDataComponentTypes.ACTION_COOLDOWN)) {
             int attackingCycleCooldown = itemStack.getOrDefault(EPDataComponentTypes.ACTION_COOLDOWN, 0) - 1;
             if(attackingCycleCooldown <= 0)
                 itemStack.remove(EPDataComponentTypes.ACTION_COOLDOWN);

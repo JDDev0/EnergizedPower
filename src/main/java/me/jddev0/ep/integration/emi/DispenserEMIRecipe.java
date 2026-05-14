@@ -7,20 +7,19 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import java.util.List;
 
 public class DispenserEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = Identifier.of("textures/block/dispenser_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = ResourceLocation.parse("textures/block/dispenser_front.png");
     public static final EmiStack ITEM = EmiStack.of(Items.DISPENSER);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("dispenser"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> catalysts;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
@@ -38,7 +37,7 @@ public class DispenserEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -78,5 +77,5 @@ public class DispenserEMIRecipe implements EmiRecipe {
         widgets.addSlot(output.get(0), 79, 4).recipeContext(this);
     }
 
-    record DispenserRecipe(Identifier id, Ingredient tool, Ingredient block, ItemStack output) {}
+    record DispenserRecipe(ResourceLocation id, Ingredient tool, Ingredient block, ItemStack output) {}
 }

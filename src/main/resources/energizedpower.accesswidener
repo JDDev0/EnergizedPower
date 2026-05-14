@@ -1,15 +1,15 @@
 accessWidener	v1 named
 
-extendable    method    net/minecraft/entity/vehicle/VehicleEntity    asItem    ()Lnet/minecraft/item/Item;
+extendable    method    net/minecraft/world/entity/vehicle/VehicleEntity    getDropItem    ()Lnet/minecraft/world/item/Item;
 
-accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    x    I
-accessible    field    net/minecraft/client/gui/screen/ingame/HandledScreen    y    I
+accessible    field    net/minecraft/client/gui/screens/inventory/AbstractContainerScreen    leftPos    I
+accessible    field    net/minecraft/client/gui/screens/inventory/AbstractContainerScreen    topPos    I
 
-accessible    method    net/minecraft/util/thread/ThreadExecutor    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
+accessible    method    net/minecraft/util/thread/BlockableEventLoop    submitAsync    (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
 
-accessible    method    net/minecraft/recipe/Ingredient    ofEntries    (Ljava/util/stream/Stream;)Lnet/minecraft/recipe/Ingredient;
-accessible    class    net/minecraft/recipe/Ingredient$StackEntry
-accessible    method    net/minecraft/recipe/Ingredient$StackEntry    <init>    (Lnet/minecraft/item/ItemStack;)V
-accessible    class    net/minecraft/recipe/Ingredient$TagEntry
-accessible    method    net/minecraft/recipe/Ingredient$TagEntry    <init>    (Lnet/minecraft/registry/tag/TagKey;)V
-accessible    class    net/minecraft/recipe/Ingredient$Entry
+accessible    method    net/minecraft/world/item/crafting/Ingredient    fromValues    (Ljava/util/stream/Stream;)Lnet/minecraft/world/item/crafting/Ingredient;
+accessible    class    net/minecraft/world/item/crafting/Ingredient$ItemValue
+accessible    method    net/minecraft/world/item/crafting/Ingredient$ItemValue    <init>    (Lnet/minecraft/world/item/ItemStack;)V
+accessible    class    net/minecraft/world/item/crafting/Ingredient$TagValue
+accessible    method    net/minecraft/world/item/crafting/Ingredient$TagValue    <init>    (Lnet/minecraft/tags/TagKey;)V
+accessible    class    net/minecraft/world/item/crafting/Ingredient$Value

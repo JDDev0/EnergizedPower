@@ -10,25 +10,21 @@ import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,15 +34,15 @@ import java.util.Optional;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>>
+        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
 
-    protected Identifier currentRecipeIdForLoad;
-    protected RecipeEntry<R> currentRecipe;
+    protected ResourceLocation currentRecipeIdForLoad;
+    protected RecipeHolder<R> currentRecipe;
 
     public SelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                    String machineName, UpgradableMenuProvider menuProvider,
@@ -65,7 +61,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -78,24 +74,24 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         if(currentRecipe != null)
-            nbt.put("recipe.id", NbtString.of(currentRecipe.id().toString()));
+            nbt.put("recipe.id", StringTag.valueOf(currentRecipe.id().toString()));
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         if(nbt.contains("recipe.id"))
-            currentRecipeIdForLoad = Identifier.tryParse(nbt.getString("recipe.id"));
+            currentRecipeIdForLoad = ResourceLocation.tryParse(nbt.getString("recipe.id"));
     }
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
         syncCurrentRecipeToPlayer(player);
@@ -107,7 +103,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     protected final void onTickStart() {
         //Load recipe
         if(currentRecipeIdForLoad != null) {
-            List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
+            List<RecipeHolder<R>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
             currentRecipe = recipes.stream().
                     filter(recipe -> recipe.id().equals(currentRecipeIdForLoad)).
                     findFirst().orElse(null);
@@ -117,25 +113,25 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected Optional<RecipeEntry<R>> getCurrentWorkData() {
+    protected Optional<RecipeHolder<R>> getCurrentWorkData() {
         return Optional.ofNullable(currentRecipe);
     }
 
     @Override
-    protected final double getWorkDataDependentWorkDuration(RecipeEntry<R> workData) {
+    protected final double getWorkDataDependentWorkDuration(RecipeHolder<R> workData) {
         return getRecipeDependentRecipeDuration(workData);
     }
 
-    protected double getRecipeDependentRecipeDuration(RecipeEntry<R> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
         return 1;
     }
 
     @Override
-    protected final double getWorkDataDependentEnergyConsumption(RecipeEntry<R> workData) {
+    protected final double getWorkDataDependentEnergyConsumption(RecipeHolder<R> workData) {
         return getRecipeDependentEnergyConsumption(workData);
     }
 
-    protected double getRecipeDependentEnergyConsumption(RecipeEntry<R> recipe) {
+    protected double getRecipeDependentEnergyConsumption(RecipeHolder<R> recipe) {
         return 1;
     }
 
@@ -145,37 +141,37 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     protected boolean hasRecipe() {
-        if(world == null || currentRecipe == null)
+        if(level == null || currentRecipe == null)
             return false;
 
         return canCraftRecipe(itemHandler, currentRecipe);
     }
 
     @Override
-    protected final void onWorkStarted(RecipeEntry<R> workData) {
+    protected final void onWorkStarted(RecipeHolder<R> workData) {
         onStartCrafting(workData);
     }
 
-    protected void onStartCrafting(RecipeEntry<R> recipe) {}
+    protected void onStartCrafting(RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkCompleted(RecipeEntry<R> workData) {
+    protected final void onWorkCompleted(RecipeHolder<R> workData) {
         craftItem(workData);
     }
 
-    protected abstract void craftItem(RecipeEntry<R> recipe);
+    protected abstract void craftItem(RecipeHolder<R> recipe);
 
-    protected abstract boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<R> recipe);
+    protected abstract boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe);
 
     @Override
     public void changeRecipeIndex(boolean downUp) {
-        if(world == null || world.isClient())
+        if(level == null || level.isClientSide())
             return;
 
-        List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
+        List<RecipeHolder<R>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
         recipes = recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.value().getResult(world.getRegistryManager()).
-                        getTranslationKey())).
+                sorted(Comparator.comparing(recipe -> recipe.value().getResultItem(level.registryAccess()).
+                        getDescriptionId())).
                 toList();
 
         int currentIndex = -1;
@@ -197,50 +193,50 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         currentRecipe = currentIndex == -1?null:recipes.get(currentIndex);
 
         resetProgress();
-        markDirty();
+        setChanged();
 
         syncCurrentRecipeToPlayers(32);
     }
 
     @Override
-    public void setRecipeId(Identifier recipeId) {
-        if(world == null || world.isClient())
+    public void setRecipeId(ResourceLocation recipeId) {
+        if(level == null || level.isClientSide())
             return;
 
         if(recipeId == null) {
             currentRecipe = null;
         }else {
-            List<RecipeEntry<R>> recipes = world.getRecipeManager().listAllOfType(recipeType);
-            Optional<RecipeEntry<R>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
+            List<RecipeHolder<R>> recipes = level.getRecipeManager().getAllRecipesFor(recipeType);
+            Optional<RecipeHolder<R>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
 
             currentRecipe = recipe.orElse(null);
         }
 
         resetProgress();
-        markDirty();
+        setChanged();
 
         syncCurrentRecipeToPlayers(32);
     }
 
-    protected final void syncCurrentRecipeToPlayer(PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new SyncCurrentRecipeS2CPacket<>(getPos(), recipeSerializer, currentRecipe));
+    protected final void syncCurrentRecipeToPlayer(Player player) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe));
     }
 
     protected final void syncCurrentRecipeToPlayers(int distance) {
-        if(world != null && !world.isClient())
+        if(level != null && !level.isClientSide())
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, distance,
-                    new SyncCurrentRecipeS2CPacket<>(getPos(), recipeSerializer, currentRecipe)
+                    getBlockPos(), (ServerLevel)level, distance,
+                    new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe)
             );
     }
 
-    public @Nullable RecipeEntry<R> getCurrentRecipe() {
+    public @Nullable RecipeHolder<R> getCurrentRecipe() {
         return currentRecipe;
     }
 
     @Override
-    public void setCurrentRecipe(@Nullable RecipeEntry<R> currentRecipe) {
+    public void setCurrentRecipe(@Nullable RecipeHolder<R> currentRecipe) {
         this.currentRecipe = currentRecipe;
     }
 }

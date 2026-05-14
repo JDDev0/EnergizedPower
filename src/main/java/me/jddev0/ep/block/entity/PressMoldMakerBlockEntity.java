@@ -9,18 +9,18 @@ import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.PressMoldMakerMenu;
 import me.jddev0.ep.util.InventoryUtils;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -30,8 +30,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
-        extends MenuInventoryStorageBlockEntity<SimpleInventory> {
-    private List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
+        extends MenuInventoryStorageBlockEntity<SimpleContainer> {
+    private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
@@ -46,29 +46,29 @@ public class PressMoldMakerBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
-                    case 0 -> world == null || stack.isOf(Items.CLAY_BALL);
+                    case 0 -> level == null || stack.is(Items.CLAY_BALL);
                     case 1 -> false;
-                    default -> super.isValid(slot, stack);
+                    default -> super.canPlaceItem(slot, stack);
                 };
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                PressMoldMakerBlockEntity.this.markDirty();
+                PressMoldMakerBlockEntity.this.setChanged();
 
-                if(world != null && !world.isClient()) {
-                    List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
+                if(level != null && !level.isClientSide()) {
+                    List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
 
                     ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getPos(), (ServerWorld)world, 32,
-                            new SyncPressMoldMakerRecipeListS2CPacket(getPos(), recipeList)
+                            getBlockPos(), (ServerLevel)level, 32,
+                            new SyncPressMoldMakerRecipeListS2CPacket(getBlockPos(), recipeList)
                     );
                 }
             }
@@ -77,48 +77,48 @@ public class PressMoldMakerBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
-        List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new SyncPressMoldMakerRecipeListS2CPacket(
-                getPos(), recipeList));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new SyncPressMoldMakerRecipeListS2CPacket(
+                getBlockPos(), recipeList));
 
         return new PressMoldMakerMenu(id, this, inventory, itemHandler);
     }
 
     public int getRedstoneOutput() {
-        return ScreenHandler.calculateComparatorOutput(itemHandler);
+        return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
     }
 
-    public void craftItem(Identifier recipeId) {
-        Optional<RecipeEntry<?>> recipe = world.getRecipeManager().values().stream().
+    public void craftItem(ResourceLocation recipeId) {
+        Optional<RecipeHolder<?>> recipe = level.getRecipeManager().getRecipes().stream().
                 filter(recipeHolder -> recipeHolder.id().equals(recipeId)).findFirst();
 
         if(recipe.isEmpty() || !(recipe.get().value() instanceof PressMoldMakerRecipe pressMoldMakerRecipe))
             return;
 
-        if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(itemHandler), world) ||
-                !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.getResult(world.getRegistryManager())))
+        if(!pressMoldMakerRecipe.matches(new ContainerRecipeInputWrapper(itemHandler), level) ||
+                !InventoryUtils.canInsertItemIntoSlot(itemHandler, 1, pressMoldMakerRecipe.getResultItem(level.registryAccess())))
             return;
 
-        itemHandler.removeStack(0, pressMoldMakerRecipe.getClayCount());
-        itemHandler.setStack(1, pressMoldMakerRecipe.getResult(world.getRegistryManager()).copyWithCount(
-                itemHandler.getStack(1).getCount() + pressMoldMakerRecipe.getResult(world.getRegistryManager()).getCount()));
+        itemHandler.removeItem(0, pressMoldMakerRecipe.getClayCount());
+        itemHandler.setItem(1, pressMoldMakerRecipe.getResultItem(level.registryAccess()).copyWithCount(
+                itemHandler.getItem(1).getCount() + pressMoldMakerRecipe.getResultItem(level.registryAccess()).getCount()));
     }
 
-    private List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> createRecipeList() {
-        List<RecipeEntry<PressMoldMakerRecipe>> recipes = world.getRecipeManager().listAllOfType(PressMoldMakerRecipe.Type.INSTANCE);
+    private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> createRecipeList() {
+        List<RecipeHolder<PressMoldMakerRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE);
         return recipes.stream().
-                sorted(Comparator.comparing(recipe -> recipe.value().getResult(world.getRegistryManager()).getTranslationKey())).
-                map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(itemHandler), world))).
+                sorted(Comparator.comparing(recipe -> recipe.value().getResultItem(level.registryAccess()).getDescriptionId())).
+                map(recipe -> Pair.of(recipe, recipe.value().matches(new ContainerRecipeInputWrapper(itemHandler), level))).
                 collect(Collectors.toList());
     }
 
-    public List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> getRecipeList() {
+    public List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> getRecipeList() {
         return recipeList;
     }
 
-    public void setRecipeList(List<Pair<RecipeEntry<PressMoldMakerRecipe>, Boolean>> recipeList) {
+    public void setRecipeList(List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList) {
         this.recipeList = recipeList;
     }
 }

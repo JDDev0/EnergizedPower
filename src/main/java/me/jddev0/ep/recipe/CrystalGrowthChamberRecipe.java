@@ -4,19 +4,15 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
 
 public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
     private final OutputItemStackWithPercentages output;
@@ -51,7 +47,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
         return output.output().copyWithCount(output.percentages().length);
     }
 
-    public ItemStack generateOutput(Random randomSource) {
+    public ItemStack generateOutput(RandomSource randomSource) {
         int count = 0;
 
         for(double percentage:output.percentages())
@@ -62,35 +58,35 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
-        if(level.isClient())
+    public boolean matches(RecipeInput container, Level level) {
+        if(level.isClientSide())
             return false;
 
-        return input.test(container.getStackInSlot(0)) && container.getStackInSlot(0).getCount() >= inputCount;
+        return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM);
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
@@ -115,21 +111,21 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("crystal_growth_chamber");
+        public static final ResourceLocation ID = EPAPI.id("crystal_growth_chamber");
 
         private final MapCodec<CrystalGrowthChamberRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(OutputItemStackWithPercentages.CODEC_NONEMPTY.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), Ingredient.DISALLOW_EMPTY_CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), Codecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.optionalFieldOf("inputCount", 1).forGetter((recipe) -> {
                 return recipe.inputCount;
-            }), Codecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
+            }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
             })).apply(instance, CrystalGrowthChamberRecipe::new);
         });
 
-        private final PacketCodec<RegistryByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -138,12 +134,12 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, CrystalGrowthChamberRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static CrystalGrowthChamberRecipe read(RegistryByteBuf buffer) {
-            Ingredient input = Ingredient.PACKET_CODEC.decode(buffer);
+        private static CrystalGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
+            Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int inputCount = buffer.readInt();
             int ticks = buffer.readInt();
 
@@ -152,8 +148,8 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
             return new CrystalGrowthChamberRecipe(output, input, inputCount, ticks);
         }
 
-        private static void write(RegistryByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
-            Ingredient.PACKET_CODEC.encode(buffer, recipe.input);
+        private static void write(RegistryFriendlyByteBuf buffer, CrystalGrowthChamberRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.inputCount);
             buffer.writeInt(recipe.ticks);
 

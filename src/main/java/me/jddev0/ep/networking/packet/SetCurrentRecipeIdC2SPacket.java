@@ -3,49 +3,49 @@ package me.jddev0.ep.networking.packet;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
-public record SetCurrentRecipeIdC2SPacket(BlockPos pos, Identifier recipeId) implements CustomPayload {
-    public static final CustomPayload.Id<SetCurrentRecipeIdC2SPacket> ID =
-            new CustomPayload.Id<>(EPAPI.id("set_current_recipe_id"));
-    public static final PacketCodec<RegistryByteBuf, SetCurrentRecipeIdC2SPacket> PACKET_CODEC =
-            PacketCodec.of(SetCurrentRecipeIdC2SPacket::write, SetCurrentRecipeIdC2SPacket::new);
+public record SetCurrentRecipeIdC2SPacket(BlockPos pos, ResourceLocation recipeId) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SetCurrentRecipeIdC2SPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("set_current_recipe_id"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetCurrentRecipeIdC2SPacket> PACKET_CODEC =
+            StreamCodec.ofMember(SetCurrentRecipeIdC2SPacket::write, SetCurrentRecipeIdC2SPacket::new);
 
-    public SetCurrentRecipeIdC2SPacket(RegistryByteBuf buffer) {
-        this(buffer.readBlockPos(), buffer.readBoolean()?buffer.readIdentifier():null);
+    public SetCurrentRecipeIdC2SPacket(RegistryFriendlyByteBuf buffer) {
+        this(buffer.readBlockPos(), buffer.readBoolean()?buffer.readResourceLocation():null);
     }
 
-     public void write(RegistryByteBuf buffer) {
+     public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
          if(recipeId == null) {
              buffer.writeBoolean(false);
          }else {
              buffer.writeBoolean(true);
-             buffer.writeIdentifier(recipeId);
+             buffer.writeResourceLocation(recipeId);
          }
     }
 
     @Override
     @NotNull
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(SetCurrentRecipeIdC2SPacket data, ServerPlayNetworking.Context context) {
         context.player().server.execute(() -> {
-            if(!context.player().canModifyBlocks())
+            if(!context.player().mayBuild())
                 return;
 
-            World level = context.player().getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+            Level level = context.player().level();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);

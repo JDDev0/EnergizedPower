@@ -9,26 +9,25 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/plant_growth_chamber_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/plant_growth_chamber_side.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("plant_growth_chamber_fertilizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final double speedMultiplier;
     private final double energyConsumptionMultiplier;
 
-    public PlantGrowthChamberFertilizerEMIRecipe(RecipeEntry<PlantGrowthChamberFertilizerRecipe> recipe) {
+    public PlantGrowthChamberFertilizerEMIRecipe(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
         this.speedMultiplier = recipe.value().getSpeedMultiplier();
@@ -41,7 +40,7 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -67,19 +66,19 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         widgets.addTexture(texture, 0, 0, 18, 18, 34, 34);
 
         widgets.addSlot(input.get(0), 0, 0).drawBack(false);
 
-        Text speedMultiplierText = Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", speedMultiplier);
-        widgets.addText(speedMultiplierText.asOrderedText(),
-                widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(speedMultiplierText),
-                widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight - 17, Formatting.WHITE.getColorValue(), false);
+        Component speedMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", speedMultiplier);
+        widgets.addText(speedMultiplierText.getVisualOrderText(),
+                widgets.getWidth() - Minecraft.getInstance().font.width(speedMultiplierText),
+                widgets.getHeight() - Minecraft.getInstance().font.lineHeight - 17, ChatFormatting.WHITE.getColor(), false);
 
-        Text energyConsumptionMultiplierText = Text.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", energyConsumptionMultiplier);
-        widgets.addText(energyConsumptionMultiplierText.asOrderedText(),
-                widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(energyConsumptionMultiplierText),
-                widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight, Formatting.WHITE.getColorValue(), false);
+        Component energyConsumptionMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", energyConsumptionMultiplier);
+        widgets.addText(energyConsumptionMultiplierText.getVisualOrderText(),
+                widgets.getWidth() - Minecraft.getInstance().font.width(energyConsumptionMultiplierText),
+                widgets.getHeight() - Minecraft.getInstance().font.lineHeight, ChatFormatting.WHITE.getColor(), false);
     }
 }

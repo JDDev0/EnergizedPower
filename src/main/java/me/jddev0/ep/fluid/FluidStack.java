@@ -7,33 +7,33 @@ import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.codec.PacketCodecFix;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraft.component.ComponentChanges;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import org.slf4j.Logger;
 
 public class FluidStack {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final Codec<FluidStack> CODEC_MILLIBUCKETS = RecordCodecBuilder.create(instance -> {
-        return instance.group(Identifier.CODEC.fieldOf("id").forGetter(fluidStack -> {
-            return Registries.FLUID.getId(fluidStack.fluidVariant.getFluid());
+        return instance.group(ResourceLocation.CODEC.fieldOf("id").forGetter(fluidStack -> {
+            return BuiltInRegistries.FLUID.getKey(fluidStack.fluidVariant.getFluid());
         }),CodecFix.NON_NEGATIVE_LONG.fieldOf("amount").forGetter(fluidStack -> {
             return FluidUtils.convertDropletsToMilliBuckets(fluidStack.dropletsAmount);
         }), CodecFix.NON_NEGATIVE_LONG.optionalFieldOf("leftoverDropletsAmount", 0L).forGetter(fluidStack -> {
             long milliBucketsAmount = FluidUtils.convertDropletsToMilliBuckets(fluidStack.dropletsAmount);
             return fluidStack.dropletsAmount - FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount);
-        }), ComponentChanges.CODEC.optionalFieldOf("components", ComponentChanges.EMPTY).forGetter(fluidStack -> {
+        }), DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(fluidStack -> {
             return fluidStack.fluidVariant.getComponents();
         })).apply(instance, (id, milliBucketsAmount, leftoverDropletsAmount, fluidComponents) -> {
-            Fluid fluid = Registries.FLUID.get(id);
+            Fluid fluid = BuiltInRegistries.FLUID.get(id);
 
             long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + leftoverDropletsAmount;
 
@@ -41,7 +41,7 @@ public class FluidStack {
         });
     });
     
-    public static final PacketCodec<RegistryByteBuf, FluidStack> PACKET_CODEC = PacketCodec.tuple(
+    public static final StreamCodec<RegistryFriendlyByteBuf, FluidStack> PACKET_CODEC = StreamCodec.composite(
             FluidVariant.PACKET_CODEC, FluidStack::getFluidVariant,
             PacketCodecFix.LONG, FluidStack::getDropletsAmount,
             FluidStack::new
@@ -50,11 +50,11 @@ public class FluidStack {
     private FluidVariant fluidVariant;
     private long dropletsAmount;
 
-    public static FluidStack fromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
+    public static FluidStack fromNbt(CompoundTag nbtCompound, HolderLookup.Provider registries) {
         if(nbtCompound.isEmpty())
-            return new FluidStack(Fluids.EMPTY, ComponentChanges.EMPTY, 0);
+            return new FluidStack(Fluids.EMPTY, DataComponentPatch.EMPTY, 0);
 
-        Fluid fluid = Registries.FLUID.get(Identifier.of(nbtCompound.getString("id")));
+        Fluid fluid = BuiltInRegistries.FLUID.get(ResourceLocation.parse(nbtCompound.getString("id")));
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
         //Save leftover droplets amount in "LeftoverDropletsAmount" for preventing rounding errors
@@ -63,20 +63,20 @@ public class FluidStack {
                 nbtCompound.getLong("leftoverDropletsAmount"):0;
         long dropletsAmount = FluidUtils.convertMilliBucketsToDroplets(milliBucketsAmount) + dropletsLeftOverAmount;
 
-        ComponentChanges fluidComponents = nbtCompound.contains("components")?
-                ComponentChanges.CODEC.parse(registries.getOps(NbtOps.INSTANCE),
+        DataComponentPatch fluidComponents = nbtCompound.contains("components")?
+                DataComponentPatch.CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE),
                         nbtCompound.get("components")).resultOrPartial((error) -> {
                             LOGGER.error("Tried to load invalid components: '{}'", error);
-                        }).orElse(ComponentChanges.EMPTY):ComponentChanges.EMPTY;
+                        }).orElse(DataComponentPatch.EMPTY):DataComponentPatch.EMPTY;
 
         return new FluidStack(fluid, fluidComponents, dropletsAmount);
     }
 
     public FluidStack(Fluid fluid, long dropletsAmount) {
-        this(fluid, ComponentChanges.EMPTY, dropletsAmount);
+        this(fluid, DataComponentPatch.EMPTY, dropletsAmount);
     }
 
-    public FluidStack(Fluid fluid, ComponentChanges fluidComponents, long dropletsAmount) {
+    public FluidStack(Fluid fluid, DataComponentPatch fluidComponents, long dropletsAmount) {
         this(FluidVariant.of(fluid, fluidComponents), dropletsAmount);
     }
 
@@ -114,14 +114,14 @@ public class FluidStack {
     }
 
     public String getTranslationKey() {
-        return fluidVariant.getFluid().getDefaultState().getBlockState().getBlock().getTranslationKey();
+        return fluidVariant.getFluid().defaultFluidState().createLegacyBlock().getBlock().getDescriptionId();
     }
 
-    public NbtCompound toNBT(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup registries) {
+    public CompoundTag toNBT(CompoundTag nbtCompound, HolderLookup.Provider registries) {
         if(fluidVariant.isBlank())
                 return nbtCompound;
 
-        nbtCompound.putString("id", Registries.FLUID.getId(fluidVariant.getFluid()).toString());
+        nbtCompound.putString("id", BuiltInRegistries.FLUID.getKey(fluidVariant.getFluid()).toString());
 
         //Save milli buckets amount in "Amount" for compatibility with Forge
         //Save leftover droplets amount in "LeftoverDropletsAmount" for preventing rounding errors
@@ -132,8 +132,8 @@ public class FluidStack {
             nbtCompound.putLong("leftoverDropletsAmount", dropletsLeftOverAmount);
 
         if(fluidVariant.getComponents() != null) {
-            nbtCompound.put("components", ComponentChanges.CODEC.encode(fluidVariant.getComponents(),
-                    registries.getOps(NbtOps.INSTANCE), new NbtCompound()).getOrThrow());
+            nbtCompound.put("components", DataComponentPatch.CODEC.encode(fluidVariant.getComponents(),
+                    registries.createSerializationContext(NbtOps.INSTANCE), new CompoundTag()).getOrThrow());
         }
 
         return nbtCompound;

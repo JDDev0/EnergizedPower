@@ -4,8 +4,8 @@ import dan200.computercraft.api.lua.LuaFunction;
 import dan200.computercraft.api.peripheral.GenericPeripheral;
 import dan200.computercraft.api.peripheral.PeripheralType;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.machine.configuration.IComparatorModeHandler;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
+import me.jddev0.ep.machine.configuration.IComparatorModeHandler;
 
 public class ComparatorModeGenericPeripheral implements GenericPeripheral {
     @Override
@@ -23,14 +23,14 @@ public class ComparatorModeGenericPeripheral implements GenericPeripheral {
         ComparatorMode[] modes = comparatorModeHandler.getAvailableComparatorModes();
         String[] serializedModes = new String[modes.length];
         for(int i = 0;i < modes.length;i++)
-            serializedModes[i] = modes[i].asString();
+            serializedModes[i] = modes[i].getSerializedName();
 
         return serializedModes;
     }
 
     @LuaFunction(mainThread = true)
     public final String getComparatorMode(IComparatorModeHandler comparatorModeHandler) {
-        return comparatorModeHandler.getComparatorMode().asString();
+        return comparatorModeHandler.getComparatorMode().getSerializedName();
     }
 
     @LuaFunction(mainThread = true)

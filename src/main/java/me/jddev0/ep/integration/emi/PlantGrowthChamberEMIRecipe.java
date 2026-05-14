@@ -12,27 +12,30 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/plant_growth_chamber_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/plant_growth_chamber_front.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("plant_growth_chamber"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
     private final OutputItemStackWithPercentages[] outputsWithPercentages;
     private final int ticks;
 
-    public PlantGrowthChamberEMIRecipe(RecipeEntry<PlantGrowthChamberRecipe> recipe) {
+    public PlantGrowthChamberEMIRecipe(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
         this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).map(EmiStack::of).toList();
@@ -46,7 +49,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -72,7 +75,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
         widgets.addTexture(texture, 0, 0, 108, 48, 61, 25);
 
         widgets.addSlot(input.get(0), 0, 9).drawBack(false);
@@ -94,27 +97,27 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
         for(int i = 0;i < outputsWithPercentages.length;i++) {
             SlotWidget outputSlot = outputSlots[i % 4];
 
-            Text oddsText = Text.translatable("recipes.energizedpower.transfer.output_percentages");
+            Component oddsText = Component.translatable("recipes.energizedpower.transfer.output_percentages");
 
             if(i >= 4 || i + 4 < outputsWithPercentages.length) {
-                outputSlot.appendTooltip(Text.translatable(outputsWithPercentages[i].output().getTranslationKey()).
-                        append(Text.literal(": ").append(oddsText)));
+                outputSlot.appendTooltip(Component.translatable(outputsWithPercentages[i].output().getDescriptionId()).
+                        append(Component.literal(": ").append(oddsText)));
             }else {
                 outputSlot.appendTooltip(oddsText);
             }
 
             double[] percentages = outputsWithPercentages[i].percentages();
             for(int j = 0;j < percentages.length;j++)
-                outputSlot.appendTooltip(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
+                outputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", j + 1, 100 * percentages[j])));
 
             if(i + 4 < outputsWithPercentages.length) {
-                outputSlot.appendTooltip(Text.empty());
+                outputSlot.appendTooltip(Component.empty());
             }
         }
 
-        Text ticksText = Text.translatable("recipes.energizedpower.info.ticks", ticks);
-        widgets.addText(ticksText.asOrderedText(),
-                widgets.getWidth() - MinecraftClient.getInstance().textRenderer.getWidth(ticksText),
-                widgets.getHeight() - MinecraftClient.getInstance().textRenderer.fontHeight, Formatting.WHITE.getColorValue(), false);
+        Component ticksText = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+        widgets.addText(ticksText.getVisualOrderText(),
+                widgets.getWidth() - Minecraft.getInstance().font.width(ticksText),
+                widgets.getHeight() - Minecraft.getInstance().font.lineHeight, ChatFormatting.WHITE.getColor(), false);
     }
 }

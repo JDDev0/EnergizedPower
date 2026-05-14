@@ -5,8 +5,8 @@ import me.jddev0.ep.block.entity.*;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public enum ConveyorBeltTier {
     BASIC, FAST, EXPRESS;
@@ -43,7 +43,7 @@ public enum ConveyorBeltTier {
         };
     }
 
-    public ScreenHandlerType<ItemConveyorBeltLoaderMenu> getItemConveyorBeltLoaderMenuTypeFromTier() {
+    public MenuType<ItemConveyorBeltLoaderMenu> getItemConveyorBeltLoaderMenuTypeFromTier() {
         return switch(this) {
             case BASIC -> EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU;
             case FAST -> EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_LOADER_MENU;
@@ -83,7 +83,7 @@ public enum ConveyorBeltTier {
         };
     }
 
-    public ScreenHandlerType<ItemConveyorBeltSorterMenu> getItemConveyorBeltSorterMenuTypeFromTier() {
+    public MenuType<ItemConveyorBeltSorterMenu> getItemConveyorBeltSorterMenuTypeFromTier() {
         return switch(this) {
             case BASIC -> EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU;
             case FAST -> EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_SORTER_MENU;

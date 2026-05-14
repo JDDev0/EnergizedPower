@@ -9,22 +9,21 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.CompressorRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class CompressorEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/compressor_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/compressor_side.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.COMPRESSOR_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("compressor"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public CompressorEMIRecipe(RecipeEntry<CompressorRecipe> recipe) {
+    public CompressorEMIRecipe(RecipeHolder<CompressorRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInputItem(), recipe.value().getInputCount()));
         this.output = List.of(EmiStack.of(recipe.value().getOutputItem()));
@@ -36,7 +35,7 @@ public class CompressorEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -62,7 +61,7 @@ public class CompressorEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/compressor.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/compressor.png");
         widgets.addTexture(texture, 0, 0, 98, 26, 47, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);

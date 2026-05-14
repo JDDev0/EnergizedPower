@@ -1,11 +1,11 @@
 package me.jddev0.ep.inventory.data;
 
-import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.world.inventory.ContainerData;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class BooleanValueContainerData implements PropertyDelegate {
+public class BooleanValueContainerData implements ContainerData {
     private final Supplier<Boolean> getter;
     private final Consumer<Boolean> setter;
 
@@ -29,7 +29,7 @@ public class BooleanValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

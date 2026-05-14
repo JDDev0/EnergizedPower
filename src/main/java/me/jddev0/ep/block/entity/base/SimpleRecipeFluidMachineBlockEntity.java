@@ -5,25 +5,25 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeEntry<R>> {
+        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>> {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
@@ -43,7 +43,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -57,39 +57,39 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
     }
 
-    protected abstract C getRecipeInput(SimpleInventory inventory);
+    protected abstract C getRecipeInput(SimpleContainer inventory);
 
-    protected Optional<RecipeEntry<R>> getRecipeFor(SimpleInventory inventory) {
-        return world.getRecipeManager().getFirstMatch(recipeType, getRecipeInput(inventory), world);
+    protected Optional<RecipeHolder<R>> getRecipeFor(SimpleContainer inventory) {
+        return level.getRecipeManager().getRecipeFor(recipeType, getRecipeInput(inventory), level);
     }
 
     @Override
-    protected final Optional<RecipeEntry<R>> getCurrentWorkData() {
+    protected final Optional<RecipeHolder<R>> getCurrentWorkData() {
         return getRecipeFor(itemHandler);
     }
 
     @Override
-    protected final double getWorkDataDependentWorkDuration(RecipeEntry<R> workData) {
+    protected final double getWorkDataDependentWorkDuration(RecipeHolder<R> workData) {
         return getRecipeDependentRecipeDuration(workData);
     }
 
-    protected double getRecipeDependentRecipeDuration(RecipeEntry<R> recipe) {
+    protected double getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
         return 1;
     }
 
     @Override
-    protected final double getWorkDataDependentEnergyConsumption(RecipeEntry<R> workData) {
+    protected final double getWorkDataDependentEnergyConsumption(RecipeHolder<R> workData) {
         return getRecipeDependentEnergyConsumption(workData);
     }
 
-    protected double getRecipeDependentEnergyConsumption(RecipeEntry<R> recipe) {
+    protected double getRecipeDependentEnergyConsumption(RecipeHolder<R> recipe) {
         return 1;
     }
 
@@ -99,27 +99,27 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     }
 
     protected boolean hasRecipe() {
-        if(world == null)
+        if(level == null)
             return false;
 
-        Optional<RecipeEntry<R>> recipe = getRecipeFor(itemHandler);
+        Optional<RecipeHolder<R>> recipe = getRecipeFor(itemHandler);
 
         return recipe.isPresent() && canCraftRecipe(itemHandler, recipe.get());
     }
 
     @Override
-    protected final void onWorkStarted(RecipeEntry<R> workData) {
+    protected final void onWorkStarted(RecipeHolder<R> workData) {
         onStartCrafting(workData);
     }
 
-    protected void onStartCrafting(RecipeEntry<R> recipe) {}
+    protected void onStartCrafting(RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkCompleted(RecipeEntry<R> workData) {
+    protected final void onWorkCompleted(RecipeHolder<R> workData) {
         craftItem(workData);
     }
 
-    protected abstract void craftItem(RecipeEntry<R> recipe);
+    protected abstract void craftItem(RecipeHolder<R> recipe);
 
-    protected abstract boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<R> recipe);
+    protected abstract boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe);
 }

@@ -6,8 +6,7 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.registry.tag.ItemTags;
-
+import net.minecraft.tags.ItemTags;
 import java.util.List;
 
 public class InWorldDisplay implements Display {

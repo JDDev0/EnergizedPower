@@ -1,11 +1,11 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
-import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.inventory.data.BooleanValueContainerData;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.screen.ItemConveyorBeltSorterMenu;
@@ -15,23 +15,23 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.InventoryChangedListener;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.ContainerListener;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,15 +40,15 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
 
     private static final int PATTERN_SLOTS_PER_OUTPUT = 5;
 
-    private final SimpleInventory patternSlots = new SimpleInventory(3 * PATTERN_SLOTS_PER_OUTPUT) {
+    private final SimpleContainer patternSlots = new SimpleContainer(3 * PATTERN_SLOTS_PER_OUTPUT) {
         @Override
-        public int getMaxCountPerStack() {
+        public int getMaxStackSize() {
             return 1;
         }
     };
-    private final InventoryChangedListener updatePatternListener = container -> ItemConveyorBeltSorterBlockEntity.this.markDirty();
+    private final ContainerListener updatePatternListener = container -> ItemConveyorBeltSorterBlockEntity.this.setChanged();
 
-    protected final PropertyDelegate data;
+    protected final ContainerData data;
     private boolean[] outputBeltConnected = new boolean[] {
             false, false, false
     };
@@ -94,8 +94,8 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.energizedpower." + switch(tier) {
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower." + switch(tier) {
             case BASIC -> "item_conveyor_belt_sorter";
             case FAST -> "fast_item_conveyor_belt_sorter";
             case EXPRESS -> "express_item_conveyor_belt_sorter";
@@ -104,20 +104,20 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new ItemConveyorBeltSorterMenu(id, inventory, this, patternSlots, data);
     }
 
     @Override
-    public BlockPos getScreenOpeningData(ServerPlayerEntity player) {
-        return pos;
+    public BlockPos getScreenOpeningData(ServerPlayer player) {
+        return worldPosition;
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
-        nbt.put("pattern", Inventories.writeNbt(new NbtCompound(), patternSlots.heldStacks, registries));
+        nbt.put("pattern", ContainerHelper.saveAllItems(new CompoundTag(), patternSlots.items, registries));
 
         for(int i = 0;i < 3;i++)
             nbt.putBoolean("recipe.whitelist." + i, whitelist[i]);
@@ -126,10 +126,10 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
-        Inventories.readNbt(nbt.getCompound("pattern"), patternSlots.heldStacks, registries);
+        ContainerHelper.loadAllItems(nbt.getCompound("pattern"), patternSlots.items, registries);
 
         for(int i = 0;i < 3;i++)
             whitelist[i] = nbt.getBoolean("recipe.whitelist." + i);
@@ -137,32 +137,32 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
             ignoreNBT[i] = nbt.getBoolean("recipe.ignore_nbt." + i);
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.loaded) {
             for(int i = 0;i < 3;i++) {
-                Direction facing = state.get(ItemConveyorBeltSorterBlock.FACING);
+                Direction facing = state.getValue(ItemConveyorBeltSorterBlock.FACING);
 
                 Direction outputBeltDirection = switch(i) {
-                    case 0 -> facing.rotateYClockwise();
+                    case 0 -> facing.getClockWise();
                     case 1 -> facing.getOpposite();
-                    case 2 -> facing.rotateYCounterclockwise();
+                    case 2 -> facing.getCounterClockWise();
                     default -> null;
                 };
 
-                BlockState outputBeltState = level.getBlockState(blockPos.offset(outputBeltDirection));
+                BlockState outputBeltState = level.getBlockState(blockPos.relative(outputBeltDirection));
                 blockEntity.setOutputBeltConnected(i, outputBeltState.getBlock() instanceof ItemConveyorBeltBlock);
             }
 
             blockEntity.loaded = true;
         }
 
-        if(level.getTime() % blockEntity.ticksPerItem == 0) {
-            Direction facing = state.get(ItemConveyorBeltSorterBlock.FACING);
+        if(level.getGameTime() % blockEntity.ticksPerItem == 0) {
+            Direction facing = state.getValue(ItemConveyorBeltSorterBlock.FACING);
 
-            BlockPos inputPos = blockPos.offset(facing);
+            BlockPos inputPos = blockPos.relative(facing);
             BlockState inputBlockState = level.getBlockState(inputPos);
             if(!(inputBlockState.getBlock() instanceof ItemConveyorBeltBlock)) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
@@ -171,7 +171,7 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
             }
 
             //Conveyor belt must face towards sorter and must not be ascending
-            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.get(ItemConveyorBeltBlock.FACING);
+            EPBlockStateProperties.ConveyorBeltDirection inputBeltFacing = inputBlockState.getValue(ItemConveyorBeltBlock.FACING);
             if(inputBeltFacing.isAscending() || inputBeltFacing.getDirection().getOpposite() != facing) {
                 updatePoweredState(level, blockPos, state, blockEntity, false);
 
@@ -237,42 +237,42 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
         }
     }
 
-    private static void updatePoweredState(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity,
+    private static void updatePoweredState(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity,
                                           boolean powered) {
-        if(powered != state.get(ItemConveyorBeltSorterBlock.POWERED)) {
-            level.setBlockState(blockPos, state.with(ItemConveyorBeltSorterBlock.POWERED, powered), 3);
+        if(powered != state.getValue(ItemConveyorBeltSorterBlock.POWERED)) {
+            level.setBlock(blockPos, state.setValue(ItemConveyorBeltSorterBlock.POWERED, powered), 3);
 
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
 
     private static boolean filterMatches(ItemConveyorBeltSorterBlockEntity blockEntity, int index, ItemStack itemStackToSort) {
         for(int i = 0;i < PATTERN_SLOTS_PER_OUTPUT;i++) {
-            ItemStack patternItemStack = blockEntity.patternSlots.getStack(PATTERN_SLOTS_PER_OUTPUT * index + i);
+            ItemStack patternItemStack = blockEntity.patternSlots.getItem(PATTERN_SLOTS_PER_OUTPUT * index + i);
             if(patternItemStack.isEmpty())
                 continue;
 
-            if(blockEntity.ignoreNBT[index]?ItemStack.areItemsEqual(itemStackToSort, patternItemStack):
-                    ItemStack.areItemsAndComponentsEqual(itemStackToSort, patternItemStack))
+            if(blockEntity.ignoreNBT[index]?ItemStack.isSameItem(itemStackToSort, patternItemStack):
+                    ItemStack.isSameItemSameComponents(itemStackToSort, patternItemStack))
                 return blockEntity.whitelist[index];
         }
 
         return !blockEntity.whitelist[index];
     }
 
-    private static Storage<ItemVariant> getOutputBeltItemStackStorage(World level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity,
+    private static Storage<ItemVariant> getOutputBeltItemStackStorage(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltSorterBlockEntity blockEntity,
                                         int index) {
-        Direction direction = state.get(ItemConveyorBeltSorterBlock.FACING);
+        Direction direction = state.getValue(ItemConveyorBeltSorterBlock.FACING);
         direction = switch(index) {
-            case 0 -> direction.rotateYClockwise();
+            case 0 -> direction.getClockWise();
             case 1 -> direction.getOpposite();
-            case 2 -> direction.rotateYCounterclockwise();
+            case 2 -> direction.getCounterClockWise();
             default -> null;
         };
         if(direction == null)
             return null;
 
-        BlockPos outputPos = blockPos.offset(direction);
+        BlockPos outputPos = blockPos.relative(direction);
         BlockState outputBlockState = level.getBlockState(outputPos);
         if(!(outputBlockState.getBlock() instanceof ItemConveyorBeltBlock))
             return null;
@@ -305,17 +305,17 @@ public class ItemConveyorBeltSorterBlockEntity extends BlockEntity implements Ex
 
     public void setOutputBeltConnected(int index, boolean outputBeltConnected) {
         this.outputBeltConnected[index] = outputBeltConnected;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     public void setWhitelist(int index, boolean whitelist) {
         this.whitelist[index] = whitelist;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     public void setIgnoreNBT(int index, boolean ignoreNBT) {
         this.ignoreNBT[index] = ignoreNBT;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     @Override

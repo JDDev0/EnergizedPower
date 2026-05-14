@@ -3,8 +3,8 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -24,7 +24,7 @@ public class ExtractionDepthUpgradeModuleItem extends UpgradeModuleItem {
 
     private static final double EXTRACTION_DEPTH_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_EXTRACTION_DEPTH_5_EFFECT.getValue();
 
-    public ExtractionDepthUpgradeModuleItem(Settings props, int tier) {
+    public ExtractionDepthUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.EXTRACTION_DEPTH, tier);
     }
 
@@ -51,13 +51,13 @@ public class ExtractionDepthUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
-    public Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
+    public Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
         return switch(modifier) {
-            case EXTRACTION_DEPTH -> Text.literal(String.format(Locale.ENGLISH, "+%d ", (int)value)).
-                    append(Text.translatable("tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit")).
-                    formatted(Formatting.GREEN);
+            case EXTRACTION_DEPTH -> Component.literal(String.format(Locale.ENGLISH, "+%d ", (int)value)).
+                    append(Component.translatable("tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit")).
+                    withStyle(ChatFormatting.GREEN);
 
-            default -> Text.empty();
+            default -> Component.empty();
         };
     }
 }

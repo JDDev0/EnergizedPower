@@ -2,11 +2,11 @@ package me.jddev0.ep.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 
-public record DimensionalPositionComponent(int x, int y, int z, Identifier dimensionId) {
+public record DimensionalPositionComponent(int x, int y, int z, ResourceLocation dimensionId) {
     public static final Codec<DimensionalPositionComponent> CODEC = RecordCodecBuilder.create((instance) -> {
         return instance.group(Codec.INT.fieldOf("x").forGetter((component) -> {
             return component.x;
@@ -14,22 +14,22 @@ public record DimensionalPositionComponent(int x, int y, int z, Identifier dimen
             return component.y;
         }), Codec.INT.fieldOf("z").forGetter((component) -> {
             return component.z;
-        }), Identifier.CODEC.fieldOf("dimensionId").forGetter((component) -> {
+        }), ResourceLocation.CODEC.fieldOf("dimensionId").forGetter((component) -> {
             return component.dimensionId;
         })).apply(instance, DimensionalPositionComponent::new);
     });
 
-    public static final PacketCodec<PacketByteBuf, DimensionalPositionComponent> PACKET_CODEC = PacketCodec.of(
+    public static final StreamCodec<FriendlyByteBuf, DimensionalPositionComponent> PACKET_CODEC = StreamCodec.ofMember(
             DimensionalPositionComponent::write, DimensionalPositionComponent::new);
 
-    public DimensionalPositionComponent(PacketByteBuf buffer) {
-        this(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readIdentifier());
+    public DimensionalPositionComponent(FriendlyByteBuf buffer) {
+        this(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readResourceLocation());
     }
 
-    public void write(PacketByteBuf buffer) {
+    public void write(FriendlyByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
-        buffer.writeIdentifier(dimensionId);
+        buffer.writeResourceLocation(dimensionId);
     }
 }

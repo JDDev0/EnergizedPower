@@ -11,9 +11,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +27,8 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.fluid_transposer");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.fluid_transposer");
     }
 
     @Override
@@ -47,7 +46,7 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
         int y = bounds.y + PADDING;
 
         if(display.recipe().value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
-            Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+            ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 133, 143, 26));
 
             widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
@@ -58,10 +57,10 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
             widgets.add(Widgets.createSlot(new Point(x + 90, y + 5)).disableBackground().markOutput().
                     entries(display.getOutputEntries().get(1)));
 
-            widgets.add(Widgets.createTexturedWidget(Identifier.of("minecraft", "textures/item/bucket.png"),
+            widgets.add(Widgets.createTexturedWidget(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/bucket.png"),
                     x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }else {
-            Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+            ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
             widgets.add(Widgets.createTexturedWidget(texture, x, y, 1, 161, 143, 26));
 
             widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().
@@ -72,13 +71,13 @@ public class FluidTransposerCategory implements DisplayCategory<FluidTransposerD
             widgets.add(Widgets.createSlot(new Point(x + 90, y + 5)).disableBackground().markOutput().
                     entries(display.getOutputEntries().get(0)));
 
-            widgets.add(Widgets.createTexturedWidget(Identifier.of("minecraft", "textures/item/water_bucket.png"),
+            widgets.add(Widgets.createTexturedWidget(ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/water_bucket.png"),
                     x + 120, y + 5, 16, 16, 16, 16, 16, 16, 16, 16));
         }
 
         widgets.add(Widgets.createTooltip(new Rectangle(x + 119, y + 4, 20, 20),
-                List.of(Text.translatable("tooltip.energizedpower.fluid_transposer.mode." +
-                        display.recipe().value().getMode().asString()))));
+                List.of(Component.translatable("tooltip.energizedpower.fluid_transposer.mode." +
+                        display.recipe().value().getMode().getSerializedName()))));
 
         return widgets;
     }

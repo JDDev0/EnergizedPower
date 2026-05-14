@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import team.reborn.energy.api.EnergyStorage;
 
 public class EnergizedPowerEnergyItemStorage implements EnergyStorage {

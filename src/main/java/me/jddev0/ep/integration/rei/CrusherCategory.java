@@ -10,9 +10,8 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,8 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.crusher");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.crusher");
     }
 
     @Override
@@ -45,7 +44,7 @@ public class CrusherCategory implements DisplayCategory<CrusherDisplay> {
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/crusher.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crusher.png");
         widgets.add(Widgets.createTexturedWidget(texture, x, y, 47, 30, 98, 26));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 5)).disableBackground().markInput().

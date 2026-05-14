@@ -12,20 +12,19 @@ import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeManager;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.DispenserScreen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeManager;
 import java.util.Arrays;
 
 public class EnergizedPowerJEIPlugin implements IModPlugin {
     @Override
-    public Identifier getPluginUid() {
+    public ResourceLocation getPluginUid() {
         return EPAPI.id("jei_plugin");
     }
 
@@ -87,34 +86,34 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        RecipeManager recipeManager = MinecraftClient.getInstance().world.getRecipeManager();
+        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 
-        registration.addRecipes(ChargerCategory.TYPE, recipeManager.listAllOfType(ChargerRecipe.Type.INSTANCE));
-        registration.addRecipes(CrusherCategory.TYPE, recipeManager.listAllOfType(CrusherRecipe.Type.INSTANCE));
-        registration.addRecipes(PulverizerCategory.TYPE, recipeManager.listAllOfType(PulverizerRecipe.Type.INSTANCE));
-        registration.addRecipes(AdvancedPulverizerCategory.TYPE, recipeManager.listAllOfType(PulverizerRecipe.Type.INSTANCE));
-        registration.addRecipes(SawmillCategory.TYPE, recipeManager.listAllOfType(SawmillRecipe.Type.INSTANCE));
-        registration.addRecipes(CompressorCategory.TYPE, recipeManager.listAllOfType(CompressorRecipe.Type.INSTANCE));
-        registration.addRecipes(MetalPressCategory.TYPE, recipeManager.listAllOfType(MetalPressRecipe.Type.INSTANCE));
-        registration.addRecipes(AssemblingMachineCategory.TYPE, recipeManager.listAllOfType(AssemblingMachineRecipe.Type.INSTANCE));
-        registration.addRecipes(PlantGrowthChamberCategory.TYPE, recipeManager.listAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE));
-        registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, recipeManager.listAllOfType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE));
-        registration.addRecipes(EnergizerCategory.TYPE, recipeManager.listAllOfType(EnergizerRecipe.Type.INSTANCE));
-        registration.addRecipes(CrystalGrowthChamberCategory.TYPE, recipeManager.listAllOfType(CrystalGrowthChamberRecipe.Type.INSTANCE));
-        registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.listAllOfType(PressMoldMakerRecipe.Type.INSTANCE));
-        registration.addRecipes(AlloyFurnaceCategory.TYPE, recipeManager.listAllOfType(AlloyFurnaceRecipe.Type.INSTANCE));
-        registration.addRecipes(StoneLiquefierCategory.TYPE, recipeManager.listAllOfType(StoneLiquefierRecipe.Type.INSTANCE));
-        registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.listAllOfType(StoneSolidifierRecipe.Type.INSTANCE));
-        registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.listAllOfType(FiltrationPlantRecipe.Type.INSTANCE));
-        registration.addRecipes(FluidTransposerCategory.TYPE, recipeManager.listAllOfType(FluidTransposerRecipe.Type.INSTANCE));
+        registration.addRecipes(ChargerCategory.TYPE, recipeManager.getAllRecipesFor(ChargerRecipe.Type.INSTANCE));
+        registration.addRecipes(CrusherCategory.TYPE, recipeManager.getAllRecipesFor(CrusherRecipe.Type.INSTANCE));
+        registration.addRecipes(PulverizerCategory.TYPE, recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE));
+        registration.addRecipes(AdvancedPulverizerCategory.TYPE, recipeManager.getAllRecipesFor(PulverizerRecipe.Type.INSTANCE));
+        registration.addRecipes(SawmillCategory.TYPE, recipeManager.getAllRecipesFor(SawmillRecipe.Type.INSTANCE));
+        registration.addRecipes(CompressorCategory.TYPE, recipeManager.getAllRecipesFor(CompressorRecipe.Type.INSTANCE));
+        registration.addRecipes(MetalPressCategory.TYPE, recipeManager.getAllRecipesFor(MetalPressRecipe.Type.INSTANCE));
+        registration.addRecipes(AssemblingMachineCategory.TYPE, recipeManager.getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE));
+        registration.addRecipes(PlantGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberRecipe.Type.INSTANCE));
+        registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE));
+        registration.addRecipes(EnergizerCategory.TYPE, recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE));
+        registration.addRecipes(CrystalGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE));
+        registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
+        registration.addRecipes(AlloyFurnaceCategory.TYPE, recipeManager.getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE));
+        registration.addRecipes(StoneLiquefierCategory.TYPE, recipeManager.getAllRecipesFor(StoneLiquefierRecipe.Type.INSTANCE));
+        registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE));
+        registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE));
+        registration.addRecipes(FluidTransposerCategory.TYPE, recipeManager.getAllRecipesFor(FluidTransposerRecipe.Type.INSTANCE));
 
         registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
-                new InWorldCategory.InWorldRecipe(Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
+                new InWorldCategory.InWorldRecipe(Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Ingredient.of(ItemTags.WOOL),
                         new ItemStack(EPItems.CABLE_INSULATOR, 18))
         ));
 
         registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
-                new DispenserCategory.DispenserRecipe(Ingredient.fromTag(ConventionalItemTags.SHEAR_TOOLS), Ingredient.fromTag(ItemTags.WOOL),
+                new DispenserCategory.DispenserRecipe(Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Ingredient.of(ItemTags.WOOL),
                         new ItemStack(EPItems.CABLE_INSULATOR, 18))
         ));
     }
@@ -215,8 +214,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, FiltrationPlantScreen.class, 67, 62, 78, 8, FiltrationPlantCategory.TYPE);
         registerRecipeClickArea(registration, FluidTransposerScreen.class, 114, 19, 20, 14, FluidTransposerCategory.TYPE);
 
-        registration.addRecipeClickArea(Generic3x3ContainerScreen.class, 7, 16, 54, 54, DispenserCategory.TYPE);
-        registration.addRecipeClickArea(Generic3x3ContainerScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);
+        registration.addRecipeClickArea(DispenserScreen.class, 7, 16, 54, 54, DispenserCategory.TYPE);
+        registration.addRecipeClickArea(DispenserScreen.class, 115, 16, 54, 54, DispenserCategory.TYPE);
     }
 
     private <T extends EnergyStorageContainerScreen<? extends IUpgradeModuleMenu>> void

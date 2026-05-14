@@ -1,6 +1,6 @@
 package me.jddev0.ep.util;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.Locale;
@@ -31,6 +31,6 @@ public final class EnergyUtils {
     public static int getRedstoneSignalFromEnergyStorage(EnergyStorage energyStorage) {
         boolean isEmptyFlag = energyStorage.getAmount() == 0;
 
-        return Math.min(MathHelper.floor((double)energyStorage.getAmount() / energyStorage.getCapacity() * 14.) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor((double)energyStorage.getAmount() / energyStorage.getCapacity() * 14.) + (isEmptyFlag?0:1), 15);
     }
 }

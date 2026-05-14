@@ -3,19 +3,19 @@ package me.jddev0.ep.datagen.model;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 public record ItemWithOverridesModelSupplier(
-        Identifier textureId,
+        ResourceLocation textureId,
         List<ItemPredicateOverrides> overridesPredicates
 ) implements Supplier<JsonElement> {
     @Override
     public JsonElement get() {
         JsonObject modelJson = new JsonObject();
-        modelJson.addProperty("parent", Identifier.ofVanilla("item/generated").toString());
+        modelJson.addProperty("parent", ResourceLocation.withDefaultNamespace("item/generated").toString());
 
         {
             JsonObject texturesJson = new JsonObject();
@@ -52,7 +52,7 @@ public record ItemWithOverridesModelSupplier(
         return modelJson;
     }
 
-    public record ItemPredicateOverrides(List<ItemPredicateValue> predicateValues, Identifier modelId) {}
+    public record ItemPredicateOverrides(List<ItemPredicateValue> predicateValues, ResourceLocation modelId) {}
 
-    public record ItemPredicateValue(Identifier predicateId, float value) {}
+    public record ItemPredicateValue(ResourceLocation predicateId, float value) {}
 }

@@ -2,6 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
@@ -9,33 +11,31 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtInt;
-import net.minecraft.nbt.NbtLong;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
+import net.minecraft.nbt.LongTag;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CoalEngineBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleInventory> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -43,7 +43,7 @@ public class CoalEngineBlockEntity
             return false;
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
-        ItemStack item = itemHandler.getStack(i);
+        ItemStack item = itemHandler.getItem(i);
         Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
         return burnTime == null || burnTime <= 0;
     });
@@ -81,7 +81,7 @@ public class CoalEngineBlockEntity
 
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncEnergyToPlayers(32);
             }
         };
@@ -99,29 +99,29 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
+            public boolean canPlaceItem(int slot, ItemStack stack) {
                 if(slot == 0) {
                     Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
                     return burnTime != null && burnTime > 0;
                 }
 
-                return super.isValid(slot, stack);
+                return super.canPlaceItem(slot, stack);
             }
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                CoalEngineBlockEntity.this.markDirty();
+                CoalEngineBlockEntity.this.setChanged();
             }
         };
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
                 new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
@@ -135,35 +135,35 @@ public class CoalEngineBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         
         return new CoalEngineMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.saveAdditional(nbt, registries);
 
-        nbt.put("recipe.progress", NbtInt.of(progress));
-        nbt.put("recipe.max_progress", NbtInt.of(maxProgress));
-        nbt.put("recipe.energy_production_left", NbtLong.of(energyProductionLeft));
+        nbt.put("recipe.progress", IntTag.valueOf(progress));
+        nbt.put("recipe.max_progress", IntTag.valueOf(maxProgress));
+        nbt.put("recipe.energy_production_left", LongTag.valueOf(energyProductionLeft));
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         progress = nbt.getInt("recipe.progress");
         maxProgress = nbt.getInt("recipe.max_progress");
         energyProductionLeft = nbt.getLong("recipe.energy_production_left");
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.get(Properties.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             tickRecipe(level, blockPos, state, blockEntity);
 
         transferEnergy(level, blockPos, state, blockEntity);
@@ -178,21 +178,21 @@ public class CoalEngineBlockEntity
         return energyProductionPerTick;
     }
 
-    private static void tickRecipe(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(blockEntity.timeoutOffState > 0) {
             blockEntity.timeoutOffState--;
 
-            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).contains(Properties.LIT) &&
-                    level.getBlockState(blockPos).get(Properties.LIT)) {
-                level.setBlockState(blockPos, state.with(Properties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
             }
         }
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
-            ItemStack item = blockEntity.itemHandler.getStack(0);
+            ItemStack item = blockEntity.itemHandler.getItem(0);
 
             Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
             long energyProduction = burnTime == null?-1:burnTime;
@@ -214,16 +214,16 @@ public class CoalEngineBlockEntity
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
                     if(!item.getRecipeRemainder().isEmpty())
-                        blockEntity.itemHandler.setStack(0, item.getRecipeRemainder());
+                        blockEntity.itemHandler.setItem(0, item.getRecipeRemainder());
                     else
-                        blockEntity.itemHandler.removeStack(0, 1);
+                        blockEntity.itemHandler.removeItem(0, 1);
                 }
 
                 blockEntity.hasEnoughCapacityForProduction = true;
                 blockEntity.timeoutOffState = 0;
-                if(level.getBlockState(blockPos).contains(Properties.LIT) &&
-                        !level.getBlockState(blockPos).get(Properties.LIT)) {
-                    level.setBlockState(blockPos, state.with(Properties.LIT, true), 3);
+                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
+                        !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
+                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
                 }
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyProductionLeft < 0 ||
@@ -231,7 +231,7 @@ public class CoalEngineBlockEntity
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress(blockPos, state);
-                    markDirty(level, blockPos, state);
+                    setChanged(level, blockPos, state);
 
                     return;
                 }
@@ -247,32 +247,32 @@ public class CoalEngineBlockEntity
                 if(blockEntity.progress >= blockEntity.maxProgress)
                     blockEntity.resetProgress(blockPos, state);
 
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughCapacityForProduction = false;
                 if(blockEntity.timeoutOffState == 0) {
                     blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
                 }
-                markDirty(level, blockPos, state);
+                setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress(blockPos, state);
             if(blockEntity.timeoutOffState == 0) {
                 blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
-            markDirty(level, blockPos, state);
+            setChanged(level, blockPos, state);
         }
     }
 
-    private static void transferEnergy(World level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         List<EnergyStorage> consumerItems = new ArrayList<>();
         List<Long> consumerEnergyValues = new ArrayList<>();
         long consumptionSum = 0;
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)
@@ -349,7 +349,7 @@ public class CoalEngineBlockEntity
     }
 
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {
-        ItemStack item = blockEntity.itemHandler.getStack(0);
+        ItemStack item = blockEntity.itemHandler.getItem(0);
 
         Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
         if(burnTime == null || burnTime <= 0)

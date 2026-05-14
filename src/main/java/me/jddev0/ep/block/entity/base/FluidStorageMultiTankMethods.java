@@ -6,13 +6,13 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 public final class FluidStorageMultiTankMethods
@@ -23,32 +23,32 @@ public final class FluidStorageMultiTankMethods
 
     @Override
     public void saveFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                 @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+                                 @NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new NbtCompound(), registries));
+            nbt.put("fluid." + i, fluidStorage.parts.get(i).getFluid().toNBT(new CompoundTag(), registries));
     }
 
     @Override
     public void loadFluidStorage(@NotNull CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                 @NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
+                                 @NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
             fluidStorage.parts.get(i).setFluid(FluidStack.fromNbt(nbt.getCompound("fluid." + i), registries));
     }
 
     @Override
     public void syncFluidToPlayer(CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                  PlayerEntity player, BlockPos pos) {
+                                  Player player, BlockPos pos) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player, new FluidSyncS2CPacket(i,
+            ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new FluidSyncS2CPacket(i,
                     fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), pos));
     }
 
     @Override
     public void syncFluidToPlayers(CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
-                                   World level, BlockPos pos, int distance) {
+                                   Level level, BlockPos pos, int distance) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    pos, (ServerWorld)level, distance,
+                    pos, (ServerLevel)level, distance,
                     new FluidSyncS2CPacket(i, fluidStorage.parts.get(i).getFluid(),
                             fluidStorage.parts.get(i).getCapacity(), pos)
             );

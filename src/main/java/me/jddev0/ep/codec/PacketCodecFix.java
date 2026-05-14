@@ -1,12 +1,12 @@
 package me.jddev0.ep.codec;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.StreamCodec;
 
 public final class PacketCodecFix {
     private PacketCodecFix() {}
 
-    public static final PacketCodec<ByteBuf, Long> LONG = new PacketCodec<>() {
+    public static final StreamCodec<ByteBuf, Long> LONG = new StreamCodec<>() {
         public Long decode(ByteBuf byteBuf) {
             return byteBuf.readLong();
         }

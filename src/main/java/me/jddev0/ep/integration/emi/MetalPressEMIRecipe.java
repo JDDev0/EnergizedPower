@@ -9,26 +9,25 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.MetalPressRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class MetalPressEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/metal_press_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/metal_press_side.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.METAL_PRESS_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("metal_press"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> catalysts;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public MetalPressEMIRecipe(RecipeEntry<MetalPressRecipe> recipe) {
+    public MetalPressEMIRecipe(RecipeHolder<MetalPressRecipe> recipe) {
         this.id = recipe.id();
-        this.catalysts = List.of(EmiIngredient.of(Ingredient.ofStacks(recipe.value().getPressMold())));
+        this.catalysts = List.of(EmiIngredient.of(Ingredient.of(recipe.value().getPressMold())));
         this.input = List.of(EmiIngredient.of(recipe.value().getInput(), recipe.value().getInputCount()));
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));
     }
@@ -39,7 +38,7 @@ public class MetalPressEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -70,7 +69,7 @@ public class MetalPressEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/metal_press.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/metal_press.png");
         widgets.addTexture(texture, 0, 0, 98, 34, 47, 22);
 
         widgets.addSlot(input.get(0), 0, 12).drawBack(false);

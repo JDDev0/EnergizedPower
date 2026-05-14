@@ -9,26 +9,25 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class PressMoldMakerEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/press_mold_maker_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/press_mold_maker_front.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.PRESS_MOLD_MAKER_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("press_mold_maker"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public PressMoldMakerEMIRecipe(RecipeEntry<PressMoldMakerRecipe> recipe) {
+    public PressMoldMakerEMIRecipe(RecipeHolder<PressMoldMakerRecipe> recipe) {
         this.id = recipe.id();
-        this.input = List.of(EmiIngredient.of(Ingredient.ofItems(Items.CLAY_BALL), recipe.value().getClayCount()));
+        this.input = List.of(EmiIngredient.of(Ingredient.of(Items.CLAY_BALL), recipe.value().getClayCount()));
         this.output = List.of(EmiStack.of(recipe.value().getOutput()));
     }
 
@@ -38,7 +37,7 @@ public class PressMoldMakerEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 

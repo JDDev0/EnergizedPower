@@ -2,8 +2,8 @@ package me.jddev0.ep.fluid;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.SingleFluidStorage;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 
 public class SimpleFluidStorage extends SingleFluidStorage {
     public final long capacity;
@@ -30,15 +30,15 @@ public class SimpleFluidStorage extends SingleFluidStorage {
         return capacity;
     }
 
-    public NbtCompound toNBT(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    public CompoundTag toNBT(CompoundTag nbt, HolderLookup.Provider registries) {
         if(isResourceBlank())
             return nbt;
 
-        nbt.put("Fluid", getFluid().toNBT(new NbtCompound(), registries));
+        nbt.put("Fluid", getFluid().toNBT(new CompoundTag(), registries));
         return nbt;
     }
 
-    public void fromNBT(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    public void fromNBT(CompoundTag nbt, HolderLookup.Provider registries) {
         FluidStack fluidStack = FluidStack.fromNbt(nbt.getCompound("Fluid"), registries);
 
         variant = fluidStack.getFluidVariant();

@@ -6,34 +6,34 @@ import me.jddev0.ep.block.entity.ItemSiloBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.screen.ItemSiloMenu;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public enum ItemSiloTier {
     TINY("item_silo_tiny", ModConfigs.COMMON_ITEM_SILO_TINY_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     SMALL("item_silo_small", ModConfigs.COMMON_ITEM_SILO_SMALL_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     MEDIUM("item_silo_medium", ModConfigs.COMMON_ITEM_SILO_MEDIUM_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     LARGE("item_silo_large", ModConfigs.COMMON_ITEM_SILO_LARGE_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL)),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
     GIANT("item_silo_giant", ModConfigs.COMMON_ITEM_SILO_GIANT_CAPACITY.getValue(),
-            AbstractBlock.Settings.create().
-                    requiresTool().strength(4.0f, 5.0f).sounds(BlockSoundGroup.METAL));
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 
     private final String resourceId;
     private final int itemSiloCapacity;
-    private final AbstractBlock.Settings props;
+    private final BlockBehaviour.Properties props;
 
-    ItemSiloTier(String resourceId, int itemSiloCapacity, AbstractBlock.Settings props) {
+    ItemSiloTier(String resourceId, int itemSiloCapacity, BlockBehaviour.Properties props) {
         this.resourceId = resourceId;
         this.itemSiloCapacity = itemSiloCapacity;
         this.props = props;
@@ -59,7 +59,7 @@ public enum ItemSiloTier {
         };
     }
 
-    public ScreenHandlerType<ItemSiloMenu> getMenuTypeFromTier() {
+    public MenuType<ItemSiloMenu> getMenuTypeFromTier() {
         return switch(this) {
             case TINY -> EPMenuTypes.ITEM_SILO_TINY;
             case SMALL -> EPMenuTypes.ITEM_SILO_SMALL;
@@ -77,7 +77,7 @@ public enum ItemSiloTier {
         return itemSiloCapacity;
     }
 
-    public AbstractBlock.Settings getProperties() {
+    public BlockBehaviour.Properties getProperties() {
         return props;
     }
 }

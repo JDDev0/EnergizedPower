@@ -2,10 +2,10 @@ package me.jddev0.ep.component;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +17,8 @@ public final class InventoryComponent {
                 return component.stacks;
             });
 
-    public static final PacketCodec<RegistryByteBuf, InventoryComponent> PACKET_CODEC = ItemStack.OPTIONAL_PACKET_CODEC.
-            collect(PacketCodecs.toList()).xmap(InventoryComponent::new, (component) -> {
+    public static final StreamCodec<RegistryFriendlyByteBuf, InventoryComponent> PACKET_CODEC = ItemStack.OPTIONAL_STREAM_CODEC.
+            apply(ByteBufCodecs.list()).map(InventoryComponent::new, (component) -> {
                 return component.stacks;
             });
 
@@ -58,7 +58,7 @@ public final class InventoryComponent {
             return false;
 
         for(int i = 0;i < stacks.size();i++)
-            if(!ItemStack.areEqual(stacks.get(i), that.stacks.get(i)))
+            if(!ItemStack.matches(stacks.get(i), that.stacks.get(i)))
                 return false;
 
         return true;
@@ -69,7 +69,7 @@ public final class InventoryComponent {
         int i = 0;
 
         ItemStack itemStack;
-        for(Iterator<ItemStack> iter = stacks.iterator();iter.hasNext();i = i * 31 + ItemStack.hashCode(itemStack))
+        for(Iterator<ItemStack> iter = stacks.iterator();iter.hasNext();i = i * 31 + ItemStack.hashItemAndComponents(itemStack))
             itemStack = iter.next();
 
         return i;

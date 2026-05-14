@@ -11,17 +11,17 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import me.jddev0.ep.screen.FluidTankMenu;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +51,7 @@ public class FluidTankBlockEntity
         return new SimpleFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(64);
             }
 
@@ -70,7 +70,7 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new BooleanValueContainerData(() -> ignoreNBT, value -> ignoreNBT = value)
         );
@@ -78,10 +78,10 @@ public class FluidTankBlockEntity
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFluidToPlayer(player);
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new FluidSyncS2CPacket(1, fluidFilter, 0, getPos()));
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()));
 
         return new FluidTankMenu(id, inventory, this, this.data);
     }
@@ -91,17 +91,17 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putBoolean("ignore_nbt", ignoreNBT);
 
-        nbt.put("fluid_filter", fluidFilter.toNBT(new NbtCompound(), registries));
+        nbt.put("fluid_filter", fluidFilter.toNBT(new CompoundTag(), registries));
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         ignoreNBT = nbt.getBoolean("ignore_nbt");
 
@@ -110,7 +110,7 @@ public class FluidTankBlockEntity
 
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT = ignoreNBT;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     @Override
@@ -121,14 +121,14 @@ public class FluidTankBlockEntity
         }
     }
 
-    public void setFluidFilter(FluidStack fluidFilter, DynamicRegistryManager registries) {
+    public void setFluidFilter(FluidStack fluidFilter, RegistryAccess registries) {
         this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().getComponents(),
                 fluidFilter.getDropletsAmount());
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
 
         ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                getPos(), (ServerWorld)world, 32,
-                new FluidSyncS2CPacket(1, fluidFilter, 0, getPos())
+                getBlockPos(), (ServerLevel)level, 32,
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos())
         );
     }
 

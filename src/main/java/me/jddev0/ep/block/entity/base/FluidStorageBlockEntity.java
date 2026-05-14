@@ -4,13 +4,13 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class FluidStorageBlockEntity<F extends Storage<FluidVariant>>
@@ -35,26 +35,26 @@ public abstract class FluidStorageBlockEntity<F extends Storage<FluidVariant>>
     protected abstract F initFluidStorage();
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         fluidStorageMethods.saveFluidStorage(fluidStorage, nbt, registries);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         fluidStorageMethods.loadFluidStorage(fluidStorage, nbt, registries);
     }
 
-    protected final void syncFluidToPlayer(PlayerEntity player) {
-        fluidStorageMethods.syncFluidToPlayer(fluidStorage, player, pos);
+    protected final void syncFluidToPlayer(Player player) {
+        fluidStorageMethods.syncFluidToPlayer(fluidStorage, player, worldPosition);
     }
 
     protected final void syncFluidToPlayers(int distance) {
-        if(world != null && !world.isClient())
-            fluidStorageMethods.syncFluidToPlayers(fluidStorage, world, pos, distance);
+        if(level != null && !level.isClientSide())
+            fluidStorageMethods.syncFluidToPlayers(fluidStorage, level, worldPosition, distance);
     }
 
     public FluidStack getFluid(int tank) {

@@ -9,24 +9,23 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AssemblingMachineEMIRecipe implements EmiRecipe {
-    public static final Identifier SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/assembling_machine_front.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/assembling_machine_front.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.ASSEMBLING_MACHINE_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("assembling_machine"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
 
-    private final Identifier id;
+    private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final List<EmiStack> output;
 
-    public AssemblingMachineEMIRecipe(RecipeEntry<AssemblingMachineRecipe> recipe) {
+    public AssemblingMachineEMIRecipe(RecipeHolder<AssemblingMachineRecipe> recipe) {
         this.id = recipe.id();
         this.input = Arrays.stream(recipe.value().getInputs()).map(input ->
                 EmiIngredient.of(input.input(), input.count())).collect(Collectors.toList());
@@ -39,7 +38,7 @@ public class AssemblingMachineEMIRecipe implements EmiRecipe {
     }
 
     @Override
-    public Identifier getId() {
+    public ResourceLocation getId() {
         return id;
     }
 
@@ -65,7 +64,7 @@ public class AssemblingMachineEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        Identifier texture = EPAPI.id("textures/gui/container/assembling_machine.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/assembling_machine.png");
         widgets.addTexture(texture, 0, 0, 115, 54, 43, 18);
 
         int len = Math.min(input.size(), 4);

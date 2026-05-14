@@ -5,15 +5,15 @@ import me.jddev0.ep.energy.EnergyStoragePacketUpdate;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
@@ -41,29 +41,29 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     protected abstract EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage();
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putLong("energy", energyStorage.getAmount());
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, @NotNull RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         energyStorage.setAmountWithoutUpdate(nbt.getLong("energy"));
     }
 
-    protected final void syncEnergyToPlayer(PlayerEntity player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayerEntity)player,
-                new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getPos()));
+    protected final void syncEnergyToPlayer(Player player) {
+        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
+                new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos()));
     }
 
     protected final void syncEnergyToPlayers(int distance) {
-        if(world != null && !world.isClient())
+        if(level != null && !level.isClientSide())
             ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getPos(), (ServerWorld)world, distance,
-                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getPos())
+                    getBlockPos(), (ServerLevel)level, distance,
+                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos())
             );
     }
 

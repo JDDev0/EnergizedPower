@@ -3,7 +3,6 @@ package me.jddev0.ep.energy;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
-import team.reborn.energy.api.EnergyStorage;
 
 public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> implements IEnergizedPowerEnergyStorage {
     protected long amount;

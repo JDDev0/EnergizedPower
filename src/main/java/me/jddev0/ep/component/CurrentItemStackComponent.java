@@ -2,9 +2,9 @@ package me.jddev0.ep.component;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
 
 public final class CurrentItemStackComponent {
     public static final Codec<CurrentItemStackComponent> CODEC = RecordCodecBuilder.create((instance) -> {
@@ -13,7 +13,7 @@ public final class CurrentItemStackComponent {
         })).apply(instance, CurrentItemStackComponent::new);
     });
 
-    public static final PacketCodec<RegistryByteBuf, CurrentItemStackComponent> PACKET_CODEC = PacketCodec.of(
+    public static final StreamCodec<RegistryFriendlyByteBuf, CurrentItemStackComponent> PACKET_CODEC = StreamCodec.ofMember(
             CurrentItemStackComponent::write, CurrentItemStackComponent::new);
 
     private final ItemStack currentItem;
@@ -22,12 +22,12 @@ public final class CurrentItemStackComponent {
         this.currentItem = currentItem.copy();
     }
 
-    public CurrentItemStackComponent(RegistryByteBuf buffer) {
-        this(ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer));
+    public CurrentItemStackComponent(RegistryFriendlyByteBuf buffer) {
+        this(ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer));
     }
 
-    public void write(RegistryByteBuf buffer) {
-        ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, currentItem);
+    public void write(RegistryFriendlyByteBuf buffer) {
+        ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, currentItem);
     }
 
     public ItemStack getCurrentItem() {
@@ -39,12 +39,12 @@ public final class CurrentItemStackComponent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CurrentItemStackComponent that = (CurrentItemStackComponent) o;
-        return ItemStack.areEqual(currentItem, that.currentItem);
+        return ItemStack.matches(currentItem, that.currentItem);
     }
 
     @Override
     public int hashCode() {
-        return ItemStack.hashCode(currentItem);
+        return ItemStack.hashItemAndComponents(currentItem);
     }
 
     @Override

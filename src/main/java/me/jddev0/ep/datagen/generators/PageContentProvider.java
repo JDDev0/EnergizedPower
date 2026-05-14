@@ -3,15 +3,15 @@ package me.jddev0.ep.datagen.generators;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
-import net.minecraft.data.DataOutput;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.text.*;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.data.PackOutput;
+import net.minecraft.network.chat.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -22,9 +22,9 @@ import java.util.concurrent.CompletableFuture;
 public abstract  class PageContentProvider implements DataProvider {
     private final Map<String, PageContent> data = new TreeMap<>();
     private final FabricDataOutput output;
-    private final CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider;
+    private final CompletableFuture<HolderLookup.Provider> lookupProvider;
 
-    public PageContentProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
+    public PageContentProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         this.output = output;
         this.lookupProvider = lookupProvider;
     }
@@ -32,11 +32,11 @@ public abstract  class PageContentProvider implements DataProvider {
     protected abstract void registerPageContent();
 
     @Override
-    public CompletableFuture<?> run(DataWriter cache) {
+    public CompletableFuture<?> run(CachedOutput cache) {
         return lookupProvider.thenCompose(lookupProvider -> run(cache, lookupProvider));
     }
 
-    private CompletableFuture<?> run(final DataWriter cache, final RegistryWrapper.WrapperLookup lookupProvider) {
+    private CompletableFuture<?> run(final CachedOutput cache, final HolderLookup.Provider lookupProvider) {
         data.clear();
 
         registerPageContent();
@@ -49,15 +49,15 @@ public abstract  class PageContentProvider implements DataProvider {
         return CompletableFuture.allOf(futures);
     }
 
-    private CompletableFuture<?> savePageContent(DataWriter cache, String pageId, PageContent content,
-                                                 RegistryWrapper.WrapperLookup lookupProvider) {
-        Path target = output.getResolver(DataOutput.OutputType.RESOURCE_PACK, "book_pages").
-                resolveJson(Identifier.of(output.getModId(), pageId));
+    private CompletableFuture<?> savePageContent(CachedOutput cache, String pageId, PageContent content,
+                                                 HolderLookup.Provider lookupProvider) {
+        Path target = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "book_pages").
+                json(ResourceLocation.fromNamespaceAndPath(output.getModId(), pageId));
 
         JsonObject json = PageContent.CODEC.stable().encode(content, lookupProvider.
-                getOps(JsonOps.INSTANCE), new JsonObject()).getOrThrow().getAsJsonObject();
+                createSerializationContext(JsonOps.INSTANCE), new JsonObject()).getOrThrow().getAsJsonObject();
 
-        return DataProvider.writeToPath(cache, json, target);
+        return DataProvider.saveStable(cache, json, target);
     }
 
     @Override
@@ -65,72 +65,72 @@ public abstract  class PageContentProvider implements DataProvider {
         return "Book Pages: " + output.getModId();
     }
 
-    protected MutableText addLinkToComponent(MutableText component, String link) {
-        return component.formatted(Formatting.BLUE, Formatting.UNDERLINE).fillStyle(Style.EMPTY.
+    protected MutableComponent addLinkToComponent(MutableComponent component, String link) {
+        return component.withStyle(ChatFormatting.BLUE, ChatFormatting.UNDERLINE).withStyle(Style.EMPTY.
                 withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link)).
                 withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        Text.translatable("book.energizedpower.tooltip.link"))));
+                        Component.translatable("book.energizedpower.tooltip.link"))));
     }
 
-    protected PageContent addSimplePage(String pageId, @Nullable Text content) {
+    protected PageContent addSimplePage(String pageId, @Nullable Component content) {
         return addPage(pageId, null, content, null, null);
     }
-    protected PageContent addSimplePage(String pageId, @Nullable Text content,
-                                        @Nullable Identifier image) {
-        return addPage(pageId, null, content, image == null?null:new Identifier[] {
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        @Nullable ResourceLocation image) {
+        return addPage(pageId, null, content, image == null?null:new ResourceLocation[] {
                 image
         }, null);
     }
-    protected PageContent addSimplePage(String pageId, @Nullable Text content,
-                                        @Nullable Identifier[] image) {
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        @Nullable ResourceLocation[] image) {
         return addPage(pageId, null, content, image, null);
     }
-    protected PageContent addSimplePage(String pageId, @Nullable Text content,
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         Block block) {
         return addSimplePage(pageId, content, new Block[] {
                 block
         });
     }
-    protected PageContent addSimplePage(String pageId, @Nullable Text content,
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         Block[] block) {
-        Identifier[] blockIds = new Identifier[block.length];
+        ResourceLocation[] blockIds = new ResourceLocation[block.length];
         for(int i = 0;i < blockIds.length;i++)
-            blockIds[i] = Registries.BLOCK.getId(block[i]);
+            blockIds[i] = BuiltInRegistries.BLOCK.getKey(block[i]);
 
         return addPage(pageId, null, content, null, blockIds);
     }
 
-    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
                                          Block block) {
         return addChapterPage(pageId, title, content, new Block[] {
                 block
         });
     }
-    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
                                          Block[] block) {
-        Identifier[] blockIds = new Identifier[block.length];
+        ResourceLocation[] blockIds = new ResourceLocation[block.length];
         for(int i = 0;i < blockIds.length;i++)
-            blockIds[i] = Registries.BLOCK.getId(block[i]);
+            blockIds[i] = BuiltInRegistries.BLOCK.getKey(block[i]);
 
         return addPage(pageId, title, content, null, blockIds);
     }
-    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content) {
-        return addChapterPage(pageId, title, content, (Identifier[])null);
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content) {
+        return addChapterPage(pageId, title, content, (ResourceLocation[])null);
     }
-    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                         @Nullable Identifier image) {
-        return addPage(pageId, title, content, image == null?null:new Identifier[] {
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
+                                         @Nullable ResourceLocation image) {
+        return addPage(pageId, title, content, image == null?null:new ResourceLocation[] {
                 image
         }, null);
     }
-    protected PageContent addChapterPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                         @Nullable Identifier[] image) {
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
+                                         @Nullable ResourceLocation[] image) {
         return addPage(pageId, title, content, image, null);
     }
 
-    protected PageContent addPage(String pageId, @Nullable Text title, @Nullable Text content,
-                                  @Nullable Identifier[] image, @Nullable Identifier[] block) {
-        PageContent pageContent = new PageContent(Identifier.of(output.getModId(), pageId),
+    protected PageContent addPage(String pageId, @Nullable Component title, @Nullable Component content,
+                                  @Nullable ResourceLocation[] image, @Nullable ResourceLocation[] block) {
+        PageContent pageContent = new PageContent(ResourceLocation.fromNamespaceAndPath(output.getModId(), pageId),
                 title, content, image, block);
         data.put(pageId, pageContent);
         return pageContent;

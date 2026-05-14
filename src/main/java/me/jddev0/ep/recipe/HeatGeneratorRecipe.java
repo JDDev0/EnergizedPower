@@ -7,18 +7,18 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.codec.ArrayCodec;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 
 public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     private final Fluid[] input;
@@ -38,32 +38,32 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
     }
 
     @Override
-    public boolean matches(RecipeInput container, World level) {
+    public boolean matches(RecipeInput container, Level level) {
         return false;
     }
 
     @Override
-    public ItemStack craft(RecipeInput container, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(RecipeInput container, HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean fits(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResult(RegistryWrapper.WrapperLookup registries) {
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack createIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM);
     }
 
     @Override
-    public boolean isIgnoredInRecipeBook() {
+    public boolean isSpecial() {
         return true;
     }
 
@@ -88,11 +88,11 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
         private Serializer() {}
 
         public static final Serializer INSTANCE = new Serializer();
-        public static final Identifier ID = EPAPI.id("heat_generator");
+        public static final ResourceLocation ID = EPAPI.id("heat_generator");
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(Codec.either(new ArrayCodec<>(Registries.FLUID.getCodec(), Fluid[]::new),
-                    Registries.FLUID.getCodec()).fieldOf("input").forGetter((recipe) -> {
+            return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
+                    BuiltInRegistries.FLUID.byNameCodec()).fieldOf("input").forGetter((recipe) -> {
                 return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
             }), Codec.LONG.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
@@ -104,7 +104,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
             });
         });
 
-        private final PacketCodec<RegistryByteBuf, HeatGeneratorRecipe> PACKET_CODEC = PacketCodec.ofStatic(
+        private final StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> PACKET_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -113,29 +113,29 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, HeatGeneratorRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static HeatGeneratorRecipe read(RegistryByteBuf buffer) {
+        private static HeatGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {
             int fluidCount = buffer.readInt();
             Fluid[] input = new Fluid[fluidCount];
             for(int i = 0;i < fluidCount;i++)
-                input[i] = Registries.FLUID.get(buffer.readIdentifier());
+                input[i] = BuiltInRegistries.FLUID.get(buffer.readResourceLocation());
 
             long energyProduction = buffer.readLong();
 
             return new HeatGeneratorRecipe(input, energyProduction);
         }
 
-        private static void write(RegistryByteBuf buffer, HeatGeneratorRecipe recipe) {
+        private static void write(RegistryFriendlyByteBuf buffer, HeatGeneratorRecipe recipe) {
             buffer.writeInt(recipe.getInput().length);
             for(Fluid fluid:recipe.input) {
-                Identifier fluidId = Registries.FLUID.getId(fluid);
-                if(fluidId == null || fluidId.equals(Identifier.of("empty")))
+                ResourceLocation fluidId = BuiltInRegistries.FLUID.getKey(fluid);
+                if(fluidId == null || fluidId.equals(ResourceLocation.parse("empty")))
                     throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
-                buffer.writeIdentifier(fluidId);
+                buffer.writeResourceLocation(fluidId);
             }
 
             buffer.writeLong(recipe.energyProduction);

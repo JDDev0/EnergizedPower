@@ -1,12 +1,11 @@
 package me.jddev0.ep.inventory.data;
 
 import me.jddev0.ep.machine.configuration.ComparatorMode;
-import net.minecraft.screen.PropertyDelegate;
-
+import net.minecraft.world.inventory.ContainerData;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class ComparatorModeValueContainerData implements PropertyDelegate {
+public class ComparatorModeValueContainerData implements ContainerData {
     private final Supplier<ComparatorMode> getter;
     private final Consumer<ComparatorMode> setter;
 
@@ -30,7 +29,7 @@ public class ComparatorModeValueContainerData implements PropertyDelegate {
     }
 
     @Override
-    public int size() {
+    public int getCount() {
         return 1;
     }
 }

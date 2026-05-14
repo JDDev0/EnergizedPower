@@ -15,15 +15,12 @@ import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.recipe.input.RecipeInput;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-
-import java.util.Collection;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class StoneLiquefierBlockEntity
         extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, StoneLiquefierRecipe> {
@@ -53,30 +50,30 @@ public class StoneLiquefierBlockEntity
     }
 
     @Override
-    protected SimpleInventory initInventoryStorage() {
-        return new SimpleInventory(slotCount) {
+    protected SimpleContainer initInventoryStorage() {
+        return new SimpleContainer(slotCount) {
 
             @Override
-            public void markDirty() {
-                super.markDirty();
+            public void setChanged() {
+                super.setChanged();
 
-                StoneLiquefierBlockEntity.this.markDirty();
+                StoneLiquefierBlockEntity.this.setChanged();
             }
 
             @Override
-            public boolean isValid(int slot, ItemStack stack) {
-                return slot == 0 && (world == null || RecipeUtils.isIngredientOfAny(world, recipeType, stack));
+            public boolean canPlaceItem(int slot, ItemStack stack) {
+                return slot == 0 && (level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack));
             }
 
             @Override
-            public void setStack(int slot, ItemStack stack) {
+            public void setItem(int slot, ItemStack stack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStack(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.areItemsAndComponentsEqual(stack, itemStack))
+                    ItemStack itemStack = getItem(slot);
+                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
                         resetProgress();
                 }
 
-                super.setStack(slot, stack);
+                super.setItem(slot, stack);
             }
         };
     }
@@ -86,15 +83,15 @@ public class StoneLiquefierBlockEntity
         return new SimpleFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
-                markDirty();
+                setChanged();
                 syncFluidToPlayers(32);
             }
 
             private boolean isFluidValid(FluidVariant variant) {
-                if(world == null)
+                if(level == null)
                     return false;
 
-                return world.getRecipeManager().listAllOfType(recipeType).stream().map(RecipeEntry::value).
+                return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
                         map(StoneLiquefierRecipe::getOutput).
                         anyMatch(fluidStack -> variant.isOf(fluidStack.getFluid()) &&
                                 variant.componentsMatch(fluidStack.getFluidVariant().getComponents()));
@@ -113,13 +110,13 @@ public class StoneLiquefierBlockEntity
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleInventory inventory) {
+    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
-    protected void craftItem(RecipeEntry<StoneLiquefierRecipe> recipe) {
-        if(world == null || !hasRecipe())
+    protected void craftItem(RecipeHolder<StoneLiquefierRecipe> recipe) {
+        if(level == null || !hasRecipe())
             return;
 
         FluidStack output = new FluidStack(recipe.value().getOutput().getFluidVariant().getFluid(),
@@ -132,17 +129,17 @@ public class StoneLiquefierBlockEntity
             transaction.commit();
         }
 
-        itemHandler.removeStack(0, 1);
+        itemHandler.removeItem(0, 1);
 
         resetProgress();
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleInventory inventory, RecipeEntry<StoneLiquefierRecipe> recipe) {
+    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StoneLiquefierRecipe> recipe) {
         long fluidAmountInTank = fluidStorage.getFluid().getDropletsAmount();
         long fluidAmountInRecipe = recipe.value().getOutput().getDropletsAmount();
 
-        return world != null && fluidStorage.getCapacity() - fluidAmountInTank >= fluidAmountInRecipe &&
+        return level != null && fluidStorage.getCapacity() - fluidAmountInTank >= fluidAmountInRecipe &&
                 (fluidStorage.isEmpty() || (fluidStorage.getResource().isOf(recipe.value().getOutput().getFluid()) &&
                         fluidStorage.getResource().componentsMatch(recipe.value().getOutput().getFluidVariant().getComponents())));
     }

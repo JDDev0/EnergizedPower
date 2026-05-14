@@ -1,31 +1,31 @@
 package me.jddev0.ep.block.behavior;
 
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.ShearsDispenserBehavior;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public final class ModBlockBehaviors {
     private ModBlockBehaviors() {}
 
     public static void register() {
-        DispenserBlock.registerBehavior(Items.SHEARS, new ShearsDispenserBehavior() {
+        DispenserBlock.registerBehavior(Items.SHEARS, new ShearsDispenseItemBehavior() {
             @Override
-            protected ItemStack dispenseSilently(BlockPointer blockSource, ItemStack itemStack) {
-                ServerWorld level = blockSource.world();
-                if(!level.isClient()) {
-                    BlockPos blockPos = blockSource.pos().offset(blockSource.state().get(DispenserBlock.FACING));
+            protected ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
+                ServerLevel level = blockSource.level();
+                if(!level.isClientSide()) {
+                    BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
                     if(tryCraftCableInsulator(level, blockPos)) {
-                        itemStack.damage(1, level, null, item -> itemStack.setCount(0));
+                        itemStack.hurtAndBreak(1, level, null, item -> itemStack.setCount(0));
 
                         setSuccess(true);
 
@@ -33,20 +33,20 @@ public final class ModBlockBehaviors {
                     }
                 }
 
-                return super.dispenseSilently(blockSource, itemStack);
+                return super.execute(blockSource, itemStack);
             }
 
-            private static boolean tryCraftCableInsulator(ServerWorld level, BlockPos blockPos) {
+            private static boolean tryCraftCableInsulator(ServerLevel level, BlockPos blockPos) {
                 BlockState blockstate = level.getBlockState(blockPos);
-                if(blockstate.isIn(BlockTags.WOOL)) {
-                    level.breakBlock(blockPos, false, null);
+                if(blockstate.is(BlockTags.WOOL)) {
+                    level.destroyBlock(blockPos, false, null);
 
                     ItemEntity itemEntity = new ItemEntity(level, blockPos.getX() + .5, blockPos.getY() + .5, blockPos.getZ() + .5,
                             new ItemStack(EPItems.CABLE_INSULATOR, 18), 0, 0, 0);
-                    itemEntity.setPickupDelay(20);
-                    level.spawnEntity(itemEntity);
+                    itemEntity.setPickUpDelay(20);
+                    level.addFreshEntity(itemEntity);
 
-                    level.playSound(null, blockPos, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.BLOCKS, 1.f, 1.f);
+                    level.playSound(null, blockPos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.f, 1.f);
 
                     return true;
                 }

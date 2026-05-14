@@ -3,32 +3,32 @@ package me.jddev0.ep.datagen.generators;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextCodecs;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 public record PageContent(
-        Identifier pageId, Text chapterTitleComponent, Text pageComponent,
-        Identifier[] imageResourceLocations, Identifier[] blockResourceLocations
+        ResourceLocation pageId, Component chapterTitleComponent, Component pageComponent,
+        ResourceLocation[] imageResourceLocations, ResourceLocation[] blockResourceLocations
 ) {
-    public PageContent(Text chapterTitleComponent, Text pageComponent, Identifier[] imageResourceLocations,
-                       Identifier[] blockResourceLocations) {
+    public PageContent(Component chapterTitleComponent, Component pageComponent, ResourceLocation[] imageResourceLocations,
+                       ResourceLocation[] blockResourceLocations) {
         this(null, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations);
     }
 
-    public PageContent withPageId(Identifier pageId) {
+    public PageContent withPageId(ResourceLocation pageId) {
         return new PageContent(pageId, chapterTitleComponent, pageComponent, imageResourceLocations, blockResourceLocations);
     }
 
     public static final Codec<PageContent> CODEC = RecordCodecBuilder.create((instance) -> {
-        return instance.group(TextCodecs.CODEC.optionalFieldOf("title").
+        return instance.group(ComponentSerialization.CODEC.optionalFieldOf("title").
                                 forGetter(pageContent -> Optional.ofNullable(pageContent.chapterTitleComponent)),
-                        TextCodecs.CODEC.optionalFieldOf("content").
+                        ComponentSerialization.CODEC.optionalFieldOf("content").
                                 forGetter(pageContent -> Optional.ofNullable(pageContent.pageComponent)),
-                        Codec.either(Identifier.CODEC, Codec.list(Identifier.CODEC)).optionalFieldOf("image").
+                        Codec.either(ResourceLocation.CODEC, Codec.list(ResourceLocation.CODEC)).optionalFieldOf("image").
                                 forGetter(pageContent -> {
                                     if(pageContent.imageResourceLocations == null)
                                         return Optional.empty();
@@ -38,7 +38,7 @@ public record PageContent(
 
                                     return Optional.of(Either.right(Arrays.asList(pageContent.imageResourceLocations)));
                                 }),
-                        Codec.either(Identifier.CODEC, Codec.list(Identifier.CODEC)).optionalFieldOf("block").
+                        Codec.either(ResourceLocation.CODEC, Codec.list(ResourceLocation.CODEC)).optionalFieldOf("block").
                                 forGetter(pageContent -> {
                                     if(pageContent.blockResourceLocations == null)
                                         return Optional.empty();
@@ -50,12 +50,12 @@ public record PageContent(
                                 })).
                 apply(instance, (title, content, image, block) -> new PageContent(
                         title.orElse(null), content.orElse(null),
-                        image.map(either -> either.map(singleImage -> new Identifier[] {
+                        image.map(either -> either.map(singleImage -> new ResourceLocation[] {
                                 singleImage
-                        }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null),
-                        block.map(either -> either.map(singleImage -> new Identifier[] {
+                        }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null),
+                        block.map(either -> either.map(singleImage -> new ResourceLocation[] {
                                 singleImage
-                        }, imageList -> imageList.toArray(Identifier[]::new))).orElse(null)
+                        }, imageList -> imageList.toArray(ResourceLocation[]::new))).orElse(null)
                 ));
     });
 

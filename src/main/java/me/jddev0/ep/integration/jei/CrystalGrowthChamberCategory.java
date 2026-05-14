@@ -13,39 +13,38 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeEntry<CrystalGrowthChamberRecipe>> {
-    public static final RecipeType<RecipeEntry<CrystalGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(CrystalGrowthChamberRecipe.Type.INSTANCE);
+public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolder<CrystalGrowthChamberRecipe>> {
+    public static final RecipeType<RecipeHolder<CrystalGrowthChamberRecipe>> TYPE = RecipeType.createFromVanilla(CrystalGrowthChamberRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public CrystalGrowthChamberCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/crystal_growth_chamber.png");
         background = helper.createDrawable(texture, 47, 30, 98, 38);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM));
     }
 
     @Override
-    public RecipeType<RecipeEntry<CrystalGrowthChamberRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<CrystalGrowthChamberRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.crystal_growth_chamber");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.crystal_growth_chamber");
     }
 
     @Override
@@ -59,29 +58,29 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeEntry
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<CrystalGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<CrystalGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 1, 5).addItemStacks(
-                Arrays.stream(recipe.value().getInput().getMatchingStacks()).
+                Arrays.stream(recipe.value().getInput().getItems()).
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
                         collect(Collectors.toList()));
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getMaxOutputCount()).
                 addRichTooltipCallback((view, tooltip) -> {
-                    tooltip.add(Text.translatable("recipes.energizedpower.transfer.output_percentages"));
+                    tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
                     double[] percentages = recipe.value().getOutput().percentages();
                     for(int i = 0;i < percentages.length;i++)
-                        tooltip.add(Text.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
+                        tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
     }
 
     @Override
-    public void draw(RecipeEntry<CrystalGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
-        TextRenderer font = MinecraftClient.getInstance().textRenderer;
+    public void draw(RecipeHolder<CrystalGrowthChamberRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
         int ticks = (int)(recipe.value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
-        Text component = Text.translatable("recipes.energizedpower.info.ticks", ticks);
-        int textWidth = font.getWidth(component);
+        Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+        int textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 98 - textWidth, 30, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 98 - textWidth, 30, 0xFFFFFFFF, false);
     }
 }

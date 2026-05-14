@@ -1,11 +1,11 @@
 package me.jddev0.ep.machine.configuration;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public enum RedstoneMode implements StringIdentifiable {
+public enum RedstoneMode implements StringRepresentable {
     IGNORE, HIGH, LOW;
 
     /**
@@ -30,7 +30,7 @@ public enum RedstoneMode implements StringIdentifiable {
 
     @Override
     @NotNull
-    public String asString() {
+    public String getSerializedName() {
         return name().toLowerCase(Locale.US);
     }
 }

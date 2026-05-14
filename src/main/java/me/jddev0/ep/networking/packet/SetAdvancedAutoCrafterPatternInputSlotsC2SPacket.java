@@ -4,31 +4,30 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.World;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements CustomPayload {
-    public static final CustomPayload.Id<SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> ID =
-            new CustomPayload.Id<>(EPAPI.id("set_advanced_auto_crafter_pattern_input_slots"));
-    public static final PacketCodec<RegistryByteBuf, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> PACKET_CODEC =
-            PacketCodec.of(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::write, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new);
+public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_pattern_input_slots"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> PACKET_CODEC =
+            StreamCodec.ofMember(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::write, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
-    private final Identifier recipeId;
+    private final ResourceLocation recipeId;
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
+    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -39,44 +38,44 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         this.recipeId = recipeId;
     }
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(RegistryByteBuf buffer) {
+    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
         for(int i = 0;i < 9;i++)
-            itemStacks.add(ItemStack.OPTIONAL_PACKET_CODEC.decode(buffer));
+            itemStacks.add(ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer));
 
-        recipeId = buffer.readIdentifier();
+        recipeId = buffer.readResourceLocation();
     }
 
-    public void write(final RegistryByteBuf buffer) {
+    public void write(final RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         for(ItemStack itemStack:itemStacks)
-            ItemStack.OPTIONAL_PACKET_CODEC.encode(buffer, itemStack);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, itemStack);
 
-        buffer.writeIdentifier(recipeId);
+        buffer.writeResourceLocation(recipeId);
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
     public static void receive(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
         context.player().server.execute(() -> {
-            if(!context.player().canModifyBlocks())
+            if(!context.player().mayBuild())
                 return;
 
-            World level = context.player().getWorld();
-            if(!level.isChunkLoaded(ChunkSectionPos.getSectionCoord(data.pos.getX()), ChunkSectionPos.getSectionCoord(data.pos.getZ())))
+            Level level = context.player().level();
+            if(!level.hasChunk(SectionPos.blockToSectionCoord(data.pos.getX()), SectionPos.blockToSectionCoord(data.pos.getZ())))
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
             if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
                 return;
 
-            ScreenHandler menu = context.player().currentScreenHandler;
+            AbstractContainerMenu menu = context.player().containerMenu;
 
             if(!(menu instanceof AdvancedAutoCrafterMenu advancedAutoCrafterMenu))
                 return;
@@ -84,7 +83,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
             int recipeIndex = advancedAutoCrafterBlockEntity.getCurrentRecipeIndex();
 
             for(int i = 0;i < data.itemStacks.size();i++)
-                advancedAutoCrafterMenu.getPatternSlots()[recipeIndex].setStack(i, data.itemStacks.get(i));
+                advancedAutoCrafterMenu.getPatternSlots()[recipeIndex].setItem(i, data.itemStacks.get(i));
 
             advancedAutoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 

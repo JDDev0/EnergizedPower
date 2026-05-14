@@ -1,25 +1,25 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.BooleanValueContainerData;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -60,7 +60,7 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     }
 
     @Override
-    protected PropertyDelegate initContainerData() {
+    protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new BooleanValueContainerData(() -> energyProduction, value -> energyProduction = value),
                 new BooleanValueContainerData(() -> energyConsumption, value -> energyConsumption = value)
@@ -69,21 +69,21 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
 
     @Nullable
     @Override
-    public ScreenHandler createMenu(int id, PlayerInventory inventory, PlayerEntity player) {
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new CreativeBatteryBoxMenu(id, this, inventory, data);
     }
 
     @Override
-    protected void writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
+    protected void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.saveAdditional(nbt, registries);
 
         nbt.putBoolean("energy_production", energyProduction);
         nbt.putBoolean("energy_consumption", energyConsumption);
     }
 
     @Override
-    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.@NotNull WrapperLookup registries) {
-        super.readNbt(nbt, registries);
+    protected void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(nbt, registries);
 
         energyProduction = !nbt.contains("energy_production") || nbt.getBoolean("energy_production");
         energyConsumption = nbt.getBoolean("energy_consumption");
@@ -91,12 +91,12 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
 
     public void setEnergyProduction(boolean energyProduction) {
         this.energyProduction = energyProduction;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     public void setEnergyConsumption(boolean energyConsumption) {
         this.energyConsumption = energyConsumption;
-        markDirty(world, getPos(), getCachedState());
+        setChanged(level, getBlockPos(), getBlockState());
     }
 
     @Override
@@ -110,22 +110,22 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
         }
     }
 
-    public static void tick(World level, BlockPos blockPos, BlockState state, CreativeBatteryBoxBlockEntity blockEntity) {
-        if(level.isClient())
+    public static void tick(Level level, BlockPos blockPos, BlockState state, CreativeBatteryBoxBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         transferInfiniteEnergy(level, blockPos, state, blockEntity);
     }
 
-    private static void transferInfiniteEnergy(World level, BlockPos blockPos, BlockState state, CreativeBatteryBoxBlockEntity blockEntity) {
-        if(level.isClient())
+    private static void transferInfiniteEnergy(Level level, BlockPos blockPos, BlockState state, CreativeBatteryBoxBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.energyProduction)
             return;
 
         for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.offset(direction);
+            BlockPos testPos = blockPos.relative(direction);
 
             BlockEntity testBlockEntity = level.getBlockEntity(testPos);
             if(testBlockEntity == null)

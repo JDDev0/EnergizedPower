@@ -3,64 +3,68 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.ToIntFunction;
 
-public class ChargingStationBlock extends BlockWithEntity {
-    public static final MapCodec<ChargingStationBlock> CODEC = createCodec(ChargingStationBlock::new);
+public class ChargingStationBlock extends BaseEntityBlock {
+    public static final MapCodec<ChargingStationBlock> CODEC = simpleCodec(ChargingStationBlock::new);
 
-    public static final BooleanProperty CHARGING = BooleanProperty.of("charging");
+    public static final BooleanProperty CHARGING = BooleanProperty.create("charging");
 
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
-            (state) -> state.get(CHARGING) ? 8 : 0;
+            (state) -> state.getValue(CHARGING) ? 8 : 0;
 
 
-    public ChargingStationBlock(AbstractBlock.Settings props) {
+    public ChargingStationBlock(BlockBehaviour.Properties props) {
         super(props);
 
-        this.setDefaultState(this.getStateManager().getDefaultState().with(CHARGING, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(CHARGING, false));
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos blockPos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         return new ChargingStationBlockEntity(blockPos, state);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World level, BlockPos blockPos, BlockState newState, boolean isMoving) {
+    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
         if(state.getBlock() == newState.getBlock())
             return;
 
@@ -70,37 +74,37 @@ public class ChargingStationBlock extends BlockWithEntity {
 
         ((ChargingStationBlockEntity)blockEntity).drops(level, blockPos);
 
-        super.onStateReplaced(state, level, blockPos, newState, isMoving);
+        super.onRemove(state, level, blockPos, newState, isMoving);
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World level, BlockPos blockPos, PlayerEntity player, BlockHitResult hit) {
-        if(level.isClient())
-            return ActionResult.SUCCESS;
+    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
 
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if(!(blockEntity instanceof ChargingStationBlockEntity))
             throw new IllegalStateException("Container is invalid");
 
-        player.openHandledScreen((ChargingStationBlockEntity)blockEntity);
+        player.openMenu((ChargingStationBlockEntity)blockEntity);
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(CHARGING);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> type) {
-        return validateTicker(type, EPBlockEntities.CHARGING_STATION_ENTITY, ChargingStationBlockEntity::tick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return createTickerHelper(type, EPBlockEntities.CHARGING_STATION_ENTITY, ChargingStationBlockEntity::tick);
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World level, BlockPos blockPos, Random randomSource) {
-        if(state.get(CHARGING)) {
+    public void animateTick(BlockState state, Level level, BlockPos blockPos, RandomSource randomSource) {
+        if(state.getValue(CHARGING)) {
             double x = blockPos.getX() + .5;
             double y = blockPos.getY() + .9;
             double z = blockPos.getZ() + .5;
@@ -111,9 +115,9 @@ public class ChargingStationBlock extends BlockWithEntity {
 
                 double dxz = randomSource.nextDouble() * .3 - .15;
 
-                double dx = direction.getAxis() == Direction.Axis.X?direction.getOffsetX() * .35:dxz;
+                double dx = direction.getAxis() == Direction.Axis.X?direction.getStepX() * .35:dxz;
                 double dy = randomSource.nextDouble() * .2;
-                double dz = direction.getAxis() == Direction.Axis.Z?direction.getOffsetZ() * .35:dxz;
+                double dz = direction.getAxis() == Direction.Axis.Z?direction.getStepZ() * .35:dxz;
 
                 level.addParticle(ParticleTypes.ELECTRIC_SPARK, x + dx, y + dy, z + dz, 0., 0., 0.);
             }
@@ -121,16 +125,16 @@ public class ChargingStationBlock extends BlockWithEntity {
     }
 
     public static class Item extends BlockItem {
-        public Item(Block block, Item.Settings props) {
+        public Item(Block block,  Item.Properties props) {
             super(block, props);
         }
 
         @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag type) {
             if(Screen.hasShiftDown()) {
-                tooltip.add(Text.translatable("tooltip.energizedpower.charging_station.txt.shift.1").formatted(Formatting.GRAY));
+                tooltip.add(Component.translatable("tooltip.energizedpower.charging_station.txt.shift.1").withStyle(ChatFormatting.GRAY));
             }else {
-                tooltip.add(Text.translatable("tooltip.energizedpower.shift_details.txt").formatted(Formatting.YELLOW));
+                tooltip.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
             }
         }
     }

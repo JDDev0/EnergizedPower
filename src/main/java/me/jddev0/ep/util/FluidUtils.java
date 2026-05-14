@@ -4,9 +4,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.math.MathHelper;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import java.util.Locale;
 
 public final class FluidUtils {
@@ -50,7 +49,7 @@ public final class FluidUtils {
      * For compatibility with "Forge"
      */
     public static long readFluidAmountInMilliBucketsWithLeftover(String milliBucketsKey, String leftoverKey,
-                                                                 NbtCompound nbtCompound) {
+                                                                 CompoundTag nbtCompound) {
         long milliBucketsAmount = nbtCompound.getLong(milliBucketsKey);
         if(milliBucketsAmount == -1)
             return -1;
@@ -64,7 +63,7 @@ public final class FluidUtils {
      * For compatibility with "Forge"
      */
     public static void writeFluidAmountInMilliBucketsWithLeftover(long droplets, String milliBucketsKey,
-                                                                 String leftoverKey, NbtCompound nbtCompound) {
+                                                                 String leftoverKey, CompoundTag nbtCompound) {
         if(droplets == -1) {
             nbtCompound.putLong(milliBucketsKey, -1);
 
@@ -94,6 +93,6 @@ public final class FluidUtils {
             }
         }
 
-        return Math.min(MathHelper.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
+        return Math.min(Mth.floor(fullnessPercentSum / size * 14.f) + (isEmptyFlag?0:1), 15);
     }
 }

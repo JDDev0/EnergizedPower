@@ -3,9 +3,9 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import me.jddev0.ep.util.EnergyUtils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
@@ -37,7 +37,7 @@ public class DurationUpgradeModuleItem extends UpgradeModuleItem {
     private static final double DURATION_6_ENERGY_TRANSFER_RATE =
             ModConfigs.COMMON_UPGRADE_MODULE_DURATION_6_ENERGY_TRANSFER_RATE.getValue();
 
-    public DurationUpgradeModuleItem(Settings props, int tier) {
+    public DurationUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.DURATION, tier);
     }
 
@@ -70,22 +70,22 @@ public class DurationUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
-    public Text getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
+    public Component getUpgradeModuleModifierText(UpgradeModuleModifier modifier, double value) {
         return switch(modifier) {
             case DURATION -> {
                 if(value == Double.POSITIVE_INFINITY)
-                    yield Text.translatable("tooltip.energizedpower.infinite.txt").
-                            formatted(Formatting.LIGHT_PURPLE, Formatting.ITALIC);
+                    yield Component.translatable("tooltip.energizedpower.infinite.txt").
+                            withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC);
 
-                yield Text.literal(String.format(Locale.US, "• %.2f", value)).
-                        formatted(Formatting.GREEN);
+                yield Component.literal(String.format(Locale.US, "• %.2f", value)).
+                        withStyle(ChatFormatting.GREEN);
             }
-            case ENERGY_CONSUMPTION -> Text.translatable(EnergyUtils.getEnergyWithPrefix((int)value) + "/t").
-                    formatted(Formatting.RED);
-            case ENERGY_TRANSFER_RATE -> Text.literal(String.format(Locale.US, "%+.2f %%", 100 * value - 100)).
-                    formatted(Formatting.GREEN);
+            case ENERGY_CONSUMPTION -> Component.translatable(EnergyUtils.getEnergyWithPrefix((int)value) + "/t").
+                    withStyle(ChatFormatting.RED);
+            case ENERGY_TRANSFER_RATE -> Component.literal(String.format(Locale.US, "%+.2f %%", 100 * value - 100)).
+                    withStyle(ChatFormatting.GREEN);
 
-            default -> Text.empty();
+            default -> Component.empty();
         };
     }
 }

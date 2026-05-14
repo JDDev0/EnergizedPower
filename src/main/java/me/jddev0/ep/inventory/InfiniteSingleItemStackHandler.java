@@ -3,9 +3,9 @@ package me.jddev0.ep.inventory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 
 public class InfiniteSingleItemStackHandler extends SingleItemStorage {
     public boolean isEmpty() {
@@ -38,20 +38,20 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage {
     }
 
     @Override
-    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookupProvider) {
+    public void writeNbt(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
         if(!isEmpty()) {
-            nbt.put("Item", this.variant.toStack().encode(lookupProvider, new NbtCompound()));
+            nbt.put("Item", this.variant.toStack().save(lookupProvider, new CompoundTag()));
             nbt.getCompound("Item").remove("count");
         }
     }
 
     @Override
-    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup lookupProvider) {
+    public void readNbt(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
         if(nbt.contains("Item")) {
-            NbtCompound itemNbt = nbt.getCompound("Item");
+            CompoundTag itemNbt = nbt.getCompound("Item");
             itemNbt.putInt("count", 1);
 
-            this.variant = ItemVariant.of(ItemStack.fromNbt(lookupProvider, itemNbt).orElse(ItemStack.EMPTY));
+            this.variant = ItemVariant.of(ItemStack.parse(lookupProvider, itemNbt).orElse(ItemStack.EMPTY));
             this.amount = 1;
         }else {
             this.variant = ItemVariant.blank();

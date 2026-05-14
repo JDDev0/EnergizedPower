@@ -14,37 +14,37 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
-public class EnergizerCategory implements IRecipeCategory<RecipeEntry<EnergizerRecipe>> {
-    public static final Identifier UID = EPAPI.id("energizer");
-    public static final RecipeType<RecipeEntry<EnergizerRecipe>> TYPE = RecipeType.createFromVanilla(EnergizerRecipe.Type.INSTANCE);
+public class EnergizerCategory implements IRecipeCategory<RecipeHolder<EnergizerRecipe>> {
+    public static final ResourceLocation UID = EPAPI.id("energizer");
+    public static final RecipeType<RecipeHolder<EnergizerRecipe>> TYPE = RecipeType.createFromVanilla(EnergizerRecipe.Type.INSTANCE);
 
     private final IDrawable background;
     private final IDrawable icon;
 
     public EnergizerCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/container/energizer.png");
+        ResourceLocation texture = EPAPI.id("textures/gui/container/energizer.png");
         background = helper.createDrawable(texture, 31, 18, 114, 50);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.ENERGIZER_ITEM));
     }
 
     @Override
-    public RecipeType<RecipeEntry<EnergizerRecipe>> getRecipeType() {
+    public RecipeType<RecipeHolder<EnergizerRecipe>> getRecipeType() {
         return TYPE;
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable("container.energizedpower.energizer");
+    public Component getTitle() {
+        return Component.translatable("container.energizedpower.energizer");
     }
 
     @Override
@@ -58,19 +58,19 @@ public class EnergizerCategory implements IRecipeCategory<RecipeEntry<EnergizerR
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeEntry<EnergizerRecipe> recipe, IFocusGroup iFocusGroup) {
+    public void setRecipe(IRecipeLayoutBuilder iRecipeLayoutBuilder, RecipeHolder<EnergizerRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.INPUT, 17, 17).addIngredients(recipe.value().getInputItem());
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 93, 17).addItemStack(recipe.value().getOutputItem());
     }
 
     @Override
-    public void draw(RecipeEntry<EnergizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, DrawContext guiGraphics, double mouseX, double mouseY) {
-        TextRenderer font = MinecraftClient.getInstance().textRenderer;
+    public void draw(RecipeHolder<EnergizerRecipe> recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        Font font = Minecraft.getInstance().font;
         int energyConsumption = (int)(recipe.value().getEnergyConsumption() * EnergizerBlockEntity.ENERGY_CONSUMPTION_MULTIPLIER);
-        Text component = Text.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).formatted(Formatting.YELLOW);
-        int textWidth = font.getWidth(component);
+        Component component = Component.literal(EnergyUtils.getEnergyWithPrefix(energyConsumption)).withStyle(ChatFormatting.YELLOW);
+        int textWidth = font.width(component);
 
-        guiGraphics.drawText(MinecraftClient.getInstance().textRenderer, component, 114 - textWidth, 42, 0xFFFFFFFF, false);
+        guiGraphics.drawString(Minecraft.getInstance().font, component, 114 - textWidth, 42, 0xFFFFFFFF, false);
     }
 }

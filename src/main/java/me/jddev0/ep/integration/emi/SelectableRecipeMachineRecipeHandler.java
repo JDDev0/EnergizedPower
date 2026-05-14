@@ -8,13 +8,12 @@ import dev.emi.emi.api.recipe.handler.EmiRecipeHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.screen.ScreenHandler;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import java.util.ArrayList;
 
-public class SelectableRecipeMachineRecipeHandler<M extends ScreenHandler & IConfigurableMenu>
+public class SelectableRecipeMachineRecipeHandler<M extends AbstractContainerMenu & IConfigurableMenu>
         implements EmiRecipeHandler<M> {
     private final EmiRecipeCategory recipeCategory;
 
@@ -23,7 +22,7 @@ public class SelectableRecipeMachineRecipeHandler<M extends ScreenHandler & ICon
     }
 
     @Override
-    public EmiPlayerInventory getInventory(HandledScreen<M> screen) {
+    public EmiPlayerInventory getInventory(AbstractContainerScreen<M> screen) {
         return new EmiPlayerInventory(new ArrayList<>());
     }
 
@@ -42,9 +41,9 @@ public class SelectableRecipeMachineRecipeHandler<M extends ScreenHandler & ICon
         if(!canCraft(recipe, context))
             return false;
 
-        MinecraftClient.getInstance().setScreen(context.getScreen());
+        Minecraft.getInstance().setScreen(context.getScreen());
 
-        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(context.getScreenHandler().getBlockEntity().getPos(), recipe.getId()));
+        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(), recipe.getId()));
 
         return true;
     }

@@ -7,13 +7,12 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 import java.util.Optional;
 
-public record StoneLiquefierDisplay(RecipeEntry<StoneLiquefierRecipe> recipe) implements Display {
+public record StoneLiquefierDisplay(RecipeHolder<StoneLiquefierRecipe> recipe) implements Display {
     public static final CategoryIdentifier<StoneLiquefierDisplay> CATEGORY = CategoryIdentifier.of(EPAPI.MOD_ID, "stone_liquefier");
 
     @Override
@@ -39,7 +38,7 @@ public record StoneLiquefierDisplay(RecipeEntry<StoneLiquefierRecipe> recipe) im
     }
 
     @Override
-    public Optional<Identifier> getDisplayLocation() {
+    public Optional<ResourceLocation> getDisplayLocation() {
         return Optional.of(recipe.id());
     }
 }

@@ -6,12 +6,11 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.recipe.RecipeEntry;
-
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
-public record StoneSolidifierDisplay(RecipeEntry<StoneSolidifierRecipe> recipe) implements Display {
+public record StoneSolidifierDisplay(RecipeHolder<StoneSolidifierRecipe> recipe) implements Display {
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
