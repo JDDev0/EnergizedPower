@@ -1,6 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.datagen.loot.ModBlockLootTables;
+import me.jddev0.ep.datagen.recipe.ModRecipeGenerator;
 import me.jddev0.ep.paintings.EPPaintingVariants;
 import me.jddev0.ep.world.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -18,7 +19,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModBookPageContentProvider::new);
 
-        pack.addProvider(ModRecipeProvider::new);
+        pack.addProvider(ModRecipeGenerator::new);
         pack.addProvider(ModBlockLootTables::new);
         ModAdvancementProvider.create(pack);
 

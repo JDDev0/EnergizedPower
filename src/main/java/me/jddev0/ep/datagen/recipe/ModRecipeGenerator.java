@@ -1,4 +1,4 @@
-package me.jddev0.ep.datagen;
+package me.jddev0.ep.datagen.recipe;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -41,8 +41,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
+public class ModRecipeGenerator extends FabricRecipeProvider {
+    public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider) {
         super(output, lookupProvider);
     }
 
