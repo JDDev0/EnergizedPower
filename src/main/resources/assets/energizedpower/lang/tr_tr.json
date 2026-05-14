@@ -120,6 +120,12 @@
   "item.energizedpower.energy_efficiency_upgrade_module_4": "Energy Efficiency Upgrade Module (Tier IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "Energy Efficiency Upgrade Module (Tier V)",
 
+  "item.energizedpower.energy_production_upgrade_module_1": "Energy Production Upgrade Module (Tier I)",
+  "item.energizedpower.energy_production_upgrade_module_2": "Energy Production Upgrade Module (Tier II)",
+  "item.energizedpower.energy_production_upgrade_module_3": "Energy Production Upgrade Module (Tier III)",
+  "item.energizedpower.energy_production_upgrade_module_4": "Energy Production Upgrade Module (Tier IV)",
+  "item.energizedpower.energy_production_upgrade_module_5": "Energy Production Upgrade Module (Tier V)",
+
   "item.energizedpower.energy_capacity_upgrade_module_1": "Energy Capacity Upgrade Module (Tier I)",
   "item.energizedpower.energy_capacity_upgrade_module_2": "Energy Capacity Upgrade Module (Tier II)",
   "item.energizedpower.energy_capacity_upgrade_module_3": "Energy Capacity Upgrade Module (Tier III)",
@@ -849,6 +855,7 @@
 
   "tooltip.energizedpower.upgrade_module_modifier.speed": "Production Speed",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy production per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energy Capacity",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energy Transfer Rate",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Duration",
@@ -962,34 +969,49 @@
   "advancements.energizedpower.speed_upgrade_module_5.description": "Craft a Speed Upgrade Module (Tier V).",
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Energy Efficiency I",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Craft a Energy Efficiency Upgrade Module (Tier I).",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Craft an Energy Efficiency Upgrade Module (Tier I).",
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_2.title": "Energy Efficiency II",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Craft a Energy Efficiency Upgrade Module (Tier II).",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Craft an Energy Efficiency Upgrade Module (Tier II).",
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_3.title": "Energy Efficiency III",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Craft a Energy Efficiency Upgrade Module (Tier III).",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Craft an Energy Efficiency Upgrade Module (Tier III).",
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_4.title": "Energy Efficiency IV",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Craft a Energy Efficiency Upgrade Module (Tier IV).",
+  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Craft an Energy Efficiency Upgrade Module (Tier IV).",
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Energy Efficiency V",
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Craft a Energy Efficiency Upgrade Module (Tier V).",
 
+  "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energy Production I",
+  "advancements.energizedpower.energy_production_upgrade_module_1.description": "Craft an Energy Production Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_2.title": "Energy Production II",
+  "advancements.energizedpower.energy_production_upgrade_module_2.description": "Craft an Energy Production Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_3.title": "Energy Production III",
+  "advancements.energizedpower.energy_production_upgrade_module_3.description": "Craft an Energy Production Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_4.title": "Energy Production IV",
+  "advancements.energizedpower.energy_production_upgrade_module_4.description": "Craft an Energy Production Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energy Production V",
+  "advancements.energizedpower.energy_production_upgrade_module_5.description": "Craft an Energy Production Upgrade Module (Tier V).",
+
   "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Energy Capacity I",
-  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Craft a Energy Capacity Upgrade Module (Tier I).",
+  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Craft an Energy Capacity Upgrade Module (Tier I).",
 
   "advancements.energizedpower.energy_capacity_upgrade_module_2.title": "Energy Capacity II",
-  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Craft a Energy Capacity Upgrade Module (Tier II).",
+  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Craft an Energy Capacity Upgrade Module (Tier II).",
 
   "advancements.energizedpower.energy_capacity_upgrade_module_3.title": "Energy Capacity III",
-  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Craft a Energy Capacity Upgrade Module (Tier III).",
+  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Craft an Energy Capacity Upgrade Module (Tier III).",
 
   "advancements.energizedpower.energy_capacity_upgrade_module_4.title": "Energy Capacity IV",
-  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Craft a Energy Capacity Upgrade Module (Tier IV).",
+  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Craft an Energy Capacity Upgrade Module (Tier IV).",
 
   "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Energy Capacity V",
-  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Craft a Energy Capacity Upgrade Module (Tier V).",
+  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Craft an Energy Capacity Upgrade Module (Tier V).",
 
   "advancements.energizedpower.duration_upgrade_module_1.title": "Duration I",
   "advancements.energizedpower.duration_upgrade_module_1.description": "Craft a Duration Upgrade Module (Tier I).",
@@ -1569,6 +1591,8 @@
   "book.energizedpower.page.speed_upgrades": "Speed upgrades make machines faster and increase the energy consumption.",
 
   "book.energizedpower.page.energy_efficiency_upgrades": "Energy Efficiency Upgrades reduce the energy consumption.",
+
+  "book.energizedpower.page.energy_production_upgrades": "Energy Production Upgrades increase the energy production.",
 
   "book.energizedpower.page.energy_capacity_upgrades": "Energy Capacity Upgrades increase the energy storage capacity and the energy transfer rate.",
 

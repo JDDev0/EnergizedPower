@@ -18,7 +18,7 @@ public class ThermalGeneratorScreen extends ConfigurableUpgradableEnergyStorageC
         super(menu, inventory, component,
                 "tooltip.energizedpower.thermal_generator.txt",
                 EPAPI.id("textures/gui/container/thermal_generator.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_energy_production.png"));
 
         energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }

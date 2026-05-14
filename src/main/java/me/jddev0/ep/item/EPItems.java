@@ -168,6 +168,17 @@ public final class EPItems {
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_5 = registerItem("energy_efficiency_upgrade_module_5",
             new EnergyEfficiencyUpgradeModuleItem(new Item.Properties(), 5));
 
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_1 = registerItem("energy_production_upgrade_module_1",
+            new EnergyProductionUpgradeModuleItem(new Item.Properties(), 1));
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_2 = registerItem("energy_production_upgrade_module_2",
+            new EnergyProductionUpgradeModuleItem(new Item.Properties(), 2));
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_3 = registerItem("energy_production_upgrade_module_3",
+            new EnergyProductionUpgradeModuleItem(new Item.Properties(), 3));
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_4 = registerItem("energy_production_upgrade_module_4",
+            new EnergyProductionUpgradeModuleItem(new Item.Properties(), 4));
+    public static final Item ENERGY_PRODUCTION_UPGRADE_MODULE_5 = registerItem("energy_production_upgrade_module_5",
+            new EnergyProductionUpgradeModuleItem(new Item.Properties(), 5));
+
     public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_1 = registerItem("energy_capacity_upgrade_module_1",
             new EnergyCapacityUpgradeModuleItem(new Item.Properties(), 1));
     public static final Item ENERGY_CAPACITY_UPGRADE_MODULE_2 = registerItem("energy_capacity_upgrade_module_2",

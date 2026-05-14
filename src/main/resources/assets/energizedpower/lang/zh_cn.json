@@ -120,6 +120,12 @@
   "item.energizedpower.energy_efficiency_upgrade_module_4": "能量效率升级模块 (等级 IV)",
   "item.energizedpower.energy_efficiency_upgrade_module_5": "能量效率升级模块 (等级 V)",
 
+  "item.energizedpower.energy_production_upgrade_module_1": "Energy Production Upgrade Module (Tier I)",
+  "item.energizedpower.energy_production_upgrade_module_2": "Energy Production Upgrade Module (Tier II)",
+  "item.energizedpower.energy_production_upgrade_module_3": "Energy Production Upgrade Module (Tier III)",
+  "item.energizedpower.energy_production_upgrade_module_4": "Energy Production Upgrade Module (Tier IV)",
+  "item.energizedpower.energy_production_upgrade_module_5": "Energy Production Upgrade Module (Tier V)",
+
   "item.energizedpower.energy_capacity_upgrade_module_1": "能量容量升级模块 (等级 I)",
   "item.energizedpower.energy_capacity_upgrade_module_2": "能量容量升级模块 (等级 II)",
   "item.energizedpower.energy_capacity_upgrade_module_3": "能量容量升级模块 (等级 III)",
@@ -849,6 +855,7 @@
 
   "tooltip.energizedpower.upgrade_module_modifier.speed": "生产速度",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "每 tick 能量消耗",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy production per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "能量容量",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "能量传输速率",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "持续时间",
@@ -975,6 +982,21 @@
 
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "能量效率 V",
   "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "合成一个能量效率升级模块 (等级 V)。",
+
+  "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energy Production I",
+  "advancements.energizedpower.energy_production_upgrade_module_1.description": "Craft an Energy Production Upgrade Module (Tier I).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_2.title": "Energy Production II",
+  "advancements.energizedpower.energy_production_upgrade_module_2.description": "Craft an Energy Production Upgrade Module (Tier II).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_3.title": "Energy Production III",
+  "advancements.energizedpower.energy_production_upgrade_module_3.description": "Craft an Energy Production Upgrade Module (Tier III).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_4.title": "Energy Production IV",
+  "advancements.energizedpower.energy_production_upgrade_module_4.description": "Craft an Energy Production Upgrade Module (Tier IV).",
+
+  "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energy Production V",
+  "advancements.energizedpower.energy_production_upgrade_module_5.description": "Craft an Energy Production Upgrade Module (Tier V).",
 
   "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "能量容量 I",
   "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "合成一个能量容量升级模块 (等级 I)。",
@@ -1569,6 +1591,8 @@
   "book.energizedpower.page.speed_upgrades": "速度升级使机器更快并增加能量消耗。",
 
   "book.energizedpower.page.energy_efficiency_upgrades": "能量效率升级降低能量消耗。",
+
+  "book.energizedpower.page.energy_production_upgrades": "Energy Production Upgrades increase the energy production.",
 
   "book.energizedpower.page.energy_capacity_upgrades": "能量容量升级增加能量存储容量和能量传输速率。",
 
