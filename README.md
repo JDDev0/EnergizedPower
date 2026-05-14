@@ -26,7 +26,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Assembling Machine
 - Induction Smelter
 - Plant Growth Chamber
-- Fluid Freezer (**In next release (v2.16.0)**)
+- Fluid Freezer
 - Stone Liquefier
 - Stone Solidifier
 - Filtration Plant
@@ -184,6 +184,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
+- 2.16.x: 26.1.x, 1.21.1
 - 2.15.x: 26.1.x, 1.21.11, 1.21.10, 1.21.9, 1.21.8, 1.21.1, 1.20.1
 - 2.14.x: 1.21.8, 1.21.7, 1.21.6, 1.21.5, 1.21.1, 1.20.1
 - 2.13.x: 1.21.5, 1.21.4, 1.21.1, 1.20.1
