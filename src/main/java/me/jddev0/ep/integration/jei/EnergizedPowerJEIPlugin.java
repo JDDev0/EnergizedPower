@@ -45,6 +45,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new CrystalGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PressMoldMakerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new AlloyFurnaceCategory(registration.getJeiHelpers().getGuiHelper()),
+                new FluidFreezerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new StoneLiquefierCategory(registration.getJeiHelpers().getGuiHelper()),
                 new StoneSolidifierCategory(registration.getJeiHelpers().getGuiHelper()),
                 new FiltrationPlantCategory(registration.getJeiHelpers().getGuiHelper()),
@@ -72,6 +73,11 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 registration.getTransferHelper(), AutoStonecutterMenu.class,
                         EPMenuTypes.AUTO_STONECUTTER_MENU),
                 RecipeTypes.STONECUTTING);
+
+        registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
+                registration.getTransferHelper(), FluidFreezerMenu.class,
+                        EPMenuTypes.FLUID_FREEZER_MENU),
+                FluidFreezerCategory.TYPE);
 
         registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
                 registration.getTransferHelper(), StoneSolidifierMenu.class,
@@ -102,6 +108,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipes(CrystalGrowthChamberCategory.TYPE, recipeManager.getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE));
         registration.addRecipes(PressMoldMakerCategory.TYPE, recipeManager.getAllRecipesFor(PressMoldMakerRecipe.Type.INSTANCE));
         registration.addRecipes(AlloyFurnaceCategory.TYPE, recipeManager.getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE));
+        registration.addRecipes(FluidFreezerCategory.TYPE, recipeManager.getAllRecipesFor(FluidFreezerRecipe.Type.INSTANCE));
         registration.addRecipes(StoneLiquefierCategory.TYPE, recipeManager.getAllRecipesFor(StoneLiquefierRecipe.Type.INSTANCE));
         registration.addRecipes(StoneSolidifierCategory.TYPE, recipeManager.getAllRecipesFor(StoneSolidifierRecipe.Type.INSTANCE));
         registration.addRecipes(FiltrationPlantCategory.TYPE, recipeManager.getAllRecipesFor(FiltrationPlantRecipe.Type.INSTANCE));
@@ -156,6 +163,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM), PressMoldMakerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM), AlloyFurnaceCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.INDUCTION_SMELTER_ITEM), AlloyFurnaceCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(EPBlocks.FLUID_FREEZER_ITEM), FluidFreezerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.STONE_LIQUEFIER_ITEM), StoneLiquefierCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.STONE_SOLIDIFIER_ITEM), StoneSolidifierCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM), FiltrationPlantCategory.TYPE);
@@ -207,6 +215,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, AutoPressMoldMakerScreen.class, 84, 43, 24, 17, PressMoldMakerCategory.TYPE);
         registration.addRecipeClickArea(AlloyFurnaceScreen.class, 79, 34, 24, 17, AlloyFurnaceCategory.TYPE);
         registerRecipeClickArea(registration, InductionSmelterScreen.class, 104, 34, 24, 17, AlloyFurnaceCategory.TYPE);
+        registerRecipeClickArea(registration, FluidFreezerScreen.class, 83, 43, 24, 17, FluidFreezerCategory.TYPE);
         registerRecipeClickArea(registration, StoneLiquefierScreen.class, 112, 34, 24, 17, StoneLiquefierCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 69, 45, 20, 14, StoneSolidifierCategory.TYPE);
         registerRecipeClickArea(registration, StoneSolidifierScreen.class, 123, 45, 20, 14, StoneSolidifierCategory.TYPE);

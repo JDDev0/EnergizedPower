@@ -337,6 +337,17 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
+    public static final BlockEntityType<FluidFreezerBlockEntity> FLUID_FREEZER_ENTITY = registerEnergyStorage(
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("fluid_freezer", EPBlocks.FLUID_FREEZER, FluidFreezerBlockEntity::new),
+                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
+            ),
+            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
+    );
+
     public static final BlockEntityType<StoneLiquefierBlockEntity> STONE_LIQUEFIER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
                     registerInventoryStorage(

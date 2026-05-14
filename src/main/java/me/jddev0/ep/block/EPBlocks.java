@@ -451,6 +451,11 @@ public final class EPBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final Item FLUID_FILLER_ITEM = createBlockItem("fluid_filler", FLUID_FILLER);
 
+    public static final Block FLUID_FREEZER = registerBlock("fluid_freezer",
+            new FluidFreezerBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final Item FLUID_FREEZER_ITEM = createBlockItem("fluid_freezer", FLUID_FREEZER);
+
     public static final Block STONE_LIQUEFIER = registerBlock("stone_liquefier",
             new StoneLiquefierBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

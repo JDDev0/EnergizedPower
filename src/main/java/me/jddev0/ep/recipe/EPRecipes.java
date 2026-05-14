@@ -81,6 +81,11 @@ public final class EPRecipes {
     public static final RecipeType<StoneSolidifierRecipe> STONE_SOLIDIFIER_TYPE = createRecipeType("stone_solidifier",
             StoneSolidifierRecipe.Type.INSTANCE);
 
+    public static final RecipeSerializer<FluidFreezerRecipe> FLUID_FREEZER_SERIALIZER = createSerializer("fluid_freezer",
+            FluidFreezerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<FluidFreezerRecipe> FLUID_FREEZER_TYPE = createRecipeType("fluid_freezer",
+            FluidFreezerRecipe.Type.INSTANCE);
+
     public static final RecipeSerializer<StoneLiquefierRecipe> STONE_LIQUEFIER_SERIALIZER = createSerializer("stone_liquefier",
             StoneLiquefierRecipe.Serializer.INSTANCE);
     public static final RecipeType<StoneLiquefierRecipe> STONE_LIQUEFIER_TYPE = createRecipeType("stone_liquefier",

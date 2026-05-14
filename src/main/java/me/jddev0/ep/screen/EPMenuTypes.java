@@ -80,6 +80,9 @@ public final class EPMenuTypes {
     public static final MenuType<PlantGrowthChamberMenu> PLANT_GROWTH_CHAMBER_MENU = createScreenHandlerType("plant_growth_chamber",
             new ExtendedScreenHandlerType<>(PlantGrowthChamberMenu::new, BlockPos.STREAM_CODEC.cast()));
 
+    public static final MenuType<FluidFreezerMenu> FLUID_FREEZER_MENU = createScreenHandlerType("fluid_freezer",
+            new ExtendedScreenHandlerType<>(FluidFreezerMenu::new, BlockPos.STREAM_CODEC.cast()));
+
     public static final MenuType<StoneLiquefierMenu> STONE_LIQUEFIER_MENU = createScreenHandlerType("stone_liquefier",
             new ExtendedScreenHandlerType<>(StoneLiquefierMenu::new, BlockPos.STREAM_CODEC.cast()));
 
