@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-14T16:23:18.382577299	Energized Power/Recipes
+// 1.21.1	2026-05-14T16:39:58.640425	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -215,7 +215,7 @@ f264792af9b7f68e1060f40ff5faf3d4ab12d97f data/energizedpower/recipe/charger/ener
 066187013ab4b77ab15ea61bd0504f1a3e3df118 data/energizedpower/recipe/crafting/extraction_depth_upgrade_module_1.json
 10f064b9a2962de7914601f4b2ff17bb2e426e4a data/energizedpower/recipe/crusher/basalt_from_crushing_basalt_variants.json
 66e2fb4f614ed32e0651a2d27e2a7f8a26e2ebf2 data/energizedpower/recipe/sawmill/acacia_planks_from_sawing_acacia_fence.json
-536bfba9b3ea54fdbe69afe64ec64cdf1a0c198a data/energizedpower/recipe/thermal_generator/energy_production_from_lava.json
+c37c0332a3e3824c9bae086d189f29ce4c655e64 data/energizedpower/recipe/thermal_generator/energy_production_from_lava.json
 61c7d39a950cdd9f48c1ed49d8277c3bded9d4ab data/energizedpower/recipe/sawmill/bamboo_planks_from_sawing_bamboo_fence_gate.json
 d535b337cc73995f983688830a098dd9acd43613 data/energizedpower/recipe/crafting/moon_light_upgrade_module_3.json
 52dba76331de1552ba568372838fb77d5c930ba0 data/energizedpower/advancement/recipes/crafting/battery_5.json
