@@ -108,67 +108,20 @@
   "item.energizedpower.advanced_upgrade_module": "Fortgeschrittenes Upgrade-Modul",
   "item.energizedpower.reinforced_advanced_upgrade_module": "Verstärktes Fortgeschrittenes Upgrade-Modul",
 
-  "item.energizedpower.speed_upgrade_module_1": "Geschwindigkeits-Upgrade-Modul (MK I)",
-  "item.energizedpower.speed_upgrade_module_2": "Geschwindigkeits-Upgrade-Modul (MK II)",
-  "item.energizedpower.speed_upgrade_module_3": "Geschwindigkeits-Upgrade-Modul (MK III)",
-  "item.energizedpower.speed_upgrade_module_4": "Geschwindigkeits-Upgrade-Modul (MK IV)",
-  "item.energizedpower.speed_upgrade_module_5": "Geschwindigkeits-Upgrade-Modul (MK V)",
-  "item.energizedpower.speed_upgrade_module_6": "Geschwindigkeits-Upgrade-Modul (MK VI)",
-
-  "item.energizedpower.energy_efficiency_upgrade_module_1": "Energie-Effizienz-Upgrade-Modul (MK I)",
-  "item.energizedpower.energy_efficiency_upgrade_module_2": "Energie-Effizienz-Upgrade-Modul (MK II)",
-  "item.energizedpower.energy_efficiency_upgrade_module_3": "Energie-Effizienz-Upgrade-Modul (MK III)",
-  "item.energizedpower.energy_efficiency_upgrade_module_4": "Energie-Effizienz-Upgrade-Modul (MK IV)",
-  "item.energizedpower.energy_efficiency_upgrade_module_5": "Energie-Effizienz-Upgrade-Modul (MK V)",
-  "item.energizedpower.energy_efficiency_upgrade_module_6": "Energie-Effizienz-Upgrade-Modul (MK VI)",
-
-  "item.energizedpower.energy_production_upgrade_module_1": "Energie-Produktion-Upgrade-Modul (MK I)",
-  "item.energizedpower.energy_production_upgrade_module_2": "Energie-Produktion-Upgrade-Modul (MK II)",
-  "item.energizedpower.energy_production_upgrade_module_3": "Energie-Produktion-Upgrade-Modul (MK III)",
-  "item.energizedpower.energy_production_upgrade_module_4": "Energie-Produktion-Upgrade-Modul (MK IV)",
-  "item.energizedpower.energy_production_upgrade_module_5": "Energie-Produktion-Upgrade-Modul (MK V)",
-  "item.energizedpower.energy_production_upgrade_module_6": "Energie-Produktion-Upgrade-Modul (MK VI)",
-
-  "item.energizedpower.energy_capacity_upgrade_module_1": "Energiekapazität-Upgrade-Modul (MK I)",
-  "item.energizedpower.energy_capacity_upgrade_module_2": "Energiekapazität-Upgrade-Modul (MK II)",
-  "item.energizedpower.energy_capacity_upgrade_module_3": "Energiekapazität-Upgrade-Modul (MK III)",
-  "item.energizedpower.energy_capacity_upgrade_module_4": "Energiekapazität-Upgrade-Modul (MK IV)",
-  "item.energizedpower.energy_capacity_upgrade_module_5": "Energiekapazität-Upgrade-Modul (MK V)",
-  "item.energizedpower.energy_capacity_upgrade_module_6": "Energiekapazität-Upgrade-Modul (MK VI)",
-
-  "item.energizedpower.duration_upgrade_module_1": "Laufzeit-Upgrade-Modul (MK I)",
-  "item.energizedpower.duration_upgrade_module_2": "Laufzeit-Upgrade-Modul (MK II)",
-  "item.energizedpower.duration_upgrade_module_3": "Laufzeit-Upgrade-Modul (MK III)",
-  "item.energizedpower.duration_upgrade_module_4": "Laufzeit-Upgrade-Modul (MK IV)",
-  "item.energizedpower.duration_upgrade_module_5": "Laufzeit-Upgrade-Modul (MK V)",
-  "item.energizedpower.duration_upgrade_module_6": "Laufzeit-Upgrade-Modul (MK VI)",
-
-  "item.energizedpower.range_upgrade_module_1": "Reichweiten-Upgrade-Modul (MK I)",
-  "item.energizedpower.range_upgrade_module_2": "Reichweiten-Upgrade-Modul (MK II)",
-  "item.energizedpower.range_upgrade_module_3": "Reichweiten-Upgrade-Modul (MK III)",
-
-  "item.energizedpower.extraction_depth_upgrade_module_1": "Extraktionstiefen-Upgrade-Modul (MK I)",
-  "item.energizedpower.extraction_depth_upgrade_module_2": "Extraktionstiefen-Upgrade-Modul (MK II)",
-  "item.energizedpower.extraction_depth_upgrade_module_3": "Extraktionstiefen-Upgrade-Modul (MK III)",
-  "item.energizedpower.extraction_depth_upgrade_module_4": "Extraktionstiefen-Upgrade-Modul (MK IV)",
-  "item.energizedpower.extraction_depth_upgrade_module_5": "Extraktionstiefen-Upgrade-Modul (MK V)",
-  "item.energizedpower.extraction_depth_upgrade_module_6": "Extraktionstiefen-Upgrade-Modul (MK VI)",
-
-  "item.energizedpower.extraction_range_upgrade_module_1": "Extraktionsreichweiten-Upgrade-Modul (MK I)",
-  "item.energizedpower.extraction_range_upgrade_module_2": "Extraktionsreichweiten-Upgrade-Modul (MK II)",
-  "item.energizedpower.extraction_range_upgrade_module_3": "Extraktionsreichweiten-Upgrade-Modul (MK III)",
-  "item.energizedpower.extraction_range_upgrade_module_4": "Extraktionsreichweiten-Upgrade-Modul (MK IV)",
-  "item.energizedpower.extraction_range_upgrade_module_5": "Extraktionsreichweiten-Upgrade-Modul (MK V)",
-  "item.energizedpower.extraction_range_upgrade_module_6": "Extraktionsreichweiten-Upgrade-Modul (MK VI)",
+  "_template.item.energizedpower.speed_upgrade_module": "Geschwindigkeits-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.energy_efficiency_upgrade_module": "Energie-Effizienz-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.energy_production_upgrade_module": "Energie-Produktion-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.energy_capacity_upgrade_module": "Energiekapazität-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.duration_upgrade_module": "Laufzeit-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.range_upgrade_module": "Reichweiten-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "Extraktionstiefen-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.extraction_range_upgrade_module": "Extraktionsreichweiten-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.moon_light_upgrade_module": "Mondlicht-Upgrade-Modul (MK %s)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
   "item.energizedpower.smoker_upgrade_module": "Räucherofen-Upgrade-Modul",
   "item.energizedpower.smoker_upgrade_module.effect_text": "Räucherofen",
-
-  "item.energizedpower.moon_light_upgrade_module_1": "Mondlicht-Upgrade-Modul (MK I)",
-  "item.energizedpower.moon_light_upgrade_module_2": "Mondlicht-Upgrade-Modul (MK II)",
-  "item.energizedpower.moon_light_upgrade_module_3": "Mondlicht-Upgrade-Modul (MK III)",
 
   "item.energizedpower.inventory_coal_engine": "Inventar Kohlegenerator",
   "tooltip.energizedpower.inventory_coal_engine.status": "Status: ",
@@ -189,14 +142,7 @@
   "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "Das Inventar kann durch SHIFT + Rechts-Klick in der Luft geöffnet werden.",
   "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "Drücke mit einem Rechts-Klick in der Luft um dich zu teleportieren.",
 
-  "item.energizedpower.battery_1": "Batterie (MK I)",
-  "item.energizedpower.battery_2": "Batterie (MK II)",
-  "item.energizedpower.battery_3": "Batterie (MK III)",
-  "item.energizedpower.battery_4": "Batterie (MK IV)",
-  "item.energizedpower.battery_5": "Batterie (MK V)",
-  "item.energizedpower.battery_6": "Batterie (MK VI)",
-  "item.energizedpower.battery_7": "Batterie (MK VII)",
-  "item.energizedpower.battery_8": "Batterie (MK VIII)",
+  "_template.item.energizedpower.battery": "Batterie (MK %s)",
   "tooltip.energizedpower.battery.txt.shift.1": "Diese Batterie kann %s/t aufnehmen und abgeben.",
 
   "item.energizedpower.creative_battery": "Creative-Batterie",
@@ -523,24 +469,7 @@
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energie-Verbrauch",
 
 
-  "block.energizedpower.solar_panel_1": "Solarpanel (MK I)",
-  "item.energizedpower.solar_panel_1": "Solarpanel (MK I)",
-  "container.energizedpower.solar_panel_1": "Solarpanel (MK I)",
-  "block.energizedpower.solar_panel_2": "Solarpanel (MK II)",
-  "item.energizedpower.solar_panel_2": "Solarpanel (MK II)",
-  "container.energizedpower.solar_panel_2": "Solarpanel (MK II)",
-  "block.energizedpower.solar_panel_3": "Solarpanel (MK III)",
-  "item.energizedpower.solar_panel_3": "Solarpanel (MK III)",
-  "container.energizedpower.solar_panel_3": "Solarpanel (MK III)",
-  "block.energizedpower.solar_panel_4": "Solarpanel (MK IV)",
-  "item.energizedpower.solar_panel_4": "Solarpanel (MK IV)",
-  "container.energizedpower.solar_panel_4": "Solarpanel (MK IV)",
-  "block.energizedpower.solar_panel_5": "Solarpanel (MK V)",
-  "item.energizedpower.solar_panel_5": "Solarpanel (MK V)",
-  "container.energizedpower.solar_panel_5": "Solarpanel (MK V)",
-  "block.energizedpower.solar_panel_6": "Solarpanel (MK VI)",
-  "item.energizedpower.solar_panel_6": "Solarpanel (MK VI)",
-  "container.energizedpower.solar_panel_6": "Solarpanel (MK VI)",
+  "_template.block.energizedpower.solar_panel": "Solarpanel (MK %s)",
 
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann bis zu %s/t produzieren.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktuellen Zeit und dem Wetter ab",
@@ -965,155 +894,38 @@
   "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Verstärktes Fortgeschrittenes Upgrade-Modul",
   "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Erstelle verstärktes fortgeschrittenes Upgrade-Modul.",
 
-  "advancements.energizedpower.speed_upgrade_module_1.title": "Geschwindigkeit I",
-  "advancements.energizedpower.speed_upgrade_module_1.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK I).",
+  "_template.advancements.energizedpower.speed_upgrade_module.title": "Geschwindigkeit %s",
+  "_template.advancements.energizedpower.speed_upgrade_module.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.speed_upgrade_module_2.title": "Geschwindigkeit II",
-  "advancements.energizedpower.speed_upgrade_module_2.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK II).",
+  "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "Energie-Effizienz %s",
+  "_template.advancements.energizedpower.energy_efficiency_upgrade_module.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.speed_upgrade_module_3.title": "Geschwindigkeit III",
-  "advancements.energizedpower.speed_upgrade_module_3.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK III).",
+  "_template.advancements.energizedpower.energy_production_upgrade_module.title": "Energie-Produktion %s",
+  "_template.advancements.energizedpower.energy_production_upgrade_module.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.speed_upgrade_module_4.title": "Geschwindigkeit IV",
-  "advancements.energizedpower.speed_upgrade_module_4.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK IV).",
+  "_template.advancements.energizedpower.energy_capacity_upgrade_module.title": "Energiekapazität %s",
+  "_template.advancements.energizedpower.energy_capacity_upgrade_module.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.speed_upgrade_module_5.title": "Geschwindigkeit V",
-  "advancements.energizedpower.speed_upgrade_module_5.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK V).",
+  "_template.advancements.energizedpower.duration_upgrade_module.title": "Laufzeit %s",
+  "_template.advancements.energizedpower.duration_upgrade_module.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.speed_upgrade_module_6.title": "Geschwindigkeit VI",
-  "advancements.energizedpower.speed_upgrade_module_6.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK VI).",
+  "_template.advancements.energizedpower.range_upgrade_module.title": "Reichweite %s",
+  "_template.advancements.energizedpower.range_upgrade_module.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.energy_efficiency_upgrade_module_1.title": "Energie-Effizienz I",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_1.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK I).",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Extraktionstiefe %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.energy_efficiency_upgrade_module_2.title": "Energie-Effizienz II",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_2.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK II).",
+  "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "Extraktionsreichweite %s",
+  "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK %s).",
 
-  "advancements.energizedpower.energy_efficiency_upgrade_module_3.title": "Energie-Effizienz III",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_3.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.energy_efficiency_upgrade_module_4.title": "Energie-Effizienz IV",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_4.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK IV).",
-
-  "advancements.energizedpower.energy_efficiency_upgrade_module_5.title": "Energie-Effizienz V",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_5.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK V).",
-
-  "advancements.energizedpower.energy_efficiency_upgrade_module_6.title": "Energie-Effizienz VI",
-  "advancements.energizedpower.energy_efficiency_upgrade_module_6.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK VI).",
-
-  "advancements.energizedpower.energy_production_upgrade_module_1.title": "Energie-Produktion I",
-  "advancements.energizedpower.energy_production_upgrade_module_1.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.energy_production_upgrade_module_2.title": "Energie-Produktion II",
-  "advancements.energizedpower.energy_production_upgrade_module_2.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.energy_production_upgrade_module_3.title": "Energie-Produktion III",
-  "advancements.energizedpower.energy_production_upgrade_module_3.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.energy_production_upgrade_module_4.title": "Energie-Produktion IV",
-  "advancements.energizedpower.energy_production_upgrade_module_4.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK IV).",
-
-  "advancements.energizedpower.energy_production_upgrade_module_5.title": "Energie-Produktion V",
-  "advancements.energizedpower.energy_production_upgrade_module_5.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK V).",
-
-  "advancements.energizedpower.energy_production_upgrade_module_6.title": "Energie-Produktion VI",
-  "advancements.energizedpower.energy_production_upgrade_module_6.description": "Erstelle ein Energie-Produktion-Upgrade-Modul (MK VI).",
-
-  "advancements.energizedpower.energy_capacity_upgrade_module_1.title": "Energiekapazität I",
-  "advancements.energizedpower.energy_capacity_upgrade_module_1.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.energy_capacity_upgrade_module_2.title": "Energiekapazität II",
-  "advancements.energizedpower.energy_capacity_upgrade_module_2.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.energy_capacity_upgrade_module_3.title": "Energiekapazität III",
-  "advancements.energizedpower.energy_capacity_upgrade_module_3.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.energy_capacity_upgrade_module_4.title": "Energiekapazität IV",
-  "advancements.energizedpower.energy_capacity_upgrade_module_4.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK IV).",
-
-  "advancements.energizedpower.energy_capacity_upgrade_module_5.title": "Energiekapazität V",
-  "advancements.energizedpower.energy_capacity_upgrade_module_5.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK V).",
-
-  "advancements.energizedpower.energy_capacity_upgrade_module_6.title": "Energiekapazität VI",
-  "advancements.energizedpower.energy_capacity_upgrade_module_6.description": "Erstelle ein Energiekapazität-Upgrade-Modul (MK VI).",
-
-  "advancements.energizedpower.duration_upgrade_module_1.title": "Laufzeit I",
-  "advancements.energizedpower.duration_upgrade_module_1.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.duration_upgrade_module_2.title": "Laufzeit II",
-  "advancements.energizedpower.duration_upgrade_module_2.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.duration_upgrade_module_3.title": "Laufzeit III",
-  "advancements.energizedpower.duration_upgrade_module_3.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.duration_upgrade_module_4.title": "Laufzeit IV",
-  "advancements.energizedpower.duration_upgrade_module_4.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK IV).",
-
-  "advancements.energizedpower.duration_upgrade_module_5.title": "Laufzeit V",
-  "advancements.energizedpower.duration_upgrade_module_5.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK V).",
-
-  "advancements.energizedpower.duration_upgrade_module_6.title": "Laufzeit VI",
-  "advancements.energizedpower.duration_upgrade_module_6.description": "Erstelle ein Laufzeit-Upgrade-Modul (MK VI).",
-
-  "advancements.energizedpower.range_upgrade_module_1.title": "Reichweite I",
-  "advancements.energizedpower.range_upgrade_module_1.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.range_upgrade_module_2.title": "Reichweite II",
-  "advancements.energizedpower.range_upgrade_module_2.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.range_upgrade_module_3.title": "Reichweite III",
-  "advancements.energizedpower.range_upgrade_module_3.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.extraction_depth_upgrade_module_1.title": "Extraktionstiefe I",
-  "advancements.energizedpower.extraction_depth_upgrade_module_1.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.extraction_depth_upgrade_module_2.title": "Extraktionstiefe II",
-  "advancements.energizedpower.extraction_depth_upgrade_module_2.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.extraction_depth_upgrade_module_3.title": "Extraktionstiefe III",
-  "advancements.energizedpower.extraction_depth_upgrade_module_3.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.extraction_depth_upgrade_module_4.title": "Extraktionstiefe IV",
-  "advancements.energizedpower.extraction_depth_upgrade_module_4.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK IV).",
-
-  "advancements.energizedpower.extraction_depth_upgrade_module_5.title": "Extraktionstiefe V",
-  "advancements.energizedpower.extraction_depth_upgrade_module_5.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK V).",
-
-  "advancements.energizedpower.extraction_depth_upgrade_module_6.title": "Extraktionstiefe VI",
-  "advancements.energizedpower.extraction_depth_upgrade_module_6.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK VI).",
-
-  "advancements.energizedpower.extraction_range_upgrade_module_1.title": "Extraktionsreichweite I",
-  "advancements.energizedpower.extraction_range_upgrade_module_1.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.extraction_range_upgrade_module_2.title": "Extraktionsreichweite II",
-  "advancements.energizedpower.extraction_range_upgrade_module_2.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.extraction_range_upgrade_module_3.title": "Extraktionsreichweite III",
-  "advancements.energizedpower.extraction_range_upgrade_module_3.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK III).",
-
-  "advancements.energizedpower.extraction_range_upgrade_module_4.title": "Extraktionsreichweite IV",
-  "advancements.energizedpower.extraction_range_upgrade_module_4.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK IV).",
-
-  "advancements.energizedpower.extraction_range_upgrade_module_5.title": "Extraktionsreichweite V",
-  "advancements.energizedpower.extraction_range_upgrade_module_5.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK V).",
-
-  "advancements.energizedpower.extraction_range_upgrade_module_6.title": "Extraktionsreichweite VI",
-  "advancements.energizedpower.extraction_range_upgrade_module_6.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK VI).",
+  "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Mondlicht %s",
+  "_template.advancements.energizedpower.moon_light_upgrade_module.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK %s).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Erstelle ein Schmelzofen-Upgrade-Modul.",
 
   "advancements.energizedpower.smoker_upgrade_module.title": "Ofenmodus: Räucherofen",
   "advancements.energizedpower.smoker_upgrade_module.description": "Erstelle ein Räucherofen-Upgrade-Modul.",
-
-  "advancements.energizedpower.moon_light_upgrade_module_1.title": "Mondlicht I",
-  "advancements.energizedpower.moon_light_upgrade_module_1.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK I).",
-
-  "advancements.energizedpower.moon_light_upgrade_module_2.title": "Mondlicht II",
-  "advancements.energizedpower.moon_light_upgrade_module_2.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK II).",
-
-  "advancements.energizedpower.moon_light_upgrade_module_3.title": "Mondlicht III",
-  "advancements.energizedpower.moon_light_upgrade_module_3.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK III).",
 
   "advancements.energizedpower.press_mold_maker.title": "Pressform-Hersteller",
   "advancements.energizedpower.press_mold_maker.description": "Verwende diesen Block, um Pressformen für die Metallpresse herzustellen.",
