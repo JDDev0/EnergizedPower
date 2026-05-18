@@ -1,5 +1,6 @@
 package me.jddev0.ep.datagen;
 
+import me.jddev0.ep.datagen.lang.ModLanguageProvider;
 import me.jddev0.ep.datagen.loot.ModBlockLootTables;
 import me.jddev0.ep.datagen.recipe.ModRecipeGenerator;
 import me.jddev0.ep.paintings.EPPaintingVariants;
@@ -18,6 +19,27 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
 
         pack.addProvider(ModModelProvider::new);
         pack.addProvider(ModBookPageContentProvider::new);
+
+        //Languages with separate localization
+        pack.addProvider(ModLanguageProvider.create("de_de"));
+        pack.addProvider(ModLanguageProvider.create("en_us"));
+        pack.addProvider(ModLanguageProvider.create("es_es"));
+        pack.addProvider(ModLanguageProvider.create("es_mx"));
+        pack.addProvider(ModLanguageProvider.create("it_it"));
+        pack.addProvider(ModLanguageProvider.create("ja_jp"));
+        pack.addProvider(ModLanguageProvider.create("pt_br"));
+        pack.addProvider(ModLanguageProvider.create("ru_ru"));
+        pack.addProvider(ModLanguageProvider.create("tr_tr"));
+        pack.addProvider(ModLanguageProvider.create("zh_cn"));
+
+        //Languages with copied translations
+        pack.addProvider(ModLanguageProvider.create("de_at", "lang/de_de.json"));
+        pack.addProvider(ModLanguageProvider.create("de_ch", "lang/de_de.json"));
+        pack.addProvider(ModLanguageProvider.create("es_ar", "lang/es_mx.json"));
+        pack.addProvider(ModLanguageProvider.create("es_cl", "lang/es_mx.json"));
+        pack.addProvider(ModLanguageProvider.create("es_ec", "lang/es_mx.json"));
+        pack.addProvider(ModLanguageProvider.create("es_uy", "lang/es_mx.json"));
+        pack.addProvider(ModLanguageProvider.create("es_ve", "lang/es_mx.json"));
 
         pack.addProvider(ModRecipeGenerator::new);
         pack.addProvider(ModBlockLootTables::new);
