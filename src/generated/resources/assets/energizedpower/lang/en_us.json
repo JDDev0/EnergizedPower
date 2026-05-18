@@ -1331,7 +1331,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.duration": "Duration",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "Energy Capacity",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energy Consumption per tick",
-  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy production per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy Production per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "Energy Transfer Rate",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "Extraction Depth",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blocks",

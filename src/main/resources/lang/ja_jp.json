@@ -795,7 +795,7 @@
 
   "tooltip.energizedpower.upgrade_module_modifier.speed": "生産速度",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "ティックごとの発電量",
-  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy production per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy Production per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "蓄電量",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "送電速度",
   "tooltip.energizedpower.upgrade_module_modifier.duration": "持続時間",
