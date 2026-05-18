@@ -2,6 +2,7 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.datagen.recipe.ModRecipeGenerator;
+import me.jddev0.ep.datagen.lang.ModLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -27,6 +28,27 @@ public class EnergizedPowerDataGenerators {
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(output, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModBookPageContentProvider(output, lookupProvider, existingFileHelper));
+
+        //Languages with separate localization
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "de_de"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "en_us"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_es"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_mx"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "it_it"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "ja_jp"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "pt_br"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "ru_ru"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "tr_tr"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "zh_cn"));
+
+        //Languages with copied translations
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "de_at", "lang/de_de.json"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "de_ch", "lang/de_de.json"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_ar", "lang/es_mx.json"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_cl", "lang/es_mx.json"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_ec", "lang/es_mx.json"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_uy", "lang/es_mx.json"));
+        generator.addProvider(event.includeServer(), new ModLanguageProvider(output, "es_ve", "lang/es_mx.json"));
 
         generator.addProvider(event.includeServer(), new ModRecipeGenerator(output, lookupProvider));
         generator.addProvider(event.includeServer(), ModLootTableProvider.create(output, lookupProvider));
