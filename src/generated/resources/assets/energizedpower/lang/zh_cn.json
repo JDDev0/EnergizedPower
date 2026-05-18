@@ -1331,7 +1331,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.duration": "持续时间",
   "tooltip.energizedpower.upgrade_module_modifier.energy_capacity": "能量容量",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "每 tick 能量消耗",
-  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy production per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.energy_production": "Energy Production per tick",
   "tooltip.energizedpower.upgrade_module_modifier.energy_transfer_rate": "能量传输速率",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth": "采集深度",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "格",
