@@ -2,7 +2,6 @@ package me.jddev0.ep.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.util.ItemStackUtils;
@@ -149,30 +148,20 @@ public class PulverizerRecipe implements Recipe<Inventory> {
 
                 JsonArray percentagesJson = JsonHelper.getArray(outputJson, "percentages");
                 double[] percentages = new double[percentagesJson.size()];
-                boolean minimumAtLeastOneFlag = false;
                 for(int j = 0;j < percentagesJson.size();j++) {
                     double value = percentagesJson.get(j).getAsDouble();
 
-                    minimumAtLeastOneFlag |= (int)value >= 1;
                     percentages[j] = value;
                 }
-
-                if(i == 0 && !minimumAtLeastOneFlag)
-                    throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
 
                 JsonArray percentagesAdvancedJson = outputJson.has("percentagesAdvanced")?
                         JsonHelper.getArray(outputJson, "percentagesAdvanced"):percentagesJson;
                 double[] percentagesAdvanced = new double[percentagesAdvancedJson.size()];
-                minimumAtLeastOneFlag = false;
                 for(int j = 0;j < percentagesAdvancedJson.size();j++) {
                     double value = percentagesAdvancedJson.get(j).getAsDouble();
 
-                    minimumAtLeastOneFlag |= (int)value >= 1;
                     percentagesAdvanced[j] = value;
                 }
-
-                if(i == 0 && !minimumAtLeastOneFlag)
-                    throw new JsonSyntaxException("The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)");
 
                 outputs[i] = new OutputItemStackWithPercentages(output, percentages, percentagesAdvanced);
 

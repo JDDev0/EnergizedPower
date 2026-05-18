@@ -148,8 +148,9 @@ public class AdvancedPulverizerBlockEntity
         }
 
         itemHandler.removeStack(0, 1);
-        itemHandler.setStack(1, outputs[0].
-                copyWithCount(itemHandler.getStack(1).getCount() + outputs[0].getCount()));
+        if(!outputs[0].isEmpty())
+            itemHandler.setStack(1, outputs[0].
+                    copyWithCount(itemHandler.getStack(1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
             itemHandler.setStack(2, outputs[1].
                     copyWithCount(itemHandler.getStack(2).getCount() + outputs[1].getCount()));
