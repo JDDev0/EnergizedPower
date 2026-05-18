@@ -50,8 +50,9 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         ItemStack[] outputs = recipe.value().generateOutputs(level.random, false);
 
         itemHandler.removeItem(0, 1);
-        itemHandler.setItem(1, outputs[0].
-                copyWithCount(itemHandler.getItem(1).getCount() + outputs[0].getCount()));
+        if(!outputs[0].isEmpty())
+            itemHandler.setItem(1, outputs[0].
+                    copyWithCount(itemHandler.getItem(1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
             itemHandler.setItem(2, outputs[1].
                     copyWithCount(itemHandler.getItem(2).getCount() + outputs[1].getCount()));

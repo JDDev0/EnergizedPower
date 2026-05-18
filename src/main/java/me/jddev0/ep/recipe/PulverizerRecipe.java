@@ -137,9 +137,9 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
         public static final ResourceLocation ID = EPAPI.id("pulverizer");
 
         private final MapCodec<PulverizerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(OutputItemStackWithPercentages.createCodec(true).fieldOf("output").forGetter((recipe) -> {
+            return instance.group(OutputItemStackWithPercentages.createCodec().fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), OutputItemStackWithPercentages.createCodec(false).optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
+            }), OutputItemStackWithPercentages.createCodec().optionalFieldOf("secondaryOutput").forGetter((recipe) -> {
                 if(recipe.secondaryOutput.output.isEmpty() || recipe.secondaryOutput.percentages.length == 0)
                     return Optional.empty();
 
@@ -218,37 +218,29 @@ public class PulverizerRecipe implements Recipe<RecipeInput> {
             this(output, 1., 1.);
         }
 
-        private static Codec<double[]> createDoubleArrayCodec(boolean atLeastOnePercentageValue) {
-            return new Codec<>() {
-                private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
+        private static final Codec<double[]> DOUBLE_ARRAY_CODEC = new Codec<>() {
+            private static final Codec<List<Double>> DOUBLE_LIST_CODEC = Codec.doubleRange(0, 1).listOf();
 
-                @Override
-                public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
-                    return DOUBLE_LIST_CODEC.decode(ops, input).flatMap(res -> {
-                        boolean errorFlag = atLeastOnePercentageValue && res.getFirst().stream().noneMatch(d -> (int)(double)d >= 1);
+            @Override
+            public <T> DataResult<Pair<double[], T>> decode(DynamicOps<T> ops, T input) {
+                return DOUBLE_LIST_CODEC.decode(ops, input).map(res -> {
+                    return Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
+                });
+            }
 
-                        Pair<double[], T> newRes = Pair.of(res.getFirst().stream().mapToDouble(Double::doubleValue).toArray(), res.getSecond());
-                        if(errorFlag)
-                            return DataResult.error(() -> "The primary output must have a minimum count of at least 1 (At least one percentage value must be >= 1.0)", newRes);
+            @Override
+            public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
+                return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
+            }
+        };
 
-                        return DataResult.success(newRes);
-                    });
-                }
-
-                @Override
-                public <T> DataResult<T> encode(double[] input, DynamicOps<T> ops, T prefix) {
-                    return DOUBLE_LIST_CODEC.encode(Arrays.stream(input).boxed().toList(), ops, prefix);
-                }
-            };
-        }
-
-        public static Codec<OutputItemStackWithPercentages> createCodec(boolean atLeastOnePercentageValue) {
+        public static Codec<OutputItemStackWithPercentages> createCodec() {
             return RecordCodecBuilder.create((instance) -> {
                 return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((output) -> {
                     return output.output;
-                }), createDoubleArrayCodec(atLeastOnePercentageValue).fieldOf("percentages").forGetter((output) -> {
+                }), DOUBLE_ARRAY_CODEC.fieldOf("percentages").forGetter((output) -> {
                     return output.percentages;
-                }), createDoubleArrayCodec(atLeastOnePercentageValue).optionalFieldOf("percentagesAdvanced").forGetter((output) -> {
+                }), DOUBLE_ARRAY_CODEC.optionalFieldOf("percentagesAdvanced").forGetter((output) -> {
                     return Optional.of(output.percentagesAdvanced);
                 })).apply(instance, (output, percentages, percentagesAdvanced) -> {
                     if(percentagesAdvanced.isPresent())
