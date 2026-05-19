@@ -6,7 +6,6 @@ import dan200.computercraft.api.peripheral.GenericPeripheral;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.saveddata.WeatherData;
 
 public class WeatherControllerGenericPeripheral implements GenericPeripheral {
     @Override
@@ -42,32 +41,13 @@ public class WeatherControllerGenericPeripheral implements GenericPeripheral {
 
         int duration = weatherController.getWeatherChangedDuration();
 
-        WeatherData weatherData = level.getWeatherData();
         switch(weatherType) {
             //Clear
-            case 0 -> {
-                weatherData.setClearWeatherTime(duration);
-                weatherData.setRainTime(0);
-                weatherData.setRaining(false);
-                weatherData.setThunderTime(0);
-                weatherData.setThundering(false);
-            }
+            case 0 -> level.getServer().setWeatherParameters(duration, 0, false, false);
             //Rain
-            case 1 -> {
-                weatherData.setClearWeatherTime(0);
-                weatherData.setRainTime(duration);
-                weatherData.setRaining(true);
-                weatherData.setThunderTime(duration);
-                weatherData.setThundering(false);
-            }
+            case 1 -> level.getServer().setWeatherParameters(0, duration, true, false);
             //Thunder
-            case 2 -> {
-                weatherData.setClearWeatherTime(0);
-                weatherData.setRainTime(duration);
-                weatherData.setRaining(true);
-                weatherData.setThunderTime(duration);
-                weatherData.setThundering(true);
-            }
+            case 2 -> level.getServer().setWeatherParameters(0, duration, true, true);
         }
 
         return true;

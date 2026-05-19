@@ -17,7 +17,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.saveddata.WeatherData;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
@@ -122,32 +121,13 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
             if(level.getGameTime() % WEATHER_RESET_TIMEOUT_TICKS == 0) {
                 int duration = blockEntity.getWeatherChangedDuration();
 
-                WeatherData weatherData = serverLevel.getWeatherData();
                 switch(blockEntity.selectedWeatherType) {
                     //Clear
-                    case 0 -> {
-                        weatherData.setClearWeatherTime(duration);
-                        weatherData.setRainTime(0);
-                        weatherData.setRaining(false);
-                        weatherData.setThunderTime(0);
-                        weatherData.setThundering(false);
-                    }
+                    case 0 -> serverLevel.getServer().setWeatherParameters(duration, 0, false, false);
                     //Rain
-                    case 1 -> {
-                        weatherData.setClearWeatherTime(0);
-                        weatherData.setRainTime(duration);
-                        weatherData.setRaining(true);
-                        weatherData.setThunderTime(duration);
-                        weatherData.setThundering(false);
-                    }
+                    case 1 -> serverLevel.getServer().setWeatherParameters(0, duration, true, false);
                     //Thunder
-                    case 2 -> {
-                        weatherData.setClearWeatherTime(0);
-                        weatherData.setRainTime(duration);
-                        weatherData.setRaining(true);
-                        weatherData.setThunderTime(duration);
-                        weatherData.setThundering(true);
-                    }
+                    case 2 -> serverLevel.getServer().setWeatherParameters(0, duration, true, true);
                 }
             }
         }else {
