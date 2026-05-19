@@ -123,27 +123,27 @@ public class WeatherControllerBlockEntity
                 switch(blockEntity.selectedWeatherType) {
                     //Clear
                     case 0 -> {
+                        weatherData.setClearWeatherTime(duration);
                         weatherData.setRainTime(0);
                         weatherData.setRaining(false);
                         weatherData.setThunderTime(0);
                         weatherData.setThundering(false);
-                        weatherData.setClearWeatherTime(duration);
                     }
                     //Rain
                     case 1 -> {
+                        weatherData.setClearWeatherTime(0);
                         weatherData.setRainTime(duration);
                         weatherData.setRaining(true);
                         weatherData.setThunderTime(duration);
                         weatherData.setThundering(false);
-                        weatherData.setClearWeatherTime(0);
                     }
                     //Thunder
                     case 2 -> {
+                        weatherData.setClearWeatherTime(0);
                         weatherData.setRainTime(duration);
                         weatherData.setRaining(true);
                         weatherData.setThunderTime(duration);
                         weatherData.setThundering(true);
-                        weatherData.setClearWeatherTime(0);
                     }
                 }
             }
