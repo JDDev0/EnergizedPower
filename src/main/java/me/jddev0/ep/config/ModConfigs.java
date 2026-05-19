@@ -512,6 +512,18 @@ public final class ModConfigs {
             20 * 60 * 16 /* 16 minutes */,
             20 * 5 /* 5 seconds */, null
     ));
+    public static final ConfigValue<Integer> COMMON_WEATHER_CONTROLLER_INFINITE_WEATHER_RESET_TIMEOUT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.weather_controller.infinite_weather_reset_timeout",
+            "The amount of time in ticks the Weather Controller will change the weather before setting it again if the Infinite Duration upgrade is installed.",
+            20 * 15 /* 15 seconds */,
+            20 * 5 /* 5 seconds */, null
+    ));
+    public static final ConfigValue<Integer> COMMON_WEATHER_CONTROLLER_INFINITE_WEATHER_CONTROL_TIMEOUT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.weather_controller.infinite_weather_control_timeout",
+            "The amount of time in ticks the Weather Controller will change the weather for if the Infinite Duration upgrade is installed.",
+            20 * 60 /* 1 minute */,
+            20 * 5 /* 5 seconds */, null
+    ));
 
     public static final ConfigValue<Long> COMMON_LIGHTNING_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
             "block.lightning_generator", "Lightning Generator", 1000000

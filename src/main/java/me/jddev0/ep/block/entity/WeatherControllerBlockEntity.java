@@ -25,6 +25,8 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 public class WeatherControllerBlockEntity
         extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private static final int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
+    private static final int WEATHER_RESET_TIMEOUT_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_INFINITE_WEATHER_RESET_TIMEOUT.getValue();
+    private static final int WEATHER_CONTROL_TIMEOUT_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_INFINITE_WEATHER_CONTROL_TIMEOUT.getValue();
 
     private int selectedWeatherType = -1;
 
@@ -114,8 +116,7 @@ public class WeatherControllerBlockEntity
                 transaction.commit();
             }
 
-            //Set weather every 5 seconds instead of for every tick
-            if(level.getGameTime() % 100 == 0) {
+            if(level.getGameTime() % WEATHER_RESET_TIMEOUT_TICKS == 0) {
                 int duration = blockEntity.getWeatherChangedDuration();
 
                 WeatherData weatherData = serverLevel.getWeatherData();
@@ -175,9 +176,8 @@ public class WeatherControllerBlockEntity
     }
 
     public int getWeatherChangedDuration() {
-        //15 seconds for infinite duration upgrade
         if(hasInfiniteWeatherChangedDuration())
-            return 300;
+            return WEATHER_CONTROL_TIMEOUT_TICKS;
 
         return (int)Math.max(1, WEATHER_CHANGED_TICKS *
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.DURATION));
