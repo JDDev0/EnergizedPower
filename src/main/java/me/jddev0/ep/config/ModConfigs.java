@@ -435,32 +435,32 @@ public final class ModConfigs {
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_1_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             1,
-            .25
+            .05
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_2_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             2,
-            1.
+            .25
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_3_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             3,
-            4.
+            1.
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_4_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             4,
-            16.
+            4.
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_5_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             5,
-            32.
+            8.
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_6_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             6,
-            64.
+            16.
     );
 
     //Blocks
