@@ -90,7 +90,8 @@ public class ChargerBlockEntity
 
                 1,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -208,17 +209,26 @@ public class ChargerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
-        if(!(level instanceof ServerLevel serverWorld))
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(ChargerBlock.POWERED)))
+            return;
+
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, ChargerBlockEntity blockEntity) {
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
         if(blockEntity.hasRecipe()) {
             ItemStack stack = blockEntity.itemHandler.getItem(0);
             long energyConsumptionPerTick;
 
-            Optional<RecipeHolder<ChargerRecipe>> recipe = serverWorld.recipeAccess().
+            Optional<RecipeHolder<ChargerRecipe>> recipe = serverLevel.recipeAccess().
                     getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isPresent()) {
                 if(blockEntity.energyConsumptionLeft == -1)

@@ -90,7 +90,8 @@ public class AdvancedChargerBlockEntity
 
                 3,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -212,10 +213,19 @@ public class AdvancedChargerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedChargerBlockEntity blockEntity) {
-        if(level.isClientSide() || !(level instanceof ServerLevel serverWorld))
+        if(level.isClientSide())
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedChargerBlock.POWERED)))
+            return;
+
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedChargerBlockEntity blockEntity) {
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
         final long maxReceivePerSlot = (long)Math.min(blockEntity.limitingEnergyStorage.getMaxInsert() / 3.,
@@ -229,7 +239,7 @@ public class AdvancedChargerBlockEntity
                 SimpleContainer inventory = new SimpleContainer(1);
                 inventory.setItem(0, blockEntity.itemHandler.getItem(i));
 
-                Optional<RecipeHolder<ChargerRecipe>> recipe = serverWorld.recipeAccess().
+                Optional<RecipeHolder<ChargerRecipe>> recipe = serverLevel.recipeAccess().
                         getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
                 if(recipe.isPresent()) {
                     if(blockEntity.energyConsumptionLeft[i] == -1)

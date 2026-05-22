@@ -67,7 +67,8 @@ public class EnergizerBlockEntity
 
                 2,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -172,7 +173,7 @@ public class EnergizerBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
-        if(level.isClientSide() || !(level instanceof ServerLevel serverWorld))
+        if(level.isClientSide())
             return;
 
         if(blockEntity.timeoutOffState > 0) {
@@ -187,8 +188,17 @@ public class EnergizerBlockEntity
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
+        if(!(level instanceof ServerLevel serverLevel))
+            return;
+
         if(hasRecipe(blockEntity)) {
-            Optional<RecipeHolder<EnergizerRecipe>> recipe = serverWorld.recipeAccess().
+            Optional<RecipeHolder<EnergizerRecipe>> recipe = serverLevel.recipeAccess().
                     getRecipeFor(EnergizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(blockEntity.itemHandler), level);
             if(recipe.isEmpty())
                 return;
