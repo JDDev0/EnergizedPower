@@ -142,7 +142,8 @@ public class AdvancedAutoCrafterBlockEntity
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
 
         for(int i = 0;i < 3;i++)
@@ -317,6 +318,15 @@ public class AdvancedAutoCrafterBlockEntity
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedAutoCrafterBlock.POWERED)))
+            return;
+
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         for(int i = 0;i < 3;i++) {
