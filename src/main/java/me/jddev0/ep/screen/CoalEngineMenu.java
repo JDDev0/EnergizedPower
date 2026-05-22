@@ -33,7 +33,8 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
     public CoalEngineMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
         this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ENERGY_PRODUCTION
+                UpgradeModuleModifier.ENERGY_PRODUCTION,
+                UpgradeModuleModifier.ITEM_EJECTOR
         ), null);
     }
 
@@ -45,7 +46,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
                 inv, blockEntity,
                 EPBlocks.COAL_ENGINE.get(),
 
-                upgradeModuleInventory, 2
+                upgradeModuleInventory, 3
         );
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
@@ -58,7 +59,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -123,11 +124,11 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 2, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 3, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1 + 2) {
+        }else if(index < 4 * 9 + 1 + 3) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

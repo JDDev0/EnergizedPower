@@ -85,7 +85,8 @@ public class AdvancedPoweredFurnaceBlockEntity
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.FURNACE_MODE
+                UpgradeModuleModifier.FURNACE_MODE,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -222,6 +223,15 @@ public class AdvancedPoweredFurnaceBlockEntity
         }
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
+            return;
+
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         boolean hasNoRecipe = true;
