@@ -15,7 +15,7 @@ public class CrystalGrowthChamberScreen extends ConfigurableUpgradableEnergyStor
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/crystal_growth_chamber.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/2_speed_2_energy_efficiency_2_energy_capacity_1_item_ejector.png"));
     }
 
 

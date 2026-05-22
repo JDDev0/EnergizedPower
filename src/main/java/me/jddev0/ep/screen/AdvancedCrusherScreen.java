@@ -19,7 +19,7 @@ public class AdvancedCrusherScreen extends ConfigurableUpgradableEnergyStorageCo
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/advanced_crusher.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_item_ejector.png"));
     }
 
     @Override

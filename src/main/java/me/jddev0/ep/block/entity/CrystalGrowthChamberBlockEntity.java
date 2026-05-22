@@ -40,7 +40,8 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
