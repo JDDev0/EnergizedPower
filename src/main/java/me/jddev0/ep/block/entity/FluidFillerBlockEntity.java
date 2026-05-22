@@ -81,7 +81,8 @@ public class FluidFillerBlockEntity
                 ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -214,6 +215,15 @@ public class FluidFillerBlockEntity
             return;
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(FluidFillerBlock.POWERED)))
+            return;
+
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, FluidFillerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(blockEntity.hasRecipe()) {
