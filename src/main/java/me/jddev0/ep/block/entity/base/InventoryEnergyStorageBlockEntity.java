@@ -73,6 +73,7 @@ public abstract class InventoryEnergyStorageBlockEntity
             return;
         }
 
+        outer:
         for(Direction direction:Direction.values()) {
             //TODO check performance and cache
             ResourceHandler<ItemResource> itemStackStorageSelf = level.getCapability(Capabilities.Item.BLOCK, worldPosition, level.getBlockState(worldPosition),
@@ -121,7 +122,7 @@ public abstract class InventoryEnergyStorageBlockEntity
                 }
 
                 if(itemAmountLeft <= 0) {
-                    break;
+                    break outer;
                 }
             }
         }
