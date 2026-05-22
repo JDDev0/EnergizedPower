@@ -22,6 +22,13 @@ public final class EPCreativeModeTab {
             .icon(() -> new ItemStack(EPItems.ENERGIZED_COPPER_INGOT))
             .build());
 
+    public static final ResourceKey<CreativeModeTab> ENERGIZED_POWER_UPGRADES_TAB_REG_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
+            EPAPI.id("upgrades"));
+    public static final CreativeModeTab ENERGIZED_POWER_UPGRADES_TAB = registerItemGroup(ENERGIZED_POWER_UPGRADES_TAB_REG_KEY, FabricCreativeModeTab.builder().
+            title(Component.translatable("itemGroup.energizedpower.tab.upgrades")).
+            icon(() -> new ItemStack(EPItems.SPEED_UPGRADE_MODULE_1)).
+            build());
+
     public static void register() {
 
     }

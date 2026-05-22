@@ -1186,6 +1186,7 @@
   "item.energizedpower.wooden_hammer": "Martelo de Madeira",
   "item.energizedpower.wrench": "Chave Inglesa",
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
   "key.category.energizedpower": "Energized Power",
   "key.energizedpower.teleporter.use": "Usar Teletransportador",
   "painting.energizedpower.factory.author": "JDDev0",

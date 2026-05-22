@@ -816,6 +816,7 @@
   "tooltip.energizedpower.upgrade_view.button.close": "アップグレード画面を閉じる",
 
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
   "entity.minecraft.villager.electrician": "電気技師",
 
