@@ -36,7 +36,8 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 

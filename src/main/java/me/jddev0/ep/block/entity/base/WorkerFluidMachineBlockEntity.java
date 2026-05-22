@@ -97,11 +97,21 @@ public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<Fl
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+
+        blockEntity.onTickEnd();
+    }
+
+    private static <F extends ResourceHandler<FluidResource>, W> void tickRecipe(
+            Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
+        if(level.isClientSide())
+            return;
+
         if(blockEntity.hasWork()) {
             Optional<W> workData = blockEntity.getCurrentWorkData();
             if(workData.isEmpty()) {
-                blockEntity.onTickEnd();
-
                 return;
             }
 
@@ -125,8 +135,6 @@ public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<Fl
 
                     blockEntity.resetProgress();
                     setChanged(level, blockPos, state);
-
-                    blockEntity.onTickEnd();
 
                     return;
                 }
@@ -152,8 +160,6 @@ public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<Fl
             blockEntity.onHasNotEnoughEnergy();
             setChanged(level, blockPos, state);
         }
-
-        blockEntity.onTickEnd();
     }
 
     protected void onTickStart() {}
