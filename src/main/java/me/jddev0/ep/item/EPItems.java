@@ -224,6 +224,19 @@ public final class EPItems {
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_3 = registerItem("moon_light_upgrade_module_3",
             props -> new MoonLightUpgradeModuleItem(props, 3));
 
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_1 = registerItem("item_ejector_upgrade_module_1",
+            props -> new ItemEjectorUpgradeModuleItem(props, 1));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_2 = registerItem("item_ejector_upgrade_module_2",
+            props -> new ItemEjectorUpgradeModuleItem(props, 2));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_3 = registerItem("item_ejector_upgrade_module_3",
+            props -> new ItemEjectorUpgradeModuleItem(props, 3));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_4 = registerItem("item_ejector_upgrade_module_4",
+            props -> new ItemEjectorUpgradeModuleItem(props, 4));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_5 = registerItem("item_ejector_upgrade_module_5",
+            props -> new ItemEjectorUpgradeModuleItem(props, 5));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_6 = registerItem("item_ejector_upgrade_module_6",
+            props -> new ItemEjectorUpgradeModuleItem(props, 6));
+
     public static final DeferredItem<Item> ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             EnergizedPowerBookItem::new, new Item.Properties().stacksTo(1));
 

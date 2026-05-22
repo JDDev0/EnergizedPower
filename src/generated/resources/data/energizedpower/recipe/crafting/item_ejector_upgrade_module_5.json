@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "energizedpower:express_item_conveyor_belt",
+    "I": "#c:plates/iron",
+    "R": "energizedpower:reinforced_advanced_upgrade_module",
+    "T": "#c:plates/tin",
+    "i": "energizedpower:item_ejector_upgrade_module_4"
+  },
+  "pattern": [
+    "TET",
+    "IRI",
+    "TiT"
+  ],
+  "result": {
+    "id": "energizedpower:item_ejector_upgrade_module_5"
+  }
+}

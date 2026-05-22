@@ -857,6 +857,76 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "BRB",
                 "GMG"
         }, new ItemStackTemplate(EPItems.MOON_LIGHT_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'b', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
+        ), new String[] {
+                "TbT",
+                "IBI",
+                "TbT"
+        }, new ItemStackTemplate(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1), Map.of(
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'b', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'i', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1)
+        ), new String[] {
+                "TbT",
+                "IBI",
+                "TiT"
+        }, new ItemStackTemplate(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2), Map.of(
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'i', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2)
+        ), new String[] {
+                "TFT",
+                "IAI",
+                "TiT"
+        }, new ItemStackTemplate(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3), Map.of(
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'i', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3)
+        ), new String[] {
+                "TFT",
+                "IAI",
+                "TiT"
+        }, new ItemStackTemplate(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4), Map.of(
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'i', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4)
+        ), new String[] {
+                "TET",
+                "IRI",
+                "TiT"
+        }, new ItemStackTemplate(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5), Map.of(
+                'T', ingredientOf(CommonItemTags.PLATES_TIN),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'i', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5)
+        ), new String[] {
+                "TiT",
+                "ERE",
+                "TiT"
+        }, new ItemStackTemplate(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
     }
     private void buildToolsCraftingRecipes() {
         addHammerCraftingRecipe(output, ItemTags.PLANKS, EPItems.WOODEN_HAMMER);

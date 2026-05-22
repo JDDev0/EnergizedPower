@@ -117,6 +117,7 @@
   "_template.item.energizedpower.extraction_depth_upgrade_module": "抽出深度アップグレードモジュール (ティアー %s)",
   "_template.item.energizedpower.extraction_range_upgrade_module": "抽出範囲アップグレードモジュール (ティアー %s)",
   "_template.item.energizedpower.moon_light_upgrade_module": "月光アップグレードモジュール (ティアー %s)",
+  "_template.item.energizedpower.item_ejector_upgrade_module": "Item Ejector Upgrade Module (Tier %s)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "溶鉱炉機能拡張モジュール",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "溶鉱炉",
@@ -804,6 +805,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "抽出範囲",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "製錬モード",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "月光",
+  "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-output items per tick",
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "ブロック",
 
@@ -920,6 +922,9 @@
 
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "月光 %s",
   "_template.advancements.energizedpower.moon_light_upgrade_module.description": "月光アップグレードモジュール (ティアー %s)を作成する",
+
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item Ejector %s",
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Craft an Item Ejector Upgrade Module (Tier %s).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "製錬モード: 溶鉱炉",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "溶鉱炉機能拡張モジュールを作成する",
@@ -1453,6 +1458,9 @@
   "book.energizedpower.page.furnace_mode_upgrades": "製錬モードアップグレードは、電動かまどの加工レシピが変化します。",
 
   "book.energizedpower.page.moon_light_upgrades": "月光アップグレードは、ソーラーパネルによる夜間の発電ができるようになります。",
+
+  "book.energizedpower.page.item_ejector_upgrades.1": "Item Ejector Upgrades will allow machines to automatically push items into the first valid output.",
+  "book.energizedpower.page.item_ejector_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
 
 
   "book.energizedpower.page.chapter.tools.title": "道具",
