@@ -280,6 +280,61 @@ public class EnergizedPowerMod {
             event.accept(EPItems.ADVANCED_UPGRADE_MODULE);
             event.accept(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE);
 
+            event.accept(EPBlocks.SILICON_BLOCK_ITEM);
+            event.accept(EPBlocks.TIN_BLOCK_ITEM);
+            event.accept(EPBlocks.SAWDUST_BLOCK_ITEM);
+            event.accept(EPItems.CABLE_INSULATOR);
+            event.accept(EPItems.CHARCOAL_FILTER);
+            event.accept(EPItems.SAW_BLADE);
+            event.accept(EPItems.CRYSTAL_MATRIX);
+            event.accept(EPItems.SAWDUST);
+            event.accept(EPItems.CHARCOAL_DUST);
+            event.accept(EPItems.BASIC_FERTILIZER);
+            event.accept(EPItems.GOOD_FERTILIZER);
+            event.accept(EPItems.ADVANCED_FERTILIZER);
+            event.accept(EPItems.RAW_GEAR_PRESS_MOLD);
+            event.accept(EPItems.RAW_ROD_PRESS_MOLD);
+            event.accept(EPItems.RAW_WIRE_PRESS_MOLD);
+            event.accept(EPItems.GEAR_PRESS_MOLD);
+            event.accept(EPItems.ROD_PRESS_MOLD);
+            event.accept(EPItems.WIRE_PRESS_MOLD);
+            event.accept(EPItems.SILICON);
+            event.accept(EPItems.TIN_DUST);
+            event.accept(EPItems.COPPER_DUST);
+            event.accept(EPItems.IRON_DUST);
+            event.accept(EPItems.GOLD_DUST);
+            event.accept(EPItems.TIN_NUGGET);
+            event.accept(EPItems.TIN_INGOT);
+            event.accept(EPItems.TIN_PLATE);
+            event.accept(EPItems.COPPER_PLATE);
+            event.accept(EPItems.IRON_PLATE);
+            event.accept(EPItems.GOLD_PLATE);
+            event.accept(EPItems.STEEL_INGOT);
+            event.accept(EPItems.REDSTONE_ALLOY_INGOT);
+            event.accept(EPItems.ADVANCED_ALLOY_INGOT);
+            event.accept(EPItems.ADVANCED_ALLOY_PLATE);
+            event.accept(EPItems.IRON_GEAR);
+            event.accept(EPItems.IRON_ROD);
+            event.accept(EPItems.TIN_WIRE);
+            event.accept(EPItems.COPPER_WIRE);
+            event.accept(EPItems.GOLD_WIRE);
+            event.accept(EPItems.ENERGIZED_COPPER_INGOT);
+            event.accept(EPItems.ENERGIZED_GOLD_INGOT);
+            event.accept(EPItems.ENERGIZED_COPPER_PLATE);
+            event.accept(EPItems.ENERGIZED_GOLD_PLATE);
+            event.accept(EPItems.ENERGIZED_COPPER_WIRE);
+            event.accept(EPItems.ENERGIZED_GOLD_WIRE);
+            event.accept(EPItems.ENERGIZED_CRYSTAL_MATRIX);
+
+            event.accept(EPFluids.DIRTY_WATER_BUCKET_ITEM);
+
+            event.accept(EPItems.STONE_PEBBLE);
+
+            event.accept(EPItems.RAW_TIN);
+            event.accept(EPBlocks.TIN_ORE_ITEM);
+            event.accept(EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
+            event.accept(EPBlocks.RAW_TIN_BLOCK_ITEM);
+        }else if(event.getTab() == EPCreativeModeTab.ENERGIZED_POWER_UPGRADES_TAB.get()) {
             event.accept(EPItems.SPEED_UPGRADE_MODULE_1);
             event.accept(EPItems.SPEED_UPGRADE_MODULE_2);
             event.accept(EPItems.SPEED_UPGRADE_MODULE_3);
@@ -346,61 +401,6 @@ public class EnergizedPowerMod {
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4);
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5);
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6);
-
-            event.accept(EPBlocks.SILICON_BLOCK_ITEM);
-            event.accept(EPBlocks.TIN_BLOCK_ITEM);
-            event.accept(EPBlocks.SAWDUST_BLOCK_ITEM);
-            event.accept(EPItems.CABLE_INSULATOR);
-            event.accept(EPItems.CHARCOAL_FILTER);
-            event.accept(EPItems.SAW_BLADE);
-            event.accept(EPItems.CRYSTAL_MATRIX);
-            event.accept(EPItems.SAWDUST);
-            event.accept(EPItems.CHARCOAL_DUST);
-            event.accept(EPItems.BASIC_FERTILIZER);
-            event.accept(EPItems.GOOD_FERTILIZER);
-            event.accept(EPItems.ADVANCED_FERTILIZER);
-            event.accept(EPItems.RAW_GEAR_PRESS_MOLD);
-            event.accept(EPItems.RAW_ROD_PRESS_MOLD);
-            event.accept(EPItems.RAW_WIRE_PRESS_MOLD);
-            event.accept(EPItems.GEAR_PRESS_MOLD);
-            event.accept(EPItems.ROD_PRESS_MOLD);
-            event.accept(EPItems.WIRE_PRESS_MOLD);
-            event.accept(EPItems.SILICON);
-            event.accept(EPItems.TIN_DUST);
-            event.accept(EPItems.COPPER_DUST);
-            event.accept(EPItems.IRON_DUST);
-            event.accept(EPItems.GOLD_DUST);
-            event.accept(EPItems.TIN_NUGGET);
-            event.accept(EPItems.TIN_INGOT);
-            event.accept(EPItems.TIN_PLATE);
-            event.accept(EPItems.COPPER_PLATE);
-            event.accept(EPItems.IRON_PLATE);
-            event.accept(EPItems.GOLD_PLATE);
-            event.accept(EPItems.STEEL_INGOT);
-            event.accept(EPItems.REDSTONE_ALLOY_INGOT);
-            event.accept(EPItems.ADVANCED_ALLOY_INGOT);
-            event.accept(EPItems.ADVANCED_ALLOY_PLATE);
-            event.accept(EPItems.IRON_GEAR);
-            event.accept(EPItems.IRON_ROD);
-            event.accept(EPItems.TIN_WIRE);
-            event.accept(EPItems.COPPER_WIRE);
-            event.accept(EPItems.GOLD_WIRE);
-            event.accept(EPItems.ENERGIZED_COPPER_INGOT);
-            event.accept(EPItems.ENERGIZED_GOLD_INGOT);
-            event.accept(EPItems.ENERGIZED_COPPER_PLATE);
-            event.accept(EPItems.ENERGIZED_GOLD_PLATE);
-            event.accept(EPItems.ENERGIZED_COPPER_WIRE);
-            event.accept(EPItems.ENERGIZED_GOLD_WIRE);
-            event.accept(EPItems.ENERGIZED_CRYSTAL_MATRIX);
-
-            event.accept(EPFluids.DIRTY_WATER_BUCKET_ITEM);
-
-            event.accept(EPItems.STONE_PEBBLE);
-
-            event.accept(EPItems.RAW_TIN);
-            event.accept(EPBlocks.TIN_ORE_ITEM);
-            event.accept(EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
-            event.accept(EPBlocks.RAW_TIN_BLOCK_ITEM);
         }
     }
 

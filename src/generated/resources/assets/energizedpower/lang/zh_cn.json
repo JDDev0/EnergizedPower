@@ -1186,6 +1186,7 @@
   "item.energizedpower.wooden_hammer": "木锤",
   "item.energizedpower.wrench": "扳手",
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
   "key.category.energizedpower.main": "充能能源",
   "key.energizedpower.teleporter.use": "使用传送器",
   "painting.energizedpower.factory.author": "JDDev0",

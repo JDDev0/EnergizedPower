@@ -816,6 +816,7 @@
   "tooltip.energizedpower.upgrade_view.button.close": "Закрыть просмотр апгрейда",
 
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
   "entity.minecraft.villager.energizedpower.electrician": "Электрик",
 

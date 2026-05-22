@@ -1186,6 +1186,7 @@
   "item.energizedpower.wooden_hammer": "木のハンマー",
   "item.energizedpower.wrench": "レンチ",
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
   "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "転送装置を使用",
   "painting.energizedpower.factory.author": "JDDev0",

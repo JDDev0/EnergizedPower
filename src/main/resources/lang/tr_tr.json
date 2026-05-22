@@ -815,7 +815,8 @@
   "tooltip.energizedpower.upgrade_view.button.open": "Open Upgrade View",
   "tooltip.energizedpower.upgrade_view.button.close": "Close Upgrade View",
 
-  "itemGroup.energizedpower.tab": "Enerjilendirilmiş Güç",
+  "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
   "entity.minecraft.villager.energizedpower.electrician": "Elektirikci",
 
@@ -859,7 +860,7 @@
   "painting.energizedpower.factory.title": "Fabrika",
   "painting.energizedpower.factory.author": "JDDev0",
 
-  "key.category.energizedpower.main": "Enerjilendirilmiş Güç",
+  "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Işınlayıcı Kullan",
 
 
