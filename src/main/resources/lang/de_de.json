@@ -117,6 +117,7 @@
   "_template.item.energizedpower.extraction_depth_upgrade_module": "Extraktionstiefen-Upgrade-Modul (MK %s)",
   "_template.item.energizedpower.extraction_range_upgrade_module": "Extraktionsreichweiten-Upgrade-Modul (MK %s)",
   "_template.item.energizedpower.moon_light_upgrade_module": "Mondlicht-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.item_ejector_upgrade_module": "Item-Auswerfer-Upgrade-Modul (MK %s)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
@@ -804,6 +805,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Extraktionsreichweite",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Ofenmodus",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
+  "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-Ausgabe Items pro Tick",
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blöcke",
 
@@ -920,6 +922,9 @@
 
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Mondlicht %s",
   "_template.advancements.energizedpower.moon_light_upgrade_module.description": "Erstelle ein Mondlicht-Upgrade-Modul (MK %s).",
+
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item-Auswerfer %s",
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Erstelle ein Item-Auswerfer-Upgrade-Modul (MK %s).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Erstelle ein Schmelzofen-Upgrade-Modul.",
@@ -1452,7 +1457,10 @@
 
   "book.energizedpower.page.furnace_mode_upgrades": "Ofenmodus-Upgrades ändern die Rezepte, die ein Elektro-Ofen herstellen kann.",
 
-  "book.energizedpower.page.moon_light_upgrades": "Mondlicht-Upgrades erlaubt es einem Solarpanel während der Nacht Strom zu produzieren.",
+  "book.energizedpower.page.moon_light_upgrades": "Mondlicht-Upgrades erlauben es einem Solarpanel während der Nacht Strom zu produzieren.",
+
+  "book.energizedpower.page.item_ejector_upgrades.1": "Item-Auswerfer-Upgrades erlauben es Maschinen Items automatisch zur ersten gültigen Ausgabe zu befördern.",
+  "book.energizedpower.page.item_ejector_upgrades.2": "Priorität von höchste zu geringste: Unten, Oben, Norden, Süden, Westen, Osten.",
 
 
   "book.energizedpower.page.chapter.tools.title": "Werkzeuge",

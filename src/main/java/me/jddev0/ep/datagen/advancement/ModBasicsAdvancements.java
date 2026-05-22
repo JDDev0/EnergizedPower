@@ -279,6 +279,16 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_1, "moon_light_upgrade_module_1", AdvancementType.TASK
         );
 
+        AdvancementHolder itemEjectorUpgradeModule1 = addAdvancement(
+                advancementOutput, basicUpgradeModule,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1, "item_ejector_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemEjectorUpgradeModule2 = addAdvancement(
+                advancementOutput, itemEjectorUpgradeModule1,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2, "item_ejector_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder itemConveyorBelt = addAdvancement(
                 advancementOutput, ironPlate,
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementType.TASK
