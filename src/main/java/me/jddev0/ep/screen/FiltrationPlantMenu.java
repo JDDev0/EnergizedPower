@@ -51,7 +51,8 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         ), null);
     }
 
@@ -63,7 +64,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
                 playerInventory, blockEntity,
                 EPBlocks.FILTRATION_PLANT,
 
-                upgradeModuleInventory, 3
+                upgradeModuleInventory, 4
         );
 
         checkContainerSize(inv, 4);
@@ -94,7 +95,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -167,12 +168,12 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 4, 4 * 9 + 3 + 4, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 4, 4 * 9 + 4 + 4, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
                 //"+2" instead of "+4": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 4 + 3) {
+        }else if(index < 4 * 9 + 4 + 4) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
