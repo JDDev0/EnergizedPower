@@ -20,6 +20,12 @@ public final class EPCreativeModeTab {
                     icon(() -> new ItemStack(EPItems.ENERGIZED_COPPER_INGOT.get())).
                     build());
 
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ENERGIZED_POWER_UPGRADES_TAB = CREATIVE_MODE_TABS.register("upgrades",
+            () -> CreativeModeTab.builder().
+                    title(Component.translatable("itemGroup.energizedpower.tab.upgrades")).
+                    icon(() -> new ItemStack(EPItems.SPEED_UPGRADE_MODULE_1.get())).
+                    build());
+
     public static void register(IEventBus modEventBus) {
         CREATIVE_MODE_TABS.register(modEventBus);
     }

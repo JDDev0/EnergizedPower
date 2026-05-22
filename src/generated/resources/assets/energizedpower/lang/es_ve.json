@@ -1186,6 +1186,7 @@
   "item.energizedpower.wooden_hammer": "Martillo de madera",
   "item.energizedpower.wrench": "Llave inglesa",
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
   "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Usar teletransportador",
   "painting.energizedpower.factory.author": "JDDev0",

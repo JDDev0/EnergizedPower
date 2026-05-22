@@ -1186,6 +1186,7 @@
   "item.energizedpower.wooden_hammer": "Wooden Hammer",
   "item.energizedpower.wrench": "Wrench",
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
   "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Use Teleporter",
   "painting.energizedpower.factory.author": "JDDev0",

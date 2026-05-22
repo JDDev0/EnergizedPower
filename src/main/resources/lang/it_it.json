@@ -815,7 +815,8 @@
   "tooltip.energizedpower.upgrade_view.button.open": "Open Upgrade View",
   "tooltip.energizedpower.upgrade_view.button.close": "Close Upgrade View",
 
-  "itemGroup.energizedpower.tab": "Potenza energizzata",
+  "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
   "entity.minecraft.villager.electrician": "Elettricista",
 
