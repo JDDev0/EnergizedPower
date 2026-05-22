@@ -60,7 +60,8 @@ public class UnchargerBlockEntity
 
                 1,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -173,8 +174,10 @@ public class UnchargerBlockEntity
         if(level.isClientSide)
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.getValue(UnchargerBlock.POWERED)))
-           tickRecipe(level, blockPos, state, blockEntity);
+        if(blockEntity.redstoneMode.isActive(state.getValue(UnchargerBlock.POWERED))) {
+            tickRecipe(level, blockPos, state, blockEntity);
+            blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+        }
 
         transferEnergy(level, blockPos, state, blockEntity);
     }

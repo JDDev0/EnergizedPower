@@ -15,7 +15,7 @@ public class UnchargerScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.uncharger.item_energy_left.txt",
                 EPAPI.id("textures/gui/container/uncharger.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_item_ejector.png"));
 
         energyPerTickBarTooltipComponentID = "tooltip.energizedpower.energy_production_per_tick.txt";
     }
