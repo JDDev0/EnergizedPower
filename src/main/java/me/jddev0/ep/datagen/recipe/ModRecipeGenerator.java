@@ -2940,11 +2940,11 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void buildFluidFreezerRecipe() {
-        addWaterInputFluidFreezerRecipe(output, FluidUtils.convertMilliBucketsToDroplets(125), new ItemStackTemplate(Items.SNOWBALL));
+        addWaterInputFluidFreezerRecipe(FluidUtils.convertMilliBucketsToDroplets(125), new ItemStackTemplate(Items.SNOWBALL));
 
-        addWaterInputFluidFreezerRecipe(output, FluidUtils.convertMilliBucketsToDroplets(500), new ItemStackTemplate(Items.SNOW_BLOCK));
+        addWaterInputFluidFreezerRecipe(FluidUtils.convertMilliBucketsToDroplets(500), new ItemStackTemplate(Items.SNOW_BLOCK));
 
-        addWaterInputFluidFreezerRecipe(output, FluidUtils.convertMilliBucketsToDroplets(1000), new ItemStackTemplate(Items.ICE));
+        addWaterInputFluidFreezerRecipe(FluidUtils.convertMilliBucketsToDroplets(1000), new ItemStackTemplate(Items.ICE));
     }
 
     private void buildStoneLiquefierRecipes() {
@@ -3563,14 +3563,14 @@ public class ModRecipeGenerator extends RecipeProvider {
         ThermalGeneratorRecipe recipe = new ThermalGeneratorRecipe(input, energyProduction);
         this.output.accept(getKey(recipeId), recipe, null);
     }
-    private void addWaterInputFluidFreezerRecipe(RecipeOutput recipeOutput, long waterAmount, ItemStackTemplate output) {
-        addFluidFreezerRecipe(recipeOutput, new FluidStack(Fluids.WATER, waterAmount), output);
+    private void addWaterInputFluidFreezerRecipe(long waterAmount, ItemStackTemplate output) {
+        addFluidFreezerRecipe(new FluidStack(Fluids.WATER, waterAmount), output);
     }
-    private void addFluidFreezerRecipe(RecipeOutput recipeOutput, FluidStack input, ItemStackTemplate output) {
+    private void addFluidFreezerRecipe(FluidStack input, ItemStackTemplate output) {
         Identifier recipeId = EPAPI.id("fluid_freezer/" + getItemName(output.item().value()));
 
         FluidFreezerRecipe recipe = new FluidFreezerRecipe(input, output);
-        recipeOutput.accept(getKey(recipeId), recipe, null);
+        this.output.accept(getKey(recipeId), recipe, null);
     }
 
     private void addLavaOutputStoneLiquefierRecipe(Ingredient input, long lavaAmount, String recipeIngredientName) {
