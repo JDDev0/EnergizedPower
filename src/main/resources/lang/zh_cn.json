@@ -117,6 +117,7 @@
   "_template.item.energizedpower.extraction_depth_upgrade_module": "采集深度升级模块 (等级 %s)",
   "_template.item.energizedpower.extraction_range_upgrade_module": "采集范围升级模块 (等级 %s)",
   "_template.item.energizedpower.moon_light_upgrade_module": "月光升级模块 (等级 %s)",
+  "_template.item.energizedpower.item_ejector_upgrade_module": "Item Ejector Upgrade Module (Tier %s)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "高炉升级模块",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "高炉",
@@ -804,6 +805,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "采集范围",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "熔炉模式",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "月光",
+  "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-output items per tick",
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "格",
 
@@ -920,6 +922,9 @@
 
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "月光 %s",
   "_template.advancements.energizedpower.moon_light_upgrade_module.description": "合成一个月光升级模块 (等级 %s)。",
+
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item Ejector %s",
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Craft an Item Ejector Upgrade Module (Tier %s).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "高炉模式",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "合成一个高炉升级模块。",
@@ -1453,6 +1458,9 @@
   "book.energizedpower.page.furnace_mode_upgrades": "熔炉模式升级改变动力炉可以生产的配方。",
 
   "book.energizedpower.page.moon_light_upgrades": "月光升级允许太阳能电池板在夜间产生能量。",
+
+  "book.energizedpower.page.item_ejector_upgrades.1": "Item Ejector Upgrades will allow machines to automatically push items into the first valid output.",
+  "book.energizedpower.page.item_ejector_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
 
 
   "book.energizedpower.page.chapter.tools.title": "工具",

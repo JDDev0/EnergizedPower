@@ -461,6 +461,21 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/moon_light_upgrade_module_2.png"),
                 EPAPI.id("textures/item/moon_light_upgrade_module_3.png")
         });
+
+        addSimplePage(pageId("item_ejector_upgrades"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.item_ejector_upgrades.1").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.item_ejector_upgrades.2").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+        ), new ResourceLocation[] {
+                EPAPI.id("textures/item/item_ejector_upgrade_module_1.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_2.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_3.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_4.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_5.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_6.png")
+        });
     }
     private void registerToolsChapter() {
         chapterId("tools");

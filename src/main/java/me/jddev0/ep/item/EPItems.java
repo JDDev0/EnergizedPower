@@ -249,6 +249,19 @@ public final class EPItems {
     public static final DeferredItem<Item> MOON_LIGHT_UPGRADE_MODULE_3 = ITEMS.register("moon_light_upgrade_module_3",
             () -> new MoonLightUpgradeModuleItem(new Item.Properties(), 3));
 
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_1 = ITEMS.register("item_ejector_upgrade_module_1",
+            () -> new ItemEjectorUpgradeModuleItem(new Item.Properties(), 1));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_2 = ITEMS.register("item_ejector_upgrade_module_2",
+            () -> new ItemEjectorUpgradeModuleItem(new Item.Properties(), 2));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_3 = ITEMS.register("item_ejector_upgrade_module_3",
+            () -> new ItemEjectorUpgradeModuleItem(new Item.Properties(), 3));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_4 = ITEMS.register("item_ejector_upgrade_module_4",
+            () -> new ItemEjectorUpgradeModuleItem(new Item.Properties(), 4));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_5 = ITEMS.register("item_ejector_upgrade_module_5",
+            () -> new ItemEjectorUpgradeModuleItem(new Item.Properties(), 5));
+    public static final DeferredItem<Item> ITEM_EJECTOR_UPGRADE_MODULE_6 = ITEMS.register("item_ejector_upgrade_module_6",
+            () -> new ItemEjectorUpgradeModuleItem(new Item.Properties(), 6));
+
     public static final DeferredItem<Item> ENERGIZED_POWER_BOOK = ITEMS.register("energized_power_book",
             () -> new EnergizedPowerBookItem(new Item.Properties().stacksTo(1)));
 

@@ -117,6 +117,7 @@
   "_template.item.energizedpower.extraction_depth_upgrade_module": "Модуль улучшения глубины (Уровень %s)",
   "_template.item.energizedpower.extraction_range_upgrade_module": "Модуль улучшения радиуса (Уровень %s)",
   "_template.item.energizedpower.moon_light_upgrade_module": "Модуль улучшения «Лунный свет» (Уровень %s)",
+  "_template.item.energizedpower.item_ejector_upgrade_module": "Item Ejector Upgrade Module (Tier %s)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Модуль улучшения Доменная печь",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Доменная печь",
@@ -804,6 +805,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.extraction_range": "Радиус извлечения",
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Режим печи",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Лунный свет",
+  "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-output items per tick",
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Блоков",
 
@@ -920,6 +922,9 @@
 
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Лунный свет %s",
   "_template.advancements.energizedpower.moon_light_upgrade_module.description": "Создайте модуль улучшения «Лунный свет» (Уровень %s).",
+
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item Ejector %s",
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Craft an Item Ejector Upgrade Module (Tier %s).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Режим печи: доменная печь",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Создайте модуль улучшения доменная печь.",
@@ -1453,6 +1458,9 @@
   "book.energizedpower.page.furnace_mode_upgrades": "Улучшения режима печи изменяют рецепты, которые может производить электрическая печь.",
 
   "book.energizedpower.page.moon_light_upgrades": "Улучшения «Лунный свет» позволяют солнечным панелям вырабатывать энергию ночью.",
+
+  "book.energizedpower.page.item_ejector_upgrades.1": "Item Ejector Upgrades will allow machines to automatically push items into the first valid output.",
+  "book.energizedpower.page.item_ejector_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
 
 
   "book.energizedpower.page.chapter.tools.title": "Инструменты",

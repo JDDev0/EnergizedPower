@@ -340,6 +340,13 @@ public class EnergizedPowerMod {
             event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_2);
             event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_3);
 
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6);
+
             event.accept(EPBlocks.SILICON_BLOCK_ITEM);
             event.accept(EPBlocks.TIN_BLOCK_ITEM);
             event.accept(EPBlocks.SAWDUST_BLOCK_ITEM);

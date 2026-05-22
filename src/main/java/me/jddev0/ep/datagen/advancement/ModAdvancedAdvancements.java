@@ -220,6 +220,16 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_2, "moon_light_upgrade_module_2", AdvancementType.TASK
         );
 
+        AdvancementHolder itemEjectorUpgradeModule3 = addAdvancement(
+                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3, "item_ejector_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemEjectorUpgradeModule4 = addAdvancement(
+                advancementOutput, existingFileHelper, itemEjectorUpgradeModule3,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4, "item_ejector_upgrade_module_4", AdvancementType.TASK
+        );
+
         AdvancementHolder advancedMachineFrame = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerAdvanced,
                 EPBlocks.ADVANCED_MACHINE_FRAME_ITEM, "advanced_machine_frame", AdvancementType.TASK
@@ -389,6 +399,16 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         AdvancementHolder moonLightUpgradeModule3 = addAdvancement(
                 advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_3, "moon_light_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemEjectorUpgradeModule5 = addAdvancement(
+                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5, "item_ejector_upgrade_module_5", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemEjectorUpgradeModule6 = addAdvancement(
+                advancementOutput, existingFileHelper, itemEjectorUpgradeModule5,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6, "item_ejector_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder advancedAutoCrafter = addAdvancement(
