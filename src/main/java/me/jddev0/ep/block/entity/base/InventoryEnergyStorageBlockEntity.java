@@ -1,13 +1,20 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
@@ -45,5 +52,74 @@ public abstract class InventoryEnergyStorageBlockEntity
 
     public void drops(Level level, BlockPos worldPosition) {
         Containers.dropContents(level, worldPosition, itemHandler);
+    }
+
+    private double itemAmountLeftoverDecimal = 0.;
+    protected void pushItemsToOutputs(double itemsPerTick) {
+        if(level == null || itemsPerTick <= 0)
+            return;
+
+        itemAmountLeftoverDecimal += itemsPerTick;
+        long itemAmountLeft = (long)itemAmountLeftoverDecimal;
+
+        //Only keep decimal part
+        itemAmountLeftoverDecimal -= itemAmountLeft;
+
+        if(itemAmountLeft <= 0) {
+            return;
+        }
+
+        for(Direction direction: Direction.values()) {
+            //TODO check performance and cache
+            Storage<ItemVariant> itemStackStorageSelf = ItemStorage.SIDED.find(level, worldPosition, level.getBlockState(worldPosition),
+                this, direction);
+
+            if(itemStackStorageSelf == null)
+                continue;
+
+
+            BlockPos outputBlockPos = worldPosition.relative(direction);
+            BlockEntity outputBlockEntity = level.getBlockEntity(outputBlockPos);
+
+            //TODO check performance and cache
+            Storage<ItemVariant> itemStackStorageOutput = ItemStorage.SIDED.find(level, outputBlockPos, level.getBlockState(outputBlockPos),
+                    outputBlockEntity, direction.getOpposite());
+
+            if(itemStackStorageOutput == null)
+                continue;
+
+            //Try to output for every slot of self inventory on current direction
+            for(StorageView<ItemVariant> itemViewSelf:itemStackStorageSelf) {
+                ItemVariant itemToExtract;
+                long amountToExtract;
+                try(Transaction transaction = Transaction.openOuter()) {
+                    if(itemViewSelf.isResourceBlank())
+                        continue;
+
+                    itemToExtract = itemViewSelf.getResource();
+                    amountToExtract = itemStackStorageSelf.extract(itemToExtract, itemAmountLeft, transaction);
+                    if(amountToExtract <= 0)
+                        continue;
+                }
+                if(itemToExtract.isBlank())
+                    continue;
+
+                //Item found for extraction -> try to insert and extract for real if successful
+                try(Transaction transaction = Transaction.openOuter()) {
+                    long amount = itemStackStorageOutput.insert(itemToExtract, amountToExtract, transaction);
+                    if(amount > 0) {
+                        itemStackStorageSelf.extract(itemToExtract, amount, transaction);
+
+                        itemAmountLeft -= amount;
+                    }
+
+                    transaction.commit();
+                }
+
+                if(itemAmountLeft <= 0) {
+                    break;
+                }
+            }
+        }
     }
 }

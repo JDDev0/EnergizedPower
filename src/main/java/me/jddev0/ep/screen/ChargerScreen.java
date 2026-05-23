@@ -13,6 +13,6 @@ public class ChargerScreen extends ConfigurableUpgradableEnergyStorageContainerS
         super(menu, inventory, component,
                 "tooltip.energizedpower.charger.item_energy_left.txt",
                 EPAPI.id("textures/gui/container/charger.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_item_ejector.png"));
     }
 }

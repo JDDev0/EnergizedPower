@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedUnchargerBlock;
+import me.jddev0.ep.block.UnchargerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -74,7 +75,8 @@ public class AdvancedUnchargerBlockEntity
 
                 3,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -193,8 +195,10 @@ public class AdvancedUnchargerBlockEntity
         if(level.isClientSide())
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.getValue(AdvancedUnchargerBlock.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(AdvancedUnchargerBlock.POWERED))) {
             tickRecipe(level, blockPos, state, blockEntity);
+            blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+        }
 
         transferEnergy(level, blockPos, state, blockEntity);
     }

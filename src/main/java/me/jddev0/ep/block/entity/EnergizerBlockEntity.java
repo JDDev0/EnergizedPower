@@ -58,7 +58,8 @@ public class EnergizerBlockEntity
 
                 2,
 
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -173,6 +174,15 @@ public class EnergizerBlockEntity
         }
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
+            return;
+
+        tickRecipe(level, blockPos, state, blockEntity);
+
+        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+    }
+
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, EnergizerBlockEntity blockEntity) {
+        if(level.isClientSide())
             return;
 
         if(hasRecipe(blockEntity)) {

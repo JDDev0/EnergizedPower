@@ -66,7 +66,8 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
                 return 1;
             }
         }, new UpgradeModuleInventory(
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_EJECTOR
         ), null);
     }
 
@@ -78,7 +79,7 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
                 playerInventory, blockEntity,
                 EPBlocks.ADVANCED_CHARGER,
 
-                upgradeModuleInventory, 1
+                upgradeModuleInventory, 2
         );
 
         checkContainerSize(inv, 3);
@@ -102,7 +103,8 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
             }
         });
 
-        addSlot(new UpgradeModuleSlot(upgradeModuleInventory, 0, 80, 35, this::isInUpgradeModuleView));
+        for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 71 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(energyConsumptionPerTickData);
@@ -170,11 +172,11 @@ public class AdvancedChargerMenu extends UpgradableEnergyStorageMenu<AdvancedCha
                 if(!getSlot(minFreeSlotIndex).hasItem())
                     break;
 
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 1, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 2, false) &&
                     (minFreeSlotIndex >= 4 * 9 + 3 || !moveItemStackTo(sourceItem, minFreeSlotIndex, minFreeSlotIndex + 1, false))) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 3 + 1) {
+        }else if(index < 4 * 9 + 3 + 2) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
