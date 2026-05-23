@@ -97,8 +97,7 @@ public abstract class InventoryEnergyStorageBlockEntity
                 if(itemStackStorageSelf.getStackInSlot(i).isEmpty())
                     continue;
 
-                itemToExtract = itemStackStorageSelf.getStackInSlot(i);
-                itemToExtract = itemStackStorageSelf.extractItem(i, itemToExtract.getCount(), true);
+                itemToExtract = itemStackStorageSelf.extractItem(i, itemAmountLeft, true);
                 if(itemToExtract.isEmpty())
                     continue;
 
