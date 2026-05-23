@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "energizedpower:advanced_upgrade_module"
+    },
+    "F": {
+      "item": "energizedpower:fast_item_conveyor_belt"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    },
+    "i": {
+      "item": "energizedpower:item_ejector_upgrade_module_2"
+    }
+  },
+  "pattern": [
+    "TFT",
+    "IAI",
+    "TiT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:item_ejector_upgrade_module_3"
+  }
+}

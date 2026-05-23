@@ -1,4 +1,4 @@
-// 1.21.1	2026-05-18T19:48:21.89690658	Energized Power/Advancements (Basics)
+// 1.21.1	2026-05-23T02:10:41.562818396	Energized Power/Advancements (Basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -21,6 +21,7 @@ a2f9681f466e0fb1ff452e0c9aba79cc388d49fc data/energizedpower/advancement/main/ba
 665af285bc6481eb40f05fe847564b6d4ea0e9c9 data/energizedpower/advancement/main/basics/steel_ingot.json
 7c802db383c35f837cb8a59db3f4861ff7e09d38 data/energizedpower/advancement/main/basics/battery_5.json
 3bdd5239f4ac37e2d529b875e474309e73f89c18 data/energizedpower/advancement/main/basics/blast_furnace_upgrade_module.json
+f45390c8a40e1962d8ecb344b70531131efa9fb8 data/energizedpower/advancement/main/basics/item_ejector_upgrade_module_1.json
 63e904bd24d10e1468c02e23bb6fb6fe7c00442d data/energizedpower/advancement/main/basics/express_item_conveyor_belt_sorter.json
 7389683dbec08a4bc46a4bc49623f6eb2df9b2c0 data/energizedpower/advancement/main/basics/charcoal_filter.json
 d90c0c5145f264dc1a7a78c38f04ecaac4465d3f data/energizedpower/advancement/main/basics/induction_smelter.json
@@ -105,6 +106,7 @@ ec98d1b1b14928e60e61d32b657883cf5edd5285 data/energizedpower/advancement/main/ba
 676136baefe8d5f4b8499c5bfd1d2eab8ceb0119 data/energizedpower/advancement/main/basics/cutter.json
 d6de6c7033fa16118d811711d093519151304279 data/energizedpower/advancement/main/basics/block_placer.json
 c593510d0340a227ea62e048f4d6673639528a55 data/energizedpower/advancement/main/basics/energy_efficiency_upgrade_module_1.json
+4fa2016bac09ac83b74decc67ae9a08404017ecb data/energizedpower/advancement/main/basics/item_ejector_upgrade_module_2.json
 0c258e7333541f7bd8f5e58833cc97149da38628 data/energizedpower/advancement/main/basics/silicon.json
 d1312d3c4c833a1ae9ce785e6361f648b8580cb2 data/energizedpower/advancement/main/basics/hardened_machine_frame.json
 43ec14844fe3287a27ff36f1598d8d8f3204c898 data/energizedpower/advancement/main/basics/battery_4.json

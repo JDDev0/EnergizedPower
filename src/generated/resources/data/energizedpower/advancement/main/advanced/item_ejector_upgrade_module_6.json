@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/advanced/item_ejector_upgrade_module_5",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:item_ejector_upgrade_module_6"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.item_ejector_upgrade_module_6.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:item_ejector_upgrade_module_6"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.item_ejector_upgrade_module_6.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

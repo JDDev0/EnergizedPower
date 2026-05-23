@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "energizedpower:basic_upgrade_module"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    },
+    "b": {
+      "item": "energizedpower:item_conveyor_belt"
+    },
+    "i": {
+      "item": "energizedpower:item_ejector_upgrade_module_1"
+    }
+  },
+  "pattern": [
+    "TbT",
+    "IBI",
+    "TiT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:item_ejector_upgrade_module_2"
+  }
+}

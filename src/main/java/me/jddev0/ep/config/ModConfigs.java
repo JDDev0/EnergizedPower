@@ -433,6 +433,36 @@ public final class ModConfigs {
             .66
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_1_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            1,
+            .25
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_2_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            2,
+            1.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_3_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            3,
+            4.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_4_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            4,
+            16.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_5_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            5,
+            32.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_6_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            6,
+            64.
+    );
+
     //Blocks
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536
@@ -1732,6 +1762,16 @@ public final class ModConfigs {
                 "item.moon_light_upgrade_module_" + tier + ".effect_value",
                 "The upgrade module effect (Multiplier of peak energy production during nighttime relative to the " +
                         "peak energy production during daytime) of the Moon Light Upgrade Module (Tier " +
+                        NumberUtils.convertToRoman(tier) + ")",
+                defaultValue,
+                0., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerItemEjectorUpgradeModuleEffectValue(int tier, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.item_ejector_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Items per tick) of the Item Ejector Upgrade Module (Tier " +
                         NumberUtils.convertToRoman(tier) + ")",
                 defaultValue,
                 0., null
