@@ -338,11 +338,4 @@ public class UnchargerBlockEntity
         ItemStack stack = itemHandler.getItem(0);
         return EnergyStorageUtil.isEnergyStorage(stack);
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
 }

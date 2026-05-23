@@ -347,13 +347,6 @@ public class ChargerBlockEntity
         return EnergyStorageUtil.isEnergyStorage(stack);
     }
 
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
-
     protected void syncIngredientListToPlayer(Player player) {
         if(!(level instanceof ServerLevel serverWorld))
             return;
