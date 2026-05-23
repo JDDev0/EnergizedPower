@@ -733,9 +733,32 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }
 
+    protected void recalculateProgress() {
+        if(this.craftingRecipe == null || this.maxProgress <= 0)
+            return;
+
+        int currentMaxProgress = this.maxProgress;
+
+        this.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
+        if(this.maxProgress != currentMaxProgress) {
+            this.progress = this.progress * this.maxProgress / currentMaxProgress;
+        }
+
+        int itemCount = 0;
+        for(int i = 0;i < this.patternSlots.getContainerSize();i++)
+            if(!this.patternSlots.getItem(i).isEmpty())
+                itemCount++;
+
+        long energyConsumptionPerTick = Math.max(1, (long)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+        this.energyConsumptionLeft = energyConsumptionPerTick * (this.maxProgress - this.progress);
+    }
+
     @Override
     protected void updateUpgradeModules() {
-        resetProgress();
+        recalculateProgress();
 
         super.updateUpgradeModules();
     }
