@@ -69,7 +69,8 @@ public abstract class InventoryEnergyStorageBlockEntity
             return;
         }
 
-        for(Direction direction: Direction.values()) {
+        outer:
+        for(Direction direction:Direction.values()) {
             //TODO check performance and cache
             Storage<ItemVariant> itemStackStorageSelf = ItemStorage.SIDED.find(level, worldPosition, level.getBlockState(worldPosition),
                 this, direction);
@@ -117,7 +118,7 @@ public abstract class InventoryEnergyStorageBlockEntity
                 }
 
                 if(itemAmountLeft <= 0) {
-                    break;
+                    break outer;
                 }
             }
         }
