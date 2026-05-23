@@ -1186,6 +1186,7 @@
   "item.energizedpower.wooden_hammer": "Деревянный молот",
   "item.energizedpower.wrench": "Ключ",
   "itemGroup.energizedpower.tab": "Energized Power",
+  "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
   "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Используй телепорт",
   "painting.energizedpower.factory.author": "JDDev0",
