@@ -304,11 +304,4 @@ public class ChargerBlockEntity
 
         return recipe.isPresent();
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
 }
