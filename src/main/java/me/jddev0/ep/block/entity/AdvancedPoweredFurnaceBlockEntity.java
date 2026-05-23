@@ -403,10 +403,39 @@ public class AdvancedPoweredFurnaceBlockEntity
         return RecipeType.SMELTING;
     }
 
+    protected void recalculateProgress(int index) {
+        if(!hasRecipe(index, this) || this.maxProgress[index] <= 0)
+            return;
+
+        SimpleContainer inventory = new SimpleContainer(2);
+        inventory.setItem(0, itemHandler.getStackInSlot(index));
+        inventory.setItem(1, itemHandler.getStackInSlot(3 + index));
+
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(inventory, level);
+        if(recipe.isEmpty()) {
+            return;
+        }
+
+        int currentMaxProgress = this.maxProgress[index];
+
+        int cookingTime = recipe.get().value().cookingTime();
+        //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
+        this.maxProgress[index] = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f /
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
+
+        if(this.maxProgress[index] != currentMaxProgress) {
+            this.progress[index] = this.progress[index] * this.maxProgress[index] / currentMaxProgress;
+        }
+
+        int energyUsagePerInputPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_INPUT_PER_TICK *
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+        this.energyConsumptionLeft[index] = energyUsagePerInputPerTick * (this.maxProgress[index] - this.progress[index]);
+    }
+
     @Override
     protected void updateUpgradeModules() {
         for(int i = 0;i < 3;i++)
-            resetProgress(i, getBlockPos(), getBlockState());
+            recalculateProgress(i);
 
         super.updateUpgradeModules();
 

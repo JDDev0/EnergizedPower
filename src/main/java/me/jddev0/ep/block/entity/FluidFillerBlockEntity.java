@@ -316,11 +316,4 @@ public class FluidFillerBlockEntity
 
         return false;
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
 }
