@@ -67,7 +67,8 @@ public class CoalEngineBlockEntity
                 1,
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ENERGY_PRODUCTION
+                UpgradeModuleModifier.ENERGY_PRODUCTION,
+                UpgradeModuleModifier.ITEM_EJECTOR
         );
     }
 
@@ -164,8 +165,10 @@ public class CoalEngineBlockEntity
         if(level.isClientSide())
             return;
 
-        if(blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
+        if(blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED))) {
             tickRecipe(level, blockPos, state, blockEntity);
+            blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+        }
 
         transferEnergy(level, blockPos, state, blockEntity);
     }

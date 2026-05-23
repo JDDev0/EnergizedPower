@@ -17,7 +17,7 @@ public class FluidDrainerScreen extends ConfigurableUpgradableEnergyStorageConta
     public FluidDrainerScreen(FluidDrainerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 EPAPI.id("textures/gui/container/fluid_drainer.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity_1_item_ejector.png"));
     }
 
     @Override
