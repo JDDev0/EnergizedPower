@@ -853,10 +853,33 @@ public class AdvancedAutoCrafterBlockEntity
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }
 
+    protected void recalculateProgress(int index) {
+        if(this.craftingRecipe[index] == null || this.maxProgress[index] <= 0)
+            return;
+
+        int currentMaxProgress = this.maxProgress[index];
+
+        this.maxProgress[index] = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
+        if(this.maxProgress[index] != currentMaxProgress) {
+            this.progress[index] = this.progress[index] * this.maxProgress[index] / currentMaxProgress;
+        }
+
+        int itemCount = 0;
+        for(int i = 0;i < this.patternSlots[index].getContainerSize();i++)
+            if(!this.patternSlots[index].getItem(i).isEmpty())
+                itemCount++;
+
+        int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
+
+        this.energyConsumptionLeft[index] = energyConsumptionPerTick * (this.maxProgress[index] - this.progress[index]);
+    }
+
     @Override
     protected void updateUpgradeModules() {
         for(int i = 0;i < 3;i++)
-            resetProgress(i);
+            recalculateProgress(i);
 
         super.updateUpgradeModules();
     }

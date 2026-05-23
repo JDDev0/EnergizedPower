@@ -195,9 +195,29 @@ public abstract class WorkerFluidMachineBlockEntity<F extends IFluidHandler, W>
         hasEnoughEnergy = false;
     }
 
+    protected void recalculateProgress() {
+        if(!hasWork() || this.maxProgress <= 0)
+            return;
+
+        Optional<W> workData = getCurrentWorkData();
+        if(workData.isEmpty()) {
+            return;
+        }
+
+        int currentMaxProgress = this.maxProgress;
+
+        this.maxProgress = getWorkDurationFor(workData.get());
+        if(this.maxProgress != currentMaxProgress) {
+            this.progress = this.progress * this.maxProgress / currentMaxProgress;
+        }
+
+        int energyConsumptionPerTick = getEnergyConsumptionFor(workData.get());
+        this.energyConsumptionLeft = energyConsumptionPerTick * (this.maxProgress - this.progress);
+    }
+
     @Override
     protected void updateUpgradeModules() {
-        resetProgress();
+        recalculateProgress();
 
         super.updateUpgradeModules();
     }

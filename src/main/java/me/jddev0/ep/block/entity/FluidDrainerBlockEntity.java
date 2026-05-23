@@ -318,11 +318,4 @@ public class FluidDrainerBlockEntity
 
         return false;
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
 }
