@@ -340,13 +340,6 @@ public class EnergizerBlockEntity
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().assemble(null));
     }
 
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress(getBlockPos(), getBlockState());
-
-        super.updateUpgradeModules();
-    }
-
     protected void syncIngredientListToPlayer(Player player) {
         if(!(level instanceof ServerLevel serverLevel))
             return;

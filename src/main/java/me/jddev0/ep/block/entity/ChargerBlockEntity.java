@@ -340,13 +340,6 @@ public class ChargerBlockEntity
         return recipe.isPresent();
     }
 
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
-
     protected void syncIngredientListToPlayer(Player player) {
         if(!(level instanceof ServerLevel serverLevel))
             return;

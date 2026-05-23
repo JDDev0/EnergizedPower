@@ -368,14 +368,6 @@ public class AdvancedChargerBlockEntity
         return recipe.isPresent();
     }
 
-    @Override
-    protected void updateUpgradeModules() {
-        for(int i = 0;i < 3;i++)
-            resetProgress(i);
-
-        super.updateUpgradeModules();
-    }
-
     protected void syncIngredientListToPlayer(Player player) {
         if(!(level instanceof ServerLevel serverLevel))
             return;

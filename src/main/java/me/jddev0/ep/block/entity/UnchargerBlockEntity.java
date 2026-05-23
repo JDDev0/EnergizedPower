@@ -309,11 +309,4 @@ public class UnchargerBlockEntity
         ItemStack stack = itemHandler.getStackInSlot(0);
         return CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Energy.ITEM, stack) != null;
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
 }
