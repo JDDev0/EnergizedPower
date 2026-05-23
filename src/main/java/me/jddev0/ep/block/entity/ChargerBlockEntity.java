@@ -331,11 +331,4 @@ public class ChargerBlockEntity
 
         return EnergyStorageUtil.isEnergyStorage(stack);
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress();
-
-        super.updateUpgradeModules();
-    }
 }

@@ -292,11 +292,4 @@ public class EnergizerBlockEntity
         return recipe.isPresent() &&
                 InventoryUtils.canInsertItemIntoSlot(blockEntity.itemHandler, 1, recipe.get().value().getResultItem(level.registryAccess()));
     }
-
-    @Override
-    protected void updateUpgradeModules() {
-        resetProgress(getBlockPos(), getBlockState());
-
-        super.updateUpgradeModules();
-    }
 }
