@@ -6,6 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.AdvancedMinecartUnchargerMenu;
 import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
@@ -28,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_ADVANCED_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -69,6 +71,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
         return new AdvancedMinecartUnchargerMenu(id, inventory, this);
     }
 
+    @Override
     public int getRedstoneOutput() {
         BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(AdvancedMinecartUnchargerBlock.FACING));
         List<AbstractMinecartBatteryBox> minecarts = level.getEntities(

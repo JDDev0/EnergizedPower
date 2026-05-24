@@ -1,32 +1,32 @@
 {
   "variants": {
-    "facing=east,lit=false": {
+    "facing=east,working=false": {
       "model": "energizedpower:block/alloy_furnace",
       "y": 90
     },
-    "facing=east,lit=true": {
+    "facing=east,working=true": {
       "model": "energizedpower:block/alloy_furnace_on",
       "y": 90
     },
-    "facing=north,lit=false": {
+    "facing=north,working=false": {
       "model": "energizedpower:block/alloy_furnace"
     },
-    "facing=north,lit=true": {
+    "facing=north,working=true": {
       "model": "energizedpower:block/alloy_furnace_on"
     },
-    "facing=south,lit=false": {
+    "facing=south,working=false": {
       "model": "energizedpower:block/alloy_furnace",
       "y": 180
     },
-    "facing=south,lit=true": {
+    "facing=south,working=true": {
       "model": "energizedpower:block/alloy_furnace_on",
       "y": 180
     },
-    "facing=west,lit=false": {
+    "facing=west,working=false": {
       "model": "energizedpower:block/alloy_furnace",
       "y": 270
     },
-    "facing=west,lit=true": {
+    "facing=west,working=true": {
       "model": "energizedpower:block/alloy_furnace_on",
       "y": 270
     }

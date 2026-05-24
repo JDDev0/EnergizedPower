@@ -6,10 +6,12 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
 import me.jddev0.ep.util.CapabilityUtil;
+import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,7 +35,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -117,6 +120,11 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
         syncEnergyToPlayer(player);
 
         return new HeatGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public int getRedstoneOutput() {
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {

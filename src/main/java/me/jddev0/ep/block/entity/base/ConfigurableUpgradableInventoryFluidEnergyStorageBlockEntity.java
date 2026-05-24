@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
@@ -19,7 +20,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends IEnergizedPowerItemStackHandler, F extends ResourceHandler<FluidResource>>
         extends UpgradableInventoryFluidEnergyStorageBlockEntity<E, I, F>
-        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
+        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
+        RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
@@ -49,6 +51,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
         comparatorMode = ComparatorMode.fromIndex(view.getIntOr("configuration.comparator_mode", 0));
     }
 
+    @Override
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
             case ITEM -> InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
