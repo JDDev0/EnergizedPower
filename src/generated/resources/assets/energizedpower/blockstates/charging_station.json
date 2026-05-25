@@ -1,9 +1,9 @@
 {
   "variants": {
-    "charging=false": {
+    "working=false": {
       "model": "energizedpower:block/charging_station"
     },
-    "charging=true": {
+    "working=true": {
       "model": "energizedpower:block/charging_station_on"
     }
   }

@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.machine.ItemDrop;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -21,7 +22,8 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
-        extends EnergyStorageBlockEntity<E> {
+        extends EnergyStorageBlockEntity<E>
+        implements ItemDrop {
     protected final int slotCount;
     protected final I itemHandler;
 
@@ -50,6 +52,7 @@ public abstract class InventoryEnergyStorageBlockEntity
         ContainerHelper.loadAllItems(nbt.getCompound("inventory"), itemHandler.items, registries);
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
         Containers.dropContents(level, worldPosition, itemHandler);
     }

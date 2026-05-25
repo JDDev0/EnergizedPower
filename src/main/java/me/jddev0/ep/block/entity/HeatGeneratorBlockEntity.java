@@ -6,10 +6,12 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -30,7 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HeatGeneratorBlockEntity
-        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -114,6 +117,11 @@ public class HeatGeneratorBlockEntity
         syncEnergyToPlayer(player);
 
         return new HeatGeneratorMenu(id, this, inventory, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public int getRedstoneOutput() {
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {

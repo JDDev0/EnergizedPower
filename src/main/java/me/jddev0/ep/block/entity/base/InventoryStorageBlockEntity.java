@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.machine.ItemDrop;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -13,7 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryStorageBlockEntity<I extends SimpleContainer>
-        extends BlockEntity {
+        extends BlockEntity
+        implements ItemDrop {
     protected final int slotCount;
     protected final I itemHandler;
 
@@ -41,6 +43,7 @@ public abstract class InventoryStorageBlockEntity<I extends SimpleContainer>
         ContainerHelper.loadAllItems(nbt.getCompound("inventory"), itemHandler.items, registries);
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
         Containers.dropContents(level, worldPosition, itemHandler);
     }

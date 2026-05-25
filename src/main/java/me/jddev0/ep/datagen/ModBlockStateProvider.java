@@ -142,7 +142,7 @@ class ModBlockStateProvider {
         activatableOrientableBlockWithItem(EPBlocks.ALLOY_FURNACE,
                 orientableBlockModel(EPBlocks.ALLOY_FURNACE, false),
                 orientableOnBlockModel(EPBlocks.ALLOY_FURNACE, false),
-                AlloyFurnaceBlock.LIT);
+                EPBlockStateProperties.WORKING);
 
         horizontalTwoSideBlockWithItem(EPBlocks.AUTO_CRAFTER, true);
         horizontalTwoSideBlockWithItem(EPBlocks.ADVANCED_AUTO_CRAFTER, true);
@@ -234,14 +234,14 @@ class ModBlockStateProvider {
                 orientableBlockModel(EPBlocks.ENERGIZER, true),
                 orientableBlockModel(EPBlocks.ENERGIZER, "_on", "_top_on", "_bottom",
                         "_front_on", "_side_on"),
-                EnergizerBlock.LIT);
+                EPBlockStateProperties.WORKING);
 
         activatableBlockWithItem(EPBlocks.CHARGING_STATION,
                 cubeBlockModel(EPBlocks.CHARGING_STATION, "", "_top", "_bottom",
                         "_side", "_side", "_side", "_side"),
                 cubeBlockModel(EPBlocks.CHARGING_STATION, "_on", "_top_on", "_bottom",
                         "_side_on", "_side_on", "_side_on", "_side_on"),
-                ChargingStationBlock.CHARGING);
+                EPBlockStateProperties.WORKING);
 
         horizontalBlockWithItem(EPBlocks.HEAT_GENERATOR, false);
 
@@ -871,7 +871,7 @@ class ModBlockStateProvider {
         activatableOrientableBlockWithItem(block,
                 orientableBlockModel(block, uniqueBottomTexture),
                 orientableOnBlockModel(block, uniqueBottomTexture),
-                BlockStateProperties.LIT);
+                EPBlockStateProperties.WORKING);
     }
 
     private void poweredLampBlockWithItem(Block block) {

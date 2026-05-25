@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.Arrays;
 
@@ -103,22 +102,6 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
             return itemHandlerSidedRight.apply(side);
 
         return itemHandlerSidedFrontTopBottom.apply(side);
-    }
-
-    @Override
-    protected void onHasEnoughEnergy() {
-        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
-                !level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true), 3);
-        }
-    }
-
-    @Override
-    protected void onHasNotEnoughEnergyWithOffTimeout() {
-        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
-                level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);
-        }
     }
 
     @Override

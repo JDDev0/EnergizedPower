@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.ItemDrop;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -17,7 +18,8 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
-        extends MenuFluidEnergyStorageBlockEntity<E, F> {
+        extends MenuFluidEnergyStorageBlockEntity<E, F>
+        implements ItemDrop {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
@@ -51,6 +53,7 @@ public abstract class UpgradableFluidEnergyStorageBlockEntity
         super.loadAdditional(nbt, registries);
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

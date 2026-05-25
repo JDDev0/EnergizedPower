@@ -6,6 +6,8 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
+import me.jddev0.ep.machine.ItemDrop;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.MinecartChargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
@@ -23,7 +25,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class MinecartChargerBlockEntity
-        extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+        extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput, ItemDrop {
     public static final long MAX_TRANSFER = ModConfigs.COMMON_MINECART_CHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -64,6 +67,7 @@ public class MinecartChargerBlockEntity
         return new MinecartChargerMenu(id, this, inventory);
     }
 
+    @Override
     public int getRedstoneOutput() {
         BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(MinecartChargerBlock.FACING));
         List<AbstractMinecartBatteryBox> minecarts = level.getEntities(EntityTypeTest.forClass(AbstractMinecartBatteryBox.class),
@@ -112,4 +116,7 @@ public class MinecartChargerBlockEntity
             transaction.commit();
         }
     }
+
+    @Override
+    public void drops(Level level, BlockPos worldPosition) {}
 }

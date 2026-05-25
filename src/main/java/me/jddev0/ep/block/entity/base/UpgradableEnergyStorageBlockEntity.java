@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.ItemDrop;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -14,7 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
-        extends MenuEnergyStorageBlockEntity<E> {
+        extends MenuEnergyStorageBlockEntity<E>
+        implements ItemDrop {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
@@ -46,6 +48,7 @@ public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPow
         super.loadAdditional(nbt, registries);
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
         Containers.dropContents(level, worldPosition, upgradeModuleInventory);
     }

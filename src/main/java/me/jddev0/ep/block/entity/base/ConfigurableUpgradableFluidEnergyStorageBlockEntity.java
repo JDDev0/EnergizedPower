@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
@@ -17,7 +18,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
         extends UpgradableFluidEnergyStorageBlockEntity<E, F>
-        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
+        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
+        RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
 
@@ -47,6 +49,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
                 ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode")):ComparatorMode.FLUID;
     }
 
+    @Override
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
             case ITEM -> 0;

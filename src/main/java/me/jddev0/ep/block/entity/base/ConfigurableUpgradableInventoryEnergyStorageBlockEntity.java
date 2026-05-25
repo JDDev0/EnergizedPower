@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
@@ -16,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
         extends UpgradableInventoryEnergyStorageBlockEntity<E, I>
-        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler {
+        implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
+        RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
@@ -44,6 +46,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
         comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
+    @Override
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
             case ITEM -> AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
