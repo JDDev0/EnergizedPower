@@ -1,12 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.SawmillBlockEntity;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
-public class SawmillBlock extends WorkerMachineBlock<SawmillBlockEntity> {
+public class SawmillBlock extends HorizontallyOrientableWorkerMachineBlock<SawmillBlockEntity> {
     public static final MapCodec<SawmillBlock> CODEC = simpleCodec(SawmillBlock::new);
 
     public SawmillBlock(Properties props) {

@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 import java.util.function.Consumer;
 
-public class AdvancedAutoCrafterBlock extends WorkerMachineBlock<AdvancedAutoCrafterBlockEntity> {
+public class AdvancedAutoCrafterBlock extends HorizontallyOrientableWorkerMachineBlock<AdvancedAutoCrafterBlockEntity> {
     public static final MapCodec<AdvancedAutoCrafterBlock> CODEC = simpleCodec(AdvancedAutoCrafterBlock::new);
 
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
