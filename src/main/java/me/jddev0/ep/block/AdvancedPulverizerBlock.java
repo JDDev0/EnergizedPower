@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AdvancedPulverizerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
-public class AdvancedPulverizerBlock extends WorkerMachineBlock<AdvancedPulverizerBlockEntity> {
+public class AdvancedPulverizerBlock extends HorizontallyOrientableWorkerMachineBlock<AdvancedPulverizerBlockEntity> {
     public static final MapCodec<AdvancedPulverizerBlock> CODEC = simpleCodec(AdvancedPulverizerBlock::new);
 
     public AdvancedPulverizerBlock(Properties props) {

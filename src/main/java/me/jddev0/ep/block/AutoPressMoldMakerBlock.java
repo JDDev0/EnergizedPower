@@ -1,12 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AutoPressMoldMakerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
-public class AutoPressMoldMakerBlock extends WorkerMachineBlock<AutoPressMoldMakerBlockEntity> {
+public class AutoPressMoldMakerBlock extends HorizontallyOrientableWorkerMachineBlock<AutoPressMoldMakerBlockEntity> {
     public static final MapCodec<AutoPressMoldMakerBlock> CODEC = simpleCodec(AutoPressMoldMakerBlock::new);
 
     public AutoPressMoldMakerBlock(Properties props) {
