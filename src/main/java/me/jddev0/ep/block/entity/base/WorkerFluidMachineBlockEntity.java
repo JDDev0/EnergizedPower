@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -26,6 +27,8 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
     protected int maxProgress;
     protected long energyConsumptionLeft = -1;
     protected boolean hasEnoughEnergy;
+
+    protected int timeoutOffState;
 
     public WorkerFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                          String machineName,
@@ -93,6 +96,14 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
 
         blockEntity.onTickStart();
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.onHasNotEnoughEnergyWithOffTimeout();
+            }
+        }
+
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
@@ -127,6 +138,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
 
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
+                blockEntity.timeoutOffState = 0;
                 blockEntity.onHasEnoughEnergy();
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
@@ -151,11 +163,17 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
                 setChanged(level, blockPos, state);
             }else {
                 blockEntity.hasEnoughEnergy = false;
+                if(blockEntity.timeoutOffState == 0) {
+                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+                }
                 blockEntity.onHasNotEnoughEnergy();
                 setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress();
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+            }
             blockEntity.onHasNotEnoughEnergy();
             setChanged(level, blockPos, state);
         }
@@ -168,6 +186,8 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
     protected void onHasEnoughEnergy() {}
 
     protected void onHasNotEnoughEnergy() {}
+
+    protected void onHasNotEnoughEnergyWithOffTimeout() {}
 
     protected final int getWorkDurationFor(W workData) {
         return Math.max(1, (int)Math.ceil(baseWorkDuration * getWorkDataDependentWorkDuration(workData) /
