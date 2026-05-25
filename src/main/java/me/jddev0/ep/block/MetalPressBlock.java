@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.function.Consumer;
 
-public class MetalPressBlock extends WorkerMachineBlock<MetalPressBlockEntity> {
+public class MetalPressBlock extends HorizontallyOrientableWorkerMachineBlock<MetalPressBlockEntity> {
     public static final MapCodec<MetalPressBlock> CODEC = simpleCodec(MetalPressBlock::new);
 
     public MetalPressBlock(Properties props) {

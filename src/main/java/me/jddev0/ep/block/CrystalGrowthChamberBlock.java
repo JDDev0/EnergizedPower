@@ -1,12 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.CrystalGrowthChamberBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
-public class CrystalGrowthChamberBlock extends WorkerMachineBlock<CrystalGrowthChamberBlockEntity> {
+public class CrystalGrowthChamberBlock extends HorizontallyOrientableWorkerMachineBlock<CrystalGrowthChamberBlockEntity> {
     public static final MapCodec<CrystalGrowthChamberBlock> CODEC = simpleCodec(CrystalGrowthChamberBlock::new);
 
     public CrystalGrowthChamberBlock(Properties props) {

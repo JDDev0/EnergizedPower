@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.FiltrationPlantBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.function.Consumer;
 
-public class FiltrationPlantBlock extends WorkerMachineBlock<FiltrationPlantBlockEntity> {
+public class FiltrationPlantBlock extends HorizontallyOrientableWorkerMachineBlock<FiltrationPlantBlockEntity> {
     public static final MapCodec<FiltrationPlantBlock> CODEC = simpleCodec(FiltrationPlantBlock::new);
 
     public FiltrationPlantBlock(Properties props) {

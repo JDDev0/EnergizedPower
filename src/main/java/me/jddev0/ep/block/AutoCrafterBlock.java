@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.*;
 
 import java.util.function.Consumer;
 
-public class AutoCrafterBlock extends WorkerMachineBlock<AutoCrafterBlockEntity> {
+public class AutoCrafterBlock extends HorizontallyOrientableWorkerMachineBlock<AutoCrafterBlockEntity> {
     public static final MapCodec<AutoCrafterBlock> CODEC = simpleCodec(AutoCrafterBlock::new);
 
     public AutoCrafterBlock(Properties props) {
