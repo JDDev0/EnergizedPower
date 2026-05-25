@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AutoCrafterBlock;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -86,6 +87,8 @@ public class AutoCrafterBlockEntity
     private int energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
     private boolean ignoreNBT;
+
+    private int timeoutOffState;
 
     public AutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -249,13 +252,13 @@ public class AutoCrafterBlockEntity
         if(level.isClientSide)
             return;
 
-        if(!blockEntity.hasRecipeLoaded) {
-            blockEntity.updateRecipe();
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
 
-            if(blockEntity.craftingRecipe == null)
-                blockEntity.resetProgress();
-
-            setChanged(level, blockPos, state);
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                    level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, false), 3);
+            }
         }
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(AutoCrafterBlock.POWERED)))
@@ -269,6 +272,15 @@ public class AutoCrafterBlockEntity
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AutoCrafterBlockEntity blockEntity) {
         if(level.isClientSide())
             return;
+
+        if(!blockEntity.hasRecipeLoaded) {
+            blockEntity.updateRecipe();
+
+            if(blockEntity.craftingRecipe == null)
+                blockEntity.resetProgress();
+
+            setChanged(level, blockPos, state);
+        }
 
         int itemCount = 0;
         for(int i = 0;i < blockEntity.patternSlots.getContainerSize();i++)
@@ -307,6 +319,12 @@ public class AutoCrafterBlockEntity
             }
 
             if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
+                blockEntity.timeoutOffState = 0;
+                if(level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                        !level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                    level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, true), 3);
+                }
+
                 blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
@@ -325,11 +343,17 @@ public class AutoCrafterBlockEntity
 
                 setChanged(level, blockPos, state);
             }else {
+                if(blockEntity.timeoutOffState == 0) {
+                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+                }
                 blockEntity.hasEnoughEnergy = false;
                 setChanged(level, blockPos, state);
             }
         }else {
             blockEntity.resetProgress();
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+            }
             setChanged(level, blockPos, state);
         }
     }

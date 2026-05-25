@@ -5,6 +5,8 @@ import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
+import me.jddev0.ep.machine.ItemDrop;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.MinecartUnchargerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,7 +27,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
+public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+        implements RedstoneOutput, ItemDrop {
     public static final int MAX_TRANSFER = ModConfigs.COMMON_MINECART_UNCHARGER_TRANSFER_RATE.getValue();
 
     private boolean hasMinecartOld = true; //Default true (Force first update)
@@ -60,6 +63,7 @@ public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<E
         return new MinecartUnchargerMenu(id, inventory, this);
     }
 
+    @Override
     public int getRedstoneOutput() {
         BlockPos blockPosFacing = getBlockPos().relative(getBlockState().getValue(MinecartUnchargerBlock.FACING));
         List<AbstractMinecartBatteryBox> minecarts = level.getEntities(
@@ -175,4 +179,7 @@ public class MinecartUnchargerBlockEntity extends MenuEnergyStorageBlockEntity<E
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
     }
+
+    @Override
+    public void drops(Level level, BlockPos worldPosition) {}
 }

@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.jddev0.ep.block.base.WorkerMachineBlock;
 import me.jddev0.ep.block.entity.SolarPanelBlockEntity;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.util.EnergyUtils;
@@ -10,28 +11,19 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SolarPanelBlock extends BaseEntityBlock {
+public class SolarPanelBlock extends WorkerMachineBlock<SolarPanelBlockEntity> {
     public static final MapCodec<SolarPanelBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(SolarPanelTier::valueOf, SolarPanelTier::toString).fieldOf("tier").
                 forGetter(SolarPanelBlock::getTier)).apply(instance, SolarPanelBlock::new);
@@ -42,7 +34,12 @@ public class SolarPanelBlock extends BaseEntityBlock {
     private final SolarPanelTier tier;
 
     public SolarPanelBlock(SolarPanelTier tier) {
-        super(tier.getProperties());
+        super(
+                tier.getProperties(),
+
+                tier::getEntityTypeFromTier,
+                SolarPanelBlockEntity.class, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, tier), SolarPanelBlockEntity::tick
+        );
 
         this.tier = tier;
     }
@@ -59,51 +56,6 @@ public class SolarPanelBlock extends BaseEntityBlock {
     @Override
     public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
         return SHAPE;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
-        return new SolarPanelBlockEntity(blockPos, state, tier);
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        if(state.getBlock() == newState.getBlock())
-            return;
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof SolarPanelBlockEntity))
-            return;
-
-        ((SolarPanelBlockEntity)blockEntity).drops(level, blockPos);
-
-        super.onRemove(state, level, blockPos, newState, isMoving);
-    }
-
-    @Override
-    public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos blockPos, Player player, BlockHitResult hit) {
-        if(level.isClientSide())
-            return InteractionResult.sidedSuccess(level.isClientSide());
-
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if(!(blockEntity instanceof SolarPanelBlockEntity) || ((SolarPanelBlockEntity)blockEntity).getTier() != tier)
-            throw new IllegalStateException("Container is invalid");
-
-        player.openMenu((SolarPanelBlockEntity)blockEntity, blockPos);
-
-        return InteractionResult.sidedSuccess(level.isClientSide());
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, tier.getEntityTypeFromTier(), SolarPanelBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

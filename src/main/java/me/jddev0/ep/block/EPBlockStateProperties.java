@@ -2,6 +2,7 @@ package me.jddev0.ep.block;
 
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,6 +25,7 @@ public final class EPBlockStateProperties {
     public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_SOUTH = EnumProperty.create("south", TransformerConnection.class);
     public static final EnumProperty<TransformerConnection> TRANSFORMER_CONNECTION_WEST = EnumProperty.create("west", TransformerConnection.class);
     public static final EnumProperty<ConveyorBeltDirection> CONVEYOR_BELT_FACING = EnumProperty.create("facing", ConveyorBeltDirection.class);
+    public static final BooleanProperty WORKING = BooleanProperty.create("working");
 
     public enum PipeConnection implements StringRepresentable {
         NOT_CONNECTED,

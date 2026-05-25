@@ -5,9 +5,11 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -27,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage> {
+public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+        implements RedstoneOutput {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public HeatGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -107,6 +110,11 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
         syncEnergyToPlayer(player);
 
         return new HeatGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public int getRedstoneOutput() {
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {

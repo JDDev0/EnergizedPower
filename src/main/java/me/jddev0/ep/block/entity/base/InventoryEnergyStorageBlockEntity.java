@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.machine.ItemDrop;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -19,7 +20,8 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler>
-        extends EnergyStorageBlockEntity<E> {
+        extends EnergyStorageBlockEntity<E>
+        implements ItemDrop {
     protected final int slotCount;
     protected final I itemHandler;
 
@@ -48,6 +50,7 @@ public abstract class InventoryEnergyStorageBlockEntity
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for(int i = 0;i < itemHandler.getSlots();i++)

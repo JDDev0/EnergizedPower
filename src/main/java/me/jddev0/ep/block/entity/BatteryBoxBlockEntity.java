@@ -3,6 +3,8 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
+import me.jddev0.ep.machine.ItemDrop;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.BatteryBoxMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
@@ -20,7 +22,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage> {
+public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveAndExtractEnergyStorage>
+        implements RedstoneOutput, ItemDrop {
     public static final int CAPACITY = ModConfigs.COMMON_BATTERY_BOX_CAPACITY.getValue();
     public static final int MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_TRANSFER_RATE.getValue();
 
@@ -53,6 +56,7 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveA
         return new BatteryBoxMenu(id, inventory, this);
     }
 
+    @Override
     public int getRedstoneOutput() {
         return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
@@ -130,4 +134,7 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<ReceiveA
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
     }
+
+    @Override
+    public void drops(Level level, BlockPos worldPosition) {}
 }

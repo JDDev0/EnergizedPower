@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.machine.ItemDrop;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -13,7 +14,8 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryStorageBlockEntity<I extends ItemStackHandler>
-        extends BlockEntity {
+        extends BlockEntity
+        implements ItemDrop {
     protected final int slotCount;
     protected final I itemHandler;
 
@@ -41,6 +43,7 @@ public abstract class InventoryStorageBlockEntity<I extends ItemStackHandler>
         itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
     }
 
+    @Override
     public void drops(Level level, BlockPos worldPosition) {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
         for(int i = 0;i < itemHandler.getSlots();i++)

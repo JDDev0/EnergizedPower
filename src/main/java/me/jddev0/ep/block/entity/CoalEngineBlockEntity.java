@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -190,9 +191,9 @@ public class CoalEngineBlockEntity
         if(blockEntity.timeoutOffState > 0) {
             blockEntity.timeoutOffState--;
 
-            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                    level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, false), 3);
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                    level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, false), 3);
             }
         }
 
@@ -230,9 +231,9 @@ public class CoalEngineBlockEntity
 
                 blockEntity.hasEnoughCapacityForProduction = true;
                 blockEntity.timeoutOffState = 0;
-                if(level.getBlockState(blockPos).hasProperty(BlockStateProperties.LIT) &&
-                        !level.getBlockState(blockPos).getValue(BlockStateProperties.LIT)) {
-                    level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 3);
+                if(level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                        !level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                    level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, true), 3);
                 }
 
                 if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyProductionLeft < 0 ||
