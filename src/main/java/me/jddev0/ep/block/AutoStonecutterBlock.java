@@ -1,12 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
-public class AutoStonecutterBlock extends WorkerMachineBlock<AutoStonecutterBlockEntity> {
+public class AutoStonecutterBlock extends HorizontallyOrientableWorkerMachineBlock<AutoStonecutterBlockEntity> {
     public static final MapCodec<AutoStonecutterBlock> CODEC = simpleCodec(AutoStonecutterBlock::new);
 
     public AutoStonecutterBlock(Properties props) {
