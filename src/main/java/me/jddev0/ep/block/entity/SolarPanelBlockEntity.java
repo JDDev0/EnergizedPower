@@ -5,10 +5,12 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.screen.SolarPanelMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +30,8 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class SolarPanelBlockEntity
-        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput {
     private final SolarPanelTier tier;
 
     public SolarPanelBlockEntity(BlockPos blockPos, BlockState blockState, SolarPanelTier tier) {
@@ -126,6 +129,11 @@ public class SolarPanelBlockEntity
         syncEnergyToPlayer(player);
 
         return new SolarPanelMenu(id, this, inventory, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    public int getRedstoneOutput() {
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {

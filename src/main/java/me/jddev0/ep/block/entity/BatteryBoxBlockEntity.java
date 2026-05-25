@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.BatteryBoxMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
@@ -21,7 +22,8 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput {
     public static final long CAPACITY = ModConfigs.COMMON_BATTERY_BOX_CAPACITY.getValue();
     public static final long MAX_TRANSFER = ModConfigs.COMMON_BATTERY_BOX_TRANSFER_RATE.getValue();
 
@@ -59,6 +61,7 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Energize
         return new BatteryBoxMenu(id, this, inventory);
     }
 
+    @Override
     public int getRedstoneOutput() {
         return EnergyUtils.getRedstoneSignalFromEnergyStorage(limitingEnergyStorage);
     }

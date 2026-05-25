@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.config.ModConfigs;
@@ -176,11 +177,21 @@ public abstract class WorkerMachineBlockEntity<W>
 
     protected void onTickEnd() {}
 
-    protected void onHasEnoughEnergy() {}
+    protected void onHasEnoughEnergy() {
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                !level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, true), 3);
+        }
+    }
 
     protected void onHasNotEnoughEnergy() {}
 
-    protected void onHasNotEnoughEnergyWithOffTimeout() {}
+    protected void onHasNotEnoughEnergyWithOffTimeout() {
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, false), 3);
+        }
+    }
 
     protected final int getWorkDurationFor(W workData) {
         return Math.max(1, (int)Math.ceil(baseWorkDuration * getWorkDataDependentWorkDuration(workData) /

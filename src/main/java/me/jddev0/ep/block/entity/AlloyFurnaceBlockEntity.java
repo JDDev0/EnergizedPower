@@ -1,11 +1,13 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.AssemblingMachineBlock;
+import me.jddev0.ep.block.AlloyFurnaceBlock;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.*;
@@ -31,7 +33,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +44,7 @@ import java.util.function.Predicate;
 
 public class AlloyFurnaceBlockEntity
         extends MenuInventoryStorageBlockEntity<SimpleContainer>
-        implements IngredientPacketUpdate {
+        implements IngredientPacketUpdate, RedstoneOutput {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private int progress;
@@ -132,6 +133,7 @@ public class AlloyFurnaceBlockEntity
         return new AlloyFurnaceMenu(id, this, inventory, itemHandler, data);
     }
 
+    @Override
     public int getRedstoneOutput() {
         return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
     }
@@ -140,7 +142,7 @@ public class AlloyFurnaceBlockEntity
         if(side == null)
             return null;
 
-        Direction facing = getBlockState().getValue(AssemblingMachineBlock.FACING);
+        Direction facing = getBlockState().getValue(AlloyFurnaceBlock.FACING);
 
         if(facing == side)
             return itemHandlerSidedFront.apply(side);
@@ -253,16 +255,16 @@ public class AlloyFurnaceBlockEntity
     }
 
     private void onHasEnoughFuel() {
-        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
-                !level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                !level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, true), 3);
         }
     }
 
     private void onHasNotEnoughFuel() {
-        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
-                level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);
+        if(level.getBlockState(getBlockPos()).hasProperty(EPBlockStateProperties.WORKING) &&
+                level.getBlockState(getBlockPos()).getValue(EPBlockStateProperties.WORKING)) {
+            level.setBlock(getBlockPos(), getBlockState().setValue(EPBlockStateProperties.WORKING, false), 3);
         }
     }
 

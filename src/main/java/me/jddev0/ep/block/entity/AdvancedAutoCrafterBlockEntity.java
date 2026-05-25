@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
@@ -132,6 +133,8 @@ public class AdvancedAutoCrafterBlockEntity
             false, false, false
     };
     private int currentRecipeIndex = 0;
+
+    private int timeoutOffState;
 
     public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -298,6 +301,15 @@ public class AdvancedAutoCrafterBlockEntity
         if(level.isClientSide())
             return;
 
+        if(blockEntity.timeoutOffState > 0) {
+            blockEntity.timeoutOffState--;
+
+            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                    level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, false), 3);
+            }
+        }
+
         if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedAutoCrafterBlock.POWERED)))
             return;
 
@@ -310,6 +322,8 @@ public class AdvancedAutoCrafterBlockEntity
         if(level.isClientSide())
             return;
 
+        boolean hasNoRecipe = true;
+        int hasNotEnoughEnergyCount = 0;
         for(int i = 0;i < 3;i++) {
             if(!blockEntity.hasRecipeLoaded[i]) {
                 blockEntity.updateRecipe(i);
@@ -331,6 +345,8 @@ public class AdvancedAutoCrafterBlockEntity
 
             if(blockEntity.craftingRecipe[i] != null && (blockEntity.progress[i] > 0 ||
                     (blockEntity.canInsertItemsIntoOutputSlots(i) && blockEntity.canExtractItemsFromInput(i)))) {
+                hasNoRecipe = false;
+
                 if(!blockEntity.canInsertItemsIntoOutputSlots(i) || !blockEntity.canExtractItemsFromInput(i))
                     continue;
 
@@ -358,6 +374,12 @@ public class AdvancedAutoCrafterBlockEntity
                 }
 
                 if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
+                    blockEntity.timeoutOffState = 0;
+                    if(level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                            !level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                        level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, true), 3);
+                    }
+
                     try(Transaction transaction = Transaction.openOuter()) {
                         blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
                         transaction.commit();
@@ -381,11 +403,20 @@ public class AdvancedAutoCrafterBlockEntity
                     setChanged(level, blockPos, state);
                 }else {
                     blockEntity.hasEnoughEnergy[i] = false;
+                    hasNotEnoughEnergyCount++;
                     setChanged(level, blockPos, state);
                 }
             }else {
                 blockEntity.resetProgress(i);
+                hasNotEnoughEnergyCount++;
                 setChanged(level, blockPos, state);
+            }
+        }
+
+        //Unlit if nothing is being crafted
+        if(hasNoRecipe || hasNotEnoughEnergyCount == 3) {
+            if(blockEntity.timeoutOffState == 0) {
+                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
         }
     }

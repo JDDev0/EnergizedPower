@@ -1,12 +1,17 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.ChargingStationBlock;
+import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.ChargingStationMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.machine.RedstoneOutput;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.EntitySelector;
@@ -28,7 +33,8 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.List;
 
-public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+        implements RedstoneOutput {
     public static final int MAX_CHARGING_DISTANCE = ModConfigs.COMMON_CHARGING_STATION_MAX_CHARGING_DISTANCE.getValue();
 
     public ChargingStationBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -81,6 +87,11 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
         return new ChargingStationMenu(id, this, inventory, upgradeModuleInventory);
     }
 
+    @Override
+    public int getRedstoneOutput() {
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+    }
+
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargingStationBlockEntity blockEntity) {
         if(level.isClientSide())
             return;
@@ -128,11 +139,11 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
         }
 
         if(energyPerTickLeft == energyPerTick) {
-            if(!level.getBlockState(blockPos).hasProperty(ChargingStationBlock.CHARGING) || level.getBlockState(blockPos).getValue(ChargingStationBlock.CHARGING))
-                level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, false), 3);
+            if(!level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) || level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING))
+                level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, false), 3);
         }else {
-            if(!level.getBlockState(blockPos).hasProperty(ChargingStationBlock.CHARGING) || !level.getBlockState(blockPos).getValue(ChargingStationBlock.CHARGING))
-                level.setBlock(blockPos, state.setValue(ChargingStationBlock.CHARGING, Boolean.TRUE), 3);
+            if(!level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) || !level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING))
+                level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, Boolean.TRUE), 3);
 
             try(Transaction transaction = Transaction.openOuter()) {
                 blockEntity.energyStorage.extract(energyPerTick - energyPerTickLeft, transaction);

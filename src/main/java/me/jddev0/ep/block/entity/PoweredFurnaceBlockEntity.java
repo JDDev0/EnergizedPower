@@ -126,22 +126,6 @@ public class PoweredFurnaceBlockEntity
     }
 
     @Override
-    protected void onHasEnoughEnergy() {
-        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
-                !level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, true), 3);
-        }
-    }
-
-    @Override
-    protected void onHasNotEnoughEnergyWithOffTimeout() {
-        if(level.getBlockState(getBlockPos()).hasProperty(BlockStateProperties.LIT) &&
-                level.getBlockState(getBlockPos()).getValue(BlockStateProperties.LIT)) {
-            level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.LIT, false), 3);
-        }
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     protected Optional<RecipeHolder<? extends AbstractCookingRecipe>> getCurrentWorkData() {
         return (Optional<RecipeHolder<? extends AbstractCookingRecipe>>)getRecipeFor(itemHandler, level);
