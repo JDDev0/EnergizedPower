@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
-	id "me.shedaniel.unified-publishing" version "0.1.+"
+	id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2"
 }
 
 version = project.mod_version
@@ -141,53 +141,33 @@ publishing {
 	}
 }
 
-tasks.register("distJar", Copy) {
-	group = "build"
+publishMods {
+	displayName = "Energized Power - " + "1.21.1" + " - v" + project.mod_version.split("\\+")[0] + " [Fabric]"
+	changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
+	type = STABLE
+	file = remapJar.archiveFile
+	modLoaders.add("fabric")
 
-	dependsOn(tasks.getByName("remapJar"))
+	dryRun = project.mod_version.contains("dev")
 
-	var jarFile = project.rootDir.toPath().resolve("build/libs").resolve(project.archives_base_name + "-" + project.version + ".jar").toFile()
-	from(jarFile)
-	doFirst {
-		file(project.rootDir.toPath().resolve("build/libs/dist")).mkdirs()
+	if(project.hasProperty('MODRINTH_TOKEN')) {
+		modrinth {
+			accessToken = getProperty('MODRINTH_TOKEN') as String
+			projectId = "6pku8gW1"
+			minecraftVersionList("1.21.1")
+			requires("fabric-api")
+		}
 	}
-	into(project.rootDir.toPath().resolve("build/libs/dist"))
-}
 
-tasks.publishUnified {
-	dependsOn distJar
-}
-
-unifiedPublishing {
-	project {
-		displayName = "Energized Power - " + project.minecraft_version + " - v" + project.mod_version.split("-")[1] + " [Fabric]"
-		version = project.mod_version
-        changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
-		releaseType = "release"
-		gameVersions = [project.minecraft_version]
-		gameLoaders = ["fabric"]
-
-		mainPublication.set(project.rootDir.toPath().resolve("build/libs").resolve(project.archives_base_name + "-" + project.version + ".jar").toFile())
-
-		relations {
-			depends {
-				modrinth = "fabric-api"
-				curseforge = "fabric-api"
-			}
-		}
-
-		if(project.hasProperty('MODRINTH_TOKEN')) {
-			modrinth {
-				token = getProperty('MODRINTH_TOKEN') as String
-				id = "6pku8gW1"
-			}
-		}
-
-		if(project.hasProperty('CURSEFORGE_TOKEN')) {
-			curseforge {
-				token = getProperty('CURSEFORGE_TOKEN') as String
-				id = "782147"
-			}
+	if(project.hasProperty('CURSEFORGE_TOKEN')) {
+		curseforge {
+			accessToken = getProperty('CURSEFORGE_TOKEN') as String
+			projectId = "782147"
+			minecraftVersionList("1.21.1")
+			requires("fabric-api")
+			client = true
+			server = true
+			javaVersions.add(JavaVersion.VERSION_21)
 		}
 	}
 }
