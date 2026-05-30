@@ -79,6 +79,8 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
         if(currentRecipe != null)
             nbt.put("recipe.id", StringTag.valueOf(currentRecipe.id().toString()));
+        else if(currentRecipeIdForLoad != null) //Use raw recipe id from loading if "onStartTick()" was never called before saving
+            nbt.putString("recipe.id", currentRecipeIdForLoad.toString());
     }
 
     @Override
