@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/advanced/reinforced_advanced_upgrade_module",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:item_pulling_upgrade_module_5"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.item_pulling_upgrade_module_5.description"
+    },
+    "icon": {
+      "id": "energizedpower:item_pulling_upgrade_module_5"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.item_pulling_upgrade_module_5.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
