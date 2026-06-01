@@ -127,4 +127,74 @@ public abstract class InventoryEnergyStorageBlockEntity
             }
         }
     }
+
+    private double itemAmountPullingLeftoverDecimal = 0.;
+    protected void pullItemsFromInputs(double itemsPerTick) {
+        if(level == null || itemsPerTick <= 0)
+            return;
+
+        itemAmountPullingLeftoverDecimal += itemsPerTick;
+        int itemAmountLeft = (int)itemAmountPullingLeftoverDecimal;
+
+        //Only keep decimal part
+        itemAmountPullingLeftoverDecimal -= itemAmountLeft;
+
+        if(itemAmountLeft <= 0) {
+            return;
+        }
+
+        outer:
+        for(Direction direction:Direction.values()) {
+            //TODO check performance and cache
+            ResourceHandler<ItemResource> itemStackStorageSelf = level.getCapability(Capabilities.Item.BLOCK, worldPosition, level.getBlockState(worldPosition),
+                this, direction);
+
+            if(itemStackStorageSelf == null)
+                continue;
+
+
+            BlockPos outputBlockPos = worldPosition.relative(direction);
+            BlockEntity outputBlockEntity = level.getBlockEntity(outputBlockPos);
+
+            //TODO check performance and cache
+            ResourceHandler<ItemResource> itemStackStorageInput = level.getCapability(Capabilities.Item.BLOCK, outputBlockPos, level.getBlockState(outputBlockPos),
+                    outputBlockEntity, direction.getOpposite());
+
+            if(itemStackStorageInput == null)
+                continue;
+
+            //Try to extract for every slot of input inventory on current direction
+            for(int i = 0;i < itemStackStorageInput.size();i++) {
+                ItemResource itemToExtract;
+                int amountToExtract;
+                try(Transaction transaction = Transaction.open(null)) {
+                    if(itemStackStorageInput.getResource(i).isEmpty())
+                        continue;
+
+                    itemToExtract = itemStackStorageInput.getResource(i);
+                    amountToExtract = itemStackStorageInput.extract(itemToExtract, itemAmountLeft, transaction);
+                    if(amountToExtract <= 0)
+                        continue;
+                }
+                if(itemToExtract.isEmpty())
+                    continue;
+
+                //Item found for extraction -> try to insert and extract for real if successful
+                try(Transaction transaction = Transaction.open(null)) {
+                    int amount = itemStackStorageSelf.insert(itemToExtract, amountToExtract, transaction);
+                    if(amount > 0) {
+                        itemStackStorageInput.extract(itemToExtract, amount, transaction);
+
+                        itemAmountLeft -= amount;
+                    }
+
+                    transaction.commit();
+                }
+
+                if(itemAmountLeft <= 0) {
+                    break outer;
+                }
+            }
+        }
+    }
 }

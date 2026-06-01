@@ -12,6 +12,6 @@ public class AdvancedChargerScreen
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_charger.items_energy_left.txt",
                 EPAPI.id("textures/gui/container/advanced_charger.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_item_ejector.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_item_ejector_1_item_pulling.png"));
     }
 }

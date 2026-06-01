@@ -89,7 +89,8 @@ public class AdvancedChargerBlockEntity
                 3,
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 
@@ -217,6 +218,8 @@ public class AdvancedChargerBlockEntity
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedChargerBlock.POWERED)))
             return;
+
+        blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
 
         tickRecipe(level, blockPos, state, blockEntity);
 

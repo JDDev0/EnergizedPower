@@ -17,7 +17,7 @@ public class FluidFillerScreen
     public FluidFillerScreen(FluidFillerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 EPAPI.id("textures/gui/container/fluid_filler.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity_1_item_ejector.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_efficiency_1_energy_capacity_1_item_ejector_1_item_pulling.png"));
     }
 
     @Override
