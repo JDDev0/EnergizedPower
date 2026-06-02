@@ -811,6 +811,19 @@
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blöcke",
 
+  "tooltip.energizedpower.upgrade_module_modifier.slot.speed": "Geschwindigkeits-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.energy_consumption": "Energie-Effizienz-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.energy_production": "Energie-Produktion-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.energy_capacity": "Energiekapazität-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.duration": "Laufzeit-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.range": "Reichweiten-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.extraction_depth": "Extraktionstiefen-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.extraction_range": "Extraktionsreichweiten-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.furnace_mode": "Ofenmodus-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.moon_light": "Mondlicht-Upgrade-Modue",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.item_ejector": "Item-Auswerfer-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.item_pulling": "Item-Heranholer-Upgrade-Module",
+
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",
 
