@@ -65,7 +65,8 @@ public class AdvancedUnchargerBlockEntity
                 3,
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 
@@ -183,6 +184,7 @@ public class AdvancedUnchargerBlockEntity
             return;
 
         if(blockEntity.redstoneMode.isActive(state.getValue(AdvancedUnchargerBlock.POWERED))) {
+            blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
             tickRecipe(level, blockPos, state, blockEntity);
             blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
         }

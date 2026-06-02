@@ -122,4 +122,68 @@ public abstract class InventoryEnergyStorageBlockEntity
             }
         }
     }
+
+    private double itemAmountPullingLeftoverDecimal = 0.;
+    protected void pullItemsFromInputs(double itemsPerTick) {
+        if(level == null || itemsPerTick <= 0)
+            return;
+
+        itemAmountPullingLeftoverDecimal += itemsPerTick;
+        int itemAmountLeft = (int)itemAmountPullingLeftoverDecimal;
+
+        //Only keep decimal part
+        itemAmountPullingLeftoverDecimal -= itemAmountLeft;
+
+        if(itemAmountLeft <= 0) {
+            return;
+        }
+
+        outer:
+        for(Direction direction:Direction.values()) {
+            //TODO check performance and cache
+            IItemHandler itemStackStorageSelf = level.getCapability(Capabilities.ItemHandler.BLOCK, worldPosition, level.getBlockState(worldPosition),
+                    this, direction);
+
+            if(itemStackStorageSelf == null)
+                continue;
+
+
+            BlockPos outputBlockPos = worldPosition.relative(direction);
+            BlockEntity outputBlockEntity = level.getBlockEntity(outputBlockPos);
+
+            //TODO check performance and cache
+            IItemHandler itemStackStorageInput = level.getCapability(Capabilities.ItemHandler.BLOCK, outputBlockPos, level.getBlockState(outputBlockPos),
+                    outputBlockEntity, direction.getOpposite());
+
+            if(itemStackStorageInput == null)
+                continue;
+
+            //Try to extract for every slot of input inventory on current direction
+            for(int i = 0;i < itemStackStorageInput.getSlots();i++) {
+                ItemStack itemToExtract;
+                if(itemStackStorageInput.getStackInSlot(i).isEmpty())
+                    continue;
+
+                itemToExtract = itemStackStorageInput.extractItem(i, itemAmountLeft, true);
+                if(itemToExtract.isEmpty())
+                    continue;
+
+                //Item found for extraction -> try to insert and extract for real if successful
+                for(int j = 0;j < itemStackStorageSelf.getSlots();j++) {
+                    ItemStack remaining = itemStackStorageSelf.insertItem(j, itemToExtract.copy(), false);
+                    int amount = itemToExtract.getCount() - remaining.getCount();
+                    if(amount > 0) {
+                        itemStackStorageInput.extractItem(i, amount, false);
+
+                        itemAmountLeft -= amount;
+                        break;
+                    }
+                }
+
+                if(itemAmountLeft <= 0) {
+                    break outer;
+                }
+            }
+        }
+    }
 }

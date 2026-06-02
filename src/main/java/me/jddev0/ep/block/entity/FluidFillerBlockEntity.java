@@ -79,7 +79,8 @@ public class FluidFillerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 
@@ -211,6 +212,8 @@ public class FluidFillerBlockEntity
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(FluidFillerBlock.POWERED)))
             return;
+
+        blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
 
         tickRecipe(level, blockPos, state, blockEntity);
 

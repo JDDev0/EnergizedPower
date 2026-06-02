@@ -57,7 +57,8 @@ public class BlockPlacerBlockEntity
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
-                UpgradeModuleModifier.ENERGY_CAPACITY
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 

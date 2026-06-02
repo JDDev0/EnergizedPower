@@ -66,7 +66,8 @@ public class PoweredFurnaceBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 
