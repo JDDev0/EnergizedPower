@@ -270,6 +270,16 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2, "item_ejector_upgrade_module_2", AdvancementType.TASK
         );
 
+        AdvancementHolder itemPullingUpgradeModule1 = addAdvancement(
+                advancementOutput, existingFileHelper, basicUpgradeModule,
+                EPItems.ITEM_PULLING_UPGRADE_MODULE_1, "item_pulling_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemPullingUpgradeModule2 = addAdvancement(
+                advancementOutput, existingFileHelper, itemPullingUpgradeModule1,
+                EPItems.ITEM_PULLING_UPGRADE_MODULE_2, "item_pulling_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder itemConveyorBelt = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementType.TASK

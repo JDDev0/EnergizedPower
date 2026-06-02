@@ -928,6 +928,76 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ERE",
                 "TiT"
         }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'H', Ingredient.of(Items.HOPPER),
+                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE)
+        ), new String[] {
+                "THT",
+                "IBI",
+                "THT"
+        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_PULLING_UPGRADE_MODULE_1), Map.of(
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'H', Ingredient.of(Items.HOPPER),
+                'B', Ingredient.of(EPItems.BASIC_UPGRADE_MODULE),
+                'i', Ingredient.of(EPItems.ITEM_PULLING_UPGRADE_MODULE_1)
+        ), new String[] {
+                "THT",
+                "IBI",
+                "TiT"
+        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_PULLING_UPGRADE_MODULE_2), Map.of(
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'H', Ingredient.of(Items.HOPPER),
+                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
+                'i', Ingredient.of(EPItems.ITEM_PULLING_UPGRADE_MODULE_2)
+        ), new String[] {
+                "THT",
+                "IAI",
+                "TiT"
+        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_PULLING_UPGRADE_MODULE_3), Map.of(
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'H', Ingredient.of(Items.HOPPER),
+                'A', Ingredient.of(EPItems.ADVANCED_UPGRADE_MODULE),
+                'i', Ingredient.of(EPItems.ITEM_PULLING_UPGRADE_MODULE_3)
+        ), new String[] {
+                "THT",
+                "IAI",
+                "TiT"
+        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_PULLING_UPGRADE_MODULE_4), Map.of(
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'I', Ingredient.of(CommonItemTags.PLATES_IRON),
+                'H', Ingredient.of(Items.HOPPER),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'i', Ingredient.of(EPItems.ITEM_PULLING_UPGRADE_MODULE_4)
+        ), new String[] {
+                "THT",
+                "IRI",
+                "TiT"
+        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.ITEM_PULLING_UPGRADE_MODULE_5), Map.of(
+                'T', Ingredient.of(CommonItemTags.PLATES_TIN),
+                'H', Ingredient.of(Items.HOPPER),
+                'R', Ingredient.of(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'i', Ingredient.of(EPItems.ITEM_PULLING_UPGRADE_MODULE_5)
+        ), new String[] {
+                "TiT",
+                "HRH",
+                "TiT"
+        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
     }
     private void buildToolsCraftingRecipes(RecipeOutput output) {
         addHammerCraftingRecipe(output, ItemTags.PLANKS, EPItems.WOODEN_HAMMER);

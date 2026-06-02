@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_upgrade_module"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    },
+    "i": {
+      "item": "energizedpower:item_pulling_upgrade_module_4"
+    }
+  },
+  "pattern": [
+    "THT",
+    "IRI",
+    "TiT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:item_pulling_upgrade_module_5"
+  }
+}
