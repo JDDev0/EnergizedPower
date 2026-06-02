@@ -46,8 +46,8 @@ public class StoneLiquefierScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(152, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter

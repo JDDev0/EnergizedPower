@@ -97,8 +97,8 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button

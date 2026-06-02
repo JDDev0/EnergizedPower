@@ -40,8 +40,8 @@ public class ThermalGeneratorScreen extends ConfigurableUpgradableEnergyStorageC
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter

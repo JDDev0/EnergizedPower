@@ -74,8 +74,8 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
 
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
             //Fluid meter

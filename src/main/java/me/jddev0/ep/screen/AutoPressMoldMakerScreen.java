@@ -62,8 +62,8 @@ public class AutoPressMoldMakerScreen extends SelectableRecipeMachineContainerSc
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         //Missing Shovel
         if(isHovering(57, 44, 16, 16, mouseX, mouseY) &&

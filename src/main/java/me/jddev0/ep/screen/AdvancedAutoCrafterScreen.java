@@ -106,8 +106,8 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Ignore NBT checkbox

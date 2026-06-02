@@ -118,8 +118,8 @@ public abstract class SelectableRecipeMachineContainerScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         //Current recipe
         RecipeHolder<R> currentRecipe = menu.getCurrentRecipe();

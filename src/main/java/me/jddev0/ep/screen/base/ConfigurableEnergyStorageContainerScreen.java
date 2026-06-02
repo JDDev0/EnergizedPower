@@ -99,9 +99,9 @@ public abstract class ConfigurableEnergyStorageContainerScreen
         }
     }
 
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {}
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {}
 
-    protected void extractLabelsConfiguration(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+    protected void extractTooltipConfiguration(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
 
@@ -115,11 +115,11 @@ public abstract class ConfigurableEnergyStorageContainerScreen
     }
 
     @Override
-    protected final void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabels(drawContext, mouseX, mouseY);
+    protected final void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltip(drawContext, mouseX, mouseY);
 
-        extractLabelsNormalView(drawContext, mouseX, mouseY);
+        extractTooltipNormalView(drawContext, mouseX, mouseY);
 
-        extractLabelsConfiguration(drawContext, mouseX, mouseY);
+        extractTooltipConfiguration(drawContext, mouseX, mouseY);
     }
 }

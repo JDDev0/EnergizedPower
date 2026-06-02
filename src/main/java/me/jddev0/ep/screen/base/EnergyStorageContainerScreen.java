@@ -102,8 +102,8 @@ public abstract class EnergyStorageContainerScreen<T extends AbstractContainerMe
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabels(drawContext, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltip(drawContext, mouseX, mouseY);
 
         if(!menu.isInUpgradeModuleView()) {
             if(isHovering(energyMeterX, energyMeterY, energyMeterWidth, energyMeterHeight, mouseX, mouseY)) {

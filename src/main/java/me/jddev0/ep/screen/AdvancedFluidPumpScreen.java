@@ -90,8 +90,8 @@ public class AdvancedFluidPumpScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(drawContext, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         for(int i = 0;i < 4;i++) {
             if(isHovering(206 + (i%2) * 18, 17 + (i/2) * 54, 16, 52, mouseX, mouseY)) {
