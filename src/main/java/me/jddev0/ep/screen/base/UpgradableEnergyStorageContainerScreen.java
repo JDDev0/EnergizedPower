@@ -1,8 +1,12 @@
 package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -129,6 +133,23 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
 
     protected void extractTooltipNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {}
 
+    protected void extractTooltipUpgradeView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        if(this.hoveredSlot instanceof UpgradeModuleSlot upgradeModuleSlot && !upgradeModuleSlot.hasItem() &&
+                upgradeModuleSlot.container instanceof UpgradeModuleInventory upgradeModuleInventory) {
+            UpgradeModuleModifier[] upgradeModuleModifierSlots = upgradeModuleInventory.getUpgradeModifierSlots();
+            int slotIndex = upgradeModuleSlot.getContainerSlot();
+            if(slotIndex < upgradeModuleModifierSlots.length) {
+                UpgradeModuleModifier upgradeModuleModifier = upgradeModuleModifierSlots[slotIndex];
+
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.upgrade_module_modifier.slot." + upgradeModuleModifier.getSerializedName()).
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+
+                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+            }
+        }
+    }
+
     protected void extractTooltipConfiguration(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Upgrade view
@@ -145,7 +166,9 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     protected final void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
         super.extractTooltip(drawContext, mouseX, mouseY);
 
-        if(!menu.isInUpgradeModuleView())
+        if(menu.isInUpgradeModuleView())
+            extractTooltipUpgradeView(drawContext, mouseX, mouseY);
+        else
             extractTooltipNormalView(drawContext, mouseX, mouseY);
 
         extractTooltipConfiguration(drawContext, mouseX, mouseY);
