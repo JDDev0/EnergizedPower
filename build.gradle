@@ -236,7 +236,7 @@ tasks.withType(JavaCompile).configureEach {
 publishMods {
     displayName = "Energized Power - " + "26.1.x" + " - v" + project.mod_version.split("\\+")[0] + " [NeoForge]"
     changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
-    type = BETA //TODO change to STABLE if NeoForge is no longer in beta
+    type = STABLE
     file = jar.archiveFile
     modLoaders.add("neoforge")
 
