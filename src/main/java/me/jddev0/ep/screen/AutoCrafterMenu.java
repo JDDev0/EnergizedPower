@@ -51,7 +51,8 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         ), new SimpleContainer(9), new SimpleContainer(1), null);
     }
 
@@ -94,7 +95,7 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 44 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -179,7 +180,7 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //"+ 10": Ignore 3x3 crafting grid and result slot
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 18 + 3*3 + 1, 4 * 9 + 18 + 3*3 + 1 + 4, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 18 + 3*3 + 1, 4 * 9 + 18 + 3*3 + 1 + 5, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 18, false)) {
                 //"+3" instead of nothing: Do not allow adding to first 3 output item only slot
                 return ItemStack.EMPTY;
@@ -191,7 +192,7 @@ public class AutoCrafterMenu extends UpgradableEnergyStorageMenu<AutoCrafterBloc
             }
         }else if(index < 4 * 9 + 18 + 3*3 + 1) {
             return ItemStack.EMPTY;
-        }else if(index < 4 * 9 + 18 + 3*3 + 1 + 4) {
+        }else if(index < 4 * 9 + 18 + 3*3 + 1 + 5) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

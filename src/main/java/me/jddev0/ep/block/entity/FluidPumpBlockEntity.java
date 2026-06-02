@@ -72,7 +72,8 @@ public class FluidPumpBlockEntity
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.EXTRACTION_RANGE,
-                UpgradeModuleModifier.EXTRACTION_DEPTH
+                UpgradeModuleModifier.EXTRACTION_DEPTH,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 

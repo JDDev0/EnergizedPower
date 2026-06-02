@@ -81,7 +81,8 @@ public class ChargerBlockEntity
                 1,
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         );
     }
 
@@ -201,6 +202,8 @@ public class ChargerBlockEntity
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(ChargerBlock.POWERED)))
             return;
+
+        blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
 
         tickRecipe(level, blockPos, state, blockEntity);
 

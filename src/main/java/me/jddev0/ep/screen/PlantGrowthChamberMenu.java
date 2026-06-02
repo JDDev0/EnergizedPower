@@ -50,7 +50,8 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         ), null);
     }
 
@@ -62,7 +63,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
                 playerInventory, blockEntity,
                 EPBlocks.PLANT_GROWTH_CHAMBER,
 
-                upgradeModuleInventory, 4
+                upgradeModuleInventory, 5
         );
 
         checkContainerSize(inv, 6);
@@ -105,7 +106,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 44 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -170,12 +171,12 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 4, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 5, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
                 //"+2" instead of "+6": Do not allow adding to output slots
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 6 + 4) {
+        }else if(index < 4 * 9 + 6 + 5) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
