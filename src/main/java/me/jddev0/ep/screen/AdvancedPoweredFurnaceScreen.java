@@ -15,7 +15,7 @@ public class AdvancedPoweredFurnaceScreen extends ConfigurableUpgradableEnergySt
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/advanced_powered_furnace.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode_1_item_ejector.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode_1_item_ejector_1_item_pulling.png"));
     }
 
     @Override

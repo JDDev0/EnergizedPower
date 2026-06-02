@@ -107,7 +107,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         );
 
         patternSlots.addListener(updatePatternListener);
@@ -239,6 +240,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableInventoryEnerg
 
         if(!blockEntity.redstoneMode.isActive(state.getValue(AutoCrafterBlock.POWERED)))
             return;
+
+        blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
 
         tickRecipe(level, blockPos, state, blockEntity);
 

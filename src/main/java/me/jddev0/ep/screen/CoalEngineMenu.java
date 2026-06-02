@@ -44,7 +44,8 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         }, new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ENERGY_PRODUCTION,
-                UpgradeModuleModifier.ITEM_EJECTOR
+                UpgradeModuleModifier.ITEM_EJECTOR,
+                UpgradeModuleModifier.ITEM_PULLING
         ), null);
     }
 
@@ -56,7 +57,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
                 playerInventory, blockEntity,
                 EPBlocks.COAL_ENGINE,
 
-                upgradeModuleInventory, 3
+                upgradeModuleInventory, 4
         );
 
         checkContainerSize(inv, 1);
@@ -69,7 +70,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -134,11 +135,11 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 3, false) &&
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 4, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 1 + 3) {
+        }else if(index < 4 * 9 + 1 + 4) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

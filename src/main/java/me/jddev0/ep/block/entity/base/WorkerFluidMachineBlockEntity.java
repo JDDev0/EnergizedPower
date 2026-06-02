@@ -108,6 +108,8 @@ public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVaria
         if(!blockEntity.redstoneMode.isActive(state.getValue(BlockStateProperties.POWERED)))
             return;
 
+        blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
+
         tickRecipe(level, blockPos, state, blockEntity);
 
         blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
