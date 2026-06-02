@@ -1,8 +1,12 @@
 package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -114,6 +118,23 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
 
     protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {}
 
+    protected void renderTooltipUpgradeView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        if(this.hoveredSlot instanceof UpgradeModuleSlot upgradeModuleSlot && !upgradeModuleSlot.hasItem() &&
+                upgradeModuleSlot.container instanceof UpgradeModuleInventory upgradeModuleInventory) {
+            UpgradeModuleModifier[] upgradeModuleModifierSlots = upgradeModuleInventory.getUpgradeModifierSlots();
+            int slotIndex = upgradeModuleSlot.getContainerSlot();
+            if(slotIndex < upgradeModuleModifierSlots.length) {
+                UpgradeModuleModifier upgradeModuleModifier = upgradeModuleModifierSlots[slotIndex];
+
+                List<Component> components = new ArrayList<>(2);
+                components.add(Component.translatable("tooltip.energizedpower.upgrade_module_modifier.slot." + upgradeModuleModifier.getSerializedName()).
+                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+
+                guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            }
+        }
+    }
+
     protected void renderTooltipConfiguration(GuiGraphics drawContext, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Upgrade view
@@ -130,7 +151,9 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     protected final void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
         super.renderTooltip(drawContext, mouseX, mouseY);
 
-        if(!menu.isInUpgradeModuleView())
+        if(menu.isInUpgradeModuleView())
+            renderTooltipUpgradeView(drawContext, mouseX, mouseY);
+        else
             renderTooltipNormalView(drawContext, mouseX, mouseY);
 
         renderTooltipConfiguration(drawContext, mouseX, mouseY);
