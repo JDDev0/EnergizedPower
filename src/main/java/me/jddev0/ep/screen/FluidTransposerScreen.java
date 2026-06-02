@@ -89,8 +89,8 @@ public class FluidTransposerScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(152, 17, 16, 52, mouseX, mouseY)) {
             //Fluid meter

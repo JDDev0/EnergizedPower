@@ -89,8 +89,8 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabels(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         for(int i = 0; i < 3;i++) {
             if(isHovering(10, 18 + i * 18, 30, 14, mouseX, mouseY)) {

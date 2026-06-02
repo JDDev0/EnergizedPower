@@ -60,8 +60,8 @@ public class AutoStonecutterScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         //Missing Pickaxe
         if(isHovering(57, 44, 16, 16, mouseX, mouseY) &&

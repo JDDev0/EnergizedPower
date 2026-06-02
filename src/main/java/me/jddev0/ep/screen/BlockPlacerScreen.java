@@ -58,8 +58,8 @@ public class BlockPlacerScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
             //Inverse rotation checkbox

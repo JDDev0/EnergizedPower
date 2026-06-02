@@ -124,9 +124,9 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         }
     }
 
-    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {}
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {}
 
-    protected void extractLabelsConfiguration(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+    protected void extractTooltipConfiguration(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
             //Upgrade view
 
@@ -139,12 +139,12 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     }
 
     @Override
-    protected final void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabels(guiGraphics, mouseX, mouseY);
+    protected final void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if(!menu.isInUpgradeModuleView())
-            extractLabelsNormalView(guiGraphics, mouseX, mouseY);
+            extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
-        extractLabelsConfiguration(guiGraphics, mouseX, mouseY);
+        extractTooltipConfiguration(guiGraphics, mouseX, mouseY);
     }
 }

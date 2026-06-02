@@ -72,8 +72,8 @@ public class StoneSolidifierScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
             //Fluid meter

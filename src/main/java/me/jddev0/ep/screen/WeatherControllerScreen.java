@@ -96,8 +96,8 @@ public class WeatherControllerScreen
     }
 
     @Override
-    protected void extractLabelsNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabelsNormalView(guiGraphics, mouseX, mouseY);
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
             //Weather clear button

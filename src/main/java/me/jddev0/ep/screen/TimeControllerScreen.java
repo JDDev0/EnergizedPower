@@ -102,8 +102,8 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabels(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
             //Day button

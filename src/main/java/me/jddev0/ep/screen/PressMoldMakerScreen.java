@@ -135,8 +135,8 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabels(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         //Recipe buttons
         int buttonIndex = 0;

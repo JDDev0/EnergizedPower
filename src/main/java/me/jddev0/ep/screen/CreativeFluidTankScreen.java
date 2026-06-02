@@ -81,8 +81,8 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabels(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(48, 17, 80, 52, mouseX, mouseY)) {
             //Fluid meter

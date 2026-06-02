@@ -88,8 +88,8 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
     }
 
     @Override
-    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabels(guiGraphics, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(10, 28, 11, 11, mouseX, mouseY)) {
             //Ignore NBT checkbox

@@ -88,8 +88,8 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
     }
 
     @Override
-    protected void extractLabelsConfiguration(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
-        super.extractLabelsConfiguration(guiGraphics, mouseX, mouseY);
+    protected void extractTooltipConfiguration(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipConfiguration(guiGraphics, mouseX, mouseY);
 
         if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
             //Redstone Mode
