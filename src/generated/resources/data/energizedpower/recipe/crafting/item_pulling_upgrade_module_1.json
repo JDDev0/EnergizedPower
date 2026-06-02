@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "energizedpower:basic_upgrade_module",
+    "H": "minecraft:hopper",
+    "I": "#c:plates/iron",
+    "T": "#c:plates/tin"
+  },
+  "pattern": [
+    "THT",
+    "IBI",
+    "THT"
+  ],
+  "result": {
+    "id": "energizedpower:item_pulling_upgrade_module_1"
+  }
+}

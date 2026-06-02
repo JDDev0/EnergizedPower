@@ -463,6 +463,36 @@ public final class ModConfigs {
             16.
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_1_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            1,
+            .05
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_2_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            2,
+            .25
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_3_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            3,
+            1.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_4_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            4,
+            4.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_5_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            5,
+            8.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_6_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            6,
+            16.
+    );
+
     //Blocks
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536
@@ -1772,6 +1802,16 @@ public final class ModConfigs {
         return COMMON_CONFIG.register(new DoubleConfigValue(
                 "item.item_ejector_upgrade_module_" + tier + ".effect_value",
                 "The upgrade module effect (Items per tick) of the Item Ejector Upgrade Module (Tier " +
+                        NumberUtils.convertToRoman(tier) + ")",
+                defaultValue,
+                0., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerItemPullingUpgradeModuleEffectValue(int tier, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.item_pulling_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Items per tick) of the Item Pulling Upgrade Module (Tier " +
                         NumberUtils.convertToRoman(tier) + ")",
                 defaultValue,
                 0., null
