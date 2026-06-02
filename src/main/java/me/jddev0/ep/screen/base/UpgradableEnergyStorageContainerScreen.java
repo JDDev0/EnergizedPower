@@ -134,7 +134,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
         if(this.hoveredSlot instanceof UpgradeModuleSlot upgradeModuleSlot && !upgradeModuleSlot.hasItem() &&
                 upgradeModuleSlot.container instanceof UpgradeModuleInventory upgradeModuleInventory) {
             UpgradeModuleModifier[] upgradeModuleModifierSlots = upgradeModuleInventory.getUpgradeModifierSlots();
-            int slotIndex = upgradeModuleSlot.getSlotIndex();
+            int slotIndex = upgradeModuleSlot.getContainerSlot();
             if(slotIndex < upgradeModuleModifierSlots.length) {
                 UpgradeModuleModifier upgradeModuleModifier = upgradeModuleModifierSlots[slotIndex];
 
