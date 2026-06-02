@@ -118,6 +118,7 @@
   "_template.item.energizedpower.extraction_range_upgrade_module": "Extraktionsreichweiten-Upgrade-Modul (MK %s)",
   "_template.item.energizedpower.moon_light_upgrade_module": "Mondlicht-Upgrade-Modul (MK %s)",
   "_template.item.energizedpower.item_ejector_upgrade_module": "Item-Auswerfer-Upgrade-Modul (MK %s)",
+  "_template.item.energizedpower.item_pulling_upgrade_module": "Item-Heranholer-Upgrade-Modul (MK %s)",
 
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
@@ -806,6 +807,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.furnace_mode": "Ofenmodus",
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
   "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-Ausgabe Items pro Tick",
+  "tooltip.energizedpower.upgrade_module_modifier.item_pulling": "Auto-Eingabe Items pro Tick",
 
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blöcke",
 
@@ -926,6 +928,9 @@
 
   "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item-Auswerfer %s",
   "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Erstelle ein Item-Auswerfer-Upgrade-Modul (MK %s).",
+
+  "_template.advancements.energizedpower.item_pulling_upgrade_module.title": "Item-Heranholer %s",
+  "_template.advancements.energizedpower.item_pulling_upgrade_module.description": "Erstelle ein Item-Heranholer-Upgrade-Modul (MK %s).",
 
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
   "advancements.energizedpower.blast_furnace_upgrade_module.description": "Erstelle ein Schmelzofen-Upgrade-Modul.",
@@ -1462,6 +1467,9 @@
 
   "book.energizedpower.page.item_ejector_upgrades.1": "Item-Auswerfer-Upgrades erlauben es Maschinen Items automatisch zur ersten gültigen Ausgabe zu befördern.",
   "book.energizedpower.page.item_ejector_upgrades.2": "Priorität von höchste zu geringste: Unten, Oben, Norden, Süden, Westen, Osten.",
+
+  "book.energizedpower.page.item_pulling_upgrades.1": "Item-Heranholer-Upgrades erlauben es Maschinen Items automatisch von der ersten gültigen Eingabe heranzuholen.",
+  "book.energizedpower.page.item_pulling_upgrades.2": "Priorität von höchste zu geringste: Unten, Oben, Norden, Süden, Westen, Osten.",
 
 
   "book.energizedpower.page.chapter.tools.title": "Werkzeuge",
