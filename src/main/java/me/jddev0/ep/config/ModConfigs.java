@@ -1555,7 +1555,7 @@ public final class ModConfigs {
     //Misc
     public static final ConfigValue<Integer> COMMON_OFF_STATE_TIMEOUT = COMMON_CONFIG.register(new IntegerConfigValue(
             "off_state_timeout",
-            "Sets the timeout a machine needs to be off for to change the block state to off in ticks (Prevent light flickering)",
+            "Sets the timeout a machine needs to be off for to change the block state to off in ticks (Prevents light flickering)",
             20,
             5, 200
     ));
