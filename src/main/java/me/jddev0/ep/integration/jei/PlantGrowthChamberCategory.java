@@ -10,6 +10,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -73,7 +74,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
         for(int i = 0;i < outputEntries.length;i++)
-            outputSlotEntries.get(i % 4).add(outputEntries[i]);
+            outputSlotEntries.get(i % 4).add(outputEntries[i].copyWithCount(1));
 
         IRecipeSlotRichTooltipCallback callback = (view, tooltip) -> {
             if(view.isEmpty())
@@ -117,5 +118,19 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         int textWidth = font.width(component);
 
         guiGraphics.text(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
+    }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, RecipeHolder<PlantGrowthChamberRecipe> recipe, IFocusGroup focuses) {
+        ItemStack[] outputEntries = recipe.value().getMaxOutputCounts();
+        for(int i = 0;i < outputEntries.length && i < 4;i++) {
+            int x = i == 0 || i == 2?73:91;
+            int y = i < 2?1:19;
+
+            //TODO support multiple amounts
+            double[] percentages = recipe.value().getOutputs()[i].percentages();
+            builder.addWidget(new ChanceBasedSlotWidget(x, y,
+                    (int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length));
+        }
     }
 }
