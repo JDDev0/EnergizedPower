@@ -8,7 +8,7 @@ import java.util.List;
 
 public final class VersionConfigValue extends StringConfigValue {
     public VersionConfigValue(@NotNull String key, @NotNull String version) {
-        super(key, "The config version of the config file", version);
+        super(key, "The config version of this config file", version);
     }
 
     @Override
