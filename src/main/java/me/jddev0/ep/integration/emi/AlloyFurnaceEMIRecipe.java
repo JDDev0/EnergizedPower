@@ -5,7 +5,6 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -16,8 +15,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +41,13 @@ public class AlloyFurnaceEMIRecipe implements EmiRecipe {
         this.input = Arrays.stream(recipe.value().getInputs()).map(input ->
                 EmiIngredient.of(input.input(), input.count())).collect(Collectors.toList());
 
-        this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();
+        ItemStack[] outputs = recipe.value().getMaxOutputCounts();
+        this.output = new ArrayList<>();
+        if(outputs.length > 0 && !outputs[0].isEmpty())
+            this.output.add(EmiStack.of(outputs[0]));
+        if(outputs.length > 1 && !outputs[1].isEmpty())
+            this.output.add(EmiStack.of(outputs[1], 1));
+
         this.secondaryOutputWithPercentages = recipe.value().getSecondaryOutput();
         this.ticks = (int)(recipe.value().getTicks() * AlloyFurnaceBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
@@ -87,11 +94,16 @@ public class AlloyFurnaceEMIRecipe implements EmiRecipe {
             widgets.addSlot(EmiStack.EMPTY, 18 * i, 4);
 
         widgets.addSlot(output.get(0), 98, 0).large(true).recipeContext(this);
-        SlotWidget secondaryOutputSlot = widgets.addSlot(output.size() == 2?output.get(1):EmiStack.EMPTY, 124, 0).large(true).recipeContext(this);
+        ChanceBasedSlotWidget secondaryOutputSlot = widgets.add(new ChanceBasedSlotWidget(output.size() == 2?output.get(1):EmiStack.EMPTY, 124, 0)).
+                large(true).recipeContext(this);
         if(output.size() == 2) {
+            double[] percentages = secondaryOutputWithPercentages.percentages();
+
+            secondaryOutputSlot.setMinAmount((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count());
+            secondaryOutputSlot.setMaxAmount(percentages.length);
+
             secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            double[] percentages = secondaryOutputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)
                 secondaryOutputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
         }

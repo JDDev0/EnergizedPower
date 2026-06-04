@@ -5,7 +5,6 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -18,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,7 +36,7 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
     public CrystalGrowthChamberEMIRecipe(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput(), recipe.value().getInputCount()));
-        this.output = List.of(EmiStack.of(recipe.value().getMaxOutputCount()));
+        this.output = List.of(EmiStack.of(recipe.value().getMaxOutputCount(), 1));
         this.outputWithPercentages = recipe.value().getOutput();
         this.ticks = (int)(recipe.value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
@@ -77,11 +77,16 @@ public class CrystalGrowthChamberEMIRecipe implements EmiRecipe {
         widgets.addTexture(texture, 0, 0, 98, 38, 47, 30);
 
         widgets.addSlot(input.get(0), 0, 4).drawBack(false);
-        SlotWidget outputSlot = widgets.addSlot(output.get(0), 76, 4).drawBack(false).recipeContext(this);
+        ChanceBasedSlotWidget outputSlot = widgets.add(new ChanceBasedSlotWidget(output.get(0), 76, 4)).
+                drawBack(false).recipeContext(this);
         {
+            double[] percentages = outputWithPercentages.percentages();
+
+            outputSlot.setMinAmount((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count());
+            outputSlot.setMaxAmount(percentages.length);
+
             outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            double[] percentages = outputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)
                 outputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 

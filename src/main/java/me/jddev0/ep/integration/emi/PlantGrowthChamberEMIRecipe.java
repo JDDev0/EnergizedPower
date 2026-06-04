@@ -5,7 +5,6 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -35,7 +34,8 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     public PlantGrowthChamberEMIRecipe(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
-        this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).map(EmiStack::of).toList();
+        this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).
+                map(item -> EmiStack.of(item, 1)).toList();
         this.outputsWithPercentages = recipe.value().getOutputs();
         this.ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
@@ -84,15 +84,15 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
         for(int i = 0;i < output.size();i++)
             outputSlotEntries.get(i % 4).add(output.get(i));
 
-        SlotWidget[] outputSlots = new SlotWidget[4];
+        ChanceBasedSlotWidget[] outputSlots = new ChanceBasedSlotWidget[4];
 
-        outputSlots[0] = widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(0)), 72, 0).drawBack(false).recipeContext(this);
-        outputSlots[1] = widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(1)), 90, 0).drawBack(false).recipeContext(this);
-        outputSlots[2] = widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(2)), 72, 18).drawBack(false).recipeContext(this);
-        outputSlots[3] = widgets.addSlot(EmiIngredient.of(outputSlotEntries.get(3)), 90, 18).drawBack(false).recipeContext(this);
+        outputSlots[0] = widgets.add(new ChanceBasedSlotWidget(EmiIngredient.of(outputSlotEntries.get(0)), 72, 0)).drawBack(false).recipeContext(this);
+        outputSlots[1] = widgets.add(new ChanceBasedSlotWidget(EmiIngredient.of(outputSlotEntries.get(1)), 90, 0)).drawBack(false).recipeContext(this);
+        outputSlots[2] = widgets.add(new ChanceBasedSlotWidget(EmiIngredient.of(outputSlotEntries.get(2)), 72, 18)).drawBack(false).recipeContext(this);
+        outputSlots[3] = widgets.add(new ChanceBasedSlotWidget(EmiIngredient.of(outputSlotEntries.get(3)), 90, 18)).drawBack(false).recipeContext(this);
 
         for(int i = 0;i < outputsWithPercentages.length;i++) {
-            SlotWidget outputSlot = outputSlots[i % 4];
+            ChanceBasedSlotWidget outputSlot = outputSlots[i % 4];
 
             Component oddsText = Component.translatable("recipes.energizedpower.transfer.output_percentages");
 
@@ -101,6 +101,10 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
                         append(Component.literal(": ").append(oddsText)));
             }else {
                 outputSlot.appendTooltip(oddsText);
+
+                //TODO support multiple amounts
+                outputSlot.setMinAmount((int)Arrays.stream(outputsWithPercentages[i].percentages()).filter(p -> p >= 1.0).count());
+                outputSlot.setMaxAmount(outputsWithPercentages[i].percentages().length);
             }
 
             double[] percentages = outputsWithPercentages[i].percentages();
