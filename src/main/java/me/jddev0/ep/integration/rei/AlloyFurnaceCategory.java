@@ -14,6 +14,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -74,6 +75,11 @@ public class AlloyFurnaceCategory implements DisplayCategory<AlloyFurnaceDisplay
 
                     return stack.tooltip(tooltip);
                 }):new ArrayList<>(0)));
+        {
+            double[] percentages = display.recipe().value().getSecondaryOutput().percentages();
+            widgets.add(Widgets.wrapRenderer(new Rectangle(x + 125, y + 5, 18, 18),
+                    new ChanceBasedSlotRenderer((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length)));
+        }
 
         int ticks = (int)(display.recipe().value().getTicks() * AlloyFurnaceBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
