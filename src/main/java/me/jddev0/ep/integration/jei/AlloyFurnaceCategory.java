@@ -9,6 +9,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -76,7 +77,7 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 100, 5).addItemStack(outputEntries[0]);
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 126, 5).
-                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
+                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1].copyWithCount(1))).
                 addRichTooltipCallback((view, tooltip) -> {
                     if(view.isEmpty())
                         return;
@@ -97,5 +98,14 @@ public class AlloyFurnaceCategory implements IRecipeCategory<RecipeHolder<AlloyF
         int textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 147 - textWidth, 29, 0xFFFFFFFF, false);
+    }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, RecipeHolder<AlloyFurnaceRecipe> recipe, IFocusGroup focuses) {
+        {
+            double[] percentages = recipe.value().getSecondaryOutput().percentages();
+            builder.addWidget(new ChanceBasedSlotWidget(126, 5,
+                    (int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length));
+        }
     }
 }

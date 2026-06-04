@@ -6,6 +6,7 @@ import me.jddev0.ep.recipe.PulverizerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -16,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,7 +60,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
 
         ItemStack[] outputEntries = recipe.value().getMaxOutputCounts(false);
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0]).
+        iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 65, 5).addItemStack(outputEntries[0].copyWithCount(1)).
                 addRichTooltipCallback((view, tooltip) -> {
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
@@ -68,7 +70,7 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
                 });
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 92, 5).
-                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1])).
+                addItemStacks(outputEntries[1].isEmpty()?List.of():List.of(outputEntries[1].copyWithCount(1))).
                 addRichTooltipCallback((view, tooltip) -> {
                     if(view.isEmpty())
                         return;
@@ -79,5 +81,20 @@ public class PulverizerCategory implements IRecipeCategory<RecipeHolder<Pulveriz
                     for(int i = 0;i < percentages.length;i++)
                         tooltip.add(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
                 });
+    }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, RecipeHolder<PulverizerRecipe> recipe, IFocusGroup focuses) {
+        {
+            double[] percentages = recipe.value().getOutput().percentages();
+            builder.addWidget(new ChanceBasedSlotWidget(65, 5,
+                    (int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length));
+        }
+
+        {
+            double[] percentages = recipe.value().getSecondaryOutput().percentages();
+            builder.addWidget(new ChanceBasedSlotWidget(92, 5,
+                    (int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length));
+        }
     }
 }
