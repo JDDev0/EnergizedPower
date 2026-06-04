@@ -1218,7 +1218,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energy Consumption",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Speed",
-  "recipes.energizedpower.transfer.output_percentages": "Percentage per item:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "This recipe is to large for this container!",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "These items need %s to be fully charged.",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
