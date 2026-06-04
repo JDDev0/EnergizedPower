@@ -8,6 +8,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -64,7 +65,7 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolde
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
                         collect(Collectors.toList()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getMaxOutputCount()).
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 5).addItemStack(recipe.value().getMaxOutputCount().copyWithCount(1)).
                 addRichTooltipCallback((view, tooltip) -> {
                     tooltip.add(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
@@ -82,5 +83,14 @@ public class CrystalGrowthChamberCategory implements IRecipeCategory<RecipeHolde
         int textWidth = font.width(component);
 
         guiGraphics.drawString(Minecraft.getInstance().font, component, 98 - textWidth, 30, 0xFFFFFFFF, false);
+    }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, RecipeHolder<CrystalGrowthChamberRecipe> recipe, IFocusGroup focuses) {
+        {
+            double[] percentages = recipe.value().getOutput().percentages();
+            builder.addWidget(new ChanceBasedSlotWidget(77, 5,
+                    (int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length));
+        }
     }
 }
