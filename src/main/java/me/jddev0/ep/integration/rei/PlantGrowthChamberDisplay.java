@@ -19,7 +19,8 @@ public record PlantGrowthChamberDisplay(RecipeHolder<PlantGrowthChamberRecipe> r
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
-        return Arrays.stream(recipe.value().getMaxOutputCounts()).map(EntryIngredients::of).toList();
+        return Arrays.stream(recipe.value().getMaxOutputCounts()).
+                map(item -> item.copyWithCount(1)).map(EntryIngredients::of).toList();
     }
 
     @Override

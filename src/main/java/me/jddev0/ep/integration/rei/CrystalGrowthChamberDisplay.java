@@ -23,7 +23,7 @@ public record CrystalGrowthChamberDisplay(RecipeHolder<CrystalGrowthChamberRecip
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.value().getMaxOutputCount())
+                EntryIngredients.of(recipe.value().getMaxOutputCount().copyWithCount(1))
         );
     }
 

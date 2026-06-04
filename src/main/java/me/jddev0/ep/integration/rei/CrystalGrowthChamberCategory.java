@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -63,6 +64,11 @@ public class CrystalGrowthChamberCategory implements DisplayCategory<CrystalGrow
 
                     return stack.tooltip(tooltip);
                 })));
+        {
+            double[] percentages = display.recipe().value().getOutput().percentages();
+            widgets.add(Widgets.wrapRenderer(new Rectangle(x + 77, y + 5, 18, 18),
+                    new ChanceBasedSlotRenderer((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length)));
+        }
 
         int ticks = (int)(display.recipe().value().getTicks() * CrystalGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),

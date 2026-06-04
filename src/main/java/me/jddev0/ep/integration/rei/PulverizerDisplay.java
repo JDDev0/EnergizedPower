@@ -19,7 +19,8 @@ public record PulverizerDisplay(RecipeHolder<PulverizerRecipe> recipe) implement
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
-        return Arrays.stream(recipe.value().getMaxOutputCounts(false)).filter(itemStack -> !itemStack.isEmpty()).map(EntryIngredients::of).toList();
+        return Arrays.stream(recipe.value().getMaxOutputCounts(false)).filter(itemStack -> !itemStack.isEmpty()).
+                map(item -> item.copyWithCount(1)).map(EntryIngredients::of).toList();
     }
 
     @Override
