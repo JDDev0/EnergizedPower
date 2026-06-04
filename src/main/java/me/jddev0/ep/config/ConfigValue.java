@@ -80,9 +80,9 @@ public abstract class ConfigValue<T> {
     }
 
     public void read(@NotNull String rawValue) throws ConfigValidationException {
-        loaded = true;
-
         setValue(readInternal(rawValue));
+
+        loaded = true;
     }
 
     public @NotNull String write() {
