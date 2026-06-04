@@ -1218,7 +1218,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Камера роста (Удобрение)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx потребление энергии",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx скорость",
-  "recipes.energizedpower.transfer.output_percentages": "Процент на единицу предмета:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "Этот рецепт слишком велик для этого контейнера!",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Этим предметам требуется %s для полной зарядки.",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Эта машина потребляет воду и производит грязную воду.",

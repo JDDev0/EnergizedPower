@@ -1218,7 +1218,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "植物育成機 (肥料)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "電力消費 x%.2f",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "成長速度 x%.2f",
-  "recipes.energizedpower.transfer.output_percentages": "アイテム1つあたりの割合:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "レシピの規模が大きすぎるため、この収納には収まりません！",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "全アイテムの充電完了まであと%s必要です。",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "この機械は水を消費し、汚水を排出する。",
