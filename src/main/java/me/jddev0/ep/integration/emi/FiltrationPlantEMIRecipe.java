@@ -5,7 +5,6 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
-import dev.emi.emi.api.widget.SlotWidget;
 import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -36,7 +35,8 @@ public class FiltrationPlantEMIRecipe implements EmiRecipe {
         this.id = recipe.id();
         this.input = List.of(EmiStack.of(EPFluids.DIRTY_WATER, FiltrationPlantBlockEntity.DIRTY_WATER_CONSUMPTION_PER_RECIPE));
 
-        this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).map(EmiStack::of).toList();
+        this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).
+                map(item -> EmiStack.of(item, 1)).toList();
         this.outputWithPercentages = recipe.value().getOutput();
         this.secondaryOutputWithPercentages = recipe.value().getSecondaryOutput();
     }
@@ -77,20 +77,30 @@ public class FiltrationPlantEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(input.get(0), 0, 4);
 
-        SlotWidget outputSlot = widgets.addSlot(output.get(0), 63, 4).recipeContext(this);
+        ChanceBasedSlotWidget outputSlot = widgets.add(new ChanceBasedSlotWidget(output.get(0), 63, 4)).
+                recipeContext(this);
         {
+            double[] percentages = outputWithPercentages.percentages();
+
+            outputSlot.setMinAmount((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count());
+            outputSlot.setMaxAmount(percentages.length);
+
             outputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            double[] percentages = outputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)
                 outputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
         }
-        SlotWidget secondaryOutputSlot = widgets.addSlot(output.size() == 2?output.get(1):EmiStack.EMPTY, 91, 4).recipeContext(this);
+        ChanceBasedSlotWidget secondaryOutputSlot = widgets.add(new ChanceBasedSlotWidget(output.size() == 2?output.get(1):EmiStack.EMPTY, 91, 4)).
+                recipeContext(this);
         if(output.size() == 2) {
+            double[] percentages = secondaryOutputWithPercentages.percentages();
+
+            secondaryOutputSlot.setMinAmount((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count());
+            secondaryOutputSlot.setMaxAmount(percentages.length);
+
             secondaryOutputSlot.appendTooltip(Component.translatable("recipes.energizedpower.transfer.output_percentages"));
 
-            double[] percentages = secondaryOutputWithPercentages.percentages();
             for(int i = 0;i < percentages.length;i++)
                 secondaryOutputSlot.appendTooltip(Component.literal(String.format(Locale.ENGLISH, "%2d • %.2f %%", i + 1, 100 * percentages[i])));
 
