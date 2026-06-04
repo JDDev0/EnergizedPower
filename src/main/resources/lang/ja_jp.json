@@ -844,7 +844,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "成長速度 x%.2f",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "電力消費 x%.2f",
   "recipes.energizedpower.transfer.too_large": "レシピの規模が大きすぎるため、この収納には収まりません！",
-  "recipes.energizedpower.transfer.output_percentages": "アイテム1つあたりの割合:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 
   "emi.category.energizedpower.charger": "充電器",
   "emi.category.energizedpower.crusher": "破砕機",

@@ -1218,7 +1218,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Büyütme Çembereri (Gübreleyici)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Enerji Tüketimi",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Hız",
-  "recipes.energizedpower.transfer.output_percentages": "Percentage per item:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "Bu tarif bu konteyner için ÇOK büyük",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Bu eşyalar %s Full şarj olmayı gerektiyor.",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
