@@ -1547,7 +1547,10 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_ELECTRICIAN_BUILDING_1_PLACEMENT_WEIGHT = COMMON_CONFIG.register(new IntegerConfigValue(
             "world.village.electrician_building_1.placement_weight",
             "Determines how frequent the Electrician Building 1 will be placed in villages.\n" +
-                    "=> If set to 0 the Electrician Building 1 will never be placed.",
+                    "=> If set to 0 the electrician Building 1 will never be placed.\n" +
+                    "=> Consider removing the mentioning of the Electrician house in the electrician book when you remove the building completely:\n" +
+                    "   1. Remove the book page: https://wiki.jddev0.com/link/3#bkmrk-removal-of-the-elect\n" +
+                    "   2. Replace it with this version: https://wiki.jddev0.com/link/3#bkmrk-electrician-page-%28wi",
             5,
             0, 100
     ));
