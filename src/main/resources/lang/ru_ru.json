@@ -844,7 +844,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx скорость",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx потребление энергии",
   "recipes.energizedpower.transfer.too_large": "Этот рецепт слишком велик для этого контейнера!",
-  "recipes.energizedpower.transfer.output_percentages": "Процент на единицу предмета:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 
   "emi.category.energizedpower.charger": "Зарядник",
   "emi.category.energizedpower.crusher": "Дробилка",

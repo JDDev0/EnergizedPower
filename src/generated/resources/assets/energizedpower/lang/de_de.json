@@ -1218,7 +1218,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Energieverbrauch",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Geschwindigkeit",
-  "recipes.energizedpower.transfer.output_percentages": "Wahrscheinlichkeit pro Item:",
+  "recipes.energizedpower.transfer.output_percentages": "Würfe:",
   "recipes.energizedpower.transfer.too_large": "Dieses Rezept ist für diesen Container zu groß!",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Diese Items brauchen noch %s, um vollständig geladen zu sein.",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Diese Maschine konsumiert Wasser und produziert Schmutziges Wasser.",

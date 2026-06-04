@@ -1218,7 +1218,7 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "生长室 (肥料)",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx 能量消耗",
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx 速度",
-  "recipes.energizedpower.transfer.output_percentages": "每个物品的百分比:",
+  "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "此配方对此容器来说太大！",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "这些物品需要 %s 才能充满电。",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "此机器消耗水并产生脏水。",
