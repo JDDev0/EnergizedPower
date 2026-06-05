@@ -344,7 +344,9 @@ public class EnergizedPowerMod {
             event.accept(EPItems.STEEL_INGOT);
             event.accept(EPItems.REDSTONE_ALLOY_INGOT);
             event.accept(EPItems.ADVANCED_ALLOY_INGOT);
+            event.accept(EPItems.CRYSTALLIZED_ALLOY_INGOT);
             event.accept(EPItems.ADVANCED_ALLOY_PLATE);
+            event.accept(EPItems.CRYSTALLIZED_ALLOY_PLATE);
             event.accept(EPItems.IRON_GEAR);
             event.accept(EPItems.IRON_ROD);
             event.accept(EPItems.TIN_WIRE);

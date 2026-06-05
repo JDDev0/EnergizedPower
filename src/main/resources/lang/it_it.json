@@ -32,8 +32,10 @@
 
   "item.energizedpower.redstone_alloy_ingot": "Redstone Alloy Ingot",
   "item.energizedpower.advanced_alloy_ingot": "Advanced Alloy Ingot",
+  "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
   "item.energizedpower.advanced_alloy_plate": "Advanced Alloy Plate",
+  "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "Ingranaggio di ferro",
 
@@ -975,8 +977,14 @@
   "advancements.energizedpower.advanced_alloy_ingot.title": "Advanced Alloy Ingot",
   "advancements.energizedpower.advanced_alloy_ingot.description": "Create an Advanced Alloy Ingot.",
 
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
+
   "advancements.energizedpower.advanced_alloy_plate.title": "Advanced Alloy Plate",
   "advancements.energizedpower.advanced_alloy_plate.description": "Create an Advanced Alloy Plate.",
+
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
 
   "advancements.energizedpower.auto_crafter.title": "L'automazione è il futuro",
   "advancements.energizedpower.auto_crafter.description": "Chi ha bisogno di tabelle di creazione manuale quando questo blocco può farlo automaticamente?",

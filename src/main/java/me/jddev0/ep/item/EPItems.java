@@ -70,7 +70,11 @@ public final class EPItems {
 
     public static final DeferredItem<Item> ADVANCED_ALLOY_INGOT = registerItem("advanced_alloy_ingot");
 
+    public static final DeferredItem<Item> CRYSTALLIZED_ALLOY_INGOT = registerItem("crystallized_alloy_ingot");
+
     public static final DeferredItem<Item> ADVANCED_ALLOY_PLATE = registerItem("advanced_alloy_plate");
+
+    public static final DeferredItem<Item> CRYSTALLIZED_ALLOY_PLATE = registerItem("crystallized_alloy_plate");
 
     public static final DeferredItem<Item> IRON_GEAR = registerItem("iron_gear");
 

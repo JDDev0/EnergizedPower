@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "ingredient": "#c:ingots/crystallized_alloy"
+  },
+  "result": {
+    "id": "energizedpower:crystallized_alloy_plate"
+  }
+}

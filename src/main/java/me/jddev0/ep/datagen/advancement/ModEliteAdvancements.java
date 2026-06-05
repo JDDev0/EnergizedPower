@@ -46,6 +46,20 @@ public class ModEliteAdvancements implements AdvancementSubProvider {
                                 CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI
                         ))).
                 save(advancementOutput, EPAPI.id("main/elite/energizedpower_elite"));
+
+        AdvancementHolder crystallizedAlloyIngot = addAdvancement(
+                lookupProvider,
+                advancementOutput, energizedPowerElite,
+                EPItems.CRYSTALLIZED_ALLOY_INGOT, "crystallized_alloy_ingot", AdvancementType.TASK,
+                CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY
+        );
+
+        AdvancementHolder crystallizedAlloyPlate = addAdvancement(
+                lookupProvider,
+                advancementOutput, crystallizedAlloyIngot,
+                EPItems.CRYSTALLIZED_ALLOY_PLATE, "crystallized_alloy_plate", AdvancementType.TASK,
+                CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
+        );
     }
 
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,

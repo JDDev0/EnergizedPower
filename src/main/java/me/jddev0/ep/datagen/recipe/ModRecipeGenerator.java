@@ -2491,6 +2491,12 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new IngredientWithCount(ingredientOf(Tags.Items.INGOTS_COPPER), 3),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN), 3)
         }, new ItemStackTemplate(EPItems.ADVANCED_ALLOY_INGOT.get()), 10000);
+
+        addAlloyFurnaceRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 2),
+                new IngredientWithCount(ingredientOf(EPItems.CRYSTAL_MATRIX), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY), 2)
+        }, new ItemStackTemplate(EPItems.CRYSTALLIZED_ALLOY_INGOT.get()), 20000);
     }
 
     private void buildCompressorRecipes() {
@@ -2512,6 +2518,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addPlateCompressorIngotRecipe(output, ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
                 new ItemStackTemplate(EPItems.ADVANCED_ALLOY_PLATE.get()), "advanced_alloy");
+        addPlateCompressorIngotRecipe(output, ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
+                new ItemStackTemplate(EPItems.CRYSTALLIZED_ALLOY_PLATE.get()), "crystallized_alloy");
         addPlateCompressorIngotRecipe(output, ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER),
                 new ItemStackTemplate(EPItems.ENERGIZED_COPPER_PLATE.get()), "energized_copper");
         addPlateCompressorIngotRecipe(output, ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),

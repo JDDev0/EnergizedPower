@@ -32,8 +32,10 @@
 
   "item.energizedpower.redstone_alloy_ingot": "红石合金锭",
   "item.energizedpower.advanced_alloy_ingot": "高级合金锭",
+  "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
   "item.energizedpower.advanced_alloy_plate": "高级合金板",
+  "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "铁齿轮",
 
@@ -975,8 +977,14 @@
   "advancements.energizedpower.advanced_alloy_ingot.title": "高级合金锭",
   "advancements.energizedpower.advanced_alloy_ingot.description": "制造一个高级合金锭。",
 
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
+
   "advancements.energizedpower.advanced_alloy_plate.title": "高级合金板",
   "advancements.energizedpower.advanced_alloy_plate.description": "制造一个高级合金板。",
+
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
 
   "advancements.energizedpower.auto_crafter.title": "自动化是未来",
   "advancements.energizedpower.auto_crafter.description": "当这个方块能自动完成时，谁还需要手动工作台？",
