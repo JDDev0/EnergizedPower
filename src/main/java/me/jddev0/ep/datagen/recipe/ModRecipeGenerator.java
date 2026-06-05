@@ -837,7 +837,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         addShapedCraftingRecipe(output, has(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
                 'S', ingredientOf(CommonItemTags.SILICON),
-                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL),
+                'B', ingredientOf(EPItems.ADVANCED_SOLAR_CELL),
                 'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
                 'M', ingredientOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_1)
         ), new String[] {
@@ -849,7 +849,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         addShapedCraftingRecipe(output, has(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
                 'S', ingredientOf(CommonItemTags.SILICON),
-                'B', ingredientOf(EPItems.BASIC_SOLAR_CELL),
+                'B', ingredientOf(EPItems.REINFORCED_ADVANCED_SOLAR_CELL),
                 'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
                 'M', ingredientOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_2)
         ), new String[] {
