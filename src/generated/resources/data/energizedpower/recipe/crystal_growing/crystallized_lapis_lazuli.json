@@ -1,0 +1,20 @@
+{
+  "type": "energizedpower:crystal_growth_chamber",
+  "ingredient": {
+    "ingredient": "#c:gems/crystallized_lapis_lazuli"
+  },
+  "result": {
+    "percentages": [
+      1.0,
+      1.0,
+      0.67,
+      0.5,
+      0.25,
+      0.125
+    ],
+    "result": {
+      "id": "energizedpower:crystallized_lapis_lazuli"
+    }
+  },
+  "ticks": 32000
+}

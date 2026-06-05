@@ -1,4 +1,4 @@
-// 26.1.2	2026-05-22T17:54:18.667391166	Tags for minecraft:item mod id energizedpower
+// 26.1.2	2026-06-05T20:17:48.409958155	Tags for minecraft:item mod id energizedpower
 6af40b20a5859a5a3cdb0d6cbd6afe51ad578bcf data/ae2/tags/item/p2p_attunements/fe_p2p_tunnel.json
 9c13ddcf3b08e2ca014a40c9b9dc39bd46405834 data/ae2/tags/item/p2p_attunements/fluid_p2p_tunnel.json
 ffc429096520b17e4883f075eac0c840c0c62704 data/ae2/tags/item/p2p_attunements/item_p2p_tunnel.json
@@ -11,6 +11,8 @@ b251af5a31ef778cbda899b7c7f6e98d14860bbd data/c/tags/item/dusts/iron.json
 cb5dd5b2cc4bfddcce61d8a39c99bcdf8e0743f8 data/c/tags/item/dusts/wood.json
 de0c8cb08e1425710f541c32efe2e584f1d4cb17 data/c/tags/item/gears.json
 36a6ff960b85e3b034d7b07502297879537acce2 data/c/tags/item/gears/iron.json
+256ea078fffeee833bda9012765dee9974a7b02d data/c/tags/item/gems.json
+37f10aded198c7ab61266d59c7d447734a4ac325 data/c/tags/item/gems/crystallized_lapis_lazuli.json
 63321bb8e99656e3530cc4da72b5b8dbeed0f8b3 data/c/tags/item/ingots.json
 0b519c0804459b9a20151d9089dd801e5c55b201 data/c/tags/item/ingots/advanced_alloy.json
 7142cc6e579bf3eaad7f55abba82b6e4d64ca925 data/c/tags/item/ingots/energized_copper.json

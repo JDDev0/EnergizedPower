@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-01T20:58:19.119034266	Model Definitions - energizedpower
+// 26.1.2	2026-06-05T20:17:48.41080575	Model Definitions - energizedpower
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -182,6 +182,7 @@ b1e549faf8a7d9b87139443e40f3c61820ffe79a assets/energizedpower/items/creative_ba
 350f2bab8e634a2087579fa8d38371197529a081 assets/energizedpower/items/crusher.json
 0ec760f62016e3d9988713f9f66e97a640a33557 assets/energizedpower/items/crystal_growth_chamber.json
 f6c6b25695a12a707e9b1845cef806ffdb5a5c07 assets/energizedpower/items/crystal_matrix.json
+17f692e7210e9ab963e2ec304c2bd19df5ff75b1 assets/energizedpower/items/crystallized_lapis_lazuli.json
 2fa50af156d4379116479de9ea8377d9a6fd1b2c assets/energizedpower/items/cutter.json
 4f936a45b627194af2d970e17fc5e958b50b7670 assets/energizedpower/items/deepslate_tin_ore.json
 56b516082a1b89bc454d177d7ca5e61df404a807 assets/energizedpower/items/diamond_hammer.json
@@ -583,6 +584,7 @@ b043ed0b7554c18d716faebec7b277e8bbc9e3ec assets/energizedpower/models/item/coppe
 fc3199a3a40ade13137276b08589ddce3ee1d4f3 assets/energizedpower/models/item/copper_wire.json
 d80e56e84556720ab23dfaeb4968be7372fa9cf1 assets/energizedpower/models/item/creative_battery.json
 d23513f07bc7e015d28446b3afae7a29babe0c0e assets/energizedpower/models/item/crystal_matrix.json
+18d10371624827578f56b3a1a3e31ed8d7942de9 assets/energizedpower/models/item/crystallized_lapis_lazuli.json
 d18cb1c8afa39e643c0a4df22940b041d7b9675c assets/energizedpower/models/item/cutter.json
 97c9c2352bcdfdc6e6612ea126d22bc640d06085 assets/energizedpower/models/item/diamond_hammer.json
 0e0367d46698149b04cfae22b70f67fdc410a7f2 assets/energizedpower/models/item/dirty_water_bucket.json

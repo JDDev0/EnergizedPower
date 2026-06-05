@@ -80,6 +80,9 @@ public final class EPItems {
     public static final DeferredItem<Item> COPPER_WIRE = registerItem("copper_wire");
     public static final DeferredItem<Item> GOLD_WIRE = registerItem("gold_wire");
 
+    public static final DeferredItem<Item> CRYSTALLIZED_LAPIS_LAZULI = registerItem("crystallized_lapis_lazuli",
+            CrystallizedLapisLazuliItem::new);
+
     public static final DeferredItem<Item> SAWDUST = registerItem("sawdust");
 
     public static final DeferredItem<Item> CHARCOAL_DUST = registerItem("charcoal_dust");

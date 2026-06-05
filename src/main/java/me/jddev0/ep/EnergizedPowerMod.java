@@ -350,6 +350,7 @@ public class EnergizedPowerMod {
             event.accept(EPItems.TIN_WIRE);
             event.accept(EPItems.COPPER_WIRE);
             event.accept(EPItems.GOLD_WIRE);
+            event.accept(EPItems.CRYSTALLIZED_LAPIS_LAZULI);
             event.accept(EPItems.ENERGIZED_COPPER_INGOT);
             event.accept(EPItems.ENERGIZED_GOLD_INGOT);
             event.accept(EPItems.ENERGIZED_COPPER_PLATE);

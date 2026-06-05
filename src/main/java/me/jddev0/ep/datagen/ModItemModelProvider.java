@@ -73,6 +73,8 @@ public class ModItemModelProvider {
         basicItem(EPItems.COPPER_WIRE);
         basicItem(EPItems.GOLD_WIRE);
 
+        basicItem(EPItems.CRYSTALLIZED_LAPIS_LAZULI);
+
         basicItem(EPItems.SAWDUST);
 
         basicItem(EPItems.CHARCOAL_DUST);

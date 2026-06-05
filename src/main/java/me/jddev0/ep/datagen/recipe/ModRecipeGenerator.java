@@ -3193,6 +3193,14 @@ public class ModRecipeGenerator extends RecipeProvider {
         addCrystalGrowthChamberRecipe(output, new IngredientWithCount(ingredientOf(Items.AMETHYST_BLOCK), 4),
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.BUDDING_AMETHYST), .25),
                 32000);
+
+        addCrystalGrowthChamberRecipe(output, new IngredientWithCount(ingredientOf(Items.LAPIS_LAZULI), 8),
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(EPItems.CRYSTALLIZED_LAPIS_LAZULI), 1.),
+                128000, "_from_lapis_lazli");
+        addCrystalGrowthChamberRecipe(output, ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(EPItems.CRYSTALLIZED_LAPIS_LAZULI), new double[] {
+                        1., 1., .67, .5, .25, .125
+                }), 32000);
     }
 
     private void add3x3PackingCraftingRecipe(RecipeOutput output, Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
@@ -3798,8 +3806,12 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addCrystalGrowthChamberRecipe(RecipeOutput recipeOutput, IngredientWithCount input, OutputItemStackTemplateWithPercentages output,
                                                int ticks) {
+        addCrystalGrowthChamberRecipe(recipeOutput, input, output, ticks, "");
+    }
+    private void addCrystalGrowthChamberRecipe(RecipeOutput recipeOutput, IngredientWithCount input, OutputItemStackTemplateWithPercentages output,
+                                               int ticks, String recipeIdSuffix) {
         Identifier recipeId = EPAPI.id("crystal_growing/" +
-                getItemName(output.output().item().value()));
+                getItemName(output.output().item().value()) + recipeIdSuffix);
 
         CrystalGrowthChamberRecipe recipe = new CrystalGrowthChamberRecipe(output, input, ticks);
         recipeOutput.accept(getKey(recipeId), recipe, null);

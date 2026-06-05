@@ -43,6 +43,9 @@
   "item.energizedpower.copper_wire": "Медный провод",
   "item.energizedpower.gold_wire": "Золотой провод",
 
+  "item.energizedpower.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli",
+  "tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1": "You should install two sets of Tier VI upgrades in the Crystal Growth Chamber before making this item.",
+
   "item.energizedpower.sawdust": "Опилки",
 
   "item.energizedpower.charcoal_dust": "Угольный порошок",
@@ -1376,6 +1379,9 @@
 
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Продвинутая разрядка вагонетки",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Разряжает вагонетки быстрее.",
+
+  "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
+  "advancements.energizedpower.energizedpower_elite.description": "Crystallization is the future.",
 
 
   "book.energizedpower.tooltip.link": "Открыть ссылку",
