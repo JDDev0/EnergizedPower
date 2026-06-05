@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/energized_alloy_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/energized_alloy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.energized_alloy_plate.description"
+    },
+    "icon": {
+      "id": "energizedpower:energized_alloy_plate"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energized_alloy_plate.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

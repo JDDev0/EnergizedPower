@@ -2524,6 +2524,8 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new ItemStackTemplate(EPItems.ENERGIZED_COPPER_PLATE.get()), "energized_copper");
         addPlateCompressorIngotRecipe(output, ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
                 new ItemStackTemplate(EPItems.ENERGIZED_GOLD_PLATE.get()), "energized_gold");
+        addPlateCompressorIngotRecipe(output, ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY),
+                new ItemStackTemplate(EPItems.ENERGIZED_ALLOY_PLATE.get()), "energized_alloy");
     }
 
     private void buildCrusherRecipes() {
@@ -3191,6 +3193,8 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new ItemStackTemplate(EPItems.ENERGIZED_GOLD_INGOT.get()), 131072);
         addEnergizerRecipe(output, ingredientOf(EPItems.CRYSTAL_MATRIX),
                 new ItemStackTemplate(EPItems.ENERGIZED_CRYSTAL_MATRIX.get()), 524288);
+        addEnergizerRecipe(output, ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
+                new ItemStackTemplate(EPItems.ENERGIZED_ALLOY_INGOT.get()), 8388608);
     }
 
     private void buildCrystalGrowthChamberRecipes() {

@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "Energized Copper Ingot",
   "item.energizedpower.energized_gold_ingot": "Energized Gold Ingot",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "Energized Copper Plate",
   "item.energizedpower.energized_gold_plate": "Energized Gold Plate",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "Energized Copper Wire",
   "item.energizedpower.energized_gold_wire": "Energized Gold Wire",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "Shiny Ingot",
   "advancements.energizedpower.energized_gold_ingot.description": "This Energized Gold Ingot is very shiny.",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "Endless Knowledge",
   "advancements.energizedpower.energized_power_book.description": "A guide book for this mod.",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "Energized Gold Plate",
   "advancements.energizedpower.energized_gold_plate.description": "Create an energized gold plate.",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "Energized Copper Wire",
   "advancements.energizedpower.energized_copper_wire.description": "Create an energized copper wire.",

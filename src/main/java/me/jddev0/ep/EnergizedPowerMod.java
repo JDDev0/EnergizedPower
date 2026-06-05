@@ -355,8 +355,10 @@ public class EnergizedPowerMod {
             event.accept(EPItems.CRYSTALLIZED_LAPIS_LAZULI);
             event.accept(EPItems.ENERGIZED_COPPER_INGOT);
             event.accept(EPItems.ENERGIZED_GOLD_INGOT);
+            event.accept(EPItems.ENERGIZED_ALLOY_INGOT);
             event.accept(EPItems.ENERGIZED_COPPER_PLATE);
             event.accept(EPItems.ENERGIZED_GOLD_PLATE);
+            event.accept(EPItems.ENERGIZED_ALLOY_PLATE);
             event.accept(EPItems.ENERGIZED_COPPER_WIRE);
             event.accept(EPItems.ENERGIZED_GOLD_WIRE);
             event.accept(EPItems.ENERGIZED_CRYSTAL_MATRIX);

@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-05T23:31:13.98604733	Advancements
+// 26.1.2	2026-06-06T00:01:51.70777828	Advancements
 fb5392ad97a862dfe53b93781cae785f2c6f7a5a data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 b98434fb047d913459951b43db133561b927c557 data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 249508e6447826bcd2c8eee6309410ff7e2357cf data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -216,4 +216,6 @@ c41e8fb1e9e568732f61b3f95b182aef9e4b017d data/energizedpower/advancement/main/ba
 66e1859332bf8c4e83fa71c329a5156ea280e8e3 data/energizedpower/advancement/main/basics/wrench.json
 53bdd626c39e6eec694e3919cf24518c1eb2a54a data/energizedpower/advancement/main/elite/crystallized_alloy_ingot.json
 450d40854066585b8d954d17ff9a3906243b45f6 data/energizedpower/advancement/main/elite/crystallized_alloy_plate.json
+65785e9613374b2aa0884c88894622eed65c3379 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
+4ff898114442e7aa5ef9c51bcc056865f76ae996 data/energizedpower/advancement/main/elite/energized_alloy_plate.json
 b4af300ecba4ad8f2cb2a0113a93783c43ab352b data/energizedpower/advancement/main/elite/energizedpower_elite.json
