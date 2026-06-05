@@ -18,7 +18,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "2.18.0";
+    private static final String CONFIG_VERSION = "2.18.1";
 
     private ModConfigs() {}
 
@@ -1554,7 +1554,7 @@ public final class ModConfigs {
             "world.village.electrician_building_1.placement_weight",
             "Determines how frequent the Electrician Building 1 will be placed in villages.\n" +
                     "=> If set to 0 the electrician Building 1 will never be placed.\n" +
-                    "=> Consider removing the mentioning of the Electrician house in the electrician book when you remove the building completely:\n" +
+                    "=> Consider removing all references of the electrician house in the electrician book page if you completely remove the building:\n" +
                     "   1. Remove the book page: https://wiki.jddev0.com/link/3#bkmrk-removal-of-the-elect\n" +
                     "   2. Replace it with this version: https://wiki.jddev0.com/link/3#bkmrk-electrician-page-%28wi",
             5,
