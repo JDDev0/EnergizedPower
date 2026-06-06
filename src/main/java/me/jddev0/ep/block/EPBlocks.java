@@ -597,6 +597,10 @@ public final class EPBlocks {
             props -> new SolarPanelBlock(SolarPanelTier.TIER_6, props), SolarPanelTier.TIER_6.getProperties());
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
 
+    public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_7 = registerBlock("solar_panel_7",
+            props -> new SolarPanelBlock(SolarPanelTier.TIER_7, props), SolarPanelTier.TIER_7.getProperties());
+    public static final DeferredItem<Item> SOLAR_PANEL_ITEM_7 = createSolarPanelBlockItem("solar_panel_7", SOLAR_PANEL_7);
+
     public static final DeferredBlock<Block> COAL_ENGINE = registerBlock("coal_engine",
             CoalEngineBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).

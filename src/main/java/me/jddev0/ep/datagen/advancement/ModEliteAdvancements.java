@@ -87,6 +87,11 @@ public class ModEliteAdvancements implements AdvancementSubProvider {
                 EPItems.ELITE_SOLAR_CELL, "elite_solar_cell", AdvancementType.TASK
         );
 
+        AdvancementHolder solarPanel7 = addAdvancement(
+                advancementOutput, eliteSolarCell,
+                EPBlocks.SOLAR_PANEL_ITEM_7, "solar_panel_7", AdvancementType.CHALLENGE
+        );
+
         AdvancementHolder quantumProcessingUnit = addAdvancement(
                 advancementOutput, superconductor,
                 EPItems.QUANTUM_PROCESSING_UNIT, "quantum_processing_unit", AdvancementType.TASK

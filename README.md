@@ -51,7 +51,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Heat Generator
 - Thermal Generator
 - Lightning Generator
-- Solar Panels (6 Tiers)
+- Solar Panels (7 Tiers) (7th tier: (**In next release (v3.0.0)**))
 - Battery Box
 - Advanced Battery Box
 - Weather Controller

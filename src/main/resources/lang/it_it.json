@@ -1396,10 +1396,13 @@
   "advancements.energizedpower.solar_panel_4.description": "Livello IV: più che semplice!",
 
   "advancements.energizedpower.solar_panel_5.title": "Direttore dell'energia solare",
-  "advancements.energizedpower.solar_panel_5.description": "Livello V: rimane solo un livello!",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
 
-  "advancements.energizedpower.solar_panel_6.title": "Datore di lavoro di energia solare",
-  "advancements.energizedpower.solar_panel_6.description": "Livello VI: hai il miglior pannello solare!",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "Livello VI: rimane solo un livello!",
+
+  "advancements.energizedpower.solar_panel_7.title": "Datore di lavoro di energia solare",
+  "advancements.energizedpower.solar_panel_7.description": "Livello VII: hai il miglior pannello solare!",
 
   "advancements.energizedpower.uncharger.title": "Restituiscilo!",
   "advancements.energizedpower.uncharger.description": "Scarica i tuoi oggetti energetici.",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "I pannelli solari producono energia durante il giorno. L'efficienza dipende dal tempo e dal meteo.",
-  "book.energizedpower.page.solar_panels.2": "Ci sono 6 livelli di pannelli solari.",
+  "book.energizedpower.page.solar_panels.2": "Ci sono 7 livelli di pannelli solari.",
 
   "book.energizedpower.page.coal_engine.1": "La macchina a carbone produce energia bruciando oggetti.",
   "book.energizedpower.page.coal_engine.2": "Gli elementi rimanenti possono essere estratti automaticamente.",

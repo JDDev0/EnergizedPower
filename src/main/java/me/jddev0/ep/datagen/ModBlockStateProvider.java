@@ -223,6 +223,7 @@ public class ModBlockStateProvider {
         solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_4);
         solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_5);
         solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_6);
+        solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_7);
 
         activatableOrientableMachineBlockWithItem(EPBlocks.COAL_ENGINE, false);
 

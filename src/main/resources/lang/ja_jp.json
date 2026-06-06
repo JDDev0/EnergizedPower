@@ -1396,10 +1396,13 @@
   "advancements.energizedpower.solar_panel_4.description": "ソーラーパネル (ティアー IV): ただならぬ性能",
 
   "advancements.energizedpower.solar_panel_5.title": "太陽光発電の重役",
-  "advancements.energizedpower.solar_panel_5.description": "ソーラーパネル (ティアー V): 頂点まであと一歩",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
 
-  "advancements.energizedpower.solar_panel_6.title": "太陽光発電の管理者",
-  "advancements.energizedpower.solar_panel_6.description": "ソーラーパネル (ティアー VI): 太陽光発電、ここに極まれり",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "ソーラーパネル (ティアー VI): 頂点まであと一歩",
+
+  "advancements.energizedpower.solar_panel_7.title": "太陽光発電の管理者",
+  "advancements.energizedpower.solar_panel_7.description": "ソーラーパネル (ティアー VII): 太陽光発電、ここに極まれり",
 
   "advancements.energizedpower.uncharger.title": "戻ってこい！",
   "advancements.energizedpower.uncharger.description": "帯電したアイテムから電力を回収できます",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "時刻によって発電効率が変動し、日中にのみ発電します。",
-  "book.energizedpower.page.solar_panels.2": "ソーラーパネルは、6段階のティアがあります。",
+  "book.energizedpower.page.solar_panels.2": "ソーラーパネルは、7段階のティアがあります。",
 
   "book.energizedpower.page.coal_engine.1": "石炭発電機はアイテムを燃やしてエネルギーを生産します。",
   "book.energizedpower.page.coal_engine.2": "余ったアイテムは自動で回収されます。",

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:gems/crystallized_lapis_lazuli",
+    "E": "energizedpower:elite_solar_cell",
+    "G": "#c:glass_panes/colorless",
+    "S": "energizedpower:solar_panel_6",
+    "e": "#c:ingots/energized_alloy"
+  },
+  "pattern": [
+    "GGG",
+    "SCS",
+    "EeE"
+  ],
+  "result": {
+    "id": "energizedpower:solar_panel_7"
+  }
+}
