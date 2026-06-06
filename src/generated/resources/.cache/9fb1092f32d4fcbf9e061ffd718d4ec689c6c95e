@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-06T10:35:37.437371874	Recipes
+// 26.1.2	2026-06-06T10:53:54.93093639	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 56217985986eebefb57bbf80dd31b0a1dc97b409 data/energizedpower/advancement/recipes/blasting/copper_nugget_from_blasting_copper_hammer.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
@@ -265,6 +265,7 @@ cbbe8d8d42675c69eac158a23635c266d55d0bb4 data/energizedpower/recipe/assembling/c
 eadeca096c22dda9194333e2a0684042ee9b1e6b data/energizedpower/recipe/assembling/crystal_matrix.json
 6ecb245bc3cf2933f078ed6d7b7b7152d85a0f3c data/energizedpower/recipe/assembling/processing_unit.json
 1f9a39e84fd0fcc3b6964d84ce435edd8055a40e data/energizedpower/recipe/assembling/reinforced_advanced_solar_cell.json
+a13fb50bea163cafab39972f713e9561cef9929b data/energizedpower/recipe/assembling/superconductor.json
 d0308100bd90c847460b5f7b0e7de4c941d20d7f data/energizedpower/recipe/assembling/teleporter_processing_unit.json
 5f519d48ddb9cd56cdbe4fbe0198bbd5b7a97656 data/energizedpower/recipe/blasting/copper_ingot_from_blasting_copper_dust.json
 79abcfdc0fcafc1c29d8a126344a867104fd59f7 data/energizedpower/recipe/blasting/copper_nugget_from_blasting_copper_hammer.json

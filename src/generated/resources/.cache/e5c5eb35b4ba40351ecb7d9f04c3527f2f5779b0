@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-06T10:35:37.440093937	Advancements
+// 26.1.2	2026-06-06T10:53:20.098884446	Advancements
 fb5392ad97a862dfe53b93781cae785f2c6f7a5a data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 b98434fb047d913459951b43db133561b927c557 data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 249508e6447826bcd2c8eee6309410ff7e2357cf data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -220,3 +220,4 @@ c9f0238268b0c983efad2ebcde85e4465549007f data/energizedpower/advancement/main/el
 65785e9613374b2aa0884c88894622eed65c3379 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
 4ff898114442e7aa5ef9c51bcc056865f76ae996 data/energizedpower/advancement/main/elite/energized_alloy_plate.json
 b4af300ecba4ad8f2cb2a0113a93783c43ab352b data/energizedpower/advancement/main/elite/energizedpower_elite.json
+b8a8e48cca851d33f50045b3bd6844484df510e7 data/energizedpower/advancement/main/elite/superconductor.json

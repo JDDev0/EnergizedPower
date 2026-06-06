@@ -11,6 +11,8 @@
   "item.energizedpower.energized_copper_wire": "Активированный медный провод",
   "item.energizedpower.energized_gold_wire": "Активированный золотой провод",
 
+  "item.energizedpower.superconductor": "Superconductor",
+
   "item.energizedpower.silicon": "Кремний",
 
   "item.energizedpower.stone_pebble": "Каменная галька",
@@ -1338,6 +1340,9 @@
 
   "advancements.energizedpower.energized_gold_wire.title": "Активированный золотой провод",
   "advancements.energizedpower.energized_gold_wire.description": "Создайте провод из активированного золота.",
+
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
 
   "advancements.energizedpower.energizedpower_basics.title": "Заряженная мощность (Основы)",
   "advancements.energizedpower.energizedpower_basics.description": "Это начало вашего энергичного путешествия.",

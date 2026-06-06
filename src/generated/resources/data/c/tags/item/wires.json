@@ -4,6 +4,7 @@
     "#c:wires/copper",
     "#c:wires/gold",
     "#c:wires/energized_copper",
-    "#c:wires/energized_gold"
+    "#c:wires/energized_gold",
+    "#c:wires/superconductor"
   ]
 }

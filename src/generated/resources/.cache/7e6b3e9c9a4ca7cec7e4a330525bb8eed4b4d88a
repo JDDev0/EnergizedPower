@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-06T10:35:37.432910549	Model Definitions - energizedpower
+// 26.1.2	2026-06-06T10:53:20.091912417	Model Definitions - energizedpower
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -367,6 +367,7 @@ ae5febff271adbcfaf9bccd2a8a0d9a82accc091 assets/energizedpower/items/speed_upgra
 515bea276fe493026e96d97c7cd67041d71918e7 assets/energizedpower/items/stone_liquefier.json
 be462e55667b49a535312b6a83d6f5d13b225b4c assets/energizedpower/items/stone_pebble.json
 b17668df2e5b30def013f295584a7fde5cc9ffc6 assets/energizedpower/items/stone_solidifier.json
+a6417c8df28574766684093b581c48154feb684a assets/energizedpower/items/superconductor.json
 738f7be43daa3b7daa3fadbef030a0f9ff97fbaa assets/energizedpower/items/teleporter.json
 44aa3cfd1b1a17337e5eebf4360d8ba3c54ef0d1 assets/energizedpower/items/teleporter_matrix.json
 055b4eae6eb786b5988b7b4cd7b0d67bea39ac2e assets/energizedpower/items/teleporter_processing_unit.json
@@ -701,6 +702,7 @@ e2124d22ef32b350860220e8cdc440460265d1c7 assets/energizedpower/models/item/speed
 2e37a623afaf9ec0c1650499e0b70c9290831b06 assets/energizedpower/models/item/steel_ingot.json
 35d2addf0163757db0a24b41916a69b6b72eb34e assets/energizedpower/models/item/stone_hammer.json
 e29a1c0711d673d90237b2caead673bcd83f4e1f assets/energizedpower/models/item/stone_pebble.json
+1195fc38fd94399cfb3521accb8a06a2ae451c1d assets/energizedpower/models/item/superconductor.json
 7925aed2b9e14f2ff08103ede56453089bd930aa assets/energizedpower/models/item/teleporter_matrix.json
 eef77da8af0d16376ff6f236eef24e762e42504a assets/energizedpower/models/item/teleporter_processing_unit.json
 952e2488cacb991210a8a80387215f6f216ea320 assets/energizedpower/models/item/tin_dust.json

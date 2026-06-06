@@ -101,6 +101,8 @@ public final class CommonItemTags {
             Identifier.fromNamespaceAndPath("c", "wires/energized_copper"));
     public static final TagKey<Item> WIRES_ENERGIZED_GOLD = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath("c", "wires/energized_gold"));
+    public static final TagKey<Item> WIRES_SUPERCONDUCTOR = TagKey.create(Registries.ITEM,
+            Identifier.fromNamespaceAndPath("c", "wires/superconductor"));
 
     public static final TagKey<Item> TOOLS_HAMMERS = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath("c", "tools/hammers"));

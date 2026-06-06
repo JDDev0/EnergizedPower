@@ -75,6 +75,13 @@ public class ModEliteAdvancements implements AdvancementSubProvider {
                 CommonItemTags.PLATES_ENERGIZED_ALLOY
         );
 
+        AdvancementHolder superconductor = addAdvancement(
+                lookupProvider,
+                advancementOutput, energizedAlloyPlate,
+                EPItems.SUPERCONDUCTOR, "superconductor", AdvancementType.TASK,
+                CommonItemTags.WIRES_SUPERCONDUCTOR
+        );
+
         AdvancementHolder coolantCell = addAdvancement(
                 advancementOutput, energizedPowerElite,
                 EPItems.COOLANT_CELL, "coolant_cell", AdvancementType.TASK

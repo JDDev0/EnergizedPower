@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-06T00:01:51.698769627	Tags for minecraft:item mod id energizedpower
+// 26.1.2	2026-06-06T10:53:20.09078211	Tags for minecraft:item mod id energizedpower
 6af40b20a5859a5a3cdb0d6cbd6afe51ad578bcf data/ae2/tags/item/p2p_attunements/fe_p2p_tunnel.json
 9c13ddcf3b08e2ca014a40c9b9dc39bd46405834 data/ae2/tags/item/p2p_attunements/fluid_p2p_tunnel.json
 ffc429096520b17e4883f075eac0c840c0c62704 data/ae2/tags/item/p2p_attunements/item_p2p_tunnel.json
@@ -50,11 +50,12 @@ fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/item/storage_blocks/tin.jso
 4ddc781b4d6e897c77af5d6eccab56294ee426c3 data/c/tags/item/tools.json
 e78972be29f85789cf4ab42045ddb7d964c50f6e data/c/tags/item/tools/cutters.json
 3cb703f6d77ae2838652e926e4f17a1d31bf4125 data/c/tags/item/tools/hammers.json
-1a3b11b0ef61950ab6ad1190ea12a100dd0722ad data/c/tags/item/wires.json
+868882d0cf23594df6bf8207aa5381aa90079df9 data/c/tags/item/wires.json
 0459fe845fb698ab13a2c484237c0a2c5b85aac3 data/c/tags/item/wires/copper.json
 062f61925970fefca9cb139f81c8d3a1264a9f40 data/c/tags/item/wires/energized_copper.json
 0fcd980b038e869d7c8a55d6445b866d9b5e334c data/c/tags/item/wires/energized_gold.json
 ba27a206e3a5b6ccdbd698dafd6ba2bbdf1b1c8a data/c/tags/item/wires/gold.json
+36eaf1e3e9d57a9101249c3a81dd8f4290ed3477 data/c/tags/item/wires/superconductor.json
 e6fb7fc4ce3a281229106fb8c6f60fdcd34505e6 data/c/tags/item/wires/tin.json
 99d0d82d2933243f20aa6929c14999a6a17c106d data/energizedpower/tags/item/metal_press/press_molds.json
 68dde9bd334ebc282493e6e6c9b0e5906ff3fee5 data/energizedpower/tags/item/metal_press/raw_press_molds.json
