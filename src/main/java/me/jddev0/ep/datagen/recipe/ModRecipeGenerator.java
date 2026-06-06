@@ -869,6 +869,30 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "GMG"
         }, new ItemStackTemplate(EPItems.MOON_LIGHT_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(output, has(EPItems.MOON_LIGHT_UPGRADE_MODULE_3), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(EPItems.ELITE_SOLAR_CELL),
+                'U', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'M', ingredientOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_3)
+        ), new String[] {
+                "ECE",
+                "eUe",
+                "EME"
+        }, new ItemStackTemplate(EPItems.MOON_LIGHT_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(output, has(EPItems.MOON_LIGHT_UPGRADE_MODULE_4), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(EPItems.ELITE_SOLAR_CELL),
+                'U', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'M', ingredientOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_4)
+        ), new String[] {
+                "ECE",
+                "eUe",
+                "EME"
+        }, new ItemStackTemplate(EPItems.MOON_LIGHT_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(output, has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),

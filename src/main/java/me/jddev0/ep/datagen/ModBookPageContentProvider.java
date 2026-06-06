@@ -549,7 +549,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ), new Identifier[] {
                     EPAPI.id("textures/item/moon_light_upgrade_module_1.png"),
                     EPAPI.id("textures/item/moon_light_upgrade_module_2.png"),
-                    EPAPI.id("textures/item/moon_light_upgrade_module_3.png")
+                    EPAPI.id("textures/item/moon_light_upgrade_module_3.png"),
+                    EPAPI.id("textures/item/moon_light_upgrade_module_4.png"),
+                    EPAPI.id("textures/item/moon_light_upgrade_module_5.png")
             }, changePageIntToId);
         }
 

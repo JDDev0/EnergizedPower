@@ -13,6 +13,8 @@
   "image": [
     "energizedpower:textures/item/moon_light_upgrade_module_1.png",
     "energizedpower:textures/item/moon_light_upgrade_module_2.png",
-    "energizedpower:textures/item/moon_light_upgrade_module_3.png"
+    "energizedpower:textures/item/moon_light_upgrade_module_3.png",
+    "energizedpower:textures/item/moon_light_upgrade_module_4.png",
+    "energizedpower:textures/item/moon_light_upgrade_module_5.png"
   ]
 }
