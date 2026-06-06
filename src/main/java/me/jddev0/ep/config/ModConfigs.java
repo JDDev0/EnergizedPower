@@ -685,7 +685,7 @@ public final class ModConfigs {
             "block.crystal_growth_chamber", "Crystal Growth Chamber", 1024
     );
     public static final ConfigValue<Float> COMMON_CRYSTAL_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
-            "block.crystal_growth_chamber", "Crystal Growth Chamber"
+            "block.crystal_growth_chamber", "Crystal Growth Chamber", 1.f
     );
 
     public static final ConfigValue<Integer> COMMON_TIME_CONTROLLER_CAPACITY = registerEnergyCapacityConfigValue(
@@ -753,7 +753,7 @@ public final class ModConfigs {
     ));
 
     public static final ConfigValue<Float> COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
-            "block.alloy_furnace", "Alloy Furnace"
+            "block.alloy_furnace", "Alloy Furnace", 1.f
     );
 
     public static final ConfigValue<Integer> COMMON_COAL_ENGINE_CAPACITY = registerEnergyCapacityConfigValue(
@@ -1116,13 +1116,9 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_INDUCTION_SMELTER_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
             "block.induction_smelter", "Induction Smelter", 64
     );
-    public static final ConfigValue<Float> COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
-            "block.induction_smelter.recipe_duration_multiplier",
-            "The multiplier by which the time a recipe of the Induction Smelter requires is multiplied by.\n" +
-                    "=> If set to 2 the Induction Smelter will be as fast as the Alloy Furnace.",
-            1.f,
-            0.f, null
-    ));
+    public static final ConfigValue<Float> COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.induction_smelter", "Induction Smelter", 0.5f
+    );
 
     public static final ConfigValue<Integer> COMMON_POWERED_LAMP_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.powered_lamp", "Powered Lamp", 1
@@ -1137,13 +1133,9 @@ public final class ModConfigs {
     public static final ConfigValue<Integer> COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK = registerEnergyConsumptionPerTickConfigValue(
             "block.powered_furnace", "Powered Furnace", 2
     );
-    public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
-            "block.powered_furnace.recipe_duration_multiplier",
-            "The multiplier by which the time a recipe of the Powered Furnace requires is multiplied by.\n" +
-                    "=> If set to 2 the Powered Furnace will be as fast as the normal Furnace.",
-            1.f,
-            0.f, null
-    ));
+    public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.powered_furnace", "Powered Furnace", .5f
+    );
     public static final ConfigValue<List<@NotNull Identifier>> COMMON_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.powered_furnace", "Powered Furnace", new ArrayList<>(0)
     );
@@ -1160,13 +1152,9 @@ public final class ModConfigs {
             256,
             1, null
     ));
-    public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
-            "block.advanced_powered_furnace.recipe_duration_multiplier",
-            "The multiplier by which the time a recipe of the Advanced Powered Furnace requires is multiplied by.\n" +
-                    "=> If set to 6 the Advanced Powered Furnace will be as fast as the normal Furnace.",
-            1.f,
-            0.f, null
-    ));
+    public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 1.f/6.f
+    );
     public static final ConfigValue<List<@NotNull Identifier>> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.advanced_powered_furnace", "Advanced Powered Furnace", new ArrayList<>(0)
     );
@@ -1181,7 +1169,7 @@ public final class ModConfigs {
             "block.plant_growth_chamber", "Plant Growth Chamber", 32
     );
     public static final ConfigValue<Float> COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
-            "block.plant_growth_chamber", "Plant Growth Chamber"
+            "block.plant_growth_chamber", "Plant Growth Chamber", 1.f
     );
 
     public static final ConfigValue<Integer> COMMON_FLUID_FREEZER_CAPACITY = registerEnergyCapacityConfigValue(
@@ -1760,11 +1748,11 @@ public final class ModConfigs {
                 1, null
         ));
     }
-    private static ConfigValue<Float> registerRecipeDurationMultiplierConfigValue(String baseConfigKey, String itemName) {
+    private static ConfigValue<Float> registerRecipeDurationMultiplierConfigValue(String baseConfigKey, String itemName, float defaultValue) {
         return COMMON_CONFIG.register(new FloatConfigValue(
                 baseConfigKey + ".recipe_duration_multiplier",
                 "The multiplier by which the time a recipe of the " + itemName + " requires is multiplied by",
-                1.f,
+                defaultValue,
                 0.f, null
         ));
     }
@@ -1913,6 +1901,11 @@ public final class ModConfigs {
             try {
                 COMMON_CONFIG.read();
 
+                String originalVersion = COMMON_CONFIG_VERSION.getConfigVersionOriginal();
+                if(originalVersion != null && originalVersion.startsWith("2.")) {
+                    upgradeRecipeDurationMultipliersCommonConfig();
+                }
+
                 LOGGER.info("Energized Power common config was successfully loaded");
             }catch(IOException|ConfigValidationException e) {
                 LOGGER.error("Energized Power common config could not be read", e);
@@ -1940,5 +1933,36 @@ public final class ModConfigs {
                 }
             }
         }
+    }
+
+    private static void upgradeRecipeDurationMultipliersCommonConfig() throws IOException {
+        //Before EP v3.0.0-beta.1 there was a hard-coded multiplier value in the Induction Smelter, Powered Furnace, and Advanced Powered Furnace itself
+        //Since EP v3.0.0-beta.1 the default value was changed to match the hard-coded duration multiplier (e.g. Induction Smelter = 0.5f)
+        try {
+            COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.setValue(COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.getValue() / 2.0f);
+
+            LOGGER.info("Energized Power common config was successfully upgraded (Induction Smelter recipe duration multiplier)");
+        }catch(ConfigValidationException e) {
+            LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Induction Smelter recipe duration multiplier", e);
+        }
+
+        try {
+            COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.setValue(COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue() / 2.0f);
+
+            LOGGER.info("Energized Power common config was successfully upgraded (Powered Furnace recipe duration multiplier)");
+        }catch(ConfigValidationException e) {
+            LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Powered Furnace recipe duration multiplier", e);
+        }
+
+        try {
+            COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.setValue(COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue() / 6.0f);
+
+            LOGGER.info("Energized Power common config was successfully upgraded (Advanced Powered Furnace recipe duration multiplier)");
+        }catch(ConfigValidationException e) {
+            LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Advanced Powered Furnace recipe duration multiplier", e);
+        }
+
+        //Save new config (No need to back up, because backup was already created when config version was upgraded)
+        COMMON_CONFIG.write();
     }
 }

@@ -158,8 +158,7 @@ public class PoweredFurnaceBlockEntity
 
     @Override
     protected double getWorkDataDependentWorkDuration(RecipeHolder<? extends AbstractCookingRecipe> recipe) {
-        //Default Cooking Time = 200 -> maxProgress = 100 (= 200 / 2)
-        return recipe.value().cookingTime() * RECIPE_DURATION_MULTIPLIER / 2.f;
+        return recipe.value().cookingTime() * RECIPE_DURATION_MULTIPLIER;
     }
 
     private static void craftItem(BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
