@@ -271,6 +271,8 @@ public final class EPItems {
 
     public static final DeferredItem<Item> SAW_BLADE = registerItem("saw_blade");
 
+    public static final DeferredItem<Item> COOLANT_CELL = registerItem("coolant_cell");
+
     public static final DeferredItem<Item> CRYSTAL_MATRIX = registerItem("crystal_matrix");
 
     public static final DeferredItem<Item> ENERGIZED_CRYSTAL_MATRIX = registerItem("energized_crystal_matrix");
