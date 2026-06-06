@@ -80,6 +80,7 @@
   "item.energizedpower.basic_circuit": "Basit Devre",
   "item.energizedpower.advanced_circuit": "Gelişmiş Devre",
   "item.energizedpower.processing_unit": "İşlemci Birimi",
+  "item.energizedpower.quantum_processing_unit": "Quantum Processing Unit",
 
   "item.energizedpower.energized_power_book": "Enerjilendilmiş Mod Kitabı",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Bu kitabı açmak için sol tık yapın!.",
@@ -119,6 +120,7 @@
   "item.energizedpower.basic_upgrade_module": "Basic Upgrade Module",
   "item.energizedpower.advanced_upgrade_module": "Advanced Upgrade Module",
   "item.energizedpower.reinforced_advanced_upgrade_module": "Reinforced Advanced Upgrade Module",
+  "item.energizedpower.elite_upgrade_module": "Elite Upgrade Module",
 
   "_template.item.energizedpower.speed_upgrade_module": "Speed Upgrade Module (Tier %s)",
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "Energy Efficiency Upgrade Module (Tier %s)",
@@ -915,6 +917,9 @@
   "advancements.energizedpower.processing_unit.title": "İşlemci birimi",
   "advancements.energizedpower.processing_unit.description": "İşlemci birimi ürettin,tebrikler!.",
 
+  "advancements.energizedpower.quantum_processing_unit.title": "Quantum Processing Unit",
+  "advancements.energizedpower.quantum_processing_unit.description": "Craft a Quantum Processing Unit.",
+
   "advancements.energizedpower.basic_upgrade_module.title": "Basic Upgrade Module",
   "advancements.energizedpower.basic_upgrade_module.description": "Craft a Basic Upgrade Module.",
 
@@ -923,6 +928,9 @@
 
   "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Reinforced Advanced Upgrade Module",
   "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Craft a Reinforced Advanced Upgrade Module.",
+
+  "advancements.energizedpower.elite_upgrade_module.title": "Elite Upgrade Module",
+  "advancements.energizedpower.elite_upgrade_module.description": "Craft an Elite Upgrade Module.",
 
   "_template.advancements.energizedpower.speed_upgrade_module.title": "Speed %s",
   "_template.advancements.energizedpower.speed_upgrade_module.description": "Craft a Speed Upgrade Module (Tier %s).",

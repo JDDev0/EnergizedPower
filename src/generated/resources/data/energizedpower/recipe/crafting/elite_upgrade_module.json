@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "#c:plates/energized_alloy",
+    "Q": "energizedpower:quantum_processing_unit",
+    "R": "energizedpower:reinforced_advanced_upgrade_module",
+    "S": "#c:wires/superconductor"
+  },
+  "pattern": [
+    "SSS",
+    "ERE",
+    "EQE"
+  ],
+  "result": {
+    "id": "energizedpower:elite_upgrade_module"
+  }
+}
