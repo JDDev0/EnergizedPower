@@ -384,6 +384,8 @@ public class EnergizedPowerMod {
             event.accept(EPItems.SPEED_UPGRADE_MODULE_4);
             event.accept(EPItems.SPEED_UPGRADE_MODULE_5);
             event.accept(EPItems.SPEED_UPGRADE_MODULE_6);
+            event.accept(EPItems.SPEED_UPGRADE_MODULE_7);
+            event.accept(EPItems.SPEED_UPGRADE_MODULE_8);
 
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
@@ -391,6 +393,8 @@ public class EnergizedPowerMod {
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
             event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6);
+            event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7);
+            event.accept(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8);
 
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2);
@@ -398,6 +402,8 @@ public class EnergizedPowerMod {
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5);
             event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6);
+            event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7);
+            event.accept(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8);
 
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
@@ -405,6 +411,8 @@ public class EnergizedPowerMod {
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5);
             event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6);
+            event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7);
+            event.accept(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8);
 
             event.accept(EPItems.DURATION_UPGRADE_MODULE_1);
             event.accept(EPItems.DURATION_UPGRADE_MODULE_2);
