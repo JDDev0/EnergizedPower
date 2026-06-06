@@ -10,6 +10,6 @@ public interface IEnergyStorageConsumerIndicatorBarMenu extends IEnergyStorageMe
         int capacity = getCapacity();
 
         return (energyRequirement <= 0 || capacity == 0)?0:
-                (Math.min(energyRequirement, capacity - 1) *energyMeterHeight / capacity + 1);
+                (int)((long)Math.min(energyRequirement, capacity - 1) * energyMeterHeight / capacity + 1);
     }
 }
