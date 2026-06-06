@@ -112,6 +112,7 @@ public final class EPItems {
     public static final DeferredItem<Item> BASIC_SOLAR_CELL = registerItem("basic_solar_cell");
     public static final DeferredItem<Item> ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell");
     public static final DeferredItem<Item> REINFORCED_ADVANCED_SOLAR_CELL = registerItem("reinforced_advanced_solar_cell");
+    public static final DeferredItem<Item> ELITE_SOLAR_CELL = registerItem("elite_solar_cell");
 
     public static final DeferredItem<Item> BASIC_CIRCUIT = registerItem("basic_circuit");
     public static final DeferredItem<Item> ADVANCED_CIRCUIT = registerItem("advanced_circuit");

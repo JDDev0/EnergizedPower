@@ -1,0 +1,24 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "ingredients": [
+    {
+      "count": 2,
+      "ingredient": "energizedpower:reinforced_advanced_solar_cell"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:ingots/energized_alloy"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:gems/crystallized_lapis_lazuli"
+    },
+    {
+      "count": 2,
+      "ingredient": "energizedpower:coolant_cell"
+    }
+  ],
+  "result": {
+    "id": "energizedpower:elite_solar_cell"
+  }
+}

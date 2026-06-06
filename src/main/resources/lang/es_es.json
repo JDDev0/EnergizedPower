@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "Célula solar básica",
   "item.energizedpower.advanced_solar_cell": "Célula solar avanzada",
   "item.energizedpower.reinforced_advanced_solar_cell": "Célula solar avanzada reforzada",
+  "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
 
   "item.energizedpower.basic_circuit": "Circuito básico",
   "item.energizedpower.advanced_circuit": "Circuito avanzado",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "Required for advanced Panel solars...",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Even better solar energy",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the best Panel solars...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "Required for the best solar panels...",
 
   "advancements.energizedpower.basic_circuit.title": "Basic Circuit",
   "advancements.energizedpower.basic_circuit.description": "Craft a Basic Circuit.",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Bloques para producir energía",
 
   "book.energizedpower.page.solar_cells.1": "Solar Cells are the base crafting item for every Panel solar.",
-  "book.energizedpower.page.solar_cells.2": "There are three solar cells: Basic, Advanced, and Reinforced Advanced",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Panel solars produce energy during the day. The efficiency depends on the time and on the weather.",
   "book.energizedpower.page.solar_panels.2": "There are 6 Panel solar Tiers.",

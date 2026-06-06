@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "item.energizedpower.advanced_solar_cell": "Fortgeschrittene Solarzelle",
   "item.energizedpower.reinforced_advanced_solar_cell": "Verstärkte Fortgeschrittene Solarzelle",
+  "item.energizedpower.elite_solar_cell": "Elite-Solarzelle",
 
   "item.energizedpower.basic_circuit": "Basis Schaltkreis",
   "item.energizedpower.advanced_circuit": "Fortgeschrittener Schaltkreis",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "Erforderlich für fortgeschrittene Solar Panels...",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Noch besserer Solar-Strom",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Erforderlich für die besten Solar Panels...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Erforderlich für noch fortgeschrittene Solar Panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Bester Solar-Strom",
+  "advancements.energizedpower.elite_solar_cell.description": "Erforderlich für die besten Solar Panels...",
 
   "advancements.energizedpower.basic_circuit.title": "Basis Schaltkreis",
   "advancements.energizedpower.basic_circuit.description": "Erstelle einen Basis Schaltkreis.",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blöcke für die Energie-Produktion",
 
   "book.energizedpower.page.solar_cells.1": "Solarzellen sind die Basis-Crafting-Items für jedes Solarpanel.",
-  "book.energizedpower.page.solar_cells.2": "Es gibt drei Typen: Basis, fortgeschritten, und verstärkt fortgeschritten",
+  "book.energizedpower.page.solar_cells.2": "Es gibt vier Typen: Basis, fortgeschritten, verstärkt fortgeschritten und Elite",
 
   "book.energizedpower.page.solar_panels.1": "Solarpanels produzieren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
   "book.energizedpower.page.solar_panels.2": "Es gibt 6 Solarpanel-Typen.",

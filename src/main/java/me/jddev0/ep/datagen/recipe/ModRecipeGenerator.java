@@ -3072,6 +3072,13 @@ public class ModRecipeGenerator extends RecipeProvider {
         }, new ItemStackTemplate(EPItems.REINFORCED_ADVANCED_SOLAR_CELL.get()));
 
         addAssemblingMachineRecipe(output, new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(EPItems.REINFORCED_ADVANCED_SOLAR_CELL), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
+                new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 2)
+        }, new ItemStackTemplate(EPItems.ELITE_SOLAR_CELL.get()));
+
+        addAssemblingMachineRecipe(output, new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.BASIC_CIRCUIT), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_COPPER), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 4),

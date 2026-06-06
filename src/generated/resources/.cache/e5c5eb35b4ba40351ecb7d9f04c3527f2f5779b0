@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-06T11:18:45.940159469	Advancements
+// 26.1.2	2026-06-06T12:18:56.624639216	Advancements
 fb5392ad97a862dfe53b93781cae785f2c6f7a5a data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 b98434fb047d913459951b43db133561b927c557 data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 249508e6447826bcd2c8eee6309410ff7e2357cf data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -217,6 +217,7 @@ c41e8fb1e9e568732f61b3f95b182aef9e4b017d data/energizedpower/advancement/main/ba
 c9f0238268b0c983efad2ebcde85e4465549007f data/energizedpower/advancement/main/elite/coolant_cell.json
 53bdd626c39e6eec694e3919cf24518c1eb2a54a data/energizedpower/advancement/main/elite/crystallized_alloy_ingot.json
 450d40854066585b8d954d17ff9a3906243b45f6 data/energizedpower/advancement/main/elite/crystallized_alloy_plate.json
+3b8d538fe535c8e8f3ea9d632037e59ae152edbd data/energizedpower/advancement/main/elite/elite_solar_cell.json
 f401ce1baabcfa3e3ddb7cdfbdee8be96141589e data/energizedpower/advancement/main/elite/elite_upgrade_module.json
 65785e9613374b2aa0884c88894622eed65c3379 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
 4ff898114442e7aa5ef9c51bcc056865f76ae996 data/energizedpower/advancement/main/elite/energized_alloy_plate.json

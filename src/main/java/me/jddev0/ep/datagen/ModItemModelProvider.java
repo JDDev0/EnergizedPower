@@ -100,6 +100,7 @@ public class ModItemModelProvider {
         basicItem(EPItems.BASIC_SOLAR_CELL);
         basicItem(EPItems.ADVANCED_SOLAR_CELL);
         basicItem(EPItems.REINFORCED_ADVANCED_SOLAR_CELL);
+        basicItem(EPItems.ELITE_SOLAR_CELL);
 
         basicItem(EPItems.BASIC_CIRCUIT);
         basicItem(EPItems.ADVANCED_CIRCUIT);

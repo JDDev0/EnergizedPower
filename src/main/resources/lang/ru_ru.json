@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "Базовая солнечная ячейка",
   "item.energizedpower.advanced_solar_cell": "Продвинутая солнечная ячейка",
   "item.energizedpower.reinforced_advanced_solar_cell": "Укрепленная продвинутая солнечная ячейка",
+  "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
 
   "item.energizedpower.basic_circuit": "Базовая электросхема",
   "item.energizedpower.advanced_circuit": "Продвинутая электросхема",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "Требуется для продвинутых солнечных панелей.",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Еще лучшая солнечная энергия",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Требуется для лучших солнечных панелей.",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "Требуется для лучших солнечных панелей.",
 
   "advancements.energizedpower.basic_circuit.title": "Базовая схема",
   "advancements.energizedpower.basic_circuit.description": "Создайте базовую схему.",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Блоки для производства энергии",
 
   "book.energizedpower.page.solar_cells.1": "Солнечные ячейки являются базовым предметом для изготовления любой солнечной панели.",
-  "book.energizedpower.page.solar_cells.2": "Существует три типа солнечных ячеек: базовая, усовершенствованная и усиленная усовершенствованная.",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Солнечные панели вырабатывают энергию в течение дня. Эффективность зависит от времени и погоды.",
   "book.energizedpower.page.solar_panels.2": "Имеется 6 уровней солнечных панелей.",

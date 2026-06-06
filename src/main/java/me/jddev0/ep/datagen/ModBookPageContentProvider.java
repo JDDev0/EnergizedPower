@@ -1026,7 +1026,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ), new Identifier[] {
                     EPAPI.id("textures/item/basic_solar_cell.png"),
                     EPAPI.id("textures/item/advanced_solar_cell.png"),
-                    EPAPI.id("textures/item/reinforced_advanced_solar_cell.png")
+                    EPAPI.id("textures/item/reinforced_advanced_solar_cell.png"),
+                    EPAPI.id("textures/item/elite_solar_cell.png")
             }, changePageIntToId);
         }
 
