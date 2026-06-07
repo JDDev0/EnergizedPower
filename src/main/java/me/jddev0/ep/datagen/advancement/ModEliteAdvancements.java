@@ -51,6 +51,18 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                                 CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI
                         ))).
                 save(advancementOutput, EPAPI.MOD_ID + ":main/elite/energizedpower_elite");
+
+        AdvancementHolder crystallizedAlloyIngot = addAdvancement(
+                advancementOutput, energizedPowerElite,
+                EPItems.CRYSTALLIZED_ALLOY_INGOT, "crystallized_alloy_ingot", AdvancementType.TASK,
+                CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY
+        );
+
+        AdvancementHolder crystallizedAlloyPlate = addAdvancement(
+                advancementOutput, crystallizedAlloyIngot,
+                EPItems.CRYSTALLIZED_ALLOY_PLATE, "crystallized_alloy_plate", AdvancementType.TASK,
+                CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
+        );
     }
 
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,

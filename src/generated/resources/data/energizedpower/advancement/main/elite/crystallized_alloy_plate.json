@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/elite/crystallized_alloy_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/crystallized_alloy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.crystallized_alloy_plate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:crystallized_alloy_plate"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.crystallized_alloy_plate.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

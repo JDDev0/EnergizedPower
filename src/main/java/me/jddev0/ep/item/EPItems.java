@@ -75,7 +75,13 @@ public final class EPItems {
     public static final Item ADVANCED_ALLOY_INGOT = registerItem("advanced_alloy_ingot",
             new Item(new Item.Properties()));
 
+    public static final Item CRYSTALLIZED_ALLOY_INGOT = registerItem("crystallized_alloy_ingot",
+            new Item(new Item.Properties()));
+
     public static final Item ADVANCED_ALLOY_PLATE = registerItem("advanced_alloy_plate",
+            new Item(new Item.Properties()));
+
+    public static final Item CRYSTALLIZED_ALLOY_PLATE = registerItem("crystallized_alloy_plate",
             new Item(new Item.Properties()));
 
     public static final Item IRON_GEAR = registerItem("iron_gear",
