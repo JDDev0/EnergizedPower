@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-07T20:56:11.525141176	Recipes
+// 26.1.2	2026-06-07T21:08:07.074852335	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 56217985986eebefb57bbf80dd31b0a1dc97b409 data/energizedpower/advancement/recipes/blasting/copper_nugget_from_blasting_copper_hammer.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
@@ -555,7 +555,7 @@ c592cd34e161793e227b7f2426fbec5a815eb633 data/energizedpower/recipe/crafting/ste
 227cb46d4d00cd85a94f70dc59cb45c98b8894c7 data/energizedpower/recipe/crafting/stone_hammer.json
 961a2e1c6c25d715394b0d7d7ef70e25c78780b6 data/energizedpower/recipe/crafting/stone_liquefier.json
 fd2ab3454253ab6625d9ad9f69216b52fec155f6 data/energizedpower/recipe/crafting/stone_solidifier.json
-cf2256fe09579de06d56a4ee066005c583a0b878 data/energizedpower/recipe/crafting/teleporter.json
+9c106980056af7d2af1830301a289d8bd41d66e4 data/energizedpower/recipe/crafting/teleporter.json
 ab3682004c5ea2ee859fcdf9ed983b3bf14ee248 data/energizedpower/recipe/crafting/teleporter_matrix.json
 32dd7e10c54c6e68a1bf38df5e200cfffe9fa8a7 data/energizedpower/recipe/crafting/teleporter_matrix_settings_copy.json
 86c9bab2df457e7da29c6b34218848484a62b01f data/energizedpower/recipe/crafting/thermal_generator.json

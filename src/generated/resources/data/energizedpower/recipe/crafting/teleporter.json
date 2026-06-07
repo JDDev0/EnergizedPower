@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": "#c:plates/advanced_alloy",
+    "A": "#c:storage_blocks/advanced_alloy",
     "C": "energizedpower:energized_crystal_matrix",
     "E": "#c:plates/energized_gold",
     "R": "energizedpower:reinforced_advanced_machine_frame",
@@ -12,7 +12,7 @@
   "pattern": [
     "CEC",
     "TRT",
-    "ASA"
+    "SAS"
   ],
   "result": {
     "id": "energizedpower:teleporter"
