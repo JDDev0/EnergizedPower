@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "帯電した銅インゴット",
   "item.energizedpower.energized_gold_ingot": "帯電した金インゴット",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "帯電した銅の板",
   "item.energizedpower.energized_gold_plate": "帯電した金の板",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "帯電した銅のワイヤー",
   "item.energizedpower.energized_gold_wire": "帯電した金のワイヤー",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "輝くインゴット",
   "advancements.energizedpower.energized_gold_ingot.description": "帯電した金インゴットは眩い光を放っています",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "全知の書",
   "advancements.energizedpower.energized_power_book.description": "このMODのガイドブック",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "帯電した金の板",
   "advancements.energizedpower.energized_gold_plate.description": "帯電した金の板を作成する",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "帯電した銅のワイヤー",
   "advancements.energizedpower.energized_copper_wire.description": "帯電した銅のワイヤーを作成する",

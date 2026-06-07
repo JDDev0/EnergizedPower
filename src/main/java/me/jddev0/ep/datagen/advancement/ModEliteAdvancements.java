@@ -57,6 +57,18 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 EPItems.CRYSTALLIZED_ALLOY_PLATE, "crystallized_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
         );
+
+        AdvancementHolder energizedAlloyIngot = addAdvancement(
+                advancementOutput, existingFileHelper, crystallizedAlloyIngot,
+                EPItems.ENERGIZED_ALLOY_INGOT, "energized_alloy_ingot", AdvancementType.TASK,
+                CommonItemTags.INGOTS_ENERGIZED_ALLOY
+        );
+
+        AdvancementHolder energizedAlloyPlate = addAdvancement(
+                advancementOutput, existingFileHelper, energizedAlloyIngot,
+                EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,
+                CommonItemTags.PLATES_ENERGIZED_ALLOY
+        );
     }
 
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,

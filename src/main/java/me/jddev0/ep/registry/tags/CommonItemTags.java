@@ -54,6 +54,8 @@ public final class CommonItemTags {
             ResourceLocation.fromNamespaceAndPath("c", "ingots/energized_copper"));
     public static final TagKey<Item> INGOTS_ENERGIZED_GOLD = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "ingots/energized_gold"));
+    public static final TagKey<Item> INGOTS_ENERGIZED_ALLOY = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "ingots/energized_alloy"));
 
     public static final TagKey<Item> GEMS_CRYSTALLIZED_LAPIS_LAZULI = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "gems/crystallized_lapis_lazuli"));
@@ -76,6 +78,8 @@ public final class CommonItemTags {
             ResourceLocation.fromNamespaceAndPath("c", "plates/energized_copper"));
     public static final TagKey<Item> PLATES_ENERGIZED_GOLD = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "plates/energized_gold"));
+    public static final TagKey<Item> PLATES_ENERGIZED_ALLOY = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "plates/energized_alloy"));
 
     public static final TagKey<Item> GEARS = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "gears"));

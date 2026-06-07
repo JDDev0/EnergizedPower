@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "Enerjilendirilmiş Bakır Külçesi",
   "item.energizedpower.energized_gold_ingot": "Enerjilendirilmiş Altın Külçesi",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "Enerjilendirilmiş Bakır Plaka",
   "item.energizedpower.energized_gold_plate": "Enerjilendirilmiş Altın Plaka",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "Enerjilendirilmiş Bakır Tel",
   "item.energizedpower.energized_gold_wire": "Enerjilendirilmiş Altın Tel",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "Parlak Külçe",
   "advancements.energizedpower.energized_gold_ingot.description": "Bu enerjili altın külçe çok parlak.",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "Sınırsız Bilgi ve Baykuş!",
   "advancements.energizedpower.energized_power_book.description": "Umarın gerçekten baykuş gibi bunu ezberlemeyeceksindir!.",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "Enerjili ALtın Plaka",
   "advancements.energizedpower.energized_gold_plate.description": "Parlak ve yansıtıcı...",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "Enerjili Bakır Tel",
   "advancements.energizedpower.energized_copper_wire.description": "Şimdi dokunmak tehlikeli işte...",

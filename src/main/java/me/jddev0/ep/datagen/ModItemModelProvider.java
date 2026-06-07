@@ -28,9 +28,11 @@ public class ModItemModelProvider extends ItemModelProvider {
     private void registerBasicModels() {
         basicItem(EPItems.ENERGIZED_COPPER_INGOT);
         basicItem(EPItems.ENERGIZED_GOLD_INGOT);
+        basicItem(EPItems.ENERGIZED_ALLOY_INGOT);
 
         basicItem(EPItems.ENERGIZED_COPPER_PLATE);
         basicItem(EPItems.ENERGIZED_GOLD_PLATE);
+        basicItem(EPItems.ENERGIZED_ALLOY_PLATE);
 
         basicItem(EPItems.ENERGIZED_COPPER_WIRE);
         basicItem(EPItems.ENERGIZED_GOLD_WIRE);

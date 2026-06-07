@@ -170,7 +170,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
                 addTag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
-                addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD);
+                addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
+                addTag(CommonItemTags.INGOTS_ENERGIZED_ALLOY);
         tag(CommonItemTags.INGOTS_TIN).
                 add(EPItems.TIN_INGOT.get());
         tag(CommonItemTags.INGOTS_STEEL).
@@ -185,6 +186,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.ENERGIZED_COPPER_INGOT.get());
         tag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_INGOT.get());
+        tag(CommonItemTags.INGOTS_ENERGIZED_ALLOY).
+                add(EPItems.ENERGIZED_ALLOY_INGOT.get());
 
         tag(Tags.Items.GEMS).
                 addTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI);
@@ -199,7 +202,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 addTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
-                addTag(CommonItemTags.PLATES_ENERGIZED_GOLD);
+                addTag(CommonItemTags.PLATES_ENERGIZED_GOLD).
+                addTag(CommonItemTags.PLATES_ENERGIZED_ALLOY);
         tag(CommonItemTags.PLATES_TIN).
                 add(EPItems.TIN_PLATE.get());
         tag(CommonItemTags.PLATES_COPPER).
@@ -216,6 +220,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.ENERGIZED_COPPER_PLATE.get());
         tag(CommonItemTags.PLATES_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_PLATE.get());
+        tag(CommonItemTags.PLATES_ENERGIZED_ALLOY).
+                add(EPItems.ENERGIZED_ALLOY_PLATE.get());
 
         tag(CommonItemTags.GEARS).
                 addTag(CommonItemTags.GEARS_IRON);
