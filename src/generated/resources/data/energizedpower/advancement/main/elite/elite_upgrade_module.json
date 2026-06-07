@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/quantum_prcessing_unit",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:elite_upgrade_module"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.elite_upgrade_module.description"
+    },
+    "icon": {
+      "id": "energizedpower:elite_upgrade_module"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.elite_upgrade_module.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

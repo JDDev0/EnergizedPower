@@ -80,6 +80,7 @@
   "item.energizedpower.basic_circuit": "基础电路",
   "item.energizedpower.advanced_circuit": "高级电路",
   "item.energizedpower.processing_unit": "处理单元",
+  "item.energizedpower.quantum_processing_unit": "Quantum Processing Unit",
 
   "item.energizedpower.energized_power_book": "Energized Power 指南",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "左键点击方块以打开该方块的说明页面。",
@@ -119,6 +120,7 @@
   "item.energizedpower.basic_upgrade_module": "基础升级模块",
   "item.energizedpower.advanced_upgrade_module": "高级升级模块",
   "item.energizedpower.reinforced_advanced_upgrade_module": "强化高级升级模块",
+  "item.energizedpower.elite_upgrade_module": "Elite Upgrade Module",
 
   "_template.item.energizedpower.speed_upgrade_module": "速度升级模块 (等级 %s)",
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "能量效率升级模块 (等级 %s)",
@@ -915,6 +917,9 @@
   "advancements.energizedpower.processing_unit.title": "处理单元",
   "advancements.energizedpower.processing_unit.description": "合成一个处理单元。",
 
+  "advancements.energizedpower.quantum_processing_unit.title": "Quantum Processing Unit",
+  "advancements.energizedpower.quantum_processing_unit.description": "Craft a Quantum Processing Unit.",
+
   "advancements.energizedpower.basic_upgrade_module.title": "基础升级模块",
   "advancements.energizedpower.basic_upgrade_module.description": "合成一个基础升级模块。",
 
@@ -923,6 +928,9 @@
 
   "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "强化高级升级模块",
   "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "合成一个强化高级升级模块。",
+
+  "advancements.energizedpower.elite_upgrade_module.title": "Elite Upgrade Module",
+  "advancements.energizedpower.elite_upgrade_module.description": "Craft an Elite Upgrade Module.",
 
   "_template.advancements.energizedpower.speed_upgrade_module.title": "速度 %s",
   "_template.advancements.energizedpower.speed_upgrade_module.description": "合成一个速度升级模块 (等级 %s)。",
