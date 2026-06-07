@@ -301,11 +301,20 @@
   "block.energizedpower.express_item_conveyor_belt_merger": "极速物品传送带合并器",
   "item.energizedpower.express_item_conveyor_belt_merger": "极速物品传送带合并器",
 
+  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+
   "block.energizedpower.fluid_pipe": "铁流体管道",
   "item.energizedpower.fluid_pipe": "铁流体管道",
 
   "block.energizedpower.golden_fluid_pipe": "金流体管道",
   "item.energizedpower.golden_fluid_pipe": "金流体管道",
+
+  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+
+  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "每个抽取面最大抽取量: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "面 (%s) 的连接类型已设置为 %s。",
@@ -1254,6 +1263,9 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "快速流体运输",
   "advancements.energizedpower.golden_fluid_pipe.description": "用金流体管道更快地运输流体。",
 
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
+
   "advancements.energizedpower.fluid_tank_small.title": "简易流体存储",
   "advancements.energizedpower.fluid_tank_small.description": "在小型流体储罐中存储流体。",
 
@@ -1750,7 +1762,6 @@
   "book.energizedpower.page.fluid_pipes.1": "流体管道可以传输流体。",
   "book.energizedpower.page.fluid_pipes.2": "每个管道面的模式可以用扳手配置。",
   "book.energizedpower.page.fluid_pipes.3": "单个流体管道方块一次只能提取一种流体类型，即使多个面配置为提取。",
-  "book.energizedpower.page.fluid_pipes.4": "有两个等级的流体管道：铁和金。",
 
   "book.energizedpower.page.fluid_tanks.1": "流体储罐可以存储流体。",
   "book.energizedpower.page.fluid_tanks.2": "有三个等级的流体储罐：小型、中型和大型。",

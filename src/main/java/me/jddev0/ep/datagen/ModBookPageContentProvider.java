@@ -1519,12 +1519,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
             ).append(
                     Component.translatable("book.energizedpower.page.fluid_pipes.3").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.fluid_pipes.4").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
             ), new Block[] {
+                    EPBlocks.COPPER_FLUID_PIPE,
                     EPBlocks.IRON_FLUID_PIPE,
-                    EPBlocks.GOLDEN_FLUID_PIPE
+                    EPBlocks.GOLDEN_FLUID_PIPE,
+                    EPBlocks.STEEL_FLUID_PIPE,
+                    EPBlocks.PRESSURIZED_FLUID_PIPE
             }, changePageIntToId);
         }
 

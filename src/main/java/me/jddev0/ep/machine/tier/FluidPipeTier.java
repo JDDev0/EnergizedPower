@@ -11,12 +11,24 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 public enum FluidPipeTier {
+    COPPER("copper_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
+            ModConfigs.COMMON_COPPER_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)),
     IRON("fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
             ModConfigs.COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
             BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)),
     GOLDEN("golden_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
             ModConfigs.COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)),
+    STEEL("steel_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
+            ModConfigs.COMMON_STEEL_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
+            BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)),
+    PRESSURIZED("pressurized_fluid_pipe", FluidUtils.convertMilliBucketsToDroplets(
+            ModConfigs.COMMON_PRESSURIZED_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue()),
             BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
 
@@ -30,17 +42,23 @@ public enum FluidPipeTier {
         this.props = props;
     }
 
-    public BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier() {
+    public Block getBlockFromTier() {
         return switch(this) {
-            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY;
-            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY;
+            case COPPER -> EPBlocks.COPPER_FLUID_PIPE;
+            case IRON -> EPBlocks.IRON_FLUID_PIPE;
+            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE;
+            case STEEL -> EPBlocks.STEEL_FLUID_PIPE;
+            case PRESSURIZED -> EPBlocks.PRESSURIZED_FLUID_PIPE;
         };
     }
 
-    public Block getBlockFromTier() {
+    public BlockEntityType<FluidPipeBlockEntity> getEntityTypeFromTier() {
         return switch(this) {
-            case IRON -> EPBlocks.IRON_FLUID_PIPE;
-            case GOLDEN -> EPBlocks.GOLDEN_FLUID_PIPE;
+            case COPPER -> EPBlockEntities.COPPER_FLUID_PIPE_ENTITY;
+            case IRON -> EPBlockEntities.IRON_FLUID_PIPE_ENTITY;
+            case GOLDEN -> EPBlockEntities.GOLDEN_FLUID_PIPE_ENTITY;
+            case STEEL -> EPBlockEntities.STEEL_FLUID_PIPE_ENTITY;
+            case PRESSURIZED -> EPBlockEntities.PRESSURIZED_FLUID_PIPE_ENTITY;
         };
     }
 

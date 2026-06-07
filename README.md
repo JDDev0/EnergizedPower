@@ -80,7 +80,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Fluid transportation
 
-- Fluid Pipes (Iron and Golden)
+- Fluid Pipes (Copper, Iron, Golden, Steel, and Pressurized) (Copper, Steel, and Pressurized: (**In next release (v3.0.0)**))
 - Fluid Tanks (Small, Medium, and Large)
 
 ### Item transportation

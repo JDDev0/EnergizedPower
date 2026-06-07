@@ -28,12 +28,24 @@ public final class EPBlockEntities {
     private static BlockEntityType<FluidPipeBlockEntity> createFluidPipeBlockEntity(String name, FluidPipeBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new FluidPipeBlockEntity(blockPos, state, block.getTier()));
     }
+    public static final BlockEntityType<FluidPipeBlockEntity> COPPER_FLUID_PIPE_ENTITY = registerFluidStorage(
+            createFluidPipeBlockEntity("copper_fluid_pipe", EPBlocks.COPPER_FLUID_PIPE),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
     public static final BlockEntityType<FluidPipeBlockEntity> IRON_FLUID_PIPE_ENTITY = registerFluidStorage(
             createFluidPipeBlockEntity("fluid_pipe", EPBlocks.IRON_FLUID_PIPE),
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
     public static final BlockEntityType<FluidPipeBlockEntity> GOLDEN_FLUID_PIPE_ENTITY = registerFluidStorage(
             createFluidPipeBlockEntity("golden_fluid_pipe", EPBlocks.GOLDEN_FLUID_PIPE),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+    public static final BlockEntityType<FluidPipeBlockEntity> STEEL_FLUID_PIPE_ENTITY = registerFluidStorage(
+            createFluidPipeBlockEntity("steel_fluid_pipe", EPBlocks.STEEL_FLUID_PIPE),
+            (blockEntity, direction) -> blockEntity.fluidStorage
+    );
+    public static final BlockEntityType<FluidPipeBlockEntity> PRESSURIZED_FLUID_PIPE_ENTITY = registerFluidStorage(
+            createFluidPipeBlockEntity("pressurized_fluid_pipe", EPBlocks.PRESSURIZED_FLUID_PIPE),
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
 

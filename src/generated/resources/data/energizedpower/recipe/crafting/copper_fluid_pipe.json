@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:ingots/copper",
+    "c": "#c:plates/copper"
+  },
+  "pattern": [
+    "CcC",
+    "CcC",
+    "CcC"
+  ],
+  "result": {
+    "count": 12,
+    "id": "energizedpower:copper_fluid_pipe"
+  }
+}

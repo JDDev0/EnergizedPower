@@ -68,6 +68,11 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
         );
 
+        AdvancementHolder pressurizedFluidPipe = addAdvancement(
+                advancementOutput, crystallizedAlloyPlate,
+                EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM, "pressurized_fluid_pipe", AdvancementType.TASK
+        );
+
         AdvancementHolder energizedAlloyIngot = addAdvancement(
                 lookupProvider,
                 advancementOutput, crystallizedAlloyIngot,

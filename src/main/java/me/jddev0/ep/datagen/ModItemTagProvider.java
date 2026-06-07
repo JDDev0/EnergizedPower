@@ -61,8 +61,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         valueLookupBuilder(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
                 add(
+                        EPBlocks.COPPER_FLUID_PIPE_ITEM,
                         EPBlocks.IRON_FLUID_PIPE_ITEM,
                         EPBlocks.GOLDEN_FLUID_PIPE_ITEM,
+                        EPBlocks.STEEL_FLUID_PIPE_ITEM,
+                        EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM,
 
                         EPBlocks.FLUID_TANK_SMALL_ITEM,
                         EPBlocks.FLUID_TANK_MEDIUM_ITEM,

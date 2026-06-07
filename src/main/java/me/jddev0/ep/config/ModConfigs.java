@@ -1381,19 +1381,25 @@ public final class ModConfigs {
             1, null
     ));
 
-    public static final ConfigValue<Long> COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new LongConfigValue(
-            "block.iron_fluid_pipe.fluid_transfer_rate",
-            "The transfer rate per tank and face of an Iron Fluid Pipe face in the extraction state in mB (milli Buckets)",
-            100L,
-            1L, null
-    ));
+    public static final ConfigValue<Long> COMMON_COPPER_FLUID_PIPE_FLUID_TRANSFER_RATE = registerFluidPipeTransferRateConfigValue(
+            "block.copper_fluid_pipe", "Copper Fluid Pipe", 100L
+    );
 
-    public static final ConfigValue<Long> COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE = COMMON_CONFIG.register(new LongConfigValue(
-            "block.golden_fluid_pipe.fluid_transfer_rate",
-            "The transfer rate per tank and face of a Golden Fluid Pipe face in the extraction state in mB (milli Buckets)",
-            1000L,
-            1L, null
-    ));
+    public static final ConfigValue<Long> COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE = registerFluidPipeTransferRateConfigValue(
+            "block.iron_fluid_pipe", "Iron Fluid Pipe", 250L
+    );
+
+    public static final ConfigValue<Long> COMMON_GOLDEN_FLUID_PIPE_FLUID_TRANSFER_RATE = registerFluidPipeTransferRateConfigValue(
+            "block.golden_fluid_pipe", "Golden Fluid Pipe", 1000L
+    );
+
+    public static final ConfigValue<Long> COMMON_STEEL_FLUID_PIPE_FLUID_TRANSFER_RATE = registerFluidPipeTransferRateConfigValue(
+            "block.steel_fluid_pipe", "Steel Fluid Pipe", 2500L
+    );
+
+    public static final ConfigValue<Long> COMMON_PRESSURIZED_FLUID_PIPE_FLUID_TRANSFER_RATE = registerFluidPipeTransferRateConfigValue(
+            "block.pressurized_fluid_pipe", "Pressurized Fluid Pipe", 10000L
+    );
 
     public static final ConfigValue<Long> COMMON_FLUID_TANK_SMALL_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
             "block.fluid_tank_small", "Fluid Tank (Small)", 8
@@ -1741,6 +1747,15 @@ public final class ModConfigs {
         ));
     }
 
+    private static ConfigValue<Long> registerFluidPipeTransferRateConfigValue(String baseConfigKey, String itemName, long defaultValue) {
+        return COMMON_CONFIG.register(new LongConfigValue(
+                baseConfigKey + ".fluid_transfer_rate",
+                "The transfer rate per tank and face of an " + itemName + " in the extraction state in mB (milli Buckets)",
+                defaultValue,
+                1L, null
+        ));
+    }
+
     private static ConfigValue<Integer> registerRecipeDurationConfigValue(String baseConfigKey, String itemName, int defaultValue) {
         return COMMON_CONFIG.register(new IntegerConfigValue(
                 baseConfigKey + ".recipe_duration",
@@ -1904,7 +1919,7 @@ public final class ModConfigs {
 
                 String originalVersion = COMMON_CONFIG_VERSION.getConfigVersionOriginal();
                 if(originalVersion != null && originalVersion.startsWith("2.")) {
-                    upgradeRecipeDurationMultipliersCommonConfig();
+                    upgradeConfigVersionPre300();
                 }
 
                 LOGGER.info("Energized Power common config was successfully loaded");
@@ -1936,7 +1951,15 @@ public final class ModConfigs {
         }
     }
 
-    private static void upgradeRecipeDurationMultipliersCommonConfig() throws IOException {
+    private static void upgradeConfigVersionPre300() throws IOException {
+        upgradeRecipeDurationMultipliersCommonConfig();
+        upgradeIronFluidPipeTransferRate();
+
+        //Save new config (No need to back up, because backup was already created when config version was upgraded)
+        COMMON_CONFIG.write();
+    }
+
+    private static void upgradeRecipeDurationMultipliersCommonConfig() {
         //Before EP v3.0.0-beta.1 there was a hard-coded multiplier value in the Induction Smelter, Powered Furnace, and Advanced Powered Furnace itself
         //Since EP v3.0.0-beta.1 the default value was changed to match the hard-coded duration multiplier (e.g. Induction Smelter = 0.5f)
         try {
@@ -1962,8 +1985,19 @@ public final class ModConfigs {
         }catch(ConfigValidationException e) {
             LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Advanced Powered Furnace recipe duration multiplier", e);
         }
+    }
 
-        //Save new config (No need to back up, because backup was already created when config version was upgraded)
-        COMMON_CONFIG.write();
+    private static void upgradeIronFluidPipeTransferRate() {
+        //Before EP v3.0.0-beta.1 the default value of the Iron Pipe was 100 mB/t (Now it is 250 mB/t)
+        try {
+            long value = COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.getValue();
+            if(value == 100) {
+                COMMON_IRON_FLUID_PIPE_FLUID_TRANSFER_RATE.setValue(250L);
+
+                LOGGER.info("Energized Power common config was successfully upgraded (Iron Fluid Pipe transfer rate)");
+            }
+        }catch(ConfigValidationException e) {
+            LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Iron Fluid Pipe transfer rate", e);
+        }
     }
 }
