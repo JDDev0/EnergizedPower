@@ -55,7 +55,7 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
 
     @Override
     protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             public long getCapacityAsLong() {
                 return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(

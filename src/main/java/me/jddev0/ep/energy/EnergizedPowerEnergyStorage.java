@@ -20,6 +20,13 @@ public class EnergizedPowerEnergyStorage extends SnapshotJournal<Integer> implem
         this.maxExtract = maxExtract;
     }
 
+    /**
+     * Creates an energy storage with unlimited transfer rate
+     */
+    public EnergizedPowerEnergyStorage(int capacity) {
+        this(capacity, Integer.MAX_VALUE, Integer.MAX_VALUE);
+    }
+
     @Override
     protected Integer createSnapshot() {
         return amount;
