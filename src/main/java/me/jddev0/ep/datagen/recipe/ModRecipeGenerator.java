@@ -3194,6 +3194,14 @@ public class ModRecipeGenerator extends RecipeProvider {
         addCrystalGrowthChamberRecipe(new IngredientWithCount(ingredientOf(Items.AMETHYST_BLOCK), 4),
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.BUDDING_AMETHYST), .25),
                 32000);
+
+        addCrystalGrowthChamberRecipe(new IngredientWithCount(ingredientOf(Items.LAPIS_LAZULI), 8),
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(EPItems.CRYSTALLIZED_LAPIS_LAZULI), 1.),
+                128000, "_from_lapis_lazli");
+        addCrystalGrowthChamberRecipe(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(EPItems.CRYSTALLIZED_LAPIS_LAZULI), new double[] {
+                        1., 1., .67, .5, .25, .125
+                }), 32000);
     }
 
     private void add3x3PackingCraftingRecipe(Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
@@ -3796,9 +3804,13 @@ public class ModRecipeGenerator extends RecipeProvider {
         addCrystalGrowthChamberRecipe(new IngredientWithCount(input, 1), output, ticks);
     }
     private void addCrystalGrowthChamberRecipe(IngredientWithCount input, OutputItemStackTemplateWithPercentages output,
-                                                      int ticks) {
+                                               int ticks) {
+        addCrystalGrowthChamberRecipe(input, output, ticks, "");
+    }
+    private void addCrystalGrowthChamberRecipe(IngredientWithCount input, OutputItemStackTemplateWithPercentages output,
+                                               int ticks, String recipeIdSuffix) {
         Identifier recipeId = EPAPI.id("crystal_growing/" +
-                getItemName(output.output().item().value()));
+                getItemName(output.output().item().value()) + recipeIdSuffix);
 
         CrystalGrowthChamberRecipe recipe = new CrystalGrowthChamberRecipe(output, input, ticks);
         this.output.accept(getKey(recipeId), recipe, null);

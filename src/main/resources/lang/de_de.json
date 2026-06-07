@@ -41,6 +41,9 @@
   "item.energizedpower.copper_wire": "Kupferdraht",
   "item.energizedpower.gold_wire": "Golddraht",
 
+  "item.energizedpower.crystallized_lapis_lazuli": "Kristallisierter Lapislazuli",
+  "tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1": "Du solltest zwei Sätze von MK VI Upgrades in der Kristall-Wachstums-Kammer installieren bevor du dieses Item herstellst.",
+
   "item.energizedpower.steel_ingot": "Stahlbarren",
 
   "item.energizedpower.sawdust": "Sägemehl",
@@ -1376,6 +1379,9 @@
 
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Fortgeschrittenes Loren-Entladen",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Entläd Loren schneller.",
+
+  "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
+  "advancements.energizedpower.energizedpower_elite.description": "Kristallisation ist die Zukunft.",
 
 
   "book.energizedpower.tooltip.link": "Link öffnen",

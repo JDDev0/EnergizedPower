@@ -43,6 +43,9 @@
   "item.energizedpower.copper_wire": "銅のワイヤー",
   "item.energizedpower.gold_wire": "金のワイヤー",
 
+  "item.energizedpower.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli",
+  "tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1": "You should install two sets of Tier VI upgrades in the Crystal Growth Chamber before making this item.",
+
   "item.energizedpower.sawdust": "木くず",
 
   "item.energizedpower.charcoal_dust": "木炭の粉",
@@ -1376,6 +1379,9 @@
 
   "advancements.energizedpower.advanced_minecart_uncharger.title": "マインカートの発展型放電器",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "マインカートをより速く放電できます",
+
+  "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
+  "advancements.energizedpower.energizedpower_elite.description": "Crystallization is the future.",
 
 
   "book.energizedpower.tooltip.link": "リンクを開く",

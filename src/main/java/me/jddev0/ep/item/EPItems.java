@@ -82,6 +82,9 @@ public final class EPItems {
     public static final Item COPPER_WIRE = registerItem("copper_wire");
     public static final Item GOLD_WIRE = registerItem("gold_wire");
 
+    public static final Item CRYSTALLIZED_LAPIS_LAZULI = registerItem("crystallized_lapis_lazuli",
+            CrystallizedLapisLazuliItem::new);
+
     public static final Item SAWDUST = registerItem("sawdust");
 
     public static final Item CHARCOAL_DUST = registerItem("charcoal_dust");

@@ -1,0 +1,32 @@
+{
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:gems/crystallized_lapis_lazuli"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "energizedpower:block/elite_machine_frame_top",
+    "description": {
+      "translate": "advancements.energizedpower.energizedpower_elite.description"
+    },
+    "icon": {
+      "id": "energizedpower:crystallized_lapis_lazuli"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.energizedpower_elite.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
