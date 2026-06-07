@@ -32,6 +32,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
                         EPBlocks.STEEL_BLOCK,
+                        EPBlocks.ADVANCED_ALLOY_BLOCK,
 
                         EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE,
@@ -196,6 +197,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
                         EPBlocks.STEEL_BLOCK,
+                        EPBlocks.ADVANCED_ALLOY_BLOCK,
 
                         EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE,
@@ -361,6 +363,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
+                addTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
         valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK);
@@ -368,6 +371,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 add(EPBlocks.TIN_BLOCK);
         valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK);
+        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+                add(EPBlocks.ADVANCED_ALLOY_BLOCK);
         valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK);
     }
