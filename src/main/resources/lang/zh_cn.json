@@ -1396,10 +1396,13 @@
   "advancements.energizedpower.solar_panel_4.description": "IV 级：超越基础！",
 
   "advancements.energizedpower.solar_panel_5.title": "太阳能总监",
-  "advancements.energizedpower.solar_panel_5.description": "V 级 - 只剩最后一等了！",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
 
-  "advancements.energizedpower.solar_panel_6.title": "太阳能雇主",
-  "advancements.energizedpower.solar_panel_6.description": "VI 级 - 你拥有了最好的太阳能板！",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "VI 级 - 只剩最后一等了！",
+
+  "advancements.energizedpower.solar_panel_7.title": "太阳能雇主",
+  "advancements.energizedpower.solar_panel_7.description": "VII 级 - 你拥有了最好的太阳能板！",
 
   "advancements.energizedpower.uncharger.title": "还回来！",
   "advancements.energizedpower.uncharger.description": "为你的能量物品放电。",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "太阳能电池板在白天产生能量。效率取决于时间和天气。",
-  "book.energizedpower.page.solar_panels.2": "有 6 个太阳能电池板等级。",
+  "book.energizedpower.page.solar_panels.2": "有 7 个太阳能电池板等级。",
 
   "book.energizedpower.page.coal_engine.1": "燃煤发动机通过燃烧物品产生能量。",
   "book.energizedpower.page.coal_engine.2": "剩余物品可以自动提取。",

@@ -512,7 +512,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
 
         AdvancementHolder solarPanel6 = addAdvancement(
                 advancementOutput, reinforcedAdvancedSolarCell,
-                EPBlocks.SOLAR_PANEL_ITEM_6, "solar_panel_6", AdvancementType.CHALLENGE
+                EPBlocks.SOLAR_PANEL_ITEM_6, "solar_panel_6", AdvancementType.TASK
         );
 
         AdvancementHolder reinforcedAdvancedMachineFrame = addAdvancement(

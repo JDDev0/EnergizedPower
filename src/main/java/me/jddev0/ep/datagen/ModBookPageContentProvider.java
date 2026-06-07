@@ -1045,7 +1045,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     EPBlocks.SOLAR_PANEL_3,
                     EPBlocks.SOLAR_PANEL_4,
                     EPBlocks.SOLAR_PANEL_5,
-                    EPBlocks.SOLAR_PANEL_6
+                    EPBlocks.SOLAR_PANEL_6,
+                    EPBlocks.SOLAR_PANEL_7
             }, changePageIntToId);
         }
 

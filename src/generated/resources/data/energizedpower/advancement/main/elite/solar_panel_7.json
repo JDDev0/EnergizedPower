@@ -1,11 +1,11 @@
 {
-  "parent": "energizedpower:main/advanced/reinforced_advanced_solar_cell",
+  "parent": "energizedpower:main/elite/elite_solar_cell",
   "criteria": {
     "has_the_item": {
       "conditions": {
         "items": [
           {
-            "items": "energizedpower:solar_panel_6"
+            "items": "energizedpower:solar_panel_7"
           }
         ]
       },
@@ -14,13 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.energizedpower.solar_panel_6.description"
+      "translate": "advancements.energizedpower.solar_panel_7.description"
     },
+    "frame": "challenge",
     "icon": {
-      "id": "energizedpower:solar_panel_6"
+      "id": "energizedpower:solar_panel_7"
     },
     "title": {
-      "translate": "advancements.energizedpower.solar_panel_6.title"
+      "translate": "advancements.energizedpower.solar_panel_7.title"
     }
   },
   "requirements": [

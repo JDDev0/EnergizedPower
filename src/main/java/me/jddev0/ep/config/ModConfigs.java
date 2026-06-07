@@ -19,7 +19,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "2.18.1";
+    private static final String CONFIG_VERSION = "3.0.0-beta.1";
 
     private ModConfigs() {}
 
@@ -761,6 +761,16 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Long> COMMON_SOLAR_PANEL_6_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
             "block.solar_panel_6", "Solar Panel (Tier VI)", 131072
+    );
+
+    public static final ConfigValue<Long> COMMON_SOLAR_PANEL_7_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.solar_panel_7", "Solar Panel (Tier VII)", 524288 * 8
+    );
+    public static final ConfigValue<Long> COMMON_SOLAR_PANEL_7_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.solar_panel_7", "Solar Panel (Tier VII)", 524288 * 4
+    );
+    public static final ConfigValue<Long> COMMON_SOLAR_PANEL_7_ENERGY_PEAK_PRODUCTION = registerEnergyPeakProductionConfigValue(
+            "block.solar_panel_7", "Solar Panel (Tier VII)", 524288
     );
 
     public static final ConfigValue<Long> COMMON_MINECART_CHARGER_CAPACITY = registerEnergyCapacityConfigValue(

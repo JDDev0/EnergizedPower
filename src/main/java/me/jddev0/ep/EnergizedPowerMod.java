@@ -186,6 +186,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.SOLAR_PANEL_ITEM_4);
             event.accept(EPBlocks.SOLAR_PANEL_ITEM_5);
             event.accept(EPBlocks.SOLAR_PANEL_ITEM_6);
+            event.accept(EPBlocks.SOLAR_PANEL_ITEM_7);
 
             event.accept(EPBlocks.BATTERY_BOX_ITEM);
             event.accept(EPBlocks.ADVANCED_BATTERY_BOX_ITEM);

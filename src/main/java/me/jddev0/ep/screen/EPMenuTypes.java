@@ -166,6 +166,8 @@ public final class EPMenuTypes {
             new ExtendedMenuType<>(SolarPanelMenu::new, BlockPos.STREAM_CODEC.cast()));
     public static final MenuType<SolarPanelMenu> SOLAR_PANEL_MENU_6 = createScreenHandlerType("solar_panel_6",
             new ExtendedMenuType<>(SolarPanelMenu::new, BlockPos.STREAM_CODEC.cast()));
+    public static final MenuType<SolarPanelMenu> SOLAR_PANEL_MENU_7 = createScreenHandlerType("solar_panel_7",
+            new ExtendedMenuType<>(SolarPanelMenu::new, BlockPos.STREAM_CODEC.cast()));
 
     public static final MenuType<TransformerMenu> LV_TRANSFORMER_1_TO_N_MENU = createScreenHandlerType("lv_transformer_1_to_n",
             new ExtendedMenuType<>(TransformerMenu::new, BlockPos.STREAM_CODEC.cast()));

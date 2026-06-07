@@ -1396,10 +1396,13 @@
   "advancements.energizedpower.solar_panel_4.description": "Nível IV: Mais do que básico!",
 
   "advancements.energizedpower.solar_panel_5.title": "Diretor de Energia Solar",
-  "advancements.energizedpower.solar_panel_5.description": "Nível V - Falta apenas um nível!",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
 
-  "advancements.energizedpower.solar_panel_6.title": "Empregador de Energia Solar",
-  "advancements.energizedpower.solar_panel_6.description": "Nível VI - Você conseguiu o melhor painel solar!",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "Nível VI - Falta apenas um nível!",
+
+  "advancements.energizedpower.solar_panel_7.title": "Empregador de Energia Solar",
+  "advancements.energizedpower.solar_panel_7.description": "Nível VII - Você conseguiu o melhor painel solar!",
 
   "advancements.energizedpower.uncharger.title": "Devolva!",
   "advancements.energizedpower.uncharger.description": "Descarrega seus itens de energia.",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Os Painéis Solares produzem energia durante o dia. A eficiência depende do tempo e do clima.",
-  "book.energizedpower.page.solar_panels.2": "Existem 6 Níveis de Painel Solar.",
+  "book.energizedpower.page.solar_panels.2": "Existem 7 Níveis de Painel Solar.",
 
   "book.energizedpower.page.coal_engine.1": "O Motor a Carvão produz energia queimando itens.",
   "book.energizedpower.page.coal_engine.2": "Itens restantes podem ser extraídos automaticamente.",
