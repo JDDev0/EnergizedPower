@@ -119,7 +119,7 @@ runs {
         systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
         // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-        arguments '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        arguments '--mod', project.mod_id, '--uncached', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 
     serverData {
