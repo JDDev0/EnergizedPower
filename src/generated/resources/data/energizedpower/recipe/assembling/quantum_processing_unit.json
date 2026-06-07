@@ -1,0 +1,32 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "count": 4,
+      "input": {
+        "item": "energizedpower:processing_unit"
+      }
+    },
+    {
+      "count": 4,
+      "input": {
+        "tag": "c:wires/superconductor"
+      }
+    },
+    {
+      "count": 4,
+      "input": {
+        "tag": "c:gems/crystallized_lapis_lazuli"
+      }
+    },
+    {
+      "count": 2,
+      "input": {
+        "item": "energizedpower:coolant_cell"
+      }
+    }
+  ],
+  "output": {
+    "item": "energizedpower:quantum_processing_unit"
+  }
+}

@@ -100,6 +100,7 @@ class ModItemModelProvider {
         basicItem(EPItems.BASIC_CIRCUIT);
         basicItem(EPItems.ADVANCED_CIRCUIT);
         basicItem(EPItems.PROCESSING_UNIT);
+        basicItem(EPItems.QUANTUM_PROCESSING_UNIT);
 
         basicItem(EPItems.TELEPORTER_MATRIX);
         basicItem(EPItems.TELEPORTER_PROCESSING_UNIT);
@@ -107,6 +108,7 @@ class ModItemModelProvider {
         basicItem(EPItems.BASIC_UPGRADE_MODULE);
         basicItem(EPItems.ADVANCED_UPGRADE_MODULE);
         basicItem(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE);
+        basicItem(EPItems.ELITE_UPGRADE_MODULE);
 
         basicItem(EPItems.SPEED_UPGRADE_MODULE_1);
         basicItem(EPItems.SPEED_UPGRADE_MODULE_2);
