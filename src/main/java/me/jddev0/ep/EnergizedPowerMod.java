@@ -378,6 +378,8 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_1);
             event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_2);
             event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_3);
+            event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_4);
+            event.accept(EPItems.MOON_LIGHT_UPGRADE_MODULE_5);
 
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1);
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2);

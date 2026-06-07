@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:gems/crystallized_lapis_lazuli"
+    },
+    "E": {
+      "tag": "c:plates/energized_alloy"
+    },
+    "M": {
+      "item": "energizedpower:moon_light_upgrade_module_4"
+    },
+    "U": {
+      "item": "energizedpower:elite_upgrade_module"
+    },
+    "e": {
+      "item": "energizedpower:elite_solar_cell"
+    }
+  },
+  "pattern": [
+    "ECE",
+    "eUe",
+    "EME"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:moon_light_upgrade_module_5"
+  }
+}
