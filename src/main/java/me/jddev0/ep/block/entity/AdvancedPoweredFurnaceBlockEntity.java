@@ -249,8 +249,7 @@ public class AdvancedPoweredFurnaceBlockEntity
 
                 int cookingTime = recipe.get().value().getCookingTime();
                 if(blockEntity.maxProgress[i] == 0)
-                    //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
-                    blockEntity.maxProgress[i] = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f /
+                    blockEntity.maxProgress[i] = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER /
                             blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
                 long energyUsagePerInputPerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_INPUT_PER_TICK *
@@ -412,8 +411,7 @@ public class AdvancedPoweredFurnaceBlockEntity
         int currentMaxProgress = this.maxProgress[index];
 
         int cookingTime = recipe.get().value().getCookingTime();
-        //Default Cooking Time = 200 -> maxProgress = 34 (= 200 / 6)
-        this.maxProgress[index] = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER / 6.f /
+        this.maxProgress[index] = Math.max(1, (int)Math.ceil(cookingTime * RECIPE_DURATION_MULTIPLIER /
                 this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
 
         if(this.maxProgress[index] != currentMaxProgress) {
