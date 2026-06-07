@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T13:39:43.742153868	Energized Power/Block Loot Tables
+// 1.21.1	2026-06-07T13:49:51.242836374	Energized Power/Block Loot Tables
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_table/blocks/stone_solidifier.json
 e9b25d4563facbc5f36dacbbfbb80c947a35537b data/energizedpower/loot_table/blocks/golden_fluid_pipe.json
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
@@ -56,8 +56,8 @@ e72682549d2fa4ece5bb4ebfb0839704cff8d251 data/energizedpower/loot_table/blocks/a
 3101818f5a0f52f2ed2e6257316f59bd64c2bb43 data/energizedpower/loot_table/blocks/item_conveyor_belt_merger.json
 c15b4e3a88834c70f8246a36358a970615c3244b data/energizedpower/loot_table/blocks/ehv_transformer_1_to_n.json
 b60f49c54e55112de1d96e0f0c51b62b8f3418e9 data/energizedpower/loot_table/blocks/uncharger.json
-f603a103b51a88db0eeb315b0963f6656cba9b53 data/energizedpower/loot_table/blocks/drain.json
 8c6e2ac1eff17d2b29d6b93f9a8196f3c172a32f data/energizedpower/loot_table/blocks/item_silo_small.json
+f603a103b51a88db0eeb315b0963f6656cba9b53 data/energizedpower/loot_table/blocks/drain.json
 ba6b6c0a6e0a4ccd5b3a1c7e106314e46d711f05 data/energizedpower/loot_table/blocks/charging_station.json
 7eb199261f29ead0d62ee4edfdd3e41677921b67 data/energizedpower/loot_table/blocks/advanced_crusher.json
 8e51000b1431e73eb0dddc25ae26f179418210e0 data/energizedpower/loot_table/blocks/fast_item_conveyor_belt_switch.json
