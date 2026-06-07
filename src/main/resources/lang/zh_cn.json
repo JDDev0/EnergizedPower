@@ -25,26 +25,29 @@
   "item.energizedpower.gold_dust": "金粉",
 
   "item.energizedpower.tin_nugget": "锡粒",
+  "item.energizedpower.steel_nugget": "Steel Nugget",
 
   "item.energizedpower.tin_ingot": "锡锭",
-
-  "item.energizedpower.tin_plate": "锡板",
-  "item.energizedpower.copper_plate": "铜板",
-  "item.energizedpower.iron_plate": "铁板",
-  "item.energizedpower.gold_plate": "金板",
-
   "item.energizedpower.steel_ingot": "钢锭",
 
   "item.energizedpower.redstone_alloy_ingot": "红石合金锭",
   "item.energizedpower.advanced_alloy_ingot": "高级合金锭",
   "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
+  "item.energizedpower.tin_plate": "锡板",
+  "item.energizedpower.copper_plate": "铜板",
+  "item.energizedpower.iron_plate": "铁板",
+  "item.energizedpower.gold_plate": "金板",
+  "item.energizedpower.steel_plate": "Steel Plate",
+
   "item.energizedpower.advanced_alloy_plate": "高级合金板",
   "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "铁齿轮",
+  "item.energizedpower.steel_gear": "Steel Gear",
 
   "item.energizedpower.iron_rod": "铁杆",
+  "item.energizedpower.steel_rod": "Steel Rod",
 
   "item.energizedpower.tin_wire": "锡线",
   "item.energizedpower.copper_wire": "铜线",
@@ -214,6 +217,9 @@
 
   "block.energizedpower.tin_block": "锡块",
   "item.energizedpower.tin_block": "锡块",
+
+  "block.energizedpower.steel_block": "Block of Steel",
+  "item.energizedpower.steel_block": "Block of Steel",
 
   "block.energizedpower.sawdust_block": "锯末块",
   "item.energizedpower.sawdust_block": "锯末块",
@@ -989,6 +995,9 @@
 
   "advancements.energizedpower.steel_ingot.title": "钢锭",
   "advancements.energizedpower.steel_ingot.description": "制造一个钢锭。",
+
+  "advancements.energizedpower.steel_plate.title": "Steel Plate",
+  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
 
   "advancements.energizedpower.redstone_alloy_ingot.title": "红石合金锭",
   "advancements.energizedpower.redstone_alloy_ingot.description": "制造一个红石合金锭。",

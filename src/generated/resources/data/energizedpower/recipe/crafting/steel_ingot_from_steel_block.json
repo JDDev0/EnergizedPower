@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "steel_ingot",
+  "ingredients": [
+    "#c:storage_blocks/steel"
+  ],
+  "result": {
+    "count": 9,
+    "id": "energizedpower:steel_ingot"
+  }
+}

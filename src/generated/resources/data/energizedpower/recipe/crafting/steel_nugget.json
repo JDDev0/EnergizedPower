@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#c:ingots/steel"
+  ],
+  "result": {
+    "count": 9,
+    "id": "energizedpower:steel_nugget"
+  }
+}

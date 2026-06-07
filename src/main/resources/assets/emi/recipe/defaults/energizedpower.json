@@ -25,6 +25,7 @@
     "energizedpower:compressing/gold_plate_from_compressing_gold_ingot",
     "energizedpower:compressing/iron_plate_from_compressing_iron_ingot",
     "energizedpower:compressing/tin_plate_from_compressing_tin_ingot",
+    "energizedpower:compressing/steel_plate_from_compressing_steel_ingot",
 
     "energizedpower:crafting/advanced_auto_crafter",
     "energizedpower:crafting/advanced_battery_box",
@@ -232,6 +233,8 @@
     "energizedpower:crafting/speed_upgrade_module_6",
     "energizedpower:crafting/speed_upgrade_module_7",
     "energizedpower:crafting/speed_upgrade_module_8",
+    "energizedpower:crafting/steel_block",
+    "energizedpower:crafting/steel_nugget",
     "energizedpower:crafting/stone_hammer",
     "energizedpower:crafting/stone_liquefier",
     "energizedpower:crafting/stone_solidifier",
@@ -253,6 +256,8 @@
     "energizedpower:metal_press/iron_gear",
     "energizedpower:metal_press/iron_rod",
     "energizedpower:metal_press/tin_wire",
+    "energizedpower:metal_press/steel_gear",
+    "energizedpower:metal_press/steel_rod",
 
     "energizedpower:press_mold_maker/raw_gear_press_mold",
     "energizedpower:press_mold_maker/raw_rod_press_mold",

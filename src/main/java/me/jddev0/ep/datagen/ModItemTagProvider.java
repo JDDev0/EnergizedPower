@@ -116,13 +116,16 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(Tags.Items.STORAGE_BLOCKS).
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
-                addTag(CommonItemTags.STORAGE_BLOCKS_TIN);
+                addTag(CommonItemTags.STORAGE_BLOCKS_TIN).
+                addTag(CommonItemTags.STORAGE_BLOCKS_STEEL);
         tag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK_ITEM.get());
         tag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK_ITEM.get());
         tag(CommonItemTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK_ITEM.get());
+        tag(CommonItemTags.STORAGE_BLOCKS_STEEL).
+                add(EPBlocks.STEEL_BLOCK_ITEM.get());
 
         tag(Tags.Items.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);
@@ -150,9 +153,12 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.GOLD_DUST.get());
 
         tag(Tags.Items.NUGGETS).
-                addTag(CommonItemTags.NUGGETS_TIN);
+                addTag(CommonItemTags.NUGGETS_TIN).
+                addTag(CommonItemTags.NUGGETS_STEEL);
         tag(CommonItemTags.NUGGETS_TIN).
                 add(EPItems.TIN_NUGGET.get());
+        tag(CommonItemTags.NUGGETS_STEEL).
+                add(EPItems.STEEL_NUGGET.get());
 
         tag(CommonItemTags.SILICON).
                 add(EPItems.SILICON.get());
@@ -193,6 +199,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.PLATES_COPPER).
                 addTag(CommonItemTags.PLATES_IRON).
                 addTag(CommonItemTags.PLATES_GOLD).
+                addTag(CommonItemTags.PLATES_STEEL).
                 addTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 addTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
@@ -206,6 +213,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.IRON_PLATE.get());
         tag(CommonItemTags.PLATES_GOLD).
                 add(EPItems.GOLD_PLATE.get());
+        tag(CommonItemTags.PLATES_STEEL).
+                add(EPItems.STEEL_PLATE.get());
         tag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_PLATE.get());
         tag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
@@ -218,14 +227,20 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.ENERGIZED_ALLOY_PLATE.get());
 
         tag(CommonItemTags.GEARS).
-                addTag(CommonItemTags.GEARS_IRON);
+                addTag(CommonItemTags.GEARS_IRON).
+                addTag(CommonItemTags.GEARS_STEEL);
         tag(CommonItemTags.GEARS_IRON).
                 add(EPItems.IRON_GEAR.get());
+        tag(CommonItemTags.GEARS_STEEL).
+                add(EPItems.STEEL_GEAR.get());
 
         tag(Tags.Items.RODS).
-                addTag(CommonItemTags.RODS_IRON);
+                addTag(CommonItemTags.RODS_IRON).
+                addTag(CommonItemTags.RODS_STEEL);
         tag(CommonItemTags.RODS_IRON).
                 add(EPItems.IRON_ROD.get());
+        tag(CommonItemTags.RODS_STEEL).
+                add(EPItems.STEEL_ROD.get());
 
         tag(CommonItemTags.WIRES).
                 addTag(CommonItemTags.WIRES_TIN).

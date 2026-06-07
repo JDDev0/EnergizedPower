@@ -25,26 +25,29 @@
   "item.energizedpower.gold_dust": "Золотой порошок",
 
   "item.energizedpower.tin_nugget": "Кусочек олова",
+  "item.energizedpower.steel_nugget": "Steel Nugget",
 
   "item.energizedpower.tin_ingot": "Оловянный слиток",
-
-  "item.energizedpower.tin_plate": "Оловянная пластина",
-  "item.energizedpower.copper_plate": "Медная пластина",
-  "item.energizedpower.iron_plate": "Железная пластина",
-  "item.energizedpower.gold_plate": "Золотая пластина",
-
   "item.energizedpower.steel_ingot": "Стальной слиток",
 
   "item.energizedpower.redstone_alloy_ingot": "Слиток редстоунового сплава",
   "item.energizedpower.advanced_alloy_ingot": "Слиток продвинутого сплава",
   "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
+  "item.energizedpower.tin_plate": "Оловянная пластина",
+  "item.energizedpower.copper_plate": "Медная пластина",
+  "item.energizedpower.iron_plate": "Железная пластина",
+  "item.energizedpower.gold_plate": "Золотая пластина",
+  "item.energizedpower.steel_plate": "Steel Plate",
+
   "item.energizedpower.advanced_alloy_plate": "Пластина из продвинутого сплава",
   "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "Железная шестерня",
+  "item.energizedpower.steel_gear": "Steel Gear",
 
   "item.energizedpower.iron_rod": "Железный стержень",
+  "item.energizedpower.steel_rod": "Steel Rod",
 
   "item.energizedpower.tin_wire": "Оловянный провод",
   "item.energizedpower.copper_wire": "Медный провод",
@@ -214,6 +217,9 @@
 
   "block.energizedpower.tin_block": "Блок олова",
   "item.energizedpower.tin_block": "Блок олова",
+
+  "block.energizedpower.steel_block": "Block of Steel",
+  "item.energizedpower.steel_block": "Block of Steel",
 
   "block.energizedpower.sawdust_block": "Блок опилок",
   "item.energizedpower.sawdust_block": "Блок опилок",
@@ -989,6 +995,9 @@
 
   "advancements.energizedpower.steel_ingot.title": "Стальной слиток",
   "advancements.energizedpower.steel_ingot.description": "Создайте стальной слиток.",
+
+  "advancements.energizedpower.steel_plate.title": "Steel Plate",
+  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
 
   "advancements.energizedpower.redstone_alloy_ingot.title": "Слиток редстоунового сплава",
   "advancements.energizedpower.redstone_alloy_ingot.description": "Создайте слиток из редстоунового сплава.",

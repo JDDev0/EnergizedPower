@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-07T10:28:53.242640777	Advancements
+// 26.1.2	2026-06-07T15:25:00.402386913	Advancements
 fb5392ad97a862dfe53b93781cae785f2c6f7a5a data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 b98434fb047d913459951b43db133561b927c557 data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 249508e6447826bcd2c8eee6309410ff7e2357cf data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -206,6 +206,7 @@ c41e8fb1e9e568732f61b3f95b182aef9e4b017d data/energizedpower/advancement/main/ba
 02e8c3c880f2af5192b34e93355057841b1334ec data/energizedpower/advancement/main/basics/speed_upgrade_module_1.json
 786d9828234b80c0db2ca0d85ec7ad2da021fdf0 data/energizedpower/advancement/main/basics/speed_upgrade_module_2.json
 106267b24d48a045faed75a1b8a60cafdccfb40c data/energizedpower/advancement/main/basics/steel_ingot.json
+3691a93dfb7d9c8e594d1db4209facfb8cbced18 data/energizedpower/advancement/main/basics/steel_plate.json
 47964305e7626798bc17a257e7bbde05908d4383 data/energizedpower/advancement/main/basics/stone_liquefier.json
 9d8cedf4f08a0c46b00429e418ecaab8ffeb6e23 data/energizedpower/advancement/main/basics/stone_solidifier.json
 792fb6d43b8c7ac43f774b1d94cb1194931289ce data/energizedpower/advancement/main/basics/thermal_generator.json
