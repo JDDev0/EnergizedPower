@@ -149,7 +149,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 addTag(CommonItemTags.STORAGE_BLOCKS_TIN).
-                addTag(CommonItemTags.STORAGE_BLOCKS_STEEL);
+                addTag(CommonItemTags.STORAGE_BLOCKS_STEEL).
+                addTag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK_ITEM);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
@@ -158,6 +159,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(EPBlocks.TIN_BLOCK_ITEM);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK_ITEM);
+        getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+                add(EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM);
 
         getOrCreateTagBuilder(ConventionalItemTags.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);

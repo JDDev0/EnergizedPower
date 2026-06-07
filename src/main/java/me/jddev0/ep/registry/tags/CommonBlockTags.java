@@ -24,4 +24,6 @@ public final class CommonBlockTags {
             ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/tin"));
     public static final TagKey<Block> STORAGE_BLOCKS_STEEL = TagKey.create(Registries.BLOCK,
             ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/steel"));
+    public static final TagKey<Block> STORAGE_BLOCKS_ADVANCED_ALLOY = TagKey.create(Registries.BLOCK,
+            ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/advanced_alloy"));
 }

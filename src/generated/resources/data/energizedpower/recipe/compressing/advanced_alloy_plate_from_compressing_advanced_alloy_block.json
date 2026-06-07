@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "c:storage_blocks/advanced_alloy"
+  },
+  "output": {
+    "count": 9,
+    "item": "energizedpower:advanced_alloy_plate"
+  }
+}
