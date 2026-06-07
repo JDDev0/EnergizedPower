@@ -80,6 +80,12 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 CommonItemTags.INGOTS_STEEL
         );
 
+        AdvancementHolder steelPlate = addAdvancement(
+                advancementOutput, existingFileHelper, steelIngot,
+                EPItems.STEEL_PLATE, "steel_plate", AdvancementType.TASK,
+                CommonItemTags.PLATES_STEEL
+        );
+
         AdvancementHolder fastItemConveyorBelt = addAdvancement(
                 advancementOutput, existingFileHelper, steelIngot,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM, "fast_item_conveyor_belt", AdvancementType.TASK

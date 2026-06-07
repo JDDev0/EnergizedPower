@@ -39,6 +39,11 @@ public final class EPBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
     public static final DeferredItem<Item> TIN_BLOCK_ITEM = createBlockItem("tin_block", TIN_BLOCK);
 
+    public static final DeferredBlock<Block> STEEL_BLOCK = BLOCKS.register("steel_block",
+            () -> new Block(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));
+    public static final DeferredItem<Item> STEEL_BLOCK_ITEM = createBlockItem("steel_block", STEEL_BLOCK);
+
     public static final DeferredBlock<Block> SAWDUST_BLOCK = BLOCKS.register("sawdust_block",
             () -> new SimpleFlammableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).
                     strength(2.0f, 3.0f).sound(SoundType.WOOD), 5, 20));

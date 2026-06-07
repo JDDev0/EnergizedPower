@@ -4,6 +4,7 @@
     "#c:plates/copper",
     "#c:plates/iron",
     "#c:plates/gold",
+    "#c:plates/steel",
     "#c:plates/advanced_alloy",
     "#c:plates/crystallized_alloy",
     "#c:plates/energized_copper",

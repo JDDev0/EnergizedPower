@@ -286,6 +286,7 @@ public class EnergizedPowerMod {
 
             event.accept(EPBlocks.SILICON_BLOCK_ITEM);
             event.accept(EPBlocks.TIN_BLOCK_ITEM);
+            event.accept(EPBlocks.STEEL_BLOCK_ITEM);
             event.accept(EPBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(EPItems.CABLE_INSULATOR);
             event.accept(EPItems.CHARCOAL_FILTER);
@@ -314,14 +315,18 @@ public class EnergizedPowerMod {
             event.accept(EPItems.COPPER_PLATE);
             event.accept(EPItems.IRON_PLATE);
             event.accept(EPItems.GOLD_PLATE);
+            event.accept(EPItems.STEEL_NUGGET);
             event.accept(EPItems.STEEL_INGOT);
             event.accept(EPItems.REDSTONE_ALLOY_INGOT);
             event.accept(EPItems.ADVANCED_ALLOY_INGOT);
             event.accept(EPItems.CRYSTALLIZED_ALLOY_INGOT);
+            event.accept(EPItems.STEEL_PLATE);
             event.accept(EPItems.ADVANCED_ALLOY_PLATE);
             event.accept(EPItems.CRYSTALLIZED_ALLOY_PLATE);
             event.accept(EPItems.IRON_GEAR);
+            event.accept(EPItems.STEEL_GEAR);
             event.accept(EPItems.IRON_ROD);
+            event.accept(EPItems.STEEL_ROD);
             event.accept(EPItems.TIN_WIRE);
             event.accept(EPItems.COPPER_WIRE);
             event.accept(EPItems.GOLD_WIRE);

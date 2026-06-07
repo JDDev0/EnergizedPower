@@ -35,6 +35,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 add(
                         EPBlocks.SILICON_BLOCK.get(),
                         EPBlocks.TIN_BLOCK.get(),
+                        EPBlocks.STEEL_BLOCK.get(),
 
                         EPBlocks.TIN_ORE.get(),
                         EPBlocks.DEEPSLATE_TIN_ORE.get(),
@@ -195,6 +196,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 add(
                         EPBlocks.SILICON_BLOCK.get(),
                         EPBlocks.TIN_BLOCK.get(),
+                        EPBlocks.STEEL_BLOCK.get(),
 
                         EPBlocks.TIN_ORE.get(),
                         EPBlocks.DEEPSLATE_TIN_ORE.get(),
@@ -356,11 +358,14 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(Tags.Blocks.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
+                addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
         tag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK.get());
         tag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK.get());
+        tag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
+                add(EPBlocks.STEEL_BLOCK.get());
         tag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK.get());
     }

@@ -63,6 +63,8 @@ public final class EPItems {
     public static final DeferredItem<Item> IRON_PLATE = registerItem("iron_plate");
     public static final DeferredItem<Item> GOLD_PLATE = registerItem("gold_plate");
 
+    public static final DeferredItem<Item> STEEL_NUGGET = registerItem("steel_nugget");
+
     public static final DeferredItem<Item> STEEL_INGOT = registerItem("steel_ingot");
 
     public static final DeferredItem<Item> REDSTONE_ALLOY_INGOT = registerItem("redstone_alloy_ingot");
@@ -71,13 +73,17 @@ public final class EPItems {
 
     public static final DeferredItem<Item> CRYSTALLIZED_ALLOY_INGOT = registerItem("crystallized_alloy_ingot");
 
+    public static final DeferredItem<Item> STEEL_PLATE = registerItem("steel_plate");
+
     public static final DeferredItem<Item> ADVANCED_ALLOY_PLATE = registerItem("advanced_alloy_plate");
 
     public static final DeferredItem<Item> CRYSTALLIZED_ALLOY_PLATE = registerItem("crystallized_alloy_plate");
 
     public static final DeferredItem<Item> IRON_GEAR = registerItem("iron_gear");
+    public static final DeferredItem<Item> STEEL_GEAR = registerItem("steel_gear");
 
     public static final DeferredItem<Item> IRON_ROD = registerItem("iron_rod");
+    public static final DeferredItem<Item> STEEL_ROD = registerItem("steel_rod");
 
     public static final DeferredItem<Item> TIN_WIRE = registerItem("tin_wire");
     public static final DeferredItem<Item> COPPER_WIRE = registerItem("copper_wire");

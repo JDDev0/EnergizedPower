@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:compressor",
+  "ingredient": {
+    "tag": "c:storage_blocks/steel"
+  },
+  "output": {
+    "count": 9,
+    "item": "energizedpower:steel_plate"
+  }
+}

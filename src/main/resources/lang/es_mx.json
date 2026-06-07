@@ -25,26 +25,29 @@
   "item.energizedpower.gold_dust": "Polvo de oro",
 
   "item.energizedpower.tin_nugget": "Pepita de estaño",
+  "item.energizedpower.steel_nugget": "Steel Nugget",
 
   "item.energizedpower.tin_ingot": "Lingote de estaño",
-
-  "item.energizedpower.tin_plate": "Lámina de estaño",
-  "item.energizedpower.copper_plate": "Lámina de cobre",
-  "item.energizedpower.iron_plate": "Lámina de hierro",
-  "item.energizedpower.gold_plate": "Lámina de oro",
-
   "item.energizedpower.steel_ingot": "Lingote de acero",
 
   "item.energizedpower.redstone_alloy_ingot": "Lingote de aleación de redstone",
   "item.energizedpower.advanced_alloy_ingot": "Lingote de aleación avanzada",
   "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
+  "item.energizedpower.tin_plate": "Lámina de estaño",
+  "item.energizedpower.copper_plate": "Lámina de cobre",
+  "item.energizedpower.iron_plate": "Lámina de hierro",
+  "item.energizedpower.gold_plate": "Lámina de oro",
+  "item.energizedpower.steel_plate": "Steel Plate",
+
   "item.energizedpower.advanced_alloy_plate": "Lámina de aleación avanzada",
   "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "Engrane de hierro",
+  "item.energizedpower.steel_gear": "Steel Gear",
 
   "item.energizedpower.iron_rod": "Barra de hierro",
+  "item.energizedpower.steel_rod": "Steel Rod",
 
   "item.energizedpower.tin_wire": "Cable de estaño",
   "item.energizedpower.copper_wire": "Cable de cobre",
@@ -214,6 +217,9 @@
 
   "block.energizedpower.tin_block": "Bloque de estaño",
   "item.energizedpower.tin_block": "Bloque de estaño",
+
+  "block.energizedpower.steel_block": "Block of Steel",
+  "item.energizedpower.steel_block": "Block of Steel",
 
   "block.energizedpower.sawdust_block": "Bloque de aserrín",
   "item.energizedpower.sawdust_block": "Bloque de aserrín",
@@ -989,6 +995,9 @@
 
   "advancements.energizedpower.steel_ingot.title": "Steel Ingot",
   "advancements.energizedpower.steel_ingot.description": "Create a Steel Ingot.",
+
+  "advancements.energizedpower.steel_plate.title": "Steel Plate",
+  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
 
   "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone Alloy Ingot",
   "advancements.energizedpower.redstone_alloy_ingot.description": "Create a Redstone Alloy Ingot.",

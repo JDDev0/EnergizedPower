@@ -269,6 +269,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/copper_plate.png"),
                 EPAPI.id("textures/item/iron_plate.png"),
                 EPAPI.id("textures/item/gold_plate.png"),
+                EPAPI.id("textures/item/steel_plate.png"),
                 EPAPI.id("textures/item/advanced_alloy_plate.png"),
                 EPAPI.id("textures/item/crystallized_alloy_plate.png"),
                 EPAPI.id("textures/item/energized_copper_plate.png"),
@@ -286,7 +287,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/crystallized_alloy_ingot.png")
         });
 
-        addSimplePage(pageId("metal_products"), Component.empty().append(
+            addSimplePage(pageId("metal_products"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.metal_products.1").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
         ).append(
@@ -294,7 +295,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), new ResourceLocation[] {
                 EPAPI.id("textures/item/iron_gear.png"),
+                EPAPI.id("textures/item/steel_gear.png"),
                 EPAPI.id("textures/item/iron_rod.png"),
+                EPAPI.id("textures/item/steel_rod.png"),
                 EPAPI.id("textures/item/tin_wire.png"),
                 EPAPI.id("textures/item/copper_wire.png"),
                 EPAPI.id("textures/item/gold_wire.png"),

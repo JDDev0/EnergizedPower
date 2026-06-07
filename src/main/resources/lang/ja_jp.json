@@ -25,26 +25,29 @@
   "item.energizedpower.gold_dust": "金の粉",
 
   "item.energizedpower.tin_nugget": "錫の塊",
+  "item.energizedpower.steel_nugget": "Steel Nugget",
 
   "item.energizedpower.tin_ingot": "錫インゴット",
-
-  "item.energizedpower.tin_plate": "錫の板",
-  "item.energizedpower.copper_plate": "銅の板",
-  "item.energizedpower.iron_plate": "鉄の板",
-  "item.energizedpower.gold_plate": "金の板",
-
   "item.energizedpower.steel_ingot": "鋼鉄インゴット",
 
   "item.energizedpower.redstone_alloy_ingot": "レッドストーン合金インゴット",
   "item.energizedpower.advanced_alloy_ingot": "超合金インゴット",
   "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
+  "item.energizedpower.tin_plate": "錫の板",
+  "item.energizedpower.copper_plate": "銅の板",
+  "item.energizedpower.iron_plate": "鉄の板",
+  "item.energizedpower.gold_plate": "金の板",
+  "item.energizedpower.steel_plate": "Steel Plate",
+
   "item.energizedpower.advanced_alloy_plate": "超合金の板",
   "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "鉄の歯車",
+  "item.energizedpower.steel_gear": "Steel Gear",
 
   "item.energizedpower.iron_rod": "鉄の棒",
+  "item.energizedpower.steel_rod": "Steel Rod",
 
   "item.energizedpower.tin_wire": "錫のワイヤー",
   "item.energizedpower.copper_wire": "銅のワイヤー",
@@ -214,6 +217,9 @@
 
   "block.energizedpower.tin_block": "錫ブロック",
   "item.energizedpower.tin_block": "錫ブロック",
+
+  "block.energizedpower.steel_block": "Block of Steel",
+  "item.energizedpower.steel_block": "Block of Steel",
 
   "block.energizedpower.sawdust_block": "木くずブロック",
   "item.energizedpower.sawdust_block": "木くずブロック",
@@ -989,6 +995,9 @@
 
   "advancements.energizedpower.steel_ingot.title": "鋼鉄インゴット",
   "advancements.energizedpower.steel_ingot.description": "鋼鉄インゴットを作成する",
+
+  "advancements.energizedpower.steel_plate.title": "Steel Plate",
+  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
 
   "advancements.energizedpower.redstone_alloy_ingot.title": "レッドストーン合金インゴット",
   "advancements.energizedpower.redstone_alloy_ingot.description": "レッドストーン合金インゴットを作成する",

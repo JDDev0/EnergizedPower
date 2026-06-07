@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T12:25:21.72888612	Item Models: energizedpower
+// 1.21.1	2026-06-07T23:00:49.64358667	Item Models: energizedpower
 924d24d253d5e8c92cfcd342e35f13f9eb6eb1d3 assets/energizedpower/models/item/advanced_alloy_ingot.json
 a875e626086cb13fc9cf52bec9d323a84902103d assets/energizedpower/models/item/advanced_alloy_plate.json
 ec0a6b00d6535d32f24b246de790516aff3c7895 assets/energizedpower/models/item/advanced_battery_box_minecart.json
@@ -150,7 +150,11 @@ e2124d22ef32b350860220e8cdc440460265d1c7 assets/energizedpower/models/item/speed
 8a8a7f97c81185b46c830ade69884cc23735f5b3 assets/energizedpower/models/item/speed_upgrade_module_6.json
 2deadeb0c71f9535db2c5ace87fcdc568b9f8aab assets/energizedpower/models/item/speed_upgrade_module_7.json
 6e8ecf5f14947535af46796261e86a10e6569d2c assets/energizedpower/models/item/speed_upgrade_module_8.json
+79d14e512747388d253df4ebd7b3398aaae54e60 assets/energizedpower/models/item/steel_gear.json
 2e37a623afaf9ec0c1650499e0b70c9290831b06 assets/energizedpower/models/item/steel_ingot.json
+26f850bdf995212d576e33ce1c6280fc2b27ced4 assets/energizedpower/models/item/steel_nugget.json
+bfab459ae145dcb649a5cc5234f2df8c8578e1ff assets/energizedpower/models/item/steel_plate.json
+5295f5a7de245fa8252d6d61d51b621746a351d3 assets/energizedpower/models/item/steel_rod.json
 35d2addf0163757db0a24b41916a69b6b72eb34e assets/energizedpower/models/item/stone_hammer.json
 e29a1c0711d673d90237b2caead673bcd83f4e1f assets/energizedpower/models/item/stone_pebble.json
 1195fc38fd94399cfb3521accb8a06a2ae451c1d assets/energizedpower/models/item/superconductor.json
