@@ -4,12 +4,11 @@
   "key": {
     "I": "#c:storage_blocks/iron",
     "S": "energizedpower:item_silo_small",
-    "i": "#c:plates/iron",
-    "s": "#c:ingots/steel"
+    "s": "#c:plates/steel"
   },
   "pattern": [
     "IsI",
-    "iSi",
+    "sSs",
     "IsI"
   ],
   "result": {

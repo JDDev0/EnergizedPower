@@ -3,12 +3,12 @@
   "category": "misc",
   "key": {
     "F": "energizedpower:fluid_tank_medium",
-    "I": "#c:storage_blocks/iron"
+    "S": "#c:storage_blocks/steel"
   },
   "pattern": [
-    "IFI",
-    "IFI",
-    "IFI"
+    "SFS",
+    "SFS",
+    "SFS"
   ],
   "result": {
     "id": "energizedpower:fluid_tank_large"

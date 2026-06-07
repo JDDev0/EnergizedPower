@@ -1482,31 +1482,30 @@ public class ModRecipeGenerator extends RecipeProvider {
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_SMALL_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_SMALL_ITEM),
                 'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                'i', ingredientOf(CommonItemTags.PLATES_IRON),
-                's', ingredientOf(CommonItemTags.INGOTS_STEEL)
+                's', ingredientOf(CommonItemTags.PLATES_STEEL)
         ), new String[] {
                 "IsI",
-                "iSi",
+                "sSs",
                 "IsI"
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_MEDIUM_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_MEDIUM_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_MEDIUM_ITEM),
-                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
-                's', ingredientOf(CommonItemTags.INGOTS_STEEL)
+                'B', ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL),
+                's', ingredientOf(CommonItemTags.PLATES_STEEL)
         ), new String[] {
-                "IsI",
+                "BsB",
                 "sSs",
-                "IsI"
+                "BsB"
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_LARGE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_LARGE_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_LARGE_ITEM),
-                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON)
+                's', ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL)
         ), new String[] {
-                "III",
-                "ISI",
-                "III"
+                "sss",
+                "sSs",
+                "sss"
         }, new ItemStackTemplate(EPBlocks.ITEM_SILO_GIANT_ITEM), CraftingBookCategory.MISC);
     }
     private void buildFluidTransportCraftingRecipes() {
@@ -1540,7 +1539,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.FLUID_TANK_SMALL_ITEM), Map.of(
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
-                'S', ingredientOf(CommonItemTags.INGOTS_STEEL)
+                'S', ingredientOf(CommonItemTags.PLATES_STEEL)
         ), new String[] {
                 "SFS",
                 "SFS",
@@ -1549,11 +1548,11 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
                 'F', ingredientOf(EPBlocks.FLUID_TANK_MEDIUM_ITEM),
-                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON)
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL)
         ), new String[] {
-                "IFI",
-                "IFI",
-                "IFI"
+                "SFS",
+                "SFS",
+                "SFS"
         }, new ItemStackTemplate(EPBlocks.FLUID_TANK_LARGE_ITEM), CraftingBookCategory.MISC);
     }
     private void buildEnergyTransportCraftingRecipes() {

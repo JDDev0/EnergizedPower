@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "F": "energizedpower:fluid_tank_small",
-    "S": "#c:ingots/steel"
+    "S": "#c:plates/steel"
   },
   "pattern": [
     "SFS",
