@@ -301,11 +301,20 @@
   "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
   "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
 
+  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+
   "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
 
   "block.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
   "item.energizedpower.golden_fluid_pipe": "Golden Fluid Pipe",
+
+  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+
+  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Max extraction per extractor face: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",
@@ -1254,6 +1263,9 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "Fast Fluid Transport",
   "advancements.energizedpower.golden_fluid_pipe.description": "Transport fluids faster with golden fluid pipes.",
 
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
+
   "advancements.energizedpower.fluid_tank_small.title": "Simple Fluid Storage",
   "advancements.energizedpower.fluid_tank_small.description": "Store fluids in a small Fluid Tank.",
 
@@ -1750,7 +1762,6 @@
   "book.energizedpower.page.fluid_pipes.1": "I tubi del fluido possono trasferire fluidi.",
   "book.energizedpower.page.fluid_pipes.2": "La modalità di ogni lato del tubo può essere configurata con una chiave inglese.",
   "book.energizedpower.page.fluid_pipes.3": "Un singolo blocco di tubazioni del fluido può estrarre solo un tipo di fluido alla volta, anche quando più lati sono configurati come estrazione.",
-  "book.energizedpower.page.fluid_pipes.4": "There are two tiers of fluid pipes: Iron and Golden.",
 
   "book.energizedpower.page.fluid_tanks.1": "Fluid tanks can store fluids.",
   "book.energizedpower.page.fluid_tanks.2": "There are three tiers of fluid tanks: Small, Medium, and Large.",

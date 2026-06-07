@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-07T15:25:00.402386913	Advancements
+// 26.1.2	2026-06-07T19:44:07.414608574	Advancements
 fb5392ad97a862dfe53b93781cae785f2c6f7a5a data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 b98434fb047d913459951b43db133561b927c557 data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 249508e6447826bcd2c8eee6309410ff7e2357cf data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -231,6 +231,7 @@ fc9201b74b6ac16a24871b2484ded465c001e527 data/energizedpower/advancement/main/el
 3431a4f4d40e7de476cf253d460dc8183db0568a data/energizedpower/advancement/main/elite/energy_production_upgrade_module_8.json
 d6c09e1164fd961672e36c2f49f859ae8aeb0490 data/energizedpower/advancement/main/elite/moon_light_upgrade_module_4.json
 c6adb952feb1ca1ffcca559094b61b6e39de36aa data/energizedpower/advancement/main/elite/moon_light_upgrade_module_5.json
+5a164ea14773235e0ba65236084680dc6e192d55 data/energizedpower/advancement/main/elite/pressurized_fluid_pipe.json
 1ba8d2c810d720628f3073dc3c7bef9f0d6ae65d data/energizedpower/advancement/main/elite/quantum_processing_unit.json
 4f7fcc8b23c4bb82670b89a959035fa75f4a8e03 data/energizedpower/advancement/main/elite/solar_panel_7.json
 612870a3df4e7feb989c7b54a096e8fdf9072ee7 data/energizedpower/advancement/main/elite/speed_upgrade_module_7.json

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": "#c:ingots/steel",
+    "s": "#c:plates/steel"
+  },
+  "pattern": [
+    "SsS",
+    "SsS",
+    "SsS"
+  ],
+  "result": {
+    "count": 12,
+    "id": "energizedpower:steel_fluid_pipe"
+  }
+}

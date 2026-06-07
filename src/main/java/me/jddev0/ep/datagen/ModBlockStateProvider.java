@@ -102,8 +102,11 @@ public class ModBlockStateProvider {
                 cubeBlockModel(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER, "", "_top", "_top",
                         "_output", "_input", "_input", "_input"));
 
+        fluidPipeBlockWithItem(EPBlocks.COPPER_FLUID_PIPE);
         fluidPipeBlockWithItem(EPBlocks.IRON_FLUID_PIPE);
         fluidPipeBlockWithItem(EPBlocks.GOLDEN_FLUID_PIPE);
+        fluidPipeBlockWithItem(EPBlocks.STEEL_FLUID_PIPE);
+        fluidPipeBlockWithItem(EPBlocks.PRESSURIZED_FLUID_PIPE);
 
         fluidTankBlockWithItem(EPBlocks.FLUID_TANK_SMALL);
         fluidTankBlockWithItem(EPBlocks.FLUID_TANK_MEDIUM);

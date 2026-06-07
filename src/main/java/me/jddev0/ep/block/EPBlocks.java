@@ -172,6 +172,11 @@ public final class EPBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("express_item_conveyor_belt_merger", EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
+    public static final DeferredBlock<FluidPipeBlock> COPPER_FLUID_PIPE = registerBlock("copper_fluid_pipe",
+            props -> new FluidPipeBlock(FluidPipeTier.COPPER, props), FluidPipeTier.COPPER.getProperties());
+    public static final DeferredItem<Item> COPPER_FLUID_PIPE_ITEM = createBlockItem("copper_fluid_pipe",
+            props -> new FluidPipeBlock.Item(COPPER_FLUID_PIPE.get(), props, FluidPipeTier.COPPER));
+
     public static final DeferredBlock<FluidPipeBlock> IRON_FLUID_PIPE = registerBlock("fluid_pipe",
             props -> new FluidPipeBlock(FluidPipeTier.IRON, props), FluidPipeTier.IRON.getProperties());
     public static final DeferredItem<Item> IRON_FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
@@ -181,6 +186,16 @@ public final class EPBlocks {
             props -> new FluidPipeBlock(FluidPipeTier.GOLDEN, props), FluidPipeTier.GOLDEN.getProperties());
     public static final DeferredItem<Item> GOLDEN_FLUID_PIPE_ITEM = createBlockItem("golden_fluid_pipe",
             props -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE.get(), props, FluidPipeTier.GOLDEN));
+
+    public static final DeferredBlock<FluidPipeBlock> STEEL_FLUID_PIPE = registerBlock("steel_fluid_pipe",
+            props -> new FluidPipeBlock(FluidPipeTier.STEEL, props), FluidPipeTier.STEEL.getProperties());
+    public static final DeferredItem<Item> STEEL_FLUID_PIPE_ITEM = createBlockItem("steel_fluid_pipe",
+            props -> new FluidPipeBlock.Item(STEEL_FLUID_PIPE.get(), props, FluidPipeTier.STEEL));
+
+    public static final DeferredBlock<FluidPipeBlock> PRESSURIZED_FLUID_PIPE = registerBlock("pressurized_fluid_pipe",
+            props -> new FluidPipeBlock(FluidPipeTier.PRESSURIZED, props), FluidPipeTier.PRESSURIZED.getProperties());
+    public static final DeferredItem<Item> PRESSURIZED_FLUID_PIPE_ITEM = createBlockItem("pressurized_fluid_pipe",
+            props -> new FluidPipeBlock.Item(PRESSURIZED_FLUID_PIPE.get(), props, FluidPipeTier.PRESSURIZED));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
             props -> new FluidTankBlock(FluidTankTier.SMALL, props), FluidTankTier.SMALL.getProperties());

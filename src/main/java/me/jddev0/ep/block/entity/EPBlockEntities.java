@@ -24,10 +24,16 @@ public final class EPBlockEntities {
         return BLOCK_ENTITIES.register(name, () -> new BlockEntityType<>((blockPos, state) -> new FluidPipeBlockEntity(blockPos, state,
                 blockSupplier.get().getTier()), blockSupplier.get()));
     }
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> COPPER_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("copper_fluid_pipe", EPBlocks.COPPER_FLUID_PIPE);
     public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> IRON_FLUID_PIPE_ENTITY =
             createFluidPipeBlockEntity("fluid_pipe", EPBlocks.IRON_FLUID_PIPE);
     public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> GOLDEN_FLUID_PIPE_ENTITY =
             createFluidPipeBlockEntity("golden_fluid_pipe", EPBlocks.GOLDEN_FLUID_PIPE);
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> STEEL_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("steel_fluid_pipe", EPBlocks.STEEL_FLUID_PIPE);
+    public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> PRESSURIZED_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("pressurized_fluid_pipe", EPBlocks.PRESSURIZED_FLUID_PIPE);
 
     private static Supplier<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name,
                                                                                               Supplier<FluidTankBlock> blockSupplier) {
@@ -481,9 +487,15 @@ public final class EPBlockEntities {
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                COPPER_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
                 IRON_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.Fluid.BLOCK,
                 GOLDEN_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                STEEL_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                PRESSURIZED_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Fluid.BLOCK,
                 FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);

@@ -1,0 +1,21 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "ingredients": [
+    {
+      "count": 3,
+      "ingredient": "#c:plates/crystallized_alloy"
+    },
+    {
+      "count": 6,
+      "ingredient": "#c:ingots/crystallized_alloy"
+    },
+    {
+      "count": 2,
+      "ingredient": "#c:silicon"
+    }
+  ],
+  "result": {
+    "count": 12,
+    "id": "energizedpower:pressurized_fluid_pipe"
+  }
+}

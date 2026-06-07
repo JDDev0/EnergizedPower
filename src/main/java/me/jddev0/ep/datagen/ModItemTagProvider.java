@@ -61,8 +61,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
         tag(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
                 add(
+                        EPBlocks.COPPER_FLUID_PIPE_ITEM.get(),
                         EPBlocks.IRON_FLUID_PIPE_ITEM.get(),
                         EPBlocks.GOLDEN_FLUID_PIPE_ITEM.get(),
+                        EPBlocks.STEEL_FLUID_PIPE_ITEM.get(),
+                        EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM.get(),
 
                         EPBlocks.FLUID_TANK_SMALL_ITEM.get(),
                         EPBlocks.FLUID_TANK_MEDIUM_ITEM.get(),
