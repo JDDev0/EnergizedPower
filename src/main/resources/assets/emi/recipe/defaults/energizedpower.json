@@ -11,6 +11,7 @@
     "energizedpower:assembling/crystal_matrix",
     "energizedpower:assembling/processing_unit",
     "energizedpower:assembling/reinforced_advanced_solar_cell",
+    "energizedpower:assembling/superconductor",
     "energizedpower:assembling/teleporter_processing_unit",
 
     "energizedpower:compressing/advanced_alloy_plate_from_compressing_advanced_alloy_ingot",

@@ -3094,6 +3094,13 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_TIN), 4)
         }, new ItemStackTemplate(EPItems.COOLANT_CELL, 4));
+
+        addAssemblingMachineRecipe(new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD), 6)
+        }, new ItemStackTemplate(EPItems.SUPERCONDUCTOR, 3));
     }
 
     private void buildFluidFreezerRecipe() {

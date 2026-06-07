@@ -11,6 +11,8 @@
   "item.energizedpower.energized_copper_wire": "Energized Copper Wire",
   "item.energizedpower.energized_gold_wire": "Energized Gold Wire",
 
+  "item.energizedpower.superconductor": "Superconductor",
+
   "item.energizedpower.silicon": "Silicon",
 
   "item.energizedpower.stone_pebble": "Stone Pebble",
@@ -1338,6 +1340,9 @@
 
   "advancements.energizedpower.energized_gold_wire.title": "Energized Gold Wire",
   "advancements.energizedpower.energized_gold_wire.description": "Create an energized gold wire.",
+
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
 
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basics)",
   "advancements.energizedpower.energizedpower_basics.description": "This is the start of your energized power journey.",

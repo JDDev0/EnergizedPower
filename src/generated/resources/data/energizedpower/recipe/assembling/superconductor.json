@@ -1,0 +1,25 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "ingredients": [
+    {
+      "count": 4,
+      "ingredient": "energizedpower:coolant_cell"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:gems/crystallized_lapis_lazuli"
+    },
+    {
+      "count": 2,
+      "ingredient": "#c:plates/energized_alloy"
+    },
+    {
+      "count": 6,
+      "ingredient": "#c:wires/energized_gold"
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "energizedpower:superconductor"
+  }
+}

@@ -262,7 +262,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(CommonItemTags.WIRES_COPPER).
                 addTag(CommonItemTags.WIRES_GOLD).
                 addTag(CommonItemTags.WIRES_ENERGIZED_COPPER).
-                addTag(CommonItemTags.WIRES_ENERGIZED_GOLD);
+                addTag(CommonItemTags.WIRES_ENERGIZED_GOLD).
+                addTag(CommonItemTags.WIRES_SUPERCONDUCTOR);
         valueLookupBuilder(CommonItemTags.WIRES_TIN).
                 add(EPItems.TIN_WIRE);
         valueLookupBuilder(CommonItemTags.WIRES_COPPER).
@@ -273,6 +274,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 add(EPItems.ENERGIZED_COPPER_WIRE);
         valueLookupBuilder(CommonItemTags.WIRES_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_WIRE);
+        valueLookupBuilder(CommonItemTags.WIRES_SUPERCONDUCTOR).
+                add(EPItems.SUPERCONDUCTOR);
 
         valueLookupBuilder(ConventionalItemTags.TOOLS).
                 addTag(CommonItemTags.TOOLS_HAMMERS).

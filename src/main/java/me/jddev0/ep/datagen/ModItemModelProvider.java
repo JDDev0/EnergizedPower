@@ -199,6 +199,8 @@ class ModItemModelProvider {
 
         basicItem(EPItems.ENERGIZED_CRYSTAL_MATRIX);
 
+        basicItem(EPItems.SUPERCONDUCTOR);
+
         basicItem(EPItems.INVENTORY_CHARGER);
 
         basicItem(EPItems.INVENTORY_TELEPORTER);
