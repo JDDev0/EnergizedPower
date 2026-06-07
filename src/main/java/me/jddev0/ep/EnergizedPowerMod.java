@@ -303,6 +303,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.ENERGIZED_COPPER_WIRE);
             event.accept(EPItems.ENERGIZED_GOLD_WIRE);
             event.accept(EPItems.ENERGIZED_CRYSTAL_MATRIX);
+            event.accept(EPItems.SUPERCONDUCTOR);
 
             event.accept(EPFluids.DIRTY_WATER_BUCKET_ITEM);
 

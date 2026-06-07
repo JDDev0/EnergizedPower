@@ -1,0 +1,33 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "count": 4,
+      "input": {
+        "item": "energizedpower:coolant_cell"
+      }
+    },
+    {
+      "count": 4,
+      "input": {
+        "tag": "c:gems/crystallized_lapis_lazuli"
+      }
+    },
+    {
+      "count": 2,
+      "input": {
+        "tag": "c:plates/energized_alloy"
+      }
+    },
+    {
+      "count": 6,
+      "input": {
+        "tag": "c:wires/energized_gold"
+      }
+    }
+  ],
+  "output": {
+    "count": 3,
+    "item": "energizedpower:superconductor"
+  }
+}
