@@ -3064,6 +3064,13 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new IngredientWithCount(ingredientOf(ConventionalItemTags.EMERALD_GEMS), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
         }, new ItemStack(EPItems.CRYSTAL_MATRIX));
+
+        addAssemblingMachineRecipe(new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(Items.BLUE_ICE)),
+                new IngredientWithCount(ingredientOf(CommonItemTags.DUSTS_CHARCOAL), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_TIN), 4)
+        }, new ItemStack(EPItems.COOLANT_CELL, 4));
     }
 
     private void buildFluidFreezerRecipe() {

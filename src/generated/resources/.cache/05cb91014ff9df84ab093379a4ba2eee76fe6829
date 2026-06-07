@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T13:05:09.909464441	Energized Power/Recipes
+// 1.21.1	2026-06-07T13:13:25.409971011	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -33,6 +33,7 @@ a7267e7ecd9e144111b572ffb1e1b2a324abe479 data/energizedpower/recipe/sawmill/oak_
 dc28007f9d8eea8a896d84100059f9173ec7b96b data/energizedpower/recipe/growing/alliums_from_growing_allium.json
 20f767f8bbd87b1b4745d651366a5903ef4e2bfc data/energizedpower/recipe/metal_press/iron_gear.json
 f73f3baa97f823f0d0d658ebcec77b09da31a810 data/energizedpower/advancement/recipes/crafting/moon_light_upgrade_module_1.json
+4f2d9a36ae92d7b1b0f49483f38c65d0f16f0703 data/energizedpower/recipe/assembling/coolant_cell.json
 b4c22472f371cf97107fc8f49f28a7e903461a92 data/energizedpower/recipe/crafting/auto_crafter.json
 a3e18d5451940ec597fab960528b326b29a5726e data/energizedpower/advancement/recipes/crafting/advanced_fertilizer.json
 d2672491e72823f2ba8c4543d630dda1ecbe701d data/energizedpower/recipe/crafting/advanced_upgrade_module.json

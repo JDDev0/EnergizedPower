@@ -192,6 +192,8 @@ class ModItemModelProvider {
 
         basicItem(EPItems.CRYSTAL_MATRIX);
 
+        basicItem(EPItems.COOLANT_CELL);
+
         basicItem(EPItems.ENERGIZED_CRYSTAL_MATRIX);
 
         basicItem(EPItems.INVENTORY_CHARGER);
