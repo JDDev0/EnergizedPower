@@ -92,6 +92,8 @@
 
   "item.energizedpower.crystal_matrix": "Matriz de Cristal",
 
+  "item.energizedpower.coolant_cell": "Coolant Cell",
+
   "item.energizedpower.energized_crystal_matrix": "Matriz de Cristal Energizada",
 
   "item.energizedpower.dirty_water_bucket": "Balde de Água Suja",
@@ -1399,6 +1401,9 @@
 
   "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
   "advancements.energizedpower.energizedpower_elite.description": "Crystallization is the future.",
+
+  "advancements.energizedpower.coolant_cell.title": "Coolant Cell",
+  "advancements.energizedpower.coolant_cell.description": "Keep your machines cool.",
 
 
   "book.energizedpower.tooltip.link": "Abrir link",

@@ -3063,6 +3063,13 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 new IngredientWithCount(ingredientOf(Tags.Items.GEMS_EMERALD), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY))
         }, new ItemStack(EPItems.CRYSTAL_MATRIX.get()));
+
+        addAssemblingMachineRecipe(new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(Items.BLUE_ICE)),
+                new IngredientWithCount(ingredientOf(CommonItemTags.DUSTS_CHARCOAL), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_TIN), 4)
+        }, new ItemStack(EPItems.COOLANT_CELL.get(), 4));
     }
 
     private void buildFluidFreezerRecipe() {
