@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/energizedpower_elite",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:coolant_cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.coolant_cell.description"
+    },
+    "icon": {
+      "id": "energizedpower:coolant_cell"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.coolant_cell.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -81,6 +81,11 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_ALLOY
         );
+
+        AdvancementHolder coolantCell = addAdvancement(
+                advancementOutput, energizedPowerElite,
+                EPItems.COOLANT_CELL, "coolant_cell", AdvancementType.TASK
+        );
     }
 
     private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,

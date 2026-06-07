@@ -1,0 +1,24 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "ingredients": [
+    {
+      "ingredient": "minecraft:blue_ice"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:dusts/charcoal"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:gems/crystallized_lapis_lazuli"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:plates/tin"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "energizedpower:coolant_cell"
+  }
+}

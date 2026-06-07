@@ -285,6 +285,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.CHARCOAL_FILTER);
             event.accept(EPItems.SAW_BLADE);
             event.accept(EPItems.CRYSTAL_MATRIX);
+            event.accept(EPItems.COOLANT_CELL);
             event.accept(EPItems.SAWDUST);
             event.accept(EPItems.CHARCOAL_DUST);
             event.accept(EPItems.BASIC_FERTILIZER);

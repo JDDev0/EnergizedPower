@@ -92,6 +92,8 @@
 
   "item.energizedpower.crystal_matrix": "Kristall-Matrix",
 
+  "item.energizedpower.coolant_cell": "Kühlmittelzelle",
+
   "item.energizedpower.energized_crystal_matrix": "Energetisierte Kristall-Matrix",
 
   "item.energizedpower.dirty_water_bucket": "Schmutziges-Wasser-Eimer",
@@ -1399,6 +1401,9 @@
 
   "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
   "advancements.energizedpower.energizedpower_elite.description": "Kristallisation ist die Zukunft.",
+
+  "advancements.energizedpower.coolant_cell.title": "Kühlmittelzelle",
+  "advancements.energizedpower.coolant_cell.description": "Halte deine Maschinen kühl.",
 
 
   "book.energizedpower.tooltip.link": "Link öffnen",

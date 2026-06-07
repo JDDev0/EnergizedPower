@@ -276,6 +276,8 @@ public final class EPItems {
 
     public static final Item SAW_BLADE = registerItem("saw_blade");
 
+    public static final Item COOLANT_CELL = registerItem("coolant_cell");
+
     public static final Item CRYSTAL_MATRIX = registerItem("crystal_matrix");
 
     public static final Item ENERGIZED_CRYSTAL_MATRIX = registerItem("energized_crystal_matrix");
