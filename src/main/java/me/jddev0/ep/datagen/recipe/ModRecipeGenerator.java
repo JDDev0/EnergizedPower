@@ -193,6 +193,17 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GPG"
         }, new ItemStack(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPItems.QUANTUM_PROCESSING_UNIT), Map.of(
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'Q', ingredientOf(EPItems.QUANTUM_PROCESSING_UNIT),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE)
+        ), new String[] {
+                "SSS",
+                "ERE",
+                "EQE"
+        }, new ItemStack(EPItems.ELITE_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(Tags.Items.INGOTS_IRON), Map.of(
                 'i', ingredientOf(Tags.Items.NUGGETS_IRON),
                 'I', ingredientOf(Tags.Items.INGOTS_IRON)
@@ -3049,6 +3060,13 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD), 6),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 6)
         }, new ItemStack(EPItems.PROCESSING_UNIT.get()));
+
+        addAssemblingMachineRecipe(new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(EPItems.PROCESSING_UNIT), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
+                new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 2)
+        }, new ItemStack(EPItems.QUANTUM_PROCESSING_UNIT.get()));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.PROCESSING_UNIT), 4),

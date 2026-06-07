@@ -80,6 +80,7 @@
   "item.energizedpower.basic_circuit": "Basis Schaltkreis",
   "item.energizedpower.advanced_circuit": "Fortgeschrittener Schaltkreis",
   "item.energizedpower.processing_unit": "Prozessoreinheit",
+  "item.energizedpower.quantum_processing_unit": "Quanten-Prozessoreinheit",
 
   "item.energizedpower.energized_power_book": "Energized Power Buch",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "Drücke die linke Maustaste auf einen Block, um dessen Buchseite zu öffnen.",
@@ -119,6 +120,7 @@
   "item.energizedpower.basic_upgrade_module": "Basis Upgrade-Modul",
   "item.energizedpower.advanced_upgrade_module": "Fortgeschrittenes Upgrade-Modul",
   "item.energizedpower.reinforced_advanced_upgrade_module": "Verstärktes Fortgeschrittenes Upgrade-Modul",
+  "item.energizedpower.elite_upgrade_module": "Elite-Upgrade-Modul",
 
   "_template.item.energizedpower.speed_upgrade_module": "Geschwindigkeits-Upgrade-Modul (MK %s)",
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "Energie-Effizienz-Upgrade-Modul (MK %s)",
@@ -915,6 +917,9 @@
   "advancements.energizedpower.processing_unit.title": "Prozessoreinheit",
   "advancements.energizedpower.processing_unit.description": "Erstelle eine Prozessoreinheit.",
 
+  "advancements.energizedpower.quantum_processing_unit.title": "Quanten-Prozessoreinheit",
+  "advancements.energizedpower.quantum_processing_unit.description": "Erstelle eine Quanten-Prozessoreinheit.",
+
   "advancements.energizedpower.basic_upgrade_module.title": "Basis Upgrade-Modul",
   "advancements.energizedpower.basic_upgrade_module.description": "Erstelle ein Basis Upgrade-Modul.",
 
@@ -923,6 +928,9 @@
 
   "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "Verstärktes Fortgeschrittenes Upgrade-Modul",
   "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "Erstelle verstärktes fortgeschrittenes Upgrade-Modul.",
+
+  "advancements.energizedpower.elite_upgrade_module.title": "Elite-Upgrade-Modul",
+  "advancements.energizedpower.elite_upgrade_module.description": "Erstelle ein Elite-Upgrade-Modul.",
 
   "_template.advancements.energizedpower.speed_upgrade_module.title": "Geschwindigkeit %s",
   "_template.advancements.energizedpower.speed_upgrade_module.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK %s).",

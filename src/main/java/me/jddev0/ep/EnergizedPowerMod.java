@@ -272,6 +272,7 @@ public class EnergizedPowerMod {
             event.accept(EPItems.BASIC_CIRCUIT);
             event.accept(EPItems.ADVANCED_CIRCUIT);
             event.accept(EPItems.PROCESSING_UNIT);
+            event.accept(EPItems.QUANTUM_PROCESSING_UNIT);
 
             event.accept(EPItems.TELEPORTER_PROCESSING_UNIT);
             event.accept(EPItems.TELEPORTER_MATRIX);
@@ -279,6 +280,7 @@ public class EnergizedPowerMod {
             event.accept(EPItems.BASIC_UPGRADE_MODULE);
             event.accept(EPItems.ADVANCED_UPGRADE_MODULE);
             event.accept(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE);
+            event.accept(EPItems.ELITE_UPGRADE_MODULE);
 
             event.accept(EPBlocks.SILICON_BLOCK_ITEM);
             event.accept(EPBlocks.TIN_BLOCK_ITEM);

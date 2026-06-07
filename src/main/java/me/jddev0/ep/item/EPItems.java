@@ -112,6 +112,7 @@ public final class EPItems {
     public static final DeferredItem<Item> BASIC_CIRCUIT = registerItem("basic_circuit");
     public static final DeferredItem<Item> ADVANCED_CIRCUIT = registerItem("advanced_circuit");
     public static final DeferredItem<Item> PROCESSING_UNIT = registerItem("processing_unit");
+    public static final DeferredItem<Item> QUANTUM_PROCESSING_UNIT = registerItem("quantum_processing_unit");
 
     public static final DeferredItem<Item> TELEPORTER_MATRIX = registerItem("teleporter_matrix", TeleporterMatrixItem::new);
     public static final DeferredItem<Item> TELEPORTER_PROCESSING_UNIT = registerItem("teleporter_processing_unit");
@@ -119,6 +120,7 @@ public final class EPItems {
     public static final DeferredItem<Item> BASIC_UPGRADE_MODULE = registerItem("basic_upgrade_module");
     public static final DeferredItem<Item> ADVANCED_UPGRADE_MODULE = registerItem("advanced_upgrade_module");
     public static final DeferredItem<Item> REINFORCED_ADVANCED_UPGRADE_MODULE = registerItem("reinforced_advanced_upgrade_module");
+    public static final DeferredItem<Item> ELITE_UPGRADE_MODULE = registerItem("elite_upgrade_module");
 
     public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_1 = registerItem("speed_upgrade_module_1",
             props -> new SpeedUpgradeModuleItem(props, 1));

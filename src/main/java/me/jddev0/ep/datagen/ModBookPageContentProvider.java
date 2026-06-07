@@ -309,6 +309,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/basic_circuit.png"),
                 EPAPI.id("textures/item/advanced_circuit.png"),
                 EPAPI.id("textures/item/processing_unit.png"),
+                EPAPI.id("textures/item/quantum_processing_unit.png"),
                 EPAPI.id("textures/item/teleporter_processing_unit.png")
         });
 

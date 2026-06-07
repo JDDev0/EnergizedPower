@@ -76,6 +76,16 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 CommonItemTags.WIRES_SUPERCONDUCTOR
         );
 
+        AdvancementHolder quantumProcessingUnit = addAdvancement(
+                advancementOutput, existingFileHelper, superconductor,
+                EPItems.QUANTUM_PROCESSING_UNIT, "quantum_prcessing_unit", AdvancementType.TASK
+        );
+
+        AdvancementHolder eliteUpgradeModule = addAdvancement(
+                advancementOutput, existingFileHelper, quantumProcessingUnit,
+                EPItems.ELITE_UPGRADE_MODULE, "elite_upgrade_module", AdvancementType.TASK
+        );
+
         AdvancementHolder coolantCell = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerElite,
                 EPItems.COOLANT_CELL, "coolant_cell", AdvancementType.TASK
