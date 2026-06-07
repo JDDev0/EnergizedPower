@@ -593,6 +593,10 @@ public final class EPBlocks {
             () -> new SolarPanelBlock(SolarPanelTier.TIER_6));
     public static final DeferredItem<Item> SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
 
+    public static final DeferredBlock<SolarPanelBlock> SOLAR_PANEL_7 =  BLOCKS.register("solar_panel_7",
+            () -> new SolarPanelBlock(SolarPanelTier.TIER_7));
+    public static final DeferredItem<Item> SOLAR_PANEL_ITEM_7 = createSolarPanelBlockItem("solar_panel_7", SOLAR_PANEL_7);
+
     public static final DeferredBlock<Block> COAL_ENGINE = BLOCKS.register("coal_engine",
             () -> new CoalEngineBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).

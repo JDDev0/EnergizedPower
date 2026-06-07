@@ -1396,10 +1396,13 @@
   "advancements.energizedpower.solar_panel_4.description": "Tier IV: More than basic!",
 
   "advancements.energizedpower.solar_panel_5.title": "Solar Power Director",
-  "advancements.energizedpower.solar_panel_5.description": "Tier V - Only one tier left!",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
 
-  "advancements.energizedpower.solar_panel_6.title": "Solar Power Employer",
-  "advancements.energizedpower.solar_panel_6.description": "Tier VI - You have got the best solar panel!",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "Tier VI - Only one tier left!",
+
+  "advancements.energizedpower.solar_panel_7.title": "Solar Power Employer",
+  "advancements.energizedpower.solar_panel_7.description": "Tier VII - You have got the best solar panel!",
 
   "advancements.energizedpower.uncharger.title": "Give it back!",
   "advancements.energizedpower.uncharger.description": "Uncharges your energy items.",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Solar Panels produce energy during the day. The efficiency depends on the time and on the weather.",
-  "book.energizedpower.page.solar_panels.2": "There are 6 Solar Panel Tiers.",
+  "book.energizedpower.page.solar_panels.2": "There are 7 Solar Panel Tiers.",
 
   "book.energizedpower.page.coal_engine.1": "The Coal Engine produces energy by burning items.",
   "book.energizedpower.page.coal_engine.2": "Remainder items can be extracted automatically.",

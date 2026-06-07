@@ -98,6 +98,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.SOLAR_PANEL_4.get(),
                         EPBlocks.SOLAR_PANEL_5.get(),
                         EPBlocks.SOLAR_PANEL_6.get(),
+                        EPBlocks.SOLAR_PANEL_7.get(),
 
                         EPBlocks.COAL_ENGINE.get(),
 
@@ -248,6 +249,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.SOLAR_PANEL_4.get(),
                         EPBlocks.SOLAR_PANEL_5.get(),
                         EPBlocks.SOLAR_PANEL_6.get(),
+                        EPBlocks.SOLAR_PANEL_7.get(),
 
                         EPBlocks.COAL_ENGINE.get(),
 

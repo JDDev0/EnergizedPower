@@ -2246,6 +2246,18 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RER"
         }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_6.get()), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_6), Map.of(
+                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY),
+                'S', ingredientOf(EPBlocks.SOLAR_PANEL_ITEM_6),
+                'E', ingredientOf(EPItems.ELITE_SOLAR_CELL)
+        ), new String[] {
+                "GGG",
+                "SCS",
+                "EeE"
+        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_7.get()), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),

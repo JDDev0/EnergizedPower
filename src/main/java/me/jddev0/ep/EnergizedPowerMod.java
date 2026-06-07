@@ -188,6 +188,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.SOLAR_PANEL_ITEM_4);
             event.accept(EPBlocks.SOLAR_PANEL_ITEM_5);
             event.accept(EPBlocks.SOLAR_PANEL_ITEM_6);
+            event.accept(EPBlocks.SOLAR_PANEL_ITEM_7);
 
             event.accept(EPBlocks.BATTERY_BOX_ITEM);
             event.accept(EPBlocks.ADVANCED_BATTERY_BOX_ITEM);
@@ -564,6 +565,7 @@ public class EnergizedPowerMod {
             event.register(EPMenuTypes.SOLAR_PANEL_MENU_4.get(), SolarPanelScreen::new);
             event.register(EPMenuTypes.SOLAR_PANEL_MENU_5.get(), SolarPanelScreen::new);
             event.register(EPMenuTypes.SOLAR_PANEL_MENU_6.get(), SolarPanelScreen::new);
+            event.register(EPMenuTypes.SOLAR_PANEL_MENU_7.get(), SolarPanelScreen::new);
             event.register(EPMenuTypes.LV_TRANSFORMER_1_TO_N_MENU.get(), TransformerScreen::new);
             event.register(EPMenuTypes.LV_TRANSFORMER_3_TO_3_MENU.get(), TransformerScreen::new);
             event.register(EPMenuTypes.LV_TRANSFORMER_N_TO_1_MENU.get(), TransformerScreen::new);

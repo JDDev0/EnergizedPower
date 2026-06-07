@@ -184,6 +184,8 @@ public final class EPMenuTypes {
             SolarPanelMenu::new);
     public static final Supplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_6 = registerMenuType("solar_panel_6",
             SolarPanelMenu::new);
+    public static final Supplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_7 = registerMenuType("solar_panel_7",
+            SolarPanelMenu::new);
 
     public static final Supplier<MenuType<TransformerMenu>> LV_TRANSFORMER_1_TO_N_MENU = registerMenuType("lv_transformer_1_to_n",
             TransformerMenu::new);

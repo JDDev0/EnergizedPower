@@ -1396,10 +1396,13 @@
   "advancements.energizedpower.solar_panel_4.description": "Seviye IV: Basitten daha fazlası!",
 
   "advancements.energizedpower.solar_panel_5.title": "Solar Panel Direktörü",
-  "advancements.energizedpower.solar_panel_5.description": "Seviye V - Sadece I Seviye kaldı!",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
 
-  "advancements.energizedpower.solar_panel_6.title": "Solar Panellerin Efendisi",
-  "advancements.energizedpower.solar_panel_6.description": "Seviye VI - Panellerin hepsini bitirdin!",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "Seviye VI - Sadece I Seviye kaldı!",
+
+  "advancements.energizedpower.solar_panel_7.title": "Solar Panellerin Efendisi",
+  "advancements.energizedpower.solar_panel_7.description": "Seviye VII - Panellerin hepsini bitirdin!",
 
   "advancements.energizedpower.uncharger.title": "ONU G-E-R-I VER!!",
   "advancements.energizedpower.uncharger.description": "Enerji ürünlerinin şarjını azalt.",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Solar Paneller gün içinde enerji üretir,verimlilik gün içinde değişir",
-  "book.energizedpower.page.solar_panels.2": "6 Solar Panel Seviyesi vardır.",
+  "book.energizedpower.page.solar_panels.2": "7 Solar Panel Seviyesi vardır.",
 
   "book.energizedpower.page.coal_engine.1": "Kömür motoru eşya yakarak enerji üretir.",
   "book.energizedpower.page.coal_engine.2": "Kalan eşyalar otomatikce çekilebilir.",

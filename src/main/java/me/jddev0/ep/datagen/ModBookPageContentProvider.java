@@ -866,7 +866,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.SOLAR_PANEL_3.get(),
                 EPBlocks.SOLAR_PANEL_4.get(),
                 EPBlocks.SOLAR_PANEL_5.get(),
-                EPBlocks.SOLAR_PANEL_6.get()
+                EPBlocks.SOLAR_PANEL_6.get(),
+                EPBlocks.SOLAR_PANEL_7.get()
         });
 
         addSimplePage(pageId("coal_engine"), Component.empty().append(

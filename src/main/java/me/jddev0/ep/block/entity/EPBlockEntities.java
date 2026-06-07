@@ -325,6 +325,8 @@ public final class EPBlockEntities {
             createSolarPanelBlockEntity("solar_panel_5", EPBlocks.SOLAR_PANEL_5);
     public static final Supplier<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_6 =
             createSolarPanelBlockEntity("solar_panel_6", EPBlocks.SOLAR_PANEL_6);
+    public static final Supplier<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_7 =
+            createSolarPanelBlockEntity("solar_panel_7", EPBlocks.SOLAR_PANEL_7);
 
     public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_1_TO_N_ENTITY =
             BLOCK_ENTITIES.register("lv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
@@ -729,6 +731,8 @@ public final class EPBlockEntities {
                 SOLAR_PANEL_ENTITY_5.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 SOLAR_PANEL_ENTITY_6.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
+                SOLAR_PANEL_ENTITY_7.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 LV_TRANSFORMER_1_TO_N_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
