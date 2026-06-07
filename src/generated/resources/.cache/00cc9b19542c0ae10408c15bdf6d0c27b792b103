@@ -1,11 +1,11 @@
-// 1.21.1	2026-06-07T13:27:26.090825533	Energized Power/Advancements (Elite)
+// 1.21.1	2026-06-07T13:28:39.87011041	Energized Power/Advancements (Elite)
 d578d2c52c8a52616f4b70b55c85e8d4372b2008 data/energizedpower/advancement/main/elite/superconductor.json
 5d5c87dd8770c1c0944c918dea52047069dbe1e4 data/energizedpower/advancement/main/elite/crystallized_alloy_plate.json
 af1b4b571cd494db4e60dfd4d321c6a32a35aa66 data/energizedpower/advancement/main/elite/crystallized_alloy_ingot.json
-e6ac8f75071a11546a5cb3252053aa8617f2bcbe data/energizedpower/advancement/main/elite/elite_upgrade_module.json
+d0dd6d28cc6fd10d12108c4e1d8eb7c9793afdee data/energizedpower/advancement/main/elite/quantum_processing_unit.json
+a24913ab62869646a9c30731429e3b3a6e4f257c data/energizedpower/advancement/main/elite/elite_upgrade_module.json
 fde0880c164f43df5d47b46ea076e96d10172575 data/energizedpower/advancement/main/elite/energizedpower_elite.json
 2a2507a57a20f3b659bfb48a9e0d1c8ab41aa4f6 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
 6778599bc79a5d43ca1fba98171e5731be36bde6 data/energizedpower/advancement/main/elite/elite_solar_cell.json
-579c135afae3428691d2a098b8b59b73cf6f8714 data/energizedpower/advancement/main/elite/quantum_prcessing_unit.json
 3661ea1775b94388cf1543299099234fd58c1bbe data/energizedpower/advancement/main/elite/energized_alloy_plate.json
 d749d7ade01d538eecdeaad3decba8a903123efb data/energizedpower/advancement/main/elite/coolant_cell.json

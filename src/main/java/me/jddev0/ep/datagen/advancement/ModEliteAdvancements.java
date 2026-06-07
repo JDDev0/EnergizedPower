@@ -89,7 +89,7 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
 
         AdvancementHolder quantumProcessingUnit = addAdvancement(
                 advancementOutput, superconductor,
-                EPItems.QUANTUM_PROCESSING_UNIT, "quantum_prcessing_unit", AdvancementType.TASK
+                EPItems.QUANTUM_PROCESSING_UNIT, "quantum_processing_unit", AdvancementType.TASK
         );
 
         AdvancementHolder eliteUpgradeModule = addAdvancement(
