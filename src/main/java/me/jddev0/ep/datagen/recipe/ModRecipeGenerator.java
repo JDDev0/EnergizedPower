@@ -2551,25 +2551,25 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(Tags.Items.INGOTS_IRON)),
                 new IngredientWithCount(ingredientOf(ItemTags.COALS), 3)
-        }, new ItemStack(EPItems.STEEL_INGOT.get()), 500);
+        }, new ItemStack(EPItems.STEEL_INGOT.get()), 350);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN)),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON)),
                 new IngredientWithCount(ingredientOf(Tags.Items.DUSTS_REDSTONE), 2)
-        }, new ItemStack(EPItems.REDSTONE_ALLOY_INGOT.get()), 2500);
+        }, new ItemStack(EPItems.REDSTONE_ALLOY_INGOT.get()), 1000);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_STEEL), 3),
                 new IngredientWithCount(ingredientOf(Tags.Items.INGOTS_COPPER), 3),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN), 3)
-        }, new ItemStack(EPItems.ADVANCED_ALLOY_INGOT.get()), 10000);
+        }, new ItemStack(EPItems.ADVANCED_ALLOY_INGOT.get()), 2500);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 2),
                 new IngredientWithCount(ingredientOf(EPItems.CRYSTAL_MATRIX), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY), 2)
-        }, new ItemStack(EPItems.CRYSTALLIZED_ALLOY_INGOT.get()), 20000);
+        }, new ItemStack(EPItems.CRYSTALLIZED_ALLOY_INGOT.get()), 5000);
     }
 
     private void buildCompressorRecipes() {
