@@ -1,5 +1,5 @@
 {
-  "parent": "energizedpower:main/elite/quantum_prcessing_unit",
+  "parent": "energizedpower:main/elite/quantum_processing_unit",
   "criteria": {
     "has_the_item": {
       "conditions": {

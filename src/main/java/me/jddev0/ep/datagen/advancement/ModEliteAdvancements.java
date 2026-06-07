@@ -83,7 +83,7 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
 
         AdvancementHolder quantumProcessingUnit = addAdvancement(
                 advancementOutput, existingFileHelper, superconductor,
-                EPItems.QUANTUM_PROCESSING_UNIT, "quantum_prcessing_unit", AdvancementType.TASK
+                EPItems.QUANTUM_PROCESSING_UNIT, "quantum_processing_unit", AdvancementType.TASK
         );
 
         AdvancementHolder eliteUpgradeModule = addAdvancement(

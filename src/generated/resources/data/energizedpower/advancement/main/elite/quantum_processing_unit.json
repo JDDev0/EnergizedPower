@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.energizedpower.quantum_prcessing_unit.description"
+      "translate": "advancements.energizedpower.quantum_processing_unit.description"
     },
     "icon": {
       "count": 1,
       "id": "energizedpower:quantum_processing_unit"
     },
     "title": {
-      "translate": "advancements.energizedpower.quantum_prcessing_unit.title"
+      "translate": "advancements.energizedpower.quantum_processing_unit.title"
     }
   },
   "requirements": [
