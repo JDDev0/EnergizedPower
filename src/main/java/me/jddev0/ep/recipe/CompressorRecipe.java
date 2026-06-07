@@ -111,7 +111,7 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
             })).apply(instance, CompressorRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, CompressorRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, CompressorRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -121,7 +121,7 @@ public class CompressorRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, CompressorRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static CompressorRecipe read(RegistryFriendlyByteBuf buffer) {

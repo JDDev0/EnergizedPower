@@ -120,7 +120,7 @@ public class FluidTransposerRecipe implements Recipe<RecipeInput> {
             })).apply(instance, FluidTransposerRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, FluidTransposerRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, FluidTransposerRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -130,14 +130,14 @@ public class FluidTransposerRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, FluidTransposerRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static FluidTransposerRecipe read(RegistryFriendlyByteBuf buffer) {
             FluidTransposerBlockEntity.Mode mode = buffer.readEnum(FluidTransposerBlockEntity.Mode.class);
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
-            FluidStack fluid = FluidStack.PACKET_CODEC.decode(buffer);
+            FluidStack fluid = FluidStack.STREAM_CODEC.decode(buffer);
 
             return new FluidTransposerRecipe(mode, output, input, fluid);
         }
@@ -146,7 +146,7 @@ public class FluidTransposerRecipe implements Recipe<RecipeInput> {
             buffer.writeEnum(recipe.mode);
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
-            FluidStack.PACKET_CODEC.encode(buffer, recipe.fluid);
+            FluidStack.STREAM_CODEC.encode(buffer, recipe.fluid);
         }
     }
 }

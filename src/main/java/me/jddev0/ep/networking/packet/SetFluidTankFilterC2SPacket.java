@@ -15,16 +15,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record SetFluidTankFilterC2SPacket(BlockPos pos, FluidStack fluidFilter) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetFluidTankFilterC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_fluid_tank_filter"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetFluidTankFilterC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetFluidTankFilterC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetFluidTankFilterC2SPacket::write, SetFluidTankFilterC2SPacket::new);
 
     public SetFluidTankFilterC2SPacket(RegistryFriendlyByteBuf buffer) {
-        this(buffer.readBlockPos(), FluidStack.PACKET_CODEC.decode(buffer));
+        this(buffer.readBlockPos(), FluidStack.STREAM_CODEC.decode(buffer));
     }
 
     public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
-        FluidStack.PACKET_CODEC.encode(buffer, fluidFilter);
+        FluidStack.STREAM_CODEC.encode(buffer, fluidFilter);
     }
 
     @Override

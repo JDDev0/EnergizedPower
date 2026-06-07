@@ -16,16 +16,16 @@ import org.jetbrains.annotations.NotNull;
 public record SetCreativeFluidTankFluidStackC2SPacket(BlockPos pos, FluidStack fluidStack) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetCreativeFluidTankFluidStackC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_creative_fluid_tank_fluid_stack"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetCreativeFluidTankFluidStackC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetCreativeFluidTankFluidStackC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetCreativeFluidTankFluidStackC2SPacket::write, SetCreativeFluidTankFluidStackC2SPacket::new);
 
     public SetCreativeFluidTankFluidStackC2SPacket(RegistryFriendlyByteBuf buffer) {
-        this(buffer.readBlockPos(), FluidStack.PACKET_CODEC.decode(buffer));
+        this(buffer.readBlockPos(), FluidStack.STREAM_CODEC.decode(buffer));
     }
 
      public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
-        FluidStack.PACKET_CODEC.encode(buffer, fluidStack);
+        FluidStack.STREAM_CODEC.encode(buffer, fluidStack);
     }
 
     @Override

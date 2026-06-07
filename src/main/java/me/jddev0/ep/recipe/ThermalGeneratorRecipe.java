@@ -104,7 +104,7 @@ public class ThermalGeneratorRecipe implements Recipe<RecipeInput> {
             });
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, ThermalGeneratorRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, ThermalGeneratorRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -114,7 +114,7 @@ public class ThermalGeneratorRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, ThermalGeneratorRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static ThermalGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {

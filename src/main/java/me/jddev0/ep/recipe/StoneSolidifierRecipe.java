@@ -103,7 +103,7 @@ public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
             })).apply(instance, StoneSolidifierRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -113,7 +113,7 @@ public class StoneSolidifierRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, StoneSolidifierRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static StoneSolidifierRecipe read(RegistryFriendlyByteBuf buffer) {

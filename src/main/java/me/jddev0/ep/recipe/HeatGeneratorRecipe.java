@@ -104,7 +104,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
             });
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -114,7 +114,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, HeatGeneratorRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static HeatGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {

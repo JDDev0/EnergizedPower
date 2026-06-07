@@ -133,7 +133,7 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
             })).apply(instance, AssemblingMachineRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -143,7 +143,7 @@ public class AssemblingMachineRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, AssemblingMachineRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static AssemblingMachineRecipe read(RegistryFriendlyByteBuf buffer) {

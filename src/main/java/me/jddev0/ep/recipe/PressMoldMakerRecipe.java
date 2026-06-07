@@ -100,7 +100,7 @@ public class PressMoldMakerRecipe implements Recipe<RecipeInput> {
             })).apply(instance, PressMoldMakerRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -110,7 +110,7 @@ public class PressMoldMakerRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, PressMoldMakerRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static PressMoldMakerRecipe read(RegistryFriendlyByteBuf buffer) {

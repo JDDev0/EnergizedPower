@@ -132,7 +132,7 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
             });
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -142,7 +142,7 @@ public class SawmillRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, SawmillRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static SawmillRecipe read(RegistryFriendlyByteBuf buffer) {

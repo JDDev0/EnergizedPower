@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record EnergySyncS2CPacket(long energy, long capacity, BlockPos pos) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<EnergySyncS2CPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("energy_sync"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, EnergySyncS2CPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, EnergySyncS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(EnergySyncS2CPacket::write, EnergySyncS2CPacket::new);
 
     public EnergySyncS2CPacket(RegistryFriendlyByteBuf buffer) {

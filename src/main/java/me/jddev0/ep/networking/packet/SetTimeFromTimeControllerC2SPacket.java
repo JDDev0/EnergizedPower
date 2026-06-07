@@ -15,7 +15,7 @@ import team.reborn.energy.api.EnergyStorage;
 public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetTimeFromTimeControllerC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_time_from_time_controller"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetTimeFromTimeControllerC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetTimeFromTimeControllerC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetTimeFromTimeControllerC2SPacket::write, SetTimeFromTimeControllerC2SPacket::new);
 
     public SetTimeFromTimeControllerC2SPacket(RegistryFriendlyByteBuf buffer) {

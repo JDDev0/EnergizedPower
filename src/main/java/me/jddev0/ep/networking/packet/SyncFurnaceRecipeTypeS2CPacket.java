@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public final class SyncFurnaceRecipeTypeS2CPacket implements CustomPacketPayload {
     public static final Type<SyncFurnaceRecipeTypeS2CPacket> ID =
             new Type<>(EPAPI.id("sync_furnace_recipe_type"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SyncFurnaceRecipeTypeS2CPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncFurnaceRecipeTypeS2CPacket> STREAM_CODEC =
             StreamCodec.ofMember(SyncFurnaceRecipeTypeS2CPacket::write, SyncFurnaceRecipeTypeS2CPacket::new);
 
     private final RecipeType<? extends AbstractCookingRecipe> recipeType;

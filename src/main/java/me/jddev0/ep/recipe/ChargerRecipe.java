@@ -111,7 +111,7 @@ public class ChargerRecipe implements Recipe<RecipeInput> {
             })).apply(instance, ChargerRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, ChargerRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, ChargerRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -121,7 +121,7 @@ public class ChargerRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, ChargerRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static ChargerRecipe read(RegistryFriendlyByteBuf buffer) {

@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record ChangeRedstoneModeC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ChangeRedstoneModeC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("change_redstone_mode"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeRedstoneModeC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeRedstoneModeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeRedstoneModeC2SPacket::write, ChangeRedstoneModeC2SPacket::new);
 
     public ChangeRedstoneModeC2SPacket(RegistryFriendlyByteBuf buffer) {

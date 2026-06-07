@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record SetCheckboxC2SPacket(BlockPos pos, int checkboxId, boolean checked) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetCheckboxC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_checkbox"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetCheckboxC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetCheckboxC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetCheckboxC2SPacket::write, SetCheckboxC2SPacket::new);
 
     public SetCheckboxC2SPacket(RegistryFriendlyByteBuf buffer) {

@@ -177,7 +177,7 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
                     secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), inputs, ticks));
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -187,7 +187,7 @@ public class AlloyFurnaceRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, AlloyFurnaceRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static AlloyFurnaceRecipe read(RegistryFriendlyByteBuf buffer) {

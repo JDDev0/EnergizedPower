@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record SetWeatherFromWeatherControllerC2SPacket(BlockPos pos, int weatherType) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<SetWeatherFromWeatherControllerC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_weather_from_weather_controller"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetWeatherFromWeatherControllerC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetWeatherFromWeatherControllerC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(SetWeatherFromWeatherControllerC2SPacket::write, SetWeatherFromWeatherControllerC2SPacket::new);
 
     public SetWeatherFromWeatherControllerC2SPacket(RegistryFriendlyByteBuf buffer) {

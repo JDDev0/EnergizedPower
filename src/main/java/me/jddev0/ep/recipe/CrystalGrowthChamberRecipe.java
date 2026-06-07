@@ -125,7 +125,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
             })).apply(instance, CrystalGrowthChamberRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -135,7 +135,7 @@ public class CrystalGrowthChamberRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, CrystalGrowthChamberRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static CrystalGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {

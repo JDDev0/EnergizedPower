@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record ChangeComparatorModeC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ChangeComparatorModeC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("change_comparator_mode"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeComparatorModeC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeComparatorModeC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeComparatorModeC2SPacket::write, ChangeComparatorModeC2SPacket::new);
 
     public ChangeComparatorModeC2SPacket(RegistryFriendlyByteBuf buffer) {

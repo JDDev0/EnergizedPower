@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record ChangeCurrentRecipeIndexC2SPacket(BlockPos pos, boolean downUp) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ChangeCurrentRecipeIndexC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("change_current_recipe_index"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ChangeCurrentRecipeIndexC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(ChangeCurrentRecipeIndexC2SPacket::write, ChangeCurrentRecipeIndexC2SPacket::new);
 
     public ChangeCurrentRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {

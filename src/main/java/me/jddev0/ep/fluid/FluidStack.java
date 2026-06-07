@@ -41,7 +41,7 @@ public class FluidStack {
         });
     });
     
-    public static final StreamCodec<RegistryFriendlyByteBuf, FluidStack> PACKET_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, FluidStack> STREAM_CODEC = StreamCodec.composite(
             FluidVariant.PACKET_CODEC, FluidStack::getFluidVariant,
             PacketCodecFix.LONG, FluidStack::getDropletsAmount,
             FluidStack::new

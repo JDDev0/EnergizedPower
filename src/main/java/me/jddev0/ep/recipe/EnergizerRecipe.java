@@ -111,7 +111,7 @@ public class EnergizerRecipe implements Recipe<RecipeInput> {
             })).apply(instance, EnergizerRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, EnergizerRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, EnergizerRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -121,7 +121,7 @@ public class EnergizerRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, EnergizerRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static EnergizerRecipe read(RegistryFriendlyByteBuf buffer) {

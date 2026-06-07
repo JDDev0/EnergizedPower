@@ -100,14 +100,14 @@ public class FluidFreezerRecipe implements Recipe<RecipeInput> {
         }
 
         private static FluidFreezerRecipe read(RegistryFriendlyByteBuf buffer) {
-            FluidStack input = FluidStack.PACKET_CODEC.decode(buffer);
+            FluidStack input = FluidStack.STREAM_CODEC.decode(buffer);
             ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new FluidFreezerRecipe(input, output);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, FluidFreezerRecipe recipe) {
-            FluidStack.PACKET_CODEC.encode(buffer, recipe.input);
+            FluidStack.STREAM_CODEC.encode(buffer, recipe.input);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }

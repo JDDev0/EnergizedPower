@@ -129,7 +129,7 @@ public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
                     secondaryOutput.orElse(OutputItemStackWithPercentages.EMPTY), icon));
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -139,7 +139,7 @@ public class FiltrationPlantRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, FiltrationPlantRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static FiltrationPlantRecipe read(RegistryFriendlyByteBuf buffer) {

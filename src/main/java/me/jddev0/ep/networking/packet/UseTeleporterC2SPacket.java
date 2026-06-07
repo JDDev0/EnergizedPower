@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public record UseTeleporterC2SPacket(BlockPos pos) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UseTeleporterC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("use_teleporter"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, UseTeleporterC2SPacket> PACKET_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UseTeleporterC2SPacket> STREAM_CODEC =
             StreamCodec.ofMember(UseTeleporterC2SPacket::write, UseTeleporterC2SPacket::new);
 
     public UseTeleporterC2SPacket(RegistryFriendlyByteBuf buffer) {

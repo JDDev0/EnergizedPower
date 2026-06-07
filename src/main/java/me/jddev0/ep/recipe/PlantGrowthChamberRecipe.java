@@ -139,7 +139,7 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
             })).apply(instance, PlantGrowthChamberRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -149,7 +149,7 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static PlantGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {

@@ -102,7 +102,7 @@ public class CrusherRecipe implements Recipe<RecipeInput> {
             })).apply(instance, CrusherRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -112,7 +112,7 @@ public class CrusherRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, CrusherRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static CrusherRecipe read(RegistryFriendlyByteBuf buffer) {

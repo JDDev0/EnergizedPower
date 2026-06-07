@@ -112,7 +112,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
             })).apply(instance, MetalPressRecipe::new);
         });
 
-        private final StreamCodec<RegistryFriendlyByteBuf, MetalPressRecipe> PACKET_CODEC = StreamCodec.of(
+        private final StreamCodec<RegistryFriendlyByteBuf, MetalPressRecipe> STREAM_CODEC = StreamCodec.of(
                 Serializer::write, Serializer::read);
 
         @Override
@@ -122,7 +122,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, MetalPressRecipe> streamCodec() {
-            return PACKET_CODEC;
+            return STREAM_CODEC;
         }
 
         private static MetalPressRecipe read(RegistryFriendlyByteBuf buffer) {
