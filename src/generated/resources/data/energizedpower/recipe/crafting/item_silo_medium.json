@@ -8,16 +8,13 @@
     "S": {
       "item": "energizedpower:item_silo_small"
     },
-    "i": {
-      "tag": "c:plates/iron"
-    },
     "s": {
-      "tag": "c:ingots/steel"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [
     "IsI",
-    "iSi",
+    "sSs",
     "IsI"
   ],
   "result": {

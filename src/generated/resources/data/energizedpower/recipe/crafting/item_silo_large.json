@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "c:storage_blocks/iron"
+    "B": {
+      "tag": "c:storage_blocks/steel"
     },
     "S": {
       "item": "energizedpower:item_silo_medium"
     },
     "s": {
-      "tag": "c:ingots/steel"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [
-    "IsI",
+    "BsB",
     "sSs",
-    "IsI"
+    "BsB"
   ],
   "result": {
     "count": 1,
