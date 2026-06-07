@@ -520,6 +520,10 @@ public final class EPBlockEntities {
             createSolarPanelBlockEntity("solar_panel_6", EPBlocks.SOLAR_PANEL_6),
         (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
     );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_7 = registerEnergyStorage(
+            createSolarPanelBlockEntity("solar_panel_7", EPBlocks.SOLAR_PANEL_7),
+        (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
+    );
 
     public static final BlockEntityType<TransformerBlockEntity> LV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("lv_transformer_1_to_n", EPBlocks.LV_TRANSFORMER_1_TO_N, (blockPos, state) ->

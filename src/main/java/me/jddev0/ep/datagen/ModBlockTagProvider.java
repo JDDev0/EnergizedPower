@@ -93,6 +93,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.SOLAR_PANEL_4,
                         EPBlocks.SOLAR_PANEL_5,
                         EPBlocks.SOLAR_PANEL_6,
+                        EPBlocks.SOLAR_PANEL_7,
 
                         EPBlocks.COAL_ENGINE,
 
@@ -243,6 +244,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.SOLAR_PANEL_4,
                         EPBlocks.SOLAR_PANEL_5,
                         EPBlocks.SOLAR_PANEL_6,
+                        EPBlocks.SOLAR_PANEL_7,
 
                         EPBlocks.COAL_ENGINE,
 

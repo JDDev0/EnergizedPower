@@ -89,6 +89,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         MenuScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_4, SolarPanelScreen::new);
         MenuScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_5, SolarPanelScreen::new);
         MenuScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_6, SolarPanelScreen::new);
+        MenuScreens.register(EPMenuTypes.SOLAR_PANEL_MENU_7, SolarPanelScreen::new);
         MenuScreens.register(EPMenuTypes.LV_TRANSFORMER_1_TO_N_MENU, TransformerScreen::new);
         MenuScreens.register(EPMenuTypes.LV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
         MenuScreens.register(EPMenuTypes.LV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);

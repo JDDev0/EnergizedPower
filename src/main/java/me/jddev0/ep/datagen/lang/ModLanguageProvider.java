@@ -75,7 +75,7 @@ public class ModLanguageProvider extends ExtensionLanguageProvider {
         }
 
         String solarPanelTemplateString = templateTranslations.get("_template.block.energizedpower.solar_panel");
-        for(int i = 0;i < 6;i++) {
+        for(int i = 0;i < 7;i++) {
             int tier = i + 1;
 
             String value = String.format(solarPanelTemplateString, NumberUtils.convertToRoman(tier));

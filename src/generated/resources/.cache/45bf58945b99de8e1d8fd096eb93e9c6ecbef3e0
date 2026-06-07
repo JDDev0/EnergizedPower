@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T13:28:39.870746517	Energized Power/Advancements (Advanced)
+// 1.21.1	2026-06-07T13:31:10.448632209	Energized Power/Advancements (Advanced)
 348c143ab4a32c8091ebc4914c660de205443faf data/energizedpower/advancement/main/advanced/duration_upgrade_module_4.json
 98ec67818acc1cfeb4cb0869518643cdb8558c7f data/energizedpower/advancement/main/advanced/range_upgrade_module_2.json
 bf7fb6ac9fc4d202afead358445745e4a0df19de data/energizedpower/advancement/main/advanced/reinforced_advanced_upgrade_module.json
@@ -45,7 +45,7 @@ e3f1b51cb25fb82065f3d398084e244c735d2efa data/energizedpower/advancement/main/ad
 1dea4c1ed9cd475f931ec73c12efc3ad313502f0 data/energizedpower/advancement/main/advanced/duration_upgrade_module_3.json
 d37e502f89ccd19415b23bfeb25d1cc41c953249 data/energizedpower/advancement/main/advanced/item_pulling_upgrade_module_4.json
 5c97130b4f7a169ade3f07b738f9bdcc47c6342d data/energizedpower/advancement/main/advanced/reinforced_advanced_solar_cell.json
-fe4e27160928198e020c028cac7b4846bd3a92fb data/energizedpower/advancement/main/advanced/solar_panel_6.json
+50b473f6872a46e5955e0e9667a4101cc4ffba49 data/energizedpower/advancement/main/advanced/solar_panel_6.json
 4a112e6f4a9f04162004324ae668f3abc19333ad data/energizedpower/advancement/main/advanced/energized_copper_plate.json
 428d746ffd5105e4e181e13fc127e0ab1a11659f data/energizedpower/advancement/main/advanced/duration_upgrade_module_1.json
 9fe8dbcbc2a9524804110f9cb435a483753402d9 data/energizedpower/advancement/main/advanced/advanced_upgrade_module.json

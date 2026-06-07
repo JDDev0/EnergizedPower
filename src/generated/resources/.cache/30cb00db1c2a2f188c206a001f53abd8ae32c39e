@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T13:28:39.875426551	Energized Power/Block Loot Tables
+// 1.21.1	2026-06-07T13:31:10.459042722	Energized Power/Block Loot Tables
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_table/blocks/stone_solidifier.json
 e9b25d4563facbc5f36dacbbfbb80c947a35537b data/energizedpower/loot_table/blocks/golden_fluid_pipe.json
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
@@ -6,6 +6,7 @@ a9941e028bb375a16db89388837b7ff99c51f4cc data/energizedpower/loot_table/blocks/i
 d3bac7951caead45b535cbf1bf1fbba7310d8867 data/energizedpower/loot_table/blocks/deepslate_tin_ore.json
 1fc3191284e1a4db6b5a437c2771fc7471b8b9ff data/energizedpower/loot_table/blocks/teleporter.json
 4a8603a94473512d2b2e58feb2ef3d93141a702d data/energizedpower/loot_table/blocks/advanced_fluid_pump.json
+7fb9eec514342625ca79eff4fa0d2d3666864194 data/energizedpower/loot_table/blocks/solar_panel_7.json
 9d7b760715caed9c5624eee699a11acd82d5bd35 data/energizedpower/loot_table/blocks/lv_transformer_1_to_n.json
 456ac9dbebbe9a7bb9296990b849cca6c447814b data/energizedpower/loot_table/blocks/assembling_machine.json
 3354a639232d9949dc6565873e77cf262eeaab39 data/energizedpower/loot_table/blocks/press_mold_maker.json

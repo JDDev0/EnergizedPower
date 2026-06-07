@@ -165,6 +165,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.SOLAR_PANEL_4);
         dropSelf(EPBlocks.SOLAR_PANEL_5);
         dropSelf(EPBlocks.SOLAR_PANEL_6);
+        dropSelf(EPBlocks.SOLAR_PANEL_7);
 
         dropSelf(EPBlocks.COAL_ENGINE);
 

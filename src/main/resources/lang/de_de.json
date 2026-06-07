@@ -1395,11 +1395,14 @@
   "advancements.energizedpower.solar_panel_4.title": "Solarstrom-Manager",
   "advancements.energizedpower.solar_panel_4.description": "MK IV: Besser als Basis-Solarpanels!",
 
-  "advancements.energizedpower.solar_panel_5.title": "Solarstrom-Director",
-  "advancements.energizedpower.solar_panel_5.description": "MK V - Nur mehr ein Panel ist besser!",
+  "advancements.energizedpower.solar_panel_5.title": "Solarstrom-Direktor",
+  "advancements.energizedpower.solar_panel_5.description": "MK V: Noch bessere Solarenergie!",
 
-  "advancements.energizedpower.solar_panel_6.title": "Solarstrom-Arbeitgeber",
-  "advancements.energizedpower.solar_panel_6.description": "MK VI - Du hast das beste Solarpanel!",
+  "advancements.energizedpower.solar_panel_6.title": "Solarstrom-Vizepräsident",
+  "advancements.energizedpower.solar_panel_6.description": "MK VI - Nur mehr ein Panel ist besser!",
+
+  "advancements.energizedpower.solar_panel_7.title": "Solarstrom-Arbeitgeber",
+  "advancements.energizedpower.solar_panel_7.description": "MK VII - Du hast das beste Solarpanel!",
 
   "advancements.energizedpower.uncharger.title": "Gib sie zurück!",
   "advancements.energizedpower.uncharger.description": "Entläd deine Energie-Items.",
@@ -1622,7 +1625,7 @@
   "book.energizedpower.page.solar_cells.2": "Es gibt vier Typen: Basis, fortgeschritten, verstärkt fortgeschritten und Elite",
 
   "book.energizedpower.page.solar_panels.1": "Solarpanels produzieren während dem Tag Energie. Die Effizienz hängt von der Zeit und dem Wetter ab.",
-  "book.energizedpower.page.solar_panels.2": "Es gibt 6 Solarpanel-Typen.",
+  "book.energizedpower.page.solar_panels.2": "Es gibt 7 Solarpanel-Typen.",
 
   "book.energizedpower.page.coal_engine.1": "Der Kohlegenerator produziert Energie indem er Items verbrennt.",
   "book.energizedpower.page.coal_engine.2": "Zurückbleibende Items (z.B. Lavaeimer: Eimer) können automatisch extrahiert werden.",

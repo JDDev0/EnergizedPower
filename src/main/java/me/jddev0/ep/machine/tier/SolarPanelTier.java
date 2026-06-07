@@ -42,6 +42,11 @@ public enum SolarPanelTier {
             ModConfigs.COMMON_SOLAR_PANEL_6_TRANSFER_RATE.getValue(),
             ModConfigs.COMMON_SOLAR_PANEL_6_CAPACITY.getValue(),
             BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL)),
+    TIER_7("solar_panel_7", ModConfigs.COMMON_SOLAR_PANEL_7_ENERGY_PEAK_PRODUCTION.getValue(),
+            ModConfigs.COMMON_SOLAR_PANEL_7_TRANSFER_RATE.getValue(),
+            ModConfigs.COMMON_SOLAR_PANEL_7_CAPACITY.getValue(),
+            BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(4.0f, 5.0f).sound(SoundType.METAL));
 
     private final String resourceId;
@@ -66,6 +71,7 @@ public enum SolarPanelTier {
             case TIER_4 -> EPMenuTypes.SOLAR_PANEL_MENU_4;
             case TIER_5 -> EPMenuTypes.SOLAR_PANEL_MENU_5;
             case TIER_6 -> EPMenuTypes.SOLAR_PANEL_MENU_6;
+            case TIER_7 -> EPMenuTypes.SOLAR_PANEL_MENU_7;
         };
     }
 
@@ -77,6 +83,7 @@ public enum SolarPanelTier {
             case TIER_4 -> EPBlocks.SOLAR_PANEL_4;
             case TIER_5 -> EPBlocks.SOLAR_PANEL_5;
             case TIER_6 -> EPBlocks.SOLAR_PANEL_6;
+            case TIER_7 -> EPBlocks.SOLAR_PANEL_7;
         };
     }
 
@@ -88,6 +95,7 @@ public enum SolarPanelTier {
             case TIER_4 -> EPBlockEntities.SOLAR_PANEL_ENTITY_4;
             case TIER_5 -> EPBlockEntities.SOLAR_PANEL_ENTITY_5;
             case TIER_6 -> EPBlockEntities.SOLAR_PANEL_ENTITY_6;
+            case TIER_7 -> EPBlockEntities.SOLAR_PANEL_ENTITY_7;
         };
     }
 

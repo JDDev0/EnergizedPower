@@ -840,17 +840,20 @@ public class ModBookPageContentProvider extends PageContentProvider {
         tableOfContentsEntries.get(energyBlocksTableOfContentPageId).add(Pair.of(energyBlocksEnergyProductionChapterTitle, energyBlocksEnergyProductionChapterPage));
 
 
-        addSimplePage(pageId("solar_cells"), Component.empty().append(
-                Component.translatable("book.energizedpower.page.solar_cells.1").
+        addSimplePage(pageId("solar_panels"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.solar_panels.1").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
         ).append(
-                Component.translatable("book.energizedpower.page.solar_cells.2").
+                Component.translatable("book.energizedpower.page.solar_panels.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
-                EPAPI.id("textures/item/basic_solar_cell.png"),
-                EPAPI.id("textures/item/advanced_solar_cell.png"),
-                EPAPI.id("textures/item/reinforced_advanced_solar_cell.png"),
-                EPAPI.id("textures/item/elite_solar_cell.png")
+        ), new Block[] {
+                EPBlocks.SOLAR_PANEL_1,
+                EPBlocks.SOLAR_PANEL_2,
+                EPBlocks.SOLAR_PANEL_3,
+                EPBlocks.SOLAR_PANEL_4,
+                EPBlocks.SOLAR_PANEL_5,
+                EPBlocks.SOLAR_PANEL_6,
+                EPBlocks.SOLAR_PANEL_7
         });
 
         addSimplePage(pageId("solar_panels"), Component.empty().append(

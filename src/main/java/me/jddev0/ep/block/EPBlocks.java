@@ -574,6 +574,10 @@ public final class EPBlocks {
             new SolarPanelBlock(SolarPanelTier.TIER_6));
     public static final Item SOLAR_PANEL_ITEM_6 = createSolarPanelBlockItem("solar_panel_6", SOLAR_PANEL_6);
 
+    public static final SolarPanelBlock SOLAR_PANEL_7 = registerBlock("solar_panel_7",
+            new SolarPanelBlock(SolarPanelTier.TIER_7));
+    public static final Item SOLAR_PANEL_ITEM_7 = createSolarPanelBlockItem("solar_panel_7", SOLAR_PANEL_7);
+
     public static final Block COAL_ENGINE = registerBlock("coal_engine",
             new CoalEngineBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
