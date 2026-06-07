@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "Célula Solar Básica",
   "item.energizedpower.advanced_solar_cell": "Célula Solar Avançada",
   "item.energizedpower.reinforced_advanced_solar_cell": "Célula Solar Avançada Reforçada",
+  "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
 
   "item.energizedpower.basic_circuit": "Circuito Básico",
   "item.energizedpower.advanced_circuit": "Circuito Avançado",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "Necessário para painéis solares avançados...",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "Energia solar ainda melhor",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Necessário para os melhores painéis solares...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "Necessário para os melhores painéis solares...",
 
   "advancements.energizedpower.basic_circuit.title": "Circuito Básico",
   "advancements.energizedpower.basic_circuit.description": "Crie um Circuito Básico.",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Blocos para produção de energia",
 
   "book.energizedpower.page.solar_cells.1": "As Células Solares são o item de criação base para todos os painéis solares.",
-  "book.energizedpower.page.solar_cells.2": "Existem três células solares: Básica, Avançada e Avançada Reforçada",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Os Painéis Solares produzem energia durante o dia. A eficiência depende do tempo e do clima.",
   "book.energizedpower.page.solar_panels.2": "Existem 6 Níveis de Painel Solar.",

@@ -89,6 +89,11 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 CommonItemTags.WIRES_SUPERCONDUCTOR
         );
 
+        AdvancementHolder eliteSolarCell = addAdvancement(
+                advancementOutput, energizedAlloyIngot,
+                EPItems.ELITE_SOLAR_CELL, "elite_solar_cell", AdvancementType.TASK
+        );
+
         AdvancementHolder quantumProcessingUnit = addAdvancement(
                 advancementOutput, superconductor,
                 EPItems.QUANTUM_PROCESSING_UNIT, "quantum_prcessing_unit", AdvancementType.TASK
