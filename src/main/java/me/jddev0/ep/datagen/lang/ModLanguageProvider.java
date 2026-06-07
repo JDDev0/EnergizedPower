@@ -35,10 +35,10 @@ public class ModLanguageProvider extends ExtensionLanguageProvider {
     protected final void addExtendedTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         Map<String, Integer> upgradeModules = new HashMap<>();
         {
-            upgradeModules.put("speed", 6);
-            upgradeModules.put("energy_efficiency", 6);
-            upgradeModules.put("energy_production", 6);
-            upgradeModules.put("energy_capacity", 6);
+            upgradeModules.put("speed", 8);
+            upgradeModules.put("energy_efficiency", 8);
+            upgradeModules.put("energy_production", 8);
+            upgradeModules.put("energy_capacity", 8);
             upgradeModules.put("duration", 6);
             upgradeModules.put("range", 3);
             upgradeModules.put("extraction_depth", 6);

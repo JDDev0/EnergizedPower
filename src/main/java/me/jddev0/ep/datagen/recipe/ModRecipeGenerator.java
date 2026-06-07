@@ -359,6 +359,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "CsC"
         }, new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
+        addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_6,
+                new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_7));
+        addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_7,
+                new ItemStackTemplate(EPItems.SPEED_UPGRADE_MODULE_8));
+
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),
@@ -428,6 +433,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "GRG",
                 "CEC"
         }, new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6,
+                new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7));
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7,
+                new ItemStackTemplate(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8));
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -499,6 +509,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "GEG"
         }, new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6,
+                new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7));
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7,
+                new ItemStackTemplate(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8));
+
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -568,6 +583,11 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "TRT",
                 "CEC"
         }, new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6,
+                new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7));
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7,
+                new ItemStackTemplate(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8));
 
         addShapedCraftingRecipe(has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -3369,6 +3389,18 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "iIi",
                 "iIi"
         }, cableItem, CraftingBookCategory.MISC, getItemName(cableItem.item().value()));
+    }
+    private void addEliteUpgradeModuleRecipe(ItemLike upgradeModulePreviousTier, ItemStackTemplate upgradeModuleItem) {
+        addShapedCraftingRecipe(has(upgradeModulePreviousTier), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'U', ingredientOf(upgradeModulePreviousTier)
+        ), new String[] {
+                "EUE",
+                "CeC",
+                "EUE"
+        }, upgradeModuleItem, CraftingBookCategory.MISC);
     }
     private void addShapedCraftingRecipe(Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
                                          Map<Character, Ingredient> key, String[] pattern,
