@@ -1,0 +1,16 @@
+{
+  "type": "energizedpower:crystal_growth_chamber",
+  "ingredient": {
+    "item": "minecraft:lapis_lazuli"
+  },
+  "inputCount": 8,
+  "output": {
+    "output": {
+      "item": "energizedpower:crystallized_lapis_lazuli"
+    },
+    "percentages": [
+      1.0
+    ]
+  },
+  "ticks": 128000
+}

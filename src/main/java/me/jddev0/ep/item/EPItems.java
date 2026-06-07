@@ -91,6 +91,9 @@ public final class EPItems {
     public static final Item GOLD_WIRE = registerItem("gold_wire",
             new Item(new Item.Properties()));
 
+    public static final Item CRYSTALLIZED_LAPIS_LAZULI = registerItem("crystallized_lapis_lazuli",
+            new CrystallizedLapisLazuliItem(new Item.Properties()));
+
     public static final Item SAWDUST = registerItem("sawdust",
             new Item(new Item.Properties()));
 

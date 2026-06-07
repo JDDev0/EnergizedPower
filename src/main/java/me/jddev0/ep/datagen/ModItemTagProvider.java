@@ -206,6 +206,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_INGOT);
 
+        getOrCreateTagBuilder(ConventionalItemTags.GEMS).
+                addTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI);
+        getOrCreateTagBuilder(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI).
+                add(EPItems.CRYSTALLIZED_LAPIS_LAZULI);
+
         getOrCreateTagBuilder(CommonItemTags.PLATES).
                 addTag(CommonItemTags.PLATES_TIN).
                 addTag(CommonItemTags.PLATES_COPPER).
