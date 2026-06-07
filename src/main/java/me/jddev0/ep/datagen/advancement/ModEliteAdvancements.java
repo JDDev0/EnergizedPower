@@ -70,6 +70,12 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 CommonItemTags.PLATES_ENERGIZED_ALLOY
         );
 
+        AdvancementHolder superconductor = addAdvancement(
+                advancementOutput, existingFileHelper, energizedAlloyPlate,
+                EPItems.SUPERCONDUCTOR, "superconductor", AdvancementType.TASK,
+                CommonItemTags.WIRES_SUPERCONDUCTOR
+        );
+
         AdvancementHolder coolantCell = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerElite,
                 EPItems.COOLANT_CELL, "coolant_cell", AdvancementType.TASK

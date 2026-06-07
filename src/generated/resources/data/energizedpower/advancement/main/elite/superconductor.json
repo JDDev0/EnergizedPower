@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/elite/energized_alloy_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:wires/superconductor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.superconductor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:superconductor"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.superconductor.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

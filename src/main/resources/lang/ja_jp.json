@@ -11,6 +11,8 @@
   "item.energizedpower.energized_copper_wire": "帯電した銅のワイヤー",
   "item.energizedpower.energized_gold_wire": "帯電した金のワイヤー",
 
+  "item.energizedpower.superconductor": "Superconductor",
+
   "item.energizedpower.silicon": "シリコン",
 
   "item.energizedpower.stone_pebble": "小石",
@@ -1338,6 +1340,9 @@
 
   "advancements.energizedpower.energized_gold_wire.title": "帯電した金のワイヤー",
   "advancements.energizedpower.energized_gold_wire.description": "帯電した金のワイヤーを作成する",
+
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
 
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (基本)",
   "advancements.energizedpower.energizedpower_basics.description": "Energized Powerへの第一歩。エネルギー革命の始まり",

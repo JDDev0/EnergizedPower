@@ -11,6 +11,8 @@
   "item.energizedpower.energized_copper_wire": "Enerjilendirilmiş Bakır Tel",
   "item.energizedpower.energized_gold_wire": "Enerjilendirilmiş Altın Tel",
 
+  "item.energizedpower.superconductor": "Superconductor",
+
   "item.energizedpower.silicon": "Silikon",
 
   "item.energizedpower.stone_pebble": "Stone Pebble",
@@ -1338,6 +1340,9 @@
 
   "advancements.energizedpower.energized_gold_wire.title": "Enerjili Altın Tel",
   "advancements.energizedpower.energized_gold_wire.description": "Altın Telde yalıtım var değil mi?.",
+
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
 
   "advancements.energizedpower.energizedpower_basics.title": "Enerjili Güç (Temeller)",
   "advancements.energizedpower.energizedpower_basics.description": "Yolcu kalmasın!",

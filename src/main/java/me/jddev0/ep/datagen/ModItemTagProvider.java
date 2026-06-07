@@ -238,7 +238,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.WIRES_COPPER).
                 addTag(CommonItemTags.WIRES_GOLD).
                 addTag(CommonItemTags.WIRES_ENERGIZED_COPPER).
-                addTag(CommonItemTags.WIRES_ENERGIZED_GOLD);
+                addTag(CommonItemTags.WIRES_ENERGIZED_GOLD).
+                addTag(CommonItemTags.WIRES_SUPERCONDUCTOR);
         tag(CommonItemTags.WIRES_TIN).
                 add(EPItems.TIN_WIRE.get());
         tag(CommonItemTags.WIRES_COPPER).
@@ -249,6 +250,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.ENERGIZED_COPPER_WIRE.get());
         tag(CommonItemTags.WIRES_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_WIRE.get());
+        tag(CommonItemTags.WIRES_SUPERCONDUCTOR).
+                add(EPItems.SUPERCONDUCTOR.get());
 
         tag(Tags.Items.TOOLS).
                 addTag(CommonItemTags.TOOLS_HAMMERS).

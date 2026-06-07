@@ -273,6 +273,8 @@ public final class EPItems {
 
     public static final DeferredItem<Item> ENERGIZED_CRYSTAL_MATRIX = registerItem("energized_crystal_matrix");
 
+    public static final DeferredItem<Item> SUPERCONDUCTOR = registerItem("superconductor");
+
     public static final DeferredItem<Item> INVENTORY_COAL_ENGINE = registerItem("inventory_coal_engine",
             InventoryCoalEngineItem::new, new Item.Properties().stacksTo(1));
 

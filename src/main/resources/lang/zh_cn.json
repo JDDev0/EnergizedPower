@@ -11,6 +11,8 @@
   "item.energizedpower.energized_copper_wire": "充能铜线",
   "item.energizedpower.energized_gold_wire": "充能金线",
 
+  "item.energizedpower.superconductor": "Superconductor",
+
   "item.energizedpower.silicon": "硅",
 
   "item.energizedpower.stone_pebble": "石子",
@@ -1338,6 +1340,9 @@
 
   "advancements.energizedpower.energized_gold_wire.title": "充能金线",
   "advancements.energizedpower.energized_gold_wire.description": "制造一根充能金线。",
+
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
 
   "advancements.energizedpower.energizedpower_basics.title": "充能能源 (基础)",
   "advancements.energizedpower.energizedpower_basics.description": "这是你充能能源之旅的开始。",

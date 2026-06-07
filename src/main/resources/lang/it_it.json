@@ -11,6 +11,8 @@
   "item.energizedpower.energized_copper_wire": "Filo di rame energizzato",
   "item.energizedpower.energized_gold_wire": "Filo d'oro energizzato",
 
+  "item.energizedpower.superconductor": "Superconductor",
+
   "item.energizedpower.silicon": "Silicio",
 
   "item.energizedpower.stone_pebble": "Stone Pebble",
@@ -1338,6 +1340,9 @@
 
   "advancements.energizedpower.energized_gold_wire.title": "Filo d'oro energizzato",
   "advancements.energizedpower.energized_gold_wire.description": "Crea un filo d'oro energizzato.",
+
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
 
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (Basi)",
   "advancements.energizedpower.energizedpower_basics.description": "Questo è l'inizio del tuo viaggio di Energized Power.",
