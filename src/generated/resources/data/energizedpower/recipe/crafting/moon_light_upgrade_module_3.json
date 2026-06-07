@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": "energizedpower:basic_solar_cell",
+    "B": "energizedpower:reinforced_advanced_solar_cell",
     "G": "#c:plates/gold",
     "M": "energizedpower:moon_light_upgrade_module_2",
     "R": "energizedpower:reinforced_advanced_upgrade_module",
