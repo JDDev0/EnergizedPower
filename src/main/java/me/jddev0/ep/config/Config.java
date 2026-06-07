@@ -34,7 +34,7 @@ public class Config {
         return configValues.contains(configValue);
     }
 
-    public <T> ConfigValue<T> register(ConfigValue<T> configValue) {
+    public <T extends ConfigValue<?>> T register(T configValue) {
         String key = configValue.getKey();
         if(isRegistered(key))
             throw new RuntimeException("Config value conflict for key \"" + key + "\"");

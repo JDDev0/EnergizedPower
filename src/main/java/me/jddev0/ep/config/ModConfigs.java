@@ -27,9 +27,7 @@ public final class ModConfigs {
             "Energized Power Common Config (IMPORTANT: Not all values are synced from the server to the client.)");
 
     //Version
-    static {
-        COMMON_CONFIG.register(new VersionConfigValue("config_version", CONFIG_VERSION));
-    }
+    private static final VersionConfigValue COMMON_CONFIG_VERSION = COMMON_CONFIG.register(new VersionConfigValue("config_version", CONFIG_VERSION));
 
     //Items
     public static final ConfigValue<Long> COMMON_BATTERY_1_CAPACITY = registerEnergyCapacityConfigValue(
@@ -1650,9 +1648,7 @@ public final class ModConfigs {
     public static final Config SERVER_CONFIG = new Config(getRelativeConfigFile("server.conf"), "Energized Power Server Config");
 
     //Version
-    static {
-        SERVER_CONFIG.register(new VersionConfigValue("config_version", CONFIG_VERSION));
-    }
+    private static final VersionConfigValue SERVER_CONFIG_VERSION = SERVER_CONFIG.register(new VersionConfigValue("config_version", CONFIG_VERSION));
 
     //TODO server config values
 
@@ -1660,9 +1656,7 @@ public final class ModConfigs {
     public static final Config CLIENT_CONFIG = new Config(getRelativeConfigFile("client.conf"), "Energized Power Client Config");
 
     //Version
-    static {
-        CLIENT_CONFIG.register(new VersionConfigValue("config_version", CONFIG_VERSION));
-    }
+    private static final VersionConfigValue CLIENT_CONFIG_VERSION = CLIENT_CONFIG.register(new VersionConfigValue("config_version", CONFIG_VERSION));
 
     public static final ConfigValue<Integer> CLIENT_ENERGIZED_POWER_BOOK_IMAGE_CYCLE_DELAY = CLIENT_CONFIG.register(
             new IntegerConfigValue(
