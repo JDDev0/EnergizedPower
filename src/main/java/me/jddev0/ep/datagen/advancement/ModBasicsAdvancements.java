@@ -89,6 +89,13 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 CommonItemTags.INGOTS_STEEL
         );
 
+        AdvancementHolder steelPlate = addAdvancement(
+                lookupProvider,
+                advancementOutput, steelIngot,
+                EPItems.STEEL_PLATE, "steel_plate", AdvancementType.TASK,
+                CommonItemTags.PLATES_STEEL
+        );
+
         AdvancementHolder fastItemConveyorBelt = addAdvancement(
                 advancementOutput, steelIngot,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM, "fast_item_conveyor_belt", AdvancementType.TASK

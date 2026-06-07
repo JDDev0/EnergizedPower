@@ -303,6 +303,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     EPAPI.id("textures/item/copper_plate.png"),
                     EPAPI.id("textures/item/iron_plate.png"),
                     EPAPI.id("textures/item/gold_plate.png"),
+                    EPAPI.id("textures/item/steel_plate.png"),
                     EPAPI.id("textures/item/advanced_alloy_plate.png"),
                     EPAPI.id("textures/item/crystallized_alloy_plate.png"),
                     EPAPI.id("textures/item/energized_copper_plate.png"),
@@ -334,7 +335,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                             withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
             ), new Identifier[] {
                     EPAPI.id("textures/item/iron_gear.png"),
+                    EPAPI.id("textures/item/steel_gear.png"),
                     EPAPI.id("textures/item/iron_rod.png"),
+                    EPAPI.id("textures/item/steel_rod.png"),
                     EPAPI.id("textures/item/tin_wire.png"),
                     EPAPI.id("textures/item/copper_wire.png"),
                     EPAPI.id("textures/item/gold_wire.png"),

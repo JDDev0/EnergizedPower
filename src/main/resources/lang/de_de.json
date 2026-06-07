@@ -25,24 +25,29 @@
   "item.energizedpower.gold_dust": "Goldstaub",
 
   "item.energizedpower.tin_nugget": "Zinnklumpen",
+  "item.energizedpower.steel_nugget": "Stahllumpen",
 
   "item.energizedpower.tin_ingot": "Zinnbarren",
-
-  "item.energizedpower.tin_plate": "Zinnplatte",
-  "item.energizedpower.copper_plate": "Kupferplatte",
-  "item.energizedpower.iron_plate": "Eisenplatte",
-  "item.energizedpower.gold_plate": "Goldplatte",
-
-  "item.energizedpower.iron_gear": "Eisenzahnrad",
+  "item.energizedpower.steel_ingot": "Stahlbarren",
 
   "item.energizedpower.redstone_alloy_ingot": "Redstone-Legierungs-Barren",
   "item.energizedpower.advanced_alloy_ingot": "Fortgeschrittener Legierungs-Barren",
   "item.energizedpower.crystallized_alloy_ingot": "Kristallisierter Legierungs-Barren",
 
+  "item.energizedpower.tin_plate": "Zinnplatte",
+  "item.energizedpower.copper_plate": "Kupferplatte",
+  "item.energizedpower.iron_plate": "Eisenplatte",
+  "item.energizedpower.gold_plate": "Goldplatte",
+  "item.energizedpower.steel_plate": "Stahlplatte",
+
   "item.energizedpower.advanced_alloy_plate": "Fortgeschrittene Legierungs-Platte",
   "item.energizedpower.crystallized_alloy_plate": "Kristallisierte Legierungs-Platte",
 
+  "item.energizedpower.iron_gear": "Eisenzahnrad",
+  "item.energizedpower.steel_gear": "Stahlzahnrad",
+
   "item.energizedpower.iron_rod": "Eisenstange",
+  "item.energizedpower.steel_rod": "Stahlstange",
 
   "item.energizedpower.tin_wire": "Zinndraht",
   "item.energizedpower.copper_wire": "Kupferdraht",
@@ -50,8 +55,6 @@
 
   "item.energizedpower.crystallized_lapis_lazuli": "Kristallisierter Lapislazuli",
   "tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1": "Du solltest zwei Sätze von MK VI Upgrades in der Kristall-Wachstums-Kammer installieren bevor du dieses Item herstellst.",
-
-  "item.energizedpower.steel_ingot": "Stahlbarren",
 
   "item.energizedpower.sawdust": "Sägemehl",
 
@@ -214,6 +217,9 @@
 
   "block.energizedpower.tin_block": "Zinnblock",
   "item.energizedpower.tin_block": "Zinnblock",
+
+  "block.energizedpower.steel_block": "Stahlblock",
+  "item.energizedpower.steel_block": "Stahlblock",
 
   "block.energizedpower.sawdust_block": "Sägemehlblock",
   "item.energizedpower.sawdust_block": "Sägemehlblock",
@@ -989,6 +995,9 @@
 
   "advancements.energizedpower.steel_ingot.title": "Stahlbarren",
   "advancements.energizedpower.steel_ingot.description": "Stelle einen Stahlbarren her.",
+
+  "advancements.energizedpower.steel_plate.title": "Stahlplatte",
+  "advancements.energizedpower.steel_plate.description": "Stelle einen Stahlplatte her.",
 
   "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone-Legierungs-Barren",
   "advancements.energizedpower.redstone_alloy_ingot.description": "Stelle einen Redstone-Legierungs-Barren her.",

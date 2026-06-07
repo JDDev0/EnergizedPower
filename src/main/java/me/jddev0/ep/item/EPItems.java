@@ -69,6 +69,8 @@ public final class EPItems {
     public static final Item IRON_PLATE = registerItem("iron_plate");
     public static final Item GOLD_PLATE = registerItem("gold_plate");
 
+    public static final Item STEEL_NUGGET = registerItem("steel_nugget");
+
     public static final Item STEEL_INGOT = registerItem("steel_ingot");
 
     public static final Item REDSTONE_ALLOY_INGOT = registerItem("redstone_alloy_ingot");
@@ -77,13 +79,17 @@ public final class EPItems {
 
     public static final Item CRYSTALLIZED_ALLOY_INGOT = registerItem("crystallized_alloy_ingot");
 
+    public static final Item STEEL_PLATE = registerItem("steel_plate");
+
     public static final Item ADVANCED_ALLOY_PLATE = registerItem("advanced_alloy_plate");
 
     public static final Item CRYSTALLIZED_ALLOY_PLATE = registerItem("crystallized_alloy_plate");
 
     public static final Item IRON_GEAR = registerItem("iron_gear");
+    public static final Item STEEL_GEAR = registerItem("steel_gear");
 
     public static final Item IRON_ROD = registerItem("iron_rod");
+    public static final Item STEEL_ROD = registerItem("steel_rod");
 
     public static final Item TIN_WIRE = registerItem("tin_wire");
     public static final Item COPPER_WIRE = registerItem("copper_wire");
