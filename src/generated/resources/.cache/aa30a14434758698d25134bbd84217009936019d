@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T13:49:51.242059851	Energized Power/Advancements (Basics)
+// 1.21.1	2026-06-07T23:33:50.898615386	Energized Power/Advancements (Basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -81,6 +81,7 @@ cb1a66ef4ac6400e6aeb17ad72619910a6f2d0fb data/energizedpower/advancement/main/ba
 410b6f26ea052bd813820b9a3c3f115e1201c5fe data/energizedpower/advancement/main/basics/battery_2.json
 e8998f85e1e753354b72484bb43ab161e82ad487 data/energizedpower/advancement/main/basics/sawmill.json
 ab645ac7ddda564ad90dbf4e609b94c381f58807 data/energizedpower/advancement/main/basics/heat_generator.json
+7490d51e8d300e1ee4af4a50349f7ad806483baa data/energizedpower/advancement/main/basics/steel_plate.json
 6691f511a6ab29e8b04b99d58920df02c1a44af9 data/energizedpower/advancement/main/basics/fluid_filler.json
 819a17187ee701324515e1a18b1d8098da22eda0 data/energizedpower/advancement/main/basics/solar_panel_3.json
 a7c193207bcddf20ca3135a9aa2ca299af6e0bc6 data/energizedpower/advancement/main/basics/fast_item_conveyor_belt_splitter.json

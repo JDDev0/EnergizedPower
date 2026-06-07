@@ -25,26 +25,29 @@
   "item.energizedpower.gold_dust": "Altın Tozu",
 
   "item.energizedpower.tin_nugget": "Kalay Nuggeti",
+  "item.energizedpower.steel_nugget": "Steel Nugget",
 
   "item.energizedpower.tin_ingot": "Kalay Külçesi",
-
-  "item.energizedpower.tin_plate": "Kalay Plaka",
-  "item.energizedpower.copper_plate": "Bakır Plaka",
-  "item.energizedpower.iron_plate": "Demir Plaka",
-  "item.energizedpower.gold_plate": "Altın Plaka",
-
   "item.energizedpower.steel_ingot": "Steel Ingot",
 
   "item.energizedpower.redstone_alloy_ingot": "Redstone Alloy Ingot",
   "item.energizedpower.advanced_alloy_ingot": "Advanced Alloy Ingot",
   "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
+  "item.energizedpower.tin_plate": "Kalay Plaka",
+  "item.energizedpower.copper_plate": "Bakır Plaka",
+  "item.energizedpower.iron_plate": "Demir Plaka",
+  "item.energizedpower.gold_plate": "Altın Plaka",
+  "item.energizedpower.steel_plate": "Steel Plate",
+
   "item.energizedpower.advanced_alloy_plate": "Advanced Alloy Plate",
   "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "Demir Dişli",
+  "item.energizedpower.steel_gear": "Steel Gear",
 
   "item.energizedpower.iron_rod": "Demir Çubuk",
+  "item.energizedpower.steel_rod": "Steel Rod",
 
   "item.energizedpower.tin_wire": "Kalay Tel",
   "item.energizedpower.copper_wire": "Bakır Tel",
@@ -214,6 +217,9 @@
 
   "block.energizedpower.tin_block": "Kalay Bloğu",
   "item.energizedpower.tin_block": "Kalay Bloğu",
+
+  "block.energizedpower.steel_block": "Block of Steel",
+  "item.energizedpower.steel_block": "Block of Steel",
 
   "block.energizedpower.sawdust_block": "Talaş Bloğu",
   "item.energizedpower.sawdust_block": "Talaş Bloğu",
@@ -989,6 +995,9 @@
 
   "advancements.energizedpower.steel_ingot.title": "Steel Ingot",
   "advancements.energizedpower.steel_ingot.description": "Create a Steel Ingot.",
+
+  "advancements.energizedpower.steel_plate.title": "Steel Plate",
+  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
 
   "advancements.energizedpower.redstone_alloy_ingot.title": "Redstone Alloy Ingot",
   "advancements.energizedpower.redstone_alloy_ingot.description": "Create a Redstone Alloy Ingot.",

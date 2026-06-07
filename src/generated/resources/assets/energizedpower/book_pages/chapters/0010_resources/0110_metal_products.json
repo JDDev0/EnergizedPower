@@ -21,7 +21,9 @@
   },
   "image": [
     "energizedpower:textures/item/iron_gear.png",
+    "energizedpower:textures/item/steel_gear.png",
     "energizedpower:textures/item/iron_rod.png",
+    "energizedpower:textures/item/steel_rod.png",
     "energizedpower:textures/item/tin_wire.png",
     "energizedpower:textures/item/copper_wire.png",
     "energizedpower:textures/item/gold_wire.png",

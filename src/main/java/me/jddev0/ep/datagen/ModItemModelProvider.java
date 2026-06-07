@@ -55,6 +55,8 @@ class ModItemModelProvider {
         basicItem(EPItems.IRON_PLATE);
         basicItem(EPItems.GOLD_PLATE);
 
+        basicItem(EPItems.STEEL_NUGGET);
+
         basicItem(EPItems.STEEL_INGOT);
 
         basicItem(EPItems.REDSTONE_ALLOY_INGOT);
@@ -63,13 +65,17 @@ class ModItemModelProvider {
 
         basicItem(EPItems.CRYSTALLIZED_ALLOY_INGOT);
 
+        basicItem(EPItems.STEEL_PLATE);
+
         basicItem(EPItems.ADVANCED_ALLOY_PLATE);
 
         basicItem(EPItems.CRYSTALLIZED_ALLOY_PLATE);
 
         basicItem(EPItems.IRON_GEAR);
+        basicItem(EPItems.STEEL_GEAR);
 
         basicItem(EPItems.IRON_ROD);
+        basicItem(EPItems.STEEL_ROD);
 
         basicItem(EPItems.TIN_WIRE);
         basicItem(EPItems.COPPER_WIRE);

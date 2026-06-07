@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/steel_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/steel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.steel_plate.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:steel_plate"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.steel_plate.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

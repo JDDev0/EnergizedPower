@@ -119,8 +119,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         addMetalIngotCraftingRecipes(CommonItemTags.NUGGETS_TIN, CommonItemTags.STORAGE_BLOCKS_TIN,
                 EPItems.TIN_INGOT, "tin");
 
+        addMetalNuggetCraftingRecipe(CommonItemTags.INGOTS_STEEL, EPItems.STEEL_NUGGET);
+        addMetalIngotCraftingRecipes(CommonItemTags.NUGGETS_STEEL, CommonItemTags.STORAGE_BLOCKS_STEEL,
+                EPItems.STEEL_INGOT, "steel");
+
         add3x3PackingCraftingRecipe(has(CommonItemTags.INGOTS_TIN),
                 ingredientOf(CommonItemTags.INGOTS_TIN), EPBlocks.TIN_BLOCK_ITEM,
+                CraftingBookCategory.MISC, "", "");
+        add3x3PackingCraftingRecipe(has(CommonItemTags.INGOTS_STEEL),
+                ingredientOf(CommonItemTags.INGOTS_STEEL), EPBlocks.STEEL_BLOCK_ITEM,
                 CraftingBookCategory.MISC, "", "");
 
         add3x3UnpackingCraftingRecipe(has(CommonItemTags.STORAGE_BLOCKS_RAW_TIN),
@@ -134,6 +141,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         addMetalPlateCraftingRecipe(ConventionalItemTags.COPPER_INGOTS, EPItems.COPPER_PLATE);
         addMetalPlateCraftingRecipe(ConventionalItemTags.IRON_INGOTS, EPItems.IRON_PLATE);
         addMetalPlateCraftingRecipe(ConventionalItemTags.GOLD_INGOTS, EPItems.GOLD_PLATE);
+        addMetalPlateCraftingRecipe(CommonItemTags.INGOTS_STEEL, EPItems.STEEL_PLATE);
 
         addMetalWireCraftingRecipe(CommonItemTags.PLATES_TIN, EPItems.TIN_WIRE);
         addMetalWireCraftingRecipe(CommonItemTags.PLATES_COPPER, EPItems.COPPER_WIRE);
@@ -2589,6 +2597,9 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         addPlateCompressorRecipes(ingredientOf(ConventionalItemTags.GOLD_INGOTS),
                 ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_GOLD), new ItemStack(EPItems.GOLD_PLATE),
                 "gold");
+        addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_STEEL),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL), new ItemStack(EPItems.STEEL_PLATE),
+                "steel");
 
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
                 new ItemStack(EPItems.ADVANCED_ALLOY_PLATE), "advanced_alloy");
@@ -3070,8 +3081,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
     private void buildMetalPressRecipes() {
         addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStack(EPItems.IRON_GEAR));
+        addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), new ItemStack(EPItems.STEEL_GEAR));
 
         addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStack(EPItems.IRON_ROD));
+        addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), new ItemStack(EPItems.STEEL_ROD));
 
         addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_TIN), new ItemStack(EPItems.TIN_WIRE));
         addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_COPPER), new ItemStack(EPItems.COPPER_WIRE));

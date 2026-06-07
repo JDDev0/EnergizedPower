@@ -44,6 +44,8 @@ public final class CommonItemTags {
             ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/raw_tin"));
     public static final TagKey<Item> STORAGE_BLOCKS_TIN = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/tin"));
+    public static final TagKey<Item> STORAGE_BLOCKS_STEEL = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/steel"));
 
     public static final TagKey<Item> RAW_MATERIALS_TIN = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "raw_materials/tin"));
@@ -63,6 +65,8 @@ public final class CommonItemTags {
 
     public static final TagKey<Item> NUGGETS_TIN = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "nuggets/tin"));
+    public static final TagKey<Item> NUGGETS_STEEL = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "nuggets/steel"));
 
     public static final TagKey<Item> SILICON = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "silicon"));
@@ -97,6 +101,8 @@ public final class CommonItemTags {
             ResourceLocation.fromNamespaceAndPath("c", "plates/iron"));
     public static final TagKey<Item> PLATES_GOLD = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "plates/gold"));
+    public static final TagKey<Item> PLATES_STEEL = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "plates/steel"));
     public static final TagKey<Item> PLATES_ADVANCED_ALLOY = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "plates/advanced_alloy"));
     public static final TagKey<Item> PLATES_CRYSTALLIZED_ALLOY = TagKey.create(Registries.ITEM,
@@ -112,9 +118,13 @@ public final class CommonItemTags {
             ResourceLocation.fromNamespaceAndPath("c", "gears"));
     public static final TagKey<Item> GEARS_IRON = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "gears/iron"));
+    public static final TagKey<Item> GEARS_STEEL = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "gears/steel"));
 
     public static final TagKey<Item> RODS_IRON = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "rods/iron"));
+    public static final TagKey<Item> RODS_STEEL = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "rods/steel"));
 
     public static final TagKey<Item> WIRES = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "wires"));

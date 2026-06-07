@@ -145,13 +145,16 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ConventionalItemTags.STORAGE_BLOCKS).
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
-                addTag(CommonItemTags.STORAGE_BLOCKS_TIN);
+                addTag(CommonItemTags.STORAGE_BLOCKS_TIN).
+                addTag(CommonItemTags.STORAGE_BLOCKS_STEEL);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK_ITEM);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK_ITEM);
         getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK_ITEM);
+        getOrCreateTagBuilder(CommonItemTags.STORAGE_BLOCKS_STEEL).
+                add(EPBlocks.STEEL_BLOCK_ITEM);
 
         getOrCreateTagBuilder(ConventionalItemTags.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);
@@ -179,9 +182,12 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(EPItems.GOLD_DUST);
 
         getOrCreateTagBuilder(ConventionalItemTags.NUGGETS).
-                addTag(CommonItemTags.NUGGETS_TIN);
+                addTag(CommonItemTags.NUGGETS_TIN).
+                addTag(CommonItemTags.NUGGETS_STEEL);
         getOrCreateTagBuilder(CommonItemTags.NUGGETS_TIN).
                 add(EPItems.TIN_NUGGET);
+        getOrCreateTagBuilder(CommonItemTags.NUGGETS_STEEL).
+                add(EPItems.STEEL_NUGGET);
 
         getOrCreateTagBuilder(CommonItemTags.SILICON).
                 add(EPItems.SILICON);
@@ -222,6 +228,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.PLATES_COPPER).
                 addTag(CommonItemTags.PLATES_IRON).
                 addTag(CommonItemTags.PLATES_GOLD).
+                addTag(CommonItemTags.PLATES_STEEL).
                 addTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 addTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
@@ -235,6 +242,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(EPItems.IRON_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_GOLD).
                 add(EPItems.GOLD_PLATE);
+        getOrCreateTagBuilder(CommonItemTags.PLATES_STEEL).
+                add(EPItems.STEEL_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
@@ -247,14 +256,20 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(EPItems.ENERGIZED_ALLOY_PLATE);
 
         getOrCreateTagBuilder(CommonItemTags.GEARS).
-                addTag(CommonItemTags.GEARS_IRON);
+                addTag(CommonItemTags.GEARS_IRON).
+                addTag(CommonItemTags.GEARS_STEEL);
         getOrCreateTagBuilder(CommonItemTags.GEARS_IRON).
                 add(EPItems.IRON_GEAR);
+        getOrCreateTagBuilder(CommonItemTags.GEARS_STEEL).
+                add(EPItems.STEEL_GEAR);
 
         getOrCreateTagBuilder(ConventionalItemTags.RODS).
-                addTag(CommonItemTags.RODS_IRON);
+                addTag(CommonItemTags.RODS_IRON).
+                addTag(CommonItemTags.RODS_STEEL);
         getOrCreateTagBuilder(CommonItemTags.RODS_IRON).
                 add(EPItems.IRON_ROD);
+        getOrCreateTagBuilder(CommonItemTags.RODS_STEEL).
+                add(EPItems.STEEL_ROD);
 
         getOrCreateTagBuilder(CommonItemTags.WIRES).
                 addTag(CommonItemTags.WIRES_TIN).

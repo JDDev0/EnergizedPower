@@ -30,6 +30,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
+                        EPBlocks.STEEL_BLOCK,
 
                         EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE,
@@ -190,6 +191,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
+                        EPBlocks.STEEL_BLOCK,
 
                         EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE,
@@ -351,11 +353,14 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(ConventionalBlockTags.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
+                addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
         getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK);
         getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK);
+        getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_STEEL).
+                add(EPBlocks.STEEL_BLOCK);
         getOrCreateTagBuilder(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK);
     }
