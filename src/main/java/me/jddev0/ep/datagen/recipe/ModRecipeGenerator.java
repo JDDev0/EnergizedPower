@@ -2477,14 +2477,14 @@ public class ModRecipeGenerator extends RecipeProvider {
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'T', ingredientOf(EPItems.TELEPORTER_PROCESSING_UNIT),
                 'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
-                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'A', ingredientOf(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY),
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
                 'R', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
         ), new String[] {
                 "CEC",
                 "TRT",
-                "ASA"
+                "SAS"
         }, new ItemStackTemplate(EPBlocks.TELEPORTER_ITEM), CraftingBookCategory.MISC);
     }
     private void buildMiscCraftingRecipes() {
