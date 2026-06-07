@@ -197,6 +197,24 @@ public final class ModConfigs {
             20
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_7_EFFECT = registerSpeedModuleEffectValue(
+            7,
+            20
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_7_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            7,
+            40
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_8_EFFECT = registerSpeedModuleEffectValue(
+            8,
+            40
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_SPEED_8_ENERGY_CONSUMPTION_EFFECT = registerSpeedModuleEnergyConsumptionEffectValue(
+            8,
+            80
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_1_EFFECT = registerEnergyEfficiencyModuleEffectValue(
             1,
             .9
@@ -227,6 +245,16 @@ public final class ModConfigs {
             .1
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_7_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            7,
+            .05
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_8_EFFECT = registerEnergyEfficiencyModuleEffectValue(
+            8,
+            .025
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_1_EFFECT = registerEnergyProductionModuleEffectValue(
             1,
             1.05
@@ -255,6 +283,16 @@ public final class ModConfigs {
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_6_EFFECT = registerEnergyProductionModuleEffectValue(
             6,
             1.8
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_7_EFFECT = registerEnergyProductionModuleEffectValue(
+            7,
+            2.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_PRODUCTION_8_EFFECT = registerEnergyProductionModuleEffectValue(
+            8,
+            2.5
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_1_EFFECT = registerEnergyCapacityModuleEffectValue(
@@ -309,6 +347,24 @@ public final class ModConfigs {
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_6_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
             6,
             20
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_7_EFFECT = registerEnergyCapacityModuleEffectValue(
+            7,
+            40
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_7_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            7,
+            40
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_8_EFFECT = registerEnergyCapacityModuleEffectValue(
+            8,
+            80
+    );
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_8_ENERGY_TRANSFER_RATE_EFFECT = registerEnergyCapacityModuleEnergyTransferRateEffectValue(
+            8,
+            80
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_DURATION_1_EFFECT = registerDurationUpgradeModuleEffectValue(

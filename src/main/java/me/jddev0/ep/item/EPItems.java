@@ -135,6 +135,10 @@ public final class EPItems {
             props -> new SpeedUpgradeModuleItem(props, 5));
     public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_6 = registerItem("speed_upgrade_module_6",
             props -> new SpeedUpgradeModuleItem(props, 6));
+    public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_7 = registerItem("speed_upgrade_module_7",
+            props -> new SpeedUpgradeModuleItem(props, 7));
+    public static final DeferredItem<Item> SPEED_UPGRADE_MODULE_8 = registerItem("speed_upgrade_module_8",
+            props -> new SpeedUpgradeModuleItem(props, 8));
 
     public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = registerItem("energy_efficiency_upgrade_module_1",
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 1));
@@ -148,6 +152,10 @@ public final class EPItems {
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 5));
     public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_6 = registerItem("energy_efficiency_upgrade_module_6",
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 6));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_7 = registerItem("energy_efficiency_upgrade_module_7",
+            props -> new EnergyEfficiencyUpgradeModuleItem(props, 7));
+    public static final DeferredItem<Item> ENERGY_EFFICIENCY_UPGRADE_MODULE_8 = registerItem("energy_efficiency_upgrade_module_8",
+            props -> new EnergyEfficiencyUpgradeModuleItem(props, 8));
 
     public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_1 = registerItem("energy_production_upgrade_module_1",
             props -> new EnergyProductionUpgradeModuleItem(props, 1));
@@ -161,6 +169,10 @@ public final class EPItems {
             props -> new EnergyProductionUpgradeModuleItem(props, 5));
     public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_6 = registerItem("energy_production_upgrade_module_6",
             props -> new EnergyProductionUpgradeModuleItem(props, 6));
+    public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_7 = registerItem("energy_production_upgrade_module_7",
+            props -> new EnergyProductionUpgradeModuleItem(props, 7));
+    public static final DeferredItem<Item> ENERGY_PRODUCTION_UPGRADE_MODULE_8 = registerItem("energy_production_upgrade_module_8",
+            props -> new EnergyProductionUpgradeModuleItem(props, 8));
 
     public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_1 = registerItem("energy_capacity_upgrade_module_1",
             props -> new EnergyCapacityUpgradeModuleItem(props, 1));
@@ -174,6 +186,10 @@ public final class EPItems {
             props -> new EnergyCapacityUpgradeModuleItem(props, 5));
     public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_6 = registerItem("energy_capacity_upgrade_module_6",
             props -> new EnergyCapacityUpgradeModuleItem(props, 6));
+    public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_7 = registerItem("energy_capacity_upgrade_module_7",
+            props -> new EnergyCapacityUpgradeModuleItem(props, 7));
+    public static final DeferredItem<Item> ENERGY_CAPACITY_UPGRADE_MODULE_8 = registerItem("energy_capacity_upgrade_module_8",
+            props -> new EnergyCapacityUpgradeModuleItem(props, 8));
 
     public static final DeferredItem<Item> DURATION_UPGRADE_MODULE_1 = registerItem("duration_upgrade_module_1",
             props -> new DurationUpgradeModuleItem(props, 1));

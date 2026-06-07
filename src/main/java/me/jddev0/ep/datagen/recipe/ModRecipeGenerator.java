@@ -367,6 +367,11 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CsC"
         }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
 
+        addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_6,
+                new ItemStack(EPItems.SPEED_UPGRADE_MODULE_7.get()));
+        addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_7,
+                new ItemStack(EPItems.SPEED_UPGRADE_MODULE_8.get()));
+
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 'G', ingredientOf(Tags.Items.INGOTS_GOLD),
@@ -436,6 +441,11 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GRG",
                 "CEC"
         }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6,
+                new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7.get()));
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7,
+                new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8.get()));
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -507,6 +517,11 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GEG"
         }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
 
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6,
+                new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7.get()));
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7,
+                new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8.get()));
+
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -576,6 +591,11 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TRT",
                 "CEC"
         }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6,
+                new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7.get()));
+        addEliteUpgradeModuleRecipe(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7,
+                new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8.get()));
 
         addShapedCraftingRecipe(has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -3346,9 +3366,21 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "iIi"
         }, cableItem, CraftingBookCategory.MISC, getItemName(cableItem.getItem()));
     }
+    private void addEliteUpgradeModuleRecipe(ItemLike upgradeModulePreviousTier, ItemStack upgradeModuleItem) {
+        addShapedCraftingRecipe(has(upgradeModulePreviousTier), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'U', ingredientOf(upgradeModulePreviousTier)
+        ), new String[] {
+                "EUE",
+                "CeC",
+                "EUE"
+        }, upgradeModuleItem, CraftingBookCategory.MISC);
+    }
     private void addShapedCraftingRecipe(Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
-                                                Map<Character, Ingredient> key, String[] pattern,
-                                                ItemStack result, CraftingBookCategory category) {
+                                         Map<Character, Ingredient> key, String[] pattern,
+                                         ItemStack result, CraftingBookCategory category) {
         addShapedCraftingRecipe(hasIngredientTrigger, key, pattern, result, category, "");
     }
     private void addShapedCraftingRecipe(Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
