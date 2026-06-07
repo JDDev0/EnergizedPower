@@ -241,6 +241,10 @@ public final class EPItems {
             props -> new MoonLightUpgradeModuleItem(props, 2));
     public static final Item MOON_LIGHT_UPGRADE_MODULE_3 = registerItem("moon_light_upgrade_module_3",
             props -> new MoonLightUpgradeModuleItem(props, 3));
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_4 = registerItem("moon_light_upgrade_module_4",
+            props -> new MoonLightUpgradeModuleItem(props, 4));
+    public static final Item MOON_LIGHT_UPGRADE_MODULE_5 = registerItem("moon_light_upgrade_module_5",
+            props -> new MoonLightUpgradeModuleItem(props, 5));
 
     public static final Item ITEM_EJECTOR_UPGRADE_MODULE_1 = registerItem("item_ejector_upgrade_module_1",
             props -> new ItemEjectorUpgradeModuleItem(props, 1));

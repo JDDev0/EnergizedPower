@@ -173,6 +173,8 @@ class ModItemModelProvider {
         basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_1);
         basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_2);
         basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_3);
+        basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_4);
+        basicItem(EPItems.MOON_LIGHT_UPGRADE_MODULE_5);
 
         basicItem(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1);
         basicItem(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2);
