@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "Energetisierter Kupferbarren",
   "item.energizedpower.energized_gold_ingot": "Energetisierter Goldbarren",
+  "item.energizedpower.energized_alloy_ingot": "Energetisierter Legierungs-Barren",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "Für die Energetisierung dieses Items muss ein Energiekapazität-Upgrade-Modul (MK IV oder besser) im Energetisierer installiert werden.",
 
   "item.energizedpower.energized_copper_plate": "Energetisierte Kupferplatte",
   "item.energizedpower.energized_gold_plate": "Energetisierte Goldplatte",
+  "item.energizedpower.energized_alloy_plate": "Energetisierte Legierungs-Platte",
 
   "item.energizedpower.energized_copper_wire": "Energetisierter Kupferdraht",
   "item.energizedpower.energized_gold_wire": "Energetisierter Golddraht",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "Glänzender Barren",
   "advancements.energizedpower.energized_gold_ingot.description": "Dieser energetisierte Goldbarren ist sehr glänzend.",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energetisierter Legierungs-Barren",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Stelle einen energetisierten Legierungs-Barren her.",
+
   "advancements.energizedpower.energized_power_book.title": "Unendliches Wissen",
   "advancements.energizedpower.energized_power_book.description": "Ein Guide-Buch für diese Mod.",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "Energetisierte Goldplatte",
   "advancements.energizedpower.energized_gold_plate.description": "Erstelle eine energetisierte Goldplatte.",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energetisierte Legierungs-Platte",
+  "advancements.energizedpower.energized_alloy_plate.description": "Stelle eine energetisierte Legierungs-platte her.",
 
   "advancements.energizedpower.energized_copper_wire.title": "Energetisierter Kupferdraht",
   "advancements.energizedpower.energized_copper_wire.description": "Erstelle einen energetisierten Kupferdraht.",

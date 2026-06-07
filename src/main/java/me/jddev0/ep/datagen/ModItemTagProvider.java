@@ -193,7 +193,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
                 addTag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
-                addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD);
+                addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
+                addTag(CommonItemTags.INGOTS_ENERGIZED_ALLOY);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_TIN).
                 add(EPItems.TIN_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_STEEL).
@@ -208,6 +209,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(EPItems.ENERGIZED_COPPER_INGOT);
         getOrCreateTagBuilder(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_INGOT);
+        getOrCreateTagBuilder(CommonItemTags.INGOTS_ENERGIZED_ALLOY).
+                add(EPItems.ENERGIZED_ALLOY_INGOT);
 
         getOrCreateTagBuilder(ConventionalItemTags.GEMS).
                 addTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI);
@@ -222,7 +225,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 addTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 addTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
-                addTag(CommonItemTags.PLATES_ENERGIZED_GOLD);
+                addTag(CommonItemTags.PLATES_ENERGIZED_GOLD).
+                addTag(CommonItemTags.PLATES_ENERGIZED_ALLOY);
         getOrCreateTagBuilder(CommonItemTags.PLATES_TIN).
                 add(EPItems.TIN_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_COPPER).
@@ -239,6 +243,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 add(EPItems.ENERGIZED_COPPER_PLATE);
         getOrCreateTagBuilder(CommonItemTags.PLATES_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_PLATE);
+        getOrCreateTagBuilder(CommonItemTags.PLATES_ENERGIZED_ALLOY).
+                add(EPItems.ENERGIZED_ALLOY_PLATE);
 
         getOrCreateTagBuilder(CommonItemTags.GEARS).
                 addTag(CommonItemTags.GEARS_IRON);

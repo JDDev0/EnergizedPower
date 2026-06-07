@@ -270,7 +270,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/advanced_alloy_plate.png"),
                 EPAPI.id("textures/item/crystallized_alloy_plate.png"),
                 EPAPI.id("textures/item/energized_copper_plate.png"),
-                EPAPI.id("textures/item/energized_gold_plate.png")
+                EPAPI.id("textures/item/energized_gold_plate.png"),
+                EPAPI.id("textures/item/energized_alloy_plate.png")
         });
 
         addSimplePage(pageId("alloys"), Component.empty().append(

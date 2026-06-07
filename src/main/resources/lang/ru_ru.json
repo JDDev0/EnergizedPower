@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "Активированный медный слиток",
   "item.energizedpower.energized_gold_ingot": "Активированный золотой слиток",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "Активированная медная пластина",
   "item.energizedpower.energized_gold_plate": "Активированная золотая пластина",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "Активированный медный провод",
   "item.energizedpower.energized_gold_wire": "Активированный золотой провод",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "Блестящий слиток",
   "advancements.energizedpower.energized_gold_ingot.description": "Этот активированный золотой слиток очень блестит.",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "Бесконечные знания",
   "advancements.energizedpower.energized_power_book.description": "Руководство для этого мода.",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "Активированная золотая пластина",
   "advancements.energizedpower.energized_gold_plate.description": "Создайте активированную золотую пластину.",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "Активированный медный провод",
   "advancements.energizedpower.energized_copper_wire.description": "Создайте провод из активированной меди",

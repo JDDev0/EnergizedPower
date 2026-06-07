@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "Lingote de Cobre Energizado",
   "item.energizedpower.energized_gold_ingot": "Lingote de Ouro Energizado",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "Chapa de Cobre Energizada",
   "item.energizedpower.energized_gold_plate": "Chapa de Ouro Energizada",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "Fio de Cobre Energizado",
   "item.energizedpower.energized_gold_wire": "Fio de Ouro Energizado",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "Lingote Brilhante",
   "advancements.energizedpower.energized_gold_ingot.description": "Este Lingote de Ouro Energizado é muito brilhante.",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "Conhecimento Infinito",
   "advancements.energizedpower.energized_power_book.description": "Um livro guia para este mod.",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "Chapa de Ouro Energizado",
   "advancements.energizedpower.energized_gold_plate.description": "Fabrique uma chapa de ouro energizado.",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "Fio de Cobre Energizado",
   "advancements.energizedpower.energized_copper_wire.description": "Fabrique um fio de cobre energizado.",

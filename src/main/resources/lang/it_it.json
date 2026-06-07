@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "Lingotto di rame energizzato",
   "item.energizedpower.energized_gold_ingot": "Lingotto d'oro energizzato",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "Piastra di rame energizzata",
   "item.energizedpower.energized_gold_plate": "Piastra d'oro energizzata",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "Filo di rame energizzato",
   "item.energizedpower.energized_gold_wire": "Filo d'oro energizzato",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "Lingotto lucido",
   "advancements.energizedpower.energized_gold_ingot.description": "Questo lingotto d'oro energizzato è molto lucido.",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "Conoscenza infinita",
   "advancements.energizedpower.energized_power_book.description": "Un libro guida per questa mod.",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "Lastra d'oro energizzata",
   "advancements.energizedpower.energized_gold_plate.description": "Crea una lastra d'oro energizzata.",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "Filo di rame energizzato",
   "advancements.energizedpower.energized_copper_wire.description": "Crea un filo di rame energizzato.",

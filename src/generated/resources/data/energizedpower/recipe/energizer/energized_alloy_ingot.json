@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:energizer",
+  "energy": 8388608,
+  "ingredient": {
+    "tag": "c:ingots/crystallized_alloy"
+  },
+  "output": {
+    "item": "energizedpower:energized_alloy_ingot"
+  }
+}
