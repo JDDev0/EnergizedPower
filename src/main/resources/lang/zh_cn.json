@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "基础太阳能板",
   "item.energizedpower.advanced_solar_cell": "高级太阳能板",
   "item.energizedpower.reinforced_advanced_solar_cell": "强化高级太阳能板",
+  "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
 
   "item.energizedpower.basic_circuit": "基础电路",
   "item.energizedpower.advanced_circuit": "高级电路",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "高级太阳能板需要...",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "更好的太阳能",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "最好的太阳能板需要...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "最好的太阳能板需要...",
 
   "advancements.energizedpower.basic_circuit.title": "基础电路",
   "advancements.energizedpower.basic_circuit.description": "合成一个基础电路。",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "用于能量生产的方块",
 
   "book.energizedpower.page.solar_cells.1": "太阳能电池是每个太阳能电池板的基本合成物品。",
-  "book.energizedpower.page.solar_cells.2": "有三种太阳能电池：基础、高级和强化高级",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "太阳能电池板在白天产生能量。效率取决于时间和天气。",
   "book.energizedpower.page.solar_panels.2": "有 6 个太阳能电池板等级。",

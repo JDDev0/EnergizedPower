@@ -3049,6 +3049,13 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         }, new ItemStack(EPItems.REINFORCED_ADVANCED_SOLAR_CELL.get()));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(EPItems.REINFORCED_ADVANCED_SOLAR_CELL), 2),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY), 4),
+                new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
+                new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 2)
+        }, new ItemStack(EPItems.ELITE_SOLAR_CELL.get()));
+
+        addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.BASIC_CIRCUIT), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_COPPER), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 4),

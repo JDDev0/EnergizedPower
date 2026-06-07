@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "基本型ソーラーセル",
   "item.energizedpower.advanced_solar_cell": "発展型ソーラーセル",
   "item.energizedpower.reinforced_advanced_solar_cell": "強化発展型ソーラーセル",
+  "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
 
   "item.energizedpower.basic_circuit": "基本型回路",
   "item.energizedpower.advanced_circuit": "発展型回路",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "上位のソーラーパネルを作成するために必要な材料です",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "ソーラー発電の限界突破",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "最上位のソーラーパネルを作成するために必要な材料です",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "最上位のソーラーパネルを作成するために必要な材料です",
 
   "advancements.energizedpower.basic_circuit.title": "基本型回路",
   "advancements.energizedpower.basic_circuit.description": "基本型回路を作成する",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "発電用のブロック",
 
   "book.energizedpower.page.solar_cells.1": "すべてのソーラーパネルのベースとなる材料です。",
-  "book.energizedpower.page.solar_cells.2": "ソーラーセルには、基本・発展型・強化型の3段階のティアがあります。",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "時刻によって発電効率が変動し、日中にのみ発電します。",
   "book.energizedpower.page.solar_panels.2": "ソーラーパネルは、6段階のティアがあります。",

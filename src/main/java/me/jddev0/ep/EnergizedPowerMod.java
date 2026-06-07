@@ -268,6 +268,7 @@ public class EnergizedPowerMod {
             event.accept(EPItems.BASIC_SOLAR_CELL);
             event.accept(EPItems.ADVANCED_SOLAR_CELL);
             event.accept(EPItems.REINFORCED_ADVANCED_SOLAR_CELL);
+            event.accept(EPItems.ELITE_SOLAR_CELL);
 
             event.accept(EPItems.BASIC_CIRCUIT);
             event.accept(EPItems.ADVANCED_CIRCUIT);

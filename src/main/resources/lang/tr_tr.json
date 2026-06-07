@@ -76,6 +76,7 @@
   "item.energizedpower.basic_solar_cell": "Temel Güneş Pili",
   "item.energizedpower.advanced_solar_cell": "Gelişmiş Güneş Pili",
   "item.energizedpower.reinforced_advanced_solar_cell": "Güçlendirilmiş ve Gelişmiş Güneş Pili",
+  "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
 
   "item.energizedpower.basic_circuit": "Basit Devre",
   "item.energizedpower.advanced_circuit": "Gelişmiş Devre",
@@ -906,7 +907,10 @@
   "advancements.energizedpower.advanced_solar_cell.description": "Gelişmiş Solar Paneller için gerekli...",
 
   "advancements.energizedpower.reinforced_advanced_solar_cell.title": "DAHA İYİ SOLAR ENERJİ",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "En iyi Solar Paneller için gerekir...",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "En iyi Solar Paneller için gerekir...",
 
   "advancements.energizedpower.basic_circuit.title": "Basit Devre",
   "advancements.energizedpower.basic_circuit.description": "Enerji Devirmi başlıyor!.",
@@ -1615,7 +1619,7 @@
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "Enerji Üretimi Blokları",
 
   "book.energizedpower.page.solar_cells.1": "Solar Hücreler enerji depolayabilir.",
-  "book.energizedpower.page.solar_cells.2": "Üç Hücre Vardur: Basit, Gelişmiş, and Güçlendirilmiş Gelişmiş",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "book.energizedpower.page.solar_panels.1": "Solar Paneller gün içinde enerji üretir,verimlilik gün içinde değişir",
   "book.energizedpower.page.solar_panels.2": "6 Solar Panel Seviyesi vardır.",
