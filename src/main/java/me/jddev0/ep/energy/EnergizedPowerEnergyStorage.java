@@ -20,6 +20,13 @@ public class EnergizedPowerEnergyStorage extends SnapshotParticipant<Long> imple
         this.maxExtract = maxExtract;
     }
 
+    /**
+     * Creates an energy storage with unlimited transfer rate
+     */
+    public EnergizedPowerEnergyStorage(long capacity) {
+        this(capacity, Long.MAX_VALUE, Long.MAX_VALUE);
+    }
+
     @Override
     protected Long createSnapshot() {
         return amount;

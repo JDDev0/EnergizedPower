@@ -43,7 +43,7 @@ public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEn
 
     @Override
     protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();

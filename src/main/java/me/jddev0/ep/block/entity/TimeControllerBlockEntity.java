@@ -30,7 +30,7 @@ public class TimeControllerBlockEntity
 
     @Override
     protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();

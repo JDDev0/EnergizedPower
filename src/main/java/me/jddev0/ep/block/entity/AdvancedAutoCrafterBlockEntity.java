@@ -160,7 +160,7 @@ public class AdvancedAutoCrafterBlockEntity
 
     @Override
     protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity, baseEnergyCapacity, baseEnergyCapacity) {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             public long getCapacity() {
                 return Math.max(1, (long)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
