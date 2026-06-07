@@ -2,6 +2,7 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.datagen.advancement.ModAdvancedAdvancements;
 import me.jddev0.ep.datagen.advancement.ModBasicsAdvancements;
+import me.jddev0.ep.datagen.advancement.ModEliteAdvancements;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
@@ -15,7 +16,8 @@ public class ModAdvancementProvider {
                                            ExistingFileHelper existingFileHelper) {
         return new AdvancementProvider(output, lookupProvider, existingFileHelper, List.of(
                 new ModBasicsAdvancements(),
-                new ModAdvancedAdvancements()
+                new ModAdvancedAdvancements(),
+                new ModEliteAdvancements()
         ));
     }
 }

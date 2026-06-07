@@ -43,6 +43,9 @@
   "item.energizedpower.copper_wire": "Fio de Cobre",
   "item.energizedpower.gold_wire": "Fio de Ouro",
 
+  "item.energizedpower.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli",
+  "tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1": "You should install two sets of Tier VI upgrades in the Crystal Growth Chamber before making this item.",
+
   "item.energizedpower.sawdust": "Serragem",
 
   "item.energizedpower.charcoal_dust": "Pó de Carvão Vegetal",
@@ -1376,6 +1379,9 @@
 
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Descarregamento avançado de carrinho de mina",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Descarrega carrinhos de mina mais rapidamente.",
+
+  "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
+  "advancements.energizedpower.energizedpower_elite.description": "Crystallization is the future.",
 
 
   "book.energizedpower.tooltip.link": "Abrir link",

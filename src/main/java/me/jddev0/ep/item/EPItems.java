@@ -86,6 +86,9 @@ public final class EPItems {
     public static final DeferredItem<Item> GOLD_WIRE = ITEMS.register("gold_wire",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> CRYSTALLIZED_LAPIS_LAZULI = ITEMS.register("crystallized_lapis_lazuli",
+            () -> new CrystallizedLapisLazuliItem(new Item.Properties()));
+
     public static final DeferredItem<Item> SAWDUST = ITEMS.register("sawdust",
             () -> new Item(new Item.Properties()));
 

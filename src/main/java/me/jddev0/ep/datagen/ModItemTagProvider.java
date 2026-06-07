@@ -183,6 +183,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
         tag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_INGOT.get());
 
+        tag(Tags.Items.GEMS).
+                addTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI);
+        tag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI).
+                add(EPItems.CRYSTALLIZED_LAPIS_LAZULI.get());
+
         tag(CommonItemTags.PLATES).
                 addTag(CommonItemTags.PLATES_TIN).
                 addTag(CommonItemTags.PLATES_COPPER).

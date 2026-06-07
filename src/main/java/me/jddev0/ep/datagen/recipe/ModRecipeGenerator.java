@@ -3170,6 +3170,14 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addCrystalGrowthChamberRecipe(ingredientOf(Items.AMETHYST_BLOCK),
                 new OutputItemStackWithPercentages(new ItemStack(Items.BUDDING_AMETHYST), .25), 4,
                 32000);
+
+        addCrystalGrowthChamberRecipe(ingredientOf(Items.LAPIS_LAZULI),
+                new OutputItemStackWithPercentages(new ItemStack(EPItems.CRYSTALLIZED_LAPIS_LAZULI.get()), 1.), 8,
+                128000, "_from_lapis_lazli");
+        addCrystalGrowthChamberRecipe(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                new OutputItemStackWithPercentages(new ItemStack(EPItems.CRYSTALLIZED_LAPIS_LAZULI.get()), new double[] {
+                        1., 1., .67, .5, .25, .125
+                }), 32000);
     }
 
     private void add3x3PackingCraftingRecipe(Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
@@ -3765,8 +3773,12 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     }
     private void addCrystalGrowthChamberRecipe(Ingredient input, OutputItemStackWithPercentages output,
                                                       int inputCount, int ticks) {
+        addCrystalGrowthChamberRecipe(input, output, inputCount, ticks, "");
+    }
+    private void addCrystalGrowthChamberRecipe(Ingredient input, OutputItemStackWithPercentages output,
+                                               int inputCount, int ticks, String recipeIdSuffix) {
         ResourceLocation recipeId = EPAPI.id("crystal_growing/" +
-                getItemName(output.output().getItem()));
+                getItemName(output.output().getItem()) + recipeIdSuffix);
 
         CrystalGrowthChamberRecipe recipe = new CrystalGrowthChamberRecipe(output, input, inputCount, ticks);
         this.output.accept(recipeId, recipe, null);
