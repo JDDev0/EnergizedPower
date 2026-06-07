@@ -6,19 +6,19 @@
       "item": "energizedpower:fast_item_conveyor_belt"
     },
     "G": {
-      "tag": "c:gears/iron"
+      "tag": "c:gears/steel"
     },
-    "R": {
-      "tag": "c:rods/iron"
+    "S": {
+      "tag": "c:rods/steel"
     },
     "r": {
       "tag": "c:dusts/redstone"
     }
   },
   "pattern": [
-    "GRG",
+    "GSG",
     "rFr",
-    "GRG"
+    "GSG"
   ],
   "result": {
     "count": 1,

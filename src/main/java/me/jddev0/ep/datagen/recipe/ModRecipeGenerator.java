@@ -1270,8 +1270,8 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
                 "item_conveyor_belt", "_from_dried_kelp");
 
-        addShapedCraftingRecipe(has(CommonItemTags.INGOTS_STEEL), Map.of(
-                'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
+        addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
+                'S', ingredientOf(CommonItemTags.PLATES_STEEL),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'B', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM)
@@ -1281,15 +1281,15 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RIR"
         }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(has(CommonItemTags.GEARS_IRON), Map.of(
-                'G', ingredientOf(CommonItemTags.GEARS_IRON),
-                'R', ingredientOf(CommonItemTags.RODS_IRON),
+        addShapedCraftingRecipe(has(CommonItemTags.GEARS_STEEL), Map.of(
+                'G', ingredientOf(CommonItemTags.GEARS_STEEL),
+                'S', ingredientOf(CommonItemTags.RODS_STEEL),
                 'r', ingredientOf(Tags.Items.DUSTS_REDSTONE),
                 'F', ingredientOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM)
         ), new String[] {
-                "GRG",
+                "GSG",
                 "rFr",
-                "GRG"
+                "GSG"
         }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM), Map.of(
@@ -1315,7 +1315,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
                 'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
@@ -1350,7 +1350,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
                 'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
@@ -1386,7 +1386,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
                 'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
@@ -1421,7 +1421,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
                 'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
@@ -1456,7 +1456,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
-                'i', ingredientOf(CommonItemTags.GEARS_IRON),
+                'i', ingredientOf(CommonItemTags.GEARS_STEEL),
                 's', ingredientOf(CommonItemTags.INGOTS_STEEL),
                 'S', ingredientOf(Items.SMOOTH_STONE),
                 'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM),
