@@ -301,11 +301,20 @@
   "block.energizedpower.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
   "item.energizedpower.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
 
+  "block.energizedpower.copper_fluid_pipe": "Kupfer-Flüssigkeitsrohr",
+  "item.energizedpower.copper_fluid_pipe": "Kupfer-Flüssigkeitsrohr",
+
   "block.energizedpower.fluid_pipe": "Eisen-Flüssigkeitsrohr",
   "item.energizedpower.fluid_pipe": "Eisen-Flüssigkeitsrohr",
 
   "block.energizedpower.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
   "item.energizedpower.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
+
+  "block.energizedpower.steel_fluid_pipe": "Stahl-Flüssigkeitsrohr",
+  "item.energizedpower.steel_fluid_pipe": "Stahl-Flüssigkeitsrohr",
+
+  "block.energizedpower.pressurized_fluid_pipe": "Druckleitungs-Flüssigkeitsrohr",
+  "item.energizedpower.pressurized_fluid_pipe": "Druckleitungs-Flüssigkeitsrohr",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Maximale Extraktion per Extraktions-Seite: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
@@ -1254,6 +1263,9 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "Schneller Flüssigkeits-Transport",
   "advancements.energizedpower.golden_fluid_pipe.description": "Transportiere Flüssigkeiten schneller mit Gold-Flüssigkeitsrohren.",
 
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Bester Flüssigkeits-Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Stelle Druckleitungs-Flüssigkeitsrohre her.",
+
   "advancements.energizedpower.fluid_tank_small.title": "Einfacher Flüssigkeits-Speicher",
   "advancements.energizedpower.fluid_tank_small.description": "Speichere Flüssigkeiten in einem kleinen Flüssigkeitstank.",
 
@@ -1750,7 +1762,6 @@
   "book.energizedpower.page.fluid_pipes.1": "Flüssigkeitsrohre können Flüssigkeiten transferieren.",
   "book.energizedpower.page.fluid_pipes.2": "Jede Rohr-Seite kann mit einem Schraubenschlüssel konfiguriert werden.",
   "book.energizedpower.page.fluid_pipes.3": "Ein einzelner Flüssigkeitsrohr-Block kann nur eine Flüssigkeitsart zur gleichen Zeit extrahieren, auch wenn mehrere Seiten als Extraktion konfiguriert wurden.",
-  "book.energizedpower.page.fluid_pipes.4": "Es gibt zwei Flüssigkeitsrohr-Typen: Eisen und Gold.",
 
   "book.energizedpower.page.fluid_tanks.1": "Flüssigkeits-Tanks können Flüssigkeiten speichern.",
   "book.energizedpower.page.fluid_tanks.2": "Es gibt drei Flüssigkeits-Tank-Typen: Klein, Mittel und Groß.",

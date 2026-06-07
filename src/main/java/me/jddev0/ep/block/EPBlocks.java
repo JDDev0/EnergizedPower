@@ -145,6 +145,11 @@ public final class EPBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("express_item_conveyor_belt_merger", EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
+    public static final DeferredBlock<FluidPipeBlock> COPPER_FLUID_PIPE = BLOCKS.register("copper_fluid_pipe",
+            () -> new FluidPipeBlock(FluidPipeTier.COPPER));
+    public static final DeferredItem<Item> COPPER_FLUID_PIPE_ITEM = EPItems.ITEMS.register("copper_fluid_pipe",
+            () -> new FluidPipeBlock.Item(COPPER_FLUID_PIPE.get(), new Item.Properties(), FluidPipeTier.COPPER));
+
     public static final DeferredBlock<FluidPipeBlock> IRON_FLUID_PIPE = BLOCKS.register("fluid_pipe",
             () -> new FluidPipeBlock(FluidPipeTier.IRON));
     public static final DeferredItem<Item> IRON_FLUID_PIPE_ITEM = EPItems.ITEMS.register("fluid_pipe",
@@ -154,6 +159,16 @@ public final class EPBlocks {
             () -> new FluidPipeBlock(FluidPipeTier.GOLDEN));
     public static final DeferredItem<Item> GOLDEN_FLUID_PIPE_ITEM = EPItems.ITEMS.register("golden_fluid_pipe",
             () -> new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE.get(), new Item.Properties(), FluidPipeTier.GOLDEN));
+
+    public static final DeferredBlock<FluidPipeBlock> STEEL_FLUID_PIPE = BLOCKS.register("steel_fluid_pipe",
+            () -> new FluidPipeBlock(FluidPipeTier.STEEL));
+    public static final DeferredItem<Item> STEEL_FLUID_PIPE_ITEM = EPItems.ITEMS.register("steel_fluid_pipe",
+            () -> new FluidPipeBlock.Item(STEEL_FLUID_PIPE.get(), new Item.Properties(), FluidPipeTier.STEEL));
+
+    public static final DeferredBlock<FluidPipeBlock> PRESSURIZED_FLUID_PIPE = BLOCKS.register("pressurized_fluid_pipe",
+            () -> new FluidPipeBlock(FluidPipeTier.PRESSURIZED));
+    public static final DeferredItem<Item> PRESSURIZED_FLUID_PIPE_ITEM = EPItems.ITEMS.register("pressurized_fluid_pipe",
+            () -> new FluidPipeBlock.Item(PRESSURIZED_FLUID_PIPE.get(), new Item.Properties(), FluidPipeTier.PRESSURIZED));
 
     public static final DeferredBlock<FluidTankBlock> FLUID_TANK_SMALL = BLOCKS.register("fluid_tank_small",
             () -> new FluidTankBlock(FluidTankTier.SMALL));

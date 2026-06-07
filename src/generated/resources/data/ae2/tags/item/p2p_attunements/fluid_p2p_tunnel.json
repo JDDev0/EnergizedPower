@@ -1,7 +1,10 @@
 {
   "values": [
+    "energizedpower:copper_fluid_pipe",
     "energizedpower:fluid_pipe",
     "energizedpower:golden_fluid_pipe",
+    "energizedpower:steel_fluid_pipe",
+    "energizedpower:pressurized_fluid_pipe",
     "energizedpower:fluid_tank_small",
     "energizedpower:fluid_tank_medium",
     "energizedpower:fluid_tank_large",

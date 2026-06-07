@@ -61,8 +61,11 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
 
+                        EPBlocks.COPPER_FLUID_PIPE.get(),
                         EPBlocks.IRON_FLUID_PIPE.get(),
                         EPBlocks.GOLDEN_FLUID_PIPE.get(),
+                        EPBlocks.STEEL_FLUID_PIPE.get(),
+                        EPBlocks.PRESSURIZED_FLUID_PIPE.get(),
 
                         EPBlocks.FLUID_TANK_SMALL.get(),
                         EPBlocks.FLUID_TANK_MEDIUM.get(),
@@ -217,8 +220,11 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
 
+                        EPBlocks.COPPER_FLUID_PIPE.get(),
                         EPBlocks.IRON_FLUID_PIPE.get(),
                         EPBlocks.GOLDEN_FLUID_PIPE.get(),
+                        EPBlocks.STEEL_FLUID_PIPE.get(),
+                        EPBlocks.PRESSURIZED_FLUID_PIPE.get(),
 
                         EPBlocks.FLUID_TANK_SMALL.get(),
                         EPBlocks.FLUID_TANK_MEDIUM.get(),

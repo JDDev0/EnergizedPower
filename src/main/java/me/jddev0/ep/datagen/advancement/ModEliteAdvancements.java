@@ -58,6 +58,11 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
         );
 
+        AdvancementHolder pressurizedFluidPipe = addAdvancement(
+                advancementOutput, existingFileHelper, crystallizedAlloyPlate,
+                EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM, "pressurized_fluid_pipe", AdvancementType.TASK
+        );
+
         AdvancementHolder energizedAlloyIngot = addAdvancement(
                 advancementOutput, existingFileHelper, crystallizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_INGOT, "energized_alloy_ingot", AdvancementType.TASK,

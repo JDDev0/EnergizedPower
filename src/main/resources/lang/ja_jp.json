@@ -301,11 +301,20 @@
   "block.energizedpower.express_item_conveyor_belt_merger": "特急型アイテムコンベア合流機",
   "item.energizedpower.express_item_conveyor_belt_merger": "特急型アイテムコンベア合流機",
 
+  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+
   "block.energizedpower.fluid_pipe": "鉄の液体パイプ",
   "item.energizedpower.fluid_pipe": "鉄の液体パイプ",
 
   "block.energizedpower.golden_fluid_pipe": "金の液体パイプ",
   "item.energizedpower.golden_fluid_pipe": "金の液体パイプ",
+
+  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+
+  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "抽出面ごとの最大抽出量: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "面(%s)の接続タイプを%sに設定しました。",
@@ -1254,6 +1263,9 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "高速液体輸送",
   "advancements.energizedpower.golden_fluid_pipe.description": "金の液体パイプで液体をより速く輸送できます",
 
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
+
   "advancements.energizedpower.fluid_tank_small.title": "簡易液体貯蔵",
   "advancements.energizedpower.fluid_tank_small.description": "小型液体タンクは液体を貯蔵できます",
 
@@ -1750,7 +1762,6 @@
   "book.energizedpower.page.fluid_pipes.1": "液体パイプは、液体を輸送できます。",
   "book.energizedpower.page.fluid_pipes.2": "レンチを使えば、パイプの各面ごとに接続モードを切り替えられます。",
   "book.energizedpower.page.fluid_pipes.3": "1本の液体パイプが一度に抽出できるのは、一種類の液体のみです。複数の面を抽出モードにしても、中身は混ざりません。",
-  "book.energizedpower.page.fluid_pipes.4": "液体パイプには、鉄と金の2段階のティアがあります。",
 
   "book.energizedpower.page.fluid_tanks.1": "液体タンクは、あらゆる液体を貯蔵できます。",
   "book.energizedpower.page.fluid_tanks.2": "液体タンクには、小型・中型・大型の3段階のティアがあります。",
