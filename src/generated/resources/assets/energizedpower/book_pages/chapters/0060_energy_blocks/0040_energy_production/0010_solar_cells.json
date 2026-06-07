@@ -22,6 +22,7 @@
   "image": [
     "energizedpower:textures/item/basic_solar_cell.png",
     "energizedpower:textures/item/advanced_solar_cell.png",
-    "energizedpower:textures/item/reinforced_advanced_solar_cell.png"
+    "energizedpower:textures/item/reinforced_advanced_solar_cell.png",
+    "energizedpower:textures/item/elite_solar_cell.png"
   ]
 }

@@ -839,6 +839,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 ));
         tableOfContentsEntries.get(energyBlocksTableOfContentPageId).add(Pair.of(energyBlocksEnergyProductionChapterTitle, energyBlocksEnergyProductionChapterPage));
 
+
         addSimplePage(pageId("solar_cells"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.solar_cells.1").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -848,7 +849,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ), new ResourceLocation[] {
                 EPAPI.id("textures/item/basic_solar_cell.png"),
                 EPAPI.id("textures/item/advanced_solar_cell.png"),
-                EPAPI.id("textures/item/reinforced_advanced_solar_cell.png")
+                EPAPI.id("textures/item/reinforced_advanced_solar_cell.png"),
+                EPAPI.id("textures/item/elite_solar_cell.png")
         });
 
         addSimplePage(pageId("solar_panels"), Component.empty().append(

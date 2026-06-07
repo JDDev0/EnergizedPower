@@ -1,0 +1,32 @@
+{
+  "type": "energizedpower:assembling_machine",
+  "inputs": [
+    {
+      "count": 2,
+      "input": {
+        "item": "energizedpower:reinforced_advanced_solar_cell"
+      }
+    },
+    {
+      "count": 4,
+      "input": {
+        "tag": "c:ingots/energized_alloy"
+      }
+    },
+    {
+      "count": 4,
+      "input": {
+        "tag": "c:gems/crystallized_lapis_lazuli"
+      }
+    },
+    {
+      "count": 2,
+      "input": {
+        "item": "energizedpower:coolant_cell"
+      }
+    }
+  ],
+  "output": {
+    "item": "energizedpower:elite_solar_cell"
+  }
+}
