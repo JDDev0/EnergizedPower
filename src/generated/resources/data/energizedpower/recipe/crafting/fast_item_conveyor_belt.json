@@ -5,7 +5,7 @@
     "B": "energizedpower:item_conveyor_belt",
     "I": "#c:plates/iron",
     "R": "#c:dusts/redstone",
-    "S": "#c:ingots/steel"
+    "S": "#c:plates/steel"
   },
   "pattern": [
     "RIR",
