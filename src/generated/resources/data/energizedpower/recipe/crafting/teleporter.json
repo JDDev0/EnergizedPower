@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "A": {
-      "tag": "c:plates/advanced_alloy"
+      "tag": "c:storage_blocks/advanced_alloy"
     },
     "C": {
       "item": "energizedpower:energized_crystal_matrix"
@@ -24,7 +24,7 @@
   "pattern": [
     "CEC",
     "TRT",
-    "ASA"
+    "SAS"
   ],
   "result": {
     "count": 1,
