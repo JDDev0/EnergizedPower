@@ -39,9 +39,12 @@ public final class EPItems {
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot");
     public static final Item ENERGIZED_GOLD_INGOT = registerItem("energized_gold_ingot");
+    public static final Item ENERGIZED_ALLOY_INGOT = registerItem("energized_alloy_ingot",
+            EnergizedAlloyIngotItem::new);
 
     public static final Item ENERGIZED_COPPER_PLATE = registerItem("energized_copper_plate");
     public static final Item ENERGIZED_GOLD_PLATE = registerItem("energized_gold_plate");
+    public static final Item ENERGIZED_ALLOY_PLATE = registerItem("energized_alloy_plate");
 
     public static final Item ENERGIZED_COPPER_WIRE = registerItem("energized_copper_wire");
     public static final Item ENERGIZED_GOLD_WIRE = registerItem("energized_gold_wire");

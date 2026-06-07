@@ -27,6 +27,7 @@
     "energizedpower:textures/item/advanced_alloy_plate.png",
     "energizedpower:textures/item/crystallized_alloy_plate.png",
     "energizedpower:textures/item/energized_copper_plate.png",
-    "energizedpower:textures/item/energized_gold_plate.png"
+    "energizedpower:textures/item/energized_gold_plate.png",
+    "energizedpower:textures/item/energized_alloy_plate.png"
   ]
 }

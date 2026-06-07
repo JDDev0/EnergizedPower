@@ -1,9 +1,12 @@
 {
   "item.energizedpower.energized_copper_ingot": "充能铜锭",
   "item.energizedpower.energized_gold_ingot": "充能金锭",
+  "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
+  "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
 
   "item.energizedpower.energized_copper_plate": "充能铜板",
   "item.energizedpower.energized_gold_plate": "充能金板",
+  "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
 
   "item.energizedpower.energized_copper_wire": "充能铜线",
   "item.energizedpower.energized_gold_wire": "充能金线",
@@ -1277,6 +1280,9 @@
   "advancements.energizedpower.energized_gold_ingot.title": "闪亮的锭",
   "advancements.energizedpower.energized_gold_ingot.description": "这个充能金锭非常闪亮。",
 
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+
   "advancements.energizedpower.energized_power_book.title": "无尽的知识",
   "advancements.energizedpower.energized_power_book.description": "本模组的指南书。",
 
@@ -1321,6 +1327,9 @@
 
   "advancements.energizedpower.energized_gold_plate.title": "充能金板",
   "advancements.energizedpower.energized_gold_plate.description": "制造一个充能金板。",
+
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "advancements.energizedpower.energized_copper_wire.title": "充能铜线",
   "advancements.energizedpower.energized_copper_wire.description": "制造一根充能铜线。",
