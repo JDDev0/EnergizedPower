@@ -1,7 +1,7 @@
-// 1.21.1	2026-06-07T23:33:50.893160769	Energized Power/Advancements (Elite)
+// 1.21.1	2026-06-07T23:36:21.813831077	Energized Power/Advancements (Elite)
 d578d2c52c8a52616f4b70b55c85e8d4372b2008 data/energizedpower/advancement/main/elite/superconductor.json
-af1b4b571cd494db4e60dfd4d321c6a32a35aa66 data/energizedpower/advancement/main/elite/crystallized_alloy_ingot.json
 dbcc056ebcd36e7285d3cee40c0ce998bf73ad1c data/energizedpower/advancement/main/elite/energy_production_upgrade_module_8.json
+af1b4b571cd494db4e60dfd4d321c6a32a35aa66 data/energizedpower/advancement/main/elite/crystallized_alloy_ingot.json
 d0dd6d28cc6fd10d12108c4e1d8eb7c9793afdee data/energizedpower/advancement/main/elite/quantum_processing_unit.json
 2a2507a57a20f3b659bfb48a9e0d1c8ab41aa4f6 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
 a24913ab62869646a9c30731429e3b3a6e4f257c data/energizedpower/advancement/main/elite/elite_upgrade_module.json

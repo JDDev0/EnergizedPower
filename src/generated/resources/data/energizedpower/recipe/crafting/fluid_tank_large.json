@@ -5,14 +5,14 @@
     "F": {
       "item": "energizedpower:fluid_tank_medium"
     },
-    "I": {
-      "tag": "c:storage_blocks/iron"
+    "S": {
+      "tag": "c:storage_blocks/steel"
     }
   },
   "pattern": [
-    "IFI",
-    "IFI",
-    "IFI"
+    "SFS",
+    "SFS",
+    "SFS"
   ],
   "result": {
     "count": 1,
