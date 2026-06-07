@@ -120,7 +120,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 addTag(CommonItemTags.STORAGE_BLOCKS_TIN).
-                addTag(CommonItemTags.STORAGE_BLOCKS_STEEL);
+                addTag(CommonItemTags.STORAGE_BLOCKS_STEEL).
+                addTag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY);
         tag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK_ITEM.get());
         tag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
@@ -129,6 +130,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPBlocks.TIN_BLOCK_ITEM.get());
         tag(CommonItemTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK_ITEM.get());
+        tag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+                add(EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM.get());
 
         tag(Tags.Items.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);

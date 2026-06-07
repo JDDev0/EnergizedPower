@@ -69,6 +69,10 @@ public final class EPBlocks {
             BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> STEEL_BLOCK_ITEM = createBlockItem("steel_block", STEEL_BLOCK);
 
+    public static final DeferredBlock<Block> ADVANCED_ALLOY_BLOCK = registerBlock("advanced_alloy_block",
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> ADVANCED_ALLOY_BLOCK_ITEM = createBlockItem("advanced_alloy_block", ADVANCED_ALLOY_BLOCK);
+
     public static final DeferredBlock<Block> SAWDUST_BLOCK = registerBlock("sawdust_block",
             props -> new SimpleFlammableBlock(props, 5, 20),
             BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.0f, 3.0f).sound(SoundType.WOOD));

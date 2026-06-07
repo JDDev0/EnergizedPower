@@ -33,6 +33,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.SILICON_BLOCK.get(),
                         EPBlocks.TIN_BLOCK.get(),
                         EPBlocks.STEEL_BLOCK.get(),
+                        EPBlocks.ADVANCED_ALLOY_BLOCK.get(),
 
                         EPBlocks.TIN_ORE.get(),
                         EPBlocks.DEEPSLATE_TIN_ORE.get(),
@@ -197,6 +198,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.SILICON_BLOCK.get(),
                         EPBlocks.TIN_BLOCK.get(),
                         EPBlocks.STEEL_BLOCK.get(),
+                        EPBlocks.ADVANCED_ALLOY_BLOCK.get(),
 
                         EPBlocks.TIN_ORE.get(),
                         EPBlocks.DEEPSLATE_TIN_ORE.get(),
@@ -362,6 +364,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
+                addTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
         tag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK.get());
@@ -369,6 +372,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 add(EPBlocks.TIN_BLOCK.get());
         tag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK.get());
+        tag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+                add(EPBlocks.ADVANCED_ALLOY_BLOCK.get());
         tag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK.get());
     }

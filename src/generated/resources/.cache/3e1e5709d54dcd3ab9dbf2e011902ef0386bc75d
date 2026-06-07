@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-07T19:44:07.408784942	Tags for minecraft:item mod id energizedpower
+// 26.1.2	2026-06-07T20:56:11.52236088	Tags for minecraft:item mod id energizedpower
 6af40b20a5859a5a3cdb0d6cbd6afe51ad578bcf data/ae2/tags/item/p2p_attunements/fe_p2p_tunnel.json
 dd17d1d16166f2ec946769e7c5151597b2205dce data/ae2/tags/item/p2p_attunements/fluid_p2p_tunnel.json
 ffc429096520b17e4883f075eac0c840c0c62704 data/ae2/tags/item/p2p_attunements/item_p2p_tunnel.json
@@ -47,7 +47,8 @@ b057542141fc3ae18e32850d3f45fff9c79b3fae data/c/tags/item/rods.json
 2ce36463dc907fa6829942a69c18ffe23773c97a data/c/tags/item/rods/iron.json
 441b00b6e1716a0aacdfce4bf65a92ba02860b48 data/c/tags/item/rods/steel.json
 e704a5656af28065b25ad73b9fa7a264c974a712 data/c/tags/item/silicon.json
-5e6a2cb4a426dba1c9c292f672d6492851a37f78 data/c/tags/item/storage_blocks.json
+b3787a6166ee77205dff7520bb52ec973c7df01c data/c/tags/item/storage_blocks.json
+23a865ffd3f8acf6e1764f45d28ccc05e1bbdc99 data/c/tags/item/storage_blocks/advanced_alloy.json
 8430f9e22a6a485f892268a613514d5362c18f7e data/c/tags/item/storage_blocks/raw_tin.json
 a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/item/storage_blocks/silicon.json
 63629df80c7d7313b6c3b38316e338c5d3bb39e1 data/c/tags/item/storage_blocks/steel.json

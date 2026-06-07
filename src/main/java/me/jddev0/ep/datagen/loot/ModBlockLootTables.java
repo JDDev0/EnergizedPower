@@ -34,6 +34,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(EPBlocks.TIN_BLOCK);
         dropSelf(EPBlocks.STEEL_BLOCK);
+        dropSelf(EPBlocks.ADVANCED_ALLOY_BLOCK);
         dropSelf(EPBlocks.RAW_TIN_BLOCK);
 
         dropSelf(EPBlocks.SAWDUST_BLOCK);

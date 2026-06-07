@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "energizedpower:block/advanced_alloy_block"
+  }
+}
