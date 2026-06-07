@@ -117,6 +117,8 @@ class ModItemModelProvider {
         basicItem(EPItems.SPEED_UPGRADE_MODULE_4);
         basicItem(EPItems.SPEED_UPGRADE_MODULE_5);
         basicItem(EPItems.SPEED_UPGRADE_MODULE_6);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_7);
+        basicItem(EPItems.SPEED_UPGRADE_MODULE_8);
 
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
@@ -124,6 +126,8 @@ class ModItemModelProvider {
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7);
+        basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8);
 
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2);
@@ -131,6 +135,8 @@ class ModItemModelProvider {
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5);
         basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7);
+        basicItem(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8);
 
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2);
@@ -138,6 +144,8 @@ class ModItemModelProvider {
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5);
         basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7);
+        basicItem(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8);
 
         basicItem(EPItems.DURATION_UPGRADE_MODULE_1);
         basicItem(EPItems.DURATION_UPGRADE_MODULE_2);

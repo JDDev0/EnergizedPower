@@ -102,6 +102,46 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 EPItems.ELITE_UPGRADE_MODULE, "elite_upgrade_module", AdvancementType.TASK
         );
 
+        AdvancementHolder speedUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.SPEED_UPGRADE_MODULE_7, "speed_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder speedUpgradeModule8 = addAdvancement(
+                advancementOutput, speedUpgradeModule7,
+                EPItems.SPEED_UPGRADE_MODULE_8, "speed_upgrade_module_8", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyEfficiencyUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7, "energy_efficiency_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyEfficiencyUpgradeModule8 = addAdvancement(
+                advancementOutput, energyEfficiencyUpgradeModule7,
+                EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8, "energy_efficiency_upgrade_module_8", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyProductionUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7, "energy_production_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyProductionUpgradeModule8 = addAdvancement(
+                advancementOutput, energyProductionUpgradeModule7,
+                EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8, "energy_production_upgrade_module_8", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyCapacityUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7, "energy_capacity_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder energyCapacityUpgradeModule8 = addAdvancement(
+                advancementOutput, energyCapacityUpgradeModule7,
+                EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8, "energy_capacity_upgrade_module_8", AdvancementType.TASK
+        );
+
         AdvancementHolder moonLightUpgradeModule4 = addAdvancement(
                 advancementOutput, eliteUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_4, "moon_light_upgrade_module_4", AdvancementType.TASK

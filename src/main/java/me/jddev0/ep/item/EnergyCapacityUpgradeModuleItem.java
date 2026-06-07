@@ -32,6 +32,12 @@ public class EnergyCapacityUpgradeModuleItem extends UpgradeModuleItem {
     private static final double ENERGY_CAPACITY_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_6_EFFECT.getValue();
     private static final double ENERGY_CAPACITY_6_ENERGY_TRANSFER_RATE_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_6_ENERGY_TRANSFER_RATE_EFFECT.getValue();
 
+    private static final double ENERGY_CAPACITY_7_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_7_EFFECT.getValue();
+    private static final double ENERGY_CAPACITY_7_ENERGY_TRANSFER_RATE_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_7_ENERGY_TRANSFER_RATE_EFFECT.getValue();
+
+    private static final double ENERGY_CAPACITY_8_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_8_EFFECT.getValue();
+    private static final double ENERGY_CAPACITY_8_ENERGY_TRANSFER_RATE_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ENERGY_CAPACITY_8_ENERGY_TRANSFER_RATE_EFFECT.getValue();
+
     public EnergyCapacityUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.ENERGY_CAPACITY, tier);
     }
@@ -51,6 +57,8 @@ public class EnergyCapacityUpgradeModuleItem extends UpgradeModuleItem {
                 case 4 -> ENERGY_CAPACITY_4_EFFECT;
                 case 5 -> ENERGY_CAPACITY_5_EFFECT;
                 case 6 -> ENERGY_CAPACITY_6_EFFECT;
+                case 7 -> ENERGY_CAPACITY_7_EFFECT;
+                case 8 -> ENERGY_CAPACITY_8_EFFECT;
 
                 default -> -1;
             };
@@ -61,6 +69,8 @@ public class EnergyCapacityUpgradeModuleItem extends UpgradeModuleItem {
                 case 4 -> ENERGY_CAPACITY_4_ENERGY_TRANSFER_RATE_EFFECT;
                 case 5 -> ENERGY_CAPACITY_5_ENERGY_TRANSFER_RATE_EFFECT;
                 case 6 -> ENERGY_CAPACITY_6_ENERGY_TRANSFER_RATE_EFFECT;
+                case 7 -> ENERGY_CAPACITY_7_ENERGY_TRANSFER_RATE_EFFECT;
+                case 8 -> ENERGY_CAPACITY_8_ENERGY_TRANSFER_RATE_EFFECT;
 
                 default -> -1;
             };

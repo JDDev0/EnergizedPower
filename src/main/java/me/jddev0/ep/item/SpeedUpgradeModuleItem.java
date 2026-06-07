@@ -32,6 +32,12 @@ public class SpeedUpgradeModuleItem extends UpgradeModuleItem {
     private static final double SPEED_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_6_EFFECT.getValue();
     private static final double SPEED_6_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_6_ENERGY_CONSUMPTION_EFFECT.getValue();
 
+    private static final double SPEED_7_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_7_EFFECT.getValue();
+    private static final double SPEED_7_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_7_ENERGY_CONSUMPTION_EFFECT.getValue();
+
+    private static final double SPEED_8_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_8_EFFECT.getValue();
+    private static final double SPEED_8_ENERGY_CONSUMPTION_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_SPEED_8_ENERGY_CONSUMPTION_EFFECT.getValue();
+
     public SpeedUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.SPEED, tier);
     }
@@ -51,6 +57,8 @@ public class SpeedUpgradeModuleItem extends UpgradeModuleItem {
                 case 4 -> SPEED_4_EFFECT;
                 case 5 -> SPEED_5_EFFECT;
                 case 6 -> SPEED_6_EFFECT;
+                case 7 -> SPEED_7_EFFECT;
+                case 8 -> SPEED_8_EFFECT;
 
                 default -> -1;
             };
@@ -61,6 +69,8 @@ public class SpeedUpgradeModuleItem extends UpgradeModuleItem {
                 case 4 -> SPEED_4_ENERGY_CONSUMPTION_EFFECT;
                 case 5 -> SPEED_5_ENERGY_CONSUMPTION_EFFECT;
                 case 6 -> SPEED_6_ENERGY_CONSUMPTION_EFFECT;
+                case 7 -> SPEED_7_ENERGY_CONSUMPTION_EFFECT;
+                case 8 -> SPEED_8_ENERGY_CONSUMPTION_EFFECT;
 
                 default -> -1;
             };

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:gems/crystallized_lapis_lazuli"
+    },
+    "E": {
+      "tag": "c:plates/energized_alloy"
+    },
+    "U": {
+      "item": "energizedpower:energy_production_upgrade_module_6"
+    },
+    "e": {
+      "item": "energizedpower:elite_upgrade_module"
+    }
+  },
+  "pattern": [
+    "EUE",
+    "CeC",
+    "EUE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:energy_production_upgrade_module_7"
+  }
+}

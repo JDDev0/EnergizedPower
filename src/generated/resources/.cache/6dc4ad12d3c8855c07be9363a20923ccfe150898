@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-07T13:36:14.013047464	Energized Power/Tags for minecraft:item
+// 1.21.1	2026-06-07T13:39:43.739125942	Energized Power/Tags for minecraft:item
 5aeb1d268a4af3b906f9030117d116c5e435f51b data/c/tags/item/ingots/redstone_alloy.json
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/item/storage_blocks/tin.json
 d800a0f3a0ce004e9137145e88c48476f1208f04 data/c/tags/item/plates/energized_alloy.json
@@ -11,8 +11,8 @@ cb5dd5b2cc4bfddcce61d8a39c99bcdf8e0743f8 data/c/tags/item/dusts/wood.json
 6af40b20a5859a5a3cdb0d6cbd6afe51ad578bcf data/ae2/tags/item/p2p_attunements/fe_p2p_tunnel.json
 ba27a206e3a5b6ccdbd698dafd6ba2bbdf1b1c8a data/c/tags/item/wires/gold.json
 703da64b48b90170b354afbf66b21d9e551b5e91 data/c/tags/item/ores/iron.json
-b5b95705ac408e798ce16bcba01c15999b320b49 data/c/tags/item/ingots/energized_alloy.json
 de0c8cb08e1425710f541c32efe2e584f1d4cb17 data/c/tags/item/gears.json
+b5b95705ac408e798ce16bcba01c15999b320b49 data/c/tags/item/ingots/energized_alloy.json
 512f931c808c9246f9b5dbe58cb541be848ab03c data/c/tags/item/plates/energized_gold.json
 e704a5656af28065b25ad73b9fa7a264c974a712 data/c/tags/item/silicon.json
 0b519c0804459b9a20151d9089dd801e5c55b201 data/c/tags/item/ingots/advanced_alloy.json
@@ -35,8 +35,8 @@ ffc429096520b17e4883f075eac0c840c0c62704 data/ae2/tags/item/p2p_attunements/item
 4299a3aeb550dac5d1182404571c32a720c12c01 data/c/tags/item/cobblestones/normal.json
 34cc4de5060461ad96992849fdd5ebf1fbb77773 data/c/tags/item/ores/lapis.json
 bc103fdc75189f913c0e9ae91b73927f2f97310e data/c/tags/item/plates.json
-e6fb7fc4ce3a281229106fb8c6f60fdcd34505e6 data/c/tags/item/wires/tin.json
 c4616e4bed5d028275d0589955539dfff45fdb28 data/c/tags/item/raw_materials/tin.json
+e6fb7fc4ce3a281229106fb8c6f60fdcd34505e6 data/c/tags/item/wires/tin.json
 49ef5a726ff4fa483b1ee9326b52f67b1d9001bb data/c/tags/item/plates/iron.json
 7c7ba3a9b0666ab3228ba8708d4fb7e0308a0feb data/c/tags/item/raw_materials.json
 36eaf1e3e9d57a9101249c3a81dd8f4290ed3477 data/c/tags/item/wires/superconductor.json
@@ -46,8 +46,8 @@ cb50675b41f45ba0d8691c236afc3f9fb577b7eb data/c/tags/item/ingots/steel.json
 cf1ed075c212e06e84cb7c2710c894129728d269 data/c/tags/item/ores/copper.json
 d56528e409960f498e933e25a7b732eabb64284b data/c/tags/item/ores/tin.json
 6b11bfb127e2052c83a7a8a7e167acb13d162c72 data/c/tags/item/plates/tin.json
-95954d79a231059a2e15c8f34adf5d963d8f8b4a data/c/tags/item/dusts/charcoal.json
 b2976eaac3153fccb562c7395583a156c65f6939 data/c/tags/item/dusts/gold.json
+95954d79a231059a2e15c8f34adf5d963d8f8b4a data/c/tags/item/dusts/charcoal.json
 256ea078fffeee833bda9012765dee9974a7b02d data/c/tags/item/gems.json
 a20ad2acb49486dc64f10165dfdfea32b1e7da33 data/c/tags/item/ores/redstone.json
 4ab2c8fb92268d9f91f8b4253ab231b449e58920 data/minecraft/tags/item/bookshelf_books.json
