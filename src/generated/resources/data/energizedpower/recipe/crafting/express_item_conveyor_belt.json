@@ -3,14 +3,14 @@
   "category": "misc",
   "key": {
     "F": "energizedpower:fast_item_conveyor_belt",
-    "G": "#c:gears/iron",
-    "R": "#c:rods/iron",
+    "G": "#c:gears/steel",
+    "S": "#c:rods/steel",
     "r": "#c:dusts/redstone"
   },
   "pattern": [
-    "GRG",
+    "GSG",
     "rFr",
-    "GRG"
+    "GSG"
   ],
   "result": {
     "id": "energizedpower:express_item_conveyor_belt"

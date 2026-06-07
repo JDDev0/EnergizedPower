@@ -6,7 +6,7 @@
     "F": "energizedpower:fast_item_conveyor_belt_sorter",
     "I": "#c:storage_blocks/iron",
     "S": "minecraft:smooth_stone",
-    "i": "#c:gears/iron",
+    "i": "#c:gears/steel",
     "s": "#c:ingots/steel"
   },
   "pattern": [
