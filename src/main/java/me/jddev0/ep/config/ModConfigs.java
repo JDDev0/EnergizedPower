@@ -439,6 +439,16 @@ public final class ModConfigs {
             .66
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_4_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            4,
+            .85
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_MOON_LIGHT_5_EFFECT = registerMoonLightUpgradeModuleEffectValue(
+            5,
+            1.
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_1_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
             1,
             .05

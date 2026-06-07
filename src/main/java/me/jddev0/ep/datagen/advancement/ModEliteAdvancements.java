@@ -96,6 +96,16 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 EPItems.ELITE_UPGRADE_MODULE, "elite_upgrade_module", AdvancementType.TASK
         );
 
+        AdvancementHolder moonLightUpgradeModule4 = addAdvancement(
+                advancementOutput, existingFileHelper, eliteUpgradeModule,
+                EPItems.MOON_LIGHT_UPGRADE_MODULE_4, "moon_light_upgrade_module_4", AdvancementType.TASK
+        );
+
+        AdvancementHolder moonLightUpgradeModule5 = addAdvancement(
+                advancementOutput, existingFileHelper, moonLightUpgradeModule4,
+                EPItems.MOON_LIGHT_UPGRADE_MODULE_5, "moon_light_upgrade_module_5", AdvancementType.TASK
+        );
+
         AdvancementHolder coolantCell = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerElite,
                 EPItems.COOLANT_CELL, "coolant_cell", AdvancementType.TASK
