@@ -301,11 +301,20 @@
   "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
   "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
 
+  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+
   "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
   "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
 
   "block.energizedpower.golden_fluid_pipe": "Altın Boru",
   "item.energizedpower.golden_fluid_pipe": "Altın Boru",
+
+  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+
+  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Max extraction per extractor face: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Yüzün bağlantı tipi (%s) şuna ayarlandı %s.",
@@ -1254,6 +1263,9 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "Ekspres Sıvı Taşıma",
   "advancements.energizedpower.golden_fluid_pipe.description": "Altın imalat boru ile sıvı taşı.",
 
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
+
   "advancements.energizedpower.fluid_tank_small.title": "Basit Sıvı Tankeri",
   "advancements.energizedpower.fluid_tank_small.description": "Tankerde küçük sıvılar depola.",
 
@@ -1750,7 +1762,6 @@
   "book.energizedpower.page.fluid_pipes.1": "Akışkan boruları akışkanları transfer edebilir.",
   "book.energizedpower.page.fluid_pipes.2": "Her boru tarafının modu bir Anahtar ile yapılandırılabilir.",
   "book.energizedpower.page.fluid_pipes.3": "Tek bir akışkan borusu bloğu, birden fazla taraf çıkarma olarak yapılandırılmış olsa bile aynı anda yalnızca bir akışkan türünü çıkarabilir.",
-  "book.energizedpower.page.fluid_pipes.4": "There are two tiers of fluid pipes: Iron and Golden.",
 
   "book.energizedpower.page.fluid_tanks.1": "Fluid tanks can store fluids.",
   "book.energizedpower.page.fluid_tanks.2": "There are three tiers of fluid tanks: Small, Medium, and Large.",

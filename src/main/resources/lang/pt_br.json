@@ -301,11 +301,20 @@
   "block.energizedpower.express_item_conveyor_belt_merger": "Mesclador de Esteira Transportadora de Itens Expresso",
   "item.energizedpower.express_item_conveyor_belt_merger": "Mesclador de Esteira Transportadora de Itens Expresso",
 
+  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+
   "block.energizedpower.fluid_pipe": "Tubo de Fluidos de Ferro",
   "item.energizedpower.fluid_pipe": "Tubo de Fluidos de Ferro",
 
   "block.energizedpower.golden_fluid_pipe": "Tubo de Fluidos de Ouro",
   "item.energizedpower.golden_fluid_pipe": "Tubo de Fluidos de Ouro",
+
+  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+
+  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Extração máxima por face do extrator: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "O tipo de conexão da face (%s) foi definido para %s.",
@@ -1254,6 +1263,9 @@
   "advancements.energizedpower.golden_fluid_pipe.title": "Transporte Rápido de Fluidos",
   "advancements.energizedpower.golden_fluid_pipe.description": "Transporte fluidos mais rapidamente com tubos de fluido dourados.",
 
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
+
   "advancements.energizedpower.fluid_tank_small.title": "Armazenamento Simples de Fluidos",
   "advancements.energizedpower.fluid_tank_small.description": "Armazene fluidos em um Tanque de Fluido pequeno.",
 
@@ -1750,7 +1762,6 @@
   "book.energizedpower.page.fluid_pipes.1": "Os tubos de fluido podem transferir fluidos.",
   "book.energizedpower.page.fluid_pipes.2": "O modo de cada lado do tubo pode ser configurado com uma Chave Inglesa.",
   "book.energizedpower.page.fluid_pipes.3": "Um único bloco de tubo de fluido só pode extrair um tipo de fluido de cada vez, mesmo quando vários lados estão configurados como extração.",
-  "book.energizedpower.page.fluid_pipes.4": "Existem dois níveis de tubos de fluido: Ferro e Dourado.",
 
   "book.energizedpower.page.fluid_tanks.1": "Os tanques de fluido podem armazenar fluidos.",
   "book.energizedpower.page.fluid_tanks.2": "Existem três níveis de tanques de fluido: Pequeno, Médio e Grande.",

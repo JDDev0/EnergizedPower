@@ -59,8 +59,11 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER);
         dropSelf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
+        dropSelf(EPBlocks.COPPER_FLUID_PIPE);
         dropSelf(EPBlocks.IRON_FLUID_PIPE);
         dropSelf(EPBlocks.GOLDEN_FLUID_PIPE);
+        dropSelf(EPBlocks.STEEL_FLUID_PIPE);
+        dropSelf(EPBlocks.PRESSURIZED_FLUID_PIPE);
 
         dropSelf(EPBlocks.FLUID_TANK_SMALL);
         dropSelf(EPBlocks.FLUID_TANK_MEDIUM);

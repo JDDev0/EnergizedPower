@@ -1516,6 +1516,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         }, new ItemStack(EPBlocks.ITEM_SILO_GIANT_ITEM), CraftingBookCategory.MISC);
     }
     private void buildFluidTransportCraftingRecipes() {
+        addShapedCraftingRecipe(has(CommonItemTags.PLATES_COPPER), Map.of(
+                'C', ingredientOf(ConventionalItemTags.COPPER_INGOTS),
+                'c', ingredientOf(CommonItemTags.PLATES_COPPER)
+        ), new String[] {
+                "CcC",
+                "CcC",
+                "CcC"
+        }, new ItemStack(EPBlocks.COPPER_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                         'I', ingredientOf(ConventionalItemTags.IRON_INGOTS),
                         'i', ingredientOf(CommonItemTags.PLATES_IRON)
@@ -1534,6 +1543,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "GgG",
                 "GgG"
         }, new ItemStack(EPBlocks.GOLDEN_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(CommonItemTags.PLATES_STEEL), Map.of(
+                'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
+                's', ingredientOf(CommonItemTags.PLATES_STEEL)
+        ), new String[] {
+                "SsS",
+                "SsS",
+                "SsS"
+        }, new ItemStack(EPBlocks.STEEL_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                 'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
@@ -3171,6 +3189,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD), 6)
         }, new ItemStack(EPItems.SUPERCONDUCTOR, 3));
+
+        addAssemblingMachineRecipe(new IngredientWithCount[] {
+                new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY), 3),
+                new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY), 6),
+                new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 2)
+        }, new ItemStack(EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM, 12));
     }
 
     private void buildFluidFreezerRecipe() {

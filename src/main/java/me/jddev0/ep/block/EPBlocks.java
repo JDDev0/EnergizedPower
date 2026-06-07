@@ -133,6 +133,11 @@ public final class EPBlocks {
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE)));
     public static final Item EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("express_item_conveyor_belt_merger", EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
+    public static final FluidPipeBlock COPPER_FLUID_PIPE = registerBlock("copper_fluid_pipe",
+            new FluidPipeBlock(FluidPipeTier.COPPER));
+    public static final Item COPPER_FLUID_PIPE_ITEM = createBlockItem("copper_fluid_pipe",
+            new FluidPipeBlock.Item(COPPER_FLUID_PIPE, new Item.Properties(), FluidPipeTier.COPPER));
+
     public static final FluidPipeBlock IRON_FLUID_PIPE = registerBlock("fluid_pipe",
             new FluidPipeBlock(FluidPipeTier.IRON));
     public static final Item IRON_FLUID_PIPE_ITEM = createBlockItem("fluid_pipe",
@@ -142,6 +147,16 @@ public final class EPBlocks {
             new FluidPipeBlock(FluidPipeTier.GOLDEN));
     public static final Item GOLDEN_FLUID_PIPE_ITEM = createBlockItem("golden_fluid_pipe",
             new FluidPipeBlock.Item(GOLDEN_FLUID_PIPE, new Item.Properties(), FluidPipeTier.GOLDEN));
+
+    public static final FluidPipeBlock STEEL_FLUID_PIPE = registerBlock("steel_fluid_pipe",
+            new FluidPipeBlock(FluidPipeTier.STEEL));
+    public static final Item STEEL_FLUID_PIPE_ITEM = createBlockItem("steel_fluid_pipe",
+            new FluidPipeBlock.Item(STEEL_FLUID_PIPE, new Item.Properties(), FluidPipeTier.STEEL));
+
+    public static final FluidPipeBlock PRESSURIZED_FLUID_PIPE = registerBlock("pressurized_fluid_pipe",
+            new FluidPipeBlock(FluidPipeTier.PRESSURIZED));
+    public static final Item PRESSURIZED_FLUID_PIPE_ITEM = createBlockItem("pressurized_fluid_pipe",
+            new FluidPipeBlock.Item(PRESSURIZED_FLUID_PIPE, new Item.Properties(), FluidPipeTier.PRESSURIZED));
 
     public static final FluidTankBlock FLUID_TANK_SMALL = registerBlock("fluid_tank_small",
             new FluidTankBlock(FluidTankTier.SMALL));

@@ -56,8 +56,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
 
+                        EPBlocks.COPPER_FLUID_PIPE,
                         EPBlocks.IRON_FLUID_PIPE,
                         EPBlocks.GOLDEN_FLUID_PIPE,
+                        EPBlocks.STEEL_FLUID_PIPE,
+                        EPBlocks.PRESSURIZED_FLUID_PIPE,
 
                         EPBlocks.FLUID_TANK_SMALL,
                         EPBlocks.FLUID_TANK_MEDIUM,
@@ -212,8 +215,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
 
+                        EPBlocks.COPPER_FLUID_PIPE,
                         EPBlocks.IRON_FLUID_PIPE,
                         EPBlocks.GOLDEN_FLUID_PIPE,
+                        EPBlocks.STEEL_FLUID_PIPE,
+                        EPBlocks.PRESSURIZED_FLUID_PIPE,
 
                         EPBlocks.FLUID_TANK_SMALL,
                         EPBlocks.FLUID_TANK_MEDIUM,
