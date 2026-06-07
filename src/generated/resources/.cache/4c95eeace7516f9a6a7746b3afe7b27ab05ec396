@@ -1,4 +1,5 @@
-// 1.21.1	2026-06-07T23:15:53.357630652	Block States: energizedpower
+// 1.21.1	2026-06-07T23:25:07.627008998	Block States: energizedpower
+7322e5c4df083e7c8d41a3351ebc26ad808786ba assets/energizedpower/blockstates/advanced_alloy_block.json
 17d8a7f18babcbfd9d78be66322d8351cea4f8c8 assets/energizedpower/blockstates/advanced_auto_crafter.json
 431bbedc3e5848b5d3478d29a91aedb2cf90ff2d assets/energizedpower/blockstates/advanced_battery_box.json
 da3d4a1adaa4fdc26c79956846ca7699770326cd assets/energizedpower/blockstates/advanced_charger.json
@@ -123,6 +124,7 @@ a532890296600fb3bff60b697c7115787f5bfe25 assets/energizedpower/blockstates/trans
 94e4dbe28dc38eec0c1fb4971fb4e7d8459cf434 assets/energizedpower/blockstates/transformer_n_to_1.json
 d784754720bfba0522b39eedec57f7391ddb7b84 assets/energizedpower/blockstates/uncharger.json
 9d74b2080d14dd3a7d3a886f995aa96f3c7eecf4 assets/energizedpower/blockstates/weather_controller.json
+2e064a1d9fedbfe34adf5b402a6707f1798dd3fd assets/energizedpower/models/block/advanced_alloy_block.json
 6f36a2f534f87b761590cfa19400466cf4a54f74 assets/energizedpower/models/block/advanced_auto_crafter.json
 f1497f48a4c2660300834ad4ebb45364a4b75fec assets/energizedpower/models/block/advanced_battery_box.json
 836978c107fbbd6e3d70b007144e21262fc60bd5 assets/energizedpower/models/block/advanced_charger.json
@@ -308,6 +310,7 @@ dad2d2229703f9d45bdc8fc5004d9b5f6b22f59b assets/energizedpower/models/block/tran
 116359dbe8c81977706a3b5c86b546919f7cd683 assets/energizedpower/models/block/transformer_n_to_1.json
 b9a19ee54aaed9e74f418bc8616ceec1b61bd233 assets/energizedpower/models/block/uncharger.json
 b02a57ec0e07fd07dc95d0536274520afe25d6a8 assets/energizedpower/models/block/weather_controller.json
+bb95a348453d0c3997afe26e9bb65d8e0fe74bb8 assets/energizedpower/models/item/advanced_alloy_block.json
 1bc2ae83cdb5b47099d7ae883b3245d8d2de20cd assets/energizedpower/models/item/advanced_auto_crafter.json
 c627f21f876747e35b293160f51dae1daf4b53ec assets/energizedpower/models/item/advanced_battery_box.json
 d89b7e2d9d82ae666d1a1bd69efa52acdc59d613 assets/energizedpower/models/item/advanced_charger.json

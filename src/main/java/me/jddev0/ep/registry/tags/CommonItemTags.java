@@ -19,6 +19,8 @@ public final class CommonItemTags {
             ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/tin"));
     public static final TagKey<Item> STORAGE_BLOCKS_STEEL = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/steel"));
+    public static final TagKey<Item> STORAGE_BLOCKS_ADVANCED_ALLOY = TagKey.create(Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/advanced_alloy"));
 
     public static final TagKey<Item> RAW_MATERIALS_TIN = TagKey.create(Registries.ITEM,
             ResourceLocation.fromNamespaceAndPath("c", "raw_materials/tin"));

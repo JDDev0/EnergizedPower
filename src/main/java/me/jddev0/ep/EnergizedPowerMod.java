@@ -290,6 +290,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.SILICON_BLOCK_ITEM);
             event.accept(EPBlocks.TIN_BLOCK_ITEM);
             event.accept(EPBlocks.STEEL_BLOCK_ITEM);
+            event.accept(EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM);
             event.accept(EPBlocks.SAWDUST_BLOCK_ITEM);
             event.accept(EPItems.CABLE_INSULATOR);
             event.accept(EPItems.CHARCOAL_FILTER);

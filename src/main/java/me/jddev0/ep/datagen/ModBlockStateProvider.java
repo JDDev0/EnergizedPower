@@ -116,6 +116,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         cubeAllBlockWithItem(EPBlocks.TIN_BLOCK);
         cubeAllBlockWithItem(EPBlocks.STEEL_BLOCK);
+        cubeAllBlockWithItem(EPBlocks.ADVANCED_ALLOY_BLOCK);
 
         cubeAllBlockWithItem(EPBlocks.SAWDUST_BLOCK);
 

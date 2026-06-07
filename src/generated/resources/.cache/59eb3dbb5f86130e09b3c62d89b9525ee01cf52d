@@ -1,4 +1,5 @@
-// 1.21.1	2026-06-07T23:15:53.351749128	Loot Tables
+// 1.21.1	2026-06-07T23:25:07.62249606	Loot Tables
+72200bb34e5b90912d73801f199f8d1ba1d5f73f data/energizedpower/loot_table/blocks/advanced_alloy_block.json
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
 d38f5e962e7380883f3915f2c1a171a33c454779 data/energizedpower/loot_table/blocks/advanced_charger.json

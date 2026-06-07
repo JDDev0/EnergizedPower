@@ -130,6 +130,13 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 ingredientOf(CommonItemTags.INGOTS_STEEL), EPBlocks.STEEL_BLOCK_ITEM,
                 CraftingBookCategory.MISC, "", "");
 
+        add3x3UnpackingCraftingRecipe(has(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY), EPItems.ADVANCED_ALLOY_INGOT,
+                CraftingBookCategory.MISC, "", "");
+        add3x3PackingCraftingRecipe(has(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY), EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM,
+                CraftingBookCategory.MISC, "", "");
+
         add3x3UnpackingCraftingRecipe(has(CommonItemTags.STORAGE_BLOCKS_RAW_TIN),
                 ingredientOf(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), EPItems.RAW_TIN,
                 CraftingBookCategory.MISC, "", "");
@@ -2616,9 +2623,10 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_STEEL),
                 ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL), new ItemStack(EPItems.STEEL_PLATE.get()),
                 "steel");
+        addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY), new ItemStack(EPItems.ADVANCED_ALLOY_PLATE.get()),
+                "advanced_alloy");
 
-        addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
-                new ItemStack(EPItems.ADVANCED_ALLOY_PLATE.get()), "advanced_alloy");
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
                 new ItemStack(EPItems.CRYSTALLIZED_ALLOY_PLATE.get()), "crystallized_alloy");
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER),
