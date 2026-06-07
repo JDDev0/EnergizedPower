@@ -75,6 +75,8 @@ public final class CommonItemTags {
             Identifier.fromNamespaceAndPath("c", "ingots/redstone_alloy"));
     public static final TagKey<Item> INGOTS_ADVANCED_ALLOY = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath("c", "ingots/advanced_alloy"));
+    public static final TagKey<Item> INGOTS_CRYSTALLIZED_ALLOY = TagKey.create(Registries.ITEM,
+            Identifier.fromNamespaceAndPath("c", "ingots/crystallized_alloy"));
     public static final TagKey<Item> INGOTS_ENERGIZED_COPPER = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath("c", "ingots/energized_copper"));
     public static final TagKey<Item> INGOTS_ENERGIZED_GOLD = TagKey.create(Registries.ITEM,
@@ -95,6 +97,8 @@ public final class CommonItemTags {
             Identifier.fromNamespaceAndPath("c", "plates/gold"));
     public static final TagKey<Item> PLATES_ADVANCED_ALLOY = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath("c", "plates/advanced_alloy"));
+    public static final TagKey<Item> PLATES_CRYSTALLIZED_ALLOY = TagKey.create(Registries.ITEM,
+            Identifier.fromNamespaceAndPath("c", "plates/crystallized_alloy"));
     public static final TagKey<Item> PLATES_ENERGIZED_COPPER = TagKey.create(Registries.ITEM,
             Identifier.fromNamespaceAndPath("c", "plates/energized_copper"));
     public static final TagKey<Item> PLATES_ENERGIZED_GOLD = TagKey.create(Registries.ITEM,

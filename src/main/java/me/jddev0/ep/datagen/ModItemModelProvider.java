@@ -62,7 +62,11 @@ class ModItemModelProvider {
 
         basicItem(EPItems.ADVANCED_ALLOY_INGOT);
 
+        basicItem(EPItems.CRYSTALLIZED_ALLOY_INGOT);
+
         basicItem(EPItems.ADVANCED_ALLOY_PLATE);
+
+        basicItem(EPItems.CRYSTALLIZED_ALLOY_PLATE);
 
         basicItem(EPItems.IRON_GEAR);
 

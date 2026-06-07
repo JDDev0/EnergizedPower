@@ -32,8 +32,10 @@
 
   "item.energizedpower.redstone_alloy_ingot": "Lingote de aleación de redstone",
   "item.energizedpower.advanced_alloy_ingot": "Lingote de aleación avanzada",
+  "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
   "item.energizedpower.advanced_alloy_plate": "Lámina de aleación avanzada",
+  "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "Engrane de hierro",
 
@@ -975,8 +977,14 @@
   "advancements.energizedpower.advanced_alloy_ingot.title": "Advanced Alloy Ingot",
   "advancements.energizedpower.advanced_alloy_ingot.description": "Create an Advanced Alloy Ingot.",
 
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
+
   "advancements.energizedpower.advanced_alloy_plate.title": "Advanced Alloy Plate",
   "advancements.energizedpower.advanced_alloy_plate.description": "Create an Advanced Alloy Plate.",
+
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
 
   "advancements.energizedpower.auto_crafter.title": "Automation is the future",
   "advancements.energizedpower.auto_crafter.description": "Who needs manual crafting tables when this block can do it automatically?",

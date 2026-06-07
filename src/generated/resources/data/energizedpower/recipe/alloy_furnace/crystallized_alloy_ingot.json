@@ -1,0 +1,21 @@
+{
+  "type": "energizedpower:alloy_furnace",
+  "ingredients": [
+    {
+      "count": 2,
+      "ingredient": "#c:gems/crystallized_lapis_lazuli"
+    },
+    {
+      "count": 2,
+      "ingredient": "energizedpower:crystal_matrix"
+    },
+    {
+      "count": 2,
+      "ingredient": "#c:ingots/advanced_alloy"
+    }
+  ],
+  "result": {
+    "id": "energizedpower:crystallized_alloy_ingot"
+  },
+  "ticks": 20000
+}

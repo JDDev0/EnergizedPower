@@ -192,6 +192,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(CommonItemTags.INGOTS_STEEL).
                 addTag(CommonItemTags.INGOTS_REDSTONE_ALLOY).
                 addTag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
+                addTag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD);
         valueLookupBuilder(CommonItemTags.INGOTS_TIN).
@@ -202,6 +203,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 add(EPItems.REDSTONE_ALLOY_INGOT);
         valueLookupBuilder(CommonItemTags.INGOTS_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_INGOT);
+        valueLookupBuilder(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
+                add(EPItems.CRYSTALLIZED_ALLOY_INGOT);
         valueLookupBuilder(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_INGOT);
         valueLookupBuilder(CommonItemTags.INGOTS_ENERGIZED_GOLD).
@@ -218,6 +221,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(CommonItemTags.PLATES_IRON).
                 addTag(CommonItemTags.PLATES_GOLD).
                 addTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
+                addTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 addTag(CommonItemTags.PLATES_ENERGIZED_GOLD);
         valueLookupBuilder(CommonItemTags.PLATES_TIN).
@@ -230,6 +234,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 add(EPItems.GOLD_PLATE);
         valueLookupBuilder(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_PLATE);
+        valueLookupBuilder(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
+                add(EPItems.CRYSTALLIZED_ALLOY_PLATE);
         valueLookupBuilder(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_PLATE);
         valueLookupBuilder(CommonItemTags.PLATES_ENERGIZED_GOLD).
