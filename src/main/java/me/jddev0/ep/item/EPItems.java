@@ -70,7 +70,13 @@ public final class EPItems {
     public static final DeferredItem<Item> ADVANCED_ALLOY_INGOT = ITEMS.register("advanced_alloy_ingot",
             () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> CRYSTALLIZED_ALLOY_INGOT = ITEMS.register("crystallized_alloy_ingot",
+            () -> new Item(new Item.Properties()));
+
     public static final DeferredItem<Item> ADVANCED_ALLOY_PLATE = ITEMS.register("advanced_alloy_plate",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> CRYSTALLIZED_ALLOY_PLATE = ITEMS.register("crystallized_alloy_plate",
             () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> IRON_GEAR = ITEMS.register("iron_gear",

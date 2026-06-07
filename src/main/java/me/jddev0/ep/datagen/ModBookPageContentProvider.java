@@ -270,6 +270,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/iron_plate.png"),
                 EPAPI.id("textures/item/gold_plate.png"),
                 EPAPI.id("textures/item/advanced_alloy_plate.png"),
+                EPAPI.id("textures/item/crystallized_alloy_plate.png"),
                 EPAPI.id("textures/item/energized_copper_plate.png"),
                 EPAPI.id("textures/item/energized_gold_plate.png")
         });
@@ -280,7 +281,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ), new ResourceLocation[] {
                 EPAPI.id("textures/item/steel_ingot.png"),
                 EPAPI.id("textures/item/redstone_alloy_ingot.png"),
-                EPAPI.id("textures/item/advanced_alloy_ingot.png")
+                EPAPI.id("textures/item/advanced_alloy_ingot.png"),
+                EPAPI.id("textures/item/crystallized_alloy_ingot.png")
         });
 
         addSimplePage(pageId("metal_products"), Component.empty().append(

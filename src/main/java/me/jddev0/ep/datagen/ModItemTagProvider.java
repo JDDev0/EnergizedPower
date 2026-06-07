@@ -168,6 +168,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.INGOTS_STEEL).
                 addTag(CommonItemTags.INGOTS_REDSTONE_ALLOY).
                 addTag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
+                addTag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD);
         tag(CommonItemTags.INGOTS_TIN).
@@ -178,6 +179,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.REDSTONE_ALLOY_INGOT.get());
         tag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_INGOT.get());
+        tag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
+                add(EPItems.CRYSTALLIZED_ALLOY_INGOT.get());
         tag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_INGOT.get());
         tag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
@@ -194,6 +197,7 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.PLATES_IRON).
                 addTag(CommonItemTags.PLATES_GOLD).
                 addTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
+                addTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 addTag(CommonItemTags.PLATES_ENERGIZED_GOLD);
         tag(CommonItemTags.PLATES_TIN).
@@ -206,6 +210,8 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 add(EPItems.GOLD_PLATE.get());
         tag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_PLATE.get());
+        tag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
+                add(EPItems.CRYSTALLIZED_ALLOY_PLATE.get());
         tag(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_PLATE.get());
         tag(CommonItemTags.PLATES_ENERGIZED_GOLD).

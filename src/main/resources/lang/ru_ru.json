@@ -32,8 +32,10 @@
 
   "item.energizedpower.redstone_alloy_ingot": "Слиток редстоунового сплава",
   "item.energizedpower.advanced_alloy_ingot": "Слиток продвинутого сплава",
+  "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
   "item.energizedpower.advanced_alloy_plate": "Пластина из продвинутого сплава",
+  "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "Железная шестерня",
 
@@ -975,8 +977,14 @@
   "advancements.energizedpower.advanced_alloy_ingot.title": "Слиток продвинутого сплава",
   "advancements.energizedpower.advanced_alloy_ingot.description": "Создайте слиток из продвинутого сплава.",
 
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
+
   "advancements.energizedpower.advanced_alloy_plate.title": "Пластина из продвинутого сплава",
   "advancements.energizedpower.advanced_alloy_plate.description": "Создайте пластину из продвинутого сплава.",
+
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
 
   "advancements.energizedpower.auto_crafter.title": "Автоматизация — это будущее",
   "advancements.energizedpower.auto_crafter.description": "Кому нужны ручные верстаки, если этот блок может делать это автоматически?",

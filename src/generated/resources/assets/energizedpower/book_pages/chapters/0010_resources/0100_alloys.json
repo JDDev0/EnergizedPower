@@ -13,6 +13,7 @@
   "image": [
     "energizedpower:textures/item/steel_ingot.png",
     "energizedpower:textures/item/redstone_alloy_ingot.png",
-    "energizedpower:textures/item/advanced_alloy_ingot.png"
+    "energizedpower:textures/item/advanced_alloy_ingot.png",
+    "energizedpower:textures/item/crystallized_alloy_ingot.png"
   ]
 }

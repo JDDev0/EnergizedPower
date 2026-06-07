@@ -32,8 +32,10 @@
 
   "item.energizedpower.redstone_alloy_ingot": "Redstone-Legierungs-Barren",
   "item.energizedpower.advanced_alloy_ingot": "Fortgeschrittener Legierungs-Barren",
+  "item.energizedpower.crystallized_alloy_ingot": "Kristallisierter Legierungs-Barren",
 
   "item.energizedpower.advanced_alloy_plate": "Fortgeschrittene Legierungs-Platte",
+  "item.energizedpower.crystallized_alloy_plate": "Kristallisierte Legierungs-Platte",
 
   "item.energizedpower.iron_rod": "Eisenstange",
 
@@ -973,10 +975,16 @@
   "advancements.energizedpower.redstone_alloy_ingot.description": "Stelle einen Redstone-Legierungs-Barren her.",
 
   "advancements.energizedpower.advanced_alloy_ingot.title": "Fortgeschrittener Legierungs-Barren",
-  "advancements.energizedpower.advanced_alloy_ingot.description": "Stelle einen Fortgeschrittener Legierungs-Barren her.",
+  "advancements.energizedpower.advanced_alloy_ingot.description": "Stelle einen Fortgeschrittenen Legierungs-Barren her.",
+
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Kristallisierter Legierungs-Barren",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Stelle einen Kristallisierten Legierungs-Barren her.",
 
   "advancements.energizedpower.advanced_alloy_plate.title": "Fortgeschrittene Legierungs-Platte",
   "advancements.energizedpower.advanced_alloy_plate.description": "Stelle eine Fortgeschrittene Legierungs-Platte her.",
+
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Kristallisierte Legierungs-Platte",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Stelle eine Kristallisierte Legierungs-Platte her.",
 
   "advancements.energizedpower.auto_crafter.title": "Automatisierung ist die Zukunft",
   "advancements.energizedpower.auto_crafter.description": "Wer braucht schon manuelles Herstellen, wenn dieser Block das automatisch kann?",

@@ -1,0 +1,27 @@
+{
+  "type": "energizedpower:alloy_furnace",
+  "inputs": [
+    {
+      "count": 2,
+      "input": {
+        "tag": "c:gems/crystallized_lapis_lazuli"
+      }
+    },
+    {
+      "count": 2,
+      "input": {
+        "item": "energizedpower:crystal_matrix"
+      }
+    },
+    {
+      "count": 2,
+      "input": {
+        "tag": "c:ingots/advanced_alloy"
+      }
+    }
+  ],
+  "output": {
+    "item": "energizedpower:crystallized_alloy_ingot"
+  },
+  "ticks": 20000
+}

@@ -32,8 +32,10 @@
 
   "item.energizedpower.redstone_alloy_ingot": "レッドストーン合金インゴット",
   "item.energizedpower.advanced_alloy_ingot": "超合金インゴット",
+  "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
 
   "item.energizedpower.advanced_alloy_plate": "超合金の板",
+  "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
 
   "item.energizedpower.iron_gear": "鉄の歯車",
 
@@ -975,8 +977,14 @@
   "advancements.energizedpower.advanced_alloy_ingot.title": "超合金インゴット",
   "advancements.energizedpower.advanced_alloy_ingot.description": "超合金インゴットを作成する",
 
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
+
   "advancements.energizedpower.advanced_alloy_plate.title": "超合金の板",
   "advancements.energizedpower.advanced_alloy_plate.description": "超合金の板を作成する",
+
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
 
   "advancements.energizedpower.auto_crafter.title": "自動化の幕開け",
   "advancements.energizedpower.auto_crafter.description": "このブロックが自動でこなしてくれるのに、まだ作業台を使ってるの？（笑）",
