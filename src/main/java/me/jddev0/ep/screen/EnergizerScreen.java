@@ -34,7 +34,7 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
     }
 
     private void renderActiveOverlay(GuiGraphics drawContext, int x, int y) {
-        if(menu.isCrafting()) {
+        if(menu.isCraftingActive()) {
             drawContext.blit(MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50);
         }
     }
