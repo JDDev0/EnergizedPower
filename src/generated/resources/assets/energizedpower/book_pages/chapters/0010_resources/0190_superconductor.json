@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.superconductor"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/superconductor.png"
+}
