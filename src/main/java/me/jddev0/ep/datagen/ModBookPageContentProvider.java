@@ -392,6 +392,38 @@ public class ModBookPageContentProvider extends PageContentProvider {
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPAPI.id("textures/item/energized_crystal_matrix.png"), changePageIntToId);
         }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("crystallized_lapis_lazuli"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.crystallized_lapis_lazuli").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+            ), EPAPI.id("textures/item/crystallized_lapis_lazuli.png"), changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("energized_alloy_ingot"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.energized_alloy_ingot").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+            ), EPAPI.id("textures/item/energized_alloy_ingot.png"), changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("coolant_cell"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.coolant_cell").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+            ), EPAPI.id("textures/item/coolant_cell.png"), changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("superconductor"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.superconductor").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+            ), EPAPI.id("textures/item/superconductor.png"), changePageIntToId);
+        }
     }
     private void registerUpgradesChapter() {
         chapterId("upgrades");
