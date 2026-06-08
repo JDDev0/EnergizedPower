@@ -178,7 +178,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "CBC"
         }, new ItemStackTemplate(EPItems.BASIC_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(has(EPItems.ADVANCED_CIRCUIT), Map.of(
+        addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
                 'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
                 'A', ingredientOf(EPItems.ADVANCED_CIRCUIT),
@@ -189,7 +189,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "CAC"
         }, new ItemStackTemplate(EPItems.ADVANCED_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
+        addShapedCraftingRecipe(has(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
                 'g', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
                 'P', ingredientOf(EPItems.PROCESSING_UNIT),
