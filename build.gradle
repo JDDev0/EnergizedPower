@@ -144,7 +144,7 @@ publishing {
 publishMods {
 	displayName = "Energized Power - " + "1.21.1" + " - v" + project.mod_version.split("\\+")[0] + " [Fabric]"
 	changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
-	type = STABLE
+	type = BETA //TODO change to STABLE if v3.0.0 is no longer in beta
 	file = remapJar.archiveFile
 	modLoaders.add("fabric")
 
