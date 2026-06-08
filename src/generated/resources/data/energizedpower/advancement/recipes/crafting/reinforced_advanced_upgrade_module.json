@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "energizedpower:reinforced_advanced_upgrade_module"
+            "items": "energizedpower:advanced_upgrade_module"
           }
         ]
       },
