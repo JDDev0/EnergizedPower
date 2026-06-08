@@ -1525,6 +1525,14 @@
 
   "book.energizedpower.page.energized_crystal_matrix": "充能水晶矩阵在一些高级机器中用作稳定器。",
 
+  "book.energizedpower.page.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli is the key component in the best machines.",
+
+  "book.energizedpower.page.energized_alloy_ingot": "The Energized Alloy Ingot is the most powerful alloy in Energized Power.",
+
+  "book.energizedpower.page.coolant_cell": "Coolant Cells are used to cool the most powerful machines.",
+
+  "book.energizedpower.page.superconductor": "Superconductors are used for the most efficient transmission of electricity.",
+
 
   "book.energizedpower.page.chapter.upgrades.title": "升级",
   "book.energizedpower.page.chapter.upgrades": "升级模块可以改进机器",

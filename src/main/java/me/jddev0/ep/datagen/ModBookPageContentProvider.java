@@ -339,6 +339,26 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.energized_crystal_matrix").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), EPAPI.id("textures/item/energized_crystal_matrix.png"));
+
+        addSimplePage(pageId("crystallized_lapis_lazuli"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.crystallized_lapis_lazuli").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+        ), EPAPI.id("textures/item/crystallized_lapis_lazuli.png"));
+
+        addSimplePage(pageId("energized_alloy_ingot"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.energized_alloy_ingot").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+        ), EPAPI.id("textures/item/energized_alloy_ingot.png"));
+
+        addSimplePage(pageId("coolant_cell"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.coolant_cell").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+        ), EPAPI.id("textures/item/coolant_cell.png"));
+
+        addSimplePage(pageId("superconductor"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.superconductor").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+        ), EPAPI.id("textures/item/superconductor.png"));
     }
     private void registerUpgradesChapter() {
         chapterId("upgrades");
