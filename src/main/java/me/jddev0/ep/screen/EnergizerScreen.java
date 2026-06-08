@@ -36,7 +36,7 @@ public class EnergizerScreen
     }
 
     private void renderActiveOverlay(GuiGraphics guiGraphics, int x, int y) {
-        if(menu.isCrafting()) {
+        if(menu.isCraftingActive()) {
             guiGraphics.blit(MACHINE_SPRITES_TEXTURE, x + 31, y + 18, 96, 58, 50, 50);
         }
     }
