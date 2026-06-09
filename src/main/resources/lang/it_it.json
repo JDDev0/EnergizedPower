@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "Carretto da miniera con vano batteria",
   "entity.energizedpower.advanced_battery_box_minecart": "Carrello da miniera con batteria avanzata",
 
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
+
   "recipes.energizedpower.in_world_crafting": "Creazione nel mondo",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Camera di crescita (fertilizzante)",

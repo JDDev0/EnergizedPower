@@ -1306,6 +1306,8 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "成長速度 x%.2f",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "レシピの規模が大きすぎるため、この収納には収まりません！",
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "全アイテムの充電完了まであと%s必要です。",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "この機械は水を消費し、汚水を排出する。",
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "全レシピの実行に必要な電力: %s",

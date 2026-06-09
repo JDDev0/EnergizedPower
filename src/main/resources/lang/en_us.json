@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "Battery Box Minecart",
   "entity.energizedpower.advanced_battery_box_minecart": "Advanced Battery Box Minecart",
 
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
+
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Growth Chamber (Fertilizer)",

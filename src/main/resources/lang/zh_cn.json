@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "电池箱矿车",
   "entity.energizedpower.advanced_battery_box_minecart": "高级电池箱矿车",
 
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
+
   "recipes.energizedpower.in_world_crafting": "世界内合成",
   "recipes.energizedpower.info.ticks": "刻: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "生长室 (肥料)",

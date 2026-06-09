@@ -1306,6 +1306,8 @@
   "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Velocidad",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
   "recipes.energizedpower.transfer.too_large": "¡Esta receta es muy grande para este contenedor!",
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Estos objetos requieren %s para cargarse completamente.",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Esta máquina consume agua y produce agua sucia.",
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Estas recetas requieren %s.",
