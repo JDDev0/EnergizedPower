@@ -882,6 +882,7 @@
   "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "%.2fx Hız",
   "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
   "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "%.2fx Enerji Tüketimi",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
   "recipes.energizedpower.transfer.too_large": "Bu tarif bu konteyner için ÇOK büyük",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 

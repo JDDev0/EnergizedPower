@@ -1302,6 +1302,7 @@
   "recipes.energizedpower.in_world_crafting": "ワールドで作成",
   "recipes.energizedpower.info.ticks": "ティック: %d",
   "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "電力消費 x%.2f",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
   "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
   "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
   "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "成長速度 x%.2f",

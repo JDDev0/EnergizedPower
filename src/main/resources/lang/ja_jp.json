@@ -882,6 +882,7 @@
   "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "成長速度 x%.2f",
   "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
   "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "電力消費 x%.2f",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
   "recipes.energizedpower.transfer.too_large": "レシピの規模が大きすぎるため、この収納には収まりません！",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 

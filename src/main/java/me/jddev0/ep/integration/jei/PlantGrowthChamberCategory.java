@@ -5,8 +5,13 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.OutputItemStackTemplateWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
+import me.jddev0.ep.recipe.PlantGrowthChamberSoilRecipe;
+import me.jddev0.ep.registry.EPRegistries;
+import me.jddev0.ep.soil.SoilType;
+import me.jddev0.ep.util.FluidUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -19,12 +24,15 @@ import mezz.jei.api.recipe.types.IRecipeHolderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<PlantGrowthChamberRecipe>> {
     public static final IRecipeHolderType<PlantGrowthChamberRecipe> TYPE = IRecipeHolderType.create(PlantGrowthChamberRecipe.Type.INSTANCE);
@@ -33,8 +41,8 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     private final IDrawable icon;
 
     public PlantGrowthChamberCategory(IGuiHelper helper) {
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        background = helper.createDrawable(texture, 61, 25, 108, 48);
+        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        background = helper.createDrawable(texture, 116, 1, 139, 74);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
     }
@@ -66,7 +74,28 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PlantGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10).add(recipe.value().getInput());
+        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 1).add(recipe.value().getInput());
+
+        List<Holder<SoilType>> soilTypes = recipe.value().getSoilType().map(
+                soilType -> soilType.stream().
+                        map(st -> Minecraft.getInstance().level.registryAccess().getOrThrow(st)).
+                        collect(Collectors.toUnmodifiableList()),
+                soilType -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
+                            getOrThrow(soilType).stream().toList()
+        );
+
+        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = EnergizedPowerJEIPlugin.recipeMap.
+                byType(PlantGrowthChamberSoilRecipe.Type.INSTANCE);
+
+        IRecipeSlotBuilder soilSlot = iRecipeLayout.addSlot(RecipeIngredientRole.CRAFTING_STATION, 19, 19);
+
+        soilRecipes.stream().map(RecipeHolder::value).filter(soil -> soilTypes.stream().
+                        anyMatch(soilType -> soilType.is(soil.getSoilType()))).
+                forEach(soil -> soilSlot.add(soil.getInput()));
+
+        IRecipeSlotBuilder fluidSlot = iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10);
+        for(Fluid fluid:recipe.value().getFluid())
+            fluidSlot.add(fluid, 1000);
 
         List<List<ItemStack>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
@@ -113,11 +142,20 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
         background.draw(guiGraphics);
 
         Font font = Minecraft.getInstance().font;
+
         int ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
-        int textWidth = font.width(component);
 
-        guiGraphics.text(Minecraft.getInstance().font, component, 108 - textWidth, 40, 0xFFFFFFFF, false);
+        guiGraphics.text(font, component, 1, 38, 0xFFFFFFFF, true);
+
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.fluid_consumption");
+
+        guiGraphics.text(font, component, 1, 50, 0xFFFFFFFF, true);
+
+        double fluidConsumption = recipe.value().getFluidConsumption() * PlantGrowthChamberBlockEntity.FLUID_CONSUMPTION_MULTIPLIER;
+        component = Component.literal("-> " + FluidUtils.getFluidAmountWithPrefixSmallAndLarge(fluidConsumption) + "/t");
+
+        guiGraphics.text(font, component, 1, 62, 0xFFFFFFFF, true);
     }
 
     @Override

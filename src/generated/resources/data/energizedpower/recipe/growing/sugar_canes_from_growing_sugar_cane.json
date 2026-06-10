@@ -1,5 +1,7 @@
 {
   "type": "energizedpower:plant_growth_chamber",
+  "fluid": "minecraft:water",
+  "fluidConsumption": 0.0625,
   "ingredient": "minecraft:sugar_cane",
   "results": [
     {
@@ -17,5 +19,6 @@
       }
     }
   ],
-  "ticks": 16000
+  "soilType": "#energizedpower:sugar_cane_crops",
+  "ticks": 4000
 }
