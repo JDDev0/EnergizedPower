@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 2.0,
+  "fluidConsumptionMultiplier": 2.0,
+  "ingredient": [
+    "minecraft:gravel",
+    "minecraft:suspicious_gravel"
+  ],
+  "soilType": "energizedpower:gravel",
+  "speedMultiplier": 0.5
+}

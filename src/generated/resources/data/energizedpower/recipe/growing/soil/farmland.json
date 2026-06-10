@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 0.8,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": "minecraft:farmland",
+  "soilType": "energizedpower:farmland",
+  "speedMultiplier": 1.5
+}

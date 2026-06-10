@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": "minecraft:soul_sand",
+  "soilType": "energizedpower:soul_sand",
+  "speedMultiplier": 1.0
+}

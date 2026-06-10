@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": "minecraft:end_stone",
+  "soilType": "energizedpower:end_stone",
+  "speedMultiplier": 1.0
+}

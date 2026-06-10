@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": "minecraft:podzol",
+  "soilType": "energizedpower:podzol",
+  "speedMultiplier": 1.2
+}

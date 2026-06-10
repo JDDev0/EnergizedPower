@@ -50,6 +50,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new AssemblingMachineCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PlantGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PlantGrowthChamberFertilizerCategory(registration.getJeiHelpers().getGuiHelper()),
+                new PlantGrowthChamberSoilCategory(registration.getJeiHelpers().getGuiHelper()),
                 new EnergizerCategory(registration.getJeiHelpers().getGuiHelper()),
                 new CrystalGrowthChamberCategory(registration.getJeiHelpers().getGuiHelper()),
                 new PressMoldMakerCategory(registration.getJeiHelpers().getGuiHelper()),
@@ -112,6 +113,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
             registration.addRecipes(AssemblingMachineCategory.TYPE, new ArrayList<>(recipeMap.byType(AssemblingMachineRecipe.Type.INSTANCE)));
             registration.addRecipes(PlantGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.byType(PlantGrowthChamberRecipe.Type.INSTANCE)));
             registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, new ArrayList<>(recipeMap.byType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE)));
+            registration.addRecipes(PlantGrowthChamberSoilCategory.TYPE, new ArrayList<>(recipeMap.byType(PlantGrowthChamberSoilRecipe.Type.INSTANCE)));
             registration.addRecipes(EnergizerCategory.TYPE, new ArrayList<>(recipeMap.byType(EnergizerRecipe.Type.INSTANCE)));
             registration.addRecipes(CrystalGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.byType(CrystalGrowthChamberRecipe.Type.INSTANCE)));
             registration.addRecipes(PressMoldMakerCategory.TYPE, new ArrayList<>(recipeMap.byType(PressMoldMakerRecipe.Type.INSTANCE)));
@@ -170,6 +172,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addCraftingStation(AssemblingMachineCategory.TYPE, new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM.get()));
         registration.addCraftingStation(PlantGrowthChamberCategory.TYPE, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
         registration.addCraftingStation(PlantGrowthChamberFertilizerCategory.TYPE, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
+        registration.addCraftingStation(PlantGrowthChamberSoilCategory.TYPE, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
         registration.addCraftingStation(EnergizerCategory.TYPE, new ItemStack(EPBlocks.ENERGIZER_ITEM.get()));
         registration.addCraftingStation(CrystalGrowthChamberCategory.TYPE, new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()));
         registration.addCraftingStation(PressMoldMakerCategory.TYPE, new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM.get()));

@@ -106,6 +106,7 @@ public class EnergizedPowerMod {
                     AssemblingMachineRecipe.Type.INSTANCE,
                     PlantGrowthChamberRecipe.Type.INSTANCE,
                     PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
+                    PlantGrowthChamberSoilRecipe.Type.INSTANCE,
                     EnergizerRecipe.Type.INSTANCE,
                     CrystalGrowthChamberRecipe.Type.INSTANCE,
                     PressMoldMakerRecipe.Type.INSTANCE,
