@@ -3115,6 +3115,45 @@ public class ModRecipeGenerator extends RecipeProvider {
                         1., 1., .67, .17
                 })
         }, EPSoilTypeTags.SUGAR_CANE_CROPS, Fluids.WATER, 0.0625, 4000, "bamboo", "bamboo");
+
+        addPlantGrowthChamberRecipe(ingredientOf(Items.KELP), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.KELP), new double[] {
+                        1., 1., .67, .67, .33, .17, .17
+                })
+        }, EPSoilTypeTags.WATER_CROPS, Fluids.WATER, 0.25, 4000, "kelp", "kelp");
+
+        addPlantGrowthChamberRecipe(ingredientOf(Items.LILY_PAD), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.LILY_PAD), new double[] {
+                        1., .75, .25, .25
+                })
+        }, EPSoilTypeTags.WATER_CROPS, Fluids.WATER, 0.125, 4000, "lily_pads", "lily_pad");
+
+        addPlantGrowthChamberRecipe(ingredientOf(Items.SEA_PICKLE), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.SEA_PICKLE), new double[] {
+                        1., .75, .25, .25
+                })
+        }, EPSoilTypeTags.WATER_CROPS, Fluids.WATER, 0.25, 4000, "sea_pickles", "sea_pickle");
+
+        addPlantGrowthChamberRecipe(ingredientOf(Items.CACTUS), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.CACTUS), new double[] {
+                        1., 1., .75, .25, .125
+                }),
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.CACTUS_FLOWER), new double[] {
+                        .25
+                })
+        }, EPSoilTypeTags.DESERT_CROPS, Fluids.WATER, 0.001, 4000, "cactus", "cactus");
+
+        addPlantGrowthChamberRecipe(ingredientOf(Items.NETHER_WART), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.NETHER_WART), new double[] {
+                        1., .75, .25, .25
+                })
+        }, EPSoilTypeTags.NETHER_CROPS, Fluids.LAVA, 0.001, 4000, "nether_warts", "nether_wart");
+
+        addPlantGrowthChamberRecipe(ingredientOf(Items.CHORUS_FRUIT), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.CHORUS_FRUIT), new double[] {
+                        1., 1., .67, .67, .33, .17, .17
+                })
+        }, EPSoilTypeTags.END_CROPS, Fluids.WATER, 0.00000001, 4000, "chorus_fruits", "chorus_fruit");
     }
 
     private void buildPlantGrowthChamberFertilizerRecipes() {
