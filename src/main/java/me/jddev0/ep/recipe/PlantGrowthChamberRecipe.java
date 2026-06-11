@@ -15,24 +15,16 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.PlacementInfo;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final OutputItemStackTemplateWithPercentages[] outputs;
@@ -129,10 +121,20 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
 
     @Override
     public boolean matches(RecipeInput container, Level level) {
-        if(level.isClientSide())
+        if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return false;
 
-        return input.test(container.getItem(0));
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = serverLevel.recipeAccess().
+                getRecipeFor(EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE.get(), container, level);
+        if(soilRecipe.isEmpty())
+            return false;
+
+        ResourceKey<SoilType> soilType = soilRecipe.get().value().getSoilType();
+
+        return input.test(container.getItem(0)) && this.soilType.map(
+                st -> st.stream().anyMatch(sti -> sti.identifier().equals(soilType.identifier())),
+                st -> level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).getOrThrow(soilType).is(st)
+        );
     }
 
     @Override
