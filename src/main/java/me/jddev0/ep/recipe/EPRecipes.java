@@ -147,6 +147,10 @@ public final class EPRecipes {
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
             () -> TeleporterMatrixSettingsCopyRecipe.SERIALIZER);
 
+    public static final Supplier<RecipeSerializer<FarmlandCraftingRecipe>>
+            FARMLAND_CRAFTING_RECIPE_SERIALIZER = SERIALIZERS.register("farmland_crafting",
+            () -> FarmlandCraftingRecipe.SERIALIZER);
+
     private static Supplier<RecipeBookCategory> createRecipeCategory(String name) {
         return CATEGORIES.register(name, RecipeBookCategory::new);
     }
