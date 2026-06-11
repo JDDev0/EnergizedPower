@@ -1719,10 +1719,10 @@
   "book.energizedpower.page.assembling_machine.3": "As entradas podem ser inseridas de todos os lados (Cima/Baixo: Todos os slots de entrada, Frente: Slot inferior, Trás: Slot superior, Esquerda: Slot esquerdo, Direita: Slot direito).",
 
   "book.energizedpower.page.plant_growth_chamber.1": "A Câmara de Crescimento de Plantas pode impulsionar o crescimento e o rendimento das plantas.",
-  "book.energizedpower.page.plant_growth_chamber.2": "O slot de entrada direito é o slot de sementes.",
+  "book.energizedpower.page.plant_growth_chamber.2": "O slot de entrada direito é o slot de sementes. The bottom input slot is the soil slot.",
   "book.energizedpower.page.plant_growth_chamber.3": "O slot de entrada esquerdo, opcionalmente utilizável, é o slot de fertilizante.",
   "book.energizedpower.page.plant_growth_chamber.4": "Quando o slot de fertilizante é usado, multiplicadores de energia e velocidade são aplicados.",
-  "book.energizedpower.page.plant_growth_chamber.5": "As sementes podem ser inseridas pelo norte, leste, sul e oeste. Os fertilizantes podem ser inseridos por cima e por baixo. As saídas podem ser extraídas de todas as faces do bloco.",
+  "book.energizedpower.page.plant_growth_chamber.5": "As sementes podem ser inseridas pelo norte, leste, sul e oeste. Soils can be inserted from the top and bottom and can be extracted from the top. Os fertilizantes podem ser inseridos por cima e por baixo. As saídas podem ser extraídas de todas as faces do bloco.",
   "book.energizedpower.page.plant_growth_chamber.6": "Se você quiser usar um fertilizante, o fertilizante deve ser inserido primeiro.",
   "book.energizedpower.page.plant_growth_chamber.7": "Se você quiser automatizar esses blocos, lembre-se de que os rendimentos são aleatórios.",
 

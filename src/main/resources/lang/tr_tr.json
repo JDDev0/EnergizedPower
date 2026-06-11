@@ -1719,10 +1719,10 @@
   "book.energizedpower.page.assembling_machine.3": "Inputs can be inserted from all sides (Top/Bottom: All inputs slots, Front: Bottom slot, Back: Top slot, Left: Left slot, Right: Right slot).",
 
   "book.energizedpower.page.plant_growth_chamber.1": "Bitki Büyüme Odası bitki büyümesini ve verimini artırabilir.",
-  "book.energizedpower.page.plant_growth_chamber.2": "Sağ giriş yuvası tohum yuvasıdır.",
+  "book.energizedpower.page.plant_growth_chamber.2": "Sağ giriş yuvası tohum yuvasıdır. The bottom input slot is the soil slot.",
   "book.energizedpower.page.plant_growth_chamber.3": "Sol, isteğe bağlı olarak kullanılabilen giriş yuvası gübre yuvasıdır.",
   "book.energizedpower.page.plant_growth_chamber.4": "Gübre yuvası kullanıldığında, enerji ve hız çarpanları uygulanır.",
-  "book.energizedpower.page.plant_growth_chamber.5": "Tohumlar kuzeyden, doğudan, güneyden ve batıdan yerleştirilebilir. Gübreler üstten ve alttan eklenebilir. Çıktılar tüm blok yüzeylerinden alınabilir.",
+  "book.energizedpower.page.plant_growth_chamber.5": "Tohumlar kuzeyden, doğudan, güneyden ve batıdan yerleştirilebilir. Soils can be inserted from the top and bottom and can be extracted from the top. Gübreler üstten ve alttan eklenebilir. Çıktılar tüm blok yüzeylerinden alınabilir.",
   "book.energizedpower.page.plant_growth_chamber.6": "Eğer bir gübre kullanmak istiyorsanız, önce gübre yerleştirilmelidir.",
   "book.energizedpower.page.plant_growth_chamber.7": "Bu blokları otomatikleştirmek isterseniz, verimlerin rastgele olduğunu aklınızda bulundurmanız gerekir.",
 
