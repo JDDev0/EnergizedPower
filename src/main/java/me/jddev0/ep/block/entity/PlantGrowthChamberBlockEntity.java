@@ -117,6 +117,14 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
                 setChanged();
             }
+
+            @Override
+            public int getCapacity(int index, ItemResource resource) {
+                if(index == 6)
+                    return 1;
+
+                return super.getCapacity(index, resource);
+            }
         };
     }
 
