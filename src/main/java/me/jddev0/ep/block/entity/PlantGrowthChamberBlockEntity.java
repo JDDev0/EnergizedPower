@@ -1,20 +1,17 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
-import me.jddev0.ep.recipe.EPRecipes;
-import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
-import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.DoubleTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -22,8 +19,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,15 +32,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, PlantGrowthChamberRecipe> {
+public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlockEntity<FluidTank, RecipeInput, PlantGrowthChamberRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
+    public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_TANK_CAPACITY.getValue();
     public static final double FLUID_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER.getValue();
 
-    private final IItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
-    private final IItemHandler itemHandlerTopBottomSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 1 && i < 6);
+    private final InputOutputItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
+    private final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler,
+            (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 7);
+    private final InputOutputItemHandler itemHandlerBottomSided = new InputOutputItemHandler(itemHandler,
+            (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 6);
 
+    private double leftoverFluidConsumption = 0;
     private double fertilizerSpeedMultiplier = 1;
     private double fertilizerEnergyConsumptionMultiplier = 1;
+    private double fertilizerFluidConsumptionMultiplier = 1;
 
     public PlantGrowthChamberBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -48,11 +54,14 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
                 "plant_growth_chamber", PlantGrowthChamberMenu::new,
 
-                6, EPRecipes.PLANT_GROWTH_CHAMBER_TYPE.get(), 1,
+                7, EPRecipes.PLANT_GROWTH_CHAMBER_TYPE.get(), 1,
 
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_CAPACITY.getValue(),
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
+
+                FluidStorageSingleTankMethods.INSTANCE,
+                TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -75,6 +84,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberRecipe.Type.INSTANCE, stack);
                     case 1 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
+                    case 6 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberSoilRecipe.Type.INSTANCE, stack);
                     case 2, 3, 4, 5 -> false;
                     default -> super.isItemValid(slot, stack);
                 };
@@ -94,14 +104,42 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         };
     }
 
+    @Override
+    protected FluidTank initFluidStorage() {
+        return new FluidTank(baseTankCapacity) {
+            @Override
+            protected void onContentsChanged() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+
+            @Override
+            public boolean isFluidValid(FluidStack stack) {
+                if(!super.isFluidValid(stack) || level == null)
+                    return false;
+
+                return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
+                        map(PlantGrowthChamberRecipe::getFluid).
+                        anyMatch(fluids -> Arrays.stream(fluids).anyMatch(fluid -> stack.getFluid() == fluid));
+            }
+        };
+    }
+
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        if(side == Direction.UP || side == Direction.DOWN)
-            return itemHandlerTopBottomSided;
+        if(side == Direction.UP)
+            return itemHandlerTopSided;
+
+        if(side == Direction.DOWN)
+            return itemHandlerBottomSided;
 
         return itemHandlerSidesSided;
+    }
+
+    public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
+        return fluidStorage;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
@@ -112,34 +150,59 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
 
-        nbt.put("recipe.speed_multiplier", DoubleTag.valueOf(fertilizerSpeedMultiplier));
-        nbt.put("recipe.energy_consumption_multiplier", DoubleTag.valueOf(fertilizerEnergyConsumptionMultiplier));
+        nbt.putDouble("recipe.leftover_fluid_consumption", leftoverFluidConsumption);
+
+        nbt.putDouble("recipe.speed_multiplier", fertilizerSpeedMultiplier);
+        nbt.putDouble("recipe.energy_consumption_multiplier", fertilizerEnergyConsumptionMultiplier);
+        nbt.putDouble("recipe.fluid_consumption_multiplier", fertilizerFluidConsumptionMultiplier);
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
+        leftoverFluidConsumption = nbt.getDouble("recipe.leftover_fluid_consumption");
+
         fertilizerSpeedMultiplier = nbt.getDouble("recipe.speed_multiplier");
         fertilizerEnergyConsumptionMultiplier = nbt.getDouble("recipe.energy_consumption_multiplier");
+        fertilizerFluidConsumptionMultiplier = nbt.getDouble("recipe.fluid_consumption_multiplier");
     }
 
     @Override
     protected double getRecipeDependentRecipeDuration(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER / fertilizerSpeedMultiplier;
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
+        if(soilRecipe.isEmpty())
+            return 1.0;
+
+        return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER / fertilizerSpeedMultiplier / soilRecipe.get().value().getSpeedMultiplier();
     }
 
     @Override
     protected double getRecipeDependentEnergyConsumption(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        return fertilizerEnergyConsumptionMultiplier;
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
+        if(soilRecipe.isEmpty())
+            return 1.0;
+
+        return fertilizerEnergyConsumptionMultiplier * soilRecipe.get().value().getEnergyConsumptionMultiplier();
     }
 
     @Override
     protected void resetProgress() {
         super.resetProgress();
 
+        //Do not reset leftoverFluidConsumption
+
         fertilizerSpeedMultiplier = 1;
         fertilizerEnergyConsumptionMultiplier = 1;
+        fertilizerFluidConsumptionMultiplier = 1;
     }
 
     @Override
@@ -157,9 +220,40 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
         if(fertilizerRecipe.isPresent()) {
             fertilizerSpeedMultiplier = fertilizerRecipe.get().value().getSpeedMultiplier();
             fertilizerEnergyConsumptionMultiplier = fertilizerRecipe.get().value().getEnergyConsumptionMultiplier();
+            fertilizerFluidConsumptionMultiplier = fertilizerRecipe.get().value().getFluidConsumptionMultiplier();
 
             itemHandler.extractItem(1, 1, false);
         }
+    }
+
+    @Override
+    protected void onCraftingTicked(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        super.onCraftingTicked(recipe);
+
+        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
+        for(int i = 0;i < itemHandler.getSlots();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
+        if(soilRecipe.isEmpty())
+            return;
+
+        double fluidConsumptionPerTick = recipe.value().getFluidConsumption() * soilRecipe.get().value().getFluidConsumptionMultiplier() *
+                fertilizerFluidConsumptionMultiplier * FLUID_CONSUMPTION_MULTIPLIER;
+
+        leftoverFluidConsumption += fluidConsumptionPerTick;
+        int fluidConsumptionThisTick = (int)leftoverFluidConsumption;
+
+        //Only keep decimal part
+        leftoverFluidConsumption -= fluidConsumptionThisTick;
+
+        //Fluid is always valid, so just use fluid which is in tank
+        FluidStack fluid = new FluidStack(fluidStorage.getFluid().getFluid(), fluidConsumptionThisTick);
+        if(fluid.isEmpty()) {
+            return;
+        }
+
+        fluidStorage.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
     }
 
     @Override
@@ -219,8 +313,20 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEntit
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
+        if(soilRecipe.isEmpty())
+            return false;
+
         return level != null &&
+                fluidStorage.getFluid().getAmount() >= (int)Math.ceil(leftoverFluidConsumption +
+                        recipe.value().getFluidConsumption() * soilRecipe.get().value().getFluidConsumptionMultiplier() *
+                                fertilizerFluidConsumptionMultiplier * FLUID_CONSUMPTION_MULTIPLIER) &&
+                Arrays.stream(recipe.value().getFluid()).anyMatch(fluid -> fluidStorage.getFluid().getFluid() == fluid) &&
                 canInsertItemsIntoOutputSlots(inventory, new ArrayList<>(Arrays.asList(recipe.value().getMaxOutputCounts())));
+    }
+
+    private Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> getSoilRecipe(SimpleContainer inventory) {
+        return level.getRecipeManager().getRecipeFor(EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE.get(), getRecipeInput(inventory), level);
     }
 
     private static boolean canInsertItemsIntoOutputSlots(SimpleContainer inventory, List<ItemStack> itemsStacks) {

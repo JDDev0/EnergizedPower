@@ -1171,6 +1171,9 @@ public final class ModConfigs {
     public static final ConfigValue<Float> COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
             "block.plant_growth_chamber", "Plant Growth Chamber", 1.f
     );
+    public static final ConfigValue<Integer> COMMON_PLANT_GROWTH_CHAMBER_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.plant_growth_chamber", "Plant Growth Crusher", 8
+    );
     public static final ConfigValue<Double> COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER = registerFluidConsumptionMultiplierConfigValue(
             "block.plant_growth_chamber", "Plant Growth Chamber", 1.f
     );

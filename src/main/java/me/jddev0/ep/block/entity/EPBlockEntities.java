@@ -615,6 +615,8 @@ public final class EPBlockEntities {
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
                 PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
                 PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::getEnergyStorageCapability);
 

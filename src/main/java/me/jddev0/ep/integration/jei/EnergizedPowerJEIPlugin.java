@@ -214,9 +214,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, CompressorScreen.class, 79, 30, 26, 25, CompressorCategory.TYPE);
         registerRecipeClickArea(registration, MetalPressScreen.class, 80, 41, 24, 10, MetalPressCategory.TYPE);
         registerRecipeClickArea(registration, AssemblingMachineScreen.class, 100, 36, 24, 17, AssemblingMachineCategory.TYPE);
-        registerRecipeClickArea(registration, PlantGrowthChamberScreen.class, 94, 34, 24, 17, PlantGrowthChamberCategory.TYPE);
-        registerRecipeClickArea(registration, PlantGrowthChamberScreen.class, 34, 16, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
-        registerRecipeClickArea(registration, PlantGrowthChamberScreen.class, 34, 53, 18, 17, PlantGrowthChamberFertilizerCategory.TYPE);
+        registerRecipeClickArea(registration, PlantGrowthChamberScreen.class, 103, 34, 24, 17, PlantGrowthChamberCategory.TYPE);
         registerRecipeClickArea(registration, EnergizerScreen.class, 89, 34, 24, 17, EnergizerCategory.TYPE);
         registerRecipeClickArea(registration, CrystalGrowthChamberScreen.class, 80, 34, 24, 17, CrystalGrowthChamberCategory.TYPE);
         registration.addRecipeClickArea(PressMoldMakerScreen.class, 7, 34, 18, 18, PressMoldMakerCategory.TYPE);

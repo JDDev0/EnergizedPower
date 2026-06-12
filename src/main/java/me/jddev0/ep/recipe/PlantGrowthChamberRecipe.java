@@ -26,10 +26,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
     private final OutputItemStackWithPercentages[] outputs;
@@ -124,7 +121,17 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
         if(level.isClientSide)
             return false;
 
-        return input.test(container.getItem(0));
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = level.getRecipeManager().
+                getRecipeFor(EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE.get(), container, level);
+        if(soilRecipe.isEmpty())
+            return false;
+
+        ResourceKey<SoilType> soilType = soilRecipe.get().value().getSoilType();
+
+        return input.test(container.getItem(0)) && this.soilType.map(
+                st -> st.stream().anyMatch(sti -> sti.location().equals(soilType.location())),
+                st -> level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).getOrThrow(soilType).is(st)
+        );
     }
 
     @Override

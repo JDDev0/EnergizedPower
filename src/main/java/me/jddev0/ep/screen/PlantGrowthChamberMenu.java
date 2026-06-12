@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGrowthChamberBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -52,13 +53,13 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
         );
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
-            addSlot(new SlotItemHandler(itemHandler, 0, 62, 35) {
+            addSlot(new SlotItemHandler(itemHandler, 0, 80, 26) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 1, 35, 35) {
+            addSlot(new SlotItemHandler(itemHandler, 1, 62, 35) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
@@ -83,6 +84,12 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
                 }
             });
             addSlot(new SlotItemHandler(itemHandler, 5, 152, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new SlotItemHandler(itemHandler, 6, 80, 44) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
@@ -115,6 +122,15 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
     public int getEnergyPerTickBarValue() {
         return energyConsumptionPerTickData.getValue();
     }
+
+    public FluidStack getFluid() {
+        return blockEntity.getFluid(0);
+    }
+
+    public int getTankCapacity() {
+        return blockEntity.getTankCapacity(0);
+    }
+
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
@@ -156,12 +172,14 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 5, false) &&
-                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 7, 4 * 9 + 7 + 5, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 7, false)) {
                 //"+2" instead of "+6": Do not allow adding to output slots
+                //"+6" to "+7": Allow output from soil slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 6 + 5) {
+        }else if(index < 4 * 9 + 7 + 5) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

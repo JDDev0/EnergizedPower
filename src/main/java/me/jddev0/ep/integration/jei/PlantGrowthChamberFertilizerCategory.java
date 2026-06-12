@@ -29,7 +29,7 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
 
     public PlantGrowthChamberFertilizerCategory(IGuiHelper helper) {
         ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        fertilizerSlot = helper.createDrawable(texture, 34, 34, 18, 18);
+        fertilizerSlot = helper.createDrawable(texture, 61, 34, 18, 18);
         background = helper.createBlankDrawable(144, 60);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
