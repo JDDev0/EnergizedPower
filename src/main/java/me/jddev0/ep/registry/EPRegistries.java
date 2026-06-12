@@ -16,6 +16,6 @@ public final class EPRegistries {
 
     @SubscribeEvent
     public static void onRegisterDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(SOIL_TYPE, SoilType.CODEC, SoilType.CODEC);
+        event.dataPackRegistry(SOIL_TYPE, SoilType.DIRECT_CODEC, SoilType.DIRECT_CODEC);
     }
 }
