@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.2,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": "minecraft:mycelium",
+  "soilType": "energizedpower:mycelium",
+  "speedMultiplier": 2.0
+}

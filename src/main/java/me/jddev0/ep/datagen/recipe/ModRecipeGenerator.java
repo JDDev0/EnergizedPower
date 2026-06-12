@@ -7,6 +7,8 @@ import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
+import me.jddev0.ep.soil.EPSoilTypes;
+import me.jddev0.ep.soil.SoilType;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.advancements.Advancement;
@@ -57,6 +59,7 @@ public class ModRecipeGenerator extends RecipeProvider {
         buildSawmillRecipes();
         buildPlantGrowthChamberRecipes();
         buildPlantGrowthChamberFertilizerRecipes();
+        buildPlantGrowthChamberSoilRecipes();
         buildMetalPressRecipes();
         buildHeatGeneratorRecipes();
         buildThermalGeneratorRecipes();
@@ -3127,6 +3130,37 @@ public class ModRecipeGenerator extends RecipeProvider {
                 5., 6.5, "advanced_fertilizer");
     }
 
+    private void buildPlantGrowthChamberSoilRecipes() {
+        //No usage of item tags, because different dirt types might have different multipliers
+
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.FARMLAND),
+                EPSoilTypes.FARMLAND, 1.5, 1.0, 0.8, "farmland");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.DIRT),
+                EPSoilTypes.DIRT, 1.0, 1.0, 1.0, "dirt");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.COARSE_DIRT),
+                EPSoilTypes.COARSE_DIRT, 1., 1.1, 0.9, "coarse_dirt");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.GRASS_BLOCK),
+                EPSoilTypes.GRASS, 1.1, 1.0, 1.0, "grass");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.PODZOL),
+                EPSoilTypes.PODZOL, 1.2, 1.0, 1.0, "podzol");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.MYCELIUM),
+                EPSoilTypes.MYCELIUM, 2.0, 1.0, 1.2, "mycelium");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.MUD),
+                EPSoilTypes.MUD, 1.2, 0.5, 1.0, "mud");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.MOSS_BLOCK),
+                EPSoilTypes.MOSS, 1.1, 0.8, 1.0, "moss");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.SAND, Items.RED_SAND, Items.SUSPICIOUS_SAND),
+                EPSoilTypes.SAND, 1.0, 1.0, 1.0, "sand");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.GRAVEL, Items.SUSPICIOUS_GRAVEL),
+                EPSoilTypes.GRAVEL, 0.5, 2.0, 2.0, "gravel");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.STONE),
+                EPSoilTypes.STONE, 0.5, 2.0, 2.0, "stone");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.SOUL_SAND),
+                EPSoilTypes.SOUL_SAND, 1.0, 1.0, 1.0, "soul_sand");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.END_STONE),
+                EPSoilTypes.END_STONE, 1.0, 1.0, 1.0, "end_stone");
+    }
+
     private void buildMetalPressRecipes() {
         addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStackTemplate(EPItems.IRON_GEAR));
         addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), new ItemStackTemplate(EPItems.STEEL_GEAR));
@@ -3820,6 +3854,19 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         PlantGrowthChamberFertilizerRecipe recipe = new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier,
                 energyConsumptionMultiplier);
+        this.output.accept(getKey(recipeId), recipe, null);
+    }
+
+    private void addPlantGrowthChamberSoilRecipe(Ingredient input,
+                                                 ResourceKey<SoilType> soilType,
+                                                 double speedMultiplier,
+                                                 double fluidConsumptionMultiplier, double energyConsumptionMultiplier,
+                                                 String recipeIngredientName) {
+        Identifier recipeId = EPAPI.id("growing/soil/" +
+                recipeIngredientName);
+
+        PlantGrowthChamberSoilRecipe recipe = new PlantGrowthChamberSoilRecipe(input, soilType,
+                speedMultiplier, fluidConsumptionMultiplier, energyConsumptionMultiplier);
         this.output.accept(getKey(recipeId), recipe, null);
     }
 

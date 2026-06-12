@@ -65,6 +65,12 @@ public final class EPRecipes {
     public static final RecipeType<HeatGeneratorRecipe> HEAT_GENERATOR_TYPE = createRecipeType("heat_generator",
             HeatGeneratorRecipe.Type.INSTANCE);
 
+    public static final RecipeBookCategory PLANT_GROWTH_CHAMBER_SOIL_CATEGORY = createRecipeCategory("plant_growth_chamber_soil");
+    public static final RecipeSerializer<PlantGrowthChamberSoilRecipe> PLANT_GROWTH_CHAMBER_SOIL_SERIALIZER = createSerializer("plant_growth_chamber_soil",
+            PlantGrowthChamberSoilRecipe.Serializer.INSTANCE);
+    public static final RecipeType<PlantGrowthChamberSoilRecipe> PLANT_GROWTH_CHAMBER_SOIL_TYPE = createRecipeType("plant_growth_chamber_soil",
+            PlantGrowthChamberSoilRecipe.Type.INSTANCE);
+
     public static final RecipeBookCategory THERMAL_GENERATOR_CATEGORY = createRecipeCategory("thermal_generator");
     public static final RecipeSerializer<ThermalGeneratorRecipe> THERMAL_GENERATOR_SERIALIZER = createSerializer("thermal_generator",
             ThermalGeneratorRecipe.Serializer.INSTANCE);

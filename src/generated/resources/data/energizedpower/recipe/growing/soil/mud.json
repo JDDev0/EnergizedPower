@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 0.5,
+  "ingredient": "minecraft:mud",
+  "soilType": "energizedpower:mud",
+  "speedMultiplier": 1.2
+}

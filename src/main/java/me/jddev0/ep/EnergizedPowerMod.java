@@ -81,6 +81,7 @@ public class EnergizedPowerMod implements ModInitializer {
             RecipeSynchronization.synchronizeRecipeSerializer(AssemblingMachineRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(PlantGrowthChamberRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(PlantGrowthChamberFertilizerRecipe.Serializer.INSTANCE);
+            RecipeSynchronization.synchronizeRecipeSerializer(PlantGrowthChamberSoilRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(EnergizerRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(CrystalGrowthChamberRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(PressMoldMakerRecipe.Serializer.INSTANCE);

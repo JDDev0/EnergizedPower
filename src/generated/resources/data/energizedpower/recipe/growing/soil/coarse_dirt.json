@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 0.9,
+  "fluidConsumptionMultiplier": 1.1,
+  "ingredient": "minecraft:coarse_dirt",
+  "soilType": "energizedpower:coarse_dirt",
+  "speedMultiplier": 1.0
+}
