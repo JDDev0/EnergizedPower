@@ -91,6 +91,9 @@ public class EnergizedPowerMod implements ModInitializer {
             RecipeSynchronization.synchronizeRecipeSerializer(StoneSolidifierRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(FiltrationPlantRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(FluidTransposerRecipe.Serializer.INSTANCE);
+
+            //Special crafting recipes must be synced manually in Fabric
+            RecipeSynchronization.synchronizeRecipeSerializer(FarmlandCraftingRecipe.SERIALIZER);
         }
     }
 

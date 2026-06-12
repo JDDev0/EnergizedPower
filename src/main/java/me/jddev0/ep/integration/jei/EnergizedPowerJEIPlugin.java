@@ -15,15 +15,17 @@ import net.fabricmc.fabric.api.recipe.v1.sync.SynchronizedRecipes;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class EnergizedPowerJEIPlugin implements IModPlugin {
     public static SynchronizedRecipes recipeMap = null;
@@ -133,6 +135,20 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                             Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
                             new ItemStack(EPItems.CABLE_INSULATOR, 18))
             ));
+
+            //Add farmland special crafting recipe if loaded
+            Optional<RecipeHolder<CraftingRecipe>> recipeOptional = recipeMap.getAllOfType(RecipeType.CRAFTING).stream().
+                    filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
+            if(recipeOptional.isPresent()) {
+                ShapelessRecipe recipe = new ShapelessRecipe(new Recipe.CommonInfo(true),
+                        new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""), new ItemStackTemplate(Items.FARMLAND),
+                        NonNullList.of(null, new Ingredient[] {
+                                Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.HOES)),
+                                Ingredient.of(Items.DIRT)
+                        }));
+
+                registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder(recipeOptional.get().id(), recipe)));
+            }
         }
     }
 

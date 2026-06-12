@@ -1975,15 +1975,15 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'G', ingredientOf(ConventionalItemTags.GLASS_PANES_COLORLESS),
-                'D', ingredientOf(Items.DIRT),
-                'W', ingredientOf(Items.WATER_BUCKET),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
                 'S', ingredientOf(CommonItemTags.SILICON),
-                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'I', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_IRON),
                 'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
-                "SWS",
+                "SiS",
                 "GBG",
-                "IDI"
+                "IFI"
         }, new ItemStackTemplate(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
@@ -2529,6 +2529,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildCustomCraftingRecipes() {
         addCustomCraftingRecipe(TeleporterMatrixSettingsCopyRecipe::new, "teleporter_matrix_settings_copy");
+        addCustomCraftingRecipe(FarmlandCraftingRecipe::new, "farmland");
     }
 
     private void buildCookingRecipes() {
