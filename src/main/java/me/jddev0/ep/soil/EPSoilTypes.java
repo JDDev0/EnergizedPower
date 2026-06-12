@@ -25,7 +25,7 @@ public final class EPSoilTypes {
 
     public static void bootstrap(BootstrapContext<SoilType> context) {
         context.register(FARMLAND, new SoilType(Component.translatable("block.minecraft.farmland").withColor(0x593d29)));
-        context.register(DIRT, new SoilType(Component.translatable("block.minecraft.dirt").withColor(0x362519)));
+        context.register(DIRT, new SoilType(Component.translatable("block.minecraft.dirt").withColor(0x5a3c26)));
         context.register(COARSE_DIRT, new SoilType(Component.translatable("block.minecraft.coarse_dirt").withColor(0x593d29)));
         context.register(GRASS, new SoilType(Component.translatable("soil_type.energizedpower.grass").withColor(0x3e5f36)));
         context.register(PODZOL, new SoilType(Component.translatable("block.minecraft.podzol").withColor(0x6a4418)));
