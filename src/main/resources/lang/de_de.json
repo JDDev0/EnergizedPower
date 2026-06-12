@@ -896,6 +896,7 @@
   "emi.category.energizedpower.assembling_machine": "Montagemaschine",
   "emi.category.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
   "emi.category.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",
+  "emi.category.energizedpower.plant_growth_chamber_soil": "Wachstums-Kammer (Erde)",
   "emi.category.energizedpower.energizer": "Energetisierer",
   "emi.category.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
   "emi.category.energizedpower.press_mold_maker": "Pressform-Hersteller",
