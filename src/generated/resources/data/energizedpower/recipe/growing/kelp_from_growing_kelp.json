@@ -1,0 +1,26 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "fluid": "minecraft:water",
+  "fluidConsumption": 0.25,
+  "ingredient": {
+    "item": "minecraft:kelp"
+  },
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:kelp"
+      },
+      "percentages": [
+        1.0,
+        1.0,
+        0.67,
+        0.67,
+        0.33,
+        0.17,
+        0.17
+      ]
+    }
+  ],
+  "soilType": "#energizedpower:water_crops",
+  "ticks": 4000
+}

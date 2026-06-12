@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-12T22:16:16.503313399	Energized Power/Advancements (Basics)
+// 1.21.1	2026-06-12T22:18:43.039902745	Energized Power/Advancements (Basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -68,8 +68,8 @@ ba9fa7290f8d791d37312230ebf70389941b24c3 data/energizedpower/advancement/main/ba
 f772dde556df6c07fe3f915cb40456e311bc27e4 data/energizedpower/advancement/main/basics/speed_upgrade_module_1.json
 5cfb3e9da0766b77e09ae0306995a6fedf7f41ce data/energizedpower/advancement/main/basics/energy_capacity_upgrade_module_1.json
 0115152f7fae389017317777a1e6890202de8b7c data/energizedpower/advancement/main/basics/solar_panel_1.json
-864ec6b389879a535626e6b9365dafc25c879922 data/energizedpower/advancement/main/basics/gold_plate.json
 872f50a935ef1dfab9a7458c906b03b1133ef4cd data/energizedpower/advancement/main/basics/energy_capacity_upgrade_module_2.json
+864ec6b389879a535626e6b9365dafc25c879922 data/energizedpower/advancement/main/basics/gold_plate.json
 6229b7078eaba012be091199f524052293138456 data/energizedpower/advancement/main/basics/auto_stonecutter.json
 0cf5e22f44f2b45011b6e8d2c38438af36df7dbd data/energizedpower/advancement/main/basics/fluid_pump.json
 9a3c3b10e561f267ea501f22d43b66f05486ff5b data/energizedpower/advancement/main/basics/express_item_conveyor_belt_splitter.json

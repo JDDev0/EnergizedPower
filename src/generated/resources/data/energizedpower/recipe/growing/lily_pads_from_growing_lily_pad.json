@@ -1,0 +1,23 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "fluid": "minecraft:water",
+  "fluidConsumption": 0.125,
+  "ingredient": {
+    "item": "minecraft:lily_pad"
+  },
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:lily_pad"
+      },
+      "percentages": [
+        1.0,
+        0.75,
+        0.25,
+        0.25
+      ]
+    }
+  ],
+  "soilType": "#energizedpower:water_crops",
+  "ticks": 4000
+}

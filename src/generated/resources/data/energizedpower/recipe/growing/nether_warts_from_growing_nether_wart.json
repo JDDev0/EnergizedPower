@@ -1,0 +1,23 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "fluid": "minecraft:lava",
+  "fluidConsumption": 0.001,
+  "ingredient": {
+    "item": "minecraft:nether_wart"
+  },
+  "outputs": [
+    {
+      "output": {
+        "item": "minecraft:nether_wart"
+      },
+      "percentages": [
+        1.0,
+        0.75,
+        0.25,
+        0.25
+      ]
+    }
+  ],
+  "soilType": "#energizedpower:nether_crops",
+  "ticks": 4000
+}
