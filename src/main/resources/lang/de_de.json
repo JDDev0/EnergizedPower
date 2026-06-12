@@ -1719,10 +1719,10 @@
   "book.energizedpower.page.assembling_machine.3": "Eingabe-Items können von allen Seiten eingelegt werden (Oben/Unten: Alle Eingabe-Slots, Vorne: Unterer Slot, Hinten: Oberer Slot, Links: Linker Slot, Rechts: Rechter Slot).",
 
   "book.energizedpower.page.plant_growth_chamber.1": "Die Pflanzenwachstums-Kammer kann das Pflanzenwachstum und -erträge verbessern.",
-  "book.energizedpower.page.plant_growth_chamber.2": "Der rechte Eingabeslot ist der Samenslot.",
+  "book.energizedpower.page.plant_growth_chamber.2": "Der obere Eingabeslot ist der Samenslot. Der untere Eingabeslot ist der Bodenslot.",
   "book.energizedpower.page.plant_growth_chamber.3": "Der linke, optional verwendbare Eingabeslot ist der Düngerslot.",
   "book.energizedpower.page.plant_growth_chamber.4": "Wenn der Düngerslot verwendet wird, werden Energie- und Geschwindigkeits-Booster angewendet.",
-  "book.energizedpower.page.plant_growth_chamber.5": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
+  "book.energizedpower.page.plant_growth_chamber.5": "Samen können vom Norden, Osten, Süden und Westen hinzugefügt werden. Böden können von oben und unten hinzugefügt werden und von oben extrahiert werden. Dünger können von oben und unten hinzugefügt werden. Ausgänge können von allen Blockseiten extrahiert werden.",
   "book.energizedpower.page.plant_growth_chamber.6": "Wenn du einen Dünger verwenden möchtest, muss der Dünger zuerst hinzugefügt werden.",
   "book.energizedpower.page.plant_growth_chamber.7": "Wenn du diesen Block automatisieren willst, musst du wissen, dass Erträge randomisiert sind.",
 

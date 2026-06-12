@@ -1719,10 +1719,10 @@
   "book.energizedpower.page.assembling_machine.3": "输入可以从所有面插入（顶部/底部：所有输入槽，前：底部槽，后：顶部槽，左：左槽，右：右槽）。",
 
   "book.energizedpower.page.plant_growth_chamber.1": "植物生长室可以促进植物生长和产量。",
-  "book.energizedpower.page.plant_growth_chamber.2": "右边的输入槽是种子槽。",
+  "book.energizedpower.page.plant_growth_chamber.2": "右边的输入槽是种子槽。 The bottom input slot is the soil slot.",
   "book.energizedpower.page.plant_growth_chamber.3": "左边可选用的输入槽是肥料槽。",
   "book.energizedpower.page.plant_growth_chamber.4": "当使用肥料槽时，会应用能量和速度乘数。",
-  "book.energizedpower.page.plant_growth_chamber.5": "种子可以从北、东、南和西面插入。肥料可以从顶部和底部插入。输出可以从所有方块面提取。",
+  "book.energizedpower.page.plant_growth_chamber.5": "种子可以从北、东、南和西面插入。Soils can be inserted from the top and bottom and can be extracted from the top. 肥料可以从顶部和底部插入。输出可以从所有方块面提取。",
   "book.energizedpower.page.plant_growth_chamber.6": "如果您想使用肥料，必须先插入肥料。",
   "book.energizedpower.page.plant_growth_chamber.7": "如果您想自动化此方块，则需要记住产量是随机的。",
 
