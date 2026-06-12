@@ -80,6 +80,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addCategory(PlantGrowthChamberFertilizerEMIRecipe.CATEGORY);
         registry.addWorkstation(PlantGrowthChamberFertilizerEMIRecipe.CATEGORY, PlantGrowthChamberFertilizerEMIRecipe.ITEM);
 
+        registry.addCategory(PlantGrowthChamberSoilEMIRecipe.CATEGORY);
+        registry.addWorkstation(PlantGrowthChamberSoilEMIRecipe.CATEGORY, PlantGrowthChamberSoilEMIRecipe.ITEM);
+
         registry.addCategory(EnergizerEMIRecipe.CATEGORY);
         registry.addWorkstation(EnergizerEMIRecipe.CATEGORY, EnergizerEMIRecipe.ITEM);
 
@@ -148,6 +151,9 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         for(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE))
             registry.addRecipe(new PlantGrowthChamberFertilizerEMIRecipe(recipe));
+
+        for(RecipeHolder<PlantGrowthChamberSoilRecipe> recipe:recipeManager.getAllRecipesFor(PlantGrowthChamberSoilRecipe.Type.INSTANCE))
+            registry.addRecipe(new PlantGrowthChamberSoilEMIRecipe(recipe));
 
         for(RecipeHolder<EnergizerRecipe> recipe:recipeManager.getAllRecipesFor(EnergizerRecipe.Type.INSTANCE))
             registry.addRecipe(new EnergizerEMIRecipe(recipe));

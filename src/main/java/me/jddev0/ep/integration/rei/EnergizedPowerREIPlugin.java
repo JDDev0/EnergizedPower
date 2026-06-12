@@ -83,6 +83,9 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
         registry.add(new PlantGrowthChamberFertilizerCategory());
         registry.addWorkstations(PlantGrowthChamberFertilizerCategory.CATEGORY, EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
 
+        registry.add(new PlantGrowthChamberSoilCategory());
+        registry.addWorkstations(PlantGrowthChamberSoilCategory.CATEGORY, EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
+
         registry.add(new EnergizerCategory());
         registry.addWorkstations(EnergizerCategory.CATEGORY, EntryStacks.of(EPBlocks.ENERGIZER_ITEM.get()));
 
@@ -156,6 +159,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 PlantGrowthChamberDisplay::new);
         registry.registerRecipeFiller(PlantGrowthChamberFertilizerRecipe.class, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE,
                 PlantGrowthChamberFertilizerDisplay::new);
+        registry.registerRecipeFiller(PlantGrowthChamberSoilRecipe.class, PlantGrowthChamberSoilRecipe.Type.INSTANCE,
+                PlantGrowthChamberSoilDisplay::new);
         registry.registerRecipeFiller(EnergizerRecipe.class, EnergizerRecipe.Type.INSTANCE, EnergizerDisplay::new);
         registry.registerRecipeFiller(CrystalGrowthChamberRecipe.class, CrystalGrowthChamberRecipe.Type.INSTANCE, CrystalGrowthChamberDisplay::new);
         registry.registerRecipeFiller(PressMoldMakerRecipe.class, PressMoldMakerRecipe.Type.INSTANCE, PressMoldMakerDisplay::new);

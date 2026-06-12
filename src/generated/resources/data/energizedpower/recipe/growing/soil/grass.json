@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": {
+    "item": "minecraft:grass_block"
+  },
+  "soilType": "energizedpower:grass",
+  "speedMultiplier": 1.1
+}

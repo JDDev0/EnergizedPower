@@ -56,6 +56,11 @@ public final class EPRecipes {
     public static final Supplier<RecipeType<PlantGrowthChamberFertilizerRecipe>> PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE = TYPES.
             register("plant_growth_chamber_fertilizer", () -> PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
 
+    public static final Supplier<RecipeSerializer<PlantGrowthChamberSoilRecipe>> PLANT_GROWTH_CHAMBER_SOIL_SERIALIZER = SERIALIZERS.
+            register("plant_growth_chamber_soil", () -> PlantGrowthChamberSoilRecipe.Serializer.INSTANCE);
+    public static final Supplier<RecipeType<PlantGrowthChamberSoilRecipe>> PLANT_GROWTH_CHAMBER_SOIL_TYPE = TYPES.
+            register("plant_growth_chamber_soil", () -> PlantGrowthChamberSoilRecipe.Type.INSTANCE);
+
     public static final Supplier<RecipeSerializer<HeatGeneratorRecipe>> HEAT_GENERATOR_SERIALIZER = SERIALIZERS.
             register("heat_generator", () -> HeatGeneratorRecipe.Serializer.INSTANCE);
     public static final Supplier<RecipeType<HeatGeneratorRecipe>> HEAT_GENERATOR_TYPE = TYPES.

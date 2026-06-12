@@ -877,8 +877,11 @@
   "recipes.energizedpower.in_world_crafting": "Criação no Mundo",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Câmara de Crescimento (Fertilizante)",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx Velocidade",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx Consumo de Energia",
+  "recipes.energizedpower.plant_growth_chamber_soil": "Growth Chamber (Soil)",
+  "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
+  "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "%.2fx Velocidade",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
+  "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "%.2fx Consumo de Energia",
   "recipes.energizedpower.transfer.too_large": "Esta receita é muito grande para este recipiente!",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 

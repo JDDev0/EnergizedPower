@@ -877,8 +877,11 @@
   "recipes.energizedpower.in_world_crafting": "Внутримировое создание",
   "recipes.energizedpower.info.ticks": "Тики: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Камера роста (Удобрение)",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier": "%.2fx скорость",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier": "%.2fx потребление энергии",
+  "recipes.energizedpower.plant_growth_chamber_soil": "Growth Chamber (Soil)",
+  "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
+  "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "%.2fx скорость",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
+  "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "%.2fx потребление энергии",
   "recipes.energizedpower.transfer.too_large": "Этот рецепт слишком велик для этого контейнера!",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 
