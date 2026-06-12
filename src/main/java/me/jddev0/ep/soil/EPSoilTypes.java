@@ -12,10 +12,10 @@ public final class EPSoilTypes {
     public static final ResourceKey<SoilType> DIRT = registerKey("dirt");
     public static final ResourceKey<SoilType> COARSE_DIRT = registerKey("coarse_dirt");
     public static final ResourceKey<SoilType> GRASS = registerKey("grass");
-    public static final ResourceKey<SoilType> PODZOL = registerKey("mycelium");
-    public static final ResourceKey<SoilType> MYCELIUM = registerKey("mud");
-    public static final ResourceKey<SoilType> MUD = registerKey("moss");
-    public static final ResourceKey<SoilType> MOSS = registerKey("podzol");
+    public static final ResourceKey<SoilType> PODZOL = registerKey("podzol");
+    public static final ResourceKey<SoilType> MYCELIUM = registerKey("mycelium");
+    public static final ResourceKey<SoilType> MUD = registerKey("mud");
+    public static final ResourceKey<SoilType> MOSS = registerKey("moss");
     public static final ResourceKey<SoilType> GRAVEL = registerKey("gravel");
     public static final ResourceKey<SoilType> SAND = registerKey("sand");
     public static final ResourceKey<SoilType> STONE = registerKey("stone");
