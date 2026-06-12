@@ -21,11 +21,14 @@ import java.util.List;
 public class PlantGrowthChamberFertilizerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final Ingredient input;
     private final double speedMultiplier;
+    private final double fluidConsumptionMultiplier;
     private final double energyConsumptionMultiplier;
 
-    public PlantGrowthChamberFertilizerRecipe(Ingredient input, double speedMultiplier, double energyConsumptionMultiplier) {
+    public PlantGrowthChamberFertilizerRecipe(Ingredient input, double speedMultiplier, double fluidConsumptionMultiplier,
+                                              double energyConsumptionMultiplier) {
         this.input = input;
         this.speedMultiplier = speedMultiplier;
+        this.fluidConsumptionMultiplier = fluidConsumptionMultiplier;
         this.energyConsumptionMultiplier = energyConsumptionMultiplier;
     }
 
@@ -35,6 +38,10 @@ public class PlantGrowthChamberFertilizerRecipe implements EnergizedPowerBaseRec
 
     public double getSpeedMultiplier() {
         return speedMultiplier;
+    }
+
+    public double getFluidConsumptionMultiplier() {
+        return fluidConsumptionMultiplier;
     }
 
     public double getEnergyConsumptionMultiplier() {
@@ -109,6 +116,8 @@ public class PlantGrowthChamberFertilizerRecipe implements EnergizedPowerBaseRec
                 return recipe.input;
             }), Codec.DOUBLE.fieldOf("speedMultiplier").forGetter((recipe) -> {
                 return recipe.speedMultiplier;
+            }), Codec.DOUBLE.fieldOf("fluidConsumptionMultiplier").forGetter((recipe) -> {
+                return recipe.fluidConsumptionMultiplier;
             }), Codec.DOUBLE.fieldOf("energyConsumptionMultiplier").forGetter((recipe) -> {
                 return recipe.energyConsumptionMultiplier;
             })).apply(instance, PlantGrowthChamberFertilizerRecipe::new);
@@ -123,14 +132,16 @@ public class PlantGrowthChamberFertilizerRecipe implements EnergizedPowerBaseRec
         private static PlantGrowthChamberFertilizerRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             double speedMultiplier = buffer.readDouble();
+            double fluidConsumptionMultiplier = buffer.readDouble();
             double energyConsumptionMultiplier = buffer.readDouble();
 
-            return new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier, energyConsumptionMultiplier);
+            return new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier, fluidConsumptionMultiplier, energyConsumptionMultiplier);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, PlantGrowthChamberFertilizerRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeDouble(recipe.speedMultiplier);
+            buffer.writeDouble(recipe.fluidConsumptionMultiplier);
             buffer.writeDouble(recipe.energyConsumptionMultiplier);
         }
     }
