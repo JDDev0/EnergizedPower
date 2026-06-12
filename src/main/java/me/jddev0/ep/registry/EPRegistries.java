@@ -11,8 +11,7 @@ public final class EPRegistries {
 
     public static final ResourceKey<Registry<SoilType>> SOIL_TYPE = ResourceKey.createRegistryKey(EPAPI.id("soil_type"));
 
-
     public static void register() {
-        DynamicRegistries.registerSynced(SOIL_TYPE, SoilType.CODEC, SoilType.CODEC);
+        DynamicRegistries.registerSynced(SOIL_TYPE, SoilType.DIRECT_CODEC, SoilType.DIRECT_CODEC);
     }
 }
