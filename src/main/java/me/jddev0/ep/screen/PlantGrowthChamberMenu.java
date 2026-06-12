@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
+import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
@@ -34,7 +35,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public PlantGrowthChamberMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(6) {
+        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(7) {
             @Override
             public boolean canPlaceItem(int slot, ItemStack stack) {
                 return switch(slot) {
@@ -42,6 +43,8 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
                             getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
                     case 1 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.level().
                             getBlockEntity(pos)).getIngredientsOfFertilizerRecipes(), stack);
+                    case 6 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.level().
+                            getBlockEntity(pos)).getIngredientsOfSoilRecipes(), stack);
                     case 2, 3, 4, 5 -> false;
                     default -> super.canPlaceItem(slot, stack);
                 };
@@ -66,15 +69,15 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
                 upgradeModuleInventory, 5
         );
 
-        checkContainerSize(inv, 6);
+        checkContainerSize(inv, 7);
 
-        addSlot(new ConstraintInsertSlot(inv, 0, 62, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 0, 80, 26) {
             @Override
             public boolean isActive() {
                 return super.isActive() && !isInUpgradeModuleView();
             }
         });
-        addSlot(new ConstraintInsertSlot(inv, 1, 35, 35) {
+        addSlot(new ConstraintInsertSlot(inv, 1, 62, 35) {
             @Override
             public boolean isActive() {
                 return super.isActive() && !isInUpgradeModuleView();
@@ -99,6 +102,12 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
             }
         });
         addSlot(new ConstraintInsertSlot(inv, 5, 152, 44) {
+            @Override
+            public boolean isActive() {
+                return super.isActive() && !isInUpgradeModuleView();
+            }
+        });
+        addSlot(new ConstraintInsertSlot(inv, 6, 80, 44) {
             @Override
             public boolean isActive() {
                 return super.isActive() && !isInUpgradeModuleView();
@@ -130,6 +139,15 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
     public long getEnergyPerTickBarValue() {
         return energyConsumptionPerTickData.getValue();
     }
+
+    public FluidStack getFluid() {
+        return blockEntity.getFluid(0);
+    }
+
+    public long getTankCapacity() {
+        return blockEntity.getTankCapacity(0);
+    }
+
 
     /**
      * @return Same as isCrafting but energy requirements are ignored
@@ -171,12 +189,14 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 5, false) &&
-                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9 + 7, 4 * 9 + 7 + 5, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 7, false)) {
                 //"+2" instead of "+6": Do not allow adding to output slots
+                //"+6" to "+7": Allow output from soil slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 6 + 5) {
+        }else if(index < 4 * 9 + 7 + 5) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

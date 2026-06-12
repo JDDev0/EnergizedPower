@@ -152,6 +152,8 @@ public abstract class WorkerMachineBlockEntity<W>
                 }
                 blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
 
+                blockEntity.onWorkTicked(workData.get());
+
                 blockEntity.progress++;
                 if(blockEntity.progress >= blockEntity.maxProgress)
                     blockEntity.onWorkCompleted(workData.get());
@@ -219,6 +221,8 @@ public abstract class WorkerMachineBlockEntity<W>
     protected abstract Optional<W> getCurrentWorkData();
 
     protected abstract void onWorkStarted(W workData);
+
+    protected void onWorkTicked(W workData) {}
 
     protected abstract void onWorkCompleted(W workData);
 
