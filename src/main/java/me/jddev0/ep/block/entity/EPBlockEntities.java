@@ -316,11 +316,15 @@ public final class EPBlockEntities {
     );
 
     public static final BlockEntityType<PlantGrowthChamberBlockEntity> PLANT_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                createBlockEntity("plant_growth_chamber", EPBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new),
-                (blockEntity, side) -> (side == Direction.UP || side == Direction.DOWN)?
-                        blockEntity.itemHandlerTopBottomSided.apply(side):
-                        blockEntity.itemHandlerSidesSided.apply(side)
+            registerFluidStorage(
+                    registerInventoryStorage(
+                            createBlockEntity("plant_growth_chamber", EPBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new),
+                            (blockEntity, side) -> side == Direction.UP?
+                                    blockEntity.itemHandlerTopSided.apply(side):(side == Direction.DOWN?
+                                    blockEntity.itemHandlerBottomSided.apply(side):
+                                    blockEntity.itemHandlerSidesSided.apply(side))
+                    ),
+                    (blockEntity, direction) -> blockEntity.fluidStorage
             ),
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );

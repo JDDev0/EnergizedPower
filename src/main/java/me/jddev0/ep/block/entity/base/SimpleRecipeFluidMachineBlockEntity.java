@@ -115,6 +115,13 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     protected void onStartCrafting(RecipeHolder<R> recipe) {}
 
     @Override
+    protected final void onWorkTicked(RecipeHolder<R> workData) {
+        onCraftingTicked(workData);
+    }
+
+    protected void onCraftingTicked(RecipeHolder<R> recipe) {}
+
+    @Override
     protected final void onWorkCompleted(RecipeHolder<R> workData) {
         craftItem(workData);
     }

@@ -219,12 +219,8 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
                 MetalPressScreen.class, MetalPressCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(100, 36, 24, 17),
                 AssemblingMachineScreen.class, AssemblingMachineCategory.CATEGORY);
-        registerRecipeClickArea(registry, new Rectangle(94, 34, 24, 17),
+        registerRecipeClickArea(registry, new Rectangle(103, 34, 24, 17),
                 PlantGrowthChamberScreen.class, PlantGrowthChamberCategory.CATEGORY);
-        registerRecipeClickArea(registry, new Rectangle(34, 16, 18, 17),
-                PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
-        registerRecipeClickArea(registry, new Rectangle(34, 53, 18, 17),
-                PlantGrowthChamberScreen.class, PlantGrowthChamberFertilizerCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(89, 34, 24, 17),
                 EnergizerScreen.class, EnergizerCategory.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(80, 34, 24, 17),

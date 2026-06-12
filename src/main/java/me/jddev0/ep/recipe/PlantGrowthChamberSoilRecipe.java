@@ -58,7 +58,7 @@ public class PlantGrowthChamberSoilRecipe implements Recipe<RecipeInput> {
         if(level.isClientSide)
             return false;
 
-        return input.test(container.getItem(1));
+        return input.test(container.getItem(6));
     }
 
     @Override

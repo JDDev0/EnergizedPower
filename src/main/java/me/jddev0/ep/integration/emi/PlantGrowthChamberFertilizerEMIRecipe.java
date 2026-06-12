@@ -70,7 +70,7 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
     @Override
     public void addWidgets(WidgetHolder widgets) {
         ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        widgets.addTexture(texture, 0, 0, 18, 18, 34, 34);
+        widgets.addTexture(texture, 0, 0, 18, 18, 61, 34);
 
         widgets.addSlot(input.get(0), 0, 0).drawBack(false);
 
