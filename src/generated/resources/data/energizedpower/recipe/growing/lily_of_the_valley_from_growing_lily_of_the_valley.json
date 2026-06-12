@@ -1,5 +1,7 @@
 {
   "type": "energizedpower:plant_growth_chamber",
+  "fluid": "minecraft:water",
+  "fluidConsumption": 0.0625,
   "ingredient": {
     "item": "minecraft:lily_of_the_valley"
   },
@@ -15,5 +17,6 @@
       ]
     }
   ],
-  "ticks": 16000
+  "soilType": "#energizedpower:flowers",
+  "ticks": 4000
 }

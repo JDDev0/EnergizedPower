@@ -30,8 +30,8 @@ public class PlantGrowthChamberSoilCategory implements IRecipeCategory<RecipeHol
     private final IDrawable icon;
 
     public PlantGrowthChamberSoilCategory(IGuiHelper helper) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        soilSlot = helper.createDrawable(texture, 34, 34, 18, 18);
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        soilSlot = helper.createDrawable(texture, 116, 10, 18, 18);
         background = helper.createBlankDrawable(144, 80);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()));
@@ -83,7 +83,7 @@ public class PlantGrowthChamberSoilCategory implements IRecipeCategory<RecipeHol
         int textWidth = font.width(component);
 
         guiGraphics.drawString(font, component, 1, 22, 0xFFFFFFFF, true);
-        guiGraphics.drawString(font, soilType.displayName(), 1 + textWidth, 22, 0xFFFFFFFF, false);
+        guiGraphics.drawString(font, soilType.displayName(), 1 + textWidth, 23, 0xFFFFFFFF, false);
 
         component = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier", recipe.value().getSpeedMultiplier());
         guiGraphics.drawString(font, component, 1, 37, 0xFFFFFFFF, true);

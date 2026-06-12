@@ -60,6 +60,6 @@ public class ModSoilTypeTagProvider extends TagsProvider<SoilType> {
                         EPSoilTypes.PODZOL,
                         EPSoilTypes.MUD,
                         EPSoilTypes.MOSS,
-                        EPSoilTypes.STONE);
+                        EPSoilTypes.GRAVEL);
     }
 }
