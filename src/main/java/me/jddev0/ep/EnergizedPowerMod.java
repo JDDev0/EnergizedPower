@@ -16,6 +16,7 @@ import me.jddev0.ep.item.*;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.recipe.*;
+import me.jddev0.ep.registry.EPRegistries;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.villager.EPPoiTypes;
 import me.jddev0.ep.villager.EPVillagerProfessions;
@@ -38,6 +39,8 @@ public class EnergizedPowerMod implements ModInitializer {
         ModConfigs.registerConfigs(true);
 
         EPDataComponentTypes.register();
+
+        EPRegistries.register();
 
         EPItems.register();
         EPBlocks.register();

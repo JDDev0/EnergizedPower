@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
   "entity.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
 
+  "soil_type.energizedpower.grass": "Gras",
+  "soil_type.energizedpower.moss": "Moos",
+
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Wachstums-Kammer (Dünger)",

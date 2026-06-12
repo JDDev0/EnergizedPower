@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "Vagón con caja de baterías",
   "entity.energizedpower.advanced_battery_box_minecart": "Vagón con caja de baterías avanzada",
 
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
+
   "recipes.energizedpower.in_world_crafting": "In-World Crafting",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Cámara de crecimiento (Fertilizante)",
