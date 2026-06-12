@@ -1,6 +1,7 @@
 {
   "type": "energizedpower:plant_growth_chamber_fertilizer",
   "energyConsumptionMultiplier": 3.5,
+  "fluidConsumptionMultiplier": 1.0,
   "ingredient": {
     "item": "energizedpower:basic_fertilizer"
   },
