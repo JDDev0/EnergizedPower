@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-12T22:46:53.077345092	Energized Power/Tags for minecraft:item
+// 1.21.1	2026-06-12T22:47:26.259209922	Energized Power/Tags for minecraft:item
 5aeb1d268a4af3b906f9030117d116c5e435f51b data/c/tags/item/ingots/redstone_alloy.json
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/item/storage_blocks/tin.json
 d800a0f3a0ce004e9137145e88c48476f1208f04 data/c/tags/item/plates/energized_alloy.json
@@ -62,8 +62,8 @@ b251af5a31ef778cbda899b7c7f6e98d14860bbd data/c/tags/item/dusts/iron.json
 6f2138a02e7fc5b73fb0baa772ba0817dcb634eb data/c/tags/item/ores/emerald.json
 4f32b7b6917a7db58aa19ed9b930313177fd7f9c data/c/tags/item/nuggets/steel.json
 441b00b6e1716a0aacdfce4bf65a92ba02860b48 data/c/tags/item/rods/steel.json
-68dde9bd334ebc282493e6e6c9b0e5906ff3fee5 data/energizedpower/tags/item/metal_press/raw_press_molds.json
 d772e288e7520c6974ec3238c6aa3ecd2b8e686b data/c/tags/item/gravels.json
+68dde9bd334ebc282493e6e6c9b0e5906ff3fee5 data/energizedpower/tags/item/metal_press/raw_press_molds.json
 b3787a6166ee77205dff7520bb52ec973c7df01c data/c/tags/item/storage_blocks.json
 2ce36463dc907fa6829942a69c18ffe23773c97a data/c/tags/item/rods/iron.json
 9dd4719b6984752371161f3acc99182a119cfeb1 data/c/tags/item/ores/gold.json
