@@ -32,6 +32,7 @@ public class ModSoilTypeTagProvider extends FabricTagProvider<SoilType> {
                         EPSoilTypes.STONE);
 
         tag(EPSoilTypeTags.CROPS).
+                add(EPSoilTypes.FARMLAND).
                 add(EPSoilTypes.DIRT);
 
         tag(EPSoilTypeTags.WATER_CROPS).
