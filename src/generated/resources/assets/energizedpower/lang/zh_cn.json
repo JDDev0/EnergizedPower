@@ -1302,6 +1302,7 @@
   "recipes.energizedpower.in_world_crafting": "世界内合成",
   "recipes.energizedpower.info.ticks": "刻: %d",
   "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "%.2fx 能量消耗",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
   "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
   "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
   "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "%.2fx 速度",

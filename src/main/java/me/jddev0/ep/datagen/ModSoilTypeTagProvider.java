@@ -56,6 +56,6 @@ public class ModSoilTypeTagProvider extends FabricTagsProvider<SoilType> {
                         EPSoilTypes.PODZOL,
                         EPSoilTypes.MUD,
                         EPSoilTypes.MOSS,
-                        EPSoilTypes.STONE);
+                        EPSoilTypes.GRAVEL);
     }
 }
