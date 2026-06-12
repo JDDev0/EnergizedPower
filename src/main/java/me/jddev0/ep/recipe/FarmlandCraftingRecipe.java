@@ -25,6 +25,8 @@ public class FarmlandCraftingRecipe extends CustomRecipe {
                     dirtCount++;
                 }else if(itemStack.is(ItemTags.HOES)) {
                     hoeCount++;
+                }else {
+                    return false;
                 }
             }
         }
