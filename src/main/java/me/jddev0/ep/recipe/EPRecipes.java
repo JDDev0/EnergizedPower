@@ -125,6 +125,10 @@ public final class EPRecipes {
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = SERIALIZERS.register("teleporter_matrix_settings_copy",
             () -> new SimpleCraftingRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
+    public static final Supplier<RecipeSerializer<FarmlandCraftingRecipe>>
+            FARMLAND_CRAFTING_RECIPE_SERIALIZER = SERIALIZERS.register("farmland_crafting",
+            () -> new SimpleCraftingRecipeSerializer<>(FarmlandCraftingRecipe::new));
+
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);
         TYPES.register(modEventBus);

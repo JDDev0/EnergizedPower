@@ -16,6 +16,7 @@ import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.NonNullList;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,6 +25,9 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.Arrays;
+import net.minecraft.world.item.crafting.*;
+
+import java.util.*;
 
 @JeiPlugin
 @REIPluginCompatIgnore
@@ -130,6 +134,19 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 new DispenserCategory.DispenserRecipe(Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
                         new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
         ));
+
+        //Add farmland special crafting recipe if loaded
+        Optional<RecipeHolder<CraftingRecipe>> recipeOptional = recipeManager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING).stream().
+                filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
+        if(recipeOptional.isPresent()) {
+            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, new ItemStack(Items.FARMLAND),
+                    NonNullList.of(null, new Ingredient[] {
+                            Ingredient.of(ItemTags.HOES),
+                            Ingredient.of(Items.DIRT)
+                    }));
+
+            registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder(recipeOptional.get().id(), recipe)));
+        }
     }
 
     @Override

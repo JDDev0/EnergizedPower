@@ -5,26 +5,26 @@
     "B": {
       "item": "energizedpower:basic_machine_frame"
     },
-    "D": {
-      "item": "minecraft:dirt"
+    "F": {
+      "item": "energizedpower:fluid_tank_small"
     },
     "G": {
       "tag": "c:glass_panes/colorless"
     },
     "I": {
-      "tag": "c:plates/iron"
+      "tag": "c:storage_blocks/iron"
     },
     "S": {
       "tag": "c:silicon"
     },
-    "W": {
-      "item": "minecraft:water_bucket"
+    "i": {
+      "tag": "c:plates/iron"
     }
   },
   "pattern": [
-    "SWS",
+    "SiS",
     "GBG",
-    "IDI"
+    "IFI"
   ],
   "result": {
     "count": 1,

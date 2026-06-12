@@ -1982,15 +1982,15 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
-                'D', ingredientOf(Items.DIRT),
-                'W', ingredientOf(Items.WATER_BUCKET),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
                 'S', ingredientOf(CommonItemTags.SILICON),
-                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
                 'B', ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
         ), new String[] {
-                "SWS",
+                "SiS",
                 "GBG",
-                "IDI"
+                "IFI"
         }, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
@@ -2537,6 +2537,8 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     private void buildCustomCraftingRecipes() {
         addCustomCraftingRecipe(TeleporterMatrixSettingsCopyRecipe::new, CraftingBookCategory.MISC,
                 "teleporter_matrix_settings_copy");
+        addCustomCraftingRecipe(FarmlandCraftingRecipe::new, CraftingBookCategory.MISC,
+                "farmland");
     }
 
     private void buildCookingRecipes() {
