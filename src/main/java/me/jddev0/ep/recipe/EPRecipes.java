@@ -46,10 +46,15 @@ public final class EPRecipes {
     public static final RecipeType<PlantGrowthChamberRecipe> PLANT_GROWTH_CHAMBER_TYPE = createRecipeType("plant_growth_chamber",
             PlantGrowthChamberRecipe.Type.INSTANCE);
 
-    public static final RecipeSerializer<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_SERIALIZER = createSerializer("plant_growth_chamber_fertilizer",
-            PlantGrowthChamberFertilizerRecipe.Serializer.INSTANCE);
-    public static final RecipeType<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE = createRecipeType("plant_growth_chamber_fertilizer",
-            PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
+    public static final RecipeSerializer<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_SERIALIZER =
+            createSerializer("plant_growth_chamber_fertilizer", PlantGrowthChamberFertilizerRecipe.Serializer.INSTANCE);
+    public static final RecipeType<PlantGrowthChamberFertilizerRecipe> PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE =
+            createRecipeType("plant_growth_chamber_fertilizer", PlantGrowthChamberFertilizerRecipe.Type.INSTANCE);
+
+    public static final RecipeSerializer<PlantGrowthChamberSoilRecipe> PLANT_GROWTH_CHAMBER_SOIL_SERIALIZER =
+            createSerializer("plant_growth_chamber_soil", PlantGrowthChamberSoilRecipe.Serializer.INSTANCE);
+    public static final RecipeType<PlantGrowthChamberSoilRecipe> PLANT_GROWTH_CHAMBER_SOIL_TYPE =
+            createRecipeType("plant_growth_chamber_soil", PlantGrowthChamberSoilRecipe.Type.INSTANCE);
 
     public static final RecipeSerializer<HeatGeneratorRecipe> HEAT_GENERATOR_SERIALIZER = createSerializer("heat_generator",
             HeatGeneratorRecipe.Serializer.INSTANCE);

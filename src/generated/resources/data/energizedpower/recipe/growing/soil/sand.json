@@ -1,0 +1,18 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:red_sand"
+    },
+    {
+      "item": "minecraft:suspicious_sand"
+    }
+  ],
+  "soilType": "energizedpower:sand",
+  "speedMultiplier": 1.0
+}

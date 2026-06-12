@@ -11,6 +11,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.recipe.PlantGrowthChamberFertilizerRecipe;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -71,14 +72,16 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(input.get(0), 0, 0).drawBack(false);
 
-        Component speedMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", speedMultiplier);
+        Font font = Minecraft.getInstance().font;
+        Component speedMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier", speedMultiplier);
         widgets.addText(speedMultiplierText.getVisualOrderText(),
-                widgets.getWidth() - Minecraft.getInstance().font.width(speedMultiplierText),
-                widgets.getHeight() - Minecraft.getInstance().font.lineHeight - 17, ChatFormatting.WHITE.getColor(), false);
+                widgets.getWidth() - font.width(speedMultiplierText),
+                widgets.getHeight() - font.lineHeight - 17, ChatFormatting.WHITE.getColor(), true);
 
-        Component energyConsumptionMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", energyConsumptionMultiplier);
+        Component energyConsumptionMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier",
+                energyConsumptionMultiplier);
         widgets.addText(energyConsumptionMultiplierText.getVisualOrderText(),
-                widgets.getWidth() - Minecraft.getInstance().font.width(energyConsumptionMultiplierText),
-                widgets.getHeight() - Minecraft.getInstance().font.lineHeight, ChatFormatting.WHITE.getColor(), false);
+                widgets.getWidth() - font.width(energyConsumptionMultiplierText),
+                widgets.getHeight() - font.lineHeight, ChatFormatting.WHITE.getColor(), true);
     }
 }

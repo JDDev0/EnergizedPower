@@ -65,14 +65,14 @@ public class PlantGrowthChamberFertilizerCategory implements IRecipeCategory<Rec
         fertlizerSlot.draw(guiGraphics, 0, 0);
 
         Font font = Minecraft.getInstance().font;
-        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.speed_multiplier", recipe.value().getSpeedMultiplier());
+        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier", recipe.value().getSpeedMultiplier());
         int textWidth = font.width(component);
 
-        guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 5, 0xFFFFFFFF, false);
+        guiGraphics.drawString(font, component, 144 - textWidth, 5, 0xFFFFFFFF, true);
 
-        component = Component.translatable("recipes.energizedpower.plant_growth_chamber_fertilizer.energy_consumption_multiplier", recipe.value().getEnergyConsumptionMultiplier());
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier", recipe.value().getEnergyConsumptionMultiplier());
         textWidth = font.width(component);
 
-        guiGraphics.drawString(Minecraft.getInstance().font, component, 144 - textWidth, 22, 0xFFFFFFFF, false);
+        guiGraphics.drawString(font, component, 144 - textWidth, 22, 0xFFFFFFFF, true);
     }
 }
