@@ -159,6 +159,12 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        if(nbt.contains("inventory") && nbt.getCompound("inventory").getInt("Size") == 6) {
+            //Upgrade slot count from 6 to 7
+            nbt = nbt.copy(); //Clone, do not modify the original nbt data
+            nbt.getCompound("inventory").putInt("Size", 7);
+        }
+
         super.loadAdditional(nbt, registries);
 
         leftoverFluidConsumption = nbt.getDouble("recipe.leftover_fluid_consumption");
