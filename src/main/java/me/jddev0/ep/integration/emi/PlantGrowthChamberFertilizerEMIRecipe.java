@@ -27,12 +27,14 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final double speedMultiplier;
+    private final double fluidConsumptionMultiplier;
     private final double energyConsumptionMultiplier;
 
     public PlantGrowthChamberFertilizerEMIRecipe(RecipeHolder<PlantGrowthChamberFertilizerRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
         this.speedMultiplier = recipe.value().getSpeedMultiplier();
+        this.fluidConsumptionMultiplier = recipe.value().getFluidConsumptionMultiplier();
         this.energyConsumptionMultiplier = recipe.value().getEnergyConsumptionMultiplier();
     }
 
@@ -63,7 +65,7 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayHeight() {
-        return 30;
+        return 60;
     }
 
     @Override
@@ -73,16 +75,13 @@ public class PlantGrowthChamberFertilizerEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(input.get(0), 0, 0).drawBack(false);
 
-        Font font = Minecraft.getInstance().font;
-        Component speedMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier", speedMultiplier);
-        widgets.addText(speedMultiplierText.getVisualOrderText(),
-                widgets.getWidth() - font.width(speedMultiplierText),
-                widgets.getHeight() - font.lineHeight - 17, ChatFormatting.WHITE.getColor(), true);
+        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier", speedMultiplier);
+        widgets.addText(component, 1, 22, 0xFFFFFFFF, true);
 
-        Component energyConsumptionMultiplierText = Component.translatable("recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier",
-                energyConsumptionMultiplier);
-        widgets.addText(energyConsumptionMultiplierText.getVisualOrderText(),
-                widgets.getWidth() - font.width(energyConsumptionMultiplierText),
-                widgets.getHeight() - font.lineHeight, ChatFormatting.WHITE.getColor(), true);
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier", fluidConsumptionMultiplier);
+        widgets.addText(component, 1, 37, 0xFFFFFFFF, true);
+
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier", energyConsumptionMultiplier);
+        widgets.addText(component, 1, 52, 0xFFFFFFFF, true);
     }
 }

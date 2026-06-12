@@ -3095,16 +3095,16 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
     private void buildPlantGrowthChamberFertilizerRecipes() {
         addPlantGrowthChamberFertilizerRecipe(ingredientOf(Items.BONE_MEAL),
-                1.5, 3., "bone_meal");
+                1.5, 1.0, 3.0, "bone_meal");
 
-        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.BASIC_FERTILIZER.get()),
-                2.5, 3.5, "basic_fertilizer");
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.BASIC_FERTILIZER),
+                2.5, 1.0, 3.5, "basic_fertilizer");
 
-        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.GOOD_FERTILIZER.get()),
-                3.5, 5., "good_fertilizer");
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.GOOD_FERTILIZER),
+                3.5, 1.0, 5.0, "good_fertilizer");
 
-        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.ADVANCED_FERTILIZER.get()),
-                5., 6.5, "advanced_fertilizer");
+        addPlantGrowthChamberFertilizerRecipe(ingredientOf(EPItems.ADVANCED_FERTILIZER),
+                5.0, 1.0, 6.5, "advanced_fertilizer");
     }
 
     private void buildPlantGrowthChamberSoilRecipes() {
@@ -3815,14 +3815,14 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         this.output.accept(recipeId, recipe, null);
     }
 
-    private void addPlantGrowthChamberFertilizerRecipe(Ingredient input,
-                                                              double speedMultiplier, double energyConsumptionMultiplier,
-                                                              String recipeIngredientName) {
+    private void addPlantGrowthChamberFertilizerRecipe(Ingredient input, double speedMultiplier,
+                                                       double fluidConsumptionMultiplier, double energyConsumptionMultiplier,
+                                                       String recipeIngredientName) {
         ResourceLocation recipeId = EPAPI.id("growing/fertilizer/" +
                 recipeIngredientName);
 
         PlantGrowthChamberFertilizerRecipe recipe = new PlantGrowthChamberFertilizerRecipe(input, speedMultiplier,
-                energyConsumptionMultiplier);
+                fluidConsumptionMultiplier, energyConsumptionMultiplier);
         this.output.accept(recipeId, recipe, null);
     }
 
