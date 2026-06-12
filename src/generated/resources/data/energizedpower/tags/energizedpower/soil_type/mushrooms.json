@@ -3,8 +3,8 @@
     "energizedpower:dirt",
     "energizedpower:coarse_dirt",
     "energizedpower:grass",
-    "energizedpower:mud",
     "energizedpower:mycelium",
+    "energizedpower:podzol",
     "energizedpower:stone"
   ]
 }
