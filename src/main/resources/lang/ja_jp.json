@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
   "entity.energizedpower.advanced_battery_box_minecart": "発展型蓄電器付きのマインカート",
 
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
+
   "recipes.energizedpower.in_world_crafting": "ワールドで作成",
   "recipes.energizedpower.info.ticks": "ティック: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "植物育成機 (肥料)",

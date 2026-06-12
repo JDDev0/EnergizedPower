@@ -871,6 +871,9 @@
   "entity.energizedpower.battery_box_minecart": "Batarya Kutusu Maden Arabası",
   "entity.energizedpower.advanced_battery_box_minecart": "Gelişmiş Batarya Kutusu Maden Arabası",
 
+  "soil_type.energizedpower.grass": "Grass",
+  "soil_type.energizedpower.moss": "Moss",
+
   "recipes.energizedpower.in_world_crafting": "Cihan içi oluşturma",
   "recipes.energizedpower.info.ticks": "Tıkırtı: %d",
   "recipes.energizedpower.plant_growth_chamber_fertilizer": "Büyütme Çembereri (Gübreleyici)",

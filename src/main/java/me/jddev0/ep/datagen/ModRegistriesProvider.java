@@ -2,6 +2,8 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.paintings.EPPaintingVariants;
+import me.jddev0.ep.registry.EPRegistries;
+import me.jddev0.ep.soil.EPSoilTypes;
 import me.jddev0.ep.world.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -21,7 +23,8 @@ public class ModRegistriesProvider extends DatapackBuiltinEntriesProvider {
             add(Registries.STRUCTURE, ModStructures::bootstrap).
             add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap).
             add(Registries.PAINTING_VARIANT, EPPaintingVariants::bootstrap).
-            add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap);
+            add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap).
+            add(EPRegistries.SOIL_TYPE, EPSoilTypes::bootstrap);
 
     public ModRegistriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, BUILDER, Set.of(EPAPI.MOD_ID));
