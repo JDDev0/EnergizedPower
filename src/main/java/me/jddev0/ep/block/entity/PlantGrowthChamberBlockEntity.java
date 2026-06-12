@@ -101,6 +101,14 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
                 super.setStackInSlot(slot, stack);
             }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                if(slot == 6)
+                    return 1;
+
+                return super.getSlotLimit(slot);
+            }
         };
     }
 
