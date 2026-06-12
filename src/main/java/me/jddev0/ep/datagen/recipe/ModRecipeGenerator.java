@@ -11,6 +11,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import me.jddev0.ep.soil.EPSoilTypeTags;
 import me.jddev0.ep.soil.EPSoilTypes;
 import me.jddev0.ep.soil.SoilType;
 import net.minecraft.advancements.Advancement;
@@ -3023,19 +3024,19 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(Items.PINK_PETALS), new double[] {
                         1., 1., 1., .67, .33, .33, .15
                 })
-        }, 16000, "pink_petals", "pink_petals");
+        }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, "pink_petals", "pink_petals");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.SWEET_BERRIES), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.SWEET_BERRIES), new double[] {
                         1., 1., .33, .17
                 })
-        }, 16000, "sweet_berries", "sweet_berries");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "sweet_berries", "sweet_berries");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.GLOW_BERRIES), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.GLOW_BERRIES), new double[] {
                         1., 1., .67, .33, .17, .17
                 })
-        }, 16000, "glow_berries", "glow_berries");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "glow_berries", "glow_berries");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.WHEAT_SEEDS), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.WHEAT_SEEDS), new double[] {
@@ -3044,7 +3045,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(Items.WHEAT), new double[] {
                         1., .75, .25
                 })
-        }, 16000, "wheat", "wheat_seeds");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "wheat", "wheat_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.BEETROOT_SEEDS), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.BEETROOT_SEEDS), new double[] {
@@ -3053,7 +3054,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(Items.BEETROOT), new double[] {
                         1., .75, .25, .25
                 })
-        }, 16000, "beetroots", "beetroot_seeds");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "beetroots", "beetroot_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.POTATO), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.POTATO), new double[] {
@@ -3062,36 +3063,36 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(Items.POISONOUS_POTATO), new double[] {
                         .125
                 })
-        }, 16000, "potatoes", "potato");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "potatoes", "potato");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.CARROT), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.CARROT), new double[] {
                         1., .75, .25, .25
                 })
-        }, 16000, "carrots", "carrot");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "carrots", "carrot");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.MELON_SEEDS), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.MELON_SLICE), new double[] {
                         1., 1., .75, .25, .25
                 })
-        }, 16000, "melon_slices", "melon_seeds");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "melon_slices", "melon_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.PUMPKIN_SEEDS), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.PUMPKIN), new double[] {
                         1.
                 })
-        }, 16000, "pumpkin", "pumpkin_seeds");
+        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "pumpkin", "pumpkin_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.SUGAR_CANE), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.SUGAR_CANE), new double[] {
                         1., 1., .67, .67, .33, .17, .17
                 })
-        }, 16000, "sugar_canes", "sugar_cane");
+        }, EPSoilTypeTags.SUGAR_CANE_CROPS, Fluids.WATER, 0.0625, 4000, "sugar_canes", "sugar_cane");
         addPlantGrowthChamberRecipe(ingredientOf(Items.BAMBOO), new OutputItemStackWithPercentages[] {
                 new OutputItemStackWithPercentages(new ItemStack(Items.BAMBOO), new double[] {
                         1., 1., .67, .17
                 })
-        }, 16000, "bamboo", "bamboo");
+        }, EPSoilTypeTags.SUGAR_CANE_CROPS, Fluids.WATER, 0.0625, 4000, "bamboo", "bamboo");
     }
 
     private void buildPlantGrowthChamberFertilizerRecipes() {
@@ -3785,7 +3786,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(flowerItem), new double[] {
                         1., 1., .33
                 })
-        }, 16000, outputName, getItemName(flowerItem));
+        }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, outputName, getItemName(flowerItem));
     }
     private void addBasicMushroomsGrowingRecipe(ItemLike mushroomItem,
                                                        String outputName) {
@@ -3793,7 +3794,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(mushroomItem), new double[] {
                         1., 1., .5, .25
                 })
-        }, 16000, outputName, getItemName(mushroomItem));
+        }, EPSoilTypeTags.MUSHROOMS, Fluids.WATER, 0.0625, 4000, outputName, getItemName(mushroomItem));
     }
     private void addBasicAncientFlowerGrowingRecipe(ItemLike seedItem,
                                                            ItemLike flowerItem, String outputName) {
@@ -3804,15 +3805,24 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new OutputItemStackWithPercentages(new ItemStack(flowerItem), new double[] {
                         1., .15
                 })
-        }, 16000, outputName, getItemName(seedItem));
+        }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, outputName, getItemName(seedItem));
     }
     private void addPlantGrowthChamberRecipe(Ingredient input,
-                                                    OutputItemStackWithPercentages[] outputs, int ticks,
-                                                    String outputName, String recipeIngredientName) {
+                                             OutputItemStackWithPercentages[] outputs,
+                                             TagKey<SoilType> soilType,
+                                             Fluid fluid, double fluidConsumption, int ticks,
+                                             String outputName, String recipeIngredientName) {
+        addPlantGrowthChamberRecipe(input, outputs, soilType, new Fluid[] {fluid}, fluidConsumption, ticks, outputName, recipeIngredientName);
+    }
+    private void addPlantGrowthChamberRecipe(Ingredient input,
+                                             OutputItemStackWithPercentages[] outputs,
+                                             TagKey<SoilType> soilType,
+                                             Fluid[] fluid, double fluidConsumption, int ticks,
+                                             String outputName, String recipeIngredientName) {
         ResourceLocation recipeId = EPAPI.id("growing/" +
                 outputName + "_from_growing_" + recipeIngredientName);
 
-        PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, ticks);
+        PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, soilType, fluid, fluidConsumption, ticks);
         this.output.accept(recipeId, recipe, null);
     }
 

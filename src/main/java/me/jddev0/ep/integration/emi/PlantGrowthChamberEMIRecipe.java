@@ -1,5 +1,6 @@
 package me.jddev0.ep.integration.emi;
 
+import com.mojang.datafixers.util.Either;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
@@ -11,16 +12,26 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
-import net.minecraft.ChatFormatting;
+import me.jddev0.ep.recipe.PlantGrowthChamberSoilRecipe;
+import me.jddev0.ep.registry.EPRegistries;
+import me.jddev0.ep.soil.SoilType;
+import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/plant_growth_chamber_front.png");
@@ -30,6 +41,9 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
+    private final Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType;
+    private final Fluid[] fluid;
+    private final double fluidConsumption;
     private final List<EmiStack> output;
     private final OutputItemStackWithPercentages[] outputsWithPercentages;
     private final int ticks;
@@ -37,9 +51,12 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     public PlantGrowthChamberEMIRecipe(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         this.id = recipe.id();
         this.input = List.of(EmiIngredient.of(recipe.value().getInput()));
+        this.soilType = recipe.value().getSoilType();
         this.output = Arrays.stream(recipe.value().getMaxOutputCounts()).
                 map(item -> EmiStack.of(item, 1)).toList();
         this.outputsWithPercentages = recipe.value().getOutputs();
+        this.fluid = recipe.value().getFluid();
+        this.fluidConsumption = recipe.value().getFluidConsumption() * PlantGrowthChamberBlockEntity.FLUID_CONSUMPTION_MULTIPLIER;
         this.ticks = (int)(recipe.value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
     }
 
@@ -65,20 +82,45 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
     @Override
     public int getDisplayWidth() {
-        return 108;
+        return 139;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 48;
+        return 74;
     }
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        widgets.addTexture(texture, 0, 0, 108, 48, 61, 25);
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        widgets.addTexture(texture, 0, 0, 139, 74, 116, 1);
 
-        widgets.addSlot(input.get(0), 0, 9).drawBack(false);
+        widgets.addSlot(input.get(0), 18, 0).drawBack(false);
+
+        List<Holder<SoilType>> soilTypes = soilType.map(
+                soilType -> soilType.stream().
+                        map(st -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
+                                getOrThrow(st)).
+                        collect(Collectors.toUnmodifiableList()),
+                soilType -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
+                        getOrThrow(soilType).stream().toList()
+        );
+
+        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = Minecraft.getInstance().level.getRecipeManager().
+                getAllRecipesFor(PlantGrowthChamberSoilRecipe.Type.INSTANCE);
+
+        List<EmiIngredient> soils = new ArrayList<>();
+        soilRecipes.stream().map(RecipeHolder::value).filter(soil -> soilTypes.stream().
+                        anyMatch(soilType -> soilType.is(soil.getSoilType()))).
+                forEach(soil -> soils.add(EmiIngredient.of(soil.getInput())));
+
+        widgets.addSlot(EmiIngredient.of(soils), 18, 18).drawBack(false);
+
+        List<EmiStack> fluids = new ArrayList<>();
+        for(Fluid fluid:fluid)
+            fluids.add(EmiStack.of(fluid, FluidUtils.convertMilliBucketsToDroplets(1000)));
+
+        widgets.addSlot(EmiIngredient.of(fluids), 0, 9).drawBack(false);
 
         List<List<EmiStack>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
@@ -119,9 +161,18 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
             }
         }
 
-        Component ticksText = Component.translatable("recipes.energizedpower.info.ticks", ticks);
-        widgets.addText(ticksText.getVisualOrderText(),
-                widgets.getWidth() - Minecraft.getInstance().font.width(ticksText),
-                widgets.getHeight() - Minecraft.getInstance().font.lineHeight, ChatFormatting.WHITE.getColor(), false);
+        Font font = Minecraft.getInstance().font;
+
+        Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+
+        widgets.addText(component, 1, 40, 0xFFFFFFFF, true);
+
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.fluid_consumption");
+
+        widgets.addText(component, 1, 50, 0xFFFFFFFF, true);
+
+        component = Component.literal("-> " + FluidUtils.getFluidAmountWithPrefixSmallAndLarge(fluidConsumption) + "/t");
+
+        widgets.addText(component, 1, 62, 0xFFFFFFFF, true);
     }
 }

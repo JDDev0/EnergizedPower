@@ -19,7 +19,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "3.0.0-beta.1";
+    private static final String CONFIG_VERSION = "3.0.0-beta.2";
 
     private ModConfigs() {}
 
@@ -1172,6 +1172,9 @@ public final class ModConfigs {
     public static final ConfigValue<Float> COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
             "block.plant_growth_chamber", "Plant Growth Chamber", 1.f
     );
+    public static final ConfigValue<Double> COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER = registerFluidConsumptionMultiplierConfigValue(
+            "block.plant_growth_chamber", "Plant Growth Chamber", 1.f
+    );
 
     public static final ConfigValue<Long> COMMON_FLUID_FREEZER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.fluid_freezer", "Fluid Freezer", 4096
@@ -1770,6 +1773,14 @@ public final class ModConfigs {
                 "The multiplier by which the time a recipe of the " + itemName + " requires is multiplied by",
                 defaultValue,
                 0.f, null
+        ));
+    }
+    private static ConfigValue<Double> registerFluidConsumptionMultiplierConfigValue(String baseConfigKey, String itemName, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                baseConfigKey + ".fluid_consumption_multiplier",
+                "The multiplier by which the fluid consumption a recipe of the " + itemName + " requires is multiplied by",
+                defaultValue,
+                0., null
         ));
     }
 

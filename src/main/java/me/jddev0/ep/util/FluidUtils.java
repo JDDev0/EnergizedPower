@@ -13,6 +13,10 @@ public final class FluidUtils {
             "", "k", "M", "G", "T", "P", "E"
     };
 
+    private static final String[] FLUID_SMALL_PREFIXES = new String[] {
+            /* Skip "", because unit is displayed in "B" and not in "mB" => amount /= 1000 */ "m", "µ", "n", "p"
+    };
+
     private FluidUtils() {}
 
     public static String getFluidAmountWithPrefix(long milliBuckets) {
@@ -29,6 +33,34 @@ public final class FluidUtils {
         }
 
         return String.format(Locale.ENGLISH, "%.2f%s mB", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
+    }
+
+    public static String getFluidAmountWithPrefixSmallAndLarge(double fluidAmount) {
+        if(fluidAmount < 1) {
+            double fluidAmountWithPrefix = fluidAmount;
+
+            int prefixIndex = 0;
+            while((fluidAmountWithPrefix < 1) && prefixIndex + 1 < FLUID_SMALL_PREFIXES.length) {
+                fluidAmountWithPrefix *= 1000;
+
+                prefixIndex++;
+            }
+
+            return String.format(Locale.ENGLISH, "%.2f %sB", fluidAmountWithPrefix, FLUID_SMALL_PREFIXES[prefixIndex]);
+        }else if(fluidAmount < 1000) {
+            return String.format(Locale.ENGLISH, "%.2f mB", fluidAmount);
+        }
+
+        double fluidAmountWithPrefix = fluidAmount;
+
+        int prefixIndex = 0;
+        while(((long)fluidAmountWithPrefix >= 1000) && prefixIndex + 1 < FLUID_PREFIXES.length) {
+            fluidAmountWithPrefix /= 1000;
+
+            prefixIndex++;
+        }
+
+        return String.format(Locale.ENGLISH, "%.2f%s mB", fluidAmountWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 
     public static long convertDropletsToMilliBuckets(long droplets) {

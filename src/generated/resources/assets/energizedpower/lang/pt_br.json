@@ -1303,6 +1303,7 @@
   "recipes.energizedpower.in_world_crafting": "Criação no Mundo",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
   "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "%.2fx Consumo de Energia",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
   "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
   "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
   "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "%.2fx Velocidade",

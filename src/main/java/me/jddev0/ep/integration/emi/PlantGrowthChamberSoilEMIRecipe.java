@@ -74,8 +74,8 @@ public class PlantGrowthChamberSoilEMIRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        ResourceLocation texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        widgets.addTexture(texture, 0, 0, 18, 18, 34, 34);
+        ResourceLocation texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        widgets.addTexture(texture, 0, 0, 18, 18, 116, 10);
 
         widgets.addSlot(input.get(0), 0, 0).drawBack(false);
 
@@ -88,7 +88,7 @@ public class PlantGrowthChamberSoilEMIRecipe implements EmiRecipe {
         int textWidth = font.width(component);
 
         widgets.addText(component.getVisualOrderText(), 1, 22, 0xFFFFFFFF, true);
-        widgets.addText(soilType.displayName(), 1 + textWidth, 22, 0xFFFFFFFF, false);
+        widgets.addText(soilType.displayName(), 1 + textWidth, 23, 0xFFFFFFFF, false);
 
         component = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier", speedMultiplier);
         widgets.addText(component, 1, 37, 0xFFFFFFFF, true);
