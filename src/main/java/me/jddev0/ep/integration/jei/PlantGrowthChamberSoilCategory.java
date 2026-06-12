@@ -18,7 +18,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -32,7 +31,7 @@ public class PlantGrowthChamberSoilCategory implements IRecipeCategory<RecipeHol
 
     public PlantGrowthChamberSoilCategory(IGuiHelper helper) {
         Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
-        soilSlot = helper.createDrawable(texture, 147, 10, 18, 18);
+        soilSlot = helper.createDrawable(texture, 116, 10, 18, 18);
         background = helper.createBlankDrawable(144, 80);
 
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM));
