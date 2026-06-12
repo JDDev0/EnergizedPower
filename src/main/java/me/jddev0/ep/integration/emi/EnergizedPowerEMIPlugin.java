@@ -2,7 +2,9 @@ package me.jddev0.ep.integration.emi;
 
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiCraftingRecipe;
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
+import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
@@ -10,11 +12,13 @@ import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.screen.EPMenuTypes;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import net.minecraft.core.NonNullList;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
+
+import java.util.Optional;
 
 public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
@@ -189,6 +193,23 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
                 EPAPI.id("in_world_crafting/energizedpower/cable_insulator"),
                 Ingredient.of(ConventionalItemTags.SHEAR_TOOLS), Ingredient.of(ItemTags.WOOL),
                 new ItemStack(EPItems.CABLE_INSULATOR, 18))));
+
+        //Add farmland special crafting recipe if loaded
+        Optional<RecipeHolder<CraftingRecipe>> recipeOptional = recipeManager.getAllRecipesFor(RecipeType.CRAFTING).stream().
+                filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
+        if(recipeOptional.isPresent()) {
+            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, new ItemStack(Items.FARMLAND),
+                    NonNullList.of(null, new Ingredient[] {
+                            Ingredient.of(ItemTags.HOES),
+                            Ingredient.of(Items.DIRT)
+                    }));
+
+            registry.addRecipe(new EmiCraftingRecipe(
+                    recipe.getIngredients().stream().map(EmiIngredient::of).toList(),
+                    EmiStack.of(recipe.getResultItem(null)),
+                    recipeOptional.get().id()
+            ));
+        }
     }
 
     private void registerRecipeHandlers(EmiRegistry registry) {

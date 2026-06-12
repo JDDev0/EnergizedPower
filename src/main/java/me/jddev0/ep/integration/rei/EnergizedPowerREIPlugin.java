@@ -17,9 +17,15 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
+import net.minecraft.core.NonNullList;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.StonecutterRecipe;
+import net.minecraft.world.item.crafting.*;
+
+import java.util.Optional;
 
 public class EnergizedPowerREIPlugin implements REIClientPlugin {
     @Override
@@ -169,6 +175,19 @@ public class EnergizedPowerREIPlugin implements REIClientPlugin {
 
         registry.add(new InWorldDisplay());
         registry.add(new DispenserDisplay());
+
+        //Add farmland special crafting recipe if loaded
+        Optional<RecipeHolder<CraftingRecipe>> recipeOptional = registry.getRecipeManager().getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING).stream().
+                filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
+        if(recipeOptional.isPresent()) {
+            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, new ItemStack(Items.FARMLAND),
+                    NonNullList.of(null, new Ingredient[] {
+                            Ingredient.of(ItemTags.HOES),
+                            Ingredient.of(Items.DIRT)
+                    }));
+
+            registry.add(DefaultCraftingDisplay.of(new RecipeHolder(recipeOptional.get().id(), recipe)));
+        }
     }
 
     @Override

@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-12T22:18:43.035105377	Energized Power/Advancements (Advanced)
+// 1.21.1	2026-06-12T22:42:55.553556734	Energized Power/Advancements (Advanced)
 348c143ab4a32c8091ebc4914c660de205443faf data/energizedpower/advancement/main/advanced/duration_upgrade_module_4.json
 98ec67818acc1cfeb4cb0869518643cdb8558c7f data/energizedpower/advancement/main/advanced/range_upgrade_module_2.json
 bf7fb6ac9fc4d202afead358445745e4a0df19de data/energizedpower/advancement/main/advanced/reinforced_advanced_upgrade_module.json
@@ -22,8 +22,8 @@ c863d0bbcdc5d29f19059167973d9c625602c011 data/energizedpower/advancement/main/ad
 b62b85c91a41c80db17245c75eb08e640ab1f6d9 data/energizedpower/advancement/main/advanced/duration_upgrade_module_5.json
 8ed8b630839b52ea3dea8eb84be65d0e39345656 data/energizedpower/advancement/main/advanced/energized_gold_wire.json
 de6621b52b3485d7937459c0b49fb544a62858dd data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
-891d002114022bd99d1c8a0cdad9428fcb7112b9 data/energizedpower/advancement/main/advanced/energy_capacity_upgrade_module_5.json
 e10400a823fe6827988d83d37581bb3572d92a56 data/energizedpower/advancement/main/advanced/extraction_depth_upgrade_module_5.json
+891d002114022bd99d1c8a0cdad9428fcb7112b9 data/energizedpower/advancement/main/advanced/energy_capacity_upgrade_module_5.json
 10fa48283215686790d4d4ad21e38f3871218a9f data/energizedpower/advancement/main/advanced/inventory_teleporter.json
 2bb486f67bac204a6abc1520f2ccff72cdf40624 data/energizedpower/advancement/main/advanced/energized_gold_cable.json
 802f2ba2d75ebdffe2216d01ff30bf604e968812 data/energizedpower/advancement/main/advanced/weather_controller.json
