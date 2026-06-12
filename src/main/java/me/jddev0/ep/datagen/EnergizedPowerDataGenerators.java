@@ -4,6 +4,8 @@ import me.jddev0.ep.datagen.lang.ModLanguageProvider;
 import me.jddev0.ep.datagen.loot.ModBlockLootTables;
 import me.jddev0.ep.datagen.recipe.ModRecipeGenerator;
 import me.jddev0.ep.paintings.EPPaintingVariants;
+import me.jddev0.ep.registry.EPRegistries;
+import me.jddev0.ep.soil.EPSoilTypes;
 import me.jddev0.ep.world.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -50,6 +52,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(ModPoiTypeTagProvider::new);
         pack.addProvider(ModBiomeTagProvider::new);
         pack.addProvider(ModPaintingVariantTagProvider::new);
+        pack.addProvider(ModSoilTypeTagProvider::new);
     }
 
     @Override
@@ -60,5 +63,6 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
         registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
         registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
         registryBuilder.add(Registries.PAINTING_VARIANT, EPPaintingVariants::bootstrap);
+        registryBuilder.add(EPRegistries.SOIL_TYPE, EPSoilTypes::bootstrap);
     }
 }

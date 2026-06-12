@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-08T21:26:47.684281998	Energized Power/Block Loot Tables
+// 1.21.1	2026-06-12T21:51:48.803911565	Energized Power/Block Loot Tables
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_table/blocks/stone_solidifier.json
 e9b25d4563facbc5f36dacbbfbb80c947a35537b data/energizedpower/loot_table/blocks/golden_fluid_pipe.json
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
@@ -82,8 +82,8 @@ a86d2f7dce7b9f3a9e2dbedc5452ededa0e4cfb4 data/energizedpower/loot_table/blocks/i
 277c6c62e1adde0a1d91dac6a1097dae9e106529 data/energizedpower/loot_table/blocks/express_item_conveyor_belt_switch.json
 494384856903b6030cdb7fdc9c3abdaeaa9d9b9d data/energizedpower/loot_table/blocks/express_item_conveyor_belt_splitter.json
 a408b56eff6fb622db2745cff2de9a017a0605f3 data/energizedpower/loot_table/blocks/lightning_generator.json
-f3a702cc12f7616aa25448828c5a73a40f8855cf data/energizedpower/loot_table/blocks/configurable_mv_transformer.json
 8bf84b4ca1adbf1526e562b89f9b25f1f54782f9 data/energizedpower/loot_table/blocks/hv_transformer_3_to_3.json
+f3a702cc12f7616aa25448828c5a73a40f8855cf data/energizedpower/loot_table/blocks/configurable_mv_transformer.json
 cfacaf3ed6273f29c5c3200c2ec9e16bd1a16691 data/energizedpower/loot_table/blocks/configurable_hv_transformer.json
 97b44c3da7a35aa74eceff3cd3f955baa377c872 data/energizedpower/loot_table/blocks/basic_machine_frame.json
 fa2d348947691c56fa3e1ba413ddff3023579591 data/energizedpower/loot_table/blocks/fast_item_conveyor_belt.json

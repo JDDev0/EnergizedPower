@@ -1,6 +1,7 @@
 package me.jddev0.ep.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import me.jddev0.ep.registry.EPRegistries;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -19,6 +20,7 @@ public class ModRegistriesProvider extends FabricDynamicRegistryProvider {
         entries.addAll(lookupProvider.lookupOrThrow(Registries.STRUCTURE));
         entries.addAll(lookupProvider.lookupOrThrow(Registries.STRUCTURE_SET));
         entries.addAll(lookupProvider.lookupOrThrow(Registries.PAINTING_VARIANT));
+        entries.addAll(lookupProvider.lookupOrThrow(EPRegistries.SOIL_TYPE));
     }
 
     @Override

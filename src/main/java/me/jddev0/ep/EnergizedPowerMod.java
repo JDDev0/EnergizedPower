@@ -14,7 +14,8 @@ import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.recipe.EPRecipes;
+import me.jddev0.ep.recipe.*;
+import me.jddev0.ep.registry.EPRegistries;
 import me.jddev0.ep.screen.EPMenuTypes;
 import me.jddev0.ep.villager.EPVillager;
 import me.jddev0.ep.world.gen.ModWorldGeneration;
@@ -35,6 +36,8 @@ public class EnergizedPowerMod implements ModInitializer {
         ModConfigs.registerConfigs(true);
 
         EPDataComponentTypes.register();
+
+        EPRegistries.register();
 
         EPItems.register();
         EPBlocks.register();
