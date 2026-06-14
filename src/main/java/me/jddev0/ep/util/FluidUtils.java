@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public final class FluidUtils {
     private static final String[] FLUID_PREFIXES = new String[] {
-            "", "k", "M", "G", "T", "P", "E"
+            /* Start from "m", because base unit is "mB" */ "m", "", "k", "M", "G", "T", "P", "E"
     };
 
     private static final String[] FLUID_SMALL_PREFIXES = new String[] {
@@ -33,7 +33,7 @@ public final class FluidUtils {
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f%s mB", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s B", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 
     public static String getFluidAmountWithPrefixSmallAndLarge(double milliBuckets) {
@@ -61,7 +61,7 @@ public final class FluidUtils {
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f%s mB", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s B", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 
     public static long convertDropletsToMilliBuckets(long droplets) {
