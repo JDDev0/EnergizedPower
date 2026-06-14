@@ -1,9 +1,9 @@
-// 1.21.1	2026-06-12T22:47:26.261696345	Energized Power/Tags for energizedpower:soil_type
+// 1.21.1	2026-06-14T16:15:01.729727646	Energized Power/Tags for energizedpower:soil_type
 d9395d4e3e62d3ad66ff4ab99c337ec2a901538d data/energizedpower/tags/energizedpower/soil_type/water_crops.json
 ee3e5d6c17561ca96b573790d1fb2617ff2d3262 data/energizedpower/tags/energizedpower/soil_type/nether_crops.json
-d4a8a4d2681dab00d5cf56a6de4ea78ae213afe7 data/energizedpower/tags/energizedpower/soil_type/flowers.json
 9d6b77dfbe8b4c3e19ed31ec1fbc409621915f86 data/energizedpower/tags/energizedpower/soil_type/crops.json
+d4a8a4d2681dab00d5cf56a6de4ea78ae213afe7 data/energizedpower/tags/energizedpower/soil_type/flowers.json
 5a7a6eee1c4543a7f40bc8c7fdcac82fbfbf9f0f data/energizedpower/tags/energizedpower/soil_type/sugar_cane_crops.json
-ccb0dcd2f04b175a81813413efc6f33cd26d5716 data/energizedpower/tags/energizedpower/soil_type/end_crops.json
 745f74a7e85c3816910cda79f080b61eb4d7289c data/energizedpower/tags/energizedpower/soil_type/mushrooms.json
+ccb0dcd2f04b175a81813413efc6f33cd26d5716 data/energizedpower/tags/energizedpower/soil_type/end_crops.json
 434ae16b4df17179657813357065fc16d8fadf18 data/energizedpower/tags/energizedpower/soil_type/desert_crops.json
