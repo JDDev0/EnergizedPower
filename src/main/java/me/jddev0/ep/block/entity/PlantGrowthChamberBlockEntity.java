@@ -92,7 +92,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
             @Override
             public void setStackInSlot(int slot, @NotNull ItemStack stack) {
-                if(slot == 0) {
+                if(slot == 0 || slot == 6) {
                     ItemStack itemStack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, itemStack))
