@@ -88,7 +88,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
             @Override
             public void setItem(int slot, ItemStack stack) {
-                if(slot == 0) {
+                if(slot == 0 || slot == 6) {
                     ItemStack itemStack = getItem(slot);
                     if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, itemStack))
