@@ -121,6 +121,9 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
         if(level.isClientSide())
             return false;
 
+        if(!input.test(container.getItem(0)))
+            return false;
+
         Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = level.getRecipeManager().
                 getRecipeFor(EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE, container, level);
         if(soilRecipe.isEmpty())
@@ -128,7 +131,7 @@ public class PlantGrowthChamberRecipe implements Recipe<RecipeInput> {
 
         ResourceKey<SoilType> soilType = soilRecipe.get().value().getSoilType();
 
-        return input.test(container.getItem(0)) && this.soilType.map(
+        return this.soilType.map(
                 st -> st.stream().anyMatch(sti -> sti.location().equals(soilType.location())),
                 st -> level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).getOrThrow(soilType).is(st)
         );
