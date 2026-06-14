@@ -130,17 +130,18 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                         new ItemStack(EPItems.CABLE_INSULATOR, 18))
         ));
 
-        //Add farmland special crafting recipe if loaded
-        Optional<RecipeHolder<CraftingRecipe>> recipeOptional = recipeManager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING).stream().
-                filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
-        if(recipeOptional.isPresent()) {
-            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, new ItemStack(Items.FARMLAND),
+        //Add farmland special crafting recipes
+        for(RecipeHolder<CraftingRecipe> craftingRecipe:recipeManager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING)) {
+            if(!(craftingRecipe.value() instanceof FarmlandCraftingRecipe farmlandCraftingRecipe))
+                continue;
+
+            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, farmlandCraftingRecipe.getFarmland(),
                     NonNullList.of(null, new Ingredient[] {
                             Ingredient.of(ItemTags.HOES),
-                            Ingredient.of(Items.DIRT)
+                            farmlandCraftingRecipe.getDirt()
                     }));
 
-            registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder(recipeOptional.get().id(), recipe)));
+            registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder<>(craftingRecipe.id(), recipe)));
         }
     }
 

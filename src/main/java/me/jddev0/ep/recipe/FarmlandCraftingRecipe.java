@@ -1,19 +1,40 @@
 package me.jddev0.ep.recipe;
 
+import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.HolderLookup;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class FarmlandCraftingRecipe extends CustomRecipe {
-    public FarmlandCraftingRecipe(CraftingBookCategory category) {
-        super(category);
+    private final Ingredient dirt;
+    private final ItemStack farmland;
+
+    public FarmlandCraftingRecipe(Ingredient dirt, ItemStack farmland) {
+        super(CraftingBookCategory.MISC);
+
+        this.dirt = dirt;
+        this.farmland = farmland;
+    }
+
+    public Ingredient getDirt() {
+        return dirt;
+    }
+
+    public ItemStack getFarmland() {
+        return farmland;
     }
 
     @Override
@@ -24,7 +45,7 @@ public class FarmlandCraftingRecipe extends CustomRecipe {
         for(int i = 0;i < container.size();i++) {
             ItemStack itemStack = container.getItem(i);
             if(!itemStack.isEmpty()) {
-                if(itemStack.is(Items.DIRT)) {
+                if(dirt.test(itemStack)) {
                     dirtCount++;
                 }else if(itemStack.is(ItemTags.HOES)) {
                     hoeCount++;
@@ -39,12 +60,12 @@ public class FarmlandCraftingRecipe extends CustomRecipe {
 
     @Override
     public ItemStack assemble(CraftingInput container, HolderLookup.Provider registries) {
-        return new ItemStack(Items.FARMLAND);
+        return farmland.copy();
     }
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return new ItemStack(Items.FARMLAND);
+        return farmland.copy();
     }
 
     @Override
@@ -88,5 +109,36 @@ public class FarmlandCraftingRecipe extends CustomRecipe {
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width >= 2 || height >= 2;
+    }
+
+    public static final class Serializer implements RecipeSerializer<FarmlandCraftingRecipe> {
+        private Serializer() {}
+
+        public static final Serializer INSTANCE = new Serializer();
+        public static final ResourceLocation ID = EPAPI.id("farmland_crafting");
+
+        private static final MapCodec<FarmlandCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
+            return instance.group(Ingredient.CODEC.fieldOf("dirt").forGetter((recipe) -> {
+                return recipe.dirt;
+            }), ItemStack.CODEC.fieldOf("farmland").forGetter((recipe) -> {
+                return recipe.farmland;
+            })).apply(instance, FarmlandCraftingRecipe::new);
+        });
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, FarmlandCraftingRecipe> STREAM_CODEC = StreamCodec.composite(
+                Ingredient.CONTENTS_STREAM_CODEC, FarmlandCraftingRecipe::getDirt,
+                ItemStack.STREAM_CODEC, FarmlandCraftingRecipe::getFarmland,
+                FarmlandCraftingRecipe::new
+        );
+
+        @Override
+        public MapCodec<FarmlandCraftingRecipe> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, FarmlandCraftingRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
     }
 }

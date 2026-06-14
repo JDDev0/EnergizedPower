@@ -120,9 +120,8 @@ public final class EPRecipes {
             TELEPORTER_MATRIX_SETTINGS_COPY_SERIALIZER = createSerializer("teleporter_matrix_settings_copy",
             new SimpleCraftingRecipeSerializer<>(TeleporterMatrixSettingsCopyRecipe::new));
 
-    public static final RecipeSerializer<FarmlandCraftingRecipe>
-            FARMLAND_CRAFTING_RECIPE_SERIALIZER = createSerializer("farmland_crafting",
-            new SimpleCraftingRecipeSerializer<>(FarmlandCraftingRecipe::new));
+    public static final RecipeSerializer<FarmlandCraftingRecipe> FARMLAND_CRAFTING_RECIPE_SERIALIZER =
+            createSerializer("farmland_crafting", FarmlandCraftingRecipe.Serializer.INSTANCE);
 
     private static <T extends Recipe<?>> RecipeSerializer<T> createSerializer(String name, RecipeSerializer<T> instance) {
         return Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, EPAPI.id(name), instance);

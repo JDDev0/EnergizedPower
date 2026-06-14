@@ -1,4 +1,10 @@
 {
   "type": "energizedpower:farmland_crafting",
-  "category": "misc"
+  "dirt": {
+    "item": "minecraft:dirt"
+  },
+  "farmland": {
+    "count": 1,
+    "id": "minecraft:farmland"
+  }
 }
