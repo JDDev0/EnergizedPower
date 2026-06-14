@@ -2528,7 +2528,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void buildCustomCraftingRecipes() {
         addCustomCraftingRecipe(TeleporterMatrixSettingsCopyRecipe::new, "teleporter_matrix_settings_copy");
-        addCustomCraftingRecipe(FarmlandCraftingRecipe::new, "farmland");
+        addCustomCraftingRecipe(() -> new FarmlandCraftingRecipe(ingredientOf(Items.DIRT), new ItemStackTemplate(Items.FARMLAND)), "farmland");
     }
 
     private void buildCookingRecipes() {

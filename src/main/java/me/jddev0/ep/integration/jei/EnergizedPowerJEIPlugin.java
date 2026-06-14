@@ -20,7 +20,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.common.Tags;
@@ -138,18 +137,19 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                             new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))
             ));
 
-            //Add farmland special crafting recipe if loaded
-            Optional<RecipeHolder<CraftingRecipe>> recipeOptional = recipeMap.byType(RecipeType.CRAFTING).stream().
-                    filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
-            if(recipeOptional.isPresent()) {
+            //Add farmland special crafting recipes
+            for(RecipeHolder<CraftingRecipe> craftingRecipe:recipeMap.byType(RecipeType.CRAFTING)) {
+                if(!(craftingRecipe.value() instanceof FarmlandCraftingRecipe farmlandCraftingRecipe))
+                    continue;
+
                 ShapelessRecipe recipe = new ShapelessRecipe(new Recipe.CommonInfo(true),
-                        new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""), new ItemStackTemplate(Items.FARMLAND),
+                        new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""), farmlandCraftingRecipe.getFarmland(),
                         NonNullList.of(null, new Ingredient[] {
                                 Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.HOES)),
-                                Ingredient.of(Items.DIRT)
+                                farmlandCraftingRecipe.getDirt()
                         }));
 
-                registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder(recipeOptional.get().id(), recipe)));
+                registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder<>(craftingRecipe.id(), recipe)));
             }
         }
     }
