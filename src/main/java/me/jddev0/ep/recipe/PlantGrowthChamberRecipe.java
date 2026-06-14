@@ -124,6 +124,9 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         if(level.isClientSide() || !(level instanceof ServerLevel serverLevel))
             return false;
 
+        if(!input.test(container.getItem(0)))
+            return false;
+
         Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = serverLevel.recipeAccess().
                 getRecipeFor(EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE.get(), container, level);
         if(soilRecipe.isEmpty())
@@ -131,7 +134,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
 
         ResourceKey<SoilType> soilType = soilRecipe.get().value().getSoilType();
 
-        return input.test(container.getItem(0)) && this.soilType.map(
+        return this.soilType.map(
                 st -> st.stream().anyMatch(sti -> sti.identifier().equals(soilType.identifier())),
                 st -> level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).getOrThrow(soilType).is(st)
         );
