@@ -3052,13 +3052,13 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.SWEET_BERRIES), new double[] {
                         1., 1., .33, .17
                 })
-        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "sweet_berries", "sweet_berries");
+        }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, "sweet_berries", "sweet_berries");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.GLOW_BERRIES), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.GLOW_BERRIES), new double[] {
                         1., 1., .67, .33, .17, .17
                 })
-        }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "glow_berries", "glow_berries");
+        }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, "glow_berries", "glow_berries");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.WHEAT_SEEDS), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.WHEAT_SEEDS), new double[] {
