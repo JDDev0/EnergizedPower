@@ -108,7 +108,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
             @Override
             protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
-                if(slot == 0) {
+                if(slot == 0 || slot == 6) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, previousItemStack))
