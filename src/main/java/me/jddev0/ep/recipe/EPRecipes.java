@@ -127,7 +127,7 @@ public final class EPRecipes {
 
     public static final Supplier<RecipeSerializer<FarmlandCraftingRecipe>>
             FARMLAND_CRAFTING_RECIPE_SERIALIZER = SERIALIZERS.register("farmland_crafting",
-            () -> new SimpleCraftingRecipeSerializer<>(FarmlandCraftingRecipe::new));
+            () -> FarmlandCraftingRecipe.Serializer.INSTANCE);
 
     public static void register(IEventBus modEventBus) {
         SERIALIZERS.register(modEventBus);

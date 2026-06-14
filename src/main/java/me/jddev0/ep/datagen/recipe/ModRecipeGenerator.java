@@ -2535,10 +2535,9 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         }, new ItemStack(EPItems.TELEPORTER_MATRIX.get()), CraftingBookCategory.MISC);
     }
     private void buildCustomCraftingRecipes() {
-        addCustomCraftingRecipe(TeleporterMatrixSettingsCopyRecipe::new, CraftingBookCategory.MISC,
+        addCustomCraftingRecipe(new TeleporterMatrixSettingsCopyRecipe(CraftingBookCategory.MISC),
                 "teleporter_matrix_settings_copy");
-        addCustomCraftingRecipe(FarmlandCraftingRecipe::new, CraftingBookCategory.MISC,
-                "farmland");
+        addCustomCraftingRecipe(new FarmlandCraftingRecipe(ingredientOf(Items.DIRT), new ItemStack(Items.FARMLAND)), "farmland");
     }
 
     private void buildCookingRecipes() {
@@ -3558,13 +3557,11 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 NonNullList.of(Ingredient.EMPTY, inputs.toArray(Ingredient[]::new)));
         this.output.accept(recipeId, recipe, advancementBuilder.build(recipeId.withPrefix("recipes/")));
     }
-    private void addCustomCraftingRecipe(Function<CraftingBookCategory, ? extends CustomRecipe> customRecipeFactory,
-                                                CraftingBookCategory category, String recipeIdString) {
+    private void addCustomCraftingRecipe(CustomRecipe customRecipe, String recipeIdString) {
         ResourceLocation recipeId = EPAPI.id("crafting/" +
                 recipeIdString);
 
-        CustomRecipe recipe = customRecipeFactory.apply(category);
-        this.output.accept(recipeId, recipe, null);
+        this.output.accept(recipeId, customRecipe, null);
     }
 
     private void addBlastingAndSmeltingRecipes(ItemLike ingredient, ItemStack result,

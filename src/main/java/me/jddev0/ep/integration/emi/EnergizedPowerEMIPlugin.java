@@ -15,11 +15,8 @@ import me.jddev0.ep.screen.EPMenuTypes;
 import net.minecraft.core.NonNullList;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.neoforged.neoforge.common.Tags;
-
-import java.util.Optional;
 
 @EmiEntrypoint
 public class EnergizedPowerEMIPlugin implements EmiPlugin {
@@ -196,20 +193,21 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
                 Ingredient.of(Tags.Items.TOOLS_SHEAR), Ingredient.of(ItemTags.WOOL),
                 new ItemStack(EPItems.CABLE_INSULATOR.get(), 18))));
 
-        //Add farmland special crafting recipe if loaded
-        Optional<RecipeHolder<CraftingRecipe>> recipeOptional = recipeManager.getAllRecipesFor(RecipeType.CRAFTING).stream().
-                filter(recipe -> recipe.value() instanceof FarmlandCraftingRecipe).findFirst();
-        if(recipeOptional.isPresent()) {
-            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, new ItemStack(Items.FARMLAND),
+        //Add farmland special crafting recipes
+        for(RecipeHolder<CraftingRecipe> craftingRecipe:recipeManager.getAllRecipesFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING)) {
+            if(!(craftingRecipe.value() instanceof FarmlandCraftingRecipe farmlandCraftingRecipe))
+                continue;
+
+            ShapelessRecipe recipe = new ShapelessRecipe("", CraftingBookCategory.MISC, farmlandCraftingRecipe.getFarmland(),
                     NonNullList.of(null, new Ingredient[] {
                             Ingredient.of(ItemTags.HOES),
-                            Ingredient.of(Items.DIRT)
+                            farmlandCraftingRecipe.getDirt()
                     }));
 
             registry.addRecipe(new EmiCraftingRecipe(
                     recipe.getIngredients().stream().map(EmiIngredient::of).toList(),
                     EmiStack.of(recipe.getResultItem(null)),
-                    recipeOptional.get().id()
+                    craftingRecipe.id()
             ));
         }
     }

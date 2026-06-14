@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-14T15:52:00.332747133	Recipes
+// 1.21.1	2026-06-14T16:01:51.810883058	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -432,7 +432,7 @@ afdb547dcb4d7f187696b6264887916aec308b95 data/energizedpower/recipe/crafting/ext
 01d7ace4017d2905223bed929bdf604307066c5f data/energizedpower/recipe/crafting/extraction_range_upgrade_module_4.json
 e09c157ba7e57fb681306bbd52d6651918cb089b data/energizedpower/recipe/crafting/extraction_range_upgrade_module_5.json
 5bc7c675876bfb6bc4dfe180fe5f7b8108ae9fd5 data/energizedpower/recipe/crafting/extraction_range_upgrade_module_6.json
-06febbf187fda4db4662fa8a19e3db5c0c30ce67 data/energizedpower/recipe/crafting/farmland.json
+738a495cadb9100e09fc90037994cdc58190f5c0 data/energizedpower/recipe/crafting/farmland.json
 7027e826088a704c3d98324c8740f998b5351c78 data/energizedpower/recipe/crafting/fast_item_conveyor_belt.json
 d020583fc72725637b5fd0d2df3d8d838e116eea data/energizedpower/recipe/crafting/fast_item_conveyor_belt_loader.json
 2cd8d2fc75c66407b943711d380566b0dc4cfa41 data/energizedpower/recipe/crafting/fast_item_conveyor_belt_merger.json
