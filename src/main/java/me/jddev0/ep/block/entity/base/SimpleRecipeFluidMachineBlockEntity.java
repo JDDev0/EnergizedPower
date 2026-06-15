@@ -150,8 +150,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)));
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)), (ServerPlayer)player);
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

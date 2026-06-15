@@ -54,7 +54,7 @@ public class SelectableRecipeMachineTransferHandler
         if(!doTransfer)
             return null;
 
-        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getBlockPos(), recipe.id().identifier()));
+        ModMessages.sendToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getBlockPos(), recipe.id().identifier()));
 
         return null;
     }

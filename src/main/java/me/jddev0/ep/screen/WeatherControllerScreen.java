@@ -32,17 +32,17 @@ public class WeatherControllerScreen extends UpgradableEnergyStorageContainerScr
             if(isHovering(52, 34, 18, 18, mouseX, mouseY)) {
                 //Weather clear button
 
-                ModMessages.sendClientPacketToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 0));
+                ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 0));
                 return true;
             }else if(isHovering(88, 34, 18, 18, mouseX, mouseY)) {
                 //Weather rain button
 
-                ModMessages.sendClientPacketToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1));
+                ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1));
                 return true;
             }else if(isHovering(124, 34, 18, 18, mouseX, mouseY)) {
                 //Weather thunder button
 
-                ModMessages.sendClientPacketToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 2));
+                ModMessages.sendToServer(new SetWeatherFromWeatherControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 2));
                 return true;
             }
         }

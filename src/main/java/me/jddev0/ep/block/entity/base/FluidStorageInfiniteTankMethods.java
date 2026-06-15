@@ -34,15 +34,14 @@ public final class FluidStorageInfiniteTankMethods implements FluidStorageMethod
 
     @Override
     public void syncFluidToPlayer(InfinityFluidStorage fluidStorage, Player player, BlockPos pos) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
-                fluidStorage.getCapacity(), pos));
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
+                fluidStorage.getCapacity(), pos), (ServerPlayer)player);
     }
 
     @Override
     public void syncFluidToPlayers(InfinityFluidStorage fluidStorage, Level level, BlockPos pos, int distance) {
-        ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                pos, (ServerLevel)level, distance,
-                new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), pos)
+        ModMessages.sendToPlayersWithinXBlocks(
+                new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), pos), pos, (ServerLevel)level, distance
         );
     }
 

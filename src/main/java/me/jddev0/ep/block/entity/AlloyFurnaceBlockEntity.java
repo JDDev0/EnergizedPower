@@ -359,8 +359,7 @@ public class AlloyFurnaceBlockEntity
         if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.ALLOY_FURNACE_TYPE)));
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.ALLOY_FURNACE_TYPE)), (ServerPlayer)player);
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

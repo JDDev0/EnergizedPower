@@ -39,12 +39,12 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
             if(isHovering(10, 28, 11, 11, mouseX, mouseY)) {
                 //Energy Production checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isEnergyProduction()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isEnergyProduction()));
                 clicked = true;
             }else if(isHovering(10, 46, 11, 11, mouseX, mouseY)) {
                 //Energy Consumption checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isEnergyConsumption()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isEnergyConsumption()));
                 clicked = true;
             }
 

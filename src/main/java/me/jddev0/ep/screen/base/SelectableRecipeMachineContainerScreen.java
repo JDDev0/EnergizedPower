@@ -65,7 +65,7 @@ public abstract class SelectableRecipeMachineContainerScreen
             }
 
             if(diff != 0) {
-                ModMessages.sendClientPacketToServer(new ChangeCurrentRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
+                ModMessages.sendToServer(new ChangeCurrentRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(),
                         diff == 1));
 
                 return true;

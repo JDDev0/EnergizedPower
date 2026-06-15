@@ -30,7 +30,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -199,9 +198,8 @@ public class PoweredFurnaceBlockEntity
         super.updateUpgradeModules();
 
         if(level != null && !level.isClientSide()) {
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getBlockPos(), (ServerLevel)level, 32,
-                    new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf((ServerLevel)level, getRecipeForFurnaceModeUpgrade()))
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf((ServerLevel)level, getRecipeForFurnaceModeUpgrade())), getBlockPos(), (ServerLevel)level, 32
             );
         }
     }
@@ -210,8 +208,7 @@ public class PoweredFurnaceBlockEntity
         if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, getRecipeForFurnaceModeUpgrade())));
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, getRecipeForFurnaceModeUpgrade())), (ServerPlayer)player);
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

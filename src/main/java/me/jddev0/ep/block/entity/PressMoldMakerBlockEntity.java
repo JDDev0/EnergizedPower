@@ -64,9 +64,8 @@ public class PressMoldMakerBlockEntity
                 if(level != null && !level.isClientSide()) {
                     List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
 
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getBlockPos(), (ServerLevel)level, 32,
-                            new SyncPressMoldMakerRecipeListS2CPacket(getBlockPos(), recipeList)
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new SyncPressMoldMakerRecipeListS2CPacket(getBlockPos(), recipeList), getBlockPos(), (ServerLevel)level, 32
                     );
                 }
             }
@@ -78,8 +77,8 @@ public class PressMoldMakerBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = createRecipeList();
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new SyncPressMoldMakerRecipeListS2CPacket(
-                getBlockPos(), recipeList));
+        ModMessages.sendToPlayer(new SyncPressMoldMakerRecipeListS2CPacket(
+                getBlockPos(), recipeList), (ServerPlayer)player);
 
         return new PressMoldMakerMenu(id, this, inventory, itemHandler);
     }

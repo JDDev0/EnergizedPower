@@ -43,18 +43,17 @@ public final class FluidStorageMultiTankMethods
     public void syncFluidToPlayer(CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
                                   Player player, BlockPos pos) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new FluidSyncS2CPacket(i,
-                    fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), pos));
+            ModMessages.sendToPlayer(new FluidSyncS2CPacket(i,
+                    fluidStorage.parts.get(i).getFluid(), fluidStorage.parts.get(i).getCapacity(), pos), (ServerPlayer)player);
     }
 
     @Override
     public void syncFluidToPlayers(CombinedStorage<FluidVariant, SimpleFluidStorage> fluidStorage,
                                    Level level, BlockPos pos, int distance) {
         for(int i = 0;i < fluidStorage.parts.size();i++)
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    pos, (ServerLevel)level, distance,
+            ModMessages.sendToPlayersWithinXBlocks(
                     new FluidSyncS2CPacket(i, fluidStorage.parts.get(i).getFluid(),
-                            fluidStorage.parts.get(i).getCapacity(), pos)
+                            fluidStorage.parts.get(i).getCapacity(), pos), pos, (ServerLevel)level, distance
             );
     }
 

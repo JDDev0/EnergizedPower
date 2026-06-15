@@ -376,11 +376,9 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
         if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncIngredientsS2CPacket(getBlockPos(), 1, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE)));
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 1, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE)), (ServerPlayer)player);
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncIngredientsS2CPacket(getBlockPos(), 2, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE)));
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 2, RecipeUtils.getIngredientsOf(serverWorld, EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE)), (ServerPlayer)player);
     }
 
     public List<Ingredient> getIngredientsOfFertilizerRecipes() {

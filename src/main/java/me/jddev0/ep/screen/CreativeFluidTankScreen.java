@@ -64,7 +64,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
 
                 FluidStack fluidStack = new FluidStack(fluidVariant, 1);
 
-                ModMessages.sendClientPacketToServer(new SetCreativeFluidTankFluidStackC2SPacket(menu.getBlockEntity().getBlockPos(), fluidStack));
+                ModMessages.sendToServer(new SetCreativeFluidTankFluidStackC2SPacket(menu.getBlockEntity().getBlockPos(), fluidStack));
                 clicked = true;
             }
 

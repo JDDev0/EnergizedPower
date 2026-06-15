@@ -432,9 +432,8 @@ public class AdvancedPoweredFurnaceBlockEntity
         super.updateUpgradeModules();
 
         if(level != null && !level.isClientSide()) {
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getBlockPos(), (ServerLevel)level, 32,
-                    new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf((ServerLevel)level, getRecipeForFurnaceModeUpgrade()))
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf((ServerLevel)level, getRecipeForFurnaceModeUpgrade())), getBlockPos(), (ServerLevel)level, 32
             );
         }
     }
@@ -443,8 +442,7 @@ public class AdvancedPoweredFurnaceBlockEntity
         if(!(level instanceof ServerLevel serverWorld))
             return;
 
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, getRecipeForFurnaceModeUpgrade())));
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, getRecipeForFurnaceModeUpgrade())), (ServerPlayer)player);
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {

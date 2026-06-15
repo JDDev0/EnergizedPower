@@ -32,7 +32,7 @@ public class BlockPlacerScreen extends ConfigurableUpgradableEnergyStorageContai
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Inverse rotation checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isInverseRotation()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isInverseRotation()));
                 return true;
             }
         }

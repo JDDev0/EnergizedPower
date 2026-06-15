@@ -37,22 +37,22 @@ public class TimeControllerScreen extends EnergyStorageContainerScreen<TimeContr
             if(isHovering(34, 34, 18, 18, mouseX, mouseY)) {
                 //Day button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1000));
+                ModMessages.sendToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 1000));
                 clicked = true;
             }else if(isHovering(70, 34, 18, 18, mouseX, mouseY)) {
                 //Noon button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 6000));
+                ModMessages.sendToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 6000));
                 clicked = true;
             }else if(isHovering(106, 34, 18, 18, mouseX, mouseY)) {
                 //Night button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 13000));
+                ModMessages.sendToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 13000));
                 clicked = true;
             }else if(isHovering(142, 34, 18, 18, mouseX, mouseY)) {
                 //Midnight button
 
-                ModMessages.sendClientPacketToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 18000));
+                ModMessages.sendToServer(new SetTimeFromTimeControllerC2SPacket(menu.getBlockEntity().getBlockPos(), 18000));
                 clicked = true;
             }
 

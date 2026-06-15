@@ -54,15 +54,13 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     }
 
     protected final void syncEnergyToPlayer(Player player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos()));
+        ModMessages.sendToPlayer(new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos()), (ServerPlayer)player);
     }
 
     protected final void syncEnergyToPlayers(int distance) {
         if(level != null && !level.isClientSide())
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getBlockPos(), (ServerLevel)level, distance,
-                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new EnergySyncS2CPacket(energyStorage.getAmount(), energyStorage.getCapacity(), getBlockPos()), getBlockPos(), (ServerLevel)level, distance
             );
     }
 
