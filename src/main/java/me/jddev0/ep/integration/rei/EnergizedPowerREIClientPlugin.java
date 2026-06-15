@@ -93,6 +93,9 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
         registry.addWorkstations(AlloyFurnaceDisplay.CATEGORY, EntryStacks.of(EPBlocks.ALLOY_FURNACE_ITEM));
         registry.addWorkstations(AlloyFurnaceDisplay.CATEGORY, EntryStacks.of(EPBlocks.INDUCTION_SMELTER_ITEM));
 
+        registry.add(new FluidFreezerCategory());
+        registry.addWorkstations(FluidFreezerDisplay.CATEGORY, EntryStacks.of(EPBlocks.FLUID_FREEZER_ITEM));
+
         registry.add(new StoneLiquefierCategory());
         registry.addWorkstations(StoneLiquefierDisplay.CATEGORY, EntryStacks.of(EPBlocks.STONE_LIQUEFIER_ITEM));
 
@@ -204,6 +207,8 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
                 AlloyFurnaceScreen.class, AlloyFurnaceDisplay.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(104, 34, 24, 17),
                 InductionSmelterScreen.class, AlloyFurnaceDisplay.CATEGORY);
+        registerRecipeClickArea(registry, new Rectangle(83, 43, 24, 17),
+                FluidFreezerScreen.class, FluidFreezerDisplay.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(112, 34, 24, 17),
                 StoneLiquefierScreen.class, StoneLiquefierDisplay.CATEGORY);
         registerRecipeClickArea(registry, new Rectangle(69, 45, 20, 14),
