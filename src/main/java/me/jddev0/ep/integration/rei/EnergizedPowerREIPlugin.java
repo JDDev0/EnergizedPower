@@ -27,6 +27,7 @@ public class EnergizedPowerREIPlugin implements REICommonPlugin {
         registry.beginRecipeFiller(AssemblingMachineRecipe.class).filterType(EPRecipes.ASSEMBLING_MACHINE_TYPE.get()).fill(AssemblingMachineDisplay::new);
         registry.beginRecipeFiller(PlantGrowthChamberRecipe.class).filterType(EPRecipes.PLANT_GROWTH_CHAMBER_TYPE.get()).fill(PlantGrowthChamberDisplay::new);
         registry.beginRecipeFiller(PlantGrowthChamberFertilizerRecipe.class).filterType(EPRecipes.PLANT_GROWTH_CHAMBER_FERTILIZER_TYPE.get()).fill(PlantGrowthChamberFertilizerDisplay::new);
+        registry.beginRecipeFiller(PlantGrowthChamberSoilRecipe.class).filterType(EPRecipes.PLANT_GROWTH_CHAMBER_SOIL_TYPE.get()).fill(PlantGrowthChamberSoilDisplay::new);
         registry.beginRecipeFiller(EnergizerRecipe.class).filterType(EPRecipes.ENERGIZER_TYPE.get()).fill(EnergizerDisplay::new);
         registry.beginRecipeFiller(CrystalGrowthChamberRecipe.class).filterType(EPRecipes.CRYSTAL_GROWTH_CHAMBER_TYPE.get()).fill(CrystalGrowthChamberDisplay::new);
         registry.beginRecipeFiller(PressMoldMakerRecipe.class).filterType(EPRecipes.PRESS_MOLD_MAKER_TYPE.get()).fill(PressMoldMakerDisplay::new);
@@ -50,6 +51,7 @@ public class EnergizedPowerREIPlugin implements REICommonPlugin {
         registry.register(AssemblingMachineDisplay.CATEGORY.getIdentifier(), AssemblingMachineDisplay.SERIALIZER);
         registry.register(PlantGrowthChamberDisplay.CATEGORY.getIdentifier(), PlantGrowthChamberDisplay.SERIALIZER);
         registry.register(PlantGrowthChamberFertilizerDisplay.CATEGORY.getIdentifier(), PlantGrowthChamberFertilizerDisplay.SERIALIZER);
+        registry.register(PlantGrowthChamberSoilDisplay.CATEGORY.getIdentifier(), PlantGrowthChamberSoilDisplay.SERIALIZER);
         registry.register(EnergizerDisplay.CATEGORY.getIdentifier(), EnergizerDisplay.SERIALIZER);
         registry.register(CrystalGrowthChamberDisplay.CATEGORY.getIdentifier(), CrystalGrowthChamberDisplay.SERIALIZER);
         registry.register(PressMoldMakerDisplay.CATEGORY.getIdentifier(), PressMoldMakerDisplay.SERIALIZER);

@@ -83,6 +83,9 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
         registry.add(new PlantGrowthChamberFertilizerCategory());
         registry.addWorkstations(PlantGrowthChamberFertilizerDisplay.CATEGORY, EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM));
 
+        registry.add(new PlantGrowthChamberSoilCategory());
+        registry.addWorkstations(PlantGrowthChamberSoilDisplay.CATEGORY, EntryStacks.of(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM));
+
         registry.add(new EnergizerCategory());
         registry.addWorkstations(EnergizerDisplay.CATEGORY, EntryStacks.of(EPBlocks.ENERGIZER_ITEM));
 
