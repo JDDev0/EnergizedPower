@@ -12,6 +12,8 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.integration.jei.EnergizedPowerJEIPlugin;
 import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
+import me.jddev0.ep.integration.rei.EnergizedPowerREIClientPlugin;
+import me.jddev0.ep.integration.rei.EnergizedPowerREIUtils;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.screen.*;
@@ -169,6 +171,10 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         ClientRecipeSynchronizedEvent.EVENT.register((minecraft, synchronizedRecipes) -> {
             if(EnergizedPowerJEIUtils.isJEIAvailable()) {
                 EnergizedPowerJEIPlugin.recipeMap = synchronizedRecipes;
+            }
+
+            if(EnergizedPowerREIUtils.isREIAvailable()) {
+                EnergizedPowerREIClientPlugin.recipeMap = synchronizedRecipes;
             }
         });
     }

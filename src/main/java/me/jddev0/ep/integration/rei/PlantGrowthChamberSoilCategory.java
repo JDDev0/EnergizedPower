@@ -47,8 +47,8 @@ public class PlantGrowthChamberSoilCategory implements DisplayCategory<PlantGrow
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        widgets.add(Widgets.createTexturedWidget(texture, x, y, 34, 34, 18, 18));
+        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        widgets.add(Widgets.createTexturedWidget(texture, x, y, 116, 10, 18, 18));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 1)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
@@ -62,7 +62,7 @@ public class PlantGrowthChamberSoilCategory implements DisplayCategory<PlantGrow
         int textWidth = font.width(component);
 
         widgets.add(Widgets.createLabel(new Point(x + 1, y + 22), component).leftAligned());
-        widgets.add(Widgets.createLabel(new Point(x + 1 + textWidth, y + 22), soilType.displayName()).leftAligned().noShadow());
+        widgets.add(Widgets.createLabel(new Point(x + 1 + textWidth, y + 23), soilType.displayName()).leftAligned().noShadow());
 
         component = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier",
                 display.recipe().value().getSpeedMultiplier());

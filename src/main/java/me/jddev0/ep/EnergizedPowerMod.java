@@ -12,6 +12,7 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
+import me.jddev0.ep.integration.rei.EnergizedPowerREIUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.networking.ModMessages;
@@ -71,7 +72,7 @@ public class EnergizedPowerMod implements ModInitializer {
         if(EnergizedPowerCCTweakedUtils.isCCTweakedAvailable())
             EnergizedPowerCCTweakedIntegration.register();
 
-        if(EnergizedPowerJEIUtils.isJEIAvailable()) {
+        if(EnergizedPowerJEIUtils.isJEIAvailable() || EnergizedPowerREIUtils.isREIAvailable()) {
             RecipeSynchronization.synchronizeRecipeSerializer(ChargerRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(CrusherRecipe.Serializer.INSTANCE);
             RecipeSynchronization.synchronizeRecipeSerializer(PulverizerRecipe.Serializer.INSTANCE);

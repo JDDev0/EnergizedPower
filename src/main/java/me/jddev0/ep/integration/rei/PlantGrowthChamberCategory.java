@@ -3,6 +3,10 @@ package me.jddev0.ep.integration.rei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
+import me.jddev0.ep.recipe.PlantGrowthChamberSoilRecipe;
+import me.jddev0.ep.registry.EPRegistries;
+import me.jddev0.ep.soil.SoilType;
+import me.jddev0.ep.util.FluidUtils;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -12,14 +16,17 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluid;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthChamberDisplay> {
     private static final int PADDING = 5;
@@ -48,11 +55,38 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         int x = bounds.x + PADDING;
         int y = bounds.y + PADDING;
 
-        Identifier texture = EPAPI.id("textures/gui/container/plant_growth_chamber.png");
-        widgets.add(Widgets.createTexturedWidget(texture, x, y, 61, 25, 108, 48));
+        Identifier texture = EPAPI.id("textures/gui/recipe/misc_gui.png");
+        widgets.add(Widgets.createTexturedWidget(texture, x, y, 116, 1, 139, 74));
+
+        widgets.add(Widgets.createSlot(new Point(x + 19, y + 1)).disableBackground().markInput().
+                entries(display.getInputEntries().get(0)));
+
+        List<Holder<SoilType>> soilTypes = display.recipe().value().getSoilType().map(
+                soilType -> soilType.stream().
+                        map(st -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
+                                getOrThrow(st)).
+                        collect(Collectors.toUnmodifiableList()),
+                soilType -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
+                        getOrThrow(soilType).stream().toList()
+        );
+
+        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = EnergizedPowerREIClientPlugin.recipeMap.
+                getAllOfType(PlantGrowthChamberSoilRecipe.Type.INSTANCE);
+
+        List<EntryStack<?>> soils = new ArrayList<>();
+        soilRecipes.stream().map(RecipeHolder::value).filter(soil -> soilTypes.stream().
+                        anyMatch(soilType -> soilType.is(soil.getSoilType()))).
+                forEach(soil -> soils.addAll(EntryIngredients.ofIngredient(soil.getInput())));
+
+        widgets.add(Widgets.createSlot(new Point(x + 19, y + 19)).disableBackground().markInput().
+                entries(soils));
+
+        List<EntryStack<?>> fluids = new ArrayList<>();
+        for(Fluid fluid:display.recipe().value().getFluid())
+            fluids.addAll(EntryIngredients.of(fluid, FluidUtils.convertMilliBucketsToDroplets(1000)));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().
-                entries(display.getInputEntries().get(0)));
+                entries(fluids));
 
         List<List<EntryStack<?>>> outputSlotEntries = new ArrayList<>(4);
         for(int i = 0;i < 4;i++)
@@ -93,21 +127,29 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         }
 
         int ticks = (int)(display.recipe().value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
-        widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Component.translatable("recipes.energizedpower.info.ticks",
-                                ticks)).
-                noShadow().rightAligned());
+        Component component = Component.translatable("recipes.energizedpower.info.ticks", ticks);
+
+        widgets.add(Widgets.createLabel(new Point(x + 1, y + 40), component).leftAligned());
+
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.fluid_consumption");
+
+        widgets.add(Widgets.createLabel(new Point(x + 1, y + 50), component).leftAligned());
+
+        double fluidConsumption = display.recipe().value().getFluidConsumption() * PlantGrowthChamberBlockEntity.FLUID_CONSUMPTION_MULTIPLIER;
+        component = Component.literal("-> " + FluidUtils.getFluidAmountWithPrefixSmallAndLarge(fluidConsumption) + "/t");
+
+        widgets.add(Widgets.createLabel(new Point(x + 1, y + 62), component).leftAligned());
 
         return widgets;
     }
 
     @Override
     public int getDisplayWidth(PlantGrowthChamberDisplay display) {
-        return 108 + 2*PADDING;
+        return 139 + 2*PADDING;
     }
 
     @Override
     public int getDisplayHeight() {
-        return 48 + 2*PADDING;
+        return 74 + 2*PADDING;
     }
 }
