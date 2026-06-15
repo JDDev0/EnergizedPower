@@ -49,14 +49,17 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 1)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
 
-        widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 34),
-                        Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier",
-                                display.recipe().value().getSpeedMultiplier())).
-                rightAligned());
-        widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),
-                        Component.translatable("recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier",
-                                display.recipe().value().getEnergyConsumptionMultiplier())).
-                rightAligned());
+        Component component = Component.translatable("recipes.energizedpower.plant_growth_chamber.speed_multiplier",
+                display.recipe().value().getSpeedMultiplier());
+        widgets.add(Widgets.createLabel(new Point(x + 1, y + 22), component).leftAligned());
+
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier",
+                display.recipe().value().getFluidConsumptionMultiplier());
+        widgets.add(Widgets.createLabel(new Point(x + 1, y + 37), component).leftAligned());
+
+        component = Component.translatable("recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier",
+                display.recipe().value().getEnergyConsumptionMultiplier());
+        widgets.add(Widgets.createLabel(new Point(x + 1, y + 52), component).leftAligned());
 
         return widgets;
     }
@@ -68,6 +71,6 @@ public class PlantGrowthChamberFertilizerCategory implements DisplayCategory<Pla
 
     @Override
     public int getDisplayHeight() {
-        return 30 + 2*PADDING;
+        return 60 + 2*PADDING;
     }
 }
