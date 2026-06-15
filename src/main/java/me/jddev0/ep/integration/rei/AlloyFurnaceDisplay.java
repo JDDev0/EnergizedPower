@@ -18,6 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +62,14 @@ public record AlloyFurnaceDisplay(RecipeHolder<AlloyFurnaceRecipe> recipe) imple
 
     @Override
     public List<EntryIngredient> getOutputEntries() {
-        return Arrays.stream(recipe.value().getMaxOutputCounts()).filter(itemStack -> !itemStack.isEmpty()).map(EntryIngredients::of).toList();
+        ItemStack[] outputs = recipe.value().getMaxOutputCounts();
+        List<EntryIngredient> output = new ArrayList<>();
+        if(outputs.length > 0 && !outputs[0].isEmpty())
+            output.add(EntryIngredients.of(outputs[0]));
+        if(outputs.length > 1 && !outputs[1].isEmpty())
+            output.add(EntryIngredients.of(outputs[1].copyWithCount(1)));
+
+        return output;
     }
 
     @Override

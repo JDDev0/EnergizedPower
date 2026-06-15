@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -80,6 +81,16 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
                 entries(outputSlotEntries.get(2)));
         widgets.add(Widgets.createSlot(new Point(x + 91, y + 19)).disableBackground().markOutput().
                 entries(outputSlotEntries.get(3)));
+
+        for(int i = 0;i < outputEntries.size() && i < 4;i++) {
+            int xOffset = i == 0 || i == 2?73:91;
+            int yOffset = i < 2?1:19;
+
+            //TODO support multiple amounts
+            double[] percentages = display.recipe().value().getOutputs()[i].percentages();
+            widgets.add(Widgets.wrapRenderer(new Rectangle(x + xOffset, y + yOffset, 18, 18),
+                    new ChanceBasedSlotRenderer((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length)));
+        }
 
         int ticks = (int)(display.recipe().value().getTicks() * PlantGrowthChamberBlockEntity.RECIPE_DURATION_MULTIPLIER);
         widgets.add(Widgets.createLabel(new Point(x + bounds.width - 10, y + bounds.height - 17),

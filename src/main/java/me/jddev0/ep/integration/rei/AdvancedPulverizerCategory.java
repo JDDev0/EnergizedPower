@@ -14,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,6 +61,11 @@ public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulve
 
                     return stack.tooltip(tooltip);
                 })));
+        {
+            double[] percentages = display.recipe().value().getOutput().percentagesAdvanced();
+            widgets.add(Widgets.wrapRenderer(new Rectangle(x + 65, y + 5, 18, 18),
+                    new ChanceBasedSlotRenderer((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length)));
+        }
         widgets.add(Widgets.createSlot(new Point(x + 92, y + 5)).disableBackground().markOutput().
                 entries(display.getOutputEntries().size() == 2?display.getOutputEntries().get(1).map(stack -> {
                     List<Component> tooltip = new ArrayList<>();
@@ -71,6 +77,11 @@ public class AdvancedPulverizerCategory implements DisplayCategory<AdvancedPulve
 
                     return stack.tooltip(tooltip);
                 }):new ArrayList<>(0)));
+        {
+            double[] percentages = display.recipe().value().getSecondaryOutput().percentagesAdvanced();
+            widgets.add(Widgets.wrapRenderer(new Rectangle(x + 92, y + 5, 18, 18),
+                    new ChanceBasedSlotRenderer((int)Arrays.stream(percentages).filter(p -> p >= 1.0).count(), percentages.length)));
+        }
 
         return widgets;
     }
