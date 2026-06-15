@@ -20,12 +20,15 @@ import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.plugincompatibilities.api.REIPluginCompatIgnore;
 import net.minecraft.client.gui.screens.inventory.DispenserScreen;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeMap;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.neoforged.neoforge.common.Tags;
 
 @REIPluginClient
 @REIPluginCompatIgnore
 public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
+    public static RecipeMap recipeMap = null;
+
     @Override
     public String getPluginProviderName() {
         return "EnergizedPowerClient";
