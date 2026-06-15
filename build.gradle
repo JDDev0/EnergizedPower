@@ -149,10 +149,10 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     // REI integration
-    //TODO re-enable
-    //compileOnly 'me.shedaniel.cloth:basic-math:0.6.1'
-    //compileOnly "dev.architectury:architectury-neoforge:19.0.1"
-    //compileOnly 'me.shedaniel:RoughlyEnoughItems-neoforge:21.11.814'
+    compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
+    compileOnlyApi "dev.architectury:architectury-neoforge:20.0.6"
+    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-neoforge:26.1.818"
+    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.1.818"
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
