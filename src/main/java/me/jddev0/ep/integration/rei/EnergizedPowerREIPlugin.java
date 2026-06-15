@@ -4,6 +4,10 @@ import me.jddev0.ep.recipe.*;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
+import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
 
 public class EnergizedPowerREIPlugin implements REICommonPlugin {
     @Override
@@ -33,6 +37,22 @@ public class EnergizedPowerREIPlugin implements REICommonPlugin {
         registry.beginRecipeFiller(StoneSolidifierRecipe.class).filterType(EPRecipes.STONE_SOLIDIFIER_TYPE).fill(StoneSolidifierDisplay::new);
         registry.beginRecipeFiller(FiltrationPlantRecipe.class).filterType(EPRecipes.FILTRATION_PLANT_TYPE).fill(FiltrationPlantDisplay::new);
         registry.beginRecipeFiller(FluidTransposerRecipe.class).filterType(EPRecipes.FLUID_TRANSPOSER_TYPE).fill(FluidTransposerDisplay::new);
+
+        //Add farmland special crafting recipes
+        registry.beginRecipeFiller(CraftingRecipe.class).filterType(RecipeType.CRAFTING).filterClass(FarmlandCraftingRecipe.class).
+                fill(craftingRecipe -> {
+                    FarmlandCraftingRecipe farmlandCraftingRecipe = craftingRecipe.value();
+
+                    ShapelessRecipe recipe = new ShapelessRecipe(new Recipe.CommonInfo(true),
+                            new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""), farmlandCraftingRecipe.getFarmland(),
+                            NonNullList.of(null, new Ingredient[] {
+                                    //TODO fix get HOE tag
+                                    Ingredient.of(Items.WOODEN_HOE, Items.GOLDEN_HOE, Items.STONE_HOE, Items.COPPER_HOE, Items.DIAMOND_HOE, Items.NETHERITE_HOE),
+                                    farmlandCraftingRecipe.getDirt()
+                            }));
+
+                    return DefaultCraftingDisplay.of(new RecipeHolder<>(craftingRecipe.id(), recipe));
+                });
     }
 
     @Override
