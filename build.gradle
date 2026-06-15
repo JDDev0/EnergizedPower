@@ -84,11 +84,10 @@ dependencies {
 	}
 
 	// REI integration
-	//TODO re-enable
-	//compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	//compileOnlyApi "dev.architectury:architectury-fabric:19.0.1"
-	//compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:21.11.814"
-	//compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:21.11.814"
+	compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
+	compileOnlyApi "dev.architectury:architectury-fabric:20.0.6"
+	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.1.818"
+	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.1.818"
 
     //JEI integration
 	compileOnly "mezz.jei:jei-26.1.2-common-api:29.5.0.28"
