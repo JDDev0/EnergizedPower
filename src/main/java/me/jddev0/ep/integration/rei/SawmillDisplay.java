@@ -4,6 +4,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.SawmillRecipe;
+import me.jddev0.ep.util.ItemStackUtils;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
@@ -51,8 +52,8 @@ public record SawmillDisplay(RecipeHolder<SawmillRecipe> recipe) implements Disp
     @Override
     public List<EntryIngredient> getOutputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.value().getOutput()),
-                EntryIngredients.of(recipe.value().getSecondaryOutput())
+                EntryIngredients.of(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput())),
+                EntryIngredients.of(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getSecondaryOutput()))
         );
     }
 
