@@ -45,6 +45,12 @@ repositories {
 
 loom {
 	accessWidenerPath = file("src/main/resources/energizedpower.accesswidener")
+
+	runs {
+		client {
+			programArgs(["--username", "Dev"])
+		}
+	}
 }
 
 fabricApi {
