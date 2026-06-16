@@ -19,7 +19,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "3.0.0-beta.2";
+    private static final String CONFIG_VERSION = "3.0.0-beta.5";
 
     private ModConfigs() {}
 
@@ -1936,6 +1936,11 @@ public final class ModConfigs {
                     upgradeConfigVersionPre300();
                 }
 
+                if(originalVersion == null || originalVersion.startsWith("2.") || originalVersion.equals("3.0.0-beta.1") ||
+                        originalVersion.equals("3.0.0-beta.2")) {
+                    upgradeConfigVersionPre300b5IncludingNullVersion();
+                }
+
                 LOGGER.info("Energized Power common config was successfully loaded");
             }catch(IOException|ConfigValidationException e) {
                 LOGGER.error("Energized Power common config could not be read", e);
@@ -2012,6 +2017,29 @@ public final class ModConfigs {
             }
         }catch(ConfigValidationException e) {
             LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Iron Fluid Pipe transfer rate", e);
+        }
+    }
+
+    private static void upgradeConfigVersionPre300b5IncludingNullVersion() throws IOException {
+        upgradeConfigVersionFixEnergyEfficiencyTier8EffectValue();
+
+        //Save new config (No need to back up, because backup was already created when config version was upgraded)
+        COMMON_CONFIG.write();
+    }
+
+    private static void upgradeConfigVersionFixEnergyEfficiencyTier8EffectValue() {
+        //There was a typo in the config key (".8" instead of ".5") for the Energy Efficiency Tier V upgrade module effect value
+        //This problem was fixed in EP 2.16.0, but for direct config upgrades from EP 2.15.x to EP 3.0.0-beta.x,
+        // the default value for the Tier VIII upgrade module would be wrong
+        try {
+            double value = COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_8_EFFECT.getValue();
+            if(value == 0.2) {
+                COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_8_EFFECT.setValue(.025);
+
+                LOGGER.info("Energized Power common config was successfully upgraded (Energy Efficiency Upgrade Module (Tier VIII) effect value)");
+            }
+        }catch(ConfigValidationException e) {
+            LOGGER.error("Energized Power common config could not be upgraded: Failed to upgrade Energy Efficiency Upgrade Module (Tier VIII) effect value", e);
         }
     }
 }
