@@ -2690,6 +2690,14 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addCrusherRecipe(ingredientOf(Items.SMOOTH_BASALT, Items.POLISHED_BASALT), new ItemStackTemplate(Items.BASALT),
                 "basalt_variants");
+
+        addCrusherRecipe(ingredientOf(Items.POLISHED_CINNABAR, Items.CINNABAR_BRICKS,
+                        Items.CHISELED_CINNABAR), new ItemStackTemplate(Items.CINNABAR),
+                "cinnabar_variants");
+
+        addCrusherRecipe(ingredientOf(Items.POLISHED_SULFUR, Items.SULFUR_BRICKS,
+                        Items.CHISELED_SULFUR), new ItemStackTemplate(Items.SULFUR),
+                "sulfur_variants");
     }
 
     private void buildPulverizerRecipes() {
@@ -2831,6 +2839,14 @@ public class ModRecipeGenerator extends RecipeProvider {
                 }, new double[] {
                         1., 1., 1., 1., .75, .5, .25
                 }), "breeze_rods");
+
+        addPulverizerRecipe(ingredientOf(Items.SULFUR),
+                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStackTemplate(Items.SULFUR_SPIKE), new double[] {
+                        1., 1., 1., 1.
+                }, new double[] {
+                        1., 1., 1., 1.
+                }),
+                "sulfur");
     }
 
     private void buildSawmillRecipes() {
