@@ -184,7 +184,7 @@ A tutorial world showcasing all the features of this mod can be downloaded on Cu
 
 ## Supported versions:
 Mod version: MC version
-- 3.0.x (beta): 26.1.x, 1.21.1
+- 3.0.x (beta): 26.2.x, 26.1.x, 1.21.1
 - 2.18.x: 26.1.x, 1.21.1
 - 2.17.x: 26.1.x, 1.21.1
 - 2.16.x: 26.1.x, 1.21.1
