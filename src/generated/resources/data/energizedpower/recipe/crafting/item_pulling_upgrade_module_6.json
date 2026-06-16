@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "H": "minecraft:hopper",
     "R": "energizedpower:reinforced_advanced_upgrade_module",

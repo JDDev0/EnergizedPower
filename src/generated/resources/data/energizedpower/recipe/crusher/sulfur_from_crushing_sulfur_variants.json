@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": [
+    "minecraft:polished_sulfur",
+    "minecraft:sulfur_bricks",
+    "minecraft:chiseled_sulfur"
+  ],
+  "result": {
+    "id": "minecraft:sulfur"
+  }
+}

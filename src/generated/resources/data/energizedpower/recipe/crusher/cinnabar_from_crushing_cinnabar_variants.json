@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:crusher",
+  "ingredient": [
+    "minecraft:polished_cinnabar",
+    "minecraft:cinnabar_bricks",
+    "minecraft:chiseled_cinnabar"
+  ],
+  "result": {
+    "id": "minecraft:cinnabar"
+  }
+}

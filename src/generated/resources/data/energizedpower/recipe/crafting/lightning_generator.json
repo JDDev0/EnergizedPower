@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "energizedpower:advanced_machine_frame",
     "C": "#c:storage_blocks/copper",

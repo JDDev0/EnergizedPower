@@ -1,0 +1,21 @@
+{
+  "type": "energizedpower:pulverizer",
+  "ingredient": "minecraft:sulfur",
+  "result": {
+    "percentages": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "percentagesAdvanced": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "result": {
+      "id": "minecraft:sulfur_spike"
+    }
+  }
+}

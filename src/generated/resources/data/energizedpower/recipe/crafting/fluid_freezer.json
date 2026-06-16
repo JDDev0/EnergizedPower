@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "C": "#c:storage_blocks/copper",
     "F": "energizedpower:fluid_tank_small",

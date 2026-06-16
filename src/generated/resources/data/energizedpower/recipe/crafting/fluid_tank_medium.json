@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "F": "energizedpower:fluid_tank_small",
     "S": "#c:plates/steel"

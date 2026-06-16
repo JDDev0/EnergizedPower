@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "energizedpower:advanced_solar_cell",
     "G": "#c:glass_panes/colorless",

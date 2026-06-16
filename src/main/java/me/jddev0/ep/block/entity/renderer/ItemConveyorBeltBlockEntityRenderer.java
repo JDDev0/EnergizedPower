@@ -57,7 +57,7 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
 
                 @Override
                 public Vec3 position() {
-                    return blockEntity.getBlockPos().getCenter();
+                    return Vec3.atCenterOf(blockEntity.getBlockPos());
                 }
 
                 @Override

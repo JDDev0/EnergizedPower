@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "F": "energizedpower:fluid_tank_medium",
     "S": "#c:storage_blocks/steel"

@@ -5,10 +5,14 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.registry.tags.CommonBlockTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends BlockTagsProvider {
@@ -18,17 +22,17 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
-        tag(BlockTags.MINEABLE_WITH_AXE).
+        buildTag(BlockTags.MINEABLE_WITH_AXE).
                 add(EPBlocks.SAWDUST_BLOCK.get());
 
-        tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
+        buildTag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
                 add(
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get()
                 );
 
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).
+        buildTag(BlockTags.MINEABLE_WITH_PICKAXE).
                 add(
                         EPBlocks.SILICON_BLOCK.get(),
                         EPBlocks.TIN_BLOCK.get(),
@@ -193,7 +197,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
                 );
 
-        tag(BlockTags.NEEDS_STONE_TOOL).
+        buildTag(BlockTags.NEEDS_STONE_TOOL).
                 add(
                         EPBlocks.SILICON_BLOCK.get(),
                         EPBlocks.TIN_BLOCK.get(),
@@ -349,32 +353,68 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
                 );
 
-        tag(Tags.Blocks.ORES).
+        buildTag(Tags.Blocks.ORES).
                 addTag(CommonBlockTags.ORES_TIN);
-        tag(CommonBlockTags.ORES_TIN).
+        buildTag(CommonBlockTags.ORES_TIN).
                 add(EPBlocks.TIN_ORE.get(),
                         EPBlocks.DEEPSLATE_TIN_ORE.get());
 
-        tag(Tags.Blocks.ORES_IN_GROUND_STONE).
+        buildTag(Tags.Blocks.ORES_IN_GROUND_STONE).
                 add(EPBlocks.TIN_ORE.get());
-        tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).
+        buildTag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).
                 add(EPBlocks.DEEPSLATE_TIN_ORE.get());
 
-        tag(Tags.Blocks.STORAGE_BLOCKS).
+        buildTag(Tags.Blocks.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
-        tag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK.get());
-        tag(CommonBlockTags.STORAGE_BLOCKS_TIN).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK.get());
-        tag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK.get());
-        tag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 add(EPBlocks.ADVANCED_ALLOY_BLOCK.get());
-        tag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK.get());
+    }
+
+    private TagBuilderFix buildTag(final TagKey<Block> tagKey) {
+        return new TagBuilderFix(tag(tagKey));
+    }
+
+    public final static class TagBuilderFix {
+        private final TagAppender<Block> tagAppender;
+
+        public TagBuilderFix(TagAppender<Block> tagAppender) {
+            this.tagAppender = tagAppender;
+        }
+
+        public TagBuilderFix add(final Block element) {
+            tagAppender.add(element.properties().id);
+
+            return this;
+        }
+
+        public TagBuilderFix add(final Block... element) {
+            Arrays.stream(element).forEach(this::add);
+
+            return this;
+        }
+
+        public TagBuilderFix addTag(final TagKey<Block> tag) {
+            tagAppender.addTag(tag);
+
+            return this;
+        }
+
+        public TagBuilderFix addOptionalTag(final TagKey<Block> tag) {
+            tagAppender.addOptionalTag(tag);
+
+            return this;
+        }
     }
 }

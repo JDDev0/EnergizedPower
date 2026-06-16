@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "E": "energizedpower:extraction_range_upgrade_module_4",
     "F": "energizedpower:fluid_pipe",

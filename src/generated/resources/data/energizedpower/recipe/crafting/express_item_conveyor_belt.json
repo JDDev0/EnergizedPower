@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "F": "energizedpower:fast_item_conveyor_belt",
     "G": "#c:gears/steel",

@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
@@ -109,7 +110,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
                         blockPos.getZ() - maxChargingDistance),
                 new Vec3i(blockPos.getX() + maxChargingDistance, blockPos.getY() + maxChargingDistance,
                         blockPos.getZ() + maxChargingDistance))), EntitySelector.NO_SPECTATORS.
-                and(entity -> entity.distanceToSqr(blockPos.getCenter()) <= maxChargingDistance*maxChargingDistance));
+                and(entity -> entity.distanceToSqr(Vec3.atCenterOf(blockPos)) <= maxChargingDistance*maxChargingDistance));
 
         int energyPerTick = Math.min(blockEntity.limitingEnergyStorage.getMaxInsert(), blockEntity.energyStorage.getAmountAsInt());
         int energyPerTickLeft = energyPerTick;

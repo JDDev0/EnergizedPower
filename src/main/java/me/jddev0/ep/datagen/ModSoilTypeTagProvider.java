@@ -7,11 +7,11 @@ import me.jddev0.ep.soil.EPSoilTypes;
 import me.jddev0.ep.soil.SoilType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.KeyTagProvider;
+import net.minecraft.data.tags.TagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModSoilTypeTagProvider extends KeyTagProvider<SoilType> {
+public class ModSoilTypeTagProvider extends TagsProvider<SoilType> {
     public ModSoilTypeTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, EPRegistries.SOIL_TYPE, lookupProvider, EPAPI.MOD_ID);
     }

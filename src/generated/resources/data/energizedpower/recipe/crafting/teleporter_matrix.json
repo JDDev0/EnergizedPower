@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "#c:gems/amethyst",
     "E": "energizedpower:energized_crystal_matrix",

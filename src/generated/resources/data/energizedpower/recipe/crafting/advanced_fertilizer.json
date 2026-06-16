@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "G": "energizedpower:good_fertilizer",
     "M": "minecraft:red_mushroom",

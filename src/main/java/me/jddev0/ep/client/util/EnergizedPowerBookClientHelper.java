@@ -9,10 +9,10 @@ public final class EnergizedPowerBookClientHelper {
     private EnergizedPowerBookClientHelper() {}
 
     public static void showBookViewScreen(Identifier openOnPageForBlock) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(openOnPageForBlock));
+        Minecraft.getInstance().gui.setScreen(new EnergizedPowerBookScreen(openOnPageForBlock));
     }
 
     public static void showBookViewScreen(LecternBlockEntity lecternBlockEntity) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
+        Minecraft.getInstance().gui.setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
     }
 }

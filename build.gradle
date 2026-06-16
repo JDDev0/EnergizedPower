@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.1.21'
+    id 'net.neoforged.gradle.userdev' version '7.1.38'
     id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2"
 }
 
@@ -14,11 +14,6 @@ repositories {
     maven { url "https://maven.shedaniel.me" }
     maven { url "https://modmaven.dev" }
     maven { url "https://maven.terraformersmc.com/" }
-
-    maven {
-        name "OctoStudios"
-        url "https://maven.octo-studios.com/releases"
-    }
 
     maven {
         url "https://maven.squiddev.cc/"
@@ -234,7 +229,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 publishMods {
-    displayName = "Energized Power - " + "26.1.x" + " - v" + project.mod_version.split("\\+")[0] + " [NeoForge]"
+    displayName = "Energized Power - " + "26.2.x" + " - v" + project.mod_version.split("\\+")[0] + " [NeoForge]"
     changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
     type = BETA //TODO change to STABLE if v3.0.0 is no longer in beta
     file = jar.archiveFile
@@ -246,7 +241,7 @@ publishMods {
         modrinth {
             accessToken = getProperty('MODRINTH_TOKEN') as String
             projectId = "6pku8gW1"
-            minecraftVersionList("26.1, 26.1.1, 26.1.2")
+            minecraftVersionList("26.2")
         }
     }
 
@@ -254,7 +249,7 @@ publishMods {
         curseforge {
             accessToken = getProperty('CURSEFORGE_TOKEN') as String
             projectId = "782147"
-            minecraftVersionList("26.1, 26.1.1, 26.1.2")
+            minecraftVersionList("26.2")
             client = true
             server = true
             javaVersions.add(JavaVersion.VERSION_25)

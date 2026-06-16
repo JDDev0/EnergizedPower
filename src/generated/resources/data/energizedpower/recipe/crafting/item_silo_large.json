@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "B": "#c:storage_blocks/steel",
     "S": "energizedpower:item_silo_medium",

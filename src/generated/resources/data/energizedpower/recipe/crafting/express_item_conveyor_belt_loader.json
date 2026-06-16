@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "E": "energizedpower:express_item_conveyor_belt",
     "F": "energizedpower:fast_item_conveyor_belt_loader",
