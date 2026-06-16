@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "#c:ingots/advanced_alloy",
     "E": "#c:ingots/energized_copper",

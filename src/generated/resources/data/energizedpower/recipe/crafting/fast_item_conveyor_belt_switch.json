@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "B": "energizedpower:item_conveyor_belt_switch",
     "F": "energizedpower:fast_item_conveyor_belt",

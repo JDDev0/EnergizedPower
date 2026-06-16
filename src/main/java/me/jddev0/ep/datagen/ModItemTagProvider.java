@@ -9,9 +9,14 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
@@ -21,28 +26,28 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
-        valueLookupBuilder(ItemTags.BOOKSHELF_BOOKS).
+        buildTag(ItemTags.BOOKSHELF_BOOKS).
                 add(EPItems.ENERGIZED_POWER_BOOK);
 
-        valueLookupBuilder(ItemTags.LECTERN_BOOKS).
+        buildTag(ItemTags.LECTERN_BOOKS).
                 add(EPItems.ENERGIZED_POWER_BOOK);
 
-        valueLookupBuilder(ItemTags.PIGLIN_LOVED).
+        buildTag(ItemTags.PIGLIN_LOVED).
                 add(EPItems.GOLD_DUST,
                         EPItems.GOLD_PLATE,
                         EPItems.GOLDEN_HAMMER);
 
-        valueLookupBuilder(EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS).
+        buildTag(EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS).
                 add(EPItems.RAW_GEAR_PRESS_MOLD,
                         EPItems.RAW_ROD_PRESS_MOLD,
                         EPItems.RAW_WIRE_PRESS_MOLD);
 
-        valueLookupBuilder(EnergizedPowerItemTags.METAL_PRESS_MOLDS).
+        buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS).
                 add(EPItems.GEAR_PRESS_MOLD,
                         EPItems.ROD_PRESS_MOLD,
                         EPItems.WIRE_PRESS_MOLD);
 
-        valueLookupBuilder(CompatibilityItemTags.AE2_ITEM_P2P_TUNNEL_ATTUNEMENTS).
+        buildTag(CompatibilityItemTags.AE2_ITEM_P2P_TUNNEL_ATTUNEMENTS).
                 add(
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM,
@@ -59,7 +64,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                         EPBlocks.CREATIVE_ITEM_SILO_ITEM
                 );
 
-        valueLookupBuilder(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
+        buildTag(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
                 add(
                         EPBlocks.COPPER_FLUID_PIPE_ITEM,
                         EPBlocks.IRON_FLUID_PIPE_ITEM,
@@ -73,7 +78,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                         EPBlocks.CREATIVE_FLUID_TANK_ITEM
                 );
 
-        valueLookupBuilder(CompatibilityItemTags.AE2_FE_P2P_TUNNEL_ATTUNEMENTS).
+        buildTag(CompatibilityItemTags.AE2_FE_P2P_TUNNEL_ATTUNEMENTS).
                 add(
                         EPBlocks.TIN_CABLE_ITEM,
                         EPBlocks.COPPER_CABLE_ITEM,
@@ -105,13 +110,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                         EPBlocks.CREATIVE_BATTERY_BOX_ITEM
                 );
 
-        valueLookupBuilder(CommonItemTags.COBBLESTONES_NORMAL).
+        buildTag(CommonItemTags.COBBLESTONES_NORMAL).
                 add(Items.COBBLESTONE);
 
-        valueLookupBuilder(CommonItemTags.GRAVELS).
+        buildTag(CommonItemTags.GRAVELS).
                 add(Items.GRAVEL);
 
-        valueLookupBuilder(ConventionalItemTags.ORES).
+        buildTag(ConventionalItemTags.ORES).
                 addTag(CommonItemTags.ORES_COAL).
                 addTag(CommonItemTags.ORES_TIN).
                 addTag(CommonItemTags.ORES_COPPER).
@@ -121,85 +126,85 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(CommonItemTags.ORES_LAPIS).
                 addTag(CommonItemTags.ORES_EMERALD).
                 addTag(CommonItemTags.ORES_DIAMOND);
-        valueLookupBuilder(CommonItemTags.ORES_COAL).
+        buildTag(CommonItemTags.ORES_COAL).
                 addOptionalTag(ItemTags.COAL_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_TIN).
+        buildTag(CommonItemTags.ORES_TIN).
                 add(EPBlocks.TIN_ORE_ITEM,
                         EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
-        valueLookupBuilder(CommonItemTags.ORES_COPPER).
+        buildTag(CommonItemTags.ORES_COPPER).
                 addOptionalTag(ItemTags.COPPER_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_IRON).
+        buildTag(CommonItemTags.ORES_IRON).
                 addOptionalTag(ItemTags.IRON_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_GOLD).
+        buildTag(CommonItemTags.ORES_GOLD).
                 addOptionalTag(ItemTags.GOLD_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_REDSTONE).
+        buildTag(CommonItemTags.ORES_REDSTONE).
                 addOptionalTag(ItemTags.REDSTONE_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_LAPIS).
+        buildTag(CommonItemTags.ORES_LAPIS).
                 addOptionalTag(ItemTags.LAPIS_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_EMERALD).
+        buildTag(CommonItemTags.ORES_EMERALD).
                 addOptionalTag(ItemTags.EMERALD_ORES);
-        valueLookupBuilder(CommonItemTags.ORES_DIAMOND).
+        buildTag(CommonItemTags.ORES_DIAMOND).
                 addOptionalTag(ItemTags.DIAMOND_ORES);
 
-        valueLookupBuilder(CommonItemTags.ORES_IN_GROUND_STONE).
+        buildTag(CommonItemTags.ORES_IN_GROUND_STONE).
                 add(EPBlocks.TIN_ORE_ITEM);
-        valueLookupBuilder(CommonItemTags.ORES_IN_GROUND_DEEPSLATE).
+        buildTag(CommonItemTags.ORES_IN_GROUND_DEEPSLATE).
                 add(EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
 
-        valueLookupBuilder(ConventionalItemTags.STORAGE_BLOCKS).
+        buildTag(ConventionalItemTags.STORAGE_BLOCKS).
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 addTag(CommonItemTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonItemTags.STORAGE_BLOCKS_STEEL).
                 addTag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY);
-        valueLookupBuilder(CommonItemTags.STORAGE_BLOCKS_SILICON).
+        buildTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK_ITEM);
-        valueLookupBuilder(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
+        buildTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK_ITEM);
-        valueLookupBuilder(CommonItemTags.STORAGE_BLOCKS_TIN).
+        buildTag(CommonItemTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK_ITEM);
-        valueLookupBuilder(CommonItemTags.STORAGE_BLOCKS_STEEL).
+        buildTag(CommonItemTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK_ITEM);
-        valueLookupBuilder(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+        buildTag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 add(EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM);
 
-        valueLookupBuilder(ConventionalItemTags.RAW_MATERIALS).
+        buildTag(ConventionalItemTags.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);
-        valueLookupBuilder(CommonItemTags.RAW_MATERIALS_TIN).
+        buildTag(CommonItemTags.RAW_MATERIALS_TIN).
                 add(EPItems.RAW_TIN);
 
-        valueLookupBuilder(ConventionalItemTags.DUSTS).
+        buildTag(ConventionalItemTags.DUSTS).
                 addTag(CommonItemTags.DUSTS_WOOD).
                 addTag(CommonItemTags.DUSTS_CHARCOAL).
                 addTag(CommonItemTags.DUSTS_TIN).
                 addTag(CommonItemTags.DUSTS_COPPER).
                 addTag(CommonItemTags.DUSTS_IRON).
                 addTag(CommonItemTags.DUSTS_GOLD);
-        valueLookupBuilder(CommonItemTags.DUSTS_WOOD).
+        buildTag(CommonItemTags.DUSTS_WOOD).
                 add(EPItems.SAWDUST);
-        valueLookupBuilder(CommonItemTags.DUSTS_CHARCOAL).
+        buildTag(CommonItemTags.DUSTS_CHARCOAL).
                 add(EPItems.CHARCOAL_DUST);
-        valueLookupBuilder(CommonItemTags.DUSTS_TIN).
+        buildTag(CommonItemTags.DUSTS_TIN).
                 add(EPItems.TIN_DUST);
-        valueLookupBuilder(CommonItemTags.DUSTS_COPPER).
+        buildTag(CommonItemTags.DUSTS_COPPER).
                 add(EPItems.COPPER_DUST);
-        valueLookupBuilder(CommonItemTags.DUSTS_IRON).
+        buildTag(CommonItemTags.DUSTS_IRON).
                 add(EPItems.IRON_DUST);
-        valueLookupBuilder(CommonItemTags.DUSTS_GOLD).
+        buildTag(CommonItemTags.DUSTS_GOLD).
                 add(EPItems.GOLD_DUST);
 
-        valueLookupBuilder(ConventionalItemTags.NUGGETS).
+        buildTag(ConventionalItemTags.NUGGETS).
                 addTag(CommonItemTags.NUGGETS_TIN).
                 addTag(CommonItemTags.NUGGETS_STEEL);
-        valueLookupBuilder(CommonItemTags.NUGGETS_TIN).
+        buildTag(CommonItemTags.NUGGETS_TIN).
                 add(EPItems.TIN_NUGGET);
-        valueLookupBuilder(CommonItemTags.NUGGETS_STEEL).
+        buildTag(CommonItemTags.NUGGETS_STEEL).
                 add(EPItems.STEEL_NUGGET);
 
-        valueLookupBuilder(CommonItemTags.SILICON).
+        buildTag(CommonItemTags.SILICON).
                 add(EPItems.SILICON);
 
-        valueLookupBuilder(ConventionalItemTags.INGOTS).
+        buildTag(ConventionalItemTags.INGOTS).
                 addTag(CommonItemTags.INGOTS_TIN).
                 addTag(CommonItemTags.INGOTS_STEEL).
                 addTag(CommonItemTags.INGOTS_REDSTONE_ALLOY).
@@ -208,29 +213,29 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_ALLOY);
-        valueLookupBuilder(CommonItemTags.INGOTS_TIN).
+        buildTag(CommonItemTags.INGOTS_TIN).
                 add(EPItems.TIN_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_STEEL).
+        buildTag(CommonItemTags.INGOTS_STEEL).
                 add(EPItems.STEEL_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_REDSTONE_ALLOY).
+        buildTag(CommonItemTags.INGOTS_REDSTONE_ALLOY).
                 add(EPItems.REDSTONE_ALLOY_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_ADVANCED_ALLOY).
+        buildTag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
+        buildTag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
                 add(EPItems.CRYSTALLIZED_ALLOY_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_ENERGIZED_COPPER).
+        buildTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_ENERGIZED_GOLD).
+        buildTag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_INGOT);
-        valueLookupBuilder(CommonItemTags.INGOTS_ENERGIZED_ALLOY).
+        buildTag(CommonItemTags.INGOTS_ENERGIZED_ALLOY).
                 add(EPItems.ENERGIZED_ALLOY_INGOT);
 
-        valueLookupBuilder(ConventionalItemTags.GEMS).
+        buildTag(ConventionalItemTags.GEMS).
                 addTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI);
-        valueLookupBuilder(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI).
+        buildTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI).
                 add(EPItems.CRYSTALLIZED_LAPIS_LAZULI);
 
-        valueLookupBuilder(CommonItemTags.PLATES).
+        buildTag(CommonItemTags.PLATES).
                 addTag(CommonItemTags.PLATES_TIN).
                 addTag(CommonItemTags.PLATES_COPPER).
                 addTag(CommonItemTags.PLATES_IRON).
@@ -241,68 +246,68 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 addTag(CommonItemTags.PLATES_ENERGIZED_GOLD).
                 addTag(CommonItemTags.PLATES_ENERGIZED_ALLOY);
-        valueLookupBuilder(CommonItemTags.PLATES_TIN).
+        buildTag(CommonItemTags.PLATES_TIN).
                 add(EPItems.TIN_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_COPPER).
+        buildTag(CommonItemTags.PLATES_COPPER).
                 add(EPItems.COPPER_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_IRON).
+        buildTag(CommonItemTags.PLATES_IRON).
                 add(EPItems.IRON_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_GOLD).
+        buildTag(CommonItemTags.PLATES_GOLD).
                 add(EPItems.GOLD_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_STEEL).
+        buildTag(CommonItemTags.PLATES_STEEL).
                 add(EPItems.STEEL_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_ADVANCED_ALLOY).
+        buildTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
                 add(EPItems.ADVANCED_ALLOY_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
+        buildTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
                 add(EPItems.CRYSTALLIZED_ALLOY_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_ENERGIZED_COPPER).
+        buildTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_ENERGIZED_GOLD).
+        buildTag(CommonItemTags.PLATES_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_PLATE);
-        valueLookupBuilder(CommonItemTags.PLATES_ENERGIZED_ALLOY).
+        buildTag(CommonItemTags.PLATES_ENERGIZED_ALLOY).
                 add(EPItems.ENERGIZED_ALLOY_PLATE);
 
-        valueLookupBuilder(CommonItemTags.GEARS).
+        buildTag(CommonItemTags.GEARS).
                 addTag(CommonItemTags.GEARS_IRON).
                 addTag(CommonItemTags.GEARS_STEEL);
-        valueLookupBuilder(CommonItemTags.GEARS_IRON).
+        buildTag(CommonItemTags.GEARS_IRON).
                 add(EPItems.IRON_GEAR);
-        valueLookupBuilder(CommonItemTags.GEARS_STEEL).
+        buildTag(CommonItemTags.GEARS_STEEL).
                 add(EPItems.STEEL_GEAR);
 
-        valueLookupBuilder(ConventionalItemTags.RODS).
+        buildTag(ConventionalItemTags.RODS).
                 addTag(CommonItemTags.RODS_IRON).
                 addTag(CommonItemTags.RODS_STEEL);
-        valueLookupBuilder(CommonItemTags.RODS_IRON).
+        buildTag(CommonItemTags.RODS_IRON).
                 add(EPItems.IRON_ROD);
-        valueLookupBuilder(CommonItemTags.RODS_STEEL).
+        buildTag(CommonItemTags.RODS_STEEL).
                 add(EPItems.STEEL_ROD);
 
-        valueLookupBuilder(CommonItemTags.WIRES).
+        buildTag(CommonItemTags.WIRES).
                 addTag(CommonItemTags.WIRES_TIN).
                 addTag(CommonItemTags.WIRES_COPPER).
                 addTag(CommonItemTags.WIRES_GOLD).
                 addTag(CommonItemTags.WIRES_ENERGIZED_COPPER).
                 addTag(CommonItemTags.WIRES_ENERGIZED_GOLD).
                 addTag(CommonItemTags.WIRES_SUPERCONDUCTOR);
-        valueLookupBuilder(CommonItemTags.WIRES_TIN).
+        buildTag(CommonItemTags.WIRES_TIN).
                 add(EPItems.TIN_WIRE);
-        valueLookupBuilder(CommonItemTags.WIRES_COPPER).
+        buildTag(CommonItemTags.WIRES_COPPER).
                 add(EPItems.COPPER_WIRE);
-        valueLookupBuilder(CommonItemTags.WIRES_GOLD).
+        buildTag(CommonItemTags.WIRES_GOLD).
                 add(EPItems.GOLD_WIRE);
-        valueLookupBuilder(CommonItemTags.WIRES_ENERGIZED_COPPER).
+        buildTag(CommonItemTags.WIRES_ENERGIZED_COPPER).
                 add(EPItems.ENERGIZED_COPPER_WIRE);
-        valueLookupBuilder(CommonItemTags.WIRES_ENERGIZED_GOLD).
+        buildTag(CommonItemTags.WIRES_ENERGIZED_GOLD).
                 add(EPItems.ENERGIZED_GOLD_WIRE);
-        valueLookupBuilder(CommonItemTags.WIRES_SUPERCONDUCTOR).
+        buildTag(CommonItemTags.WIRES_SUPERCONDUCTOR).
                 add(EPItems.SUPERCONDUCTOR);
 
-        valueLookupBuilder(ConventionalItemTags.TOOLS).
+        buildTag(ConventionalItemTags.TOOLS).
                 addTag(CommonItemTags.TOOLS_HAMMERS).
                 addTag(CommonItemTags.TOOLS_CUTTERS);
 
-        valueLookupBuilder(CommonItemTags.TOOLS_HAMMERS).
+        buildTag(CommonItemTags.TOOLS_HAMMERS).
                 add(EPItems.WOODEN_HAMMER).
                 add(EPItems.STONE_HAMMER).
                 add(EPItems.COPPER_HAMMER).
@@ -311,7 +316,43 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 add(EPItems.DIAMOND_HAMMER).
                 add(EPItems.NETHERITE_HAMMER);
 
-        valueLookupBuilder(CommonItemTags.TOOLS_CUTTERS).
+        buildTag(CommonItemTags.TOOLS_CUTTERS).
                 add(EPItems.CUTTER);
+    }
+
+    private TagBuilderFix buildTag(final TagKey<Item> tagKey) {
+        return new TagBuilderFix(tag(tagKey));
+    }
+
+    public final static class TagBuilderFix {
+        private final TagAppender<Item> tagAppender;
+
+        public TagBuilderFix(TagAppender<Item> tagAppender) {
+            this.tagAppender = tagAppender;
+        }
+
+        public TagBuilderFix add(final Item element) {
+            tagAppender.add(BuiltInRegistries.ITEM.getResourceKey(element).orElseThrow());
+
+            return this;
+        }
+
+        public TagBuilderFix add(final Item... element) {
+            Arrays.stream(element).forEach(this::add);
+
+            return this;
+        }
+
+        public TagBuilderFix addTag(final TagKey<Item> tag) {
+            tagAppender.addTag(tag);
+
+            return this;
+        }
+
+        public TagBuilderFix addOptionalTag(final TagKey<Item> tag) {
+            tagAppender.addOptionalTag(tag);
+
+            return this;
+        }
     }
 }

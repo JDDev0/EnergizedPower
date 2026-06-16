@@ -25,6 +25,7 @@ import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -104,7 +105,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
                         blockPos.getZ() - maxChargingDistance),
                 new Vec3i(blockPos.getX() + maxChargingDistance, blockPos.getY() + maxChargingDistance,
                         blockPos.getZ() + maxChargingDistance))), EntitySelector.NO_SPECTATORS.
-                and(entity -> entity.distanceToSqr(blockPos.getCenter()) <= maxChargingDistance*maxChargingDistance));
+                and(entity -> entity.distanceToSqr(Vec3.atCenterOf(blockPos)) <= maxChargingDistance*maxChargingDistance));
 
         long energyPerTick = Math.min(blockEntity.limitingEnergyStorage.getMaxInsert(), blockEntity.energyStorage.getAmount());
         long energyPerTickLeft = energyPerTick;

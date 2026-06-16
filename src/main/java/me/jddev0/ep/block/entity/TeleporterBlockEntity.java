@@ -158,8 +158,8 @@ public class TeleporterBlockEntity
         Optional<Player> player = level.getEntities(EntityTypeTest.forClass(Player.class), AABB.of(BoundingBox.fromCorners(
                 new Vec3i(worldPosition.getX() - 2, worldPosition.getY() - 2, worldPosition.getZ() - 2),
                 new Vec3i(worldPosition.getX() + 2, worldPosition.getY() + 2, worldPosition.getZ() + 2))), EntitySelector.NO_SPECTATORS.
-                        and(entity -> entity.distanceToSqr(worldPosition.getCenter()) <= 4)).stream().
-                min(Comparator.comparing(entity -> entity.distanceToSqr(worldPosition.getCenter())));
+                        and(entity -> entity.distanceToSqr(Vec3.atCenterOf(worldPosition)) <= 4)).stream().
+                min(Comparator.comparing(entity -> entity.distanceToSqr(Vec3.atCenterOf(worldPosition))));
 
         if(player.isEmpty())
             return;
@@ -397,7 +397,7 @@ public class TeleporterBlockEntity
 
         clearEnergyCallback.run();
 
-        Vec3 toPosCenter = toPos.getCenter();
+        Vec3 toPosCenter = Vec3.atCenterOf(toPos);
 
         player.teleportTo((ServerLevel)toDimension, toPosCenter.x(), toPos.getY() + 1, toPosCenter.z(),
                 new HashSet<>(), 0, 0, true);

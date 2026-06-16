@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "E": "#c:plates/energized_alloy",
     "Q": "energizedpower:quantum_processing_unit",

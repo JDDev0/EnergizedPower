@@ -15,9 +15,10 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.triggers.Criterion;
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -3002,7 +3003,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new ItemStackTemplate(Items.STRING, 2), "sticks", "fishing_rod");
 
         addSawmillRecipe(ingredientOf(Items.PAINTING), new ItemStackTemplate(Items.STICK, 8),
-                new ItemStackTemplate(Items.WHITE_WOOL), "sticks", "painting");
+                new ItemStackTemplate(Items.WOOL.white()), "sticks", "painting");
         addSawmillRecipe(ingredientOf(Items.ITEM_FRAME), new ItemStackTemplate(Items.STICK, 8),
                 new ItemStackTemplate(Items.LEATHER), "sticks", "item_frame");
 
@@ -3371,22 +3372,22 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void buildFluidTransposerRecipes() {
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.WHITE_CONCRETE_POWDER), new ItemStackTemplate(Items.WHITE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.ORANGE_CONCRETE_POWDER), new ItemStackTemplate(Items.ORANGE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.MAGENTA_CONCRETE_POWDER), new ItemStackTemplate(Items.MAGENTA_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_BLUE_CONCRETE_POWDER), new ItemStackTemplate(Items.LIGHT_BLUE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.YELLOW_CONCRETE_POWDER), new ItemStackTemplate(Items.YELLOW_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIME_CONCRETE_POWDER), new ItemStackTemplate(Items.LIME_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.PINK_CONCRETE_POWDER), new ItemStackTemplate(Items.PINK_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.GRAY_CONCRETE_POWDER), new ItemStackTemplate(Items.GRAY_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_GRAY_CONCRETE_POWDER), new ItemStackTemplate(Items.LIGHT_GRAY_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.CYAN_CONCRETE_POWDER), new ItemStackTemplate(Items.CYAN_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.PURPLE_CONCRETE_POWDER), new ItemStackTemplate(Items.PURPLE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLUE_CONCRETE_POWDER), new ItemStackTemplate(Items.BLUE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.BROWN_CONCRETE_POWDER), new ItemStackTemplate(Items.BROWN_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.GREEN_CONCRETE_POWDER), new ItemStackTemplate(Items.GREEN_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.RED_CONCRETE_POWDER), new ItemStackTemplate(Items.RED_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLACK_CONCRETE_POWDER), new ItemStackTemplate(Items.BLACK_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.white()), new ItemStackTemplate(Items.CONCRETE.white()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.orange()), new ItemStackTemplate(Items.CONCRETE.orange()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.magenta()), new ItemStackTemplate(Items.CONCRETE.magenta()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.lightBlue()), new ItemStackTemplate(Items.CONCRETE.lightBlue()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.yellow()), new ItemStackTemplate(Items.CONCRETE.yellow()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.lime()), new ItemStackTemplate(Items.CONCRETE.lime()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.pink()), new ItemStackTemplate(Items.CONCRETE.pink()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.gray()), new ItemStackTemplate(Items.CONCRETE.gray()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.lightGray()), new ItemStackTemplate(Items.CONCRETE.lightGray()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.cyan()), new ItemStackTemplate(Items.CONCRETE.cyan()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.purple()), new ItemStackTemplate(Items.CONCRETE.purple()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.blue()), new ItemStackTemplate(Items.CONCRETE.blue()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.brown()), new ItemStackTemplate(Items.CONCRETE.brown()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.green()), new ItemStackTemplate(Items.CONCRETE.green()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.red()), new ItemStackTemplate(Items.CONCRETE.red()));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CONCRETE_POWDER.black()), new ItemStackTemplate(Items.CONCRETE.black()));
 
         addFluidTransposerRecipe(ingredientOf(Items.SPONGE), new ItemStackTemplate(Items.WET_SPONGE), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));

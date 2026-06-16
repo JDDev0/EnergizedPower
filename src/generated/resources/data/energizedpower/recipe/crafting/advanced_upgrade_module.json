@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "energizedpower:advanced_circuit",
     "B": "energizedpower:basic_upgrade_module",

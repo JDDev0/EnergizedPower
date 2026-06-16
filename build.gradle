@@ -1,5 +1,5 @@
 plugins {
-	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
 	id 'maven-publish'
 	id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2"
 }
@@ -155,7 +155,7 @@ publishing {
 }
 
 publishMods {
-	displayName = "Energized Power - " + "26.1.x" + " - v" + project.mod_version.split("\\+")[0] + " [Fabric]"
+	displayName = "Energized Power - " + "26.2.x" + " - v" + project.mod_version.split("\\+")[0] + " [Fabric]"
 	changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
 	type = BETA //TODO change to STABLE if v3.0.0 is no longer in beta
 	file = jar.archiveFile
@@ -167,7 +167,7 @@ publishMods {
 		modrinth {
 			accessToken = getProperty('MODRINTH_TOKEN') as String
 			projectId = "6pku8gW1"
-			minecraftVersionList("26.1, 26.1.1, 26.1.2")
+			minecraftVersionList("26.2")
 			requires("fabric-api")
 		}
 	}
@@ -176,7 +176,7 @@ publishMods {
 		curseforge {
 			accessToken = getProperty('CURSEFORGE_TOKEN') as String
 			projectId = "782147"
-			minecraftVersionList("26.1, 26.1.1, 26.1.2")
+			minecraftVersionList("26.2")
 			requires("fabric-api")
 			client = true
 			server = true

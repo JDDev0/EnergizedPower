@@ -1,6 +1,5 @@
 {
   "type": "minecraft:blasting",
-  "category": "misc",
   "cookingtime": 250,
   "experience": 4.1,
   "group": "silicon",

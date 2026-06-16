@@ -47,6 +47,6 @@ public record OpenEnergizedPowerBookS2CPacket(BlockPos pos) implements CustomPac
 
     @Environment(EnvType.CLIENT)
     private static void showBookViewScreen(LecternBlockEntity lecternBlockEntity) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
+        Minecraft.getInstance().gui.setScreen(new EnergizedPowerBookScreen(lecternBlockEntity));
     }
 }

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "#c:storage_blocks/advanced_alloy",
     "C": "energizedpower:energized_crystal_matrix",

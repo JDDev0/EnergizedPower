@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "B": "energizedpower:basic_upgrade_module",
     "E": "energizedpower:extraction_depth_upgrade_module_1",

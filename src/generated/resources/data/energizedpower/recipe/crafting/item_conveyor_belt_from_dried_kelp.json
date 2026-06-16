@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "item_conveyor_belt",
   "key": {
     "I": "#c:plates/iron",

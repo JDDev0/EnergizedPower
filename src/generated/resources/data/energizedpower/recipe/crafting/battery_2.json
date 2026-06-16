@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "B": "energizedpower:battery_1",
     "C": "#c:plates/copper",

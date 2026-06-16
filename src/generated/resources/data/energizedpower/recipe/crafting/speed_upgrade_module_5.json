@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "C": "#c:plates/copper",
     "R": "energizedpower:reinforced_advanced_upgrade_module",

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "B": "energizedpower:basic_circuit",
     "H": "energizedpower:hardened_machine_frame",

@@ -68,7 +68,7 @@ public class EnergizedPowerBookItem extends WrittenBookItem {
 
     @Environment(EnvType.CLIENT)
     private void showBookViewScreen(Identifier openOnPageForBlock) {
-        Minecraft.getInstance().setScreen(new EnergizedPowerBookScreen(openOnPageForBlock));
+        Minecraft.getInstance().gui.setScreen(new EnergizedPowerBookScreen(openOnPageForBlock));
     }
 
     @Override

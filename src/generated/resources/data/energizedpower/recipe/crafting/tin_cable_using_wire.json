@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "tin_cable",
   "key": {
     "I": "energizedpower:cable_insulator",

@@ -6,8 +6,12 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.TagAppender;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
@@ -17,17 +21,17 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
-        valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE).
+        buildTag(BlockTags.MINEABLE_WITH_AXE).
                 add(EPBlocks.SAWDUST_BLOCK);
 
-        valueLookupBuilder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
+        buildTag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
                 add(
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
                 );
 
-        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE).
+        buildTag(BlockTags.MINEABLE_WITH_PICKAXE).
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
@@ -192,7 +196,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
-        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL).
+        buildTag(BlockTags.NEEDS_STONE_TOOL).
                 add(
                         EPBlocks.SILICON_BLOCK,
                         EPBlocks.TIN_BLOCK,
@@ -348,32 +352,68 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
-        valueLookupBuilder(ConventionalBlockTags.ORES).
+        buildTag(ConventionalBlockTags.ORES).
                 addTag(CommonBlockTags.ORES_TIN);
-        valueLookupBuilder(CommonBlockTags.ORES_TIN).
+        buildTag(CommonBlockTags.ORES_TIN).
                 add(EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE);
 
-        valueLookupBuilder(CommonBlockTags.ORES_IN_GROUND_STONE).
+        buildTag(CommonBlockTags.ORES_IN_GROUND_STONE).
                 add(EPBlocks.TIN_ORE);
-        valueLookupBuilder(CommonBlockTags.ORES_IN_GROUND_DEEPSLATE).
+        buildTag(CommonBlockTags.ORES_IN_GROUND_DEEPSLATE).
                 add(EPBlocks.DEEPSLATE_TIN_ORE);
 
-        valueLookupBuilder(ConventionalBlockTags.STORAGE_BLOCKS).
+        buildTag(ConventionalBlockTags.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
-        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_SILICON).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 add(EPBlocks.SILICON_BLOCK);
-        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_TIN).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 add(EPBlocks.TIN_BLOCK);
-        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_STEEL).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
                 add(EPBlocks.STEEL_BLOCK);
-        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 add(EPBlocks.ADVANCED_ALLOY_BLOCK);
-        valueLookupBuilder(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
+        buildTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
                 add(EPBlocks.RAW_TIN_BLOCK);
+    }
+
+    private TagBuilderFix buildTag(final TagKey<Block> tagKey) {
+        return new TagBuilderFix(tag(tagKey));
+    }
+
+    public final static class TagBuilderFix {
+        private final TagAppender<Block> tagAppender;
+
+        public TagBuilderFix(TagAppender<Block> tagAppender) {
+            this.tagAppender = tagAppender;
+        }
+
+        public TagBuilderFix add(final Block element) {
+            tagAppender.add(element.properties().blockId());
+
+            return this;
+        }
+
+        public TagBuilderFix add(final Block... element) {
+            Arrays.stream(element).forEach(this::add);
+
+            return this;
+        }
+
+        public TagBuilderFix addTag(final TagKey<Block> tag) {
+            tagAppender.addTag(tag);
+
+            return this;
+        }
+
+        public TagBuilderFix addOptionalTag(final TagKey<Block> tag) {
+            tagAppender.addOptionalTag(tag);
+
+            return this;
+        }
     }
 }

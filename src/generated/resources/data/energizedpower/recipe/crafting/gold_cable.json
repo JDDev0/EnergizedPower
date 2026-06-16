@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "gold_cable",
   "key": {
     "I": "#c:ingots/gold",

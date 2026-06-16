@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "energized_copper_cable",
   "key": {
     "I": "#c:ingots/energized_copper",

@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "A": "#c:gems/amethyst",
     "E": "energizedpower:energy_production_upgrade_module_5",
