@@ -145,9 +145,9 @@ dependencies {
 
     // REI integration
     compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-    compileOnlyApi "dev.architectury:architectury-neoforge:20.0.6"
-    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-neoforge:26.1.818"
-    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.1.818"
+    compileOnlyApi "dev.architectury:architectury-neoforge:21.0.2"
+    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-neoforge:26.2.820"
+    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.2.820"
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
@@ -162,8 +162,8 @@ dependencies {
     compileOnly "top.theillusivec4.curios:curios-neoforge:15.0.0-beta.2+26.1.2"
 
     // CCTweaked integration
-    compileOnly "cc.tweaked:cc-tweaked-26.1.2-core-api:1.118.0"
-    compileOnly "cc.tweaked:cc-tweaked-26.1.2-forge-api:1.118.0"
+    compileOnly "cc.tweaked:cc-tweaked-26.2-core-api:1.120.0"
+    compileOnly "cc.tweaked:cc-tweaked-26.2-forge-api:1.120.0"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
