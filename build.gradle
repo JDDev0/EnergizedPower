@@ -85,20 +85,21 @@ dependencies {
 
 	// REI integration
 	compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	compileOnlyApi "dev.architectury:architectury-fabric:20.0.6"
-	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.1.818"
-	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.1.818"
+	compileOnlyApi "dev.architectury:architectury-fabric:21.0.2"
+	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.2.820"
+	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.2.820"
 
     //JEI integration
-	compileOnly "mezz.jei:jei-26.1.2-common-api:29.5.0.28"
+	compileOnly "mezz.jei:jei-26.2-common-api:30.0.0.1"
+	compileOnly "mezz.jei:jei-26.2-fabric-api:30.0.0.1"
 
 	// EMI integration
 	//TODO re-enable
 	//compileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
 
 	// CCTweaked integration
-	compileOnlyApi "cc.tweaked:cc-tweaked-26.1.2-core-api:1.118.0"
-	compileOnlyApi "cc.tweaked:cc-tweaked-26.1.2-fabric-api:1.118.0"
+	compileOnlyApi "cc.tweaked:cc-tweaked-26.2-core-api:1.120.0"
+	compileOnlyApi "cc.tweaked:cc-tweaked-26.2-fabric-api:1.120.0"
 }
 
 processResources {
