@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class ItemConveyorBeltBlockEntity
-        extends InventoryStorageBlockEntity<SimpleContainer>
+        extends LegacyItemContainerStorageBlockEntity<SimpleContainer>
         implements ItemStackPacketUpdate {
     private final int ticksPerStep;
 

@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.MenuItemStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyItemStorageBlockEntity;
 import me.jddev0.ep.inventory.InfiniteSingleItemStackHandler;
 import me.jddev0.ep.screen.CreativeItemSiloMenu;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeItemSiloBlockEntity
-        extends MenuItemStorageBlockEntity<InfiniteSingleItemStackHandler> {
+        extends MenuLegacyItemStorageBlockEntity<InfiniteSingleItemStackHandler> {
 
     public CreativeItemSiloBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

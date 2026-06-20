@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -10,17 +11,19 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuInventoryStorageBlockEntity<I extends SimpleContainer>
-        extends InventoryStorageBlockEntity<I>
+public abstract class MenuLegacyItemContainerEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
+        extends LegacyItemContainerEnergyStorageBlockEntity<E, I>
         implements ExtendedMenuProvider<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuInventoryStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                      String machineName,
-                                                      int slotCount) {
-        super(type, blockPos, blockState, slotCount);
+    public MenuLegacyItemContainerEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                           String machineName,
+                                                           long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                           int slotCount) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
 
         this.machineName = machineName;
 

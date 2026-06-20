@@ -4,8 +4,6 @@ import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.inventory.ContainerListener;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
@@ -14,20 +12,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-public abstract class UpgradableInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
-        extends MenuInventoryFluidEnergyStorageBlockEntity<E, I, F> {
+public abstract class UpgradableLegacyItemContainerEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
+        extends MenuLegacyItemContainerEnergyStorageBlockEntity<E, I> {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    public UpgradableInventoryFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                            String machineName,
-                                                            long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                            int slotCount,
-                                                            FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                            UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
-                baseTankCapacity);
+    public UpgradableLegacyItemContainerEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                 String machineName,
+                                                                 long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                                 int slotCount,
+                                                                 UpgradeModuleModifier... upgradeModifierSlots) {
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
 
         this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);
