@@ -5,7 +5,7 @@ import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.networking.ModMessages;
@@ -64,11 +64,11 @@ public class AlloyFurnaceBlockEntity
         return i > 3 && i < 6;
     };
 
-    private final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, canOutput);
-    private final InputOutputItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, canOutput);
-    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, canOutput);
-    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, canOutput);
-    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, canOutput);
+    private final LegacyInputOutputItemHandler itemHandlerSidedTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 3, canOutput);
+    private final LegacyInputOutputItemHandler itemHandlerSidedFront = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, canOutput);
+    private final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, canOutput);
+    private final LegacyInputOutputItemHandler itemHandlerSidedLeft = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, canOutput);
+    private final LegacyInputOutputItemHandler itemHandlerSidedRight = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 2, canOutput);
 
     public AlloyFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

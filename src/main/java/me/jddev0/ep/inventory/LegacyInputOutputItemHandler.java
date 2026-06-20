@@ -17,18 +17,18 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class InputOutputItemHandler implements WorldlyContainer, Function<Direction, @Nullable Storage<ItemVariant>> {
+public class LegacyInputOutputItemHandler implements WorldlyContainer, Function<Direction, @Nullable Storage<ItemVariant>> {
     private final ContainerStorage[] cachedInventoryStorages = new ContainerStorage[Direction.values().length];
 
     private final WorldlyContainer handler;
     private final BiPredicate<Integer, ItemStack> canInput;
     private final Predicate<Integer> canOutput;
 
-    public InputOutputItemHandler(Container handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public LegacyInputOutputItemHandler(Container handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this(new SidedInventoryWrapper(handler), canInput, canOutput);
     }
 
-    public InputOutputItemHandler(WorldlyContainer handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
+    public LegacyInputOutputItemHandler(WorldlyContainer handler, BiPredicate<Integer, ItemStack> canInput, Predicate<Integer> canOutput) {
         this.handler = handler;
         this.canInput = canInput;
         this.canOutput = canOutput;
