@@ -39,7 +39,7 @@ public class CreativeItemSiloBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new CreativeItemSiloMenu(id, this, inventory, itemHandler);
+        return new CreativeItemSiloMenu(id, inventory, this);
     }
 
     static Storage<ItemVariant> getInventoryStorageForDirection(CreativeItemSiloBlockEntity entity, Direction side) {

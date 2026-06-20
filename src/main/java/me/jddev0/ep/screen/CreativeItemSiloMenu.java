@@ -18,10 +18,10 @@ public class CreativeItemSiloMenu extends AbstractContainerMenu {
     private final Level level;
 
     public CreativeItemSiloMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new InfiniteSingleItemStackHandler());
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
-    public CreativeItemSiloMenu(int id, BlockEntity blockEntity, Inventory inv, InfiniteSingleItemStackHandler itemStackHandler) {
+    public CreativeItemSiloMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(EPMenuTypes.CREATIVE_ITEM_SILO_MENU, id);
 
         this.blockEntity = (CreativeItemSiloBlockEntity)blockEntity;
@@ -30,7 +30,11 @@ public class CreativeItemSiloMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addSlot(new CreativeItemSiloSlot(itemStackHandler, 0, 80, 35));
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            if(itemHandler instanceof InfiniteSingleItemStackHandler singleItemStackHandler) {
+                addSlot(new CreativeItemSiloSlot(singleItemStackHandler, 0, 80, 35));
+            }
+        });
     }
 
     @Override

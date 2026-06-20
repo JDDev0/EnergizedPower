@@ -61,7 +61,7 @@ public class ItemSiloBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new ItemSiloMenu(id, this, inventory, itemHandler, data);
+        return new ItemSiloMenu(id, inventory, this, this.data);
     }
 
     public int getRedstoneOutput() {
