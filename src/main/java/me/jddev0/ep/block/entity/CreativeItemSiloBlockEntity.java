@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.MenuLegacyItemStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.InfiniteSingleItemStackHandler;
 import me.jddev0.ep.screen.CreativeItemSiloMenu;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -11,12 +11,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeItemSiloBlockEntity
-        extends MenuLegacyItemStorageBlockEntity<InfiniteSingleItemStackHandler> {
+        extends MenuInventoryStorageBlockEntity<InfiniteSingleItemStackHandler> {
 
     public CreativeItemSiloBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -36,16 +34,6 @@ public class CreativeItemSiloBlockEntity
                 setChanged();
             }
         };
-    }
-
-    @Override
-    protected void readInventoryStorage(ValueInput view) {
-        itemHandler.readValue(view);
-    }
-
-    @Override
-    protected void writeInventoryStorage(ValueOutput view) {
-        itemHandler.writeValue(view);
     }
 
     @Nullable

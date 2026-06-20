@@ -1,6 +1,5 @@
 package me.jddev0.ep.inventory;
 
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
@@ -34,11 +33,7 @@ public class CreativeItemSiloSlot extends Slot {
 
     @Override
     public void set(ItemStack stack) {
-        try(Transaction transaction = Transaction.openOuter()) {
-            itemHandler.setItemStack(stack, transaction);
-            transaction.commit();
-        }
-
+        itemHandler.setStackInSlot(index, stack);
         this.setChanged();
     }
 
