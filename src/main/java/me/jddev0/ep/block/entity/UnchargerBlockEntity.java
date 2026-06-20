@@ -4,7 +4,7 @@ import me.jddev0.ep.block.UnchargerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
@@ -37,7 +37,7 @@ import java.util.List;
 
 public class UnchargerBlockEntity
         extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
-    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 

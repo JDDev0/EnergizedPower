@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.MetalPressRecipe;
@@ -20,13 +20,13 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, MetalPressRecipe> {
-    final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1) {
+    final LegacyInputOutputItemHandler itemHandlerTopSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1) {
         @Override
         public int getMaxStackSize() {
             return 1;
         }
     };
-    final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 2);
+    final LegacyInputOutputItemHandler itemHandlerOthersSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 2);
 
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

@@ -3,7 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -24,11 +24,11 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
-    final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
-    final InputOutputItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
-    final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
-    final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4);
-    final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4);
+    final LegacyInputOutputItemHandler itemHandlerSidedTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
+    final LegacyInputOutputItemHandler itemHandlerSidedFront = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
+    final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
+    final LegacyInputOutputItemHandler itemHandlerSidedLeft = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4);
+    final LegacyInputOutputItemHandler itemHandlerSidedRight = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4);
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

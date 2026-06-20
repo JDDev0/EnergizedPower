@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidPumpMenu;
@@ -50,7 +50,7 @@ public class FluidPumpBlockEntity
     private int zOffset = -1;
     private boolean extractingFluid = false;
 
-    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

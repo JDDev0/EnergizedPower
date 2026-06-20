@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
@@ -42,10 +42,10 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_TANK_CAPACITY.getValue());
     public static final double FLUID_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER.getValue();
 
-    final InputOutputItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
-    final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler,
+    final LegacyInputOutputItemHandler itemHandlerSidesSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
+    final LegacyInputOutputItemHandler itemHandlerTopSided = new LegacyInputOutputItemHandler(itemHandler,
             (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 7);
-    final InputOutputItemHandler itemHandlerBottomSided = new InputOutputItemHandler(itemHandler,
+    final LegacyInputOutputItemHandler itemHandlerBottomSided = new LegacyInputOutputItemHandler(itemHandler,
             (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 6);
 
     private double leftoverFluidConsumption = 0;

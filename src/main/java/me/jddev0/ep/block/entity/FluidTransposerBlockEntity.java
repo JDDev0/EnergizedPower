@@ -7,7 +7,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -43,7 +43,7 @@ public class FluidTransposerBlockEntity
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue());
 
-    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     private Mode mode = Mode.EMPTYING;
 
