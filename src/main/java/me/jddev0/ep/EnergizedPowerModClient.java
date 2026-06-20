@@ -10,8 +10,6 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.entity.EPEntityTypes;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.input.ModKeyBindings;
-import me.jddev0.ep.integration.jei.EnergizedPowerJEIPlugin;
-import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
 import me.jddev0.ep.integration.rei.EnergizedPowerREIClientPlugin;
 import me.jddev0.ep.integration.rei.EnergizedPowerREIUtils;
 import me.jddev0.ep.loading.EnergizedPowerBookReloadListener;
@@ -167,15 +165,5 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY, FluidTankBlockEntityRenderer::new);
-
-        ClientRecipeSynchronizedEvent.EVENT.register((minecraft, synchronizedRecipes) -> {
-            if(EnergizedPowerJEIUtils.isJEIAvailable()) {
-                EnergizedPowerJEIPlugin.recipeMap = synchronizedRecipes;
-            }
-
-            if(EnergizedPowerREIUtils.isREIAvailable()) {
-                EnergizedPowerREIClientPlugin.recipeMap = synchronizedRecipes;
-            }
-        });
     }
 }
