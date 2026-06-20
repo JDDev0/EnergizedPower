@@ -86,7 +86,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
                             getOrThrow(soilType).stream().toList()
         );
 
-        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = EnergizedPowerJEIPlugin.recipeMap.
+        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = Minecraft.getInstance().level.recipeAccess().getSynchronizedRecipes().
                 getAllOfType(PlantGrowthChamberSoilRecipe.Type.INSTANCE);
 
         IRecipeSlotBuilder soilSlot = iRecipeLayout.addSlot(RecipeIngredientRole.CRAFTING_STATION, 19, 19);

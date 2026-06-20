@@ -70,7 +70,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
                         getOrThrow(soilType).stream().toList()
         );
 
-        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = EnergizedPowerREIClientPlugin.recipeMap.
+        Collection<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipes = Minecraft.getInstance().level.recipeAccess().getSynchronizedRecipes().
                 getAllOfType(PlantGrowthChamberSoilRecipe.Type.INSTANCE);
 
         List<EntryStack<?>> soils = new ArrayList<>();

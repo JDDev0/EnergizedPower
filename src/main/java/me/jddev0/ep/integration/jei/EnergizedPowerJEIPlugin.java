@@ -27,8 +27,6 @@ import net.minecraft.world.item.crafting.*;
 import java.util.*;
 
 public class EnergizedPowerJEIPlugin implements IModPlugin {
-    public static SynchronizedRecipes recipeMap = null;
-
     @Override
     public Identifier getPluginUid() {
         return EPAPI.id("jei_plugin");
@@ -99,56 +97,56 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        if(recipeMap != null) {
-            registration.addRecipes(ChargerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(ChargerRecipe.Type.INSTANCE)));
-            registration.addRecipes(CrusherCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(CrusherRecipe.Type.INSTANCE)));
-            registration.addRecipes(PulverizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PulverizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(AdvancedPulverizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PulverizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(SawmillCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(SawmillRecipe.Type.INSTANCE)));
-            registration.addRecipes(CompressorCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(CompressorRecipe.Type.INSTANCE)));
-            registration.addRecipes(MetalPressCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(MetalPressRecipe.Type.INSTANCE)));
-            registration.addRecipes(AssemblingMachineCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(AssemblingMachineRecipe.Type.INSTANCE)));
-            registration.addRecipes(PlantGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE)));
-            registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(PlantGrowthChamberSoilCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PlantGrowthChamberSoilRecipe.Type.INSTANCE)));
-            registration.addRecipes(EnergizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(EnergizerRecipe.Type.INSTANCE)));
-            registration.addRecipes(CrystalGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(CrystalGrowthChamberRecipe.Type.INSTANCE)));
-            registration.addRecipes(PressMoldMakerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PressMoldMakerRecipe.Type.INSTANCE)));
-            registration.addRecipes(AlloyFurnaceCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(AlloyFurnaceRecipe.Type.INSTANCE)));
-            registration.addRecipes(FluidFreezerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(FluidFreezerRecipe.Type.INSTANCE)));
-            registration.addRecipes(StoneLiquefierCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(StoneLiquefierRecipe.Type.INSTANCE)));
-            registration.addRecipes(StoneSolidifierCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(StoneSolidifierRecipe.Type.INSTANCE)));
-            registration.addRecipes(FiltrationPlantCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(FiltrationPlantRecipe.Type.INSTANCE)));
-            registration.addRecipes(FluidTransposerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(FluidTransposerRecipe.Type.INSTANCE)));
+        SynchronizedRecipes recipeMap = Minecraft.getInstance().level.recipeAccess().getSynchronizedRecipes();
 
-            registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
-                    new InWorldCategory.InWorldRecipe(
-                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
-                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
-                            new ItemStack(EPItems.CABLE_INSULATOR, 18))
-            ));
+        registration.addRecipes(ChargerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(ChargerRecipe.Type.INSTANCE)));
+        registration.addRecipes(CrusherCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(CrusherRecipe.Type.INSTANCE)));
+        registration.addRecipes(PulverizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PulverizerRecipe.Type.INSTANCE)));
+        registration.addRecipes(AdvancedPulverizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PulverizerRecipe.Type.INSTANCE)));
+        registration.addRecipes(SawmillCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(SawmillRecipe.Type.INSTANCE)));
+        registration.addRecipes(CompressorCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(CompressorRecipe.Type.INSTANCE)));
+        registration.addRecipes(MetalPressCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(MetalPressRecipe.Type.INSTANCE)));
+        registration.addRecipes(AssemblingMachineCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(AssemblingMachineRecipe.Type.INSTANCE)));
+        registration.addRecipes(PlantGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PlantGrowthChamberRecipe.Type.INSTANCE)));
+        registration.addRecipes(PlantGrowthChamberFertilizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE)));
+        registration.addRecipes(PlantGrowthChamberSoilCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PlantGrowthChamberSoilRecipe.Type.INSTANCE)));
+        registration.addRecipes(EnergizerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(EnergizerRecipe.Type.INSTANCE)));
+        registration.addRecipes(CrystalGrowthChamberCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(CrystalGrowthChamberRecipe.Type.INSTANCE)));
+        registration.addRecipes(PressMoldMakerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(PressMoldMakerRecipe.Type.INSTANCE)));
+        registration.addRecipes(AlloyFurnaceCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(AlloyFurnaceRecipe.Type.INSTANCE)));
+        registration.addRecipes(FluidFreezerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(FluidFreezerRecipe.Type.INSTANCE)));
+        registration.addRecipes(StoneLiquefierCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(StoneLiquefierRecipe.Type.INSTANCE)));
+        registration.addRecipes(StoneSolidifierCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(StoneSolidifierRecipe.Type.INSTANCE)));
+        registration.addRecipes(FiltrationPlantCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(FiltrationPlantRecipe.Type.INSTANCE)));
+        registration.addRecipes(FluidTransposerCategory.TYPE, new ArrayList<>(recipeMap.getAllOfType(FluidTransposerRecipe.Type.INSTANCE)));
 
-            registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
-                    new DispenserCategory.DispenserRecipe(
-                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
-                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
-                            new ItemStack(EPItems.CABLE_INSULATOR, 18))
-            ));
+        registration.addRecipes(InWorldCategory.TYPE, Arrays.asList(
+                new InWorldCategory.InWorldRecipe(
+                        Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
+                        Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
+                        new ItemStack(EPItems.CABLE_INSULATOR, 18))
+        ));
 
-            //Add farmland special crafting recipes
-            for(RecipeHolder<CraftingRecipe> craftingRecipe:recipeMap.getAllOfType(RecipeType.CRAFTING)) {
-                if(!(craftingRecipe.value() instanceof FarmlandCraftingRecipe farmlandCraftingRecipe))
-                    continue;
+        registration.addRecipes(DispenserCategory.TYPE, Arrays.asList(
+                new DispenserCategory.DispenserRecipe(
+                        Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ConventionalItemTags.SHEAR_TOOLS)),
+                        Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.WOOL)),
+                        new ItemStack(EPItems.CABLE_INSULATOR, 18))
+        ));
 
-                ShapelessRecipe recipe = new ShapelessRecipe(new Recipe.CommonInfo(true),
-                        new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""), farmlandCraftingRecipe.getFarmland(),
-                        NonNullList.of(null, new Ingredient[] {
-                                Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.HOES)),
-                                farmlandCraftingRecipe.getDirt()
-                        }));
+        //Add farmland special crafting recipes
+        for(RecipeHolder<CraftingRecipe> craftingRecipe:recipeMap.getAllOfType(RecipeType.CRAFTING)) {
+            if(!(craftingRecipe.value() instanceof FarmlandCraftingRecipe farmlandCraftingRecipe))
+                continue;
 
-                registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder<>(craftingRecipe.id(), recipe)));
-            }
+            ShapelessRecipe recipe = new ShapelessRecipe(new Recipe.CommonInfo(true),
+                    new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""), farmlandCraftingRecipe.getFarmland(),
+                    NonNullList.of(null, new Ingredient[] {
+                            Ingredient.of(Minecraft.getInstance().level.registryAccess().lookupOrThrow(Registries.ITEM).getOrThrow(ItemTags.HOES)),
+                            farmlandCraftingRecipe.getDirt()
+                    }));
+
+            registration.addRecipes(RecipeTypes.CRAFTING, Arrays.asList(new RecipeHolder<>(craftingRecipe.id(), recipe)));
         }
     }
 
