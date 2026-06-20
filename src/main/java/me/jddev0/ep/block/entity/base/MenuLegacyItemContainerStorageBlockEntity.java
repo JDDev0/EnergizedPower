@@ -1,9 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,21 +10,17 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
-        extends InventoryFluidEnergyStorageBlockEntity<E, I, F>
+public abstract class MenuLegacyItemContainerStorageBlockEntity<I extends SimpleContainer>
+        extends LegacyItemContainerStorageBlockEntity<I>
         implements ExtendedMenuProvider<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuInventoryFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                 String machineName,
-                                                 long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                 int slotCount,
-                                                 FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
-                baseTankCapacity);
+    public MenuLegacyItemContainerStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                     String machineName,
+                                                     int slotCount) {
+        super(type, blockPos, blockState, slotCount);
 
         this.machineName = machineName;
 

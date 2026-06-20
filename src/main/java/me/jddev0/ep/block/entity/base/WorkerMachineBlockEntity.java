@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import java.util.Optional;
 
 public abstract class WorkerMachineBlockEntity<W>
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
+        extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
     protected final long baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 

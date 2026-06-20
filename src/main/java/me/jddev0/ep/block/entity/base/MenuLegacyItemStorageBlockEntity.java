@@ -1,29 +1,27 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuInventoryEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
-        extends InventoryEnergyStorageBlockEntity<E, I>
+public abstract class MenuLegacyItemStorageBlockEntity<I extends Storage<ItemVariant>>
+        extends LegacyItemStorageBlockEntity<I>
         implements ExtendedMenuProvider<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuInventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                       String machineName,
-                                       long baseEnergyCapacity, long baseEnergyTransferRate,
-                                       int slotCount) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
+    public MenuLegacyItemStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                            String machineName,
+                                            int slotCount) {
+        super(type, blockPos, blockState, slotCount);
 
         this.machineName = machineName;
 

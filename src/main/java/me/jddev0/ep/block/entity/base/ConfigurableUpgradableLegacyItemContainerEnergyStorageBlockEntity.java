@@ -14,19 +14,19 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
+public abstract class ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
-        extends UpgradableInventoryEnergyStorageBlockEntity<E, I>
+        extends UpgradableLegacyItemContainerEnergyStorageBlockEntity<E, I>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
         RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
-    public ConfigurableUpgradableInventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                                   String machineName,
-                                                                   long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                                   int slotCount,
-                                                                   UpgradeModuleModifier... upgradeModifierSlots) {
+    public ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                             String machineName,
+                                                                             long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                                             int slotCount,
+                                                                             UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
     }
 

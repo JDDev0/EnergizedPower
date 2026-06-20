@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AlloyFurnaceBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -43,7 +43,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AlloyFurnaceBlockEntity
-        extends MenuInventoryStorageBlockEntity<SimpleContainer>
+        extends MenuLegacyItemContainerStorageBlockEntity<SimpleContainer>
         implements IngredientPacketUpdate, RedstoneOutput {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 

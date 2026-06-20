@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidFillerBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
@@ -36,7 +36,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 public class FluidFillerBlockEntity
-        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
+        extends ConfigurableUpgradableLegacyItemContainerFluidEnergyStorageBlockEntity
         <EnergizedPowerEnergyStorage, SimpleContainer, SimpleFluidStorage> {
     /**
      * MAX_FLUID_DRAINING_PER_TICK is in Milli Buckets
