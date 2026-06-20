@@ -1,6 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.entity.ItemSiloBlockEntity;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.SingleItemStackHandler;
 import me.jddev0.ep.inventory.ViewOnlySlot;
 import me.jddev0.ep.inventory.data.SimpleLongValueContainerData;
@@ -23,11 +24,10 @@ public class ItemSiloMenu extends AbstractContainerMenu {
     private final Level level;
 
     public ItemSiloMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SingleItemStackHandler(
-                ((ItemSiloBlockEntity)inv.player.level().getBlockEntity(pos)).getTier().getItemSiloCapacity()), null);
+        this(id, inv, inv.player.level().getBlockEntity(pos), null);
     }
 
-    public ItemSiloMenu(int id, BlockEntity blockEntity, Inventory inv, SingleItemStackHandler itemStackHandler, ContainerData data) {
+    public ItemSiloMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(((ItemSiloBlockEntity)blockEntity).getTier().getMenuTypeFromTier(), id);
 
         this.blockEntity = (ItemSiloBlockEntity)blockEntity;
@@ -36,7 +36,11 @@ public class ItemSiloMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        addSlot(new ViewOnlySlot(itemStackHandler, 0, 80, 35));
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            if(itemHandler instanceof SingleItemStackHandler singleItemStackHandler) {
+                addSlot(new ViewOnlySlot(singleItemStackHandler, 0, 80, 35));
+            }
+        });
 
         if(data == null) {
             addDataSlots(countData);
