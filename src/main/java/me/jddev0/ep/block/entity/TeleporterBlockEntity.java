@@ -1,28 +1,30 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.TeleporterBlock;
-import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerEnergyStorageBlockEntity;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.MenuInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.item.TeleporterMatrixItem;
 import me.jddev0.ep.screen.TeleporterMenu;
+import me.jddev0.ep.util.InventoryUtils;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Vec3i;
+import net.minecraft.core.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -38,7 +40,6 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.Comparator;
 import java.util.HashSet;
@@ -46,7 +47,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TeleporterBlockEntity
-        extends MenuLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
+        extends MenuInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
     public static final boolean INTRA_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTRA_DIMENSIONAL_ENABLED.getValue();
     public static final boolean INTER_DIMENSIONAL_ENABLED = ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_ENABLED.getValue();
     public static final List<@NotNull Identifier> DIMENSION_BLACKLIST =
@@ -66,7 +67,7 @@ public class TeleporterBlockEntity
     public static final List<@NotNull Identifier> INTER_DIMENSIONAL_TO_TYPE_BLACKLIST =
             ModConfigs.COMMON_TELEPORTER_INTER_DIMENSIONAL_TO_TYPE_BLACKLIST.getValue();
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> true);
 
     public TeleporterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -98,26 +99,24 @@ public class TeleporterBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public int getMaxStackSize() {
+            public long getCapacity(int index, ItemVariant resource) {
                 return 1;
             }
 
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant stack) {
                 if(slot == 0) {
                     return stack.is(EPItems.TELEPORTER_MATRIX);
                 }
 
-                return super.canPlaceItem(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
-
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 setChangedAndUpdateReadyState();
             }
         };
@@ -128,18 +127,29 @@ public class TeleporterBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new TeleporterMenu(id, this, inventory, itemHandler);
+        return new TeleporterMenu(id, inventory, this);
     }
 
     public int getRedstoneOutput() {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public void setChangedAndUpdateReadyState() {
         boolean oldPowered = level.getBlockState(worldPosition).hasProperty(TeleporterBlock.POWERED) &&
                 level.getBlockState(worldPosition).getValue(TeleporterBlock.POWERED);
 
-        ItemStack teleporterMatrixItemStack = itemHandler.getItem(0);
+        ItemStack teleporterMatrixItemStack = itemHandler.getStackInSlot(0);
 
         boolean powered = energyStorage.getAmount() == energyStorage.getCapacity() &&
                 teleporterMatrixItemStack.is(EPItems.TELEPORTER_MATRIX) &&
@@ -152,12 +162,11 @@ public class TeleporterBlockEntity
     }
 
     public void onRedstoneTriggered() {
-        if(Transaction.isOpen())
-            return;
-
         Optional<Player> player = level.getEntities(EntityTypeTest.forClass(Player.class), AABB.of(BoundingBox.fromCorners(
-                new Vec3i(worldPosition.getX() - 2, worldPosition.getY() - 2, worldPosition.getZ() - 2),
-                new Vec3i(worldPosition.getX() + 2, worldPosition.getY() + 2, worldPosition.getZ() + 2))), EntitySelector.NO_SPECTATORS.
+                        new Vec3i(worldPosition.getX() - 2, worldPosition.getY() - 2,
+                                worldPosition.getZ() - 2),
+                        new Vec3i(worldPosition.getX() + 2, worldPosition.getY() + 2,
+                                worldPosition.getZ() + 2))), EntitySelector.NO_SPECTATORS.
                         and(entity -> entity.distanceToSqr(Vec3.atCenterOf(worldPosition)) <= 4)).stream().
                 min(Comparator.comparing(entity -> entity.distanceToSqr(Vec3.atCenterOf(worldPosition))));
 
@@ -181,7 +190,7 @@ public class TeleporterBlockEntity
 
                 transaction.commit();
             }
-        }, itemHandler.getItem(0), level, worldPosition);
+        }, getStack(0), level, worldPosition);
     }
 
     public static void teleportPlayer(ServerPlayer player, EnergyStorage energyStorage, Runnable clearEnergyCallback,
@@ -326,10 +335,10 @@ public class TeleporterBlockEntity
             return;
         }
 
-        Identifier fromDimensionTypeId = level.dimensionTypeRegistration().unwrapKey().map(ResourceKey::identifier).
-                orElse(Identifier.parse("empty"));
-        Identifier toDimensionTypeId = toDimension.dimensionTypeRegistration().unwrapKey().map(ResourceKey::identifier).
-                orElse(Identifier.parse("empty"));
+        Identifier fromDimensionTypeId = level.dimensionTypeRegistration().unwrapKey().
+                map(ResourceKey::identifier).orElse(Identifier.withDefaultNamespace("empty"));
+        Identifier toDimensionTypeId = toDimension.dimensionTypeRegistration().unwrapKey().
+                map(ResourceKey::identifier).orElse(Identifier.withDefaultNamespace("empty"));
 
         //Dimension Type Blacklist
         if(TeleporterBlockEntity.DIMENSION_TYPE_BLACKLIST.contains(fromDimensionTypeId)) {
@@ -409,10 +418,10 @@ public class TeleporterBlockEntity
     }
 
     public int getSlotCount() {
-        return itemHandler.getContainerSize();
+        return itemHandler.size();
     }
 
     public ItemStack getStack(int slot) {
-        return itemHandler.getItem(slot);
+        return itemHandler.getStackInSlot(slot);
     }
 }
