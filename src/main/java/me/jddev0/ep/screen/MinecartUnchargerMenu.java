@@ -11,14 +11,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class MinecartUnchargerMenu extends EnergyStorageMenu<MinecartUnchargerBlockEntity> {
     public MinecartUnchargerMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv);
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
-    public MinecartUnchargerMenu(int id, BlockEntity blockEntity, Inventory playerInventory) {
+    public MinecartUnchargerMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(
                 EPMenuTypes.MINECART_UNCHARGER_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.MINECART_UNCHARGER
         );
     }

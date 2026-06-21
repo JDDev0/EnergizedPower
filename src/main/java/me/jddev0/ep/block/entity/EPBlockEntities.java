@@ -457,25 +457,17 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<MinecartChargerBlockEntity> MINECART_CHARGER_ENTITY = registerEnergyStorage(
-            createBlockEntity("minecart_charger", EPBlocks.MINECART_CHARGER, MinecartChargerBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<MinecartChargerBlockEntity> MINECART_CHARGER_ENTITY = createBlockEntity("minecart_charger",
+            EPBlocks.MINECART_CHARGER, MinecartChargerBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedMinecartChargerBlockEntity> ADVANCED_MINECART_CHARGER_ENTITY = registerEnergyStorage(
-            createBlockEntity("advanced_minecart_charger", EPBlocks.ADVANCED_MINECART_CHARGER, AdvancedMinecartChargerBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedMinecartChargerBlockEntity> ADVANCED_MINECART_CHARGER_ENTITY = createBlockEntity("advanced_minecart_charger",
+            EPBlocks.ADVANCED_MINECART_CHARGER, AdvancedMinecartChargerBlockEntity::new);
 
-    public static final BlockEntityType<MinecartUnchargerBlockEntity> MINECART_UNCHARGER_ENTITY = registerEnergyStorage(
-            createBlockEntity("minecart_uncharger", EPBlocks.MINECART_UNCHARGER, MinecartUnchargerBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<MinecartUnchargerBlockEntity> MINECART_UNCHARGER_ENTITY = createBlockEntity("minecart_uncharger",
+            EPBlocks.MINECART_UNCHARGER, MinecartUnchargerBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedMinecartUnchargerBlockEntity> ADVANCED_MINECART_UNCHARGER_ENTITY = registerEnergyStorage(
-            createBlockEntity("advanced_minecart_uncharger", EPBlocks.ADVANCED_MINECART_UNCHARGER, AdvancedMinecartUnchargerBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedMinecartUnchargerBlockEntity> ADVANCED_MINECART_UNCHARGER_ENTITY = createBlockEntity("advanced_minecart_uncharger",
+            EPBlocks.ADVANCED_MINECART_UNCHARGER, AdvancedMinecartUnchargerBlockEntity::new);
 
     private static BlockEntityType<SolarPanelBlockEntity> createSolarPanelBlockEntity(String name, SolarPanelBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, block.getTier()));
@@ -902,17 +894,17 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        MINECART_CHARGER_ENTITY, MinecartChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MINECART_CHARGER_ENTITY, MinecartChargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        MINECART_UNCHARGER_ENTITY, MinecartUnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MINECART_UNCHARGER_ENTITY, MinecartUnchargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_MINECART_UNCHARGER_ENTITY, AdvancedMinecartUnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_MINECART_UNCHARGER_ENTITY, AdvancedMinecartUnchargerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 SOLAR_PANEL_ENTITY_1, SolarPanelBlockEntity::getEnergyStorageCapability);

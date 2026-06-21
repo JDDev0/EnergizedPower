@@ -8,6 +8,7 @@ import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.MinecartChargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,6 +21,7 @@ import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
 
@@ -62,8 +64,8 @@ public class MinecartChargerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new MinecartChargerMenu(id, this, inventory);
+
+        return new MinecartChargerMenu(id, inventory, this);
     }
 
     @Override
@@ -83,6 +85,10 @@ public class MinecartChargerBlockEntity
         boolean isEmptyFlag = minecartEnergy == 0;
 
         return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, MinecartChargerBlockEntity blockEntity) {
