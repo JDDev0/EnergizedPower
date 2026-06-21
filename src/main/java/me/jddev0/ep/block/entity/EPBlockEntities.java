@@ -168,36 +168,18 @@ public final class EPBlockEntities {
     public static final BlockEntityType<ItemConveyorBeltMergerBlockEntity> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
             createItemConveyorBeltMergerBlockEntity("express_item_conveyor_belt_merger", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
-    public static final BlockEntityType<CableBlockEntity> TIN_CABLE_ENTITY = registerEnergyStorage(
-            createBlockEntity("tin_cable", EPBlocks.TIN_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.TIN)),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
-    public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = registerEnergyStorage(
-            createBlockEntity("copper_cable", EPBlocks.COPPER_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.COPPER)),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
-    public static final BlockEntityType<CableBlockEntity> GOLD_CABLE_ENTITY = registerEnergyStorage(
-            createBlockEntity("gold_cable", EPBlocks.GOLD_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.GOLD)),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
-    public static final BlockEntityType<CableBlockEntity> ENERGIZED_COPPER_CABLE_ENTITY = registerEnergyStorage(
-            createBlockEntity("energized_copper_cable", EPBlocks.ENERGIZED_COPPER_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_COPPER)),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
-    public static final BlockEntityType<CableBlockEntity> ENERGIZED_GOLD_CABLE_ENTITY = registerEnergyStorage(
-            createBlockEntity("energized_gold_cable", EPBlocks.ENERGIZED_GOLD_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD)),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
-    public static final BlockEntityType<CableBlockEntity> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = registerEnergyStorage(
-            createBlockEntity("energized_crystal_matrix_cable", EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX)),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<CableBlockEntity> TIN_CABLE_ENTITY = createBlockEntity("tin_cable",
+            EPBlocks.TIN_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.TIN));
+    public static final BlockEntityType<CableBlockEntity> COPPER_CABLE_ENTITY = createBlockEntity("copper_cable",
+            EPBlocks.COPPER_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.COPPER));
+    public static final BlockEntityType<CableBlockEntity> GOLD_CABLE_ENTITY = createBlockEntity("gold_cable",
+            EPBlocks.GOLD_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.GOLD));
+    public static final BlockEntityType<CableBlockEntity> ENERGIZED_COPPER_CABLE_ENTITY = createBlockEntity("energized_copper_cable",
+            EPBlocks.ENERGIZED_COPPER_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_COPPER));
+    public static final BlockEntityType<CableBlockEntity> ENERGIZED_GOLD_CABLE_ENTITY = createBlockEntity("energized_gold_cable",
+            EPBlocks.ENERGIZED_GOLD_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD));
+    public static final BlockEntityType<CableBlockEntity> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = createBlockEntity("energized_crystal_matrix_cable",
+            EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX));
 
     public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -598,20 +580,14 @@ public final class EPBlockEntities {
             TransformerBlockEntity::getEnergyStorageForDirection
     );
 
-    public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX_ENTITY = registerEnergyStorage(
-            createBlockEntity("battery_box", EPBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX_ENTITY = createBlockEntity("battery_box",
+            EPBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedBatteryBoxBlockEntity> ADVANCED_BATTERY_BOX_ENTITY = registerEnergyStorage(
-            createBlockEntity("advanced_battery_box", EPBlocks.ADVANCED_BATTERY_BOX, AdvancedBatteryBoxBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedBatteryBoxBlockEntity> ADVANCED_BATTERY_BOX_ENTITY = createBlockEntity("advanced_battery_box",
+            EPBlocks.ADVANCED_BATTERY_BOX, AdvancedBatteryBoxBlockEntity::new);
 
-    public static final BlockEntityType<CreativeBatteryBoxBlockEntity> CREATIVE_BATTERY_BOX_ENTITY = registerEnergyStorage(
-            createBlockEntity("creative_battery_box", EPBlocks.CREATIVE_BATTERY_BOX, CreativeBatteryBoxBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<CreativeBatteryBoxBlockEntity> CREATIVE_BATTERY_BOX_ENTITY = createBlockEntity("creative_battery_box",
+            EPBlocks.CREATIVE_BATTERY_BOX, CreativeBatteryBoxBlockEntity::new);
 
     public static final BlockEntityType<CoalEngineBlockEntity> COAL_ENGINE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -778,18 +754,18 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        TIN_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        COPPER_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ENERGIZED_COPPER_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ENERGIZED_GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                TIN_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                COPPER_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZED_COPPER_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZED_GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getItemHandlerCapability);
@@ -1024,14 +1000,14 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        CONFIGURABLE_EHV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        BATTERY_BOX_ENTITY, BatteryBoxBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                BATTERY_BOX_ENTITY, BatteryBoxBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_BATTERY_BOX_ENTITY, AdvancedBatteryBoxBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_BATTERY_BOX_ENTITY, AdvancedBatteryBoxBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getItemHandlerCapability);

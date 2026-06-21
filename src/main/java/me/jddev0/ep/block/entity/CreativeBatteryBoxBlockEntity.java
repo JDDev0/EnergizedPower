@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.data.BooleanValueContainerData;
+import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.machine.CheckboxUpdate;
+import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
@@ -18,8 +20,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import me.jddev0.ep.machine.CheckboxUpdate;
-import me.jddev0.ep.screen.CreativeBatteryBoxMenu;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -69,7 +69,11 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new CreativeBatteryBoxMenu(id, this, inventory, data);
+        return new CreativeBatteryBoxMenu(id, inventory, this, data);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
