@@ -11,14 +11,12 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.ByteUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -61,12 +59,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(27) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return super.canPlaceItem(slot, stack) && slot >= 5;
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -79,13 +72,12 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         }, null);
     }
 
-    public AdvancedAutoCrafterMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                                   UpgradeModuleInventory upgradeModuleInventory, Container[] patternSlots,
-                                   Container[] patternResultSlots, ContainerData data) {
+    public AdvancedAutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                   Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
         super(
                 EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.ADVANCED_AUTO_CRAFTER,
                 8, 142,
 
@@ -95,11 +87,11 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         this.patternSlots = patternSlots;
         this.patternResultSlots = patternResultSlots;
 
-        checkContainerSize(inv, 27);
-
-        for(int i = 0;i < 3;i++)
-            for(int j = 0;j < 9;j++)
-                addSlot(new ConstraintInsertSlot(inv, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            for(int i = 0;i < 3;i++)
+                for(int j = 0;j < 9;j++)
+                    addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 9 * i + j, 8 + 18 * j, 75 + 18 * i));
+        });
 
         for(int ri = 0;ri < 3;ri++) {
             final int recipeIndex = ri;
@@ -267,7 +259,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 

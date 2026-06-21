@@ -3,62 +3,58 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.ContainerListener;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
-import me.jddev0.ep.inventory.TrackedSimpleContainer;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.*;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.*;
 
 public class AdvancedAutoCrafterBlockEntity
-        extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer>
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements CheckboxUpdate {
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
-
-    public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
 
     private final static int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue();
 
     private boolean secondaryExtractMode = false;
     private boolean allowOutputOverflow = true;
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
-            i -> secondaryExtractMode?!isInput(itemHandler.getItem(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getItem(i)));
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
+            i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
     private final TrackedSimpleContainer[] patternSlots = new TrackedSimpleContainer[] {
             new TrackedSimpleContainer(3 * 3) {
@@ -101,7 +97,7 @@ public class AdvancedAutoCrafterBlockEntity
     private final RecipeHolder<CraftingRecipe>[] craftingRecipe = new RecipeHolder[] {
             null, null, null
     };
-    private final TransientCraftingContainer[] oldCopyOfRecipe = new TransientCraftingContainer[] {
+    private final CraftingContainer[] oldCopyOfRecipe = new CraftingContainer[] {
             null, null, null
     };
     private final AbstractContainerMenu dummyContainerMenu = new AbstractContainerMenu(null, -1) {
@@ -116,6 +112,9 @@ public class AdvancedAutoCrafterBlockEntity
         @Override
         public void slotsChanged(Container container) {}
     };
+
+    public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
+            ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
 
     private final int[] progress = new int[] {
             0, 0, 0
@@ -187,22 +186,20 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant stack) {
                 if(slot < 0 || slot >= 27)
-                    return super.canPlaceItem(slot, stack);
+                    return super.isValid(slot, stack);
 
                 //Slot 0, 1, 2, 3, and 4 are for output items only
                 return slot >= 5;
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
-
-                AdvancedAutoCrafterBlockEntity.this.setChanged();
+            protected void onFinalCommit(int index, ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -239,7 +236,18 @@ public class AdvancedAutoCrafterBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new AdvancedAutoCrafterMenu(id, this, inventory, itemHandler, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+        return new AdvancedAutoCrafterMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -247,7 +255,7 @@ public class AdvancedAutoCrafterBlockEntity
         super.saveAdditional(view);
 
         for(int i = 0;i < 3;i++)
-            ContainerHelper.saveAllItems(view.child("pattern." + i), patternSlots[i].items);
+            savePatternContainer(i, view.child("pattern." + i));
 
         for(int i = 0;i < 3;i++) {
             if(craftingRecipe[i] != null)
@@ -264,23 +272,27 @@ public class AdvancedAutoCrafterBlockEntity
         view.putBoolean("allow_output_overflow", allowOutputOverflow);
 
         view.putInt("current_recipe_index", currentRecipeIndex);
+    }
 
+    private void savePatternContainer(int index, ValueOutput view) {
+        NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[index].getContainerSize(), ItemStack.EMPTY);
+        for(int i = 0;i < patternSlots[index].getContainerSize();i++)
+            items.set(i, patternSlots[index].getItem(i));
+
+        ContainerHelper.saveAllItems(view, items);
     }
 
     @Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
 
-        for(int i = 0;i < 3;i++) {
-            patternSlots[i].removeListener(updatePatternListener[i]);
-            ContainerHelper.loadAllItems(view.childOrEmpty("pattern." + i), patternSlots[i].items);
-            patternSlots[i].addListener(updatePatternListener[i]);
-        }
+        for(int i = 0;i < 3;i++)
+            loadPatternContainer(i, view.childOrEmpty("pattern." + i));
 
         for(int i = 0;i < 3;i++) {
             final int index = i;
-            view.getString("recipe.id" + i).ifPresent(recipeId ->
-                recipeIdForSetRecipe[index] = ResourceKey.create(Registries.RECIPE, Identifier.tryParse(recipeId))
+            view.getString("recipe.id." + i).ifPresent(recipeId ->
+                    recipeIdForSetRecipe[index] = ResourceKey.create(Registries.RECIPE, Identifier.tryParse(recipeId))
             );
 
             progress[i] = view.getIntOr("recipe.progress." + i, 0);
@@ -296,6 +308,17 @@ public class AdvancedAutoCrafterBlockEntity
         currentRecipeIndex = view.getIntOr("current_recipe_index", 0);
         if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
             currentRecipeIndex = 0;
+    }
+
+    private void loadPatternContainer(int index, ValueInput view) {
+        patternSlots[index].removeListener(updatePatternListener[index]);
+
+        NonNullList<ItemStack> items = NonNullList.withSize(patternSlots[index].getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(view, items);
+        for(int i = 0;i < patternSlots[index].getContainerSize();i++)
+            patternSlots[index].setItem(i, items.get(i));
+
+        patternSlots[index].addListener(updatePatternListener[index]);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
@@ -395,7 +418,7 @@ public class AdvancedAutoCrafterBlockEntity
                     if(blockEntity.progress[i] >= blockEntity.maxProgress[i]) {
                         SimpleContainer patternSlotsForRecipe = blockEntity.ignoreNBT[i]?
                                 blockEntity.replaceCraftingPatternWithCurrentNBTItems(blockEntity.patternSlots[i]):blockEntity.patternSlots[i];
-                        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
+                        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
                         for(int j = 0;j < patternSlotsForRecipe.getContainerSize();j++)
                             copyOfPatternSlots.setItem(j, patternSlotsForRecipe.getItem(j));
 
@@ -423,7 +446,7 @@ public class AdvancedAutoCrafterBlockEntity
             }
         }
     }
-    
+
     protected final long getEnergyConsumptionPerTickSum() {
         long energyConsumptionSum = -1;
 
@@ -467,7 +490,7 @@ public class AdvancedAutoCrafterBlockEntity
     public void cycleRecipe() {
         SimpleContainer patternSlotsForRecipe = ignoreNBT[currentRecipeIndex]?
                 replaceCraftingPatternWithCurrentNBTItems(patternSlots[currentRecipeIndex]):patternSlots[currentRecipeIndex];
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -516,7 +539,7 @@ public class AdvancedAutoCrafterBlockEntity
         hasRecipeLoaded[index] = true;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT[index]?replaceCraftingPatternWithCurrentNBTItems(patternSlots[index]):patternSlots[index];
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -535,7 +558,7 @@ public class AdvancedAutoCrafterBlockEntity
             patternResultSlots[index].setItem(0, resultItemStack);
 
             if(oldRecipe != null && oldResult != null && oldCopyOfRecipe[index] != null &&
-                    (craftingRecipe[index] != oldRecipe || ItemStack.isSameItemSameComponents(resultItemStack, oldResult)))
+                    (craftingRecipe[index] != oldRecipe || !ItemStack.isSameItemSameComponents(resultItemStack, oldResult)))
                 resetProgress(index);
 
             oldCopyOfRecipe[index] = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
@@ -565,10 +588,10 @@ public class AdvancedAutoCrafterBlockEntity
         List<ItemStack> itemStacksExtract = ItemStackUtils.combineItemStacks(patternItemStacks);
 
         for(ItemStack itemStack:itemStacksExtract) {
-            for(int i = 0;i < itemHandler.getContainerSize();i++) {
-                ItemStack testItemStack = itemHandler.getItem(i);
+            for(int i = 0;i < itemHandler.size();i++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
-                    ItemStack ret = itemHandler.removeItem(i, itemStack.getCount());
+                    ItemStack ret = itemHandler.extractItem(i, itemStack.getCount());
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
                         if(amount == itemStack.getCount())
@@ -581,7 +604,7 @@ public class AdvancedAutoCrafterBlockEntity
         }
     }
 
-    private void craftItem(int index, TransientCraftingContainer copyOfPatternSlots) {
+    private void craftItem(int index, CraftingContainer copyOfPatternSlots) {
         if(craftingRecipe[index] == null) {
             resetProgress(index);
 
@@ -590,8 +613,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
 
-        ItemStack resultItemStack = craftingRecipe[index].value().
-                assemble(copyOfPatternSlots.asCraftInput());
+        ItemStack resultItemStack = craftingRecipe[index].value().assemble(copyOfPatternSlots.asCraftInput());
 
         outputItemStacks.add(resultItemStack);
 
@@ -601,12 +623,12 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getContainerSize():5;
+        int outputSlotCount = allowOutputOverflow?itemHandler.size():5;
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
             for(int i = 0;i < outputSlotCount;i++) {
-                ItemStack testItemStack = itemHandler.getItem(i);
+                ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
                     continue;
 
@@ -619,7 +641,7 @@ public class AdvancedAutoCrafterBlockEntity
                 if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
                     if(amount > 0) {
-                        itemHandler.setItem(i, itemHandler.getItem(i).copyWithCount(testItemStack.getCount() + amount));
+                        itemHandler.setStackInSlot(i, itemHandler.getStackInSlot(i).copyWithCount(testItemStack.getCount() + amount));
 
                         itemStack.setCount(itemStack.getCount() - amount);
 
@@ -633,7 +655,7 @@ public class AdvancedAutoCrafterBlockEntity
             if(emptyIndices.isEmpty())
                 continue; //Should not happen
 
-            itemHandler.setItem(emptyIndices.remove(0), itemStack);
+            itemHandler.setStackInSlot(emptyIndices.remove(0), itemStack);
         }
 
         if(ignoreNBT[index])
@@ -660,11 +682,11 @@ public class AdvancedAutoCrafterBlockEntity
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
 
-            for(int j = 0;j < itemHandler.getContainerSize();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 if(checkedIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = itemHandler.getItem(j);
+                ItemStack testItemStack = itemHandler.getStackInSlot(j);
                 if(testItemStack.isEmpty()) {
                     checkedIndices.add(j);
 
@@ -697,7 +719,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT[index]?replaceCraftingPatternWithCurrentNBTItems(patternSlots[index]):
                 patternSlots[index];
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -714,7 +736,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getContainerSize():5;
+        int outputSlotCount = allowOutputOverflow?itemHandler.size():5;
         List<Integer> checkedIndices = new ArrayList<>(outputSlotCount);
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
@@ -724,7 +746,7 @@ public class AdvancedAutoCrafterBlockEntity
                 if(checkedIndices.contains(j) || emptyIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = itemHandler.getItem(j);
+                ItemStack testItemStack = itemHandler.getStackInSlot(j);
                 if(testItemStack.isEmpty()) {
                     emptyIndices.add(j);
 
@@ -768,17 +790,17 @@ public class AdvancedAutoCrafterBlockEntity
 
             SimpleContainer patternSlotsForRecipe = ignoreNBT[i]?replaceCraftingPatternWithCurrentNBTItems(patternSlots[i]):
                     patternSlots[i];
-            TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+            CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
             for(int j = 0;j < patternSlotsForRecipe.getContainerSize();j++)
                 copyOfPatternSlots.setItem(j, patternSlotsForRecipe.getItem(j));
 
             ItemStack resultItemStack = craftingRecipe[i].value().assemble(copyOfPatternSlots.asCraftInput());
 
-            if(ItemStack.isSameItem(itemStack, resultItemStack) && ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
+            if(ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
                 return true;
 
             for(ItemStack remainingItem:craftingRecipe[i].value().getRemainingItems(copyOfPatternSlots.asCraftInput()))
-                if(ItemStack.isSameItem(itemStack, remainingItem) && ItemStack.isSameItemSameComponents(itemStack, remainingItem))
+                if(ItemStack.isSameItemSameComponents(itemStack, remainingItem))
                     return true;
         }
 
@@ -793,8 +815,7 @@ public class AdvancedAutoCrafterBlockEntity
 
             for(int j = 0;j < patternSlots[i].getContainerSize();j++)
                 if(ignoreNBT[i]?ItemStack.isSameItem(itemStack, patternSlots[i].getItem(j)):
-                        (ItemStack.isSameItem(itemStack, patternSlots[i].getItem(j)) &&
-                                ItemStack.isSameItemSameComponents(itemStack, patternSlots[i].getItem(j))))
+                        ItemStack.isSameItemSameComponents(itemStack, patternSlots[i].getItem(j)))
                     return true;
         }
 
@@ -813,8 +834,8 @@ public class AdvancedAutoCrafterBlockEntity
             if(itemStack.isEmpty())
                 continue;
 
-            for(int j = 0;j < itemHandler.getContainerSize();j++) {
-                ItemStack testItemStack = itemHandler.getItem(j).copy();
+            for(int j = 0;j < itemHandler.size();j++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
                 if(testItemStack.getCount() <= 0)
@@ -827,8 +848,8 @@ public class AdvancedAutoCrafterBlockEntity
             }
 
             //Same item with same tag was not found -> check for same item without same tag and change if found
-            for(int j = 0;j < itemHandler.getContainerSize();j++) {
-                ItemStack testItemStack = itemHandler.getItem(j).copy();
+            for(int j = 0;j < itemHandler.size();j++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
                 if(testItemStack.getCount() <= 0)
@@ -850,18 +871,18 @@ public class AdvancedAutoCrafterBlockEntity
         return copyOfContainer;
     }
 
-    private List<RecipeHolder<CraftingRecipe>> getRecipesFor(TransientCraftingContainer patternSlots, Level level) {
-        if(!(level instanceof ServerLevel serverWorld))
+    private List<RecipeHolder<CraftingRecipe>> getRecipesFor(CraftingContainer patternSlots, Level level) {
+        if(!(level instanceof ServerLevel serverLevel))
             return List.of();
 
-        return RecipeUtils.getAllRecipesFor(serverWorld, RecipeType.CRAFTING).
+        return RecipeUtils.getAllRecipesFor(serverLevel, RecipeType.CRAFTING).
                 stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id().identifier())).
                 filter(recipe -> recipe.value().matches(patternSlots.asCraftInput(), level)).
                 sorted(Comparator.comparing(recipe -> recipe.id().identifier())).
                 toList();
     }
 
-    private Optional<Pair<ResourceKey<Recipe<?>>, RecipeHolder<CraftingRecipe>>> getRecipeFor(TransientCraftingContainer patternSlots, Level level, ResourceKey<Recipe<?>> recipeId) {
+    private Optional<Pair<ResourceKey<Recipe<?>>, RecipeHolder<CraftingRecipe>>> getRecipeFor(CraftingContainer patternSlots, Level level, ResourceKey<Recipe<?>> recipeId) {
         List<RecipeHolder<CraftingRecipe>> recipes = getRecipesFor(patternSlots, level);
         Optional<RecipeHolder<CraftingRecipe>> recipe = recipes.stream().filter(r -> recipeId != null && r.id().identifier().equals(recipeId.identifier())).findFirst();
 
