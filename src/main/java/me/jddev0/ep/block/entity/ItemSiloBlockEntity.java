@@ -68,7 +68,7 @@ public class ItemSiloBlockEntity
         return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    static Storage<ItemVariant> getInventoryStorageForDirection(ItemSiloBlockEntity entity, Direction side) {
+    static Storage<ItemVariant> getItemHandlerCapability(ItemSiloBlockEntity entity, Direction side) {
         return entity.itemHandler;
     }
 
