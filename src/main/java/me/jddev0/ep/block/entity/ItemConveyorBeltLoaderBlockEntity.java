@@ -2,11 +2,13 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
-import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
+import me.jddev0.ep.util.InventoryUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -14,7 +16,6 @@ import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -25,10 +26,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlockEntity
-        extends MenuLegacyItemContainerStorageBlockEntity<SimpleContainer> {
+        extends MenuInventoryStorageBlockEntity<EnergizedPowerItemStackHandler> {
     private final int ticksPerItem;
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
 
     private final ConveyorBeltTier tier;
 
@@ -55,27 +56,16 @@ public class ItemConveyorBeltLoaderBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public int getMaxStackSize() {
+            public long getCapacity(int index, ItemVariant resource) {
                 return 1;
             }
 
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                if(slot == 0) {
-                    return true;
-                }
-
-                return super.canPlaceItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                ItemConveyorBeltLoaderBlockEntity.this.setChanged();
+            protected void onFinalCommit(int index, ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -87,11 +77,18 @@ public class ItemConveyorBeltLoaderBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new ItemConveyorBeltLoaderMenu(id, this, inventory, itemHandler);
+        return new ItemConveyorBeltLoaderMenu(id, inventory, this);
     }
 
     public int getRedstoneOutput() {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltLoaderBlockEntity blockEntity) {
@@ -99,10 +96,10 @@ public class ItemConveyorBeltLoaderBlockEntity
             return;
 
         if(level.getGameTime() % blockEntity.ticksPerItem == 0 && state.getValue(ItemConveyorBeltLoaderBlock.ENABLED)) {
-            if(!blockEntity.itemHandler.getItem(0).isEmpty())
-                insertItemStackIntoItemConveyorBelt(level, blockPos, state, blockEntity, blockEntity.itemHandler.getItem(0).copy());
+            if(!blockEntity.itemHandler.getStackInSlot(0).isEmpty())
+                insertItemStackIntoItemConveyorBelt(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStackInSlot(0).copy());
 
-            if(blockEntity.itemHandler.getItem(0).isEmpty())
+            if(blockEntity.itemHandler.getStackInSlot(0).isEmpty())
                 extractItemStackFromBlockEntity(level, blockPos, state, blockEntity);
         }
     }
@@ -127,7 +124,7 @@ public class ItemConveyorBeltLoaderBlockEntity
         try(Transaction transaction = Transaction.openOuter()) {
             long amount = itemStackStorage.insert(ItemVariant.of(itemStackToInsert), 1, transaction);
             if(amount > 0)
-                blockEntity.itemHandler.setItem(0, ItemStack.EMPTY);
+                blockEntity.itemHandler.setStackInSlot(blockEntity.itemHandler.size() - 1, ItemStack.EMPTY);
 
             transaction.commit();
         }
@@ -153,7 +150,7 @@ public class ItemConveyorBeltLoaderBlockEntity
                 ItemVariant itemVariant = itemView.getResource();
                 long amount = itemStackStorage.extract(itemVariant, 1, transaction);
                 if(amount > 0) {
-                    blockEntity.itemHandler.setItem(0, itemVariant.toStack(1));
+                    blockEntity.itemHandler.setStackInSlot(0, itemVariant.toStack(1));
 
                     break;
                 }
