@@ -2,20 +2,22 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.BlockPlacerBlock;
 import me.jddev0.ep.block.entity.base.NoWorkData;
-import me.jddev0.ep.block.entity.base.LegacyWorkerMachineBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.BlockPlacerMenu;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -28,16 +30,17 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
 
 public class BlockPlacerBlockEntity
-        extends LegacyWorkerMachineBlockEntity<NoWorkData>
+        extends WorkerMachineBlockEntity<NoWorkData>
         implements CheckboxUpdate {
     private static final List<@NotNull Identifier> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
 
     private boolean inverseRotation;
 
@@ -61,38 +64,31 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public int getMaxStackSize() {
+            public long getCapacity(int index, ItemVariant resource) {
                 return 1;
             }
 
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant stack) {
                 if(slot == 0) {
                     return stack.getItem() instanceof BlockItem;
                 }
 
-                return super.canPlaceItem(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getItem(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                BlockPlacerBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
@@ -116,7 +112,18 @@ public class BlockPlacerBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new BlockPlacerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
+        return new BlockPlacerMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -135,7 +142,7 @@ public class BlockPlacerBlockEntity
 
     @Override
     protected boolean hasWork() {
-        ItemStack itemStack = itemHandler.getItem(0);
+        ItemStack itemStack = itemHandler.getStackInSlot(0);
         if(itemStack.isEmpty() || !(itemStack.getItem() instanceof BlockItem blockItemStack))
             return false;
 
@@ -154,7 +161,7 @@ public class BlockPlacerBlockEntity
     protected void onWorkCompleted(NoWorkData workData) {
         long energyConsumptionPerTick = getEnergyConsumptionFor(workData);
 
-        ItemStack itemStack = itemHandler.getItem(0);
+        ItemStack itemStack = itemHandler.getStackInSlot(0);
         if(itemStack.isEmpty()) {
             energyConsumptionLeft = energyConsumptionPerTick;
             setChanged();
@@ -217,7 +224,7 @@ public class BlockPlacerBlockEntity
             return;
         }
 
-        itemHandler.setItem(0, itemStack);
+        itemHandler.setStackInSlot(0, itemStack);
         resetProgress();
     }
 
