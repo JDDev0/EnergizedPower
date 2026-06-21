@@ -8,6 +8,7 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.WeatherControllerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -20,9 +21,9 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import team.reborn.energy.api.EnergyStorage;
 
-public class WeatherControllerBlockEntity
-        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     private static final int WEATHER_CHANGED_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_CONTROL_DURATION.getValue();
     private static final int WEATHER_RESET_TIMEOUT_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_INFINITE_WEATHER_RESET_TIMEOUT.getValue();
     private static final int WEATHER_CONTROL_TIMEOUT_TICKS = ModConfigs.COMMON_WEATHER_CONTROLLER_INFINITE_WEATHER_CONTROL_TIMEOUT.getValue();
@@ -80,8 +81,12 @@ public class WeatherControllerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new WeatherControllerMenu(id, this, inventory, upgradeModuleInventory, data);
+
+        return new WeatherControllerMenu(id, inventory, this, upgradeModuleInventory, data);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
