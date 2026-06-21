@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import java.util.Optional;
 
-public abstract class WorkerMachineBlockEntity<W>
+public abstract class LegacyWorkerMachineBlockEntity<W>
         extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
     protected final long baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
@@ -28,11 +28,11 @@ public abstract class WorkerMachineBlockEntity<W>
 
     protected int timeoutOffState;
 
-    public WorkerMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                    String machineName,
-                                    int slotCount, int baseWorkDuration,
-                                    long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                    UpgradeModuleModifier... upgradeModifierSlots) {
+    public LegacyWorkerMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                          String machineName,
+                                          int slotCount, int baseWorkDuration,
+                                          long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                          UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, upgradeModifierSlots);
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
@@ -85,7 +85,7 @@ public abstract class WorkerMachineBlockEntity<W>
         energyConsumptionLeft = view.getLongOr("recipe.energy_consumption_left", 0);
     }
 
-    public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
+    public static <W> void tick(Level level, BlockPos blockPos, BlockState state, LegacyWorkerMachineBlockEntity<W> blockEntity) {
         if(level.isClientSide())
             return;
 
@@ -111,7 +111,7 @@ public abstract class WorkerMachineBlockEntity<W>
         blockEntity.onTickEnd();
     }
 
-    private static <W> void tickRecipe(Level level, BlockPos blockPos, BlockState state, WorkerMachineBlockEntity<W> blockEntity) {
+    private static <W> void tickRecipe(Level level, BlockPos blockPos, BlockState state, LegacyWorkerMachineBlockEntity<W> blockEntity) {
         if(level.isClientSide())
             return;
 

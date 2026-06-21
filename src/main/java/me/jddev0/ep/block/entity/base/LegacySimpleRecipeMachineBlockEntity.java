@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerMachineBlockEntity<RecipeHolder<R>>
+public abstract class LegacySimpleRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
+        extends LegacyWorkerMachineBlockEntity<RecipeHolder<R>>
         implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -39,11 +39,11 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
-    public SimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                          String machineName, UpgradableMenuProvider menuProvider,
-                                          int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
-                                          long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                          UpgradeModuleModifier... upgradeModifierSlots) {
+    public LegacySimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                String machineName, UpgradableMenuProvider menuProvider,
+                                                int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
+                                                long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                                UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, upgradeModifierSlots);
 
@@ -77,7 +77,7 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
             public void setChanged() {
                 super.setChanged();
 
-                SimpleRecipeMachineBlockEntity.this.setChanged();
+                LegacySimpleRecipeMachineBlockEntity.this.setChanged();
             }
         };
     }

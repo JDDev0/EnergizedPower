@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import com.mojang.serialization.Codec;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacySimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
@@ -38,7 +38,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class FluidTransposerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidTransposerRecipe>
+        extends LegacySimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidTransposerRecipe>
         implements CheckboxUpdate {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue());
