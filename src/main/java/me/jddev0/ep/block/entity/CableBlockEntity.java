@@ -3,6 +3,8 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
@@ -15,9 +17,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.*;
 
@@ -275,6 +276,10 @@ public class CableBlockEntity extends BlockEntity {
                 }
             }
         }
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override

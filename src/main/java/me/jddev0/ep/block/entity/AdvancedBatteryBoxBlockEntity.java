@@ -2,8 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.AdvancedBatteryBoxMenu;
+import me.jddev0.ep.util.EnergyUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,11 +16,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import me.jddev0.ep.util.EnergyUtils;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +58,16 @@ public class AdvancedBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new AdvancedBatteryBoxMenu(id, this, inventory);
+        return new AdvancedBatteryBoxMenu(id, inventory, this);
     }
 
     @Override
     public int getRedstoneOutput() {
-        return EnergyUtils.getRedstoneSignalFromEnergyStorage(limitingEnergyStorage);
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedBatteryBoxBlockEntity blockEntity) {
