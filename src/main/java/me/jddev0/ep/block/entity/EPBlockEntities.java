@@ -705,13 +705,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<TeleporterBlockEntity> TELEPORTER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("teleporter", EPBlocks.TELEPORTER, TeleporterBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<TeleporterBlockEntity> TELEPORTER_ENTITY = createBlockEntity("teleporter",
+            EPBlocks.TELEPORTER, TeleporterBlockEntity::new);
 
     @SuppressWarnings("unchecked")
     private static <T extends BlockEntity> BlockEntityType<T> createBlockEntity(String name, Block block,
@@ -1100,10 +1095,10 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        TIME_CONTROLLER_ENTITY, TimeControllerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        TELEPORTER_ENTITY, TeleporterBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        TELEPORTER_ENTITY, TeleporterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                TELEPORTER_ENTITY, TeleporterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                TELEPORTER_ENTITY, TeleporterBlockEntity::getEnergyStorageCapability);
     }
 
     /**
