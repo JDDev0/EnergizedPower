@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AssemblingMachineBlock;
-import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacySimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
+public class AssemblingMachineBlockEntity extends LegacySimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
     final LegacyInputOutputItemHandler itemHandlerSidedTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
     final LegacyInputOutputItemHandler itemHandlerSidedFront = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
     final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);

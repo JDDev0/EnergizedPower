@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacySelectableRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class AutoPressMoldMakerBlockEntity
-        extends SelectableRecipeMachineBlockEntity<RecipeInput, PressMoldMakerRecipe> {
+        extends LegacySelectableRecipeMachineBlockEntity<RecipeInput, PressMoldMakerRecipe> {
     final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoPressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {

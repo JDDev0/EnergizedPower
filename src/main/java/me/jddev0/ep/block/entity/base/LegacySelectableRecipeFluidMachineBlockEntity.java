@@ -36,9 +36,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public abstract class SelectableRecipeFluidMachineBlockEntity
+public abstract class LegacySelectableRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
+        extends LegacyWorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate,
         IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
@@ -51,13 +51,13 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
-    public SelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                   String machineName, UpgradableMenuProvider menuProvider,
-                                                   int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
-                                                   int baseRecipeDuration,
-                                                   long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                                   FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                   UpgradeModuleModifier... upgradeModifierSlots) {
+    public LegacySelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                         String machineName, UpgradableMenuProvider menuProvider,
+                                                         int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
+                                                         int baseRecipeDuration,
+                                                         long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                                         FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
+                                                         UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
 

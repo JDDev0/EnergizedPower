@@ -30,9 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class SimpleRecipeFluidMachineBlockEntity
+public abstract class LegacySimpleRecipeFluidMachineBlockEntity
         <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
+        extends LegacyWorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
         implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -40,12 +40,12 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
-    public SimpleRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                               String machineName, UpgradableMenuProvider menuProvider,
-                                               int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
-                                               long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                               FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                               UpgradeModuleModifier... upgradeModifierSlots) {
+    public LegacySimpleRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                     String machineName, UpgradableMenuProvider menuProvider,
+                                                     int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
+                                                     long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                                     FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
+                                                     UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
 

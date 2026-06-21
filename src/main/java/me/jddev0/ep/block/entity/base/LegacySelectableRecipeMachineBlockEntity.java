@@ -34,8 +34,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerMachineBlockEntity<RecipeHolder<R>>
+public abstract class LegacySelectableRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
+        extends LegacyWorkerMachineBlockEntity<RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate,
         IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
@@ -48,12 +48,12 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
-    public SelectableRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                              String machineName, UpgradableMenuProvider menuProvider,
-                                              int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
-                                              int baseRecipeDuration,
-                                              long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                              UpgradeModuleModifier... upgradeModifierSlots) {
+    public LegacySelectableRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                    String machineName, UpgradableMenuProvider menuProvider,
+                                                    int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
+                                                    int baseRecipeDuration,
+                                                    long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                                    UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
                 baseEnergyConsumptionPerTick, upgradeModifierSlots);
 

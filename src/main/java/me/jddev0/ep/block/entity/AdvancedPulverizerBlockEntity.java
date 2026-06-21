@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
-import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacySimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
@@ -26,7 +26,7 @@ import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
 public class AdvancedPulverizerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, PulverizerRecipe> {
+        extends LegacySimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, PulverizerRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY.getValue());
     public static final long WATER_CONSUMPTION_PER_RECIPE = FluidUtils.convertMilliBucketsToDroplets(

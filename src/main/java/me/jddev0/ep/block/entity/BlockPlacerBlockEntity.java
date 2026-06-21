@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.BlockPlacerBlock;
 import me.jddev0.ep.block.entity.base.NoWorkData;
-import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacyWorkerMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BlockPlacerBlockEntity
-        extends WorkerMachineBlockEntity<NoWorkData>
+        extends LegacyWorkerMachineBlockEntity<NoWorkData>
         implements CheckboxUpdate {
     private static final List<@NotNull Identifier> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
