@@ -4,6 +4,8 @@ import me.jddev0.ep.block.ConfigurableTransformerBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.TransformerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.tier.TransformerTier;
@@ -23,8 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +33,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
     private final TransformerTier tier;
     private final TransformerType type;
 
-    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageInsert;
-    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageExtract;
+    private final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageInsert;
+    private final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageExtract;
 
     public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerTier tier, TransformerType type) {
         super(
@@ -92,7 +92,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new TransformerMenu(id, this, inventory, this.data);
+        return new TransformerMenu(id, inventory, this, this.data);
     }
 
     public TransformerType getTransformerType() {
@@ -103,7 +103,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return tier;
     }
 
-    EnergyStorage getEnergyStorageForDirection(Direction side) {
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         if(side == null)
             return energyStorage;
 
@@ -125,6 +125,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return switch(type) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
                 EnergyStorage singleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageInsert:limitingEnergyStorageExtract;
+
                 EnergyStorage multipleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageExtract:limitingEnergyStorageInsert;
 
                 if(facing == side)

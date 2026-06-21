@@ -2,37 +2,36 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.HeatGeneratorBlockEntity;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
-import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGeneratorBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu {
     private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
 
     public HeatGeneratorMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ENERGY_PRODUCTION
         ), null);
     }
 
-    public HeatGeneratorMenu(int id, BlockEntity blockEntity, Inventory playerInventory,
-                             UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public HeatGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                             ContainerData data) {
         super(
                 EPMenuTypes.HEAT_GENERATOR_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.HEAT_GENERATOR,
 
                 upgradeModuleInventory, 2
@@ -82,7 +81,7 @@ public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGenerator
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
