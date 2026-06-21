@@ -2,7 +2,8 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.BlockPlacerBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -13,13 +14,9 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -35,21 +32,7 @@ public class BlockPlacerMenu extends UpgradableEnergyStorageMenu<BlockPlacerBloc
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public BlockPlacerMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(1) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                if(slot == 0) {
-                    return stack.getItem() instanceof BlockItem;
-                }
-
-                return super.canPlaceItem(slot, stack);
-            }
-
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -57,24 +40,24 @@ public class BlockPlacerMenu extends UpgradableEnergyStorageMenu<BlockPlacerBloc
         ), null);
     }
 
-    public BlockPlacerMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                           UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public BlockPlacerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                           ContainerData data) {
         super(
                 EPMenuTypes.BLOCK_PLACER_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.BLOCK_PLACER,
 
                 upgradeModuleInventory, 4
         );
 
-        checkContainerSize(inv, 1);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 80, 35) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
@@ -139,10 +122,9 @@ public class BlockPlacerMenu extends UpgradableEnergyStorageMenu<BlockPlacerBloc
         ItemStack sourceItemCopy = sourceItem.copy();
 
         if(index < 4 * 9) {
-            //Tile inventory slot -> Merge into player inventory
-            //Allow only 1 item
+            //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 4, false) &&
-                    (slots.get(4 * 9).hasItem() || !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false))) {
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1 + 4) {
@@ -155,7 +137,7 @@ public class BlockPlacerMenu extends UpgradableEnergyStorageMenu<BlockPlacerBloc
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 

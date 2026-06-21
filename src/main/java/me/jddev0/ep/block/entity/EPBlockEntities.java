@@ -287,13 +287,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("block_placer", EPBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER_ENTITY = createBlockEntity("block_placer",
+            EPBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new);
 
     public static final BlockEntityType<AssemblingMachineBlockEntity> ASSEMBLING_MACHINE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -536,13 +531,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<PoweredLampBlockEntity> POWERED_LAMP_ENTITY = createBlockEntity("powered_lamp",
             EPBlocks.POWERED_LAMP, PoweredLampBlockEntity::new);
 
-    public static final BlockEntityType<PoweredFurnaceBlockEntity> POWERED_FURNACE_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("powered_furnace", EPBlocks.POWERED_FURNACE, PoweredFurnaceBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<PoweredFurnaceBlockEntity> POWERED_FURNACE_ENTITY = createBlockEntity("powered_furnace",
+            EPBlocks.POWERED_FURNACE, PoweredFurnaceBlockEntity::new);
 
     public static final BlockEntityType<AdvancedPoweredFurnaceBlockEntity> ADVANCED_POWERED_FURNACE_ENTITY = createBlockEntity("advanced_powered_furnace",
             EPBlocks.ADVANCED_POWERED_FURNACE, AdvancedPoweredFurnaceBlockEntity::new);
@@ -742,10 +732,10 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getItemHandlerCapability);
@@ -928,10 +918,10 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 POWERED_LAMP_ENTITY, PoweredLampBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getItemHandlerCapability);
