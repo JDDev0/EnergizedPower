@@ -611,15 +611,11 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<WeatherControllerBlockEntity> WEATHER_CONTROLLER_ENTITY = registerEnergyStorage(
-            createBlockEntity("weather_controller", EPBlocks.WEATHER_CONTROLLER, WeatherControllerBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<WeatherControllerBlockEntity> WEATHER_CONTROLLER_ENTITY = createBlockEntity("weather_controller",
+            EPBlocks.WEATHER_CONTROLLER, WeatherControllerBlockEntity::new);
 
-    public static final BlockEntityType<TimeControllerBlockEntity> TIME_CONTROLLER_ENTITY = registerEnergyStorage(
-            createBlockEntity("time_controller", EPBlocks.TIME_CONTROLLER, TimeControllerBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<TimeControllerBlockEntity> TIME_CONTROLLER_ENTITY = createBlockEntity("time_controller",
+            EPBlocks.TIME_CONTROLLER, TimeControllerBlockEntity::new);
 
     public static final BlockEntityType<TeleporterBlockEntity> TELEPORTER_ENTITY = createBlockEntity("teleporter",
             EPBlocks.TELEPORTER, TeleporterBlockEntity::new);
@@ -1005,11 +1001,11 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        TIME_CONTROLLER_ENTITY, TimeControllerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                TIME_CONTROLLER_ENTITY, TimeControllerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 TELEPORTER_ENTITY, TeleporterBlockEntity::getItemHandlerCapability);

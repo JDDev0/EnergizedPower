@@ -2,19 +2,20 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.screen.TimeControllerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import team.reborn.energy.api.EnergyStorage;
 
-public class TimeControllerBlockEntity
-        extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final long CAPACITY = ModConfigs.COMMON_TIME_CONTROLLER_CAPACITY.getValue();
 
     public TimeControllerBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -48,8 +49,12 @@ public class TimeControllerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new TimeControllerMenu(id, this, inventory);
+
+        return new TimeControllerMenu(id, inventory, this);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public void clearEnergy() {
