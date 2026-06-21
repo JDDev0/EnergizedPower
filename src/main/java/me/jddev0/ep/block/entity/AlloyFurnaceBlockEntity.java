@@ -1,11 +1,12 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.AlloyFurnaceBlock;
+import me.jddev0.ep.block.AssemblingMachineBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.networking.ModMessages;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public class AlloyFurnaceBlockEntity
-        extends MenuLegacyItemContainerStorageBlockEntity<SimpleContainer>
+        extends MenuInventoryStorageBlockEntity<EnergizedPowerItemStackHandler>
         implements IngredientPacketUpdate, RedstoneOutput {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ALLOY_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
@@ -57,18 +59,18 @@ public class AlloyFurnaceBlockEntity
     private final Predicate<Integer> canOutput = i -> {
         if(i == 3) {
             //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
-            ItemStack item = itemHandler.getItem(i);
+            ItemStack item = itemHandler.getStackInSlot(i);
             return level != null && level.fuelValues().burnDuration(item) <= 0;
         }
 
         return i > 3 && i < 6;
     };
 
-    private final LegacyInputOutputItemHandler itemHandlerSidedTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 3, canOutput);
-    private final LegacyInputOutputItemHandler itemHandlerSidedFront = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, canOutput);
-    private final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, canOutput);
-    private final LegacyInputOutputItemHandler itemHandlerSidedLeft = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, canOutput);
-    private final LegacyInputOutputItemHandler itemHandlerSidedRight = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 2, canOutput);
+    private final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, canOutput);
+    private final InputOutputItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, canOutput);
+    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, canOutput);
+    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, canOutput);
+    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, canOutput);
 
     public AlloyFurnaceBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -81,36 +83,32 @@ public class AlloyFurnaceBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
-                    case 0, 1, 2 -> ((level instanceof ServerLevel serverWorld)?
-                            RecipeUtils.isIngredientOfAny(serverWorld, EPRecipes.ALLOY_FURNACE_TYPE, stack):
-                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
+                    case 0, 1, 2 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, EPRecipes.ALLOY_FURNACE_TYPE, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 3 -> level != null && level.fuelValues().burnDuration(stack) > 0;
                     case 4, 5 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getItem(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                AlloyFurnaceBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
@@ -130,33 +128,33 @@ public class AlloyFurnaceBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncIngredientListToPlayer(player);
 
-        return new AlloyFurnaceMenu(id, this, inventory, itemHandler, data);
+        return new AlloyFurnaceMenu(id, inventory, this, data);
     }
 
     @Override
     public int getRedstoneOutput() {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    public Storage<ItemVariant> getInventoryStorageForDirection(Direction side) {
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
-            return null;
+            return itemHandler;
 
-        Direction facing = getBlockState().getValue(AlloyFurnaceBlock.FACING);
+        Direction facing = getBlockState().getValue(AssemblingMachineBlock.FACING);
 
         if(facing == side)
-            return itemHandlerSidedFront.apply(side);
+            return itemHandlerSidedFront;
 
         if(facing.getOpposite() == side)
-            return itemHandlerSidedBack.apply(side);
+            return itemHandlerSidedBack;
 
         if(facing.getClockWise() == side)
-            return itemHandlerSidedLeft.apply(side);
+            return itemHandlerSidedLeft;
 
         if(facing.getCounterClockWise() == side)
-            return itemHandlerSidedRight.apply(side);
+            return itemHandlerSidedRight;
 
-        return itemHandlerSidedTopBottom.apply(side);
+        return itemHandlerSidedTopBottom;
     }
 
     @Override
@@ -204,16 +202,16 @@ public class AlloyFurnaceBlockEntity
 
             //Use next fuel only if recipe is present
             if(blockEntity.litDuration <= 0) {
-                ItemStack item = blockEntity.itemHandler.getItem(3);
+                ItemStack item = blockEntity.itemHandler.getStackInSlot(3);
                 blockEntity.litDuration = blockEntity.maxLitDuration = blockEntity.level.fuelValues().burnDuration(item);
                 if(blockEntity.maxLitDuration > 0) {
                     blockEntity.onHasEnoughFuel();
                     hasNotEnoughFuel = false;
 
                     if(item.getCraftingRemainder() != null)
-                        blockEntity.itemHandler.setItem(3, ItemStackUtils.fromNullableItemStackTemplate(item.getCraftingRemainder()));
+                        blockEntity.itemHandler.setStackInSlot(3, ItemStackUtils.fromNullableItemStackTemplate(item.getCraftingRemainder()));
                     else
-                        blockEntity.itemHandler.removeItem(3, 1);
+                        blockEntity.itemHandler.extractItem(3, 1);
                 }
             }
 
@@ -280,16 +278,24 @@ public class AlloyFurnaceBlockEntity
     }
 
     private Optional<RecipeHolder<AlloyFurnaceRecipe>> getCurrentRecipe() {
-        return getRecipeFor(itemHandler);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        return getRecipeFor(inventory);
     }
 
     private boolean hasRecipe() {
         if(level == null)
             return false;
 
-        Optional<RecipeHolder<AlloyFurnaceRecipe>> recipe = getRecipeFor(itemHandler);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
 
-        return recipe.isPresent() && canCraftRecipe(itemHandler, recipe.get());
+        Optional<RecipeHolder<AlloyFurnaceRecipe>> recipe = getRecipeFor(inventory);
+
+        return recipe.isPresent() && canCraftRecipe(inventory, recipe.get());
     }
 
     protected void craftItem(RecipeHolder<AlloyFurnaceRecipe> recipe) {
@@ -300,7 +306,7 @@ public class AlloyFurnaceBlockEntity
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
-            usedIndices[i] = itemHandler.getItem(i).isEmpty();
+            usedIndices[i] = itemHandler.getStackInSlot(i).isEmpty();
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
@@ -313,7 +319,7 @@ public class AlloyFurnaceBlockEntity
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = itemHandler.getItem(j);
+                ItemStack item = itemHandler.getStackInSlot(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -327,16 +333,16 @@ public class AlloyFurnaceBlockEntity
 
             usedIndices[indexMinCount] = true;
 
-            itemHandler.removeItem(indexMinCount, input.count());
+            itemHandler.extractItem(indexMinCount, input.count());
         }
 
         ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom());
 
-        itemHandler.setItem(4, outputs[0].
-                copyWithCount(itemHandler.getItem(4).getCount() + outputs[0].getCount()));
+        itemHandler.setStackInSlot(4, outputs[0].
+                copyWithCount(itemHandler.getStackInSlot(4).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            itemHandler.setItem(5, outputs[1].
-                    copyWithCount(itemHandler.getItem(5).getCount() + outputs[1].getCount()));
+            itemHandler.setStackInSlot(5, outputs[1].
+                    copyWithCount(itemHandler.getStackInSlot(5).getCount() + outputs[1].getCount()));
 
         resetProgress();
     }
