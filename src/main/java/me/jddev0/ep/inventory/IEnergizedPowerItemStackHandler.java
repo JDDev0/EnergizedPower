@@ -8,6 +8,9 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
 public interface IEnergizedPowerItemStackHandler extends SlottedStorage<ItemVariant> {
+    default long getAmount(int slot) {
+        return getSlot(slot).getAmount();
+    }
     long getCapacity(int index, ItemVariant resource);
     boolean isValid(int index, ItemVariant resource);
 

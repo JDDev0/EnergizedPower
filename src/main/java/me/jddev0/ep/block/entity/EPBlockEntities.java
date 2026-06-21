@@ -221,10 +221,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = registerInventoryStorage(
-            createBlockEntity("press_mold_maker", EPBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new),
-            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-    );
+    public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = createBlockEntity("press_mold_maker",
+            EPBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new);
 
     public static final BlockEntityType<AlloyFurnaceBlockEntity> ALLOY_FURNACE_ENTITY = registerInventoryStorage(
             createBlockEntity("alloy_furnace", EPBlocks.ALLOY_FURNACE, AlloyFurnaceBlockEntity::new),
@@ -730,18 +728,21 @@ public final class EPBlockEntities {
                 FabricBlockEntityTypeBuilder.create(factory, block).build(null));
     }
 
+    @Deprecated
     private static <T extends BlockEntity> BlockEntityType<T> registerInventoryStorage(BlockEntityType<T> blockEntityType,
            BiFunction<? super T, Direction, @Nullable Storage<ItemVariant>> provider) {
         ItemStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
         return blockEntityType;
     }
 
+    @Deprecated
     private static <T extends BlockEntity> BlockEntityType<T> registerFluidStorage(BlockEntityType<T> blockEntityType, BiFunction<? super T,
             Direction, @Nullable Storage<FluidVariant>> provider) {
         FluidStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
         return blockEntityType;
     }
 
+    @Deprecated
     private static <T extends BlockEntity> BlockEntityType<T> registerEnergyStorage(BlockEntityType<T> blockEntityType,
             BiFunction<? super T, Direction, @Nullable EnergyStorage> provider) {
         EnergyStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
@@ -827,8 +828,8 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        PRESS_MOLD_MAKER_ENTITY, PressMoldMakerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                PRESS_MOLD_MAKER_ENTITY, PressMoldMakerBlockEntity::getItemHandlerCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::getItemHandlerCapability);
