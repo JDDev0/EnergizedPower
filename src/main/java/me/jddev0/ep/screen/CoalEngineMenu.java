@@ -2,7 +2,8 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.CoalEngineBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -13,12 +14,9 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -33,15 +31,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public CoalEngineMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(1) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                if(slot == 0)
-                    return inv.player.level().fuelValues().burnDuration(stack) > 0;
-
-                return super.canPlaceItem(slot, stack);
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ENERGY_PRODUCTION,
                 UpgradeModuleModifier.ITEM_EJECTOR,
@@ -49,24 +39,24 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         ), null);
     }
 
-    public CoalEngineMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                          UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public CoalEngineMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                          ContainerData data) {
         super(
                 EPMenuTypes.COAL_ENGINE_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.COAL_ENGINE,
 
                 upgradeModuleInventory, 4
         );
 
-        checkContainerSize(inv, 1);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 80, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
@@ -149,7 +139,7 @@ public class CoalEngineMenu extends UpgradableEnergyStorageMenu<CoalEngineBlockE
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
