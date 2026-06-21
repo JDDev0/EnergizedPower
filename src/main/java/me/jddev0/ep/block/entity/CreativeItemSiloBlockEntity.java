@@ -43,7 +43,7 @@ public class CreativeItemSiloBlockEntity
         return new CreativeItemSiloMenu(id, inventory, this);
     }
 
-    static Storage<ItemVariant> getInventoryStorageForDirection(CreativeItemSiloBlockEntity entity, Direction side) {
+    static Storage<ItemVariant> getItemHandlerCapability(CreativeItemSiloBlockEntity entity, Direction side) {
         return entity.itemHandler;
     }
 
