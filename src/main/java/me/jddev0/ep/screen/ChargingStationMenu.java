@@ -2,31 +2,30 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
+import me.jddev0.ep.inventory.UpgradeModuleSlot;
+import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
-import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 
 public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingStationBlockEntity> {
     public ChargingStationMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.RANGE
         ));
     }
 
-    public ChargingStationMenu(int id, BlockEntity blockEntity, Inventory playerInventory,
-                               UpgradeModuleInventory upgradeModuleInventory) {
+    public ChargingStationMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory) {
         super(
                 EPMenuTypes.CHARGING_STATION_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.CHARGING_STATION,
 
                 upgradeModuleInventory, 2
@@ -60,7 +59,7 @@ public class ChargingStationMenu extends UpgradableEnergyStorageMenu<ChargingSta
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
