@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ThermalGeneratorBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
@@ -36,7 +36,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.*;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
+        extends ConfigurableUpgradableLegacyFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
