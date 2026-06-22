@@ -33,14 +33,14 @@ import java.util.Optional;
 public abstract class LegacySimpleRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
         extends LegacyWorkerMachineBlockEntity<RecipeHolder<R>>
         implements IngredientPacketUpdate {
-    protected final UpgradableMenuProvider menuProvider;
+    protected final LegacyUpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
     public LegacySimpleRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                String machineName, UpgradableMenuProvider menuProvider,
+                                                String machineName, LegacyUpgradableMenuProvider menuProvider,
                                                 int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
                                                 long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
                                                 UpgradeModuleModifier... upgradeModifierSlots) {
