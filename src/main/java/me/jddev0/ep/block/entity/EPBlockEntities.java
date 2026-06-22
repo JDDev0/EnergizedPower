@@ -463,13 +463,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<HeatGeneratorBlockEntity> HEAT_GENERATOR_ENTITY = createBlockEntity("heat_generator",
             EPBlocks.HEAT_GENERATOR, HeatGeneratorBlockEntity::new);
 
-    public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GENERATOR_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    createBlockEntity("thermal_generator", EPBlocks.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<ThermalGeneratorBlockEntity> THERMAL_GENERATOR_ENTITY = createBlockEntity("thermal_generator",
+            EPBlocks.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new);
 
     public static final BlockEntityType<PoweredLampBlockEntity> POWERED_LAMP_ENTITY = createBlockEntity("powered_lamp",
             EPBlocks.POWERED_LAMP, PoweredLampBlockEntity::new);
@@ -848,10 +843,10 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 POWERED_LAMP_ENTITY, PoweredLampBlockEntity::getEnergyStorageCapability);
