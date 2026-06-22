@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageInfiniteTankMethods;
 import me.jddev0.ep.fluid.InfinityFluidStorage;
 import me.jddev0.ep.screen.CreativeFluidTankMenu;
 import net.minecraft.core.BlockPos;
@@ -20,7 +19,6 @@ public class CreativeFluidTankBlockEntity
 
                 "creative_fluid_tank",
 
-                FluidStorageInfiniteTankMethods.INSTANCE,
                 Integer.MAX_VALUE
         );
     }

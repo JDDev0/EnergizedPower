@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
@@ -29,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneSolidifierBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, RecipeInput, StoneSolidifierRecipe> {
+        extends SelectableRecipeFluidMachineBlockEntity<RecipeInput, StoneSolidifierRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> false, i -> i == 0);
@@ -49,7 +48,6 @@ public class StoneSolidifierBlockEntity
                 ModConfigs.COMMON_STONE_SOLIDIFIER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_STONE_SOLIDIFIER_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageMultiTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -79,9 +77,7 @@ public class StoneSolidifierBlockEntity
 
     @Override
     protected EnergizedPowerFluidStorage initFluidStorage() {
-        return new EnergizedPowerFluidStorage(new int[] {
-                baseTankCapacity, baseTankCapacity
-        }) {
+        return new EnergizedPowerFluidStorage(2, baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();

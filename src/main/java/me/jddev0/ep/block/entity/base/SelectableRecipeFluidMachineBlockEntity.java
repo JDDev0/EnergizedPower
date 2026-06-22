@@ -25,15 +25,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
-        <F extends ResourceHandler<FluidResource>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
+        <C extends RecipeInput, R extends Recipe<C>>
+        extends WorkerFluidMachineBlockEntity<RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate,
         IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
@@ -51,10 +49,10 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
                                                    int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
                                                    int baseRecipeDuration,
                                                    int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                                   FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                                   int baseTankCapacity,
                                                    UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
-                baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+                baseEnergyConsumptionPerTick, baseTankCapacity, upgradeModifierSlots);
 
         this.menuProvider = menuProvider;
 
