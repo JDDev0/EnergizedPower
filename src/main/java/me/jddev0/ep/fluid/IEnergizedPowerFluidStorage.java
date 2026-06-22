@@ -19,5 +19,5 @@ public interface IEnergizedPowerFluidStorage extends ResourceHandler<FluidResour
     default FluidStack getFluid(int tank) {
         return getResource(tank).toStack(getAmountAsInt(tank));
     }
-    void setFluid(int slot, FluidStack itemStack);
+    void setFluid(int tank, FluidStack fluidStack);
 }
