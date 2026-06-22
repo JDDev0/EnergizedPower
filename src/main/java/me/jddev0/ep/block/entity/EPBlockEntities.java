@@ -193,13 +193,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AlloyFurnaceBlockEntity> ALLOY_FURNACE_ENTITY = createBlockEntity("alloy_furnace",
             EPBlocks.ALLOY_FURNACE, AlloyFurnaceBlockEntity::new);
 
-    public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("crusher", EPBlocks.CRUSHER, CrusherBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = createBlockEntity("crusher",
+            EPBlocks.CRUSHER, CrusherBlockEntity::new);
 
     public static final BlockEntityType<AdvancedCrusherBlockEntity> ADVANCED_CRUSHER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
@@ -212,13 +207,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("pulverizer", EPBlocks.PULVERIZER, PulverizerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER_ENTITY = createBlockEntity("pulverizer",
+            EPBlocks.PULVERIZER, PulverizerBlockEntity::new);
 
     public static final BlockEntityType<AdvancedPulverizerBlockEntity> ADVANCED_PULVERIZER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
@@ -231,31 +221,14 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<SawmillBlockEntity> SAWMILL_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("sawmill", EPBlocks.SAWMILL, SawmillBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<SawmillBlockEntity> SAWMILL_ENTITY = createBlockEntity("sawmill",
+            EPBlocks.SAWMILL, SawmillBlockEntity::new);
 
-    public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("compressor", EPBlocks.COMPRESSOR, CompressorBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR_ENTITY = createBlockEntity("compressor",
+            EPBlocks.COMPRESSOR, CompressorBlockEntity::new);
 
-    public static final BlockEntityType<MetalPressBlockEntity> METAL_PRESS_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("metal_press", EPBlocks.METAL_PRESS, MetalPressBlockEntity::new),
-                    (blockEntity, side) -> (side == Direction.UP)?
-                            blockEntity.itemHandlerTopSided.apply(side):
-                            blockEntity.itemHandlerOthersSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<MetalPressBlockEntity> METAL_PRESS_ENTITY = createBlockEntity("metal_press",
+            EPBlocks.METAL_PRESS, MetalPressBlockEntity::new);
 
     public static final BlockEntityType<AutoPressMoldMakerBlockEntity> AUTO_PRESS_MOLD_MAKER_ENTITY = createBlockEntity("auto_press_mold_maker",
             EPBlocks.AUTO_PRESS_MOLD_MAKER, AutoPressMoldMakerBlockEntity::new);
@@ -280,21 +253,11 @@ public final class EPBlockEntities {
     public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER_ENTITY = createBlockEntity("block_placer",
             EPBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new);
 
-    public static final BlockEntityType<AssemblingMachineBlockEntity> ASSEMBLING_MACHINE_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("assembling_machine", EPBlocks.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity::new),
-                    AssemblingMachineBlockEntity::getInventoryStorageForDirection
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AssemblingMachineBlockEntity> ASSEMBLING_MACHINE_ENTITY = createBlockEntity("assembling_machine",
+            EPBlocks.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity::new);
 
-    public static final BlockEntityType<InductionSmelterBlockEntity> INDUCTION_SMELTER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("induction_smelter", EPBlocks.INDUCTION_SMELTER, InductionSmelterBlockEntity::new),
-                    InductionSmelterBlockEntity::getInventoryStorageForDirection
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<InductionSmelterBlockEntity> INDUCTION_SMELTER_ENTITY = createBlockEntity("induction_smelter",
+            EPBlocks.INDUCTION_SMELTER, InductionSmelterBlockEntity::new);
 
     public static final BlockEntityType<FluidFreezerBlockEntity> FLUID_FREEZER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
@@ -536,13 +499,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<ChargingStationBlockEntity> CHARGING_STATION_ENTITY = createBlockEntity("charging_station",
             EPBlocks.CHARGING_STATION, ChargingStationBlockEntity::new);
 
-    public static final BlockEntityType<CrystalGrowthChamberBlockEntity> CRYSTAL_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("crystal_growth_chamber", EPBlocks.CRYSTAL_GROWTH_CHAMBER, CrystalGrowthChamberBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<CrystalGrowthChamberBlockEntity> CRYSTAL_GROWTH_CHAMBER_ENTITY = createBlockEntity("crystal_growth_chamber",
+            EPBlocks.CRYSTAL_GROWTH_CHAMBER, CrystalGrowthChamberBlockEntity::new);
 
     public static final BlockEntityType<WeatherControllerBlockEntity> WEATHER_CONTROLLER_ENTITY = createBlockEntity("weather_controller",
             EPBlocks.WEATHER_CONTROLLER, WeatherControllerBlockEntity::new);
@@ -666,10 +624,10 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::getItemHandlerCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        CRUSHER_ENTITY, CrusherBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        CRUSHER_ENTITY, CrusherBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CRUSHER_ENTITY, CrusherBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CRUSHER_ENTITY, CrusherBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getItemHandlerCapability);
@@ -678,10 +636,10 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        PULVERIZER_ENTITY, PulverizerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        PULVERIZER_ENTITY, PulverizerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                PULVERIZER_ENTITY, PulverizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                PULVERIZER_ENTITY, PulverizerBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getItemHandlerCapability);
@@ -690,20 +648,20 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        SAWMILL_ENTITY, SawmillBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SAWMILL_ENTITY, SawmillBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                SAWMILL_ENTITY, SawmillBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SAWMILL_ENTITY, SawmillBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        COMPRESSOR_ENTITY, CompressorBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        COMPRESSOR_ENTITY, CompressorBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                COMPRESSOR_ENTITY, CompressorBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                COMPRESSOR_ENTITY, CompressorBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        METAL_PRESS_ENTITY, MetalPressBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        METAL_PRESS_ENTITY, MetalPressBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                METAL_PRESS_ENTITY, MetalPressBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                METAL_PRESS_ENTITY, MetalPressBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getItemHandlerCapability);
@@ -727,15 +685,15 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getItemHandlerCapability);
@@ -929,10 +887,10 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CHARGING_STATION_ENTITY, ChargingStationBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::getEnergyStorageCapability);

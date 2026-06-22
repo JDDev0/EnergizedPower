@@ -1,9 +1,10 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AssemblingMachineBlock;
-import me.jddev0.ep.block.entity.base.LegacySimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -17,18 +18,22 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
-public class AssemblingMachineBlockEntity extends LegacySimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
-    final LegacyInputOutputItemHandler itemHandlerSidedTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
-    final LegacyInputOutputItemHandler itemHandlerSidedFront = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
-    final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
-    final LegacyInputOutputItemHandler itemHandlerSidedLeft = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4);
-    final LegacyInputOutputItemHandler itemHandlerSidedRight = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4);
+public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
+    private final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
+    private final InputOutputItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
+    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
+    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4);
+    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4);
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -51,63 +56,61 @@ public class AssemblingMachineBlockEntity extends LegacySimpleRecipeMachineBlock
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
-                    case 0, 1, 2, 3 -> ((level instanceof ServerLevel serverWorld)?
-                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
+                    case 0, 1, 2, 3 -> ((level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
                     case 4 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> false;
                 };
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot >= 0 && slot < 4) {
-                    ItemStack itemStack = getItem(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                AssemblingMachineBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
 
-    public Storage<ItemVariant> getInventoryStorageForDirection(Direction side) {
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
-            return null;
+            return itemHandler;
 
         Direction facing = getBlockState().getValue(AssemblingMachineBlock.FACING);
 
         if(facing == side)
-            return itemHandlerSidedFront.apply(side);
+            return itemHandlerSidedFront;
 
         if(facing.getOpposite() == side)
-            return itemHandlerSidedBack.apply(side);
+            return itemHandlerSidedBack;
 
         if(facing.getClockWise() == side)
-            return itemHandlerSidedLeft.apply(side);
+            return itemHandlerSidedLeft;
 
         if(facing.getCounterClockWise() == side)
-            return itemHandlerSidedRight.apply(side);
+            return itemHandlerSidedRight;
 
-        return itemHandlerSidedTopBottom.apply(side);
+        return itemHandlerSidedTopBottom;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
+    protected RecipeInput getRecipeInput(Container inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
@@ -120,7 +123,7 @@ public class AssemblingMachineBlockEntity extends LegacySimpleRecipeMachineBlock
 
         boolean[] usedIndices = new boolean[4];
         for(int i = 0;i < 4;i++)
-            usedIndices[i] = itemHandler.getItem(i).isEmpty();
+            usedIndices[i] = itemHandler.getStackInSlot(i).isEmpty();
 
         int len = Math.min(inputs.length, 4);
         for(int i = 0;i < len;i++) {
@@ -133,7 +136,7 @@ public class AssemblingMachineBlockEntity extends LegacySimpleRecipeMachineBlock
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = itemHandler.getItem(j);
+                ItemStack item = itemHandler.getStackInSlot(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -147,11 +150,11 @@ public class AssemblingMachineBlockEntity extends LegacySimpleRecipeMachineBlock
 
             usedIndices[indexMinCount] = true;
 
-            itemHandler.removeItem(indexMinCount, input.count());
+            itemHandler.extractItem(indexMinCount, input.count());
         }
 
-        itemHandler.setItem(4, recipe.value().assemble(null).copyWithCount(
-                itemHandler.getItem(4).getCount() +
+        itemHandler.setStackInSlot(4, recipe.value().assemble(null).copyWithCount(
+                itemHandler.getStackInSlot(4).getCount() +
                         recipe.value().assemble(null).getCount()));
 
         resetProgress();

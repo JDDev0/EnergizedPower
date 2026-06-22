@@ -1,21 +1,26 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.LegacySimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.CompressorRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.CompressorMenu;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
-public class CompressorBlockEntity extends LegacySimpleRecipeMachineBlockEntity<RecipeInput, CompressorRecipe> {
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, CompressorRecipe> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     public CompressorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -37,8 +42,19 @@ public class CompressorBlockEntity extends LegacySimpleRecipeMachineBlockEntity<
         );
     }
 
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
+    }
+
     @Override
-    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
+    protected RecipeInput getRecipeInput(Container inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
@@ -47,9 +63,9 @@ public class CompressorBlockEntity extends LegacySimpleRecipeMachineBlockEntity<
         if(level == null || !hasRecipe())
             return;
 
-        itemHandler.removeItem(0, recipe.value().getInput().count());
-        itemHandler.setItem(1, recipe.value().assemble(null).
-                copyWithCount(itemHandler.getItem(1).getCount() +
+        itemHandler.extractItem(0, recipe.value().getInput().count());
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null).
+                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(null).getCount()));
 
         resetProgress();
