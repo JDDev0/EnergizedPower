@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -32,10 +32,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneLiquefierBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, StoneLiquefierRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, StoneLiquefierRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_LIQUEFIER_TANK_CAPACITY.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> false);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public StoneLiquefierBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -49,7 +50,6 @@ public class StoneLiquefierBlockEntity
                 ModConfigs.COMMON_STONE_LIQUEFIER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_STONE_LIQUEFIER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -89,8 +89,8 @@ public class StoneLiquefierBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -118,7 +118,10 @@ public class StoneLiquefierBlockEntity
     }
 
     public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
@@ -151,10 +154,10 @@ public class StoneLiquefierBlockEntity
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StoneLiquefierRecipe> recipe) {
-        int fluidAmountInTank = fluidStorage.getFluid().getAmount();
+        int fluidAmountInTank = fluidStorage.getFluid(0).getAmount();
         int fluidAmountInRecipe = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getOutput()).getAmount();
 
-        return level != null && fluidStorage.getCapacity() - fluidAmountInTank >= fluidAmountInRecipe &&
-                (fluidStorage.isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getOutput()));
+        return level != null && fluidStorage.getTankCapacity(0) - fluidAmountInTank >= fluidAmountInRecipe &&
+                (fluidStorage.getFluid(0).isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getOutput()));
     }
 }

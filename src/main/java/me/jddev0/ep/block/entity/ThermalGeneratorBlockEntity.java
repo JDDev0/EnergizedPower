@@ -2,11 +2,10 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ThermalGeneratorBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -36,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerFluidStorage> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -48,7 +47,6 @@ public class ThermalGeneratorBlockEntity
                 ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -86,8 +84,8 @@ public class ThermalGeneratorBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -120,7 +118,7 @@ public class ThermalGeneratorBlockEntity
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
                                 rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                         upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -151,7 +149,7 @@ public class ThermalGeneratorBlockEntity
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
                                 rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                         upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -206,7 +204,7 @@ public class ThermalGeneratorBlockEntity
         outer:
         for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
             for(Fluid fluid:recipe.value().getInput()) {
-                if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
+                if(blockEntity.fluidStorage.getFluid(0).getFluid() == fluid) {
                     rawProduction = recipe.value().getEnergyProduction();
                     rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                             blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));

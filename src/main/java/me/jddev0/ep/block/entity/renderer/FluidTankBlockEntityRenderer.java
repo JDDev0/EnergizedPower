@@ -5,6 +5,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.block.entity.renderer.state.FluidTankBlockEntityRenderState;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.util.FluidRenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -21,13 +22,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
-public class FluidTankBlockEntityRenderer<F extends ResourceHandler<FluidResource>>
+public class FluidTankBlockEntityRenderer<F extends IEnergizedPowerFluidStorage>
         implements BlockEntityRenderer<AbstractFluidTankBlockEntity<F>, FluidTankBlockEntityRenderState> {
     private final BlockEntityRendererProvider.Context context;
 

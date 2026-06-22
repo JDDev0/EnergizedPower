@@ -1,13 +1,11 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
 import me.jddev0.ep.screen.FluidFreezerMenu;
@@ -17,7 +15,6 @@ import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -33,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidFreezerBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidFreezerRecipe> {
+        extends SelectableRecipeFluidMachineBlockEntity<RecipeInput, FluidFreezerRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FLUID_FREEZER_TANK_CAPACITY.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> false, i -> i == 0);
@@ -53,7 +50,6 @@ public class FluidFreezerBlockEntity
                 ModConfigs.COMMON_FLUID_FREEZER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_FLUID_FREEZER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -82,8 +78,8 @@ public class FluidFreezerBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -142,8 +138,8 @@ public class FluidFreezerBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidFreezerRecipe> recipe) {
         return level != null &&
-                FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getInput()) &&
-                fluidStorage.getFluid().getAmount() >= recipe.value().getInput().amount() &&
+                FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getInput()) &&
+                fluidStorage.getFluid(0).getAmount() >= recipe.value().getInput().amount() &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null));
     }
 }

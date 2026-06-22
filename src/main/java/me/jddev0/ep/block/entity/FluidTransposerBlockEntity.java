@@ -1,10 +1,9 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.serialization.Codec;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -45,7 +44,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class FluidTransposerBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidTransposerRecipe>
+        extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, FluidTransposerRecipe>
         implements CheckboxUpdate {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FLUID_TRANSPOSER_TANK_CAPACITY.getValue();
 
@@ -65,7 +64,6 @@ public class FluidTransposerBlockEntity
                 ModConfigs.COMMON_FLUID_TRANSPOSER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_FLUID_TRANSPOSER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -121,8 +119,8 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -179,8 +177,8 @@ public class FluidTransposerBlockEntity
         return RecipeUtils.getAllRecipesFor(serverLevel, recipeType).
                 stream().filter(recipe -> recipe.value().getMode() == mode).
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
-                filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.isEmpty()) ||
-                        FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(),
+                filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.getFluid(0).isEmpty()) ||
+                        FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0),
                                 recipe.value().getFluid())).
                 findFirst();
     }
@@ -222,12 +220,12 @@ public class FluidTransposerBlockEntity
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
-        int fluidAmountInTank = fluidStorage.getFluid().getAmount();
+        int fluidAmountInTank = fluidStorage.getFluid(0).getAmount();
         int fluidAmountInRecipe = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).getAmount();
 
         return level != null &&
-                (mode == Mode.EMPTYING?fluidStorage.getCapacity() - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
-                (mode != Mode.EMPTYING || fluidStorage.isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getFluid())) &&
+                (mode == Mode.EMPTYING?fluidStorage.getTankCapacity(0) - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
+                (mode != Mode.EMPTYING || fluidStorage.getFluid(0).isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getFluid())) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null));
     }
 

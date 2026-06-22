@@ -4,6 +4,7 @@ import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
@@ -13,15 +14,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
 import java.util.Optional;
 
-public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<FluidResource>, W>
+public abstract class WorkerFluidMachineBlockEntity<W>
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, IEnergizedPowerItemStackHandler, F> {
+        <EnergizedPowerEnergyStorage, IEnergizedPowerItemStackHandler, IEnergizedPowerFluidStorage> {
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 
@@ -36,10 +35,10 @@ public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<Fl
                                          String machineName,
                                          int slotCount, int baseWorkDuration,
                                          int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                         FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                         int baseTankCapacity,
                                          UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
-                baseTankCapacity, upgradeModifierSlots);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, baseTankCapacity,
+                upgradeModifierSlots);
 
         this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
         this.baseWorkDuration = baseWorkDuration;
@@ -91,8 +90,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<Fl
         energyConsumptionLeft = view.getIntOr("recipe.energy_consumption_left", 0);
     }
 
-    public static <F extends ResourceHandler<FluidResource>, W> void tick(
-            Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
+    public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<W> blockEntity) {
         if(level.isClientSide())
             return;
 
@@ -118,8 +116,7 @@ public abstract class WorkerFluidMachineBlockEntity<F extends ResourceHandler<Fl
         blockEntity.onTickEnd();
     }
 
-    private static <F extends ResourceHandler<FluidResource>, W> void tickRecipe(
-            Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<F, W> blockEntity) {
+    private static <W> void tickRecipe(Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<W> blockEntity) {
         if(level.isClientSide())
             return;
 

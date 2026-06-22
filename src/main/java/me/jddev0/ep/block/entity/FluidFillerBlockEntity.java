@@ -2,10 +2,10 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidFillerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, SimpleFluidStorage> {
+        <EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, EnergizedPowerFluidStorage> {
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -54,9 +54,9 @@ public class FluidFillerBlockEntity
         for(int j = 0;j < fluidStorage.size();j++) {
             FluidResource fluidResource = fluidStorage.getResource(j);
             FluidResource fluidResourceToInsert = fluidResource.isEmpty()?FluidFillerBlockEntity.this.fluidStorage.getResource(0):fluidResource;
-            if(fluidStorage.getCapacityAsInt(j, fluidResourceToInsert) > fluidStorage.getAmountAsInt(j) && (FluidFillerBlockEntity.this.fluidStorage.isEmpty() ||
+            if(fluidStorage.getCapacityAsInt(j, fluidResourceToInsert) > fluidStorage.getAmountAsInt(j) && (FluidFillerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() ||
                     (fluidResource.isEmpty() && fluidStorage.isValid(j, FluidFillerBlockEntity.this.fluidStorage.getResource(0))) ||
-                    fluidResource.matches(FluidFillerBlockEntity.this.fluidStorage.getFluid())))
+                    fluidResource.matches(FluidFillerBlockEntity.this.fluidStorage.getFluid(0))))
                 return false;
         }
 
@@ -77,7 +77,6 @@ public class FluidFillerBlockEntity
 
                 1,
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -151,8 +150,8 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -251,9 +250,9 @@ public class FluidFillerBlockEntity
             for(int i = 0;i < fluidStorage.size();i++) {
                 FluidResource fluidResource = fluidStorage.getResource(i);
                 FluidResource fluidResourceToInsert = fluidResource.isEmpty()?blockEntity.fluidStorage.getResource(0):fluidResource;
-                if(fluidStorage.getCapacityAsInt(i, fluidResourceToInsert) > fluidStorage.getAmountAsInt(i) && (blockEntity.fluidStorage.isEmpty() ||
+                if(fluidStorage.getCapacityAsInt(i, fluidResourceToInsert) > fluidStorage.getAmountAsInt(i) && (blockEntity.fluidStorage.getFluid(0).isEmpty() ||
                         (fluidResource.isEmpty() && fluidStorage.isValid(i, blockEntity.fluidStorage.getResource(0))) ||
-                        fluidResource.matches(blockEntity.fluidStorage.getFluid()))) {
+                        fluidResource.matches(blockEntity.fluidStorage.getFluid(0)))) {
                     fluidFillingSum += Math.min(blockEntity.fluidStorage.getAmountAsInt(0) -
                                     blockEntity.fluidFillingSumPending - fluidFillingSum,
                             Math.min(fluidStorage.getCapacityAsInt(i, fluidResourceToInsert) - fluidStorage.getAmountAsInt(i),
@@ -310,9 +309,9 @@ public class FluidFillerBlockEntity
             for(int i = 0;i < fluidStorage.size();i++) {
                 FluidResource fluidResource = fluidStorage.getResource(i);
                 FluidResource fluidResourceToInsert = fluidResource.isEmpty()?FluidFillerBlockEntity.this.fluidStorage.getResource(0):fluidResource;
-                if(fluidStorage.getCapacityAsInt(i, fluidResourceToInsert) > fluidStorage.getAmountAsInt(i) && (FluidFillerBlockEntity.this.fluidStorage.isEmpty() ||
+                if(fluidStorage.getCapacityAsInt(i, fluidResourceToInsert) > fluidStorage.getAmountAsInt(i) && (FluidFillerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() ||
                         (fluidResource.isEmpty() && fluidStorage.isValid(i, FluidFillerBlockEntity.this.fluidStorage.getResource(0))) ||
-                        fluidResource.matches(FluidFillerBlockEntity.this.fluidStorage.getFluid())))
+                        fluidResource.matches(FluidFillerBlockEntity.this.fluidStorage.getFluid(0))))
                     return true;
             }
         }

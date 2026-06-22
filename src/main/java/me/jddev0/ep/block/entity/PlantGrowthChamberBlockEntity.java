@@ -1,8 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -42,7 +41,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, PlantGrowthChamberRecipe> {
+public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, PlantGrowthChamberRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_TANK_CAPACITY.getValue();
     public static final double FLUID_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER.getValue();
@@ -73,7 +72,6 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -129,8 +127,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -281,7 +279,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
         leftoverFluidConsumption -= fluidConsumptionThisTick;
 
         //Fluid is always valid, so just use fluid which is in tank
-        FluidStack fluid = new FluidStack(fluidStorage.getFluid().getFluid(), fluidConsumptionThisTick);
+        FluidStack fluid = new FluidStack(fluidStorage.getFluid(0).getFluid(), fluidConsumptionThisTick);
         if(fluid.isEmpty()) {
             return;
         }
@@ -355,10 +353,10 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             return false;
 
         return level != null &&
-                fluidStorage.getFluid().getAmount() >= (int)Math.ceil(leftoverFluidConsumption +
+                fluidStorage.getFluid(0).getAmount() >= (int)Math.ceil(leftoverFluidConsumption +
                         recipe.value().getFluidConsumption() * soilRecipe.get().value().getFluidConsumptionMultiplier() *
                                 fertilizerFluidConsumptionMultiplier * FLUID_CONSUMPTION_MULTIPLIER) &&
-                Arrays.stream(recipe.value().getFluid()).anyMatch(fluid -> fluidStorage.getFluid().getFluid() == fluid) &&
+                Arrays.stream(recipe.value().getFluid()).anyMatch(fluid -> fluidStorage.getFluid(0).getFluid() == fluid) &&
                 canInsertItemsIntoOutputSlots(inventory, new ArrayList<>(Arrays.asList(recipe.value().getMaxOutputCounts())));
     }
 

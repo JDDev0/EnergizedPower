@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.screen.DrainMenu;
@@ -24,15 +24,16 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidStorage> {
+public class DrainBlockEntity extends MenuFluidStorageBlockEntity<EnergizedPowerFluidStorage> {
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
+
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -40,14 +41,13 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
 
                 "drain",
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000
         );
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -77,7 +77,10 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidSto
     }
 
     public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     @Override

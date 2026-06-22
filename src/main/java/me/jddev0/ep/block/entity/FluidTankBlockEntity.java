@@ -1,7 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -24,7 +23,7 @@ import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends AbstractFluidTankBlockEntity<SimpleFluidStorage>
+        extends AbstractFluidTankBlockEntity<EnergizedPowerFluidStorage>
         implements CheckboxUpdate {
     private final FluidTankTier tier;
 
@@ -37,7 +36,6 @@ public class FluidTankBlockEntity
 
                 tier.getResourceId(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 tier.getTankCapacity()
         );
 
@@ -45,8 +43,8 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();

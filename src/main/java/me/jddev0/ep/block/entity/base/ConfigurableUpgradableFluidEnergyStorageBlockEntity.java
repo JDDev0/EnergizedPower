@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -11,12 +12,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends ResourceHandler<FluidResource>>
+        <E extends IEnergizedPowerEnergyStorage, F extends IEnergizedPowerFluidStorage>
         extends UpgradableFluidEnergyStorageBlockEntity<E, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
         RedstoneOutput {
@@ -26,10 +25,10 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     public ConfigurableUpgradableFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                                String machineName,
                                                                int baseEnergyCapacity, int baseEnergyTransferRate,
-                                                               FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                                               int baseTankCapacity,
                                                                UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate,
-                fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, baseTankCapacity,
+                upgradeModifierSlots);
     }
 
     @Override
