@@ -1,19 +1,20 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 
-public abstract class FluidStorageBlockEntity<F extends Storage<FluidVariant>>
-        extends BlockEntity
+public abstract class LegacyFluidEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
+        extends EnergyStorageBlockEntity<E>
         implements FluidStoragePacketUpdate {
     protected final FluidStorageMethods<F> fluidStorageMethods;
 
@@ -21,9 +22,10 @@ public abstract class FluidStorageBlockEntity<F extends Storage<FluidVariant>>
 
     protected final long baseTankCapacity;
 
-    public FluidStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                   FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
-        super(type, blockPos, blockState);
+    public LegacyFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                               long baseEnergyCapacity, long baseEnergyTransferRate,
+                                               FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate);
 
         this.fluidStorageMethods = fluidStorageMethods;
         this.baseTankCapacity = baseTankCapacity;

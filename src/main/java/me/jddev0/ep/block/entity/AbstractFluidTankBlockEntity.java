@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageMethods;
-import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyFluidStorageBlockEntity;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class AbstractFluidTankBlockEntity<F extends Storage<FluidVariant>>
-        extends MenuFluidStorageBlockEntity<F> {
+        extends MenuLegacyFluidStorageBlockEntity<F> {
     public AbstractFluidTankBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                         String machineName,
                                         FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
