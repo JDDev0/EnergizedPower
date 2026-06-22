@@ -1,10 +1,9 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ThermalGeneratorBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
@@ -15,6 +14,7 @@ import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,7 +36,7 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import java.util.*;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableLegacyFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleFluidStorage> {
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerFluidStorage> {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -48,7 +48,6 @@ public class ThermalGeneratorBlockEntity
                 ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000),
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -85,32 +84,23 @@ public class ThermalGeneratorBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
 
-            private boolean isFluidValid(FluidVariant variant) {
-                if(!(level instanceof ServerLevel serverWorld))
+            @Override
+            public boolean isValid(int tank, FluidVariant resource) {
+                if(!super.isValid(tank, resource) || !(level instanceof ServerLevel serverLevel))
                     return false;
 
-                Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+                Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
                 return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
-                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> variant.getFluid() == input));
-            }
-
-            @Override
-            protected boolean canInsert(FluidVariant variant) {
-                return isFluidValid(variant);
-            }
-
-            @Override
-            protected boolean canExtract(FluidVariant variant) {
-                return isFluidValid(variant);
+                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> resource.getFluid() == input));
             }
         };
     }
@@ -119,16 +109,16 @@ public class ThermalGeneratorBlockEntity
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new EnergyValueContainerData(() -> {
-                    if(!(level instanceof ServerLevel serverWorld))
+                    if(!(level instanceof ServerLevel serverlevel))
                         return 0L;
 
-                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverlevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
                     long rawProduction = 0;
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
-                            if(fluidStorage.getFluid().getFluid() == fluid) {
+                            if(fluidStorage.getFluid(0).getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
                                 rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                         upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -139,7 +129,7 @@ public class ThermalGeneratorBlockEntity
                     }
 
                     //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
-                    long production = (long)(rawProduction * (Math.min(fluidStorage.getFluid().getMilliBucketsAmount(), 50) / 1000.f));
+                    long production = (long)(rawProduction * (Math.min(fluidStorage.getFluid(0).getMilliBucketsAmount(), 50) / 1000.f));
 
                     //Cap production
                     production = Math.max(0, Math.min(production, energyStorage.getCapacity() - energyStorage.getAmount()));
@@ -150,16 +140,16 @@ public class ThermalGeneratorBlockEntity
                     return (long)(rawProduction * fluidAmount / 1000.f);
                 }, value -> {}),
                 new EnergyValueContainerData(() -> {
-                    if(!(level instanceof ServerLevel serverWorld))
+                    if(!(level instanceof ServerLevel serverlevel))
                         return 0L;
 
-                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+                    Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverlevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
                     long rawProduction = 0;
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
                                 rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                         upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -170,7 +160,7 @@ public class ThermalGeneratorBlockEntity
                     }
 
                     //Calculate real production (raw production is in x E per 1000 mB, use fluid amount without cap)
-                    return (long)(rawProduction * fluidStorage.getFluid().getMilliBucketsAmount() / 1000.);
+                    return (long)(rawProduction * fluidStorage.getFluid(0).getMilliBucketsAmount() / 1000.);
                 }, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -183,7 +173,15 @@ public class ThermalGeneratorBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
-        return new ThermalGeneratorMenu(id, this, inventory, upgradeModuleInventory, this.data);
+        return new ThermalGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        return fluidStorage;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
@@ -197,16 +195,16 @@ public class ThermalGeneratorBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, ThermalGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide() || !(level instanceof ServerLevel serverWorld))
+        if(level.isClientSide() || !(level instanceof ServerLevel serverlevel))
             return;
 
-        Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, ThermalGeneratorRecipe.Type.INSTANCE);
+        Collection<RecipeHolder<ThermalGeneratorRecipe>> recipes = RecipeUtils.getAllRecipesFor(serverlevel, ThermalGeneratorRecipe.Type.INSTANCE);
 
         long rawProduction = 0;
         outer:
         for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
             for(Fluid fluid:recipe.value().getInput()) {
-                if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
+                if(blockEntity.fluidStorage.getFluid(0).getFluid() == fluid) {
                     rawProduction = recipe.value().getEnergyProduction();
                     rawProduction = (long)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                             blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -219,7 +217,7 @@ public class ThermalGeneratorBlockEntity
         if(rawProduction > 0 && blockEntity.energyStorage.getAmount() < blockEntity.energyStorage.getCapacity()) {
             //Calculate real production (raw production is in x E per 1000 mB, 50 mB of fluid can be consumed per tick)
             long production = (long)(rawProduction * (Math.min(
-                    blockEntity.fluidStorage.getFluid().getMilliBucketsAmount(), 50) / 1000.));
+                    blockEntity.fluidStorage.getFluid(0).getMilliBucketsAmount(), 50) / 1000.));
 
             //Cap production
             production = Math.max(0, Math.min(production, blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getAmount()));
@@ -230,7 +228,7 @@ public class ThermalGeneratorBlockEntity
             production = (long)(rawProduction * fluidAmount / 1000.);
 
             try(Transaction transaction = Transaction.openOuter()) {
-                blockEntity.fluidStorage.extract(blockEntity.fluidStorage.variant,
+                blockEntity.fluidStorage.extract(blockEntity.fluidStorage.getResource(0),
                         FluidUtils.convertMilliBucketsToDroplets(fluidAmount), transaction);
 
                 blockEntity.energyStorage.insert(production, transaction);

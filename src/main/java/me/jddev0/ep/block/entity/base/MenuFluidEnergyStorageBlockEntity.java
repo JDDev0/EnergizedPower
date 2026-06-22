@@ -1,9 +1,8 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import net.fabricmc.fabric.api.menu.v1.ExtendedMenuProvider;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,20 +11,19 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuLegacyFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
-        extends LegacyFluidEnergyStorageBlockEntity<E, F>
+public abstract class MenuFluidEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, F extends IEnergizedPowerFluidStorage>
+        extends FluidEnergyStorageBlockEntity<E, F>
         implements ExtendedMenuProvider<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuLegacyFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                   String machineName,
-                                                   long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                   FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, fluidStorageMethods,
-                baseTankCapacity);
+    public MenuFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                             String machineName,
+                                             long baseEnergyCapacity, long baseEnergyTransferRate,
+                                             long baseTankCapacity) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, baseTankCapacity);
 
         this.machineName = machineName;
 
