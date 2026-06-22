@@ -1,9 +1,10 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.InductionSmelterBlock;
-import me.jddev0.ep.block.entity.base.LegacySimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -17,19 +18,23 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
-public class InductionSmelterBlockEntity extends LegacySimpleRecipeMachineBlockEntity<RecipeInput, AlloyFurnaceRecipe> {
+public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AlloyFurnaceRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final LegacyInputOutputItemHandler itemHandlerSidedFrontTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i > 2 && i < 5);
-    private final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 2 && i < 5);
-    private final LegacyInputOutputItemHandler itemHandlerSidedLeft = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 2 && i < 5);
-    private final LegacyInputOutputItemHandler itemHandlerSidedRight = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i > 2 && i < 5);
+    private final InputOutputItemHandler itemHandlerSidedFrontTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i > 2 && i < 5);
+    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 2 && i < 5);
+    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 2 && i < 5);
+    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i > 2 && i < 5);
 
     public InductionSmelterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -52,55 +57,54 @@ public class InductionSmelterBlockEntity extends LegacySimpleRecipeMachineBlockE
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
-                    case 0, 1, 2 -> ((level instanceof ServerLevel serverWorld)?
-                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
-                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
+                    case 0, 1, 2 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 3, 4 -> false;
                     default -> false;
                 };
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getItem(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                InductionSmelterBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
 
-    public Storage<ItemVariant> getInventoryStorageForDirection(Direction side) {
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
-            return null;
+            return itemHandler;
 
         Direction facing = getBlockState().getValue(InductionSmelterBlock.FACING);
 
         if(facing.getOpposite() == side)
-            return itemHandlerSidedBack.apply(side);
+            return itemHandlerSidedBack;
 
         if(facing.getClockWise() == side)
-            return itemHandlerSidedLeft.apply(side);
+            return itemHandlerSidedLeft;
 
         if(facing.getCounterClockWise() == side)
-            return itemHandlerSidedRight.apply(side);
+            return itemHandlerSidedRight;
 
-        return itemHandlerSidedFrontTopBottom.apply(side);
+        return itemHandlerSidedFrontTopBottom;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -109,10 +113,11 @@ public class InductionSmelterBlockEntity extends LegacySimpleRecipeMachineBlockE
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
+    protected RecipeInput getRecipeInput(Container inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
+    @Override
     protected void craftItem(RecipeHolder<AlloyFurnaceRecipe> recipe) {
         if(level == null || !hasRecipe())
             return;
@@ -121,7 +126,7 @@ public class InductionSmelterBlockEntity extends LegacySimpleRecipeMachineBlockE
 
         boolean[] usedIndices = new boolean[3];
         for(int i = 0;i < 3;i++)
-            usedIndices[i] = itemHandler.getItem(i).isEmpty();
+            usedIndices[i] = itemHandler.getStackInSlot(i).isEmpty();
 
         int len = Math.min(inputs.length, 3);
         for(int i = 0;i < len;i++) {
@@ -134,7 +139,7 @@ public class InductionSmelterBlockEntity extends LegacySimpleRecipeMachineBlockE
                 if(usedIndices[j])
                     continue;
 
-                ItemStack item = itemHandler.getItem(j);
+                ItemStack item = itemHandler.getStackInSlot(j);
 
                 if((indexMinCount == -1 || item.getCount() < minCount) && input.input().test(item) &&
                         item.getCount() >= input.count()) {
@@ -148,16 +153,16 @@ public class InductionSmelterBlockEntity extends LegacySimpleRecipeMachineBlockE
 
             usedIndices[indexMinCount] = true;
 
-            itemHandler.removeItem(indexMinCount, input.count());
+            itemHandler.extractItem(indexMinCount, input.count());
         }
 
         ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom());
 
-        itemHandler.setItem(3, outputs[0].
-                copyWithCount(itemHandler.getItem(3).getCount() + outputs[0].getCount()));
+        itemHandler.setStackInSlot(3, outputs[0].
+                copyWithCount(itemHandler.getStackInSlot(3).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            itemHandler.setItem(4, outputs[1].
-                    copyWithCount(itemHandler.getItem(4).getCount() + outputs[1].getCount()));
+            itemHandler.setStackInSlot(4, outputs[1].
+                    copyWithCount(itemHandler.getStackInSlot(4).getCount() + outputs[1].getCount()));
 
         resetProgress();
     }
