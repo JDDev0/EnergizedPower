@@ -4,20 +4,28 @@ import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.SingleFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
-public class InfinityFluidStorage extends SingleFluidStorage {
+public class InfinityFluidStorage extends SingleFluidStorage implements IEnergizedPowerFluidStorage {
     public static final Codec<FluidStack> CODEC = FluidStack.CODEC_MILLIBUCKETS;
 
     public InfinityFluidStorage() {
         amount = Long.MAX_VALUE;
     }
 
-    public boolean isEmpty() {
-        return isResourceBlank();
+    @Override
+    public void serialize(ValueOutput view) {
+        FluidStack fluid = getFluid(0);
+        view.child("fluid").storeNullable("Fluid", FluidStack.CODEC_MILLIBUCKETS, fluid.isEmpty()?null:fluid);
     }
 
-    public FluidStack getFluid() {
-        return new FluidStack(variant, Long.MAX_VALUE);
+    @Override
+    public void deserialize(ValueInput view) {
+        FluidStack fluid = view.child("fluid").flatMap(subView -> subView.read("Fluid", FluidStack.CODEC_MILLIBUCKETS)).
+                orElseGet(() -> new FluidStack(Fluids.EMPTY, 0));
+        setFluid(0, fluid);
     }
 
     public void setFluid(FluidStack fluidStack) {
@@ -27,6 +35,24 @@ public class InfinityFluidStorage extends SingleFluidStorage {
     @Override
     protected long getCapacity(FluidVariant variant) {
         return Long.MAX_VALUE;
+    }
+
+    @Override
+    public final long getTankCapacity(int tank) {
+        return Long.MAX_VALUE;
+    }
+
+    @Override
+    public final void setTankCapacity(int tank, long capacity) {}
+
+    @Override
+    public boolean isValid(int index, FluidVariant resource) {
+        return true;
+    }
+
+    @Override
+    public void setFluid(int tank, FluidStack fluidStack) {
+        variant = fluidStack.getFluidVariant();
     }
 
     public void setFluid(FluidStack fluidStack, TransactionContext transaction) {

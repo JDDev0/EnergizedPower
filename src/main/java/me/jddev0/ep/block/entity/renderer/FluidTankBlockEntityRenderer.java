@@ -6,11 +6,10 @@ import me.jddev0.ep.block.FluidTankBlock;
 import me.jddev0.ep.block.entity.AbstractFluidTankBlockEntity;
 import me.jddev0.ep.block.entity.renderer.state.FluidTankBlockEntityRenderState;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.util.FluidRenderUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -30,7 +29,7 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
-public class FluidTankBlockEntityRenderer<F extends Storage<FluidVariant>>
+public class FluidTankBlockEntityRenderer<F extends IEnergizedPowerFluidStorage>
         implements BlockEntityRenderer<AbstractFluidTankBlockEntity<F>, FluidTankBlockEntityRenderState> {
     private final BlockEntityRendererProvider.Context context;
 

@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageInfiniteTankMethods;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.InfinityFluidStorage;
 import me.jddev0.ep.screen.CreativeFluidTankMenu;
@@ -20,8 +19,7 @@ public class CreativeFluidTankBlockEntity
 
                 "creative_fluid_tank",
 
-                FluidStorageInfiniteTankMethods.INSTANCE,
-                Integer.MAX_VALUE
+                Long.MAX_VALUE
         );
     }
 
