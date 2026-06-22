@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.MenuLegacyFluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.screen.DrainMenu;
@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,9 +38,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFluidStorage> {
+public class DrainBlockEntity extends MenuFluidStorageBlockEntity<EnergizedPowerFluidStorage> {
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
+
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public DrainBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -47,14 +50,13 @@ public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFl
 
                 "drain",
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_DRAIN_FLUID_TANK_CAPACITY.getValue() * 1000)
         );
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -76,11 +78,18 @@ public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFl
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFluidToPlayer(player);
 
-        return new DrainMenu(id, this, inventory, this.data);
+        return new DrainMenu(id, inventory, this, this.data);
     }
 
     public int getRedstoneOutput() {
         return FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
+    }
+
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     @Override
@@ -119,6 +128,7 @@ public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFl
                 BlockState aboveBlockState = level.getBlockState(aboveBlockPos);
                 if(aboveBlockState.getBlock() instanceof BucketPickup aboveBlock) {
                     ItemStack bucketItemStack = aboveBlock.pickupBlock(null, level, aboveBlockPos, aboveBlockState);
+
                     if(!bucketItemStack.isEmpty()) {
                         level.gameEvent(null, GameEvent.FLUID_PICKUP, aboveBlockPos);
 
@@ -143,12 +153,12 @@ public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFl
                     CauldronFluidContent cauldronFluidContent = CauldronFluidContent.getForBlock(aboveBlockState.getBlock());
                     if(cauldronFluidContent != null) {
                         Fluid cauldronFluid = cauldronFluidContent.fluid;
-                        if(cauldronFluid != Fluids.EMPTY && (blockEntity.fluidStorage.isEmpty() ||
-                                blockEntity.fluidStorage.getFluid().getFluid() == cauldronFluid)) {
+                        if(cauldronFluid != Fluids.EMPTY && (blockEntity.fluidStorage.getFluid(0).isEmpty() ||
+                                blockEntity.fluidStorage.getFluid(0).getFluid() == cauldronFluid)) {
                             long cauldronAmountPerLevel = cauldronFluidContent.amountPerLevel;
                             IntegerProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
 
-                            long amountInsertable = blockEntity.fluidStorage.capacity - blockEntity.fluidStorage.amount;
+                            long amountInsertable = blockEntity.fluidStorage.getTankCapacity(0) - blockEntity.fluidStorage.getAmount(0);
 
                             long cauldronAmount;
                             if(cauldronLevelProp != null && aboveBlockState.hasProperty(cauldronLevelProp))
@@ -210,13 +220,13 @@ public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFl
 
         Fluid cauldronFluid = cauldronFluidContent.fluid;
         if(cauldronFluid == Fluids.EMPTY ||
-                (!blockEntity.fluidStorage.isEmpty() && blockEntity.fluidStorage.getFluid().getFluid() != cauldronFluid))
+                (!blockEntity.fluidStorage.getFluid(0).isEmpty() && blockEntity.fluidStorage.getFluid(0).getFluid() != cauldronFluid))
             return false;
 
         long cauldronAmountPerLevel = cauldronFluidContent.amountPerLevel;
         IntegerProperty cauldronLevelProp = cauldronFluidContent.levelProperty;
 
-        long amountInsertable = blockEntity.fluidStorage.capacity - blockEntity.fluidStorage.amount;
+        long amountInsertable = blockEntity.fluidStorage.getTankCapacity(0) - blockEntity.fluidStorage.getAmount(0);
 
         long cauldronAmount;
         if(cauldronLevelProp != null && aboveBlockState.hasProperty(cauldronLevelProp))

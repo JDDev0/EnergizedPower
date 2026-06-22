@@ -52,23 +52,15 @@ public final class EPBlockEntities {
     private static BlockEntityType<FluidTankBlockEntity> createFluidTankBlockEntity(String name, FluidTankBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new FluidTankBlockEntity(blockPos, state, block.getTier()));
     }
-    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_SMALL_ENTITY = registerFluidStorage(
-            createFluidTankBlockEntity("fluid_tank_small", EPBlocks.FLUID_TANK_SMALL),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
-    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_MEDIUM_ENTITY = registerFluidStorage(
-            createFluidTankBlockEntity("fluid_tank_medium", EPBlocks.FLUID_TANK_MEDIUM),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
-    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_LARGE_ENTITY = registerFluidStorage(
-            createFluidTankBlockEntity("fluid_tank_large", EPBlocks.FLUID_TANK_LARGE),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
+    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_SMALL_ENTITY =
+            createFluidTankBlockEntity("fluid_tank_small", EPBlocks.FLUID_TANK_SMALL);
+    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_MEDIUM_ENTITY =
+            createFluidTankBlockEntity("fluid_tank_medium", EPBlocks.FLUID_TANK_MEDIUM);
+    public static final BlockEntityType<FluidTankBlockEntity> FLUID_TANK_LARGE_ENTITY =
+            createFluidTankBlockEntity("fluid_tank_large", EPBlocks.FLUID_TANK_LARGE);
 
-    public static final BlockEntityType<CreativeFluidTankBlockEntity> CREATIVE_FLUID_TANK_ENTITY = registerFluidStorage(
-            createBlockEntity("creative_fluid_tank", EPBlocks.CREATIVE_FLUID_TANK, CreativeFluidTankBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
+    public static final BlockEntityType<CreativeFluidTankBlockEntity> CREATIVE_FLUID_TANK_ENTITY =
+            createBlockEntity("creative_fluid_tank", EPBlocks.CREATIVE_FLUID_TANK, CreativeFluidTankBlockEntity::new);
 
     private static BlockEntityType<ItemSiloBlockEntity> createItemSiloBlockEntity(
             String name,
@@ -358,10 +350,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = registerFluidStorage(
-            createBlockEntity("drain", EPBlocks.DRAIN, DrainBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
+    public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = createBlockEntity("drain",
+            EPBlocks.DRAIN, DrainBlockEntity::new);
 
     public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = createBlockEntity("charger",
             EPBlocks.CHARGER, ChargerBlockEntity::new);
@@ -557,15 +547,15 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
         //        PRESSURIZED_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
 
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
 
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        CREATIVE_FLUID_TANK_ENTITY, CreativeFluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                CREATIVE_FLUID_TANK_ENTITY, CreativeFluidTankBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 ITEM_SILO_TINY_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
@@ -758,8 +748,8 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        DRAIN_ENTITY, DrainBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                DRAIN_ENTITY, DrainBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 CHARGER_ENTITY, ChargerBlockEntity::getItemHandlerCapability);

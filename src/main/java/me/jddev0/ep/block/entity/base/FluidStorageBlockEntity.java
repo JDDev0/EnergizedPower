@@ -1,0 +1,81 @@
+package me.jddev0.ep.block.entity.base;
+
+import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+
+public abstract class FluidStorageBlockEntity<F extends IEnergizedPowerFluidStorage>
+        extends BlockEntity
+        implements FluidStoragePacketUpdate {
+    protected final F fluidStorage;
+
+    protected final long baseTankCapacity;
+
+    public FluidStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState, long baseTankCapacity) {
+        super(type, blockPos, blockState);
+
+        this.baseTankCapacity = baseTankCapacity;
+
+        fluidStorage = initFluidStorage();
+    }
+
+    protected abstract F initFluidStorage();
+
+    @Override
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
+
+        fluidStorage.serialize(view);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+
+        fluidStorage.deserialize(view);
+    }
+
+    protected final void syncFluidToPlayer(Player player) {
+        for(int i = 0;i < fluidStorage.size();i++)
+            ModMessages.sendToPlayer(new FluidSyncS2CPacket(i, fluidStorage.getFluid(i),
+                    fluidStorage.getTankCapacity(i), getBlockPos()), (ServerPlayer)player);
+    }
+
+    protected final void syncFluidToPlayers(int distance) {
+        if(level != null && !level.isClientSide())
+            for(int i = 0;i < fluidStorage.size();i++)
+                ModMessages.sendToPlayersWithinXBlocks(
+                        new FluidSyncS2CPacket(i, fluidStorage.getFluid(i), fluidStorage.getTankCapacity(i), getBlockPos()),
+                        getBlockPos(), (ServerLevel)level, distance
+                );
+    }
+
+    public FluidStack getFluid(int tank) {
+        return fluidStorage.getFluid(tank);
+    }
+
+    public long getTankCapacity(int tank) {
+        return fluidStorage.getTankCapacity(tank);
+    }
+
+    @Override
+    public void setFluid(int tank, FluidStack fluidStack) {
+        fluidStorage.setFluid(tank, fluidStack);
+    }
+
+    @Override
+    public void setTankCapacity(int tank, long capacity) {
+        fluidStorage.setTankCapacity(tank, capacity);
+    }
+}
