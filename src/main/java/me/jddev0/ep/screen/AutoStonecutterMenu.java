@@ -2,7 +2,8 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AutoStonecutterBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -13,15 +14,10 @@ import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.StonecutterRecipe;
@@ -39,18 +35,7 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AutoStonecutterMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(3) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((AutoStonecutterBlockEntity)inv.player.level().
-                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
-                    case 1 -> stack.is(ItemTags.PICKAXES);
-                    case 2 -> false;
-                    default -> super.canPlaceItem(slot, stack);
-                };
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -59,36 +44,36 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
         ), null);
     }
 
-    public AutoStonecutterMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                               UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public AutoStonecutterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                               ContainerData data) {
         super(
                 EPMenuTypes.AUTO_STONECUTTER_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.AUTO_STONECUTTER,
 
                 upgradeModuleInventory, 5
         );
 
-        checkContainerSize(inv, 3);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 39, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 1, 57, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 2, 124, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 39, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 57, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 124, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
@@ -172,7 +157,7 @@ public class AutoStonecutterMenu extends UpgradableEnergyStorageMenu<AutoStonecu
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
