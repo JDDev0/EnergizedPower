@@ -3,7 +3,8 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -13,14 +14,10 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -35,21 +32,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public PlantGrowthChamberMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(7) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.level().
-                            getBlockEntity(pos)).getIngredientsOfRecipes(), stack);
-                    case 1 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.level().
-                            getBlockEntity(pos)).getIngredientsOfFertilizerRecipes(), stack);
-                    case 6 -> RecipeUtils.isIngredientOfAny(((PlantGrowthChamberBlockEntity)inv.player.level().
-                            getBlockEntity(pos)).getIngredientsOfSoilRecipes(), stack);
-                    case 2, 3, 4, 5 -> false;
-                    default -> super.canPlaceItem(slot, stack);
-                };
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -58,60 +41,60 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
         ), null);
     }
 
-    public PlantGrowthChamberMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                                  UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public PlantGrowthChamberMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                  ContainerData data) {
         super(
                 EPMenuTypes.PLANT_GROWTH_CHAMBER_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.PLANT_GROWTH_CHAMBER,
 
                 upgradeModuleInventory, 5
         );
 
-        checkContainerSize(inv, 7);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 80, 26) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 1, 62, 35) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 2, 134, 26) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 3, 152, 26) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 4, 134, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 5, 152, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 6, 80, 44) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 26) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 62, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 134, 26) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 3, 152, 26) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 4, 134, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 5, 152, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 6, 80, 44) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
@@ -206,7 +189,7 @@ public class PlantGrowthChamberMenu extends UpgradableEnergyStorageMenu<PlantGro
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
