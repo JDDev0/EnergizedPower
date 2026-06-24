@@ -98,7 +98,7 @@ public class FarmlandCraftingRecipe extends CustomRecipe {
 
     @Override
     public ItemStack getToastSymbol() {
-        return new ItemStack(Items.FARMLAND);
+        return farmland.copy();
     }
 
     @Override
