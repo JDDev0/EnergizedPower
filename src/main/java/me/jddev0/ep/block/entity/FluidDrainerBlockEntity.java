@@ -2,7 +2,8 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidDrainerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -27,7 +28,6 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidDrainerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <ReceiveOnlyEnergyStorage, ItemStackHandler, FluidTank> {
+        <ReceiveOnlyEnergyStorage, ItemStackHandler, EnergizedPowerFluidStorage> {
     public static final int MAX_FLUID_DRAINING_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -51,14 +51,15 @@ public class FluidDrainerBlockEntity
 
         for(int j = 0;j < fluidStorage.getTanks();j++) {
             FluidStack fluidStack = fluidStorage.getFluidInTank(j);
-            if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
-                    FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
-                    FluidStack.isSameFluidSameComponents(fluidStack, FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
+            if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() &&
+                    FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(0, fluidStack)) ||
+                    FluidStack.isSameFluidSameComponents(fluidStack, FluidDrainerBlockEntity.this.fluidStorage.getFluid(0))))
                 return false;
         }
 
         return true;
     });
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     private int fluidDrainingLeft = -1;
     private int fluidDrainingSumPending = 0;
@@ -74,7 +75,6 @@ public class FluidDrainerBlockEntity
 
                 1,
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_FLUID_DRAINER_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -146,8 +146,8 @@ public class FluidDrainerBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -182,8 +182,12 @@ public class FluidDrainerBlockEntity
         return itemHandlerSided;
     }
 
+
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
@@ -229,7 +233,7 @@ public class FluidDrainerBlockEntity
             int fluidDrainingSum = 0;
             int fluidDrainingLeftSum = 0;
 
-            if(blockEntity.fluidStorage.getCapacity() - blockEntity.fluidStorage.getFluidAmount() - blockEntity.fluidDrainingSumPending <= 0)
+            if(blockEntity.fluidStorage.getTankCapacity(0) - blockEntity.fluidStorage.getAmount(0) - blockEntity.fluidDrainingSumPending <= 0)
                 return;
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
@@ -247,12 +251,12 @@ public class FluidDrainerBlockEntity
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
                 if(!fluidStack.isEmpty() && firstNonEmptyFluidStack.isEmpty())
                     firstNonEmptyFluidStack = fluidStack;
-                if(!fluidStack.isEmpty() && ((blockEntity.fluidStorage.isEmpty() &&
-                        blockEntity.fluidStorage.isFluidValid(fluidStack) &&
+                if(!fluidStack.isEmpty() && ((blockEntity.fluidStorage.getFluid(0).isEmpty() &&
+                        blockEntity.fluidStorage.isFluidValid(0, fluidStack) &&
                         FluidStack.isSameFluidSameComponents(fluidStack, firstNonEmptyFluidStack)) ||
-                        FluidStack.isSameFluidSameComponents(fluidStack, blockEntity.fluidStorage.getFluid()))) {
-                    fluidDrainingSum += Math.min(blockEntity.fluidStorage.getCapacity() -
-                                    blockEntity.fluidStorage.getFluidAmount() - blockEntity.fluidDrainingSumPending -
+                        FluidStack.isSameFluidSameComponents(fluidStack, blockEntity.fluidStorage.getFluid(0)))) {
+                    fluidDrainingSum += Math.min(blockEntity.fluidStorage.getTankCapacity(0) -
+                                    blockEntity.fluidStorage.getAmount(0) - blockEntity.fluidDrainingSumPending -
                                     fluidDrainingSum,
                             Math.min(fluidStack.getAmount(), MAX_FLUID_DRAINING_PER_TICK - fluidDrainingSum));
 
@@ -268,10 +272,10 @@ public class FluidDrainerBlockEntity
 
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
 
-            int fluidSumDrainable = Math.min(blockEntity.fluidStorage.getCapacity() - blockEntity.fluidStorage.getFluidAmount(),
+            int fluidSumDrainable = Math.min(blockEntity.fluidStorage.getTankCapacity(0) - blockEntity.fluidStorage.getAmount(0),
                     blockEntity.fluidDrainingSumPending);
 
-            FluidStack fluidStackToDrain = blockEntity.fluidStorage.isEmpty()?firstNonEmptyFluidStack:blockEntity.getFluid(0);
+            FluidStack fluidStackToDrain = blockEntity.fluidStorage.getFluid(0).isEmpty()?firstNonEmptyFluidStack:blockEntity.getFluid(0);
 
             FluidStack fluidSumDrained = fluidStorage.drain(new FluidStack(fluidStackToDrain.getFluidHolder(), fluidSumDrainable,
                             fluidStackToDrain.getComponentsPatch()), IFluidHandler.FluidAction.EXECUTE);
@@ -312,9 +316,9 @@ public class FluidDrainerBlockEntity
 
             for(int i = 0;i < fluidStorage.getTanks();i++) {
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
-                if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.isEmpty() &&
-                        FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(fluidStack)) ||
-                        FluidStack.isSameFluidSameComponents(fluidStack, FluidDrainerBlockEntity.this.fluidStorage.getFluid())))
+                if(!fluidStack.isEmpty() && ((FluidDrainerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() &&
+                        FluidDrainerBlockEntity.this.fluidStorage.isFluidValid(0, fluidStack)) ||
+                        FluidStack.isSameFluidSameComponents(fluidStack, FluidDrainerBlockEntity.this.fluidStorage.getFluid(0))))
                     return true;
             }
         }

@@ -1,9 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AdvancedFluidPumpBlockEntity
-        extends WorkerFluidMachineBlockEntity<EnergizedPowerFluidStorage, BlockPos> {
+        extends WorkerFluidMachineBlockEntity<BlockPos> {
     public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_ADVANCED_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
     public static final int EXTRACTION_DURATION = ModConfigs.COMMON_ADVANCED_FLUID_PUMP_EXTRACTION_DURATION.getValue();
 
@@ -50,6 +50,7 @@ public class AdvancedFluidPumpBlockEntity
     private boolean extractingFluid = false;
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public AdvancedFluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -63,7 +64,6 @@ public class AdvancedFluidPumpBlockEntity
                 ModConfigs.COMMON_ADVANCED_FLUID_PUMP_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_ADVANCED_FLUID_PUMP_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageMultiTankMethods.INSTANCE,
                 ModConfigs.COMMON_ADVANCED_FLUID_PUMP_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.SPEED,
@@ -107,9 +107,7 @@ public class AdvancedFluidPumpBlockEntity
 
     @Override
     protected EnergizedPowerFluidStorage initFluidStorage() {
-        return new EnergizedPowerFluidStorage(new int[] {
-                baseTankCapacity, baseTankCapacity, baseTankCapacity, baseTankCapacity
-        }) {
+        return new EnergizedPowerFluidStorage(4, baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -152,7 +150,10 @@ public class AdvancedFluidPumpBlockEntity
     }
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {

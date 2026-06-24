@@ -2,9 +2,9 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ThermalGeneratorBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -25,13 +25,12 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 public class ThermalGeneratorBlockEntity
-        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, FluidTank> {
+        extends ConfigurableUpgradableFluidEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, EnergizedPowerFluidStorage> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_THERMAL_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public ThermalGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -43,7 +42,6 @@ public class ThermalGeneratorBlockEntity
                 ModConfigs.COMMON_THERMAL_GENERATOR_CAPACITY.getValue(),
                 ModConfigs.COMMON_THERMAL_GENERATOR_TRANSFER_RATE.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_THERMAL_GENERATOR_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -75,8 +73,8 @@ public class ThermalGeneratorBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -84,8 +82,8 @@ public class ThermalGeneratorBlockEntity
             }
 
             @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || level == null)
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                if(!super.isFluidValid(tank, stack) || level == null)
                     return false;
 
                 List<RecipeHolder<ThermalGeneratorRecipe>> recipes = level.getRecipeManager().
@@ -110,7 +108,7 @@ public class ThermalGeneratorBlockEntity
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
                                 rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                         upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -121,7 +119,7 @@ public class ThermalGeneratorBlockEntity
                     }
 
                     //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
-                    int production = (int)(rawProduction * (Math.min(fluidStorage.getFluidAmount(), 50) / 1000.f));
+                    int production = (int)(rawProduction * (Math.min(fluidStorage.getAmount(0), 50) / 1000.f));
 
                     //Cap production
                     production = Math.max(0, Math.min(production, energyStorage.getCapacity() - energyStorage.getEnergy()));
@@ -141,7 +139,7 @@ public class ThermalGeneratorBlockEntity
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
                         for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid().getFluid() == fluid) {
+                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
                                 rawProduction = recipe.value().getEnergyProduction();
                                 rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                         upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -152,7 +150,7 @@ public class ThermalGeneratorBlockEntity
                     }
 
                     //Calculate real production (raw production is in x FE per 1000 mB, use fluid amount without cap)
-                    return (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getFluidAmount() / 1000.f);
+                    return (int)(rawProduction * ThermalGeneratorBlockEntity.this.fluidStorage.getAmount(0) / 1000.f);
                 }, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -196,7 +194,7 @@ public class ThermalGeneratorBlockEntity
         outer:
         for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
             for(Fluid fluid:recipe.value().getInput()) {
-                if(blockEntity.fluidStorage.getFluid().getFluid() == fluid) {
+                if(blockEntity.fluidStorage.getFluid(0).getFluid() == fluid) {
                     rawProduction = recipe.value().getEnergyProduction();
                     rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                             blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -208,7 +206,7 @@ public class ThermalGeneratorBlockEntity
 
         if(rawProduction > 0 && blockEntity.energyStorage.getEnergy() < blockEntity.energyStorage.getCapacity()) {
             //Calculate real production (raw production is in x FE per 1000 mB, 50 mB of fluid can be consumed per tick)
-            int production = (int)(rawProduction * (Math.min(blockEntity.fluidStorage.getFluidAmount(), 50) / 1000.f));
+            int production = (int)(rawProduction * (Math.min(blockEntity.fluidStorage.getAmount(0), 50) / 1000.f));
 
             //Cap production
             production = Math.max(0, Math.min(production, blockEntity.energyStorage.getCapacity() - blockEntity.energyStorage.getEnergy()));

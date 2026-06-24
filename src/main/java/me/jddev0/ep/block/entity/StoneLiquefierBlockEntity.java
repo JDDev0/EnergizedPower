@@ -1,8 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -20,17 +21,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class StoneLiquefierBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<FluidTank, RecipeInput, StoneLiquefierRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, StoneLiquefierRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_STONE_LIQUEFIER_TANK_CAPACITY.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> false);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public StoneLiquefierBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -44,7 +45,6 @@ public class StoneLiquefierBlockEntity
                 ModConfigs.COMMON_STONE_LIQUEFIER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_STONE_LIQUEFIER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -86,8 +86,8 @@ public class StoneLiquefierBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -95,8 +95,8 @@ public class StoneLiquefierBlockEntity
             }
 
             @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack) || level == null)
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                if(!super.isFluidValid(tank, stack) || level == null)
                     return false;
 
                 return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
@@ -114,7 +114,10 @@ public class StoneLiquefierBlockEntity
     }
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
@@ -142,10 +145,10 @@ public class StoneLiquefierBlockEntity
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StoneLiquefierRecipe> recipe) {
-        int fluidAmountInTank = fluidStorage.getFluid().getAmount();
+        int fluidAmountInTank = fluidStorage.getFluid(0).getAmount();
         int fluidAmountInRecipe = recipe.value().getOutput().getAmount();
 
-        return level != null && fluidStorage.getCapacity() - fluidAmountInTank >= fluidAmountInRecipe &&
-                (fluidStorage.isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(), recipe.value().getOutput()));
+        return level != null && fluidStorage.getTankCapacity(0) - fluidAmountInTank >= fluidAmountInRecipe &&
+                (fluidStorage.getFluid(0).isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getOutput()));
     }
 }

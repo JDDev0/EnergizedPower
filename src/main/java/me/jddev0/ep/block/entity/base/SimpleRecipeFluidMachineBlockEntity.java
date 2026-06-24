@@ -16,14 +16,13 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
-        <F extends IFluidHandler, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>> {
+        <C extends RecipeInput, R extends Recipe<C>>
+        extends WorkerFluidMachineBlockEntity<RecipeHolder<R>> {
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
@@ -32,10 +31,10 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
                                                String machineName, UpgradableMenuProvider menuProvider,
                                                int slotCount, RecipeType<R> recipeType, int baseRecipeDuration,
                                                int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                               FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                               int baseTankCapacity,
                                                UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
-                baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+                baseEnergyConsumptionPerTick, baseTankCapacity, upgradeModifierSlots);
 
         this.menuProvider = menuProvider;
 

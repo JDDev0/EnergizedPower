@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
@@ -11,12 +12,11 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IFluidHandler>
+        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IEnergizedPowerFluidStorage>
         extends MenuInventoryFluidEnergyStorageBlockEntity<E, I, F> {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
@@ -25,10 +25,9 @@ public abstract class UpgradableInventoryFluidEnergyStorageBlockEntity
                                                             String machineName,
                                                             int baseEnergyCapacity, int baseEnergyTransferRate,
                                                             int slotCount,
-                                                            FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                                            int baseTankCapacity,
                                                             UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
-                baseTankCapacity);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, baseTankCapacity);
 
         this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);

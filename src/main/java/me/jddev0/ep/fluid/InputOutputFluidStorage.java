@@ -1,97 +1,45 @@
 package me.jddev0.ep.fluid;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.stream.IntStream;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
-public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
-    final NonNullList<FluidStack> fluidStacks;
-    private final int[] capacities;
-
-    /**
-     * Constructor for a single tank
-     */
-    public EnergizedPowerFluidStorage(int capacity) {
-        this(1, capacity);
-    }
+public class InputOutputFluidStorage implements IFluidHandler {
+    private final EnergizedPowerFluidStorage handler;
+    private final BiPredicate<Integer, FluidStack> canInput;
+    private final Predicate<Integer> canOutput;
 
     /**
-     * Constructor for multiple tanks with the same capacity
+     * In NeoForge 1.21.1, fluid storages cannot be limited to filter certain tanks.
+     * This class must modify the internal data of the handler directly in order to function correctly (=> Only EnergizedPowerFluidStorage is supported).
      */
-    public EnergizedPowerFluidStorage(int size, int capacity) {
-        this(IntStream.range(0, size).map(i -> capacity).toArray());
+    public InputOutputFluidStorage(EnergizedPowerFluidStorage handler, BiPredicate<Integer, FluidStack> canInput, Predicate<Integer> canOutput) {
+        this.handler = handler;
+        this.canInput = canInput;
+        this.canOutput = canOutput;
     }
-
-    public EnergizedPowerFluidStorage(int[] capacities) {
-        this.fluidStacks = NonNullList.withSize(capacities.length, FluidStack.EMPTY);
-        this.capacities = capacities;
-    }
-
-    @Override
-    public void serialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
-        if(getTankCount() == 1) {
-            FluidStack fluid = getFluid(0);
-            CompoundTag tag = new CompoundTag();
-            if(!fluid.isEmpty()) {
-                tag.put("Fluid", fluid.save(lookupProvider));
-            }
-            nbt.put("fluid", tag);
-        }else {
-            for(int i = 0;i < getTankCount();i++) {
-                FluidStack fluid = getFluid(i);
-                Tag tag = new CompoundTag();
-                if(!fluid.isEmpty()) {
-                    tag = fluid.save(lookupProvider);
-                }
-                nbt.put("fluid." + i, tag);
-            }
-        }
-    }
-
-    @Override
-    public void deserialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
-        if(getTankCount() == 1) {
-            CompoundTag tag = nbt.getCompound("fluid");
-            FluidStack fluid = FluidStack.parseOptional(lookupProvider, tag.getCompound("Fluid"));
-            setFluid(0, fluid);
-        }else {
-            for(int i = 0;i < getTankCount();i++) {
-                FluidStack fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompound("fluid." + i));
-                setFluid(i, fluid);
-            }
-        }
-    }
-
-    protected void onContentsChanged() {}
 
     @Override
     public int getTanks() {
-        return capacities.length;
+        return handler.getTanks();
     }
 
     @Override
-    public @NotNull FluidStack getFluidInTank(int tank) {
-        return fluidStacks.get(tank);
+    public FluidStack getFluidInTank(int tank) {
+        return handler.getFluidInTank(tank);
     }
 
     @Override
     public int getTankCapacity(int tank) {
-        return capacities[tank];
+        return handler.getTankCapacity(tank);
     }
 
     @Override
-    public final void setTankCapacity(int tank, int capacity) {
-        //Does nothing (capacity is final)
-    }
-
-    @Override
-    public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
-        return true;
+    public boolean isFluidValid(int tank, FluidStack stack) {
+        return handler.isFluidValid(tank, stack);
     }
 
     @Override
@@ -103,7 +51,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         int filled = 0;
 
         for(int i = 0;i < getTanks();i++) {
-            if(!isFluidValid(i, resource))
+            if(!isFluidValid(i, resource) || !canInput.test(i, resource))
                 continue;
 
             FluidStack fluid = getFluidInTank(i);
@@ -127,7 +75,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
                 int fluidAmountToAdd = Math.min(capacity, amountLeft);
 
                 fluid = new FluidStack(resource.getFluidHolder(), fluidAmountToAdd, resource.getComponentsPatch());
-                fluidStacks.set(i, fluid);
+                handler.fluidStacks.set(i, fluid);
 
                 filled += fluidAmountToAdd;
                 amountLeft -= fluidAmountToAdd;
@@ -145,7 +93,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         }
 
         if(!action.simulate() && filled > 0)
-            onContentsChanged();
+            handler.onContentsChanged();
 
         return filled;
     }
@@ -172,7 +120,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         for(int i = 0;i < getTanks();i++) {
             FluidStack fluid = getFluidInTank(i);
 
-            if(!FluidStack.isSameFluidSameComponents(fluid, resource))
+            if(!FluidStack.isSameFluidSameComponents(fluid, resource) || !canOutput.test(i))
                 continue;
 
             int fluidAmountToDrain = Math.min(fluid.getAmount(), drainingLeft);
@@ -180,7 +128,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
                 if(fluidAmountToDrain < fluid.getAmount())
                     fluid.shrink(fluidAmountToDrain);
                 else
-                    fluidStacks.set(i, FluidStack.EMPTY);
+                    handler.fluidStacks.set(i, FluidStack.EMPTY);
             }
 
             drained += fluidAmountToDrain;
@@ -188,18 +136,8 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         }
 
         if(!action.simulate() && drained > 0)
-            onContentsChanged();
+            handler.onContentsChanged();
 
         return new FluidStack(resource.getFluidHolder(), drained, resource.getComponentsPatch());
-    }
-
-    @Override
-    public FluidStack getFluid(int tank) {
-        return fluidStacks.get(tank);
-    }
-
-    @Override
-    public void setFluid(int tank, FluidStack fluidStack) {
-        fluidStacks.set(tank, fluidStack);
     }
 }

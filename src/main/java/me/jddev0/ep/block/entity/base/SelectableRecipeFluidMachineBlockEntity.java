@@ -23,7 +23,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,8 +31,8 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class SelectableRecipeFluidMachineBlockEntity
-        <F extends IFluidHandler, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
+        <C extends RecipeInput, R extends Recipe<C>>
+        extends WorkerFluidMachineBlockEntity<RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -48,10 +47,10 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
                                                    int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
                                                    int baseRecipeDuration,
                                                    int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
-                                                   FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                                   int baseTankCapacity,
                                                    UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
-                baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+                baseEnergyConsumptionPerTick, baseTankCapacity, upgradeModifierSlots);
 
         this.menuProvider = menuProvider;
 

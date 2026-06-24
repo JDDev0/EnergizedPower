@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
@@ -30,11 +30,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AdvancedCrusherBlockEntity
-        extends SimpleRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, RecipeInput, CrusherRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, CrusherRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_CRUSHER_TANK_CAPACITY.getValue();
     public static final int WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_ADVANCED_CRUSHER_WATER_USAGE_PER_RECIPE.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> i == 0, i -> true);
 
     public AdvancedCrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -48,7 +49,6 @@ public class AdvancedCrusherBlockEntity
                 ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_ADVANCED_CRUSHER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageMultiTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -92,9 +92,7 @@ public class AdvancedCrusherBlockEntity
 
     @Override
     protected EnergizedPowerFluidStorage initFluidStorage() {
-        return new EnergizedPowerFluidStorage(new int[] {
-                baseTankCapacity, baseTankCapacity
-        }) {
+        return new EnergizedPowerFluidStorage(2, baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -123,7 +121,10 @@ public class AdvancedCrusherBlockEntity
     }
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
@@ -155,7 +156,7 @@ public class AdvancedCrusherBlockEntity
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<CrusherRecipe> recipe) {
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
-                fluidStorage.getCapacity(1) - fluidStorage.getFluid(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
+                fluidStorage.getTankCapacity(1) - fluidStorage.getFluid(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
     }
 }

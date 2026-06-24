@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageMethods;
 import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,17 +11,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractFluidTankBlockEntity<F extends IFluidHandler>
+public abstract class AbstractFluidTankBlockEntity<F extends IEnergizedPowerFluidStorage>
         extends MenuFluidStorageBlockEntity<F> {
 
     public AbstractFluidTankBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                         String machineName,
-                                        FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity) {
-        super(type, blockPos, blockState, machineName, fluidStorageMethods, baseTankCapacity);
+                                        int baseTankCapacity) {
+        super(type, blockPos, blockState, machineName, baseTankCapacity);
     }
 
-    public static <F extends IFluidHandler> void tick(Level level, BlockPos blockPos, BlockState state,
-                                                      AbstractFluidTankBlockEntity<F> blockEntity) {
+    public static <F extends IEnergizedPowerFluidStorage> void tick(Level level, BlockPos blockPos, BlockState state,
+                                                                    AbstractFluidTankBlockEntity<F> blockEntity) {
         if(level.isClientSide)
             return;
 

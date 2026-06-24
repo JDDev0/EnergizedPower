@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
@@ -19,12 +19,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends AbstractFluidTankBlockEntity<FluidTank>
+        extends AbstractFluidTankBlockEntity<EnergizedPowerFluidStorage>
         implements CheckboxUpdate {
     private final FluidTankTier tier;
 
@@ -37,7 +36,6 @@ public class FluidTankBlockEntity
 
                 tier.getResourceId(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 tier.getTankCapacity()
         );
 
@@ -45,8 +43,8 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -54,8 +52,8 @@ public class FluidTankBlockEntity
             }
 
             @Override
-            public boolean isFluidValid(FluidStack stack) {
-                if(!super.isFluidValid(stack))
+            public boolean isFluidValid(int tank, FluidStack stack) {
+                if(!super.isFluidValid(tank, stack))
                     return false;
 
                 return fluidFilter.isEmpty() || (ignoreNBT?fluidFilter.getFluid().isSame(stack.getFluid()):

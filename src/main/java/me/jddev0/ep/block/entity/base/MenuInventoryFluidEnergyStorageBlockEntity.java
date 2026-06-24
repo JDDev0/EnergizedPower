@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -8,11 +9,10 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public abstract class MenuInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IFluidHandler>
+        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IEnergizedPowerFluidStorage>
         extends InventoryFluidEnergyStorageBlockEntity<E, I, F>
         implements MenuProvider {
     protected final String machineName;
@@ -23,9 +23,8 @@ public abstract class MenuInventoryFluidEnergyStorageBlockEntity
                                                       String machineName,
                                                       int baseEnergyCapacity, int baseEnergyTransferRate,
                                                       int slotCount,
-                                                      FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
-                baseTankCapacity);
+                                                      int baseTankCapacity) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, baseTankCapacity);
 
         this.machineName = machineName;
 

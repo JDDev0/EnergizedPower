@@ -5,11 +5,28 @@ import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
-public class InfinityFluidStorage implements IFluidHandler {
+public class InfinityFluidStorage implements IEnergizedPowerFluidStorage {
     protected FluidStack fluid;
 
     public InfinityFluidStorage() {
         fluid = FluidStack.EMPTY;
+    }
+
+    @Override
+    public void serialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+        FluidStack fluid = getFluid(0);
+        CompoundTag tag = new CompoundTag();
+        if(!fluid.isEmpty()) {
+            tag.put("Fluid", fluid.save(lookupProvider));
+        }
+        nbt.put("fluid", tag);
+    }
+
+    @Override
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+        CompoundTag tag = nbt.getCompound("fluid");
+        FluidStack fluid = FluidStack.parseOptional(lookupProvider, tag.getCompound("Fluid"));
+        setFluid(0, fluid);
     }
 
     @Override
@@ -27,7 +44,11 @@ public class InfinityFluidStorage implements IFluidHandler {
         return Integer.MAX_VALUE;
     }
 
-    public FluidStack getFluid() {
+    @Override
+    public final void setTankCapacity(int tank, int capacity) {}
+
+    @Override
+    public FluidStack getFluid(int tank) {
         return fluid;
     }
 
@@ -35,23 +56,12 @@ public class InfinityFluidStorage implements IFluidHandler {
         return Integer.MAX_VALUE;
     }
 
-    public void readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-        this.fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompound("Fluid"));
-    }
-
-    public CompoundTag writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-        if(!this.fluid.isEmpty())
-            nbt.put("Fluid", this.fluid.save(lookupProvider));
-
-        return nbt;
-    }
-
     @Override
     public boolean isFluidValid(int tank, FluidStack fluidStack) {
         return true;
     }
 
-    public void setFluid(FluidStack fluid) {
+    public void setFluid(int tank, FluidStack fluid) {
         if(fluid.isEmpty())
             this.fluid = FluidStack.EMPTY;
         else

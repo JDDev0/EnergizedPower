@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.ItemDrop;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -12,11 +13,10 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends IFluidHandler>
+        <E extends IEnergizedPowerEnergyStorage, F extends IEnergizedPowerFluidStorage>
         extends MenuFluidEnergyStorageBlockEntity<E, F>
         implements ItemDrop {
     protected final UpgradeModuleInventory upgradeModuleInventory;
@@ -25,10 +25,9 @@ public abstract class UpgradableFluidEnergyStorageBlockEntity
     public UpgradableFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                    String machineName,
                                                    int baseEnergyCapacity, int baseEnergyTransferRate,
-                                                   FluidStorageMethods<F> fluidStorageMethods, int baseTankCapacity,
+                                                   int baseTankCapacity,
                                                    UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, fluidStorageMethods,
-                baseTankCapacity);
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, baseTankCapacity);
 
         this.upgradeModuleInventory = new UpgradeModuleInventory(upgradeModifierSlots);
         upgradeModuleInventory.addListener(updateUpgradeModuleListener);

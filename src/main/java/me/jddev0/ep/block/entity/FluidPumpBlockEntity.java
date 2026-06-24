@@ -1,8 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
@@ -28,7 +29,6 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class FluidPumpBlockEntity
-        extends WorkerFluidMachineBlockEntity<FluidTank, BlockPos> {
+        extends WorkerFluidMachineBlockEntity<BlockPos> {
     public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
     public static final int EXTRACTION_DURATION = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_DURATION.getValue();
 
@@ -50,6 +50,7 @@ public class FluidPumpBlockEntity
     private boolean extractingFluid = false;
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -63,7 +64,6 @@ public class FluidPumpBlockEntity
                 ModConfigs.COMMON_FLUID_PUMP_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_FLUID_PUMP_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_FLUID_PUMP_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.SPEED,
@@ -106,8 +106,8 @@ public class FluidPumpBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -150,7 +150,10 @@ public class FluidPumpBlockEntity
     }
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {

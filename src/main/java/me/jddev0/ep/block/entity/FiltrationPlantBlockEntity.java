@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
@@ -30,11 +30,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FiltrationPlantBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<EnergizedPowerFluidStorage, RecipeInput, FiltrationPlantRecipe> {
+        extends SelectableRecipeFluidMachineBlockEntity<RecipeInput, FiltrationPlantRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FILTRATION_PLANT_TANK_CAPACITY.getValue();
     public static final int DIRTY_WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_FILTRATION_PLANT_DIRTY_WATER_USAGE_PER_RECIPE.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2 || i == 3);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> i == 0, i -> true);
 
     public FiltrationPlantBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -51,7 +52,6 @@ public class FiltrationPlantBlockEntity
                 ModConfigs.COMMON_FILTRATION_PLANT_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_FILTRATION_PLANT_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageMultiTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -83,9 +83,7 @@ public class FiltrationPlantBlockEntity
 
     @Override
     protected EnergizedPowerFluidStorage initFluidStorage() {
-        return new EnergizedPowerFluidStorage(new int[] {
-                baseTankCapacity, baseTankCapacity
-        }) {
+        return new EnergizedPowerFluidStorage(2, baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -114,7 +112,10 @@ public class FiltrationPlantBlockEntity
     }
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
@@ -156,7 +157,7 @@ public class FiltrationPlantBlockEntity
 
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= DIRTY_WATER_CONSUMPTION_PER_RECIPE &&
-                fluidStorage.getCapacity(1) - fluidStorage.getFluid(1).getAmount() >= DIRTY_WATER_CONSUMPTION_PER_RECIPE &&
+                fluidStorage.getTankCapacity(1) - fluidStorage.getFluid(1).getAmount() >= DIRTY_WATER_CONSUMPTION_PER_RECIPE &&
                 itemHandler.getStackInSlot(0).is(EPItems.CHARCOAL_FILTER.get()) &&
                 itemHandler.getStackInSlot(1).is(EPItems.CHARCOAL_FILTER.get()) &&
                 (maxOutputs[0].isEmpty() || InventoryUtils.canInsertItemIntoSlot(inventory, 2, maxOutputs[0])) &&

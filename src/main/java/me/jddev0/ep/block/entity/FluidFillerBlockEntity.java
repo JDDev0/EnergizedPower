@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidFillerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
@@ -27,7 +27,6 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class FluidFillerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <ReceiveOnlyEnergyStorage, ItemStackHandler, FluidTank> {
+        <ReceiveOnlyEnergyStorage, ItemStackHandler, EnergizedPowerFluidStorage> {
     public static final int MAX_FLUID_FILLING_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final int ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_FILLER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
@@ -51,9 +50,9 @@ public class FluidFillerBlockEntity
 
         for(int j = 0;j < fluidStorage.getTanks();j++) {
             FluidStack fluidStack = fluidStorage.getFluidInTank(j);
-            if(fluidStorage.getTankCapacity(j) > fluidStack.getAmount() && (FluidFillerBlockEntity.this.fluidStorage.isEmpty() ||
-                    (fluidStack.isEmpty() && fluidStorage.isFluidValid(j, FluidFillerBlockEntity.this.fluidStorage.getFluid())) ||
-                    FluidStack.isSameFluidSameComponents(fluidStack, FluidFillerBlockEntity.this.fluidStorage.getFluid())))
+            if(fluidStorage.getTankCapacity(j) > fluidStack.getAmount() && (FluidFillerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() ||
+                    (fluidStack.isEmpty() && fluidStorage.isFluidValid(j, FluidFillerBlockEntity.this.fluidStorage.getFluid(0))) ||
+                    FluidStack.isSameFluidSameComponents(fluidStack, FluidFillerBlockEntity.this.fluidStorage.getFluid(0))))
                 return false;
         }
 
@@ -74,7 +73,6 @@ public class FluidFillerBlockEntity
 
                 1,
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 ModConfigs.COMMON_FLUID_FILLER_FLUID_TANK_CAPACITY.getValue() * 1000,
 
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -146,8 +144,8 @@ public class FluidFillerBlockEntity
     }
 
     @Override
-    protected FluidTank initFluidStorage() {
-        return new FluidTank(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onContentsChanged() {
                 setChanged();
@@ -230,7 +228,7 @@ public class FluidFillerBlockEntity
             int fluidFillingSum = 0;
             int fluidFillingLeftSum = 0;
 
-            if(blockEntity.fluidStorage.getFluidAmount() - blockEntity.fluidFillingSumPending <= 0)
+            if(blockEntity.fluidStorage.getAmount(0) - blockEntity.fluidFillingSumPending <= 0)
                 return;
 
             int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(ENERGY_USAGE_PER_TICK *
@@ -245,10 +243,10 @@ public class FluidFillerBlockEntity
 
             for(int i = 0;i < fluidStorage.getTanks();i++) {
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
-                if(fluidStorage.getTankCapacity(i) > fluidStack.getAmount() && (blockEntity.fluidStorage.isEmpty() ||
-                        (fluidStack.isEmpty() && fluidStorage.isFluidValid(i, blockEntity.fluidStorage.getFluid())) ||
-                        FluidStack.isSameFluidSameComponents(fluidStack, blockEntity.fluidStorage.getFluid()))) {
-                    fluidFillingSum += Math.min(blockEntity.fluidStorage.getFluidAmount() -
+                if(fluidStorage.getTankCapacity(i) > fluidStack.getAmount() && (blockEntity.fluidStorage.getFluid(0).isEmpty() ||
+                        (fluidStack.isEmpty() && fluidStorage.isFluidValid(i, blockEntity.fluidStorage.getFluid(0))) ||
+                        FluidStack.isSameFluidSameComponents(fluidStack, blockEntity.fluidStorage.getFluid(0)))) {
+                    fluidFillingSum += Math.min(blockEntity.fluidStorage.getAmount(0) -
                                     blockEntity.fluidFillingSumPending - fluidFillingSum,
                             Math.min(fluidStorage.getTankCapacity(i) - fluidStack.getAmount(),
                                     MAX_FLUID_FILLING_PER_TICK - fluidFillingSum));
@@ -265,7 +263,7 @@ public class FluidFillerBlockEntity
 
             blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
 
-            int fluidSumFillable = Math.min(blockEntity.fluidStorage.getFluidAmount(),
+            int fluidSumFillable = Math.min(blockEntity.fluidStorage.getAmount(0),
                     blockEntity.fluidFillingSumPending);
 
             FluidStack fluidStackToFill = blockEntity.getFluid(0);
@@ -309,9 +307,9 @@ public class FluidFillerBlockEntity
 
             for(int i = 0;i < fluidStorage.getTanks();i++) {
                 FluidStack fluidStack = fluidStorage.getFluidInTank(i);
-                if(fluidStorage.getTankCapacity(i) > fluidStack.getAmount() && (FluidFillerBlockEntity.this.fluidStorage.isEmpty() ||
-                        (fluidStack.isEmpty() && fluidStorage.isFluidValid(i, FluidFillerBlockEntity.this.fluidStorage.getFluid())) ||
-                        FluidStack.isSameFluidSameComponents(fluidStack, FluidFillerBlockEntity.this.fluidStorage.getFluid())))
+                if(fluidStorage.getTankCapacity(i) > fluidStack.getAmount() && (FluidFillerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() ||
+                        (fluidStack.isEmpty() && fluidStorage.isFluidValid(i, FluidFillerBlockEntity.this.fluidStorage.getFluid(0))) ||
+                        FluidStack.isSameFluidSameComponents(fluidStack, FluidFillerBlockEntity.this.fluidStorage.getFluid(0))))
                     return true;
             }
         }
