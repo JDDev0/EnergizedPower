@@ -40,7 +40,7 @@ public class InfinityFluidStorage implements IEnergizedPowerFluidStorage {
     }
 
     @Override
-    public int getTankCapacity(int tank) {
+    public final int getTankCapacity(int tank) {
         return Integer.MAX_VALUE;
     }
 

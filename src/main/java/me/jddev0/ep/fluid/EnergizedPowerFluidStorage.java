@@ -80,7 +80,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
     }
 
     @Override
-    public int getTankCapacity(int tank) {
+    public final int getTankCapacity(int tank) {
         return capacities[tank];
     }
 
