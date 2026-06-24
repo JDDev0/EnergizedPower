@@ -312,27 +312,11 @@ public final class EPBlockEntities {
     public static final BlockEntityType<FluidDrainerBlockEntity> FLUID_DRAINER_ENTITY = createBlockEntity("fluid_drainer",
             EPBlocks.FLUID_DRAINER, FluidDrainerBlockEntity::new);
 
-    public static final BlockEntityType<FluidPumpBlockEntity> FLUID_PUMP_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("fluid_pump", EPBlocks.FLUID_PUMP, FluidPumpBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<FluidPumpBlockEntity> FLUID_PUMP_ENTITY = createBlockEntity("fluid_pump",
+            EPBlocks.FLUID_PUMP, FluidPumpBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedFluidPumpBlockEntity> ADVANCED_FLUID_PUMP_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("advanced_fluid_pump", EPBlocks.ADVANCED_FLUID_PUMP, AdvancedFluidPumpBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedFluidPumpBlockEntity> ADVANCED_FLUID_PUMP_ENTITY = createBlockEntity(
+            "advanced_fluid_pump", EPBlocks.ADVANCED_FLUID_PUMP, AdvancedFluidPumpBlockEntity::new);
 
     public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = createBlockEntity("drain",
             EPBlocks.DRAIN, DrainBlockEntity::new);
@@ -713,19 +697,19 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 FLUID_DRAINER_ENTITY, FluidDrainerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Fluid.BLOCK,
                 DRAIN_ENTITY, DrainBlockEntity::getFluidHandlerCapability);
