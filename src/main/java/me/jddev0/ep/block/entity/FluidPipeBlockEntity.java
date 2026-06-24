@@ -14,6 +14,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.*;
 
 public class FluidPipeBlockEntity extends BlockEntity {
@@ -21,7 +23,7 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
     private final long maxTransfer;
 
-    final Storage<FluidVariant> fluidStorage;
+    private final Storage<FluidVariant> fluidStorage;
 
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, Storage<FluidVariant>> consumers = new HashMap<>();
@@ -379,5 +381,9 @@ public class FluidPipeBlockEntity extends BlockEntity {
                     break;
             }
         }
+    }
+
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        return fluidStorage;
     }
 }
