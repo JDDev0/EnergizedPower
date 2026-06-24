@@ -80,8 +80,7 @@ public class FluidTankBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFluidToPlayer(player);
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()));
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()), (ServerPlayer)player);
 
         return new FluidTankMenu(id, inventory, this, this.data);
     }
@@ -126,9 +125,8 @@ public class FluidTankBlockEntity
                 fluidFilter.getDropletsAmount());
         setChanged(level, getBlockPos(), getBlockState());
 
-        ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                getBlockPos(), (ServerLevel)level, 32,
-                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos())
+        ModMessages.sendToPlayersWithinXBlocks(
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()), getBlockPos(), (ServerLevel)level, 32
         );
     }
 

@@ -46,7 +46,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
                         int index = scrollIndexOffset + i + 4 * j;
 
                         if(index < menu.getRecipeList().size() && menu.getRecipeList().get(index).getSecond()) {
-                            ModMessages.sendClientPacketToServer(new CraftPressMoldMakerRecipeC2SPacket(menu.getBlockEntity().getBlockPos(),
+                            ModMessages.sendToServer(new CraftPressMoldMakerRecipeC2SPacket(menu.getBlockEntity().getBlockPos(),
                                     menu.getRecipeList().get(index).getFirst().id()));
                             clicked = true;
                         }

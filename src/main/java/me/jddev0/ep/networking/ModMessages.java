@@ -74,23 +74,23 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket::receive);
     }
 
-    public static void sendClientPacketToServer(CustomPacketPayload payload) {
-        ClientPlayNetworking.send(payload);
+    public static void sendToServer(CustomPacketPayload message) {
+        ClientPlayNetworking.send(message);
     }
 
-    public static void broadcastServerPacket(MinecraftServer server, CustomPacketPayload payload) {
+    public static void sendToPlayer(CustomPacketPayload message, ServerPlayer player) {
+        ServerPlayNetworking.send(player, message);
+    }
+
+    public static void sendToPlayersWithinXBlocks(CustomPacketPayload message, BlockPos pos, ServerLevel level, int distance) {
+        for(ServerPlayer player:PlayerLookup.around(level, pos, distance)) {
+            ServerPlayNetworking.send(player, message);
+        }
+    }
+
+    public static void sendToAllPlayers(CustomPacketPayload message, MinecraftServer server) {
         for(ServerPlayer player:PlayerLookup.all(server)) {
-            ServerPlayNetworking.send(player, payload);
+            ServerPlayNetworking.send(player, message);
         }
-    }
-
-    public static void sendServerPacketToPlayersWithinXBlocks(BlockPos pos, ServerLevel dimension, double distance, CustomPacketPayload payload) {
-        for(ServerPlayer player:PlayerLookup.around(dimension, pos, distance)) {
-            ServerPlayNetworking.send(player, payload);
-        }
-    }
-
-    public static void sendServerPacketToPlayer(ServerPlayer player, CustomPacketPayload payload) {
-        ServerPlayNetworking.send(player, payload);
     }
 }

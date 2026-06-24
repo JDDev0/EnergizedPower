@@ -36,7 +36,7 @@ public class FluidTransposerScreen
             if(isHovering(114, 47, 20, 20, mouseX, mouseY)) {
                 //Mode button
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0,
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0,
                         menu.getMode() == FluidTransposerBlockEntity.Mode.EMPTYING));
                 return true;
             }

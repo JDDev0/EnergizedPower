@@ -52,7 +52,7 @@ public class AutoCrafterRecipeHandler implements EmiRecipeHandler<AutoCrafterMen
 
         Minecraft.getInstance().setScreen(context.getScreen());
 
-        ModMessages.sendClientPacketToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(),
+        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(),
                 itemStacks, recipe.getId()));
 
         return true;

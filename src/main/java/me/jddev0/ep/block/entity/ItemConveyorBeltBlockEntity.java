@@ -75,9 +75,8 @@ public class ItemConveyorBeltBlockEntity
 
                 for(int i = 0;i < getContainerSize();i++)
                     if(level != null && !level.isClientSide()) {
-                        ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                                getBlockPos(), (ServerLevel)level, 64,
-                                new ItemStackSyncS2CPacket(i, getItem(i), getBlockPos())
+                        ModMessages.sendToPlayersWithinXBlocks(
+                                new ItemStackSyncS2CPacket(i, getItem(i), getBlockPos()), getBlockPos(), (ServerLevel)level, 64
                         );
                     }
             }
@@ -111,9 +110,8 @@ public class ItemConveyorBeltBlockEntity
         if(level.getGameTime() % 100 == 0) //TODO improve
             for(int i = 0;i < blockEntity.itemHandler.getContainerSize();i++)
                 if(!level.isClientSide())
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            blockPos, (ServerLevel)level, 64,
-                            new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos)
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos), blockPos, (ServerLevel)level, 64
                     );
 
         if(level.getGameTime() % blockEntity.ticksPerStep == 0) {

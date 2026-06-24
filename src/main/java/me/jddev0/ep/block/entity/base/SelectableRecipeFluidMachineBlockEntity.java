@@ -228,15 +228,13 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     }
 
     protected final void syncCurrentRecipeToPlayer(Player player) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe));
+        ModMessages.sendToPlayer(new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe), (ServerPlayer)player);
     }
 
     protected final void syncCurrentRecipeToPlayers(int distance) {
         if(level != null && !level.isClientSide())
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getBlockPos(), (ServerLevel)level, distance,
-                    new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe)
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe), getBlockPos(), (ServerLevel)level, distance
             );
     }
 

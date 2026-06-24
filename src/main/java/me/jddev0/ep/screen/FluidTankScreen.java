@@ -45,7 +45,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
                 clicked = true;
             }
 
@@ -68,7 +68,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
                 FluidStack fluidFilter = new FluidStack(fluidFilterVariant, 1);
 
-                ModMessages.sendClientPacketToServer(new SetFluidTankFilterC2SPacket(menu.getBlockEntity().getBlockPos(), fluidFilter));
+                ModMessages.sendToServer(new SetFluidTankFilterC2SPacket(menu.getBlockEntity().getBlockPos(), fluidFilter));
                 clicked = true;
             }
 

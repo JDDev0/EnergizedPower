@@ -43,7 +43,7 @@ public class SelectableRecipeMachineRecipeHandler<M extends AbstractContainerMen
 
         Minecraft.getInstance().setScreen(context.getScreen());
 
-        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(), recipe.getId()));
+        ModMessages.sendToServer(new SetCurrentRecipeIdC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(), recipe.getId()));
 
         return true;
     }

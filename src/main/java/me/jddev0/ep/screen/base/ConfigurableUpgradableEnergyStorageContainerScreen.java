@@ -43,12 +43,12 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
             if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 
-                ModMessages.sendClientPacketToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new ChangeRedstoneModeC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }else if(isHovering(-22, 50, 20, 20, mouseX, mouseY)) {
                 //Comparator Mode
 
-                ModMessages.sendClientPacketToServer(new ChangeComparatorModeC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new ChangeComparatorModeC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }
         }

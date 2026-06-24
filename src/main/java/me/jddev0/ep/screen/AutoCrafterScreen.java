@@ -36,22 +36,22 @@ public class AutoCrafterScreen extends ConfigurableUpgradableEnergyStorageContai
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 0, !menu.isIgnoreNBT()));
                 return true;
             }else if(isHovering(158, 38, 11, 11, mouseX, mouseY)) {
                 //Extract mode checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 1, !menu.isSecondaryExtractMode()));
                 return true;
             }else if(isHovering(158, 59, 11, 11, mouseX, mouseY)) {
                 //Allow Output Overflow checkbox
 
-                ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 2, !menu.isAllowOutputOverflow()));
+                ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), 2, !menu.isAllowOutputOverflow()));
                 return true;
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
-                ModMessages.sendClientPacketToServer(new CycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new CycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }
         }

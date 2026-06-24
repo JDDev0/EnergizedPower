@@ -52,7 +52,7 @@ public class AdvancedAutoCrafterRecipeHandler implements EmiRecipeHandler<Advanc
 
         Minecraft.getInstance().setScreen(context.getScreen());
 
-        ModMessages.sendClientPacketToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(),
+        ModMessages.sendToServer(new SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(),
                 itemStacks, recipe.getId()));
 
         return true;

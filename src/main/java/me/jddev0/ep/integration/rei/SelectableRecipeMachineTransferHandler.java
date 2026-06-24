@@ -37,7 +37,7 @@ public class SelectableRecipeMachineTransferHandler
         if(!context.isActuallyCrafting())
             return Result.createSuccessful().blocksFurtherHandling();
 
-        ModMessages.sendClientPacketToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getBlockPos(), recipeEntry.id()));
+        ModMessages.sendToServer(new SetCurrentRecipeIdC2SPacket(container.getBlockEntity().getBlockPos(), recipeEntry.id()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }

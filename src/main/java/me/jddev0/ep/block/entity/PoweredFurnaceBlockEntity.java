@@ -29,7 +29,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -117,8 +116,7 @@ public class PoweredFurnaceBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player,
-                new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()));
+        ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()), (ServerPlayer)player);
         
         return new PoweredFurnaceMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
     }
@@ -201,9 +199,8 @@ public class PoweredFurnaceBlockEntity
         super.updateUpgradeModules();
 
         if(level != null && !level.isClientSide()) {
-            ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                    getBlockPos(), (ServerLevel)level, 32,
-                    new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos())
+            ModMessages.sendToPlayersWithinXBlocks(
+                    new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()), getBlockPos(), (ServerLevel)level, 32
             );
         }
     }

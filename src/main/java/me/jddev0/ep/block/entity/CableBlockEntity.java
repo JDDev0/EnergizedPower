@@ -49,9 +49,8 @@ public class CableBlockEntity extends BlockEntity {
                 setChanged();
 
                 if(level != null && !level.isClientSide()) {
-                    ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                            getBlockPos(), (ServerLevel)level, 32,
-                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getBlockPos())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getAmount(), getCapacity(), getBlockPos()), getBlockPos(), (ServerLevel)level, 32
                     );
                 }
             }

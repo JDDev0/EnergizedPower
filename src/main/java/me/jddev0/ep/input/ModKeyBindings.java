@@ -46,7 +46,7 @@ public final class ModKeyBindings {
             if(!state.is(EPBlocks.TELEPORTER))
                 return;
 
-            ModMessages.sendClientPacketToServer(new UseTeleporterC2SPacket(blockPos));
+            ModMessages.sendToServer(new UseTeleporterC2SPacket(blockPos));
         }
     }
 }

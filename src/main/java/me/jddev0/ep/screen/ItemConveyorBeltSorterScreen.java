@@ -36,12 +36,12 @@ public class ItemConveyorBeltSorterScreen extends EnergizedPowerBaseContainerScr
                 if(isHovering(136, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Whitelist checkbox [3x]
 
-                    ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i, !menu.isWhitelist(i)));
+                    ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i, !menu.isWhitelist(i)));
                     clicked = true;
                 }else if(isHovering(153, 19 + i * 18, 13, 13, mouseX, mouseY)) {
                     //Ignore NBT checkbox [3x]
 
-                    ModMessages.sendClientPacketToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i + 3, !menu.isIgnoreNBT(i)));
+                    ModMessages.sendToServer(new SetCheckboxC2SPacket(menu.getBlockEntity().getBlockPos(), i + 3, !menu.isIgnoreNBT(i)));
                     clicked = true;
                 }
             }

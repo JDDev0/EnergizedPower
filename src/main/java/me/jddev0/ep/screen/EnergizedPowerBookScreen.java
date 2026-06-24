@@ -166,7 +166,7 @@ public class EnergizedPowerBookScreen extends Screen {
 
         if(showTakeButton)
             addRenderableWidget(Button.builder(Component.translatable("lectern.take_book"), button -> {
-                ModMessages.sendClientPacketToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getBlockPos()));
+                ModMessages.sendToServer(new PopEnergizedPowerBookFromLecternC2SPacket(lecternBlockEntity.getBlockPos()));
                 onClose();
             }).bounds(width / 2 + 2, 232, 116, 20).build());
     }

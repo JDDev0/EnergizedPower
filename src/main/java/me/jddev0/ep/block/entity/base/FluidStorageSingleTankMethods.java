@@ -32,15 +32,14 @@ public final class FluidStorageSingleTankMethods implements FluidStorageMethods<
 
     @Override
     public void syncFluidToPlayer(SimpleFluidStorage fluidStorage, Player player, BlockPos pos) {
-        ModMessages.sendServerPacketToPlayer((ServerPlayer)player, new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
-                fluidStorage.getCapacity(), pos));
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(0, fluidStorage.getFluid(),
+                fluidStorage.getCapacity(), pos), (ServerPlayer)player);
     }
 
     @Override
     public void syncFluidToPlayers(SimpleFluidStorage fluidStorage, Level level, BlockPos pos, int distance) {
-        ModMessages.sendServerPacketToPlayersWithinXBlocks(
-                pos, (ServerLevel)level, distance,
-                new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), pos)
+        ModMessages.sendToPlayersWithinXBlocks(
+                new FluidSyncS2CPacket(0, fluidStorage.getFluid(), fluidStorage.getCapacity(), pos), pos, (ServerLevel)level, distance
         );
     }
 
