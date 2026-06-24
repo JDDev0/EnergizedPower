@@ -1,12 +1,13 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidDrainerBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerLegacyFluidEnergyStorageBlockEntity;
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.FluidValueContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
@@ -16,12 +17,12 @@ import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -31,30 +32,32 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import team.reborn.energy.api.EnergyStorage;
 
 public class FluidDrainerBlockEntity
-        extends ConfigurableUpgradableLegacyItemContainerLegacyFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, SimpleContainer, SimpleFluidStorage> {
+        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
+        <EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, EnergizedPowerFluidStorage> {
     /**
      * MAX_FLUID_DRAINING_PER_TICK is in Milli Buckets
      */
     public static final long MAX_FLUID_DRAINING_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_ENERGY_CONSUMPTION_PER_TICK.getValue();
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
-        ItemStack itemStack = itemHandler.getItem(i);
+        ItemStack stack = itemHandler.getStackInSlot(i);
 
-        if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) == null)
+        if(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) == null)
             return true;
 
-        Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
-                ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(i)));
+        Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(stack, ContainerItemContext.
+                ofSingleSlot(itemHandler.getSlot(i)));
         if(fluidStorage == null)
             return true;
 
@@ -63,18 +66,17 @@ public class FluidDrainerBlockEntity
 
         for(StorageView<FluidVariant> fluidView:fluidStorage) {
             FluidVariant fluidVariant = fluidView.getResource();
-            if(!fluidVariant.isBlank() && (FluidDrainerBlockEntity.this.fluidStorage.isEmpty() ||
-                    fluidVariant.equals(FluidDrainerBlockEntity.this.fluidStorage.getResource())))
+            if(!fluidVariant.isBlank() && (FluidDrainerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() ||
+                    fluidVariant.equals(FluidDrainerBlockEntity.this.fluidStorage.getResource(0))))
                 return false;
         }
 
         return true;
     });
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     private long fluidDrainingLeft = -1;
     private long fluidDrainingSumPending = 0;
-
-    private boolean forceAllowStackUpdateFlag = false;
 
     public FluidDrainerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -87,7 +89,6 @@ public class FluidDrainerBlockEntity
 
                 1,
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_FLUID_DRAINER_FLUID_TANK_CAPACITY.getValue() * 1000),
 
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -126,48 +127,43 @@ public class FluidDrainerBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public int getMaxStackSize() {
+            public long getCapacity(int index, ItemVariant resource) {
                 return 1;
             }
 
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 if(slot == 0)
                     return ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null;
 
-                return super.canPlaceItem(slot, stack);
+                return super.isValid(slot, resource);
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getItem(slot);
-                    if(!forceAllowStackUpdateFlag && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            (!ItemStack.isSameItem(stack, itemStack) || (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                    ItemStack stack = getStackInSlot(slot);
+                    if(!stack.isEmpty() && !previousItemStack.isEmpty() &&
+                            (!ItemStack.isSameItem(stack, previousItemStack) || (!ItemStack.isSameItemSameComponents(stack, previousItemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no fluid item
                                     !(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null &&
-                                            ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null))))
+                                            ContainerItemContext.withConstant(previousItemStack).find(FluidStorage.ITEM) != null))))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                FluidDrainerBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -192,7 +188,25 @@ public class FluidDrainerBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
-        return new FluidDrainerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
+        return new FluidDrainerMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -234,11 +248,11 @@ public class FluidDrainerBlockEntity
             return;
 
         if(blockEntity.hasRecipe()) {
-            ItemStack itemStack = blockEntity.itemHandler.getItem(0);
+            ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);
             long fluidDrainingSum = 0;
             long fluidDrainingLeftSum = 0;
 
-            if(blockEntity.fluidStorage.getCapacity() - blockEntity.fluidStorage.getAmount() - blockEntity.fluidDrainingSumPending <= 0)
+            if(blockEntity.fluidStorage.getTankCapacity(0) - blockEntity.fluidStorage.getAmount(0) - blockEntity.fluidDrainingSumPending <= 0)
                 return;
 
             long energyConsumptionPerTick = Math.max(1, (long)Math.ceil(ENERGY_USAGE_PER_TICK *
@@ -247,11 +261,11 @@ public class FluidDrainerBlockEntity
             if(blockEntity.energyStorage.getAmount() < energyConsumptionPerTick)
                 return;
 
-            if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) == null)
+            if(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) == null)
                 return;
 
-            Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
-                    ofSingleSlot(ContainerStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
+            Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(stack, ContainerItemContext.
+                    ofSingleSlot(blockEntity.itemHandler.getSlot(0)));
             if(fluidStorage == null)
                 return;
 
@@ -260,11 +274,11 @@ public class FluidDrainerBlockEntity
                 FluidVariant fluidVariant = fluidView.getResource();
                 if(!fluidVariant.isBlank() && firstNonEmptyFluidVariant.isBlank())
                     firstNonEmptyFluidVariant = fluidVariant;
-                if(!fluidVariant.isBlank() && ((blockEntity.fluidStorage.isEmpty() &&
+                if(!fluidVariant.isBlank() && ((blockEntity.fluidStorage.getFluid(0).isEmpty() &&
                         fluidVariant.equals(firstNonEmptyFluidVariant) ||
-                        fluidVariant.equals(blockEntity.fluidStorage.getResource())))) {
-                    fluidDrainingSum += Math.min(blockEntity.fluidStorage.getCapacity() -
-                                    blockEntity.fluidStorage.getAmount() - blockEntity.fluidDrainingSumPending - fluidDrainingSum,
+                        fluidVariant.equals(blockEntity.fluidStorage.getResource(0))))) {
+                    fluidDrainingSum += Math.min(blockEntity.fluidStorage.getTankCapacity(0) -
+                                    blockEntity.fluidStorage.getAmount(0) - blockEntity.fluidDrainingSumPending - fluidDrainingSum,
                             Math.min(fluidView.getAmount(), FluidUtils.convertMilliBucketsToDroplets(MAX_FLUID_DRAINING_PER_TICK) -
                                     fluidDrainingSum));
 
@@ -278,15 +292,14 @@ public class FluidDrainerBlockEntity
             blockEntity.fluidDrainingLeft = fluidDrainingLeftSum;
             blockEntity.fluidDrainingSumPending += fluidDrainingSum;
 
-            blockEntity.forceAllowStackUpdateFlag = true;
             try(Transaction transaction = Transaction.openOuter()) {
                 blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
 
-                long fluidSumDrainable = Math.min(blockEntity.fluidStorage.getCapacity() - blockEntity.fluidStorage.getAmount(),
+                long fluidSumDrainable = Math.min(blockEntity.fluidStorage.getTankCapacity(0) - blockEntity.fluidStorage.getAmount(0),
                         blockEntity.fluidDrainingSumPending);
 
-                FluidVariant fluidVariantToDrain = blockEntity.fluidStorage.isEmpty()?firstNonEmptyFluidVariant:
-                        blockEntity.fluidStorage.getResource();
+                FluidVariant fluidVariantToDrain = blockEntity.fluidStorage.getFluid(0).isEmpty()?firstNonEmptyFluidVariant:
+                        blockEntity.fluidStorage.getResource(0);
 
                 long fluidSumDrained = fluidStorage.extract(fluidVariantToDrain, fluidSumDrainable, transaction);
 
@@ -297,8 +310,6 @@ public class FluidDrainerBlockEntity
                 }
 
                 transaction.commit();
-            }finally {
-                blockEntity.forceAllowStackUpdateFlag = false;
             }
 
             if(blockEntity.fluidDrainingLeft <= 0)
@@ -317,16 +328,16 @@ public class FluidDrainerBlockEntity
     }
 
     private boolean hasRecipe() {
-        ItemStack itemStack = itemHandler.getItem(0);
-        if(ContainerItemContext.withConstant(itemStack).find(FluidStorage.ITEM) != null) {
-            Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(itemStack, ContainerItemContext.
-                    ofSingleSlot(ContainerStorage.of(itemHandler, null).getSlots().get(0)));
+        ItemStack stack = itemHandler.getStackInSlot(0);
+        if(ContainerItemContext.withConstant(stack).find(FluidStorage.ITEM) != null) {
+            Storage<FluidVariant> fluidStorage = FluidStorage.ITEM.find(stack, ContainerItemContext.
+                    ofSingleSlot(itemHandler.getSlot(0)));
             if(fluidStorage == null)
                 return false;
             for(StorageView<FluidVariant> fluidView:fluidStorage) {
                 FluidVariant fluidVariant = fluidView.getResource();
-                if(!fluidVariant.isBlank() && (FluidDrainerBlockEntity.this.fluidStorage.isEmpty() ||
-                        fluidVariant.equals(FluidDrainerBlockEntity.this.fluidStorage.getResource())))
+                if(!fluidVariant.isBlank() && (FluidDrainerBlockEntity.this.fluidStorage.getFluid(0).isEmpty() ||
+                        fluidVariant.equals(FluidDrainerBlockEntity.this.fluidStorage.getResource(0))))
                     return true;
             }
         }
