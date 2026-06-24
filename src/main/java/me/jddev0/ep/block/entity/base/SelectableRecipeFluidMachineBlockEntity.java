@@ -11,8 +11,6 @@ import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
 import me.jddev0.ep.util.RecipeUtils;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -22,12 +20,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -36,12 +29,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public abstract class LegacySelectableRecipeFluidMachineBlockEntity
-        <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends LegacyWorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
+public abstract class SelectableRecipeFluidMachineBlockEntity
+        <C extends RecipeInput, R extends Recipe<C>>
+        extends WorkerFluidMachineBlockEntity<RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate,
         IngredientPacketUpdate {
-    protected final LegacyUpgradableMenuProvider menuProvider;
+    protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
@@ -51,15 +44,15 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
-    public LegacySelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                         String machineName, LegacyUpgradableMenuProvider menuProvider,
-                                                         int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
-                                                         int baseRecipeDuration,
-                                                         long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                                         FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                         UpgradeModuleModifier... upgradeModifierSlots) {
+    public SelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                   String machineName, UpgradableMenuProvider menuProvider,
+                                                   int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
+                                                   int baseRecipeDuration,
+                                                   long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                                   long baseTankCapacity,
+                                                   UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
-                baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+                baseEnergyConsumptionPerTick, baseTankCapacity, upgradeModifierSlots);
 
         this.menuProvider = menuProvider;
 
@@ -107,14 +100,14 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
         syncCurrentRecipeToPlayer(player);
         syncIngredientListToPlayer(player);
 
-        return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);
+        return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
     @Override
     protected final void onTickStart() {
         //Load recipe
-        if(currentRecipeIdForLoad != null && level instanceof ServerLevel serverWorld) {
-            Collection<RecipeHolder<R>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, recipeType);
+        if(currentRecipeIdForLoad != null && level instanceof ServerLevel serverLevel) {
+            Collection<RecipeHolder<R>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, recipeType);
             currentRecipe = recipes.stream().
                     filter(recipe -> recipe.id().identifier().equals(currentRecipeIdForLoad)).
                     findFirst().orElse(null);
@@ -155,7 +148,11 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
         if(level == null || currentRecipe == null)
             return false;
 
-        return canCraftRecipe(itemHandler, currentRecipe);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        return canCraftRecipe(inventory, currentRecipe);
     }
 
     @Override
@@ -183,10 +180,10 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
 
     @Override
     public void changeRecipeIndex(boolean downUp) {
-        if(!(level instanceof ServerLevel serverWorld))
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
-        List<RecipeHolder<R>> recipes = new ArrayList<>(RecipeUtils.getAllRecipesFor(serverWorld, recipeType));
+        List<RecipeHolder<R>> recipes = new ArrayList<>(RecipeUtils.getAllRecipesFor(serverLevel, recipeType));
         recipes = recipes.stream().
                 sorted(Comparator.comparing(recipe -> recipe.id().identifier())).
                 toList();
@@ -217,13 +214,13 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
 
     @Override
     public void setRecipeId(Identifier recipeId) {
-        if(!(level instanceof ServerLevel serverWorld))
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
         if(recipeId == null) {
             currentRecipe = null;
         }else {
-            Collection<RecipeHolder<R>> recipes = RecipeUtils.getAllRecipesFor(serverWorld, recipeType);
+            Collection<RecipeHolder<R>> recipes = RecipeUtils.getAllRecipesFor(serverLevel, recipeType);
             Optional<RecipeHolder<R>> recipe = recipes.stream().filter(r -> r.id().identifier().equals(recipeId)).findFirst();
 
             currentRecipe = recipe.orElse(null);
@@ -236,13 +233,15 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
     }
 
     protected final void syncCurrentRecipeToPlayer(Player player) {
-        ModMessages.sendToPlayer(new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe),
+                (ServerPlayer)player);
     }
 
     protected final void syncCurrentRecipeToPlayers(int distance) {
         if(level != null && !level.isClientSide())
             ModMessages.sendToPlayersWithinXBlocks(
-                    new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe), getBlockPos(), (ServerLevel)level, distance
+                    new SyncCurrentRecipeS2CPacket<>(getBlockPos(), recipeSerializer, currentRecipe),
+                    getBlockPos(), (ServerLevel)level, distance
             );
     }
 
@@ -256,10 +255,10 @@ public abstract class LegacySelectableRecipeFluidMachineBlockEntity
     }
 
     protected void syncIngredientListToPlayer(Player player) {
-        if(!(level instanceof ServerLevel serverWorld))
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
-        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverWorld, recipeType)), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf(serverLevel, recipeType)), (ServerPlayer)player);
     }
 
     public List<Ingredient> getIngredientsOfRecipes() {
