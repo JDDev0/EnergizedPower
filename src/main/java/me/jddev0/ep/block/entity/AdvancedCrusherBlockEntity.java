@@ -1,39 +1,46 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
-import me.jddev0.ep.block.entity.base.LegacySimpleRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EPFluids;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.CrusherRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.AdvancedCrusherMenu;
+import me.jddev0.ep.util.*;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import me.jddev0.ep.util.*;
-
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 public class AdvancedCrusherBlockEntity
-        extends LegacySimpleRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, CrusherRecipe> {
+        extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, CrusherRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(
             1000 * ModConfigs.COMMON_ADVANCED_CRUSHER_TANK_CAPACITY.getValue());
     public static final long WATER_CONSUMPTION_PER_RECIPE = FluidUtils.convertMilliBucketsToDroplets(
             ModConfigs.COMMON_ADVANCED_CRUSHER_WATER_USAGE_PER_RECIPE.getValue());
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> i == 0, i -> true);
+
 
     public AdvancedCrusherBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -47,7 +54,6 @@ public class AdvancedCrusherBlockEntity
                 ModConfigs.COMMON_ADVANCED_CRUSHER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_ADVANCED_CRUSHER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageMultiTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -59,90 +65,78 @@ public class AdvancedCrusherBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
-                    case 0 -> ((level instanceof ServerLevel serverWorld)?
-                            RecipeUtils.isIngredientOfAny(serverWorld, recipeType, stack):
-                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack));
+                    case 0 -> (level instanceof ServerLevel serverLevel)?
+                            RecipeUtils.isIngredientOfAny(serverLevel, recipeType, stack):
+                            RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
                     case 1 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getItem(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                AdvancedCrusherBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
 
     @Override
-    protected CombinedStorage<FluidVariant, SimpleFluidStorage> initFluidStorage() {
-        return new CombinedStorage<>(List.of(
-                new SimpleFluidStorage(baseTankCapacity) {
-                    @Override
-                    protected void onFinalCommit() {
-                        setChanged();
-                        syncFluidToPlayers(32);
-                    }
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(2, baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
 
-                    private boolean isFluidValid(FluidVariant variant) {
-                        return variant.isOf(Fluids.WATER);
-                    }
+            @Override
+            public boolean isValid(int tank, @NotNull FluidVariant resource) {
+                if(!super.isValid(tank, resource))
+                    return false;
 
-                    @Override
-                    protected boolean canInsert(FluidVariant variant) {
-                        return isFluidValid(variant);
-                    }
+                return switch(tank) {
+                    case 0 -> resource.isOf(Fluids.WATER);
+                    case 1 -> resource.isOf(EPFluids.DIRTY_WATER);
+                    default -> false;
+                };
+            }
+        };
+    }
 
-                    @Override
-                    protected boolean canExtract(FluidVariant variant) {
-                        return isFluidValid(variant);
-                    }
-                },
-                new SimpleFluidStorage(baseTankCapacity) {
-                    @Override
-                    protected void onFinalCommit() {
-                        setChanged();
-                        syncFluidToPlayers(32);
-                    }
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
 
-                    private boolean isFluidValid(FluidVariant variant) {
-                        return variant.isOf(EPFluids.DIRTY_WATER);
-                    }
+        return itemHandlerSided;
+    }
 
-                    @Override
-                    protected boolean canInsert(FluidVariant variant) {
-                        return isFluidValid(variant);
-                    }
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
 
-                    @Override
-                    protected boolean canExtract(FluidVariant variant) {
-                        return isFluidValid(variant);
-                    }
-                }
-        ));
+        return fluidStorageSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
+    protected RecipeInput getRecipeInput(Container inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
@@ -158,9 +152,9 @@ public class AdvancedCrusherBlockEntity
             transaction.commit();
         }
 
-        itemHandler.removeItem(0, 1);
-        itemHandler.setItem(1, recipe.value().assemble(null).
-                copyWithCount(itemHandler.getItem(1).getCount() +
+        itemHandler.extractItem(0, 1);
+        itemHandler.setStackInSlot(1, recipe.value().assemble(null).
+                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(null).getCount()));
 
         resetProgress();
@@ -169,8 +163,8 @@ public class AdvancedCrusherBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<CrusherRecipe> recipe) {
         return level != null &&
-                fluidStorage.parts.get(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
-                fluidStorage.parts.get(1).getCapacity() - fluidStorage.parts.get(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
+                fluidStorage.getAmount(0) >= WATER_CONSUMPTION_PER_RECIPE &&
+                fluidStorage.getTankCapacity(1) - fluidStorage.getAmount(1) >= WATER_CONSUMPTION_PER_RECIPE &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null));
     }
 }
