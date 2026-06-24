@@ -20,34 +20,22 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-import java.util.function.BiFunction;
-
 public final class EPBlockEntities {
     private EPBlockEntities() {}
 
     private static BlockEntityType<FluidPipeBlockEntity> createFluidPipeBlockEntity(String name, FluidPipeBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new FluidPipeBlockEntity(blockPos, state, block.getTier()));
     }
-    public static final BlockEntityType<FluidPipeBlockEntity> COPPER_FLUID_PIPE_ENTITY = registerFluidStorage(
-            createFluidPipeBlockEntity("copper_fluid_pipe", EPBlocks.COPPER_FLUID_PIPE),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
-    public static final BlockEntityType<FluidPipeBlockEntity> IRON_FLUID_PIPE_ENTITY = registerFluidStorage(
-            createFluidPipeBlockEntity("fluid_pipe", EPBlocks.IRON_FLUID_PIPE),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
-    public static final BlockEntityType<FluidPipeBlockEntity> GOLDEN_FLUID_PIPE_ENTITY = registerFluidStorage(
-            createFluidPipeBlockEntity("golden_fluid_pipe", EPBlocks.GOLDEN_FLUID_PIPE),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
-    public static final BlockEntityType<FluidPipeBlockEntity> STEEL_FLUID_PIPE_ENTITY = registerFluidStorage(
-            createFluidPipeBlockEntity("steel_fluid_pipe", EPBlocks.STEEL_FLUID_PIPE),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
-    public static final BlockEntityType<FluidPipeBlockEntity> PRESSURIZED_FLUID_PIPE_ENTITY = registerFluidStorage(
-            createFluidPipeBlockEntity("pressurized_fluid_pipe", EPBlocks.PRESSURIZED_FLUID_PIPE),
-            (blockEntity, direction) -> blockEntity.fluidStorage
-    );
+    public static final BlockEntityType<FluidPipeBlockEntity> COPPER_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("copper_fluid_pipe", EPBlocks.COPPER_FLUID_PIPE);
+    public static final BlockEntityType<FluidPipeBlockEntity> IRON_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("fluid_pipe", EPBlocks.IRON_FLUID_PIPE);
+    public static final BlockEntityType<FluidPipeBlockEntity> GOLDEN_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("golden_fluid_pipe", EPBlocks.GOLDEN_FLUID_PIPE);
+    public static final BlockEntityType<FluidPipeBlockEntity> STEEL_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("steel_fluid_pipe", EPBlocks.STEEL_FLUID_PIPE);
+    public static final BlockEntityType<FluidPipeBlockEntity> PRESSURIZED_FLUID_PIPE_ENTITY =
+            createFluidPipeBlockEntity("pressurized_fluid_pipe", EPBlocks.PRESSURIZED_FLUID_PIPE);
 
     private static BlockEntityType<FluidTankBlockEntity> createFluidTankBlockEntity(String name, FluidTankBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new FluidTankBlockEntity(blockPos, state, block.getTier()));
@@ -404,13 +392,6 @@ public final class EPBlockEntities {
                 FabricBlockEntityTypeBuilder.create(factory, block).build(null));
     }
 
-    @Deprecated
-    private static <T extends BlockEntity> BlockEntityType<T> registerFluidStorage(BlockEntityType<T> blockEntityType, BiFunction<? super T,
-            Direction, @Nullable Storage<FluidVariant>> provider) {
-        FluidStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
-        return blockEntityType;
-    }
-
     public static void register() {
         registerCapabilities();
     }
@@ -418,16 +399,16 @@ public final class EPBlockEntities {
     private static void registerCapabilities() {
         RegisterCapabilitiesEvent event = new RegisterCapabilitiesEvent();
 
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        COPPER_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        IRON_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        GOLDEN_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        STEEL_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        PRESSURIZED_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                COPPER_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                IRON_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                GOLDEN_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                STEEL_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                PRESSURIZED_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Fluid.BLOCK,
                 FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
