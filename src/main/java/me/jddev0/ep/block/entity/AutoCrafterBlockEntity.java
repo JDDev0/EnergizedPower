@@ -3,12 +3,12 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AutoCrafterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.inventory.*;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -23,10 +23,15 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.SimpleContainer;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.minecraft.core.Direction;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -37,10 +42,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.*;
 
-public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer>
+public class AutoCrafterBlockEntity
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
@@ -52,8 +59,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
     private boolean secondaryExtractMode;
     private boolean allowOutputOverflow = true;
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
-            i -> secondaryExtractMode?!isInput(itemHandler.getItem(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getItem(i)));
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 3,
+            i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
     private final SimpleContainer patternSlots = new SimpleContainer(3 * 3) {
         @Override
@@ -66,7 +73,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
     private boolean hasRecipeLoaded = false;
     private ResourceLocation recipeIdForSetRecipe;
     private RecipeHolder<CraftingRecipe> craftingRecipe;
-    private TransientCraftingContainer oldCopyOfRecipe;
+    private CraftingContainer oldCopyOfRecipe;
     private final AbstractContainerMenu dummyContainerMenu = new AbstractContainerMenu(null, -1) {
         @Override
         public ItemStack quickMoveStack(Player player, int index) {
@@ -138,22 +145,20 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                if(slot < 0 || slot >= 18)
-                    return super.canPlaceItem(slot, stack);
+            public boolean isValid(int slot, @NotNull ItemVariant stack) {
+                if (slot < 0 || slot >= 18)
+                    return super.isValid(slot, stack);
 
                 //Slot 0, 1, and 2 are for output items only
                 return slot >= 3;
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
-
-                AutoCrafterBlockEntity.this.setChanged();
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -179,7 +184,18 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new AutoCrafterMenu(id, this, inventory, itemHandler, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+        return new AutoCrafterMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -269,8 +285,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         if(itemCount == 0)
             return;
 
-        if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertIntoOutputSlots() && blockEntity.canExtractItemsFromInput()))) {
-            if(!blockEntity.canInsertIntoOutputSlots() || !blockEntity.canExtractItemsFromInput())
+        if(blockEntity.craftingRecipe != null && (blockEntity.progress > 0 || (blockEntity.canInsertItemsIntoOutputSlots() && blockEntity.canExtractItemsFromInput()))) {
+            if(!blockEntity.canInsertItemsIntoOutputSlots() || !blockEntity.canExtractItemsFromInput())
                 return;
 
             if(blockEntity.maxProgress == 0)
@@ -315,7 +331,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
                 if(blockEntity.progress >= blockEntity.maxProgress) {
                     SimpleContainer patternSlotsForRecipe = blockEntity.ignoreNBT?
                             blockEntity.replaceCraftingPatternWithCurrentNBTItems(blockEntity.patternSlots):blockEntity.patternSlots;
-                    TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
+                    CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
                     for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
                         copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -368,7 +384,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
 
     public void cycleRecipe() {
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -419,7 +435,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         hasRecipeLoaded = true;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -439,7 +455,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
 
             patternResultSlots.setItem(0, resultItemStack);
 
-            if(oldRecipe != null && oldResult != null && oldCopyOfRecipe != null && (craftingRecipe != oldRecipe || ItemStack.isSameItemSameComponents(resultItemStack, oldResult)))
+            if(oldRecipe != null && oldResult != null && oldCopyOfRecipe != null && (craftingRecipe != oldRecipe ||
+                    !ItemStack.isSameItemSameComponents(resultItemStack, oldResult)))
                 resetProgress();
 
             oldCopyOfRecipe = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
@@ -468,10 +485,10 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         List<ItemStack> itemStacksExtract = ItemStackUtils.combineItemStacks(patternItemStacks);
 
         for(ItemStack itemStack:itemStacksExtract) {
-            for(int i = 0;i < itemHandler.getContainerSize();i++) {
-                ItemStack testItemStack = itemHandler.getItem(i);
+            for(int i = 0;i < itemHandler.size();i++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
-                    ItemStack ret = itemHandler.removeItem(i, itemStack.getCount());
+                    ItemStack ret = itemHandler.extractItem(i, itemStack.getCount());
                     if(!ret.isEmpty()) {
                         int amount = ret.getCount();
                         if(amount == itemStack.getCount())
@@ -484,7 +501,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         }
     }
 
-    private void craftItem(TransientCraftingContainer copyOfPatternSlots) {
+    private void craftItem(CraftingContainer copyOfPatternSlots) {
         if(craftingRecipe == null) {
             resetProgress();
 
@@ -505,12 +522,12 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
 
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getContainerSize():3;
+        int outputSlotCount = allowOutputOverflow?itemHandler.size():3;
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
             for(int i = 0;i < outputSlotCount;i++) {
-                ItemStack testItemStack = itemHandler.getItem(i);
+                ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
                     continue;
 
@@ -523,7 +540,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
                 if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
                     if(amount > 0) {
-                        itemHandler.setItem(i, itemHandler.getItem(i).copyWithCount(testItemStack.getCount() + amount));
+                        itemHandler.setStackInSlot(i, itemHandler.getStackInSlot(i).copyWithCount(testItemStack.getCount() + amount));
 
                         itemStack.setCount(itemStack.getCount() - amount);
 
@@ -537,7 +554,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
             if(emptyIndices.isEmpty())
                 continue; //Should not happen
 
-            itemHandler.setItem(emptyIndices.remove(0), itemStack);
+            itemHandler.setStackInSlot(emptyIndices.remove(0), itemStack);
         }
 
         if(ignoreNBT)
@@ -563,11 +580,11 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         for(int i = itemStacks.size() - 1;i >= 0;i--) {
             ItemStack itemStack = itemStacks.get(i);
 
-            for(int j = 0;j < itemHandler.getContainerSize();j++) {
+            for(int j = 0;j < itemHandler.size();j++) {
                 if(checkedIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = itemHandler.getItem(j);
+                ItemStack testItemStack = itemHandler.getStackInSlot(j);
                 if(testItemStack.isEmpty()) {
                     checkedIndices.add(j);
 
@@ -594,15 +611,14 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         return itemStacks.isEmpty();
     }
 
-    private boolean canInsertIntoOutputSlots() {
+    private boolean canInsertItemsIntoOutputSlots() {
         if(craftingRecipe == null)
             return false;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
-
 
         List<ItemStack> outputItemStacks = new ArrayList<>(10);
         ItemStack resultItemStack = craftingRecipe.value() instanceof CustomRecipe?craftingRecipe.value().
@@ -618,7 +634,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getContainerSize():3;
+        int outputSlotCount = allowOutputOverflow?itemHandler.size():3;
         List<Integer> checkedIndices = new ArrayList<>(outputSlotCount);
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
@@ -628,7 +644,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
                 if(checkedIndices.contains(j) || emptyIndices.contains(j))
                     continue;
 
-                ItemStack testItemStack = itemHandler.getItem(j);
+                ItemStack testItemStack = itemHandler.getStackInSlot(j);
                 if(testItemStack.isEmpty()) {
                     emptyIndices.add(j);
 
@@ -670,7 +686,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
             return false;
 
         SimpleContainer patternSlotsForRecipe = ignoreNBT?replaceCraftingPatternWithCurrentNBTItems(patternSlots):patternSlots;
-        TransientCraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
         for(int i = 0;i < patternSlotsForRecipe.getContainerSize();i++)
             copyOfPatternSlots.setItem(i, patternSlotsForRecipe.getItem(i));
 
@@ -678,15 +694,16 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
                 assemble(copyOfPatternSlots.asCraftInput(), level.registryAccess()):
                 craftingRecipe.value().getResultItem(level.registryAccess());
 
-        if(ItemStack.isSameItem(itemStack, resultItemStack) && ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
+        if(ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
             return true;
 
         for(ItemStack remainingItem:craftingRecipe.value().getRemainingItems(copyOfPatternSlots.asCraftInput()))
-            if(ItemStack.isSameItem(itemStack, remainingItem) && ItemStack.isSameItemSameComponents(itemStack, remainingItem))
+            if(ItemStack.isSameItemSameComponents(itemStack, remainingItem))
                 return true;
 
         return false;
     }
+
 
     private boolean isInput(ItemStack itemStack) {
         if(craftingRecipe == null)
@@ -694,8 +711,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
 
         for(int i = 0;i < patternSlots.getContainerSize();i++)
             if(ignoreNBT?ItemStack.isSameItem(itemStack, patternSlots.getItem(i)):
-                    (ItemStack.isSameItem(itemStack, patternSlots.getItem(i)) &&
-                            ItemStack.isSameItemSameComponents(itemStack, patternSlots.getItem(i))))
+                    ItemStack.isSameItemSameComponents(itemStack, patternSlots.getItem(i)))
                 return true;
 
         return false;
@@ -713,8 +729,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
             if(itemStack.isEmpty())
                 continue;
 
-            for(int j = 0;j < itemHandler.getContainerSize();j++) {
-                ItemStack testItemStack = itemHandler.getItem(j).copy();
+            for(int j = 0;j < itemHandler.size();j++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
                 if(testItemStack.getCount() <= 0)
@@ -727,8 +743,8 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
             }
 
             //Same item with same tag was not found -> check for same item without same tag and change if found
-            for(int j = 0;j < itemHandler.getContainerSize();j++) {
-                ItemStack testItemStack = itemHandler.getItem(j).copy();
+            for(int j = 0;j < itemHandler.size();j++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(j).copy();
                 int usedCount = usedItemCounts.getOrDefault(j, 0);
                 testItemStack.setCount(testItemStack.getCount() - usedCount);
                 if(testItemStack.getCount() <= 0)
@@ -750,7 +766,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
         return copyOfContainer;
     }
 
-    private List<RecipeHolder<CraftingRecipe>> getRecipesFor(TransientCraftingContainer patternSlots, Level level) {
+    private List<RecipeHolder<CraftingRecipe>> getRecipesFor(CraftingContainer patternSlots, Level level) {
         return level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).
                 stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id())).
                 filter(recipe -> recipe.value().matches(patternSlots.asCraftInput(), level)).
@@ -758,7 +774,7 @@ public class AutoCrafterBlockEntity extends ConfigurableUpgradableLegacyItemCont
                 toList();
     }
 
-    private Optional<Pair<ResourceLocation, RecipeHolder<CraftingRecipe>>> getRecipeFor(TransientCraftingContainer patternSlots, Level level, ResourceLocation recipeId) {
+    private Optional<Pair<ResourceLocation, RecipeHolder<CraftingRecipe>>> getRecipeFor(CraftingContainer patternSlots, Level level, ResourceLocation recipeId) {
         List<RecipeHolder<CraftingRecipe>> recipes = getRecipesFor(patternSlots, level);
         Optional<RecipeHolder<CraftingRecipe>> recipe = recipes.stream().filter(r -> r.id().equals(recipeId)).findFirst();
 

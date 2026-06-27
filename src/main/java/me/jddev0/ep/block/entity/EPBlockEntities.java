@@ -180,21 +180,11 @@ public final class EPBlockEntities {
     public static final BlockEntityType<CableBlockEntity> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = createBlockEntity("energized_crystal_matrix_cable",
             EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX));
 
-    public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("auto_crafter", EPBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = createBlockEntity("auto_crafter",
+            EPBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedAutoCrafterBlockEntity> ADVANCED_AUTO_CRAFTER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("advanced_auto_crafter", EPBlocks.ADVANCED_AUTO_CRAFTER, AdvancedAutoCrafterBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedAutoCrafterBlockEntity> ADVANCED_AUTO_CRAFTER_ENTITY = createBlockEntity("advanced_auto_crafter",
+            EPBlocks.ADVANCED_AUTO_CRAFTER, AdvancedAutoCrafterBlockEntity::new);
 
     public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = createBlockEntity("press_mold_maker",
             EPBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new);
@@ -553,13 +543,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<AdvancedPoweredFurnaceBlockEntity> ADVANCED_POWERED_FURNACE_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("advanced_powered_furnace", EPBlocks.ADVANCED_POWERED_FURNACE, AdvancedPoweredFurnaceBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedPoweredFurnaceBlockEntity> ADVANCED_POWERED_FURNACE_ENTITY = createBlockEntity("advanced_powered_furnace",
+            EPBlocks.ADVANCED_POWERED_FURNACE, AdvancedPoweredFurnaceBlockEntity::new);
 
     public static final BlockEntityType<LightningGeneratorBlockEntity> LIGHTING_GENERATOR_ENTITY = createBlockEntity("lightning_generator",
             EPBlocks.LIGHTNING_GENERATOR, LightningGeneratorBlockEntity::new);
@@ -684,15 +669,15 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 PRESS_MOLD_MAKER_ENTITY, PressMoldMakerBlockEntity::getItemHandlerCapability);
@@ -947,10 +932,10 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::getEnergyStorageCapability);
