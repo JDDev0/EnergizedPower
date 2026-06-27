@@ -86,6 +86,14 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage
     }
 
     @Override
+    public ItemStack getStackInSlot(int slot) {
+        if(variant.isBlank())
+            return ItemStack.EMPTY;
+
+        return variant.toStack(variant.toStack().getMaxStackSize());
+    }
+
+    @Override
     public ItemStack extractItem(int slot, int amount) {
         if(amount == 0)
             return ItemStack.EMPTY;

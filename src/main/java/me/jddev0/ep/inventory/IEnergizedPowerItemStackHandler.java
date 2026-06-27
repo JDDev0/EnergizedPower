@@ -8,6 +8,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
 public interface IEnergizedPowerItemStackHandler extends SlottedStorage<ItemVariant> {
+    default long getAmount(int slot) {
+        return getSlot(slot).getAmount();
+    }
     long getCapacity(int index, ItemVariant resource);
     boolean isValid(int index, ItemVariant resource);
 
