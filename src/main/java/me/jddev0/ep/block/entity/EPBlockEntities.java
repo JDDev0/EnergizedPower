@@ -497,34 +497,20 @@ public final class EPBlockEntities {
     private static BlockEntityType<SolarPanelBlockEntity> createSolarPanelBlockEntity(String name, SolarPanelBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, block.getTier()));
     }
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_1 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_1", EPBlocks.SOLAR_PANEL_1),
-            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_2 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_2", EPBlocks.SOLAR_PANEL_2),
-            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_3 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_3", EPBlocks.SOLAR_PANEL_3),
-            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_4 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_4", EPBlocks.SOLAR_PANEL_4),
-            (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_5 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_5", EPBlocks.SOLAR_PANEL_5),
-        (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_6 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_6", EPBlocks.SOLAR_PANEL_6),
-        (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
-    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_7 = registerEnergyStorage(
-            createSolarPanelBlockEntity("solar_panel_7", EPBlocks.SOLAR_PANEL_7),
-        (blockEntity, direction) -> (direction == null || direction == Direction.DOWN)?blockEntity.limitingEnergyStorage:null
-    );
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_1 =
+            createSolarPanelBlockEntity("solar_panel_1", EPBlocks.SOLAR_PANEL_1);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_2 =
+            createSolarPanelBlockEntity("solar_panel_2", EPBlocks.SOLAR_PANEL_2);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_3 =
+            createSolarPanelBlockEntity("solar_panel_3", EPBlocks.SOLAR_PANEL_3);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_4 =
+            createSolarPanelBlockEntity("solar_panel_4", EPBlocks.SOLAR_PANEL_4);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_5 =
+            createSolarPanelBlockEntity("solar_panel_5", EPBlocks.SOLAR_PANEL_5);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_6 =
+            createSolarPanelBlockEntity("solar_panel_6", EPBlocks.SOLAR_PANEL_6);
+    public static final BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_ENTITY_7 =
+            createSolarPanelBlockEntity("solar_panel_7", EPBlocks.SOLAR_PANEL_7);
 
     public static final BlockEntityType<TransformerBlockEntity> LV_TRANSFORMER_1_TO_N_ENTITY = registerEnergyStorage(
             createBlockEntity("lv_transformer_1_to_n", EPBlocks.LV_TRANSFORMER_1_TO_N, (blockPos, state) ->
@@ -989,20 +975,20 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        ADVANCED_MINECART_UNCHARGER_ENTITY, AdvancedMinecartUnchargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_1, SolarPanelBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_2, SolarPanelBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_3, SolarPanelBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_4, SolarPanelBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_5, SolarPanelBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_6, SolarPanelBlockEntity::getEnergyStorageCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        SOLAR_PANEL_ENTITY_7, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_1, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_2, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_3, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_4, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_5, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_6, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_7, SolarPanelBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        LV_TRANSFORMER_1_TO_N_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);

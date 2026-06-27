@@ -26,8 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
-public class SolarPanelBlockEntity
-        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
         implements RedstoneOutput {
     private final SolarPanelTier tier;
 
@@ -76,10 +75,6 @@ public class SolarPanelBlockEntity
         };
     }
 
-    public SolarPanelTier getTier() {
-        return tier;
-    }
-
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
@@ -125,12 +120,16 @@ public class SolarPanelBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new SolarPanelMenu(id, this, inventory, upgradeModuleInventory, this.data);
+        return new SolarPanelMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     @Override
     public int getRedstoneOutput() {
         return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+    }
+
+    public SolarPanelTier getTier() {
+        return tier;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
@@ -196,5 +195,12 @@ public class SolarPanelBlockEntity
             blockEntity.limitingEnergyStorage.extract(amount, transaction);
             transaction.commit();
         }
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        if(side == null || side == Direction.DOWN)
+            return energyStorage;
+
+        return null;
     }
 }
