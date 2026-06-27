@@ -2,25 +2,17 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.inventory.data.SimpleProgressValueContainerData;
-import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
-import me.jddev0.ep.recipe.IngredientWithCount;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
+import me.jddev0.ep.inventory.data.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import java.util.Arrays;
 
 public class AlloyFurnaceMenu extends AbstractContainerMenu {
     private final AlloyFurnaceBlockEntity blockEntity;
@@ -32,43 +24,26 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
     private final SimpleProgressValueContainerData maxLitDurationData = new SimpleProgressValueContainerData();
 
     public AlloyFurnaceMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(6) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0, 1, 2 -> inv.player.level().getRecipeManager().
-                            getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE).stream().
-                            map(RecipeHolder::value).map(AlloyFurnaceRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
-                    case 3 -> {
-                        Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
-                        yield burnTime != null && burnTime > 0;
-                    }
-                    case 4, 5 -> false;
-                    default -> super.canPlaceItem(slot, stack);
-                };
-            }
-        }, null);
+        this(id, inv, inv.player.level().getBlockEntity(pos), null);
     }
 
-    public AlloyFurnaceMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                            ContainerData data) {
+    public AlloyFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
         super(EPMenuTypes.ALLOY_FURNACE_MENU, id);
 
-        checkContainerSize(inv, 6);
         this.blockEntity = (AlloyFurnaceBlockEntity)blockEntity;
-        this.level = playerInventory.player.level();
+        this.level = inv.player.level();
 
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
+        addPlayerInventory(inv);
+        addPlayerHotbar(inv);
 
-        addSlot(new ConstraintInsertSlot(inv, 0, 14, 20));
-        addSlot(new ConstraintInsertSlot(inv, 1, 35, 17));
-        addSlot(new ConstraintInsertSlot(inv, 2, 56, 20));
-        addSlot(new ConstraintInsertSlot(inv, 3, 35, 53));
-        addSlot(new ConstraintInsertSlot(inv, 4, 116, 35));
-        addSlot(new ConstraintInsertSlot(inv, 5, 143, 35));
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 14, 20));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 35, 17));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 56, 20));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 3, 35, 53));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 4, 116, 35));
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 5, 143, 35));
+        });
 
         if(data == null) {
             addDataSlots(progressData);
@@ -129,7 +104,7 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 

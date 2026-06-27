@@ -217,10 +217,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = createBlockEntity("press_mold_maker",
             EPBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new);
 
-    public static final BlockEntityType<AlloyFurnaceBlockEntity> ALLOY_FURNACE_ENTITY = registerInventoryStorage(
-            createBlockEntity("alloy_furnace", EPBlocks.ALLOY_FURNACE, AlloyFurnaceBlockEntity::new),
-            AlloyFurnaceBlockEntity::getInventoryStorageForDirection
-    );
+    public static final BlockEntityType<AlloyFurnaceBlockEntity> ALLOY_FURNACE_ENTITY = createBlockEntity("alloy_furnace",
+            EPBlocks.ALLOY_FURNACE, AlloyFurnaceBlockEntity::new);
 
     public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -824,8 +822,8 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 PRESS_MOLD_MAKER_ENTITY, PressMoldMakerBlockEntity::getItemHandlerCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::getItemHandlerCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        CRUSHER_ENTITY, CrusherBlockEntity::getItemHandlerCapability);
