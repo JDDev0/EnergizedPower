@@ -59,12 +59,16 @@ public class BatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Energize
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new BatteryBoxMenu(id, this, inventory);
+        return new BatteryBoxMenu(id, inventory, this);
     }
 
     @Override
     public int getRedstoneOutput() {
-        return EnergyUtils.getRedstoneSignalFromEnergyStorage(limitingEnergyStorage);
+        return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, BatteryBoxBlockEntity blockEntity) {

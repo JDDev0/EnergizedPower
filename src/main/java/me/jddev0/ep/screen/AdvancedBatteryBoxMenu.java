@@ -11,14 +11,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AdvancedBatteryBoxMenu extends EnergyStorageMenu<AdvancedBatteryBoxBlockEntity> {
     public AdvancedBatteryBoxMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv);
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
-    public AdvancedBatteryBoxMenu(int id, BlockEntity blockEntity, Inventory playerInventory) {
+    public AdvancedBatteryBoxMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(
                 EPMenuTypes.ADVANCED_BATTERY_BOX_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.ADVANCED_BATTERY_BOX
         );
     }
