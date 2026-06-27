@@ -11,8 +11,7 @@ import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -21,18 +20,18 @@ public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGenerator
     private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
 
     public HeatGeneratorMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ENERGY_PRODUCTION
         ), null);
     }
 
-    public HeatGeneratorMenu(int id, BlockEntity blockEntity, Inventory playerInventory,
-                             UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public HeatGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                             ContainerData data) {
         super(
                 EPMenuTypes.HEAT_GENERATOR_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.HEAT_GENERATOR,
 
                 upgradeModuleInventory, 2
@@ -82,7 +81,7 @@ public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGenerator
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 

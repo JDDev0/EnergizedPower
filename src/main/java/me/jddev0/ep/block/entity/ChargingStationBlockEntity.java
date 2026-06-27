@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.EnergyStorageUtil;
@@ -80,13 +82,17 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new ChargingStationMenu(id, this, inventory, upgradeModuleInventory);
+
+        return new ChargingStationMenu(id, inventory, this, upgradeModuleInventory);
     }
 
     @Override
     public int getRedstoneOutput() {
         return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ChargingStationBlockEntity blockEntity) {
@@ -101,7 +107,7 @@ public class ChargingStationBlockEntity extends UpgradableEnergyStorageBlockEnti
                         blockPos.getZ() - maxChargingDistance),
                 new Vec3i(blockPos.getX() + maxChargingDistance, blockPos.getY() + maxChargingDistance,
                         blockPos.getZ() + maxChargingDistance))), EntitySelector.NO_SPECTATORS.
-                and(entity -> entity.distanceToSqr(blockPos.getCenter()) <= maxChargingDistance*maxChargingDistance));
+                and(entity -> entity.distanceToSqr(Vec3.atCenterOf(blockPos)) <= maxChargingDistance*maxChargingDistance));
 
         long energyPerTick = Math.min(blockEntity.limitingEnergyStorage.getMaxInsert(), blockEntity.energyStorage.getAmount());
         long energyPerTickLeft = energyPerTick;

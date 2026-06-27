@@ -11,14 +11,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class LightningGeneratorMenu extends EnergyStorageMenu<LightningGeneratorBlockEntity> {
     public LightningGeneratorMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv);
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
-    public LightningGeneratorMenu(int id, BlockEntity blockEntity, Inventory playerInventory) {
+    public LightningGeneratorMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(
                 EPMenuTypes.LIGHTNING_GENERATOR_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.LIGHTNING_GENERATOR
         );
     }

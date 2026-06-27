@@ -31,8 +31,7 @@ import team.reborn.energy.api.EnergyStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeatGeneratorBlockEntity
-        extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
+public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
         implements RedstoneOutput {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_HEAT_GENERATOR_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
@@ -116,12 +115,16 @@ public class HeatGeneratorBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new HeatGeneratorMenu(id, this, inventory, upgradeModuleInventory, this.data);
+        return new HeatGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
     @Override
     public int getRedstoneOutput() {
         return EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {

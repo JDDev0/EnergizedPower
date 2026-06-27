@@ -21,8 +21,7 @@ import team.reborn.energy.api.EnergyStorage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LightningGeneratorBlockEntity
-        extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
+public class LightningGeneratorBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public LightningGeneratorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
                 EPBlockEntities.LIGHTING_GENERATOR_ENTITY, blockPos, blockState,
@@ -54,8 +53,8 @@ public class LightningGeneratorBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new LightningGeneratorMenu(id, this, inventory);
+
+        return new LightningGeneratorMenu(id, inventory, this);
     }
 
     public void onLightningStrike() {
@@ -63,6 +62,10 @@ public class LightningGeneratorBlockEntity
             energyStorage.insert(LightningGeneratorBlock.ENERGY_PER_LIGHTNING_STRIKE, transaction);
             transaction.commit();
         }
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, LightningGeneratorBlockEntity blockEntity) {

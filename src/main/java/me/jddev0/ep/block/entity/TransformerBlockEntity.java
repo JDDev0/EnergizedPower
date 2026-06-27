@@ -33,8 +33,8 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
     private final TransformerTier tier;
     private final TransformerType type;
 
-    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageInsert;
-    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageExtract;
+    private final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageInsert;
+    private final EnergizedPowerLimitingEnergyStorage limitingEnergyStorageExtract;
 
     public TransformerBlockEntity(BlockPos blockPos, BlockState blockState, TransformerTier tier, TransformerType type) {
         super(
@@ -92,7 +92,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new TransformerMenu(id, this, inventory, this.data);
+        return new TransformerMenu(id, inventory, this, this.data);
     }
 
     public TransformerType getTransformerType() {
@@ -103,7 +103,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return tier;
     }
 
-    EnergyStorage getEnergyStorageForDirection(Direction side) {
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         if(side == null)
             return energyStorage;
 
@@ -125,6 +125,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
         return switch(type) {
             case TYPE_1_TO_N, TYPE_N_TO_1 -> {
                 EnergyStorage singleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageInsert:limitingEnergyStorageExtract;
+
                 EnergyStorage multipleSide = type == TransformerType.TYPE_1_TO_N?limitingEnergyStorageExtract:limitingEnergyStorageInsert;
 
                 if(facing == side)
