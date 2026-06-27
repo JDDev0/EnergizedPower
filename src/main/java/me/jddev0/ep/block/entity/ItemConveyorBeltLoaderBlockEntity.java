@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
-import me.jddev0.ep.block.entity.base.MenuLegacyItemStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlockEntity
-        extends MenuLegacyItemStorageBlockEntity<SimpleContainer> {
+        extends MenuLegacyItemContainerStorageBlockEntity<SimpleContainer> {
     private final int ticksPerItem;
 
     final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);

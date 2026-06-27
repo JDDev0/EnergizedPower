@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.entity.base.MenuLegacyItemStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncPressMoldMakerRecipeListS2CPacket;
@@ -30,7 +30,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PressMoldMakerBlockEntity
-        extends MenuLegacyItemStorageBlockEntity<SimpleContainer> {
+        extends MenuLegacyItemContainerStorageBlockEntity<SimpleContainer> {
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
     final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);

@@ -1,25 +1,25 @@
 package me.jddev0.ep.block.entity.base;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuLegacyItemStorageBlockEntity<I extends SimpleContainer>
-        extends LegacyItemContainerStorageBlockEntity<I>
+public abstract class MenuInventoryStorageBlockEntity<I extends IEnergizedPowerItemStackHandler>
+        extends InventoryStorageBlockEntity<I>
         implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuLegacyItemStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                            String machineName,
-                                            int slotCount) {
+    public MenuInventoryStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                           String machineName,
+                                           int slotCount) {
         super(type, blockPos, blockState, slotCount);
 
         this.machineName = machineName;

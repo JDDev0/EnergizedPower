@@ -1,0 +1,57 @@
+package me.jddev0.ep.block.entity.base;
+
+import me.jddev0.ep.inventory.IEnergizedPowerItemStackHandler;
+import me.jddev0.ep.machine.ItemDrop;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Containers;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+
+public abstract class InventoryStorageBlockEntity<I extends IEnergizedPowerItemStackHandler>
+        extends BlockEntity implements ItemDrop {
+    protected final int slotCount;
+    protected final I itemHandler;
+
+    public InventoryStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                       int slotCount) {
+        super(type, blockPos, blockState);
+
+        this.slotCount = slotCount;
+        itemHandler = initInventoryStorage();
+    }
+
+    protected abstract I initInventoryStorage();
+
+    @Override
+    protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
+
+        CompoundTag inventoryNbt = new CompoundTag();
+        itemHandler.serialize(inventoryNbt, registries);
+        nbt.put("inventory", inventoryNbt);
+    }
+
+    @Override
+    protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
+
+        itemHandler.deserialize(nbt.getCompound("inventory"), registries);
+    }
+
+    @Override
+    public void drops(Level level, BlockPos worldPosition) {
+        if(level != null) {
+            SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+            for(int i = 0;i < itemHandler.size();i++)
+                inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+            Containers.dropContents(level, worldPosition, inventory);
+        }
+    }
+}

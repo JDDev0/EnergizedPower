@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.SingleItemStackHandler;
 import me.jddev0.ep.inventory.data.LongValueContainerData;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemSiloBlockEntity
-        extends MenuLegacyItemContainerStorageBlockEntity<SingleItemStackHandler> {
+        extends MenuInventoryStorageBlockEntity<SingleItemStackHandler> {
     private final ItemSiloTier tier;
 
     public ItemSiloBlockEntity(BlockPos blockPos, BlockState blockState, ItemSiloTier tier) {
@@ -52,17 +52,6 @@ public class ItemSiloBlockEntity
                 setChanged();
             }
         };
-    }
-
-    @Override
-    protected CompoundTag writeInventoryStorage(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        itemHandler.writeNbt(nbt, registries);
-        return nbt;
-    }
-
-    @Override
-    protected void readInventoryStorage(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
-        itemHandler.readNbt(nbt, registries);
     }
 
     @Override

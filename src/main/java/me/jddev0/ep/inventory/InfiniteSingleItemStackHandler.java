@@ -7,18 +7,25 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
-public class InfiniteSingleItemStackHandler extends SingleItemStorage {
+public class InfiniteSingleItemStackHandler extends SingleItemStorage
+        implements IEnergizedPowerItemStackHandler {
     public boolean isEmpty() {
         return isResourceBlank();
     }
 
-    public void setItemStack(ItemStack itemStack, TransactionContext transaction) {
-        ItemVariant itemVariant = ItemVariant.of(itemStack);
+    @Override
+    protected long getCapacity(ItemVariant variant) {
+        return Long.MAX_VALUE;
+    }
 
-        updateSnapshots(transaction);
+    @Override
+    public long getCapacity(int index, ItemVariant resource) {
+        return getCapacity(variant);
+    }
 
-        variant = itemVariant;
-        amount = itemVariant.isBlank()?0:1;
+    @Override
+    public boolean isValid(int index, ItemVariant resource) {
+        return true;
     }
 
     @Override
@@ -33,12 +40,7 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage {
     }
 
     @Override
-    protected long getCapacity(ItemVariant variant) {
-        return Long.MAX_VALUE;
-    }
-
-    @Override
-    public void writeNbt(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+    public void serialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
         if(!isEmpty()) {
             nbt.put("Item", this.variant.toStack().save(lookupProvider, new CompoundTag()));
             nbt.getCompound("Item").remove("count");
@@ -46,7 +48,12 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage {
     }
 
     @Override
-    public void readNbt(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+    public final void writeNbt(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+        serialize(nbt, lookupProvider);
+    }
+
+    @Override
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
         if(nbt.contains("Item")) {
             CompoundTag itemNbt = nbt.getCompound("Item");
             itemNbt.putInt("count", 1);
@@ -57,5 +64,35 @@ public class InfiniteSingleItemStackHandler extends SingleItemStorage {
             this.variant = ItemVariant.blank();
             this.amount = 0;
         }
+    }
+
+    @Override
+    public final void readNbt(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+        deserialize(nbt, lookupProvider);
+    }
+
+    @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        this.variant = ItemVariant.of(stack);
+
+        onFinalCommit();
+    }
+
+    @Override
+    public void set(int index, ItemVariant resource, int amount) {
+        this.variant = resource;
+
+        onFinalCommit();
+    }
+
+    @Override
+    public ItemStack extractItem(int slot, int amount) {
+        if(amount == 0)
+            return ItemStack.EMPTY;
+
+        if(this.variant.isBlank())
+            return ItemStack.EMPTY;
+
+        return this.variant.toStack(Math.min(amount, this.variant.toStack().getMaxStackSize()));
     }
 }
