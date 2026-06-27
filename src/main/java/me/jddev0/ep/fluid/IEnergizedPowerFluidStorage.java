@@ -20,6 +20,10 @@ public interface IEnergizedPowerFluidStorage extends SlottedStorage<FluidVariant
     void serialize(CompoundTag nbt, HolderLookup.Provider lookupProvider);
     void deserialize(CompoundTag nbt, HolderLookup.Provider lookupProvider);
 
+    default FluidVariant getResource(int tank) {
+        return getSlot(tank).getResource();
+    }
+
     default FluidStack getFluid(int tank) {
         SingleSlotStorage<FluidVariant> slotStorage = getSlot(tank);
         return new FluidStack(slotStorage.getResource(), slotStorage.getAmount());

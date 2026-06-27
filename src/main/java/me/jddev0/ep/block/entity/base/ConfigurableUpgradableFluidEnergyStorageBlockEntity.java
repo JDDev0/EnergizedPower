@@ -1,13 +1,12 @@
 package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
+import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.FluidUtils;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -15,21 +14,21 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ConfigurableUpgradableLegacyFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
-        extends UpgradableLegacyFluidEnergyStorageBlockEntity<E, F>
+public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, F extends IEnergizedPowerFluidStorage>
+        extends UpgradableFluidEnergyStorageBlockEntity<E, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
         RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
 
-    public ConfigurableUpgradableLegacyFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                                     String machineName,
-                                                                     long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                                     FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                                     UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate,
-                fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+    public ConfigurableUpgradableFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                               String machineName,
+                                                               long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                               long baseTankCapacity,
+                                                               UpgradeModuleModifier... upgradeModifierSlots) {
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, baseTankCapacity,
+                upgradeModifierSlots);
     }
 
     @Override
