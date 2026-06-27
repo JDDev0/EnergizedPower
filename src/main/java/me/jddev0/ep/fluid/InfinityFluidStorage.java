@@ -6,17 +6,26 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 
-public class InfinityFluidStorage extends SingleFluidStorage {
+public class InfinityFluidStorage extends SingleFluidStorage implements IEnergizedPowerFluidStorage {
     public InfinityFluidStorage() {
         amount = Long.MAX_VALUE;
     }
 
-    public boolean isEmpty() {
-        return isResourceBlank();
+    @Override
+    public void serialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+        FluidStack fluid = getFluid(0);
+        CompoundTag tag = new CompoundTag();
+        if(!fluid.isEmpty()) {
+            tag.put("Fluid", fluid.toNBT(new CompoundTag(), lookupProvider));
+        }
+        nbt.put("fluid", tag);
     }
 
-    public FluidStack getFluid() {
-        return new FluidStack(variant, Long.MAX_VALUE);
+    @Override
+    public void deserialize(CompoundTag nbt, HolderLookup.Provider lookupProvider) {
+        CompoundTag tag = nbt.getCompound("fluid");
+        FluidStack fluid = FluidStack.fromNbt(tag.getCompound("Fluid"), lookupProvider);
+        setFluid(0, fluid);
     }
 
     public void setFluid(FluidStack fluidStack) {
@@ -26,6 +35,24 @@ public class InfinityFluidStorage extends SingleFluidStorage {
     @Override
     protected long getCapacity(FluidVariant variant) {
         return Long.MAX_VALUE;
+    }
+
+    @Override
+    public final long getTankCapacity(int tank) {
+        return Long.MAX_VALUE;
+    }
+
+    @Override
+    public final void setTankCapacity(int tank, long capacity) {}
+
+    @Override
+    public boolean isValid(int index, FluidVariant resource) {
+        return true;
+    }
+
+    @Override
+    public void setFluid(int tank, FluidStack fluidStack) {
+        variant = fluidStack.getFluidVariant();
     }
 
     public void setFluid(FluidStack fluidStack, TransactionContext transaction) {
@@ -45,20 +72,5 @@ public class InfinityFluidStorage extends SingleFluidStorage {
     public long extract(FluidVariant extractedVariant, long maxAmount, TransactionContext transaction) {
         return !extractedVariant.isBlank() && extractedVariant.isOf(variant.getFluid()) &&
                 extractedVariant.componentsMatch(variant.getComponents())?maxAmount:0;
-    }
-
-    public CompoundTag toNBT(CompoundTag nbt, HolderLookup.Provider registries) {
-        if(isResourceBlank())
-            return nbt;
-
-        nbt.put("Fluid", getFluid().toNBT(new CompoundTag(), registries));
-        return nbt;
-    }
-
-    public void fromNBT(CompoundTag nbt, HolderLookup.Provider registries) {
-        FluidStack fluidStack = FluidStack.fromNbt(nbt.getCompound("Fluid"), registries);
-
-        variant = fluidStack.getFluidVariant();
-        amount = Long.MAX_VALUE;
     }
 }

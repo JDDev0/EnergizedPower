@@ -1,10 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.data.BooleanValueContainerData;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.networking.ModMessages;
@@ -13,7 +12,6 @@ import me.jddev0.ep.screen.FluidTankMenu;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidTankBlockEntity
-        extends AbstractFluidTankBlockEntity<SimpleFluidStorage>
+        extends AbstractFluidTankBlockEntity<EnergizedPowerFluidStorage>
         implements CheckboxUpdate {
     private final FluidTankTier tier;
 
@@ -39,7 +37,6 @@ public class FluidTankBlockEntity
 
                 tier.getResourceId(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 tier.getTankCapacity()
         );
 
@@ -47,24 +44,23 @@ public class FluidTankBlockEntity
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(64);
             }
 
-            private boolean isFluidValid(FluidVariant variant) {
-                return fluidFilter.isEmpty() || (ignoreNBT?(
-                        fluidFilter.getFluidVariant().isOf(variant.getFluid()) &&
-                                fluidFilter.getFluidVariant().componentsMatch(variant.getComponents())):
-                        fluidFilter.getFluidVariant().isOf(variant.getFluid()));
-            }
-
             @Override
-            protected boolean canInsert(FluidVariant variant) {
-                return isFluidValid(variant);
+            public boolean isValid(int tank, FluidVariant resource) {
+                if(!super.isValid(tank, resource))
+                    return false;
+
+                return  fluidFilter.isEmpty() || (ignoreNBT?(
+                        fluidFilter.getFluidVariant().isOf(resource.getFluid()) &&
+                                fluidFilter.getFluidVariant().componentsMatch(resource.getComponents())):
+                        fluidFilter.getFluidVariant().isOf(resource.getFluid()));
             }
         };
     }
@@ -80,9 +76,9 @@ public class FluidTankBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncFluidToPlayer(player);
-        ModMessages.sendToPlayer(new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()), (ServerPlayer)player);
+        ModMessages.sendToPlayer(new FluidSyncS2CPacket(1, fluidFilter, 0, worldPosition), (ServerPlayer)player);
 
-        return new FluidTankMenu(id, inventory, this, this.data);
+        return new FluidTankMenu(id, inventory, this, data);
     }
 
     public FluidTankTier getTier() {
@@ -120,13 +116,14 @@ public class FluidTankBlockEntity
         }
     }
 
-    public void setFluidFilter(FluidStack fluidFilter, RegistryAccess registries) {
+    public void setFluidFilter(FluidStack fluidFilter) {
         this.fluidFilter = new FluidStack(fluidFilter.getFluid(), fluidFilter.getFluidVariant().getComponents(),
                 fluidFilter.getDropletsAmount());
         setChanged(level, getBlockPos(), getBlockState());
 
         ModMessages.sendToPlayersWithinXBlocks(
-                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()), getBlockPos(), (ServerLevel)level, 32
+                new FluidSyncS2CPacket(1, fluidFilter, 0, getBlockPos()),
+                getBlockPos(), (ServerLevel)level, 64
         );
     }
 

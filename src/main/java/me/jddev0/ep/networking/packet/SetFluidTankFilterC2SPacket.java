@@ -45,7 +45,7 @@ public record SetFluidTankFilterC2SPacket(BlockPos pos, FluidStack fluidFilter) 
             if(!(blockEntity instanceof FluidTankBlockEntity fluidTankBlockEntity))
                 return;
 
-            fluidTankBlockEntity.setFluidFilter(data.fluidFilter, context.player().registryAccess());
+            fluidTankBlockEntity.setFluidFilter(data.fluidFilter);
         });
     }
 }

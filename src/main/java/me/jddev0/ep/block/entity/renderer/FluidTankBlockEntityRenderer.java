@@ -24,7 +24,7 @@ import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
-public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<AbstractFluidTankBlockEntity> {
+public class FluidTankBlockEntityRenderer implements BlockEntityRenderer<AbstractFluidTankBlockEntity<?>> {
     private final BlockEntityRendererProvider.Context context;
 
     public FluidTankBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
