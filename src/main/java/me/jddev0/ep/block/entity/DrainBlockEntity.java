@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyFluidStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class DrainBlockEntity extends MenuFluidStorageBlockEntity<SimpleFluidStorage> {
+public class DrainBlockEntity extends MenuLegacyFluidStorageBlockEntity<SimpleFluidStorage> {
     private int progress;
     private int maxProgress = ModConfigs.COMMON_DRAIN_DRAIN_DURATION.getValue();
 

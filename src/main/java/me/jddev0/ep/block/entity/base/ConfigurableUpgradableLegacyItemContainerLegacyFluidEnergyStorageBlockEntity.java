@@ -11,25 +11,28 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
-        extends UpgradableFluidEnergyStorageBlockEntity<E, F>
+public abstract class ConfigurableUpgradableLegacyItemContainerLegacyFluidEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
+        extends UpgradableLegacyItemContainerFluidEnergyStorageBlockEntity<E, I, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
         RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
-    protected @NotNull ComparatorMode comparatorMode = ComparatorMode.FLUID;
+    protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
-    public ConfigurableUpgradableFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                               String machineName,
-                                                               long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                               FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                               UpgradeModuleModifier... upgradeModifierSlots) {
-        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate,
-                fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+    public ConfigurableUpgradableLegacyItemContainerLegacyFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                                        String machineName,
+                                                                                        long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                                                        int slotCount,
+                                                                                        FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
+                                                                                        UpgradeModuleModifier... upgradeModifierSlots) {
+        super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+                baseTankCapacity, upgradeModifierSlots);
     }
 
     @Override
@@ -45,14 +48,13 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
         super.loadAdditional(nbt, registries);
 
         redstoneMode = RedstoneMode.fromIndex(nbt.getInt("configuration.redstone_mode"));
-        comparatorMode = nbt.contains("configuration.comparator_mode")?
-                ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode")):ComparatorMode.FLUID;
+        comparatorMode = ComparatorMode.fromIndex(nbt.getInt("configuration.comparator_mode"));
     }
 
     @Override
     public int getRedstoneOutput() {
         return switch(comparatorMode) {
-            case ITEM -> 0;
+            case ITEM -> AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
             case FLUID -> FluidUtils.getRedstoneSignalFromFluidHandler(fluidStorage);
             case ENERGY -> EnergyUtils.getRedstoneSignalFromEnergyStorage(energyStorage);
         };
@@ -86,9 +88,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
 
     @Override
     public void setNextComparatorMode() {
-        do {
-            comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
-        }while(comparatorMode == ComparatorMode.ITEM);
+        comparatorMode = ComparatorMode.fromIndex(comparatorMode.ordinal() + 1);
         setChanged();
     }
 
@@ -97,6 +97,7 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     public ComparatorMode @NotNull [] getAvailableComparatorModes() {
         return new ComparatorMode[] {
                 ComparatorMode.ENERGY,
+                ComparatorMode.ITEM,
                 ComparatorMode.FLUID
         };
     }
@@ -109,9 +110,6 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
 
     @Override
     public boolean setComparatorMode(@NotNull ComparatorMode comparatorMode) {
-        if(comparatorMode == ComparatorMode.ITEM)
-            return false;
-
         this.comparatorMode = comparatorMode;
         setChanged();
 

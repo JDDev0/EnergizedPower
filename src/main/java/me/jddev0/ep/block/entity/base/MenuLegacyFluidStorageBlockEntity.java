@@ -1,6 +1,5 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -12,20 +11,17 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
-        extends FluidEnergyStorageBlockEntity<E, F>
+public abstract class MenuLegacyFluidStorageBlockEntity<F extends Storage<FluidVariant>>
+        extends LegacyFluidStorageBlockEntity<F>
         implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                        String machineName,
-                                        long baseEnergyCapacity, long baseEnergyTransferRate,
-                                        FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
-        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, fluidStorageMethods,
-                baseTankCapacity);
+    public MenuLegacyFluidStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                             String machineName,
+                                             FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
+        super(type, blockPos, blockState, fluidStorageMethods, baseTankCapacity);
 
         this.machineName = machineName;
 

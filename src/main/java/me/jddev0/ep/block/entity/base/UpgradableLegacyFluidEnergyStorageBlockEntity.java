@@ -16,18 +16,18 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class UpgradableFluidEnergyStorageBlockEntity
+public abstract class UpgradableLegacyFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, F extends Storage<FluidVariant>>
-        extends MenuFluidEnergyStorageBlockEntity<E, F>
+        extends MenuLegacyFluidEnergyStorageBlockEntity<E, F>
         implements ItemDrop {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    public UpgradableFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                   String machineName,
-                                                   long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                   FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                   UpgradeModuleModifier... upgradeModifierSlots) {
+    public UpgradableLegacyFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                         String machineName,
+                                                         long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                         FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
+                                                         UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, fluidStorageMethods,
                 baseTankCapacity);
 
