@@ -2,13 +2,15 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
-import me.jddev0.ep.block.entity.base.LegacyItemContainerStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
+import me.jddev0.ep.util.InventoryUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -16,21 +18,20 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltBlockEntity
-        extends LegacyItemContainerStorageBlockEntity<SimpleContainer>
+        extends InventoryStorageBlockEntity<EnergizedPowerItemStackHandler>
         implements ItemStackPacketUpdate {
     private final int ticksPerStep;
 
-    final LegacyInputOutputItemHandler itemHandlerFrontSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
-    final LegacyInputOutputItemHandler itemHandlerOthersSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
+    private final InputOutputItemHandler itemHandlerFrontSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
+    private final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
 
     private final ConveyorBeltTier tier;
 
@@ -51,34 +52,32 @@ public class ItemConveyorBeltBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public int getMaxStackSize() {
+            public long getCapacity(int index, ItemVariant resource) {
                 return 1;
             }
 
             @Override
-            public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant stack) {
                 return switch(slot) {
                     case 0, 1 -> true;
                     case 2, 3 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
 
-                ItemConveyorBeltBlockEntity.this.setChanged();
-
-                for(int i = 0;i < getContainerSize();i++)
-                    if(level != null && !level.isClientSide()) {
+                for(int i = 0;i < size();i++)
+                    if(level != null && !level.isClientSide())
                         ModMessages.sendToPlayersWithinXBlocks(
-                                new ItemStackSyncS2CPacket(i, getItem(i), getBlockPos()), getBlockPos(), (ServerLevel)level, 64
+                                new ItemStackSyncS2CPacket(i, getStackInSlot(i), getBlockPos()),
+                                getBlockPos(), (ServerLevel)level, 64
                         );
-                    }
             }
         };
     }
@@ -88,18 +87,18 @@ public class ItemConveyorBeltBlockEntity
     }
 
     public int getRedstoneOutput() {
-        return AbstractContainerMenu.getRedstoneSignalFromContainer(itemHandler);
+        return InventoryUtils.getRedstoneSignalFromItemStackHandler(itemHandler);
     }
 
-    static Storage<ItemVariant> getInventoryStorageForDirection(ItemConveyorBeltBlockEntity entity, Direction side) {
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
-            return null;
+            return itemHandler;
 
-        Direction facing = entity.getBlockState().getValue(ItemConveyorBeltBlock.FACING).getDirection();
+        Direction facing = getBlockState().getValue(ItemConveyorBeltBlock.FACING).getDirection();
         if(side.getOpposite() == facing)
-            return entity.itemHandlerFrontSided.apply(side);
+            return itemHandlerFrontSided;
 
-        return entity.itemHandlerOthersSided.apply(side);
+        return itemHandlerOthersSided;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
@@ -108,29 +107,30 @@ public class ItemConveyorBeltBlockEntity
 
         //Sync item stacks to client every 5 seconds
         if(level.getGameTime() % 100 == 0) //TODO improve
-            for(int i = 0;i < blockEntity.itemHandler.getContainerSize();i++)
+            for(int i = 0;i < blockEntity.itemHandler.size();i++)
                 if(!level.isClientSide())
                     ModMessages.sendToPlayersWithinXBlocks(
-                            new ItemStackSyncS2CPacket(i, blockEntity.getStack(i), blockPos), blockPos, (ServerLevel)level, 64
+                            new ItemStackSyncS2CPacket(i, blockEntity.itemHandler.getStackInSlot(i), blockPos),
+                            blockPos, (ServerLevel)level, 64
                     );
 
         if(level.getGameTime() % blockEntity.ticksPerStep == 0) {
-            int slotCount = blockEntity.itemHandler.getContainerSize();
+            int slotCount = blockEntity.itemHandler.size();
 
-            if(!blockEntity.itemHandler.getItem(slotCount - 1).isEmpty())
-                insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.itemHandler.getItem(slotCount - 1).copy());
+            if(!blockEntity.itemHandler.getStackInSlot(slotCount - 1).isEmpty())
+                insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStackInSlot(slotCount - 1).copy());
 
             for(int i = slotCount - 2;i >= 0;i--) {
-                ItemStack fromItemStack = blockEntity.itemHandler.getItem(i);
+                ItemStack fromItemStack = blockEntity.itemHandler.getStackInSlot(i);
                 if(fromItemStack.isEmpty())
                     continue;
 
-                ItemStack toItemStack = blockEntity.itemHandler.getItem(i + 1);
+                ItemStack toItemStack = blockEntity.itemHandler.getStackInSlot(i + 1);
                 if(!toItemStack.isEmpty())
                     continue;
 
-                blockEntity.itemHandler.setItem(i, ItemStack.EMPTY);
-                blockEntity.itemHandler.setItem(i + 1, fromItemStack);
+                blockEntity.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+                blockEntity.itemHandler.setStackInSlot(i + 1, fromItemStack);
             }
         }
     }
@@ -175,22 +175,22 @@ public class ItemConveyorBeltBlockEntity
         try(Transaction transaction = Transaction.openOuter()) {
             long amount = itemStackStorage.insert(ItemVariant.of(itemStackToInsert), 1, transaction);
             if(amount > 0)
-                blockEntity.itemHandler.setItem(blockEntity.itemHandler.getContainerSize() - 1, ItemStack.EMPTY);
+                blockEntity.itemHandler.setStackInSlot(blockEntity.itemHandler.size() - 1, ItemStack.EMPTY);
 
             transaction.commit();
         }
     }
 
     public int getSlotCount() {
-        return itemHandler.getContainerSize();
+        return itemHandler.size();
     }
 
     public ItemStack getStack(int slot) {
-        return itemHandler.getItem(slot);
+        return itemHandler.getStackInSlot(slot);
     }
 
     @Override
     public void setItemStack(int slot, ItemStack itemStack) {
-        itemHandler.setItem(slot, itemStack);
+        itemHandler.setStackInSlot(slot, itemStack);
     }
 }

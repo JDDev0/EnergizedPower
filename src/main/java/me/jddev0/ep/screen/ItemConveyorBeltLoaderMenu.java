@@ -1,55 +1,36 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
     private final ItemConveyorBeltLoaderBlockEntity blockEntity;
-    private final Container inv;
     private final Level level;
 
     public ItemConveyorBeltLoaderMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(1) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                if(slot == 0) {
-                    return true;
-                }
-
-                return super.canPlaceItem(slot, stack);
-            }
-
-            @Override
-            public int getMaxStackSize() {
-                return 1;
-            }
-        });
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
-    public ItemConveyorBeltLoaderMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv) {
+    public ItemConveyorBeltLoaderMenu(int id, Inventory inv, BlockEntity blockEntity) {
         super(((ItemConveyorBeltLoaderBlockEntity)blockEntity).getTier().getItemConveyorBeltLoaderMenuTypeFromTier(), id);
 
         this.blockEntity = (ItemConveyorBeltLoaderBlockEntity)blockEntity;
+        this.level = inv.player.level();
 
-        this.inv = inv;
-        checkContainerSize(inv, 1);
-        this.level = playerInventory.player.level();
+        addPlayerInventory(inv);
+        addPlayerHotbar(inv);
 
-        addPlayerInventory(playerInventory);
-        addPlayerHotbar(playerInventory);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 80, 35));
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 80, 35));
+        });
     }
 
     @Override
@@ -63,8 +44,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into tile inventory
-            //Allow only 1 item
-            if(slots.get(4 * 9).hasItem() || !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1) {
@@ -77,7 +57,7 @@ public class ItemConveyorBeltLoaderMenu extends AbstractContainerMenu {
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
