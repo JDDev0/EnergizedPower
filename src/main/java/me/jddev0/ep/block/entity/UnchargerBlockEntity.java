@@ -1,26 +1,25 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.UnchargerBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
-import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
-import me.jddev0.ep.inventory.data.EnergyValueContainerData;
-import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.UnchargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
-import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.LongTag;
-import net.minecraft.world.SimpleContainer;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -38,18 +37,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UnchargerBlockEntity
-        extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
-        ItemStack itemStack = itemHandler.getItem(i);
+        ItemStack stack = itemHandler.getStackInSlot(i);
 
-        if(!EnergyStorageUtil.isEnergyStorage(itemStack))
+        if(!EnergyStorageUtil.isEnergyStorage(stack))
             return true;
 
-        EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(itemStack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(itemHandler, null).getSlots().get(i)));
+        EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
+                ofSingleSlot(itemHandler.getSlot(i)));
         if(limitingEnergyStorage == null)
             return true;
 
@@ -107,15 +106,17 @@ public class UnchargerBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public int getMaxStackSize() {
+            public long getCapacity(int index, ItemVariant resource) {
                 return 1;
             }
 
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 if(slot == 0) {
                     if(!EnergyStorageUtil.isEnergyStorage(stack))
                         return false;
@@ -127,28 +128,21 @@ public class UnchargerBlockEntity
                     return limitingEnergyStorage.supportsExtraction();
                 }
 
-                return super.canPlaceItem(slot, stack);
+                return super.isValid(slot, resource);
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getItem(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && (!ItemStack.isSameItem(stack, previousItemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, previousItemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                    !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(itemStack)))))
+                                    !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(stack)))))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                UnchargerBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
@@ -167,8 +161,19 @@ public class UnchargerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new UnchargerMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
+
+        return new UnchargerMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -197,15 +202,15 @@ public class UnchargerBlockEntity
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
-    
+
     protected final long getEnergyProductionPerTick() {
-        ItemStack stack = itemHandler.getItem(0);
+        ItemStack stack = itemHandler.getStackInSlot(0);
 
         if(!EnergyStorageUtil.isEnergyStorage(stack))
             return -1;
 
         EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                ofSingleSlot(InventoryStorage.of(this.itemHandler, null).getSlots().get(0)));
+                ofSingleSlot(itemHandler.getSlot(0)));
         if(limitingEnergyStorage == null)
             return -1;
 
@@ -218,15 +223,18 @@ public class UnchargerBlockEntity
         }
     }
 
-    public static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, UnchargerBlockEntity blockEntity) {
+        if(level.isClientSide())
+            return;
+
         if(blockEntity.hasRecipe()) {
-            ItemStack stack = blockEntity.itemHandler.getItem(0);
+            ItemStack stack = blockEntity.itemHandler.getStackInSlot(0);
 
             if(!EnergyStorageUtil.isEnergyStorage(stack))
                 return;
 
             EnergyStorage limitingEnergyStorage = EnergyStorage.ITEM.find(stack, ContainerItemContext.
-                    ofSingleSlot(InventoryStorage.of(blockEntity.itemHandler, null).getSlots().get(0)));
+                    ofSingleSlot(blockEntity.itemHandler.getSlot(0)));
             if(limitingEnergyStorage == null)
                 return;
 
@@ -339,7 +347,7 @@ public class UnchargerBlockEntity
     }
 
     private boolean hasRecipe() {
-        ItemStack stack = itemHandler.getItem(0);
+        ItemStack stack = itemHandler.getStackInSlot(0);
         return EnergyStorageUtil.isEnergyStorage(stack);
     }
 }

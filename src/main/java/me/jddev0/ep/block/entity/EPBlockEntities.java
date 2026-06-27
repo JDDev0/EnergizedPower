@@ -424,13 +424,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.fluidStorage
     );
 
-    public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                createBlockEntity("charger", EPBlocks.CHARGER, ChargerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = createBlockEntity("charger",
+            EPBlocks.CHARGER, ChargerBlockEntity::new);
 
     public static final BlockEntityType<AdvancedChargerBlockEntity> ADVANCED_CHARGER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -440,13 +435,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<UnchargerBlockEntity> UNCHARGER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("uncharger", EPBlocks.UNCHARGER, UnchargerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<UnchargerBlockEntity> UNCHARGER_ENTITY = createBlockEntity("uncharger",
+            EPBlocks.UNCHARGER, UnchargerBlockEntity::new);
 
     public static final BlockEntityType<AdvancedUnchargerBlockEntity> ADVANCED_UNCHARGER_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -857,15 +847,15 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
         //        DRAIN_ENTITY, DrainBlockEntity::getFluidHandlerCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        CHARGER_ENTITY, ChargerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        CHARGER_ENTITY, ChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CHARGER_ENTITY, ChargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CHARGER_ENTITY, ChargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        UNCHARGER_ENTITY, UnchargerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        UNCHARGER_ENTITY, UnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                UNCHARGER_ENTITY, UnchargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                UNCHARGER_ENTITY, UnchargerBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getItemHandlerCapability);
