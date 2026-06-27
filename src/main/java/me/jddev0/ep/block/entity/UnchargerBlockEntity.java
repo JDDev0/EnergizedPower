@@ -138,7 +138,7 @@ public class UnchargerBlockEntity
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && (!ItemStack.isSameItem(stack, previousItemStack) ||
                             (!ItemStack.isSameItemSameComponents(stack, previousItemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                    !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(stack)))))
+                                    !(EnergyStorageUtil.isEnergyStorage(stack) && EnergyStorageUtil.isEnergyStorage(previousItemStack)))))
                         resetProgress();
                 }
 

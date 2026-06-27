@@ -427,24 +427,14 @@ public final class EPBlockEntities {
     public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = createBlockEntity("charger",
             EPBlocks.CHARGER, ChargerBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedChargerBlockEntity> ADVANCED_CHARGER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                createBlockEntity("advanced_charger", EPBlocks.ADVANCED_CHARGER, AdvancedChargerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedChargerBlockEntity> ADVANCED_CHARGER_ENTITY = createBlockEntity("advanced_charger",
+            EPBlocks.ADVANCED_CHARGER, AdvancedChargerBlockEntity::new);
 
     public static final BlockEntityType<UnchargerBlockEntity> UNCHARGER_ENTITY = createBlockEntity("uncharger",
             EPBlocks.UNCHARGER, UnchargerBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedUnchargerBlockEntity> ADVANCED_UNCHARGER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("advanced_uncharger", EPBlocks.ADVANCED_UNCHARGER, AdvancedUnchargerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedUnchargerBlockEntity> ADVANCED_UNCHARGER_ENTITY = createBlockEntity("advanced_uncharger",
+            EPBlocks.ADVANCED_UNCHARGER, AdvancedUnchargerBlockEntity::new);
 
     public static final BlockEntityType<MinecartChargerBlockEntity> MINECART_CHARGER_ENTITY = createBlockEntity("minecart_charger",
             EPBlocks.MINECART_CHARGER, MinecartChargerBlockEntity::new);
@@ -857,15 +847,15 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 UNCHARGER_ENTITY, UnchargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 MINECART_CHARGER_ENTITY, MinecartChargerBlockEntity::getEnergyStorageCapability);
