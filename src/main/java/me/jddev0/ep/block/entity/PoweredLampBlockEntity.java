@@ -7,9 +7,12 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 public class PoweredLampBlockEntity
         extends EnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
@@ -38,6 +41,10 @@ public class PoweredLampBlockEntity
     @Override
     protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
         return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, PoweredLampBlockEntity blockEntity) {

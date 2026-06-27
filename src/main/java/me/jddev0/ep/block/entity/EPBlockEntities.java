@@ -567,10 +567,8 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<PoweredLampBlockEntity> POWERED_LAMP_ENTITY = registerEnergyStorage(
-            createBlockEntity("powered_lamp", EPBlocks.POWERED_LAMP, PoweredLampBlockEntity::new),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<PoweredLampBlockEntity> POWERED_LAMP_ENTITY = createBlockEntity("powered_lamp",
+            EPBlocks.POWERED_LAMP, PoweredLampBlockEntity::new);
 
     public static final BlockEntityType<PoweredFurnaceBlockEntity> POWERED_FURNACE_ENTITY = registerEnergyStorage(
             registerInventoryStorage(
@@ -971,8 +969,8 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        POWERED_LAMP_ENTITY, PoweredLampBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                POWERED_LAMP_ENTITY, PoweredLampBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getItemHandlerCapability);
