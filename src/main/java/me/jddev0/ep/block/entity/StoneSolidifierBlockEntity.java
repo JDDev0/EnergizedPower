@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
-import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacySelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.Fluids;
 import java.util.List;
 
 public class StoneSolidifierBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, StoneSolidifierRecipe> {
+        extends LegacySelectableRecipeFluidMachineBlockEntity<CombinedStorage<FluidVariant, SimpleFluidStorage>, RecipeInput, StoneSolidifierRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 *
             ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue());
 

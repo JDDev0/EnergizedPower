@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacyWorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
@@ -39,7 +39,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class FluidPumpBlockEntity
-        extends WorkerFluidMachineBlockEntity<SimpleFluidStorage, BlockPos> {
+        extends LegacyWorkerFluidMachineBlockEntity<SimpleFluidStorage, BlockPos> {
     public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
     public static final int EXTRACTION_DURATION = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_DURATION.getValue();
 

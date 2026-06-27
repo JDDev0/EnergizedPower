@@ -8,8 +8,6 @@ import me.jddev0.ep.networking.packet.SyncCurrentRecipeS2CPacket;
 import me.jddev0.ep.recipe.ChangeCurrentRecipeIndexPacketUpdate;
 import me.jddev0.ep.recipe.CurrentRecipePacketUpdate;
 import me.jddev0.ep.recipe.SetCurrentRecipeIdPacketUpdate;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -32,9 +30,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class SelectableRecipeFluidMachineBlockEntity
-        <F extends Storage<FluidVariant>, C extends RecipeInput, R extends Recipe<C>>
-        extends WorkerFluidMachineBlockEntity<F, RecipeHolder<R>>
+public abstract class LegacySelectableRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
+        extends LegacyWorkerMachineBlockEntity<RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
@@ -44,15 +41,14 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     protected ResourceLocation currentRecipeIdForLoad;
     protected RecipeHolder<R> currentRecipe;
 
-    public SelectableRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                   String machineName, UpgradableMenuProvider menuProvider,
-                                                   int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
-                                                   int baseRecipeDuration,
-                                                   long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
-                                                   FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                   UpgradeModuleModifier... upgradeModifierSlots) {
+    public LegacySelectableRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                    String machineName, UpgradableMenuProvider menuProvider,
+                                                    int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
+                                                    int baseRecipeDuration,
+                                                    long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,
+                                                    UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, slotCount, baseRecipeDuration, baseEnergyCapacity, baseEnergyTransferRate,
-                baseEnergyConsumptionPerTick, fluidStorageMethods, baseTankCapacity, upgradeModifierSlots);
+                baseEnergyConsumptionPerTick, upgradeModifierSlots);
 
         this.menuProvider = menuProvider;
 
@@ -95,7 +91,6 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        syncFluidToPlayer(player);
         syncCurrentRecipeToPlayer(player);
 
         return menuProvider.createMenu(id, this, inventory, itemHandler, upgradeModuleInventory, data);

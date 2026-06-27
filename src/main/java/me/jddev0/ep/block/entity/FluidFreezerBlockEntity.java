@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacySelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class FluidFreezerBlockEntity
-        extends SelectableRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidFreezerRecipe> {
+        extends LegacySelectableRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, FluidFreezerRecipe> {
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 *
             ModConfigs.COMMON_FLUID_FREEZER_TANK_CAPACITY.getValue());
 

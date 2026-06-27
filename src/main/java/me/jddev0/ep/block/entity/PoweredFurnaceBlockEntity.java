@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.LegacyWorkerMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity
-        extends WorkerMachineBlockEntity<RecipeHolder<? extends AbstractCookingRecipe>>
+        extends LegacyWorkerMachineBlockEntity<RecipeHolder<? extends AbstractCookingRecipe>>
         implements FurnaceRecipeTypePacketUpdate {
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
