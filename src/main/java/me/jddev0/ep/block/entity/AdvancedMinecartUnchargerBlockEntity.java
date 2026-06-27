@@ -67,7 +67,7 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new AdvancedMinecartUnchargerMenu(id, this, inventory);
+        return new AdvancedMinecartUnchargerMenu(id, inventory, this);
     }
 
     @Override
@@ -87,6 +87,10 @@ public class AdvancedMinecartUnchargerBlockEntity extends MenuEnergyStorageBlock
         boolean isEmptyFlag = minecartEnergy == 0;
 
         return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartUnchargerBlockEntity blockEntity) {

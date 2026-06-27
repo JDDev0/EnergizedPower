@@ -9,8 +9,10 @@ import me.jddev0.ep.entity.AbstractMinecartBatteryBox;
 import me.jddev0.ep.machine.ItemDrop;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.screen.AdvancedMinecartChargerMenu;
+import me.jddev0.ep.screen.AdvancedMinecartUnchargerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
 
@@ -63,7 +66,7 @@ public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEn
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
 
-        return new AdvancedMinecartChargerMenu(id, this, inventory);
+        return new AdvancedMinecartChargerMenu(id, inventory, this);
     }
 
     @Override
@@ -83,6 +86,10 @@ public class AdvancedMinecartChargerBlockEntity extends MenuEnergyStorageBlockEn
         boolean isEmptyFlag = minecartEnergy == 0;
 
         return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedMinecartChargerBlockEntity blockEntity) {

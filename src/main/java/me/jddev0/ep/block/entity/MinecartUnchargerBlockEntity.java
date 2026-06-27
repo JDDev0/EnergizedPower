@@ -66,8 +66,8 @@ public class MinecartUnchargerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new MinecartUnchargerMenu(id, this, inventory);
+
+        return new MinecartUnchargerMenu(id, inventory, this);
     }
 
     @Override
@@ -87,6 +87,10 @@ public class MinecartUnchargerBlockEntity
         boolean isEmptyFlag = minecartEnergy == 0;
 
         return Math.min(Mth.floor((float)minecartEnergy / minecart.getCapacity() * 14.f) + (isEmptyFlag?0:1), 15);
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, MinecartUnchargerBlockEntity blockEntity) {
