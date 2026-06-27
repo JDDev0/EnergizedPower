@@ -2,7 +2,8 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -12,14 +13,10 @@ import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -34,20 +31,7 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public PoweredFurnaceMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv, (PoweredFurnaceBlockEntity)inv.player.level().getBlockEntity(pos));
-    }
-    private PoweredFurnaceMenu(int id, Inventory inv, PoweredFurnaceBlockEntity blockEntity) {
-        this(id, blockEntity, inv, new SimpleContainer(2) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> RecipeUtils.isIngredientOfAny(inv.player.level(),
-                            blockEntity.getRecipeForFurnaceModeUpgrade(), stack);
-                    case 1 -> false;
-                    default -> super.canPlaceItem(slot, stack);
-                };
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -57,30 +41,29 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
         ), null);
     }
 
-    public PoweredFurnaceMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                              UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public PoweredFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
         super(
                 EPMenuTypes.POWERED_FURNACE_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.POWERED_FURNACE,
 
                 upgradeModuleInventory, 6
         );
 
-        checkContainerSize(inv, 2);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 48, 35) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 1, 124, 35) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 48, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 124, 35) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
@@ -164,7 +147,7 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 
