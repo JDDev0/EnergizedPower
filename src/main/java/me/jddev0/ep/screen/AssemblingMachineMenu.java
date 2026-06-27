@@ -2,30 +2,23 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AssemblingMachineBlockEntity;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.recipe.AssemblingMachineRecipe;
-import me.jddev0.ep.recipe.IngredientWithCount;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-
-import java.util.Arrays;
 
 public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<AssemblingMachineBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -38,20 +31,7 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public AssemblingMachineMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(5) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                return switch(slot) {
-                    case 0, 1, 2, 3 -> inv.player.level() == null || inv.player.level().getRecipeManager().
-                            getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE).stream().
-                            map(RecipeHolder::value).map(AssemblingMachineRecipe::getInputs).anyMatch(inputs ->
-                                    Arrays.stream(inputs).map(IngredientWithCount::input).
-                                            anyMatch(ingredient -> ingredient.test(stack)));
-                    case 4 -> false;
-                    default -> super.canPlaceItem(slot, stack);
-                };
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -60,49 +40,49 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
         ), null);
     }
 
-    public AssemblingMachineMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                                 UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public AssemblingMachineMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                                 ContainerData data) {
         super(
                 EPMenuTypes.ASSEMBLING_MACHINE_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.ASSEMBLING_MACHINE,
                 8, 88,
 
                 upgradeModuleInventory, 5
         );
 
-        checkContainerSize(inv, 5);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 62, 19) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 1, 44, 37) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 2, 80, 37) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 3, 62, 55) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
-        });
-        addSlot(new ConstraintInsertSlot(inv, 4, 134, 37) {
-            @Override
-            public boolean isActive() {
-                return super.isActive() && !isInUpgradeModuleView();
-            }
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 62, 19) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 1, 44, 37) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 2, 80, 37) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 3, 62, 55) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 4, 134, 37) {
+                @Override
+                public boolean isActive() {
+                    return super.isActive() && !isInUpgradeModuleView();
+                }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
@@ -186,7 +166,7 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
         }
 
         if(sourceItem.getCount() == 0)
-            sourceSlot.setByPlayer(ItemStack.EMPTY);
+            sourceSlot.set(ItemStack.EMPTY);
         else
             sourceSlot.setChanged();
 

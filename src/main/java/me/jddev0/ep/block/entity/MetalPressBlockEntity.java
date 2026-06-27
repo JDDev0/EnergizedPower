@@ -1,8 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.LegacySimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
@@ -10,22 +11,24 @@ import me.jddev0.ep.recipe.MetalPressRecipe;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.screen.MetalPressMenu;
 import me.jddev0.ep.util.InventoryUtils;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
-public class MetalPressBlockEntity extends LegacySimpleRecipeMachineBlockEntity<RecipeInput, MetalPressRecipe> {
-    final LegacyInputOutputItemHandler itemHandlerTopSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1) {
-        @Override
-        public int getMaxStackSize() {
-            return 1;
-        }
-    };
-    final LegacyInputOutputItemHandler itemHandlerOthersSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 2);
+public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, MetalPressRecipe> {
+    private final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 2);
 
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -48,61 +51,76 @@ public class MetalPressBlockEntity extends LegacySimpleRecipeMachineBlockEntity<
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public long getCapacity(int index, ItemVariant resource) {
+                if(index == 1)
+                    return 1;
+
+                return super.getCapacity(index, resource);
+            }
+
+            @Override
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
                     case 0 -> level == null || level.getRecipeManager().getAllRecipesFor(MetalPressRecipe.Type.INSTANCE).stream().
                             map(RecipeHolder::value).map(MetalPressRecipe::getInput).anyMatch(ingredient -> ingredient.test(stack));
-                    case 1 -> level == null || stack.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS) &&
-                            (getItem(1).isEmpty() || stack.getCount() == 1);
+                    case 1 -> level == null || stack.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS);
                     case 2 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0 || slot == 1) {
-                    ItemStack itemStack = getItem(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                MetalPressBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
 
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        if(side == Direction.UP)
+            return itemHandlerTopSided;
+
+        return itemHandlerOthersSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
+    }
+
     @Override
-    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
+    protected RecipeInput getRecipeInput(Container inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
     @Override
     protected void craftItem(RecipeHolder<MetalPressRecipe> recipe) {
-        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverWorld))
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverLevel))
             return;
 
-         ItemStack pressMold = itemHandler.getItem(1).copy();
+        ItemStack pressMold = itemHandler.getStackInSlot(1).copy();
         if(pressMold.isEmpty() && !pressMold.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS))
             return;
 
-        pressMold.hurtAndBreak(1, serverWorld, null, item -> pressMold.setCount(0));
-        itemHandler.setItem(1, pressMold);
+        pressMold.hurtAndBreak(1, serverLevel, null, item -> pressMold.setCount(0));
+        itemHandler.setStackInSlot(1, pressMold);
 
-        itemHandler.removeItem(0, recipe.value().getInputCount());
-        itemHandler.setItem(2, recipe.value().getResultItem(level.registryAccess()).
-                copyWithCount(itemHandler.getItem(2).getCount() +
+        itemHandler.extractItem(0, recipe.value().getInputCount());
+        itemHandler.setStackInSlot(2, recipe.value().getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getStackInSlot(2).getCount() +
                         recipe.value().getResultItem(level.registryAccess()).getCount()));
 
         resetProgress();
