@@ -1,16 +1,19 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,15 +39,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoalEngineBlockEntity
-        extends ConfigurableUpgradableLegacyItemContainerEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, SimpleContainer> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
     public static final double ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
             return false;
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
-        ItemStack item = itemHandler.getItem(i);
+        ItemStack item = itemHandler.getStackInSlot(i);
         Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
         return burnTime == null || burnTime <= 0;
     });
@@ -102,24 +105,25 @@ public class CoalEngineBlockEntity
         };
     }
 
+
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 if(slot == 0) {
                     Integer burnTime = FuelRegistry.INSTANCE.get(stack.getItem());
                     return burnTime != null && burnTime > 0;
                 }
 
-                return super.canPlaceItem(slot, stack);
+                return super.isValid(slot, resource);
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
-
-                CoalEngineBlockEntity.this.setChanged();
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
@@ -141,8 +145,19 @@ public class CoalEngineBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
-        
-        return new CoalEngineMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
+
+        return new CoalEngineMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -175,7 +190,7 @@ public class CoalEngineBlockEntity
 
         transferEnergy(level, blockPos, state, blockEntity);
     }
-    
+
     protected final long getEnergyProductionPerTick() {
         //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy production tick)
         long energyProductionPerTick = (long)Math.ceil((double)this.energyProductionLeft / (this.maxProgress - this.progress));
@@ -199,7 +214,11 @@ public class CoalEngineBlockEntity
         }
 
         if(blockEntity.maxProgress > 0 || hasRecipe(blockEntity)) {
-            ItemStack item = blockEntity.itemHandler.getItem(0);
+            SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+            for(int i = 0;i < blockEntity.itemHandler.size();i++)
+                inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
+
+            ItemStack item = inventory.getItem(0);
 
             Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
             long energyProduction = burnTime == null?-1:burnTime;
@@ -222,9 +241,9 @@ public class CoalEngineBlockEntity
                     //Remove item instantly else the item could be removed before finished and energy was cheated
 
                     if(!item.getRecipeRemainder().isEmpty())
-                        blockEntity.itemHandler.setItem(0, item.getRecipeRemainder());
+                        blockEntity.itemHandler.setStackInSlot(0, item.getRecipeRemainder());
                     else
-                        blockEntity.itemHandler.removeItem(0, 1);
+                        blockEntity.itemHandler.extractItem(0, 1);
                 }
 
                 blockEntity.hasEnoughCapacityForProduction = true;
@@ -357,7 +376,11 @@ public class CoalEngineBlockEntity
     }
 
     private static boolean hasRecipe(CoalEngineBlockEntity blockEntity) {
-        ItemStack item = blockEntity.itemHandler.getItem(0);
+        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
+        for(int i = 0;i < blockEntity.itemHandler.size();i++)
+            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
+
+        ItemStack item = inventory.getItem(0);
 
         Integer burnTime = FuelRegistry.INSTANCE.get(item.getItem());
         if(burnTime == null || burnTime <= 0)

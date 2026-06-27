@@ -548,13 +548,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<CreativeBatteryBoxBlockEntity> CREATIVE_BATTERY_BOX_ENTITY = createBlockEntity("creative_battery_box",
             EPBlocks.CREATIVE_BATTERY_BOX, CreativeBatteryBoxBlockEntity::new);
 
-    public static final BlockEntityType<CoalEngineBlockEntity> COAL_ENGINE_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("coal_engine", EPBlocks.COAL_ENGINE, CoalEngineBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<CoalEngineBlockEntity> COAL_ENGINE_ENTITY = createBlockEntity("coal_engine",
+            EPBlocks.COAL_ENGINE, CoalEngineBlockEntity::new);
 
     public static final BlockEntityType<HeatGeneratorBlockEntity> HEAT_GENERATOR_ENTITY = createBlockEntity("heat_generator",
             EPBlocks.HEAT_GENERATOR, HeatGeneratorBlockEntity::new);
@@ -589,13 +584,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<LightningGeneratorBlockEntity> LIGHTING_GENERATOR_ENTITY = createBlockEntity("lightning_generator",
             EPBlocks.LIGHTNING_GENERATOR, LightningGeneratorBlockEntity::new);
 
-    public static final BlockEntityType<EnergizerBlockEntity> ENERGIZER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("energizer", EPBlocks.ENERGIZER, EnergizerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<EnergizerBlockEntity> ENERGIZER_ENTITY = createBlockEntity("energizer",
+            EPBlocks.ENERGIZER, EnergizerBlockEntity::new);
 
     public static final BlockEntityType<ChargingStationBlockEntity> CHARGING_STATION_ENTITY = createBlockEntity("charging_station",
             EPBlocks.CHARGING_STATION, ChargingStationBlockEntity::new);
@@ -956,10 +946,10 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::getEnergyStorageCapability);
@@ -985,10 +975,10 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ENERGIZER_ENTITY, EnergizerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ENERGIZER_ENTITY, EnergizerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ENERGIZER_ENTITY, EnergizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZER_ENTITY, EnergizerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CHARGING_STATION_ENTITY, ChargingStationBlockEntity::getEnergyStorageCapability);
