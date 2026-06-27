@@ -1,23 +1,30 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.LegacySelectableRecipeMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AutoStonecutterMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 public class AutoStonecutterBlockEntity
-        extends LegacySelectableRecipeMachineBlockEntity<SingleRecipeInput, StonecutterRecipe> {
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
+        extends SelectableRecipeMachineBlockEntity<SingleRecipeInput, StonecutterRecipe> {
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
 
     public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -43,40 +50,53 @@ public class AutoStonecutterBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
                     case 1 -> stack.is(ItemTags.PICKAXES);
                     case 2 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }
 
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
+    }
+
     @Override
     protected void craftItem(RecipeHolder<StonecutterRecipe> recipe) {
-        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverWorld))
+        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverLevel))
             return;
 
-        ItemStack pickaxe = itemHandler.getItem(1).copy();
+        ItemStack pickaxe = itemHandler.getStackInSlot(1).copy();
         if(pickaxe.isEmpty() && !pickaxe.is(ItemTags.PICKAXES))
             return;
 
-        pickaxe.hurtAndBreak(1, serverWorld, null, item -> pickaxe.setCount(0));
-        itemHandler.setItem(1, pickaxe);
+        pickaxe.hurtAndBreak(1, serverLevel, null, item -> pickaxe.setCount(0));
+        itemHandler.setStackInSlot(1, pickaxe);
 
-        itemHandler.removeItem(0, 1);
-        itemHandler.setItem(2, recipe.value().getResultItem(level.registryAccess()).
-                copyWithCount(itemHandler.getItem(2).getCount() +
+        itemHandler.extractItem(0, 1);
+        itemHandler.setStackInSlot(2, recipe.value().getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getStackInSlot(2).getCount() +
                         recipe.value().getResultItem(level.registryAccess()).getCount()));
 
         resetProgress();
@@ -86,7 +106,7 @@ public class AutoStonecutterBlockEntity
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StonecutterRecipe> recipe) {
         return level != null &&
                 recipe.value().matches(new SingleRecipeInput(inventory.getItem(0)), level) &&
-                itemHandler.getItem(1).is(ItemTags.PICKAXES) &&
+                itemHandler.getStackInSlot(1).is(ItemTags.PICKAXES) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().getResultItem(level.registryAccess()));
     }
 }

@@ -33,7 +33,7 @@ import java.util.Optional;
 public abstract class LegacySelectableRecipeMachineBlockEntity<C extends RecipeInput, R extends Recipe<C>>
         extends LegacyWorkerMachineBlockEntity<RecipeHolder<R>>
         implements ChangeCurrentRecipeIndexPacketUpdate, CurrentRecipePacketUpdate<R>, SetCurrentRecipeIdPacketUpdate {
-    protected final UpgradableMenuProvider menuProvider;
+    protected final LegacyUpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
     protected final RecipeSerializer<R> recipeSerializer;
@@ -42,7 +42,7 @@ public abstract class LegacySelectableRecipeMachineBlockEntity<C extends RecipeI
     protected RecipeHolder<R> currentRecipe;
 
     public LegacySelectableRecipeMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                    String machineName, UpgradableMenuProvider menuProvider,
+                                                    String machineName, LegacyUpgradableMenuProvider menuProvider,
                                                     int slotCount, RecipeType<R> recipeType, RecipeSerializer<R> recipeSerializer,
                                                     int baseRecipeDuration,
                                                     long baseEnergyCapacity, long baseEnergyTransferRate, long baseEnergyConsumptionPerTick,

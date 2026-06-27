@@ -256,21 +256,11 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<AutoPressMoldMakerBlockEntity> AUTO_PRESS_MOLD_MAKER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("auto_press_mold_maker", EPBlocks.AUTO_PRESS_MOLD_MAKER, AutoPressMoldMakerBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AutoPressMoldMakerBlockEntity> AUTO_PRESS_MOLD_MAKER_ENTITY = createBlockEntity("auto_press_mold_maker",
+            EPBlocks.AUTO_PRESS_MOLD_MAKER, AutoPressMoldMakerBlockEntity::new);
 
-    public static final BlockEntityType<AutoStonecutterBlockEntity> AUTO_STONECUTTER_ENTITY = registerEnergyStorage(
-            registerInventoryStorage(
-                    createBlockEntity("auto_stonecutter", EPBlocks.AUTO_STONECUTTER, AutoStonecutterBlockEntity::new),
-                    (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AutoStonecutterBlockEntity> AUTO_STONECUTTER_ENTITY = createBlockEntity("auto_stonecutter",
+            EPBlocks.AUTO_STONECUTTER, AutoStonecutterBlockEntity::new);
 
     public static final BlockEntityType<PlantGrowthChamberBlockEntity> PLANT_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
@@ -714,15 +704,15 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        METAL_PRESS_ENTITY, MetalPressBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getItemHandlerCapability);
