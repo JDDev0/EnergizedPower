@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 public abstract class WorkerFluidMachineBlockEntity<F extends Storage<FluidVariant>, W>
-        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
+        extends ConfigurableUpgradableLegacyItemContainerFluidEnergyStorageBlockEntity
         <EnergizedPowerEnergyStorage, SimpleContainer, F> {
     protected final long baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;

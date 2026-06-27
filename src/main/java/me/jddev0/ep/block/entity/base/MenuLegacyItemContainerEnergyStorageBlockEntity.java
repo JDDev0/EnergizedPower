@@ -11,18 +11,18 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuInventoryEnergyStorageBlockEntity
+public abstract class MenuLegacyItemContainerEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
-        extends InventoryEnergyStorageBlockEntity<E, I>
+        extends LegacyItemContainerEnergyStorageBlockEntity<E, I>
         implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuInventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                       String machineName,
-                                       long baseEnergyCapacity, long baseEnergyTransferRate,
-                                       int slotCount) {
+    public MenuLegacyItemContainerEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                           String machineName,
+                                                           long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                           int slotCount) {
         super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
 
         this.machineName = machineName;

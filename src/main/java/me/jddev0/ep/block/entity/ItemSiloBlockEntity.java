@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.MenuItemStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.SingleItemStackHandler;
 import me.jddev0.ep.inventory.data.LongValueContainerData;
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemSiloBlockEntity
-        extends MenuItemStorageBlockEntity<SingleItemStackHandler> {
+        extends MenuLegacyItemContainerStorageBlockEntity<SingleItemStackHandler> {
     private final ItemSiloTier tier;
 
     public ItemSiloBlockEntity(BlockPos blockPos, BlockState blockState, ItemSiloTier tier) {

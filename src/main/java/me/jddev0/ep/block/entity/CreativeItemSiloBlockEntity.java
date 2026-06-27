@@ -1,6 +1,6 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.MenuItemStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.MenuLegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.inventory.InfiniteSingleItemStackHandler;
 import me.jddev0.ep.screen.CreativeItemSiloMenu;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CreativeItemSiloBlockEntity
-        extends MenuItemStorageBlockEntity<InfiniteSingleItemStackHandler> {
+        extends MenuLegacyItemContainerStorageBlockEntity<InfiniteSingleItemStackHandler> {
 
     public CreativeItemSiloBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

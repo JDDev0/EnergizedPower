@@ -1,27 +1,33 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuItemStorageBlockEntity<I extends Storage<ItemVariant>>
-        extends ItemStorageBlockEntity<I>
+public abstract class MenuLegacyItemContainerFluidEnergyStorageBlockEntity
+        <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
+        extends LegacyItemContainerFluidEnergyStorageBlockEntity<E, I, F>
         implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuItemStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                      String machineName,
-                                      int slotCount) {
-        super(type, blockPos, blockState, slotCount);
+    public MenuLegacyItemContainerFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                String machineName,
+                                                                long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                                int slotCount,
+                                                                FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
+        super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
+                baseTankCapacity);
 
         this.machineName = machineName;
 

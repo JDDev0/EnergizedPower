@@ -11,13 +11,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ItemStorageBlockEntity<I extends Storage<ItemVariant>>
+public abstract class LegacyItemStorageBlockEntity<I extends Storage<ItemVariant>>
         extends BlockEntity {
     protected final int slotCount;
     protected final I itemHandler;
 
-    public ItemStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                  int slotCount) {
+    public LegacyItemStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                        int slotCount) {
         super(type, blockPos, blockState);
 
         this.slotCount = slotCount;

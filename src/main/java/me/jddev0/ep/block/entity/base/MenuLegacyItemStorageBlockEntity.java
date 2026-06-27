@@ -10,16 +10,16 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public abstract class MenuInventoryStorageBlockEntity<I extends SimpleContainer>
-        extends InventoryStorageBlockEntity<I>
+public abstract class MenuLegacyItemStorageBlockEntity<I extends SimpleContainer>
+        extends LegacyItemContainerStorageBlockEntity<I>
         implements ExtendedScreenHandlerFactory<BlockPos> {
     protected final String machineName;
 
     protected final ContainerData data;
 
-    public MenuInventoryStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                      String machineName,
-                                                      int slotCount) {
+    public MenuLegacyItemStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                            String machineName,
+                                            int slotCount) {
         super(type, blockPos, blockState, slotCount);
 
         this.machineName = machineName;

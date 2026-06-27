@@ -13,14 +13,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class InventoryStorageBlockEntity<I extends SimpleContainer>
+public abstract class LegacyItemContainerStorageBlockEntity<I extends SimpleContainer>
         extends BlockEntity
         implements ItemDrop {
     protected final int slotCount;
     protected final I itemHandler;
 
-    public InventoryStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                       int slotCount) {
+    public LegacyItemContainerStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                 int slotCount) {
         super(type, blockPos, blockState);
 
         this.slotCount = slotCount;

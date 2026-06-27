@@ -14,9 +14,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class InventoryFluidEnergyStorageBlockEntity
+public abstract class LegacyItemContainerFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
-        extends InventoryEnergyStorageBlockEntity<E, I>
+        extends LegacyItemContainerEnergyStorageBlockEntity<E, I>
         implements FluidStoragePacketUpdate {
     protected final FluidStorageMethods<F> fluidStorageMethods;
 
@@ -24,10 +24,10 @@ public abstract class InventoryFluidEnergyStorageBlockEntity
 
     protected final long baseTankCapacity;
 
-    public InventoryFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                  long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                  int slotCount,
-                                                  FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
+    public LegacyItemContainerFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                            long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                            int slotCount,
+                                                            FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity) {
         super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate, slotCount);
 
         this.fluidStorageMethods = fluidStorageMethods;

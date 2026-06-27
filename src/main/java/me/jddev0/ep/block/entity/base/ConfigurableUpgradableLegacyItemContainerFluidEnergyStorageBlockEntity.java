@@ -17,20 +17,20 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
+public abstract class ConfigurableUpgradableLegacyItemContainerFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
-        extends UpgradableInventoryFluidEnergyStorageBlockEntity<E, I, F>
+        extends UpgradableLegacyItemContainerFluidEnergyStorageBlockEntity<E, I, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
         RedstoneOutput {
     protected @NotNull RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     protected @NotNull ComparatorMode comparatorMode = ComparatorMode.ITEM;
 
-    public ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                                        String machineName,
-                                                                        long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                                        int slotCount,
-                                                                        FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                                        UpgradeModuleModifier... upgradeModifierSlots) {
+    public ConfigurableUpgradableLegacyItemContainerFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                                  String machineName,
+                                                                                  long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                                                  int slotCount,
+                                                                                  FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
+                                                                                  UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
                 baseTankCapacity, upgradeModifierSlots);
     }

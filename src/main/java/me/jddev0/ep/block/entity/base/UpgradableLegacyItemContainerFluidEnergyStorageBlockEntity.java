@@ -16,18 +16,18 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class UpgradableInventoryFluidEnergyStorageBlockEntity
+public abstract class UpgradableLegacyItemContainerFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer, F extends Storage<FluidVariant>>
-        extends MenuInventoryFluidEnergyStorageBlockEntity<E, I, F> {
+        extends MenuLegacyItemContainerFluidEnergyStorageBlockEntity<E, I, F> {
     protected final UpgradeModuleInventory upgradeModuleInventory;
     protected final ContainerListener updateUpgradeModuleListener = container -> updateUpgradeModules();
 
-    public UpgradableInventoryFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                                            String machineName,
-                                                            long baseEnergyCapacity, long baseEnergyTransferRate,
-                                                            int slotCount,
-                                                            FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
-                                                            UpgradeModuleModifier... upgradeModifierSlots) {
+    public UpgradableLegacyItemContainerFluidEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                                      String machineName,
+                                                                      long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                                      int slotCount,
+                                                                      FluidStorageMethods<F> fluidStorageMethods, long baseTankCapacity,
+                                                                      UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, fluidStorageMethods,
                 baseTankCapacity);
 

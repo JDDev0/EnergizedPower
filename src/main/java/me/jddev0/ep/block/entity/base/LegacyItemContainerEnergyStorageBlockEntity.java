@@ -20,16 +20,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class InventoryEnergyStorageBlockEntity
+public abstract class LegacyItemContainerEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, I extends SimpleContainer>
         extends EnergyStorageBlockEntity<E>
         implements ItemDrop {
     protected final int slotCount;
     protected final I itemHandler;
 
-    public InventoryEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
-                                             long baseEnergyCapacity, long baseEnergyTransferRate,
-                                             int slotCount) {
+    public LegacyItemContainerEnergyStorageBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                                       long baseEnergyCapacity, long baseEnergyTransferRate,
+                                                       int slotCount) {
         super(type, blockPos, blockState, baseEnergyCapacity, baseEnergyTransferRate);
 
         this.slotCount = slotCount;
