@@ -4,7 +4,7 @@ import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltLoaderBlock;
 import me.jddev0.ep.block.entity.base.MenuLegacyItemStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.screen.ItemConveyorBeltLoaderMenu;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
@@ -28,7 +28,7 @@ public class ItemConveyorBeltLoaderBlockEntity
         extends MenuLegacyItemStorageBlockEntity<SimpleContainer> {
     private final int ticksPerItem;
 
-    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
+    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
 
     private final ConveyorBeltTier tier;
 

@@ -3,7 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.InductionSmelterBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -26,10 +26,10 @@ import java.util.Arrays;
 public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AlloyFurnaceRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final InputOutputItemHandler itemHandlerSidedFrontTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i > 2 && i < 5);
-    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 2 && i < 5);
-    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 2 && i < 5);
-    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i > 2 && i < 5);
+    private final LegacyInputOutputItemHandler itemHandlerSidedFrontTopBottom = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i > 2 && i < 5);
+    private final LegacyInputOutputItemHandler itemHandlerSidedBack = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 2 && i < 5);
+    private final LegacyInputOutputItemHandler itemHandlerSidedLeft = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 2 && i < 5);
+    private final LegacyInputOutputItemHandler itemHandlerSidedRight = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i > 2 && i < 5);
 
     public InductionSmelterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(

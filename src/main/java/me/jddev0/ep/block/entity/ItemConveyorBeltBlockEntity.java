@@ -4,7 +4,7 @@ import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.entity.base.LegacyItemContainerStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.ItemStackPacketUpdate;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import me.jddev0.ep.networking.ModMessages;
@@ -29,8 +29,8 @@ public class ItemConveyorBeltBlockEntity
         implements ItemStackPacketUpdate {
     private final int ticksPerStep;
 
-    final InputOutputItemHandler itemHandlerFrontSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
-    final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
+    final LegacyInputOutputItemHandler itemHandlerFrontSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
+    final LegacyInputOutputItemHandler itemHandlerOthersSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 3);
 
     private final ConveyorBeltTier tier;
 

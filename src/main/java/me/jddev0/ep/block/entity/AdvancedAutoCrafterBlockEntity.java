@@ -8,7 +8,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -52,7 +52,7 @@ public class AdvancedAutoCrafterBlockEntity
     private boolean secondaryExtractMode = false;
     private boolean allowOutputOverflow = true;
 
-    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
+    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
             i -> secondaryExtractMode?!isInput(itemHandler.getItem(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getItem(i)));
 
     private final SimpleContainer[] patternSlots = new SimpleContainer[] {

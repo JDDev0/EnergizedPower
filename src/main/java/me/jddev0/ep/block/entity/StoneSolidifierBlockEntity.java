@@ -4,7 +4,7 @@ import me.jddev0.ep.block.entity.base.FluidStorageMultiTankMethods;
 import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
@@ -28,7 +28,7 @@ public class StoneSolidifierBlockEntity
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 *
             ModConfigs.COMMON_STONE_SOLIDIFIER_TANK_CAPACITY.getValue());
 
-    final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> false, i -> i == 0);
+    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> false, i -> i == 0);
 
     public StoneSolidifierBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
