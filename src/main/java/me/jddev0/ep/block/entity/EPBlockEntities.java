@@ -187,30 +187,14 @@ public final class EPBlockEntities {
     public static final BlockEntityType<CrusherBlockEntity> CRUSHER_ENTITY = createBlockEntity("crusher",
             EPBlocks.CRUSHER, CrusherBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedCrusherBlockEntity> ADVANCED_CRUSHER_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("advanced_crusher", EPBlocks.ADVANCED_CRUSHER, AdvancedCrusherBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedCrusherBlockEntity> ADVANCED_CRUSHER_ENTITY = createBlockEntity("advanced_crusher",
+            EPBlocks.ADVANCED_CRUSHER, AdvancedCrusherBlockEntity::new);
 
     public static final BlockEntityType<PulverizerBlockEntity> PULVERIZER_ENTITY = createBlockEntity("pulverizer",
             EPBlocks.PULVERIZER, PulverizerBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedPulverizerBlockEntity> ADVANCED_PULVERIZER_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("advanced_pulverizer", EPBlocks.ADVANCED_PULVERIZER, AdvancedPulverizerBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<AdvancedPulverizerBlockEntity> ADVANCED_PULVERIZER_ENTITY = createBlockEntity("advanced_pulverizer",
+            EPBlocks.ADVANCED_PULVERIZER, AdvancedPulverizerBlockEntity::new);
 
     public static final BlockEntityType<SawmillBlockEntity> SAWMILL_ENTITY = createBlockEntity("sawmill",
             EPBlocks.SAWMILL, SawmillBlockEntity::new);
@@ -557,24 +541,24 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CRUSHER_ENTITY, CrusherBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 PULVERIZER_ENTITY, PulverizerBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 PULVERIZER_ENTITY, PulverizerBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 SAWMILL_ENTITY, SawmillBlockEntity::getItemHandlerCapability);
