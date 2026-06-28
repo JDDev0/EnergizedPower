@@ -250,16 +250,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<InductionSmelterBlockEntity> INDUCTION_SMELTER_ENTITY = createBlockEntity("induction_smelter",
             EPBlocks.INDUCTION_SMELTER, InductionSmelterBlockEntity::new);
 
-    public static final BlockEntityType<FluidFreezerBlockEntity> FLUID_FREEZER_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("fluid_freezer", EPBlocks.FLUID_FREEZER, FluidFreezerBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<FluidFreezerBlockEntity> FLUID_FREEZER_ENTITY = createBlockEntity("fluid_freezer",
+            EPBlocks.FLUID_FREEZER, FluidFreezerBlockEntity::new);
 
     public static final BlockEntityType<StoneLiquefierBlockEntity> STONE_LIQUEFIER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
@@ -272,27 +264,11 @@ public final class EPBlockEntities {
             (blockEntity, direction) -> blockEntity.limitingEnergyStorage
     );
 
-    public static final BlockEntityType<StoneSolidifierBlockEntity> STONE_SOLIDIFIER_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("stone_solidifier", EPBlocks.STONE_SOLIDIFIER, StoneSolidifierBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<StoneSolidifierBlockEntity> STONE_SOLIDIFIER_ENTITY = createBlockEntity("stone_solidifier",
+            EPBlocks.STONE_SOLIDIFIER, StoneSolidifierBlockEntity::new);
 
-    public static final BlockEntityType<FiltrationPlantBlockEntity> FILTRATION_PLANT_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("filtration_plant", EPBlocks.FILTRATION_PLANT, FiltrationPlantBlockEntity::new),
-                            (blockEntity, side) -> blockEntity.itemHandlerSided.apply(side)
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<FiltrationPlantBlockEntity> FILTRATION_PLANT_ENTITY = createBlockEntity("filtration_plant",
+            EPBlocks.FILTRATION_PLANT, FiltrationPlantBlockEntity::new);
 
     public static final BlockEntityType<FluidTransposerBlockEntity> FLUID_TRANSPOSER_ENTITY = registerEnergyStorage(
             registerFluidStorage(
@@ -647,12 +623,12 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        STONE_LIQUEFIER_ENTITY, StoneLiquefierBlockEntity::getItemHandlerCapability);
@@ -661,19 +637,19 @@ public final class EPBlockEntities {
         //event.registerBlockEntity(Capabilities.Energy.BLOCK,
         //        STONE_LIQUEFIER_ENTITY, StoneLiquefierBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getEnergyStorageCapability);
 
         //event.registerBlockEntity(Capabilities.Item.BLOCK,
         //        FLUID_TRANSPOSER_ENTITY, FluidTransposerBlockEntity::getItemHandlerCapability);

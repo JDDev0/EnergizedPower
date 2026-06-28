@@ -3,7 +3,8 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidFreezerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.inventory.ConstraintInsertSlot;
+import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
+import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -16,8 +17,6 @@ import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
@@ -38,15 +37,7 @@ public class FluidFreezerMenu extends UpgradableEnergyStorageMenu<FluidFreezerBl
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
     public FluidFreezerMenu(int id, Inventory inv, BlockPos pos) {
-        this(id, inv.player.level().getBlockEntity(pos), inv, new SimpleContainer(1) {
-            @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
-                if(slot == 0)
-                    return false;
-
-                return super.canPlaceItem(slot, stack);
-            }
-        }, new UpgradeModuleInventory(
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
@@ -54,24 +45,24 @@ public class FluidFreezerMenu extends UpgradableEnergyStorageMenu<FluidFreezerBl
         ), null);
     }
 
-    public FluidFreezerMenu(int id, BlockEntity blockEntity, Inventory playerInventory, Container inv,
-                               UpgradeModuleInventory upgradeModuleInventory, ContainerData data) {
+    public FluidFreezerMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
+                            ContainerData data) {
         super(
                 EPMenuTypes.FLUID_FREEZER_MENU, id,
 
-                playerInventory, blockEntity,
+                inv, blockEntity,
                 EPBlocks.FLUID_FREEZER,
 
                 upgradeModuleInventory, 4
         );
 
-        checkContainerSize(inv, 1);
-
-        addSlot(new ConstraintInsertSlot(inv, 0, 134, 44) {
-            @Override
-            public boolean isActive() {
+        ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
+            addSlot(new ResourceHandlerSlot(itemHandler, itemHandler::set, 0, 134, 44) {
+                @Override
+                public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
+            });
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
