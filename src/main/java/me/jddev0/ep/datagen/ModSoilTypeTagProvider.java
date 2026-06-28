@@ -37,11 +37,16 @@ public class ModSoilTypeTagProvider extends FabricTagsProvider<SoilType> {
 
         builder(EPSoilTypeTags.WATER_CROPS).
                 add(EPSoilTypes.DIRT,
+                        EPSoilTypes.CLAY,
                         EPSoilTypes.SAND,
                         EPSoilTypes.GRAVEL);
 
         builder(EPSoilTypeTags.DESERT_CROPS).
                 add(EPSoilTypes.SAND);
+
+        builder(EPSoilTypeTags.NETHER_FLOWERS).
+                add(EPSoilTypes.NETHERRACK,
+                        EPSoilTypes.NYLIUM);
 
         builder(EPSoilTypeTags.NETHER_CROPS).
                 add(EPSoilTypes.SOUL_SAND);
