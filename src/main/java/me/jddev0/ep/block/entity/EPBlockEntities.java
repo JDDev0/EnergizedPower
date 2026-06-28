@@ -211,19 +211,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AutoStonecutterBlockEntity> AUTO_STONECUTTER_ENTITY = createBlockEntity("auto_stonecutter",
             EPBlocks.AUTO_STONECUTTER, AutoStonecutterBlockEntity::new);
 
-    public static final BlockEntityType<PlantGrowthChamberBlockEntity> PLANT_GROWTH_CHAMBER_ENTITY = registerEnergyStorage(
-            registerFluidStorage(
-                    registerInventoryStorage(
-                            createBlockEntity("plant_growth_chamber", EPBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new),
-                            (blockEntity, side) -> side == Direction.UP?
-                                    blockEntity.itemHandlerTopSided.apply(side):(side == Direction.DOWN?
-                                    blockEntity.itemHandlerBottomSided.apply(side):
-                                    blockEntity.itemHandlerSidesSided.apply(side))
-                    ),
-                    (blockEntity, direction) -> blockEntity.fluidStorage
-            ),
-            (blockEntity, direction) -> blockEntity.limitingEnergyStorage
-    );
+    public static final BlockEntityType<PlantGrowthChamberBlockEntity> PLANT_GROWTH_CHAMBER_ENTITY = createBlockEntity("plant_growth_chamber",
+            EPBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new);
 
     public static final BlockEntityType<BlockPlacerBlockEntity> BLOCK_PLACER_ENTITY = createBlockEntity("block_placer",
             EPBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new);
@@ -415,23 +404,9 @@ public final class EPBlockEntities {
     }
 
     @Deprecated
-    private static <T extends BlockEntity> BlockEntityType<T> registerInventoryStorage(BlockEntityType<T> blockEntityType,
-           BiFunction<? super T, Direction, @Nullable Storage<ItemVariant>> provider) {
-        ItemStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
-        return blockEntityType;
-    }
-
-    @Deprecated
     private static <T extends BlockEntity> BlockEntityType<T> registerFluidStorage(BlockEntityType<T> blockEntityType, BiFunction<? super T,
             Direction, @Nullable Storage<FluidVariant>> provider) {
         FluidStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
-        return blockEntityType;
-    }
-
-    @Deprecated
-    private static <T extends BlockEntity> BlockEntityType<T> registerEnergyStorage(BlockEntityType<T> blockEntityType,
-            BiFunction<? super T, Direction, @Nullable EnergyStorage> provider) {
-        EnergyStorage.SIDED.registerForBlockEntity(provider, blockEntityType);
         return blockEntityType;
     }
 
@@ -569,12 +544,12 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getEnergyStorageCapability);
 
-        //event.registerBlockEntity(Capabilities.Item.BLOCK,
-        //        PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getItemHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Fluid.BLOCK,
-        //        PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getFluidHandlerCapability);
-        //event.registerBlockEntity(Capabilities.Energy.BLOCK,
-        //        PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getItemHandlerCapability);

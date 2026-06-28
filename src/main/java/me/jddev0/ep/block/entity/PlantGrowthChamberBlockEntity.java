@@ -1,11 +1,11 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.LegacySimpleRecipeFluidMachineBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
@@ -16,32 +16,38 @@ import me.jddev0.ep.screen.PlantGrowthChamberMenu;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachineBlockEntity<SimpleFluidStorage, RecipeInput, PlantGrowthChamberRecipe> {
+public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, PlantGrowthChamberRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_RECIPE_DURATION_MULTIPLIER.getValue();
     public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 *
             ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_TANK_CAPACITY.getValue());
     public static final double FLUID_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER.getValue();
 
-    final LegacyInputOutputItemHandler itemHandlerSidesSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
-    final LegacyInputOutputItemHandler itemHandlerTopSided = new LegacyInputOutputItemHandler(itemHandler,
+    private final InputOutputItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
+    private final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler,
             (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 7);
-    final LegacyInputOutputItemHandler itemHandlerBottomSided = new LegacyInputOutputItemHandler(itemHandler,
+    private final InputOutputItemHandler itemHandlerBottomSided = new InputOutputItemHandler(itemHandler,
             (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 6);
 
     private double leftoverFluidConsumption = 0;
@@ -61,7 +67,6 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 TANK_CAPACITY,
 
                 UpgradeModuleModifier.SPEED,
@@ -73,62 +78,86 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant resource) {
+                ItemStack stack = resource.toStack();
+
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberRecipe.Type.INSTANCE, stack);
                     case 1 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
                     case 6 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberSoilRecipe.Type.INSTANCE, stack);
                     case 2, 3, 4, 5 -> false;
-                    default -> super.canPlaceItem(slot, stack);
+                    default -> super.isValid(slot, resource);
                 };
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0 || slot == 6) {
-                    ItemStack itemStack = getItem(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() &&
-                            !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
+                            !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
+                setChanged();
             }
 
             @Override
-            public void setChanged() {
-                super.setChanged();
+            public long getCapacity(int index, ItemVariant resource) {
+                if(index == 6)
+                    return 1;
 
-                PlantGrowthChamberBlockEntity.this.setChanged();
+                return super.getCapacity(index, resource);
             }
         };
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }
 
-            private boolean isFluidValid(FluidVariant variant) {
+            @Override
+            public boolean isValid(int index, FluidVariant resource) {
+                if(!super.isValid(index, resource) || level == null)
+                    return false;
+
                 return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
                         map(PlantGrowthChamberRecipe::getFluid).
-                        anyMatch(fluids -> Arrays.stream(fluids).anyMatch(variant::isOf));
-            }
-
-            @Override
-            protected boolean canInsert(FluidVariant variant) {
-                return isFluidValid(variant);
+                        anyMatch(fluids -> Arrays.stream(fluids).anyMatch(resource::isOf));
             }
         };
     }
 
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        if(side == Direction.UP)
+            return itemHandlerTopSided;
+
+        if(side == Direction.DOWN)
+            return itemHandlerBottomSided;
+
+        return itemHandlerSidesSided;
+    }
+
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        return fluidStorage;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
+    }
+
+    @Override
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
 
@@ -152,7 +181,11 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
 
     @Override
     protected double getRecipeDependentRecipeDuration(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(itemHandler);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
         if(soilRecipe.isEmpty())
             return 1.0;
 
@@ -161,7 +194,11 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
 
     @Override
     protected double getRecipeDependentEnergyConsumption(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(itemHandler);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
         if(soilRecipe.isEmpty())
             return 1.0;
 
@@ -184,15 +221,19 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
         if(level == null)
             return;
 
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
         Optional<RecipeHolder<PlantGrowthChamberFertilizerRecipe>> fertilizerRecipe = level.getRecipeManager().
-                getRecipeFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(itemHandler), level);
+                getRecipeFor(PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
 
         if(fertilizerRecipe.isPresent()) {
             fertilizerSpeedMultiplier = fertilizerRecipe.get().value().getSpeedMultiplier();
             fertilizerEnergyConsumptionMultiplier = fertilizerRecipe.get().value().getEnergyConsumptionMultiplier();
             fertilizerFluidConsumptionMultiplier = fertilizerRecipe.get().value().getFluidConsumptionMultiplier();
 
-            itemHandler.removeItem(1, 1);
+            itemHandler.extractItem(1, 1);
         }
     }
 
@@ -200,7 +241,11 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
     protected void onCraftingTicked(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         super.onCraftingTicked(recipe);
 
-        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(itemHandler);
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < itemHandler.size();i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i));
+
+        Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
         if(soilRecipe.isEmpty())
             return;
 
@@ -214,7 +259,7 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
         leftoverFluidConsumption -= fluidConsumptionThisTick;
 
         //Fluid is always valid, so just use fluid which is in tank
-        FluidStack fluid = new FluidStack(fluidStorage.getFluid().getFluid(), FluidUtils.convertMilliBucketsToDroplets(fluidConsumptionThisTick));
+        FluidStack fluid = new FluidStack(fluidStorage.getFluid(0).getFluid(), FluidUtils.convertMilliBucketsToDroplets(fluidConsumptionThisTick));
         if(fluid.isEmpty()) {
             return;
         }
@@ -227,7 +272,7 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
     }
 
     @Override
-    protected RecipeInput getRecipeInput(SimpleContainer inventory) {
+    protected RecipeInput getRecipeInput(Container inventory) {
         return new ContainerRecipeInputWrapper(inventory);
     }
 
@@ -236,7 +281,7 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
         if(level == null || !hasRecipe())
             return;
 
-        itemHandler.removeItem(0, 1);
+        itemHandler.extractItem(0, 1);
 
         List<ItemStack> itemStacksInsert = new ArrayList<>(Arrays.asList(recipe.value().generateOutputs(level.random)));
 
@@ -246,8 +291,8 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
             if(itemStack.isEmpty())
                 continue;
 
-            for(int i = 2;i < itemHandler.getContainerSize();i++) {
-                ItemStack testItemStack = itemHandler.getItem(i);
+            for(int i = 2;i < itemHandler.size();i++) {
+                ItemStack testItemStack = itemHandler.getStackInSlot(i);
                 if(emptyIndices.contains(i))
                     continue;
 
@@ -260,7 +305,7 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
                 if(ItemStack.isSameItemSameComponents(itemStack, testItemStack)) {
                     int amount = Math.min(itemStack.getCount(), testItemStack.getMaxStackSize() - testItemStack.getCount());
                     if(amount > 0) {
-                        itemHandler.setItem(i, itemHandler.getItem(i).
+                        itemHandler.setStackInSlot(i, itemHandler.getStackInSlot(i).
                                 copyWithCount(testItemStack.getCount() + amount));
 
                         itemStack.setCount(itemStack.getCount() - amount);
@@ -275,7 +320,7 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
             if(emptyIndices.isEmpty())
                 continue; //Excess items will be vanished
 
-            itemHandler.setItem(emptyIndices.remove(0), itemStack);
+            itemHandler.setStackInSlot(emptyIndices.remove(0), itemStack);
         }
 
         resetProgress();
@@ -288,10 +333,10 @@ public class PlantGrowthChamberBlockEntity extends LegacySimpleRecipeFluidMachin
             return false;
 
         return level != null &&
-                fluidStorage.getFluid().getDropletsAmount() >= FluidUtils.convertMilliBucketsToDroplets((long)Math.ceil(leftoverFluidConsumption +
+                fluidStorage.getAmount(0) >= (int)Math.ceil(leftoverFluidConsumption +
                         recipe.value().getFluidConsumption() * soilRecipe.get().value().getFluidConsumptionMultiplier() *
-                                fertilizerFluidConsumptionMultiplier * FLUID_CONSUMPTION_MULTIPLIER)) &&
-                Arrays.stream(recipe.value().getFluid()).anyMatch(fluid -> fluidStorage.getFluid().getFluid() == fluid) &&
+                                fertilizerFluidConsumptionMultiplier * FLUID_CONSUMPTION_MULTIPLIER) &&
+                Arrays.stream(recipe.value().getFluid()).anyMatch(fluid -> fluidStorage.getFluid(0).getFluid() == fluid) &&
                 canInsertItemsIntoOutputSlots(inventory, new ArrayList<>(Arrays.asList(recipe.value().getMaxOutputCounts())));
     }
 
