@@ -73,7 +73,7 @@ public class WeatherControllerMenu extends UpgradableEnergyStorageMenu<WeatherCo
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, player, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 1) {

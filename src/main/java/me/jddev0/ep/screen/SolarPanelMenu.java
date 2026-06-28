@@ -68,7 +68,7 @@ public class SolarPanelMenu extends UpgradableEnergyStorageMenu<SolarPanelBlockE
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9, 4 * 9 + 3, player, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
             }
         }else if(index < 4 * 9 + 3) {
