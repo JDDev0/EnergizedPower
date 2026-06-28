@@ -8,7 +8,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class UpgradeModuleItem extends Item {
@@ -28,6 +27,13 @@ public abstract class UpgradeModuleItem extends Item {
 
     public int getUpgradeModuleTier() {
         return tier;
+    }
+
+    /**
+     * @return if true, the tier value of this item is not checked when swapping upgrade module items with another one
+     */
+    public boolean shouldIgnoreTierValueForItemSwapping() {
+        return false;
     }
 
     public abstract @NotNull UpgradeModuleModifier @NotNull [] getUpgradeModuleModifiers();

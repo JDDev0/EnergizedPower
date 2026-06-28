@@ -198,7 +198,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 6, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 6, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
                 //"+3" instead of "+6": Do not allow adding to output slots
                 return ItemStack.EMPTY;

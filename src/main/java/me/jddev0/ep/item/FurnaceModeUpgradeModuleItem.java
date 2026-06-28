@@ -16,6 +16,11 @@ public class FurnaceModeUpgradeModuleItem extends UpgradeModuleItem {
     }
 
     @Override
+    public boolean shouldIgnoreTierValueForItemSwapping() {
+        return true;
+    }
+
+    @Override
     public @NotNull UpgradeModuleModifier @NotNull [] getUpgradeModuleModifiers() {
         return UPGRADE_MODULE_MODIFIERS;
     }
