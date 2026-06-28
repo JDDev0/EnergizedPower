@@ -1,11 +1,12 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.FluidStorageSingleTankMethods;
-import me.jddev0.ep.block.entity.base.LegacyWorkerFluidMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.fluid.SimpleFluidStorage;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
-import me.jddev0.ep.inventory.LegacyInputOutputItemHandler;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidPumpMenu;
@@ -14,13 +15,14 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -34,12 +36,13 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 
 import java.util.Iterator;
 import java.util.Optional;
 
 public class FluidPumpBlockEntity
-        extends LegacyWorkerFluidMachineBlockEntity<SimpleFluidStorage, BlockPos> {
+        extends WorkerFluidMachineBlockEntity<BlockPos> {
     public static final int NEXT_BLOCK_COOLDOWN = ModConfigs.COMMON_FLUID_PUMP_NEXT_BLOCK_COOLDOWN.getValue();
     public static final int EXTRACTION_DURATION = ModConfigs.COMMON_FLUID_PUMP_EXTRACTION_DURATION.getValue();
 
@@ -51,7 +54,8 @@ public class FluidPumpBlockEntity
     private int zOffset = -1;
     private boolean extractingFluid = false;
 
-    final LegacyInputOutputItemHandler itemHandlerSided = new LegacyInputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     public FluidPumpBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -65,7 +69,6 @@ public class FluidPumpBlockEntity
                 ModConfigs.COMMON_FLUID_PUMP_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_FLUID_PUMP_CONSUMPTION_PER_TICK.getValue(),
 
-                FluidStorageSingleTankMethods.INSTANCE,
                 FluidUtils.convertMilliBucketsToDroplets(ModConfigs.COMMON_FLUID_PUMP_FLUID_TANK_CAPACITY.getValue() * 1000),
 
                 UpgradeModuleModifier.SPEED,
@@ -78,40 +81,33 @@ public class FluidPumpBlockEntity
     }
 
     @Override
-    protected SimpleContainer initInventoryStorage() {
-        return new SimpleContainer(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean canPlaceItem(int slot, ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemVariant stack) {
                 if(slot == 0) {
-                    return stack.is(Items.COBBLESTONE);
+                    return stack.isOf(Items.COBBLESTONE);
                 }
 
-                return super.canPlaceItem(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override
-            public void setItem(int slot, ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getItem(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setItem(slot, stack);
-            }
-
-            @Override
-            public void setChanged() {
-                super.setChanged();
-
-                FluidPumpBlockEntity.this.setChanged();
+                setChanged();
             }
         };
     }
 
     @Override
-    protected SimpleFluidStorage initFluidStorage() {
-        return new SimpleFluidStorage(baseTankCapacity) {
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
             @Override
             protected void onFinalCommit() {
                 setChanged();
@@ -143,7 +139,25 @@ public class FluidPumpBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
 
-        return new FluidPumpMenu(id, this, inventory, itemHandler, upgradeModuleInventory, this.data);
+        return new FluidPumpMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
+    }
+
+    public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -180,7 +194,7 @@ public class FluidPumpBlockEntity
 
     @Override
     protected boolean hasWork() {
-        return yOffset != 0 && itemHandler.getItem(0).is(Items.COBBLESTONE);
+        return yOffset != 0 && itemHandler.getStackInSlot(0).is(Items.COBBLESTONE);
     }
 
     @Override
@@ -236,7 +250,7 @@ public class FluidPumpBlockEntity
 
                                 BlockState newTargetState = level.getBlockState(targetPos);
                                 if(newTargetState.isAir() || newTargetState.canBeReplaced()) {
-                                    itemHandler.removeItem(0, 1);
+                                    itemHandler.extractItem(0, 1);
 
                                     level.setBlock(targetPos, Blocks.COBBLESTONE.defaultBlockState(), 3);
                                 }
