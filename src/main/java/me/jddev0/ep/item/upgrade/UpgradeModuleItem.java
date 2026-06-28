@@ -1,11 +1,18 @@
 package me.jddev0.ep.item.upgrade;
 
+import me.jddev0.ep.machine.upgrade.IUpgradableMachine;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -50,5 +57,31 @@ public abstract class UpgradeModuleItem extends Item {
             tooltip.accept(Component.translatable("tooltip.energizedpower.upgrade.value",
                     Component.translatable("tooltip.energizedpower.upgrade_module_modifier." + modifier.getSerializedName()),
                     getUpgradeModuleModifierText(modifier, getUpgradeModuleModifierValue(modifier))));
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext useOnContext) {
+        Level level = useOnContext.getLevel();
+        if(level.isClientSide())
+            return InteractionResult.SUCCESS;
+
+        Player player = useOnContext.getPlayer();
+        if(player == null)
+            return InteractionResult.SUCCESS;
+
+        BlockPos blockPos = useOnContext.getClickedPos();
+        BlockEntity entity = level.getBlockEntity(blockPos);
+        if(!(entity instanceof IUpgradableMachine upgradableMachine)) {
+            return InteractionResult.SUCCESS;
+        }
+
+        ItemStack itemStack = useOnContext.getItemInHand();
+        ItemStack leftoverItemStack = upgradableMachine.onShiftClickUpgradeModuleInsertion(player, itemStack);
+
+        if(!ItemStack.matches(itemStack, leftoverItemStack)) {
+            itemStack.consume(itemStack.getCount() - leftoverItemStack.getCount(), player);
+        }
+
+        return InteractionResult.SUCCESS;
     }
 }
