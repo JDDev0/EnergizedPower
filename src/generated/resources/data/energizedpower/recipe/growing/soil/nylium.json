@@ -1,0 +1,11 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 0.75,
+  "ingredient": [
+    "minecraft:crimson_nylium",
+    "minecraft:warped_nylium"
+  ],
+  "soilType": "energizedpower:nylium",
+  "speedMultiplier": 1.25
+}

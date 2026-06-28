@@ -1,0 +1,19 @@
+{
+  "type": "energizedpower:plant_growth_chamber",
+  "fluid": "minecraft:lava",
+  "fluidConsumption": 0.01,
+  "ingredient": "minecraft:wither_rose",
+  "results": [
+    {
+      "percentages": [
+        1.0,
+        0.17
+      ],
+      "result": {
+        "id": "minecraft:wither_rose"
+      }
+    }
+  ],
+  "soilType": "#energizedpower:nether_flowers",
+  "ticks": 4000
+}

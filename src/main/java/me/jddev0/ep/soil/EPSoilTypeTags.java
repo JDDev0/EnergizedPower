@@ -12,6 +12,7 @@ public class EPSoilTypeTags {
     public static final TagKey<SoilType> CROPS = TagKey.create(EPRegistries.SOIL_TYPE, EPAPI.id("crops"));
     public static final TagKey<SoilType> WATER_CROPS = TagKey.create(EPRegistries.SOIL_TYPE, EPAPI.id("water_crops"));
     public static final TagKey<SoilType> DESERT_CROPS = TagKey.create(EPRegistries.SOIL_TYPE, EPAPI.id("desert_crops"));
+    public static final TagKey<SoilType> NETHER_FLOWERS = TagKey.create(EPRegistries.SOIL_TYPE, EPAPI.id("nether_flowers"));
     public static final TagKey<SoilType> NETHER_CROPS = TagKey.create(EPRegistries.SOIL_TYPE, EPAPI.id("nether_crops"));
     public static final TagKey<SoilType> END_CROPS = TagKey.create(EPRegistries.SOIL_TYPE, EPAPI.id("end_crops"));
 
