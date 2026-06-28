@@ -108,7 +108,7 @@ public class FluidFillerMenu extends UpgradableEnergyStorageMenu<FluidFillerBloc
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 4, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 1 + 4, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 return ItemStack.EMPTY;
             }

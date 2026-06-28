@@ -157,7 +157,7 @@ public class FiltrationPlantMenu extends UpgradableEnergyStorageMenu<FiltrationP
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 4, 4 * 9 + 4 + 5, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 4, 4 * 9 + 4 + 5, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
                 //"+2" instead of "+4": Do not allow adding to output slot
                 return ItemStack.EMPTY;
