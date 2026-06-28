@@ -151,7 +151,7 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 5, 4 * 9 + 5 + 5, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 5, 4 * 9 + 5 + 5, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 4, false)) {
                 //"+4" instead of "+5": Do not allow adding to output slot
                 return ItemStack.EMPTY;
