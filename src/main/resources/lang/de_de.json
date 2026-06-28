@@ -873,6 +873,7 @@
 
   "soil_type.energizedpower.grass": "Gras",
   "soil_type.energizedpower.moss": "Moos",
+  "soil_type.energizedpower.nylium": "Nezel",
 
   "recipes.energizedpower.in_world_crafting": "In-Welt Herstellung",
   "recipes.energizedpower.info.ticks": "Ticks: %d",
