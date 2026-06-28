@@ -17,9 +17,12 @@ public final class EPSoilTypes {
     public static final ResourceKey<SoilType> MYCELIUM = registerKey("mycelium");
     public static final ResourceKey<SoilType> MUD = registerKey("mud");
     public static final ResourceKey<SoilType> MOSS = registerKey("moss");
+    public static final ResourceKey<SoilType> CLAY = registerKey("clay");
     public static final ResourceKey<SoilType> SAND = registerKey("sand");
     public static final ResourceKey<SoilType> GRAVEL = registerKey("gravel");
     public static final ResourceKey<SoilType> STONE = registerKey("stone");
+    public static final ResourceKey<SoilType> NETHERRACK = registerKey("netherrack");
+    public static final ResourceKey<SoilType> NYLIUM = registerKey("nylium");
     public static final ResourceKey<SoilType> SOUL_SAND = registerKey("soul_sand");
     public static final ResourceKey<SoilType> END_STONE = registerKey("end_stone");
 
@@ -32,9 +35,12 @@ public final class EPSoilTypes {
         context.register(MYCELIUM, new SoilType(Component.translatable("block.minecraft.mycelium").withColor(0x50474b)));
         context.register(MUD, new SoilType(Component.translatable("block.minecraft.mud").withColor(0x3a383d)));
         context.register(MOSS, new SoilType(Component.translatable("soil_type.energizedpower.moss").withColor(0x495e27)));
+        context.register(CLAY, new SoilType(Component.translatable("block.minecraft.clay").withColor(0x9aa3b3)));
         context.register(SAND, new SoilType(Component.translatable("block.minecraft.sand").withColor(0x8c8462)));
         context.register(GRAVEL, new SoilType(Component.translatable("block.minecraft.gravel").withColor(0x817f7f)));
         context.register(STONE, new SoilType(Component.translatable("block.minecraft.stone").withColor(0x7f7f7f)));
+        context.register(NETHERRACK, new SoilType(Component.translatable("block.minecraft.netherrack").withColor(0x4f1b1b)));
+        context.register(NYLIUM, new SoilType(Component.translatable("soil_type.energizedpower.nylium").withColor(0x14b283)));
         context.register(SOUL_SAND, new SoilType(Component.translatable("block.minecraft.soul_sand").withColor(0x6a5244)));
         context.register(END_STONE, new SoilType(Component.translatable("block.minecraft.end_stone").withColor(0xdee6a4)));
     }

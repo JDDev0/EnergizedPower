@@ -3145,6 +3145,12 @@ public class ModRecipeGenerator extends RecipeProvider {
                 })
         }, EPSoilTypeTags.DESERT_CROPS, Fluids.WATER, 0.001, 4000, "cactus", "cactus");
 
+        addPlantGrowthChamberRecipe(ingredientOf(Items.WITHER_ROSE), new OutputItemStackTemplateWithPercentages[] {
+                new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.WITHER_ROSE), new double[] {
+                        1., .17
+                })
+        }, EPSoilTypeTags.NETHER_FLOWERS, Fluids.LAVA, 0.01, 4000, "wither_rose", "wither_roses");
+
         addPlantGrowthChamberRecipe(ingredientOf(Items.NETHER_WART), new OutputItemStackTemplateWithPercentages[] {
                 new OutputItemStackTemplateWithPercentages(new ItemStackTemplate(Items.NETHER_WART), new double[] {
                         1., .75, .25, .25
@@ -3189,14 +3195,20 @@ public class ModRecipeGenerator extends RecipeProvider {
                 EPSoilTypes.MYCELIUM, 2.0, 1.0, 1.2, "mycelium");
         addPlantGrowthChamberSoilRecipe(ingredientOf(Items.MUD),
                 EPSoilTypes.MUD, 1.2, 0.5, 1.0, "mud");
-        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.MOSS_BLOCK),
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.MOSS_BLOCK, Items.PALE_MOSS_BLOCK),
                 EPSoilTypes.MOSS, 1.1, 0.8, 1.0, "moss");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.CLAY),
+                EPSoilTypes.CLAY, 1.0, 0.9, 1.0, "clay");
         addPlantGrowthChamberSoilRecipe(ingredientOf(Items.SAND, Items.RED_SAND, Items.SUSPICIOUS_SAND),
                 EPSoilTypes.SAND, 1.0, 1.0, 1.0, "sand");
         addPlantGrowthChamberSoilRecipe(ingredientOf(Items.GRAVEL, Items.SUSPICIOUS_GRAVEL),
                 EPSoilTypes.GRAVEL, 0.5, 2.0, 2.0, "gravel");
         addPlantGrowthChamberSoilRecipe(ingredientOf(Items.STONE),
                 EPSoilTypes.STONE, 0.5, 2.0, 2.0, "stone");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.NETHERRACK),
+                EPSoilTypes.NETHERRACK, 1.0, 1.0, 1.0, "netherrack");
+        addPlantGrowthChamberSoilRecipe(ingredientOf(Items.CRIMSON_NYLIUM, Items.WARPED_NYLIUM),
+                EPSoilTypes.NYLIUM, 1.25, 0.75, 1.0, "nylium");
         addPlantGrowthChamberSoilRecipe(ingredientOf(Items.SOUL_SAND),
                 EPSoilTypes.SOUL_SAND, 1.0, 1.0, 1.0, "soul_sand");
         addPlantGrowthChamberSoilRecipe(ingredientOf(Items.END_STONE),

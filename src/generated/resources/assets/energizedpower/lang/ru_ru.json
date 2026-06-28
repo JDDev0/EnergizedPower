@@ -1313,6 +1313,7 @@
   "recipes.energizedpower.transfer.too_large": "Этот рецепт слишком велик для этого контейнера!",
   "soil_type.energizedpower.grass": "Grass",
   "soil_type.energizedpower.moss": "Moss",
+  "soil_type.energizedpower.nylium": "Nylium",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Этим предметам требуется %s для полной зарядки.",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Эта машина потребляет воду и производит грязную воду.",
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Для завершения этих рецептов требуется %s.",
