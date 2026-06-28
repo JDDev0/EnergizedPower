@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 0.9,
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "soilType": "energizedpower:clay",
+  "speedMultiplier": 1.0
+}

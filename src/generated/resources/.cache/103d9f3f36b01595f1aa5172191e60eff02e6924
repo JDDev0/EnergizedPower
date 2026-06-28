@@ -1,4 +1,5 @@
-// 1.21.1	2026-06-14T16:01:51.809985671	Registries
+// 1.21.1	2026-06-28T16:21:00.064091604	Registries
+30f08ab9be76f1f5576a3fc42c75a81b1007ae45 data/energizedpower/energizedpower/soil_type/clay.json
 91775f1aa2f8152d246e7db43b8a71ee093bdd64 data/energizedpower/energizedpower/soil_type/coarse_dirt.json
 08a3d2af6aa350e5c2a3d2baf0f07f2c63d449c7 data/energizedpower/energizedpower/soil_type/dirt.json
 42e742aa0fbf7a57950b9c01bd29b8055cc90a69 data/energizedpower/energizedpower/soil_type/end_stone.json
@@ -8,6 +9,8 @@ d82aafdbea331037267586262044af8df1a8dfaf data/energizedpower/energizedpower/soil
 39a6ebc4c029fdfc0002749123753ba154f850f6 data/energizedpower/energizedpower/soil_type/moss.json
 19eddd1e630dc64d1f865beb5e0b72668c10aed6 data/energizedpower/energizedpower/soil_type/mud.json
 49b9ceea8fc1faa9673ee5adcd489bbc2f8ce64e data/energizedpower/energizedpower/soil_type/mycelium.json
+c2084dbfe3f25b238a04afd81500841d3945bcfc data/energizedpower/energizedpower/soil_type/netherrack.json
+c675cec20d996f1edfa537f82d3763b0e7ac6d94 data/energizedpower/energizedpower/soil_type/nylium.json
 fcacff18aeda4274e19e81688a885ddbe3104679 data/energizedpower/energizedpower/soil_type/podzol.json
 f75569af00fc1c61c8f836179f79ab535456cbee data/energizedpower/energizedpower/soil_type/sand.json
 700f468fcc7f3f69aca86c422dc037a3dd7d67c3 data/energizedpower/energizedpower/soil_type/soul_sand.json

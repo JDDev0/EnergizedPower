@@ -1313,6 +1313,7 @@
   "recipes.energizedpower.transfer.too_large": "此配方对此容器来说太大！",
   "soil_type.energizedpower.grass": "Grass",
   "soil_type.energizedpower.moss": "Moss",
+  "soil_type.energizedpower.nylium": "Nylium",
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "这些物品需要 %s 才能充满电。",
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "此机器消耗水并产生脏水。",
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "这些配方需要 %s 才能完成。",

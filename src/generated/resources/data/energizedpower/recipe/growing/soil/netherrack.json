@@ -1,0 +1,10 @@
+{
+  "type": "energizedpower:plant_growth_chamber_soil",
+  "energyConsumptionMultiplier": 1.0,
+  "fluidConsumptionMultiplier": 1.0,
+  "ingredient": {
+    "item": "minecraft:netherrack"
+  },
+  "soilType": "energizedpower:netherrack",
+  "speedMultiplier": 1.0
+}

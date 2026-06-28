@@ -36,16 +36,21 @@ public class ModSoilTypeTagProvider extends TagsProvider<SoilType> {
                         EPSoilTypes.STONE);
 
         tag(EPSoilTypeTags.CROPS).
-                add(EPSoilTypes.FARMLAND).
-                add(EPSoilTypes.DIRT);
+                add(EPSoilTypes.FARMLAND,
+                        EPSoilTypes.DIRT);
 
         tag(EPSoilTypeTags.WATER_CROPS).
                 add(EPSoilTypes.DIRT,
+                        EPSoilTypes.CLAY,
                         EPSoilTypes.SAND,
                         EPSoilTypes.GRAVEL);
 
         tag(EPSoilTypeTags.DESERT_CROPS).
                 add(EPSoilTypes.SAND);
+
+        tag(EPSoilTypeTags.NETHER_FLOWERS).
+                add(EPSoilTypes.NETHERRACK,
+                        EPSoilTypes.NYLIUM);
 
         tag(EPSoilTypeTags.NETHER_CROPS).
                 add(EPSoilTypes.SOUL_SAND);
