@@ -35,8 +35,8 @@ public final class VersionConfigValue extends StringConfigValue {
         configVersionOriginal = value;
 
         if(!value.equals(getDefaultValue())) {
-            throw new ConfigValidationException("The config version was loaded with config version \"" + value +
-                    "\" but was saved in config version \"" + getDefaultValue() + "\"");
+            throw new ConfigValidationException("The config version was loaded with config version \"" + getDefaultValue() +
+                    "\" but was saved with config version \"" + value + "\"");
         }
 
         super.validate(value);
