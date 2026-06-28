@@ -28,6 +28,13 @@ public abstract class UpgradeModuleItem extends Item {
         return tier;
     }
 
+    /**
+     * @return if true, the tier value of this item is not checked when swapping upgrade module items with another one
+     */
+    public boolean shouldIgnoreTierValueForItemSwapping() {
+        return false;
+    }
+
     public abstract @NotNull UpgradeModuleModifier @NotNull [] getUpgradeModuleModifiers();
 
     public abstract double getUpgradeModuleModifierValue(UpgradeModuleModifier modifier);

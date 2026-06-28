@@ -238,7 +238,7 @@ public class AdvancedAutoCrafterMenu extends UpgradableEnergyStorageMenu<Advance
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             //"+ 30": Ignore 3 * (3x3 crafting grid and result slot)
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 27 + 3 * (3*3 + 1), 4 * 9 + 27 + 3 * (3*3 + 1) + 5, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 27 + 3 * (3*3 + 1), 4 * 9 + 27 + 3 * (3*3 + 1) + 5, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9 + 5, 4 * 9 + 27, false)) {
                 //"+5" instead of nothing: Do not allow adding to first 5 output item only slot
                 return ItemStack.EMPTY;

@@ -147,7 +147,7 @@ public class AdvancedPulverizerMenu extends UpgradableEnergyStorageMenu<Advanced
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 5, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 5, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+1" instead of "+3": Do not allow adding to output slot
                 return ItemStack.EMPTY;
