@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-14T16:19:55.355572789	Energized Power/Block Loot Tables
+// 1.21.1	2026-06-28T16:37:28.271062735	Energized Power/Block Loot Tables
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_table/blocks/stone_solidifier.json
 e9b25d4563facbc5f36dacbbfbb80c947a35537b data/energizedpower/loot_table/blocks/golden_fluid_pipe.json
 dd8733ea4ed1689ce3bbe682f74f91a7eeffdc9a data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
@@ -118,6 +118,6 @@ b8a961961dd37640fc8750f830ebd6d0ba0ba686 data/energizedpower/loot_table/blocks/t
 23756f6851379daadd3a44f089a9aaf440e1338e data/energizedpower/loot_table/blocks/item_silo_large.json
 c4efe7b3b84b5de6e1a1b566e73730b1e266aba8 data/energizedpower/loot_table/blocks/fluid_tank_large.json
 a973047e57b096c0b46b00eefd7ea4c26628dffd data/energizedpower/loot_table/blocks/energized_copper_cable.json
-54aa9e149179c9ea69e0fb6e105bc335343c1b67 data/energizedpower/loot_table/blocks/configurable_ehv_transformer.json
 c2d378c38c208c83aba80e880531119743e39b99 data/energizedpower/loot_table/blocks/weather_controller.json
+54aa9e149179c9ea69e0fb6e105bc335343c1b67 data/energizedpower/loot_table/blocks/configurable_ehv_transformer.json
 f80d43c96c28fcdf3e58ff6e384de1b1ad657f99 data/energizedpower/loot_table/blocks/advanced_alloy_block.json
