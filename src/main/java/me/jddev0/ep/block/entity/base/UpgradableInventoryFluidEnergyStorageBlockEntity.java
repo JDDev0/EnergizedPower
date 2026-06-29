@@ -99,4 +99,9 @@ public abstract class UpgradableInventoryFluidEnergyStorageBlockEntity
 
         return sourceItemStack;
     }
+
+    @Override
+    public UpgradeModuleInventory getUpgradeModuleInventory() {
+        return upgradeModuleInventory;
+    }
 }
