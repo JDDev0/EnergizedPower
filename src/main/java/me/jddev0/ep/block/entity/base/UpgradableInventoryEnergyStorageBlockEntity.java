@@ -97,4 +97,9 @@ public abstract class UpgradableInventoryEnergyStorageBlockEntity
 
         return sourceItemStack;
     }
+
+    @Override
+    public UpgradeModuleInventory getUpgradeModuleInventory() {
+        return upgradeModuleInventory;
+    }
 }
