@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
+public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem implements IEPItemExtension {
     public static final long ENERGY_CONSUMPTION_PER_USE = ModConfigs.COMMON_ENERGY_ANALYZER_ENERGY_CONSUMPTION_PER_USE.getValue();
     public static final long ENERGY_CAPACITY = ModConfigs.COMMON_ENERGY_ANALYZER_CAPACITY.getValue();
 
@@ -75,7 +75,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext useOnContext) {
+    public InteractionResult onItemUseFirst(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
         if(level.isClientSide())
             return InteractionResult.SUCCESS;
