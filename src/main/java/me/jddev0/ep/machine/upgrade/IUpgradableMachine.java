@@ -6,9 +6,14 @@ import net.minecraft.world.item.ItemStack;
 
 public interface IUpgradableMachine {
     /**
+     * This method should only be called on the server-side, because the UpgradeModuleInventory is not synced to the client
+     *
      * @return Leftover ItemStack
      */
     ItemStack onShiftClickUpgradeModuleInsertion(Player player, ItemStack stack);
 
+    /**
+     * This method should only be called on the server-side, because the UpgradeModuleInventory is not synced to the client
+     */
     UpgradeModuleInventory getUpgradeModuleInventory();
 }
