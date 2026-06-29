@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.block.entity.ItemConveyorBeltSorterBlockEntity;
 import me.jddev0.ep.inventory.PatternSlot;
 import me.jddev0.ep.inventory.data.SimpleBooleanValueContainerData;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -35,8 +35,8 @@ public class ItemConveyorBeltSorterMenu extends AbstractContainerMenu {
             new SimpleBooleanValueContainerData()
     };
 
-    public ItemConveyorBeltSorterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new SimpleContainer(15), null);
+    public ItemConveyorBeltSorterMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), new SimpleContainer(15), null);
     }
 
     public ItemConveyorBeltSorterMenu(int id, Inventory inv, BlockEntity blockEntity, Container patternSlots, ContainerData data) {

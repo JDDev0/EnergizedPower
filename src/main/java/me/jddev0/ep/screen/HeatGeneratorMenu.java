@@ -8,7 +8,7 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -19,8 +19,8 @@ public class HeatGeneratorMenu extends UpgradableEnergyStorageMenu<HeatGenerator
         implements IEnergyStorageProducerIndicatorBarMenu {
     private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
 
-    public HeatGeneratorMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), new UpgradeModuleInventory(
+    public HeatGeneratorMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ENERGY_PRODUCTION
         ), null);
