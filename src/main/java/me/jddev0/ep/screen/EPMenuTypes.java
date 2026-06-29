@@ -1,7 +1,9 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -17,7 +19,11 @@ public final class EPMenuTypes {
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(BuiltInRegistries.MENU, EPAPI.MOD_ID);
 
-    private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory) {
+    private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name, MenuBlockPosDataFactory<T> factory) {
+        return registerByteBufferDataMenuType(name, (windowId, inv, byteBuffer) -> factory.create(windowId, inv, byteBuffer.readBlockPos()));
+    }
+
+    private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerByteBufferDataMenuType(String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));
     }
 
@@ -161,15 +167,15 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<AdvancedMinecartUnchargerMenu>> ADVANCED_MINECART_UNCHARGER_MENU = registerMenuType("advanced_minecart_uncharger",
             AdvancedMinecartUnchargerMenu::new);
 
-    public static final Supplier<MenuType<InventoryChargerMenu>> INVENTORY_CHARGER_MENU = registerMenuType("inventory_charger",
+    public static final Supplier<MenuType<InventoryChargerMenu>> INVENTORY_CHARGER_MENU = registerByteBufferDataMenuType("inventory_charger",
             InventoryChargerMenu::new);
 
-    public static final Supplier<MenuType<InventoryTeleporterMenu>> INVENTORY_TELEPORTER_MENU = registerMenuType("inventory_teleporter",
+    public static final Supplier<MenuType<InventoryTeleporterMenu>> INVENTORY_TELEPORTER_MENU = registerByteBufferDataMenuType("inventory_teleporter",
             InventoryTeleporterMenu::new);
 
-    public static final Supplier<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerMenuType("minecart_battery_box",
+    public static final Supplier<MenuType<MinecartBatteryBoxMenu>> MINECART_BATTERY_BOX_MENU = registerByteBufferDataMenuType("minecart_battery_box",
             MinecartBatteryBoxMenu::new);
-    public static final Supplier<MenuType<MinecartAdvancedBatteryBoxMenu>> MINECART_ADVANCED_BATTERY_BOX_MENU = registerMenuType("minecart_advanced_battery_box",
+    public static final Supplier<MenuType<MinecartAdvancedBatteryBoxMenu>> MINECART_ADVANCED_BATTERY_BOX_MENU = registerByteBufferDataMenuType("minecart_advanced_battery_box",
             MinecartAdvancedBatteryBoxMenu::new);
 
     public static final Supplier<MenuType<SolarPanelMenu>> SOLAR_PANEL_MENU_1 = registerMenuType("solar_panel_1",
@@ -270,5 +276,10 @@ public final class EPMenuTypes {
 
     public static void register(IEventBus modEventBus) {
         MENUS.register(modEventBus);
+    }
+
+    @FunctionalInterface
+    private interface MenuBlockPosDataFactory<T extends AbstractContainerMenu> {
+        T create(int windowId, Inventory inv, BlockPos data);
     }
 }

@@ -4,7 +4,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class TeleporterMenu extends EnergyStorageMenu<TeleporterBlockEntity> {
-    public TeleporterMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
+    public TeleporterMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
     public TeleporterMenu(int id, Inventory inv, BlockEntity blockEntity) {

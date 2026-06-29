@@ -5,7 +5,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -21,8 +21,8 @@ public class PressMoldMakerMenu extends AbstractContainerMenu {
     private final PressMoldMakerBlockEntity blockEntity;
     private final Level level;
 
-    public PressMoldMakerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()));
+    public PressMoldMakerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos));
     }
 
     public PressMoldMakerMenu(int id, Inventory inv, BlockEntity blockEntity) {

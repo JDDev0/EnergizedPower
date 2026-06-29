@@ -6,7 +6,7 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.screen.base.EnergyStorageMenu;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerData;
@@ -17,8 +17,8 @@ public class TransformerMenu extends EnergyStorageMenu<TransformerBlockEntity>
         implements IConfigurableMenu {
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
 
-    public TransformerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
+    public TransformerMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), null);
     }
 
     public TransformerMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {

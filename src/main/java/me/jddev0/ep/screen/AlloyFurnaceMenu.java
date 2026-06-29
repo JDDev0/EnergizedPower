@@ -4,7 +4,7 @@ import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.data.*;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -22,8 +22,8 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
     private final SimpleProgressValueContainerData litDurationData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxLitDurationData = new SimpleProgressValueContainerData();
 
-    public AlloyFurnaceMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
+    public AlloyFurnaceMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), null);
     }
 
     public AlloyFurnaceMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {

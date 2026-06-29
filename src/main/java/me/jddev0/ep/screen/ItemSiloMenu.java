@@ -5,7 +5,7 @@ import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.SingleItemStackHandler;
 import me.jddev0.ep.inventory.ViewOnlySlot;
 import me.jddev0.ep.inventory.data.SimpleIntegerValueContainerData;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,8 +23,8 @@ public class ItemSiloMenu extends AbstractContainerMenu {
     private final ItemSiloBlockEntity blockEntity;
     private final Level level;
 
-    public ItemSiloMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
-        this(id, inv, inv.player.level().getBlockEntity(buffer.readBlockPos()), null);
+    public ItemSiloMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), null);
     }
 
     public ItemSiloMenu(int id, Inventory inv, BlockEntity blockEntity, ContainerData data) {
