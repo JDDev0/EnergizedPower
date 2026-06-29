@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class WrenchItem extends Item {
+public class WrenchItem extends Item implements IEPItemExtension {
     public WrenchItem(Item.Properties props) {
         super(props);
     }
@@ -55,7 +55,7 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext useOnContext) {
+    public InteractionResult onItemUseFirst(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
         if(level.isClientSide())
             return InteractionResult.SUCCESS;

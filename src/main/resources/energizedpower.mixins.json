@@ -5,7 +5,11 @@
 	"mixins": [
 		"entity.PlayerTeleporterCrashFixMixin",
 		"recipe.RepairItemRecipeMixin",
-		"world.village.StructurePoolElementGetterSetter"
+		"world.village.StructurePoolElementGetterSetter",
+		"server.level.ServerPlayerGameModeMixin"
+	],
+	"client": [
+		"client.multiplayer.MultiPlayerGameModeMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
