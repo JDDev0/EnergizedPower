@@ -92,4 +92,9 @@ public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPow
 
         return sourceItemStack;
     }
+
+    @Override
+    public UpgradeModuleInventory getUpgradeModuleInventory() {
+        return upgradeModuleInventory;
+    }
 }
