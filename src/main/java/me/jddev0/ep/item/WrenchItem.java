@@ -55,7 +55,7 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext useOnContext) {
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
         if(level.isClientSide())
             return InteractionResult.SUCCESS;
