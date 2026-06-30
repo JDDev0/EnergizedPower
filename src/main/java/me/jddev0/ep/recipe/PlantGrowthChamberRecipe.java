@@ -10,7 +10,6 @@ import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.registry.EPRegistries;
 import me.jddev0.ep.soil.SoilType;
 import me.jddev0.ep.util.ItemStackUtils;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
@@ -30,32 +29,61 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
     private final OutputItemStackTemplateWithPercentages[] outputs;
     private final Ingredient input;
     private final Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType;
-    private final Fluid[] fluid;
+    private final FluidIngredient fluid;
     private final double fluidConsumption;
     private final int ticks;
 
+    @Deprecated(forRemoval = true)
     public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
                                     ResourceKey<SoilType> soilType, Fluid[] fluid, double fluidConsumption, int ticks) {
-        this(outputs, input, Either.left(Collections.singletonList(soilType)), fluid, fluidConsumption, ticks);
+        this(outputs, input, soilType, Arrays.asList(fluid), fluidConsumption, ticks);
     }
 
+    @Deprecated(forRemoval = true)
+    public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
+                                    ResourceKey<SoilType> soilType, List<Fluid> fluid, double fluidConsumption, int ticks) {
+        this(outputs, input, Either.left(Collections.singletonList(soilType)), FluidIngredient.of(fluid), fluidConsumption, ticks);
+    }
+
+    @Deprecated(forRemoval = true)
     public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
                                     ResourceKey<SoilType>[] soilType, Fluid[] fluid, double fluidConsumption, int ticks) {
-        this(outputs, input, Either.left(Arrays.asList(soilType)), fluid, fluidConsumption, ticks);
+        this(outputs, input, soilType, Arrays.asList(fluid), fluidConsumption, ticks);
     }
 
+    @Deprecated(forRemoval = true)
+    public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
+                                    ResourceKey<SoilType>[] soilType, List<Fluid> fluid, double fluidConsumption, int ticks) {
+        this(outputs, input, Either.left(Arrays.asList(soilType)), FluidIngredient.of(fluid), fluidConsumption, ticks);
+    }
+
+    @Deprecated(forRemoval = true)
     public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
                                     List<ResourceKey<SoilType>> soilType, Fluid[] fluid, double fluidConsumption, int ticks) {
-        this(outputs, input, Either.left(soilType), fluid, fluidConsumption, ticks);
+        this(outputs, input, soilType, Arrays.asList(fluid), fluidConsumption, ticks);
     }
 
+    @Deprecated(forRemoval = true)
+    public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
+                                    List<ResourceKey<SoilType>> soilType, List<Fluid> fluid, double fluidConsumption, int ticks) {
+        this(outputs, input, Either.left(soilType), FluidIngredient.of(fluid), fluidConsumption, ticks);
+    }
+
+    @Deprecated(forRemoval = true)
     public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
                                     TagKey<SoilType> soilType, Fluid[] fluid, double fluidConsumption, int ticks) {
-        this(outputs, input, Either.right(soilType), fluid, fluidConsumption, ticks);
+        this(outputs, input, soilType, Arrays.asList(fluid), fluidConsumption, ticks);
+    }
+
+    @Deprecated(forRemoval = true)
+    public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
+                                    TagKey<SoilType> soilType, List<Fluid> fluid, double fluidConsumption, int ticks) {
+        this(outputs, input, Either.right(soilType), FluidIngredient.of(fluid), fluidConsumption, ticks);
     }
 
     public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
-                                    Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType, Fluid[] fluid, double fluidConsumption, int ticks) {
+                                    Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType, FluidIngredient fluid,
+                                    double fluidConsumption, int ticks) {
         this.outputs = outputs;
         this.input = input;
         this.soilType = soilType;
@@ -76,7 +104,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         return soilType;
     }
 
-    public Fluid[] getFluid() {
+    public FluidIngredient getFluid() {
         return fluid;
     }
 
@@ -213,9 +241,8 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
                         soilType -> soilType.size() == 1?Either.right(soilType.getFirst()):Either.left(soilType),
                         soilType -> soilType
                 );
-            }), CodecFix.arrayOrSingleValueCodec(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new).
-                    fieldOf("fluid").forGetter((recipe) -> {
-                return recipe.fluid.length == 1?Either.right(recipe.fluid[0]):Either.left(recipe.fluid);
+            }), FluidIngredient.CODEC.fieldOf("fluid").forGetter((recipe) -> {
+                return recipe.fluid;
             }), CodecFix.POSITIVE_DOUBLE.fieldOf("fluidConsumption").forGetter((recipe) -> {
                 return recipe.fluidConsumption;
             }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
@@ -223,13 +250,12 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
             })).apply(instance, ((result, ingredient,
                                   soilType, fluid,
                                   fluidConsumption, ticks) -> {
-                Fluid[] f = fluid.map(fi -> fi, fi -> new Fluid[] {fi});
                 Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> st = soilType.mapBoth(
                         sti -> sti.map(stii -> stii, Collections::singletonList),
                         sti -> sti
                 );
 
-                return new PlantGrowthChamberRecipe(result, ingredient, st, f, fluidConsumption, ticks);
+                return new PlantGrowthChamberRecipe(result, ingredient, st, fluid, fluidConsumption, ticks);
             }));
         });
 
@@ -255,11 +281,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
                 soilType = Either.right(SOIL_TYPE_TAG_KEY_STREAM_CODEC.decode(buffer));
             }
 
-            int fluidCount = buffer.readInt();
-            Fluid[] fluid = new Fluid[fluidCount];
-            for(int i = 0;i < fluidCount;i++)
-                fluid[i] = BuiltInRegistries.FLUID.getValue(buffer.readIdentifier());
-
+            FluidIngredient fluid = FluidIngredient.STREAM_CODEC.decode(buffer);
             double fluidConsumption = buffer.readDouble();
 
             int ticks = buffer.readInt();
@@ -295,15 +317,8 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
                     }
             );
 
-            buffer.writeInt(recipe.fluid.length);
-            for(Fluid fluid:recipe.fluid) {
-                Identifier fluidId = BuiltInRegistries.FLUID.getKey(fluid);
-                if(fluidId == null || fluidId.equals(Identifier.parse("empty")))
-                    throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
 
-                buffer.writeIdentifier(fluidId);
-            }
-
+            FluidIngredient.STREAM_CODEC.encode(buffer, recipe.fluid);
             buffer.writeDouble(recipe.fluidConsumption);
 
             buffer.writeInt(recipe.ticks);

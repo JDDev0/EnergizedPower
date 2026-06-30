@@ -1,12 +1,9 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.codec.ArrayCodec;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
@@ -20,18 +17,24 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
+
 import java.util.List;
 
 public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final Fluid[] input;
+    private final FluidIngredient input;
     private final int energyProduction;
 
+    @Deprecated(forRemoval = true)
     public ThermalGeneratorRecipe(Fluid[] input, int energyProduction) {
+        this(FluidIngredient.of(input), energyProduction);
+    }
+
+    public ThermalGeneratorRecipe(FluidIngredient input, int energyProduction) {
         this.input = input;
         this.energyProduction = energyProduction;
     }
 
-    public Fluid[] getInput() {
+    public FluidIngredient getInput() {
         return input;
     }
 
@@ -100,16 +103,12 @@ public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeIn
         private Serializer() {}
 
         private static final MapCodec<ThermalGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
-                    BuiltInRegistries.FLUID.byNameCodec()).fieldOf("ingredient").forGetter((recipe) -> {
-                return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
+            return instance.group(FluidIngredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
             }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
             })).apply(instance, (input, energy) -> {
-                return input.map(
-                        f -> new ThermalGeneratorRecipe(f, energy),
-                        f -> new ThermalGeneratorRecipe(new Fluid[] {f}, energy)
-                );
+                return new ThermalGeneratorRecipe(input, energy);
             });
         });
 
@@ -120,26 +119,14 @@ public class ThermalGeneratorRecipe implements EnergizedPowerBaseRecipe<RecipeIn
         public static final Identifier ID = EPAPI.id("thermal_generator");
 
         private static ThermalGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {
-            int fluidCount = buffer.readInt();
-            Fluid[] input = new Fluid[fluidCount];
-            for(int i = 0;i < fluidCount;i++)
-                input[i] = BuiltInRegistries.FLUID.getValue(buffer.readIdentifier());
-
+            FluidIngredient input = FluidIngredient.STREAM_CODEC.decode(buffer);
             int energyProduction = buffer.readInt();
 
             return new ThermalGeneratorRecipe(input, energyProduction);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, ThermalGeneratorRecipe recipe) {
-            buffer.writeInt(recipe.getInput().length);
-            for(Fluid fluid:recipe.input) {
-                Identifier fluidId = BuiltInRegistries.FLUID.getKey(fluid);
-                if(fluidId == null || fluidId.equals(Identifier.parse("empty")))
-                    throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
-
-                buffer.writeIdentifier(fluidId);
-            }
-
+            FluidIngredient.STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.energyProduction);
         }
     }

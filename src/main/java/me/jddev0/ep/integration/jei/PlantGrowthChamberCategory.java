@@ -25,6 +25,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -94,7 +95,12 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
                 forEach(soil -> soilSlot.add(soil.getInput()));
 
         IRecipeSlotBuilder fluidSlot = iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 10);
-        for(Fluid fluid:recipe.value().getFluid())
+        List<Fluid> fluids = recipe.value().getFluid().getFluid().map(
+                fluid -> fluid,
+                fluid -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                        getOrThrow(fluid).stream().map(Holder::value).toList()
+        );
+        for(Fluid fluid:fluids)
             fluidSlot.add(fluid, 1000);
 
         List<List<ItemStack>> outputSlotEntries = new ArrayList<>(4);

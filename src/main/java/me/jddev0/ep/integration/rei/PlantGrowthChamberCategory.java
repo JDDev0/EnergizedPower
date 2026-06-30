@@ -20,6 +20,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -81,8 +82,13 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         widgets.add(Widgets.createSlot(new Point(x + 19, y + 19)).disableBackground().markInput().
                 entries(soils));
 
+        List<Fluid> fluidValues = display.recipe().value().getFluid().getFluid().map(
+                fluid -> fluid,
+                fluid -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                        getOrThrow(fluid).stream().map(Holder::value).toList()
+        );
         List<EntryStack<?>> fluids = new ArrayList<>();
-        for(Fluid fluid:display.recipe().value().getFluid())
+        for(Fluid fluid:fluidValues)
             fluids.addAll(EntryIngredients.of(fluid, 1000));
 
         widgets.add(Widgets.createSlot(new Point(x + 1, y + 10)).disableBackground().markInput().
