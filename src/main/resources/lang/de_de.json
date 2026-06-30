@@ -104,6 +104,7 @@
   "item.energizedpower.energized_crystal_matrix": "Energetisierte Kristall-Matrix",
 
   "item.energizedpower.dirty_water_bucket": "Schmutziges-Wasser-Eimer",
+  "item.energizedpower.liquid_xp_bucket": "Flüssiger-XP-Eimer",
 
   "item.energizedpower.teleporter_matrix": "Teleporter-Matrix",
   "item.energizedpower.teleporter_matrix.linked": "Teleporter-Matrix [Gebunden]",
@@ -783,6 +784,7 @@
   "item.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
 
   "fluid_type.energizedpower.dirty_water": "Schmutziges Wasser",
+  "fluid_type.energizedpower.liquid_xp": "Flüssige XP",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

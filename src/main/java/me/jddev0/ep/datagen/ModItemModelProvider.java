@@ -255,6 +255,7 @@ public class ModItemModelProvider {
         basicItem(EPItems.ADVANCED_BATTERY_BOX_MINECART);
 
         basicItem(EPFluids.DIRTY_WATER_BUCKET_ITEM);
+        basicItem(EPFluids.LIQUID_XP_BUCKET_ITEM);
     }
 
     private void registerSpecialModels() {

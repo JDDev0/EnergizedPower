@@ -104,6 +104,7 @@
   "item.energizedpower.energized_crystal_matrix": "Matriz de Cristal Energizada",
 
   "item.energizedpower.dirty_water_bucket": "Balde de Água Suja",
+  "item.energizedpower.liquid_xp_bucket": "Liquid XP Bucket",
 
   "item.energizedpower.teleporter_matrix": "Matriz de Teletransportador",
   "item.energizedpower.teleporter_matrix.linked": "Matriz de Teletransportador [Vinculada]",
@@ -783,6 +784,7 @@
   "item.energizedpower.reinforced_advanced_machine_frame": "Estrutura de Máquina Avançada Reforçada",
 
   "fluid_type.energizedpower.dirty_water": "Água Suja",
+  "fluid_type.energizedpower.liquid_xp": "Liquid XP",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

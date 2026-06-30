@@ -104,6 +104,7 @@
   "item.energizedpower.energized_crystal_matrix": "Заряженная кристальная матрица",
 
   "item.energizedpower.dirty_water_bucket": "Ведро грязной воды",
+  "item.energizedpower.liquid_xp_bucket": "Liquid XP Bucket",
 
   "item.energizedpower.teleporter_matrix": "Матрица телепорта",
   "item.energizedpower.teleporter_matrix.linked": "Матрица телепорта [Связана]",
@@ -783,6 +784,7 @@
   "item.energizedpower.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
 
   "fluid_type.energizedpower.dirty_water": "Грязная вода",
+  "fluid_type.energizedpower.liquid_xp": "Liquid XP",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

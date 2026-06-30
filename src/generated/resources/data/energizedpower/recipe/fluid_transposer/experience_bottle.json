@@ -1,0 +1,12 @@
+{
+  "type": "energizedpower:fluid_transposer",
+  "fluid": {
+    "amount": 250,
+    "id": "energizedpower:liquid_xp"
+  },
+  "ingredient": "minecraft:glass_bottle",
+  "mode": "FILLING",
+  "result": {
+    "id": "minecraft:experience_bottle"
+  }
+}

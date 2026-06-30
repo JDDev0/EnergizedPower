@@ -104,6 +104,7 @@
   "item.energizedpower.energized_crystal_matrix": "帯電した結晶基盤",
 
   "item.energizedpower.dirty_water_bucket": "汚水入りバケツ",
+  "item.energizedpower.liquid_xp_bucket": "Liquid XP Bucket",
 
   "item.energizedpower.teleporter_matrix": "転送先記憶基盤",
   "item.energizedpower.teleporter_matrix.linked": "転送先記憶基盤 [リンク済み]",
@@ -783,6 +784,7 @@
   "item.energizedpower.reinforced_advanced_machine_frame": "強化発展型マシンフレーム",
 
   "fluid_type.energizedpower.dirty_water": "汚水",
+  "fluid_type.energizedpower.liquid_xp": "Liquid XP",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

@@ -382,6 +382,7 @@ public class EnergizedPowerMod {
             event.accept(EPItems.SUPERCONDUCTOR);
 
             event.accept(EPFluids.DIRTY_WATER_BUCKET_ITEM);
+            event.accept(EPFluids.LIQUID_XP_BUCKET_ITEM);
 
             event.accept(EPItems.STONE_PEBBLE);
 
@@ -547,6 +548,14 @@ public class EnergizedPowerMod {
                             null:new Material(EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getOverlayTexture()),
                     FluidTintSources.constant(EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get().getTintColor())
             ), EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER);
+
+            event.register(new FluidModel.Unbaked(
+                    new Material(EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getStillTexture()),
+                    new Material(EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getFlowingTexture()),
+                    EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getOverlayTexture() == null?
+                            null:new Material(EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getOverlayTexture()),
+                   null
+            ), EPFluids.LIQUID_XP, EPFluids.FLOWING_LIQUID_XP);
         }
 
         @SubscribeEvent
