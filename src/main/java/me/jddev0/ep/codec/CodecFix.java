@@ -53,4 +53,10 @@ public final class CodecFix {
             ResourceKey<? extends Registry<T>> registryName) {
         return Codec.either(listOrSingleResourceKeyCodec(registryName), tagKeyHashedCodec(registryName));
     }
+
+    public static <T> Codec<Either<Either<List<T>, T>, TagKey<T>>> listOrSingleValueOrSingleTagKeyCodec(
+            Codec<T> valueCodec,
+            ResourceKey<? extends Registry<T>> registryName) {
+        return Codec.either(listOrSingleValueCodec(valueCodec), tagKeyHashedCodec(registryName));
+    }
 }
