@@ -49,7 +49,7 @@ public final class EPFluids {
             LIQUID_XP, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
     private static final BaseFlowingFluid.Properties LIQUID_XP_PROPS = new BaseFlowingFluid.Properties(
             EPFluidTypes.LIQUID_XP_FLUID_TYPE, LIQUID_XP, FLOWING_LIQUID_XP
-    ).explosionResistance(100.f).block(LIQUID_XP_BLOCK).bucket(LIQUID_XP_BUCKET_ITEM);
+    ).explosionResistance(100.f).levelDecreasePerBlock(2).tickRate(10).block(LIQUID_XP_BLOCK).bucket(LIQUID_XP_BUCKET_ITEM);
 
     private static <T extends Block> DeferredBlock<T> createBlock(String name, Function<BlockBehaviour.Properties, T> factory,
                                                    BlockBehaviour.Properties props) {
