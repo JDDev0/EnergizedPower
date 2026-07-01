@@ -3424,7 +3424,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 new FluidStackTemplate(Fluids.WATER, 250));
 
         addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), new ItemStackTemplate(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
-                new FluidStackTemplate(EPFluids.LIQUID_XP, 250));
+                new FluidIngredientWithAmount(FluidIngredient.of(Tags.Fluids.EXPERIENCE), 250));
     }
 
     private void buildChargerRecipes() {
@@ -4113,6 +4113,14 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
     private void addFluidTransposerRecipe(Ingredient input, ItemStackTemplate output,
                                           FluidTransposerBlockEntity.Mode mode, FluidStackTemplate fluid) {
+        addFluidTransposerRecipe(input, output, mode, Either.left(fluid));
+    }
+    private void addFluidTransposerRecipe(Ingredient input, ItemStackTemplate output,
+                                          FluidTransposerBlockEntity.Mode mode, FluidIngredientWithAmount fluid) {
+        addFluidTransposerRecipe(input, output, mode, Either.right(fluid));
+    }
+    private void addFluidTransposerRecipe(Ingredient input, ItemStackTemplate output,
+                                          FluidTransposerBlockEntity.Mode mode, Either<FluidStackTemplate, FluidIngredientWithAmount> fluid) {
         Identifier recipeId = EPAPI.id("fluid_transposer/" +
                 getItemName(output.item().value()));
 

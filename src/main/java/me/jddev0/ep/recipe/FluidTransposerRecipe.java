@@ -1,5 +1,7 @@
 package me.jddev0.ep.recipe;
 
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
@@ -26,13 +28,29 @@ public class FluidTransposerRecipe implements EnergizedPowerBaseRecipe<RecipeInp
     private final FluidTransposerBlockEntity.Mode mode;
     private final ItemStackTemplate output;
     private final Ingredient input;
-    private final FluidStackTemplate fluid;
+    //FluidIngredientWithAmount second argument so that EitherCodec prefers FluidStack (FluidIngredientWithAmount is only required for fluid id list and #-prefixed fluid tags)
+    private final Either<FluidStackTemplate, FluidIngredientWithAmount> fluid;
 
     public FluidTransposerRecipe(FluidTransposerBlockEntity.Mode mode, ItemStackTemplate output, Ingredient input, FluidStackTemplate fluid) {
+        this(mode, output, input, Either.left(fluid));
+    }
+
+    /**
+     * FluidIngredientWithAmount is only valid with mode FILLING -> no mode parameter necessary
+     */
+    public FluidTransposerRecipe(ItemStackTemplate output, Ingredient input, FluidIngredientWithAmount fluid) {
+        this(FluidTransposerBlockEntity.Mode.FILLING, output, input, Either.right(fluid));
+    }
+
+    public FluidTransposerRecipe(FluidTransposerBlockEntity.Mode mode, ItemStackTemplate output, Ingredient input, Either<FluidStackTemplate, FluidIngredientWithAmount> fluid) {
         this.mode = mode;
         this.output = output;
         this.input = input;
         this.fluid = fluid;
+
+        if(mode == FluidTransposerBlockEntity.Mode.EMPTYING && fluid.right().isPresent()) {
+            throw new IllegalArgumentException("FluidIngredientWithAmount is only allowed with FILLING mode");
+        }
     }
 
     public FluidTransposerBlockEntity.Mode getMode() {
@@ -47,7 +65,7 @@ public class FluidTransposerRecipe implements EnergizedPowerBaseRecipe<RecipeInp
         return input;
     }
 
-    public FluidStackTemplate getFluid() {
+    public Either<FluidStackTemplate, FluidIngredientWithAmount> getFluid() {
         return fluid;
     }
 
@@ -123,7 +141,7 @@ public class FluidTransposerRecipe implements EnergizedPowerBaseRecipe<RecipeInp
                 return recipe.output;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), FluidStackTemplate.CODEC.fieldOf("fluid").forGetter((recipe) -> {
+            }), Codec.either(FluidStackTemplate.CODEC, FluidIngredientWithAmount.CODEC).fieldOf("fluid").forGetter((recipe) -> {
                 return recipe.fluid;
             })).apply(instance, FluidTransposerRecipe::new);
         });
@@ -138,7 +156,13 @@ public class FluidTransposerRecipe implements EnergizedPowerBaseRecipe<RecipeInp
             FluidTransposerBlockEntity.Mode mode = buffer.readEnum(FluidTransposerBlockEntity.Mode.class);
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
-            FluidStackTemplate fluid = FluidStackTemplate.STREAM_CODEC.decode(buffer);
+
+            Either<FluidStackTemplate, FluidIngredientWithAmount> fluid;
+            if(buffer.readBoolean()) {
+                fluid = Either.left(FluidStackTemplate.STREAM_CODEC.decode(buffer));
+            }else {
+                fluid = Either.right(FluidIngredientWithAmount.STREAM_CODEC.decode(buffer));
+            }
 
             return new FluidTransposerRecipe(mode, output, input, fluid);
         }
@@ -147,7 +171,20 @@ public class FluidTransposerRecipe implements EnergizedPowerBaseRecipe<RecipeInp
             buffer.writeEnum(recipe.mode);
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
-            FluidStackTemplate.STREAM_CODEC.encode(buffer, recipe.fluid);
+
+            buffer.writeBoolean(recipe.fluid.left().isPresent());
+            recipe.fluid.map(
+                    fluid -> {
+                        FluidStackTemplate.STREAM_CODEC.encode(buffer, fluid);
+
+                        return null;
+                    },
+                    fluid -> {
+                        FluidIngredientWithAmount.STREAM_CODEC.encode(buffer, fluid);
+
+                        return null;
+                    }
+            );
         }
     }
 }

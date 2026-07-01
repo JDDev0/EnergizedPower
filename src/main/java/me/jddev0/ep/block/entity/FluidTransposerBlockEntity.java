@@ -11,6 +11,7 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.FluidIngredientWithAmount;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.FluidTransposerMenu;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
@@ -135,7 +137,8 @@ public class FluidTransposerBlockEntity
                 return !(level instanceof ServerLevel serverLevel) || //Always false on client side (Recipes are no longer synced)
                         RecipeUtils.getAllRecipesFor(serverLevel, recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
-                        anyMatch(resource::matches);
+                        anyMatch(fluid -> fluid.map(
+                                resource::matches, f -> f.fluid().test(resource)));
             }
         };
     }
@@ -178,8 +181,8 @@ public class FluidTransposerBlockEntity
                 stream().filter(recipe -> recipe.value().getMode() == mode).
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.getFluid(0).isEmpty()) ||
-                        FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0),
-                                recipe.value().getFluid())).
+                        recipe.value().getFluid().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                                fluid -> fluid.test(fluidStorage.getFluid(0)))).
                 findFirst();
     }
 
@@ -193,10 +196,11 @@ public class FluidTransposerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).
-                copyWithAmount(FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).getAmount());
-
         if(mode == Mode.EMPTYING) {
+            //fluid of recipe is always a FluidStack in EMPTYING mode
+            FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid().left().get()).
+                    copyWithAmount(FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid().left().get()).getAmount());
+
             try(Transaction transaction = Transaction.open(null)) {
                 fluidStorage.insert(FluidResource.of(fluid), fluid.getAmount(), transaction);
 
@@ -204,7 +208,11 @@ public class FluidTransposerBlockEntity
             }
         }else {
             try(Transaction transaction = Transaction.open(null)) {
-                fluidStorage.extract(FluidResource.of(fluid), fluid.getAmount(), transaction);
+                int amount = recipe.value().getFluid().map(fluid -> FluidStackUtils.fromNullableFluidStackTemplate(fluid).getAmount(),
+                        FluidIngredientWithAmount::amount);
+
+                //Fluid in tank must be valid at this point
+                fluidStorage.extract(FluidResource.of(fluidStorage.getFluid(0)), amount, transaction);
 
                 transaction.commit();
             }
@@ -221,11 +229,14 @@ public class FluidTransposerBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
         int fluidAmountInTank = fluidStorage.getFluid(0).getAmount();
-        int fluidAmountInRecipe = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getFluid()).getAmount();
+        int fluidAmountInRecipe = recipe.value().getFluid().map(fluid -> FluidStackUtils.fromNullableFluidStackTemplate(fluid).getAmount(),
+                FluidIngredientWithAmount::amount);
 
         return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getTankCapacity(0) - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
-                (mode != Mode.EMPTYING || fluidStorage.getFluid(0).isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getFluid())) &&
+                (mode != Mode.EMPTYING || fluidStorage.getFluid(0).isEmpty() ||
+                        recipe.value().getFluid().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                                fluid -> fluid.test(fluidStorage.getFluid(0)))) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().assemble(null));
     }
 

@@ -143,7 +143,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
                 return !(level instanceof ServerLevel serverLevel) || //Always false on client side (Recipes are no longer synced)
                         RecipeUtils.getAllRecipesFor(serverLevel, recipeType).stream().map(RecipeHolder::value).
                         map(PlantGrowthChamberRecipe::getFluid).
-                        anyMatch(fluid -> fluid.matches(resource));
+                        anyMatch(fluid -> fluid.test(resource));
             }
         };
     }
@@ -356,7 +356,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
                 fluidStorage.getFluid(0).getAmount() >= (int)Math.ceil(leftoverFluidConsumption +
                         recipe.value().getFluidConsumption() * soilRecipe.get().value().getFluidConsumptionMultiplier() *
                                 fertilizerFluidConsumptionMultiplier * FLUID_CONSUMPTION_MULTIPLIER) &&
-                recipe.value().getFluid().matches(fluidStorage.getFluid(0)) &&
+                recipe.value().getFluid().test(fluidStorage.getFluid(0)) &&
                 canInsertItemsIntoOutputSlots(inventory, new ArrayList<>(Arrays.asList(recipe.value().getMaxOutputCounts())));
     }
 
