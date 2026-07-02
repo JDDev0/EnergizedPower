@@ -37,6 +37,9 @@ public final class ModModelTemplates {
     public static final ModelTemplate SOLAR_PANEL_TEMPLATE = block("solar_panel_template",
             TextureSlot.PARTICLE, TextureSlot.TOP, TextureSlot.SIDE);
 
+    public static final ModelTemplate XP_DRAIN_TEMPLATE = block("xp_drain_template",
+            TextureSlot.PARTICLE, TextureSlot.TOP);
+
     public static final ModelTemplate SINGLE_SIDE = block("single_side",
             TextureSlot.PARTICLE, TextureSlot.SIDE);
 

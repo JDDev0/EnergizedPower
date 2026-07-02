@@ -545,6 +545,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> DRAIN_ITEM = createBlockItem("drain",
             DrainBlock.Item::new, DRAIN);
 
+    public static final DeferredBlock<Block> XP_DRAIN = registerBlock("xp_drain",
+            XPDrainBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).noOcclusion().forceSolidOn());
+    public static final DeferredItem<Item> XP_DRAIN_ITEM = createBlockItem("xp_drain",
+            XPDrainBlock.Item::new, XP_DRAIN);
+
     public static final DeferredBlock<Block> CHARGER = registerBlock("charger",
             ChargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));

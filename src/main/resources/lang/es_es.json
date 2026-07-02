@@ -708,6 +708,12 @@
 
   "tooltip.energizedpower.drain.txt.shift": "El desagüe drena los bloques fuente de fluidos que tenga encima.",
 
+  "block.energizedpower.xp_drain": "XP Drain",
+  "item.energizedpower.xp_drain": "XP Drain",
+  "container.energizedpower.xp_drain": "XP Drain",
+
+  "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
+
   "block.energizedpower.lightning_generator": "Generador de rayos",
   "item.energizedpower.lightning_generator": "Generador de rayos",
   "container.energizedpower.lightning_generator": "Generador de rayos",

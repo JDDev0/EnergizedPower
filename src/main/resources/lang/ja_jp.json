@@ -708,6 +708,12 @@
 
   "tooltip.energizedpower.drain.txt.shift": "液体回収機は、ブロックの真上にある液体源を回収する。",
 
+  "block.energizedpower.xp_drain": "XP Drain",
+  "item.energizedpower.xp_drain": "XP Drain",
+  "container.energizedpower.xp_drain": "XP Drain",
+
+  "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
+
   "block.energizedpower.lightning_generator": "雷発電機",
   "item.energizedpower.lightning_generator": "雷発電機",
   "container.energizedpower.lightning_generator": "雷発電機",

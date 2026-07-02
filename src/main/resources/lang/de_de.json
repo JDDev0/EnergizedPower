@@ -708,6 +708,12 @@
 
   "tooltip.energizedpower.drain.txt.shift": "Der Ablauf leitet Flüssigkeits-Blöcke oberhalb des Blocks ab.",
 
+  "block.energizedpower.xp_drain": "XP-Ablauf",
+  "item.energizedpower.xp_drain": "XP-Ablauf",
+  "container.energizedpower.xp_drain": "XP-Ablauf",
+
+  "tooltip.energizedpower.xp_drain.txt.shift": "Damit dieser Block funktioniert, muss darunter ein Flüssigkeitstank oder ein XP-Lager platziert werden.",
+
   "block.energizedpower.lightning_generator": "Blitz-Generator",
   "item.energizedpower.lightning_generator": "Blitz-Generator",
   "container.energizedpower.lightning_generator": "Blitz-Generator",

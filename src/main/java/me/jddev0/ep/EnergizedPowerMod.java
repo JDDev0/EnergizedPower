@@ -264,6 +264,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.FLUID_PUMP_ITEM);
             event.accept(EPBlocks.ADVANCED_FLUID_PUMP_ITEM);
             event.accept(EPBlocks.DRAIN_ITEM);
+            event.accept(EPBlocks.XP_DRAIN_ITEM);
             event.accept(EPBlocks.CHARGER_ITEM);
             event.accept(EPBlocks.ADVANCED_CHARGER_ITEM);
             event.accept(EPBlocks.UNCHARGER_ITEM);

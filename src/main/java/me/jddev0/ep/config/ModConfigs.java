@@ -1386,6 +1386,19 @@ public final class ModConfigs {
             1, null
     ));
 
+    public static final ConfigValue<Integer> COMMON_XP_DRAIN_TICKS_PER_PLAYER_LEVEL = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.xp_drain.ticks_per_player_level",
+            "The amount of ticks the XP Drain requires to extract one level from a Player above.",
+            20,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_XP_DRAIN_MAX_XP_ORB_ATTRACTION_DISTANCE = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.xp_drain.max_xp_orb_attraction_distance",
+            "The maximal distance the XP Drain can attract XP orbs within",
+            7,
+            1, 25
+    ));
+
     public static final ConfigValue<Integer> COMMON_COPPER_FLUID_PIPE_FLUID_TRANSFER_RATE = registerFluidPipeTransferRateConfigValue(
             "block.copper_fluid_pipe", "Copper Fluid Pipe", 100
     );

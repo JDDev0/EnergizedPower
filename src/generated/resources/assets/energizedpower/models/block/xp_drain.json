@@ -1,0 +1,7 @@
+{
+  "parent": "energizedpower:block/xp_drain_template",
+  "textures": {
+    "particle": "energizedpower:block/xp_drain",
+    "top": "energizedpower:block/xp_drain"
+  }
+}
