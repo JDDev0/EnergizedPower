@@ -62,7 +62,7 @@ public class PlantGrowthChamberCategory implements DisplayCategory<PlantGrowthCh
         widgets.add(Widgets.createSlot(new Point(x + 19, y + 1)).disableBackground().markInput().
                 entries(display.getInputEntries().get(0)));
 
-        List<Holder<SoilType>> soilTypes = display.recipe().value().getSoilType().map(
+        List<Holder<SoilType>> soilTypes = display.recipe().value().getSoilType().getSoilType().map(
                 soilType -> soilType.stream().
                         map(st -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
                                 getOrThrow(st)).
