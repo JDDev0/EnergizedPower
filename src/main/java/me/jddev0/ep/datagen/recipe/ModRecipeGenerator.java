@@ -4061,6 +4061,12 @@ public class ModRecipeGenerator extends RecipeProvider {
         addFluidFreezerRecipe(new FluidStackTemplate(Fluids.WATER, waterAmount), output);
     }
     private void addFluidFreezerRecipe(FluidStackTemplate input, ItemStackTemplate output) {
+        addFluidFreezerRecipe(Either.left(input), output);
+    }
+    private void addFluidFreezerRecipe(FluidIngredientWithAmount input, ItemStackTemplate output) {
+        addFluidFreezerRecipe(Either.right(input), output);
+    }
+    private void addFluidFreezerRecipe(Either<FluidStackTemplate, FluidIngredientWithAmount> input, ItemStackTemplate output) {
         Identifier recipeId = EPAPI.id("fluid_freezer/" + getItemName(output.item().value()));
 
         FluidFreezerRecipe recipe = new FluidFreezerRecipe(input, output);

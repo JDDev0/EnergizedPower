@@ -8,6 +8,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
+import me.jddev0.ep.recipe.FluidIngredientWithAmount;
 import me.jddev0.ep.screen.FluidFreezerMenu;
 import me.jddev0.ep.util.FluidStackUtils;
 import me.jddev0.ep.util.InventoryUtils;
@@ -94,7 +95,8 @@ public class FluidFreezerBlockEntity
                 return !(level instanceof ServerLevel serverLevel) || //Always false on client side (Recipes are no longer synced)
                         RecipeUtils.getAllRecipesFor(serverLevel, recipeType).stream().map(RecipeHolder::value).
                         map(FluidFreezerRecipe::getInput).
-                        anyMatch(resource::matches);
+                        anyMatch(fluid -> fluid.map(
+                                resource::matches, f -> f.fluid().test(resource)));
             }
         };
     }
@@ -119,11 +121,12 @@ public class FluidFreezerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getInput()).
-                copyWithAmount(FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getInput()).getAmount());
-
         try(Transaction transaction = Transaction.open(null)) {
-            fluidStorage.extract(FluidResource.of(fluid), fluid.getAmount(), transaction);
+            int amount = recipe.value().getInput().map(fluid -> FluidStackUtils.fromNullableFluidStackTemplate(fluid).getAmount(),
+                    FluidIngredientWithAmount::amount);
+
+            //Fluid in tank must be valid at this point
+            fluidStorage.extract(FluidResource.of(fluidStorage.getFluid(0)), amount, transaction);
 
             transaction.commit();
         }
@@ -137,9 +140,13 @@ public class FluidFreezerBlockEntity
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidFreezerRecipe> recipe) {
+        int fluidAmountInRecipe = recipe.value().getInput().map(fluid -> FluidStackUtils.fromNullableFluidStackTemplate(fluid).getAmount(),
+                FluidIngredientWithAmount::amount);
+
         return level != null &&
-                FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getInput()) &&
-                fluidStorage.getFluid(0).getAmount() >= recipe.value().getInput().amount() &&
+                recipe.value().getInput().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                        fluid -> fluid.test(fluidStorage.getFluid(0))) &&
+                fluidStorage.getFluid(0).getAmount() >= fluidAmountInRecipe &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null));
     }
 }
