@@ -8,15 +8,22 @@ import me.jddev0.ep.util.FluidStackUtils;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
+import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,12 +52,23 @@ public record FluidFreezerDisplay(RecipeHolder<FluidFreezerRecipe> recipe) imple
 
     @Override
     public List<EntryIngredient> getInputEntries() {
-        FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(recipe.value().getInput());
+        List<EntryStack<dev.architectury.fluid.FluidStack>> entryStacks = recipe.value().getInput().map(f -> {
+            FluidStack fluid = FluidStackUtils.fromNullableFluidStackTemplate(f);
 
-        return List.of(
-                EntryIngredients.of(dev.architectury.fluid.FluidStack.create(fluid.getFluid(),
-                        fluid.getAmount(), fluid.getComponentsPatch()))
-        );
+            return Collections.singletonList(EntryStacks.of(dev.architectury.fluid.FluidStack.create(fluid.getFluid(),
+                    fluid.getAmount(), fluid.getComponentsPatch())));
+        }, f -> {
+            int amount = f.amount();
+            List<Fluid> fluids = f.fluid().getFluid().map(
+                    fluid -> fluid,
+                    fluid -> BasicDisplay.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                            getOrThrow(fluid).stream().map(Holder::value).toList()
+            );
+
+            return fluids.stream().map(fluid -> EntryStacks.of(dev.architectury.fluid.FluidStack.create(fluid, amount))).toList();
+        });
+
+        return List.of(EntryIngredient.of(entryStacks.toArray(EntryStack[]::new)));
     }
 
     @Override
