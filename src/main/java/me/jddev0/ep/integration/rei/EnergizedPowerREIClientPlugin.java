@@ -131,6 +131,9 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
         registry.register(new SelectableRecipeMachineTransferHandler<>(AutoStonecutterMenu.class,
                 StonecutterRecipe.class));
 
+        registry.register(new SelectableRecipeMachineTransferHandler<>(FluidFreezerMenu.class,
+                FluidFreezerRecipe.class));
+
         registry.register(new SelectableRecipeMachineTransferHandler<>(StoneSolidifierMenu.class,
                 StoneSolidifierRecipe.class));
 
