@@ -1,0 +1,116 @@
+package me.jddev0.ep.fluid;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+
+import java.util.Optional;
+
+public abstract class LiquidXPFluid extends FlowingFluid {
+    @Override
+    public Fluid getSource() {
+        return EPFluids.LIQUID_XP;
+    }
+
+    @Override
+    public Fluid getFlowing() {
+        return EPFluids.FLOWING_LIQUID_XP;
+    }
+
+    @Override
+    public Item getBucket() {
+        return EPFluids.LIQUID_XP_BUCKET_ITEM;
+    }
+
+    @Override
+    protected boolean canConvertToSource(ServerLevel world) {
+        return false;
+    }
+
+    protected void beforeDestroyingBlock(LevelAccessor world, BlockPos pos, BlockState state) {
+        BlockEntity blockEntity = state.hasBlockEntity()?world.getBlockEntity(pos):null;
+        Block.dropResources(state, world, pos, blockEntity);
+    }
+
+    public int getSlopeFindDistance(LevelReader world) {
+        return 4;
+    }
+
+    @Override
+    protected BlockState createLegacyBlock(FluidState state) {
+        return EPFluids.LIQUID_XP_BLOCK.defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(state));
+    }
+
+    @Override
+    public boolean isSame(Fluid fluid) {
+        return fluid == getSource() || fluid == getFlowing();
+    }
+
+    @Override
+    protected int getDropOff(LevelReader world) {
+        return 2;
+    }
+
+    @Override
+    public int getTickDelay(LevelReader world) {
+        return 10;
+    }
+
+    @Override
+    protected boolean canBeReplacedWith(FluidState state, BlockGetter world, BlockPos pos, Fluid fluid, Direction direction) {
+        return direction == Direction.DOWN && !this.isSame(fluid);
+    }
+
+    @Override
+    protected float getExplosionResistance() {
+        return 100.f;
+    }
+
+    public Optional<SoundEvent> getPickupSound() {
+        return Optional.of(SoundEvents.BUCKET_FILL);
+    }
+
+    public static class Flowing extends LiquidXPFluid {
+        public Flowing() {}
+
+        protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> builder) {
+            super.createFluidStateDefinition(builder);
+
+            builder.add(LEVEL);
+        }
+
+        public int getAmount(FluidState state) {
+            return state.getValue(LEVEL);
+        }
+
+        public boolean isSource(FluidState state) {
+            return false;
+        }
+    }
+
+    public static class Source extends LiquidXPFluid {
+        public Source() {}
+
+        public int getAmount(FluidState state) {
+            return 8;
+        }
+
+        public boolean isSource(FluidState state) {
+            return true;
+        }
+    }
+}
