@@ -995,7 +995,7 @@
   "emi.category.energizedpower.stone_solidifier": "Solidificador de Pedra",
   "entity.energizedpower.advanced_battery_box_minecart": "Carrinho de Mina com Caixa de Bateria Avançada",
   "entity.energizedpower.battery_box_minecart": "Carrinho de Mina com Caixa de Bateria",
-  "entity.minecraft.villager.energizedpower.electrician": "Eletricista",
+  "entity.minecraft.villager.electrician": "Eletricista",
   "fluid_type.energizedpower.dirty_water": "Água Suja",
   "fluid_type.energizedpower.liquid_xp": "Liquid XP",
   "item.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
