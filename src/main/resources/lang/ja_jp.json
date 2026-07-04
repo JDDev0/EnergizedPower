@@ -1,19 +1,51 @@
 {
   "item.energizedpower.energized_copper_ingot": "帯電した銅インゴット",
+  "book.energizedpower.page.energized_copper_ingot.1": "帯電した銅インゴットは、高エネルギー充電器等の高度な機械に使用されます。",
+  "book.energizedpower.page.energized_copper_ingot.2": "高エネルギー充電器は、このインゴットで作るんですよね？",
+  "book.energizedpower.page.energized_copper_ingot.3": "このインゴットは、充電器で作成できます。",
+  "book.energizedpower.page.energized_copper_ingot.4": " [ただし高コスト]",
+
   "item.energizedpower.energized_gold_ingot": "帯電した金インゴット",
+  "advancements.energizedpower.energized_gold_ingot.title": "輝くインゴット",
+  "advancements.energizedpower.energized_gold_ingot.description": "帯電した金インゴットは眩い光を放っています",
+  "book.energizedpower.page.energized_gold_ingot": "帯電した金インゴットは、充電ステーションなどの高性能機で使用されます。",
+
   "item.energizedpower.energized_alloy_ingot": "Energized Alloy Ingot",
   "tooltip.energizedpower.energized_alloy_ingot.txt.shift.1": "To energize this item, an Energy Capacity Upgrade (Tier IV or better) must be installed in the Energizer.",
+  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
+  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
+  "book.energizedpower.page.energized_alloy_ingot": "The Energized Alloy Ingot is the most powerful alloy in Energized Power.",
 
   "item.energizedpower.energized_copper_plate": "帯電した銅の板",
+  "advancements.energizedpower.energized_copper_plate.title": "帯電した銅の板",
+  "advancements.energizedpower.energized_copper_plate.description": "帯電した銅の板を作成する",
+
   "item.energizedpower.energized_gold_plate": "帯電した金の板",
+  "advancements.energizedpower.energized_gold_plate.title": "帯電した金の板",
+  "advancements.energizedpower.energized_gold_plate.description": "帯電した金の板を作成する",
+
   "item.energizedpower.energized_alloy_plate": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
+  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
 
   "item.energizedpower.energized_copper_wire": "帯電した銅のワイヤー",
+  "advancements.energizedpower.energized_copper_wire.title": "帯電した銅のワイヤー",
+  "advancements.energizedpower.energized_copper_wire.description": "帯電した銅のワイヤーを作成する",
+
   "item.energizedpower.energized_gold_wire": "帯電した金のワイヤー",
+  "advancements.energizedpower.energized_gold_wire.title": "帯電した金のワイヤー",
+  "advancements.energizedpower.energized_gold_wire.description": "帯電した金のワイヤーを作成する",
 
   "item.energizedpower.superconductor": "Superconductor",
+  "advancements.energizedpower.superconductor.title": "Superconductor",
+  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
+  "book.energizedpower.page.superconductor": "Superconductors are used for the most efficient transmission of electricity.",
 
   "item.energizedpower.silicon": "シリコン",
+  "advancements.energizedpower.silicon.title": "シリコン",
+  "advancements.energizedpower.silicon.description": "工場の本格稼働が始まる",
+  "book.energizedpower.page.silicon.1": "シリコンは、このMODの多くのクラフトレシピで使用される材料です。",
+  "book.energizedpower.page.silicon.2": "ネザークォーツを製錬するか、溶鉱で焼くことで作成できます。",
 
   "item.energizedpower.stone_pebble": "小石",
 
@@ -23,25 +55,56 @@
   "item.energizedpower.copper_dust": "銅の粉",
   "item.energizedpower.iron_dust": "鉄の粉",
   "item.energizedpower.gold_dust": "金の粉",
+  "book.energizedpower.page.ore_dusts": "鉱石の粉は、製錬することでインゴットになります。",
 
   "item.energizedpower.tin_nugget": "錫の塊",
   "item.energizedpower.steel_nugget": "Steel Nugget",
 
   "item.energizedpower.tin_ingot": "錫インゴット",
+
   "item.energizedpower.steel_ingot": "鋼鉄インゴット",
+  "advancements.energizedpower.steel_ingot.title": "鋼鉄インゴット",
+  "advancements.energizedpower.steel_ingot.description": "鋼鉄インゴットを作成する",
 
   "item.energizedpower.redstone_alloy_ingot": "レッドストーン合金インゴット",
+  "advancements.energizedpower.redstone_alloy_ingot.title": "レッドストーン合金インゴット",
+  "advancements.energizedpower.redstone_alloy_ingot.description": "レッドストーン合金インゴットを作成する",
+
   "item.energizedpower.advanced_alloy_ingot": "超合金インゴット",
+  "advancements.energizedpower.advanced_alloy_ingot.title": "超合金インゴット",
+  "advancements.energizedpower.advanced_alloy_ingot.description": "超合金インゴットを作成する",
+
   "item.energizedpower.crystallized_alloy_ingot": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
+  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
 
   "item.energizedpower.tin_plate": "錫の板",
+  "advancements.energizedpower.tin_plate.title": "錫の板",
+  "advancements.energizedpower.tin_plate.description": "錫の板を作成する",
+
   "item.energizedpower.copper_plate": "銅の板",
+  "advancements.energizedpower.copper_plate.title": "銅の板",
+  "advancements.energizedpower.copper_plate.description": "銅の板を作成する",
+
   "item.energizedpower.iron_plate": "鉄の板",
+  "advancements.energizedpower.iron_plate.title": "ぺったんこ",
+  "advancements.energizedpower.iron_plate.description": "鉄の板を作成する",
+
   "item.energizedpower.gold_plate": "金の板",
+  "advancements.energizedpower.gold_plate.title": "金の板",
+  "advancements.energizedpower.gold_plate.description": "金の板を作成する",
+
   "item.energizedpower.steel_plate": "Steel Plate",
+  "advancements.energizedpower.steel_plate.title": "Steel Plate",
+  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
 
   "item.energizedpower.advanced_alloy_plate": "超合金の板",
+  "advancements.energizedpower.advanced_alloy_plate.title": "超合金の板",
+  "advancements.energizedpower.advanced_alloy_plate.description": "超合金の板を作成する",
+
   "item.energizedpower.crystallized_alloy_plate": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
+  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
 
   "item.energizedpower.iron_gear": "鉄の歯車",
   "item.energizedpower.steel_gear": "Steel Gear",
@@ -50,61 +113,124 @@
   "item.energizedpower.steel_rod": "Steel Rod",
 
   "item.energizedpower.tin_wire": "錫のワイヤー",
+  "advancements.energizedpower.tin_wire.title": "錫のワイヤー",
+  "advancements.energizedpower.tin_wire.description": "錫のワイヤーを作成する",
+
   "item.energizedpower.copper_wire": "銅のワイヤー",
+  "advancements.energizedpower.copper_wire.title": "銅のワイヤー",
+  "advancements.energizedpower.copper_wire.description": "銅のワイヤーを作成する",
+
   "item.energizedpower.gold_wire": "金のワイヤー",
+  "advancements.energizedpower.gold_wire.title": "金のワイヤー",
+  "advancements.energizedpower.gold_wire.description": "金のワイヤーを作成する",
 
   "item.energizedpower.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli",
   "tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1": "You should install two sets of Tier VI upgrades in the Crystal Growth Chamber before making this item.",
+  "book.energizedpower.page.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli is the key component in the best machines.",
 
   "item.energizedpower.sawdust": "木くず",
+  "book.energizedpower.page.sawdust.1": "木くずは、製材機の副産物で、木くずブロックに加工できます。",
+  "book.energizedpower.page.sawdust.2": "木くずブロックは燃やすと木炭になる",
 
   "item.energizedpower.charcoal_dust": "木炭の粉",
+  "book.energizedpower.page.charcoal_dust": "木炭の粉は、木炭フィルターを作成するための材料です。",
 
   "item.energizedpower.basic_fertilizer": "肥料",
   "item.energizedpower.good_fertilizer": "いい肥料",
   "item.energizedpower.advanced_fertilizer": "もっといい肥料",
+  "book.energizedpower.page.fertilizers": "肥料は、植物育成機の動作速度を向上できます。",
 
   "item.energizedpower.raw_gear_press_mold": "歯車の成形型",
-
   "item.energizedpower.raw_rod_press_mold": "棒の成形型",
-
   "item.energizedpower.raw_wire_press_mold": "ワイヤーの成形型",
+  "advancements.energizedpower.raw_press_molds.title": "未製錬の成形型",
+  "advancements.energizedpower.raw_press_molds.description": "粘土玉から成形型を作成する(かまどで焼くのを忘れずに！)",
 
   "item.energizedpower.gear_press_mold": "製錬された歯車の成形型",
-
   "item.energizedpower.rod_press_mold": "製錬された棒の成形型",
-
   "item.energizedpower.wire_press_mold": "製錬されたワイヤーの成形型",
+  "advancements.energizedpower.press_molds.title": "成形型",
+  "advancements.energizedpower.press_molds.description": "出来上がった成形型は金属成型機で使用できます",
 
   "item.energizedpower.basic_solar_cell": "基本型ソーラーセル",
+  "advancements.energizedpower.basic_solar_cell.title": "ソーラー発電の基本",
+  "advancements.energizedpower.basic_solar_cell.description": "最初のソーラーパネルを作成するために必要な材料の2つのセルのうちの1つです",
+
   "item.energizedpower.advanced_solar_cell": "発展型ソーラーセル",
+  "advancements.energizedpower.advanced_solar_cell.title": "上位ソーラー発電",
+  "advancements.energizedpower.advanced_solar_cell.description": "上位のソーラーパネルを作成するために必要な材料です",
+
   "item.energizedpower.reinforced_advanced_solar_cell": "強化発展型ソーラーセル",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "ソーラー発電の限界突破",
+  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
+
   "item.energizedpower.elite_solar_cell": "Elite Solar Cell",
+  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
+  "advancements.energizedpower.elite_solar_cell.description": "最上位のソーラーパネルを作成するために必要な材料です",
+
+  "book.energizedpower.page.solar_cells.1": "すべてのソーラーパネルのベースとなる材料です。",
+  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
 
   "item.energizedpower.basic_circuit": "基本型回路",
+  "advancements.energizedpower.basic_circuit.title": "基本型回路",
+  "advancements.energizedpower.basic_circuit.description": "基本型回路を作成する",
+
   "item.energizedpower.advanced_circuit": "発展型回路",
+  "advancements.energizedpower.advanced_circuit.title": "発展型回路",
+  "advancements.energizedpower.advanced_circuit.description": "発展型回路を作成する",
+
   "item.energizedpower.processing_unit": "処理ユニット",
+  "advancements.energizedpower.processing_unit.title": "処理ユニット",
+  "advancements.energizedpower.processing_unit.description": "処理ユニットを作成する",
+
   "item.energizedpower.quantum_processing_unit": "Quantum Processing Unit",
+  "advancements.energizedpower.quantum_processing_unit.title": "Quantum Processing Unit",
+  "advancements.energizedpower.quantum_processing_unit.description": "Craft a Quantum Processing Unit.",
+
+  "book.energizedpower.page.circuits": "回路は、一部のレシピの材料です。",
 
   "item.energizedpower.energized_power_book": "Energized Powerのガイドブック",
   "tooltip.energizedpower.energized_power_book.txt.shift.1": "左クリックでガイドブックが開きます",
+  "advancements.energizedpower.energized_power_book.title": "全知の書",
+  "advancements.energizedpower.energized_power_book.description": "このMODのガイドブック",
+
   "book.energizedpower.front.cover.text": "このMODの公式ガイドブックです！",
 
   "item.energizedpower.cable_insulator": "ケーブル絶縁体",
   "tooltip.energizedpower.cable_insulator.txt.shift.1": "ハサミを手に持ち、羊毛ブロックに使用すると作成できます。",
+  "advancements.energizedpower.cable_insulator.title": "ケーブル用の上着",
+  "advancements.energizedpower.cable_insulator.description": "この素材でケーブルを覆いましょう(ハサミを羊毛ブロックに使用、またはディスペンサーでも作成できます)",
+  "book.energizedpower.page.cable_insulator.1": "ケーブル絶縁体は、ケーブルをを作成するための材料です。",
+  "book.energizedpower.page.cable_insulator.2": "ハサミを羊毛ブロックに使用すると作成できます。",
+  "book.energizedpower.page.cable_insulator.3": "ディスペンサーを使用して作成することもできます。",
 
   "item.energizedpower.charcoal_filter": "木炭フィルター",
+  "advancements.energizedpower.charcoal_filter.title": "木炭フィルター",
+  "advancements.energizedpower.charcoal_filter.description": "木炭フィルターを作成する",
+  "book.energizedpower.page.charcoal_filter": "木炭フィルターは、ろ過装置で汚水をろ過するために使用されます。",
 
   "item.energizedpower.saw_blade": "のこぎりの刃",
+  "book.energizedpower.page.saw_blade": "のこぎりの刃は、製材機を作成するための材料です。",
 
   "item.energizedpower.crystal_matrix": "結晶基盤",
 
   "item.energizedpower.coolant_cell": "Coolant Cell",
+  "advancements.energizedpower.coolant_cell.title": "Coolant Cell",
+  "advancements.energizedpower.coolant_cell.description": "Keep your machines cool.",
+  "book.energizedpower.page.coolant_cell": "Coolant Cells are used to cool the most powerful machines.",
 
   "item.energizedpower.energized_crystal_matrix": "帯電した結晶基盤",
+  "advancements.energizedpower.energized_crystal_matrix.title": "帯電した結晶基盤",
+  "advancements.energizedpower.energized_crystal_matrix.description": "一部の高性能機の安定化装置として使用されます",
+  "book.energizedpower.page.energized_crystal_matrix": "帯電した結晶基盤は、一部の高性能機の安定化装置として使用されます。",
 
   "item.energizedpower.dirty_water_bucket": "汚水入りバケツ",
+  "fluid_type.energizedpower.dirty_water": "汚水",
+  "book.energizedpower.page.dirty_water.1": "汚水は、水を消費する一部の機械の副産物として生成されます。",
+  "book.energizedpower.page.dirty_water.2": "汚水は、ろ過プラントで浄化することができます。",
+
   "item.energizedpower.liquid_xp_bucket": "Liquid XP Bucket",
+  "fluid_type.energizedpower.liquid_xp": "Liquid XP",
 
   "item.energizedpower.teleporter_matrix": "転送先記憶基盤",
   "item.energizedpower.teleporter_matrix.linked": "転送先記憶基盤 [リンク済み]",
@@ -119,30 +245,100 @@
   "tooltip.energizedpower.teleporter_matrix.dimension": "ディメンション: ",
   "tooltip.energizedpower.teleporter_matrix.txt.shift.1": "転送装置をShift+右クリックすると、リンクできます。",
   "tooltip.energizedpower.teleporter_matrix.txt.shift.2": "空中で右クリックすると、リンクを解除できます。",
+  "advancements.energizedpower.teleporter_matrix.title": "転送先記憶基盤",
+  "advancements.energizedpower.teleporter_matrix.description": "転送機能を実現するための最初のステップ",
+  "book.energizedpower.page.teleporter_matrix.1": "転送先記憶基盤は、転送装置同氏をリンクするために使用されます。",
+  "book.energizedpower.page.teleporter_matrix.2": "リンク済みの転送先記憶基盤と未リンクの記憶基盤を作業台に並べると、設定をコピーできます。",
 
   "item.energizedpower.teleporter_processing_unit": "転送装置処理ユニット",
+  "advancements.energizedpower.teleporter_processing_unit.title": "転送装置処理ユニット",
+  "advancements.energizedpower.teleporter_processing_unit.description": "転送装置の脳",
 
   "item.energizedpower.basic_upgrade_module": "基本型アップグレードモジュール",
+  "advancements.energizedpower.basic_upgrade_module.title": "基本型アップグレードモジュール",
+  "advancements.energizedpower.basic_upgrade_module.description": "基本型アップグレードモジュールを作成する",
+
   "item.energizedpower.advanced_upgrade_module": "発展型アップグレードモジュール",
+  "advancements.energizedpower.advanced_upgrade_module.title": "発展型アップグレードモジュール",
+  "advancements.energizedpower.advanced_upgrade_module.description": "発展型アップグレードモジュールを作成する",
+
   "item.energizedpower.reinforced_advanced_upgrade_module": "強化発展型アップグレードモジュール",
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "強化発展型アップグレードモジュール",
+  "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "強化発展型アップグレードモジュールを作成する",
+
   "item.energizedpower.elite_upgrade_module": "Elite Upgrade Module",
+  "advancements.energizedpower.elite_upgrade_module.title": "Elite Upgrade Module",
+  "advancements.energizedpower.elite_upgrade_module.description": "Craft an Elite Upgrade Module.",
 
   "_template.item.energizedpower.speed_upgrade_module": "速度アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.speed_upgrade_module.title": "速度 %s",
+  "_template.advancements.energizedpower.speed_upgrade_module.description": "速度アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.speed_upgrades": "速度アップグレードは、機械の加工速度を向上させますが、電力消費も増加します。",
+
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "発電効率アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "発電効率 %s",
+  "_template.advancements.energizedpower.energy_efficiency_upgrade_module.description": "発電効率アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.energy_efficiency_upgrades": "発電効率アップグレードは、電力消費を抑えられます。",
+
   "_template.item.energizedpower.energy_production_upgrade_module": "Energy Production Upgrade Module (Tier %s)",
+  "_template.advancements.energizedpower.energy_production_upgrade_module.title": "Energy Production %s",
+  "_template.advancements.energizedpower.energy_production_upgrade_module.description": "Craft an Energy Production Upgrade Module (Tier %s).",
+  "book.energizedpower.page.energy_production_upgrades": "Energy Production Upgrades increase the energy production.",
+
   "_template.item.energizedpower.energy_capacity_upgrade_module": "蓄電量アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.energy_capacity_upgrade_module.title": "蓄電量 %s",
+  "_template.advancements.energizedpower.energy_capacity_upgrade_module.description": "蓄電量アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.energy_capacity_upgrades": "蓄電量アップグレードは、蓄電量と送電速度が向上します。",
+
   "_template.item.energizedpower.duration_upgrade_module": "持続時間アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.duration_upgrade_module.title": "持続時間 %s",
+  "_template.advancements.energizedpower.duration_upgrade_module.description": "持続時間アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.duration_upgrades.1": "持続時間アップグレードは、天候操作装置でで設定された天候の持続時間を延長させる。",
+  "book.energizedpower.page.duration_upgrades.2": "次世代型持続時間アップグレードモジュールは、現在の天候を維持できるようになるが、常時電力供給が必要です。",
+
   "_template.item.energizedpower.range_upgrade_module": "有効範囲アップグレードモジュール (ティアー %s)",
-  "_template.item.energizedpower.extraction_depth_upgrade_module": "抽出深度アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.range_upgrade_module.title": "有効範囲 %s",
+  "_template.advancements.energizedpower.range_upgrade_module.description": "有効範囲アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.range_upgrades": "有効範囲アップグレードは、機械が電磁波を送受信できる範囲を拡張します。",
+
   "_template.item.energizedpower.extraction_range_upgrade_module": "抽出範囲アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "抽出範囲 %s",
+  "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "抽出範囲アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.extraction_range_upgrades": "抽出範囲アップグレードは、機械が作業できる範囲を増加させます。",
+
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "抽出深度アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "抽出深度 %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "抽出深度アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.extraction_depth_upgrades": "抽出深度アップグレードは、機械が作業できる深度を増加させます。",
+
   "_template.item.energizedpower.moon_light_upgrade_module": "月光アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.moon_light_upgrade_module.title": "月光 %s",
+  "_template.advancements.energizedpower.moon_light_upgrade_module.description": "月光アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.moon_light_upgrades": "月光アップグレードは、ソーラーパネルによる夜間の発電ができるようになります。",
+
   "_template.item.energizedpower.item_ejector_upgrade_module": "Item Ejector Upgrade Module (Tier %s)",
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item Ejector %s",
+  "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Craft an Item Ejector Upgrade Module (Tier %s).",
+  "book.energizedpower.page.item_ejector_upgrades.1": "Item Ejector Upgrades will allow machines to automatically push items into the first valid output.",
+  "book.energizedpower.page.item_ejector_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
+
   "_template.item.energizedpower.item_pulling_upgrade_module": "Item Pulling Upgrade Module (Tier %s)",
+  "_template.advancements.energizedpower.item_pulling_upgrade_module.title": "Item Pulling %s",
+  "_template.advancements.energizedpower.item_pulling_upgrade_module.description": "Craft an Item Pulling Upgrade Module (Tier %s).",
+  "book.energizedpower.page.item_pulling_upgrades.1": "Item Pulling Upgrades will allow machines to automatically pull items from the first valid input.",
+  "book.energizedpower.page.item_pulling_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
 
   "item.energizedpower.blast_furnace_upgrade_module": "溶鉱炉機能拡張モジュール",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "溶鉱炉",
+  "advancements.energizedpower.blast_furnace_upgrade_module.title": "製錬モード: 溶鉱炉",
+  "advancements.energizedpower.blast_furnace_upgrade_module.description": "溶鉱炉機能拡張モジュールを作成する",
+
   "item.energizedpower.smoker_upgrade_module": "燻製器機能拡張モジュール",
   "item.energizedpower.smoker_upgrade_module.effect_text": "燻製器",
+  "advancements.energizedpower.smoker_upgrade_module.title": "製錬モード: 燻製器",
+  "advancements.energizedpower.smoker_upgrade_module.description": "燻製器機能拡張モジュールを作成する",
+
+  "book.energizedpower.page.furnace_mode_upgrades": "製錬モードアップグレードは、電動かまどの加工レシピが変化します。",
 
   "item.energizedpower.inventory_coal_engine": "携帯型石炭発電機",
   "tooltip.energizedpower.inventory_coal_engine.status": "状態: ",
@@ -152,19 +348,51 @@
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.2": "有効時、燃料はインベントリから自動的に消費されます。",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.currently_burning": "燃焼中: ",
   "tooltip.energizedpower.inventory_coal_engine.txt.shift.energy_production_left": "残り発電量: %s",
+  "advancements.energizedpower.inventory_coal_engine.title": "インベントリ電力",
+  "advancements.energizedpower.inventory_coal_engine.description": "インベントリ内での発電、およびアイテムへの電力供給ができます",
+  "book.energizedpower.page.inventory_coal_engine.1": "携帯型石炭発電機は、インベントリ内での発電、およびアイテムへ電力供給ができます。",
+  "book.energizedpower.page.inventory_coal_engine.2": "手に持って何もない空間を右クリックすると、オン・オフを切り替えられます。",
+  "book.energizedpower.page.inventory_coal_engine.3": "有効時、燃料はインベントリから自動的に消費されます。",
+  "book.energizedpower.page.inventory_coal_engine.4": " [ホットバー内のアイテムは対象外です]",
 
   "item.energizedpower.inventory_charger": "携帯型充電器",
   "container.energizedpower.inventory_charger": "携帯型充電器",
   "tooltip.energizedpower.inventory_charger.txt.shift.1": "このアイテムを空中で使用すると、このアイテムのインベントリを開ける。",
+  "advancements.energizedpower.inventory_charger.title": "ローカル充電",
+  "advancements.energizedpower.inventory_charger.description": "インベントリ内のアイテムを電池から自動充電します",
+  "book.energizedpower.page.inventory_charger.1": "インベントリ内の各アイテムへ電力供給できます",
+  "book.energizedpower.page.inventory_charger.2": "充電された電池を中に入れてください",
 
   "item.energizedpower.inventory_teleporter": "携帯型転送装置",
   "container.energizedpower.inventory_teleporter": "携帯型転送装置",
-
   "tooltip.energizedpower.inventory_teleporter.txt.shift.1": "空中でShift+右クリックすると、インベントリが開きます。",
   "tooltip.energizedpower.inventory_teleporter.txt.shift.2": "空中で右クリックすると、転送できます。",
+  "advancements.energizedpower.inventory_teleporter.title": "携帯型転送装置",
+  "advancements.energizedpower.inventory_teleporter.description": "携帯型転送装置を作成する",
+  "book.energizedpower.page.inventory_teleporter": "携帯型転送装置は、プレイヤーを転送できます。これには電力とリンクされた転送先記憶基盤が必要です。",
 
   "_template.item.energizedpower.battery": "電池 (ティアー %s)",
   "tooltip.energizedpower.battery.txt.shift.1": "この電池は%s/tを送電できます。",
+  "advancements.energizedpower.battery_1.title": "電池",
+  "advancements.energizedpower.battery_1.description": "電力をアイテムに蓄えられる",
+  "advancements.energizedpower.battery_2.title": "蓄電量4倍",
+  "advancements.energizedpower.battery_2.description": "ティアー1の4倍の蓄電量です",
+  "advancements.energizedpower.battery_3.title": "もっと電力を…！",
+  "advancements.energizedpower.battery_3.description": "ティアー3: ティアー2の2倍の蓄電量です",
+  "advancements.energizedpower.battery_4.title": "足りない…もっと、もっと電力を…！",
+  "advancements.energizedpower.battery_4.description": "ティアー4に到達。最高性能まであと半分です",
+  "advancements.energizedpower.battery_5.title": "銅の限界点",
+  "advancements.energizedpower.battery_5.description": "ティアー5: 次段階の電池には、アイテムの充電が必要です",
+  "advancements.energizedpower.battery_6.title": "蓄電限界の超越",
+  "advancements.energizedpower.battery_6.description": "ティアー6: 帯電完了",
+  "advancements.energizedpower.battery_7.title": "まだ足りない？",
+  "advancements.energizedpower.battery_7.description": "ティアー7: 蓄電量25万FE達成",
+  "advancements.energizedpower.battery_8.title": "至高を求めて",
+  "advancements.energizedpower.battery_8.description": "このMODにおける最高峰のバッテリー",
+  "advancements.energizedpower.battery_8_fully_charged.title": "至高の蓄電量",
+  "advancements.energizedpower.battery_8_fully_charged.description": "100万FEバッテリー、充電完了",
+  "book.energizedpower.page.batteries.1": "電池は蓄電できます。",
+  "book.energizedpower.page.batteries.2": "充電器や携帯型発電機で充電でき、放電機で放電できます。",
 
   "item.energizedpower.creative_battery": "クリエイティブの電池",
 
@@ -181,6 +409,10 @@
   "txt.energizedpower.energy_analyzer.energy_can_extract": "このブロックは発電します。",
   "txt.energizedpower.energy_analyzer.energy_can_receive_side": "この面は電力を消費します。",
   "txt.energizedpower.energy_analyzer.energy_can_extract_side": "この面は発電します。",
+  "advancements.energizedpower.energy_analyzer.title": "分析を極めし者",
+  "advancements.energizedpower.energy_analyzer.description": "電力を持つすべてのブロックを分析できます。GUIを持たない装置でも問題ありません！",
+  "book.energizedpower.page.energy_analyzer.1": "電力分析器は、電力の統計情報を取得するために使用できます。GUIのない電力ブロックに主に使用されます。",
+  "book.energizedpower.page.energy_analyzer.2": "電力を持つブロックをクリックすることで使用できます。",
 
   "item.energizedpower.fluid_analyzer": "液体分析器",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "液体を持つブロックをクリックすると、詳細情報が表示される。",
@@ -192,6 +424,10 @@
   "txt.energizedpower.fluid_analyzer.fluid_output.tank_count": "タンク数: %d",
   "txt.energizedpower.fluid_analyzer.fluid_output.tank_count_side": "クリックした面のタンク数: %d",
   "txt.energizedpower.fluid_analyzer.fluid_output.tank_fluid_content": "タンク %d: %s%s / %s.",
+  "advancements.energizedpower.fluid_analyzer.title": "液体分析",
+  "advancements.energizedpower.fluid_analyzer.description": "液体を持つブロックを分析できます",
+  "book.energizedpower.page.fluid_analyzer.1": "液体分析器は、液体を持つブロックを分析できます",
+  "book.energizedpower.page.fluid_analyzer.2": "液体を持つブロックをクリックすることで使用できます。",
 
   "item.energizedpower.wooden_hammer": "木のハンマー",
   "item.energizedpower.stone_hammer": "石のハンマー",
@@ -200,18 +436,37 @@
   "item.energizedpower.golden_hammer": "金のハンマー",
   "item.energizedpower.diamond_hammer": "ダイヤモンドのハンマー",
   "item.energizedpower.netherite_hammer": "ネザライトのハンマー",
+  "advancements.energizedpower.hammer.title": "頼れる道具",
+  "advancements.energizedpower.hammer.description": "ハンマーを使用して板を作成できます",
+  "book.energizedpower.page.hammers": "ハンマーは板を作成できる",
 
   "item.energizedpower.cutter": "カッター",
+  "advancements.energizedpower.cutter.title": "チョキ、チョキ、チョキ",
+  "advancements.energizedpower.cutter.description": "カッターを使用してワイヤーを作成できます",
+  "book.energizedpower.page.cutters.1": "カッターはワイヤーを作成できます。",
+  "book.energizedpower.page.cutters.2": "カッターを使えば、ケーブルを素早く撤去できます。",
 
   "item.energizedpower.wrench": "レンチ",
   "tooltip.energizedpower.wrench.txt.shift": "レンチはブロックの設定を変更できます。",
   "tooltip.energizedpower.wrench.select_face": "選択中の面: %s",
   "tooltip.energizedpower.wrench.not_configurable": "このブロックは設定できません。",
+  "advancements.energizedpower.wrench.title": "レンチを使いこなせ！",
+  "advancements.energizedpower.wrench.description": "レンチでブロックを設定できます",
+  "book.energizedpower.page.wrench": "レンチを使えば、ブロックの設定ができます。",
 
   "tooltip.energizedpower.wrench_configurable": "このブロックはレンチで設定できます。",
 
   "item.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
+  "entity.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
+  "advancements.energizedpower.battery_box_minecart.title": "線路駆ける電力",
+  "advancements.energizedpower.battery_box_minecart.description": "レールで電力を輸送できます",
+
   "item.energizedpower.advanced_battery_box_minecart": "発展型蓄電器付きのマインカート",
+  "entity.energizedpower.advanced_battery_box_minecart": "発展型蓄電器付きのマインカート",
+  "advancements.energizedpower.advanced_battery_box_minecart.title": "線路満たす電力",
+  "advancements.energizedpower.advanced_battery_box_minecart.description": "レールでより多くの電力を輸送できます",
+
+  "book.energizedpower.page.battery_box_minecarts": "蓄電器付きのマインカートは、レール上で電力を輸送できます。マインカートの充電器で充電でき、マインカートの放電器で放電できます。",
 
   "_template.epblock.silicon_block": "シリコンブロック",
 
@@ -230,79 +485,161 @@
   "_template.epblock.raw_tin_block": "錫の原石ブロック",
 
   "_template.epblock.item_conveyor_belt": "基本型アイテムコンベア",
+  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "面が%sに設定されました。",
+  "advancements.energizedpower.item_conveyor_belt.title": "アイテム輸送",
+  "advancements.energizedpower.item_conveyor_belt.description": "アイテムコンベアでアイテムを輸送する",
+  "book.energizedpower.page.item_conveyor_belt.1": "アイテムコンベアは、アイテムを輸送できます。",
+  "book.energizedpower.page.item_conveyor_belt.2": "レンチを使えば、角度を変更できます。",
+  "book.energizedpower.page.item_conveyor_belt.3": "アイテムコンベアは、ホッパーやアイテム搬入機能を持つあらゆるブロックからアイテムを搬入できます。",
+  "book.energizedpower.page.item_conveyor_belt.4": "アイテムコンベアは、前方のブロック内へアイテムを搬入できます。",
+  "book.energizedpower.page.item_conveyor_belt.5": "また、ホッパーやアイテム搬出機能を持つあらゆるブロックからアイテムを搬出できる",
+  "book.energizedpower.page.item_conveyor_belt.6": "アイテムコンベアは、AE2のアイテムトンネルに直接接続できます。",
 
   "_template.epblock.fast_item_conveyor_belt": "快速型アイテムコンベア",
+  "advancements.energizedpower.fast_item_conveyor_belt.title": "快速型アイテムコンベア",
+  "advancements.energizedpower.fast_item_conveyor_belt.description": "快速型アイテムコンベアを作成する",
 
   "_template.epblock.express_item_conveyor_belt": "特急型アイテムコンベア",
-
-  "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "面が%sに設定されました。",
+  "advancements.energizedpower.express_item_conveyor_belt.title": "特急型アイテムコンベア",
+  "advancements.energizedpower.express_item_conveyor_belt.description": "特急型アイテムコンベアを作成する",
 
   "_template.epblock.item_conveyor_belt_loader": "基本型アイテムコンベア搬入機",
   "container.energizedpower.item_conveyor_belt_loader": "基本型アイテムコンベア搬入機",
+  "advancements.energizedpower.item_conveyor_belt_loader.title": "アイテム搬入機",
+  "advancements.energizedpower.item_conveyor_belt_loader.description": "アイテムコンベアにアイテムを搬入します",
+  "book.energizedpower.page.item_conveyor_belt_loader.1": "アイテム搬入機は、あらゆるストレージ（他のコンベアを含む）からアイテムを搬出し、コンベア上へと搬入できます。",
+  "book.energizedpower.page.item_conveyor_belt_loader.2": "でかめの四角の面からアイテムを搬出し、小さめの四角の面をコンベアに接続するように配置しましょう。",
+  "book.energizedpower.page.item_conveyor_belt_loader.3": "また、ホッパーやアイテム搬出機能を持つあらゆるブロックからアイテムを搬出できます。",
+  "book.energizedpower.page.item_conveyor_belt_loader.4": "垂直方向や水平方向に積み重ねて設置できます。",
+  "book.energizedpower.page.item_conveyor_belt_loader.5": "レッドストーン信号で停止できます。",
 
   "_template.epblock.fast_item_conveyor_belt_loader": "快速型アイテムコンベア搬入機",
   "container.energizedpower.fast_item_conveyor_belt_loader": "快速型アイテムコンベア搬入機",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "快速型アイテムコンベア搬入機",
+  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "快速型アイテムコンベア搬入機を作成する",
 
   "_template.epblock.express_item_conveyor_belt_loader": "特急型アイテムコンベア搬入機",
   "container.energizedpower.express_item_conveyor_belt_loader": "特急型アイテムコンベア搬入機",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "特急型アイテムコンベア搬入機",
+  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "特急型アイテムコンベア搬入機を作成する",
 
   "_template.epblock.item_conveyor_belt_sorter": "基本型アイテムコンベア仕分け機",
   "container.energizedpower.item_conveyor_belt_sorter": "基本型アイテムコンベア仕分け機",
-
-  "_template.epblock.fast_item_conveyor_belt_sorter": "快速型アイテムコンベア仕分け機",
-  "container.energizedpower.fast_item_conveyor_belt_sorter": "快速型アイテムコンベア仕分け機",
-
-  "_template.epblock.express_item_conveyor_belt_sorter": "特急型アイテムコンベア仕分け機",
-  "container.energizedpower.express_item_conveyor_belt_sorter": "特急型アイテムコンベア仕分け機",
-
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "搬出先 %d: はコンベアと接続されていません",
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.connection": "搬出先 %d: はコンベアと接続されています",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.ignore_nbt": "NBTを無視",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "ホワイトリスト",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "ブラックリスト",
+  "advancements.energizedpower.item_conveyor_belt_sorter.title": "自動仕分け機",
+  "advancements.energizedpower.item_conveyor_belt_sorter.description": "アイテムコンベア仕分け機でアイテムを仕分ける",
+  "book.energizedpower.page.item_conveyor_belt_sorter.1": "アイテムコンベア仕分け機は、搬入側のコンベアから流れてくるアイテムを、指定された搬出側コンベアへと仕分けることができます。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.2": "搬入用のコンベアはでかめの四角の面側に設置し、かつ上り坂になっていない必要があります。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.3": "搬出用コンベアについては、特に設置の制限はありません。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.4": "搬出先は色分けされており、搬入面から見て、赤（左側）、黄（正面）、緑（右側）の三方向に対応しています。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.5": "アイテムはフィルターが一致した最初の搬出先へと仕分けられる(優先度: 搬出先1、搬出先2、搬出先3の順)。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.6": "搬出先フィルターの列にあるアイテムのうち、どれか一つでも搬入されたアイテムと一致すれば、その搬出先へと仕分けれます。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.7": "手持ちのアイテムをフィルター用のスロットで左クリックすれば、そのアイテムを登録できます。リセットしたい時は、何も持たずに左クリックしてください。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.8": "すべてのアイテムを通過させたい場合は、パターンを空にしたままブラックリストを選択してください。もし搬出先にコンベアを繋いでいないなら、空のホワイトリストに設定しておきましょう。",
+  "book.energizedpower.page.item_conveyor_belt_sorter.9": "どのフィルターにも一致しなかった場合、強度15のレッドストーン信号が出力されます(搬出先が未接続だったり、満杯だったりする場合は出力されません)。",
+
+  "_template.epblock.fast_item_conveyor_belt_sorter": "快速型アイテムコンベア仕分け機",
+  "container.energizedpower.fast_item_conveyor_belt_sorter": "快速型アイテムコンベア仕分け機",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "快速型アイテムコンベア仕分け機",
+  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "快速型アイテムコンベア仕分け機を作成する",
+
+  "_template.epblock.express_item_conveyor_belt_sorter": "特急型アイテムコンベア仕分け機",
+  "container.energizedpower.express_item_conveyor_belt_sorter": "特急型アイテムコンベア仕分け機",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "特急型アイテムコンベア仕分け機",
+  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "特急型アイテムコンベア仕分け機を作成する",
 
   "_template.epblock.item_conveyor_belt_switch": "基本型アイテムコンベア分岐機",
+  "advancements.energizedpower.item_conveyor_belt_switch.title": "アイテムコンベア分岐機",
+  "advancements.energizedpower.item_conveyor_belt_switch.description": "搬出方向を選択できます",
+  "book.energizedpower.page.item_conveyor_belt_switch.1": "アイテムコンベア分岐機は、搬入面(でかめの四角側)から来たアイテムを緑色のランプが点いている側のコンベアへと搬出します。上り坂のコンベアは接続できません。",
+  "book.energizedpower.page.item_conveyor_belt_switch.2": "レッドストーン信号が入力されている間は、もう一方の搬出先へとアイテムが搬出されます。",
 
   "_template.epblock.fast_item_conveyor_belt_switch": "快速型アイテムコンベア分岐機",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "快速型アイテムコンベア分岐機",
+  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "快速型アイテムコンベア分岐機を作成する",
 
   "_template.epblock.express_item_conveyor_belt_switch": "特急型アイテムコンベア分岐機",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "特急型アイテムコンベア分岐機",
+  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "特急型アイテムコンベア分岐機を作成する",
 
   "_template.epblock.item_conveyor_belt_splitter": "基本型アイテムコンベア分配機",
+  "advancements.energizedpower.item_conveyor_belt_splitter.title": "アイテムコンベア分配機",
+  "advancements.energizedpower.item_conveyor_belt_splitter.description": "アイテムを複数の搬出先へ均等に分配します",
+  "book.energizedpower.page.item_conveyor_belt_splitter": "アイテムコンベア分配機は、搬入面(でかめの四角側)から来たアイテムを接続されている各搬出先のコンベアへ均等に分配します。上り坂のコンベアは接続できません。",
 
   "_template.epblock.fast_item_conveyor_belt_splitter": "快速型アイテムコンベア分配機",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "快速型アイテムコンベア分配機",
+  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "快速型アイテムコンベア分配機を作成する",
 
   "_template.epblock.express_item_conveyor_belt_splitter": "特急型アイテムコンベア分配機",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "特急型アイテムコンベア分配機",
+  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "特急型アイテムコンベア分配機を作成する",
 
   "_template.epblock.item_conveyor_belt_merger": "基本型アイテムコンベア合流機",
+  "advancements.energizedpower.item_conveyor_belt_merger.title": "アイテムコンベア合流機",
+  "advancements.energizedpower.item_conveyor_belt_merger.description": "複数の搬入先からアイテムを均等に合流させる",
+  "book.energizedpower.page.item_conveyor_belt_merger": "アイテムコンベア合流機は、接続されている各搬入面からアイテムを交互に受け取り、1つの搬出先へと合流させます。上り坂のコンベアは接続できません。",
 
   "_template.epblock.fast_item_conveyor_belt_merger": "快速型アイテムコンベア合流機",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "快速型アイテムコンベア合流機",
+  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "快速型アイテムコンベア合流機を作成する",
 
   "_template.epblock.express_item_conveyor_belt_merger": "特急型アイテムコンベア合流機",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "特急型アイテムコンベア合流機",
+  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "特急型アイテムコンベア合流機を作成する",
 
   "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 
   "_template.epblock.fluid_pipe": "鉄の液体パイプ",
+  "advancements.energizedpower.iron_fluid_pipe.title": "液体輸送",
+  "advancements.energizedpower.iron_fluid_pipe.description": "鉄の液体パイプは液体を輸送できます",
 
   "_template.epblock.golden_fluid_pipe": "金の液体パイプ",
+  "advancements.energizedpower.golden_fluid_pipe.title": "高速液体輸送",
+  "advancements.energizedpower.golden_fluid_pipe.description": "金の液体パイプで液体をより速く輸送できます",
 
   "_template.epblock.steel_fluid_pipe": "Steel Fluid Pipe",
 
   "_template.epblock.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
+  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "抽出面ごとの最大抽出量: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "面(%s)の接続タイプを%sに設定しました。",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "面(%s)の接続タイプを変更できませんでした。",
 
-  "_template.epcontainer.press_mold_maker": "成形型作成機",
+  "book.energizedpower.page.fluid_pipes.1": "液体パイプは、液体を輸送できます。",
+  "book.energizedpower.page.fluid_pipes.2": "レンチを使えば、パイプの各面ごとに接続モードを切り替えられます。",
+  "book.energizedpower.page.fluid_pipes.3": "1本の液体パイプが一度に抽出できるのは、一種類の液体のみです。複数の面を抽出モードにしても、中身は混ざりません。",
 
+  "_template.epcontainer.press_mold_maker": "成形型作成機",
   "tooltip.energizedpower.press_mold_maker.btn.up": "上スクロール",
   "tooltip.energizedpower.press_mold_maker.btn.down": "下スクロール",
-
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "必要量 %dx %s",
+  "emi.category.energizedpower.press_mold_maker": "成形型作成機",
+  "advancements.energizedpower.press_mold_maker.title": "成形型作成機",
+  "advancements.energizedpower.press_mold_maker.description": "金属成形機で使用する成形型を作成するためのブロックです",
+  "book.energizedpower.page.press_mold_maker": "金属成形機で使用する成形型を作成できます。",
 
   "_template.epcontainer.alloy_furnace": "合金かまど",
+  "emi.category.energizedpower.alloy_furnace": "合金かまど",
+  "advancements.energizedpower.alloy_furnace.title": "合金かまど",
+  "advancements.energizedpower.alloy_furnace.description": "合金かまどを作成する",
+  "book.energizedpower.page.alloy_furnace.1": "合金かまどは、合金を製造できます。",
+  "book.energizedpower.page.alloy_furnace.2": "生成物および消費済み燃料の自動搬出は、全スロット・すべての面からできます。",
+  "book.energizedpower.page.alloy_furnace.3": "燃料は上面と下面から投入できます。搬入は他のすべての面からできます。(正面: 全材料スロット、左面: 左スロット、背面: 中央スロット、右面: 右スロット)",
 
   "_template.epcontainer.auto_crafter": "自動作業機",
+  "advancements.energizedpower.auto_crafter.title": "自動化の幕開け",
+  "advancements.energizedpower.auto_crafter.description": "このブロックが自動でこなしてくれるのに、まだ作業台を使ってるの？（笑）",
+
+  "_template.epcontainer.advanced_auto_crafter": "発展型自動作業機",
+  "advancements.energizedpower.advanced_auto_crafter.title": "電力クラフト",
+  "advancements.energizedpower.advanced_auto_crafter.description": "1つのブロックで複数のレシピをクラフトできます",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "材料1つにつき%s/t消費します。",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBTを無視",
@@ -312,261 +649,485 @@
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "レシピを切り替える",
   "tooltip.energizedpower.auto_crafter.recipe_index": "レシピ %d",
 
-  "_template.epcontainer.advanced_auto_crafter": "発展型自動作業機",
+  "book.energizedpower.page.auto_crafters.1": "自動作業機は、アイテムを自動で作成します。",
+  "book.energizedpower.page.auto_crafters.2": "パターンスロットにアイテムを配置することで、レシピを設定できます。",
+  "book.energizedpower.page.auto_crafters.3": "同じ材料のレシピが複数ある場合は、切り替えボタンか外部MOD(REIなど)から設定してください。",
+  "book.energizedpower.page.auto_crafters.4": "発展型自動作業機は、複数のレシピを同時に処理できます。",
 
   "_template.epcontainer.charger": "充電器",
+  "tooltip.energizedpower.charger.item_energy_left.txt": "充電完了まであと%s必要です。",
+  "advancements.energizedpower.charger.title": "充電開始",
+  "advancements.energizedpower.charger.description": "このブロックでアイテムを充電できます",
+
+  "_template.epcontainer.advanced_charger": "発展型充電器",
+  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "全アイテムの充電完了まであと%s必要です。",
+  "advancements.energizedpower.advanced_charger.title": "同時充電",
+  "advancements.energizedpower.advanced_charger.description": "複数のアイテムを同時に充電できます",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "充電器は、帯電した銅インゴットを作成できます。",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "ですが、専用機である高エネルギー充電器がおすすめです。",
   "tooltip.energizedpower.chargers.txt.shift.2.2": "充電器だと電力消費が大きいためです。",
-
-  "tooltip.energizedpower.charger.item_energy_left.txt": "充電完了まであと%s必要です。",
-
-  "_template.epcontainer.advanced_charger": "発展型充電器",
-
-  "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "全アイテムの充電完了まであと%s必要です。",
+  "emi.category.energizedpower.charger": "充電器",
 
   "_template.epcontainer.uncharger": "放電器",
-
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "残り電力: %s",
+  "advancements.energizedpower.uncharger.title": "戻ってこい！",
+  "advancements.energizedpower.uncharger.description": "帯電したアイテムから電力を回収できます",
 
   "_template.epcontainer.advanced_uncharger": "発展型放電器",
-
   "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "全アイテムの合計残り電力: %s",
+  "advancements.energizedpower.advanced_uncharger.title": "同時放電",
+  "advancements.energizedpower.advanced_uncharger.description": "複数のアイテムから同時に電力を回収できます",
+
+  "book.energizedpower.page.charger_uncharger.1": "充電器はアイテムを充電し、放電器で放電できます。",
+  "book.energizedpower.page.charger_uncharger.2": "充電器と放電器の上位版には、3つのスロットが搭載されています。",
 
   "_template.epcontainer.minecart_charger": "マインカートの充電器",
+  "advancements.energizedpower.minecart_charger.title": "マインカートを充電！",
+  "advancements.energizedpower.minecart_charger.description": "マインカートを充電できます",
 
   "_template.epcontainer.advanced_minecart_charger": "マインカートの発展型充電器",
+  "advancements.energizedpower.advanced_minecart_charger.title": "マインカートの発展型充電器",
+  "advancements.energizedpower.advanced_minecart_charger.description": "マインカートをより速く充電できます",
 
   "_template.epcontainer.minecart_uncharger": "マインカートの放電器",
+  "advancements.energizedpower.minecart_uncharger.title": "マインカートを放電！",
+  "advancements.energizedpower.minecart_uncharger.description": "マインカートを放電できます",
 
   "_template.epcontainer.advanced_minecart_uncharger": "マインカートの発展型放電器",
+  "advancements.energizedpower.advanced_minecart_uncharger.title": "マインカートの発展型放電器",
+  "advancements.energizedpower.advanced_minecart_uncharger.description": "マインカートをより速く放電できます",
+
+  "book.energizedpower.page.minecart_charger_uncharger.1": "マインカートの充電器は、充電器で充電でき、放電器は放電できます。",
+  "book.energizedpower.page.minecart_charger_uncharger.2": "レッドストーンコンパレーターを使用すると、充電中、放電中のマインカートの蓄電量を信号強度で取得できます。",
+  "book.energizedpower.page.minecart_charger_uncharger.3": "発展型では、送電速度が向上しています。",
 
   "_template.epblock.tin_cable": "錫のケーブル",
+  "advancements.energizedpower.tin_cable.title": "電力輸送の基礎",
+  "advancements.energizedpower.tin_cable.description": "少量の電力輸送には、錫のケーブルが最適です",
 
   "_template.epblock.copper_cable": "銅のケーブル",
+  "advancements.energizedpower.copper_cable.title": "電力輸送",
+  "advancements.energizedpower.copper_cable.description": "ケーブルで電力を送電しましょう",
 
   "_template.epblock.gold_cable": "金のケーブル",
+  "advancements.energizedpower.gold_cable.title": "電力は多ければ多いほど良い",
+  "advancements.energizedpower.gold_cable.description": "高性能なケーブルでさらなる大電力を送電しましょう",
 
   "_template.epblock.energized_copper_cable": "帯電した銅のケーブル",
+  "advancements.energizedpower.energized_copper_cable.title": "制御不能の力",
+  "advancements.energizedpower.energized_copper_cable.description": "極めて多く電力を送電できます",
 
   "_template.epblock.energized_gold_cable": "帯電した金のケーブル",
+  "advancements.energizedpower.energized_gold_cable.title": "このパワー！！",
+  "advancements.energizedpower.energized_gold_cable.description": "ベストオブベストなケーブルです",
 
   "_template.epblock.energized_crystal_matrix_cable": "帯電した結晶基盤のケーブル",
+  "advancements.energizedpower.energized_crystal_matrix_cable.title": "電力過多",
+  "advancements.energizedpower.energized_crystal_matrix_cable.description": "これほどのエネルギー、一体どこで使うっていうんだ？",
 
   "tooltip.energizedpower.cable.txt.shift.1": "このケーブルは%s/t送電できます。",
   "tooltip.energizedpower.cable.txt.shift.2": "カッターを使用すれば、ケーブルを素早く撤去できます。",
 
+  "book.energizedpower.page.cables.1": "ケーブルは、発電ブロックから消費先のブロックへ送電するために使用される。",
+  "book.energizedpower.page.cables.2": "ケーブルには、6段階のティアがあります。",
+  "book.energizedpower.page.cables.3": "異なるティアのケーブル同士を接続するには変圧器が必要です。",
 
   "_template.epcontainer.lv_transformer_1_to_n": "LV変圧器(1対n)",
-
   "_template.epcontainer.lv_transformer_3_to_3": "LV変圧器(3対3)",
-
   "_template.epcontainer.lv_transformer_n_to_1": "LV変圧器(n対1)",
+  "_template.epcontainer.configurable_lv_transformer": "LV変圧器(設定可能)",
+  "advancements.energizedpower.lv_transformers.title": "LV変圧器",
+  "advancements.energizedpower.lv_transformers.description": "異なるティアのケーブル同士を接続できます",
 
   "_template.epcontainer.transformer_1_to_n": "MV変圧器(1対n)",
-
   "_template.epcontainer.transformer_3_to_3": "MV変圧器(3対3)",
-
   "_template.epcontainer.transformer_n_to_1": "MV変圧器(n対1)",
+  "_template.epcontainer.configurable_mv_transformer": "MV変圧器(設定可能)",
+  "advancements.energizedpower.mv_transformers.title": "MV変圧器",
+  "advancements.energizedpower.mv_transformers.description": "より多くの電力を送電できます",
 
   "_template.epcontainer.hv_transformer_1_to_n": "HV変圧器(1対n)",
-
   "_template.epcontainer.hv_transformer_3_to_3": "HV変圧器(3対3)",
-
   "_template.epcontainer.hv_transformer_n_to_1": "HV変圧器(n対1)",
+  "_template.epcontainer.configurable_hv_transformer": "HV変圧器(設定可能)",
+  "advancements.energizedpower.hv_transformers.title": "HV変圧器",
+  "advancements.energizedpower.hv_transformers.description": "さらに多くの電力を送電できます",
 
   "_template.epcontainer.ehv_transformer_1_to_n": "EHV変圧器(1対n)",
-
   "_template.epcontainer.ehv_transformer_3_to_3": "EHV変圧器(3対3)",
-
   "_template.epcontainer.ehv_transformer_n_to_1": "EHV変圧器(n対1)",
-
-  "_template.epcontainer.configurable_lv_transformer": "LV変圧器(設定可能)",
-
-  "_template.epcontainer.configurable_mv_transformer": "MV変圧器(設定可能)",
-
-  "_template.epcontainer.configurable_hv_transformer": "HV変圧器(設定可能)",
-
   "_template.epcontainer.configurable_ehv_transformer": "EHV変圧器(設定可能)",
-
-  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "面(%s)の接続タイプを%sに設定しました。",
+  "advancements.energizedpower.ehv_transformers.title": "EHV変圧器",
+  "advancements.energizedpower.ehv_transformers.description": "1ティックごとに200万FE以上を送電できます",
 
   "tooltip.energizedpower.transformer.txt.shift.1": "このブロックを使用すると、異なるティアのケーブル同士を接続できます。",
   "tooltip.energizedpower.transformer.txt.shift.2": "大きく色が濃いひし形の面が入力面です。",
   "tooltip.energizedpower.transformer.txt.shift.3": "小さく色が明るい正方形の面が出力面です。",
 
+  "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "面(%s)の接続タイプを%sに設定しました。",
+
+  "book.energizedpower.page.transformers.1": "変圧器は、異なるティアのケーブル同士を接続できます。",
+  "book.energizedpower.page.transformers.2": "大きく色が濃いひし形の面が入力面です。",
+  "book.energizedpower.page.transformers.3": "小さく色が明るい正方形の面が出力面です。",
+  "book.energizedpower.page.transformers.4": "変圧器には、LV、MV、HV、EHVの4段階のティアがあります。",
+  "book.energizedpower.page.transformers.5": "各ティアには、1対n、3対3、n対1、設定可能の4種類の変圧器があります。",
+  "book.energizedpower.page.transformers.6": "ケーブルの代わりに変圧器を定期的に配置することで、ネットワークの負荷を軽減できます。",
+  "book.energizedpower.page.transformers.7": "変圧器は、Energized Powerの電力網を他のMODのケーブルへ接続するときにも使用できます。",
+  "book.energizedpower.page.transformers.8": "変圧器は、蓄電器としても使用できます。",
+  "book.energizedpower.page.transformers.9": "変圧器は、AE2のエネルギートンネルから電力を抽出することもできます。",
+
   "_template.epcontainer.battery_box": "蓄電器",
+  "advancements.energizedpower.battery_box.title": "蓄電器",
+  "advancements.energizedpower.battery_box.description": "蓄電器に電力を蓄電しましょう",
+  "book.energizedpower.page.battery_box": "電力を蓄電でき、ブロックのすべての面から送電できます。",
 
   "_template.epcontainer.advanced_battery_box": "発展型蓄電器",
+  "advancements.energizedpower.advanced_battery_box.title": "大容量蓄電器",
+  "advancements.energizedpower.advanced_battery_box.description": "最高性能の電池を上回る膨大な電力を蓄電できます",
 
   "_template.epcontainer.creative_battery_box": "クリエイティブの蓄電器",
-
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "発電量",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "消費電力",
 
-
   "_template.block.energizedpower.solar_panel": "ソーラーパネル (ティアー %s)",
-
   "tooltip.energizedpower.solar_panel.txt.shift.1": "最大発電量: %s/t",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "時刻によって発電効率が変動します。",
+  "advancements.energizedpower.solar_panel_1.title": "太陽光発電の入門",
+  "advancements.energizedpower.solar_panel_1.description": "ソーラーパネル (ティアー I)は初歩的な発電機です",
+  "advancements.energizedpower.solar_panel_2.title": "太陽光発電の実習生",
+  "advancements.energizedpower.solar_panel_2.description": "ソーラーパネル (ティアー II)は、基本型の強化版です",
+  "advancements.energizedpower.solar_panel_3.title": "太陽光発電のバイト",
+  "advancements.energizedpower.solar_panel_3.description": "ソーラーパネル (ティアー III)は、基本的なソーラーパネルの最高モデルです",
+  "advancements.energizedpower.solar_panel_4.title": "太陽光発電の雇われ店長",
+  "advancements.energizedpower.solar_panel_4.description": "ソーラーパネル (ティアー IV): ただならぬ性能",
+  "advancements.energizedpower.solar_panel_5.title": "太陽光発電の重役",
+  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
+  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
+  "advancements.energizedpower.solar_panel_6.description": "ソーラーパネル (ティアー VI): 頂点まであと一歩",
+  "advancements.energizedpower.solar_panel_7.title": "太陽光発電の管理者",
+  "advancements.energizedpower.solar_panel_7.description": "ソーラーパネル (ティアー VII): 太陽光発電、ここに極まれり",
+  "book.energizedpower.page.solar_panels.1": "時刻によって発電効率が変動し、日中にのみ発電します。",
+  "book.energizedpower.page.solar_panels.2": "ソーラーパネルは、7段階のティアがあります。",
 
   "_template.epcontainer.coal_engine": "石炭発電機",
-
   "tooltip.energizedpower.coal_engine.txt": "アイテムが燃えるまで%sを生産します",
+  "advancements.energizedpower.coal_engine.title": "石炭燃料式",
+  "advancements.energizedpower.coal_engine.description": "燃焼による発電は最適とは言えないが、今のところはこれで十分だ",
+  "book.energizedpower.page.coal_engine.1": "石炭発電機はアイテムを燃やしてエネルギーを生産します。",
+  "book.energizedpower.page.coal_engine.2": "余ったアイテムは自動で回収されます。",
 
   "_template.epcontainer.heat_generator": "熱発電機",
+  "advancements.energizedpower.heat_generator.title": "熱動力",
+  "advancements.energizedpower.heat_generator.description": "熱を電力に変換します",
+  "book.energizedpower.page.heat_generator.1": "熱発電機は、溶岩源か流れる溶岩に隣接していると発電します。",
+  "book.energizedpower.page.heat_generator.2": "流れる溶岩より溶岩源に隣接しているほうが多く発電します。",
+  "book.energizedpower.page.heat_generator.3": "接する溶岩が多ければ多いほど、1ティック当たりの発電量が増します。",
+  "book.energizedpower.page.heat_generator.4": "MODPACKでは、溶岩以外の高熱液体にも対応していることがあります。",
 
   "_template.epcontainer.thermal_generator": "熱消費発電機",
-
   "tooltip.energizedpower.thermal_generator.txt": "この液体を消費しきるまで%sを生成する",
+  "advancements.energizedpower.thermal_generator.title": "高熱液体発電",
+  "advancements.energizedpower.thermal_generator.description": "高熱液体を消費し、発電します",
+  "book.energizedpower.page.thermal_generator.1": "熱消費発電機は、高熱液体を消費して発電します。",
+  "book.energizedpower.page.thermal_generator.2": "MODPACKでは、溶岩以外の高熱液体にも対応していることがあります。",
 
   "_template.epblock.powered_lamp": "電動ランプ",
+  "advancements.energizedpower.powered_lamp.title": "電動ランプ",
+  "advancements.energizedpower.powered_lamp.description": "電力を光に変換します",
+  "book.energizedpower.page.powered_lamp": "電動ランプはレッドストーンランプと似ていますが、レッドストーン信号の代わりのエネルギーが必要です。",
 
   "_template.epcontainer.powered_furnace": "電動かまど",
+  "advancements.energizedpower.powered_furnace.title": "電動かまど",
+  "advancements.energizedpower.powered_furnace.description": "電力で動くかまど",
 
   "_template.epcontainer.advanced_powered_furnace": "発展型電動かまど",
-
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "全レシピの実行に必要な電力: %s",
+  "advancements.energizedpower.advanced_powered_furnace.title": "高速製錬",
+  "advancements.energizedpower.advanced_powered_furnace.description": "電力を使って複数のアイテムを一度に製錬する",
+
+  "book.energizedpower.page.powered_furnaces.1": "電動かまどは、通常のかまどと同様に動作するが、石炭の代わりに電力を消費し、製錬速度も向上している。",
+  "book.energizedpower.page.powered_furnaces.2": "発展型電動かまどは3系統の入出力スロットを搭載し、同時に製錬ができます。",
 
   "_template.epcontainer.crusher": "破砕機",
+  "advancements.energizedpower.crusher.title": "粉々にしてやる",
+  "advancements.energizedpower.crusher.description": "石、砂岩、丸石、砂利などのブロックを破砕できます",
 
   "_template.epcontainer.advanced_crusher": "発展型破砕機",
-
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "この機械は水を消費し、汚水を排出する。",
+  "advancements.energizedpower.advanced_crusher.title": "高速破砕",
+  "advancements.energizedpower.advanced_crusher.description": "発展型破砕機を作成する",
+
+  "emi.category.energizedpower.crusher": "破砕機",
+  "book.energizedpower.page.crushers.1": "破砕機は、石、砂岩、丸石、砂利などのブロックを破砕加工できます。",
+  "book.energizedpower.page.crushers.2": "発展型破砕機は動作に水を消費し、汚水を排出する。",
 
   "_template.epcontainer.pulverizer": "粉砕機",
+  "emi.category.energizedpower.pulverizer": "粉砕機",
+  "advancements.energizedpower.pulverizer.title": "粉砕",
+  "advancements.energizedpower.pulverizer.description": "鉱石から粉に加工し、収穫量を増やせる",
 
   "_template.epcontainer.advanced_pulverizer": "発展型粉砕機",
-
   "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "この機械は水を消費し、汚水を排出する。",
+  "emi.category.energizedpower.advanced_pulverizer": "発展型粉砕機",
+  "advancements.energizedpower.advanced_pulverizer.title": "高速粉砕",
+  "advancements.energizedpower.advanced_pulverizer.description": "発展型粉砕機を作成する",
+
+  "book.energizedpower.page.pulverizers.1": "粉砕機は、鉱石から粉に加工し、製錬すればインゴットにできます。",
+  "book.energizedpower.page.pulverizers.2": "発展型粉砕機は水を消費し、汚水を排出する。",
 
   "_template.epcontainer.sawmill": "製材機",
+  "emi.category.energizedpower.sawmill": "製材機",
+  "advancements.energizedpower.sawmill.title": "製材",
+  "advancements.energizedpower.sawmill.description": "木材を製材する",
+  "book.energizedpower.page.sawmill.1": "製材機は、木のブロックや木製アイテムを切断できます。",
+  "book.energizedpower.page.sawmill.2": "木くずが生産され、クラフトや燃料として使える木くずブロックに加工できます。",
 
   "_template.epcontainer.compressor": "圧縮機",
+  "emi.category.energizedpower.compressor": "圧縮機",
+  "advancements.energizedpower.compressor.title": "圧縮機",
+  "advancements.energizedpower.compressor.description": "板材を作成する",
+  "book.energizedpower.page.compressor": "圧縮機は、インゴットを圧縮して板材に加工します。",
 
   "_template.epcontainer.metal_press": "金属成形機",
-
   "tooltip.energizedpower.metal_press.txt.shift.1": "成形型は、成形型作成機で作成できます。",
+  "emi.category.energizedpower.metal_press": "金属成形機",
+  "advancements.energizedpower.metal_press.title": "メタルプレス",
+  "advancements.energizedpower.metal_press.description": "金属を成形できます",
+  "book.energizedpower.page.metal_press.1": "金属成形機は、金属をワイヤーなどの金属製品に加工します。",
+  "book.energizedpower.page.metal_press.2": "成形型は、成形型作成機で作成できます",
+  "book.energizedpower.page.metal_press.3": "成形型スロットへの搬入と搬出は、すべて上面からできます。",
+  "book.energizedpower.page.metal_press.4": "上面以外のすべての面からのアイテムの搬入と搬出に対応しています。",
 
   "_template.epcontainer.auto_press_mold_maker": "自動成形型作成機",
-
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "シャベルがありません！",
+  "advancements.energizedpower.auto_press_mold_maker.title": "自動成形型作成機",
+  "advancements.energizedpower.auto_press_mold_maker.description": "自動成形型作成機を作成する",
+  "book.energizedpower.page.auto_press_mold_maker": "自動成形型作成機は成形型作成機の全自動版です。動作にはシャベルが必要です。",
 
   "_template.epcontainer.auto_stonecutter": "自動石切台",
-
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "ツルハシがありません！",
+  "advancements.energizedpower.auto_stonecutter.title": "自動石切台",
+  "advancements.energizedpower.auto_stonecutter.description": "自動石切台を作成する",
+  "book.energizedpower.page.auto_stonecutter": "自動石切台は、石切台の自動版ですが、加工にはツルハシが必要です。",
 
   "_template.epcontainer.assembling_machine": "組立機",
+  "emi.category.energizedpower.assembling_machine": "組立機",
+  "advancements.energizedpower.assembling_machine.title": "組立機",
+  "advancements.energizedpower.assembling_machine.description": "組立機で電子部品を製造しましょう",
+  "book.energizedpower.page.assembling_machine.1": "組立機は、回路などの電子部品を製造します。",
+  "book.energizedpower.page.assembling_machine.2": "搬出口はすべての面に備わっています。どの面からでもアイテムを搬出できます。",
+  "book.energizedpower.page.assembling_machine.3": "すべての面からの搬入の対応しており、搬入面によって対応するスロットが異なります。(上・下: 全スロット、正面: 下スロット、背面: 上スロット、左: 左スロット、右: 右スロット)",
 
   "_template.epcontainer.induction_smelter": "誘導合金炉",
+  "advancements.energizedpower.induction_smelter.title": "誘導合金炉",
+  "advancements.energizedpower.induction_smelter.description": "誘導合金炉を作成する",
+  "book.energizedpower.page.induction_smelter.1": "誘導合金炉は、合金を作成できます。",
+  "book.energizedpower.page.induction_smelter.2": "生成物は、装置のどの面からでも搬出できます。",
+  "book.energizedpower.page.induction_smelter.3": "搬入は装置のどの面からでもできますが、接続面によって搬出先のスロットが指定されます。(正面・上・下: 全スロット、左: 左スロット、背面: 中央スロット、右: 右スロット)",
 
   "_template.epcontainer.plant_growth_chamber": "植物育成機",
+  "recipes.energizedpower.plant_growth_chamber_fertilizer": "植物育成機 (肥料)",
+  "recipes.energizedpower.plant_growth_chamber_soil": "Growth Chamber (Soil)",
+  "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
+  "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "成長速度 x%.2f",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
+  "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "電力消費 x%.2f",
+  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
+  "emi.category.energizedpower.plant_growth_chamber": "植物育成機",
+  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "植物育成機 (肥料)",
+  "emi.category.energizedpower.plant_growth_chamber_soil": "Growth Chamber (Soil)",
+  "advancements.energizedpower.plant_growth_chamber.title": "高速育成",
+  "advancements.energizedpower.plant_growth_chamber.description": "植物の成長速度と収穫量を大幅に向上させます",
+  "book.energizedpower.page.plant_growth_chamber.1": "植物育成機は、植物の成長速度と収穫量を大幅に向上させます。",
+  "book.energizedpower.page.plant_growth_chamber.2": "右スロットは種の入力スロットです。 The bottom input slot is the soil slot.",
+  "book.energizedpower.page.plant_growth_chamber.3": "左スロットは肥料の入力スロットです。",
+  "book.energizedpower.page.plant_growth_chamber.4": "肥料をセットすると、消費電力と成長速度が速くなります。",
+  "book.energizedpower.page.plant_growth_chamber.5": "種は東西南北の各面から、肥料は上面と下面から搬入できます。Soils can be inserted from the top and bottom and can be extracted from the top. 収穫物の搬出はすべての面に対応しています。",
+  "book.energizedpower.page.plant_growth_chamber.6": "肥料を使うには、まず肥料を入れる必要があります。",
+  "book.energizedpower.page.plant_growth_chamber.7": "このブロックを自動化する場合、収穫量に変動が起こることを考慮し、余裕を持った設計をする必要があります。",
 
   "_template.epcontainer.fluid_freezer": "Fluid Freezer",
+  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
+  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
+  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
+  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
 
   "_template.epcontainer.stone_liquefier": "石材液化機",
+  "emi.category.energizedpower.stone_liquefier": "石材液化機",
+  "advancements.energizedpower.stone_liquefier.title": "石材液化機",
+  "advancements.energizedpower.stone_liquefier.description": "石材から溶岩を生成できます",
+  "book.energizedpower.page.stone_liquefier.1": "石材液化機は、石材から溶岩を生成します。",
+  "book.energizedpower.page.stone_liquefier.2": "生成された液体は、パイプを使って搬出してください。",
 
   "_template.epcontainer.stone_solidifier": "石材凝固機",
+  "emi.category.energizedpower.stone_solidifier": "石材凝固機",
+  "advancements.energizedpower.stone_solidifier.title": "石材凝固機",
+  "advancements.energizedpower.stone_solidifier.description": "水と溶岩から石材を成形できます",
+  "book.energizedpower.page.stone_solidifier.1": "石材凝固機は、水と溶岩から石材を成形します。",
+  "book.energizedpower.page.stone_solidifier.2": "液体は、パイプを使って搬入してください。",
 
   "_template.epcontainer.filtration_plant": "ろ過プラント",
-
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "このブロックには、木炭フィルターが必須です。",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "木炭フィルターがありません！",
+  "emi.category.energizedpower.filtration_plant": "ろ過プラント",
+  "advancements.energizedpower.filtration_plant.title": "液体ろ過",
+  "advancements.energizedpower.filtration_plant.description": "ろ過プラントを作成する",
+  "book.energizedpower.page.filtration_plant.1": "ろ過プラントは、汚水の中から原石をろ過して抽出できます。",
+  "book.energizedpower.page.filtration_plant.2": "木炭フィルターは、装置のどの面からでも搬入できます。生成物の搬出もすべてのからできます。",
 
   "_template.epcontainer.fluid_transposer": "液体転送機",
-
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "モード: 排出",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "モード: 充填",
+  "emi.category.energizedpower.fluid_transposer": "液体転送機",
+  "advancements.energizedpower.fluid_transposer.title": "液体転送機",
+  "advancements.energizedpower.fluid_transposer.description": "液体転送機を作成する",
+  "book.energizedpower.page.fluid_transposer": "液体転送機は、アイテムから液体を抽出する「搬出モード」と、アイテムに液体を注入する「充填モード」を切り替えられます。",
 
   "_template.epcontainer.block_placer": "ブロック設置機",
-
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "このブロックを設置するには、%sが必要です。",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "逆回転",
+  "advancements.energizedpower.block_placer.title": "ブロック設置",
+  "advancements.energizedpower.block_placer.description": "自動でブロックを設置する",
+  "book.energizedpower.page.block_placer.1": "ブロック設置機はあらゆるブロックを設置できる(ドアや種も設置可能)。",
+  "book.energizedpower.page.block_placer.2": "ブロックの配置は、設置可能な場合のみ設置される。",
 
   "_template.epcontainer.fluid_tank_small": "小型液体タンク",
+  "advancements.energizedpower.fluid_tank_small.title": "簡易液体貯蔵",
+  "advancements.energizedpower.fluid_tank_small.description": "小型液体タンクは液体を貯蔵できます",
 
   "_template.epcontainer.fluid_tank_medium": "中型液体タンク",
+  "advancements.energizedpower.fluid_tank_medium.title": "高効率液体貯蔵",
+  "advancements.energizedpower.fluid_tank_medium.description": "中型液体タンクは液体をより多く貯蔵できます",
 
   "_template.epcontainer.fluid_tank_large": "大型液体タンク",
+  "advancements.energizedpower.fluid_tank_large.title": "大型液体貯蔵",
+  "advancements.energizedpower.fluid_tank_large.description": "大型液体タンクは液体をより多く貯蔵できます",
 
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBTを無視",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "フィルターが設定されていません",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "フィルター: %s",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "液体を持つアイテムを左クリックすると、フィルターが設定されます。",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "何も持たずに左クリックすると、フィルターが解除されます。",
+  "book.energizedpower.page.fluid_tanks.1": "液体タンクは、あらゆる液体を貯蔵できます。",
+  "book.energizedpower.page.fluid_tanks.2": "液体タンクには、小型・中型・大型の3段階のティアがあります。",
 
   "_template.epcontainer.creative_fluid_tank": "クリエイティブの液体タンク",
 
   "_template.epcontainer.item_silo_tiny": "極小型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_tiny.title": "極小型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_tiny.description": "極小型アイテム貯蔵庫を作成する",
 
   "_template.epcontainer.item_silo_small": "小型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_small.title": "小型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_small.description": "小型アイテム貯蔵庫を作成する",
 
   "_template.epcontainer.item_silo_medium": "中型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_medium.title": "中型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_medium.description": "中型アイテム貯蔵庫を作成する",
 
   "_template.epcontainer.item_silo_large": "大型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_large.title": "大型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_large.description": "大型アイテム貯蔵庫を作成する",
 
   "_template.epcontainer.item_silo_giant": "超大型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_giant.title": "超大型アイテム貯蔵庫",
+  "advancements.energizedpower.item_silo_giant.description": "超大型アイテム貯蔵庫を作成する",
 
   "tooltip.energizedpower.item_silo.txt.shift": "アイテム貯蔵庫への搬入・搬出は、ホッパーやコンベアなどの自動輸送手段でのみできます。",
-  "tooltip.energizedpower.item_silo_capacity.txt": "容量: %d スタック",
   "tooltip.energizedpower.item_silo.amount": "%d / %d アイテム",
+
+  "tooltip.energizedpower.item_silo_capacity.txt": "容量: %d スタック",
+
+  "book.energizedpower.page.item_silos.1": "アイテム貯蔵庫は、一種類のアイテムしか入りませんが、最大で1000スタックまで貯蔵できます。",
+  "book.energizedpower.page.item_silos.2": "アイテム貯蔵庫への搬入・搬出は、ホッパーやコンベアなどの自動輸送手段でのみできます。",
+  "book.energizedpower.page.item_silos.3": "アイテム貯蔵庫には、極小型・小型・中型・大型・超大型の5段階のティアがあります。",
 
   "_template.epcontainer.creative_item_silo": "クリエイティブのアイテム貯蔵庫",
 
   "_template.epcontainer.fluid_filler": "液体充填機",
+  "advancements.energizedpower.fluid_filler.title": "液体充填！",
+  "advancements.energizedpower.fluid_filler.description": "アイテムに液体を充填する",
 
   "_template.epcontainer.fluid_drainer": "液体抽出機",
+  "advancements.energizedpower.fluid_drainer.title": "液体抽出！",
+  "advancements.energizedpower.fluid_drainer.description": "アイテムから液体を抽出する",
+
+  "book.energizedpower.page.fluid_filler_fluid_drainer": "液体充填機はアイテムに液体を充填し、液体抽出機はアイテムから液体を抽出できます。",
 
   "_template.epcontainer.fluid_pump": "基本型液体ポンプ",
-
-  "_template.epcontainer.advanced_fluid_pump": "発展型液体ポンプ",
-
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "処理完了には%sが必要です。",
   "tooltip.energizedpower.fluid_pump.target": "目標: %d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "目標地点 (相対座標): %s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "丸石がありません！",
   "tooltip.energizedpower.fluid_pump.extracting": "抽出中: %s",
+  "advancements.energizedpower.fluid_pump.title": "液体ポンプ",
+  "advancements.energizedpower.fluid_pump.description": "液体ポンプを作成する",
+
+  "_template.epcontainer.advanced_fluid_pump": "発展型液体ポンプ",
+  "advancements.energizedpower.advanced_fluid_pump.title": "発展型液体ポンプ",
+  "advancements.energizedpower.advanced_fluid_pump.description": "発展型液体ポンプを作成する",
+
+  "book.energizedpower.page.fluid_pumps": "液体ポンプはワールドの液体を汲み上げることができ、動作時に丸石を消費する。",
 
   "_template.epcontainer.drain": "液体回収機",
-
   "tooltip.energizedpower.drain.txt.shift": "液体回収機は、ブロックの真上にある液体源を回収する。",
+  "advancements.energizedpower.drain.title": "液体回収",
+  "advancements.energizedpower.drain.description": "液体源を回収できます",
+  "book.energizedpower.page.drain.1": "液体回収機は、ブロックの真上にある液体源を回収する。",
+  "book.energizedpower.page.drain.2": "Fabric版では、液体回収機を大釜の下に設置することで中身を抽出できます。",
 
   "_template.epcontainer.xp_drain": "XP Drain",
-
   "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
 
   "_template.epcontainer.lightning_generator": "雷発電機",
-
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "このブロックは雷1回につき%sを生成する。",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "動作させるには、ブロックの上に避雷針が必要です。",
+  "advancements.energizedpower.lightning_generator.title": "天の力",
+  "advancements.energizedpower.lightning_generator.description": "雷から電力を抽出できます",
+  "book.energizedpower.page.lightning_generator.1": "雷発電機は、雷1回につき大量に発電する。",
+  "book.energizedpower.page.lightning_generator.2": "動作させるには、ブロックの上に避雷針が必要です。",
 
   "_template.epcontainer.energizer": "高エネルギー充電器",
+  "emi.category.energizedpower.energizer": "高エネルギー充電器",
+  "advancements.energizedpower.energizer.title": "充電の最適化",
+  "advancements.energizedpower.energizer.description": "充電器よりも遥かに速く、効率的に帯電させます",
+  "book.energizedpower.page.energizer": "高エネルギー充電器は、極めて高い効率でアイテムを帯電させます。",
 
   "_template.epcontainer.charging_station": "充電ステーション",
-
   "tooltip.energizedpower.charging_station.txt.shift.1": "プレイヤーのインベントリ内のアイテムを充電できます。",
+  "advancements.energizedpower.charging_station.title": "ワイヤレス充電",
+  "advancements.energizedpower.charging_station.description": "対応しているアイテムをワイヤレスで充電できます",
+  "book.energizedpower.page.charging_station": "充電ステーションは、アイテムをワイヤレスで充電できます。",
 
   "_template.epcontainer.crystal_growth_chamber": "結晶育成機",
+  "emi.category.energizedpower.crystal_growth_chamber": "結晶育成機",
+  "advancements.energizedpower.crystal_growth_chamber.title": "結晶育成",
+  "advancements.energizedpower.crystal_growth_chamber.description": "結晶育成機で結晶を育成しましょう",
+  "book.energizedpower.page.crystal_growth_chamber": "結晶育成機は、アメジストなどの結晶を育成できます。",
 
   "_template.epcontainer.weather_controller": "天候操作装置",
-
   "tooltip.energizedpower.weather_controller.btn.clear": "天候を晴れに設定",
   "tooltip.energizedpower.weather_controller.btn.rain": "天候を雨に設定",
   "tooltip.energizedpower.weather_controller.btn.thunder": "天候を雷雨に設定",
+  "advancements.energizedpower.weather_controller.title": "天候支配",
+  "advancements.energizedpower.weather_controller.description": "天候操作装置で天候を変更できます",
+  "book.energizedpower.page.weather_controller": "天候操作装置は、一時的に天候を変更できます。使用には電力が必要です。",
 
   "_template.epcontainer.time_controller": "時間操作装置",
-
   "tooltip.energizedpower.time_controller.btn.day": "時間を朝に設定",
   "tooltip.energizedpower.time_controller.btn.noon": "時間を正午に設定",
   "tooltip.energizedpower.time_controller.btn.night": "時間を夜に設定",
   "tooltip.energizedpower.time_controller.btn.midnight": "時間を真夜中に設定",
+  "advancements.energizedpower.time_controller.title": "時間支配",
+  "advancements.energizedpower.time_controller.description": "時間操作装置で時間を変更できます",
+  "book.energizedpower.page.time_controller.1": "時間操作装置は、時間を変更できます。使用には電力が必要です。",
+  "book.energizedpower.page.time_controller.2": "時間を巻き戻すことはできず、時間は常に増加します。",
 
   "_template.epcontainer.teleporter": "転送装置",
-
   "tooltip.energizedpower.teleporter.txt.shift.1": "転送装置の上で[%s]を押すと転送します。",
   "tooltip.energizedpower.teleporter.txt.shift.2": "レッドストーン信号を入力すると、プレイヤーを転送できます。",
-
   "tooltip.energizedpower.teleporter.use.not_enough_energy": "電力が足りません！",
   "tooltip.energizedpower.teleporter.use.no_teleporter_matrix": "転送先記憶基盤がありません！",
   "tooltip.energizedpower.teleporter.use.teleporter_matrix_not_bound": "転送先記憶基盤がリンクされていません！",
@@ -584,17 +1145,32 @@
   "tooltip.energizedpower.teleporter.use.blacklist.intra_dimensional_type": "ディメンションタイプ \"%s\" 内での転送は無効化されています！",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "ディメンションタイプ \"%s\" からの転送は無効化されています！",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "ディメンションタイプ \"%s\" への転送は無効化されています！",
+  "key.energizedpower.teleporter.use": "転送装置を使用",
+  "advancements.energizedpower.teleporter.title": "光より速く",
+  "advancements.energizedpower.teleporter.description": "転送装置を作成する",
+  "book.energizedpower.page.teleporter.1": "転送装置は、プレイヤーを転送できます。動作には電力とリンク済みの転送先記憶基盤が必要です。",
+  "book.energizedpower.page.teleporter.2": "転送装置の転送準備が整っている場合、レッドストーン信号を出力します。",
+  "book.energizedpower.page.teleporter.3.1": "転送装置を押すと手動起動できます。",
+  "book.energizedpower.page.teleporter.3.2": "転送装置の上で",
 
   "_template.epblock.basic_machine_frame": "基本型マシンフレーム",
+  "advancements.energizedpower.basic_machine_frame.title": "機械の礎",
+  "advancements.energizedpower.basic_machine_frame.description": "すべての基本マシンのベースとなる材料です",
 
   "_template.epblock.hardened_machine_frame": "硬化型マシンフレーム",
+  "advancements.energizedpower.hardened_machine_frame.title": "硬化型マシン",
+  "advancements.energizedpower.hardened_machine_frame.description": "より良い機械を作成するために必要な材料です",
 
   "_template.epblock.advanced_machine_frame": "発展型マシンフレーム",
+  "advancements.energizedpower.advanced_machine_frame.title": "発展型マシン",
+  "advancements.energizedpower.advanced_machine_frame.description": "上位の機械を作成するために必要な材料です",
 
   "_template.epblock.reinforced_advanced_machine_frame": "強化発展型マシンフレーム",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "最高性能マシン",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "最上位の機械を作成するために必要な材料です",
 
-  "fluid_type.energizedpower.dirty_water": "汚水",
-  "fluid_type.energizedpower.liquid_xp": "Liquid XP",
+  "book.energizedpower.page.machine_frames.1": "マシンフレームは、すべての機械の基礎となる材料です。",
+  "book.energizedpower.page.machine_frames.2": "マシンフレームには、基本型・硬化型・発展型・強化発展型の4段階のティアがあります。",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
@@ -653,9 +1229,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "月光",
   "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-output items per tick",
   "tooltip.energizedpower.upgrade_module_modifier.item_pulling": "Auto-input items per tick",
-
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "ブロック",
-
   "tooltip.energizedpower.upgrade_module_modifier.slot.speed": "Speed Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.energy_consumption": "Energy Efficiency Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.energy_production": "Energy Production Upgrade Modules",
@@ -679,49 +1253,24 @@
   "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
   "entity.minecraft.villager.electrician": "電気技師",
-
-  "entity.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
-  "entity.energizedpower.advanced_battery_box_minecart": "発展型蓄電器付きのマインカート",
+  "book.energizedpower.page.electrician.title": "電気技師",
+  "book.energizedpower.page.electrician.1": "電気技師の村人は、電気技師の家で見つけることができます。",
+  "book.energizedpower.page.electrician.2": "電気技師の家は、すべてのバニラタイプの村で見つけることができます。",
+  "book.energizedpower.page.electrician.3": "基本型マシンフレームを設置すると、無職の村人が電気技師へと転職します。",
 
   "soil_type.energizedpower.grass": "Grass",
   "soil_type.energizedpower.moss": "Moss",
   "soil_type.energizedpower.nylium": "Nylium",
 
   "recipes.energizedpower.in_world_crafting": "ワールドで作成",
+  "emi.category.energizedpower.in_world_crafting": "ワールドで作成",
+
   "recipes.energizedpower.info.ticks": "ティック: %d",
-  "recipes.energizedpower.plant_growth_chamber_fertilizer": "植物育成機 (肥料)",
-  "recipes.energizedpower.plant_growth_chamber_soil": "Growth Chamber (Soil)",
-  "recipes.energizedpower.plant_growth_chamber.soil_type": "Soil Type: %s",
-  "recipes.energizedpower.plant_growth_chamber.speed_multiplier": "成長速度 x%.2f",
-  "recipes.energizedpower.plant_growth_chamber.fluid_consumption_multiplier": "%.2fx Fluid Consumption",
-  "recipes.energizedpower.plant_growth_chamber.energy_consumption_multiplier": "電力消費 x%.2f",
-  "recipes.energizedpower.plant_growth_chamber.fluid_consumption": "Fluid Consumption:",
+
   "recipes.energizedpower.transfer.too_large": "レシピの規模が大きすぎるため、この収納には収まりません！",
   "recipes.energizedpower.transfer.output_percentages": "Rolls:",
 
-  "emi.category.energizedpower.charger": "充電器",
-  "emi.category.energizedpower.crusher": "破砕機",
-  "emi.category.energizedpower.pulverizer": "粉砕機",
-  "emi.category.energizedpower.advanced_pulverizer": "発展型粉砕機",
-  "emi.category.energizedpower.sawmill": "製材機",
-  "emi.category.energizedpower.compressor": "圧縮機",
-  "emi.category.energizedpower.metal_press": "金属成形機",
-  "emi.category.energizedpower.assembling_machine": "組立機",
-  "emi.category.energizedpower.plant_growth_chamber": "植物育成機",
-  "emi.category.energizedpower.plant_growth_chamber_fertilizer": "植物育成機 (肥料)",
-  "emi.category.energizedpower.plant_growth_chamber_soil": "Growth Chamber (Soil)",
-  "emi.category.energizedpower.energizer": "高エネルギー充電器",
-  "emi.category.energizedpower.crystal_growth_chamber": "結晶育成機",
-  "emi.category.energizedpower.press_mold_maker": "成形型作成機",
-  "emi.category.energizedpower.alloy_furnace": "合金かまど",
-  "emi.category.energizedpower.fluid_freezer": "Fluid Freezer",
-  "emi.category.energizedpower.stone_liquefier": "石材液化機",
-  "emi.category.energizedpower.stone_solidifier": "石材凝固機",
-  "emi.category.energizedpower.filtration_plant": "ろ過プラント",
-  "emi.category.energizedpower.fluid_transposer": "液体転送機",
   "emi.category.energizedpower.dispenser": "ディスペンサー",
-  "emi.category.energizedpower.in_world_crafting": "ワールドで作成",
-
 
   "painting.energizedpower.gear.title": "歯車",
   "painting.energizedpower.gear.author": "JDDev0",
@@ -730,550 +1279,18 @@
   "painting.energizedpower.factory.author": "JDDev0",
 
   "key.category.energizedpower.main": "Energized Power",
-  "key.energizedpower.teleporter.use": "転送装置を使用",
-
-
-  "advancements.energizedpower.hardened_machine_frame.title": "硬化型マシン",
-  "advancements.energizedpower.hardened_machine_frame.description": "より良い機械を作成するために必要な材料です",
-
-  "advancements.energizedpower.advanced_machine_frame.title": "発展型マシン",
-  "advancements.energizedpower.advanced_machine_frame.description": "上位の機械を作成するために必要な材料です",
-
-  "advancements.energizedpower.reinforced_advanced_machine_frame.title": "最高性能マシン",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "最上位の機械を作成するために必要な材料です",
-
-  "advancements.energizedpower.advanced_solar_cell.title": "上位ソーラー発電",
-  "advancements.energizedpower.advanced_solar_cell.description": "上位のソーラーパネルを作成するために必要な材料です",
-
-  "advancements.energizedpower.reinforced_advanced_solar_cell.title": "ソーラー発電の限界突破",
-  "advancements.energizedpower.reinforced_advanced_solar_cell.description": "Required for the even more advanced solar panels...",
-
-  "advancements.energizedpower.elite_solar_cell.title": "Best solar energy",
-  "advancements.energizedpower.elite_solar_cell.description": "最上位のソーラーパネルを作成するために必要な材料です",
-
-  "advancements.energizedpower.basic_circuit.title": "基本型回路",
-  "advancements.energizedpower.basic_circuit.description": "基本型回路を作成する",
-
-  "advancements.energizedpower.advanced_circuit.title": "発展型回路",
-  "advancements.energizedpower.advanced_circuit.description": "発展型回路を作成する",
-
-  "advancements.energizedpower.processing_unit.title": "処理ユニット",
-  "advancements.energizedpower.processing_unit.description": "処理ユニットを作成する",
-
-  "advancements.energizedpower.quantum_processing_unit.title": "Quantum Processing Unit",
-  "advancements.energizedpower.quantum_processing_unit.description": "Craft a Quantum Processing Unit.",
-
-  "advancements.energizedpower.basic_upgrade_module.title": "基本型アップグレードモジュール",
-  "advancements.energizedpower.basic_upgrade_module.description": "基本型アップグレードモジュールを作成する",
-
-  "advancements.energizedpower.advanced_upgrade_module.title": "発展型アップグレードモジュール",
-  "advancements.energizedpower.advanced_upgrade_module.description": "発展型アップグレードモジュールを作成する",
-
-  "advancements.energizedpower.reinforced_advanced_upgrade_module.title": "強化発展型アップグレードモジュール",
-  "advancements.energizedpower.reinforced_advanced_upgrade_module.description": "強化発展型アップグレードモジュールを作成する",
-
-  "advancements.energizedpower.elite_upgrade_module.title": "Elite Upgrade Module",
-  "advancements.energizedpower.elite_upgrade_module.description": "Craft an Elite Upgrade Module.",
-
-  "_template.advancements.energizedpower.speed_upgrade_module.title": "速度 %s",
-  "_template.advancements.energizedpower.speed_upgrade_module.description": "速度アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "発電効率 %s",
-  "_template.advancements.energizedpower.energy_efficiency_upgrade_module.description": "発電効率アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.energy_production_upgrade_module.title": "Energy Production %s",
-  "_template.advancements.energizedpower.energy_production_upgrade_module.description": "Craft an Energy Production Upgrade Module (Tier %s).",
-
-  "_template.advancements.energizedpower.energy_capacity_upgrade_module.title": "蓄電量 %s",
-  "_template.advancements.energizedpower.energy_capacity_upgrade_module.description": "蓄電量アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.duration_upgrade_module.title": "持続時間 %s",
-  "_template.advancements.energizedpower.duration_upgrade_module.description": "持続時間アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.range_upgrade_module.title": "有効範囲 %s",
-  "_template.advancements.energizedpower.range_upgrade_module.description": "有効範囲アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "抽出深度 %s",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "抽出深度アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "抽出範囲 %s",
-  "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "抽出範囲アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.moon_light_upgrade_module.title": "月光 %s",
-  "_template.advancements.energizedpower.moon_light_upgrade_module.description": "月光アップグレードモジュール (ティアー %s)を作成する",
-
-  "_template.advancements.energizedpower.item_ejector_upgrade_module.title": "Item Ejector %s",
-  "_template.advancements.energizedpower.item_ejector_upgrade_module.description": "Craft an Item Ejector Upgrade Module (Tier %s).",
-
-  "_template.advancements.energizedpower.item_pulling_upgrade_module.title": "Item Pulling %s",
-  "_template.advancements.energizedpower.item_pulling_upgrade_module.description": "Craft an Item Pulling Upgrade Module (Tier %s).",
-
-  "advancements.energizedpower.blast_furnace_upgrade_module.title": "製錬モード: 溶鉱炉",
-  "advancements.energizedpower.blast_furnace_upgrade_module.description": "溶鉱炉機能拡張モジュールを作成する",
-
-  "advancements.energizedpower.smoker_upgrade_module.title": "製錬モード: 燻製器",
-  "advancements.energizedpower.smoker_upgrade_module.description": "燻製器機能拡張モジュールを作成する",
-
-  "advancements.energizedpower.press_mold_maker.title": "成形型作成機",
-  "advancements.energizedpower.press_mold_maker.description": "金属成形機で使用する成形型を作成するためのブロックです",
-
-  "advancements.energizedpower.raw_press_molds.title": "未製錬の成形型",
-  "advancements.energizedpower.raw_press_molds.description": "粘土玉から成形型を作成する(かまどで焼くのを忘れずに！)",
-
-  "advancements.energizedpower.press_molds.title": "成形型",
-  "advancements.energizedpower.press_molds.description": "出来上がった成形型は金属成型機で使用できます",
-
-  "advancements.energizedpower.alloy_furnace.title": "合金かまど",
-  "advancements.energizedpower.alloy_furnace.description": "合金かまどを作成する",
-
-  "advancements.energizedpower.steel_ingot.title": "鋼鉄インゴット",
-  "advancements.energizedpower.steel_ingot.description": "鋼鉄インゴットを作成する",
-
-  "advancements.energizedpower.steel_plate.title": "Steel Plate",
-  "advancements.energizedpower.steel_plate.description": "Create a Steel Plate.",
-
-  "advancements.energizedpower.redstone_alloy_ingot.title": "レッドストーン合金インゴット",
-  "advancements.energizedpower.redstone_alloy_ingot.description": "レッドストーン合金インゴットを作成する",
-
-  "advancements.energizedpower.advanced_alloy_ingot.title": "超合金インゴット",
-  "advancements.energizedpower.advanced_alloy_ingot.description": "超合金インゴットを作成する",
-
-  "advancements.energizedpower.crystallized_alloy_ingot.title": "Crystallized Alloy Ingot",
-  "advancements.energizedpower.crystallized_alloy_ingot.description": "Create a Crystallized Alloy Ingot.",
-
-  "advancements.energizedpower.advanced_alloy_plate.title": "超合金の板",
-  "advancements.energizedpower.advanced_alloy_plate.description": "超合金の板を作成する",
-
-  "advancements.energizedpower.crystallized_alloy_plate.title": "Crystallized Alloy Plate",
-  "advancements.energizedpower.crystallized_alloy_plate.description": "Create a Crystallized Alloy Plate.",
-
-  "advancements.energizedpower.auto_crafter.title": "自動化の幕開け",
-  "advancements.energizedpower.auto_crafter.description": "このブロックが自動でこなしてくれるのに、まだ作業台を使ってるの？（笑）",
-
-  "advancements.energizedpower.advanced_auto_crafter.title": "電力クラフト",
-  "advancements.energizedpower.advanced_auto_crafter.description": "1つのブロックで複数のレシピをクラフトできます",
-
-  "advancements.energizedpower.crusher.title": "粉々にしてやる",
-  "advancements.energizedpower.crusher.description": "石、砂岩、丸石、砂利などのブロックを破砕できます",
-
-  "advancements.energizedpower.pulverizer.title": "粉砕",
-  "advancements.energizedpower.pulverizer.description": "鉱石から粉に加工し、収穫量を増やせる",
-
-  "advancements.energizedpower.charcoal_filter.title": "木炭フィルター",
-  "advancements.energizedpower.charcoal_filter.description": "木炭フィルターを作成する",
-
-  "advancements.energizedpower.sawmill.title": "製材",
-  "advancements.energizedpower.sawmill.description": "木材を製材する",
-
-  "advancements.energizedpower.compressor.title": "圧縮機",
-  "advancements.energizedpower.compressor.description": "板材を作成する",
-
-  "advancements.energizedpower.metal_press.title": "メタルプレス",
-  "advancements.energizedpower.metal_press.description": "金属を成形できます",
-
-  "advancements.energizedpower.auto_press_mold_maker.title": "自動成形型作成機",
-  "advancements.energizedpower.auto_press_mold_maker.description": "自動成形型作成機を作成する",
-
-  "advancements.energizedpower.auto_stonecutter.title": "自動石切台",
-  "advancements.energizedpower.auto_stonecutter.description": "自動石切台を作成する",
-
-  "advancements.energizedpower.assembling_machine.title": "組立機",
-  "advancements.energizedpower.assembling_machine.description": "組立機で電子部品を製造しましょう",
-
-  "advancements.energizedpower.plant_growth_chamber.title": "高速育成",
-  "advancements.energizedpower.plant_growth_chamber.description": "植物の成長速度と収穫量を大幅に向上させます",
-
-  "advancements.energizedpower.fluid_freezer.title": "Fluid Freezer",
-  "advancements.energizedpower.fluid_freezer.description": "Freezes fluids, mostly to snow and ice.",
-
-  "advancements.energizedpower.stone_liquefier.title": "石材液化機",
-  "advancements.energizedpower.stone_liquefier.description": "石材から溶岩を生成できます",
-
-  "advancements.energizedpower.stone_solidifier.title": "石材凝固機",
-  "advancements.energizedpower.stone_solidifier.description": "水と溶岩から石材を成形できます",
-
-  "advancements.energizedpower.block_placer.title": "ブロック設置",
-  "advancements.energizedpower.block_placer.description": "自動でブロックを設置する",
-
-  "advancements.energizedpower.fluid_filler.title": "液体充填！",
-  "advancements.energizedpower.fluid_filler.description": "アイテムに液体を充填する",
-
-  "advancements.energizedpower.fluid_drainer.title": "液体抽出！",
-  "advancements.energizedpower.fluid_drainer.description": "アイテムから液体を抽出する",
-
-  "advancements.energizedpower.fluid_pump.title": "液体ポンプ",
-  "advancements.energizedpower.fluid_pump.description": "液体ポンプを作成する",
-
-  "advancements.energizedpower.advanced_fluid_pump.title": "発展型液体ポンプ",
-  "advancements.energizedpower.advanced_fluid_pump.description": "発展型液体ポンプを作成する",
-
-  "advancements.energizedpower.drain.title": "液体回収",
-  "advancements.energizedpower.drain.description": "液体源を回収できます",
-
-  "advancements.energizedpower.basic_machine_frame.title": "機械の礎",
-  "advancements.energizedpower.basic_machine_frame.description": "すべての基本マシンのベースとなる材料です",
-
-  "advancements.energizedpower.basic_solar_cell.title": "ソーラー発電の基本",
-  "advancements.energizedpower.basic_solar_cell.description": "最初のソーラーパネルを作成するために必要な材料の2つのセルのうちの1つです",
-
-  "advancements.energizedpower.battery_1.title": "電池",
-  "advancements.energizedpower.battery_1.description": "電力をアイテムに蓄えられる",
-
-  "advancements.energizedpower.battery_2.title": "蓄電量4倍",
-  "advancements.energizedpower.battery_2.description": "ティアー1の4倍の蓄電量です",
-
-  "advancements.energizedpower.battery_3.title": "もっと電力を…！",
-  "advancements.energizedpower.battery_3.description": "ティアー3: ティアー2の2倍の蓄電量です",
-
-  "advancements.energizedpower.battery_4.title": "足りない…もっと、もっと電力を…！",
-  "advancements.energizedpower.battery_4.description": "ティアー4に到達。最高性能まであと半分です",
-
-  "advancements.energizedpower.battery_5.title": "銅の限界点",
-  "advancements.energizedpower.battery_5.description": "ティアー5: 次段階の電池には、アイテムの充電が必要です",
-
-  "advancements.energizedpower.battery_6.title": "蓄電限界の超越",
-  "advancements.energizedpower.battery_6.description": "ティアー6: 帯電完了",
-
-  "advancements.energizedpower.battery_7.title": "まだ足りない？",
-  "advancements.energizedpower.battery_7.description": "ティアー7: 蓄電量25万FE達成",
-
-  "advancements.energizedpower.battery_8.title": "至高を求めて",
-  "advancements.energizedpower.battery_8.description": "このMODにおける最高峰のバッテリー",
-
-  "advancements.energizedpower.battery_8_fully_charged.title": "至高の蓄電量",
-  "advancements.energizedpower.battery_8_fully_charged.description": "100万FEバッテリー、充電完了",
-
-  "advancements.energizedpower.cable_insulator.title": "ケーブル用の上着",
-  "advancements.energizedpower.cable_insulator.description": "この素材でケーブルを覆いましょう(ハサミを羊毛ブロックに使用、またはディスペンサーでも作成できます)",
-
-  "advancements.energizedpower.charger.title": "充電開始",
-  "advancements.energizedpower.charger.description": "このブロックでアイテムを充電できます",
-
-  "advancements.energizedpower.inventory_charger.title": "ローカル充電",
-  "advancements.energizedpower.inventory_charger.description": "インベントリ内のアイテムを電池から自動充電します",
-
-  "advancements.energizedpower.inventory_teleporter.title": "携帯型転送装置",
-  "advancements.energizedpower.inventory_teleporter.description": "携帯型転送装置を作成する",
-
-  "advancements.energizedpower.advanced_charger.title": "同時充電",
-  "advancements.energizedpower.advanced_charger.description": "複数のアイテムを同時に充電できます",
-
-  "advancements.energizedpower.advanced_uncharger.title": "同時放電",
-  "advancements.energizedpower.advanced_uncharger.description": "複数のアイテムから同時に電力を回収できます",
-
-  "advancements.energizedpower.charging_station.title": "ワイヤレス充電",
-  "advancements.energizedpower.charging_station.description": "対応しているアイテムをワイヤレスで充電できます",
-
-  "advancements.energizedpower.crystal_growth_chamber.title": "結晶育成",
-  "advancements.energizedpower.crystal_growth_chamber.description": "結晶育成機で結晶を育成しましょう",
-
-  "advancements.energizedpower.energized_crystal_matrix.title": "帯電した結晶基盤",
-  "advancements.energizedpower.energized_crystal_matrix.description": "一部の高性能機の安定化装置として使用されます",
-
-  "advancements.energizedpower.teleporter_matrix.title": "転送先記憶基盤",
-  "advancements.energizedpower.teleporter_matrix.description": "転送機能を実現するための最初のステップ",
-
-  "advancements.energizedpower.teleporter_processing_unit.title": "転送装置処理ユニット",
-  "advancements.energizedpower.teleporter_processing_unit.description": "転送装置の脳",
-
-  "advancements.energizedpower.teleporter.title": "光より速く",
-  "advancements.energizedpower.teleporter.description": "転送装置を作成する",
-
-  "advancements.energizedpower.weather_controller.title": "天候支配",
-  "advancements.energizedpower.weather_controller.description": "天候操作装置で天候を変更できます",
-
-  "advancements.energizedpower.time_controller.title": "時間支配",
-  "advancements.energizedpower.time_controller.description": "時間操作装置で時間を変更できます",
-
-  "advancements.energizedpower.coal_engine.title": "石炭燃料式",
-  "advancements.energizedpower.coal_engine.description": "燃焼による発電は最適とは言えないが、今のところはこれで十分だ",
-
-  "advancements.energizedpower.heat_generator.title": "熱動力",
-  "advancements.energizedpower.heat_generator.description": "熱を電力に変換します",
-
-  "advancements.energizedpower.thermal_generator.title": "高熱液体発電",
-  "advancements.energizedpower.thermal_generator.description": "高熱液体を消費し、発電します",
-
-  "advancements.energizedpower.filtration_plant.title": "液体ろ過",
-  "advancements.energizedpower.filtration_plant.description": "ろ過プラントを作成する",
-
-  "advancements.energizedpower.fluid_transposer.title": "液体転送機",
-  "advancements.energizedpower.fluid_transposer.description": "液体転送機を作成する",
-
-  "advancements.energizedpower.induction_smelter.title": "誘導合金炉",
-  "advancements.energizedpower.induction_smelter.description": "誘導合金炉を作成する",
-
-  "advancements.energizedpower.powered_lamp.title": "電動ランプ",
-  "advancements.energizedpower.powered_lamp.description": "電力を光に変換します",
-
-  "advancements.energizedpower.powered_furnace.title": "電動かまど",
-  "advancements.energizedpower.powered_furnace.description": "電力で動くかまど",
-
-  "advancements.energizedpower.advanced_powered_furnace.title": "高速製錬",
-  "advancements.energizedpower.advanced_powered_furnace.description": "電力を使って複数のアイテムを一度に製錬する",
-
-  "advancements.energizedpower.item_conveyor_belt.title": "アイテム輸送",
-  "advancements.energizedpower.item_conveyor_belt.description": "アイテムコンベアでアイテムを輸送する",
-
-  "advancements.energizedpower.fast_item_conveyor_belt.title": "快速型アイテムコンベア",
-  "advancements.energizedpower.fast_item_conveyor_belt.description": "快速型アイテムコンベアを作成する",
-
-  "advancements.energizedpower.express_item_conveyor_belt.title": "特急型アイテムコンベア",
-  "advancements.energizedpower.express_item_conveyor_belt.description": "特急型アイテムコンベアを作成する",
-
-  "advancements.energizedpower.item_conveyor_belt_loader.title": "アイテム搬入機",
-  "advancements.energizedpower.item_conveyor_belt_loader.description": "アイテムコンベアにアイテムを搬入します",
-
-  "advancements.energizedpower.fast_item_conveyor_belt_loader.title": "快速型アイテムコンベア搬入機",
-  "advancements.energizedpower.fast_item_conveyor_belt_loader.description": "快速型アイテムコンベア搬入機を作成する",
-
-  "advancements.energizedpower.express_item_conveyor_belt_loader.title": "特急型アイテムコンベア搬入機",
-  "advancements.energizedpower.express_item_conveyor_belt_loader.description": "特急型アイテムコンベア搬入機を作成する",
-
-  "advancements.energizedpower.item_conveyor_belt_sorter.title": "自動仕分け機",
-  "advancements.energizedpower.item_conveyor_belt_sorter.description": "アイテムコンベア仕分け機でアイテムを仕分ける",
-
-  "advancements.energizedpower.fast_item_conveyor_belt_sorter.title": "快速型アイテムコンベア仕分け機",
-  "advancements.energizedpower.fast_item_conveyor_belt_sorter.description": "快速型アイテムコンベア仕分け機を作成する",
-
-  "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "特急型アイテムコンベア仕分け機",
-  "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "特急型アイテムコンベア仕分け機を作成する",
-
-  "advancements.energizedpower.item_conveyor_belt_switch.title": "アイテムコンベア分岐機",
-  "advancements.energizedpower.item_conveyor_belt_switch.description": "搬出方向を選択できます",
-
-  "advancements.energizedpower.fast_item_conveyor_belt_switch.title": "快速型アイテムコンベア分岐機",
-  "advancements.energizedpower.fast_item_conveyor_belt_switch.description": "快速型アイテムコンベア分岐機を作成する",
-
-  "advancements.energizedpower.express_item_conveyor_belt_switch.title": "特急型アイテムコンベア分岐機",
-  "advancements.energizedpower.express_item_conveyor_belt_switch.description": "特急型アイテムコンベア分岐機を作成する",
-
-  "advancements.energizedpower.item_conveyor_belt_splitter.title": "アイテムコンベア分配機",
-  "advancements.energizedpower.item_conveyor_belt_splitter.description": "アイテムを複数の搬出先へ均等に分配します",
-
-  "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "快速型アイテムコンベア分配機",
-  "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "快速型アイテムコンベア分配機を作成する",
-
-  "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "特急型アイテムコンベア分配機",
-  "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "特急型アイテムコンベア分配機を作成する",
-
-  "advancements.energizedpower.item_conveyor_belt_merger.title": "アイテムコンベア合流機",
-  "advancements.energizedpower.item_conveyor_belt_merger.description": "複数の搬入先からアイテムを均等に合流させる",
-
-  "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "快速型アイテムコンベア合流機",
-  "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "快速型アイテムコンベア合流機を作成する",
-
-  "advancements.energizedpower.express_item_conveyor_belt_merger.title": "特急型アイテムコンベア合流機",
-  "advancements.energizedpower.express_item_conveyor_belt_merger.description": "特急型アイテムコンベア合流機を作成する",
-
-  "advancements.energizedpower.item_silo_tiny.title": "極小型アイテム貯蔵庫",
-  "advancements.energizedpower.item_silo_tiny.description": "極小型アイテム貯蔵庫を作成する",
-
-  "advancements.energizedpower.item_silo_small.title": "小型アイテム貯蔵庫",
-  "advancements.energizedpower.item_silo_small.description": "小型アイテム貯蔵庫を作成する",
-
-  "advancements.energizedpower.item_silo_medium.title": "中型アイテム貯蔵庫",
-  "advancements.energizedpower.item_silo_medium.description": "中型アイテム貯蔵庫を作成する",
-
-  "advancements.energizedpower.item_silo_large.title": "大型アイテム貯蔵庫",
-  "advancements.energizedpower.item_silo_large.description": "大型アイテム貯蔵庫を作成する",
-
-  "advancements.energizedpower.item_silo_giant.title": "超大型アイテム貯蔵庫",
-  "advancements.energizedpower.item_silo_giant.description": "超大型アイテム貯蔵庫を作成する",
-
-  "advancements.energizedpower.iron_fluid_pipe.title": "液体輸送",
-  "advancements.energizedpower.iron_fluid_pipe.description": "鉄の液体パイプは液体を輸送できます",
-
-  "advancements.energizedpower.golden_fluid_pipe.title": "高速液体輸送",
-  "advancements.energizedpower.golden_fluid_pipe.description": "金の液体パイプで液体をより速く輸送できます",
-
-  "advancements.energizedpower.pressurized_fluid_pipe.title": "Best Fluid Transport",
-  "advancements.energizedpower.pressurized_fluid_pipe.description": "Assemble Pressurized Fluid Pipes.",
-
-  "advancements.energizedpower.fluid_tank_small.title": "簡易液体貯蔵",
-  "advancements.energizedpower.fluid_tank_small.description": "小型液体タンクは液体を貯蔵できます",
-
-  "advancements.energizedpower.fluid_tank_medium.title": "高効率液体貯蔵",
-  "advancements.energizedpower.fluid_tank_medium.description": "中型液体タンクは液体をより多く貯蔵できます",
-
-  "advancements.energizedpower.fluid_tank_large.title": "大型液体貯蔵",
-  "advancements.energizedpower.fluid_tank_large.description": "大型液体タンクは液体をより多く貯蔵できます",
-
-  "advancements.energizedpower.tin_cable.title": "電力輸送の基礎",
-  "advancements.energizedpower.tin_cable.description": "少量の電力輸送には、錫のケーブルが最適です",
-
-  "advancements.energizedpower.copper_cable.title": "電力輸送",
-  "advancements.energizedpower.copper_cable.description": "ケーブルで電力を送電しましょう",
-
-  "advancements.energizedpower.gold_cable.title": "電力は多ければ多いほど良い",
-  "advancements.energizedpower.gold_cable.description": "高性能なケーブルでさらなる大電力を送電しましょう",
-
-  "advancements.energizedpower.energized_copper_cable.title": "制御不能の力",
-  "advancements.energizedpower.energized_copper_cable.description": "極めて多く電力を送電できます",
-
-  "advancements.energizedpower.energized_gold_cable.title": "このパワー！！",
-  "advancements.energizedpower.energized_gold_cable.description": "ベストオブベストなケーブルです",
-
-  "advancements.energizedpower.energized_crystal_matrix_cable.title": "電力過多",
-  "advancements.energizedpower.energized_crystal_matrix_cable.description": "これほどのエネルギー、一体どこで使うっていうんだ？",
-
-  "advancements.energizedpower.lv_transformers.title": "LV変圧器",
-  "advancements.energizedpower.lv_transformers.description": "異なるティアのケーブル同士を接続できます",
-
-  "advancements.energizedpower.mv_transformers.title": "MV変圧器",
-  "advancements.energizedpower.mv_transformers.description": "より多くの電力を送電できます",
-
-  "advancements.energizedpower.hv_transformers.title": "HV変圧器",
-  "advancements.energizedpower.hv_transformers.description": "さらに多くの電力を送電できます",
-
-  "advancements.energizedpower.ehv_transformers.title": "EHV変圧器",
-  "advancements.energizedpower.ehv_transformers.description": "1ティックごとに200万FE以上を送電できます",
-
-  "advancements.energizedpower.battery_box.title": "蓄電器",
-  "advancements.energizedpower.battery_box.description": "蓄電器に電力を蓄電しましょう",
-
-  "advancements.energizedpower.advanced_battery_box.title": "大容量蓄電器",
-  "advancements.energizedpower.advanced_battery_box.description": "最高性能の電池を上回る膨大な電力を蓄電できます",
 
   "advancements.energizedpower.energizedpower_advanced.title": "Energized Power (発展)",
   "advancements.energizedpower.energizedpower_advanced.description": "帯電した銅は通常の銅より優れた性能を持つ",
 
-  "advancements.energizedpower.energized_gold_ingot.title": "輝くインゴット",
-  "advancements.energizedpower.energized_gold_ingot.description": "帯電した金インゴットは眩い光を放っています",
-
-  "advancements.energizedpower.energized_alloy_ingot.title": "Energized Alloy Ingot",
-  "advancements.energizedpower.energized_alloy_ingot.description": "Create an Energized Alloy Ingot.",
-
-  "advancements.energizedpower.energized_power_book.title": "全知の書",
-  "advancements.energizedpower.energized_power_book.description": "このMODのガイドブック",
-
-  "advancements.energizedpower.hammer.title": "頼れる道具",
-  "advancements.energizedpower.hammer.description": "ハンマーを使用して板を作成できます",
-
-  "advancements.energizedpower.cutter.title": "チョキ、チョキ、チョキ",
-  "advancements.energizedpower.cutter.description": "カッターを使用してワイヤーを作成できます",
-
-  "advancements.energizedpower.wrench.title": "レンチを使いこなせ！",
-  "advancements.energizedpower.wrench.description": "レンチでブロックを設定できます",
-
-  "advancements.energizedpower.battery_box_minecart.title": "線路駆ける電力",
-  "advancements.energizedpower.battery_box_minecart.description": "レールで電力を輸送できます",
-
-  "advancements.energizedpower.advanced_battery_box_minecart.title": "線路満たす電力",
-  "advancements.energizedpower.advanced_battery_box_minecart.description": "レールでより多くの電力を輸送できます",
-
-  "advancements.energizedpower.tin_plate.title": "錫の板",
-  "advancements.energizedpower.tin_plate.description": "錫の板を作成する",
-
-  "advancements.energizedpower.copper_plate.title": "銅の板",
-  "advancements.energizedpower.copper_plate.description": "銅の板を作成する",
-
-  "advancements.energizedpower.iron_plate.title": "ぺったんこ",
-  "advancements.energizedpower.iron_plate.description": "鉄の板を作成する",
-
-  "advancements.energizedpower.gold_plate.title": "金の板",
-  "advancements.energizedpower.gold_plate.description": "金の板を作成する",
-
-  "advancements.energizedpower.tin_wire.title": "錫のワイヤー",
-  "advancements.energizedpower.tin_wire.description": "錫のワイヤーを作成する",
-
-  "advancements.energizedpower.copper_wire.title": "銅のワイヤー",
-  "advancements.energizedpower.copper_wire.description": "銅のワイヤーを作成する",
-
-  "advancements.energizedpower.gold_wire.title": "金のワイヤー",
-  "advancements.energizedpower.gold_wire.description": "金のワイヤーを作成する",
-
-  "advancements.energizedpower.energized_copper_plate.title": "帯電した銅の板",
-  "advancements.energizedpower.energized_copper_plate.description": "帯電した銅の板を作成する",
-
-  "advancements.energizedpower.energized_gold_plate.title": "帯電した金の板",
-  "advancements.energizedpower.energized_gold_plate.description": "帯電した金の板を作成する",
-
-  "advancements.energizedpower.energized_alloy_plate.title": "Energized Alloy Plate",
-  "advancements.energizedpower.energized_alloy_plate.description": "Create an Energized Alloy Plate.",
-
-  "advancements.energizedpower.energized_copper_wire.title": "帯電した銅のワイヤー",
-  "advancements.energizedpower.energized_copper_wire.description": "帯電した銅のワイヤーを作成する",
-
-  "advancements.energizedpower.energized_gold_wire.title": "帯電した金のワイヤー",
-  "advancements.energizedpower.energized_gold_wire.description": "帯電した金のワイヤーを作成する",
-
-  "advancements.energizedpower.superconductor.title": "Superconductor",
-  "advancements.energizedpower.superconductor.description": "Create a Superconductor.",
-
   "advancements.energizedpower.energizedpower_basics.title": "Energized Power (基本)",
   "advancements.energizedpower.energizedpower_basics.description": "Energized Powerへの第一歩。エネルギー革命の始まり",
-
-  "advancements.energizedpower.energizer.title": "充電の最適化",
-  "advancements.energizedpower.energizer.description": "充電器よりも遥かに速く、効率的に帯電させます",
-
-  "advancements.energizedpower.advanced_crusher.title": "高速破砕",
-  "advancements.energizedpower.advanced_crusher.description": "発展型破砕機を作成する",
-
-  "advancements.energizedpower.advanced_pulverizer.title": "高速粉砕",
-  "advancements.energizedpower.advanced_pulverizer.description": "発展型粉砕機を作成する",
-
-  "advancements.energizedpower.lightning_generator.title": "天の力",
-  "advancements.energizedpower.lightning_generator.description": "雷から電力を抽出できます",
-
-  "advancements.energizedpower.energy_analyzer.title": "分析を極めし者",
-  "advancements.energizedpower.energy_analyzer.description": "電力を持つすべてのブロックを分析できます。GUIを持たない装置でも問題ありません！",
-
-  "advancements.energizedpower.fluid_analyzer.title": "液体分析",
-  "advancements.energizedpower.fluid_analyzer.description": "液体を持つブロックを分析できます",
-
-  "advancements.energizedpower.inventory_coal_engine.title": "インベントリ電力",
-  "advancements.energizedpower.inventory_coal_engine.description": "インベントリ内での発電、およびアイテムへの電力供給ができます",
-
-  "advancements.energizedpower.silicon.title": "シリコン",
-  "advancements.energizedpower.silicon.description": "工場の本格稼働が始まる",
-
-  "advancements.energizedpower.solar_panel_1.title": "太陽光発電の入門",
-  "advancements.energizedpower.solar_panel_1.description": "ソーラーパネル (ティアー I)は初歩的な発電機です",
-
-  "advancements.energizedpower.solar_panel_2.title": "太陽光発電の実習生",
-  "advancements.energizedpower.solar_panel_2.description": "ソーラーパネル (ティアー II)は、基本型の強化版です",
-
-  "advancements.energizedpower.solar_panel_3.title": "太陽光発電のバイト",
-  "advancements.energizedpower.solar_panel_3.description": "ソーラーパネル (ティアー III)は、基本的なソーラーパネルの最高モデルです",
-
-  "advancements.energizedpower.solar_panel_4.title": "太陽光発電の雇われ店長",
-  "advancements.energizedpower.solar_panel_4.description": "ソーラーパネル (ティアー IV): ただならぬ性能",
-
-  "advancements.energizedpower.solar_panel_5.title": "太陽光発電の重役",
-  "advancements.energizedpower.solar_panel_5.description": "Tier V: Even better solar power!",
-
-  "advancements.energizedpower.solar_panel_6.title": "Solar Power Vice President",
-  "advancements.energizedpower.solar_panel_6.description": "ソーラーパネル (ティアー VI): 頂点まであと一歩",
-
-  "advancements.energizedpower.solar_panel_7.title": "太陽光発電の管理者",
-  "advancements.energizedpower.solar_panel_7.description": "ソーラーパネル (ティアー VII): 太陽光発電、ここに極まれり",
-
-  "advancements.energizedpower.uncharger.title": "戻ってこい！",
-  "advancements.energizedpower.uncharger.description": "帯電したアイテムから電力を回収できます",
-
-  "advancements.energizedpower.minecart_charger.title": "マインカートを充電！",
-  "advancements.energizedpower.minecart_charger.description": "マインカートを充電できます",
-
-  "advancements.energizedpower.advanced_minecart_charger.title": "マインカートの発展型充電器",
-  "advancements.energizedpower.advanced_minecart_charger.description": "マインカートをより速く充電できます",
-
-  "advancements.energizedpower.minecart_uncharger.title": "マインカートを放電！",
-  "advancements.energizedpower.minecart_uncharger.description": "マインカートを放電できます",
-
-  "advancements.energizedpower.advanced_minecart_uncharger.title": "マインカートの発展型放電器",
-  "advancements.energizedpower.advanced_minecart_uncharger.description": "マインカートをより速く放電できます",
 
   "advancements.energizedpower.energizedpower_elite.title": "Energized Power (Elite)",
   "advancements.energizedpower.energizedpower_elite.description": "Crystallization is the future.",
 
-  "advancements.energizedpower.coolant_cell.title": "Coolant Cell",
-  "advancements.energizedpower.coolant_cell.description": "Keep your machines cool.",
-
-
   "book.energizedpower.tooltip.link": "リンクを開く",
   "book.energizedpower.tooltip.page": "ページを開く",
-
 
   "book.energizedpower.page.welcome.title": "Energized Powerへようこそ！",
   "book.energizedpower.page.welcome.1": "このMODは、エネルギーに関連する多くのアイテムや機械を追加します。",
@@ -1287,7 +1304,6 @@
 
   "book.energizedpower.page.credits.title": "クレジット",
   "book.energizedpower.page.credits.subtitle": "Energized Powerに貢献していただきありがとうございます！",
-
   "book.energizedpower.page.credits.1": "帯電した銅/金インゴットのテクスチャ",
   "book.energizedpower.page.credits.2": "バッテリーのテクスチャ",
   "book.energizedpower.page.credits.3": "シリコンのテクスチャ",
@@ -1303,29 +1319,8 @@
 
   "book.energizedpower.page.table_of_contents.title": "目次",
 
-
   "book.energizedpower.page.chapter.resources.title": "材料",
   "book.energizedpower.page.chapter.resources.1": "アイテム作成には材料が必要です。",
-
-  "book.energizedpower.page.cable_insulator.1": "ケーブル絶縁体は、ケーブルをを作成するための材料です。",
-  "book.energizedpower.page.cable_insulator.2": "ハサミを羊毛ブロックに使用すると作成できます。",
-  "book.energizedpower.page.cable_insulator.3": "ディスペンサーを使用して作成することもできます。",
-
-  "book.energizedpower.page.saw_blade": "のこぎりの刃は、製材機を作成するための材料です。",
-
-  "book.energizedpower.page.silicon.1": "シリコンは、このMODの多くのクラフトレシピで使用される材料です。",
-  "book.energizedpower.page.silicon.2": "ネザークォーツを製錬するか、溶鉱で焼くことで作成できます。",
-
-  "book.energizedpower.page.sawdust.1": "木くずは、製材機の副産物で、木くずブロックに加工できます。",
-  "book.energizedpower.page.sawdust.2": "木くずブロックは燃やすと木炭になる",
-
-  "book.energizedpower.page.fertilizers": "肥料は、植物育成機の動作速度を向上できます。",
-
-  "book.energizedpower.page.ore_dusts": "鉱石の粉は、製錬することでインゴットになります。",
-
-  "book.energizedpower.page.charcoal_dust": "木炭の粉は、木炭フィルターを作成するための材料です。",
-
-  "book.energizedpower.page.charcoal_filter": "木炭フィルターは、ろ過装置で汚水をろ過するために使用されます。",
 
   "book.energizedpower.page.alloys": "合金は様々なレシピで使用され、合金かまどや誘導合金炉で製造できます。",
 
@@ -1335,317 +1330,40 @@
   "book.energizedpower.page.metal_products.1": "金属製品(歯車、棒、ワイヤー)は多くのレシピに使用されます。",
   "book.energizedpower.page.metal_products.2": "金属製品は、金属成形機で作成できます。",
 
-  "book.energizedpower.page.circuits": "回路は、一部のレシピの材料です。",
-
-  "book.energizedpower.page.energized_copper_ingot.1": "帯電した銅インゴットは、高エネルギー充電器等の高度な機械に使用されます。",
-  "book.energizedpower.page.energized_copper_ingot.2": "高エネルギー充電器は、このインゴットで作るんですよね？",
-  "book.energizedpower.page.energized_copper_ingot.3": "このインゴットは、充電器で作成できます。",
-  "book.energizedpower.page.energized_copper_ingot.4": " [ただし高コスト]",
-
-  "book.energizedpower.page.energized_gold_ingot": "帯電した金インゴットは、充電ステーションなどの高性能機で使用されます。",
-
-  "book.energizedpower.page.energized_crystal_matrix": "帯電した結晶基盤は、一部の高性能機の安定化装置として使用されます。",
-
-  "book.energizedpower.page.crystallized_lapis_lazuli": "Crystallized Lapis Lazuli is the key component in the best machines.",
-
-  "book.energizedpower.page.energized_alloy_ingot": "The Energized Alloy Ingot is the most powerful alloy in Energized Power.",
-
-  "book.energizedpower.page.coolant_cell": "Coolant Cells are used to cool the most powerful machines.",
-
-  "book.energizedpower.page.superconductor": "Superconductors are used for the most efficient transmission of electricity.",
-
-
   "book.energizedpower.page.chapter.upgrades.title": "アップグレード",
   "book.energizedpower.page.chapter.upgrades": "アップグレードモジュールを使用すると、機械の性能を向上させることができます。",
-
-  "book.energizedpower.page.speed_upgrades": "速度アップグレードは、機械の加工速度を向上させますが、電力消費も増加します。",
-
-  "book.energizedpower.page.energy_efficiency_upgrades": "発電効率アップグレードは、電力消費を抑えられます。",
-
-  "book.energizedpower.page.energy_production_upgrades": "Energy Production Upgrades increase the energy production.",
-
-  "book.energizedpower.page.energy_capacity_upgrades": "蓄電量アップグレードは、蓄電量と送電速度が向上します。",
-
-  "book.energizedpower.page.duration_upgrades.1": "持続時間アップグレードは、天候操作装置でで設定された天候の持続時間を延長させる。",
-  "book.energizedpower.page.duration_upgrades.2": "次世代型持続時間アップグレードモジュールは、現在の天候を維持できるようになるが、常時電力供給が必要です。",
-
-  "book.energizedpower.page.range_upgrades": "有効範囲アップグレードは、機械が電磁波を送受信できる範囲を拡張します。",
-
-  "book.energizedpower.page.extraction_depth_upgrades": "抽出深度アップグレードは、機械が作業できる深度を増加させます。",
-
-  "book.energizedpower.page.extraction_range_upgrades": "抽出範囲アップグレードは、機械が作業できる範囲を増加させます。",
-
-  "book.energizedpower.page.furnace_mode_upgrades": "製錬モードアップグレードは、電動かまどの加工レシピが変化します。",
-
-  "book.energizedpower.page.moon_light_upgrades": "月光アップグレードは、ソーラーパネルによる夜間の発電ができるようになります。",
-
-  "book.energizedpower.page.item_ejector_upgrades.1": "Item Ejector Upgrades will allow machines to automatically push items into the first valid output.",
-  "book.energizedpower.page.item_ejector_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
-
-  "book.energizedpower.page.item_pulling_upgrades.1": "Item Pulling Upgrades will allow machines to automatically pull items from the first valid input.",
-  "book.energizedpower.page.item_pulling_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
-
 
   "book.energizedpower.page.chapter.tools.title": "道具",
   "book.energizedpower.page.chapter.tools": "役に立つことがあります。",
 
-  "book.energizedpower.page.hammers": "ハンマーは板を作成できる",
-
-  "book.energizedpower.page.cutters.1": "カッターはワイヤーを作成できます。",
-  "book.energizedpower.page.cutters.2": "カッターを使えば、ケーブルを素早く撤去できます。",
-
-  "book.energizedpower.page.wrench": "レンチを使えば、ブロックの設定ができます。",
-
-
   "book.energizedpower.page.chapter.workbenches.title": "ワークベンチ",
   "book.energizedpower.page.chapter.workbenches": "手動操作が必要な機械",
-
-  "book.energizedpower.page.press_mold_maker": "金属成形機で使用する成形型を作成できます。",
-
-  "book.energizedpower.page.alloy_furnace.1": "合金かまどは、合金を製造できます。",
-  "book.energizedpower.page.alloy_furnace.2": "生成物および消費済み燃料の自動搬出は、全スロット・すべての面からできます。",
-  "book.energizedpower.page.alloy_furnace.3": "燃料は上面と下面から投入できます。搬入は他のすべての面からできます。(正面: 全材料スロット、左面: 左スロット、背面: 中央スロット、右面: 右スロット)",
-
 
   "book.energizedpower.page.chapter.energy_items.title": "電力アイテム",
   "book.energizedpower.page.chapter.energy_items": "電力を生成、消費、輸送するアイテム",
 
-  "book.energizedpower.page.inventory_coal_engine.1": "携帯型石炭発電機は、インベントリ内での発電、およびアイテムへ電力供給ができます。",
-  "book.energizedpower.page.inventory_coal_engine.2": "手に持って何もない空間を右クリックすると、オン・オフを切り替えられます。",
-  "book.energizedpower.page.inventory_coal_engine.3": "有効時、燃料はインベントリから自動的に消費されます。",
-  "book.energizedpower.page.inventory_coal_engine.4": " [ホットバー内のアイテムは対象外です]",
-
-  "book.energizedpower.page.inventory_charger.1": "インベントリ内の各アイテムへ電力供給できます",
-  "book.energizedpower.page.inventory_charger.2": "充電された電池を中に入れてください",
-
-  "book.energizedpower.page.inventory_teleporter": "携帯型転送装置は、プレイヤーを転送できます。これには電力とリンクされた転送先記憶基盤が必要です。",
-
-  "book.energizedpower.page.energy_analyzer.1": "電力分析器は、電力の統計情報を取得するために使用できます。GUIのない電力ブロックに主に使用されます。",
-  "book.energizedpower.page.energy_analyzer.2": "電力を持つブロックをクリックすることで使用できます。",
-
-  "book.energizedpower.page.fluid_analyzer.1": "液体分析器は、液体を持つブロックを分析できます",
-  "book.energizedpower.page.fluid_analyzer.2": "液体を持つブロックをクリックすることで使用できます。",
-
-  "book.energizedpower.page.batteries.1": "電池は蓄電できます。",
-  "book.energizedpower.page.batteries.2": "充電器や携帯型発電機で充電でき、放電機で放電できます。",
-
-
   "book.energizedpower.page.chapter.energy_blocks.title": "電力ブロック",
   "book.energizedpower.page.chapter.energy_blocks": "電力を生成、消費、輸送するブロック",
-
   "book.energizedpower.page.energy_blocks.table_of_contents.title": "目次\n(電力関連ブロック)",
-
-
   "book.energizedpower.page.chapter.energy_blocks.general.title": "基本",
   "book.energizedpower.page.chapter.energy_blocks.general": "電力を持つブロックの基本情報",
-
-  "book.energizedpower.page.machine_frames.1": "マシンフレームは、すべての機械の基礎となる材料です。",
-  "book.energizedpower.page.machine_frames.2": "マシンフレームには、基本型・硬化型・発展型・強化発展型の4段階のティアがあります。",
-
-
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation.title": "輸送",
   "book.energizedpower.page.chapter.energy_blocks.energy_transportation": "輸送するブロック",
-
-  "book.energizedpower.page.cables.1": "ケーブルは、発電ブロックから消費先のブロックへ送電するために使用される。",
-  "book.energizedpower.page.cables.2": "ケーブルには、6段階のティアがあります。",
-  "book.energizedpower.page.cables.3": "異なるティアのケーブル同士を接続するには変圧器が必要です。",
-
-  "book.energizedpower.page.transformers.1": "変圧器は、異なるティアのケーブル同士を接続できます。",
-  "book.energizedpower.page.transformers.2": "大きく色が濃いひし形の面が入力面です。",
-  "book.energizedpower.page.transformers.3": "小さく色が明るい正方形の面が出力面です。",
-  "book.energizedpower.page.transformers.4": "変圧器には、LV、MV、HV、EHVの4段階のティアがあります。",
-  "book.energizedpower.page.transformers.5": "各ティアには、1対n、3対3、n対1、設定可能の4種類の変圧器があります。",
-  "book.energizedpower.page.transformers.6": "ケーブルの代わりに変圧器を定期的に配置することで、ネットワークの負荷を軽減できます。",
-  "book.energizedpower.page.transformers.7": "変圧器は、Energized Powerの電力網を他のMODのケーブルへ接続するときにも使用できます。",
-  "book.energizedpower.page.transformers.8": "変圧器は、蓄電器としても使用できます。",
-  "book.energizedpower.page.transformers.9": "変圧器は、AE2のエネルギートンネルから電力を抽出することもできます。",
-
-  "book.energizedpower.page.minecart_charger_uncharger.1": "マインカートの充電器は、充電器で充電でき、放電器は放電できます。",
-  "book.energizedpower.page.minecart_charger_uncharger.2": "レッドストーンコンパレーターを使用すると、充電中、放電中のマインカートの蓄電量を信号強度で取得できます。",
-  "book.energizedpower.page.minecart_charger_uncharger.3": "発展型では、送電速度が向上しています。",
-
-
   "book.energizedpower.page.chapter.energy_blocks.energy_storage.title": "貯蔵",
   "book.energizedpower.page.chapter.energy_blocks.energy_storage": "電力貯蔵ブロック",
-
-  "book.energizedpower.page.battery_box": "電力を蓄電でき、ブロックのすべての面から送電できます。",
-
-
   "book.energizedpower.page.chapter.energy_blocks.energy_production.title": "発電",
   "book.energizedpower.page.chapter.energy_blocks.energy_production": "発電用のブロック",
-
-  "book.energizedpower.page.solar_cells.1": "すべてのソーラーパネルのベースとなる材料です。",
-  "book.energizedpower.page.solar_cells.2": "There are four solar cells: Basic, Advanced, Reinforced Advanced, and Elite",
-
-  "book.energizedpower.page.solar_panels.1": "時刻によって発電効率が変動し、日中にのみ発電します。",
-  "book.energizedpower.page.solar_panels.2": "ソーラーパネルは、7段階のティアがあります。",
-
-  "book.energizedpower.page.coal_engine.1": "石炭発電機はアイテムを燃やしてエネルギーを生産します。",
-  "book.energizedpower.page.coal_engine.2": "余ったアイテムは自動で回収されます。",
-
-  "book.energizedpower.page.heat_generator.1": "熱発電機は、溶岩源か流れる溶岩に隣接していると発電します。",
-  "book.energizedpower.page.heat_generator.2": "流れる溶岩より溶岩源に隣接しているほうが多く発電します。",
-  "book.energizedpower.page.heat_generator.3": "接する溶岩が多ければ多いほど、1ティック当たりの発電量が増します。",
-  "book.energizedpower.page.heat_generator.4": "MODPACKでは、溶岩以外の高熱液体にも対応していることがあります。",
-
-  "book.energizedpower.page.thermal_generator.1": "熱消費発電機は、高熱液体を消費して発電します。",
-  "book.energizedpower.page.thermal_generator.2": "MODPACKでは、溶岩以外の高熱液体にも対応していることがあります。",
-
-  "book.energizedpower.page.lightning_generator.1": "雷発電機は、雷1回につき大量に発電する。",
-  "book.energizedpower.page.lightning_generator.2": "動作させるには、ブロックの上に避雷針が必要です。",
-
-
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption.title": "電力消費",
   "book.energizedpower.page.chapter.energy_blocks.energy_consumption": "電力消費ブロック",
-
-  "book.energizedpower.page.powered_lamp": "電動ランプはレッドストーンランプと似ていますが、レッドストーン信号の代わりのエネルギーが必要です。",
-
-  "book.energizedpower.page.powered_furnaces.1": "電動かまどは、通常のかまどと同様に動作するが、石炭の代わりに電力を消費し、製錬速度も向上している。",
-  "book.energizedpower.page.powered_furnaces.2": "発展型電動かまどは3系統の入出力スロットを搭載し、同時に製錬ができます。",
-
-  "book.energizedpower.page.auto_crafters.1": "自動作業機は、アイテムを自動で作成します。",
-  "book.energizedpower.page.auto_crafters.2": "パターンスロットにアイテムを配置することで、レシピを設定できます。",
-  "book.energizedpower.page.auto_crafters.3": "同じ材料のレシピが複数ある場合は、切り替えボタンか外部MOD(REIなど)から設定してください。",
-  "book.energizedpower.page.auto_crafters.4": "発展型自動作業機は、複数のレシピを同時に処理できます。",
-
-  "book.energizedpower.page.crushers.1": "破砕機は、石、砂岩、丸石、砂利などのブロックを破砕加工できます。",
-  "book.energizedpower.page.crushers.2": "発展型破砕機は動作に水を消費し、汚水を排出する。",
-
-  "book.energizedpower.page.pulverizers.1": "粉砕機は、鉱石から粉に加工し、製錬すればインゴットにできます。",
-  "book.energizedpower.page.pulverizers.2": "発展型粉砕機は水を消費し、汚水を排出する。",
-
-  "book.energizedpower.page.sawmill.1": "製材機は、木のブロックや木製アイテムを切断できます。",
-  "book.energizedpower.page.sawmill.2": "木くずが生産され、クラフトや燃料として使える木くずブロックに加工できます。",
-
-  "book.energizedpower.page.compressor": "圧縮機は、インゴットを圧縮して板材に加工します。",
-
-  "book.energizedpower.page.metal_press.1": "金属成形機は、金属をワイヤーなどの金属製品に加工します。",
-  "book.energizedpower.page.metal_press.2": "成形型は、成形型作成機で作成できます",
-  "book.energizedpower.page.metal_press.3": "成形型スロットへの搬入と搬出は、すべて上面からできます。",
-  "book.energizedpower.page.metal_press.4": "上面以外のすべての面からのアイテムの搬入と搬出に対応しています。",
-
-  "book.energizedpower.page.auto_press_mold_maker": "自動成形型作成機は成形型作成機の全自動版です。動作にはシャベルが必要です。",
-
-  "book.energizedpower.page.auto_stonecutter": "自動石切台は、石切台の自動版ですが、加工にはツルハシが必要です。",
-
-  "book.energizedpower.page.assembling_machine.1": "組立機は、回路などの電子部品を製造します。",
-  "book.energizedpower.page.assembling_machine.2": "搬出口はすべての面に備わっています。どの面からでもアイテムを搬出できます。",
-  "book.energizedpower.page.assembling_machine.3": "すべての面からの搬入の対応しており、搬入面によって対応するスロットが異なります。(上・下: 全スロット、正面: 下スロット、背面: 上スロット、左: 左スロット、右: 右スロット)",
-
-  "book.energizedpower.page.plant_growth_chamber.1": "植物育成機は、植物の成長速度と収穫量を大幅に向上させます。",
-  "book.energizedpower.page.plant_growth_chamber.2": "右スロットは種の入力スロットです。 The bottom input slot is the soil slot.",
-  "book.energizedpower.page.plant_growth_chamber.3": "左スロットは肥料の入力スロットです。",
-  "book.energizedpower.page.plant_growth_chamber.4": "肥料をセットすると、消費電力と成長速度が速くなります。",
-  "book.energizedpower.page.plant_growth_chamber.5": "種は東西南北の各面から、肥料は上面と下面から搬入できます。Soils can be inserted from the top and bottom and can be extracted from the top. 収穫物の搬出はすべての面に対応しています。",
-  "book.energizedpower.page.plant_growth_chamber.6": "肥料を使うには、まず肥料を入れる必要があります。",
-  "book.energizedpower.page.plant_growth_chamber.7": "このブロックを自動化する場合、収穫量に変動が起こることを考慮し、余裕を持った設計をする必要があります。",
-
-  "book.energizedpower.page.fluid_freezer.1": "The Fluid Freezer produces Ice and Snow from Water.",
-  "book.energizedpower.page.fluid_freezer.2": "Fluids must be inserted with a pipe.",
-
-  "book.energizedpower.page.stone_liquefier.1": "石材液化機は、石材から溶岩を生成します。",
-  "book.energizedpower.page.stone_liquefier.2": "生成された液体は、パイプを使って搬出してください。",
-
-  "book.energizedpower.page.stone_solidifier.1": "石材凝固機は、水と溶岩から石材を成形します。",
-  "book.energizedpower.page.stone_solidifier.2": "液体は、パイプを使って搬入してください。",
-
-  "book.energizedpower.page.filtration_plant.1": "ろ過プラントは、汚水の中から原石をろ過して抽出できます。",
-  "book.energizedpower.page.filtration_plant.2": "木炭フィルターは、装置のどの面からでも搬入できます。生成物の搬出もすべてのからできます。",
-
-  "book.energizedpower.page.fluid_transposer": "液体転送機は、アイテムから液体を抽出する「搬出モード」と、アイテムに液体を注入する「充填モード」を切り替えられます。",
-
-  "book.energizedpower.page.induction_smelter.1": "誘導合金炉は、合金を作成できます。",
-  "book.energizedpower.page.induction_smelter.2": "生成物は、装置のどの面からでも搬出できます。",
-  "book.energizedpower.page.induction_smelter.3": "搬入は装置のどの面からでもできますが、接続面によって搬出先のスロットが指定されます。(正面・上・下: 全スロット、左: 左スロット、背面: 中央スロット、右: 右スロット)",
-
-  "book.energizedpower.page.block_placer.1": "ブロック設置機はあらゆるブロックを設置できる(ドアや種も設置可能)。",
-  "book.energizedpower.page.block_placer.2": "ブロックの配置は、設置可能な場合のみ設置される。",
-
-  "book.energizedpower.page.fluid_filler_fluid_drainer": "液体充填機はアイテムに液体を充填し、液体抽出機はアイテムから液体を抽出できます。",
-
-  "book.energizedpower.page.fluid_pumps": "液体ポンプはワールドの液体を汲み上げることができ、動作時に丸石を消費する。",
-
-  "book.energizedpower.page.charger_uncharger.1": "充電器はアイテムを充電し、放電器で放電できます。",
-  "book.energizedpower.page.charger_uncharger.2": "充電器と放電器の上位版には、3つのスロットが搭載されています。",
-
-  "book.energizedpower.page.charging_station": "充電ステーションは、アイテムをワイヤレスで充電できます。",
-
-  "book.energizedpower.page.crystal_growth_chamber": "結晶育成機は、アメジストなどの結晶を育成できます。",
-
-  "book.energizedpower.page.energizer": "高エネルギー充電器は、極めて高い効率でアイテムを帯電させます。",
-
-  "book.energizedpower.page.weather_controller": "天候操作装置は、一時的に天候を変更できます。使用には電力が必要です。",
-
-  "book.energizedpower.page.time_controller.1": "時間操作装置は、時間を変更できます。使用には電力が必要です。",
-  "book.energizedpower.page.time_controller.2": "時間を巻き戻すことはできず、時間は常に増加します。",
-
-  "book.energizedpower.page.teleporter_matrix.1": "転送先記憶基盤は、転送装置同氏をリンクするために使用されます。",
-  "book.energizedpower.page.teleporter_matrix.2": "リンク済みの転送先記憶基盤と未リンクの記憶基盤を作業台に並べると、設定をコピーできます。",
-
-  "book.energizedpower.page.teleporter.1": "転送装置は、プレイヤーを転送できます。動作には電力とリンク済みの転送先記憶基盤が必要です。",
-  "book.energizedpower.page.teleporter.2": "転送装置の転送準備が整っている場合、レッドストーン信号を出力します。",
-  "book.energizedpower.page.teleporter.3.1": "転送装置を押すと手動起動できます。",
-  "book.energizedpower.page.teleporter.3.2": "転送装置の上で",
-
 
   "book.energizedpower.page.chapter.fluid_blocks.title": "液体ブロック",
   "book.energizedpower.page.chapter.fluid_blocks": "液体の貯蔵と輸送ができるブロック",
 
-  "book.energizedpower.page.fluid_pipes.1": "液体パイプは、液体を輸送できます。",
-  "book.energizedpower.page.fluid_pipes.2": "レンチを使えば、パイプの各面ごとに接続モードを切り替えられます。",
-  "book.energizedpower.page.fluid_pipes.3": "1本の液体パイプが一度に抽出できるのは、一種類の液体のみです。複数の面を抽出モードにしても、中身は混ざりません。",
-
-  "book.energizedpower.page.fluid_tanks.1": "液体タンクは、あらゆる液体を貯蔵できます。",
-  "book.energizedpower.page.fluid_tanks.2": "液体タンクには、小型・中型・大型の3段階のティアがあります。",
-
-  "book.energizedpower.page.drain.1": "液体回収機は、ブロックの真上にある液体源を回収する。",
-  "book.energizedpower.page.drain.2": "Fabric版では、液体回収機を大釜の下に設置することで中身を抽出できます。",
-
-
   "book.energizedpower.page.chapter.item_transportation.title": "アイテム輸送",
   "book.energizedpower.page.chapter.item_transportation": "アイテムを輸送できるブロック",
 
-  "book.energizedpower.page.item_conveyor_belt.1": "アイテムコンベアは、アイテムを輸送できます。",
-  "book.energizedpower.page.item_conveyor_belt.2": "レンチを使えば、角度を変更できます。",
-  "book.energizedpower.page.item_conveyor_belt.3": "アイテムコンベアは、ホッパーやアイテム搬入機能を持つあらゆるブロックからアイテムを搬入できます。",
-  "book.energizedpower.page.item_conveyor_belt.4": "アイテムコンベアは、前方のブロック内へアイテムを搬入できます。",
-  "book.energizedpower.page.item_conveyor_belt.5": "また、ホッパーやアイテム搬出機能を持つあらゆるブロックからアイテムを搬出できる",
-  "book.energizedpower.page.item_conveyor_belt.6": "アイテムコンベアは、AE2のアイテムトンネルに直接接続できます。",
-
-  "book.energizedpower.page.item_conveyor_belt_loader.1": "アイテム搬入機は、あらゆるストレージ（他のコンベアを含む）からアイテムを搬出し、コンベア上へと搬入できます。",
-  "book.energizedpower.page.item_conveyor_belt_loader.2": "でかめの四角の面からアイテムを搬出し、小さめの四角の面をコンベアに接続するように配置しましょう。",
-  "book.energizedpower.page.item_conveyor_belt_loader.3": "また、ホッパーやアイテム搬出機能を持つあらゆるブロックからアイテムを搬出できます。",
-  "book.energizedpower.page.item_conveyor_belt_loader.4": "垂直方向や水平方向に積み重ねて設置できます。",
-  "book.energizedpower.page.item_conveyor_belt_loader.5": "レッドストーン信号で停止できます。",
-
-  "book.energizedpower.page.item_conveyor_belt_sorter.1": "アイテムコンベア仕分け機は、搬入側のコンベアから流れてくるアイテムを、指定された搬出側コンベアへと仕分けることができます。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.2": "搬入用のコンベアはでかめの四角の面側に設置し、かつ上り坂になっていない必要があります。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.3": "搬出用コンベアについては、特に設置の制限はありません。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.4": "搬出先は色分けされており、搬入面から見て、赤（左側）、黄（正面）、緑（右側）の三方向に対応しています。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.5": "アイテムはフィルターが一致した最初の搬出先へと仕分けられる(優先度: 搬出先1、搬出先2、搬出先3の順)。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.6": "搬出先フィルターの列にあるアイテムのうち、どれか一つでも搬入されたアイテムと一致すれば、その搬出先へと仕分けれます。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.7": "手持ちのアイテムをフィルター用のスロットで左クリックすれば、そのアイテムを登録できます。リセットしたい時は、何も持たずに左クリックしてください。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.8": "すべてのアイテムを通過させたい場合は、パターンを空にしたままブラックリストを選択してください。もし搬出先にコンベアを繋いでいないなら、空のホワイトリストに設定しておきましょう。",
-  "book.energizedpower.page.item_conveyor_belt_sorter.9": "どのフィルターにも一致しなかった場合、強度15のレッドストーン信号が出力されます(搬出先が未接続だったり、満杯だったりする場合は出力されません)。",
-
-  "book.energizedpower.page.item_conveyor_belt_switch.1": "アイテムコンベア分岐機は、搬入面(でかめの四角側)から来たアイテムを緑色のランプが点いている側のコンベアへと搬出します。上り坂のコンベアは接続できません。",
-  "book.energizedpower.page.item_conveyor_belt_switch.2": "レッドストーン信号が入力されている間は、もう一方の搬出先へとアイテムが搬出されます。",
-
-  "book.energizedpower.page.item_conveyor_belt_splitter": "アイテムコンベア分配機は、搬入面(でかめの四角側)から来たアイテムを接続されている各搬出先のコンベアへ均等に分配します。上り坂のコンベアは接続できません。",
-
-  "book.energizedpower.page.item_conveyor_belt_merger": "アイテムコンベア合流機は、接続されている各搬入面からアイテムを交互に受け取り、1つの搬出先へと合流させます。上り坂のコンベアは接続できません。",
-
-  "book.energizedpower.page.item_silos.1": "アイテム貯蔵庫は、一種類のアイテムしか入りませんが、最大で1000スタックまで貯蔵できます。",
-  "book.energizedpower.page.item_silos.2": "アイテム貯蔵庫への搬入・搬出は、ホッパーやコンベアなどの自動輸送手段でのみできます。",
-  "book.energizedpower.page.item_silos.3": "アイテム貯蔵庫には、極小型・小型・中型・大型・超大型の5段階のティアがあります。",
-
-
   "book.energizedpower.page.chapter.fluids.title": "液体",
   "book.energizedpower.page.chapter.fluids": "Energized Powerで追加された液体",
-
-  "book.energizedpower.page.dirty_water.1": "汚水は、水を消費する一部の機械の副産物として生成されます。",
-  "book.energizedpower.page.dirty_water.2": "汚水は、ろ過プラントで浄化することができます。",
-
 
   "book.energizedpower.page.chapter.machine_configuration.title": "設定",
   "book.energizedpower.page.chapter.machine_configuration": "機械の設定",
@@ -1662,20 +1380,11 @@
   "book.energizedpower.page.comparator_mode_configuration.3": "液体: コンパレーターの出力は、機械のタンクの満杯度に応じて決まる",
   "book.energizedpower.page.comparator_mode_configuration.4": "電力: コンパレーターの出力は、機械の蓄電量に応じて決まる",
 
-
   "book.energizedpower.page.chapter.entities.title": "エンティティ",
   "book.energizedpower.page.chapter.entities": "動くもの",
 
-  "book.energizedpower.page.battery_box_minecarts": "蓄電器付きのマインカートは、レール上で電力を輸送できます。マインカートの充電器で充電でき、マインカートの放電器で放電できます。",
-
-
   "book.energizedpower.page.chapter.structures.title": "構造物",
   "book.energizedpower.page.chapter.structures": "ワールド内に生成される構造物",
-
-  "book.energizedpower.page.electrician.title": "電気技師",
-  "book.energizedpower.page.electrician.1": "電気技師の村人は、電気技師の家で見つけることができます。",
-  "book.energizedpower.page.electrician.2": "電気技師の家は、すべてのバニラタイプの村で見つけることができます。",
-  "book.energizedpower.page.electrician.3": "基本型マシンフレームを設置すると、無職の村人が電気技師へと転職します。",
 
   "book.energizedpower.page.factory.title": "工場",
   "book.energizedpower.page.factory.1": "工場には、いくつかの機械が設置されており、建物の中央には興味深いものがあるらしい…",
