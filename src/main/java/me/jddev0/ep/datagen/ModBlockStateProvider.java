@@ -2,7 +2,7 @@ package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.*;
-import me.jddev0.ep.datagen.model.ModModels;
+import me.jddev0.ep.datagen.model.ModModelTemplates;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.machine.tier.TransformerType;
@@ -354,7 +354,7 @@ class ModBlockStateProvider {
                         put(TextureSlot.BACK, TextureMapping.getBlockTexture(block, backSuffix)).
                         put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, sideSuffix)).
                         copySlot(TextureSlot.FRONT, TextureSlot.PARTICLE),
-                ModModels.ORIENTABLE_VERTICAL_WITH_BACK).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
+                ModModelTemplates.ORIENTABLE_VERTICAL_WITH_BACK).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private Identifier orientableVerticalBlockModel(Block block, boolean uniqueBottomTexture) {
@@ -370,7 +370,7 @@ class ModBlockStateProvider {
                         put(TextureSlot.FRONT, TextureMapping.getBlockTexture(block, frontSuffix)).
                         put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, sideSuffix)).
                         copySlot(TextureSlot.FRONT, TextureSlot.PARTICLE),
-                ModModels.ORIENTABLE_VERTICAL).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
+                ModModelTemplates.ORIENTABLE_VERTICAL).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
     private void horizontalBlockWithItem(Block block, boolean uniqueBottomTexture) {
@@ -724,15 +724,15 @@ class ModBlockStateProvider {
         Identifier notConnectedSide = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + "_not_connected"))).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
-                ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_not_connected", generator.modelOutput);
+                ModModelTemplates.SINGLE_SIDE).get(block).createWithSuffix(block, "_not_connected", generator.modelOutput);
         Identifier receiveSide = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + "_input"))).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
-                ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_input", generator.modelOutput);
+                ModModelTemplates.SINGLE_SIDE).get(block).createWithSuffix(block, "_input", generator.modelOutput);
         Identifier extractSide = TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.SIDE, new Material(EPAPI.id("block/" + textureName + "_output"))).
                         copySlot(TextureSlot.SIDE, TextureSlot.PARTICLE),
-                ModModels.SINGLE_SIDE).get(block).createWithSuffix(block, "_output", generator.modelOutput);
+                ModModelTemplates.SINGLE_SIDE).get(block).createWithSuffix(block, "_output", generator.modelOutput);
 
         generator.blockStateOutput.accept(MultiPartGenerator.multiPart(block).
                 with(
