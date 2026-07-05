@@ -550,8 +550,8 @@ public class EnergizedPowerMod {
 
                 @Override
                 public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
-                    RenderSystem.setShaderFogStart(.25f);
-                    RenderSystem.setShaderFogEnd(3.f);
+                    RenderSystem.setShaderFogStart(.125f);
+                    RenderSystem.setShaderFogEnd(1.f);
                 }
             }, EPFluidTypes.LIQUID_XP_FLUID_TYPE.get());
         }

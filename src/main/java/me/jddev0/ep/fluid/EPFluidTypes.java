@@ -24,7 +24,7 @@ public final class EPFluidTypes {
     public static final Supplier<EnergizedPowerFluidType> LIQUID_XP_FLUID_TYPE = FLUID_TYPES.register("liquid_xp",
             () -> new EnergizedPowerFluidType(FluidType.Properties.create().lightLevel(10).density(3000).viscosity(6000).canExtinguish(false).canSwim(false).canDrown(false),
                     EPAPI.id("block/liquid_xp_still"), EPAPI.id("block/liquid_xp_flow"),
-                    null, 0x00000000, new Vector3f(100.f / 255.f, 50.f / 255.f, 0.f)) {
+                    null, 0x00000000, new Vector3f(106.f / 255.f, 1.f, 43.f / 255.f)) {
                 @Override
                 public double motionScale(Entity entity) {
                     return 0.0023333333333333335;
