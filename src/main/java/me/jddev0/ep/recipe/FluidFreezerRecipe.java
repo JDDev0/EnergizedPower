@@ -1,5 +1,7 @@
 package me.jddev0.ep.recipe;
 
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
@@ -16,15 +18,23 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class FluidFreezerRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
-    private final FluidStack input;
+    private final Either<FluidStack, FluidIngredientWithAmount> input;
     private final ItemStackTemplate output;
 
     public FluidFreezerRecipe(FluidStack input, ItemStackTemplate output) {
+        this(Either.left(input), output);
+    }
+
+    public FluidFreezerRecipe(FluidIngredientWithAmount input, ItemStackTemplate output) {
+        this(Either.right(input), output);
+    }
+
+    public FluidFreezerRecipe(Either<FluidStack, FluidIngredientWithAmount> input, ItemStackTemplate output) {
         this.input = input;
         this.output = output;
     }
 
-    public FluidStack getInput() {
+    public Either<FluidStack, FluidIngredientWithAmount> getInput() {
         return input;
     }
 
@@ -93,7 +103,7 @@ public class FluidFreezerRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
         private Serializer() {}
 
         private static final MapCodec<FluidFreezerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(FluidStack.CODEC_MILLIBUCKETS.fieldOf("ingredient").forGetter((recipe) -> {
+            return instance.group(Codec.either(FluidStack.CODEC_MILLIBUCKETS, FluidIngredientWithAmount.CODEC).fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
             }), ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
@@ -107,14 +117,33 @@ public class FluidFreezerRecipe implements EnergizedPowerBaseRecipe<RecipeInput>
         public static final Identifier ID = EPAPI.id("fluid_freezer");
 
         private static FluidFreezerRecipe read(RegistryFriendlyByteBuf buffer) {
-            FluidStack input = FluidStack.STREAM_CODEC.decode(buffer);
+            Either<FluidStack, FluidIngredientWithAmount> input;
+            if(buffer.readBoolean()) {
+                input = Either.left(FluidStack.STREAM_CODEC.decode(buffer));
+            }else {
+                input = Either.right(FluidIngredientWithAmount.STREAM_CODEC.decode(buffer));
+            }
+
             ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new FluidFreezerRecipe(input, output);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, FluidFreezerRecipe recipe) {
-            FluidStack.STREAM_CODEC.encode(buffer, recipe.input);
+            buffer.writeBoolean(recipe.input.left().isPresent());
+            recipe.input.map(
+                    fluid -> {
+                        FluidStack.STREAM_CODEC.encode(buffer, fluid);
+
+                        return null;
+                    },
+                    fluid -> {
+                        FluidIngredientWithAmount.STREAM_CODEC.encode(buffer, fluid);
+
+                        return null;
+                    }
+            );
+
             ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
