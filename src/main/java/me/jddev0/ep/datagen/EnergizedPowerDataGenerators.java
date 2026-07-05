@@ -50,6 +50,7 @@ public class EnergizedPowerDataGenerators implements DataGeneratorEntrypoint {
 
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
+        pack.addProvider(ModFluidTagProvider::new);
         pack.addProvider(ModPoiTypeTagProvider::new);
         pack.addProvider(ModBiomeTagProvider::new);
         pack.addProvider(ModPaintingVariantTagProvider::new);
