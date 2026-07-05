@@ -3,10 +3,11 @@ package me.jddev0.ep.integration.jei;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
-import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
+import me.jddev0.ep.util.ItemStackUtils;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -16,12 +17,18 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
 import mezz.jei.api.recipe.types.IRecipeType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluid;
+
+import java.util.List;
 
 public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<FluidTransposerRecipe>> {
     public static final IRecipeHolderType<FluidTransposerRecipe> TYPE = IRecipeHolderType.create(FluidTransposerRecipe.Type.INSTANCE);
@@ -65,21 +72,36 @@ public class FluidTransposerCategory implements IRecipeCategory<RecipeHolder<Flu
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<FluidTransposerRecipe> recipe, IFocusGroup iFocusGroup) {
-        FluidStack fluid = recipe.value().getFluid();
-
+        IRecipeSlotBuilder fluidSlot;
         if(recipe.value().getMode() == FluidTransposerBlockEntity.Mode.EMPTYING) {
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
 
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
-            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(fluid.getFluid(),
-                    fluid.getDropletsAmount(), fluid.getFluidVariant().getComponentsPatch());
+            iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(ItemStackUtils.fromNullableItemStackTemplate(recipe.value().getOutput()));
+            fluidSlot = iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5);
         }else {
             iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(recipe.value().getInput());
-            iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5).add(fluid.getFluid(),
-                    fluid.getDropletsAmount(), fluid.getFluidVariant().getComponentsPatch());
+            fluidSlot = iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 5);
 
             iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 90, 5).add(recipe.value().getOutput());
         }
+
+        recipe.value().getFluid().map(fluid -> {
+            fluidSlot.add(fluid.getFluid(), fluid.getDropletsAmount(), fluid.getFluidVariant().getComponentsPatch());
+
+            return null;
+        }, f -> {
+            long amount = f.dropletsAmount();
+            List<Fluid> fluids = f.fluid().getFluid().map(
+                    fluid -> fluid,
+                    fluid -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                            getOrThrow(fluid).stream().map(Holder::value).toList()
+            );
+
+            for(Fluid fluid:fluids)
+                fluidSlot.add(fluid, amount);
+
+            return null;
+        });
     }
 
     @Override
