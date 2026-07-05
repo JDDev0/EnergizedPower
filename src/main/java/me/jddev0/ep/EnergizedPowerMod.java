@@ -347,6 +347,7 @@ public class EnergizedPowerMod {
             event.accept(EPItems.SUPERCONDUCTOR);
 
             event.accept(EPFluids.DIRTY_WATER_BUCKET_ITEM);
+            event.accept(EPFluids.LIQUID_XP_BUCKET_ITEM);
 
             event.accept(EPItems.STONE_PEBBLE);
 
@@ -525,6 +526,34 @@ public class EnergizedPowerMod {
                     RenderSystem.setShaderFogEnd(3.f);
                 }
             }, EPFluidTypes.DIRTY_WATER_FLUID_TYPE.get());
+
+            event.registerFluidType(new IClientFluidTypeExtensions() {
+                @Override
+                public ResourceLocation getStillTexture() {
+                    return EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getStillTexture();
+                }
+
+                @Override
+                public ResourceLocation getFlowingTexture() {
+                    return EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getFlowingTexture();
+                }
+
+                @Override
+                public @Nullable ResourceLocation getOverlayTexture() {
+                    return EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getOverlayTexture();
+                }
+
+                @Override
+                public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+                    return EPFluidTypes.LIQUID_XP_FLUID_TYPE.get().getFogColor();
+                }
+
+                @Override
+                public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
+                    RenderSystem.setShaderFogStart(.25f);
+                    RenderSystem.setShaderFogEnd(3.f);
+                }
+            }, EPFluidTypes.LIQUID_XP_FLUID_TYPE.get());
         }
 
         @SubscribeEvent

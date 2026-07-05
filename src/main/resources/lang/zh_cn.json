@@ -104,6 +104,7 @@
   "item.energizedpower.energized_crystal_matrix": "充能水晶矩阵",
 
   "item.energizedpower.dirty_water_bucket": "脏水桶",
+  "item.energizedpower.liquid_xp_bucket": "Liquid XP Bucket",
 
   "item.energizedpower.teleporter_matrix": "传送器矩阵",
   "item.energizedpower.teleporter_matrix.linked": "传送器矩阵 [已链接]",
@@ -783,6 +784,7 @@
   "item.energizedpower.reinforced_advanced_machine_frame": "强化高级机器框架",
 
   "fluid_type.energizedpower.dirty_water": "脏水",
+  "fluid_type.energizedpower.liquid_xp": "Liquid XP",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

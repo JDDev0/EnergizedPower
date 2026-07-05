@@ -3,6 +3,7 @@ package me.jddev0.ep.datagen.recipe;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -3380,6 +3381,9 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
         addFluidTransposerRecipe(ingredientOf(Items.DIRT), new ItemStack(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, 250));
+
+        addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), new ItemStack(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
+                new FluidStack(EPFluids.LIQUID_XP, 250));
     }
 
     private void buildChargerRecipes() {

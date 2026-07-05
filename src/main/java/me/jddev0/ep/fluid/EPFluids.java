@@ -36,6 +36,22 @@ public final class EPFluids {
             EPFluidTypes.DIRTY_WATER_FLUID_TYPE, DIRTY_WATER, FLOWING_DIRTY_WATER
     ).explosionResistance(100.f).block(DIRTY_WATER_BLOCK).bucket(DIRTY_WATER_BUCKET_ITEM);
 
+    public static final DeferredHolder<Fluid, FlowingFluid> LIQUID_XP = FLUIDS.register("liquid_xp",
+            () -> new BaseFlowingFluid.Source(EPFluids.LIQUID_XP_PROPS));
+    public static final DeferredHolder<Fluid, FlowingFluid> FLOWING_LIQUID_XP = FLUIDS.register("flowing_liquid_xp",
+            () -> new BaseFlowingFluid.Flowing(EPFluids.LIQUID_XP_PROPS));
+    public static final DeferredBlock<LiquidBlock> LIQUID_XP_BLOCK = EPBlocks.BLOCKS.register("liquid_xp",
+            () -> new LiquidBlock(LIQUID_XP.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.LAVA).lightLevel(state -> 10)));
+    public static final DeferredItem<BucketItem> LIQUID_XP_BUCKET_ITEM = createItem("liquid_xp_bucket",
+            LIQUID_XP, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
+    private static final BaseFlowingFluid.Properties LIQUID_XP_PROPS = new BaseFlowingFluid.Properties(
+            EPFluidTypes.LIQUID_XP_FLUID_TYPE, LIQUID_XP, FLOWING_LIQUID_XP
+    ).explosionResistance(100.f).block(LIQUID_XP_BLOCK).bucket(LIQUID_XP_BUCKET_ITEM);
+
+    public static DeferredItem<BucketItem> createItem(String name, DeferredHolder<Fluid, FlowingFluid> fluid, Item.Properties props) {
+        return EPItems.registerItem(name, p -> new BucketItem(fluid.get(), p), props);
+    }
+
     public static void register(IEventBus modEventBus) {
         FLUIDS.register(modEventBus);
     }
