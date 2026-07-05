@@ -2,10 +2,10 @@ package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -13,11 +13,17 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.recipe.types.IRecipeHolderType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.material.Fluid;
+
+import java.util.List;
 
 public class FluidFreezerCategory implements IRecipeCategory<RecipeHolder<FluidFreezerRecipe>> {
     public static final IRecipeHolderType<FluidFreezerRecipe> TYPE = IRecipeHolderType.create(FluidFreezerRecipe.Type.INSTANCE);
@@ -59,10 +65,24 @@ public class FluidFreezerCategory implements IRecipeCategory<RecipeHolder<FluidF
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<FluidFreezerRecipe> recipe, IFocusGroup iFocusGroup) {
-        FluidStack input = recipe.value().getInput();
+        IRecipeSlotBuilder inputSlot = iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5);
+        recipe.value().getInput().map(fluid -> {
+            inputSlot.add(fluid.getFluid(), fluid.getDropletsAmount(), fluid.getFluidVariant().getComponentsPatch());
 
-        iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 1, 5).add(input.getFluid(),
-                input.getDropletsAmount(), input.getFluidVariant().getComponentsPatch());
+            return null;
+        }, f -> {
+            long amount = f.dropletsAmount();
+            List<Fluid> fluids = f.fluid().getFluid().map(
+                    fluid -> fluid,
+                    fluid -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                            getOrThrow(fluid).stream().map(Holder::value).toList()
+            );
+
+            for(Fluid fluid:fluids)
+                inputSlot.add(fluid, amount);
+
+            return null;
+        });
 
         iRecipeLayout.addSlot(RecipeIngredientRole.OUTPUT, 64, 5).add(recipe.value().getOutput());
     }
