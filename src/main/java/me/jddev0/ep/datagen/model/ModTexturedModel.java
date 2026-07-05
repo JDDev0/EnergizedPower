@@ -31,6 +31,9 @@ public final class ModTexturedModel {
     public static final TexturedModel.Provider SOLAR_PANEL = TexturedModel.createDefault(ModTexturedModel::solarPanel,
             ModModelTemplates.SOLAR_PANEL_TEMPLATE);
 
+    public static final TexturedModel.Provider XP_DRAIN = TexturedModel.createDefault(ModTexturedModel::xpDrain,
+            ModModelTemplates.XP_DRAIN_TEMPLATE);
+
     private ModTexturedModel() {}
 
     public static TextureMapping itemConveyorBelt(Block block) {
@@ -83,6 +86,12 @@ public final class ModTexturedModel {
         return new TextureMapping().
                 put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top")).
                 put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side")).
+                copySlot(TextureSlot.TOP, TextureSlot.PARTICLE);
+    }
+
+    public static TextureMapping xpDrain(Block block) {
+        return new TextureMapping().
+                put(TextureSlot.TOP, TextureMapping.getBlockTexture(block)).
                 copySlot(TextureSlot.TOP, TextureSlot.PARTICLE);
     }
 }
