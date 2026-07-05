@@ -58,6 +58,8 @@ public class EnergizedPowerDataGenerators {
                 new ModBlockTagProvider(output, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new ModItemTagProvider(output, lookupProvider,
                 blockTagProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModFluidTagProvider(output, lookupProvider,
+                existingFileHelper));
         generator.addProvider(event.includeServer(), new ModPoiTypeTagProvider(output, lookupProvider,
                 existingFileHelper));
         generator.addProvider(event.includeServer(), new ModBiomeTagProvider(output, lookupProvider, existingFileHelper));
