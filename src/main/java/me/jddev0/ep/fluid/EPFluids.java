@@ -26,6 +26,13 @@ public final class EPFluids {
     public static final BucketItem DIRTY_WATER_BUCKET_ITEM = createItem("dirty_water_bucket",
             DIRTY_WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
+    public static final FlowingFluid LIQUID_XP = registerFluid("liquid_xp", new LiquidXPFluid.Source());
+    public static final FlowingFluid FLOWING_LIQUID_XP = registerFluid("flowing_liquid_xp", new LiquidXPFluid.Flowing());
+    public static final LiquidBlock LIQUID_XP_BLOCK = createBlock("liquid_xp",
+            props -> new LiquidXPFluidBlock(LIQUID_XP, props), BlockBehaviour.Properties.ofFullCopy(Blocks.LAVA).lightLevel(state -> 10));
+    public static final BucketItem LIQUID_XP_BUCKET_ITEM = createItem("liquid_xp_bucket",
+            LIQUID_XP, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
+
     private static <T extends Fluid> T registerFluid(String name, T fluid) {
         return Registry.register(BuiltInRegistries.FLUID, EPAPI.id(name), fluid);
     }

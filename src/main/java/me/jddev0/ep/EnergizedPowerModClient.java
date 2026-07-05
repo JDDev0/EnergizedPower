@@ -158,6 +158,16 @@ public class EnergizedPowerModClient implements ClientModInitializer {
 
         FluidRenderingRegistry.setBlockTransparency(EPFluids.DIRTY_WATER_BLOCK, true);
 
+        FluidRenderingRegistry.register(EPFluids.LIQUID_XP, EPFluids.FLOWING_LIQUID_XP,
+                new FluidModel.Unbaked(
+                        new Material(EPAPI.id("block/liquid_xp_still")),
+                        new Material(EPAPI.id("block/liquid_xp_flow")),
+                        null,
+                        null
+                ));
+
+        FluidRenderingRegistry.setBlockTransparency(EPFluids.LIQUID_XP_BLOCK, true);
+
         BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
