@@ -95,14 +95,14 @@ public final class FluidIngredient {
         return fluid;
     }
 
-    public boolean matches(FluidStack fluid) {
+    public boolean test(FluidStack fluid) {
         return this.fluid.map(
                 fluids -> fluids.stream().anyMatch(f -> fluid.is(f)),
                 fluidTag -> fluid.is(fluidTag)
         );
     }
 
-    public boolean matches(FluidState fluid) {
+    public boolean test(FluidState fluid) {
         return this.fluid.map(
                 fluids -> fluids.stream().anyMatch(f -> fluid.is(f)),
                 fluidTag -> fluid.is(fluidTag)

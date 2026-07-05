@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Either;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
-import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -3384,7 +3383,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 new FluidStack(Fluids.WATER, 250));
 
         addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), new ItemStack(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
-                new FluidStack(EPFluids.LIQUID_XP, 250));
+                new FluidIngredientWithAmount(FluidIngredient.of(Tags.Fluids.EXPERIENCE), 250));
     }
 
     private void buildChargerRecipes() {
@@ -4061,7 +4060,15 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 new FluidStack(Fluids.WATER, 1000));
     }
     private void addFluidTransposerRecipe(Ingredient input, ItemStack output,
-                                                 FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
+                                          FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
+        addFluidTransposerRecipe(input, output, mode, Either.left(fluid));
+    }
+    private void addFluidTransposerRecipe(Ingredient input, ItemStack output,
+                                          FluidTransposerBlockEntity.Mode mode, FluidIngredientWithAmount fluid) {
+        addFluidTransposerRecipe(input, output, mode, Either.right(fluid));
+    }
+    private void addFluidTransposerRecipe(Ingredient input, ItemStack output,
+                                          FluidTransposerBlockEntity.Mode mode, Either<FluidStack, FluidIngredientWithAmount> fluid) {
         ResourceLocation recipeId = EPAPI.id("fluid_transposer/" +
                 getItemName(output.getItem()));
 

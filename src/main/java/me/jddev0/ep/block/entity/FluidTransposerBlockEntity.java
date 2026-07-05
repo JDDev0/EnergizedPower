@@ -10,6 +10,7 @@ import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
+import me.jddev0.ep.recipe.FluidIngredientWithAmount;
 import me.jddev0.ep.recipe.FluidTransposerRecipe;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.screen.FluidTransposerMenu;
@@ -131,7 +132,8 @@ public class FluidTransposerBlockEntity
 
                 return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
-                        anyMatch(fluidStack -> FluidStack.isSameFluidSameComponents(stack, fluidStack));
+                        anyMatch(fluid -> fluid.map(
+                                fluidStack -> FluidStack.isSameFluidSameComponents(stack, fluidStack), f -> f.fluid().test(stack)));
             }
         };
     }
@@ -171,8 +173,8 @@ public class FluidTransposerBlockEntity
                 stream().filter(recipe -> recipe.value().getMode() == mode).
                 filter(recipe -> recipe.value().matches(getRecipeInput(inventory), level)).
                 filter(recipe -> (mode == Mode.EMPTYING && fluidStorage.getFluid(0).isEmpty()) ||
-                        FluidStack.isSameFluidSameComponents(recipe.value().getFluid(),
-                                fluidStorage.getFluid(0))).
+                        recipe.value().getFluid().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                                fluid -> fluid.test(fluidStorage.getFluid(0)))).
                 findFirst();
     }
 
@@ -186,12 +188,18 @@ public class FluidTransposerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack fluid = recipe.value().getFluid().copyWithAmount(recipe.value().getFluid().getAmount());
+        if(mode == Mode.EMPTYING) {
+            //fluid of recipe is always a FluidStack in EMPTYING mode
+            FluidStack fluid = recipe.value().getFluid().left().get().copyWithAmount(recipe.value().getFluid().left().get().getAmount());
 
-        if(mode == Mode.EMPTYING)
             fluidStorage.fill(fluid, IFluidHandler.FluidAction.EXECUTE);
-        else
-            fluidStorage.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
+        }else {
+            int amount = recipe.value().getFluid().map(FluidStack::getAmount,
+                    FluidIngredientWithAmount::amount);
+
+            //Fluid in tank must be valid at this point
+            fluidStorage.drain(amount, IFluidHandler.FluidAction.EXECUTE);
+        }
 
         itemHandler.extractItem(0, 1, false);
         itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
@@ -204,11 +212,14 @@ public class FluidTransposerBlockEntity
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
         int fluidAmountInTank = fluidStorage.getFluid(0).getAmount();
-        int fluidAmountInRecipe = recipe.value().getFluid().getAmount();
+        int fluidAmountInRecipe = recipe.value().getFluid().map(FluidStack::getAmount,
+                FluidIngredientWithAmount::amount);
 
         return level != null &&
                 (mode == Mode.EMPTYING?fluidStorage.getTankCapacity(0) - fluidAmountInTank:fluidAmountInTank) >= fluidAmountInRecipe &&
-                (mode != Mode.EMPTYING || fluidStorage.getFluid(0).isEmpty() || FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getFluid())) &&
+                (mode != Mode.EMPTYING || fluidStorage.getFluid(0).isEmpty() ||
+                        recipe.value().getFluid().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                                fluid -> fluid.test(fluidStorage.getFluid(0)))) &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess()));
     }
 

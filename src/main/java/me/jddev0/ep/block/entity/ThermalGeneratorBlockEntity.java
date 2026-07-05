@@ -89,7 +89,7 @@ public class ThermalGeneratorBlockEntity
                         getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
 
                 return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
-                        anyMatch(input -> input.matches(stack));
+                        anyMatch(input -> input.test(stack));
             }
         };
     }
@@ -106,7 +106,7 @@ public class ThermalGeneratorBlockEntity
                     int rawProduction = 0;
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
-                        if(recipe.value().getInput().matches(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0))) {
+                        if(recipe.value().getInput().test(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0))) {
                             rawProduction = recipe.value().getEnergyProduction();
                             rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                     upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -135,7 +135,7 @@ public class ThermalGeneratorBlockEntity
                     int rawProduction = 0;
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
-                        if(recipe.value().getInput().matches(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0))) {
+                        if(recipe.value().getInput().test(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0))) {
                             rawProduction = recipe.value().getEnergyProduction();
                             rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                                     upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
@@ -188,7 +188,7 @@ public class ThermalGeneratorBlockEntity
         int rawProduction = 0;
         outer:
         for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
-            if(recipe.value().getInput().matches(blockEntity.fluidStorage.getFluid(0))) {
+            if(recipe.value().getInput().test(blockEntity.fluidStorage.getFluid(0))) {
                 rawProduction = recipe.value().getEnergyProduction();
                 rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
                         blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
