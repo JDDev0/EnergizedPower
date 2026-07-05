@@ -96,6 +96,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 ### Misc
 
 - Drain
+- XP Drain (**In next release (v3.0.0-beta.7)**)
 
 ### Integrations
 

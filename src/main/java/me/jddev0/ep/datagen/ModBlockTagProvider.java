@@ -168,6 +168,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
                         EPBlocks.DRAIN,
 
+                        EPBlocks.XP_DRAIN,
+
                         EPBlocks.FLUID_FREEZER,
                         EPBlocks.STONE_LIQUEFIER,
                         EPBlocks.STONE_SOLIDIFIER,
@@ -323,6 +325,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         EPBlocks.ADVANCED_FLUID_PUMP,
 
                         EPBlocks.DRAIN,
+
+                        EPBlocks.XP_DRAIN,
 
                         EPBlocks.FLUID_FREEZER,
                         EPBlocks.STONE_LIQUEFIER,
