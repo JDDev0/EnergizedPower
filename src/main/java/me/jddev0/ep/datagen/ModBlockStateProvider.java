@@ -281,6 +281,7 @@ public class ModBlockStateProvider {
         horizontalBlockWithItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
 
         generator.createNonTemplateModelBlock(EPFluids.DIRTY_WATER_BLOCK.get());
+        generator.createNonTemplateModelBlock(EPFluids.LIQUID_XP_BLOCK.get());
     }
 
     private void cubeAllBlockWithItem(Holder<Block> block) {

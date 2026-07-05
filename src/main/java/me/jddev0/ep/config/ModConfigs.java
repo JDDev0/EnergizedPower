@@ -18,7 +18,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "3.0.0-beta.5";
+    private static final String CONFIG_VERSION = "3.0.0-beta.7";
 
     private ModConfigs() {}
 
@@ -1636,6 +1636,13 @@ public final class ModConfigs {
     ));
 
     //Misc
+    public static final ConfigValue<Integer> COMMON_XP_TO_LIQUID_RATIO = COMMON_CONFIG.register(new IntegerConfigValue(
+            "xp_to_liquid_ratio",
+            "The amount of liquid XP in mB (milli Buckets) which is equivalent to 1 XP point.\n" +
+                    "If this value is changed, the Fluid Transposer recipe for the Experience Bottle should be changed too (12.5 * xp_to_liquid_ratio [Default: 250])",
+            20,
+            1, null
+    ));
     public static final ConfigValue<Integer> COMMON_OFF_STATE_TIMEOUT = COMMON_CONFIG.register(new IntegerConfigValue(
             "off_state_timeout",
             "Sets the timeout a machine needs to be off for to change the block state to off in ticks (Prevents light flickering)",
