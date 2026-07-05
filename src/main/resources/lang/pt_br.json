@@ -1252,7 +1252,11 @@
   "itemGroup.energizedpower.tab": "Energized Power",
   "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Eletricista",
+  "entity.minecraft.villager.electrician": "Eletricista",
+  "book.energizedpower.page.electrician.title": "Aldeão Eletricista",
+  "book.energizedpower.page.electrician.1": "O aldeão eletricista pode ser encontrado na casa do eletricista.",
+  "book.energizedpower.page.electrician.2": "A casa do eletricista pode ser encontrada em todos os tipos de vila vanilla.",
+  "book.energizedpower.page.electrician.3": "A Fundação de Máquina Básica pode ser usada para obter um aldeão eletricista.",
 
   "soil_type.energizedpower.grass": "Grass",
   "soil_type.energizedpower.moss": "Moss",
@@ -1381,11 +1385,6 @@
 
   "book.energizedpower.page.chapter.structures.title": "Estruturas",
   "book.energizedpower.page.chapter.structures": "Estruturas que estão sendo geradas em seu mundo.",
-
-  "book.energizedpower.page.electrician.title": "Aldeão Eletricista",
-  "book.energizedpower.page.electrician.1": "O aldeão eletricista pode ser encontrado na casa do eletricista.",
-  "book.energizedpower.page.electrician.2": "A casa do eletricista pode ser encontrada em todos os tipos de vila vanilla.",
-  "book.energizedpower.page.electrician.3": "A Fundação de Máquina Básica pode ser usada para obter um aldeão eletricista.",
 
   "book.energizedpower.page.factory.title": "Prédio da Fábrica",
   "book.energizedpower.page.factory.1": "O prédio da fábrica contém algumas máquinas e algo interessante no centro do prédio. Pode ser encontrado nos biomas de Floresta e Floresta de Flores.",
