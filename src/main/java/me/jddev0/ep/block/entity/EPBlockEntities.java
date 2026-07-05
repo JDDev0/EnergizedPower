@@ -242,6 +242,9 @@ public final class EPBlockEntities {
     public static final BlockEntityType<DrainBlockEntity> DRAIN_ENTITY = createBlockEntity("drain",
             EPBlocks.DRAIN, DrainBlockEntity::new);
 
+    public static final BlockEntityType<XPDrainBlockEntity> XP_DRAIN_ENTITY = createBlockEntity("xp_drain",
+            EPBlocks.XP_DRAIN, XPDrainBlockEntity::new);
+
     public static final BlockEntityType<ChargerBlockEntity> CHARGER_ENTITY = createBlockEntity("charger",
             EPBlocks.CHARGER, ChargerBlockEntity::new);
 
