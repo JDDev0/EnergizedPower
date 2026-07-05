@@ -3,11 +3,9 @@ package me.jddev0.ep.recipe;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.codec.ArrayCodec;
 import me.jddev0.ep.codec.CodecFix;
-import me.jddev0.ep.registry.EPRegistries;
 import me.jddev0.ep.soil.SoilType;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -28,7 +26,7 @@ import java.util.*;
 public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final OutputItemStackTemplateWithPercentages[] outputs;
     private final Ingredient input;
-    private final Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType;
+    private final SoilTypeIngredient soilType;
     private final FluidIngredient fluid;
     private final double fluidConsumption;
     private final int ticks;
@@ -81,8 +79,14 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         this(outputs, input, Either.right(soilType), FluidIngredient.of(fluid), fluidConsumption, ticks);
     }
 
+    @Deprecated(forRemoval = true)
     public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
                                     Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType, FluidIngredient fluid,
+                                    double fluidConsumption, int ticks) {
+        this(outputs, input, SoilTypeIngredient.of(soilType), fluid, fluidConsumption, ticks);
+    }
+    public PlantGrowthChamberRecipe(OutputItemStackTemplateWithPercentages[] outputs, Ingredient input,
+                                    SoilTypeIngredient soilType, FluidIngredient fluid,
                                     double fluidConsumption, int ticks) {
         this.outputs = outputs;
         this.input = input;
@@ -100,7 +104,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
         return input;
     }
 
-    public Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> getSoilType() {
+    public SoilTypeIngredient getSoilType() {
         return soilType;
     }
 
@@ -162,10 +166,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
 
         ResourceKey<SoilType> soilType = soilRecipe.get().value().getSoilType();
 
-        return this.soilType.map(
-                st -> st.stream().anyMatch(sti -> sti.identifier().equals(soilType.identifier())),
-                st -> level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).getOrThrow(soilType).is(st)
-        );
+        return this.soilType.test(soilType, level.registryAccess());
     }
 
     @Override
@@ -235,28 +236,15 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
                 return recipe.outputs;
             }), Ingredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
-            }), CodecFix.listOrSingleResourceKeyOrSingleTagKeyCodec(EPRegistries.SOIL_TYPE).
-                    fieldOf("soilType").forGetter((recipe) -> {
-                return recipe.soilType.mapBoth(
-                        soilType -> soilType.size() == 1?Either.right(soilType.getFirst()):Either.left(soilType),
-                        soilType -> soilType
-                );
+            }), SoilTypeIngredient.CODEC.fieldOf("soilType").forGetter((recipe) -> {
+                return recipe.soilType;
             }), FluidIngredient.CODEC.fieldOf("fluid").forGetter((recipe) -> {
                 return recipe.fluid;
             }), CodecFix.POSITIVE_DOUBLE.fieldOf("fluidConsumption").forGetter((recipe) -> {
                 return recipe.fluidConsumption;
             }), ExtraCodecs.POSITIVE_INT.fieldOf("ticks").forGetter((recipe) -> {
                 return recipe.ticks;
-            })).apply(instance, ((result, ingredient,
-                                  soilType, fluid,
-                                  fluidConsumption, ticks) -> {
-                Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> st = soilType.mapBoth(
-                        sti -> sti.map(stii -> stii, Collections::singletonList),
-                        sti -> sti
-                );
-
-                return new PlantGrowthChamberRecipe(result, ingredient, st, fluid, fluidConsumption, ticks);
-            }));
+            })).apply(instance, PlantGrowthChamberRecipe::new);
         });
 
         private static final StreamCodec<RegistryFriendlyByteBuf, PlantGrowthChamberRecipe> STREAM_CODEC = StreamCodec.of(
@@ -267,20 +255,7 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
 
         private static PlantGrowthChamberRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-
-            Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType;
-            if(buffer.readBoolean()) {
-                int soilTypeCount = buffer.readInt();
-                List<ResourceKey<SoilType>> soilTypes = new ArrayList<>(soilTypeCount);
-
-                for(int i = 0;i < soilTypeCount;i++)
-                    soilTypes.add(SOIL_TYPE_RESOURCE_KEY_STREAM_CODEC.decode(buffer));
-
-                soilType = Either.left(soilTypes);
-            }else {
-                soilType = Either.right(SOIL_TYPE_TAG_KEY_STREAM_CODEC.decode(buffer));
-            }
-
+            SoilTypeIngredient soilType = SoilTypeIngredient.STREAM_CODEC.decode(buffer);
             FluidIngredient fluid = FluidIngredient.STREAM_CODEC.decode(buffer);
             double fluidConsumption = buffer.readDouble();
 
@@ -294,30 +269,9 @@ public class PlantGrowthChamberRecipe implements EnergizedPowerBaseRecipe<Recipe
             return new PlantGrowthChamberRecipe(outputs, input, soilType, fluid, fluidConsumption, ticks);
         }
 
-        private static final StreamCodec<ByteBuf, ResourceKey<SoilType>> SOIL_TYPE_RESOURCE_KEY_STREAM_CODEC =
-                ResourceKey.streamCodec(EPRegistries.SOIL_TYPE);
-        private static final StreamCodec<ByteBuf, TagKey<SoilType>> SOIL_TYPE_TAG_KEY_STREAM_CODEC =
-                TagKey.streamCodec(EPRegistries.SOIL_TYPE);
         private static void write(RegistryFriendlyByteBuf buffer, PlantGrowthChamberRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
-
-            buffer.writeBoolean(recipe.soilType.left().isPresent());
-            recipe.soilType.map(
-                    soilTypes -> {
-                        buffer.writeInt(soilTypes.size());
-                        soilTypes.forEach(soilType ->
-                                SOIL_TYPE_RESOURCE_KEY_STREAM_CODEC.encode(buffer, soilType));
-
-                        return null;
-                    },
-                    soilType -> {
-                        SOIL_TYPE_TAG_KEY_STREAM_CODEC.encode(buffer, soilType);
-
-                        return null;
-                    }
-            );
-
-
+            SoilTypeIngredient.STREAM_CODEC.encode(buffer, recipe.soilType);
             FluidIngredient.STREAM_CODEC.encode(buffer, recipe.fluid);
             buffer.writeDouble(recipe.fluidConsumption);
 
