@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_bars"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    },
+    "i": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "pattern": [
+    "iIi",
+    "iLi"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:xp_drain"
+  }
+}

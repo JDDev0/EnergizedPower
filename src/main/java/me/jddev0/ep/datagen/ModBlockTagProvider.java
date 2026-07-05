@@ -171,6 +171,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.DRAIN.get(),
 
+                        EPBlocks.XP_DRAIN.get(),
+
                         EPBlocks.FLUID_FREEZER.get(),
                         EPBlocks.STONE_LIQUEFIER.get(),
                         EPBlocks.STONE_SOLIDIFIER.get(),
@@ -326,6 +328,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.ADVANCED_FLUID_PUMP.get(),
 
                         EPBlocks.DRAIN.get(),
+
+                        EPBlocks.XP_DRAIN.get(),
 
                         EPBlocks.FLUID_FREEZER.get(),
                         EPBlocks.STONE_LIQUEFIER.get(),

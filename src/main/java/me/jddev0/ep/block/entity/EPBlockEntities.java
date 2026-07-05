@@ -282,6 +282,10 @@ public final class EPBlockEntities {
             BLOCK_ENTITIES.register("drain", () -> BlockEntityType.Builder.of(DrainBlockEntity::new,
                     EPBlocks.DRAIN.get()).build(null));
 
+    public static final Supplier<BlockEntityType<XPDrainBlockEntity>> XP_DRAIN_ENTITY =
+            BLOCK_ENTITIES.register("xp_drain", () -> BlockEntityType.Builder.of(XPDrainBlockEntity::new,
+                    EPBlocks.XP_DRAIN.get()).build(null));
+
     public static final Supplier<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
             BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
                     EPBlocks.CHARGER.get()).build(null));

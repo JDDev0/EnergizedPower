@@ -1,0 +1,8 @@
+{
+  "parent": "energizedpower:block/xp_drain_template",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#top",
+    "top": "energizedpower:block/xp_drain"
+  }
+}

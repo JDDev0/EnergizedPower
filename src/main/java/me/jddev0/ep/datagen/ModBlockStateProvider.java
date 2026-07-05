@@ -34,6 +34,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private ModelFile solarPanelTemplate;
 
+    private ModelFile xpDrainTemplate;
+
     private ModelFile singleSideTemplate;
 
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -107,6 +109,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 face(Direction.WEST).uvs(0, 12, 16, 16).cullface(Direction.WEST).texture("#side").end().
                 face(Direction.EAST).uvs(0, 12, 16, 16).cullface(Direction.EAST).texture("#side").end().
                 end();
+
+        xpDrainTemplate = models().getExistingFile(EPAPI.id("xp_drain_template"));
 
         singleSideTemplate = models().getExistingFile(EPAPI.id("single_side"));
     }
@@ -199,6 +203,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_LARGE, false);
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_GIANT, false);
         horizontalBlockWithItem(EPBlocks.CREATIVE_ITEM_SILO, false);
+
+        xpDrainBlockWithItem(EPBlocks.XP_DRAIN);
 
         cableBlockWithItem(EPBlocks.TIN_CABLE);
         cableBlockWithItem(EPBlocks.COPPER_CABLE);
@@ -880,6 +886,18 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 modelForState().modelFile(solarPanel).addModel();
 
         simpleBlockItem(block.value(), solarPanel);
+    }
+
+    private void xpDrainBlockWithItem(Holder<Block> block) {
+        ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
+
+         ModelFile xpDrain = models().
+                 getBuilder(blockId.getPath()).parent(xpDrainTemplate).
+                 texture("particle", "#top").
+                 texture("top", getBlockTexture(block)).
+                 renderType("cutout");
+
+        orientableBlockWithItem(block, xpDrain);
     }
 
     private void activatableOrientableMachineBlockWithItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {

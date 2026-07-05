@@ -543,6 +543,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> DRAIN_ITEM = EPItems.ITEMS.register("drain",
             () -> new DrainBlock.Item(DRAIN.get(), new Item.Properties()));
 
+    public static final DeferredBlock<Block> XP_DRAIN = BLOCKS.register("xp_drain",
+            () -> new XPDrainBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).noOcclusion().forceSolidOn()));
+    public static final DeferredItem<Item> XP_DRAIN_ITEM = EPItems.ITEMS.register("xp_drain",
+            () -> new XPDrainBlock.Item(XP_DRAIN.get(), new Item.Properties()));
+
     public static final DeferredBlock<Block> CHARGER = BLOCKS.register("charger",
             () -> new ChargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

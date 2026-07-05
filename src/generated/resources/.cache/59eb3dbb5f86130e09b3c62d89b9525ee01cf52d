@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-05T16:34:27.997122048	Loot Tables
+// 1.21.1	2026-07-05T23:31:00.244257683	Loot Tables
 72200bb34e5b90912d73801f199f8d1ba1d5f73f data/energizedpower/loot_table/blocks/advanced_alloy_block.json
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
@@ -121,3 +121,4 @@ a26de8ecbf2365921819d7401ceca9f0876dd081 data/energizedpower/loot_table/blocks/t
 fa0f0a3c90f01eecf11c58b68c86e4282e936ade data/energizedpower/loot_table/blocks/transformer_n_to_1.json
 36e4e5aff43aafe09d9b69978baf89c1c51117e9 data/energizedpower/loot_table/blocks/uncharger.json
 b1125e1c06105c37b497e5b236a7bdcfaeacf489 data/energizedpower/loot_table/blocks/weather_controller.json
+0a25d1161ca8019aec35c01572ae52d50c8992b6 data/energizedpower/loot_table/blocks/xp_drain.json

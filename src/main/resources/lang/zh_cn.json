@@ -708,6 +708,12 @@
 
   "tooltip.energizedpower.drain.txt.shift": "排水口会排出该方块上方的流体源方块。",
 
+  "block.energizedpower.xp_drain": "XP Drain",
+  "item.energizedpower.xp_drain": "XP Drain",
+  "container.energizedpower.xp_drain": "XP Drain",
+
+  "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
+
   "block.energizedpower.lightning_generator": "闪电发电机",
   "item.energizedpower.lightning_generator": "闪电发电机",
   "container.energizedpower.lightning_generator": "闪电发电机",
