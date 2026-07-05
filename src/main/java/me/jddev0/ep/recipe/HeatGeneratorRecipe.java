@@ -1,14 +1,11 @@
 package me.jddev0.ep.recipe;
 
-import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.codec.ArrayCodec;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
@@ -18,15 +15,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 
 public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
-    private final Fluid[] input;
+    private final FluidIngredient input;
     private final int energyProduction;
 
+    @Deprecated(forRemoval = true)
     public HeatGeneratorRecipe(Fluid[] input, int energyProduction) {
+        this(FluidIngredient.of(input), energyProduction);
+    }
+
+    public HeatGeneratorRecipe(FluidIngredient input, int energyProduction) {
         this.input = input;
         this.energyProduction = energyProduction;
     }
 
-    public Fluid[] getInput() {
+    public FluidIngredient getInput() {
         return input;
     }
 
@@ -88,16 +90,12 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
         public static final ResourceLocation ID = EPAPI.id("heat_generator");
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(Codec.either(new ArrayCodec<>(BuiltInRegistries.FLUID.byNameCodec(), Fluid[]::new),
-                    BuiltInRegistries.FLUID.byNameCodec()).fieldOf("input").forGetter((recipe) -> {
-                return recipe.input.length == 1?Either.right(recipe.input[0]):Either.left(recipe.input);
+            return instance.group(FluidIngredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+                return recipe.input;
             }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
             })).apply(instance, (input, energy) -> {
-                return input.map(
-                        f -> new HeatGeneratorRecipe(f, energy),
-                        f -> new HeatGeneratorRecipe(new Fluid[] {f}, energy)
-                );
+                return new HeatGeneratorRecipe(input, energy);
             });
         });
 
@@ -115,26 +113,14 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
         }
 
         private static HeatGeneratorRecipe read(RegistryFriendlyByteBuf buffer) {
-            int fluidCount = buffer.readInt();
-            Fluid[] input = new Fluid[fluidCount];
-            for(int i = 0;i < fluidCount;i++)
-                input[i] = BuiltInRegistries.FLUID.get(buffer.readResourceLocation());
-
+            FluidIngredient input = FluidIngredient.STREAM_CODEC.decode(buffer);
             int energyProduction = buffer.readInt();
 
             return new HeatGeneratorRecipe(input, energyProduction);
         }
 
         private static void write(RegistryFriendlyByteBuf buffer, HeatGeneratorRecipe recipe) {
-            buffer.writeInt(recipe.getInput().length);
-            for(Fluid fluid:recipe.input) {
-                ResourceLocation fluidId = BuiltInRegistries.FLUID.getKey(fluid);
-                if(fluidId == null || fluidId.equals(ResourceLocation.withDefaultNamespace("empty")))
-                    throw new IllegalArgumentException("Unregistered fluid '" + fluid + "'");
-
-                buffer.writeResourceLocation(fluidId);
-            }
-
+            FluidIngredient.STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.energyProduction);
         }
     }

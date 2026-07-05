@@ -20,7 +20,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -90,7 +89,7 @@ public class ThermalGeneratorBlockEntity
                         getAllRecipesFor(ThermalGeneratorRecipe.Type.INSTANCE);
 
                 return recipes.stream().map(RecipeHolder::value).map(ThermalGeneratorRecipe::getInput).
-                        anyMatch(inputs -> Arrays.stream(inputs).anyMatch(input -> stack.getFluid() == input));
+                        anyMatch(input -> input.matches(stack));
             }
         };
     }
@@ -107,14 +106,12 @@ public class ThermalGeneratorBlockEntity
                     int rawProduction = 0;
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
-                        for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
-                                rawProduction = recipe.value().getEnergyProduction();
-                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
-                                        upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
+                        if(recipe.value().getInput().matches(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0))) {
+                            rawProduction = recipe.value().getEnergyProduction();
+                            rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                                    upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
-                                break outer;
-                            }
+                            break outer;
                         }
                     }
 
@@ -138,14 +135,12 @@ public class ThermalGeneratorBlockEntity
                     int rawProduction = 0;
                     outer:
                     for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
-                        for(Fluid fluid:recipe.value().getInput()) {
-                            if(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0).getFluid() == fluid) {
-                                rawProduction = recipe.value().getEnergyProduction();
-                                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
-                                        upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
+                        if(recipe.value().getInput().matches(ThermalGeneratorBlockEntity.this.fluidStorage.getFluid(0))) {
+                            rawProduction = recipe.value().getEnergyProduction();
+                            rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                                    upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
-                                break outer;
-                            }
+                            break outer;
                         }
                     }
 
@@ -193,14 +188,12 @@ public class ThermalGeneratorBlockEntity
         int rawProduction = 0;
         outer:
         for(RecipeHolder<ThermalGeneratorRecipe> recipe:recipes) {
-            for(Fluid fluid:recipe.value().getInput()) {
-                if(blockEntity.fluidStorage.getFluid(0).getFluid() == fluid) {
-                    rawProduction = recipe.value().getEnergyProduction();
-                    rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
-                            blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
+            if(recipe.value().getInput().matches(blockEntity.fluidStorage.getFluid(0))) {
+                rawProduction = recipe.value().getEnergyProduction();
+                rawProduction = (int)(rawProduction * ENERGY_PRODUCTION_MULTIPLIER *
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
 
-                    break outer;
-                }
+                break outer;
             }
         }
 

@@ -10,6 +10,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
+import me.jddev0.ep.recipe.FluidIngredient;
 import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
 import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
 import me.jddev0.ep.recipe.PlantGrowthChamberSoilRecipe;
@@ -19,6 +20,7 @@ import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -38,7 +40,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
     private final Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType;
-    private final Fluid[] fluid;
+    private final FluidIngredient fluid;
     private final double fluidConsumption;
     private final List<EmiStack> output;
     private final OutputItemStackWithPercentages[] outputsWithPercentages;
@@ -112,8 +114,13 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(EmiIngredient.of(soils), 18, 18).drawBack(false);
 
+        List<Fluid> rawFluids = fluid.getFluid().map(
+                fluid -> fluid,
+                fluid -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                        getOrThrow(fluid).stream().map(Holder::value).toList()
+        );
         List<EmiStack> fluids = new ArrayList<>();
-        for(Fluid fluid:fluid)
+        for(Fluid fluid:rawFluids)
             fluids.add(EmiStack.of(fluid, 1000));
 
         widgets.addSlot(EmiIngredient.of(fluids), 0, 9).drawBack(false);
