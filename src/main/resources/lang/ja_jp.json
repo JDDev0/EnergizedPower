@@ -678,7 +678,7 @@
   "itemGroup.energizedpower.tab": "Energized Power",
   "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
-  "entity.minecraft.villager.energizedpower.electrician": "電気技師",
+  "entity.minecraft.villager.electrician": "電気技師",
 
   "entity.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
   "entity.energizedpower.advanced_battery_box_minecart": "発展型蓄電器付きのマインカート",

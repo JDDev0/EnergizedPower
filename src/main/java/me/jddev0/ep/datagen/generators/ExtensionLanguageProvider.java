@@ -42,6 +42,11 @@ public abstract class ExtensionLanguageProvider extends LanguageProvider {
                 if(key.startsWith("_template")) {
                     templateTranslations.put(key, value);
                 }else {
+                    //Move "entity.minecraft.villager.*" to "entity.minecraft.villager.energizedpower.*" so that villager translation keys are the same on all EP versions
+                    if(key.startsWith("entity.minecraft.villager.")) {
+                        key = "entity.minecraft.villager.energizedpower." + key.substring("entity.minecraft.villager.".length());
+                    }
+
                     add(key, value);
                 }
             });

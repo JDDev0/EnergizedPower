@@ -678,7 +678,7 @@
   "itemGroup.energizedpower.tab": "Energized Power",
   "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
 
-  "entity.minecraft.villager.energizedpower.electrician": "Electricista",
+  "entity.minecraft.villager.electrician": "Electricista",
 
   "entity.energizedpower.battery_box_minecart": "Vagón con caja de baterías",
   "entity.energizedpower.advanced_battery_box_minecart": "Vagón con caja de baterías avanzada",
