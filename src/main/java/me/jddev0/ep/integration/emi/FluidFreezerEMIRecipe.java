@@ -10,9 +10,13 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FluidFreezerEMIRecipe implements EmiRecipe {
@@ -28,10 +32,19 @@ public class FluidFreezerEMIRecipe implements EmiRecipe {
     public FluidFreezerEMIRecipe(RecipeHolder<FluidFreezerRecipe> recipe) {
         this.id = recipe.id();
 
-        FluidStack fluid = recipe.value().getInput();
+        List<FluidStack> rawFluids = recipe.value().getInput().map(
+                fluid -> List.of(fluid),
+                f -> f.fluid().getFluid().map(fluid -> fluid,
+                                fluid -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                                        getOrThrow(fluid).stream().map(Holder::value).toList()).stream().
+                        map(fluid -> new FluidStack(fluid, f.dropletsAmount())).toList()
+        );
+        List<EmiStack> fluids = new ArrayList<>();
+        for(FluidStack fluid:rawFluids)
+            fluids.add(EmiStack.of(fluid.getFluid(), fluid.getFluidVariant().getComponents(), fluid.getDropletsAmount()));
 
         this.input = List.of(
-                EmiStack.of(fluid.getFluid(), fluid.getFluidVariant().getComponents(), fluid.getDropletsAmount())
+                EmiIngredient.of(fluids)
         );
         this.output = List.of(
                 EmiStack.of(recipe.value().getOutput())

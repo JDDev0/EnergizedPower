@@ -9,6 +9,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
+import me.jddev0.ep.recipe.FluidIngredientWithAmount;
 import me.jddev0.ep.screen.FluidFreezerMenu;
 import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
@@ -91,8 +92,10 @@ public class FluidFreezerBlockEntity
                     return false;
 
                 return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).map(FluidFreezerRecipe::getInput).
-                        anyMatch(output -> resource.isOf(output.getFluid()) &&
-                                resource.componentsMatch(output.getFluidVariant().getComponents()));
+                        anyMatch(fluid -> fluid.map(
+                                output -> resource.isOf(output.getFluid()) &&
+                                        resource.componentsMatch(output.getFluidVariant().getComponents()),
+                                f -> f.fluid().test(resource)));
             }
         };
     }
@@ -117,11 +120,13 @@ public class FluidFreezerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack fluid = new FluidStack(recipe.value().getInput().getFluidVariant().getFluid(),
-                recipe.value().getInput().getFluidVariant().getComponents(), recipe.value().getInput().getDropletsAmount());
-
         try(Transaction transaction = Transaction.openOuter()) {
-            fluidStorage.extract(fluid.getFluidVariant(), fluid.getDropletsAmount(), transaction);
+            long amount = recipe.value().getInput().map(FluidStack::getDropletsAmount,
+                    FluidIngredientWithAmount::dropletsAmount);
+
+            //Fluid in tank must be valid at this point
+            fluidStorage.extract(FluidVariant.of(fluidStorage.getFluid(0).getFluid(),
+                    fluidStorage.getFluid(0).getFluidVariant().getComponents()), amount, transaction);
 
             transaction.commit();
         }
@@ -135,10 +140,14 @@ public class FluidFreezerBlockEntity
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidFreezerRecipe> recipe) {
+        long fluidAmountInRecipe = recipe.value().getInput().map(FluidStack::getDropletsAmount,
+                FluidIngredientWithAmount::dropletsAmount);
+
         return level != null &&
-                (fluidStorage.getResource(0).isOf(recipe.value().getInput().getFluid()) &&
-                        fluidStorage.getResource(0).componentsMatch(recipe.value().getInput().getFluidVariant().getComponents())) &&
-                fluidStorage.getFluid(0).getDropletsAmount() >= recipe.value().getInput().getDropletsAmount() &&
+                recipe.value().getInput().map(fluid -> fluidStorage.getResource(0).isOf(fluid.getFluid()) &&
+                        fluidStorage.getResource(0).componentsMatch(fluid.getFluidVariant().getComponents()),
+                        fluid -> fluid.test(fluidStorage.getFluid(0))) &&
+                fluidStorage.getFluid(0).getDropletsAmount() >= fluidAmountInRecipe &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null, level.registryAccess()));
     }
 }
