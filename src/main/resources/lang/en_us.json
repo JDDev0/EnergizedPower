@@ -1,4 +1,18 @@
 {
+  "_template.community_translations.info.1": "The following lines are for informational purposes only and will not be displayed in the game:",
+  "_template.community_translations.info.2": "==============================================================================================",
+  "_template.cti.contribution.1": "If you want to translate EP into a new language, please base your work on the latest ...",
+  "_template.cti.contribution.2": "version (= latest commit) of the source language in \"src/main/resources/lang/\" from the \"master\" branch.",
+
+  "_template.cti.datagen.1": "Datagen is used to reduce clutter in translation files. If you copy your custom translations into a ... ",
+  "_template.cti.datagen.2": "resource pack without running datagen, most translations will not work and will show the ...",
+  "_template.cti.datagen.3": "translation key instead. If you are not finished yet but want to test layout for languages ...",
+  "_template.cti.datagen.4": "with longer texts, you can either open an issue with the \"Translation Datagen Request\" label or ...",
+  "_template.cti.datagen.5": "ask me on Reddit or Discord and I can generate the complete translation file for you.",
+  "_template.community_translations.info.3": "==============================================================================================",
+
+
+
   "item.energizedpower.energized_copper_ingot": "Energized Copper Ingot",
   "book.energizedpower.page.energized_copper_ingot.1": "Energized Copper Ingots are required for advanced machines like the energizer.",
   "book.energizedpower.page.energized_copper_ingot.2": "The energizer is crafted with this ingot, isn't it?",
