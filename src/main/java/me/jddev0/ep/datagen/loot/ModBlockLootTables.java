@@ -152,6 +152,8 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
 
         dropSelf(EPBlocks.DRAIN);
 
+        dropSelf(EPBlocks.XP_DRAIN);
+
         dropSelf(EPBlocks.CHARGER);
         dropSelf(EPBlocks.ADVANCED_CHARGER);
 

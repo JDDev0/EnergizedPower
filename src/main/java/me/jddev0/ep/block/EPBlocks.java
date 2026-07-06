@@ -524,6 +524,12 @@ public final class EPBlocks {
     public static final Item DRAIN_ITEM = createBlockItem("drain",
             new DrainBlock.Item(DRAIN, new Item.Properties()));
 
+    public static final Block XP_DRAIN = registerBlock("xp_drain",
+            new XPDrainBlock(BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).noOcclusion().forceSolidOn()));
+    public static final Item XP_DRAIN_ITEM = createBlockItem("xp_drain",
+            new XPDrainBlock.Item(XP_DRAIN, new Item.Properties()));
+
     public static final Block CHARGER = registerBlock("charger",
             new ChargerBlock(BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL)));

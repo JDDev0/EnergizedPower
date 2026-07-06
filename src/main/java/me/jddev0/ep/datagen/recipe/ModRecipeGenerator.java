@@ -2159,6 +2159,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "IiI"
         }, new ItemStack(EPBlocks.DRAIN_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(ConventionalItemTags.LAPIS_GEMS), Map.of(
+                'i', ingredientOf(CommonItemTags.PLATES_IRON),
+                'I', ingredientOf(Items.IRON_BARS),
+                'L', ingredientOf(ConventionalItemTags.LAPIS_GEMS)
+        ), new String[] {
+                "iIi",
+                "iLi"
+        }, new ItemStack(EPBlocks.XP_DRAIN_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),

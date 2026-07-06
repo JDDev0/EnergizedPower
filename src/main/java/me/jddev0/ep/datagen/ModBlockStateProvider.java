@@ -114,6 +114,8 @@ class ModBlockStateProvider {
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_GIANT, false);
         horizontalBlockWithItem(EPBlocks.CREATIVE_ITEM_SILO, false);
 
+        xpDrainBlockWithItem(EPBlocks.XP_DRAIN);
+
         cableBlockWithItem(EPBlocks.TIN_CABLE);
         cableBlockWithItem(EPBlocks.COPPER_CABLE);
         cableBlockWithItem(EPBlocks.GOLD_CABLE);
@@ -875,6 +877,11 @@ class ModBlockStateProvider {
                 Variant.variant().with(VariantProperties.MODEL, solarPanel)));
 
         generator.delegateItemModel(block.asItem(), solarPanel);
+    }
+
+    private void xpDrainBlockWithItem(Block block) {
+        ResourceLocation xpDrain = ModTexturedModel.XP_DRAIN.get(block).create(block, generator.modelOutput);
+        orientableBlockWithItem(block, xpDrain);
     }
 
     private void activatableOrientableMachineBlockWithItem(Block block, boolean uniqueBottomTexture) {

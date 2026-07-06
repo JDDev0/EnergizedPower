@@ -1,6 +1,7 @@
 package me.jddev0.ep;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.renderer.FluidTankBlockEntityRenderer;
 import me.jddev0.ep.block.entity.renderer.ItemConveyorBeltBlockEntityRenderer;
@@ -169,6 +170,9 @@ public class EnergizedPowerModClient implements ClientModInitializer {
                 ));
         BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(),
                 EPFluids.LIQUID_XP, EPFluids.FLOWING_LIQUID_XP);
+
+        //XP Drain must be of render type cutout
+        BlockRenderLayerMap.INSTANCE.putBlock(EPBlocks.XP_DRAIN, RenderType.cutout());
 
         BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);

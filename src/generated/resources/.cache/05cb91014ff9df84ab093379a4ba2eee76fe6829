@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-06T16:54:24.442312624	Energized Power/Recipes
+// 1.21.1	2026-07-06T17:13:48.926983655	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -106,6 +106,7 @@ aa9e7f5896392864e2d13daae17678061f0f368b data/energizedpower/advancement/recipes
 6dabeb8ca1c6c14db94689080d3d8e0936d21b32 data/energizedpower/recipe/metal_press/iron_rod.json
 187766cfccf0b1830773804083b55e4500023d0b data/energizedpower/recipe/crafting/battery_1.json
 7e0e07c9c9f030f979125bd812f6f27f705f7ed6 data/energizedpower/recipe/crafting/fluid_filler.json
+627f26682db488e2077acc245076a8f4b81ef567 data/energizedpower/advancement/recipes/crafting/xp_drain.json
 fd8a477ecbfa53044eca87f62b412aaf4d45fb2e data/energizedpower/advancement/recipes/crafting/fluid_analyzer.json
 6898f0d24b29b1468c7270c582bdf63704d3a979 data/energizedpower/advancement/recipes/crafting/lv_transformer_3_to_3.json
 55d767e87e0cc07b0a71277548ffbe5b33ad331c data/energizedpower/advancement/recipes/crafting/thermal_generator.json
@@ -521,6 +522,7 @@ c436094310534bf46d3aee82fd90a5f8e5af0384 data/energizedpower/advancement/recipes
 a77ccecc78faf2fa853b4421fb9bbda49d743136 data/energizedpower/recipe/blasting/gold_nugget_from_blasting_golden_hammer.json
 a0d428ca358594d8812f06779b4f79e85123506c data/energizedpower/recipe/fluid_transposer/light_blue_concrete.json
 cae81a4fdbdb8f2396612b9fd8f14e1b24f38e8a data/energizedpower/recipe/alloy_furnace/redstone_alloy_ingot.json
+9fd25c0974a0c30bab97a98b084fa6cb4817b118 data/energizedpower/recipe/crafting/xp_drain.json
 1f893b587e77c2123572fdfa448e268742b86b46 data/energizedpower/advancement/recipes/crafting/fast_item_conveyor_belt.json
 5048ab26d203219a759f17d0f504dd6ae2b5073d data/energizedpower/recipe/growing/soil/grass.json
 bc338736a16fa51c3b815e8db5cfebda6797cc31 data/energizedpower/advancement/recipes/crafting/inventory_coal_engine.json
