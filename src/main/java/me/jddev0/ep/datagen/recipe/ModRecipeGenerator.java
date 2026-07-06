@@ -3899,10 +3899,17 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                                              TagKey<SoilType> soilType,
                                              FluidIngredient fluid, double fluidConsumption, int ticks,
                                              String outputName, String recipeIngredientName) {
+        addPlantGrowthChamberRecipe(input, outputs, SoilTypeIngredient.of(soilType), fluid, fluidConsumption, ticks, outputName, recipeIngredientName);
+    }
+    private void addPlantGrowthChamberRecipe(Ingredient input,
+                                             OutputItemStackWithPercentages[] outputs,
+                                             SoilTypeIngredient soilType,
+                                             FluidIngredient fluid, double fluidConsumption, int ticks,
+                                             String outputName, String recipeIngredientName) {
         ResourceLocation recipeId = EPAPI.id("growing/" +
                 outputName + "_from_growing_" + recipeIngredientName);
 
-        PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, Either.right(soilType), fluid, fluidConsumption, ticks);
+        PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, soilType, fluid, fluidConsumption, ticks);
         this.output.accept(recipeId, recipe, null);
     }
 
