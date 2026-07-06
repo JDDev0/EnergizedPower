@@ -90,7 +90,7 @@ public class HeatGeneratorRecipe implements Recipe<RecipeInput> {
         public static final ResourceLocation ID = EPAPI.id("heat_generator");
 
         private final MapCodec<HeatGeneratorRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-            return instance.group(FluidIngredient.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
+            return instance.group(FluidIngredient.CODEC.fieldOf("input").forGetter((recipe) -> {
                 return recipe.input;
             }), Codec.INT.fieldOf("energy").forGetter((recipe) -> {
                 return recipe.energyProduction;
