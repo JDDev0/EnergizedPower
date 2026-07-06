@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-05T23:31:00.246812008	Recipes
+// 1.21.1	2026-07-06T14:51:56.45716108	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -599,6 +599,9 @@ a5c0d6d7d706d5f374596cb9fa3bd0520febccc5 data/energizedpower/recipe/energizer/en
 b9016d3046385243e43b3adefae374a9fd145392 data/energizedpower/recipe/filtration_plant/gold_ore_filtration.json
 cd7c8444e7bf1a87b68f64f851de421e7d628516 data/energizedpower/recipe/filtration_plant/iron_ore_filtration.json
 b24bd9a4913681e40efcd131fc59e2e888f7a4d4 data/energizedpower/recipe/filtration_plant/tin_ore_filtration.json
+e74842dc8d25bad3c364b8689daf2bbe25caede8 data/energizedpower/recipe/fluid_freezer/dirt.json
+a149c76094a0a0d291124347dfe57500687b6986 data/energizedpower/recipe/fluid_freezer/dune_armor_trim_smithing_template.json
+65778fb4d8694173c11820c9ce2dbee2461a6e26 data/energizedpower/recipe/fluid_freezer/emerald.json
 09344ab3803256dbbf5aef6f413cfd46c694b205 data/energizedpower/recipe/fluid_freezer/ice.json
 08e8a2bd03368ee7c83d0a328ea386e419bc1c9e data/energizedpower/recipe/fluid_freezer/snow_block.json
 9982976401eff3986d12fe9a7c90f6630526ddd0 data/energizedpower/recipe/fluid_freezer/snowball.json

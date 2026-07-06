@@ -7,6 +7,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
+import me.jddev0.ep.recipe.FluidIngredientWithAmount;
 import me.jddev0.ep.screen.FluidFreezerMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
@@ -88,7 +89,9 @@ public class FluidFreezerBlockEntity
 
                 return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
                         map(FluidFreezerRecipe::getInput).
-                        anyMatch(fluidStack -> FluidStack.isSameFluidSameComponents(stack, fluidStack));
+                        anyMatch(fluid -> fluid.map(
+                                fluidStack -> FluidStack.isSameFluidSameComponents(stack, fluidStack),
+                                f -> f.fluid().test(stack)));
             }
         };
     }
@@ -113,9 +116,12 @@ public class FluidFreezerBlockEntity
         if(level == null || !hasRecipe())
             return;
 
-        FluidStack fluid = recipe.value().getInput().copyWithAmount(recipe.value().getInput().getAmount());
 
-        fluidStorage.drain(fluid, IFluidHandler.FluidAction.EXECUTE);
+        int amount = recipe.value().getInput().map(FluidStack::getAmount,
+                FluidIngredientWithAmount::amount);
+
+        //Fluid in tank must be valid at this point
+        fluidStorage.drain(amount, IFluidHandler.FluidAction.EXECUTE);
 
         itemHandler.setStackInSlot(0, recipe.value().getResultItem(level.registryAccess()).
                 copyWithCount(itemHandler.getStackInSlot(0).getCount() +
@@ -126,9 +132,13 @@ public class FluidFreezerBlockEntity
 
     @Override
     protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidFreezerRecipe> recipe) {
+        int fluidAmountInRecipe = recipe.value().getInput().map(FluidStack::getAmount,
+                FluidIngredientWithAmount::amount);
+
         return level != null &&
-                FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), recipe.value().getInput()) &&
-                fluidStorage.getFluid(0).getAmount() >= recipe.value().getInput().getAmount() &&
+                recipe.value().getInput().map(fluid -> FluidStack.isSameFluidSameComponents(fluidStorage.getFluid(0), fluid),
+                        fluid -> fluid.test(fluidStorage.getFluid(0))) &&
+                fluidStorage.getFluid(0).getAmount() >= fluidAmountInRecipe &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 0, recipe.value().assemble(null, level.registryAccess()));
     }
 }

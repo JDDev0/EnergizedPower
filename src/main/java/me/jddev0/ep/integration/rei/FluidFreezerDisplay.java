@@ -4,12 +4,18 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.resources.ResourceLocation;
+import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.neoforge.fluids.FluidStack;
+import net.minecraft.world.level.material.Fluid;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +24,21 @@ public record FluidFreezerDisplay(RecipeHolder<FluidFreezerRecipe> recipe) imple
 
     @Override
     public List<EntryIngredient> getInputEntries() {
-        FluidStack fluid = recipe.value().getInput();
+        List<EntryStack<dev.architectury.fluid.FluidStack>> entryStacks = recipe.value().getInput().map(fluid -> {
+            return Collections.singletonList(EntryStacks.of(dev.architectury.fluid.FluidStack.create(fluid.getFluid(),
+                    fluid.getAmount(), fluid.getComponentsPatch())));
+        }, f -> {
+            int amount = f.amount();
+            List<Fluid> fluids = f.fluid().getFluid().map(
+                    fluid -> fluid,
+                    fluid -> BasicDisplay.registryAccess().lookupOrThrow(BuiltInRegistries.FLUID.key()).
+                            getOrThrow(fluid).stream().map(Holder::value).toList()
+            );
 
-        return List.of(
-                EntryIngredients.of(dev.architectury.fluid.FluidStack.create(fluid.getFluid(),
-                        fluid.getAmount(), fluid.getComponentsPatch()))
-        );
+            return fluids.stream().map(fluid -> EntryStacks.of(dev.architectury.fluid.FluidStack.create(fluid, amount))).toList();
+        });
+
+        return List.of(EntryIngredient.of(entryStacks.toArray(EntryStack[]::new)));
     }
 
     @Override
