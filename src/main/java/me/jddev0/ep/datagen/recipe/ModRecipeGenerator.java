@@ -1,5 +1,6 @@
 package me.jddev0.ep.datagen.recipe;
 
+import com.mojang.datafixers.util.Either;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
@@ -41,8 +42,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 import java.util.stream.Stream;
+import java.util.*;
 
 public class ModRecipeGenerator extends FabricRecipeProvider {
     private RecipeOutput output;
@@ -3870,10 +3871,31 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                              TagKey<SoilType> soilType,
                                              Fluid[] fluid, double fluidConsumption, int ticks,
                                              String outputName, String recipeIngredientName) {
+        addPlantGrowthChamberRecipe(input, outputs, soilType, Arrays.asList(fluid), fluidConsumption, ticks, outputName, recipeIngredientName);
+    }
+    private void addPlantGrowthChamberRecipe(Ingredient input,
+                                             OutputItemStackWithPercentages[] outputs,
+                                             TagKey<SoilType> soilType,
+                                             List<Fluid> fluid, double fluidConsumption, int ticks,
+                                             String outputName, String recipeIngredientName) {
+        addPlantGrowthChamberRecipe(input, outputs, soilType, FluidIngredient.of(fluid), fluidConsumption, ticks, outputName, recipeIngredientName);
+    }
+    private void addPlantGrowthChamberRecipe(Ingredient input,
+                                             OutputItemStackWithPercentages[] outputs,
+                                             TagKey<SoilType> soilType,
+                                             TagKey<Fluid> fluid, double fluidConsumption, int ticks,
+                                             String outputName, String recipeIngredientName) {
+        addPlantGrowthChamberRecipe(input, outputs, soilType, FluidIngredient.of(fluid), fluidConsumption, ticks, outputName, recipeIngredientName);
+    }
+    private void addPlantGrowthChamberRecipe(Ingredient input,
+                                             OutputItemStackWithPercentages[] outputs,
+                                             TagKey<SoilType> soilType,
+                                             FluidIngredient fluid, double fluidConsumption, int ticks,
+                                             String outputName, String recipeIngredientName) {
         ResourceLocation recipeId = EPAPI.id("growing/" +
                 outputName + "_from_growing_" + recipeIngredientName);
 
-        PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, soilType, fluid, fluidConsumption, ticks);
+        PlantGrowthChamberRecipe recipe = new PlantGrowthChamberRecipe(outputs, input, Either.right(soilType), fluid, fluidConsumption, ticks);
         this.output.accept(recipeId, recipe, null);
     }
 
@@ -3930,7 +3952,19 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         }, energyProduction, recipeIngredientName);
     }
     private void addHeatGeneratorRecipe(Fluid[] input, int energyProduction,
-                                               String recipeIngredientName) {
+                                        String recipeIngredientName) {
+        addHeatGeneratorRecipe(Arrays.asList(input), energyProduction, recipeIngredientName);
+    }
+    private void addHeatGeneratorRecipe(List<Fluid> input, int energyProduction,
+                                        String recipeIngredientName) {
+        addHeatGeneratorRecipe(FluidIngredient.of(input), energyProduction, recipeIngredientName);
+    }
+    private void addHeatGeneratorRecipe(TagKey<Fluid> input, int energyProduction,
+                                        String recipeIngredientName) {
+        addHeatGeneratorRecipe(FluidIngredient.of(input), energyProduction, recipeIngredientName);
+    }
+    private void addHeatGeneratorRecipe(FluidIngredient input, int energyProduction,
+                                        String recipeIngredientName) {
         ResourceLocation recipeId = EPAPI.id("heat_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 
@@ -3945,7 +3979,19 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         }, energyProduction, recipeIngredientName);
     }
     private void addThermalGeneratorRecipe(Fluid[] input, int energyProduction,
-                                                  String recipeIngredientName) {
+                                           String recipeIngredientName) {
+        addThermalGeneratorRecipe(Arrays.asList(input), energyProduction, recipeIngredientName);
+    }
+    private void addThermalGeneratorRecipe(List<Fluid> input, int energyProduction,
+                                           String recipeIngredientName) {
+        addThermalGeneratorRecipe(FluidIngredient.of(input), energyProduction, recipeIngredientName);
+    }
+    private void addThermalGeneratorRecipe(TagKey<Fluid> input, int energyProduction,
+                                           String recipeIngredientName) {
+        addThermalGeneratorRecipe(FluidIngredient.of(input), energyProduction, recipeIngredientName);
+    }
+    private void addThermalGeneratorRecipe(FluidIngredient input, int energyProduction,
+                                           String recipeIngredientName) {
         ResourceLocation recipeId = EPAPI.id("thermal_generator/" +
                 "energy_production_from_" + recipeIngredientName);
 

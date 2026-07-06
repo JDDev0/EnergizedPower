@@ -23,7 +23,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -92,12 +91,10 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
 
                         outer:
                         for(RecipeHolder<HeatGeneratorRecipe> recipe:recipes) {
-                            for(Fluid fluid:recipe.value().getInput()) {
-                                if(fluidState.is(fluid)) {
-                                    productionSum += recipe.value().getEnergyProduction();
+                            if(recipe.value().getInput().matches(fluidState)) {
+                                productionSum += recipe.value().getEnergyProduction();
 
-                                    break outer;
-                                }
+                                break outer;
                             }
                         }
                     }
@@ -140,12 +137,10 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
 
             outer:
             for(RecipeHolder<HeatGeneratorRecipe> recipe:recipes) {
-                for(Fluid fluid:recipe.value().getInput()) {
-                    if(fluidState.is(fluid)) {
-                        productionSum += recipe.value().getEnergyProduction();
+                if(recipe.value().getInput().matches(fluidState)) {
+                    productionSum += recipe.value().getEnergyProduction();
 
-                        break outer;
-                    }
+                    break outer;
                 }
             }
         }
