@@ -1,6 +1,5 @@
 package me.jddev0.ep.integration.emi;
 
-import com.mojang.datafixers.util.Either;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.render.EmiTexture;
@@ -10,10 +9,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PlantGrowthChamberBlockEntity;
-import me.jddev0.ep.recipe.FluidIngredient;
-import me.jddev0.ep.recipe.OutputItemStackWithPercentages;
-import me.jddev0.ep.recipe.PlantGrowthChamberRecipe;
-import me.jddev0.ep.recipe.PlantGrowthChamberSoilRecipe;
+import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.EPRegistries;
 import me.jddev0.ep.soil.SoilType;
 import me.jddev0.ep.util.FluidUtils;
@@ -22,9 +18,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.material.Fluid;
 
@@ -43,7 +37,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
     private final ResourceLocation id;
     private final List<EmiIngredient> input;
-    private final Either<List<ResourceKey<SoilType>>, TagKey<SoilType>> soilType;
+    private final SoilTypeIngredient soilType;
     private final FluidIngredient fluid;
     private final double fluidConsumption;
     private final List<EmiStack> output;
@@ -99,7 +93,7 @@ public class PlantGrowthChamberEMIRecipe implements EmiRecipe {
 
         widgets.addSlot(input.get(0), 18, 0).drawBack(false);
 
-        List<Holder<SoilType>> soilTypes = soilType.map(
+        List<Holder<SoilType>> soilTypes = soilType.getSoilType().map(
                 soilType -> soilType.stream().
                         map(st -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
                                 getOrThrow(st)).

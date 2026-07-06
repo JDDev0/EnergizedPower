@@ -72,7 +72,7 @@ public class PlantGrowthChamberCategory implements IRecipeCategory<RecipeHolder<
     public void setRecipe(IRecipeLayoutBuilder iRecipeLayout, RecipeHolder<PlantGrowthChamberRecipe> recipe, IFocusGroup iFocusGroup) {
         iRecipeLayout.addSlot(RecipeIngredientRole.INPUT, 19, 1).addIngredients(recipe.value().getInput());
 
-        List<Holder<SoilType>> soilTypes = recipe.value().getSoilType().map(
+        List<Holder<SoilType>> soilTypes = recipe.value().getSoilType().getSoilType().map(
                 soilType -> soilType.stream().
                         map(st -> Minecraft.getInstance().level.registryAccess().lookupOrThrow(EPRegistries.SOIL_TYPE).
                                 getOrThrow(st)).
