@@ -213,63 +213,46 @@
   "item.energizedpower.battery_box_minecart": "Вагонетка с аккумулятором",
   "item.energizedpower.advanced_battery_box_minecart": "Вагонетка с продвинутым аккумулятором",
 
-  "block.energizedpower.silicon_block": "Блок кремния",
-  "item.energizedpower.silicon_block": "Блок кремния",
+  "_template.epblock.silicon_block": "Блок кремния",
 
-  "block.energizedpower.tin_block": "Блок олова",
-  "item.energizedpower.tin_block": "Блок олова",
+  "_template.epblock.tin_block": "Блок олова",
 
-  "block.energizedpower.steel_block": "Block of Steel",
-  "item.energizedpower.steel_block": "Block of Steel",
+  "_template.epblock.steel_block": "Block of Steel",
 
-  "block.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
-  "item.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
+  "_template.epblock.advanced_alloy_block": "Block of Advanced Alloy",
 
-  "block.energizedpower.sawdust_block": "Блок опилок",
-  "item.energizedpower.sawdust_block": "Блок опилок",
+  "_template.epblock.sawdust_block": "Блок опилок",
 
-  "block.energizedpower.tin_ore": "Оловянная руда",
-  "item.energizedpower.tin_ore": "Оловянная руда",
+  "_template.epblock.tin_ore": "Оловянная руда",
 
-  "block.energizedpower.deepslate_tin_ore": "Оловоносный глубинный сланец",
-  "item.energizedpower.deepslate_tin_ore": "Оловоносный глубинный сланец",
+  "_template.epblock.deepslate_tin_ore": "Оловоносный глубинный сланец",
 
-  "block.energizedpower.raw_tin_block": "Блок необработанного олова",
-  "item.energizedpower.raw_tin_block": "Блок необработанного олова",
+  "_template.epblock.raw_tin_block": "Блок необработанного олова",
 
-  "block.energizedpower.item_conveyor_belt": "Базовая конвейерная лента",
-  "item.energizedpower.item_conveyor_belt": "Базовая конвейерная лента",
+  "_template.epblock.item_conveyor_belt": "Базовая конвейерная лента",
 
-  "block.energizedpower.fast_item_conveyor_belt": "Быстрая конвейерная лента",
-  "item.energizedpower.fast_item_conveyor_belt": "Быстрая конвейерная лента",
+  "_template.epblock.fast_item_conveyor_belt": "Быстрая конвейерная лента",
 
-  "block.energizedpower.express_item_conveyor_belt": "Экспресс конвейерная лента",
-  "item.energizedpower.express_item_conveyor_belt": "Экспресс конвейерная лента",
+  "_template.epblock.express_item_conveyor_belt": "Экспресс конвейерная лента",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Наклон был установлен на %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
-  "item.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
+  "_template.epblock.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
   "container.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
-  "item.energizedpower.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
+  "_template.epblock.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
   "container.energizedpower.fast_item_conveyor_belt_loader": "Быстрый загрузчик конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
-  "item.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
+  "_template.epblock.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
   "container.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
-  "item.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
+  "_template.epblock.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
   "container.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
-  "item.energizedpower.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
+  "_template.epblock.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
   "container.energizedpower.fast_item_conveyor_belt_sorter": "Быстрый сортировщик конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
-  "item.energizedpower.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
+  "_template.epblock.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
   "container.energizedpower.express_item_conveyor_belt_sorter": "Экспресс сортировщик конвейерной ленты",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Вывод %d: Конвейерная лента не присоединёна",
@@ -278,68 +261,48 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Белый список",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Чёрный список",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Базовый переключатель конвейерной ленты",
-  "item.energizedpower.item_conveyor_belt_switch": "Базовый переключатель конвейерной ленты",
+  "_template.epblock.item_conveyor_belt_switch": "Базовый переключатель конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_switch": "Быстрый переключатель конвейерной ленты",
-  "item.energizedpower.fast_item_conveyor_belt_switch": "Быстрый переключатель конвейерной ленты",
+  "_template.epblock.fast_item_conveyor_belt_switch": "Быстрый переключатель конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_switch": "Экспресс переключатель конвейерной ленты",
-  "item.energizedpower.express_item_conveyor_belt_switch": "Экспресс переключатель конвейерной ленты",
+  "_template.epblock.express_item_conveyor_belt_switch": "Экспресс переключатель конвейерной ленты",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Базовый разветвитель конвейерной ленты",
-  "item.energizedpower.item_conveyor_belt_splitter": "Базовый разветвитель конвейерной ленты",
+  "_template.epblock.item_conveyor_belt_splitter": "Базовый разветвитель конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_splitter": "Быстрый разветвитель конвейерной ленты",
-  "item.energizedpower.fast_item_conveyor_belt_splitter": "Быстрый разветвитель конвейерной ленты",
+  "_template.epblock.fast_item_conveyor_belt_splitter": "Быстрый разветвитель конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_splitter": "Экспресс разветвитель конвейерной ленты",
-  "item.energizedpower.express_item_conveyor_belt_splitter": "Экспресс разветвитель конвейерной ленты",
+  "_template.epblock.express_item_conveyor_belt_splitter": "Экспресс разветвитель конвейерной ленты",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Базовый объединитель конвейерной ленты",
-  "item.energizedpower.item_conveyor_belt_merger": "Базовый объединитель конвейерной ленты",
+  "_template.epblock.item_conveyor_belt_merger": "Базовый объединитель конвейерной ленты",
 
-  "block.energizedpower.fast_item_conveyor_belt_merger": "Быстрый объединитель конвейерной ленты",
-  "item.energizedpower.fast_item_conveyor_belt_merger": "Быстрый объединитель конвейерной ленты",
+  "_template.epblock.fast_item_conveyor_belt_merger": "Быстрый объединитель конвейерной ленты",
 
-  "block.energizedpower.express_item_conveyor_belt_merger": "Экспресс объединитель конвейерной ленты",
-  "item.energizedpower.express_item_conveyor_belt_merger": "Экспресс объединитель конвейерной ленты",
+  "_template.epblock.express_item_conveyor_belt_merger": "Экспресс объединитель конвейерной ленты",
 
-  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
-  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 
-  "block.energizedpower.fluid_pipe": "Железная жидкостная труба",
-  "item.energizedpower.fluid_pipe": "Железная жидкостная труба",
+  "_template.epblock.fluid_pipe": "Железная жидкостная труба",
 
-  "block.energizedpower.golden_fluid_pipe": "Золотая жидкостная труба",
-  "item.energizedpower.golden_fluid_pipe": "Золотая жидкостная труба",
+  "_template.epblock.golden_fluid_pipe": "Золотая жидкостная труба",
 
-  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
-  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "_template.epblock.steel_fluid_pipe": "Steel Fluid Pipe",
 
-  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
-  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "_template.epblock.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Макс. извлечение на одну сторону экстрактора: %s/т",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Тип соединения грани (%s) установлен на %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Тип соединения грани (%s) изменить невозможно.",
 
-  "block.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
-  "item.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
-  "container.energizedpower.press_mold_maker": "Изготовитель пресс-форм",
+  "_template.epcontainer.press_mold_maker": "Изготовитель пресс-форм",
 
   "tooltip.energizedpower.press_mold_maker.btn.up": "Прокрутить вверх",
   "tooltip.energizedpower.press_mold_maker.btn.down": "Прокрутить вниз",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Требуется %dx %s",
 
-  "block.energizedpower.alloy_furnace": "Печь для сплавов",
-  "item.energizedpower.alloy_furnace": "Печь для сплавов",
-  "container.energizedpower.alloy_furnace": "Печь для сплавов",
+  "_template.epcontainer.alloy_furnace": "Печь для сплавов",
 
-  "block.energizedpower.auto_crafter": "Авто-крафтер",
-  "item.energizedpower.auto_crafter": "Авто-крафтер",
-  "container.energizedpower.auto_crafter": "Авто-крафтер",
+  "_template.epcontainer.auto_crafter": "Авто-крафтер",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "Этот блок использует %s/т на ингредиент.",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Игнорировать NBT теги",
@@ -349,13 +312,9 @@
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Циклическое переключение рецептов",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Рецепт %d",
 
-  "block.energizedpower.advanced_auto_crafter": "Продвинутый авто-крафтер",
-  "item.energizedpower.advanced_auto_crafter": "Продвинутый авто-крафтер",
-  "container.energizedpower.advanced_auto_crafter": "Продвинутый авто-крафтер",
+  "_template.epcontainer.advanced_auto_crafter": "Продвинутый авто-крафтер",
 
-  "block.energizedpower.charger": "Зарядник",
-  "item.energizedpower.charger": "Зарядник",
-  "container.energizedpower.charger": "Зарядник",
+  "_template.epcontainer.charger": "Зарядник",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "Зарядные устройства можно использовать для создания заряженных медных слитков.",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "Но вместо этого вам следует использовать Активатор,",
@@ -363,125 +322,73 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Для полной зарядки этого предмета требуется %s.",
 
-  "block.energizedpower.advanced_charger": "Продвинутый зарядник",
-  "item.energizedpower.advanced_charger": "Продвинутый зарядник",
-  "container.energizedpower.advanced_charger": "Продвинутый зарядник",
+  "_template.epcontainer.advanced_charger": "Продвинутый зарядник",
 
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Этим предметам требуется %s для полной зарядки.",
 
-  "block.energizedpower.uncharger": "Разрядник",
-  "item.energizedpower.uncharger": "Разрядник",
-  "container.energizedpower.uncharger": "Разрядник",
+  "_template.epcontainer.uncharger": "Разрядник",
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "У этого предмета осталось %s.",
 
-  "block.energizedpower.advanced_uncharger": "Продвинутый разрядник",
-  "item.energizedpower.advanced_uncharger": "Продвинутый разрядник",
-  "container.energizedpower.advanced_uncharger": "Продвинутый разрядник",
+  "_template.epcontainer.advanced_uncharger": "Продвинутый разрядник",
 
   "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "У этих предметов осталось %s.",
 
-  "block.energizedpower.minecart_charger": "Зарядник вагонеток",
-  "item.energizedpower.minecart_charger": "Зарядник вагонеток",
-  "container.energizedpower.minecart_charger": "Зарядник вагонеток",
+  "_template.epcontainer.minecart_charger": "Зарядник вагонеток",
 
-  "block.energizedpower.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
-  "item.energizedpower.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
-  "container.energizedpower.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
+  "_template.epcontainer.advanced_minecart_charger": "Продвинутый зарядник вагонеток",
 
-  "block.energizedpower.minecart_uncharger": "Разрядник вагонеток",
-  "item.energizedpower.minecart_uncharger": "Разрядник вагонеток",
-  "container.energizedpower.minecart_uncharger": "Разрядник вагонеток",
+  "_template.epcontainer.minecart_uncharger": "Разрядник вагонеток",
 
-  "block.energizedpower.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
-  "item.energizedpower.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
-  "container.energizedpower.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
+  "_template.epcontainer.advanced_minecart_uncharger": "Продвинутый разрядник вагонеток",
 
-  "block.energizedpower.tin_cable": "Оловянный кабель",
-  "item.energizedpower.tin_cable": "Оловянный кабель",
+  "_template.epblock.tin_cable": "Оловянный кабель",
 
-  "block.energizedpower.copper_cable": "Медный кабель",
-  "item.energizedpower.copper_cable": "Медный кабель",
+  "_template.epblock.copper_cable": "Медный кабель",
 
-  "block.energizedpower.gold_cable": "Золотой кабель",
-  "item.energizedpower.gold_cable": "Золотой кабель",
+  "_template.epblock.gold_cable": "Золотой кабель",
 
-  "block.energizedpower.energized_copper_cable": "Кабель из активированной меди",
-  "item.energizedpower.energized_copper_cable": "Кабель из активированной меди",
+  "_template.epblock.energized_copper_cable": "Кабель из активированной меди",
 
-  "block.energizedpower.energized_gold_cable": "Кабель из активированного золота",
-  "item.energizedpower.energized_gold_cable": "Кабель из активированного золота",
+  "_template.epblock.energized_gold_cable": "Кабель из активированного золота",
 
-  "block.energizedpower.energized_crystal_matrix_cable": "Кристально-матричный активированный кабель",
-  "item.energizedpower.energized_crystal_matrix_cable": "Кристально-матричный активированный кабель",
+  "_template.epblock.energized_crystal_matrix_cable": "Кристально-матричный активированный кабель",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Этот кабель может передавать %s/т.",
   "tooltip.energizedpower.cable.txt.shift.2": "Ножницы можно использовать для более быстрого разрыва кабелей.",
 
 
-  "block.energizedpower.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
-  "item.energizedpower.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
-  "container.energizedpower.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
+  "_template.epcontainer.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",
 
-  "block.energizedpower.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
-  "item.energizedpower.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
-  "container.energizedpower.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
+  "_template.epcontainer.lv_transformer_3_to_3": "LV Трансформатор (3 к 3)",
 
-  "block.energizedpower.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
-  "item.energizedpower.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
-  "container.energizedpower.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
+  "_template.epcontainer.lv_transformer_n_to_1": "LV Трансформатор (n к 1)",
 
-  "block.energizedpower.transformer_1_to_n": "MV трансформатор (1 к n)",
-  "item.energizedpower.transformer_1_to_n": "MV трансформатор (1 к n)",
-  "container.energizedpower.transformer_1_to_n": "MV трансформатор (1 к n)",
+  "_template.epcontainer.transformer_1_to_n": "MV трансформатор (1 к n)",
 
-  "block.energizedpower.transformer_3_to_3": "MV трансформатор (3 к 3)",
-  "item.energizedpower.transformer_3_to_3": "MV трансформатор (3 к 3)",
-  "container.energizedpower.transformer_3_to_3": "MV трансформатор (3 к 3)",
+  "_template.epcontainer.transformer_3_to_3": "MV трансформатор (3 к 3)",
 
-  "block.energizedpower.transformer_n_to_1": "MV трансформатор (n к 1)",
-  "item.energizedpower.transformer_n_to_1": "MV трансформатор (n к 1)",
-  "container.energizedpower.transformer_n_to_1": "MV трансформатор (n к 1)",
+  "_template.epcontainer.transformer_n_to_1": "MV трансформатор (n к 1)",
 
-  "block.energizedpower.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
-  "item.energizedpower.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
-  "container.energizedpower.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
+  "_template.epcontainer.hv_transformer_1_to_n": "HV трансформатор (1 к n)",
 
-  "block.energizedpower.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
-  "item.energizedpower.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
-  "container.energizedpower.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
+  "_template.epcontainer.hv_transformer_3_to_3": "HV трансформатор (3 к 3)",
 
-  "block.energizedpower.hv_transformer_n_to_1": "HV трансформатор  (n к 1)",
-  "item.energizedpower.hv_transformer_n_to_1": "HV трансформатор (n к 1)",
-  "container.energizedpower.hv_transformer_n_to_1": "HV трансформатор (n к 1)",
+  "_template.epcontainer.hv_transformer_n_to_1": "HV трансформатор  (n к 1)",
 
-  "block.energizedpower.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
-  "item.energizedpower.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
-  "container.energizedpower.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
+  "_template.epcontainer.ehv_transformer_1_to_n": "EHV трансформатор (1 к n)",
 
-  "block.energizedpower.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
-  "item.energizedpower.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
-  "container.energizedpower.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
+  "_template.epcontainer.ehv_transformer_3_to_3": "EHV трансформатор (3 к 3)",
 
-  "block.energizedpower.ehv_transformer_n_to_1": "ENV трансформатор (n к 1)",
-  "item.energizedpower.ehv_transformer_n_to_1": "EHV трансформатор (n к 1)",
-  "container.energizedpower.ehv_transformer_n_to_1": "EHV трансформатор (n к 1)",
+  "_template.epcontainer.ehv_transformer_n_to_1": "ENV трансформатор (n к 1)",
 
-  "block.energizedpower.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
-  "item.energizedpower.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
-  "container.energizedpower.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
+  "_template.epcontainer.configurable_lv_transformer": "Конфигурируемый LV трансформатор",
 
-  "block.energizedpower.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
-  "item.energizedpower.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
-  "container.energizedpower.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
+  "_template.epcontainer.configurable_mv_transformer": "Конфигурируемый MV трансформатор",
 
-  "block.energizedpower.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
-  "item.energizedpower.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
-  "container.energizedpower.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
+  "_template.epcontainer.configurable_hv_transformer": "Конфигурируемый HV трансформатор",
 
-  "block.energizedpower.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
-  "item.energizedpower.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
-  "container.energizedpower.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
+  "_template.epcontainer.configurable_ehv_transformer": "Конфигурируемый EHV трансформатор",
 
   "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Тип соединения грани (%s) был установлен на %s.",
 
@@ -489,17 +396,11 @@
   "tooltip.energizedpower.transformer.txt.shift.2": "Более крупные, темные, ромбовидные стороны являются вводами.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Меньшие, более яркие, квадратные стороны являются выводами.",
 
-  "block.energizedpower.battery_box": "БатБокс",
-  "item.energizedpower.battery_box": "БатБокс",
-  "container.energizedpower.battery_box": "БатБокс",
+  "_template.epcontainer.battery_box": "БатБокс",
 
-  "block.energizedpower.advanced_battery_box": "Продвинутый БатБокс",
-  "item.energizedpower.advanced_battery_box": "Продвинутый БатБокс",
-  "container.energizedpower.advanced_battery_box": "Продвинутый БатБокс",
+  "_template.epcontainer.advanced_battery_box": "Продвинутый БатБокс",
 
-  "block.energizedpower.creative_battery_box": "Творческий БатБокс",
-  "item.energizedpower.creative_battery_box": "Творческий БатБокс",
-  "container.energizedpower.creative_battery_box": "Творческий БатБокс",
+  "_template.epcontainer.creative_battery_box": "Творческий БатБокс",
 
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Производство энергии",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Потребление энергии",
@@ -510,137 +411,84 @@
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Этот блок производит до %s/т.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "Эффективность зависит от текущего времени",
 
-  "block.energizedpower.coal_engine": "Угольный двигатель",
-  "item.energizedpower.coal_engine": "Угольный двигатель",
-  "container.energizedpower.coal_engine": "Угольный двигатель",
+  "_template.epcontainer.coal_engine": "Угольный двигатель",
 
   "tooltip.energizedpower.coal_engine.txt": "Эти предметы будут производить %s, пока не сгорят",
 
-  "block.energizedpower.heat_generator": "Тепловой генератор",
-  "item.energizedpower.heat_generator": "Тепловой генератор",
-  "container.energizedpower.heat_generator": "Тепловой генератор",
+  "_template.epcontainer.heat_generator": "Тепловой генератор",
 
-  "block.energizedpower.thermal_generator": "Термальный генератор",
-  "item.energizedpower.thermal_generator": "Термальный генератор",
-  "container.energizedpower.thermal_generator": "Термальный генератор",
+  "_template.epcontainer.thermal_generator": "Термальный генератор",
 
   "tooltip.energizedpower.thermal_generator.txt": "Эта жидкость будет производить %s до тех пор, пока не будет полностью израсходована.",
 
-  "block.energizedpower.powered_lamp": "Электрическая лампа",
-  "item.energizedpower.powered_lamp": "Электрическая лампа",
+  "_template.epblock.powered_lamp": "Электрическая лампа",
 
-  "block.energizedpower.powered_furnace": "Электрическая печь",
-  "item.energizedpower.powered_furnace": "Электрическая печь",
-  "container.energizedpower.powered_furnace": "Электрическая печь",
+  "_template.epcontainer.powered_furnace": "Электрическая печь",
 
-  "block.energizedpower.advanced_powered_furnace": "Продвинутая электрическая печь",
-  "item.energizedpower.advanced_powered_furnace": "Продвинутая электрическая печь",
-  "container.energizedpower.advanced_powered_furnace": "Продвинутая электрическая печь",
+  "_template.epcontainer.advanced_powered_furnace": "Продвинутая электрическая печь",
 
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Для завершения этих рецептов требуется %s.",
 
-  "block.energizedpower.crusher": "Дробилка",
-  "item.energizedpower.crusher": "Дробилка",
-  "container.energizedpower.crusher": "Дробилка",
+  "_template.epcontainer.crusher": "Дробилка",
 
-  "block.energizedpower.advanced_crusher": "Продвинутая дробилка",
-  "item.energizedpower.advanced_crusher": "Продвинутая дробилка",
-  "container.energizedpower.advanced_crusher": "Продвинутая дробилка",
+  "_template.epcontainer.advanced_crusher": "Продвинутая дробилка",
 
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Эта машина потребляет воду и производит грязную воду.",
 
-  "block.energizedpower.pulverizer": "Измельчитель",
-  "item.energizedpower.pulverizer": "Измельчитель",
-  "container.energizedpower.pulverizer": "Измельчитель",
+  "_template.epcontainer.pulverizer": "Измельчитель",
 
-  "block.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
-  "item.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
-  "container.energizedpower.advanced_pulverizer": "Продвинутый измельчитель",
+  "_template.epcontainer.advanced_pulverizer": "Продвинутый измельчитель",
 
   "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Эта машина потребляет воду и производит грязную воду.",
 
-  "block.energizedpower.sawmill": "Лесопилка",
-  "item.energizedpower.sawmill": "Лесопилка",
-  "container.energizedpower.sawmill": "Лесопилка",
+  "_template.epcontainer.sawmill": "Лесопилка",
 
-  "block.energizedpower.compressor": "Компрессор",
-  "item.energizedpower.compressor": "Компрессор",
-  "container.energizedpower.compressor": "Компрессор",
+  "_template.epcontainer.compressor": "Компрессор",
 
-  "block.energizedpower.metal_press": "Металлический пресс",
-  "item.energizedpower.metal_press": "Металлический пресс",
-  "container.energizedpower.metal_press": "Металлический пресс",
+  "_template.epcontainer.metal_press": "Металлический пресс",
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Пресс-формы можно создавать в Изготовителе пресс-форм.",
 
-  "block.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
-  "item.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
-  "container.energizedpower.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
+  "_template.epcontainer.auto_press_mold_maker": "Автоматический изготовитель пресс-форм",
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Лопата отсутствует!",
 
-  "block.energizedpower.auto_stonecutter": "Автоматический камнерез",
-  "item.energizedpower.auto_stonecutter": "Автоматический камнерез",
-  "container.energizedpower.auto_stonecutter": "Автоматический камнерез",
+  "_template.epcontainer.auto_stonecutter": "Автоматический камнерез",
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Кирка отсутствует!",
 
-  "block.energizedpower.assembling_machine": "Сборочная машина",
-  "item.energizedpower.assembling_machine": "Сборочная машина",
-  "container.energizedpower.assembling_machine": "Сборочная машина",
+  "_template.epcontainer.assembling_machine": "Сборочная машина",
 
-  "block.energizedpower.induction_smelter": "Индукционная плавильня",
-  "item.energizedpower.induction_smelter": "Индукционная плавильня",
-  "container.energizedpower.induction_smelter": "Индукционная плавильня",
+  "_template.epcontainer.induction_smelter": "Индукционная плавильня",
 
-  "block.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
-  "item.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
-  "container.energizedpower.plant_growth_chamber": "Камера для выращивания растений",
+  "_template.epcontainer.plant_growth_chamber": "Камера для выращивания растений",
 
-  "block.energizedpower.fluid_freezer": "Fluid Freezer",
-  "item.energizedpower.fluid_freezer": "Fluid Freezer",
-  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+  "_template.epcontainer.fluid_freezer": "Fluid Freezer",
 
-  "block.energizedpower.stone_liquefier": "Разжижитель камня",
-  "item.energizedpower.stone_liquefier": "Разжижитель камня",
-  "container.energizedpower.stone_liquefier": "Разжижитель камня",
+  "_template.epcontainer.stone_liquefier": "Разжижитель камня",
 
-  "block.energizedpower.stone_solidifier": "Отвердитель камня",
-  "item.energizedpower.stone_solidifier": "Отвердитель камня",
-  "container.energizedpower.stone_solidifier": "Отвердитель камня",
+  "_template.epcontainer.stone_solidifier": "Отвердитель камня",
 
-  "block.energizedpower.filtration_plant": "Фильтрационная установка",
-  "item.energizedpower.filtration_plant": "Фильтрационная установка",
-  "container.energizedpower.filtration_plant": "Фильтрационная установка",
+  "_template.epcontainer.filtration_plant": "Фильтрационная установка",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Для этого блока требуются угольные фильтры.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Угольный фильтр отсутствует!",
 
-  "block.energizedpower.fluid_transposer": "Жидкостный транспозер",
-  "item.energizedpower.fluid_transposer": "Жидкостный транспозер",
-  "container.energizedpower.fluid_transposer": "Жидкостный транспозер",
+  "_template.epcontainer.fluid_transposer": "Жидкостный транспозер",
 
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "Режим: Опорожнение",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "Режим: Заполнение",
 
-  "block.energizedpower.block_placer": "Укладчик блоков",
-  "item.energizedpower.block_placer": "Укладчик блоков",
-  "container.energizedpower.block_placer": "Укладчик блоков",
+  "_template.epcontainer.block_placer": "Укладчик блоков",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Для размещения этого блока все еще требуется %s.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Обратное вращение",
 
-  "block.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
-  "item.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
-  "container.energizedpower.fluid_tank_small": "Жидкостный резервуар (маленький)",
+  "_template.epcontainer.fluid_tank_small": "Жидкостный резервуар (маленький)",
 
-  "block.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
-  "item.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
-  "container.energizedpower.fluid_tank_medium": "Жидкостный резервуар (средний)",
+  "_template.epcontainer.fluid_tank_medium": "Жидкостный резервуар (средний)",
 
-  "block.energizedpower.fluid_tank_large": "Жидкостный резервуар (большой)",
-  "item.energizedpower.fluid_tank_large": "Жидкостный резервуар (большой)",
-  "container.energizedpower.fluid_tank_large": "Жидкостный резервуар (большой)",
+  "_template.epcontainer.fluid_tank_large": "Жидкостный резервуар (большой)",
 
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "Игнорировать NBT теги",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Фильтр не установлен",
@@ -648,53 +496,31 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Установите фильтр, щелкнув левой кнопкой мыши по элементу, содержащему жидкости.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Снимите фильтр, щелкнув левой кнопкой мыши без предмета.",
 
-  "block.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
-  "item.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
-  "container.energizedpower.creative_fluid_tank": "Творческий жидкостный резервуар",
+  "_template.epcontainer.creative_fluid_tank": "Творческий жидкостный резервуар",
 
-  "block.energizedpower.item_silo_tiny": "Предметный бункер (крошечный)",
-  "item.energizedpower.item_silo_tiny": "Предметный бункер (крошечный)",
-  "container.energizedpower.item_silo_tiny": "Предметный бункер (крошечный)",
+  "_template.epcontainer.item_silo_tiny": "Предметный бункер (крошечный)",
 
-  "block.energizedpower.item_silo_small": "Предметный бункер (маленький)",
-  "item.energizedpower.item_silo_small": "Предметный бункер (маленький)",
-  "container.energizedpower.item_silo_small": "Предметный бункер (маленький)",
+  "_template.epcontainer.item_silo_small": "Предметный бункер (маленький)",
 
-  "block.energizedpower.item_silo_medium": "Предметный бункер (средний)",
-  "item.energizedpower.item_silo_medium": "Предметный бункер (средний)",
-  "container.energizedpower.item_silo_medium": "Предметный бункер (средний)",
+  "_template.epcontainer.item_silo_medium": "Предметный бункер (средний)",
 
-  "block.energizedpower.item_silo_large": "Предметный бункер (большой)",
-  "item.energizedpower.item_silo_large": "Предметный бункер (большой)",
-  "container.energizedpower.item_silo_large": "Предметный бункер (большой)",
+  "_template.epcontainer.item_silo_large": "Предметный бункер (большой)",
 
-  "block.energizedpower.item_silo_giant": "Предметный бункер (гигантский)",
-  "item.energizedpower.item_silo_giant": "Предметный бункер (гигантский)",
-  "container.energizedpower.item_silo_giant": "Предметный бункер (гигантский)",
+  "_template.epcontainer.item_silo_giant": "Предметный бункер (гигантский)",
 
   "tooltip.energizedpower.item_silo.txt.shift": "Загрузка и разгрузка предметных бункеров может осуществляться только с помощью воронок, лент и других средств транспортировки.",
   "tooltip.energizedpower.item_silo_capacity.txt": "Вместимость: %d стаков",
   "tooltip.energizedpower.item_silo.amount": "%d / %d предметов",
 
-  "block.energizedpower.creative_item_silo": "Творческий предметный бункер",
-  "item.energizedpower.creative_item_silo": "Творческий предметный бункер",
-  "container.energizedpower.creative_item_silo": "Творческий предметный бункер",
+  "_template.epcontainer.creative_item_silo": "Творческий предметный бункер",
 
-  "block.energizedpower.fluid_filler": "Наполнитель жидкости",
-  "item.energizedpower.fluid_filler": "Наполнитель жидкости",
-  "container.energizedpower.fluid_filler": "Наполнитель жидкости",
+  "_template.epcontainer.fluid_filler": "Наполнитель жидкости",
 
-  "block.energizedpower.fluid_drainer": "Сливатель жидкости",
-  "item.energizedpower.fluid_drainer": "Сливатель жидкости",
-  "container.energizedpower.fluid_drainer": "Сливатель жидкости",
+  "_template.epcontainer.fluid_drainer": "Сливатель жидкости",
 
-  "block.energizedpower.fluid_pump": "Жидкостный насос",
-  "item.energizedpower.fluid_pump": "Жидкостный насос",
-  "container.energizedpower.fluid_pump": "Жидкостный насос",
+  "_template.epcontainer.fluid_pump": "Жидкостный насос",
 
-  "block.energizedpower.advanced_fluid_pump": "Улучшенный жидкостный насос",
-  "item.energizedpower.advanced_fluid_pump": "Улучшенный жидкостный насос",
-  "container.energizedpower.advanced_fluid_pump": "Улучшенный жидкостный насос",
+  "_template.epcontainer.advanced_fluid_pump": "Улучшенный жидкостный насос",
 
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Для завершения этого процесса все еще требуется %s.",
   "tooltip.energizedpower.fluid_pump.target": "Цель: %d, %d, %d",
@@ -702,59 +528,41 @@
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Булыжник отсутствует!",
   "tooltip.energizedpower.fluid_pump.extracting": "Извлечение: %s",
 
-  "block.energizedpower.drain": "Слив",
-  "item.energizedpower.drain": "Слив",
-  "container.energizedpower.drain": "Слив",
+  "_template.epcontainer.drain": "Слив",
 
   "tooltip.energizedpower.drain.txt.shift": "Слив сливает воду из блоков источников жидкости, расположенных над блоком.",
 
-  "block.energizedpower.xp_drain": "XP Drain",
-  "item.energizedpower.xp_drain": "XP Drain",
-  "container.energizedpower.xp_drain": "XP Drain",
+  "_template.epcontainer.xp_drain": "XP Drain",
 
   "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
 
-  "block.energizedpower.lightning_generator": "Молниевый генератор",
-  "item.energizedpower.lightning_generator": "Молниевый генератор",
-  "container.energizedpower.lightning_generator": "Молниевый генератор",
+  "_template.epcontainer.lightning_generator": "Молниевый генератор",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Этот блок производит %s за удар молнии.",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "Для того, чтобы этот блок функционировал, над ним необходимо разместить громоотвод.",
 
-  "block.energizedpower.energizer": "Активатор",
-  "item.energizedpower.energizer": "Активатор",
-  "container.energizedpower.energizer": "Активатор",
+  "_template.epcontainer.energizer": "Активатор",
 
-  "block.energizedpower.charging_station": "Зарядная станция",
-  "item.energizedpower.charging_station": "Зарядная станция",
-  "container.energizedpower.charging_station": "Зарядная станция",
+  "_template.epcontainer.charging_station": "Зарядная станция",
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "Зарядную станцию можно использовать для зарядки предметов в инвентаре игрока.",
 
-  "block.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
-  "item.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
-  "container.energizedpower.crystal_growth_chamber": "Камера для выращивания кристаллов",
+  "_template.epcontainer.crystal_growth_chamber": "Камера для выращивания кристаллов",
 
-  "block.energizedpower.weather_controller": "Контроллер погоды",
-  "item.energizedpower.weather_controller": "Контроллер погоды",
-  "container.energizedpower.weather_controller": "Контроллер погоды",
+  "_template.epcontainer.weather_controller": "Контроллер погоды",
 
   "tooltip.energizedpower.weather_controller.btn.clear": "Установить ясную погоду",
   "tooltip.energizedpower.weather_controller.btn.rain": "Установить дождливую погоду",
   "tooltip.energizedpower.weather_controller.btn.thunder": "Установить грозовую погоду",
 
-  "block.energizedpower.time_controller": "Контроллер времени",
-  "item.energizedpower.time_controller": "Контроллер времени",
-  "container.energizedpower.time_controller": "Контроллер времени",
+  "_template.epcontainer.time_controller": "Контроллер времени",
 
   "tooltip.energizedpower.time_controller.btn.day": "Установить время на день",
   "tooltip.energizedpower.time_controller.btn.noon": "Установите время на полдень.",
   "tooltip.energizedpower.time_controller.btn.night": "Установите время на ночь",
   "tooltip.energizedpower.time_controller.btn.midnight": "Установите время на полночь.",
 
-  "block.energizedpower.teleporter": "Телепорт",
-  "item.energizedpower.teleporter": "Телепорт",
-  "container.energizedpower.teleporter": "Телепорт",
+  "_template.epcontainer.teleporter": "Телепорт",
 
   "tooltip.energizedpower.teleporter.txt.shift.1": "Нажмите [%s], находясь над телепортом, чтобы телепортироваться.",
   "tooltip.energizedpower.teleporter.txt.shift.2": "Телепортацию игроков также можно вызвать с помощью красного камня.",
@@ -777,17 +585,13 @@
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Телепортация из измерения типа \"%s\" отключена!",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Телепортация в измерение типа \"%s\" отключена!",
 
-  "block.energizedpower.basic_machine_frame": "Базовый машинный корпус",
-  "item.energizedpower.basic_machine_frame": "Базовый машинный корпус",
+  "_template.epblock.basic_machine_frame": "Базовый машинный корпус",
 
-  "block.energizedpower.hardened_machine_frame": "Тяжелый машинный корпус",
-  "item.energizedpower.hardened_machine_frame": "Тяжелый машинный корпус",
+  "_template.epblock.hardened_machine_frame": "Тяжелый машинный корпус",
 
-  "block.energizedpower.advanced_machine_frame": "Продвинутый машинный корпус",
-  "item.energizedpower.advanced_machine_frame": "Продвинутый машинный корпус",
+  "_template.epblock.advanced_machine_frame": "Продвинутый машинный корпус",
 
-  "block.energizedpower.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
-  "item.energizedpower.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
+  "_template.epblock.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
 
   "fluid_type.energizedpower.dirty_water": "Грязная вода",
   "fluid_type.energizedpower.liquid_xp": "Liquid XP",

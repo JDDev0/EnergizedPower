@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-06T15:29:17.064586605	Recipes
+// 1.21.1	2026-07-06T15:35:31.177379341	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -622,8 +622,6 @@ ac68f1d1109571eae340a570c0e1890d786b13ae data/energizedpower/recipe/fluid_transp
 7d7af6c98171d4559a6a5a2691a18ca3acfebac3 data/energizedpower/recipe/fluid_transposer/wet_sponge.json
 674702a25e37753d5976aee90f496a8bf7068842 data/energizedpower/recipe/fluid_transposer/white_concrete.json
 c1f9d51a9204186c3cf1ad8d18a859635447974c data/energizedpower/recipe/fluid_transposer/yellow_concrete.json
-d9aaa392dd4da23aa6b04fdcc172e507934721bd data/energizedpower/recipe/growing/1_from_growing_2.json
-7c32e6ef88515f8234b81d6aa8b176ca9ef120c0 data/energizedpower/recipe/growing/2_from_growing_3.json
 c501bc8c078c1eac362053d13abd29db3b1919f5 data/energizedpower/recipe/growing/alliums_from_growing_allium.json
 dbcb6eabab74efc99800a2ba1317c3cadc893d9f data/energizedpower/recipe/growing/azure_bluets_from_growing_azure_bluet.json
 b11b8eee4d237c69d023353862868714269c09cf data/energizedpower/recipe/growing/bamboo_from_growing_bamboo.json

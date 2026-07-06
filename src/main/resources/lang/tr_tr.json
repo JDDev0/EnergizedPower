@@ -213,63 +213,46 @@
   "item.energizedpower.battery_box_minecart": "Batarya Kutusuyla Maden Arabası",
   "item.energizedpower.advanced_battery_box_minecart": "Batarya Bloğuyla Maden Arabası",
 
-  "block.energizedpower.silicon_block": "Silikon Bloğu",
-  "item.energizedpower.silicon_block": "Silikon Bloğu",
+  "_template.epblock.silicon_block": "Silikon Bloğu",
 
-  "block.energizedpower.tin_block": "Kalay Bloğu",
-  "item.energizedpower.tin_block": "Kalay Bloğu",
+  "_template.epblock.tin_block": "Kalay Bloğu",
 
-  "block.energizedpower.steel_block": "Block of Steel",
-  "item.energizedpower.steel_block": "Block of Steel",
+  "_template.epblock.steel_block": "Block of Steel",
 
-  "block.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
-  "item.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
+  "_template.epblock.advanced_alloy_block": "Block of Advanced Alloy",
 
-  "block.energizedpower.sawdust_block": "Talaş Bloğu",
-  "item.energizedpower.sawdust_block": "Talaş Bloğu",
+  "_template.epblock.sawdust_block": "Talaş Bloğu",
 
-  "block.energizedpower.tin_ore": "Kalay Madeni",
-  "item.energizedpower.tin_ore": "Kalay Madeni",
+  "_template.epblock.tin_ore": "Kalay Madeni",
 
-  "block.energizedpower.deepslate_tin_ore": "Derinkayrak Kalay Madeni",
-  "item.energizedpower.deepslate_tin_ore": "Derinkayrak Kalay Madeni",
+  "_template.epblock.deepslate_tin_ore": "Derinkayrak Kalay Madeni",
 
-  "block.energizedpower.raw_tin_block": "Ham Kalay Bloğu",
-  "item.energizedpower.raw_tin_block": "Ham Kalay Bloğu",
+  "_template.epblock.raw_tin_block": "Ham Kalay Bloğu",
 
-  "block.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
-  "item.energizedpower.item_conveyor_belt": "Basic Item Conveyor Belt",
+  "_template.epblock.item_conveyor_belt": "Basic Item Conveyor Belt",
 
-  "block.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
-  "item.energizedpower.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
+  "_template.epblock.fast_item_conveyor_belt": "Fast Item Conveyor Belt",
 
-  "block.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
-  "item.energizedpower.express_item_conveyor_belt": "Express Item Conveyor Belt",
+  "_template.epblock.express_item_conveyor_belt": "Express Item Conveyor Belt",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Eğim şuna ayarlandı %s.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
-  "item.energizedpower.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
+  "_template.epblock.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
   "container.energizedpower.item_conveyor_belt_loader": "Basic Conveyor Belt Loader",
 
-  "block.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
-  "item.energizedpower.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
+  "_template.epblock.fast_item_conveyor_belt_loader": "Fast Item Conveyor Belt Loader",
   "container.energizedpower.fast_item_conveyor_belt_loader": "Fast Conveyor Belt Loader",
 
-  "block.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
-  "item.energizedpower.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
+  "_template.epblock.express_item_conveyor_belt_loader": "Express Item Conveyor Belt Loader",
   "container.energizedpower.express_item_conveyor_belt_loader": "Express Conveyor Belt Loader",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
-  "item.energizedpower.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
+  "_template.epblock.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
   "container.energizedpower.item_conveyor_belt_sorter": "Basic Conveyor Belt Sorter",
 
-  "block.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
-  "item.energizedpower.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
+  "_template.epblock.fast_item_conveyor_belt_sorter": "Fast Item Conveyor Belt Sorter",
   "container.energizedpower.fast_item_conveyor_belt_sorter": "Fast Conveyor Belt Sorter",
 
-  "block.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
-  "item.energizedpower.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
+  "_template.epblock.express_item_conveyor_belt_sorter": "Express Item Conveyor Belt Sorter",
   "container.energizedpower.express_item_conveyor_belt_sorter": "Express Conveyor Belt Sorter",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Çıkış %d: Band bağlanmamış!",
@@ -278,68 +261,48 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Beyaz Liste",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Karaliste",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
-  "item.energizedpower.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
+  "_template.epblock.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
 
-  "block.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
-  "item.energizedpower.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
+  "_template.epblock.fast_item_conveyor_belt_switch": "Fast Item Conveyor Belt Switch",
 
-  "block.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
-  "item.energizedpower.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
+  "_template.epblock.express_item_conveyor_belt_switch": "Express Item Conveyor Belt Switch",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
-  "item.energizedpower.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
+  "_template.epblock.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
 
-  "block.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
-  "item.energizedpower.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
+  "_template.epblock.fast_item_conveyor_belt_splitter": "Fast Item Conveyor Belt Splitter",
 
-  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
-  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
+  "_template.epblock.express_item_conveyor_belt_splitter": "Express Item Conveyor Belt Splitter",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
-  "item.energizedpower.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
+  "_template.epblock.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
 
-  "block.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
-  "item.energizedpower.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
+  "_template.epblock.fast_item_conveyor_belt_merger": "Fast Item Conveyor Belt Merger",
 
-  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
-  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
+  "_template.epblock.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
 
-  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
-  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 
-  "block.energizedpower.fluid_pipe": "Iron Fluid Pipe",
-  "item.energizedpower.fluid_pipe": "Iron Fluid Pipe",
+  "_template.epblock.fluid_pipe": "Iron Fluid Pipe",
 
-  "block.energizedpower.golden_fluid_pipe": "Altın Boru",
-  "item.energizedpower.golden_fluid_pipe": "Altın Boru",
+  "_template.epblock.golden_fluid_pipe": "Altın Boru",
 
-  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
-  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "_template.epblock.steel_fluid_pipe": "Steel Fluid Pipe",
 
-  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
-  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "_template.epblock.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Max extraction per extractor face: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Yüzün bağlantı tipi (%s) şuna ayarlandı %s.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Yüzün bağlantı tipi (%s) değiştirilemez!.",
 
-  "block.energizedpower.press_mold_maker": "Pres Kalıbı Yapıcı",
-  "item.energizedpower.press_mold_maker": "Pres Kalıbı Yapıcı",
-  "container.energizedpower.press_mold_maker": "Pres Kablıbı Yapıcı",
+  "_template.epcontainer.press_mold_maker": "Pres Kalıbı Yapıcı",
 
   "tooltip.energizedpower.press_mold_maker.btn.up": "Yukarı Kaydır",
   "tooltip.energizedpower.press_mold_maker.btn.down": "Aşağı İndir",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Gerektirir %dx %s",
 
-  "block.energizedpower.alloy_furnace": "Alloy Furnace",
-  "item.energizedpower.alloy_furnace": "Alloy Furnace",
-  "container.energizedpower.alloy_furnace": "Alloy Furnace",
+  "_template.epcontainer.alloy_furnace": "Alloy Furnace",
 
-  "block.energizedpower.auto_crafter": "Otomatik Eşya Yapıcı",
-  "item.energizedpower.auto_crafter": "Otomatik Eşya Yapıcı",
-  "container.energizedpower.auto_crafter": "Eşya Yapıcı",
+  "_template.epcontainer.auto_crafter": "Otomatik Eşya Yapıcı",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "Bu blok şunu %s/t içerik başına kullanır .",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT'yi görmezden gel",
@@ -349,13 +312,9 @@
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Tarifler arası döngü?",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Tarif %d",
 
-  "block.energizedpower.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
-  "item.energizedpower.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
-  "container.energizedpower.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
+  "_template.epcontainer.advanced_auto_crafter": "Gelişmiş Otomatik Eşya Yapıcı",
 
-  "block.energizedpower.charger": "Şarj",
-  "item.energizedpower.charger": "Şarj",
-  "container.energizedpower.charger": "Sarj",
+  "_template.epcontainer.charger": "Şarj",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "Sarjlar Bakır Külçe yapımında kullanılabilir.",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "Ama kesinlikle Enerjici kullanmalısın,",
@@ -363,125 +322,73 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Bu eşya %s Full sarj olmayı gerektiriyor.",
 
-  "block.energizedpower.advanced_charger": "Gelişmiş Sarj",
-  "item.energizedpower.advanced_charger": "Gelişmiş Şarj",
-  "container.energizedpower.advanced_charger": "Gelişmiş Şarj",
+  "_template.epcontainer.advanced_charger": "Gelişmiş Sarj",
 
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Bu eşyalar %s Full şarj olmayı gerektiyor.",
 
-  "block.energizedpower.uncharger": "Sarj Etmez",
-  "item.energizedpower.uncharger": "Şarj Etmez",
-  "container.energizedpower.uncharger": "Şarj Etmez",
+  "_template.epcontainer.uncharger": "Sarj Etmez",
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "Bu eşya %s kaldı.",
 
-  "block.energizedpower.advanced_uncharger": "Gelişmiş Şarj Etmez",
-  "item.energizedpower.advanced_uncharger": "Gelişmiş Şarj Etmez",
-  "container.energizedpower.advanced_uncharger": "Gelişmiş Şarj Etmez",
+  "_template.epcontainer.advanced_uncharger": "Gelişmiş Şarj Etmez",
 
   "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "Bu eşyalarda %s kaldı.",
 
-  "block.energizedpower.minecart_charger": "Maden Arabası Şarjı",
-  "item.energizedpower.minecart_charger": "Maden Arabası Şarjı",
-  "container.energizedpower.minecart_charger": "Maden Arabası Şarjı",
+  "_template.epcontainer.minecart_charger": "Maden Arabası Şarjı",
 
-  "block.energizedpower.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
-  "item.energizedpower.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
-  "container.energizedpower.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
+  "_template.epcontainer.advanced_minecart_charger": "Gelişmiş Maden Arabası Şarjı",
 
-  "block.energizedpower.minecart_uncharger": "Maden Arabası Şarj Etmez",
-  "item.energizedpower.minecart_uncharger": "Maden Arabası Şarj Etmez",
-  "container.energizedpower.minecart_uncharger": "Maden Arabası Şarj Etmez",
+  "_template.epcontainer.minecart_uncharger": "Maden Arabası Şarj Etmez",
 
-  "block.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
-  "item.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
-  "container.energizedpower.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
+  "_template.epcontainer.advanced_minecart_uncharger": "Gelişmiş Maden Arabası Şarj Etmez",
 
-  "block.energizedpower.tin_cable": "Kalay Kablo",
-  "item.energizedpower.tin_cable": "Kalay Kablo",
+  "_template.epblock.tin_cable": "Kalay Kablo",
 
-  "block.energizedpower.copper_cable": "Bakır Kablo",
-  "item.energizedpower.copper_cable": "Bakır Kablo",
+  "_template.epblock.copper_cable": "Bakır Kablo",
 
-  "block.energizedpower.gold_cable": "Altın Kablo",
-  "item.energizedpower.gold_cable": "Altın Kablo",
+  "_template.epblock.gold_cable": "Altın Kablo",
 
-  "block.energizedpower.energized_copper_cable": "Enerjilendirilmiş Bakır Kablo",
-  "item.energizedpower.energized_copper_cable": "Enerjilendirilmiş Bakır Kablo",
+  "_template.epblock.energized_copper_cable": "Enerjilendirilmiş Bakır Kablo",
 
-  "block.energizedpower.energized_gold_cable": "Enerjilendirilmiş Altın Kablo",
-  "item.energizedpower.energized_gold_cable": "Enerjilendirilmiş Altın Kablo",
+  "_template.epblock.energized_gold_cable": "Enerjilendirilmiş Altın Kablo",
 
-  "block.energizedpower.energized_crystal_matrix_cable": "Enerjilendirilmiş Matrix Kablo",
-  "item.energizedpower.energized_crystal_matrix_cable": "Enerjilendirilmil Matrix Kablo",
+  "_template.epblock.energized_crystal_matrix_cable": "Enerjilendirilmiş Matrix Kablo",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Bu kablo şu kadar trans edebilir %s/t.",
   "tooltip.energizedpower.cable.txt.shift.2": "Cutters can be used to break cables faster.",
 
 
-  "block.energizedpower.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
-  "item.energizedpower.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
-  "container.energizedpower.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
+  "_template.epcontainer.lv_transformer_1_to_n": "LV Dönüştürücü (1 den n)",
 
-  "block.energizedpower.lv_transformer_3_to_3": "LV Dönüştürücü (3 den 3)",
-  "item.energizedpower.lv_transformer_3_to_3": "LV Dönüştürücü (3 den 3)",
-  "container.energizedpower.lv_transformer_3_to_3": "LV Dönüştürücü (3 den 3)",
+  "_template.epcontainer.lv_transformer_3_to_3": "LV Dönüştürücü (3 den 3)",
 
-  "block.energizedpower.lv_transformer_n_to_1": "LV Transformer (n den 1)",
-  "item.energizedpower.lv_transformer_n_to_1": "LV Transformer (n den 1)",
-  "container.energizedpower.lv_transformer_n_to_1": "LV Transformer (n den 1)",
+  "_template.epcontainer.lv_transformer_n_to_1": "LV Transformer (n den 1)",
 
-  "block.energizedpower.transformer_1_to_n": "MV Dönüştürücü (1 den n)",
-  "item.energizedpower.transformer_1_to_n": "MV Dönüştürücü (1 to n)",
-  "container.energizedpower.transformer_1_to_n": "MV Dönüştürücü (1 to n)",
+  "_template.epcontainer.transformer_1_to_n": "MV Dönüştürücü (1 den n)",
 
-  "block.energizedpower.transformer_3_to_3": "MV Dönüştürücü (3 den 3)",
-  "item.energizedpower.transformer_3_to_3": "MV Dönüştürücü (3 den 3)",
-  "container.energizedpower.transformer_3_to_3": "MV Dönüştürücü (3 den 3)",
+  "_template.epcontainer.transformer_3_to_3": "MV Dönüştürücü (3 den 3)",
 
-  "block.energizedpower.transformer_n_to_1": "MV Dönüştürücü (n den 1)",
-  "item.energizedpower.transformer_n_to_1": "MV Dönüştürücü (n den 1)",
-  "container.energizedpower.transformer_n_to_1": "MV Dönüştürücü (n den 1)",
+  "_template.epcontainer.transformer_n_to_1": "MV Dönüştürücü (n den 1)",
 
-  "block.energizedpower.hv_transformer_1_to_n": "HV Dönüştürücü (1 den n)",
-  "item.energizedpower.hv_transformer_1_to_n": "HV Dönüştürücü (1 den n)",
-  "container.energizedpower.hv_transformer_1_to_n": "HV Dönüştürücü (1 den n)",
+  "_template.epcontainer.hv_transformer_1_to_n": "HV Dönüştürücü (1 den n)",
 
-  "block.energizedpower.hv_transformer_3_to_3": "HV Dönüştürücü (3 den 3)",
-  "item.energizedpower.hv_transformer_3_to_3": "HV Dönüştürücü (3 den 3)",
-  "container.energizedpower.hv_transformer_3_to_3": "HV Dönüştürücü (3 den 3)",
+  "_template.epcontainer.hv_transformer_3_to_3": "HV Dönüştürücü (3 den 3)",
 
-  "block.energizedpower.hv_transformer_n_to_1": "HV Dönüştürücü (n den 1)",
-  "item.energizedpower.hv_transformer_n_to_1": "HV Dönüştürücü (n den 1)",
-  "container.energizedpower.hv_transformer_n_to_1": "HV Dönüştürücü (n den 1)",
+  "_template.epcontainer.hv_transformer_n_to_1": "HV Dönüştürücü (n den 1)",
 
-  "block.energizedpower.ehv_transformer_1_to_n": "EHV Dönüştürücü (1 den n)",
-  "item.energizedpower.ehv_transformer_1_to_n": "EHV Dönüştürücü (1 den n)",
-  "container.energizedpower.ehv_transformer_1_to_n": "EHV Dönüştürücü (1 den n)",
+  "_template.epcontainer.ehv_transformer_1_to_n": "EHV Dönüştürücü (1 den n)",
 
-  "block.energizedpower.ehv_transformer_3_to_3": "EHV Dönüştürücü (3 den 3)",
-  "item.energizedpower.ehv_transformer_3_to_3": "EHV Dönüştürücü (3 den 3)",
-  "container.energizedpower.ehv_transformer_3_to_3": "EHV Dönüştürücü (3 den 3)",
+  "_template.epcontainer.ehv_transformer_3_to_3": "EHV Dönüştürücü (3 den 3)",
 
-  "block.energizedpower.ehv_transformer_n_to_1": "EHV Dönüştürücü (n den 1)",
-  "item.energizedpower.ehv_transformer_n_to_1": "EHV Dönüştürücü (n den 1)",
-  "container.energizedpower.ehv_transformer_n_to_1": "EHV Dönüştürücü (n den 1)",
+  "_template.epcontainer.ehv_transformer_n_to_1": "EHV Dönüştürücü (n den 1)",
 
-  "block.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
-  "item.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
-  "container.energizedpower.configurable_lv_transformer": "Configurable LV Transformer",
+  "_template.epcontainer.configurable_lv_transformer": "Configurable LV Transformer",
 
-  "block.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
-  "item.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
-  "container.energizedpower.configurable_mv_transformer": "Configurable MV Transformer",
+  "_template.epcontainer.configurable_mv_transformer": "Configurable MV Transformer",
 
-  "block.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
-  "item.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
-  "container.energizedpower.configurable_hv_transformer": "Configurable HV Transformer",
+  "_template.epcontainer.configurable_hv_transformer": "Configurable HV Transformer",
 
-  "block.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
-  "item.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
-  "container.energizedpower.configurable_ehv_transformer": "Configurable EHV Transformer",
+  "_template.epcontainer.configurable_ehv_transformer": "Configurable EHV Transformer",
 
   "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Connection type of face (%s) was set to %s.",
 
@@ -489,17 +396,11 @@
   "tooltip.energizedpower.transformer.txt.shift.2": "Büyük,siyah,elmas şekilli şeyler giriştir.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Küçük,parlak,kare şekilli şeyler çıkıştır.",
 
-  "block.energizedpower.battery_box": "Batarya Kutusu",
-  "item.energizedpower.battery_box": "Batarya Kutusu",
-  "container.energizedpower.battery_box": "Batarya Kutusu",
+  "_template.epcontainer.battery_box": "Batarya Kutusu",
 
-  "block.energizedpower.advanced_battery_box": "Gelişmiş Batarya Kutusu",
-  "item.energizedpower.advanced_battery_box": "Gelişmiş Batarya Kutusu",
-  "container.energizedpower.advanced_battery_box": "Gelişmiş Batarya Kutusu",
+  "_template.epcontainer.advanced_battery_box": "Gelişmiş Batarya Kutusu",
 
-  "block.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
-  "item.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
-  "container.energizedpower.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
+  "_template.epcontainer.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
 
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energy Consumption",
@@ -510,137 +411,84 @@
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Bu blok şuna kadar üretir %s/t.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "Verimlilik şuan ki zamana bağlıdır",
 
-  "block.energizedpower.coal_engine": "Kömür Motoru",
-  "item.energizedpower.coal_engine": "Kömür Motoru",
-  "container.energizedpower.coal_engine": "Kömür Motoru",
+  "_template.epcontainer.coal_engine": "Kömür Motoru",
 
   "tooltip.energizedpower.coal_engine.txt": "Bu eşyalar  %s yanana kadar enerji üretir",
 
-  "block.energizedpower.heat_generator": "Isı Jenaratörü",
-  "item.energizedpower.heat_generator": "Isı Jenaratörü",
-  "container.energizedpower.heat_generator": "Isı Jenaratörü",
+  "_template.epcontainer.heat_generator": "Isı Jenaratörü",
 
-  "block.energizedpower.thermal_generator": "Termal Jenaratör",
-  "item.energizedpower.thermal_generator": "Termal Jenaratör",
-  "container.energizedpower.thermal_generator": "Termal Jeneratör",
+  "_template.epcontainer.thermal_generator": "Termal Jenaratör",
 
   "tooltip.energizedpower.thermal_generator.txt": "Bu sıvı  %s sıfırı tüketene kadar enerji üretir",
 
-  "block.energizedpower.powered_lamp": "Elektirikli Ampul",
-  "item.energizedpower.powered_lamp": "Elektrikli Ampul",
+  "_template.epblock.powered_lamp": "Elektirikli Ampul",
 
-  "block.energizedpower.powered_furnace": "Elektirikli Fırın",
-  "item.energizedpower.powered_furnace": "Elektirikli Fırın",
-  "container.energizedpower.powered_furnace": "Elektrikli Fırın",
+  "_template.epcontainer.powered_furnace": "Elektirikli Fırın",
 
-  "block.energizedpower.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
-  "item.energizedpower.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
-  "container.energizedpower.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
+  "_template.epcontainer.advanced_powered_furnace": "Gelişmiş Elektrikli Fırın",
 
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Bu tarif bitirelbirmek için şu kadar gerektirir. %s",
 
-  "block.energizedpower.crusher": "Ezici",
-  "item.energizedpower.crusher": "Ezici",
-  "container.energizedpower.crusher": "Ezici",
+  "_template.epcontainer.crusher": "Ezici",
 
-  "block.energizedpower.advanced_crusher": "Advanced Crusher",
-  "item.energizedpower.advanced_crusher": "Advanced Crusher",
-  "container.energizedpower.advanced_crusher": "Advanced Crusher",
+  "_template.epcontainer.advanced_crusher": "Advanced Crusher",
 
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "This machine consumes Water and produces Dirty Water.",
 
-  "block.energizedpower.pulverizer": "Pulverizatör",
-  "item.energizedpower.pulverizer": "Pulverizatör",
-  "container.energizedpower.pulverizer": "Pulverizatör",
+  "_template.epcontainer.pulverizer": "Pulverizatör",
 
-  "block.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizatör",
-  "item.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizatör",
-  "container.energizedpower.advanced_pulverizer": "Gelişmiş Pulverizatör",
+  "_template.epcontainer.advanced_pulverizer": "Gelişmiş Pulverizatör",
 
   "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Bu makine su tüketir ve sonucunda kirli su çıkartır.",
 
-  "block.energizedpower.sawmill": "Odun Testersi",
-  "item.energizedpower.sawmill": "Odun Testeresi",
-  "container.energizedpower.sawmill": "Odun Testerisi",
+  "_template.epcontainer.sawmill": "Odun Testersi",
 
-  "block.energizedpower.compressor": "Kompresör",
-  "item.energizedpower.compressor": "Kompresör",
-  "container.energizedpower.compressor": "Kompresör",
+  "_template.epcontainer.compressor": "Kompresör",
 
-  "block.energizedpower.metal_press": "Metal Pres",
-  "item.energizedpower.metal_press": "Metal Pres",
-  "container.energizedpower.metal_press": "Metal Pres",
+  "_template.epcontainer.metal_press": "Metal Pres",
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Pres Kalıpları,Pres Kalıbı üreticisinde üretilebilir.",
 
-  "block.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
-  "item.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
-  "container.energizedpower.auto_press_mold_maker": "Auto Press Mold Maker",
+  "_template.epcontainer.auto_press_mold_maker": "Auto Press Mold Maker",
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Shovel is missing!",
 
-  "block.energizedpower.auto_stonecutter": "Auto Stonecutter",
-  "item.energizedpower.auto_stonecutter": "Auto Stonecutter",
-  "container.energizedpower.auto_stonecutter": "Auto Stonecutter",
+  "_template.epcontainer.auto_stonecutter": "Auto Stonecutter",
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Pickaxe is missing!",
 
-  "block.energizedpower.assembling_machine": "Birleştirme Makinası",
-  "item.energizedpower.assembling_machine": "Birleştirme Makinası",
-  "container.energizedpower.assembling_machine": "Birleştirme Makinası",
+  "_template.epcontainer.assembling_machine": "Birleştirme Makinası",
 
-  "block.energizedpower.induction_smelter": "Induction Smelter",
-  "item.energizedpower.induction_smelter": "Induction Smelter",
-  "container.energizedpower.induction_smelter": "Induction Smelter",
+  "_template.epcontainer.induction_smelter": "Induction Smelter",
 
-  "block.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
-  "item.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
-  "container.energizedpower.plant_growth_chamber": "Bitki Büyütme Çemberi",
+  "_template.epcontainer.plant_growth_chamber": "Bitki Büyütme Çemberi",
 
-  "block.energizedpower.fluid_freezer": "Fluid Freezer",
-  "item.energizedpower.fluid_freezer": "Fluid Freezer",
-  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+  "_template.epcontainer.fluid_freezer": "Fluid Freezer",
 
-  "block.energizedpower.stone_liquefier": "Stone Liquefier",
-  "item.energizedpower.stone_liquefier": "Stone Liquefier",
-  "container.energizedpower.stone_liquefier": "Stone Liquefier",
+  "_template.epcontainer.stone_liquefier": "Stone Liquefier",
 
-  "block.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
-  "item.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
-  "container.energizedpower.stone_solidifier": "Taş Katılaştırıcı",
+  "_template.epcontainer.stone_solidifier": "Taş Katılaştırıcı",
 
-  "block.energizedpower.filtration_plant": "Filtreleme Merkezi",
-  "item.energizedpower.filtration_plant": "Filtreleme Merkezi",
-  "container.energizedpower.filtration_plant": "Filtreleme Merkezi",
+  "_template.epcontainer.filtration_plant": "Filtreleme Merkezi",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Bu blok odunkömürü filterisi gerektirir.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Charcoal Filter is missing!",
 
-  "block.energizedpower.fluid_transposer": "Fluid Transposer",
-  "item.energizedpower.fluid_transposer": "Fluid Transposer",
-  "container.energizedpower.fluid_transposer": "Fluid Transposer",
+  "_template.epcontainer.fluid_transposer": "Fluid Transposer",
 
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "Mode: Emptying",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "Mode: Filling",
 
-  "block.energizedpower.block_placer": "Block Yerleştirici",
-  "item.energizedpower.block_placer": "Block Yerleştirici",
-  "container.energizedpower.block_placer": "Block Yerleştirici",
+  "_template.epcontainer.block_placer": "Block Yerleştirici",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Bu blok hayla koymak için %s gerektiyor.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Ters Rotasyon",
 
-  "block.energizedpower.fluid_tank_small": "Sıvı Tankı ( Minik )",
-  "item.energizedpower.fluid_tank_small": "Sıvı Tankı ( Minik )",
-  "container.energizedpower.fluid_tank_small": "Sıvı Tankı ( Minik )",
+  "_template.epcontainer.fluid_tank_small": "Sıvı Tankı ( Minik )",
 
-  "block.energizedpower.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
-  "item.energizedpower.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
-  "container.energizedpower.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
+  "_template.epcontainer.fluid_tank_medium": "Sıvı Tankı ( Ortalama )",
 
-  "block.energizedpower.fluid_tank_large": "Sıvı Tankı ( Büyük )",
-  "item.energizedpower.fluid_tank_large": "Sıvı Tankı ( Büyük )",
-  "container.energizedpower.fluid_tank_large": "Sıvı TANKI ( Büyük )",
+  "_template.epcontainer.fluid_tank_large": "Sıvı Tankı ( Büyük )",
 
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBT'yi yoksay",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Filtre Seçilmemiş",
@@ -648,53 +496,31 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Filtreyi ayarlamak için sıvı içeren bir bloğa sol-tıklayın.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Filteryi kapamak için bloğu seçmeden sol tık yapın.",
 
-  "block.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
-  "item.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
-  "container.energizedpower.creative_fluid_tank": "Creative Fluid Tank",
+  "_template.epcontainer.creative_fluid_tank": "Creative Fluid Tank",
 
-  "block.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
-  "item.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
-  "container.energizedpower.item_silo_tiny": "Item Silo (Tiny)",
+  "_template.epcontainer.item_silo_tiny": "Item Silo (Tiny)",
 
-  "block.energizedpower.item_silo_small": "Item Silo (Small)",
-  "item.energizedpower.item_silo_small": "Item Silo (Small)",
-  "container.energizedpower.item_silo_small": "Item Silo (Small)",
+  "_template.epcontainer.item_silo_small": "Item Silo (Small)",
 
-  "block.energizedpower.item_silo_medium": "Item Silo (Medium)",
-  "item.energizedpower.item_silo_medium": "Item Silo (Medium)",
-  "container.energizedpower.item_silo_medium": "Item Silo (Medium)",
+  "_template.epcontainer.item_silo_medium": "Item Silo (Medium)",
 
-  "block.energizedpower.item_silo_large": "Item Silo (Large)",
-  "item.energizedpower.item_silo_large": "Item Silo (Large)",
-  "container.energizedpower.item_silo_large": "Item Silo (Large)",
+  "_template.epcontainer.item_silo_large": "Item Silo (Large)",
 
-  "block.energizedpower.item_silo_giant": "Item Silo (Giant)",
-  "item.energizedpower.item_silo_giant": "Item Silo (Giant)",
-  "container.energizedpower.item_silo_giant": "Item Silo (Giant)",
+  "_template.epcontainer.item_silo_giant": "Item Silo (Giant)",
 
   "tooltip.energizedpower.item_silo.txt.shift": "Item silos can only be loaded and unloaded with hoppers, belts, and other means of automatic item transport.",
   "tooltip.energizedpower.item_silo_capacity.txt": "Capacity: %d stacks",
   "tooltip.energizedpower.item_silo.amount": "%d / %d items",
 
-  "block.energizedpower.creative_item_silo": "Creative Item Silo",
-  "item.energizedpower.creative_item_silo": "Creative Item Silo",
-  "container.energizedpower.creative_item_silo": "Creative Item Silo",
+  "_template.epcontainer.creative_item_silo": "Creative Item Silo",
 
-  "block.energizedpower.fluid_filler": "Sıvı Doldurucu",
-  "item.energizedpower.fluid_filler": "Sıvı Doldurucu",
-  "container.energizedpower.fluid_filler": "Sıvı Doldurucu",
+  "_template.epcontainer.fluid_filler": "Sıvı Doldurucu",
 
-  "block.energizedpower.fluid_drainer": "Sıvı Çekici",
-  "item.energizedpower.fluid_drainer": "Sıvı Çekici",
-  "container.energizedpower.fluid_drainer": "Sıvı Çekici",
+  "_template.epcontainer.fluid_drainer": "Sıvı Çekici",
 
-  "block.energizedpower.fluid_pump": "Fluid Pump",
-  "item.energizedpower.fluid_pump": "Fluid Pump",
-  "container.energizedpower.fluid_pump": "Fluid Pump",
+  "_template.epcontainer.fluid_pump": "Fluid Pump",
 
-  "block.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
-  "item.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
-  "container.energizedpower.advanced_fluid_pump": "Advanced Fluid Pump",
+  "_template.epcontainer.advanced_fluid_pump": "Advanced Fluid Pump",
 
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "This process still needs %s to be finished.",
   "tooltip.energizedpower.fluid_pump.target": "Target: %d, %d, %d",
@@ -702,59 +528,41 @@
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Cobblestone is missing!",
   "tooltip.energizedpower.fluid_pump.extracting": "Extracting: %s",
 
-  "block.energizedpower.drain": "Gider",
-  "item.energizedpower.drain": "Gider",
-  "container.energizedpower.drain": "Gider",
+  "_template.epcontainer.drain": "Gider",
 
   "tooltip.energizedpower.drain.txt.shift": "Gider üzerindeki sıvı bloklarının sıvısını çeker.",
 
-  "block.energizedpower.xp_drain": "XP Drain",
-  "item.energizedpower.xp_drain": "XP Drain",
-  "container.energizedpower.xp_drain": "XP Drain",
+  "_template.epcontainer.xp_drain": "XP Drain",
 
   "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
 
-  "block.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
-  "item.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
-  "container.energizedpower.lightning_generator": "Yıldırım Jenaratörü",
+  "_template.epcontainer.lightning_generator": "Yıldırım Jenaratörü",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Bu blok %s yıldırım başına üretir.",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "Bir yıldırım bloğu çubuğu bunun üstüne koyulmalıdır yoksa işlevsiz olur",
 
-  "block.energizedpower.energizer": "Enerjileyici",
-  "item.energizedpower.energizer": "Enerjileyici",
-  "container.energizedpower.energizer": "Enerjileyici",
+  "_template.epcontainer.energizer": "Enerjileyici",
 
-  "block.energizedpower.charging_station": "Şarj İstasyonu",
-  "item.energizedpower.charging_station": "Şarj İstasyonu",
-  "container.energizedpower.charging_station": "Şarj İstasyonu",
+  "_template.epcontainer.charging_station": "Şarj İstasyonu",
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "Şarj istasyonu envater içindeki şarj edilebilir ürünleri şarj edebilir.",
 
-  "block.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
-  "item.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
-  "container.energizedpower.crystal_growth_chamber": "Crystal Growth Chamber",
+  "_template.epcontainer.crystal_growth_chamber": "Crystal Growth Chamber",
 
-  "block.energizedpower.weather_controller": "Hava Durumu Kontrolcüsü",
-  "item.energizedpower.weather_controller": "Hava Durumu Kontrolcüsü",
-  "container.energizedpower.weather_controller": "Hava Durumu Kontrolcüsü",
+  "_template.epcontainer.weather_controller": "Hava Durumu Kontrolcüsü",
 
   "tooltip.energizedpower.weather_controller.btn.clear": "Hava açık olarak değiştirildi",
   "tooltip.energizedpower.weather_controller.btn.rain": "Hava yağmurlu olarak değiştirildi",
   "tooltip.energizedpower.weather_controller.btn.thunder": "Hava Fırtına olarak değiştirildi",
 
-  "block.energizedpower.time_controller": "Zaman Kontrolcüsü",
-  "item.energizedpower.time_controller": "Zaman Kontrolcüsü",
-  "container.energizedpower.time_controller": "Zaman Kontrolcüsü",
+  "_template.epcontainer.time_controller": "Zaman Kontrolcüsü",
 
   "tooltip.energizedpower.time_controller.btn.day": "Saat gündüz yapıldı",
   "tooltip.energizedpower.time_controller.btn.noon": "Saat öğlen yapıldı",
   "tooltip.energizedpower.time_controller.btn.night": "Saat akşam yapıldı",
   "tooltip.energizedpower.time_controller.btn.midnight": "Saat gece yarısı yapıldı",
 
-  "block.energizedpower.teleporter": "Işınlayıcı",
-  "item.energizedpower.teleporter": "Işınlayıcı",
-  "container.energizedpower.teleporter": "Işınlayıcı",
+  "_template.epcontainer.teleporter": "Işınlayıcı",
 
   "tooltip.energizedpower.teleporter.txt.shift.1": "Işınlayıcının üstünde shifte basarak ışınlanın [%s].",
   "tooltip.energizedpower.teleporter.txt.shift.2": "Teleporteration of players can also be triggered with redstone.",
@@ -777,17 +585,13 @@
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Bir boyut tipinden başkasına ışınlanmak kapatılmış \"%s\"!",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Bir boyuttan diğerine ışınlanmak \"%s\" kapatılmış!",
 
-  "block.energizedpower.basic_machine_frame": "Basit Makina Çerçevesi",
-  "item.energizedpower.basic_machine_frame": "Basit Makina Çerçevesi",
+  "_template.epblock.basic_machine_frame": "Basit Makina Çerçevesi",
 
-  "block.energizedpower.hardened_machine_frame": "Sert Makina Çerçevesi",
-  "item.energizedpower.hardened_machine_frame": "Sert Makina Çerçevesi",
+  "_template.epblock.hardened_machine_frame": "Sert Makina Çerçevesi",
 
-  "block.energizedpower.advanced_machine_frame": "Gelişmiş Makina Çerçevesi",
-  "item.energizedpower.advanced_machine_frame": "Gelişmiş Maskina Çerçevesi",
+  "_template.epblock.advanced_machine_frame": "Gelişmiş Makina Çerçevesi",
 
-  "block.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
-  "item.energizedpower.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
+  "_template.epblock.reinforced_advanced_machine_frame": "Dahada güçlendirilmiş ve geliştirilmiş Makina Çerçevesi",
 
   "fluid_type.energizedpower.dirty_water": "Lağım Suyu",
   "fluid_type.energizedpower.liquid_xp": "Liquid XP",
