@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import me.jddev0.ep.soil.EPSoilTypeTags;
 import me.jddev0.ep.soil.EPSoilTypes;
 import me.jddev0.ep.soil.SoilType;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalFluidTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -3385,7 +3386,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(250)));
 
         addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), new ItemStack(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
-                new FluidStack(EPFluids.LIQUID_XP, 27000 /* droplets (= 333 mB + 27 droplets) */));
+                new FluidIngredientWithAmount(FluidIngredient.of(ConventionalFluidTags.EXPERIENCE), 27000 /* droplets (= 333 mB + 27 droplets) */));
     }
 
     private void buildChargerRecipes() {
@@ -4062,7 +4063,15 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(1000)));
     }
     private void addFluidTransposerRecipe(Ingredient input, ItemStack output,
-                                                 FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
+                                          FluidTransposerBlockEntity.Mode mode, FluidStack fluid) {
+        addFluidTransposerRecipe(input, output, mode, Either.left(fluid));
+    }
+    private void addFluidTransposerRecipe(Ingredient input, ItemStack output,
+                                          FluidTransposerBlockEntity.Mode mode, FluidIngredientWithAmount fluid) {
+        addFluidTransposerRecipe(input, output, mode, Either.right(fluid));
+    }
+    private void addFluidTransposerRecipe(Ingredient input, ItemStack output,
+                                          FluidTransposerBlockEntity.Mode mode, Either<FluidStack, FluidIngredientWithAmount> fluid) {
         ResourceLocation recipeId = EPAPI.id("fluid_transposer/" +
                 getItemName(output.getItem()));
 

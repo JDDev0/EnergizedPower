@@ -91,7 +91,7 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
 
                         outer:
                         for(RecipeHolder<HeatGeneratorRecipe> recipe:recipes) {
-                            if(recipe.value().getInput().matches(fluidState)) {
+                            if(recipe.value().getInput().test(fluidState)) {
                                 productionSum += recipe.value().getEnergyProduction();
 
                                 break outer;
@@ -137,7 +137,7 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
 
             outer:
             for(RecipeHolder<HeatGeneratorRecipe> recipe:recipes) {
-                if(recipe.value().getInput().matches(fluidState)) {
+                if(recipe.value().getInput().test(fluidState)) {
                     productionSum += recipe.value().getEnergyProduction();
 
                     break outer;

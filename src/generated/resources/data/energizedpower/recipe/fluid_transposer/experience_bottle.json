@@ -2,7 +2,7 @@
   "type": "energizedpower:fluid_transposer",
   "fluid": {
     "amount": 333,
-    "id": "energizedpower:liquid_xp",
+    "ingredient": "#c:experience",
     "leftoverDropletsAmount": 27
   },
   "ingredient": {
