@@ -7,32 +7,32 @@ import net.minecraft.world.level.block.Block;
 
 public final class ModTexturedModel {
     public static final TexturedModel.Provider ITEM_CONVEYOR_BELT_FLAT = TexturedModel.createDefault(ModTexturedModel::itemConveyorBelt,
-            ModModels.ITEM_CONVEYOR_BELT_FLAT_TEMPLATE);
+            ModModelTemplates.ITEM_CONVEYOR_BELT_FLAT_TEMPLATE);
     public static final TexturedModel.Provider ITEM_CONVEYOR_BELT_ASCENDING = TexturedModel.createDefault(ModTexturedModel::itemConveyorBelt,
-            ModModels.ITEM_CONVEYOR_BELT_ASCENDING_TEMPLATE);
+            ModModelTemplates.ITEM_CONVEYOR_BELT_ASCENDING_TEMPLATE);
     public static final TexturedModel.Provider ITEM_CONVEYOR_BELT_DESCENDING = TexturedModel.createDefault(ModTexturedModel::itemConveyorBelt,
-            ModModels.ITEM_CONVEYOR_BELT_DESCENDING_TEMPLATE);
+            ModModelTemplates.ITEM_CONVEYOR_BELT_DESCENDING_TEMPLATE);
 
     public static final TexturedModel.Provider FLUID_PIPE_CORE = TexturedModel.createDefault(ModTexturedModel::fluidPipeCore,
-            ModModels.FLUID_PIPE_CORE_TEMPLATE);
+            ModModelTemplates.FLUID_PIPE_CORE_TEMPLATE);
     public static final TexturedModel.Provider FLUID_PIPE_SIDE_CONNECTED = TexturedModel.createDefault(ModTexturedModel::fluidPipeSideConnected,
-            ModModels.FLUID_PIPE_SIDE_CONNECTED_TEMPLATE);
+            ModModelTemplates.FLUID_PIPE_SIDE_CONNECTED_TEMPLATE);
     public static final TexturedModel.Provider FLUID_PIPE_SIDE_EXTRACT = TexturedModel.createDefault(ModTexturedModel::fluidPipeSideExtracted,
-            ModModels.FLUID_PIPE_SIDE_EXTRACT_TEMPLATE);
+            ModModelTemplates.FLUID_PIPE_SIDE_EXTRACT_TEMPLATE);
 
     public static final TexturedModel.Provider FLUID_TANK = TexturedModel.createDefault(ModTexturedModel::fluidTank,
-            ModModels.FLUID_TANK_TEMPLATE);
+            ModModelTemplates.FLUID_TANK_TEMPLATE);
 
     public static final TexturedModel.Provider CABLE_CORE = TexturedModel.createDefault(ModTexturedModel::cableCore,
-            ModModels.CABLE_CORE_TEMPLATE);
+            ModModelTemplates.CABLE_CORE_TEMPLATE);
     public static final TexturedModel.Provider CABLE_SIDE = TexturedModel.createDefault(ModTexturedModel::cableSide,
-            ModModels.CABLE_SIDE_TEMPLATE);
+            ModModelTemplates.CABLE_SIDE_TEMPLATE);
 
     public static final TexturedModel.Provider SOLAR_PANEL = TexturedModel.createDefault(ModTexturedModel::solarPanel,
-            ModModels.SOLAR_PANEL_TEMPLATE);
+            ModModelTemplates.SOLAR_PANEL_TEMPLATE);
 
     public static final TexturedModel.Provider XP_DRAIN = TexturedModel.createDefault(ModTexturedModel::xpDrain,
-            ModModels.XP_DRAIN_TEMPLATE);
+            ModModelTemplates.XP_DRAIN_TEMPLATE);
 
     private ModTexturedModel() {}
 

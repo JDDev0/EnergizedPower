@@ -5,7 +5,7 @@ import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.TextureSlot;
 import java.util.Optional;
 
-public final class ModModels {
+public final class ModModelTemplates {
     public static final ModelTemplate ORIENTABLE_VERTICAL = block("orientable_vertical",
             TextureSlot.PARTICLE, TextureSlot.TOP, TextureSlot.BOTTOM, TextureSlot.FRONT, TextureSlot.SIDE);
     public static final ModelTemplate ORIENTABLE_VERTICAL_WITH_BACK = block("orientable_vertical_with_back",
@@ -42,7 +42,7 @@ public final class ModModels {
     public static final ModelTemplate SINGLE_SIDE = block("single_side",
             TextureSlot.PARTICLE, TextureSlot.SIDE);
 
-    private ModModels() {}
+    private ModModelTemplates() {}
 
     private static ModelTemplate block(String parent, TextureSlot ... requiredTextureKeys) {
         return new ModelTemplate(Optional.of(EPAPI.id("block/" + parent)), Optional.empty(), requiredTextureKeys);
