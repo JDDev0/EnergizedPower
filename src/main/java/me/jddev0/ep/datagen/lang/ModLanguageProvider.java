@@ -83,5 +83,22 @@ public class ModLanguageProvider extends ExtensionLanguageProvider {
             translationBuilder.add("item.energizedpower.solar_panel_" + tier, value);
             translationBuilder.add("container.energizedpower.solar_panel_" + tier, value);
         }
+
+        for(String templateTranslation:templateTranslations.keySet()) {
+            if(templateTranslation.startsWith("_template.epblock.")) {
+                String keySuffix = templateTranslation.substring("_template.epblock.".length());
+                String value = templateTranslations.get(templateTranslation);
+
+                translationBuilder.add("block.energizedpower." + keySuffix, value);
+                translationBuilder.add("item.energizedpower." + keySuffix, value);
+            }else if(templateTranslation.startsWith("_template.epcontainer.")) {
+                String keySuffix = templateTranslation.substring("_template.epcontainer.".length());
+                String value = templateTranslations.get(templateTranslation);
+
+                translationBuilder.add("block.energizedpower." + keySuffix, value);
+                translationBuilder.add("item.energizedpower." + keySuffix, value);
+                translationBuilder.add("container.energizedpower." + keySuffix, value);
+            }
+        }
     }
 }

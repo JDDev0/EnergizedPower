@@ -213,63 +213,46 @@
   "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
   "item.energizedpower.advanced_battery_box_minecart": "Fortgeschrittene Batterie-Box-Lore",
 
-  "block.energizedpower.silicon_block": "Siliziumblock",
-  "item.energizedpower.silicon_block": "Siliziumblock",
+  "_template.epblock.silicon_block": "Siliziumblock",
 
-  "block.energizedpower.tin_block": "Zinnblock",
-  "item.energizedpower.tin_block": "Zinnblock",
+  "_template.epblock.tin_block": "Zinnblock",
 
-  "block.energizedpower.steel_block": "Stahlblock",
-  "item.energizedpower.steel_block": "Stahlblock",
+  "_template.epblock.steel_block": "Stahlblock",
 
-  "block.energizedpower.advanced_alloy_block": "Fortgeschrittene Legierungsblock",
-  "item.energizedpower.advanced_alloy_block": "Fortgeschrittene Legierungsblock",
+  "_template.epblock.advanced_alloy_block": "Fortgeschrittene Legierungsblock",
 
-  "block.energizedpower.sawdust_block": "Sägemehlblock",
-  "item.energizedpower.sawdust_block": "Sägemehlblock",
+  "_template.epblock.sawdust_block": "Sägemehlblock",
 
-  "block.energizedpower.tin_ore": "Zinnerz",
-  "item.energizedpower.tin_ore": "Zinnerz",
+  "_template.epblock.tin_ore": "Zinnerz",
 
-  "block.energizedpower.deepslate_tin_ore": "Tiefenschiefer-Zinnerz",
-  "item.energizedpower.deepslate_tin_ore": "Tiefenschiefer-Zinnerz",
+  "_template.epblock.deepslate_tin_ore": "Tiefenschiefer-Zinnerz",
 
-  "block.energizedpower.raw_tin_block": "Rohzinnblock",
-  "item.energizedpower.raw_tin_block": "Rohzinnblock",
+  "_template.epblock.raw_tin_block": "Rohzinnblock",
 
-  "block.energizedpower.item_conveyor_belt": "Basis Item-Förderband",
-  "item.energizedpower.item_conveyor_belt": "Basis Item-Förderband",
+  "_template.epblock.item_conveyor_belt": "Basis Item-Förderband",
 
-  "block.energizedpower.fast_item_conveyor_belt": "Schnelles Item-Förderband",
-  "item.energizedpower.fast_item_conveyor_belt": "Schnelles Item-Förderband",
+  "_template.epblock.fast_item_conveyor_belt": "Schnelles Item-Förderband",
 
-  "block.energizedpower.express_item_conveyor_belt": "Express-Item-Förderband",
-  "item.energizedpower.express_item_conveyor_belt": "Express-Item-Förderband",
+  "_template.epblock.express_item_conveyor_belt": "Express-Item-Förderband",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "Steigung wurde zu %s gesetzt.",
 
-  "block.energizedpower.item_conveyor_belt_loader": "Basis Item-Förderband-Lader",
-  "item.energizedpower.item_conveyor_belt_loader": "Basis Item-Förderband-Lader",
+  "_template.epblock.item_conveyor_belt_loader": "Basis Item-Förderband-Lader",
   "container.energizedpower.item_conveyor_belt_loader": "Basis Förderband-Lader",
 
-  "block.energizedpower.fast_item_conveyor_belt_loader": "Schneller Item-Förderband-Lader",
-  "item.energizedpower.fast_item_conveyor_belt_loader": "Schneller Item-Förderband-Lader",
+  "_template.epblock.fast_item_conveyor_belt_loader": "Schneller Item-Förderband-Lader",
   "container.energizedpower.fast_item_conveyor_belt_loader": "Schneller Förderband-Lader",
 
-  "block.energizedpower.express_item_conveyor_belt_loader": "Express-Item-Förderband-Lader",
-  "item.energizedpower.express_item_conveyor_belt_loader": "Express-Item-Förderband-Lader",
+  "_template.epblock.express_item_conveyor_belt_loader": "Express-Item-Förderband-Lader",
   "container.energizedpower.express_item_conveyor_belt_loader": "Express-Förderband-Lader",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "Basis Item-Förderband-Sortierer",
-  "item.energizedpower.item_conveyor_belt_sorter": "Basis Item-Förderband-Sortierer",
+  "_template.epblock.item_conveyor_belt_sorter": "Basis Item-Förderband-Sortierer",
   "container.energizedpower.item_conveyor_belt_sorter": "Basis Förderband-Sortierer",
 
-  "block.energizedpower.fast_item_conveyor_belt_sorter": "Schneller Item-Förderband-Sortierer",
-  "item.energizedpower.fast_item_conveyor_belt_sorter": "Schneller Item-Förderband-Sortierer",
+  "_template.epblock.fast_item_conveyor_belt_sorter": "Schneller Item-Förderband-Sortierer",
   "container.energizedpower.fast_item_conveyor_belt_sorter": "Schneller Förderband-Sortierer",
 
-  "block.energizedpower.express_item_conveyor_belt_sorter": "Express-Item-Förderband-Sortierer",
-  "item.energizedpower.express_item_conveyor_belt_sorter": "Express-Item-Förderband-Sortierer",
+  "_template.epblock.express_item_conveyor_belt_sorter": "Express-Item-Förderband-Sortierer",
   "container.energizedpower.express_item_conveyor_belt_sorter": "Express-Förderband-Sortierer",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "Ausgang %d: Kein Förderband verbunden",
@@ -278,68 +261,48 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "Whitelist",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "Blacklist",
 
-  "block.energizedpower.item_conveyor_belt_switch": "Basis Item-Förderband-Schalter",
-  "item.energizedpower.item_conveyor_belt_switch": "Basis Item-Förderband-Schalter",
+  "_template.epblock.item_conveyor_belt_switch": "Basis Item-Förderband-Schalter",
 
-  "block.energizedpower.fast_item_conveyor_belt_switch": "Schneller Item-Förderband-Schalter",
-  "item.energizedpower.fast_item_conveyor_belt_switch": "Schneller Item-Förderband-Schalter",
+  "_template.epblock.fast_item_conveyor_belt_switch": "Schneller Item-Förderband-Schalter",
 
-  "block.energizedpower.express_item_conveyor_belt_switch": "Express-Item-Förderband-Schalter",
-  "item.energizedpower.express_item_conveyor_belt_switch": "Express-Item-Förderband-Schalter",
+  "_template.epblock.express_item_conveyor_belt_switch": "Express-Item-Förderband-Schalter",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "Basis Item-Förderband-Verteiler",
-  "item.energizedpower.item_conveyor_belt_splitter": "Basis Item-Förderband-Verteiler",
+  "_template.epblock.item_conveyor_belt_splitter": "Basis Item-Förderband-Verteiler",
 
-  "block.energizedpower.fast_item_conveyor_belt_splitter": "Schneller Item-Förderband-Verteiler",
-  "item.energizedpower.fast_item_conveyor_belt_splitter": "Schneller Item-Förderband-Verteiler",
+  "_template.epblock.fast_item_conveyor_belt_splitter": "Schneller Item-Förderband-Verteiler",
 
-  "block.energizedpower.express_item_conveyor_belt_splitter": "Express Item-Förderband-Verteiler",
-  "item.energizedpower.express_item_conveyor_belt_splitter": "Express Item-Förderband-Verteiler",
+  "_template.epblock.express_item_conveyor_belt_splitter": "Express Item-Förderband-Verteiler",
 
-  "block.energizedpower.item_conveyor_belt_merger": "Basis Item-Förderband-Vereiniger",
-  "item.energizedpower.item_conveyor_belt_merger": "Basis Item-Förderband-Vereiniger",
+  "_template.epblock.item_conveyor_belt_merger": "Basis Item-Förderband-Vereiniger",
 
-  "block.energizedpower.fast_item_conveyor_belt_merger": "Schneller Item-Förderband-Vereiniger",
-  "item.energizedpower.fast_item_conveyor_belt_merger": "Schneller Item-Förderband-Vereiniger",
+  "_template.epblock.fast_item_conveyor_belt_merger": "Schneller Item-Förderband-Vereiniger",
 
-  "block.energizedpower.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
-  "item.energizedpower.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
+  "_template.epblock.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
 
-  "block.energizedpower.copper_fluid_pipe": "Kupfer-Flüssigkeitsrohr",
-  "item.energizedpower.copper_fluid_pipe": "Kupfer-Flüssigkeitsrohr",
+  "_template.epblock.copper_fluid_pipe": "Kupfer-Flüssigkeitsrohr",
 
-  "block.energizedpower.fluid_pipe": "Eisen-Flüssigkeitsrohr",
-  "item.energizedpower.fluid_pipe": "Eisen-Flüssigkeitsrohr",
+  "_template.epblock.fluid_pipe": "Eisen-Flüssigkeitsrohr",
 
-  "block.energizedpower.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
-  "item.energizedpower.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
+  "_template.epblock.golden_fluid_pipe": "Gold-Flüssigkeitsrohr",
 
-  "block.energizedpower.steel_fluid_pipe": "Stahl-Flüssigkeitsrohr",
-  "item.energizedpower.steel_fluid_pipe": "Stahl-Flüssigkeitsrohr",
+  "_template.epblock.steel_fluid_pipe": "Stahl-Flüssigkeitsrohr",
 
-  "block.energizedpower.pressurized_fluid_pipe": "Druckleitungs-Flüssigkeitsrohr",
-  "item.energizedpower.pressurized_fluid_pipe": "Druckleitungs-Flüssigkeitsrohr",
+  "_template.epblock.pressurized_fluid_pipe": "Druckleitungs-Flüssigkeitsrohr",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Maximale Extraktion per Extraktions-Seite: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
 
-  "block.energizedpower.press_mold_maker": "Pressform-Hersteller",
-  "item.energizedpower.press_mold_maker": "Pressform-Hersteller",
-  "container.energizedpower.press_mold_maker": "Pressform-Hersteller",
+  "_template.epcontainer.press_mold_maker": "Pressform-Hersteller",
 
   "tooltip.energizedpower.press_mold_maker.btn.up": "Nach oben scrollen",
   "tooltip.energizedpower.press_mold_maker.btn.down": "Nach unten scrollen",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "Benötigt %dx %s",
 
-  "block.energizedpower.alloy_furnace": "Legierungsofen",
-  "item.energizedpower.alloy_furnace": "Legierungsofen",
-  "container.energizedpower.alloy_furnace": "Legierungsofen",
+  "_template.epcontainer.alloy_furnace": "Legierungsofen",
 
-  "block.energizedpower.auto_crafter": "Automatische Werkbank",
-  "item.energizedpower.auto_crafter": "Automatische Werkbank",
-  "container.energizedpower.auto_crafter": "Automatische Werkbank",
+  "_template.epcontainer.auto_crafter": "Automatische Werkbank",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "Dieser Block verbraucht %s/t pro Zutat.",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT ignorieren",
@@ -349,13 +312,9 @@
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "Rezepte durchlaufen",
   "tooltip.energizedpower.auto_crafter.recipe_index": "Rezept %d",
 
-  "block.energizedpower.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
-  "item.energizedpower.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
-  "container.energizedpower.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
+  "_template.epcontainer.advanced_auto_crafter": "Fortgeschrittene Automatische Werkbank",
 
-  "block.energizedpower.charger": "Lader",
-  "item.energizedpower.charger": "Lader",
-  "container.energizedpower.charger": "Lader",
+  "_template.epcontainer.charger": "Lader",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "Lader können Kupferbarren energetisieren.",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "Du solltest aber stattdessen den Energetisierer verwenden,",
@@ -363,125 +322,73 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "Dieses Item braucht noch %s, um vollständig geladen zu sein.",
 
-  "block.energizedpower.advanced_charger": "Fortgeschrittener Lader",
-  "item.energizedpower.advanced_charger": "Fortgeschrittener Lader",
-  "container.energizedpower.advanced_charger": "Fortgeschrittener Lader",
+  "_template.epcontainer.advanced_charger": "Fortgeschrittener Lader",
 
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "Diese Items brauchen noch %s, um vollständig geladen zu sein.",
 
-  "block.energizedpower.uncharger": "Entlader",
-  "item.energizedpower.uncharger": "Entlader",
-  "container.energizedpower.uncharger": "Entlader",
+  "_template.epcontainer.uncharger": "Entlader",
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "Dieses Item hat noch %s.",
 
-  "block.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
-  "item.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
-  "container.energizedpower.advanced_uncharger": "Fortgeschrittener Entlader",
+  "_template.epcontainer.advanced_uncharger": "Fortgeschrittener Entlader",
 
   "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "Diese Items haben noch %s.",
 
-  "block.energizedpower.minecart_charger": "Loren-Lader",
-  "item.energizedpower.minecart_charger": "Loren-Lader",
-  "container.energizedpower.minecart_charger": "Loren-Lader",
+  "_template.epcontainer.minecart_charger": "Loren-Lader",
 
-  "block.energizedpower.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
-  "item.energizedpower.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
-  "container.energizedpower.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
+  "_template.epcontainer.advanced_minecart_charger": "Fortgeschrittener Loren-Lader",
 
-  "block.energizedpower.minecart_uncharger": "Loren-Entlader",
-  "item.energizedpower.minecart_uncharger": "Loren-Entlader",
-  "container.energizedpower.minecart_uncharger": "Loren-Entlader",
+  "_template.epcontainer.minecart_uncharger": "Loren-Entlader",
 
-  "block.energizedpower.advanced_minecart_uncharger": "Fortgeschrittener Loren-Entlader",
-  "item.energizedpower.advanced_minecart_uncharger": "Fortgeschrittener Loren-Entlader",
-  "container.energizedpower.advanced_minecart_uncharger": "Fortgeschrittener Loren-Entlader",
+  "_template.epcontainer.advanced_minecart_uncharger": "Fortgeschrittener Loren-Entlader",
 
-  "block.energizedpower.tin_cable": "Zinnkabel",
-  "item.energizedpower.tin_cable": "Zinnkabel",
+  "_template.epblock.tin_cable": "Zinnkabel",
 
-  "block.energizedpower.copper_cable": "Kupferkabel",
-  "item.energizedpower.copper_cable": "Kupferkabel",
+  "_template.epblock.copper_cable": "Kupferkabel",
 
-  "block.energizedpower.gold_cable": "Goldkabel",
-  "item.energizedpower.gold_cable": "Goldkabel",
+  "_template.epblock.gold_cable": "Goldkabel",
 
-  "block.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
-  "item.energizedpower.energized_copper_cable": "Energetisiertes Kupferkabel",
+  "_template.epblock.energized_copper_cable": "Energetisiertes Kupferkabel",
 
-  "block.energizedpower.energized_gold_cable": "Energetisiertes Goldkabel",
-  "item.energizedpower.energized_gold_cable": "Energetisiertes Goldkabel",
+  "_template.epblock.energized_gold_cable": "Energetisiertes Goldkabel",
 
-  "block.energizedpower.energized_crystal_matrix_cable": "Energetisiertes Kristall-Matrix-Kabel",
-  "item.energizedpower.energized_crystal_matrix_cable": "Energetisiertes Kristall-Matrix-Kabel",
+  "_template.epblock.energized_crystal_matrix_cable": "Energetisiertes Kristall-Matrix-Kabel",
 
   "tooltip.energizedpower.cable.txt.shift.1": "Dieses Kabel kann %s/t transferieren.",
   "tooltip.energizedpower.cable.txt.shift.2": "Seitenschneider können verwendet werden, um Kabel schneller abzubauen.",
 
 
-  "block.energizedpower.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
-  "item.energizedpower.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
-  "container.energizedpower.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
+  "_template.epcontainer.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",
 
-  "block.energizedpower.lv_transformer_3_to_3": "LV-Trafo (3 zu 3)",
-  "item.energizedpower.lv_transformer_3_to_3": "LV-Trafo (3 zu 3)",
-  "container.energizedpower.lv_transformer_3_to_3": "LV-Trafo (3 zu 3)",
+  "_template.epcontainer.lv_transformer_3_to_3": "LV-Trafo (3 zu 3)",
 
-  "block.energizedpower.lv_transformer_n_to_1": "LV-Trafo (n zu 1)",
-  "item.energizedpower.lv_transformer_n_to_1": "LV-Trafo (n zu 1)",
-  "container.energizedpower.lv_transformer_n_to_1": "LV-Trafo (n zu 1)",
+  "_template.epcontainer.lv_transformer_n_to_1": "LV-Trafo (n zu 1)",
 
-  "block.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
-  "item.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
-  "container.energizedpower.transformer_1_to_n": "MV-Trafo (1 zu n)",
+  "_template.epcontainer.transformer_1_to_n": "MV-Trafo (1 zu n)",
 
-  "block.energizedpower.transformer_3_to_3": "MV-Trafo (3 zu 3)",
-  "item.energizedpower.transformer_3_to_3": "MV-Trafo (3 zu 3)",
-  "container.energizedpower.transformer_3_to_3": "MV-Trafo (3 zu 3)",
+  "_template.epcontainer.transformer_3_to_3": "MV-Trafo (3 zu 3)",
 
-  "block.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
-  "item.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
-  "container.energizedpower.transformer_n_to_1": "MV-Trafo (n zu 1)",
+  "_template.epcontainer.transformer_n_to_1": "MV-Trafo (n zu 1)",
 
-  "block.energizedpower.hv_transformer_1_to_n": "HV-Trafo (1 zu n)",
-  "item.energizedpower.hv_transformer_1_to_n": "HV-Trafo (1 zu n)",
-  "container.energizedpower.hv_transformer_1_to_n": "HV-Trafo (1 zu n)",
+  "_template.epcontainer.hv_transformer_1_to_n": "HV-Trafo (1 zu n)",
 
-  "block.energizedpower.hv_transformer_3_to_3": "HV-Trafo (3 zu 3)",
-  "item.energizedpower.hv_transformer_3_to_3": "HV-Trafo (3 zu 3)",
-  "container.energizedpower.hv_transformer_3_to_3": "HV-Trafo (3 zu 3)",
+  "_template.epcontainer.hv_transformer_3_to_3": "HV-Trafo (3 zu 3)",
 
-  "block.energizedpower.hv_transformer_n_to_1": "HV-Trafo (n zu 1)",
-  "item.energizedpower.hv_transformer_n_to_1": "HV-Trafo (n zu 1)",
-  "container.energizedpower.hv_transformer_n_to_1": "HV-Trafo (n zu 1)",
+  "_template.epcontainer.hv_transformer_n_to_1": "HV-Trafo (n zu 1)",
 
-  "block.energizedpower.ehv_transformer_1_to_n": "EHV-Trafo (1 zu n)",
-  "item.energizedpower.ehv_transformer_1_to_n": "EHV-Trafo (1 zu n)",
-  "container.energizedpower.ehv_transformer_1_to_n": "EHV-Trafo (1 zu n)",
+  "_template.epcontainer.ehv_transformer_1_to_n": "EHV-Trafo (1 zu n)",
 
-  "block.energizedpower.ehv_transformer_3_to_3": "EHV-Trafo (3 zu 3)",
-  "item.energizedpower.ehv_transformer_3_to_3": "EHV-Trafo (3 zu 3)",
-  "container.energizedpower.ehv_transformer_3_to_3": "EHV-Trafo (3 zu 3)",
+  "_template.epcontainer.ehv_transformer_3_to_3": "EHV-Trafo (3 zu 3)",
 
-  "block.energizedpower.ehv_transformer_n_to_1": "EHV-Trafo (n zu 1)",
-  "item.energizedpower.ehv_transformer_n_to_1": "EHV-Trafo (n zu 1)",
-  "container.energizedpower.ehv_transformer_n_to_1": "EHV-Trafo (n zu 1)",
+  "_template.epcontainer.ehv_transformer_n_to_1": "EHV-Trafo (n zu 1)",
 
-  "block.energizedpower.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
-  "item.energizedpower.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
-  "container.energizedpower.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
+  "_template.epcontainer.configurable_lv_transformer": "Konfigurierbarer LV-Trafo",
 
-  "block.energizedpower.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
-  "item.energizedpower.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
-  "container.energizedpower.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
+  "_template.epcontainer.configurable_mv_transformer": "Konfigurierbarer MV-Trafo",
 
-  "block.energizedpower.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
-  "item.energizedpower.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
-  "container.energizedpower.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
+  "_template.epcontainer.configurable_hv_transformer": "Konfigurierbarer HV-Trafo",
 
-  "block.energizedpower.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
-  "item.energizedpower.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
-  "container.energizedpower.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
+  "_template.epcontainer.configurable_ehv_transformer": "Konfigurierbarer EHV-Trafo",
 
   "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",
 
@@ -489,17 +396,11 @@
   "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
 
-  "block.energizedpower.battery_box": "Batterie-Box",
-  "item.energizedpower.battery_box": "Batterie-Box",
-  "container.energizedpower.battery_box": "Batterie-Box",
+  "_template.epcontainer.battery_box": "Batterie-Box",
 
-  "block.energizedpower.advanced_battery_box": "Fortgeschrittene Batterie-Box",
-  "item.energizedpower.advanced_battery_box": "Fortgeschrittene Batterie-Box",
-  "container.energizedpower.advanced_battery_box": "Fortgeschrittene Batterie-Box",
+  "_template.epcontainer.advanced_battery_box": "Fortgeschrittene Batterie-Box",
 
-  "block.energizedpower.creative_battery_box": "Creative-Batterie-Box",
-  "item.energizedpower.creative_battery_box": "Creative-Batterie-Box",
-  "container.energizedpower.creative_battery_box": "Creative-Batterie-Box",
+  "_template.epcontainer.creative_battery_box": "Creative-Batterie-Box",
 
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energie-Produktion",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "Energie-Verbrauch",
@@ -510,137 +411,84 @@
   "tooltip.energizedpower.solar_panel.txt.shift.1": "Dieses Panel kann bis zu %s/t produzieren.",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "Die Effizienz hängt von der aktuellen Zeit und dem Wetter ab",
 
-  "block.energizedpower.coal_engine": "Kohlegenerator",
-  "item.energizedpower.coal_engine": "Kohlegenerator",
-  "container.energizedpower.coal_engine": "Kohlegenerator",
+  "_template.epcontainer.coal_engine": "Kohlegenerator",
 
   "tooltip.energizedpower.coal_engine.txt": "Dieses Item wird noch %s produizeren",
 
-  "block.energizedpower.heat_generator": "Hitzegenerator",
-  "item.energizedpower.heat_generator": "Hitzegenerator",
-  "container.energizedpower.heat_generator": "Hitzegenerator",
+  "_template.epcontainer.heat_generator": "Hitzegenerator",
 
-  "block.energizedpower.thermal_generator": "Thermogenerator",
-  "item.energizedpower.thermal_generator": "Thermogenerator",
-  "container.energizedpower.thermal_generator": "Thermogenerator",
+  "_template.epcontainer.thermal_generator": "Thermogenerator",
 
   "tooltip.energizedpower.thermal_generator.txt": "Diese Flüssigkeit wird noch %s produizeren",
 
-  "block.energizedpower.powered_lamp": "Elektrische Lampe",
-  "item.energizedpower.powered_lamp": "Elektrische Lampe",
+  "_template.epblock.powered_lamp": "Elektrische Lampe",
 
-  "block.energizedpower.powered_furnace": "Elektroofen",
-  "item.energizedpower.powered_furnace": "Elektroofen",
-  "container.energizedpower.powered_furnace": "Elektroofen",
+  "_template.epcontainer.powered_furnace": "Elektroofen",
 
-  "block.energizedpower.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
-  "item.energizedpower.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
-  "container.energizedpower.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
+  "_template.epcontainer.advanced_powered_furnace": "Fortgeschrittener Elektroofen",
 
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "Diese Rezepte benötigt noch %s um fertiggestellt zu werden.",
 
-  "block.energizedpower.crusher": "Zerkleinerer",
-  "item.energizedpower.crusher": "Zerkleinerer",
-  "container.energizedpower.crusher": "Zerkleinerer",
+  "_template.epcontainer.crusher": "Zerkleinerer",
 
-  "block.energizedpower.advanced_crusher": "Fortgeschrittener Zerkleinerer",
-  "item.energizedpower.advanced_crusher": "Fortgeschrittener Zerkleinerer",
-  "container.energizedpower.advanced_crusher": "Fortgeschrittener Zerkleinerer",
+  "_template.epcontainer.advanced_crusher": "Fortgeschrittener Zerkleinerer",
 
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "Diese Maschine konsumiert Wasser und produziert Schmutziges Wasser.",
 
-  "block.energizedpower.pulverizer": "Pulverisierer",
-  "item.energizedpower.pulverizer": "Pulverisierer",
-  "container.energizedpower.pulverizer": "Pulverisierer",
+  "_template.epcontainer.pulverizer": "Pulverisierer",
 
-  "block.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
-  "item.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
-  "container.energizedpower.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
+  "_template.epcontainer.advanced_pulverizer": "Fortgeschrittener Pulverisierer",
 
   "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "Diese Maschine konsumiert Wasser und produziert Schmutziges Wasser.",
 
-  "block.energizedpower.sawmill": "Sägewerk",
-  "item.energizedpower.sawmill": "Sägewerk",
-  "container.energizedpower.sawmill": "Sägewerk",
+  "_template.epcontainer.sawmill": "Sägewerk",
 
-  "block.energizedpower.compressor": "Kompressor",
-  "item.energizedpower.compressor": "Kompressor",
-  "container.energizedpower.compressor": "Kompressor",
+  "_template.epcontainer.compressor": "Kompressor",
 
-  "block.energizedpower.metal_press": "Metallpresse",
-  "item.energizedpower.metal_press": "Metallpresse",
-  "container.energizedpower.metal_press": "Metallpresse",
+  "_template.epcontainer.metal_press": "Metallpresse",
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "Pressformen können im Pressform-Hersteller hergestellt werden.",
 
-  "block.energizedpower.auto_press_mold_maker": "Automatischer Pressform-Hersteller",
-  "item.energizedpower.auto_press_mold_maker": "Automatischer Pressform-Hersteller",
-  "container.energizedpower.auto_press_mold_maker": "Automatischer Pressform-Hersteller",
+  "_template.epcontainer.auto_press_mold_maker": "Automatischer Pressform-Hersteller",
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "Schaufel fehlt!",
 
-  "block.energizedpower.auto_stonecutter": "Automatische Steinsäge",
-  "item.energizedpower.auto_stonecutter": "Automatische Steinsäge",
-  "container.energizedpower.auto_stonecutter": "Automatische Steinsäge",
+  "_template.epcontainer.auto_stonecutter": "Automatische Steinsäge",
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "Spitzhacke fehlt!",
 
-  "block.energizedpower.assembling_machine": "Montagemaschine",
-  "item.energizedpower.assembling_machine": "Montagemaschine",
-  "container.energizedpower.assembling_machine": "Montagemaschine",
+  "_template.epcontainer.assembling_machine": "Montagemaschine",
 
-  "block.energizedpower.induction_smelter": "Induktionsschmelzanlage",
-  "item.energizedpower.induction_smelter": "Induktionsschmelzanlage",
-  "container.energizedpower.induction_smelter": "Induktionsschmelzanlage",
+  "_template.epcontainer.induction_smelter": "Induktionsschmelzanlage",
 
-  "block.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
-  "item.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
-  "container.energizedpower.plant_growth_chamber": "Pflanzenwachstums-Kammer",
+  "_template.epcontainer.plant_growth_chamber": "Pflanzenwachstums-Kammer",
 
-  "block.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
-  "item.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
-  "container.energizedpower.fluid_freezer": "Flüssigkeits-Kühler",
+  "_template.epcontainer.fluid_freezer": "Flüssigkeits-Kühler",
 
-  "block.energizedpower.stone_liquefier": "Stein-Verflüssiger",
-  "item.energizedpower.stone_liquefier": "Stein-Verflüssiger",
-  "container.energizedpower.stone_liquefier": "Stein-Verflüssiger",
+  "_template.epcontainer.stone_liquefier": "Stein-Verflüssiger",
 
-  "block.energizedpower.stone_solidifier": "Stein-Festiger",
-  "item.energizedpower.stone_solidifier": "Stein-Festiger",
-  "container.energizedpower.stone_solidifier": "Stein-Festiger",
+  "_template.epcontainer.stone_solidifier": "Stein-Festiger",
 
-  "block.energizedpower.filtration_plant": "Filteranlage",
-  "item.energizedpower.filtration_plant": "Filteranlage",
-  "container.energizedpower.filtration_plant": "Filteranlage",
+  "_template.epcontainer.filtration_plant": "Filteranlage",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "Dieser Block benötigt Holzkohle-Filter.",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "Holzkohle-Filter fehlt!",
 
-  "block.energizedpower.fluid_transposer": "Flüssigkeits-Umsetzer",
-  "item.energizedpower.fluid_transposer": "Flüssigkeits-Umsetzer",
-  "container.energizedpower.fluid_transposer": "Flüssigkeits-Umsetzer",
+  "_template.epcontainer.fluid_transposer": "Flüssigkeits-Umsetzer",
 
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "Modus: Entleeren",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "Modus: Befüllen",
 
-  "block.energizedpower.block_placer": "Blockplatzierer",
-  "item.energizedpower.block_placer": "Blockplatzierer",
-  "container.energizedpower.block_placer": "Blockplatzierer",
+  "_template.epcontainer.block_placer": "Blockplatzierer",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "Der Block muss noch %s konsumieren, um platziert werden zu können.",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "Rotation invertieren",
 
-  "block.energizedpower.fluid_tank_small": "Flüssigkeits-Tank (Klein)",
-  "item.energizedpower.fluid_tank_small": "Flüssigkeits-Tank (Klein)",
-  "container.energizedpower.fluid_tank_small": "Flüssigkeits-Tank (Klein)",
+  "_template.epcontainer.fluid_tank_small": "Flüssigkeits-Tank (Klein)",
 
-  "block.energizedpower.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
-  "item.energizedpower.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
-  "container.energizedpower.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
+  "_template.epcontainer.fluid_tank_medium": "Flüssigkeits-Tank (Mittel)",
 
-  "block.energizedpower.fluid_tank_large": "Flüssigkeits-Tank (Groß)",
-  "item.energizedpower.fluid_tank_large": "Flüssigkeits-Tank (Groß)",
-  "container.energizedpower.fluid_tank_large": "Flüssigkeits-Tank (Groß)",
+  "_template.epcontainer.fluid_tank_large": "Flüssigkeits-Tank (Groß)",
 
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBT ignorieren",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Kein Filter gesetzt",
@@ -648,53 +496,31 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "Setze den Filter mittels links-klick mit einem Item, dass eine Flüssigkeit enthält.",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "Entferne den Filter mittels links-klick ohne einem Item.",
 
-  "block.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
-  "item.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
-  "container.energizedpower.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
+  "_template.epcontainer.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
 
-  "block.energizedpower.item_silo_tiny": "Item-Silo (Winzig)",
-  "item.energizedpower.item_silo_tiny": "Item-Silo (Winzig)",
-  "container.energizedpower.item_silo_tiny": "Item-Silo (Winzig)",
+  "_template.epcontainer.item_silo_tiny": "Item-Silo (Winzig)",
 
-  "block.energizedpower.item_silo_small": "Item-Silo (Klein)",
-  "item.energizedpower.item_silo_small": "Item-Silo (Klein)",
-  "container.energizedpower.item_silo_small": "Item-Silo (Klein)",
+  "_template.epcontainer.item_silo_small": "Item-Silo (Klein)",
 
-  "block.energizedpower.item_silo_medium": "Item-Silo (Mittel)",
-  "item.energizedpower.item_silo_medium": "Item-Silo (Mittel)",
-  "container.energizedpower.item_silo_medium": "Item-Silo (Mittel)",
+  "_template.epcontainer.item_silo_medium": "Item-Silo (Mittel)",
 
-  "block.energizedpower.item_silo_large": "Item-Silo (Groß)",
-  "item.energizedpower.item_silo_large": "Item-Silo (Groß)",
-  "container.energizedpower.item_silo_large": "Item-Silo (Groß)",
+  "_template.epcontainer.item_silo_large": "Item-Silo (Groß)",
 
-  "block.energizedpower.item_silo_giant": "Item-Silo (Riesig)",
-  "item.energizedpower.item_silo_giant": "Item-Silo (Riesig)",
-  "container.energizedpower.item_silo_giant": "Item-Silo (Riesig)",
+  "_template.epcontainer.item_silo_giant": "Item-Silo (Riesig)",
 
   "tooltip.energizedpower.item_silo.txt.shift": "Item-Silos können nur durch Trichter, Förderbändern und anderen automatischen Item-Transport-Mechanismen be- und entladen werden.",
   "tooltip.energizedpower.item_silo_capacity.txt": "Kapazität: %d Stacks",
   "tooltip.energizedpower.item_silo.amount": "%d / %d Items",
 
-  "block.energizedpower.creative_item_silo": "Creative-Item-Silo",
-  "item.energizedpower.creative_item_silo": "Creative-Item-Silo",
-  "container.energizedpower.creative_item_silo": "Creative-Item-Silo",
+  "_template.epcontainer.creative_item_silo": "Creative-Item-Silo",
 
-  "block.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
-  "item.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
-  "container.energizedpower.fluid_filler": "Flüssigkeits-Befüller",
+  "_template.epcontainer.fluid_filler": "Flüssigkeits-Befüller",
 
-  "block.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
-  "item.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
-  "container.energizedpower.fluid_drainer": "Flüssigkeits-Entleerer",
+  "_template.epcontainer.fluid_drainer": "Flüssigkeits-Entleerer",
 
-  "block.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
-  "item.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
-  "container.energizedpower.fluid_pump": "Flüssigkeits-Pumpe",
+  "_template.epcontainer.fluid_pump": "Flüssigkeits-Pumpe",
 
-  "block.energizedpower.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
-  "item.energizedpower.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
-  "container.energizedpower.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
+  "_template.epcontainer.advanced_fluid_pump": "Fortgeschrittene Flüssigkeits-Pumpe",
 
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Dieser Prozess muss noch %s konsumieren, um abgeschlossen werden zu können.",
   "tooltip.energizedpower.fluid_pump.target": "Ziel: %d, %d, %d",
@@ -702,59 +528,41 @@
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Burchstein fehlt!",
   "tooltip.energizedpower.fluid_pump.extracting": "Extrahiert: %s",
 
-  "block.energizedpower.drain": "Ablauf",
-  "item.energizedpower.drain": "Ablauf",
-  "container.energizedpower.drain": "Ablauf",
+  "_template.epcontainer.drain": "Ablauf",
 
   "tooltip.energizedpower.drain.txt.shift": "Der Ablauf leitet Flüssigkeits-Blöcke oberhalb des Blocks ab.",
 
-  "block.energizedpower.xp_drain": "XP-Ablauf",
-  "item.energizedpower.xp_drain": "XP-Ablauf",
-  "container.energizedpower.xp_drain": "XP-Ablauf",
+  "_template.epcontainer.xp_drain": "XP-Ablauf",
 
   "tooltip.energizedpower.xp_drain.txt.shift": "Damit dieser Block funktioniert, muss darunter ein Flüssigkeitstank oder ein XP-Lager platziert werden.",
 
-  "block.energizedpower.lightning_generator": "Blitz-Generator",
-  "item.energizedpower.lightning_generator": "Blitz-Generator",
-  "container.energizedpower.lightning_generator": "Blitz-Generator",
+  "_template.epcontainer.lightning_generator": "Blitz-Generator",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Der Block produziert %s pro Blitzeinschlag.",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "Ein Blitzableiter muss über diesen Block platziert werden",
 
-  "block.energizedpower.energizer": "Energetisierer",
-  "item.energizedpower.energizer": "Energetisierer",
-  "container.energizedpower.energizer": "Energetisierer",
+  "_template.epcontainer.energizer": "Energetisierer",
 
-  "block.energizedpower.charging_station": "Ladestation",
-  "item.energizedpower.charging_station": "Ladestation",
-  "container.energizedpower.charging_station": "Ladestation",
+  "_template.epcontainer.charging_station": "Ladestation",
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "Die Ladestation kann benutzt werden, um Items in einem Spielerinventar zu laden.",
 
-  "block.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
-  "item.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
-  "container.energizedpower.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
+  "_template.epcontainer.crystal_growth_chamber": "Kristall-Wachstums-Kammer",
 
-  "block.energizedpower.weather_controller": "Wetter-Kontroller",
-  "item.energizedpower.weather_controller": "Wetter-Kontroller",
-  "container.energizedpower.weather_controller": "Wetter-Kontroller",
+  "_template.epcontainer.weather_controller": "Wetter-Kontroller",
 
   "tooltip.energizedpower.weather_controller.btn.clear": "Setze das Wetter auf Klar",
   "tooltip.energizedpower.weather_controller.btn.rain": "Setze das Wetter auf Regen",
   "tooltip.energizedpower.weather_controller.btn.thunder": "Setze das Wetter auf Gewitter",
 
-  "block.energizedpower.time_controller": "Zeit-Kontroller",
-  "item.energizedpower.time_controller": "Zeit-Kontroller",
-  "container.energizedpower.time_controller": "Zeit-Kontroller",
+  "_template.epcontainer.time_controller": "Zeit-Kontroller",
 
   "tooltip.energizedpower.time_controller.btn.day": "Setze die Zeit auf Vormittag",
   "tooltip.energizedpower.time_controller.btn.noon": "Setze die Zeit auf Mittag",
   "tooltip.energizedpower.time_controller.btn.night": "Setze die Zeit auf Abend",
   "tooltip.energizedpower.time_controller.btn.midnight": "Setzte die Zeit auf Mitternacht",
 
-  "block.energizedpower.teleporter": "Teleporter",
-  "item.energizedpower.teleporter": "Teleporter",
-  "container.energizedpower.teleporter": "Teleporter",
+  "_template.epcontainer.teleporter": "Teleporter",
 
   "tooltip.energizedpower.teleporter.txt.shift.1": "Drücke [%s] während du auf dem Teleporter stehst, um dich zu teleportieren.",
   "tooltip.energizedpower.teleporter.txt.shift.2": "Teleporteration von Spielern kann auch mit Redstone ausgelöst werden.",
@@ -777,17 +585,13 @@
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "Teleportation von Dimensionen mit Dimensions-Typ \"%s\" ist deaktiviert!",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "Teleportation zu Dimensionen mit Dimensions-Typ \"%s\" ist deaktiviert!",
 
-  "block.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
-  "item.energizedpower.basic_machine_frame": "Basis Maschinenrahmen",
+  "_template.epblock.basic_machine_frame": "Basis Maschinenrahmen",
 
-  "block.energizedpower.hardened_machine_frame": "Gehärteter Maschinenrahmen",
-  "item.energizedpower.hardened_machine_frame": "Gehärteter Maschinenrahmen",
+  "_template.epblock.hardened_machine_frame": "Gehärteter Maschinenrahmen",
 
-  "block.energizedpower.advanced_machine_frame": "Fortgeschrittener Maschinenrahmen",
-  "item.energizedpower.advanced_machine_frame": "Fortgeschrittener Maschinenrahmen",
+  "_template.epblock.advanced_machine_frame": "Fortgeschrittener Maschinenrahmen",
 
-  "block.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
-  "item.energizedpower.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
+  "_template.epblock.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
 
   "fluid_type.energizedpower.dirty_water": "Schmutziges Wasser",
   "fluid_type.energizedpower.liquid_xp": "Flüssige XP",

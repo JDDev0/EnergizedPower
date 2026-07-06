@@ -213,63 +213,46 @@
   "item.energizedpower.battery_box_minecart": "电池箱矿车",
   "item.energizedpower.advanced_battery_box_minecart": "高级电池箱矿车",
 
-  "block.energizedpower.silicon_block": "硅块",
-  "item.energizedpower.silicon_block": "硅块",
+  "_template.epblock.silicon_block": "硅块",
 
-  "block.energizedpower.tin_block": "锡块",
-  "item.energizedpower.tin_block": "锡块",
+  "_template.epblock.tin_block": "锡块",
 
-  "block.energizedpower.steel_block": "Block of Steel",
-  "item.energizedpower.steel_block": "Block of Steel",
+  "_template.epblock.steel_block": "Block of Steel",
 
-  "block.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
-  "item.energizedpower.advanced_alloy_block": "Block of Advanced Alloy",
+  "_template.epblock.advanced_alloy_block": "Block of Advanced Alloy",
 
-  "block.energizedpower.sawdust_block": "锯末块",
-  "item.energizedpower.sawdust_block": "锯末块",
+  "_template.epblock.sawdust_block": "锯末块",
 
-  "block.energizedpower.tin_ore": "锡矿石",
-  "item.energizedpower.tin_ore": "锡矿石",
+  "_template.epblock.tin_ore": "锡矿石",
 
-  "block.energizedpower.deepslate_tin_ore": "深板岩锡矿石",
-  "item.energizedpower.deepslate_tin_ore": "深板岩锡矿石",
+  "_template.epblock.deepslate_tin_ore": "深板岩锡矿石",
 
-  "block.energizedpower.raw_tin_block": "粗锡块",
-  "item.energizedpower.raw_tin_block": "粗锡块",
+  "_template.epblock.raw_tin_block": "粗锡块",
 
-  "block.energizedpower.item_conveyor_belt": "基础物品传送带",
-  "item.energizedpower.item_conveyor_belt": "基础物品传送带",
+  "_template.epblock.item_conveyor_belt": "基础物品传送带",
 
-  "block.energizedpower.fast_item_conveyor_belt": "高速物品传送带",
-  "item.energizedpower.fast_item_conveyor_belt": "高速物品传送带",
+  "_template.epblock.fast_item_conveyor_belt": "高速物品传送带",
 
-  "block.energizedpower.express_item_conveyor_belt": "极速物品传送带",
-  "item.energizedpower.express_item_conveyor_belt": "极速物品传送带",
+  "_template.epblock.express_item_conveyor_belt": "极速物品传送带",
 
   "tooltip.energizedpower.item_conveyor_belt.wrench_configuration.changed": "坡度已设置为 %s。",
 
-  "block.energizedpower.item_conveyor_belt_loader": "基础物品传送带装载机",
-  "item.energizedpower.item_conveyor_belt_loader": "基础物品传送带装载机",
+  "_template.epblock.item_conveyor_belt_loader": "基础物品传送带装载机",
   "container.energizedpower.item_conveyor_belt_loader": "基础传送带装载机",
 
-  "block.energizedpower.fast_item_conveyor_belt_loader": "高速物品传送带装载机",
-  "item.energizedpower.fast_item_conveyor_belt_loader": "高速物品传送带装载机",
+  "_template.epblock.fast_item_conveyor_belt_loader": "高速物品传送带装载机",
   "container.energizedpower.fast_item_conveyor_belt_loader": "高速传送带装载机",
 
-  "block.energizedpower.express_item_conveyor_belt_loader": "极速物品传送带装载机",
-  "item.energizedpower.express_item_conveyor_belt_loader": "极速物品传送带装载机",
+  "_template.epblock.express_item_conveyor_belt_loader": "极速物品传送带装载机",
   "container.energizedpower.express_item_conveyor_belt_loader": "极速传送带装载机",
 
-  "block.energizedpower.item_conveyor_belt_sorter": "基础物品传送带分拣机",
-  "item.energizedpower.item_conveyor_belt_sorter": "基础物品传送带分拣机",
+  "_template.epblock.item_conveyor_belt_sorter": "基础物品传送带分拣机",
   "container.energizedpower.item_conveyor_belt_sorter": "基础传送带分拣机",
 
-  "block.energizedpower.fast_item_conveyor_belt_sorter": "高速物品传送带分拣机",
-  "item.energizedpower.fast_item_conveyor_belt_sorter": "高速物品传送带分拣机",
+  "_template.epblock.fast_item_conveyor_belt_sorter": "高速物品传送带分拣机",
   "container.energizedpower.fast_item_conveyor_belt_sorter": "高速传送带分拣机",
 
-  "block.energizedpower.express_item_conveyor_belt_sorter": "极速物品传送带分拣机",
-  "item.energizedpower.express_item_conveyor_belt_sorter": "极速物品传送带分拣机",
+  "_template.epblock.express_item_conveyor_belt_sorter": "极速物品传送带分拣机",
   "container.energizedpower.express_item_conveyor_belt_sorter": "极速传送带分拣机",
 
   "tooltip.energizedpower.item_conveyor_belt_sorter.label.output_connection.no_connection": "输出 %d: 未连接传送带",
@@ -278,68 +261,48 @@
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.whitelist": "白名单",
   "tooltip.energizedpower.item_conveyor_belt_sorter.cbx.blacklist": "黑名单",
 
-  "block.energizedpower.item_conveyor_belt_switch": "基础物品传送带切换器",
-  "item.energizedpower.item_conveyor_belt_switch": "基础物品传送带切换器",
+  "_template.epblock.item_conveyor_belt_switch": "基础物品传送带切换器",
 
-  "block.energizedpower.fast_item_conveyor_belt_switch": "高速物品传送带切换器",
-  "item.energizedpower.fast_item_conveyor_belt_switch": "高速物品传送带切换器",
+  "_template.epblock.fast_item_conveyor_belt_switch": "高速物品传送带切换器",
 
-  "block.energizedpower.express_item_conveyor_belt_switch": "极速物品传送带切换器",
-  "item.energizedpower.express_item_conveyor_belt_switch": "极速物品传送带切换器",
+  "_template.epblock.express_item_conveyor_belt_switch": "极速物品传送带切换器",
 
-  "block.energizedpower.item_conveyor_belt_splitter": "基础物品传送带分离器",
-  "item.energizedpower.item_conveyor_belt_splitter": "基础物品传送带分离器",
+  "_template.epblock.item_conveyor_belt_splitter": "基础物品传送带分离器",
 
-  "block.energizedpower.fast_item_conveyor_belt_splitter": "高速物品传送带分离器",
-  "item.energizedpower.fast_item_conveyor_belt_splitter": "高速物品传送带分离器",
+  "_template.epblock.fast_item_conveyor_belt_splitter": "高速物品传送带分离器",
 
-  "block.energizedpower.express_item_conveyor_belt_splitter": "极速物品传送带分离器",
-  "item.energizedpower.express_item_conveyor_belt_splitter": "极速物品传送带分离器",
+  "_template.epblock.express_item_conveyor_belt_splitter": "极速物品传送带分离器",
 
-  "block.energizedpower.item_conveyor_belt_merger": "基础物品传送带合并器",
-  "item.energizedpower.item_conveyor_belt_merger": "基础物品传送带合并器",
+  "_template.epblock.item_conveyor_belt_merger": "基础物品传送带合并器",
 
-  "block.energizedpower.fast_item_conveyor_belt_merger": "高速物品传送带合并器",
-  "item.energizedpower.fast_item_conveyor_belt_merger": "高速物品传送带合并器",
+  "_template.epblock.fast_item_conveyor_belt_merger": "高速物品传送带合并器",
 
-  "block.energizedpower.express_item_conveyor_belt_merger": "极速物品传送带合并器",
-  "item.energizedpower.express_item_conveyor_belt_merger": "极速物品传送带合并器",
+  "_template.epblock.express_item_conveyor_belt_merger": "极速物品传送带合并器",
 
-  "block.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
-  "item.energizedpower.copper_fluid_pipe": "Copper Fluid Pipe",
+  "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 
-  "block.energizedpower.fluid_pipe": "铁流体管道",
-  "item.energizedpower.fluid_pipe": "铁流体管道",
+  "_template.epblock.fluid_pipe": "铁流体管道",
 
-  "block.energizedpower.golden_fluid_pipe": "金流体管道",
-  "item.energizedpower.golden_fluid_pipe": "金流体管道",
+  "_template.epblock.golden_fluid_pipe": "金流体管道",
 
-  "block.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
-  "item.energizedpower.steel_fluid_pipe": "Steel Fluid Pipe",
+  "_template.epblock.steel_fluid_pipe": "Steel Fluid Pipe",
 
-  "block.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
-  "item.energizedpower.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
+  "_template.epblock.pressurized_fluid_pipe": "Pressurized Fluid Pipe",
 
   "tooltip.energizedpower.fluid_pipe.max_extraction": "每个抽取面最大抽取量: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "面 (%s) 的连接类型已设置为 %s。",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "面 (%s) 的连接类型无法更改。",
 
-  "block.energizedpower.press_mold_maker": "压模制造机",
-  "item.energizedpower.press_mold_maker": "压模制造机",
-  "container.energizedpower.press_mold_maker": "压模制造机",
+  "_template.epcontainer.press_mold_maker": "压模制造机",
 
   "tooltip.energizedpower.press_mold_maker.btn.up": "向上滚动",
   "tooltip.energizedpower.press_mold_maker.btn.down": "向下滚动",
 
   "tooltip.energizedpower.press_mold_maker.btn.recipes": "需要 %dx %s",
 
-  "block.energizedpower.alloy_furnace": "合金炉",
-  "item.energizedpower.alloy_furnace": "合金炉",
-  "container.energizedpower.alloy_furnace": "合金炉",
+  "_template.epcontainer.alloy_furnace": "合金炉",
 
-  "block.energizedpower.auto_crafter": "自动合成器",
-  "item.energizedpower.auto_crafter": "自动合成器",
-  "container.energizedpower.auto_crafter": "自动合成器",
+  "_template.epcontainer.auto_crafter": "自动合成器",
 
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "此方块每配料消耗 %s/t。",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "忽略NBT",
@@ -349,13 +312,9 @@
   "tooltip.energizedpower.auto_crafter.cycle_through_recipes": "循环浏览配方",
   "tooltip.energizedpower.auto_crafter.recipe_index": "配方 %d",
 
-  "block.energizedpower.advanced_auto_crafter": "高级自动合成器",
-  "item.energizedpower.advanced_auto_crafter": "高级自动合成器",
-  "container.energizedpower.advanced_auto_crafter": "高级自动合成器",
+  "_template.epcontainer.advanced_auto_crafter": "高级自动合成器",
 
-  "block.energizedpower.charger": "充电器",
-  "item.energizedpower.charger": "充电器",
-  "container.energizedpower.charger": "充电器",
+  "_template.epcontainer.charger": "充电器",
 
   "tooltip.energizedpower.chargers.txt.shift.1": "充电器可用于合成充能铜锭。",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "但你应该改用充能器，",
@@ -363,125 +322,73 @@
 
   "tooltip.energizedpower.charger.item_energy_left.txt": "此物品需要 %s 才能充满电。",
 
-  "block.energizedpower.advanced_charger": "高级充电器",
-  "item.energizedpower.advanced_charger": "高级充电器",
-  "container.energizedpower.advanced_charger": "高级充电器",
+  "_template.epcontainer.advanced_charger": "高级充电器",
 
   "tooltip.energizedpower.advanced_charger.items_energy_left.txt": "这些物品需要 %s 才能充满电。",
 
-  "block.energizedpower.uncharger": "放电器",
-  "item.energizedpower.uncharger": "放电器",
-  "container.energizedpower.uncharger": "放电器",
+  "_template.epcontainer.uncharger": "放电器",
 
   "tooltip.energizedpower.uncharger.item_energy_left.txt": "此物品剩余 %s。",
 
-  "block.energizedpower.advanced_uncharger": "高级放电器",
-  "item.energizedpower.advanced_uncharger": "高级放电器",
-  "container.energizedpower.advanced_uncharger": "高级放电器",
+  "_template.epcontainer.advanced_uncharger": "高级放电器",
 
   "tooltip.energizedpower.advanced_uncharger.items_energy_left.txt": "这些物品剩余 %s。",
 
-  "block.energizedpower.minecart_charger": "矿车充电器",
-  "item.energizedpower.minecart_charger": "矿车充电器",
-  "container.energizedpower.minecart_charger": "矿车充电器",
+  "_template.epcontainer.minecart_charger": "矿车充电器",
 
-  "block.energizedpower.advanced_minecart_charger": "高级矿车充电器",
-  "item.energizedpower.advanced_minecart_charger": "高级矿车充电器",
-  "container.energizedpower.advanced_minecart_charger": "高级矿车充电器",
+  "_template.epcontainer.advanced_minecart_charger": "高级矿车充电器",
 
-  "block.energizedpower.minecart_uncharger": "矿车放电器",
-  "item.energizedpower.minecart_uncharger": "矿车放电器",
-  "container.energizedpower.minecart_uncharger": "矿车放电器",
+  "_template.epcontainer.minecart_uncharger": "矿车放电器",
 
-  "block.energizedpower.advanced_minecart_uncharger": "高级矿车放电器",
-  "item.energizedpower.advanced_minecart_uncharger": "高级矿车放电器",
-  "container.energizedpower.advanced_minecart_uncharger": "高级矿车放电器",
+  "_template.epcontainer.advanced_minecart_uncharger": "高级矿车放电器",
 
-  "block.energizedpower.tin_cable": "锡线缆",
-  "item.energizedpower.tin_cable": "锡线缆",
+  "_template.epblock.tin_cable": "锡线缆",
 
-  "block.energizedpower.copper_cable": "铜线缆",
-  "item.energizedpower.copper_cable": "铜线缆",
+  "_template.epblock.copper_cable": "铜线缆",
 
-  "block.energizedpower.gold_cable": "金线缆",
-  "item.energizedpower.gold_cable": "金线缆",
+  "_template.epblock.gold_cable": "金线缆",
 
-  "block.energizedpower.energized_copper_cable": "充能铜线缆",
-  "item.energizedpower.energized_copper_cable": "充能铜线缆",
+  "_template.epblock.energized_copper_cable": "充能铜线缆",
 
-  "block.energizedpower.energized_gold_cable": "充能金线缆",
-  "item.energizedpower.energized_gold_cable": "充能金线缆",
+  "_template.epblock.energized_gold_cable": "充能金线缆",
 
-  "block.energizedpower.energized_crystal_matrix_cable": "充能水晶矩阵线缆",
-  "item.energizedpower.energized_crystal_matrix_cable": "充能水晶矩阵线缆",
+  "_template.epblock.energized_crystal_matrix_cable": "充能水晶矩阵线缆",
 
   "tooltip.energizedpower.cable.txt.shift.1": "此线缆可传输 %s/t。",
   "tooltip.energizedpower.cable.txt.shift.2": "剪线钳可用于更快地破坏线缆。",
 
 
-  "block.energizedpower.lv_transformer_1_to_n": "低压变压器 (1 转 n)",
-  "item.energizedpower.lv_transformer_1_to_n": "低压变压器 (1 转 n)",
-  "container.energizedpower.lv_transformer_1_to_n": "低压变压器 (1 转 n)",
+  "_template.epcontainer.lv_transformer_1_to_n": "低压变压器 (1 转 n)",
 
-  "block.energizedpower.lv_transformer_3_to_3": "低压变压器 (3 转 3)",
-  "item.energizedpower.lv_transformer_3_to_3": "低压变压器 (3 转 3)",
-  "container.energizedpower.lv_transformer_3_to_3": "低压变压器 (3 转 3)",
+  "_template.epcontainer.lv_transformer_3_to_3": "低压变压器 (3 转 3)",
 
-  "block.energizedpower.lv_transformer_n_to_1": "低压变压器 (n 转 1)",
-  "item.energizedpower.lv_transformer_n_to_1": "低压变压器 (n 转 1)",
-  "container.energizedpower.lv_transformer_n_to_1": "低压变压器 (n 转 1)",
+  "_template.epcontainer.lv_transformer_n_to_1": "低压变压器 (n 转 1)",
 
-  "block.energizedpower.transformer_1_to_n": "中压变压器 (1 转 n)",
-  "item.energizedpower.transformer_1_to_n": "中压变压器 (1 转 n)",
-  "container.energizedpower.transformer_1_to_n": "中压变压器 (1 转 n)",
+  "_template.epcontainer.transformer_1_to_n": "中压变压器 (1 转 n)",
 
-  "block.energizedpower.transformer_3_to_3": "中压变压器 (3 转 3)",
-  "item.energizedpower.transformer_3_to_3": "中压变压器 (3 转 3)",
-  "container.energizedpower.transformer_3_to_3": "中压变压器 (3 转 3)",
+  "_template.epcontainer.transformer_3_to_3": "中压变压器 (3 转 3)",
 
-  "block.energizedpower.transformer_n_to_1": "中压变压器 (n 转 1)",
-  "item.energizedpower.transformer_n_to_1": "中压变压器 (n 转 1)",
-  "container.energizedpower.transformer_n_to_1": "中压变压器 (n 转 1)",
+  "_template.epcontainer.transformer_n_to_1": "中压变压器 (n 转 1)",
 
-  "block.energizedpower.hv_transformer_1_to_n": "高压变压器 (1 转 n)",
-  "item.energizedpower.hv_transformer_1_to_n": "高压变压器 (1 转 n)",
-  "container.energizedpower.hv_transformer_1_to_n": "高压变压器 (1 转 n)",
+  "_template.epcontainer.hv_transformer_1_to_n": "高压变压器 (1 转 n)",
 
-  "block.energizedpower.hv_transformer_3_to_3": "高压变压器 (3 转 3)",
-  "item.energizedpower.hv_transformer_3_to_3": "高压变压器 (3 转 3)",
-  "container.energizedpower.hv_transformer_3_to_3": "高压变压器 (3 转 3)",
+  "_template.epcontainer.hv_transformer_3_to_3": "高压变压器 (3 转 3)",
 
-  "block.energizedpower.hv_transformer_n_to_1": "高压变压器 (n 转 1)",
-  "item.energizedpower.hv_transformer_n_to_1": "高压变压器 (n 转 1)",
-  "container.energizedpower.hv_transformer_n_to_1": "高压变压器 (n 转 1)",
+  "_template.epcontainer.hv_transformer_n_to_1": "高压变压器 (n 转 1)",
 
-  "block.energizedpower.ehv_transformer_1_to_n": "超高压变压器 (1 转 n)",
-  "item.energizedpower.ehv_transformer_1_to_n": "超高压变压器 (1 转 n)",
-  "container.energizedpower.ehv_transformer_1_to_n": "超高压变压器 (1 转 n)",
+  "_template.epcontainer.ehv_transformer_1_to_n": "超高压变压器 (1 转 n)",
 
-  "block.energizedpower.ehv_transformer_3_to_3": "超高压变压器 (3 转 3)",
-  "item.energizedpower.ehv_transformer_3_to_3": "超高压变压器 (3 转 3)",
-  "container.energizedpower.ehv_transformer_3_to_3": "超高压变压器 (3 转 3)",
+  "_template.epcontainer.ehv_transformer_3_to_3": "超高压变压器 (3 转 3)",
 
-  "block.energizedpower.ehv_transformer_n_to_1": "超高压变压器 (n 转 1)",
-  "item.energizedpower.ehv_transformer_n_to_1": "超高压变压器 (n 转 1)",
-  "container.energizedpower.ehv_transformer_n_to_1": "超高压变压器 (n 转 1)",
+  "_template.epcontainer.ehv_transformer_n_to_1": "超高压变压器 (n 转 1)",
 
-  "block.energizedpower.configurable_lv_transformer": "可配置低压变压器",
-  "item.energizedpower.configurable_lv_transformer": "可配置低压变压器",
-  "container.energizedpower.configurable_lv_transformer": "可配置低压变压器",
+  "_template.epcontainer.configurable_lv_transformer": "可配置低压变压器",
 
-  "block.energizedpower.configurable_mv_transformer": "可配置中压变压器",
-  "item.energizedpower.configurable_mv_transformer": "可配置中压变压器",
-  "container.energizedpower.configurable_mv_transformer": "可配置中压变压器",
+  "_template.epcontainer.configurable_mv_transformer": "可配置中压变压器",
 
-  "block.energizedpower.configurable_hv_transformer": "可配置高压变压器",
-  "item.energizedpower.configurable_hv_transformer": "可配置高压变压器",
-  "container.energizedpower.configurable_hv_transformer": "可配置高压变压器",
+  "_template.epcontainer.configurable_hv_transformer": "可配置高压变压器",
 
-  "block.energizedpower.configurable_ehv_transformer": "可配置超高压变压器",
-  "item.energizedpower.configurable_ehv_transformer": "可配置超高压变压器",
-  "container.energizedpower.configurable_ehv_transformer": "可配置超高压变压器",
+  "_template.epcontainer.configurable_ehv_transformer": "可配置超高压变压器",
 
   "tooltip.energizedpower.configurable_transformer.wrench_configuration.face_changed": "面 (%s) 的连接类型已设置为 %s。",
 
@@ -489,17 +396,11 @@
   "tooltip.energizedpower.transformer.txt.shift.2": "较大、较暗、菱形的面是输入端。",
   "tooltip.energizedpower.transformer.txt.shift.3": "较小、较亮、方形的面是输出端。",
 
-  "block.energizedpower.battery_box": "电池箱",
-  "item.energizedpower.battery_box": "电池箱",
-  "container.energizedpower.battery_box": "电池箱",
+  "_template.epcontainer.battery_box": "电池箱",
 
-  "block.energizedpower.advanced_battery_box": "高级电池箱",
-  "item.energizedpower.advanced_battery_box": "高级电池箱",
-  "container.energizedpower.advanced_battery_box": "高级电池箱",
+  "_template.epcontainer.advanced_battery_box": "高级电池箱",
 
-  "block.energizedpower.creative_battery_box": "创造模式电池箱",
-  "item.energizedpower.creative_battery_box": "创造模式电池箱",
-  "container.energizedpower.creative_battery_box": "创造模式电池箱",
+  "_template.epcontainer.creative_battery_box": "创造模式电池箱",
 
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "能量生产",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_consumption": "能量消耗",
@@ -510,137 +411,84 @@
   "tooltip.energizedpower.solar_panel.txt.shift.1": "此方块最多产生 %s/t。",
   "tooltip.energizedpower.solar_panel.txt.shift.2": "效率取决于当前时间",
 
-  "block.energizedpower.coal_engine": "燃煤引擎",
-  "item.energizedpower.coal_engine": "燃煤引擎",
-  "container.energizedpower.coal_engine": "燃煤引擎",
+  "_template.epcontainer.coal_engine": "燃煤引擎",
 
   "tooltip.energizedpower.coal_engine.txt": "此物品将产生 %s 直到燃烧完毕",
 
-  "block.energizedpower.heat_generator": "热能发电机",
-  "item.energizedpower.heat_generator": "热能发电机",
-  "container.energizedpower.heat_generator": "热能发电机",
+  "_template.epcontainer.heat_generator": "热能发电机",
 
-  "block.energizedpower.thermal_generator": "热力发电机",
-  "item.energizedpower.thermal_generator": "热力发电机",
-  "container.energizedpower.thermal_generator": "热力发电机",
+  "_template.epcontainer.thermal_generator": "热力发电机",
 
   "tooltip.energizedpower.thermal_generator.txt": "此流体将产生 %s 直到完全用完",
 
-  "block.energizedpower.powered_lamp": "通电灯",
-  "item.energizedpower.powered_lamp": "通电灯",
+  "_template.epblock.powered_lamp": "通电灯",
 
-  "block.energizedpower.powered_furnace": "动力炉",
-  "item.energizedpower.powered_furnace": "动力炉",
-  "container.energizedpower.powered_furnace": "动力炉",
+  "_template.epcontainer.powered_furnace": "动力炉",
 
-  "block.energizedpower.advanced_powered_furnace": "高级动力炉",
-  "item.energizedpower.advanced_powered_furnace": "高级动力炉",
-  "container.energizedpower.advanced_powered_furnace": "高级动力炉",
+  "_template.epcontainer.advanced_powered_furnace": "高级动力炉",
 
   "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt": "这些配方需要 %s 才能完成。",
 
-  "block.energizedpower.crusher": "破碎机",
-  "item.energizedpower.crusher": "破碎机",
-  "container.energizedpower.crusher": "破碎机",
+  "_template.epcontainer.crusher": "破碎机",
 
-  "block.energizedpower.advanced_crusher": "高级破碎机",
-  "item.energizedpower.advanced_crusher": "高级破碎机",
-  "container.energizedpower.advanced_crusher": "高级破碎机",
+  "_template.epcontainer.advanced_crusher": "高级破碎机",
 
   "tooltip.energizedpower.advanced_crusher.txt.shift.1": "此机器消耗水并产生脏水。",
 
-  "block.energizedpower.pulverizer": "磨粉机",
-  "item.energizedpower.pulverizer": "磨粉机",
-  "container.energizedpower.pulverizer": "磨粉机",
+  "_template.epcontainer.pulverizer": "磨粉机",
 
-  "block.energizedpower.advanced_pulverizer": "高级磨粉机",
-  "item.energizedpower.advanced_pulverizer": "高级磨粉机",
-  "container.energizedpower.advanced_pulverizer": "高级磨粉机",
+  "_template.epcontainer.advanced_pulverizer": "高级磨粉机",
 
   "tooltip.energizedpower.advanced_pulverizer.txt.shift.1": "此机器消耗水并产生脏水。",
 
-  "block.energizedpower.sawmill": "锯木厂",
-  "item.energizedpower.sawmill": "锯木厂",
-  "container.energizedpower.sawmill": "锯木厂",
+  "_template.epcontainer.sawmill": "锯木厂",
 
-  "block.energizedpower.compressor": "压缩机",
-  "item.energizedpower.compressor": "压缩机",
-  "container.energizedpower.compressor": "压缩机",
+  "_template.epcontainer.compressor": "压缩机",
 
-  "block.energizedpower.metal_press": "金属压印机",
-  "item.energizedpower.metal_press": "金属压印机",
-  "container.energizedpower.metal_press": "金属压印机",
+  "_template.epcontainer.metal_press": "金属压印机",
 
   "tooltip.energizedpower.metal_press.txt.shift.1": "压模可在压模制造机中制作。",
 
-  "block.energizedpower.auto_press_mold_maker": "自动压模制造机",
-  "item.energizedpower.auto_press_mold_maker": "自动压模制造机",
-  "container.energizedpower.auto_press_mold_maker": "自动压模制造机",
+  "_template.epcontainer.auto_press_mold_maker": "自动压模制造机",
 
   "tooltip.energizedpower.auto_press_mold_maker.shovel_missing": "缺少铲子！",
 
-  "block.energizedpower.auto_stonecutter": "自动切石机",
-  "item.energizedpower.auto_stonecutter": "自动切石机",
-  "container.energizedpower.auto_stonecutter": "自动切石机",
+  "_template.epcontainer.auto_stonecutter": "自动切石机",
 
   "tooltip.energizedpower.auto_stonecutter.pickaxe_missing": "缺少镐！",
 
-  "block.energizedpower.assembling_machine": "组装机",
-  "item.energizedpower.assembling_machine": "组装机",
-  "container.energizedpower.assembling_machine": "组装机",
+  "_template.epcontainer.assembling_machine": "组装机",
 
-  "block.energizedpower.induction_smelter": "感应熔炉",
-  "item.energizedpower.induction_smelter": "感应熔炉",
-  "container.energizedpower.induction_smelter": "感应熔炉",
+  "_template.epcontainer.induction_smelter": "感应熔炉",
 
-  "block.energizedpower.plant_growth_chamber": "植物生长室",
-  "item.energizedpower.plant_growth_chamber": "植物生长室",
-  "container.energizedpower.plant_growth_chamber": "植物生长室",
+  "_template.epcontainer.plant_growth_chamber": "植物生长室",
 
-  "block.energizedpower.fluid_freezer": "Fluid Freezer",
-  "item.energizedpower.fluid_freezer": "Fluid Freezer",
-  "container.energizedpower.fluid_freezer": "Fluid Freezer",
+  "_template.epcontainer.fluid_freezer": "Fluid Freezer",
 
-  "block.energizedpower.stone_liquefier": "岩石液化器",
-  "item.energizedpower.stone_liquefier": "岩石液化器",
-  "container.energizedpower.stone_liquefier": "岩石液化器",
+  "_template.epcontainer.stone_liquefier": "岩石液化器",
 
-  "block.energizedpower.stone_solidifier": "岩石固化器",
-  "item.energizedpower.stone_solidifier": "岩石固化器",
-  "container.energizedpower.stone_solidifier": "岩石固化器",
+  "_template.epcontainer.stone_solidifier": "岩石固化器",
 
-  "block.energizedpower.filtration_plant": "过滤厂",
-  "item.energizedpower.filtration_plant": "过滤厂",
-  "container.energizedpower.filtration_plant": "过滤厂",
+  "_template.epcontainer.filtration_plant": "过滤厂",
 
   "tooltip.energizedpower.filtration_plant.txt.shift.1": "此方块需要木炭过滤器。",
   "tooltip.energizedpower.filtration_plant.charcoal_filter_missing": "缺少木炭过滤器！",
 
-  "block.energizedpower.fluid_transposer": "流体转换器",
-  "item.energizedpower.fluid_transposer": "流体转换器",
-  "container.energizedpower.fluid_transposer": "流体转换器",
+  "_template.epcontainer.fluid_transposer": "流体转换器",
 
   "tooltip.energizedpower.fluid_transposer.mode.emptying": "模式: 排空",
   "tooltip.energizedpower.fluid_transposer.mode.filling": "模式: 填充",
 
-  "block.energizedpower.block_placer": "方块放置器",
-  "item.energizedpower.block_placer": "方块放置器",
-  "container.energizedpower.block_placer": "方块放置器",
+  "_template.epcontainer.block_placer": "方块放置器",
 
   "tooltip.energizedpower.block_placer.block_energy_left.txt": "此方块仍需 %s 才能放置。",
   "tooltip.energizedpower.block_placer.cbx.inverse_rotation": "反向旋转",
 
-  "block.energizedpower.fluid_tank_small": "流体储罐 (小型)",
-  "item.energizedpower.fluid_tank_small": "流体储罐 (小型)",
-  "container.energizedpower.fluid_tank_small": "流体储罐 (小型)",
+  "_template.epcontainer.fluid_tank_small": "流体储罐 (小型)",
 
-  "block.energizedpower.fluid_tank_medium": "流体储罐 (中型)",
-  "item.energizedpower.fluid_tank_medium": "流体储罐 (中型)",
-  "container.energizedpower.fluid_tank_medium": "流体储罐 (中型)",
+  "_template.epcontainer.fluid_tank_medium": "流体储罐 (中型)",
 
-  "block.energizedpower.fluid_tank_large": "流体储罐 (大型)",
-  "item.energizedpower.fluid_tank_large": "流体储罐 (大型)",
-  "container.energizedpower.fluid_tank_large": "流体储罐 (大型)",
+  "_template.epcontainer.fluid_tank_large": "流体储罐 (大型)",
 
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "忽略NBT",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "未设置过滤器",
@@ -648,53 +496,31 @@
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.1": "通过左键点击含有流体的物品来设置过滤器。",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2": "通过左键点击（不持物品）来取消设置过滤器。",
 
-  "block.energizedpower.creative_fluid_tank": "创造模式流体储罐",
-  "item.energizedpower.creative_fluid_tank": "创造模式流体储罐",
-  "container.energizedpower.creative_fluid_tank": "创造模式流体储罐",
+  "_template.epcontainer.creative_fluid_tank": "创造模式流体储罐",
 
-  "block.energizedpower.item_silo_tiny": "物品筒仓 (微型)",
-  "item.energizedpower.item_silo_tiny": "物品筒仓 (微型)",
-  "container.energizedpower.item_silo_tiny": "物品筒仓 (微型)",
+  "_template.epcontainer.item_silo_tiny": "物品筒仓 (微型)",
 
-  "block.energizedpower.item_silo_small": "物品筒仓 (小型)",
-  "item.energizedpower.item_silo_small": "物品筒仓 (小型)",
-  "container.energizedpower.item_silo_small": "物品筒仓 (小型)",
+  "_template.epcontainer.item_silo_small": "物品筒仓 (小型)",
 
-  "block.energizedpower.item_silo_medium": "物品筒仓 (中型)",
-  "item.energizedpower.item_silo_medium": "物品筒仓 (中型)",
-  "container.energizedpower.item_silo_medium": "物品筒仓 (中型)",
+  "_template.epcontainer.item_silo_medium": "物品筒仓 (中型)",
 
-  "block.energizedpower.item_silo_large": "物品筒仓 (大型)",
-  "item.energizedpower.item_silo_large": "物品筒仓 (大型)",
-  "container.energizedpower.item_silo_large": "物品筒仓 (大型)",
+  "_template.epcontainer.item_silo_large": "物品筒仓 (大型)",
 
-  "block.energizedpower.item_silo_giant": "物品筒仓 (巨型)",
-  "item.energizedpower.item_silo_giant": "物品筒仓 (巨型)",
-  "container.energizedpower.item_silo_giant": "物品筒仓 (巨型)",
+  "_template.epcontainer.item_silo_giant": "物品筒仓 (巨型)",
 
   "tooltip.energizedpower.item_silo.txt.shift": "物品筒仓只能通过漏斗、传送带和其他自动物品运输方式装卸。",
   "tooltip.energizedpower.item_silo_capacity.txt": "容量: %d 组",
   "tooltip.energizedpower.item_silo.amount": "%d / %d 物品",
 
-  "block.energizedpower.creative_item_silo": "创造模式物品筒仓",
-  "item.energizedpower.creative_item_silio": "创造模式物品筒仓",
-  "container.energizedpower.creative_item_silo": "创造模式物品筒仓",
+  "_template.epcontainer.creative_item_silo": "创造模式物品筒仓",
 
-  "block.energizedpower.fluid_filler": "流体填充机",
-  "item.energizedpower.fluid_filler": "流体填充机",
-  "container.energizedpower.fluid_filler": "流体填充机",
+  "_template.epcontainer.fluid_filler": "流体填充机",
 
-  "block.energizedpower.fluid_drainer": "流体排放机",
-  "item.energizedpower.fluid_drainer": "流体排放机",
-  "container.energizedpower.fluid_drainer": "流体排放机",
+  "_template.epcontainer.fluid_drainer": "流体排放机",
 
-  "block.energizedpower.fluid_pump": "流体泵",
-  "item.energizedpower.fluid_pump": "流体泵",
-  "container.energizedpower.fluid_pump": "流体泵",
+  "_template.epcontainer.fluid_pump": "流体泵",
 
-  "block.energizedpower.advanced_fluid_pump": "高级流体泵",
-  "item.energizedpower.advanced_fluid_pump": "高级流体泵",
-  "container.energizedpower.advanced_fluid_pump": "高级流体泵",
+  "_template.epcontainer.advanced_fluid_pump": "高级流体泵",
 
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "此过程仍需 %s 才能完成。",
   "tooltip.energizedpower.fluid_pump.target": "目标: %d, %d, %d",
@@ -702,59 +528,41 @@
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "缺少圆石！",
   "tooltip.energizedpower.fluid_pump.extracting": "正在抽取: %s",
 
-  "block.energizedpower.drain": "排水口",
-  "item.energizedpower.drain": "排水口",
-  "container.energizedpower.drain": "排水口",
+  "_template.epcontainer.drain": "排水口",
 
   "tooltip.energizedpower.drain.txt.shift": "排水口会排出该方块上方的流体源方块。",
 
-  "block.energizedpower.xp_drain": "XP Drain",
-  "item.energizedpower.xp_drain": "XP Drain",
-  "container.energizedpower.xp_drain": "XP Drain",
+  "_template.epcontainer.xp_drain": "XP Drain",
 
   "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
 
-  "block.energizedpower.lightning_generator": "闪电发电机",
-  "item.energizedpower.lightning_generator": "闪电发电机",
-  "container.energizedpower.lightning_generator": "闪电发电机",
+  "_template.epcontainer.lightning_generator": "闪电发电机",
 
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "此方块每次雷击产生 %s。",
   "tooltip.energizedpower.lightning_generator.txt.shift.2": "必须在此方块上方放置避雷针方块才能使其运作",
 
-  "block.energizedpower.energizer": "充能器",
-  "item.energizedpower.energizer": "充能器",
-  "container.energizedpower.energizer": "充能器",
+  "_template.epcontainer.energizer": "充能器",
 
-  "block.energizedpower.charging_station": "充电站",
-  "item.energizedpower.charging_station": "充电站",
-  "container.energizedpower.charging_station": "充电站",
+  "_template.epcontainer.charging_station": "充电站",
 
   "tooltip.energizedpower.charging_station.txt.shift.1": "充电站可用于给玩家物品栏内的物品充电。",
 
-  "block.energizedpower.crystal_growth_chamber": "水晶生长室",
-  "item.energizedpower.crystal_growth_chamber": "水晶生长室",
-  "container.energizedpower.crystal_growth_chamber": "水晶生长室",
+  "_template.epcontainer.crystal_growth_chamber": "水晶生长室",
 
-  "block.energizedpower.weather_controller": "天气控制器",
-  "item.energizedpower.weather_controller": "天气控制器",
-  "container.energizedpower.weather_controller": "天气控制器",
+  "_template.epcontainer.weather_controller": "天气控制器",
 
   "tooltip.energizedpower.weather_controller.btn.clear": "设置天气为晴朗",
   "tooltip.energizedpower.weather_controller.btn.rain": "设置天气为下雨",
   "tooltip.energizedpower.weather_controller.btn.thunder": "设置天气为雷暴",
 
-  "block.energizedpower.time_controller": "时间控制器",
-  "item.energizedpower.time_controller": "时间控制器",
-  "container.energizedpower.time_controller": "时间控制器",
+  "_template.epcontainer.time_controller": "时间控制器",
 
   "tooltip.energizedpower.time_controller.btn.day": "设置时间为白天",
   "tooltip.energizedpower.time_controller.btn.noon": "设置时间为正午",
   "tooltip.energizedpower.time_controller.btn.night": "设置时间为夜晚",
   "tooltip.energizedpower.time_controller.btn.midnight": "设置时间为午夜",
 
-  "block.energizedpower.teleporter": "传送器",
-  "item.energizedpower.teleporter": "传送器",
-  "container.energizedpower.teleporter": "传送器",
+  "_template.epcontainer.teleporter": "传送器",
 
   "tooltip.energizedpower.teleporter.txt.shift.1": "站在传送器上时按 [%s] 键进行传送。",
   "tooltip.energizedpower.teleporter.txt.shift.2": "玩家的传送也可以用红石触发。",
@@ -777,17 +585,13 @@
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_from_type": "从维度类型 \"%s\" 的传送已禁用！",
   "tooltip.energizedpower.teleporter.use.blacklist.inter_dimensional_to_type": "传送到维度类型 \"%s\" 已禁用！",
 
-  "block.energizedpower.basic_machine_frame": "基础机器框架",
-  "item.energizedpower.basic_machine_frame": "基础机器框架",
+  "_template.epblock.basic_machine_frame": "基础机器框架",
 
-  "block.energizedpower.hardened_machine_frame": "硬化机器框架",
-  "item.energizedpower.hardened_machine_frame": "硬化机器框架",
+  "_template.epblock.hardened_machine_frame": "硬化机器框架",
 
-  "block.energizedpower.advanced_machine_frame": "高级机器框架",
-  "item.energizedpower.advanced_machine_frame": "高级机器框架",
+  "_template.epblock.advanced_machine_frame": "高级机器框架",
 
-  "block.energizedpower.reinforced_advanced_machine_frame": "强化高级机器框架",
-  "item.energizedpower.reinforced_advanced_machine_frame": "强化高级机器框架",
+  "_template.epblock.reinforced_advanced_machine_frame": "强化高级机器框架",
 
   "fluid_type.energizedpower.dirty_water": "脏水",
   "fluid_type.energizedpower.liquid_xp": "Liquid XP",
