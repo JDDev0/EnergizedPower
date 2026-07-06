@@ -1,0 +1,15 @@
+{
+  "type": "energizedpower:fluid_transposer",
+  "fluid": {
+    "amount": 333,
+    "id": "energizedpower:liquid_xp",
+    "leftoverDropletsAmount": 27
+  },
+  "ingredient": {
+    "item": "minecraft:glass_bottle"
+  },
+  "mode": "FILLING",
+  "output": {
+    "item": "minecraft:experience_bottle"
+  }
+}

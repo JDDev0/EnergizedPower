@@ -4,6 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -3381,6 +3382,9 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
         addFluidTransposerRecipe(ingredientOf(Items.DIRT), new ItemStack(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, FluidUtils.convertMilliBucketsToDroplets(250)));
+
+        addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), new ItemStack(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
+                new FluidStack(EPFluids.LIQUID_XP, 27000 /* droplets (= 333 mB + 27 droplets) */));
     }
 
     private void buildChargerRecipes() {

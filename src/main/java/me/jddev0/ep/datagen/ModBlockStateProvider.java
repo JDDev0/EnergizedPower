@@ -5,6 +5,7 @@ import me.jddev0.ep.block.*;
 import me.jddev0.ep.datagen.model.ItemWithDisplayModelSupplier;
 import me.jddev0.ep.datagen.model.ModModels;
 import me.jddev0.ep.datagen.model.ModTexturedModel;
+import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.machine.tier.TransformerType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -271,6 +272,9 @@ class ModBlockStateProvider {
         horizontalBlockWithItem(EPBlocks.HARDENED_MACHINE_FRAME, false);
         horizontalBlockWithItem(EPBlocks.ADVANCED_MACHINE_FRAME, false);
         horizontalBlockWithItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
+
+        generator.createNonTemplateModelBlock(EPFluids.DIRTY_WATER_BLOCK);
+        generator.createNonTemplateModelBlock(EPFluids.LIQUID_XP_BLOCK);
     }
 
     private void cubeAllBlockWithItem(Block block) {

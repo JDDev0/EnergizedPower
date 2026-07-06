@@ -158,9 +158,17 @@ public class EnergizedPowerModClient implements ClientModInitializer {
                         ResourceLocation.parse("block/water_flow"),
                         0xC86F3900
                 ));
-
         BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(),
                 EPFluids.DIRTY_WATER, EPFluids.FLOWING_DIRTY_WATER);
+
+        FluidRenderHandlerRegistry.INSTANCE.register(EPFluids.LIQUID_XP, EPFluids.FLOWING_LIQUID_XP,
+                new SimpleFluidRenderHandler(
+                        EPAPI.id("block/liquid_xp_still"),
+                        EPAPI.id("block/liquid_xp_flow"),
+                        0xFFFFFFFF
+                ));
+        BlockRenderLayerMap.INSTANCE.putFluids(RenderType.translucent(),
+                EPFluids.LIQUID_XP, EPFluids.FLOWING_LIQUID_XP);
 
         BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);
         BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntityRenderer::new);

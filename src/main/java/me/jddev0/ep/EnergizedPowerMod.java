@@ -322,6 +322,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.SUPERCONDUCTOR);
 
             event.accept(EPFluids.DIRTY_WATER_BUCKET_ITEM);
+            event.accept(EPFluids.LIQUID_XP_BUCKET_ITEM);
 
             event.accept(EPItems.STONE_PEBBLE);
 
