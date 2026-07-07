@@ -5,6 +5,7 @@ import me.jddev0.ep.util.XPUtils;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
@@ -83,7 +84,7 @@ public class EnergizedPowerXPFluidStorage implements IEnergizedPowerFluidStorage
 
     @Override
     public final boolean isValid(int tank, FluidResource resource) {
-        return resource.is(EPFluids.LIQUID_XP);
+        return resource.is(Tags.Fluids.EXPERIENCE);
     }
 
     public long getXPAmount() {
