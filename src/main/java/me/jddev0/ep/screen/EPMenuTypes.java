@@ -261,6 +261,17 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<CreativeFluidTankMenu>> CREATIVE_FLUID_TANK = registerMenuType("creative_fluid_tank",
             CreativeFluidTankMenu::new);
 
+    public static final Supplier<MenuType<XPStorageMenu>> XP_STORAGE_TINY = registerMenuType("xp_storage_tiny",
+            XPStorageMenu::new);
+    public static final Supplier<MenuType<XPStorageMenu>> XP_STORAGE_SMALL = registerMenuType("xp_storage_small",
+            XPStorageMenu::new);
+    public static final Supplier<MenuType<XPStorageMenu>> XP_STORAGE_MEDIUM = registerMenuType("xp_storage_medium",
+            XPStorageMenu::new);
+    public static final Supplier<MenuType<XPStorageMenu>> XP_STORAGE_LARGE = registerMenuType("xp_storage_large",
+            XPStorageMenu::new);
+    public static final Supplier<MenuType<XPStorageMenu>> XP_STORAGE_GIANT = registerMenuType("xp_storage_giant",
+            XPStorageMenu::new);
+
     public static final Supplier<MenuType<ItemSiloMenu>> ITEM_SILO_TINY = registerMenuType("item_silo_tiny",
             ItemSiloMenu::new);
     public static final Supplier<MenuType<ItemSiloMenu>> ITEM_SILO_SMALL = registerMenuType("item_silo_small",

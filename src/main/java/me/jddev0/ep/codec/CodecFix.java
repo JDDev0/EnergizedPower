@@ -24,6 +24,13 @@ public final class CodecFix {
                 apply(instance, (id, components) -> new ItemStack(id, 1, components));
     });
 
+    public static final Codec<Long> NON_NEGATIVE_LONG = Codec.LONG.validate(value -> {
+        if(value >= 0)
+            return DataResult.success(value);
+
+        return DataResult.error(() -> "Value must be non-negative: " + value);
+    });
+
     public static final Codec<Double> POSITIVE_DOUBLE = Codec.DOUBLE.
             validate(value -> value > 0?DataResult.success(value):DataResult.error(() -> "Value must be positive: " + value));
 

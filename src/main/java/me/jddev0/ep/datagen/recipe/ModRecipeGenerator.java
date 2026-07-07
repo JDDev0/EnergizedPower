@@ -1582,6 +1582,56 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "SFS",
                 "SFS"
         }, new ItemStackTemplate(EPBlocks.FLUID_TANK_LARGE_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
+                'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS)
+        ), new String[] {
+                "IGI",
+                "GLG",
+                "IGI"
+        }, new ItemStackTemplate(EPBlocks.XP_STORAGE_TINY_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_TINY_ITEM), Map.of(
+                'X', ingredientOf(EPBlocks.XP_STORAGE_TINY_ITEM),
+                'I', ingredientOf(CommonItemTags.PLATES_IRON),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS)
+        ), new String[] {
+                "ILI",
+                "XIX",
+                "ILI"
+        }, new ItemStackTemplate(EPBlocks.XP_STORAGE_SMALL_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_SMALL_ITEM), Map.of(
+                'X', ingredientOf(EPBlocks.XP_STORAGE_SMALL_ITEM),
+                'S', ingredientOf(CommonItemTags.PLATES_STEEL),
+                'L', ingredientOf(Tags.Items.STORAGE_BLOCKS_LAPIS)
+        ), new String[] {
+                "SLS",
+                "XSX",
+                "SLS"
+        }, new ItemStackTemplate(EPBlocks.XP_STORAGE_MEDIUM_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_MEDIUM_ITEM), Map.of(
+                'X', ingredientOf(EPBlocks.XP_STORAGE_MEDIUM_ITEM),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL),
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY)
+        ), new String[] {
+                "CXC",
+                "XSX",
+                "CXC"
+        }, new ItemStackTemplate(EPBlocks.XP_STORAGE_LARGE_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_LARGE_ITEM), Map.of(
+                'X', ingredientOf(EPBlocks.XP_STORAGE_LARGE_ITEM),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL),
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY)
+        ), new String[] {
+                "CXC",
+                "XSX",
+                "CXC"
+        }, new ItemStackTemplate(EPBlocks.XP_STORAGE_GIANT_ITEM), CraftingBookCategory.MISC);
     }
     private void buildEnergyTransportCraftingRecipes() {
         addBasicCableCraftingRecipes(CommonItemTags.INGOTS_TIN, CommonItemTags.WIRES_TIN,

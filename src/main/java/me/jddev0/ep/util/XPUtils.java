@@ -1,8 +1,11 @@
 package me.jddev0.ep.util;
 
+import me.jddev0.ep.config.ModConfigs;
 import net.minecraft.world.entity.player.Player;
 
 public final class XPUtils {
+    public static final int XP_TO_LIQUID_RATIO = ModConfigs.COMMON_XP_TO_LIQUID_RATIO.getValue();
+
     private XPUtils() {}
 
     public static int getXpNeededForNextLevel(int currentLevel) {

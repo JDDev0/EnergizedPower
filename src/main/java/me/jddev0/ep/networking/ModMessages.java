@@ -60,6 +60,8 @@ public final class ModMessages {
                 SetCurrentRecipeIdC2SPacket::handle);
         registrar.playToServer(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket.STREAM_CODEC,
                 SetCreativeFluidTankFluidStackC2SPacket::handle);
+        registrar.playToServer(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket.STREAM_CODEC,
+                InsertExtractXPFromXPStorageC2SPacket::handle);
     }
 
     public static void sendToServer(CustomPacketPayload message) {
