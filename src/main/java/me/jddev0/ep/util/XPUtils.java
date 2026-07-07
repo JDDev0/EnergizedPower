@@ -1,5 +1,7 @@
 package me.jddev0.ep.util;
 
+import net.minecraft.world.entity.player.Player;
+
 public final class XPUtils {
     private XPUtils() {}
 
@@ -37,5 +39,9 @@ public final class XPUtils {
         }else {
             return (int)Math.floor((162.5 + Math.sqrt(26406.25 + 18 * (totalXP - 2220))) / 9.);
         }
+    }
+
+    public static long getTotalXPFromPlayer(Player player) {
+        return getTotalXPFromLevel(player.experienceLevel) + (long)(player.experienceProgress * player.getXpNeededForNextLevel());
     }
 }
