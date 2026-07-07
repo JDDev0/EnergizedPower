@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.mixin.entity.ExperienceOrbCountGetterSetter;
+import me.jddev0.ep.util.XPUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -54,14 +55,14 @@ public class XPDrainBlockEntity extends BlockEntity {
                 int playerLevel = player.experienceLevel;
                 float experienceProgress = player.experienceProgress;
                 if(playerLevel > 0 || experienceProgress > 0) {
-                    int xpNeededForNextLevel = getXpNeededForNextLevel(playerLevel);
+                    int xpNeededForNextLevel = XPUtils.getXpNeededForNextLevel(playerLevel);
 
                     int xpPointsAboveXPLevel = (int)(experienceProgress * xpNeededForNextLevel);
                     int xpToDrain;
                     if(xpPointsAboveXPLevel > 0) {
                         xpToDrain = xpPointsAboveXPLevel;
                     }else {
-                        xpToDrain = getXpNeededForNextLevel(playerLevel - 1);
+                        xpToDrain = XPUtils.getXpNeededForNextLevel(playerLevel - 1);
                     }
 
                     blockEntity.pushLiquidXP(xpToDrain, () -> player.giveExperiencePoints(-xpToDrain), maxXP -> {
@@ -109,14 +110,6 @@ public class XPDrainBlockEntity extends BlockEntity {
                     }
                 }, maxXP -> {});
             }
-        }
-    }
-
-    private static int getXpNeededForNextLevel(int currentLevel) {
-        if(currentLevel >= 30) {
-            return 112 + (currentLevel - 30) * 9;
-        }else {
-            return currentLevel >= 15 ? 37 + (currentLevel - 15) * 5 : 7 + currentLevel * 2;
         }
     }
 
