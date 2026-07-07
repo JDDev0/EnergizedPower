@@ -1386,10 +1386,21 @@ public final class ModConfigs {
             1, null
     ));
 
-    public static final ConfigValue<Integer> COMMON_XP_DRAIN_TICKS_PER_PLAYER_LEVEL = COMMON_CONFIG.register(new IntegerConfigValue(
-            "block.xp_drain.ticks_per_player_level",
-            "The amount of ticks the XP Drain requires to extract one level from a Player above.",
-            20,
+    public static final ConfigValue<Boolean> COMMON_XP_DRAIN_PLAY_PLAYER_XP_PICKUP_SOUND = COMMON_CONFIG.register(new BooleanConfigValue(
+            "block.xp_drain.play_player_xp_pickup_sound",
+            "If set to true the XP orb pickup sound is played every time the XP Drain drains XP from a Player.",
+            true
+    ));
+    public static final ConfigValue<Integer> COMMON_XP_DRAIN_PLAYER_XP_DRAIN_AMOUNT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.xp_drain.player_xp_drain_amount",
+            "The amount of XP the XP Drain drains from Players above at once.",
+            25,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_XP_DRAIN_TICKS_TO_DRAIN_FROM_PLAYER = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.xp_drain.tick_to_drain_from_player",
+            "The amount of ticks the XP Drain requires to extract the specified amount of XP from Players above.",
+            5,
             1, null
     ));
     public static final ConfigValue<Integer> COMMON_XP_DRAIN_MAX_XP_ORB_ATTRACTION_DISTANCE = COMMON_CONFIG.register(new IntegerConfigValue(
