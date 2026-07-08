@@ -1,9 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EPBlockStateProperties;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
+import me.jddev0.ep.fluid.EPFluids;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -16,6 +19,7 @@ import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.screen.AdvancedPoweredFurnaceMenu;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
+import me.jddev0.ep.util.XPUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -33,8 +37,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
@@ -45,8 +51,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class AdvancedPoweredFurnaceBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
+        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, EnergizedPowerFluidStorage>
         implements IngredientPacketUpdate {
+    public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_FLUID_TANK_CAPACITY.getValue();
+
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     private static final int ENERGY_USAGE_PER_INPUT_PER_TICK = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK.getValue();
@@ -54,6 +62,7 @@ public class AdvancedPoweredFurnaceBlockEntity
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i >= 3 && i < 6);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     private int[] progress = new int[] {
             0, 0, 0
@@ -67,6 +76,8 @@ public class AdvancedPoweredFurnaceBlockEntity
     private boolean[] hasEnoughEnergy = new boolean[] {
             false, false, false
     };
+
+    private double leftoverXPAmount = 0;
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
@@ -83,12 +94,15 @@ public class AdvancedPoweredFurnaceBlockEntity
 
                 6,
 
+                TANK_CAPACITY,
+
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE,
                 UpgradeModuleModifier.ITEM_EJECTOR,
-                UpgradeModuleModifier.ITEM_PULLING
+                UpgradeModuleModifier.ITEM_PULLING,
+                UpgradeModuleModifier.XP_YIELD
         );
     }
 
@@ -150,6 +164,25 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+
+            @Override
+            public boolean isValid(int index, FluidResource resource) {
+                if(!super.isValid(index, resource) || level == null)
+                    return false;
+
+                return resource.is(Tags.Fluids.EXPERIENCE);
+            }
+        };
+    }
+
+    @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
@@ -174,6 +207,7 @@ public class AdvancedPoweredFurnaceBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
         syncIngredientListToPlayer(player);
 
         return new AdvancedPoweredFurnaceMenu(id, inventory, this, upgradeModuleInventory, this.data);
@@ -184,6 +218,13 @@ public class AdvancedPoweredFurnaceBlockEntity
             return itemHandler;
 
         return itemHandlerSided;
+    }
+
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
@@ -200,6 +241,8 @@ public class AdvancedPoweredFurnaceBlockEntity
             view.putInt("recipe.max_progress." + i, maxProgress[i]);
         for(int i = 0;i < 3;i++)
             view.putInt("recipe.energy_consumption_left." + i, energyConsumptionLeft[i]);
+
+        view.putDouble("recipe.leftover_xp_amount", leftoverXPAmount);
     }
 
     @Override
@@ -212,6 +255,8 @@ public class AdvancedPoweredFurnaceBlockEntity
             maxProgress[i] = view.getIntOr("recipe.max_progress." + i, 0);
         for(int i = 0;i < 3;i++)
             energyConsumptionLeft[i] = view.getIntOr("recipe.energy_consumption_left." + i, 0);
+
+        leftoverXPAmount = view.getDoubleOr("recipe.leftover_xp_amount", 0.);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedPoweredFurnaceBlockEntity blockEntity) {
@@ -365,6 +410,21 @@ public class AdvancedPoweredFurnaceBlockEntity
         blockEntity.itemHandler.extractItem(index, 1);
         blockEntity.itemHandler.setStackInSlot(3 + index, recipe.get().value().assemble(null).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(3 + index).getCount() + recipe.get().value().assemble(null).getCount()));
+
+        if(blockEntity.upgradeModuleInventory.getMainUpgradeModuleModifier(6) == UpgradeModuleModifier.XP_YIELD) {
+            blockEntity.leftoverXPAmount += recipe.get().value().experience() * blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.XP_YIELD);
+            int xpYieldThisTick = (int)blockEntity.leftoverXPAmount;
+
+            //Only keep decimal part
+            blockEntity.leftoverXPAmount -= xpYieldThisTick;
+
+            try(Transaction transaction = Transaction.open(null)) {
+                //Do not check if overflow -> Extra XP should just vanish
+                blockEntity.fluidStorage.insert(FluidResource.of(EPFluids.LIQUID_XP), XPUtils.XP_TO_LIQUID_RATIO * xpYieldThisTick, transaction);
+
+                transaction.commit();
+            }
+        }
 
         blockEntity.resetProgress(index, blockPos, state);
     }
