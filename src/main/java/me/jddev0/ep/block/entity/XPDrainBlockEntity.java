@@ -11,6 +11,8 @@ import me.jddev0.ep.util.XPUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +29,10 @@ import java.util.function.Consumer;
 
 public class XPDrainBlockEntity extends BlockEntity {
     private static final long XP_TO_LIQUID_RATIO = ModConfigs.COMMON_XP_TO_LIQUID_RATIO.getValue();
-    private static final int TICKS_PER_PLAYER_LEVEL = ModConfigs.COMMON_XP_DRAIN_TICKS_PER_PLAYER_LEVEL.getValue();
+
+    private static final boolean PLAY_PLAYER_XP_PICKUP_SOUND = ModConfigs.COMMON_XP_DRAIN_PLAY_PLAYER_XP_PICKUP_SOUND.getValue();
+    private static final int PLAYER_XP_DRAIN_AMOUNT = ModConfigs.COMMON_XP_DRAIN_PLAYER_XP_DRAIN_AMOUNT.getValue();
+    private static final int TICKS_TO_DRAIN_FROM_PLAYER = ModConfigs.COMMON_XP_DRAIN_TICKS_TO_DRAIN_FROM_PLAYER.getValue();
     private static final int MAX_XP_ORB_ATTRACTION_DISTANCE = ModConfigs.COMMON_XP_DRAIN_MAX_XP_ORB_ATTRACTION_DISTANCE.getValue();
 
     public XPDrainBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -40,7 +45,7 @@ public class XPDrainBlockEntity extends BlockEntity {
 
         Vec3 blockCenter = Vec3.atCenterOf(blockPos);
 
-        if(level.getGameTime() % TICKS_PER_PLAYER_LEVEL == 0) {
+        if(level.getGameTime() % TICKS_TO_DRAIN_FROM_PLAYER == 0) {
             List<Player> players = level.getEntities(EntityTypeTest.forClass(Player.class), AABB.of(BoundingBox.fromCorners(
                     new Vec3i(blockPos.getX() - 2, blockPos.getY() - 2,
                             blockPos.getZ() - 2),
@@ -52,26 +57,22 @@ public class XPDrainBlockEntity extends BlockEntity {
                 if(player.isShiftKeyDown())
                     continue;
 
-                int playerLevel = player.experienceLevel;
-                float experienceProgress = player.experienceProgress;
-                if(playerLevel > 0 || experienceProgress > 0) {
-                    int xpNeededForNextLevel = XPUtils.getXpNeededForNextLevel(playerLevel);
+                Consumer<Integer> drainPlayerXP = xp -> {
+                    player.giveExperiencePoints(xp);
 
-                    int xpPointsAboveXPLevel = (int)(experienceProgress * xpNeededForNextLevel);
-                    int xpToDrain;
-                    if(xpPointsAboveXPLevel > 0) {
-                        xpToDrain = xpPointsAboveXPLevel;
-                    }else {
-                        xpToDrain = XPUtils.getXpNeededForNextLevel(playerLevel - 1);
+                    if(PLAY_PLAYER_XP_PICKUP_SOUND) {
+                        level.playSound(null, blockPos, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.1f,
+                                (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * .33f + .9f);
                     }
+                };
 
-                    blockEntity.pushLiquidXP(xpToDrain, () -> player.giveExperiencePoints(-xpToDrain), maxXP -> {
-                        if(maxXP > 0) {
-                            //Try again with maximal supported amount
-                            blockEntity.pushLiquidXP(maxXP, () -> player.giveExperiencePoints(-maxXP), maxXPi -> {});
-                        }
-                    });
-                }
+                int xpToDrain = (int)Math.min(PLAYER_XP_DRAIN_AMOUNT, XPUtils.getTotalXPFromPlayer(player));
+                blockEntity.pushLiquidXP(xpToDrain, () -> drainPlayerXP.accept(-xpToDrain), maxXP -> {
+                    if(maxXP > 0) {
+                        //Try again with maximal supported amount
+                        blockEntity.pushLiquidXP(maxXP, () -> drainPlayerXP.accept(-maxXP), maxXPi -> {});
+                    }
+                });
             }
         }
 
@@ -114,15 +115,15 @@ public class XPDrainBlockEntity extends BlockEntity {
     }
 
     private void pushLiquidXP(int xpAmount, Runnable onFinalCommit, Consumer<Integer> onCancel) {
+        long fluidAmountDroplets = xpAmount * XP_TO_LIQUID_RATIO;
+        if(fluidAmountDroplets <= 0)
+            return;
+
         BlockPos outputBlockPos = worldPosition.relative(Direction.DOWN);
         BlockEntity outputBlockEntity = level.getBlockEntity(outputBlockPos);
 
         Storage<FluidVariant> fluidHandler = FluidStorage.SIDED.find(level, outputBlockPos, level.getBlockState(outputBlockPos), outputBlockEntity, Direction.DOWN.getOpposite());
         if(fluidHandler == null)
-            return;
-
-        long fluidAmountDroplets = xpAmount * XP_TO_LIQUID_RATIO;
-        if(fluidAmountDroplets <= 0)
             return;
 
         long insertedAmount;
