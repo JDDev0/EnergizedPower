@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "energizedpower:item/xp_extraction_upgrade_module_8"
+  }
+}

@@ -300,6 +300,16 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_2, "item_pulling_upgrade_module_2", AdvancementType.TASK
         );
 
+        AdvancementHolder xpExtractionUpgradeModule1 = addAdvancement(
+                advancementOutput, basicUpgradeModule,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_1, "xp_extraction_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpExtractionUpgradeModule2 = addAdvancement(
+                advancementOutput, xpExtractionUpgradeModule1,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_2, "xp_extraction_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder itemConveyorBelt = addAdvancement(
                 advancementOutput, ironPlate,
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, "item_conveyor_belt", AdvancementType.TASK

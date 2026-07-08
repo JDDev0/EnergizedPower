@@ -244,6 +244,16 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_4, "item_pulling_upgrade_module_4", AdvancementType.TASK
         );
 
+        AdvancementHolder xpExtractionUpgradeModule3 = addAdvancement(
+                advancementOutput, advancedUpgradeModule,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_3, "xp_extraction_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpExtractionUpgradeModule4 = addAdvancement(
+                advancementOutput, xpExtractionUpgradeModule3,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_4, "xp_extraction_upgrade_module_4", AdvancementType.TASK
+        );
+
         AdvancementHolder advancedMachineFrame = addAdvancement(
                 advancementOutput, energizedPowerAdvanced,
                 EPBlocks.ADVANCED_MACHINE_FRAME_ITEM, "advanced_machine_frame", AdvancementType.TASK
@@ -437,6 +447,16 @@ public class ModAdvancedAdvancements implements AdvancementSubProvider {
         AdvancementHolder itemPullingUpgradeModule6 = addAdvancement(
                 advancementOutput, itemPullingUpgradeModule5,
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_6, "item_pulling_upgrade_module_6", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpExtractionUpgradeModule5 = addAdvancement(
+                advancementOutput, reinforcedAdvancedUpgradeModule,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_5, "xp_extraction_upgrade_module_5", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpExtractionUpgradeModule6 = addAdvancement(
+                advancementOutput, xpExtractionUpgradeModule5,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_6, "xp_extraction_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder advancedAutoCrafter = addAdvancement(
