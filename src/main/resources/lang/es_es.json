@@ -1063,6 +1063,9 @@
 
   "tooltip.energizedpower.xp_storage_capacity.txt": "XP Storage Capacity: %d levels",
 
+  "book.energizedpower.page.xp_storages.1": "XP Storages can store XP very efficiently and can be used to transfer Liquid XP from/to players.",
+  "book.energizedpower.page.xp_storages.2": "There are five tiers of XP Storages: Tiny, Small, Medium, Large, and Giant",
+
   "_template.epcontainer.item_silo_tiny": "Silo de objetos (Diminuto)",
   "advancements.energizedpower.item_silo_tiny.title": "Silo de objetos (Diminuto)",
   "advancements.energizedpower.item_silo_tiny.description": "Craft a tiny Silo de objetos.",
@@ -1130,6 +1133,7 @@
   "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
   "advancements.energizedpower.xp_drain.title": "XP Drain",
   "advancements.energizedpower.xp_drain.description": "Drain XP from XP orbs and players.",
+  "book.energizedpower.page.xp_drain.1": "The XP Drain drains XP from players and XP orbs and converts them into Liquid XP.",
 
   "_template.epcontainer.lightning_generator": "Generador de rayos",
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Este bloque produce %s por cada rayo que le caiga.",

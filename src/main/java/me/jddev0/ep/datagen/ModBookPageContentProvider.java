@@ -1600,6 +1600,23 @@ public class ModBookPageContentProvider extends PageContentProvider {
 
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("xp_storages"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.xp_storages.1").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
+            ).append(
+                    Component.translatable("book.energizedpower.page.xp_storages.2").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+            ), new Block[] {
+                    EPBlocks.XP_STORAGE_TINY.get(),
+                    EPBlocks.XP_STORAGE_SMALL.get(),
+                    EPBlocks.XP_STORAGE_MEDIUM.get(),
+                    EPBlocks.XP_STORAGE_LARGE.get(),
+                    EPBlocks.XP_STORAGE_GIANT.get(),
+            }, changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("drain"), Component.empty().append(
                     Component.translatable("book.energizedpower.page.drain.1").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1607,6 +1624,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     Component.translatable("book.energizedpower.page.drain.2").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPBlocks.DRAIN.get(), changePageIntToId);
+        }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("xp_drain"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.xp_drain.1").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+            ).append(
+                    Component.translatable("tooltip.energizedpower.xp_drain.txt.shift").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+            ), EPBlocks.XP_DRAIN.get(), changePageIntToId);
         }
     }
     private void registerItemTransportationChapter() {
