@@ -342,6 +342,13 @@
   "book.energizedpower.page.item_pulling_upgrades.1": "Item Pulling Upgrades will allow machines to automatically pull items from the first valid input.",
   "book.energizedpower.page.item_pulling_upgrades.2": "Priority from highest to lowest: Down, Up, North, South, West, East.",
 
+  "_template.item.energizedpower.xp_extraction_upgrade_module": "XP Extraction Upgrade Module (Tier %s)",
+  "_template.advancements.energizedpower.xp_extraction_upgrade_module.title": "XP Extraction %s",
+  "_template.advancements.energizedpower.xp_extraction_upgrade_module.description": "Craft an XP Extraction Upgrade Module (Tier %s).",
+  "book.energizedpower.page.xp_extraction_upgrades.1": "XP Extraction Upgrades enable XP yield for machines like the Powered Furnace.",
+  "book.energizedpower.page.xp_extraction_upgrades.2": "XP points are collected in an internal fluid tank. The machine will not stop if the tank is full, but additional XP will vanish.",
+  "book.energizedpower.page.xp_extraction_upgrades.3": "You can connect the machine via Fluid Pipes to an XP Storage to insert XP into the player inventory.",
+
   "item.energizedpower.blast_furnace_upgrade_module": "溶鉱炉機能拡張モジュール",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "溶鉱炉",
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "製錬モード: 溶鉱炉",
@@ -1257,6 +1264,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "月光",
   "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-output items per tick",
   "tooltip.energizedpower.upgrade_module_modifier.item_pulling": "Auto-input items per tick",
+  "tooltip.energizedpower.upgrade_module_modifier.xp_yield": "XP Yield",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "ブロック",
   "tooltip.energizedpower.upgrade_module_modifier.slot.speed": "Speed Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.energy_consumption": "Energy Efficiency Upgrade Modules",
@@ -1270,6 +1278,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.slot.moon_light": "Moon Light Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_ejector": "Item Ejector Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_pulling": "Item Pulling Upgrade Modules",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.xp_yield": "XP Extraction Upgrade Modules",
 
   "tooltip.energizedpower.upgrade.values": "アップグレードモジュールの補正値:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",
