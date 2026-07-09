@@ -3,7 +3,6 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.item.InventoryChargerItem;
 import me.jddev0.ep.util.CapabilityUtil;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,7 +19,7 @@ public class InventoryChargerMenu extends AbstractContainerMenu {
     private final Container container;
     private final Level level;
 
-    public InventoryChargerMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
+    public InventoryChargerMenu(int id, Inventory inv) {
         this(id, inv, new SimpleContainer(InventoryChargerItem.SLOT_COUNT) {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {

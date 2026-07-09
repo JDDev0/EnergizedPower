@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.data.SimpleEnergyValueContainerData;
 import me.jddev0.ep.screen.base.IEnergyStorageMenu;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,7 +19,7 @@ public class MinecartAdvancedBatteryBoxMenu extends AbstractContainerMenu implem
     private final SimpleEnergyValueContainerData energyData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData capacityData = new SimpleEnergyValueContainerData();
 
-    public MinecartAdvancedBatteryBoxMenu(int id, Inventory inv, FriendlyByteBuf buffer) {
+    public MinecartAdvancedBatteryBoxMenu(int id, Inventory inv) {
         this(id, inv, new SimpleContainer(0), null);
     }
 
