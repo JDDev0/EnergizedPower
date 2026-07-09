@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class ModBlockTagProvider extends BlockTagsProvider {
     public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -25,362 +26,362 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
         buildTag(BlockTags.MINEABLE_WITH_AXE).
-                add(EPBlocks.SAWDUST_BLOCK.get());
+                add(EPBlocks.SAWDUST_BLOCK);
 
         buildTag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).
                 add(
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get()
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
                 );
 
         buildTag(BlockTags.MINEABLE_WITH_PICKAXE).
                 add(
-                        EPBlocks.SILICON_BLOCK.get(),
-                        EPBlocks.TIN_BLOCK.get(),
-                        EPBlocks.STEEL_BLOCK.get(),
-                        EPBlocks.ADVANCED_ALLOY_BLOCK.get(),
+                        EPBlocks.SILICON_BLOCK,
+                        EPBlocks.TIN_BLOCK,
+                        EPBlocks.STEEL_BLOCK,
+                        EPBlocks.ADVANCED_ALLOY_BLOCK,
 
-                        EPBlocks.TIN_ORE.get(),
-                        EPBlocks.DEEPSLATE_TIN_ORE.get(),
+                        EPBlocks.TIN_ORE,
+                        EPBlocks.DEEPSLATE_TIN_ORE,
 
-                        EPBlocks.RAW_TIN_BLOCK.get(),
+                        EPBlocks.RAW_TIN_BLOCK,
 
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get(),
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get(),
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get(),
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get(),
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
 
-                        EPBlocks.COPPER_FLUID_PIPE.get(),
-                        EPBlocks.IRON_FLUID_PIPE.get(),
-                        EPBlocks.GOLDEN_FLUID_PIPE.get(),
-                        EPBlocks.STEEL_FLUID_PIPE.get(),
-                        EPBlocks.PRESSURIZED_FLUID_PIPE.get(),
+                        EPBlocks.COPPER_FLUID_PIPE,
+                        EPBlocks.IRON_FLUID_PIPE,
+                        EPBlocks.GOLDEN_FLUID_PIPE,
+                        EPBlocks.STEEL_FLUID_PIPE,
+                        EPBlocks.PRESSURIZED_FLUID_PIPE,
 
-                        EPBlocks.FLUID_TANK_SMALL.get(),
-                        EPBlocks.FLUID_TANK_MEDIUM.get(),
-                        EPBlocks.FLUID_TANK_LARGE.get(),
+                        EPBlocks.FLUID_TANK_SMALL,
+                        EPBlocks.FLUID_TANK_MEDIUM,
+                        EPBlocks.FLUID_TANK_LARGE,
 
-                        EPBlocks.XP_STORAGE_TINY.get(),
-                        EPBlocks.XP_STORAGE_SMALL.get(),
-                        EPBlocks.XP_STORAGE_MEDIUM.get(),
-                        EPBlocks.XP_STORAGE_LARGE.get(),
-                        EPBlocks.XP_STORAGE_GIANT.get(),
+                        EPBlocks.XP_STORAGE_TINY,
+                        EPBlocks.XP_STORAGE_SMALL,
+                        EPBlocks.XP_STORAGE_MEDIUM,
+                        EPBlocks.XP_STORAGE_LARGE,
+                        EPBlocks.XP_STORAGE_GIANT,
 
-                        EPBlocks.ITEM_SILO_TINY.get(),
-                        EPBlocks.ITEM_SILO_SMALL.get(),
-                        EPBlocks.ITEM_SILO_MEDIUM.get(),
-                        EPBlocks.ITEM_SILO_LARGE.get(),
-                        EPBlocks.ITEM_SILO_GIANT.get(),
+                        EPBlocks.ITEM_SILO_TINY,
+                        EPBlocks.ITEM_SILO_SMALL,
+                        EPBlocks.ITEM_SILO_MEDIUM,
+                        EPBlocks.ITEM_SILO_LARGE,
+                        EPBlocks.ITEM_SILO_GIANT,
 
-                        EPBlocks.AUTO_CRAFTER.get(),
-                        EPBlocks.ADVANCED_AUTO_CRAFTER.get(),
+                        EPBlocks.AUTO_CRAFTER,
+                        EPBlocks.ADVANCED_AUTO_CRAFTER,
 
-                        EPBlocks.PRESS_MOLD_MAKER.get(),
+                        EPBlocks.PRESS_MOLD_MAKER,
 
-                        EPBlocks.ALLOY_FURNACE.get(),
+                        EPBlocks.ALLOY_FURNACE,
 
-                        EPBlocks.CHARGER.get(),
-                        EPBlocks.ADVANCED_CHARGER.get(),
+                        EPBlocks.CHARGER,
+                        EPBlocks.ADVANCED_CHARGER,
 
-                        EPBlocks.UNCHARGER.get(),
-                        EPBlocks.ADVANCED_UNCHARGER.get(),
+                        EPBlocks.UNCHARGER,
+                        EPBlocks.ADVANCED_UNCHARGER,
 
-                        EPBlocks.MINECART_CHARGER.get(),
-                        EPBlocks.ADVANCED_MINECART_CHARGER.get(),
+                        EPBlocks.MINECART_CHARGER,
+                        EPBlocks.ADVANCED_MINECART_CHARGER,
 
-                        EPBlocks.MINECART_UNCHARGER.get(),
-                        EPBlocks.ADVANCED_MINECART_UNCHARGER.get(),
+                        EPBlocks.MINECART_UNCHARGER,
+                        EPBlocks.ADVANCED_MINECART_UNCHARGER,
 
-                        EPBlocks.SOLAR_PANEL_1.get(),
-                        EPBlocks.SOLAR_PANEL_2.get(),
-                        EPBlocks.SOLAR_PANEL_3.get(),
-                        EPBlocks.SOLAR_PANEL_4.get(),
-                        EPBlocks.SOLAR_PANEL_5.get(),
-                        EPBlocks.SOLAR_PANEL_6.get(),
-                        EPBlocks.SOLAR_PANEL_7.get(),
+                        EPBlocks.SOLAR_PANEL_1,
+                        EPBlocks.SOLAR_PANEL_2,
+                        EPBlocks.SOLAR_PANEL_3,
+                        EPBlocks.SOLAR_PANEL_4,
+                        EPBlocks.SOLAR_PANEL_5,
+                        EPBlocks.SOLAR_PANEL_6,
+                        EPBlocks.SOLAR_PANEL_7,
 
-                        EPBlocks.COAL_ENGINE.get(),
+                        EPBlocks.COAL_ENGINE,
 
-                        EPBlocks.HEAT_GENERATOR.get(),
+                        EPBlocks.HEAT_GENERATOR,
 
-                        EPBlocks.THERMAL_GENERATOR.get(),
+                        EPBlocks.THERMAL_GENERATOR,
 
-                        EPBlocks.POWERED_FURNACE.get(),
-                        EPBlocks.ADVANCED_POWERED_FURNACE.get(),
+                        EPBlocks.POWERED_FURNACE,
+                        EPBlocks.ADVANCED_POWERED_FURNACE,
 
-                        EPBlocks.LV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.LV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.LV_TRANSFORMER_N_TO_1.get(),
-                        EPBlocks.MV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.MV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.MV_TRANSFORMER_N_TO_1.get(),
-                        EPBlocks.HV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.HV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.HV_TRANSFORMER_N_TO_1.get(),
-                        EPBlocks.EHV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.EHV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.EHV_TRANSFORMER_N_TO_1.get(),
+                        EPBlocks.LV_TRANSFORMER_1_TO_N,
+                        EPBlocks.LV_TRANSFORMER_3_TO_3,
+                        EPBlocks.LV_TRANSFORMER_N_TO_1,
+                        EPBlocks.MV_TRANSFORMER_1_TO_N,
+                        EPBlocks.MV_TRANSFORMER_3_TO_3,
+                        EPBlocks.MV_TRANSFORMER_N_TO_1,
+                        EPBlocks.HV_TRANSFORMER_1_TO_N,
+                        EPBlocks.HV_TRANSFORMER_3_TO_3,
+                        EPBlocks.HV_TRANSFORMER_N_TO_1,
+                        EPBlocks.EHV_TRANSFORMER_1_TO_N,
+                        EPBlocks.EHV_TRANSFORMER_3_TO_3,
+                        EPBlocks.EHV_TRANSFORMER_N_TO_1,
 
-                        EPBlocks.CONFIGURABLE_LV_TRANSFORMER.get(),
-                        EPBlocks.CONFIGURABLE_MV_TRANSFORMER.get(),
-                        EPBlocks.CONFIGURABLE_HV_TRANSFORMER.get(),
-                        EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get(),
+                        EPBlocks.CONFIGURABLE_LV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_MV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_HV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_EHV_TRANSFORMER,
 
-                        EPBlocks.BATTERY_BOX.get(),
-                        EPBlocks.ADVANCED_BATTERY_BOX.get(),
+                        EPBlocks.BATTERY_BOX,
+                        EPBlocks.ADVANCED_BATTERY_BOX,
 
-                        EPBlocks.CRUSHER.get(),
-                        EPBlocks.ADVANCED_CRUSHER.get(),
+                        EPBlocks.CRUSHER,
+                        EPBlocks.ADVANCED_CRUSHER,
 
-                        EPBlocks.PULVERIZER.get(),
-                        EPBlocks.ADVANCED_PULVERIZER.get(),
+                        EPBlocks.PULVERIZER,
+                        EPBlocks.ADVANCED_PULVERIZER,
 
-                        EPBlocks.SAWMILL.get(),
+                        EPBlocks.SAWMILL,
 
-                        EPBlocks.COMPRESSOR.get(),
+                        EPBlocks.COMPRESSOR,
 
-                        EPBlocks.METAL_PRESS.get(),
+                        EPBlocks.METAL_PRESS,
 
-                        EPBlocks.AUTO_PRESS_MOLD_MAKER.get(),
+                        EPBlocks.AUTO_PRESS_MOLD_MAKER,
 
-                        EPBlocks.AUTO_STONECUTTER.get(),
+                        EPBlocks.AUTO_STONECUTTER,
 
-                        EPBlocks.ASSEMBLING_MACHINE.get(),
+                        EPBlocks.ASSEMBLING_MACHINE,
 
-                        EPBlocks.INDUCTION_SMELTER.get(),
+                        EPBlocks.INDUCTION_SMELTER,
 
-                        EPBlocks.PLANT_GROWTH_CHAMBER.get(),
+                        EPBlocks.PLANT_GROWTH_CHAMBER,
 
-                        EPBlocks.BLOCK_PLACER.get(),
+                        EPBlocks.BLOCK_PLACER,
 
-                        EPBlocks.FLUID_FILLER.get(),
+                        EPBlocks.FLUID_FILLER,
 
-                        EPBlocks.FLUID_DRAINER.get(),
+                        EPBlocks.FLUID_DRAINER,
 
-                        EPBlocks.FLUID_PUMP.get(),
-                        EPBlocks.ADVANCED_FLUID_PUMP.get(),
+                        EPBlocks.FLUID_PUMP,
+                        EPBlocks.ADVANCED_FLUID_PUMP,
 
-                        EPBlocks.DRAIN.get(),
+                        EPBlocks.DRAIN,
 
-                        EPBlocks.XP_DRAIN.get(),
+                        EPBlocks.XP_DRAIN,
 
-                        EPBlocks.FLUID_FREEZER.get(),
-                        EPBlocks.STONE_LIQUEFIER.get(),
-                        EPBlocks.STONE_SOLIDIFIER.get(),
+                        EPBlocks.FLUID_FREEZER,
+                        EPBlocks.STONE_LIQUEFIER,
+                        EPBlocks.STONE_SOLIDIFIER,
 
-                        EPBlocks.FILTRATION_PLANT.get(),
+                        EPBlocks.FILTRATION_PLANT,
 
-                        EPBlocks.FLUID_TRANSPOSER.get(),
+                        EPBlocks.FLUID_TRANSPOSER,
 
-                        EPBlocks.LIGHTNING_GENERATOR.get(),
+                        EPBlocks.LIGHTNING_GENERATOR,
 
-                        EPBlocks.ENERGIZER.get(),
+                        EPBlocks.ENERGIZER,
 
-                        EPBlocks.CHARGING_STATION.get(),
+                        EPBlocks.CHARGING_STATION,
 
-                        EPBlocks.CRYSTAL_GROWTH_CHAMBER.get(),
+                        EPBlocks.CRYSTAL_GROWTH_CHAMBER,
 
-                        EPBlocks.WEATHER_CONTROLLER.get(),
+                        EPBlocks.WEATHER_CONTROLLER,
 
-                        EPBlocks.TIME_CONTROLLER.get(),
+                        EPBlocks.TIME_CONTROLLER,
 
-                        EPBlocks.TELEPORTER.get(),
+                        EPBlocks.TELEPORTER,
 
-                        EPBlocks.BASIC_MACHINE_FRAME.get(),
-                        EPBlocks.HARDENED_MACHINE_FRAME.get(),
-                        EPBlocks.ADVANCED_MACHINE_FRAME.get(),
-                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
+                        EPBlocks.BASIC_MACHINE_FRAME,
+                        EPBlocks.HARDENED_MACHINE_FRAME,
+                        EPBlocks.ADVANCED_MACHINE_FRAME,
+                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
         buildTag(BlockTags.NEEDS_STONE_TOOL).
                 add(
-                        EPBlocks.SILICON_BLOCK.get(),
-                        EPBlocks.TIN_BLOCK.get(),
-                        EPBlocks.STEEL_BLOCK.get(),
-                        EPBlocks.ADVANCED_ALLOY_BLOCK.get(),
+                        EPBlocks.SILICON_BLOCK,
+                        EPBlocks.TIN_BLOCK,
+                        EPBlocks.STEEL_BLOCK,
+                        EPBlocks.ADVANCED_ALLOY_BLOCK,
 
-                        EPBlocks.TIN_ORE.get(),
-                        EPBlocks.DEEPSLATE_TIN_ORE.get(),
+                        EPBlocks.TIN_ORE,
+                        EPBlocks.DEEPSLATE_TIN_ORE,
 
-                        EPBlocks.RAW_TIN_BLOCK.get(),
+                        EPBlocks.RAW_TIN_BLOCK,
 
                         //Basic Item Conveyor Belts and Belt Machines do not require stone tools
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get(),
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
 
-                        EPBlocks.COPPER_FLUID_PIPE.get(),
-                        EPBlocks.IRON_FLUID_PIPE.get(),
-                        EPBlocks.GOLDEN_FLUID_PIPE.get(),
-                        EPBlocks.STEEL_FLUID_PIPE.get(),
-                        EPBlocks.PRESSURIZED_FLUID_PIPE.get(),
+                        EPBlocks.COPPER_FLUID_PIPE,
+                        EPBlocks.IRON_FLUID_PIPE,
+                        EPBlocks.GOLDEN_FLUID_PIPE,
+                        EPBlocks.STEEL_FLUID_PIPE,
+                        EPBlocks.PRESSURIZED_FLUID_PIPE,
 
-                        EPBlocks.FLUID_TANK_SMALL.get(),
-                        EPBlocks.FLUID_TANK_MEDIUM.get(),
-                        EPBlocks.FLUID_TANK_LARGE.get(),
+                        EPBlocks.FLUID_TANK_SMALL,
+                        EPBlocks.FLUID_TANK_MEDIUM,
+                        EPBlocks.FLUID_TANK_LARGE,
 
-                        EPBlocks.XP_STORAGE_TINY.get(),
-                        EPBlocks.XP_STORAGE_SMALL.get(),
-                        EPBlocks.XP_STORAGE_MEDIUM.get(),
-                        EPBlocks.XP_STORAGE_LARGE.get(),
-                        EPBlocks.XP_STORAGE_GIANT.get(),
+                        EPBlocks.XP_STORAGE_TINY,
+                        EPBlocks.XP_STORAGE_SMALL,
+                        EPBlocks.XP_STORAGE_MEDIUM,
+                        EPBlocks.XP_STORAGE_LARGE,
+                        EPBlocks.XP_STORAGE_GIANT,
 
-                        EPBlocks.ITEM_SILO_TINY.get(),
-                        EPBlocks.ITEM_SILO_SMALL.get(),
-                        EPBlocks.ITEM_SILO_MEDIUM.get(),
-                        EPBlocks.ITEM_SILO_LARGE.get(),
-                        EPBlocks.ITEM_SILO_GIANT.get(),
+                        EPBlocks.ITEM_SILO_TINY,
+                        EPBlocks.ITEM_SILO_SMALL,
+                        EPBlocks.ITEM_SILO_MEDIUM,
+                        EPBlocks.ITEM_SILO_LARGE,
+                        EPBlocks.ITEM_SILO_GIANT,
 
-                        EPBlocks.AUTO_CRAFTER.get(),
-                        EPBlocks.ADVANCED_AUTO_CRAFTER.get(),
+                        EPBlocks.AUTO_CRAFTER,
+                        EPBlocks.ADVANCED_AUTO_CRAFTER,
 
-                        EPBlocks.CHARGER.get(),
-                        EPBlocks.ADVANCED_CHARGER.get(),
+                        EPBlocks.CHARGER,
+                        EPBlocks.ADVANCED_CHARGER,
 
-                        EPBlocks.UNCHARGER.get(),
-                        EPBlocks.ADVANCED_UNCHARGER.get(),
+                        EPBlocks.UNCHARGER,
+                        EPBlocks.ADVANCED_UNCHARGER,
 
-                        EPBlocks.MINECART_CHARGER.get(),
-                        EPBlocks.ADVANCED_MINECART_CHARGER.get(),
+                        EPBlocks.MINECART_CHARGER,
+                        EPBlocks.ADVANCED_MINECART_CHARGER,
 
-                        EPBlocks.MINECART_UNCHARGER.get(),
-                        EPBlocks.ADVANCED_MINECART_UNCHARGER.get(),
+                        EPBlocks.MINECART_UNCHARGER,
+                        EPBlocks.ADVANCED_MINECART_UNCHARGER,
 
-                        EPBlocks.SOLAR_PANEL_1.get(),
-                        EPBlocks.SOLAR_PANEL_2.get(),
-                        EPBlocks.SOLAR_PANEL_3.get(),
-                        EPBlocks.SOLAR_PANEL_4.get(),
-                        EPBlocks.SOLAR_PANEL_5.get(),
-                        EPBlocks.SOLAR_PANEL_6.get(),
-                        EPBlocks.SOLAR_PANEL_7.get(),
+                        EPBlocks.SOLAR_PANEL_1,
+                        EPBlocks.SOLAR_PANEL_2,
+                        EPBlocks.SOLAR_PANEL_3,
+                        EPBlocks.SOLAR_PANEL_4,
+                        EPBlocks.SOLAR_PANEL_5,
+                        EPBlocks.SOLAR_PANEL_6,
+                        EPBlocks.SOLAR_PANEL_7,
 
-                        EPBlocks.COAL_ENGINE.get(),
+                        EPBlocks.COAL_ENGINE,
 
-                        EPBlocks.HEAT_GENERATOR.get(),
+                        EPBlocks.HEAT_GENERATOR,
 
-                        EPBlocks.THERMAL_GENERATOR.get(),
+                        EPBlocks.THERMAL_GENERATOR,
 
-                        EPBlocks.POWERED_FURNACE.get(),
-                        EPBlocks.ADVANCED_POWERED_FURNACE.get(),
+                        EPBlocks.POWERED_FURNACE,
+                        EPBlocks.ADVANCED_POWERED_FURNACE,
 
-                        EPBlocks.LV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.LV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.LV_TRANSFORMER_N_TO_1.get(),
-                        EPBlocks.MV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.MV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.MV_TRANSFORMER_N_TO_1.get(),
-                        EPBlocks.HV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.HV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.HV_TRANSFORMER_N_TO_1.get(),
-                        EPBlocks.EHV_TRANSFORMER_1_TO_N.get(),
-                        EPBlocks.EHV_TRANSFORMER_3_TO_3.get(),
-                        EPBlocks.EHV_TRANSFORMER_N_TO_1.get(),
+                        EPBlocks.LV_TRANSFORMER_1_TO_N,
+                        EPBlocks.LV_TRANSFORMER_3_TO_3,
+                        EPBlocks.LV_TRANSFORMER_N_TO_1,
+                        EPBlocks.MV_TRANSFORMER_1_TO_N,
+                        EPBlocks.MV_TRANSFORMER_3_TO_3,
+                        EPBlocks.MV_TRANSFORMER_N_TO_1,
+                        EPBlocks.HV_TRANSFORMER_1_TO_N,
+                        EPBlocks.HV_TRANSFORMER_3_TO_3,
+                        EPBlocks.HV_TRANSFORMER_N_TO_1,
+                        EPBlocks.EHV_TRANSFORMER_1_TO_N,
+                        EPBlocks.EHV_TRANSFORMER_3_TO_3,
+                        EPBlocks.EHV_TRANSFORMER_N_TO_1,
 
-                        EPBlocks.CONFIGURABLE_LV_TRANSFORMER.get(),
-                        EPBlocks.CONFIGURABLE_MV_TRANSFORMER.get(),
-                        EPBlocks.CONFIGURABLE_HV_TRANSFORMER.get(),
-                        EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get(),
+                        EPBlocks.CONFIGURABLE_LV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_MV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_HV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_EHV_TRANSFORMER,
 
-                        EPBlocks.BATTERY_BOX.get(),
-                        EPBlocks.ADVANCED_BATTERY_BOX.get(),
+                        EPBlocks.BATTERY_BOX,
+                        EPBlocks.ADVANCED_BATTERY_BOX,
 
-                        EPBlocks.CRUSHER.get(),
-                        EPBlocks.ADVANCED_CRUSHER.get(),
+                        EPBlocks.CRUSHER,
+                        EPBlocks.ADVANCED_CRUSHER,
 
-                        EPBlocks.PULVERIZER.get(),
-                        EPBlocks.ADVANCED_PULVERIZER.get(),
+                        EPBlocks.PULVERIZER,
+                        EPBlocks.ADVANCED_PULVERIZER,
 
-                        EPBlocks.SAWMILL.get(),
+                        EPBlocks.SAWMILL,
 
-                        EPBlocks.COMPRESSOR.get(),
+                        EPBlocks.COMPRESSOR,
 
-                        EPBlocks.METAL_PRESS.get(),
+                        EPBlocks.METAL_PRESS,
 
-                        EPBlocks.AUTO_PRESS_MOLD_MAKER.get(),
+                        EPBlocks.AUTO_PRESS_MOLD_MAKER,
 
-                        EPBlocks.AUTO_STONECUTTER.get(),
+                        EPBlocks.AUTO_STONECUTTER,
 
-                        EPBlocks.ASSEMBLING_MACHINE.get(),
+                        EPBlocks.ASSEMBLING_MACHINE,
 
-                        EPBlocks.INDUCTION_SMELTER.get(),
+                        EPBlocks.INDUCTION_SMELTER,
 
-                        EPBlocks.PLANT_GROWTH_CHAMBER.get(),
+                        EPBlocks.PLANT_GROWTH_CHAMBER,
 
-                        EPBlocks.BLOCK_PLACER.get(),
+                        EPBlocks.BLOCK_PLACER,
 
-                        EPBlocks.FLUID_FILLER.get(),
+                        EPBlocks.FLUID_FILLER,
 
-                        EPBlocks.FLUID_DRAINER.get(),
+                        EPBlocks.FLUID_DRAINER,
 
-                        EPBlocks.FLUID_PUMP.get(),
-                        EPBlocks.ADVANCED_FLUID_PUMP.get(),
+                        EPBlocks.FLUID_PUMP,
+                        EPBlocks.ADVANCED_FLUID_PUMP,
 
-                        EPBlocks.DRAIN.get(),
+                        EPBlocks.DRAIN,
 
-                        EPBlocks.XP_DRAIN.get(),
+                        EPBlocks.XP_DRAIN,
 
-                        EPBlocks.FLUID_FREEZER.get(),
-                        EPBlocks.STONE_LIQUEFIER.get(),
-                        EPBlocks.STONE_SOLIDIFIER.get(),
+                        EPBlocks.FLUID_FREEZER,
+                        EPBlocks.STONE_LIQUEFIER,
+                        EPBlocks.STONE_SOLIDIFIER,
 
-                        EPBlocks.FILTRATION_PLANT.get(),
+                        EPBlocks.FILTRATION_PLANT,
 
-                        EPBlocks.FLUID_TRANSPOSER.get(),
+                        EPBlocks.FLUID_TRANSPOSER,
 
-                        EPBlocks.LIGHTNING_GENERATOR.get(),
+                        EPBlocks.LIGHTNING_GENERATOR,
 
-                        EPBlocks.ENERGIZER.get(),
+                        EPBlocks.ENERGIZER,
 
-                        EPBlocks.CHARGING_STATION.get(),
+                        EPBlocks.CHARGING_STATION,
 
-                        EPBlocks.CRYSTAL_GROWTH_CHAMBER.get(),
+                        EPBlocks.CRYSTAL_GROWTH_CHAMBER,
 
-                        EPBlocks.WEATHER_CONTROLLER.get(),
+                        EPBlocks.WEATHER_CONTROLLER,
 
-                        EPBlocks.TIME_CONTROLLER.get(),
+                        EPBlocks.TIME_CONTROLLER,
 
-                        EPBlocks.TELEPORTER.get(),
+                        EPBlocks.TELEPORTER,
 
-                        EPBlocks.BASIC_MACHINE_FRAME.get(),
-                        EPBlocks.HARDENED_MACHINE_FRAME.get(),
-                        EPBlocks.ADVANCED_MACHINE_FRAME.get(),
-                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
+                        EPBlocks.BASIC_MACHINE_FRAME,
+                        EPBlocks.HARDENED_MACHINE_FRAME,
+                        EPBlocks.ADVANCED_MACHINE_FRAME,
+                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
                 );
 
         buildTag(Tags.Blocks.ORES).
                 addTag(CommonBlockTags.ORES_TIN);
         buildTag(CommonBlockTags.ORES_TIN).
-                add(EPBlocks.TIN_ORE.get(),
-                        EPBlocks.DEEPSLATE_TIN_ORE.get());
+                add(EPBlocks.TIN_ORE,
+                        EPBlocks.DEEPSLATE_TIN_ORE);
 
         buildTag(Tags.Blocks.ORES_IN_GROUND_STONE).
-                add(EPBlocks.TIN_ORE.get());
+                add(EPBlocks.TIN_ORE);
         buildTag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).
-                add(EPBlocks.DEEPSLATE_TIN_ORE.get());
+                add(EPBlocks.DEEPSLATE_TIN_ORE);
 
         buildTag(Tags.Blocks.STORAGE_BLOCKS).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
@@ -389,15 +390,15 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 addTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN);
         buildTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
-                add(EPBlocks.SILICON_BLOCK.get());
+                add(EPBlocks.SILICON_BLOCK);
         buildTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
-                add(EPBlocks.TIN_BLOCK.get());
+                add(EPBlocks.TIN_BLOCK);
         buildTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
-                add(EPBlocks.STEEL_BLOCK.get());
+                add(EPBlocks.STEEL_BLOCK);
         buildTag(CommonBlockTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
-                add(EPBlocks.ADVANCED_ALLOY_BLOCK.get());
+                add(EPBlocks.ADVANCED_ALLOY_BLOCK);
         buildTag(CommonBlockTags.STORAGE_BLOCKS_RAW_TIN).
-                add(EPBlocks.RAW_TIN_BLOCK.get());
+                add(EPBlocks.RAW_TIN_BLOCK);
     }
 
     private TagBuilderFix buildTag(final TagKey<Block> tagKey) {
@@ -417,7 +418,20 @@ public class ModBlockTagProvider extends BlockTagsProvider {
             return this;
         }
 
+        public TagBuilderFix add(final Supplier<? extends Block> element) {
+            add(element.get());
+
+            return this;
+        }
+
         public TagBuilderFix add(final Block... element) {
+            Arrays.stream(element).forEach(this::add);
+
+            return this;
+        }
+
+        @SafeVarargs
+        public final TagBuilderFix add(final Supplier<? extends Block>... element) {
             Arrays.stream(element).forEach(this::add);
 
             return this;

@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class ModFluidTagProvider extends FluidTagsProvider {
     public ModFluidTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -24,12 +25,12 @@ public class ModFluidTagProvider extends FluidTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
         buildTag(CommonFluidTags.DIRTY_WATER).
-                add(EPFluids.DIRTY_WATER.get(),
-                        EPFluids.FLOWING_DIRTY_WATER.get());
+                add(EPFluids.DIRTY_WATER,
+                        EPFluids.FLOWING_DIRTY_WATER);
 
         buildTag(Tags.Fluids.EXPERIENCE).
-                add(EPFluids.LIQUID_XP.get(),
-                        EPFluids.FLOWING_LIQUID_XP.get());
+                add(EPFluids.LIQUID_XP,
+                        EPFluids.FLOWING_LIQUID_XP);
     }
 
     private TagBuilderFix buildTag(final TagKey<Fluid> tagKey) {
@@ -49,7 +50,20 @@ public class ModFluidTagProvider extends FluidTagsProvider {
             return this;
         }
 
+        public TagBuilderFix add(final Supplier<? extends Fluid> element) {
+            add(element.get());
+
+            return this;
+        }
+
         public TagBuilderFix add(final Fluid... element) {
+            Arrays.stream(element).forEach(this::add);
+
+            return this;
+        }
+
+        @SafeVarargs
+        public final TagBuilderFix add(final Supplier<? extends Fluid>... element) {
             Arrays.stream(element).forEach(this::add);
 
             return this;
