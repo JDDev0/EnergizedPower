@@ -17,6 +17,7 @@ import net.neoforged.neoforge.common.data.ItemTagsProvider;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class ModItemTagProvider extends ItemTagsProvider {
     public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
@@ -26,99 +27,99 @@ public class ModItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
         buildTag(ItemTags.BOOKSHELF_BOOKS).
-                add(EPItems.ENERGIZED_POWER_BOOK.get());
+                add(EPItems.ENERGIZED_POWER_BOOK);
 
         buildTag(ItemTags.LECTERN_BOOKS).
-                add(EPItems.ENERGIZED_POWER_BOOK.get());
+                add(EPItems.ENERGIZED_POWER_BOOK);
 
         buildTag(ItemTags.PIGLIN_LOVED).
-                add(EPItems.GOLD_DUST.get(),
-                        EPItems.GOLD_PLATE.get(),
-                        EPItems.GOLDEN_HAMMER.get());
+                add(EPItems.GOLD_DUST,
+                        EPItems.GOLD_PLATE,
+                        EPItems.GOLDEN_HAMMER);
 
         buildTag(EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS).
-                add(EPItems.RAW_GEAR_PRESS_MOLD.get(),
-                        EPItems.RAW_ROD_PRESS_MOLD.get(),
-                        EPItems.RAW_WIRE_PRESS_MOLD.get());
+                add(EPItems.RAW_GEAR_PRESS_MOLD,
+                        EPItems.RAW_ROD_PRESS_MOLD,
+                        EPItems.RAW_WIRE_PRESS_MOLD);
 
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS).
-                add(EPItems.GEAR_PRESS_MOLD.get(),
-                        EPItems.ROD_PRESS_MOLD.get(),
-                        EPItems.WIRE_PRESS_MOLD.get());
+                add(EPItems.GEAR_PRESS_MOLD,
+                        EPItems.ROD_PRESS_MOLD,
+                        EPItems.WIRE_PRESS_MOLD);
 
         buildTag(CompatibilityItemTags.AE2_ITEM_P2P_TUNNEL_ATTUNEMENTS).
                 add(
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get(),
-                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get(),
-                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM.get(),
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM.get(),
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM,
+                        EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM,
+                        EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM,
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM,
 
-                        EPBlocks.ITEM_SILO_TINY_ITEM.get(),
-                        EPBlocks.ITEM_SILO_SMALL_ITEM.get(),
-                        EPBlocks.ITEM_SILO_MEDIUM_ITEM.get(),
-                        EPBlocks.ITEM_SILO_LARGE_ITEM.get(),
-                        EPBlocks.ITEM_SILO_GIANT_ITEM.get(),
-                        EPBlocks.CREATIVE_ITEM_SILO_ITEM.get()
+                        EPBlocks.ITEM_SILO_TINY_ITEM,
+                        EPBlocks.ITEM_SILO_SMALL_ITEM,
+                        EPBlocks.ITEM_SILO_MEDIUM_ITEM,
+                        EPBlocks.ITEM_SILO_LARGE_ITEM,
+                        EPBlocks.ITEM_SILO_GIANT_ITEM,
+                        EPBlocks.CREATIVE_ITEM_SILO_ITEM
                 );
 
         buildTag(CompatibilityItemTags.AE2_FLUID_P2P_TUNNEL_ATTUNEMENTS).
                 add(
-                        EPBlocks.COPPER_FLUID_PIPE_ITEM.get(),
-                        EPBlocks.IRON_FLUID_PIPE_ITEM.get(),
-                        EPBlocks.GOLDEN_FLUID_PIPE_ITEM.get(),
-                        EPBlocks.STEEL_FLUID_PIPE_ITEM.get(),
-                        EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM.get(),
+                        EPBlocks.COPPER_FLUID_PIPE_ITEM,
+                        EPBlocks.IRON_FLUID_PIPE_ITEM,
+                        EPBlocks.GOLDEN_FLUID_PIPE_ITEM,
+                        EPBlocks.STEEL_FLUID_PIPE_ITEM,
+                        EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM,
 
-                        EPBlocks.FLUID_TANK_SMALL_ITEM.get(),
-                        EPBlocks.FLUID_TANK_MEDIUM_ITEM.get(),
-                        EPBlocks.FLUID_TANK_LARGE_ITEM.get(),
-                        EPBlocks.CREATIVE_FLUID_TANK_ITEM.get()
+                        EPBlocks.FLUID_TANK_SMALL_ITEM,
+                        EPBlocks.FLUID_TANK_MEDIUM_ITEM,
+                        EPBlocks.FLUID_TANK_LARGE_ITEM,
+                        EPBlocks.CREATIVE_FLUID_TANK_ITEM
                 );
 
         buildTag(CompatibilityItemTags.AE2_FE_P2P_TUNNEL_ATTUNEMENTS).
                 add(
-                        EPBlocks.TIN_CABLE_ITEM.get(),
-                        EPBlocks.COPPER_CABLE_ITEM.get(),
-                        EPBlocks.GOLD_CABLE_ITEM.get(),
-                        EPBlocks.ENERGIZED_COPPER_CABLE_ITEM.get(),
-                        EPBlocks.ENERGIZED_GOLD_CABLE_ITEM.get(),
-                        EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM.get(),
+                        EPBlocks.TIN_CABLE_ITEM,
+                        EPBlocks.COPPER_CABLE_ITEM,
+                        EPBlocks.GOLD_CABLE_ITEM,
+                        EPBlocks.ENERGIZED_COPPER_CABLE_ITEM,
+                        EPBlocks.ENERGIZED_GOLD_CABLE_ITEM,
+                        EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM,
 
-                        EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM.get(),
-                        EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM.get(),
-                        EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM.get(),
-                        EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM.get(),
-                        EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM.get(),
-                        EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM.get(),
-                        EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM.get(),
-                        EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM.get(),
-                        EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM.get(),
-                        EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM.get(),
-                        EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM.get(),
-                        EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM.get(),
+                        EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM,
 
-                        EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM.get(),
-                        EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM.get(),
-                        EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM.get(),
-                        EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM.get(),
+                        EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM,
+                        EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM,
+                        EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM,
+                        EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM,
 
-                        EPBlocks.BATTERY_BOX_ITEM.get(),
-                        EPBlocks.ADVANCED_BATTERY_BOX_ITEM.get(),
-                        EPBlocks.CREATIVE_BATTERY_BOX_ITEM.get()
+                        EPBlocks.BATTERY_BOX_ITEM,
+                        EPBlocks.ADVANCED_BATTERY_BOX_ITEM,
+                        EPBlocks.CREATIVE_BATTERY_BOX_ITEM
                 );
 
         buildTag(Tags.Items.ORES).
                 addTag(CommonItemTags.ORES_TIN);
         buildTag(CommonItemTags.ORES_TIN).
-                add(EPBlocks.TIN_ORE_ITEM.get(),
-                        EPBlocks.DEEPSLATE_TIN_ORE_ITEM.get());
+                add(EPBlocks.TIN_ORE_ITEM,
+                        EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
 
         buildTag(Tags.Items.ORES_IN_GROUND_STONE).
-                add(EPBlocks.TIN_ORE_ITEM.get());
+                add(EPBlocks.TIN_ORE_ITEM);
         buildTag(Tags.Items.ORES_IN_GROUND_DEEPSLATE).
-                add(EPBlocks.DEEPSLATE_TIN_ORE_ITEM.get());
+                add(EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
 
         buildTag(Tags.Items.STORAGE_BLOCKS).
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
@@ -127,20 +128,20 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.STORAGE_BLOCKS_STEEL).
                 addTag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY);
         buildTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
-                add(EPBlocks.SILICON_BLOCK_ITEM.get());
+                add(EPBlocks.SILICON_BLOCK_ITEM);
         buildTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
-                add(EPBlocks.RAW_TIN_BLOCK_ITEM.get());
+                add(EPBlocks.RAW_TIN_BLOCK_ITEM);
         buildTag(CommonItemTags.STORAGE_BLOCKS_TIN).
-                add(EPBlocks.TIN_BLOCK_ITEM.get());
+                add(EPBlocks.TIN_BLOCK_ITEM);
         buildTag(CommonItemTags.STORAGE_BLOCKS_STEEL).
-                add(EPBlocks.STEEL_BLOCK_ITEM.get());
+                add(EPBlocks.STEEL_BLOCK_ITEM);
         buildTag(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY).
-                add(EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM.get());
+                add(EPBlocks.ADVANCED_ALLOY_BLOCK_ITEM);
 
         buildTag(Tags.Items.RAW_MATERIALS).
                 addTag(CommonItemTags.RAW_MATERIALS_TIN);
         buildTag(CommonItemTags.RAW_MATERIALS_TIN).
-                add(EPItems.RAW_TIN.get());
+                add(EPItems.RAW_TIN);
 
         buildTag(Tags.Items.DUSTS).
                 addTag(CommonItemTags.DUSTS_WOOD).
@@ -150,28 +151,28 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.DUSTS_IRON).
                 addTag(CommonItemTags.DUSTS_GOLD);
         buildTag(CommonItemTags.DUSTS_WOOD).
-                add(EPItems.SAWDUST.get());
+                add(EPItems.SAWDUST);
         buildTag(CommonItemTags.DUSTS_CHARCOAL).
-                add(EPItems.CHARCOAL_DUST.get());
+                add(EPItems.CHARCOAL_DUST);
         buildTag(CommonItemTags.DUSTS_TIN).
-                add(EPItems.TIN_DUST.get());
+                add(EPItems.TIN_DUST);
         buildTag(CommonItemTags.DUSTS_COPPER).
-                add(EPItems.COPPER_DUST.get());
+                add(EPItems.COPPER_DUST);
         buildTag(CommonItemTags.DUSTS_IRON).
-                add(EPItems.IRON_DUST.get());
+                add(EPItems.IRON_DUST);
         buildTag(CommonItemTags.DUSTS_GOLD).
-                add(EPItems.GOLD_DUST.get());
+                add(EPItems.GOLD_DUST);
 
         buildTag(Tags.Items.NUGGETS).
                 addTag(CommonItemTags.NUGGETS_TIN).
                 addTag(CommonItemTags.NUGGETS_STEEL);
         buildTag(CommonItemTags.NUGGETS_TIN).
-                add(EPItems.TIN_NUGGET.get());
+                add(EPItems.TIN_NUGGET);
         buildTag(CommonItemTags.NUGGETS_STEEL).
-                add(EPItems.STEEL_NUGGET.get());
+                add(EPItems.STEEL_NUGGET);
 
         buildTag(CommonItemTags.SILICON).
-                add(EPItems.SILICON.get());
+                add(EPItems.SILICON);
 
         buildTag(Tags.Items.INGOTS).
                 addTag(CommonItemTags.INGOTS_TIN).
@@ -183,26 +184,26 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
                 addTag(CommonItemTags.INGOTS_ENERGIZED_ALLOY);
         buildTag(CommonItemTags.INGOTS_TIN).
-                add(EPItems.TIN_INGOT.get());
+                add(EPItems.TIN_INGOT);
         buildTag(CommonItemTags.INGOTS_STEEL).
-                add(EPItems.STEEL_INGOT.get());
+                add(EPItems.STEEL_INGOT);
         buildTag(CommonItemTags.INGOTS_REDSTONE_ALLOY).
-                add(EPItems.REDSTONE_ALLOY_INGOT.get());
+                add(EPItems.REDSTONE_ALLOY_INGOT);
         buildTag(CommonItemTags.INGOTS_ADVANCED_ALLOY).
-                add(EPItems.ADVANCED_ALLOY_INGOT.get());
+                add(EPItems.ADVANCED_ALLOY_INGOT);
         buildTag(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY).
-                add(EPItems.CRYSTALLIZED_ALLOY_INGOT.get());
+                add(EPItems.CRYSTALLIZED_ALLOY_INGOT);
         buildTag(CommonItemTags.INGOTS_ENERGIZED_COPPER).
-                add(EPItems.ENERGIZED_COPPER_INGOT.get());
+                add(EPItems.ENERGIZED_COPPER_INGOT);
         buildTag(CommonItemTags.INGOTS_ENERGIZED_GOLD).
-                add(EPItems.ENERGIZED_GOLD_INGOT.get());
+                add(EPItems.ENERGIZED_GOLD_INGOT);
         buildTag(CommonItemTags.INGOTS_ENERGIZED_ALLOY).
-                add(EPItems.ENERGIZED_ALLOY_INGOT.get());
+                add(EPItems.ENERGIZED_ALLOY_INGOT);
 
         buildTag(Tags.Items.GEMS).
                 addTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI);
         buildTag(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI).
-                add(EPItems.CRYSTALLIZED_LAPIS_LAZULI.get());
+                add(EPItems.CRYSTALLIZED_LAPIS_LAZULI);
 
         buildTag(CommonItemTags.PLATES).
                 addTag(CommonItemTags.PLATES_TIN).
@@ -216,41 +217,41 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.PLATES_ENERGIZED_GOLD).
                 addTag(CommonItemTags.PLATES_ENERGIZED_ALLOY);
         buildTag(CommonItemTags.PLATES_TIN).
-                add(EPItems.TIN_PLATE.get());
+                add(EPItems.TIN_PLATE);
         buildTag(CommonItemTags.PLATES_COPPER).
-                add(EPItems.COPPER_PLATE.get());
+                add(EPItems.COPPER_PLATE);
         buildTag(CommonItemTags.PLATES_IRON).
-                add(EPItems.IRON_PLATE.get());
+                add(EPItems.IRON_PLATE);
         buildTag(CommonItemTags.PLATES_GOLD).
-                add(EPItems.GOLD_PLATE.get());
+                add(EPItems.GOLD_PLATE);
         buildTag(CommonItemTags.PLATES_STEEL).
-                add(EPItems.STEEL_PLATE.get());
+                add(EPItems.STEEL_PLATE);
         buildTag(CommonItemTags.PLATES_ADVANCED_ALLOY).
-                add(EPItems.ADVANCED_ALLOY_PLATE.get());
+                add(EPItems.ADVANCED_ALLOY_PLATE);
         buildTag(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY).
-                add(EPItems.CRYSTALLIZED_ALLOY_PLATE.get());
+                add(EPItems.CRYSTALLIZED_ALLOY_PLATE);
         buildTag(CommonItemTags.PLATES_ENERGIZED_COPPER).
-                add(EPItems.ENERGIZED_COPPER_PLATE.get());
+                add(EPItems.ENERGIZED_COPPER_PLATE);
         buildTag(CommonItemTags.PLATES_ENERGIZED_GOLD).
-                add(EPItems.ENERGIZED_GOLD_PLATE.get());
+                add(EPItems.ENERGIZED_GOLD_PLATE);
         buildTag(CommonItemTags.PLATES_ENERGIZED_ALLOY).
-                add(EPItems.ENERGIZED_ALLOY_PLATE.get());
+                add(EPItems.ENERGIZED_ALLOY_PLATE);
 
         buildTag(CommonItemTags.GEARS).
                 addTag(CommonItemTags.GEARS_IRON).
                 addTag(CommonItemTags.GEARS_STEEL);
         buildTag(CommonItemTags.GEARS_IRON).
-                add(EPItems.IRON_GEAR.get());
+                add(EPItems.IRON_GEAR);
         buildTag(CommonItemTags.GEARS_STEEL).
-                add(EPItems.STEEL_GEAR.get());
+                add(EPItems.STEEL_GEAR);
 
         buildTag(Tags.Items.RODS).
                 addTag(CommonItemTags.RODS_IRON).
                 addTag(CommonItemTags.RODS_STEEL);
         buildTag(CommonItemTags.RODS_IRON).
-                add(EPItems.IRON_ROD.get());
+                add(EPItems.IRON_ROD);
         buildTag(CommonItemTags.RODS_STEEL).
-                add(EPItems.STEEL_ROD.get());
+                add(EPItems.STEEL_ROD);
 
         buildTag(CommonItemTags.WIRES).
                 addTag(CommonItemTags.WIRES_TIN).
@@ -260,33 +261,33 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(CommonItemTags.WIRES_ENERGIZED_GOLD).
                 addTag(CommonItemTags.WIRES_SUPERCONDUCTOR);
         buildTag(CommonItemTags.WIRES_TIN).
-                add(EPItems.TIN_WIRE.get());
+                add(EPItems.TIN_WIRE);
         buildTag(CommonItemTags.WIRES_COPPER).
-                add(EPItems.COPPER_WIRE.get());
+                add(EPItems.COPPER_WIRE);
         buildTag(CommonItemTags.WIRES_GOLD).
-                add(EPItems.GOLD_WIRE.get());
+                add(EPItems.GOLD_WIRE);
         buildTag(CommonItemTags.WIRES_ENERGIZED_COPPER).
-                add(EPItems.ENERGIZED_COPPER_WIRE.get());
+                add(EPItems.ENERGIZED_COPPER_WIRE);
         buildTag(CommonItemTags.WIRES_ENERGIZED_GOLD).
-                add(EPItems.ENERGIZED_GOLD_WIRE.get());
+                add(EPItems.ENERGIZED_GOLD_WIRE);
         buildTag(CommonItemTags.WIRES_SUPERCONDUCTOR).
-                add(EPItems.SUPERCONDUCTOR.get());
+                add(EPItems.SUPERCONDUCTOR);
 
         buildTag(Tags.Items.TOOLS).
                 addTag(CommonItemTags.TOOLS_HAMMERS).
                 addTag(CommonItemTags.TOOLS_CUTTERS);
 
         buildTag(CommonItemTags.TOOLS_HAMMERS).
-                add(EPItems.WOODEN_HAMMER.get()).
-                add(EPItems.STONE_HAMMER.get()).
-                add(EPItems.COPPER_HAMMER.get()).
-                add(EPItems.IRON_HAMMER.get()).
-                add(EPItems.GOLDEN_HAMMER.get()).
-                add(EPItems.DIAMOND_HAMMER.get()).
-                add(EPItems.NETHERITE_HAMMER.get());
+                add(EPItems.WOODEN_HAMMER).
+                add(EPItems.STONE_HAMMER).
+                add(EPItems.COPPER_HAMMER).
+                add(EPItems.IRON_HAMMER).
+                add(EPItems.GOLDEN_HAMMER).
+                add(EPItems.DIAMOND_HAMMER).
+                add(EPItems.NETHERITE_HAMMER);
 
         buildTag(CommonItemTags.TOOLS_CUTTERS).
-                add(EPItems.CUTTER.get());
+                add(EPItems.CUTTER);
     }
 
     private TagBuilderFix buildTag(final TagKey<Item> tagKey) {
@@ -306,7 +307,20 @@ public class ModItemTagProvider extends ItemTagsProvider {
             return this;
         }
 
+        public TagBuilderFix add(final Supplier<? extends Item> element) {
+            add(element.get());
+
+            return this;
+        }
+
         public TagBuilderFix add(final Item... element) {
+            Arrays.stream(element).forEach(this::add);
+
+            return this;
+        }
+
+        @SafeVarargs
+        public final TagBuilderFix add(final Supplier<? extends Item>... element) {
             Arrays.stream(element).forEach(this::add);
 
             return this;
