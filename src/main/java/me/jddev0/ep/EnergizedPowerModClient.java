@@ -133,7 +133,7 @@ public class EnergizedPowerModClient {
     }
 
     public void onRegisterMenuScreens(RegisterMenuScreensEvent e) {
-        SupplierRegisterMenuScreensEvent event = new SupplierRegisterMenuScreensEvent(e);
+        SupplierBasedRegisterMenuScreensEvent event = new SupplierBasedRegisterMenuScreensEvent(e);
 
         event.register(EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
         event.register(EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_LOADER_MENU, ItemConveyorBeltLoaderScreen::new);
@@ -271,7 +271,7 @@ public class EnergizedPowerModClient {
     /**
      * Registration adapter to match Fabric
      */
-    private record SupplierRegisterMenuScreensEvent(RegisterMenuScreensEvent event) {
+    private record SupplierBasedRegisterMenuScreensEvent(RegisterMenuScreensEvent event) {
         public <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(
                 Supplier<MenuType<M>> menuType, MenuScreens.ScreenConstructor<M, U> screenConstructor
         ) {
