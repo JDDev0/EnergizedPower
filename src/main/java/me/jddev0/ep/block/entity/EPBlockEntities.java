@@ -5,14 +5,20 @@ import me.jddev0.ep.block.*;
 import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -395,362 +401,400 @@ public final class EPBlockEntities {
         BLOCK_ENTITIES.register(modEventBus);
     }
 
-    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                COPPER_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                IRON_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                GOLDEN_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                STEEL_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                PRESSURIZED_FLUID_PIPE_ENTITY.get(), FluidPipeBlockEntity::getFluidHandlerCapability);
+    public static void registerCapabilities(RegisterCapabilitiesEvent e) {
+        SupplierBasedRegisterCapabilitiesEvent event = new SupplierBasedRegisterCapabilitiesEvent(e);
 
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                COPPER_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                IRON_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                GOLDEN_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                STEEL_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                PRESSURIZED_FLUID_PIPE_ENTITY, FluidPipeBlockEntity::getFluidHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                CREATIVE_FLUID_TANK_ENTITY.get(), CreativeFluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TANK_SMALL_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TANK_MEDIUM_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TANK_LARGE_ENTITY, FluidTankBlockEntity::getFluidHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_SILO_TINY_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_SILO_SMALL_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_SILO_MEDIUM_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_SILO_LARGE_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ITEM_SILO_GIANT_ENTITY.get(), ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                CREATIVE_FLUID_TANK_ENTITY, CreativeFluidTankBlockEntity::getFluidHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                CREATIVE_ITEM_SILO_ENTITY.get(), CreativeItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ITEM_SILO_TINY_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ITEM_SILO_SMALL_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ITEM_SILO_MEDIUM_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ITEM_SILO_LARGE_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ITEM_SILO_GIANT_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FAST_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CREATIVE_ITEM_SILO_ENTITY, CreativeItemSiloBlockEntity::getItemHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get(), ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                BASIC_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                EXPRESS_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::getItemHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                TIN_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                COPPER_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                GOLD_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ENERGIZED_COPPER_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ENERGIZED_GOLD_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY.get(), CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                AUTO_CRAFTER_ENTITY.get(), AutoCrafterBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                AUTO_CRAFTER_ENTITY.get(), AutoCrafterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                TIN_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                COPPER_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZED_COPPER_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZED_GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_AUTO_CRAFTER_ENTITY.get(), AdvancedAutoCrafterBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_AUTO_CRAFTER_ENTITY.get(), AdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                PRESS_MOLD_MAKER_ENTITY.get(), PressMoldMakerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ALLOY_FURNACE_ENTITY.get(), AlloyFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                PRESS_MOLD_MAKER_ENTITY, PressMoldMakerBlockEntity::getItemHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                CRUSHER_ENTITY.get(), CrusherBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CRUSHER_ENTITY.get(), CrusherBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ALLOY_FURNACE_ENTITY, AlloyFurnaceBlockEntity::getItemHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_CRUSHER_ENTITY.get(), AdvancedCrusherBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                ADVANCED_CRUSHER_ENTITY.get(), AdvancedCrusherBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_CRUSHER_ENTITY.get(), AdvancedCrusherBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CRUSHER_ENTITY, CrusherBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CRUSHER_ENTITY, CrusherBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                PULVERIZER_ENTITY.get(), PulverizerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                PULVERIZER_ENTITY.get(), PulverizerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_CRUSHER_ENTITY, AdvancedCrusherBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_PULVERIZER_ENTITY.get(), AdvancedPulverizerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                ADVANCED_PULVERIZER_ENTITY.get(), AdvancedPulverizerBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_PULVERIZER_ENTITY.get(), AdvancedPulverizerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                PULVERIZER_ENTITY, PulverizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                PULVERIZER_ENTITY, PulverizerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                SAWMILL_ENTITY.get(), SawmillBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SAWMILL_ENTITY.get(), SawmillBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_PULVERIZER_ENTITY, AdvancedPulverizerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                COMPRESSOR_ENTITY.get(), CompressorBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                COMPRESSOR_ENTITY.get(), CompressorBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                SAWMILL_ENTITY, SawmillBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SAWMILL_ENTITY, SawmillBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                METAL_PRESS_ENTITY.get(), MetalPressBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                METAL_PRESS_ENTITY.get(), MetalPressBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                COMPRESSOR_ENTITY, CompressorBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                COMPRESSOR_ENTITY, CompressorBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                AUTO_PRESS_MOLD_MAKER_ENTITY.get(), AutoPressMoldMakerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                AUTO_PRESS_MOLD_MAKER_ENTITY.get(), AutoPressMoldMakerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                METAL_PRESS_ENTITY, MetalPressBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                METAL_PRESS_ENTITY, MetalPressBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                AUTO_STONECUTTER_ENTITY.get(), AutoStonecutterBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                AUTO_STONECUTTER_ENTITY.get(), AutoStonecutterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                AUTO_PRESS_MOLD_MAKER_ENTITY, AutoPressMoldMakerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                PLANT_GROWTH_CHAMBER_ENTITY.get(), PlantGrowthChamberBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                AUTO_STONECUTTER_ENTITY, AutoStonecutterBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                BLOCK_PLACER_ENTITY.get(), BlockPlacerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                BLOCK_PLACER_ENTITY.get(), BlockPlacerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                PLANT_GROWTH_CHAMBER_ENTITY, PlantGrowthChamberBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ASSEMBLING_MACHINE_ENTITY.get(), AssemblingMachineBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                BLOCK_PLACER_ENTITY, BlockPlacerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                INDUCTION_SMELTER_ENTITY.get(), InductionSmelterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ASSEMBLING_MACHINE_ENTITY, AssemblingMachineBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FLUID_FREEZER_ENTITY.get(), FluidFreezerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_FREEZER_ENTITY.get(), FluidFreezerBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                FLUID_FREEZER_ENTITY.get(), FluidFreezerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                INDUCTION_SMELTER_ENTITY, InductionSmelterBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                STONE_LIQUEFIER_ENTITY.get(), StoneLiquefierBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                STONE_LIQUEFIER_ENTITY.get(), StoneLiquefierBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                STONE_LIQUEFIER_ENTITY.get(), StoneLiquefierBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_FREEZER_ENTITY, FluidFreezerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                STONE_SOLIDIFIER_ENTITY.get(), StoneSolidifierBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                STONE_LIQUEFIER_ENTITY, StoneLiquefierBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                STONE_LIQUEFIER_ENTITY, StoneLiquefierBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                STONE_LIQUEFIER_ENTITY, StoneLiquefierBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                FILTRATION_PLANT_ENTITY.get(), FiltrationPlantBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                STONE_SOLIDIFIER_ENTITY, StoneSolidifierBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FLUID_TRANSPOSER_ENTITY.get(), FluidTransposerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_TRANSPOSER_ENTITY.get(), FluidTransposerBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                FLUID_TRANSPOSER_ENTITY.get(), FluidTransposerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FILTRATION_PLANT_ENTITY, FiltrationPlantBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FLUID_FILLER_ENTITY.get(), FluidFillerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_FILLER_ENTITY.get(), FluidFillerBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                FLUID_FILLER_ENTITY.get(), FluidFillerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_TRANSPOSER_ENTITY, FluidTransposerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_TRANSPOSER_ENTITY, FluidTransposerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_TRANSPOSER_ENTITY, FluidTransposerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FLUID_DRAINER_ENTITY.get(), FluidDrainerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_DRAINER_ENTITY.get(), FluidDrainerBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                FLUID_DRAINER_ENTITY.get(), FluidDrainerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_FILLER_ENTITY, FluidFillerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_FILLER_ENTITY, FluidFillerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_FILLER_ENTITY, FluidFillerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                FLUID_PUMP_ENTITY.get(), FluidPumpBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_DRAINER_ENTITY, FluidDrainerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_DRAINER_ENTITY, FluidDrainerBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_DRAINER_ENTITY, FluidDrainerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_FLUID_PUMP_ENTITY.get(), AdvancedFluidPumpBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                ADVANCED_FLUID_PUMP_ENTITY.get(), AdvancedFluidPumpBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_FLUID_PUMP_ENTITY.get(), AdvancedFluidPumpBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                FLUID_PUMP_ENTITY, FluidPumpBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                DRAIN_ENTITY.get(), DrainBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_FLUID_PUMP_ENTITY, AdvancedFluidPumpBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                CHARGER_ENTITY.get(), ChargerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CHARGER_ENTITY.get(), ChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                DRAIN_ENTITY, DrainBlockEntity::getFluidHandlerCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                UNCHARGER_ENTITY.get(), UnchargerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                UNCHARGER_ENTITY.get(), UnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CHARGER_ENTITY, ChargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CHARGER_ENTITY, ChargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_CHARGER_ENTITY.get(), AdvancedChargerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_CHARGER_ENTITY.get(), AdvancedChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                UNCHARGER_ENTITY, UnchargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                UNCHARGER_ENTITY, UnchargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_UNCHARGER_ENTITY.get(), AdvancedUnchargerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_UNCHARGER_ENTITY.get(), AdvancedUnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                MINECART_CHARGER_ENTITY.get(), MinecartChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                MINECART_UNCHARGER_ENTITY.get(), MinecartUnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MINECART_CHARGER_ENTITY, MinecartChargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_MINECART_CHARGER_ENTITY.get(), AdvancedMinecartChargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MINECART_UNCHARGER_ENTITY, MinecartUnchargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_MINECART_UNCHARGER_ENTITY.get(), AdvancedMinecartUnchargerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_MINECART_CHARGER_ENTITY, AdvancedMinecartChargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_1.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_2.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_3.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_4.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_5.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_6.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                SOLAR_PANEL_ENTITY_7.get(), SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_MINECART_UNCHARGER_ENTITY, AdvancedMinecartUnchargerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                LV_TRANSFORMER_1_TO_N_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                LV_TRANSFORMER_3_TO_3_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                LV_TRANSFORMER_N_TO_1_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                MV_TRANSFORMER_1_TO_N_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                MV_TRANSFORMER_3_TO_3_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                MV_TRANSFORMER_N_TO_1_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                HV_TRANSFORMER_1_TO_N_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                HV_TRANSFORMER_3_TO_3_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                HV_TRANSFORMER_N_TO_1_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                EHV_TRANSFORMER_1_TO_N_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                EHV_TRANSFORMER_3_TO_3_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                EHV_TRANSFORMER_N_TO_1_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CONFIGURABLE_LV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CONFIGURABLE_MV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CONFIGURABLE_HV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CONFIGURABLE_EHV_TRANSFORMER_ENTITY.get(), TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_1, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_2, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_3, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_4, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_5, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_6, SolarPanelBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SOLAR_PANEL_ENTITY_7, SolarPanelBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                BATTERY_BOX_ENTITY.get(), BatteryBoxBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                LV_TRANSFORMER_1_TO_N_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                LV_TRANSFORMER_3_TO_3_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                LV_TRANSFORMER_N_TO_1_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MV_TRANSFORMER_1_TO_N_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MV_TRANSFORMER_3_TO_3_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                MV_TRANSFORMER_N_TO_1_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                HV_TRANSFORMER_1_TO_N_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                HV_TRANSFORMER_3_TO_3_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                HV_TRANSFORMER_N_TO_1_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                EHV_TRANSFORMER_1_TO_N_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                EHV_TRANSFORMER_3_TO_3_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                EHV_TRANSFORMER_N_TO_1_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CONFIGURABLE_LV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CONFIGURABLE_MV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CONFIGURABLE_HV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CONFIGURABLE_EHV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_BATTERY_BOX_ENTITY.get(), AdvancedBatteryBoxBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                BATTERY_BOX_ENTITY, BatteryBoxBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CREATIVE_BATTERY_BOX_ENTITY.get(), CreativeBatteryBoxBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_BATTERY_BOX_ENTITY, AdvancedBatteryBoxBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                COAL_ENGINE_ENTITY.get(), CoalEngineBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                COAL_ENGINE_ENTITY.get(), CoalEngineBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                HEAT_GENERATOR_ENTITY.get(), HeatGeneratorBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                COAL_ENGINE_ENTITY, CoalEngineBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                THERMAL_GENERATOR_ENTITY.get(), ThermalGeneratorBlockEntity::getFluidHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                THERMAL_GENERATOR_ENTITY.get(), ThermalGeneratorBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                HEAT_GENERATOR_ENTITY, HeatGeneratorBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                POWERED_LAMP_ENTITY.get(), PoweredLampBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                THERMAL_GENERATOR_ENTITY, ThermalGeneratorBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                POWERED_FURNACE_ENTITY.get(), PoweredFurnaceBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                POWERED_FURNACE_ENTITY.get(), PoweredFurnaceBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                POWERED_LAMP_ENTITY, PoweredLampBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ADVANCED_POWERED_FURNACE_ENTITY.get(), AdvancedPoweredFurnaceBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ADVANCED_POWERED_FURNACE_ENTITY.get(), AdvancedPoweredFurnaceBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                LIGHTING_GENERATOR_ENTITY.get(), LightningGeneratorBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                ENERGIZER_ENTITY.get(), EnergizerBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                ENERGIZER_ENTITY.get(), EnergizerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CHARGING_STATION_ENTITY.get(), ChargingStationBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ENERGIZER_ENTITY, EnergizerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ENERGIZER_ENTITY, EnergizerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                CRYSTAL_GROWTH_CHAMBER_ENTITY.get(), CrystalGrowthChamberBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                CRYSTAL_GROWTH_CHAMBER_ENTITY.get(), CrystalGrowthChamberBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CHARGING_STATION_ENTITY, ChargingStationBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                WEATHER_CONTROLLER_ENTITY.get(), WeatherControllerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CRYSTAL_GROWTH_CHAMBER_ENTITY, CrystalGrowthChamberBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                TIME_CONTROLLER_ENTITY.get(), TimeControllerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                WEATHER_CONTROLLER_ENTITY, WeatherControllerBlockEntity::getEnergyStorageCapability);
 
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                TELEPORTER_ENTITY.get(), TeleporterBlockEntity::getItemHandlerCapability);
-        event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK,
-                TELEPORTER_ENTITY.get(), TeleporterBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                TIME_CONTROLLER_ENTITY, TimeControllerBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                TELEPORTER_ENTITY, TeleporterBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                TELEPORTER_ENTITY, TeleporterBlockEntity::getEnergyStorageCapability);
+    }
+
+    /**
+     * Registration adapter to match Fabric
+     */
+    private record SupplierBasedRegisterCapabilitiesEvent(RegisterCapabilitiesEvent event) {
+        public <T, C extends @Nullable Object, BE extends BlockEntity> void registerBlockEntity(
+                BlockCapability<T, C> capability, Supplier<BlockEntityType<BE>> blockEntityType, ICapabilityProvider<? super BE, C, T> provider
+        ) {
+            event.registerBlockEntity(capability, blockEntityType.get(), provider);
+        }
+    }
+
+    /**
+     * Dummy class to match NeoForge 26.1.x and newer
+     */
+    private static final class Capabilities {
+        private Capabilities() {}
+
+        private static final class Item {
+            private Item() {}
+
+            private static final BlockCapability<IItemHandler, @Nullable Direction> BLOCK = net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK;
+        }
+
+        private static final class Fluid {
+            private Fluid() {}
+
+            private static final BlockCapability<IFluidHandler, @Nullable Direction> BLOCK = net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.BLOCK;
+        }
+
+        private static final class Energy {
+            private Energy() {}
+
+            private static final BlockCapability<IEnergyStorage, @Nullable Direction> BLOCK = net.neoforged.neoforge.capabilities.Capabilities.EnergyStorage.BLOCK;
+        }
     }
 }
