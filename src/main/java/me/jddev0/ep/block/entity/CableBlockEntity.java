@@ -272,7 +272,7 @@ public class CableBlockEntity extends BlockEntity {
         super.saveAdditional(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            nbt.put("energy", energyStorage.saveNBT());
+            nbt.putInt("energy", energyStorage.getEnergy());
     }
 
     @Override
@@ -280,6 +280,6 @@ public class CableBlockEntity extends BlockEntity {
         super.loadAdditional(nbt, registries);
 
         if(ENERGY_EXTRACTION_MODE.isPush())
-            energyStorage.loadNBT(nbt.get("energy"));
+            energyStorage.setEnergyWithoutUpdate(nbt.getInt("energy"));
     }
 }

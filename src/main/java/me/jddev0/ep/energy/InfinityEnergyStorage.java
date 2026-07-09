@@ -1,8 +1,5 @@
 package me.jddev0.ep.energy;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-
 public class InfinityEnergyStorage implements IEnergizedPowerEnergyStorage {
     public InfinityEnergyStorage() {}
 
@@ -67,12 +64,4 @@ public class InfinityEnergyStorage implements IEnergizedPowerEnergyStorage {
     public boolean canReceive() {
         return true;
     }
-
-    @Override
-    public Tag saveNBT() {
-        return new CompoundTag();
-    }
-
-    @Override
-    public void loadNBT(Tag tag) {}
 }

@@ -39,14 +39,14 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
 
-        nbt.put("energy", energyStorage.saveNBT());
+        nbt.putInt("energy", energyStorage.getEnergy());
     }
 
     @Override
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        energyStorage.loadNBT(nbt.get("energy"));
+        energyStorage.setEnergyWithoutUpdate(nbt.getInt("energy"));
     }
 
     protected final void syncEnergyToPlayer(Player player) {
