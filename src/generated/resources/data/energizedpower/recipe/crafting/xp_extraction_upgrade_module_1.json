@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "energizedpower:basic_upgrade_module",
+    "E": "minecraft:experience_bottle",
+    "G": "#c:plates/gold",
+    "L": "#c:gems/lapis"
+  },
+  "pattern": [
+    "GLG",
+    "EBE",
+    "GLG"
+  ],
+  "result": {
+    "id": "energizedpower:xp_extraction_upgrade_module_1"
+  }
+}
