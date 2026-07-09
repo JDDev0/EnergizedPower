@@ -2,7 +2,6 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.inventory.ConstraintInsertSlot;
 import me.jddev0.ep.item.EPItems;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,7 +16,7 @@ public class InventoryTeleporterMenu extends AbstractContainerMenu {
     private final Container container;
     private final Level level;
 
-    public InventoryTeleporterMenu(int id, Inventory inv, RegistryFriendlyByteBuf buffer) {
+    public InventoryTeleporterMenu(int id, Inventory inv) {
         this(id, inv, new SimpleContainer(1) {
             @Override
             public boolean canPlaceItem(int slot, @NotNull ItemStack stack) {
