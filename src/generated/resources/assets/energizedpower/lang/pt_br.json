@@ -1299,7 +1299,7 @@
   "item.energizedpower.xp_drain": "XP Drain",
   "itemGroup.energizedpower.tab": "Energized Power",
   "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",
-  "key.category.energizedpower": "Energized Power",
+  "key.category.energizedpower.main": "Energized Power",
   "key.energizedpower.teleporter.use": "Usar Teletransportador",
   "painting.energizedpower.factory.author": "JDDev0",
   "painting.energizedpower.factory.title": "Fábrica",
