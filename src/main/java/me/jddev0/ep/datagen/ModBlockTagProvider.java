@@ -71,6 +71,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FLUID_TANK_MEDIUM,
                         EPBlocks.FLUID_TANK_LARGE,
 
+                        EPBlocks.XP_STORAGE_TINY,
+                        EPBlocks.XP_STORAGE_SMALL,
+                        EPBlocks.XP_STORAGE_MEDIUM,
+                        EPBlocks.XP_STORAGE_LARGE,
+                        EPBlocks.XP_STORAGE_GIANT,
+
                         EPBlocks.ITEM_SILO_TINY,
                         EPBlocks.ITEM_SILO_SMALL,
                         EPBlocks.ITEM_SILO_MEDIUM,
@@ -232,6 +238,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                         EPBlocks.FLUID_TANK_SMALL,
                         EPBlocks.FLUID_TANK_MEDIUM,
                         EPBlocks.FLUID_TANK_LARGE,
+
+                        EPBlocks.XP_STORAGE_TINY,
+                        EPBlocks.XP_STORAGE_SMALL,
+                        EPBlocks.XP_STORAGE_MEDIUM,
+                        EPBlocks.XP_STORAGE_LARGE,
+                        EPBlocks.XP_STORAGE_GIANT,
 
                         EPBlocks.ITEM_SILO_TINY,
                         EPBlocks.ITEM_SILO_SMALL,

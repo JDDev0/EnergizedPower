@@ -70,6 +70,12 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.FLUID_TANK_MEDIUM);
         dropSelf(EPBlocks.FLUID_TANK_LARGE);
 
+        dropSelf(EPBlocks.XP_STORAGE_TINY);
+        dropSelf(EPBlocks.XP_STORAGE_SMALL);
+        dropSelf(EPBlocks.XP_STORAGE_MEDIUM);
+        dropSelf(EPBlocks.XP_STORAGE_LARGE);
+        dropSelf(EPBlocks.XP_STORAGE_GIANT);
+
         dropSelf(EPBlocks.ITEM_SILO_TINY);
         dropSelf(EPBlocks.ITEM_SILO_SMALL);
         dropSelf(EPBlocks.ITEM_SILO_MEDIUM);

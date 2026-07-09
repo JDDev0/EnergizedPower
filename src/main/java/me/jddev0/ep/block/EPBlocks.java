@@ -184,6 +184,31 @@ public final class EPBlocks {
     public static final Item CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
             new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK, new Item.Properties()));
 
+    public static final XPStorageBlock XP_STORAGE_TINY = registerBlock("xp_storage_tiny",
+            new XPStorageBlock(XPStorageTier.TINY, XPStorageTier.TINY.getProperties()));
+    public static final Item XP_STORAGE_TINY_ITEM = createBlockItem("xp_storage_tiny",
+            new XPStorageBlock.Item(XP_STORAGE_TINY, new Item.Properties(), XPStorageTier.TINY));
+
+    public static final XPStorageBlock XP_STORAGE_SMALL = registerBlock("xp_storage_small",
+            new XPStorageBlock(XPStorageTier.SMALL, XPStorageTier.SMALL.getProperties()));
+    public static final Item XP_STORAGE_SMALL_ITEM = createBlockItem("xp_storage_small",
+            new XPStorageBlock.Item(XP_STORAGE_SMALL, new Item.Properties(), XPStorageTier.SMALL));
+
+    public static final XPStorageBlock XP_STORAGE_MEDIUM = registerBlock("xp_storage_medium",
+            new XPStorageBlock(XPStorageTier.MEDIUM, XPStorageTier.MEDIUM.getProperties()));
+    public static final Item XP_STORAGE_MEDIUM_ITEM = createBlockItem("xp_storage_medium",
+            new XPStorageBlock.Item(XP_STORAGE_MEDIUM, new Item.Properties(), XPStorageTier.MEDIUM));
+
+    public static final XPStorageBlock XP_STORAGE_LARGE = registerBlock("xp_storage_large",
+            new XPStorageBlock(XPStorageTier.LARGE, XPStorageTier.LARGE.getProperties()));
+    public static final Item XP_STORAGE_LARGE_ITEM = createBlockItem("xp_storage_large",
+            new XPStorageBlock.Item(XP_STORAGE_LARGE, new Item.Properties(), XPStorageTier.LARGE));
+
+    public static final XPStorageBlock XP_STORAGE_GIANT = registerBlock("xp_storage_giant",
+            new XPStorageBlock(XPStorageTier.GIANT, XPStorageTier.GIANT.getProperties()));
+    public static final Item XP_STORAGE_GIANT_ITEM = createBlockItem("xp_storage_giant",
+            new XPStorageBlock.Item(XP_STORAGE_GIANT, new Item.Properties(), XPStorageTier.GIANT));
+
     public static final ItemSiloBlock ITEM_SILO_TINY = registerBlock("item_silo_tiny",
             new ItemSiloBlock(ItemSiloTier.TINY, ItemSiloTier.TINY.getProperties()));
     public static final Item ITEM_SILO_TINY_ITEM = createBlockItem("item_silo_tiny",

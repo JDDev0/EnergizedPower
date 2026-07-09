@@ -199,6 +199,11 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.FLUID_TANK_MEDIUM_ITEM);
             event.accept(EPBlocks.FLUID_TANK_LARGE_ITEM);
             event.accept(EPBlocks.CREATIVE_FLUID_TANK_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_TINY_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_SMALL_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_MEDIUM_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_LARGE_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_GIANT_ITEM);
             event.accept(EPBlocks.FLUID_FILLER_ITEM);
             event.accept(EPBlocks.FLUID_DRAINER_ITEM);
             event.accept(EPBlocks.FLUID_PUMP_ITEM);

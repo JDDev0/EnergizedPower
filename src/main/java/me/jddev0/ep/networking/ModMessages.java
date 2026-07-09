@@ -42,6 +42,7 @@ public final class ModMessages {
         PayloadTypeRegistry.playC2S().register(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket.STREAM_CODEC);
     }
 
     public static void registerPacketsS2C() {
@@ -72,6 +73,7 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(ChangeComparatorModeC2SPacket.ID, ChangeComparatorModeC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket::receive);
     }
 
     public static void sendToServer(CustomPacketPayload message) {

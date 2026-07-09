@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_panes/colorless"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    }
+  },
+  "pattern": [
+    "IGI",
+    "GLG",
+    "IGI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:xp_storage_tiny"
+  }
+}

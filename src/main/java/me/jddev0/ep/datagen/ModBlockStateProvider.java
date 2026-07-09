@@ -107,6 +107,12 @@ class ModBlockStateProvider {
         fluidTankBlockWithItem(EPBlocks.FLUID_TANK_LARGE);
         fluidTankBlockWithItem(EPBlocks.CREATIVE_FLUID_TANK);
 
+        horizontalBlockWithItem(EPBlocks.XP_STORAGE_TINY, false);
+        horizontalBlockWithItem(EPBlocks.XP_STORAGE_SMALL, false);
+        horizontalBlockWithItem(EPBlocks.XP_STORAGE_MEDIUM, false);
+        horizontalBlockWithItem(EPBlocks.XP_STORAGE_LARGE, false);
+        horizontalBlockWithItem(EPBlocks.XP_STORAGE_GIANT, false);
+
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_TINY, false);
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_SMALL, false);
         horizontalBlockWithItem(EPBlocks.ITEM_SILO_MEDIUM, false);
