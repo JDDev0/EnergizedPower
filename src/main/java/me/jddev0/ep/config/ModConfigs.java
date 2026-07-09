@@ -1176,6 +1176,9 @@ public final class ModConfigs {
     public static final ConfigValue<Float> COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
             "block.powered_furnace", "Powered Furnace", .5f
     );
+    public static final ConfigValue<Integer> COMMON_POWERED_FURNACE_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.powered_furnace", "Powered Furnace", 8
+    );
     public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.powered_furnace", "Powered Furnace", new ArrayList<>(0)
     );
@@ -1194,6 +1197,9 @@ public final class ModConfigs {
     ));
     public static final ConfigValue<Float> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
             "block.advanced_powered_furnace", "Advanced Powered Furnace", 1.f/6.f
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_POWERED_FURNACE_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.advanced_powered_furnace", "Advanced Powered Furnace", 3 * 8 /* 3 inputs * 8 Buckets */
     );
     public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_ADVANCED_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
             "block.advanced_powered_furnace", "Advanced Powered Furnace", new ArrayList<>(0)

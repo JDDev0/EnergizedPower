@@ -6,6 +6,7 @@ import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -19,6 +20,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<AdvancedPoweredFurnaceBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
@@ -53,7 +55,8 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE,
                 UpgradeModuleModifier.ITEM_EJECTOR,
-                UpgradeModuleModifier.ITEM_PULLING
+                UpgradeModuleModifier.ITEM_PULLING,
+                UpgradeModuleModifier.XP_YIELD
         ), null);
     }
 
@@ -65,7 +68,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
                 inv, blockEntity,
                 EPBlocks.ADVANCED_POWERED_FURNACE.get(),
 
-                upgradeModuleInventory, 6
+                upgradeModuleInventory, 7
         );
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
@@ -75,13 +78,13 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 1, 98, 17) {
+            addSlot(new SlotItemHandler(itemHandler, 1, 80, 17) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 2, 152, 17) {
+            addSlot(new SlotItemHandler(itemHandler, 2, 116, 17) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
@@ -93,13 +96,13 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 4, 98, 53) {
+            addSlot(new SlotItemHandler(itemHandler, 4, 80, 53) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
                 }
             });
-            addSlot(new SlotItemHandler(itemHandler, 5, 152, 53) {
+            addSlot(new SlotItemHandler(itemHandler, 5, 116, 53) {
                 @Override
                 public boolean isActive() {
                     return super.isActive() && !isInUpgradeModuleView();
@@ -108,7 +111,7 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 35 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 26 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData[0]);
@@ -158,6 +161,20 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
         return energyConsumptionPerTickData.getValue();
     }
 
+    public FluidStack getFluid() {
+        return blockEntity.getFluid(0);
+    }
+
+    public int getTankCapacity() {
+        return blockEntity.getTankCapacity(0);
+    }
+
+    public boolean hasXPExtractionUpgradeModule() {
+        return slots.get(4 * 9 + 6 + 6) instanceof UpgradeModuleSlot slot &&
+                slot.getItem().getItem() instanceof UpgradeModuleItem item &&
+                item.getMainUpgradeModuleModifier() == UpgradeModuleModifier.XP_YIELD;
+    }
+
     /**
      * @return Same as isCrafting but energy requirements are ignored
      */
@@ -198,12 +215,12 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 6, player, 0, 4 * 9, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 6, 4 * 9 + 6 + 7, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 3, false)) {
                 //"+3" instead of "+6": Do not allow adding to output slots
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 6 + 6) {
+        }else if(index < 4 * 9 + 6 + 7) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

@@ -39,6 +39,14 @@ public class UpgradeModuleInventory extends SimpleContainer {
         return 1;
     }
 
+    public UpgradeModuleModifier getMainUpgradeModuleModifier(int slot) {
+        ItemStack itemStack = getItem(slot);
+        if(!(itemStack.getItem() instanceof UpgradeModuleItem upgradeModuleItem))
+            return null;
+
+        return upgradeModuleItem.getMainUpgradeModuleModifier();
+    }
+
     public int getUpgradeModuleTier(int slot) {
         ItemStack itemStack = getItem(slot);
         if(!(itemStack.getItem() instanceof UpgradeModuleItem upgradeModuleItem))
