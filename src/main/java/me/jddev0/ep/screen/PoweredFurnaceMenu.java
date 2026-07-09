@@ -2,11 +2,13 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.PoweredFurnaceBlockEntity;
+import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.ItemCapabilityMenuHelper;
 import me.jddev0.ep.inventory.ResourceHandlerSlot;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
+import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -38,7 +40,8 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE,
                 UpgradeModuleModifier.ITEM_EJECTOR,
-                UpgradeModuleModifier.ITEM_PULLING
+                UpgradeModuleModifier.ITEM_PULLING,
+                UpgradeModuleModifier.XP_YIELD
         ), null);
     }
 
@@ -49,7 +52,7 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
                 inv, blockEntity,
                 EPBlocks.POWERED_FURNACE,
 
-                upgradeModuleInventory, 6
+                upgradeModuleInventory, 7
         );
 
         ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
@@ -68,7 +71,7 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 35 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 26 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -91,6 +94,20 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
     @Override
     public long getEnergyPerTickBarValue() {
         return energyConsumptionPerTickData.getValue();
+    }
+
+    public FluidStack getFluid() {
+        return blockEntity.getFluid(0);
+    }
+
+    public long getTankCapacity() {
+        return blockEntity.getTankCapacity(0);
+    }
+
+    public boolean hasXPExtractionUpgradeModule() {
+        return slots.get(4 * 9 + 2 + 6) instanceof UpgradeModuleSlot slot &&
+                slot.getItem().getItem() instanceof UpgradeModuleItem item &&
+                item.getMainUpgradeModuleModifier() == UpgradeModuleModifier.XP_YIELD;
     }
 
     /**
@@ -133,12 +150,12 @@ public class PoweredFurnaceMenu extends UpgradableEnergyStorageMenu<PoweredFurna
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 2, 4 * 9 + 2 + 6, player, 0, 4 * 9, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 2, 4 * 9 + 2 + 7, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+1" instead of "+2": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 2 + 6) {
+        }else if(index < 4 * 9 + 2 + 7) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;

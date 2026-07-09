@@ -2,6 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -9,27 +10,69 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Environment(EnvType.CLIENT)
 public class PoweredFurnaceScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<PoweredFurnaceMenu> {
     public PoweredFurnaceScreen(PoweredFurnaceMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/powered_furnace.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode_1_item_ejector_1_item_pulling.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_speed_1_energy_efficiency_1_energy_capacity_1_furnace_mode_1_item_ejector_1_item_pulling_1_xp_extraction.png"));
     }
 
     @Override
-    protected void extractBackgroundNormalView(GuiGraphicsExtractor drawContext, int mouseX, int mouseY, float a) {
-        super.extractBackgroundNormalView(drawContext, mouseX, mouseY, a);
+    protected void extractBackgroundNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a) {
+        super.extractBackgroundNormalView(guiGraphics, mouseX, mouseY, a);
 
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
-        renderProgressArrow(drawContext, x, y);
+        if(menu.hasXPExtractionUpgradeModule()) {
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 151, y + 16, 116, 0, 18, 54, 256, 256);
+            renderFluidMeterContent(guiGraphics, menu.getFluid(), menu.getTankCapacity(), x + 152, y + 17, 16, 52);
+            renderFluidMeterOverlay(guiGraphics, x, y);
+        }
+
+        renderProgressArrow(guiGraphics, x, y);
     }
 
-    private void renderProgressArrow(GuiGraphicsExtractor drawContext, int x, int y) {
+    private void renderFluidMeterOverlay(GuiGraphicsExtractor guiGraphics, int x, int y) {
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 152, y + 17, 16, 0, 16, 52, 256, 256);
+    }
+
+    private void renderProgressArrow(GuiGraphicsExtractor guiGraphics, int x, int y) {
         if(menu.isCraftingActive())
-            drawContext.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, MACHINE_SPRITES_TEXTURE, x + 80, y + 34, 0, 58, menu.getScaledProgressArrowSize(), 17, 256, 256);
+    }
+
+    @Override
+    protected void extractTooltipNormalView(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
+
+        if(isHovering(152, 17, 16, 52, mouseX, mouseY) && menu.hasXPExtractionUpgradeModule()) {
+            //Fluid meter
+
+            List<Component> components = new ArrayList<>(2);
+
+            boolean fluidEmpty =  menu.getFluid().isEmpty();
+
+            long fluidAmount = fluidEmpty?0:menu.getFluid().getMilliBucketsAmount();
+
+            Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
+                            convertDropletsToMilliBuckets(menu.getTankCapacity())));
+
+            if(!fluidEmpty) {
+                tooltipComponent = Component.translatable(menu.getFluid().getTranslationKey()).append(" ").
+                        append(tooltipComponent);
+            }
+
+            components.add(tooltipComponent);
+
+            guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+        }
     }
 }

@@ -160,9 +160,9 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
 
         registerRecipeClickArea(registry, new Rectangle(43, 34, 18, 18),
                 AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
-        registerRecipeClickArea(registry, new Rectangle(97, 34, 18, 18),
+        registerRecipeClickArea(registry, new Rectangle(79, 34, 18, 18),
                 AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
-        registerRecipeClickArea(registry, new Rectangle(151, 34, 18, 18),
+        registerRecipeClickArea(registry, new Rectangle(115, 34, 18, 18),
                 AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
 
         registerRecipeClickArea(registry, new Rectangle(84, 43, 20, 17),
