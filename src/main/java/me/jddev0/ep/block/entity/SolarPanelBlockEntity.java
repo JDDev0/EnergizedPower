@@ -21,7 +21,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -169,32 +168,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
             transaction.commit();
         }
 
-        transferEnergy(level, blockPos, state, blockEntity);
-    }
-
-    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClientSide())
-            return;
-
-        BlockPos testPos = blockPos.relative(Direction.DOWN);
-
-        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-        if(testBlockEntity == null)
-            return;
-
-        EnergyStorage limitingEnergyStorage = EnergyStorage.SIDED.find(level, testPos, Direction.DOWN.getOpposite());
-        if(limitingEnergyStorage == null)
-            return;
-
-        if(!limitingEnergyStorage.supportsInsertion())
-            return;
-
-        try(Transaction transaction = Transaction.openOuter()) {
-            long amount = limitingEnergyStorage.insert(Math.min(blockEntity.energyStorage.getAmount(),
-                    blockEntity.limitingEnergyStorage.getMaxExtract()), transaction);
-            blockEntity.limitingEnergyStorage.extract(amount, transaction);
-            transaction.commit();
-        }
+        blockEntity.pushEnergyToOutputs(Direction.DOWN);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
