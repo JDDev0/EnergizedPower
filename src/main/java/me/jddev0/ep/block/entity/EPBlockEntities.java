@@ -6,6 +6,8 @@ import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -19,10 +21,8 @@ public final class EPBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, EPAPI.MOD_ID);
 
-    private static Supplier<BlockEntityType<FluidPipeBlockEntity>> createFluidPipeBlockEntity(String name,
-                                                                                              Supplier<FluidPipeBlock> blockSupplier) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidPipeBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    private static Supplier<BlockEntityType<FluidPipeBlockEntity>> createFluidPipeBlockEntity(String name, Supplier<FluidPipeBlock> block) {
+        return createBlockEntity(name, block, (blockPos, state) -> new FluidPipeBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> COPPER_FLUID_PIPE_ENTITY =
             createFluidPipeBlockEntity("copper_fluid_pipe", EPBlocks.COPPER_FLUID_PIPE);
@@ -35,10 +35,8 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<FluidPipeBlockEntity>> PRESSURIZED_FLUID_PIPE_ENTITY =
             createFluidPipeBlockEntity("pressurized_fluid_pipe", EPBlocks.PRESSURIZED_FLUID_PIPE);
 
-    private static Supplier<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name,
-                                                                                              Supplier<FluidTankBlock> blockSupplier) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new FluidTankBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    private static Supplier<BlockEntityType<FluidTankBlockEntity>> createFluidTankBlockEntity(String name, Supplier<FluidTankBlock> block) {
+        return createBlockEntity(name, block, (blockPos, state) -> new FluidTankBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<FluidTankBlockEntity>> FLUID_TANK_SMALL_ENTITY =
             createFluidTankBlockEntity("fluid_tank_small", EPBlocks.FLUID_TANK_SMALL);
@@ -48,13 +46,13 @@ public final class EPBlockEntities {
             createFluidTankBlockEntity("fluid_tank_large", EPBlocks.FLUID_TANK_LARGE);
 
     public static final Supplier<BlockEntityType<CreativeFluidTankBlockEntity>> CREATIVE_FLUID_TANK_ENTITY =
-            BLOCK_ENTITIES.register("creative_fluid_tank", () -> BlockEntityType.Builder.of(CreativeFluidTankBlockEntity::new,
-                    EPBlocks.CREATIVE_FLUID_TANK.get()).build(null));
+            createBlockEntity("creative_fluid_tank", EPBlocks.CREATIVE_FLUID_TANK, CreativeFluidTankBlockEntity::new);
 
-    private static Supplier<BlockEntityType<ItemSiloBlockEntity>> createItemSiloBlockEntity(String name,
-                                                                                            Supplier<ItemSiloBlock> blockSupplier) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemSiloBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    private static Supplier<BlockEntityType<ItemSiloBlockEntity>> createItemSiloBlockEntity(
+            String name,
+            Supplier<ItemSiloBlock> block
+    ) {
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemSiloBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_TINY_ENTITY =
             createItemSiloBlockEntity("item_silo_tiny", EPBlocks.ITEM_SILO_TINY);
@@ -67,16 +65,14 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<ItemSiloBlockEntity>> ITEM_SILO_GIANT_ENTITY =
             createItemSiloBlockEntity("item_silo_giant", EPBlocks.ITEM_SILO_GIANT);
 
-    public static final Supplier<BlockEntityType<CreativeItemSiloBlockEntity>> CREATIVE_ITEM_SILO_ENTITY =
-            BLOCK_ENTITIES.register("creative_item_silo", () -> BlockEntityType.Builder.of(CreativeItemSiloBlockEntity::new,
-                    EPBlocks.CREATIVE_ITEM_SILO.get()).build(null));
+    public static final Supplier<BlockEntityType<CreativeItemSiloBlockEntity>> CREATIVE_ITEM_SILO_ENTITY = createBlockEntity(
+            "creative_item_silo", EPBlocks.CREATIVE_ITEM_SILO, CreativeItemSiloBlockEntity::new);
 
     private static Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> createItemConveyorBeltBlockEntity(
             String name,
-            Supplier<ItemConveyorBeltBlock> blockSupplier
+            Supplier<ItemConveyorBeltBlock> block
     ) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemConveyorBeltBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_ENTITY =
             createItemConveyorBeltBlockEntity("item_conveyor_belt", EPBlocks.BASIC_ITEM_CONVEYOR_BELT);
@@ -87,10 +83,9 @@ public final class EPBlockEntities {
 
     private static Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> createItemConveyorBeltLoaderBlockEntity(
             String name,
-            Supplier<ItemConveyorBeltLoaderBlock> blockSupplier
+            Supplier<ItemConveyorBeltLoaderBlock> block
     ) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltLoaderBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemConveyorBeltLoaderBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
             createItemConveyorBeltLoaderBlockEntity("item_conveyor_belt_loader", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER);
@@ -101,10 +96,9 @@ public final class EPBlockEntities {
 
     private static Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> createItemConveyorBeltSorterBlockEntity(
             String name,
-            Supplier<ItemConveyorBeltSorterBlock> blockSupplier
+            Supplier<ItemConveyorBeltSorterBlock> block
     ) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltSorterBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemConveyorBeltSorterBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
             createItemConveyorBeltSorterBlockEntity("item_conveyor_belt_sorter", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER);
@@ -115,10 +109,9 @@ public final class EPBlockEntities {
 
     private static Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> createItemConveyorBeltSwitchBlockEntity(
             String name,
-            Supplier<ItemConveyorBeltSwitchBlock> blockSupplier
+            Supplier<ItemConveyorBeltSwitchBlock> block
     ) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltSwitchBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemConveyorBeltSwitchBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
             createItemConveyorBeltSwitchBlockEntity("item_conveyor_belt_switch", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH);
@@ -129,10 +122,9 @@ public final class EPBlockEntities {
 
     private static Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> createItemConveyorBeltSplitterBlockEntity(
             String name,
-            Supplier<ItemConveyorBeltSplitterBlock> blockSupplier
+            Supplier<ItemConveyorBeltSplitterBlock> block
     ) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltSplitterBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemConveyorBeltSplitterBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
             createItemConveyorBeltSplitterBlockEntity("item_conveyor_belt_splitter", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER);
@@ -143,10 +135,9 @@ public final class EPBlockEntities {
 
     private static Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> createItemConveyorBeltMergerBlockEntity(
             String name,
-            Supplier<ItemConveyorBeltMergerBlock> blockSupplier
+            Supplier<ItemConveyorBeltMergerBlock> block
     ) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new ItemConveyorBeltMergerBlockEntity(blockPos, state,
-                blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+        return createBlockEntity(name, block, (blockPos, state) -> new ItemConveyorBeltMergerBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> BASIC_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
             createItemConveyorBeltMergerBlockEntity("item_conveyor_belt_merger", EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER);
@@ -155,173 +146,129 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
             createItemConveyorBeltMergerBlockEntity("express_item_conveyor_belt_merger", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
 
-    public static final Supplier<BlockEntityType<CableBlockEntity>> TIN_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("tin_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.TIN), EPBlocks.TIN_CABLE.get()).build(null));
-    public static final Supplier<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.COPPER), EPBlocks.COPPER_CABLE.get()).build(null));
-    public static final Supplier<BlockEntityType<CableBlockEntity>> GOLD_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("gold_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.GOLD), EPBlocks.GOLD_CABLE.get()).build(null));
-    public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_COPPER_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("energized_copper_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_COPPER), EPBlocks.ENERGIZED_COPPER_CABLE.get()).build(null));
-    public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_GOLD_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("energized_gold_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD), EPBlocks.ENERGIZED_GOLD_CABLE.get()).build(null));
-    public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY =
-            BLOCK_ENTITIES.register("energized_crystal_matrix_cable", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX), EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get()).build(null));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> TIN_CABLE_ENTITY = createBlockEntity("tin_cable",
+            EPBlocks.TIN_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.TIN));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> COPPER_CABLE_ENTITY = createBlockEntity("copper_cable",
+            EPBlocks.COPPER_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.COPPER));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> GOLD_CABLE_ENTITY = createBlockEntity("gold_cable",
+            EPBlocks.GOLD_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.GOLD));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_COPPER_CABLE_ENTITY = createBlockEntity("energized_copper_cable",
+            EPBlocks.ENERGIZED_COPPER_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_COPPER));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_GOLD_CABLE_ENTITY = createBlockEntity("energized_gold_cable",
+            EPBlocks.ENERGIZED_GOLD_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD));
+    public static final Supplier<BlockEntityType<CableBlockEntity>> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = createBlockEntity("energized_crystal_matrix_cable",
+            EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX));
 
-    public static final Supplier<BlockEntityType<AutoCrafterBlockEntity>> AUTO_CRAFTER_ENTITY =
-            BLOCK_ENTITIES.register("auto_crafter", () -> BlockEntityType.Builder.of(AutoCrafterBlockEntity::new,
-                    EPBlocks.AUTO_CRAFTER.get()).build(null));
+    public static final Supplier<BlockEntityType<AutoCrafterBlockEntity>> AUTO_CRAFTER_ENTITY = createBlockEntity("auto_crafter",
+            EPBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedAutoCrafterBlockEntity>> ADVANCED_AUTO_CRAFTER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_auto_crafter", () -> BlockEntityType.Builder.of(AdvancedAutoCrafterBlockEntity::new,
-                    EPBlocks.ADVANCED_AUTO_CRAFTER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedAutoCrafterBlockEntity>> ADVANCED_AUTO_CRAFTER_ENTITY = createBlockEntity("advanced_auto_crafter",
+            EPBlocks.ADVANCED_AUTO_CRAFTER, AdvancedAutoCrafterBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<PressMoldMakerBlockEntity>> PRESS_MOLD_MAKER_ENTITY =
-            BLOCK_ENTITIES.register("press_mold_maker", () -> BlockEntityType.Builder.of(PressMoldMakerBlockEntity::new,
-                    EPBlocks.PRESS_MOLD_MAKER.get()).build(null));
+    public static final Supplier<BlockEntityType<PressMoldMakerBlockEntity>> PRESS_MOLD_MAKER_ENTITY = createBlockEntity("press_mold_maker",
+            EPBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AlloyFurnaceBlockEntity>> ALLOY_FURNACE_ENTITY =
-            BLOCK_ENTITIES.register("alloy_furnace", () -> BlockEntityType.Builder.of(AlloyFurnaceBlockEntity::new,
-                    EPBlocks.ALLOY_FURNACE.get()).build(null));
+    public static final Supplier<BlockEntityType<AlloyFurnaceBlockEntity>> ALLOY_FURNACE_ENTITY = createBlockEntity("alloy_furnace",
+            EPBlocks.ALLOY_FURNACE, AlloyFurnaceBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<CrusherBlockEntity>> CRUSHER_ENTITY =
-            BLOCK_ENTITIES.register("crusher", () -> BlockEntityType.Builder.of(CrusherBlockEntity::new,
-                    EPBlocks.CRUSHER.get()).build(null));
+    public static final Supplier<BlockEntityType<CrusherBlockEntity>> CRUSHER_ENTITY = createBlockEntity("crusher",
+            EPBlocks.CRUSHER, CrusherBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedCrusherBlockEntity>> ADVANCED_CRUSHER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_crusher", () -> BlockEntityType.Builder.of(AdvancedCrusherBlockEntity::new,
-                    EPBlocks.ADVANCED_CRUSHER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedCrusherBlockEntity>> ADVANCED_CRUSHER_ENTITY = createBlockEntity("advanced_crusher",
+            EPBlocks.ADVANCED_CRUSHER, AdvancedCrusherBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<PulverizerBlockEntity>> PULVERIZER_ENTITY =
-            BLOCK_ENTITIES.register("pulverizer", () -> BlockEntityType.Builder.of(PulverizerBlockEntity::new,
-                    EPBlocks.PULVERIZER.get()).build(null));
+    public static final Supplier<BlockEntityType<PulverizerBlockEntity>> PULVERIZER_ENTITY = createBlockEntity("pulverizer",
+            EPBlocks.PULVERIZER, PulverizerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedPulverizerBlockEntity>> ADVANCED_PULVERIZER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_pulverizer", () -> BlockEntityType.Builder.of(AdvancedPulverizerBlockEntity::new,
-                    EPBlocks.ADVANCED_PULVERIZER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedPulverizerBlockEntity>> ADVANCED_PULVERIZER_ENTITY = createBlockEntity("advanced_pulverizer",
+            EPBlocks.ADVANCED_PULVERIZER, AdvancedPulverizerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<SawmillBlockEntity>> SAWMILL_ENTITY =
-            BLOCK_ENTITIES.register("sawmill", () -> BlockEntityType.Builder.of(SawmillBlockEntity::new,
-                    EPBlocks.SAWMILL.get()).build(null));
+    public static final Supplier<BlockEntityType<SawmillBlockEntity>> SAWMILL_ENTITY = createBlockEntity("sawmill",
+            EPBlocks.SAWMILL, SawmillBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<CompressorBlockEntity>> COMPRESSOR_ENTITY =
-            BLOCK_ENTITIES.register("compressor", () -> BlockEntityType.Builder.of(CompressorBlockEntity::new,
-                    EPBlocks.COMPRESSOR.get()).build(null));
+    public static final Supplier<BlockEntityType<CompressorBlockEntity>> COMPRESSOR_ENTITY = createBlockEntity("compressor",
+            EPBlocks.COMPRESSOR, CompressorBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<MetalPressBlockEntity>> METAL_PRESS_ENTITY =
-            BLOCK_ENTITIES.register("metal_press", () -> BlockEntityType.Builder.of(MetalPressBlockEntity::new,
-                    EPBlocks.METAL_PRESS.get()).build(null));
+    public static final Supplier<BlockEntityType<MetalPressBlockEntity>> METAL_PRESS_ENTITY = createBlockEntity("metal_press",
+            EPBlocks.METAL_PRESS, MetalPressBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AutoPressMoldMakerBlockEntity>> AUTO_PRESS_MOLD_MAKER_ENTITY =
-            BLOCK_ENTITIES.register("auto_press_mold_maker", () -> BlockEntityType.Builder.of(AutoPressMoldMakerBlockEntity::new,
-                    EPBlocks.AUTO_PRESS_MOLD_MAKER.get()).build(null));
+    public static final Supplier<BlockEntityType<AutoPressMoldMakerBlockEntity>> AUTO_PRESS_MOLD_MAKER_ENTITY = createBlockEntity("auto_press_mold_maker",
+            EPBlocks.AUTO_PRESS_MOLD_MAKER, AutoPressMoldMakerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AutoStonecutterBlockEntity>> AUTO_STONECUTTER_ENTITY =
-            BLOCK_ENTITIES.register("auto_stonecutter", () -> BlockEntityType.Builder.of(AutoStonecutterBlockEntity::new,
-                    EPBlocks.AUTO_STONECUTTER.get()).build(null));
+    public static final Supplier<BlockEntityType<AutoStonecutterBlockEntity>> AUTO_STONECUTTER_ENTITY = createBlockEntity("auto_stonecutter",
+            EPBlocks.AUTO_STONECUTTER, AutoStonecutterBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<PlantGrowthChamberBlockEntity>> PLANT_GROWTH_CHAMBER_ENTITY =
-            BLOCK_ENTITIES.register("plant_growth_chamber", () -> BlockEntityType.Builder.of(PlantGrowthChamberBlockEntity::new,
-                    EPBlocks.PLANT_GROWTH_CHAMBER.get()).build(null));
+    public static final Supplier<BlockEntityType<PlantGrowthChamberBlockEntity>> PLANT_GROWTH_CHAMBER_ENTITY = createBlockEntity("plant_growth_chamber",
+            EPBlocks.PLANT_GROWTH_CHAMBER, PlantGrowthChamberBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<BlockPlacerBlockEntity>> BLOCK_PLACER_ENTITY =
-            BLOCK_ENTITIES.register("block_placer", () -> BlockEntityType.Builder.of(BlockPlacerBlockEntity::new,
-                    EPBlocks.BLOCK_PLACER.get()).build(null));
+    public static final Supplier<BlockEntityType<BlockPlacerBlockEntity>> BLOCK_PLACER_ENTITY = createBlockEntity("block_placer",
+            EPBlocks.BLOCK_PLACER, BlockPlacerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AssemblingMachineBlockEntity>> ASSEMBLING_MACHINE_ENTITY =
-            BLOCK_ENTITIES.register("assembling_machine", () -> BlockEntityType.Builder.of(AssemblingMachineBlockEntity::new,
-                    EPBlocks.ASSEMBLING_MACHINE.get()).build(null));
+    public static final Supplier<BlockEntityType<AssemblingMachineBlockEntity>> ASSEMBLING_MACHINE_ENTITY = createBlockEntity("assembling_machine",
+            EPBlocks.ASSEMBLING_MACHINE, AssemblingMachineBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<InductionSmelterBlockEntity>> INDUCTION_SMELTER_ENTITY =
-            BLOCK_ENTITIES.register("induction_smelter", () -> BlockEntityType.Builder.of(InductionSmelterBlockEntity::new,
-                    EPBlocks.INDUCTION_SMELTER.get()).build(null));
+    public static final Supplier<BlockEntityType<InductionSmelterBlockEntity>> INDUCTION_SMELTER_ENTITY = createBlockEntity("induction_smelter",
+            EPBlocks.INDUCTION_SMELTER, InductionSmelterBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<FluidFreezerBlockEntity>> FLUID_FREEZER_ENTITY =
-            BLOCK_ENTITIES.register("fluid_freezer", () -> BlockEntityType.Builder.of(FluidFreezerBlockEntity::new,
-                    EPBlocks.FLUID_FREEZER.get()).build(null));
+    public static final Supplier<BlockEntityType<FluidFreezerBlockEntity>> FLUID_FREEZER_ENTITY = createBlockEntity("fluid_freezer",
+            EPBlocks.FLUID_FREEZER, FluidFreezerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<StoneLiquefierBlockEntity>> STONE_LIQUEFIER_ENTITY =
-            BLOCK_ENTITIES.register("stone_liquefier", () -> BlockEntityType.Builder.of(StoneLiquefierBlockEntity::new,
-                    EPBlocks.STONE_LIQUEFIER.get()).build(null));
+    public static final Supplier<BlockEntityType<StoneLiquefierBlockEntity>> STONE_LIQUEFIER_ENTITY = createBlockEntity("stone_liquefier",
+            EPBlocks.STONE_LIQUEFIER, StoneLiquefierBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<StoneSolidifierBlockEntity>> STONE_SOLIDIFIER_ENTITY =
-            BLOCK_ENTITIES.register("stone_solidifier", () -> BlockEntityType.Builder.of(StoneSolidifierBlockEntity::new,
-                    EPBlocks.STONE_SOLIDIFIER.get()).build(null));
+    public static final Supplier<BlockEntityType<StoneSolidifierBlockEntity>> STONE_SOLIDIFIER_ENTITY = createBlockEntity("stone_solidifier",
+            EPBlocks.STONE_SOLIDIFIER, StoneSolidifierBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<FiltrationPlantBlockEntity>> FILTRATION_PLANT_ENTITY =
-            BLOCK_ENTITIES.register("filtration_plant", () -> BlockEntityType.Builder.of(FiltrationPlantBlockEntity::new,
-                    EPBlocks.FILTRATION_PLANT.get()).build(null));
+    public static final Supplier<BlockEntityType<FiltrationPlantBlockEntity>> FILTRATION_PLANT_ENTITY = createBlockEntity("filtration_plant",
+            EPBlocks.FILTRATION_PLANT, FiltrationPlantBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<FluidTransposerBlockEntity>> FLUID_TRANSPOSER_ENTITY =
-            BLOCK_ENTITIES.register("fluid_transposer", () -> BlockEntityType.Builder.of(FluidTransposerBlockEntity::new,
-                    EPBlocks.FLUID_TRANSPOSER.get()).build(null));
+    public static final Supplier<BlockEntityType<FluidTransposerBlockEntity>> FLUID_TRANSPOSER_ENTITY = createBlockEntity("fluid_transposer",
+            EPBlocks.FLUID_TRANSPOSER, FluidTransposerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<FluidFillerBlockEntity>> FLUID_FILLER_ENTITY =
-            BLOCK_ENTITIES.register("fluid_filler", () -> BlockEntityType.Builder.of(FluidFillerBlockEntity::new,
-                    EPBlocks.FLUID_FILLER.get()).build(null));
+    public static final Supplier<BlockEntityType<FluidFillerBlockEntity>> FLUID_FILLER_ENTITY = createBlockEntity("fluid_filler",
+            EPBlocks.FLUID_FILLER, FluidFillerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<FluidDrainerBlockEntity>> FLUID_DRAINER_ENTITY =
-            BLOCK_ENTITIES.register("fluid_drainer", () -> BlockEntityType.Builder.of(FluidDrainerBlockEntity::new,
-                    EPBlocks.FLUID_DRAINER.get()).build(null));
+    public static final Supplier<BlockEntityType<FluidDrainerBlockEntity>> FLUID_DRAINER_ENTITY = createBlockEntity("fluid_drainer",
+            EPBlocks.FLUID_DRAINER, FluidDrainerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<FluidPumpBlockEntity>> FLUID_PUMP_ENTITY =
-            BLOCK_ENTITIES.register("fluid_pump", () -> BlockEntityType.Builder.of(FluidPumpBlockEntity::new,
-                    EPBlocks.FLUID_PUMP.get()).build(null));
+    public static final Supplier<BlockEntityType<FluidPumpBlockEntity>> FLUID_PUMP_ENTITY = createBlockEntity("fluid_pump",
+            EPBlocks.FLUID_PUMP, FluidPumpBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedFluidPumpBlockEntity>> ADVANCED_FLUID_PUMP_ENTITY =
-            BLOCK_ENTITIES.register("advanced_fluid_pump", () -> BlockEntityType.Builder.of(AdvancedFluidPumpBlockEntity::new,
-                    EPBlocks.ADVANCED_FLUID_PUMP.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedFluidPumpBlockEntity>> ADVANCED_FLUID_PUMP_ENTITY = createBlockEntity(
+            "advanced_fluid_pump", EPBlocks.ADVANCED_FLUID_PUMP, AdvancedFluidPumpBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<DrainBlockEntity>> DRAIN_ENTITY =
-            BLOCK_ENTITIES.register("drain", () -> BlockEntityType.Builder.of(DrainBlockEntity::new,
-                    EPBlocks.DRAIN.get()).build(null));
+    public static final Supplier<BlockEntityType<DrainBlockEntity>> DRAIN_ENTITY = createBlockEntity("drain",
+            EPBlocks.DRAIN, DrainBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<XPDrainBlockEntity>> XP_DRAIN_ENTITY =
-            BLOCK_ENTITIES.register("xp_drain", () -> BlockEntityType.Builder.of(XPDrainBlockEntity::new,
-                    EPBlocks.XP_DRAIN.get()).build(null));
+    public static final Supplier<BlockEntityType<XPDrainBlockEntity>> XP_DRAIN_ENTITY = createBlockEntity("xp_drain",
+            EPBlocks.XP_DRAIN, XPDrainBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY =
-            BLOCK_ENTITIES.register("charger", () -> BlockEntityType.Builder.of(ChargerBlockEntity::new,
-                    EPBlocks.CHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<ChargerBlockEntity>> CHARGER_ENTITY = createBlockEntity("charger",
+            EPBlocks.CHARGER, ChargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedChargerBlockEntity>> ADVANCED_CHARGER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_charger", () -> BlockEntityType.Builder.of(AdvancedChargerBlockEntity::new,
-                    EPBlocks.ADVANCED_CHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedChargerBlockEntity>> ADVANCED_CHARGER_ENTITY = createBlockEntity("advanced_charger",
+            EPBlocks.ADVANCED_CHARGER, AdvancedChargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<UnchargerBlockEntity>> UNCHARGER_ENTITY =
-            BLOCK_ENTITIES.register("uncharger", () -> BlockEntityType.Builder.of(UnchargerBlockEntity::new,
-                    EPBlocks.UNCHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<UnchargerBlockEntity>> UNCHARGER_ENTITY = createBlockEntity("uncharger",
+            EPBlocks.UNCHARGER, UnchargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedUnchargerBlockEntity>> ADVANCED_UNCHARGER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_uncharger", () -> BlockEntityType.Builder.of(AdvancedUnchargerBlockEntity::new,
-                    EPBlocks.ADVANCED_UNCHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedUnchargerBlockEntity>> ADVANCED_UNCHARGER_ENTITY = createBlockEntity("advanced_uncharger",
+            EPBlocks.ADVANCED_UNCHARGER, AdvancedUnchargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<MinecartChargerBlockEntity>> MINECART_CHARGER_ENTITY =
-            BLOCK_ENTITIES.register("minecart_charger", () -> BlockEntityType.Builder.of(MinecartChargerBlockEntity::new,
-                    EPBlocks.MINECART_CHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<MinecartChargerBlockEntity>> MINECART_CHARGER_ENTITY = createBlockEntity("minecart_charger",
+            EPBlocks.MINECART_CHARGER, MinecartChargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedMinecartChargerBlockEntity>> ADVANCED_MINECART_CHARGER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_minecart_charger", () -> BlockEntityType.Builder.of(AdvancedMinecartChargerBlockEntity::new,
-                    EPBlocks.ADVANCED_MINECART_CHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedMinecartChargerBlockEntity>> ADVANCED_MINECART_CHARGER_ENTITY = createBlockEntity("advanced_minecart_charger",
+            EPBlocks.ADVANCED_MINECART_CHARGER, AdvancedMinecartChargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<MinecartUnchargerBlockEntity>> MINECART_UNCHARGER_ENTITY =
-            BLOCK_ENTITIES.register("minecart_uncharger", () -> BlockEntityType.Builder.of(MinecartUnchargerBlockEntity::new,
-                    EPBlocks.MINECART_UNCHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<MinecartUnchargerBlockEntity>> MINECART_UNCHARGER_ENTITY = createBlockEntity("minecart_uncharger",
+            EPBlocks.MINECART_UNCHARGER, MinecartUnchargerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedMinecartUnchargerBlockEntity>> ADVANCED_MINECART_UNCHARGER_ENTITY =
-            BLOCK_ENTITIES.register("advanced_minecart_uncharger", () -> BlockEntityType.Builder.of(AdvancedMinecartUnchargerBlockEntity::new,
-                    EPBlocks.ADVANCED_MINECART_UNCHARGER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedMinecartUnchargerBlockEntity>> ADVANCED_MINECART_UNCHARGER_ENTITY = createBlockEntity("advanced_minecart_uncharger",
+            EPBlocks.ADVANCED_MINECART_UNCHARGER, AdvancedMinecartUnchargerBlockEntity::new);
 
-    private static Supplier<BlockEntityType<SolarPanelBlockEntity>> createSolarPanelBlockEntity(String name,
-    Supplier<SolarPanelBlock> blockSupplier) {
-        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of((blockPos, state) -> new SolarPanelBlockEntity(blockPos, state,
-                        blockSupplier.get().getTier()), blockSupplier.get()).build(null));
+    private static Supplier<BlockEntityType<SolarPanelBlockEntity>> createSolarPanelBlockEntity(String name, Supplier<SolarPanelBlock> block) {
+        return createBlockEntity(name, block, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, block.get().getTier()));
     }
     public static final Supplier<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_1 =
             createSolarPanelBlockEntity("solar_panel_1", EPBlocks.SOLAR_PANEL_1);
@@ -338,152 +285,111 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<SolarPanelBlockEntity>> SOLAR_PANEL_ENTITY_7 =
             createSolarPanelBlockEntity("solar_panel_7", EPBlocks.SOLAR_PANEL_7);
 
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_1_TO_N_ENTITY =
-            BLOCK_ENTITIES.register("lv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
-                                    TransformerType.TYPE_1_TO_N),
-                    EPBlocks.LV_TRANSFORMER_1_TO_N.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_3_TO_3_ENTITY =
-            BLOCK_ENTITIES.register("lv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
-                                    TransformerType.TYPE_3_TO_3),
-                    EPBlocks.LV_TRANSFORMER_3_TO_3.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_N_TO_1_ENTITY =
-            BLOCK_ENTITIES.register("lv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
-                                    TransformerType.TYPE_N_TO_1),
-                    EPBlocks.LV_TRANSFORMER_N_TO_1.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_1_TO_N_ENTITY = createBlockEntity("lv_transformer_1_to_n",
+            EPBlocks.LV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.TYPE_1_TO_N));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_3_TO_3_ENTITY = createBlockEntity("lv_transformer_3_to_3",
+            EPBlocks.LV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.TYPE_3_TO_3));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> LV_TRANSFORMER_N_TO_1_ENTITY = createBlockEntity("lv_transformer_n_to_1",
+            EPBlocks.LV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.TYPE_N_TO_1));
 
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_1_TO_N_ENTITY =
-            BLOCK_ENTITIES.register("transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
-                                    TransformerType.TYPE_1_TO_N),
-                    EPBlocks.MV_TRANSFORMER_1_TO_N.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_3_TO_3_ENTITY =
-            BLOCK_ENTITIES.register("transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
-                                    TransformerType.TYPE_3_TO_3),
-                    EPBlocks.MV_TRANSFORMER_3_TO_3.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_N_TO_1_ENTITY =
-            BLOCK_ENTITIES.register("transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
-                                    TransformerType.TYPE_N_TO_1),
-                    EPBlocks.MV_TRANSFORMER_N_TO_1.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_1_TO_N_ENTITY =
-            BLOCK_ENTITIES.register("hv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
-                                    TransformerType.TYPE_1_TO_N),
-                    EPBlocks.HV_TRANSFORMER_1_TO_N.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_3_TO_3_ENTITY =
-            BLOCK_ENTITIES.register("hv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
-                                    TransformerType.TYPE_3_TO_3),
-                    EPBlocks.HV_TRANSFORMER_3_TO_3.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_N_TO_1_ENTITY =
-            BLOCK_ENTITIES.register("hv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
-                                    TransformerType.TYPE_N_TO_1),
-                    EPBlocks.HV_TRANSFORMER_N_TO_1.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_1_TO_N_ENTITY =
-            BLOCK_ENTITIES.register("ehv_transformer_1_to_n", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
-                                    TransformerType.TYPE_1_TO_N),
-                    EPBlocks.EHV_TRANSFORMER_1_TO_N.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_3_TO_3_ENTITY =
-            BLOCK_ENTITIES.register("ehv_transformer_3_to_3", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
-                                    TransformerType.TYPE_3_TO_3),
-                    EPBlocks.EHV_TRANSFORMER_3_TO_3.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_N_TO_1_ENTITY =
-            BLOCK_ENTITIES.register("ehv_transformer_n_to_1", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                            new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
-                                    TransformerType.TYPE_N_TO_1),
-                    EPBlocks.EHV_TRANSFORMER_N_TO_1.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_1_TO_N_ENTITY = createBlockEntity("transformer_1_to_n",
+            EPBlocks.MV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.TYPE_1_TO_N));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_3_TO_3_ENTITY = createBlockEntity("transformer_3_to_3",
+            EPBlocks.MV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.TYPE_3_TO_3));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> MV_TRANSFORMER_N_TO_1_ENTITY = createBlockEntity("transformer_n_to_1",
+            EPBlocks.MV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.TYPE_N_TO_1));
 
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_LV_TRANSFORMER_ENTITY =
-            BLOCK_ENTITIES.register("configurable_lv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV,
-                            TransformerType.CONFIGURABLE),
-                    EPBlocks.CONFIGURABLE_LV_TRANSFORMER.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_MV_TRANSFORMER_ENTITY =
-            BLOCK_ENTITIES.register("configurable_mv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV,
-                            TransformerType.CONFIGURABLE),
-                    EPBlocks.CONFIGURABLE_MV_TRANSFORMER.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_HV_TRANSFORMER_ENTITY =
-            BLOCK_ENTITIES.register("configurable_hv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV,
-                            TransformerType.CONFIGURABLE),
-                    EPBlocks.CONFIGURABLE_HV_TRANSFORMER.get()).build(null));
-    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_EHV_TRANSFORMER_ENTITY =
-            BLOCK_ENTITIES.register("configurable_ehv_transformer", () -> BlockEntityType.Builder.of((blockPos, state) ->
-                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV,
-                            TransformerType.CONFIGURABLE),
-                    EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_1_TO_N_ENTITY = createBlockEntity("hv_transformer_1_to_n",
+            EPBlocks.HV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.TYPE_1_TO_N));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_3_TO_3_ENTITY = createBlockEntity("hv_transformer_3_to_3",
+            EPBlocks.HV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.TYPE_3_TO_3));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> HV_TRANSFORMER_N_TO_1_ENTITY = createBlockEntity("hv_transformer_n_to_1",
+            EPBlocks.HV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.TYPE_N_TO_1));
 
-    public static final Supplier<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY =
-            BLOCK_ENTITIES.register("battery_box", () -> BlockEntityType.Builder.of(BatteryBoxBlockEntity::new,
-                    EPBlocks.BATTERY_BOX.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_1_TO_N_ENTITY = createBlockEntity("ehv_transformer_1_to_n",
+            EPBlocks.EHV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_1_TO_N));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_3_TO_3_ENTITY = createBlockEntity("ehv_transformer_3_to_3",
+            EPBlocks.EHV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_3_TO_3));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> EHV_TRANSFORMER_N_TO_1_ENTITY = createBlockEntity("ehv_transformer_n_to_1",
+            EPBlocks.EHV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_N_TO_1));
 
-    public static final Supplier<BlockEntityType<AdvancedBatteryBoxBlockEntity>> ADVANCED_BATTERY_BOX_ENTITY =
-            BLOCK_ENTITIES.register("advanced_battery_box", () -> BlockEntityType.Builder.of(AdvancedBatteryBoxBlockEntity::new,
-                    EPBlocks.ADVANCED_BATTERY_BOX.get()).build(null));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_LV_TRANSFORMER_ENTITY = createBlockEntity("configurable_lv_transformer",
+            EPBlocks.CONFIGURABLE_LV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.CONFIGURABLE));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_MV_TRANSFORMER_ENTITY = createBlockEntity("configurable_mv_transformer",
+            EPBlocks.CONFIGURABLE_MV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.MV, TransformerType.CONFIGURABLE));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_HV_TRANSFORMER_ENTITY = createBlockEntity("configurable_hv_transformer",
+            EPBlocks.CONFIGURABLE_HV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.HV, TransformerType.CONFIGURABLE));
+    public static final Supplier<BlockEntityType<TransformerBlockEntity>> CONFIGURABLE_EHV_TRANSFORMER_ENTITY = createBlockEntity("configurable_ehv_transformer",
+            EPBlocks.CONFIGURABLE_EHV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.CONFIGURABLE));
 
-    public static final Supplier<BlockEntityType<CreativeBatteryBoxBlockEntity>> CREATIVE_BATTERY_BOX_ENTITY =
-            BLOCK_ENTITIES.register("creative_battery_box", () -> BlockEntityType.Builder.of(CreativeBatteryBoxBlockEntity::new,
-                    EPBlocks.CREATIVE_BATTERY_BOX.get()).build(null));
+    public static final Supplier<BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_ENTITY = createBlockEntity("battery_box",
+            EPBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY =
-            BLOCK_ENTITIES.register("coal_engine", () -> BlockEntityType.Builder.of(CoalEngineBlockEntity::new,
-                    EPBlocks.COAL_ENGINE.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedBatteryBoxBlockEntity>> ADVANCED_BATTERY_BOX_ENTITY = createBlockEntity("advanced_battery_box",
+            EPBlocks.ADVANCED_BATTERY_BOX, AdvancedBatteryBoxBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<HeatGeneratorBlockEntity>> HEAT_GENERATOR_ENTITY =
-            BLOCK_ENTITIES.register("heat_generator", () -> BlockEntityType.Builder.of(HeatGeneratorBlockEntity::new,
-                    EPBlocks.HEAT_GENERATOR.get()).build(null));
+    public static final Supplier<BlockEntityType<CreativeBatteryBoxBlockEntity>> CREATIVE_BATTERY_BOX_ENTITY = createBlockEntity("creative_battery_box",
+            EPBlocks.CREATIVE_BATTERY_BOX, CreativeBatteryBoxBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<ThermalGeneratorBlockEntity>> THERMAL_GENERATOR_ENTITY =
-            BLOCK_ENTITIES.register("thermal_generator", () -> BlockEntityType.Builder.of(ThermalGeneratorBlockEntity::new,
-                    EPBlocks.THERMAL_GENERATOR.get()).build(null));
+    public static final Supplier<BlockEntityType<CoalEngineBlockEntity>> COAL_ENGINE_ENTITY = createBlockEntity("coal_engine",
+            EPBlocks.COAL_ENGINE, CoalEngineBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<PoweredLampBlockEntity>> POWERED_LAMP_ENTITY =
-            BLOCK_ENTITIES.register("powered_lamp", () -> BlockEntityType.Builder.of(PoweredLampBlockEntity::new,
-                    EPBlocks.POWERED_LAMP.get()).build(null));
+    public static final Supplier<BlockEntityType<HeatGeneratorBlockEntity>> HEAT_GENERATOR_ENTITY = createBlockEntity("heat_generator",
+            EPBlocks.HEAT_GENERATOR, HeatGeneratorBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<PoweredFurnaceBlockEntity>> POWERED_FURNACE_ENTITY =
-            BLOCK_ENTITIES.register("powered_furnace", () -> BlockEntityType.Builder.of(PoweredFurnaceBlockEntity::new,
-                    EPBlocks.POWERED_FURNACE.get()).build(null));
+    public static final Supplier<BlockEntityType<ThermalGeneratorBlockEntity>> THERMAL_GENERATOR_ENTITY = createBlockEntity("thermal_generator",
+            EPBlocks.THERMAL_GENERATOR, ThermalGeneratorBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<AdvancedPoweredFurnaceBlockEntity>> ADVANCED_POWERED_FURNACE_ENTITY =
-            BLOCK_ENTITIES.register("advanced_powered_furnace", () -> BlockEntityType.Builder.of(AdvancedPoweredFurnaceBlockEntity::new,
-                    EPBlocks.ADVANCED_POWERED_FURNACE.get()).build(null));
+    public static final Supplier<BlockEntityType<PoweredLampBlockEntity>> POWERED_LAMP_ENTITY = createBlockEntity("powered_lamp",
+            EPBlocks.POWERED_LAMP, PoweredLampBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<LightningGeneratorBlockEntity>> LIGHTING_GENERATOR_ENTITY =
-            BLOCK_ENTITIES.register("lightning_generator", () -> BlockEntityType.Builder.of(LightningGeneratorBlockEntity::new,
-                    EPBlocks.LIGHTNING_GENERATOR.get()).build(null));
+    public static final Supplier<BlockEntityType<PoweredFurnaceBlockEntity>> POWERED_FURNACE_ENTITY = createBlockEntity("powered_furnace",
+            EPBlocks.POWERED_FURNACE, PoweredFurnaceBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<EnergizerBlockEntity>> ENERGIZER_ENTITY =
-            BLOCK_ENTITIES.register("energizer", () -> BlockEntityType.Builder.of(EnergizerBlockEntity::new,
-                    EPBlocks.ENERGIZER.get()).build(null));
+    public static final Supplier<BlockEntityType<AdvancedPoweredFurnaceBlockEntity>> ADVANCED_POWERED_FURNACE_ENTITY = createBlockEntity("advanced_powered_furnace",
+            EPBlocks.ADVANCED_POWERED_FURNACE, AdvancedPoweredFurnaceBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<ChargingStationBlockEntity>> CHARGING_STATION_ENTITY =
-            BLOCK_ENTITIES.register("charging_station", () -> BlockEntityType.Builder.of(ChargingStationBlockEntity::new,
-                    EPBlocks.CHARGING_STATION.get()).build(null));
+    public static final Supplier<BlockEntityType<LightningGeneratorBlockEntity>> LIGHTING_GENERATOR_ENTITY = createBlockEntity("lightning_generator",
+            EPBlocks.LIGHTNING_GENERATOR, LightningGeneratorBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<CrystalGrowthChamberBlockEntity>> CRYSTAL_GROWTH_CHAMBER_ENTITY =
-            BLOCK_ENTITIES.register("crystal_growth_chamber", () -> BlockEntityType.Builder.of(CrystalGrowthChamberBlockEntity::new,
-                    EPBlocks.CRYSTAL_GROWTH_CHAMBER.get()).build(null));
+    public static final Supplier<BlockEntityType<EnergizerBlockEntity>> ENERGIZER_ENTITY = createBlockEntity("energizer",
+            EPBlocks.ENERGIZER, EnergizerBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<WeatherControllerBlockEntity>> WEATHER_CONTROLLER_ENTITY =
-            BLOCK_ENTITIES.register("weather_controller", () -> BlockEntityType.Builder.of(WeatherControllerBlockEntity::new,
-                    EPBlocks.WEATHER_CONTROLLER.get()).build(null));
+    public static final Supplier<BlockEntityType<ChargingStationBlockEntity>> CHARGING_STATION_ENTITY = createBlockEntity("charging_station",
+            EPBlocks.CHARGING_STATION, ChargingStationBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<TimeControllerBlockEntity>> TIME_CONTROLLER_ENTITY =
-            BLOCK_ENTITIES.register("time_controller", () -> BlockEntityType.Builder.of(TimeControllerBlockEntity::new,
-                    EPBlocks.TIME_CONTROLLER.get()).build(null));
+    public static final Supplier<BlockEntityType<CrystalGrowthChamberBlockEntity>> CRYSTAL_GROWTH_CHAMBER_ENTITY = createBlockEntity("crystal_growth_chamber",
+            EPBlocks.CRYSTAL_GROWTH_CHAMBER, CrystalGrowthChamberBlockEntity::new);
 
-    public static final Supplier<BlockEntityType<TeleporterBlockEntity>> TELEPORTER_ENTITY =
-            BLOCK_ENTITIES.register("teleporter", () -> BlockEntityType.Builder.of(TeleporterBlockEntity::new,
-                    EPBlocks.TELEPORTER.get()).build(null));
+    public static final Supplier<BlockEntityType<WeatherControllerBlockEntity>> WEATHER_CONTROLLER_ENTITY = createBlockEntity("weather_controller",
+            EPBlocks.WEATHER_CONTROLLER, WeatherControllerBlockEntity::new);
+
+    public static final Supplier<BlockEntityType<TimeControllerBlockEntity>> TIME_CONTROLLER_ENTITY = createBlockEntity("time_controller",
+            EPBlocks.TIME_CONTROLLER, TimeControllerBlockEntity::new);
+
+    public static final Supplier<BlockEntityType<TeleporterBlockEntity>> TELEPORTER_ENTITY = createBlockEntity("teleporter",
+            EPBlocks.TELEPORTER, TeleporterBlockEntity::new);
+
+    private static <T extends BlockEntity> Supplier<BlockEntityType<T>> createBlockEntity(
+            String name, Supplier<? extends Block> block, BlockEntityType.BlockEntitySupplier<T> factory) {
+        return BLOCK_ENTITIES.register(name, () -> BlockEntityType.Builder.of(factory, block.get()).build(null));
+    }
 
     public static void register(IEventBus modEventBus) {
         BLOCK_ENTITIES.register(modEventBus);
