@@ -3,6 +3,7 @@ package me.jddev0.ep.fluid;
 import me.jddev0.ep.util.XPUtils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +49,7 @@ public class EnergizedPowerXPFluidStorage implements IEnergizedPowerFluidStorage
 
     @Override
     public boolean isFluidValid(int tank, FluidStack stack) {
-        return stack.is(EPFluids.LIQUID_XP);
+        return stack.is(Tags.Fluids.EXPERIENCE);
     }
 
     public long getXPAmount() {
