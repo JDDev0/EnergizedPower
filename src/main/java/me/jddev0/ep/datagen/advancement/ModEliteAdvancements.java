@@ -164,6 +164,16 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_5, "moon_light_upgrade_module_5", AdvancementType.TASK
         );
 
+        AdvancementHolder xpExtractionUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_7, "xp_extraction_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpExtractionUpgradeModule8 = addAdvancement(
+                advancementOutput, xpExtractionUpgradeModule7,
+                EPItems.XP_EXTRACTION_UPGRADE_MODULE_8, "xp_extraction_upgrade_module_8", AdvancementType.TASK
+        );
+
         AdvancementHolder coolantCell = addAdvancement(
                 advancementOutput, energizedPowerElite,
                 EPItems.COOLANT_CELL, "coolant_cell", AdvancementType.TASK

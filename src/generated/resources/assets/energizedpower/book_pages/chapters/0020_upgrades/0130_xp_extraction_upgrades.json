@@ -1,0 +1,41 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.xp_extraction_upgrades.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.xp_extraction_upgrades.2"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.xp_extraction_upgrades.3"
+      }
+    ],
+    "text": ""
+  },
+  "image": [
+    "energizedpower:textures/item/xp_extraction_upgrade_module_1.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_2.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_3.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_4.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_5.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_6.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_7.png",
+    "energizedpower:textures/item/xp_extraction_upgrade_module_8.png"
+  ]
+}
