@@ -218,6 +218,31 @@ public final class EPBlocks {
     public static final Item CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
             CreativeFluidTankBlock.Item::new, CREATIVE_FLUID_TANK);
 
+    public static final XPStorageBlock XP_STORAGE_TINY = registerBlock("xp_storage_tiny",
+            props -> new XPStorageBlock(XPStorageTier.TINY, props), XPStorageTier.TINY.getProperties());
+    public static final Item XP_STORAGE_TINY_ITEM = createBlockItem("xp_storage_tiny",
+            props -> new XPStorageBlock.Item(XP_STORAGE_TINY, props, XPStorageTier.TINY));
+
+    public static final XPStorageBlock XP_STORAGE_SMALL = registerBlock("xp_storage_small",
+            props -> new XPStorageBlock(XPStorageTier.SMALL, props), XPStorageTier.SMALL.getProperties());
+    public static final Item XP_STORAGE_SMALL_ITEM = createBlockItem("xp_storage_small",
+            props -> new XPStorageBlock.Item(XP_STORAGE_SMALL, props, XPStorageTier.SMALL));
+
+    public static final XPStorageBlock XP_STORAGE_MEDIUM = registerBlock("xp_storage_medium",
+            props -> new XPStorageBlock(XPStorageTier.MEDIUM, props), XPStorageTier.MEDIUM.getProperties());
+    public static final Item XP_STORAGE_MEDIUM_ITEM = createBlockItem("xp_storage_medium",
+            props -> new XPStorageBlock.Item(XP_STORAGE_MEDIUM, props, XPStorageTier.MEDIUM));
+
+    public static final XPStorageBlock XP_STORAGE_LARGE = registerBlock("xp_storage_large",
+            props -> new XPStorageBlock(XPStorageTier.LARGE, props), XPStorageTier.LARGE.getProperties());
+    public static final Item XP_STORAGE_LARGE_ITEM = createBlockItem("xp_storage_large",
+            props -> new XPStorageBlock.Item(XP_STORAGE_LARGE, props, XPStorageTier.LARGE));
+
+    public static final XPStorageBlock XP_STORAGE_GIANT = registerBlock("xp_storage_giant",
+            props -> new XPStorageBlock(XPStorageTier.GIANT, props), XPStorageTier.GIANT.getProperties());
+    public static final Item XP_STORAGE_GIANT_ITEM = createBlockItem("xp_storage_giant",
+            props -> new XPStorageBlock.Item(XP_STORAGE_GIANT, props, XPStorageTier.GIANT));
+
     public static final ItemSiloBlock ITEM_SILO_TINY = registerBlock("item_silo_tiny",
             props -> new ItemSiloBlock(ItemSiloTier.TINY, props), ItemSiloTier.TINY.getProperties());
     public static final Item ITEM_SILO_TINY_ITEM = createBlockItem("item_silo_tiny",

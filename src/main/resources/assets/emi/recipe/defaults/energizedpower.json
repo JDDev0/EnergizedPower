@@ -253,6 +253,11 @@
     "energizedpower:crafting/wooden_hammer",
     "energizedpower:crafting/wrench",
     "energizedpower:crafting/xp_drain",
+    "energizedpower:crafting/xp_storage_tiny",
+    "energizedpower:crafting/xp_storage_small",
+    "energizedpower:crafting/xp_storage_medium",
+    "energizedpower:crafting/xp_storage_large",
+    "energizedpower:crafting/xp_storage_giant",
 
     "energizedpower:metal_press/copper_wire",
     "energizedpower:metal_press/energized_copper_wire",
