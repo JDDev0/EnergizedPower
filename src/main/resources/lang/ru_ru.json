@@ -1040,14 +1040,24 @@
   "_template.epcontainer.creative_fluid_tank": "Творческий жидкостный резервуар",
 
   "_template.epcontainer.xp_storage_tiny": "XP Storage (Tiny)",
+  "advancements.energizedpower.xp_storage_tiny.title": "XP Storage (Tiny)",
+  "advancements.energizedpower.xp_storage_tiny.description": "Craft a tiny XP Storage.",
 
   "_template.epcontainer.xp_storage_small": "XP Storage (Small)",
+  "advancements.energizedpower.xp_storage_small.title": "XP Storage (Small)",
+  "advancements.energizedpower.xp_storage_small.description": "Craft a small XP Storage.",
 
   "_template.epcontainer.xp_storage_medium": "XP Storage (Medium)",
+  "advancements.energizedpower.xp_storage_medium.title": "XP Storage (Medium)",
+  "advancements.energizedpower.xp_storage_medium.description": "Craft a medium XP Storage.",
 
   "_template.epcontainer.xp_storage_large": "XP Storage (Large)",
+  "advancements.energizedpower.xp_storage_large.title": "XP Storage (Large)",
+  "advancements.energizedpower.xp_storage_large.description": "Craft a large XP Storage.",
 
   "_template.epcontainer.xp_storage_giant": "XP Storage (Giant)",
+  "advancements.energizedpower.xp_storage_giant.title": "XP Storage (Giant)",
+  "advancements.energizedpower.xp_storage_giant.description": "Craft a giant XP Storage.",
 
   "tooltip.energizedpower.xp_storage.amount": "%d / %d levels",
 
@@ -1118,6 +1128,8 @@
 
   "_template.epcontainer.xp_drain": "XP Drain",
   "tooltip.energizedpower.xp_drain.txt.shift": "For this block to function, a Fluid Tank or an XP Storage must be placed below this block.",
+  "advancements.energizedpower.xp_drain.title": "XP Drain",
+  "advancements.energizedpower.xp_drain.description": "Drain XP from XP orbs and players.",
 
   "_template.epcontainer.lightning_generator": "Молниевый генератор",
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Этот блок производит %s за удар молнии.",

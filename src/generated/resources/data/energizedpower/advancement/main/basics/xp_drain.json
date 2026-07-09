@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/basics/iron_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:xp_drain"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.xp_drain.description"
+    },
+    "icon": {
+      "id": "energizedpower:xp_drain"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.xp_drain.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
