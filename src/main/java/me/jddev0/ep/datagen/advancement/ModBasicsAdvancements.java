@@ -351,6 +351,31 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPBlocks.ITEM_SILO_GIANT_ITEM, "item_silo_giant", AdvancementType.TASK
         );
 
+        AdvancementHolder xpStorageTiny = addAdvancement(
+                advancementOutput, existingFileHelper, ironPlate,
+                EPBlocks.XP_STORAGE_TINY_ITEM, "xp_storage_tiny", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpStorageSmall = addAdvancement(
+                advancementOutput, existingFileHelper, xpStorageTiny,
+                EPBlocks.XP_STORAGE_SMALL_ITEM, "xp_storage_small", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpStorageMedium = addAdvancement(
+                advancementOutput, existingFileHelper, xpStorageSmall,
+                EPBlocks.XP_STORAGE_MEDIUM_ITEM, "xp_storage_medium", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpStorageLarge = addAdvancement(
+                advancementOutput, existingFileHelper, xpStorageMedium,
+                EPBlocks.XP_STORAGE_LARGE_ITEM, "xp_storage_large", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpStorageGiant = addAdvancement(
+                advancementOutput, existingFileHelper, xpStorageLarge,
+                EPBlocks.XP_STORAGE_GIANT_ITEM, "xp_storage_giant", AdvancementType.TASK
+        );
+
         AdvancementHolder ironFluidPipe = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
                 EPBlocks.IRON_FLUID_PIPE_ITEM, "iron_fluid_pipe", AdvancementType.TASK
@@ -379,6 +404,11 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
         AdvancementHolder drain = addAdvancement(
                 advancementOutput, existingFileHelper, ironPlate,
                 EPBlocks.DRAIN_ITEM, "drain", AdvancementType.TASK
+        );
+
+        AdvancementHolder xpDrain = addAdvancement(
+                advancementOutput, existingFileHelper, ironPlate,
+                EPBlocks.XP_DRAIN_ITEM, "xp_drain", AdvancementType.TASK
         );
 
         AdvancementHolder cableInsulator = addAdvancement(
