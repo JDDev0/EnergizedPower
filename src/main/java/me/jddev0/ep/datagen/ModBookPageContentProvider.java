@@ -1805,6 +1805,20 @@ public class ModBookPageContentProvider extends PageContentProvider {
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPAPI.id("textures/item/dirty_water_bucket.png"), changePageIntToId);
         }
+
+        {
+            Map<Integer, Identifier> changePageIntToId = new HashMap<>();
+            addSimplePage(pageId("liquid_xp"), Component.empty().append(
+                    Component.translatable("book.energizedpower.page.liquid_xp.1").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+            ).append(
+                    Component.translatable("book.energizedpower.page.liquid_xp.2").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+            ).append(
+                    Component.translatable("book.energizedpower.page.liquid_xp.3").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+            ), EPAPI.id("textures/item/liquid_xp_bucket.png"), changePageIntToId);
+        }
     }
     private void registerMachineConfigurationChapter() {
         chapterId("machine_configuration");
