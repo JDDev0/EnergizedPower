@@ -196,6 +196,31 @@ public final class EPBlocks {
     public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = EPItems.ITEMS.register("creative_fluid_tank",
             () -> new CreativeFluidTankBlock.Item(CREATIVE_FLUID_TANK.get(), new Item.Properties()));
 
+    public static final DeferredBlock<XPStorageBlock> XP_STORAGE_TINY = BLOCKS.register("xp_storage_tiny",
+            () -> new XPStorageBlock(XPStorageTier.TINY, XPStorageTier.TINY.getProperties()));
+    public static final DeferredItem<Item> XP_STORAGE_TINY_ITEM = EPItems.ITEMS.register("xp_storage_tiny",
+            () -> new XPStorageBlock.Item(XP_STORAGE_TINY.get(), new Item.Properties(), XPStorageTier.TINY));
+
+    public static final DeferredBlock<XPStorageBlock> XP_STORAGE_SMALL = BLOCKS.register("xp_storage_small",
+            () -> new XPStorageBlock(XPStorageTier.SMALL, XPStorageTier.SMALL.getProperties()));
+    public static final DeferredItem<Item> XP_STORAGE_SMALL_ITEM = EPItems.ITEMS.register("xp_storage_small",
+            () -> new XPStorageBlock.Item(XP_STORAGE_SMALL.get(), new Item.Properties(), XPStorageTier.SMALL));
+
+    public static final DeferredBlock<XPStorageBlock> XP_STORAGE_MEDIUM = BLOCKS.register("xp_storage_medium",
+            () -> new XPStorageBlock(XPStorageTier.MEDIUM, XPStorageTier.MEDIUM.getProperties()));
+    public static final DeferredItem<Item> XP_STORAGE_MEDIUM_ITEM = EPItems.ITEMS.register("xp_storage_medium",
+            () -> new XPStorageBlock.Item(XP_STORAGE_MEDIUM.get(), new Item.Properties(), XPStorageTier.MEDIUM));
+
+    public static final DeferredBlock<XPStorageBlock> XP_STORAGE_LARGE = BLOCKS.register("xp_storage_large",
+            () -> new XPStorageBlock(XPStorageTier.LARGE, XPStorageTier.LARGE.getProperties()));
+    public static final DeferredItem<Item> XP_STORAGE_LARGE_ITEM = EPItems.ITEMS.register("xp_storage_large",
+            () -> new XPStorageBlock.Item(XP_STORAGE_LARGE.get(), new Item.Properties(), XPStorageTier.LARGE));
+
+    public static final DeferredBlock<XPStorageBlock> XP_STORAGE_GIANT = BLOCKS.register("xp_storage_giant",
+            () -> new XPStorageBlock(XPStorageTier.GIANT, XPStorageTier.GIANT.getProperties()));
+    public static final DeferredItem<Item> XP_STORAGE_GIANT_ITEM = EPItems.ITEMS.register("xp_storage_giant",
+            () -> new XPStorageBlock.Item(XP_STORAGE_GIANT.get(), new Item.Properties(), XPStorageTier.GIANT));
+
     public static final DeferredBlock<ItemSiloBlock> ITEM_SILO_TINY = BLOCKS.register("item_silo_tiny",
             () -> new ItemSiloBlock(ItemSiloTier.TINY, ItemSiloTier.TINY.getProperties()));
     public static final DeferredItem<Item> ITEM_SILO_TINY_ITEM = EPItems.ITEMS.register("item_silo_tiny",

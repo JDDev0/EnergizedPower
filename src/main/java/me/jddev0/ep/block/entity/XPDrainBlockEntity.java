@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class XPDrainBlockEntity extends BlockEntity {
-    private static final int XP_TO_LIQUID_RATIO = ModConfigs.COMMON_XP_TO_LIQUID_RATIO.getValue();
-
     private static final boolean PLAY_PLAYER_XP_PICKUP_SOUND = ModConfigs.COMMON_XP_DRAIN_PLAY_PLAYER_XP_PICKUP_SOUND.getValue();
     private static final int PLAYER_XP_DRAIN_AMOUNT = ModConfigs.COMMON_XP_DRAIN_PLAYER_XP_DRAIN_AMOUNT.getValue();
     private static final int TICKS_TO_DRAIN_FROM_PLAYER = ModConfigs.COMMON_XP_DRAIN_TICKS_TO_DRAIN_FROM_PLAYER.getValue();
@@ -114,7 +112,7 @@ public class XPDrainBlockEntity extends BlockEntity {
     }
 
     private void pushLiquidXP(int xpAmount, Runnable onFinalCommit, Consumer<Integer> onCancel) {
-        int fluidAmount = xpAmount * XP_TO_LIQUID_RATIO;
+        int fluidAmount = xpAmount * XPUtils.XP_TO_LIQUID_RATIO;
         if(fluidAmount <= 0)
             return;
 
@@ -133,7 +131,7 @@ public class XPDrainBlockEntity extends BlockEntity {
         if(insertedAmount == fluidAmount) {
             onFinalCommit.run();
         }else {
-            onCancel.accept(insertedAmount / XP_TO_LIQUID_RATIO);
+            onCancel.accept(insertedAmount / XPUtils.XP_TO_LIQUID_RATIO);
         }
     }
 }

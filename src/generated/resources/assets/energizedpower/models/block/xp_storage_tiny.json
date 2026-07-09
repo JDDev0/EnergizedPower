@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/xp_storage_tiny_top",
+    "east": "energizedpower:block/xp_storage_tiny_side",
+    "north": "energizedpower:block/xp_storage_tiny_side",
+    "particle": "#up",
+    "south": "energizedpower:block/xp_storage_tiny_side",
+    "up": "energizedpower:block/xp_storage_tiny_top",
+    "west": "energizedpower:block/xp_storage_tiny_side"
+  }
+}

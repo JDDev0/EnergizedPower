@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:plates/crystallized_alloy"
+    },
+    "S": {
+      "tag": "c:storage_blocks/steel"
+    },
+    "X": {
+      "item": "energizedpower:xp_storage_large"
+    }
+  },
+  "pattern": [
+    "CXC",
+    "XSX",
+    "CXC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:xp_storage_giant"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "c:storage_blocks/lapis"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    },
+    "X": {
+      "item": "energizedpower:xp_storage_small"
+    }
+  },
+  "pattern": [
+    "SLS",
+    "XSX",
+    "SLS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:xp_storage_medium"
+  }
+}

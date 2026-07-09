@@ -1029,6 +1029,20 @@
 
   "_template.epcontainer.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
 
+  "_template.epcontainer.xp_storage_tiny": "XP-Larger (Winzig)",
+
+  "_template.epcontainer.xp_storage_small": "XP-Larger (Klein)",
+
+  "_template.epcontainer.xp_storage_medium": "XP-Larger (Mittel)",
+
+  "_template.epcontainer.xp_storage_large": "XP-Larger (Groß)",
+
+  "_template.epcontainer.xp_storage_giant": "XP-Larger (Riesig)",
+
+  "tooltip.energizedpower.xp_storage.amount": "%d / %d Level",
+
+  "tooltip.energizedpower.xp_storage_capacity.txt": "XP-Lager-Kapazität: %d Level",
+
   "_template.epcontainer.item_silo_tiny": "Item-Silo (Winzig)",
   "advancements.energizedpower.item_silo_tiny.title": "Item-Silo (Winzig)",
   "advancements.energizedpower.item_silo_tiny.description": "Stelle ein winziges Item-Silo her.",

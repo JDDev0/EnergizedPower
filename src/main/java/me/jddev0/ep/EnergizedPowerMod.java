@@ -224,6 +224,11 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.FLUID_TANK_MEDIUM_ITEM);
             event.accept(EPBlocks.FLUID_TANK_LARGE_ITEM);
             event.accept(EPBlocks.CREATIVE_FLUID_TANK_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_TINY_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_SMALL_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_MEDIUM_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_LARGE_ITEM);
+            event.accept(EPBlocks.XP_STORAGE_GIANT_ITEM);
             event.accept(EPBlocks.FLUID_FILLER_ITEM);
             event.accept(EPBlocks.FLUID_DRAINER_ITEM);
             event.accept(EPBlocks.FLUID_PUMP_ITEM);
@@ -642,6 +647,11 @@ public class EnergizedPowerMod {
             event.register(EPMenuTypes.FLUID_TANK_MEDIUM.get(), FluidTankScreen::new);
             event.register(EPMenuTypes.FLUID_TANK_LARGE.get(), FluidTankScreen::new);
             event.register(EPMenuTypes.CREATIVE_FLUID_TANK.get(), CreativeFluidTankScreen::new);
+            event.register(EPMenuTypes.XP_STORAGE_TINY.get(), XPStorageScreen::new);
+            event.register(EPMenuTypes.XP_STORAGE_SMALL.get(), XPStorageScreen::new);
+            event.register(EPMenuTypes.XP_STORAGE_MEDIUM.get(), XPStorageScreen::new);
+            event.register(EPMenuTypes.XP_STORAGE_LARGE.get(), XPStorageScreen::new);
+            event.register(EPMenuTypes.XP_STORAGE_GIANT.get(), XPStorageScreen::new);
             event.register(EPMenuTypes.ITEM_SILO_TINY.get(), ItemSiloScreen::new);
             event.register(EPMenuTypes.ITEM_SILO_SMALL.get(), ItemSiloScreen::new);
             event.register(EPMenuTypes.ITEM_SILO_MEDIUM.get(), ItemSiloScreen::new);
