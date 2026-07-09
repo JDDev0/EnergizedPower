@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "#c:plates/iron",
+    "L": "#c:gems/lapis",
+    "X": "energizedpower:xp_storage_tiny"
+  },
+  "pattern": [
+    "ILI",
+    "XIX",
+    "ILI"
+  ],
+  "result": {
+    "id": "energizedpower:xp_storage_small"
+  }
+}

@@ -1443,6 +1443,26 @@ public final class ModConfigs {
             "block.fluid_tank_large", "Fluid Tank (Large)", 128
     );
 
+    public static final ConfigValue<Integer> COMMON_XP_STORAGE_TINY_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.xp_storage_tiny", "XP Storage (Tiny)", 30
+    );
+
+    public static final ConfigValue<Integer> COMMON_XP_STORAGE_SMALL_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.xp_storage_small", "XP Storage (Small)", 100
+    );
+
+    public static final ConfigValue<Integer> COMMON_XP_STORAGE_MEDIUM_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.xp_storage_medium", "XP Storage (Medium)", 500
+    );
+
+    public static final ConfigValue<Integer> COMMON_XP_STORAGE_LARGE_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.xp_storage_large", "XP Storage (Large)", 1000
+    );
+
+    public static final ConfigValue<Integer> COMMON_XP_STORAGE_GIANT_CAPACITY = registerItemSiloCapacityConfigValue(
+            "block.xp_storage_giant", "XP Storage (Giant)", 2500
+    );
+
     public static final ConfigValue<Integer> COMMON_ITEM_SILO_TINY_CAPACITY = registerItemSiloCapacityConfigValue(
             "block.item_silo_tiny", "Item Silo (Tiny)", 50
     );
@@ -1782,6 +1802,15 @@ public final class ModConfigs {
                 "The fluid tank capacity of the " + itemName + " in buckets (= 1000 mB)",
                 defaultValue,
                 1L, null
+        ));
+    }
+
+    private static ConfigValue<Integer> registerXPStorageCapacityConfigValue(String baseConfigKey, String itemName, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                baseConfigKey + ".xp_storage_capacity",
+                "The XP Storage capacity of the " + itemName + " in levels",
+                defaultValue,
+                1, null
         ));
     }
 

@@ -9,6 +9,8 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 
+import java.util.function.Supplier;
+
 public final class EPMenuTypes {
     private EPMenuTypes() {}
 
@@ -248,6 +250,17 @@ public final class EPMenuTypes {
 
     public static final MenuType<CreativeFluidTankMenu> CREATIVE_FLUID_TANK = createScreenHandlerType("creative_fluid_tank",
             new ExtendedMenuType<>(CreativeFluidTankMenu::new, BlockPos.STREAM_CODEC.cast()));
+
+    public static final MenuType<XPStorageMenu> XP_STORAGE_TINY = createScreenHandlerType("xp_storage_tiny",
+            new ExtendedMenuType<>(XPStorageMenu::new, BlockPos.STREAM_CODEC.cast()));
+    public static final MenuType<XPStorageMenu> XP_STORAGE_SMALL = createScreenHandlerType("xp_storage_small",
+            new ExtendedMenuType<>(XPStorageMenu::new, BlockPos.STREAM_CODEC.cast()));
+    public static final MenuType<XPStorageMenu> XP_STORAGE_MEDIUM = createScreenHandlerType("xp_storage_medium",
+            new ExtendedMenuType<>(XPStorageMenu::new, BlockPos.STREAM_CODEC.cast()));
+    public static final MenuType<XPStorageMenu> XP_STORAGE_LARGE = createScreenHandlerType("xp_storage_large",
+            new ExtendedMenuType<>(XPStorageMenu::new, BlockPos.STREAM_CODEC.cast()));
+    public static final MenuType<XPStorageMenu> XP_STORAGE_GIANT = createScreenHandlerType("xp_storage_giant",
+            new ExtendedMenuType<>(XPStorageMenu::new, BlockPos.STREAM_CODEC.cast()));
 
     public static final MenuType<ItemSiloMenu> ITEM_SILO_TINY = createScreenHandlerType("item_silo_tiny",
             new ExtendedMenuType<>(ItemSiloMenu::new, BlockPos.STREAM_CODEC.cast()));
