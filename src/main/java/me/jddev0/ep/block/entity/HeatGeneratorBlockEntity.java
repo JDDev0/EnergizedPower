@@ -10,7 +10,6 @@ import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.HeatGeneratorRecipe;
 import me.jddev0.ep.screen.HeatGeneratorMenu;
-import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.minecraft.core.BlockPos;
@@ -22,17 +21,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
         implements RedstoneOutput {
@@ -159,79 +154,6 @@ public class HeatGeneratorBlockEntity extends UpgradableEnergyStorageBlockEntity
             }
         }
 
-        transferEnergy(level, blockPos, state, blockEntity);
-    }
-
-    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, HeatGeneratorBlockEntity blockEntity) {
-        if(level.isClientSide())
-            return;
-
-        List<EnergyHandler> consumerItems = new ArrayList<>();
-        List<Integer> consumerEnergyValues = new ArrayList<>();
-        int consumptionSum = 0;
-        for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.relative(direction);
-
-            BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-
-            EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
-                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
-                continue;
-
-            try(Transaction transaction = Transaction.open(null)) {
-                int received = limitingEnergyStorage.insert(Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
-                        blockEntity.energyStorage.getCapacityAsInt()), transaction);
-
-                if(received <= 0)
-                    continue;
-
-                consumptionSum += received;
-                consumerItems.add(limitingEnergyStorage);
-                consumerEnergyValues.add(received);
-            }
-        }
-
-        List<Integer> consumerEnergyDistributed = new ArrayList<>();
-        for(int i = 0;i < consumerItems.size();i++)
-            consumerEnergyDistributed.add(0);
-
-        int consumptionLeft = Math.min(blockEntity.limitingEnergyStorage.getMaxExtract(),
-                Math.min(blockEntity.energyStorage.getAmountAsInt(), consumptionSum));
-        try(Transaction transaction = Transaction.open(null)) {
-            blockEntity.energyStorage.extract(consumptionLeft, transaction);
-            transaction.commit();
-        }
-
-        int divisor = consumerItems.size();
-        outer:
-        while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < consumerEnergyValues.size();i++) {
-                int consumptionDistributed = consumerEnergyDistributed.get(i);
-                int consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
-
-                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
-        for(int i = 0;i < consumerItems.size();i++) {
-            int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0) {
-                try(Transaction transaction = Transaction.open(null)) {
-                    consumerItems.get(i).insert(energy, transaction);
-                    transaction.commit();
-                }
-            }
-        }
+        blockEntity.pushEnergyToOutputs(Direction.values());
     }
 }

@@ -9,7 +9,6 @@ import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.tier.SolarPanelTier;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.SolarPanelMenu;
-import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,9 +21,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
@@ -172,28 +169,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
             transaction.commit();
         }
 
-        transferEnergy(level, blockPos, state, blockEntity);
-    }
-
-    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClientSide())
-            return;
-
-        BlockPos testPos = blockPos.relative(Direction.DOWN);
-
-        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-
-        EnergyHandler limitingEnergyStorage = level.getCapability(Capabilities.Energy.BLOCK, testPos,
-                level.getBlockState(testPos), testBlockEntity, Direction.DOWN.getOpposite());
-        if(limitingEnergyStorage == null || !CapabilityUtil.canInsert(limitingEnergyStorage))
-            return;
-
-        try(Transaction transaction = Transaction.open(null)) {
-            int amount = limitingEnergyStorage.insert(Math.min(blockEntity.energyStorage.getAmountAsInt(),
-                    blockEntity.limitingEnergyStorage.getMaxExtract()), transaction);
-            blockEntity.limitingEnergyStorage.extract(amount, transaction);
-            transaction.commit();
-        }
+        blockEntity.pushEnergyToOutputs(Direction.DOWN);
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
