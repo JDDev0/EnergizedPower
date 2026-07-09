@@ -1,6 +1,9 @@
 package me.jddev0.ep.block.entity;
 
-import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
+import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.EPFluids;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -11,10 +14,15 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
 import me.jddev0.ep.recipe.IngredientPacketUpdate;
 import me.jddev0.ep.screen.PoweredFurnaceMenu;
+import me.jddev0.ep.util.FluidUtils;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalFluidTags;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import me.jddev0.ep.util.XPUtils;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -29,6 +37,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
@@ -38,13 +48,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class PoweredFurnaceBlockEntity
-        extends WorkerMachineBlockEntity<RecipeHolder<? extends AbstractCookingRecipe>>
+        extends WorkerFluidMachineBlockEntity<RecipeHolder<? extends AbstractCookingRecipe>>
         implements IngredientPacketUpdate {
+    public static final long TANK_CAPACITY = FluidUtils.convertMilliBucketsToDroplets(1000 * ModConfigs.COMMON_POWERED_FURNACE_FLUID_TANK_CAPACITY.getValue());
+
     private static final List<@NotNull Identifier> RECIPE_BLACKLIST = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_BLACKLIST.getValue();
 
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
+
+    private double leftoverXPAmount = 0;
 
     protected List<Ingredient> ingredientsOfRecipes = new ArrayList<>();
 
@@ -60,12 +75,15 @@ public class PoweredFurnaceBlockEntity
                 ModConfigs.COMMON_POWERED_FURNACE_TRANSFER_RATE.getValue(),
                 ModConfigs.COMMON_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_TICK.getValue(),
 
+                TANK_CAPACITY,
+
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.FURNACE_MODE,
                 UpgradeModuleModifier.ITEM_EJECTOR,
-                UpgradeModuleModifier.ITEM_PULLING
+                UpgradeModuleModifier.ITEM_PULLING,
+                UpgradeModuleModifier.XP_YIELD
         );
     }
 
@@ -99,6 +117,25 @@ public class PoweredFurnaceBlockEntity
     }
 
     @Override
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+
+            @Override
+            public boolean isValid(int index, FluidVariant resource) {
+                if(!super.isValid(index, resource) || level == null)
+                    return false;
+
+                return resource.is(ConventionalFluidTags.EXPERIENCE);
+            }
+        };
+    }
+
+    @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
                 new ProgressValueContainerData(() -> progress, value -> progress = value),
@@ -115,6 +152,7 @@ public class PoweredFurnaceBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
         syncIngredientListToPlayer(player);
 
         return new PoweredFurnaceMenu(id, inventory, this, upgradeModuleInventory, this.data);
@@ -127,8 +165,29 @@ public class PoweredFurnaceBlockEntity
         return itemHandlerSided;
     }
 
+    public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
+    }
+
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         return limitingEnergyStorage;
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
+
+        view.putDouble("recipe.leftover_xp_amount", leftoverXPAmount);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+
+        leftoverXPAmount = view.getDoubleOr("recipe.leftover_xp_amount", 0.);
     }
 
     @Override
@@ -175,6 +234,21 @@ public class PoweredFurnaceBlockEntity
         blockEntity.itemHandler.extractItem(0, 1);
         blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().assemble(null).copyWithCount(
                 blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().assemble(null).getCount()));
+
+        if(blockEntity.upgradeModuleInventory.getMainUpgradeModuleModifier(6) == UpgradeModuleModifier.XP_YIELD) {
+            blockEntity.leftoverXPAmount += recipe.get().value().experience() * blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.XP_YIELD);
+            int xpYieldThisTick = (int)blockEntity.leftoverXPAmount;
+
+            //Only keep decimal part
+            blockEntity.leftoverXPAmount -= xpYieldThisTick;
+
+            try(Transaction transaction = Transaction.openOuter()) {
+                //Do not check if overflow -> Extra XP should just vanish
+                blockEntity.fluidStorage.insert(FluidVariant.of(EPFluids.LIQUID_XP), XPUtils.XP_TO_LIQUID_RATIO * xpYieldThisTick, transaction);
+
+                transaction.commit();
+            }
+        }
 
         blockEntity.resetProgress();
     }

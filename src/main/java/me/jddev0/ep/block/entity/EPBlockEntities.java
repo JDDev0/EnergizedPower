@@ -752,11 +752,15 @@ public final class EPBlockEntities {
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 POWERED_FURNACE_ENTITY, PoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
