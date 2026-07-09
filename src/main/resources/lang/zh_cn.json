@@ -245,6 +245,9 @@
 
   "item.energizedpower.liquid_xp_bucket": "Liquid XP Bucket",
   "fluid_type.energizedpower.liquid_xp": "Liquid XP",
+  "book.energizedpower.page.liquid_xp.1": "Liquid XP is produced by machines using the XP Extraction upgrade and the XP Drain.",
+  "book.energizedpower.page.liquid_xp.2": "It can be stored in Fluid Tanks and in XP Storages.",
+  "book.energizedpower.page.liquid_xp.3": "Liquid XP can be transferred from/to players with XP Storages.",
 
   "item.energizedpower.teleporter_matrix": "传送器矩阵",
   "item.energizedpower.teleporter_matrix.linked": "传送器矩阵 [已链接]",
