@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/basics/iron_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:xp_storage_tiny"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.xp_storage_tiny.description"
+    },
+    "icon": {
+      "id": "energizedpower:xp_storage_tiny"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.xp_storage_tiny.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
