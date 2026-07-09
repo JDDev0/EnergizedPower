@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:plates/gold"
+    },
+    "L": {
+      "tag": "c:gems/lapis"
+    },
+    "R": {
+      "item": "energizedpower:reinforced_advanced_upgrade_module"
+    },
+    "X": {
+      "item": "energizedpower:xp_extraction_upgrade_module_5"
+    }
+  },
+  "pattern": [
+    "GXG",
+    "LRL",
+    "GXG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:xp_extraction_upgrade_module_6"
+  }
+}

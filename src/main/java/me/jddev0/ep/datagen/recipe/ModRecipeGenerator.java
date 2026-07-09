@@ -1082,6 +1082,81 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "HRH",
                 "TiT"
         }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS),
+                'E', ingredientOf(Items.EXPERIENCE_BOTTLE),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE)
+        ), new String[] {
+                "GLG",
+                "EBE",
+                "GLG"
+        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS),
+                'E', ingredientOf(Items.EXPERIENCE_BOTTLE),
+                'B', ingredientOf(EPItems.BASIC_UPGRADE_MODULE),
+                'X', ingredientOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1)
+        ), new String[] {
+                "GLG",
+                "EBE",
+                "GXG"
+        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS),
+                'E', ingredientOf(Items.EXPERIENCE_BOTTLE),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'X', ingredientOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2)
+        ), new String[] {
+                "GLG",
+                "EAE",
+                "GXG"
+        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS),
+                'E', ingredientOf(Items.EXPERIENCE_BOTTLE),
+                'A', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'X', ingredientOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3)
+        ), new String[] {
+                "GLG",
+                "EAE",
+                "GXG"
+        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS),
+                'E', ingredientOf(Items.EXPERIENCE_BOTTLE),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'X', ingredientOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4)
+        ), new String[] {
+                "GLG",
+                "ERE",
+                "GXG"
+        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5), Map.of(
+                'G', ingredientOf(CommonItemTags.PLATES_GOLD),
+                'L', ingredientOf(Tags.Items.GEMS_LAPIS),
+                'R', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'X', ingredientOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5)
+        ), new String[] {
+                "GXG",
+                "LRL",
+                "GXG"
+        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+
+        addEliteUpgradeModuleRecipe(EPItems.XP_EXTRACTION_UPGRADE_MODULE_6,
+                new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_7.get()));
+        addEliteUpgradeModuleRecipe(EPItems.XP_EXTRACTION_UPGRADE_MODULE_7,
+                new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_8.get()));
     }
     private void buildToolsCraftingRecipes() {
         addHammerCraftingRecipe(ItemTags.PLANKS, EPItems.WOODEN_HAMMER);

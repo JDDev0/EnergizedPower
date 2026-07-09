@@ -203,6 +203,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(EPItems.ITEM_PULLING_UPGRADE_MODULE_5);
         basicItem(EPItems.ITEM_PULLING_UPGRADE_MODULE_6);
 
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_6);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_7);
+        basicItem(EPItems.XP_EXTRACTION_UPGRADE_MODULE_8);
+
         basicItem(EPItems.ENERGIZED_POWER_BOOK);
 
         basicItem(EPItems.CABLE_INSULATOR);

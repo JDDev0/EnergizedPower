@@ -342,6 +342,13 @@
   "book.energizedpower.page.item_pulling_upgrades.1": "Item-Heranholer-Upgrades erlauben es Maschinen Items automatisch von der ersten gültigen Eingabe heranzuholen.",
   "book.energizedpower.page.item_pulling_upgrades.2": "Priorität von höchste zu geringste: Unten, Oben, Norden, Süden, Westen, Osten.",
 
+  "_template.item.energizedpower.xp_extraction_upgrade_module": "XP-Extraktions-Upgrade-Modul (Tier %s)",
+  "_template.advancements.energizedpower.xp_extraction_upgrade_module.title": "XP-Extraktion %s",
+  "_template.advancements.energizedpower.xp_extraction_upgrade_module.description": "Erstelle ein XP-Extraktions-Upgrade-Modul (Tier %s).",
+  "book.energizedpower.page.xp_extraction_upgrades.1": "XP-Extraktions-Upgrades erlauben es Maschinen, wie z.B. dem Elektroofen, XP zu speichern.",
+  "book.energizedpower.page.xp_extraction_upgrades.2": "XP-Punkte werden in einem internen Flüssigkeitstank gespeichert. Die Maschine produziert auch dann, wenn der Tank voll ist - zusätzliche XP-Punkte verschwinden dann aber.",
+  "book.energizedpower.page.xp_extraction_upgrades.3": "Du kannst die Maschine via Flüssigkeitsrohre mit einem XP-Larger verbinden um XP in ein Spieler-Inventar hinzuzufügen.",
+
   "item.energizedpower.blast_furnace_upgrade_module": "Schmelzofen-Upgrade-Modul",
   "item.energizedpower.blast_furnace_upgrade_module.effect_text": "Schmelzofen",
   "advancements.energizedpower.blast_furnace_upgrade_module.title": "Ofenmodus: Schmelzofen",
@@ -1257,6 +1264,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.moon_light": "Mondlicht",
   "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-Ausgabe Items pro Tick",
   "tooltip.energizedpower.upgrade_module_modifier.item_pulling": "Auto-Eingabe Items pro Tick",
+  "tooltip.energizedpower.upgrade_module_modifier.xp_yield": "XP-Ertrag",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blöcke",
   "tooltip.energizedpower.upgrade_module_modifier.slot.speed": "Geschwindigkeits-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.energy_consumption": "Energie-Effizienz-Upgrade-Module",
@@ -1267,9 +1275,10 @@
   "tooltip.energizedpower.upgrade_module_modifier.slot.extraction_depth": "Extraktionstiefen-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.extraction_range": "Extraktionsreichweiten-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.furnace_mode": "Ofenmodus-Upgrade-Module",
-  "tooltip.energizedpower.upgrade_module_modifier.slot.moon_light": "Mondlicht-Upgrade-Modue",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.moon_light": "Mondlicht-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_ejector": "Item-Auswerfer-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_pulling": "Item-Heranholer-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.xp_yield": "XP-Extraktions-Upgrade-Module",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",

@@ -563,6 +563,46 @@ public final class ModConfigs {
             16.
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_1_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            1,
+            0.1
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_2_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            2,
+            0.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_3_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            3,
+            0.75
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_4_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            4,
+            1.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_5_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            5,
+            2.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_6_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            6,
+            5.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_7_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            7,
+            7.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_8_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
+            8,
+            10.
+    );
+
     //Blocks
     public static final ConfigValue<Integer> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536
@@ -1979,6 +2019,16 @@ public final class ModConfigs {
         return COMMON_CONFIG.register(new DoubleConfigValue(
                 "item.item_pulling_upgrade_module_" + tier + ".effect_value",
                 "The upgrade module effect (Items per tick) of the Item Pulling Upgrade Module (Tier " +
+                        NumberUtils.convertToRoman(tier) + ")",
+                defaultValue,
+                0., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerXPExtractionUpgradeModuleEffectValue(int tier, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.xp_extraction_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (XP Yield) of the XP Extraction Upgrade Module (Tier " +
                         NumberUtils.convertToRoman(tier) + ")",
                 defaultValue,
                 0., null

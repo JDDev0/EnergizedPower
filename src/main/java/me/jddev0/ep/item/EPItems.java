@@ -285,6 +285,23 @@ public final class EPItems {
     public static final DeferredItem<Item> ITEM_PULLING_UPGRADE_MODULE_6 = registerItem("item_pulling_upgrade_module_6",
             props -> new ItemPullingUpgradeModuleItem(props, 6));
 
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_1 = registerItem("xp_extraction_upgrade_module_1",
+            props -> new XPExtractionModuleItem(props, 1));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_2 = registerItem("xp_extraction_upgrade_module_2",
+            props -> new XPExtractionModuleItem(props, 2));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_3 = registerItem("xp_extraction_upgrade_module_3",
+            props -> new XPExtractionModuleItem(props, 3));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_4 = registerItem("xp_extraction_upgrade_module_4",
+            props -> new XPExtractionModuleItem(props, 4));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_5 = registerItem("xp_extraction_upgrade_module_5",
+            props -> new XPExtractionModuleItem(props, 5));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_6 = registerItem("xp_extraction_upgrade_module_6",
+            props -> new XPExtractionModuleItem(props, 6));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_7 = registerItem("xp_extraction_upgrade_module_7",
+            props -> new XPExtractionModuleItem(props, 7));
+    public static final DeferredItem<Item> XP_EXTRACTION_UPGRADE_MODULE_8 = registerItem("xp_extraction_upgrade_module_8",
+            props -> new XPExtractionModuleItem(props, 8));
+
     public static final DeferredItem<Item> ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             EnergizedPowerBookItem::new, new Item.Properties().stacksTo(1));
 
