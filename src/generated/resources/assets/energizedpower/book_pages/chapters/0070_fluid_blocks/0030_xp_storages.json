@@ -1,0 +1,29 @@
+{
+  "block": [
+    "energizedpower:xp_storage_tiny",
+    "energizedpower:xp_storage_small",
+    "energizedpower:xp_storage_medium",
+    "energizedpower:xp_storage_large",
+    "energizedpower:xp_storage_giant"
+  ],
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          " "
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.xp_storages.1"
+      },
+      {
+        "color": "black",
+        "font": "minecraft:uniform",
+        "italic": true,
+        "translate": "book.energizedpower.page.xp_storages.2"
+      }
+    ],
+    "text": ""
+  }
+}
