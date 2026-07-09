@@ -2,6 +2,7 @@ package me.jddev0.ep.fluid;
 
 import me.jddev0.ep.codec.CodecFix;
 import me.jddev0.ep.util.XPUtils;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalFluidTags;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
@@ -81,7 +82,7 @@ public class EnergizedPowerXPFluidStorage extends SnapshotParticipant<Long> impl
 
     @Override
     public boolean isValid(int index, FluidVariant resource) {
-        return resource.is(EPFluids.LIQUID_XP);
+        return resource.is(ConventionalFluidTags.EXPERIENCE);
     }
 
     public long getXPAmount() {
