@@ -1029,6 +1029,20 @@
 
   "_template.epcontainer.creative_fluid_tank": "クリエイティブの液体タンク",
 
+  "_template.epcontainer.xp_storage_tiny": "XP Storage (Tiny)",
+
+  "_template.epcontainer.xp_storage_small": "XP Storage (Small)",
+
+  "_template.epcontainer.xp_storage_medium": "XP Storage (Medium)",
+
+  "_template.epcontainer.xp_storage_large": "XP Storage (Large)",
+
+  "_template.epcontainer.xp_storage_giant": "XP Storage (Giant)",
+
+  "tooltip.energizedpower.xp_storage.amount": "%d / %d levels",
+
+  "tooltip.energizedpower.xp_storage_capacity.txt": "XP Storage Capacity: %d levels",
+
   "_template.epcontainer.item_silo_tiny": "極小型アイテム貯蔵庫",
   "advancements.energizedpower.item_silo_tiny.title": "極小型アイテム貯蔵庫",
   "advancements.energizedpower.item_silo_tiny.description": "極小型アイテム貯蔵庫を作成する",

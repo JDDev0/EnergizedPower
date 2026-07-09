@@ -51,6 +51,23 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<CreativeFluidTankBlockEntity>> CREATIVE_FLUID_TANK_ENTITY =
             createBlockEntity("creative_fluid_tank", EPBlocks.CREATIVE_FLUID_TANK, CreativeFluidTankBlockEntity::new);
 
+    private static Supplier<BlockEntityType<XPStorageBlockEntity>> createXPStorageBlockEntity(
+            String name,
+            Supplier<XPStorageBlock> block
+    ) {
+        return createBlockEntity(name, block, (blockPos, state) -> new XPStorageBlockEntity(blockPos, state, block.get().getTier()));
+    }
+    public static final Supplier<BlockEntityType<XPStorageBlockEntity>> XP_STORAGE_TINY_ENTITY =
+            createXPStorageBlockEntity("xp_storage_tiny", EPBlocks.XP_STORAGE_TINY);
+    public static final Supplier<BlockEntityType<XPStorageBlockEntity>> XP_STORAGE_SMALL_ENTITY =
+            createXPStorageBlockEntity("xp_storage_small", EPBlocks.XP_STORAGE_SMALL);
+    public static final Supplier<BlockEntityType<XPStorageBlockEntity>> XP_STORAGE_MEDIUM_ENTITY =
+            createXPStorageBlockEntity("xp_storage_medium", EPBlocks.XP_STORAGE_MEDIUM);
+    public static final Supplier<BlockEntityType<XPStorageBlockEntity>> XP_STORAGE_LARGE_ENTITY =
+            createXPStorageBlockEntity("xp_storage_large", EPBlocks.XP_STORAGE_LARGE);
+    public static final Supplier<BlockEntityType<XPStorageBlockEntity>> XP_STORAGE_GIANT_ENTITY =
+            createXPStorageBlockEntity("xp_storage_giant", EPBlocks.XP_STORAGE_GIANT);
+
     private static Supplier<BlockEntityType<ItemSiloBlockEntity>> createItemSiloBlockEntity(
             String name,
             Supplier<ItemSiloBlock> block
@@ -421,6 +438,17 @@ public final class EPBlockEntities {
 
         event.registerBlockEntity(Capabilities.Fluid.BLOCK,
                 CREATIVE_FLUID_TANK_ENTITY, CreativeFluidTankBlockEntity::getFluidHandlerCapability);
+
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                XP_STORAGE_TINY_ENTITY, XPStorageBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                XP_STORAGE_SMALL_ENTITY, XPStorageBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                XP_STORAGE_MEDIUM_ENTITY, XPStorageBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                XP_STORAGE_LARGE_ENTITY, XPStorageBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                XP_STORAGE_GIANT_ENTITY, XPStorageBlockEntity::getFluidHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 ITEM_SILO_TINY_ENTITY, ItemSiloBlockEntity::getItemHandlerCapability);
