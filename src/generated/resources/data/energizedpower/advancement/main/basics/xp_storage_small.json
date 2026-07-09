@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/basics/xp_storage_tiny",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:xp_storage_small"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.xp_storage_small.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:xp_storage_small"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.xp_storage_small.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1040,14 +1040,24 @@
   "_template.epcontainer.creative_fluid_tank": "Creative-Flüssigkeits-Tank",
 
   "_template.epcontainer.xp_storage_tiny": "XP-Larger (Winzig)",
+  "advancements.energizedpower.xp_storage_tiny.title": "XP-Larger (Winzig)",
+  "advancements.energizedpower.xp_storage_tiny.description": "Stelle ein winziges XP-Larger her.",
 
   "_template.epcontainer.xp_storage_small": "XP-Larger (Klein)",
+  "advancements.energizedpower.xp_storage_small.title": "XP-Larger (Klein)",
+  "advancements.energizedpower.xp_storage_small.description": "Stelle ein kleines XP-Larger her.",
 
   "_template.epcontainer.xp_storage_medium": "XP-Larger (Mittel)",
+  "advancements.energizedpower.xp_storage_medium.title": "XP-Larger (Mittel)",
+  "advancements.energizedpower.xp_storage_medium.description": "Stelle ein mittleres XP-Larger her.",
 
   "_template.epcontainer.xp_storage_large": "XP-Larger (Groß)",
+  "advancements.energizedpower.xp_storage_large.title": "XP-Larger (Groß)",
+  "advancements.energizedpower.xp_storage_large.description": "Stelle ein großes XP-Larger her.",
 
   "_template.epcontainer.xp_storage_giant": "XP-Larger (Riesig)",
+  "advancements.energizedpower.xp_storage_giant.title": "XP-Larger (Riesig)",
+  "advancements.energizedpower.xp_storage_giant.description": "Stelle ein riesiges XP-Larger her.",
 
   "tooltip.energizedpower.xp_storage.amount": "%d / %d Level",
 
@@ -1118,6 +1128,8 @@
 
   "_template.epcontainer.xp_drain": "XP-Ablauf",
   "tooltip.energizedpower.xp_drain.txt.shift": "Damit dieser Block funktioniert, muss darunter ein Flüssigkeitstank oder ein XP-Lager platziert werden.",
+  "advancements.energizedpower.xp_drain.title": "XP-Ablauf",
+  "advancements.energizedpower.xp_drain.description": "Leite XP von Erfahrungskugeln und Spielern ab.",
 
   "_template.epcontainer.lightning_generator": "Blitz-Generator",
   "tooltip.energizedpower.lightning_generator.txt.shift.1": "Der Block produziert %s pro Blitzeinschlag.",
