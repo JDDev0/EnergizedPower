@@ -1291,6 +1291,20 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.FLUID_TANK_LARGE
         });
 
+        addSimplePage(pageId("xp_storages"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.xp_storages.1").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(" ")
+        ).append(
+                Component.translatable("book.energizedpower.page.xp_storages.2").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+        ), new Block[] {
+                EPBlocks.XP_STORAGE_TINY,
+                EPBlocks.XP_STORAGE_SMALL,
+                EPBlocks.XP_STORAGE_MEDIUM,
+                EPBlocks.XP_STORAGE_LARGE,
+                EPBlocks.XP_STORAGE_GIANT,
+        });
+
         addSimplePage(pageId("drain"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.drain.1").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
@@ -1298,6 +1312,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.drain.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), EPBlocks.DRAIN);
+
+        addSimplePage(pageId("xp_drain"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.xp_drain.1").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+        ).append(
+                Component.translatable("tooltip.energizedpower.xp_drain.txt.shift").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+        ), EPBlocks.XP_DRAIN);
     }
     private void registerItemTransportationChapter() {
         chapterId("item_transportation");
