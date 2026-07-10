@@ -3,7 +3,6 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
-import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -99,26 +98,8 @@ public class FiltrationPlantScreen
         super.extractTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
-            //Fluid meter
-
             if(isHovering(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
-                List<Component> components = new ArrayList<>(2);
-
-                boolean fluidEmpty =  menu.getFluid(i).isEmpty();
-
-                int fluidAmount = fluidEmpty?0:menu.getFluid(i).getAmount();
-
-                Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity(i)));
-
-                if(!fluidEmpty) {
-                    tooltipComponent = Component.translatable(menu.getFluid(i).getDescriptionId()).append(" ").
-                            append(tooltipComponent);
-                }
-
-                components.add(tooltipComponent);
-
-                guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+                renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(i), menu.getTankCapacity(i), mouseX, mouseY);
             }
         }
 
