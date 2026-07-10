@@ -59,15 +59,16 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     }
 
     @Override
-    protected void craftItem(RecipeHolder<CompressorRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<CompressorRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
-        itemHandler.extractItem(0, recipe.value().getInput().count());
-        itemHandler.setStackInSlot(1, recipe.value().assemble(null).
-                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
+        int startOffset = getSlotStartOffsetFor(thread);
+        itemHandler.extractItem(startOffset, recipe.value().getInput().count());
+        itemHandler.setStackInSlot(startOffset + 1, recipe.value().assemble(null).
+                copyWithCount(itemHandler.getStackInSlot(startOffset + 1).getCount() +
                         recipe.value().assemble(null).getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 }
