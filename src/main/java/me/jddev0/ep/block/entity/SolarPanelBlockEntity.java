@@ -173,7 +173,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         if(side == null || side == Direction.DOWN)
-            return energyStorage;
+            return limitingEnergyStorage;
 
         return null;
     }
