@@ -1,7 +1,6 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -10,10 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
@@ -43,30 +38,11 @@ public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
     }
 
     @Override
-    protected void extractTooltip(GuiGraphicsExtractor drawContext, int mouseX, int mouseY) {
-        super.extractTooltip(drawContext, mouseX, mouseY);
+    protected void extractTooltip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
-            //Fluid meter
-
-            List<Component> components = new ArrayList<>(2);
-
-            boolean fluidEmpty =  menu.getFluid().isEmpty();
-
-            long fluidAmount = fluidEmpty?0:menu.getFluid().getMilliBucketsAmount();
-
-            Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                            convertDropletsToMilliBuckets(menu.getTankCapacity())));
-
-            if(!fluidEmpty) {
-                tooltipComponent = Component.translatable(menu.getFluid().getTranslationKey()).append(" ").
-                        append(tooltipComponent);
-            }
-
-            components.add(tooltipComponent);
-
-            drawContext.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+            renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
     }
 }
