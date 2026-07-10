@@ -3,6 +3,7 @@ package me.jddev0.ep.screen.base;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -19,6 +20,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.joml.Matrix4f;
+
+import java.util.List;
+import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
@@ -90,5 +94,21 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
                 BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
             }
         }
+    }
+
+    protected void renderFluidMeterContentTooltip(GuiGraphics guiGraphics, FluidStack fluid, int tankCapacity, int mouseX, int mouseY) {
+        boolean fluidEmpty = fluid.isEmpty();
+
+        int fluidAmount = fluidEmpty?0:fluid.getAmount();
+
+        Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
+                FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(tankCapacity));
+
+        if(!fluidEmpty) {
+            tooltipComponent = Component.translatable(fluid.getDescriptionId()).append(" ").
+                    append(tooltipComponent);
+        }
+
+        guiGraphics.renderTooltip(font, List.of(tooltipComponent), Optional.empty(), mouseX, mouseY);
     }
 }

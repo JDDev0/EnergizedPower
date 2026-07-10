@@ -3,22 +3,17 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
-import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class FluidPumpScreen
@@ -95,25 +90,7 @@ public class FluidPumpScreen
         super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         if(isHovering(206, 17, 16, 52, mouseX, mouseY)) {
-            //Fluid meter
-
-            List<Component> components = new ArrayList<>(2);
-
-            boolean fluidEmpty =  menu.getFluid().isEmpty();
-
-            int fluidAmount = fluidEmpty?0:menu.getFluid().getAmount();
-
-            Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(menu.getTankCapacity()));
-
-            if(!fluidEmpty) {
-                tooltipComponent = Component.translatable(menu.getFluid().getDescriptionId()).append(" ").
-                        append(tooltipComponent);
-            }
-
-            components.add(tooltipComponent);
-
-            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
     }
 }
