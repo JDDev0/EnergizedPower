@@ -19,7 +19,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "3.0.0-beta.7";
+    private static final String CONFIG_VERSION = "3.0.0-beta.8";
 
     private ModConfigs() {}
 
