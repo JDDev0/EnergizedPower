@@ -2,10 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.CoalEngineMenu;
@@ -14,7 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,21 +22,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CoalEngineBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ExtractOnlyEnergyStorage, ItemStackHandler> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, ItemStackHandler> {
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -74,8 +69,8 @@ public class CoalEngineBlockEntity
     }
 
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -83,15 +78,20 @@ public class CoalEngineBlockEntity
             }
 
             @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
+            @Override
             public int getMaxExtract() {
                 return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-                syncEnergyToPlayers(32);
             }
         };
     }
@@ -143,7 +143,7 @@ public class CoalEngineBlockEntity
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -174,7 +174,7 @@ public class CoalEngineBlockEntity
             blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
         }
 
-        transferEnergy(level, blockPos, state, blockEntity);
+        blockEntity.pushEnergyToOutputs(Direction.values());
     }
     
     protected final int getEnergyProductionPerTick() {
@@ -214,10 +214,10 @@ public class CoalEngineBlockEntity
 
             //Change max progress if item would output more than max extract
             if(blockEntity.maxProgress == 0) {
-                if(energyProduction / 100 <= blockEntity.energyStorage.getMaxExtract())
+                if(energyProduction / 100 <= blockEntity.limitingEnergyStorage.getMaxExtract())
                     blockEntity.maxProgress = 100;
                 else
-                    blockEntity.maxProgress = (int)Math.ceil((float)energyProduction / blockEntity.energyStorage.getMaxExtract());
+                    blockEntity.maxProgress = (int)Math.ceil((float)energyProduction / blockEntity.limitingEnergyStorage.getMaxExtract());
             }
 
             int energyProductionPerTick = blockEntity.getEnergyProductionPerTick();
@@ -269,67 +269,6 @@ public class CoalEngineBlockEntity
                 blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
             setChanged(level, blockPos, state);
-        }
-    }
-
-    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClientSide)
-            return;
-
-        List<IEnergyStorage> consumerItems = new ArrayList<>();
-        List<Integer> consumerEnergyValues = new ArrayList<>();
-        int consumptionSum = 0;
-        for(Direction direction:Direction.values()) {
-            BlockPos testPos = blockPos.relative(direction);
-
-            BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-
-            IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
-                    level.getBlockState(testPos), testBlockEntity, direction.getOpposite());
-            if(energyStorage == null || !energyStorage.canReceive())
-                continue;
-
-            int received = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxExtract(), blockEntity.energyStorage.getEnergy()), true);
-            if(received <= 0)
-                continue;
-
-            consumptionSum += received;
-            consumerItems.add(energyStorage);
-            consumerEnergyValues.add(received);
-        }
-
-        List<Integer> consumerEnergyDistributed = new ArrayList<>();
-        for(int i = 0;i < consumerItems.size();i++)
-            consumerEnergyDistributed.add(0);
-
-        int consumptionLeft = Math.min(blockEntity.energyStorage.getMaxExtract(), Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
-        blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
-
-        int divisor = consumerItems.size();
-        outer:
-        while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < consumerEnergyValues.size();i++) {
-                int consumptionDistributed = consumerEnergyDistributed.get(i);
-                int consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
-
-                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
-        for(int i = 0;i < consumerItems.size();i++) {
-            int energy = consumerEnergyDistributed.get(i);
-            if(energy > 0)
-                consumerItems.get(i).receiveEnergy(energy, false);
         }
     }
 

@@ -3,12 +3,16 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.CableBlock;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.EnergySyncS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,7 +28,8 @@ public class CableBlockEntity extends BlockEntity {
 
     private final CableTier tier;
 
-    private final ReceiveOnlyEnergyStorage energyStorage;
+    final EnergizedPowerLimitingEnergyStorage limitingEnergyStorage;
+    private final EnergizedPowerEnergyStorage energyStorage;
 
     private boolean loaded;
 
@@ -37,28 +42,22 @@ public class CableBlockEntity extends BlockEntity {
 
         this.tier = tier;
 
-        if(ENERGY_EXTRACTION_MODE.isPush()) {
-            energyStorage = new ReceiveOnlyEnergyStorage(0, tier.getMaxTransfer(), tier.getMaxTransfer()) {
-                @Override
-                protected void onChange() {
-                    setChanged();
-                }
-            };
-        }else {
-            //Do not allow energy insertion for PULL only mode
+        int capacity = ENERGY_EXTRACTION_MODE.isPush()?tier.getMaxTransfer():0;
 
-            energyStorage = new ReceiveOnlyEnergyStorage() {
-                @Override
-                public int receiveEnergy(int maxReceive, boolean simulate) {
-                    return 0;
-                }
+        energyStorage = new EnergizedPowerEnergyStorage(capacity, capacity, capacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChanged();
 
-                @Override
-                public boolean canReceive() {
-                    return false;
+                if(level != null && !level.isClientSide()) {
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new EnergySyncS2CPacket(getEnergy(), getCapacity(), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 32
+                    );
                 }
-            };
-        }
+            }
+        };
+        limitingEnergyStorage = new EnergizedPowerLimitingEnergyStorage(energyStorage, capacity, 0);
     }
 
     public CableTier getTier() {
@@ -264,7 +263,7 @@ public class CableBlockEntity extends BlockEntity {
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override

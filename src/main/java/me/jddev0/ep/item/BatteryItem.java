@@ -1,6 +1,6 @@
 package me.jddev0.ep.item;
 
-import me.jddev0.ep.energy.ReceiveAndExtractEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.util.EnergyUtils;
@@ -17,7 +17,7 @@ public class BatteryItem extends EnergizedPowerEnergyItem {
     private final BatteryTier tier;
 
     public BatteryItem(BatteryTier tier) {
-        super(new Item.Properties().stacksTo(1), () -> new ReceiveAndExtractEnergyStorage(0, tier.getCapacity(), tier.getMaxTransfer()));
+        super(new Item.Properties().stacksTo(1), () -> new EnergizedPowerEnergyStorage(tier.getCapacity(), tier.getMaxTransfer(), tier.getMaxTransfer()));
 
         this.tier = tier;
     }

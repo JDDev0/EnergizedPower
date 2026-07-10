@@ -100,7 +100,7 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override

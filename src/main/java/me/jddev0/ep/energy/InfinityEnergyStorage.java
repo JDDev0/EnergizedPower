@@ -33,8 +33,6 @@ public class InfinityEnergyStorage implements IEnergizedPowerEnergyStorage {
 
     public void setMaxTransferWithoutUpdate(int maxTransfer) {}
 
-    protected void onChange() {}
-
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
         return maxReceive;

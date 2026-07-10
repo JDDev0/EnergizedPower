@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
@@ -49,12 +50,12 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
             public int receiveEnergy(int maxReceive, boolean simulate) {
                 return energyConsumption?super.receiveEnergy(maxReceive, simulate):0;
             }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-            }
         };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, Integer.MAX_VALUE, Integer.MAX_VALUE);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class CreativeBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override

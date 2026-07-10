@@ -3,7 +3,7 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.component.CurrentItemStackComponent;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.integration.curios.CuriosCompatUtils;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
@@ -31,7 +31,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
     public static final float ENERGY_PRODUCTION_MULTIPLIER = ModConfigs.COMMON_INVENTORY_COAL_ENGINE_ENERGY_PRODUCTION_MULTIPLIER.getValue();
 
     public InventoryCoalEngineItem(Properties props) {
-        super(props, () -> new ExtractOnlyEnergyStorage(0, CAPACITY, MAX_EXTRACT));
+        super(props, () -> new EnergizedPowerEnergyStorage(CAPACITY, 0, MAX_EXTRACT));
     }
 
     @Override

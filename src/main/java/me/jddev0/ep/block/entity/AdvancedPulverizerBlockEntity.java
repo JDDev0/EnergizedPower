@@ -128,7 +128,7 @@ public class AdvancedPulverizerBlockEntity
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override

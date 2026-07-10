@@ -5,7 +5,7 @@ import me.jddev0.ep.component.DimensionalPositionComponent;
 import me.jddev0.ep.component.InventoryComponent;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.screen.InventoryTeleporterMenu;
 import net.minecraft.ChatFormatting;
@@ -32,7 +32,7 @@ public class InventoryTeleporterItem extends EnergizedPowerEnergyItem implements
     public static final int MAX_RECEIVE = ModConfigs.COMMON_INVENTORY_TELEPORTER_TRANSFER_RATE.getValue();
 
     public InventoryTeleporterItem(Properties props) {
-        super(props, () -> new ReceiveOnlyEnergyStorage(0, CAPACITY, MAX_RECEIVE));
+        super(props, () -> new EnergizedPowerEnergyStorage(CAPACITY, MAX_RECEIVE, 0));
     }
 
     @Override

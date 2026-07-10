@@ -1,7 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
@@ -27,7 +27,7 @@ public class EnergyAnalyzerItem extends EnergizedPowerEnergyItem {
     public static final int ENERGY_CAPACITY = ModConfigs.COMMON_ENERGY_ANALYZER_CAPACITY.getValue();
 
     public EnergyAnalyzerItem(Properties props) {
-        super(props, () -> new ReceiveOnlyEnergyStorage(0, ENERGY_CAPACITY, ModConfigs.COMMON_ENERGY_ANALYZER_TRANSFER_RATE.getValue()));
+        super(props, () -> new EnergizedPowerEnergyStorage(ENERGY_CAPACITY, ModConfigs.COMMON_ENERGY_ANALYZER_TRANSFER_RATE.getValue(), 0));
     }
 
     @Override

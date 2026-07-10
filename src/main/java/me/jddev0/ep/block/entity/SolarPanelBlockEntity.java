@@ -1,7 +1,8 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
-import me.jddev0.ep.energy.ExtractOnlyEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.machine.RedstoneOutput;
@@ -19,13 +20,11 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.Nullable;
 
-public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<ExtractOnlyEnergyStorage>
+public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<EnergizedPowerEnergyStorage>
         implements RedstoneOutput {
     private final SolarPanelTier tier;
 
@@ -47,8 +46,8 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
     }
 
     @Override
-    protected ExtractOnlyEnergyStorage initEnergyStorage() {
-        return new ExtractOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -56,15 +55,20 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
             }
 
             @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, 0, baseEnergyTransferRate) {
+            @Override
             public int getMaxExtract() {
                 return Math.max(1, (int)Math.ceil(maxExtract * upgradeModuleInventory.getModifierEffectProduct(
                         UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
-                setChanged();
-                syncEnergyToPlayers(32);
             }
         };
     }
@@ -161,30 +165,12 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<Ex
         blockEntity.energyStorage.setEnergy(Math.min(blockEntity.energyStorage.getCapacity(),
                 blockEntity.energyStorage.getEnergy() + energyProduction));
 
-        transferEnergy(level, blockPos, state, blockEntity);
-    }
-
-    private static void transferEnergy(Level level, BlockPos blockPos, BlockState state, SolarPanelBlockEntity blockEntity) {
-        if(level.isClientSide)
-            return;
-
-        BlockPos testPos = blockPos.relative(Direction.DOWN);
-
-        BlockEntity testBlockEntity = level.getBlockEntity(testPos);
-
-        IEnergyStorage energyStorage = level.getCapability(Capabilities.EnergyStorage.BLOCK, testPos,
-                level.getBlockState(testPos), testBlockEntity, Direction.DOWN.getOpposite());
-        if(energyStorage == null || !energyStorage.canReceive())
-            return;
-
-        int amount = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getEnergy(), blockEntity.energyStorage.getMaxExtract()), false);
-        if(amount > 0)
-            blockEntity.energyStorage.extractEnergy(amount, false);
+        blockEntity.pushEnergyToOutputs(Direction.DOWN);
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
         if(side == null || side == Direction.DOWN)
-            return energyStorage;
+            return limitingEnergyStorage;
 
         return null;
     }

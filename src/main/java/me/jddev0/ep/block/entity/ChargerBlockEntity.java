@@ -2,10 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.ChargerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -36,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class ChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, ItemStackHandler> {
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -54,7 +55,7 @@ public class ChargerBlockEntity
         if(energyStorage == null || !energyStorage.canReceive())
             return true;
 
-        return energyStorage.receiveEnergy(ChargerBlockEntity.this.energyStorage.getMaxReceive(), true) == 0;
+        return energyStorage.receiveEnergy(ChargerBlockEntity.this.limitingEnergyStorage.getMaxInsert(), true) == 0;
     });
 
     private int energyConsumptionLeft = -1;
@@ -77,8 +78,8 @@ public class ChargerBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -86,15 +87,20 @@ public class ChargerBlockEntity
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
         };
     }
@@ -167,7 +173,7 @@ public class ChargerBlockEntity
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -222,7 +228,7 @@ public class ChargerBlockEntity
                     return;
                 }
 
-                energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.energyStorage.getMaxReceive(),
+                energyConsumptionPerTick = Math.min(blockEntity.energyConsumptionLeft, Math.min(blockEntity.limitingEnergyStorage.getMaxInsert(),
                         blockEntity.energyStorage.getEnergy()));
             }else {
                 IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
@@ -237,7 +243,7 @@ public class ChargerBlockEntity
                     return;
                 }
 
-                energyConsumptionPerTick = energyStorage.receiveEnergy(Math.min(blockEntity.energyStorage.getMaxReceive(),
+                energyConsumptionPerTick = energyStorage.receiveEnergy(Math.min(blockEntity.limitingEnergyStorage.getMaxInsert(),
                         blockEntity.energyStorage.getEnergy()), false);
             }
 
@@ -279,13 +285,13 @@ public class ChargerBlockEntity
         Optional<RecipeHolder<ChargerRecipe>> recipe = level.getRecipeManager().
                 getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
         if(recipe.isPresent()) {
-            return Math.min(energyConsumptionLeft, Math.min(energyStorage.getMaxReceive(), energyStorage.getEnergy()));
+            return Math.min(energyConsumptionLeft, Math.min(limitingEnergyStorage.getMaxInsert(), energyStorage.getEnergy()));
         }else {
             IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
             if(energyStorage == null || !energyStorage.canReceive())
                 return -1;
 
-            return energyStorage.receiveEnergy(Math.min(this.energyStorage.getMaxReceive(), this.energyStorage.getEnergy()), true);
+            return energyStorage.receiveEnergy(Math.min(this.limitingEnergyStorage.getMaxInsert(), this.energyStorage.getEnergy()), true);
         }
     }
 

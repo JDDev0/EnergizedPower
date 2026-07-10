@@ -2,10 +2,11 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedChargerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
+import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
+import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.energy.ReceiveOnlyEnergyStorage;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ChargerRecipe;
@@ -36,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AdvancedChargerBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<ReceiveOnlyEnergyStorage, ItemStackHandler> {
+        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, ItemStackHandler> {
     public static final float CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
 
     private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
@@ -54,7 +55,7 @@ public class AdvancedChargerBlockEntity
         if(energyStorage == null || !energyStorage.canReceive())
             return true;
 
-        return energyStorage.receiveEnergy(AdvancedChargerBlockEntity.this.energyStorage.getMaxReceive() / 3, true) == 0;
+        return energyStorage.receiveEnergy(AdvancedChargerBlockEntity.this.limitingEnergyStorage.getMaxInsert() / 3, true) == 0;
     });
 
     private int[] energyConsumptionLeft = new int[] {
@@ -79,8 +80,8 @@ public class AdvancedChargerBlockEntity
     }
 
     @Override
-    protected ReceiveOnlyEnergyStorage initEnergyStorage() {
-        return new ReceiveOnlyEnergyStorage(0, baseEnergyCapacity, baseEnergyTransferRate) {
+    protected EnergizedPowerEnergyStorage initEnergyStorage() {
+        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
             @Override
             public int getCapacity() {
                 return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
@@ -88,15 +89,20 @@ public class AdvancedChargerBlockEntity
             }
 
             @Override
-            public int getMaxReceive() {
-                return Math.max(1, (int)Math.ceil(maxReceive * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-
-            @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncEnergyToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
+        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
+            @Override
+            public int getMaxInsert() {
+                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
+                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
             }
         };
     }
@@ -172,7 +178,7 @@ public class AdvancedChargerBlockEntity
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
-        return energyStorage;
+        return limitingEnergyStorage;
     }
 
     @Override
@@ -209,7 +215,7 @@ public class AdvancedChargerBlockEntity
         if(level.isClientSide)
             return;
 
-        final int maxReceivePerSlot = (int)Math.min(blockEntity.energyStorage.getMaxReceive() / 3.,
+        final int maxReceivePerSlot = (int)Math.min(blockEntity.limitingEnergyStorage.getMaxInsert() / 3.,
                 Math.ceil(blockEntity.energyStorage.getEnergy() / 3.));
 
         for(int i = 0;i < 3;i++) {
@@ -282,7 +288,7 @@ public class AdvancedChargerBlockEntity
         if(level == null)
             return -1;
 
-        final int maxReceivePerSlot = (int)Math.min(this.energyStorage.getMaxReceive() / 3.,
+        final int maxReceivePerSlot = (int)Math.min(this.limitingEnergyStorage.getMaxInsert() / 3.,
                 Math.ceil(this.energyStorage.getEnergy() / 3.));
 
         int energyConsumptionSum = -1;
