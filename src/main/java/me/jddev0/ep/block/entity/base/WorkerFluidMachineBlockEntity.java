@@ -21,27 +21,45 @@ import java.util.Optional;
 public abstract class WorkerFluidMachineBlockEntity<W>
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <EnergizedPowerEnergyStorage, IEnergizedPowerItemStackHandler, IEnergizedPowerFluidStorage> {
-    protected final int baseEnergyConsumptionPerTick;
+    protected final int baseEnergyConsumptionPerTickPerRecipe;
+    protected final int workerThreadCount;
     protected final int baseWorkDuration;
 
-    protected int progress;
-    protected int maxProgress;
-    protected int energyConsumptionLeft = -1;
-    protected boolean hasEnoughEnergy;
+    protected final int[] progress;
+    protected final int[] maxProgress;
+    protected final int[] energyConsumptionLeft;
+
+    protected final boolean[] hasEnoughEnergy;
 
     protected int timeoutOffState;
 
     public WorkerFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                          String machineName,
                                          int slotCount, int baseWorkDuration,
-                                         int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                         int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTickPerRecipe,
                                          int baseTankCapacity,
                                          UpgradeModuleModifier... upgradeModifierSlots) {
         super(type, blockPos, blockState, machineName, baseEnergyCapacity, baseEnergyTransferRate, slotCount, baseTankCapacity,
                 upgradeModifierSlots);
 
-        this.baseEnergyConsumptionPerTick = baseEnergyConsumptionPerTick;
+        this.baseEnergyConsumptionPerTickPerRecipe = baseEnergyConsumptionPerTickPerRecipe;
+        this.workerThreadCount = initWorkerThreadCount();
         this.baseWorkDuration = baseWorkDuration;
+
+        if(workerThreadCount <= 0)
+            throw new IllegalArgumentException("Worker Thread Count must be >= 0");
+
+        progress = new int[workerThreadCount];
+        maxProgress = new int[workerThreadCount];
+        energyConsumptionLeft = new int[workerThreadCount];
+        for(int i = 0;i < workerThreadCount;i++)
+            energyConsumptionLeft[i] = -1;
+
+        hasEnoughEnergy = new boolean[workerThreadCount];
+    }
+
+    protected int initWorkerThreadCount() {
+        return 1;
     }
 
     @Override
@@ -76,18 +94,29 @@ public abstract class WorkerFluidMachineBlockEntity<W>
     protected void saveAdditional(ValueOutput view) {
         super.saveAdditional(view);
 
-        view.putInt("recipe.progress", progress);
-        view.putInt("recipe.max_progress", maxProgress);
-        view.putInt("recipe.energy_consumption_left", energyConsumptionLeft);
+        for(int i = 0;i < workerThreadCount;i++) {
+            view.putInt("recipe.progress." + i, progress[i]);
+            view.putInt("recipe.max_progress." + i, maxProgress[i]);
+            view.putInt("recipe.energy_consumption_left." + i, energyConsumptionLeft[i]);
+        }
     }
 
     @Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
 
-        progress = view.getIntOr("recipe.progress", 0);
-        maxProgress = view.getIntOr("recipe.max_progress", 0);
-        energyConsumptionLeft = view.getIntOr("recipe.energy_consumption_left", 0);
+        for(int i = 0;i < workerThreadCount;i++) {
+            progress[i] = view.getIntOr("recipe.progress." + i, 0);
+            maxProgress[i] = view.getIntOr("recipe.max_progress." + i, 0);
+            energyConsumptionLeft[i] = view.getIntOr("recipe.energy_consumption_left." + i, 0);
+        }
+
+        //Ensure compatibility with older versions: Override recipe progress data for thread 0
+        if(view.getInt("recipe.progress").isPresent()) {
+            progress[0] = view.getIntOr("recipe.progress", 0);
+            maxProgress[0] = view.getIntOr("recipe.max_progress", 0);
+            energyConsumptionLeft[0] = view.getIntOr("recipe.energy_consumption_left", 0);
+        }
     }
 
     public static <W> void tick(Level level, BlockPos blockPos, BlockState state, WorkerFluidMachineBlockEntity<W> blockEntity) {
@@ -120,65 +149,73 @@ public abstract class WorkerFluidMachineBlockEntity<W>
         if(level.isClientSide())
             return;
 
-        if(blockEntity.hasWork()) {
-            Optional<W> workData = blockEntity.getCurrentWorkData();
-            if(workData.isEmpty()) {
-                return;
-            }
+        boolean hasNoWork = true;
+        int hasNotEnoughEnergyCount = 0;
+        for(int i = 0;i < blockEntity.workerThreadCount;i++) {
+            if(blockEntity.hasWork(i)) {
+                hasNoWork = false;
 
-            if(blockEntity.maxProgress == 0) {
-                blockEntity.onWorkStarted(workData.get());
+                Optional<W> workData = blockEntity.getCurrentWorkData(i);
+                if(workData.isEmpty()) {
+                    continue;
+                }
 
-                blockEntity.maxProgress = blockEntity.getWorkDurationFor(workData.get());
-            }
+                if(blockEntity.maxProgress[i] == 0) {
+                    blockEntity.onWorkStarted(i, workData.get());
 
-            int energyConsumptionPerTick = blockEntity.getEnergyConsumptionFor(workData.get());
+                    blockEntity.maxProgress[i] = blockEntity.getWorkDurationFor(i, workData.get());
+                }
 
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = energyConsumptionPerTick * blockEntity.maxProgress;
+                int energyConsumptionPerTick = blockEntity.getEnergyConsumptionFor(i, workData.get());
 
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
-                blockEntity.hasEnoughEnergy = true;
-                blockEntity.timeoutOffState = 0;
-                blockEntity.onHasEnoughEnergy();
+                if(blockEntity.energyConsumptionLeft[i] < 0)
+                    blockEntity.energyConsumptionLeft[i] = energyConsumptionPerTick * blockEntity.maxProgress[i];
 
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0) {
-                    //Reset progress for invalid values
+                if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmountAsInt()) {
+                    blockEntity.hasEnoughEnergy[i] = true;
+                    blockEntity.timeoutOffState = 0;
+                    blockEntity.onHasEnoughEnergy();
 
-                    blockEntity.resetProgress();
+                    if(blockEntity.progress[i] < 0 || blockEntity.maxProgress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
+                        //Reset progress for invalid values
+
+                        blockEntity.resetProgress(i);
+                        setChanged(level, blockPos, state);
+
+                        continue;
+                    }
+
+                    try(Transaction transaction = Transaction.open(null)) {
+                        blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
+                        transaction.commit();
+                    }
+                    blockEntity.energyConsumptionLeft[i] -= energyConsumptionPerTick;
+
+                    blockEntity.onWorkTicked(i, workData.get());
+
+                    blockEntity.progress[i]++;
+                    if(blockEntity.progress[i] >= blockEntity.maxProgress[i])
+                        blockEntity.onWorkCompleted(i, workData.get());
+
                     setChanged(level, blockPos, state);
-
-                    return;
+                }else {
+                    blockEntity.hasEnoughEnergy[i] = false;
+                    hasNotEnoughEnergyCount++;
+                    setChanged(level, blockPos, state);
                 }
-
-                try(Transaction transaction = Transaction.open(null)) {
-                    blockEntity.energyStorage.extract(energyConsumptionPerTick, transaction);
-                    transaction.commit();
-                }
-                blockEntity.energyConsumptionLeft -= energyConsumptionPerTick;
-
-                blockEntity.onWorkTicked(workData.get());
-
-                blockEntity.progress++;
-                if(blockEntity.progress >= blockEntity.maxProgress)
-                    blockEntity.onWorkCompleted(workData.get());
-
-                setChanged(level, blockPos, state);
             }else {
-                blockEntity.hasEnoughEnergy = false;
-                if(blockEntity.timeoutOffState == 0) {
-                    blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
-                }
-                blockEntity.onHasNotEnoughEnergy();
+                blockEntity.resetProgress(i);
+                hasNotEnoughEnergyCount++;
                 setChanged(level, blockPos, state);
             }
-        }else {
-            blockEntity.resetProgress();
+        }
+
+        //Unlit if nothing is being worked on
+        if(hasNoWork || hasNotEnoughEnergyCount == blockEntity.workerThreadCount) {
             if(blockEntity.timeoutOffState == 0) {
                 blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
             }
             blockEntity.onHasNotEnoughEnergy();
-            setChanged(level, blockPos, state);
         }
     }
 
@@ -202,65 +239,91 @@ public abstract class WorkerFluidMachineBlockEntity<W>
         }
     }
 
-    protected final int getWorkDurationFor(W workData) {
-        return Math.max(1, (int)Math.ceil(baseWorkDuration * getWorkDataDependentWorkDuration(workData) /
+    protected final int getWorkDurationFor(int thread, W workData) {
+        return Math.max(1, (int)Math.ceil(baseWorkDuration * getWorkDataDependentWorkDuration(thread, workData) /
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
     }
 
-    protected final int getEnergyConsumptionFor(W workData) {
-        return Math.max(1, (int)Math.ceil(baseEnergyConsumptionPerTick *
-                getWorkDataDependentEnergyConsumption(workData) *
+    protected final int getEnergyConsumptionFor(int thread, W workData) {
+        return Math.max(1, (int)Math.ceil(baseEnergyConsumptionPerTickPerRecipe *
+                getWorkDataDependentEnergyConsumption(thread, workData) *
                 upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
     }
 
-    protected double getWorkDataDependentWorkDuration(W workData) {
+    protected double getWorkDataDependentWorkDuration(int thread, W workData) {
         return 1;
     }
 
-    protected double getWorkDataDependentEnergyConsumption(W workData) {
+    protected double getWorkDataDependentEnergyConsumption(int thread, W workData) {
         return 1;
     }
 
-    protected abstract boolean hasWork();
+    protected final int getEnergyConsumptionPerTickSum() {
+        int energyConsumptionSum = -1;
 
-    protected abstract Optional<W> getCurrentWorkData();
+        for(int i = 0;i < workerThreadCount;i++) {
+            if(!hasWork(i))
+                continue;
 
-    protected abstract void onWorkStarted(W workData);
+            Optional<W> workData = getCurrentWorkData(i);
+            if(workData.isEmpty())
+                continue;
 
-    protected void onWorkTicked(W workData) {}
+            int energyConsumption = getEnergyConsumptionFor(i, workData.get());
 
-    protected abstract void onWorkCompleted(W workData);
+            if(energyConsumptionSum == -1)
+                energyConsumptionSum = energyConsumption;
+            else
+                energyConsumptionSum += energyConsumption;
 
-    protected void resetProgress() {
-        progress = 0;
-        maxProgress = 0;
-        energyConsumptionLeft = -1;
-        hasEnoughEnergy = false;
+            if(energyConsumptionSum < 0)
+                energyConsumptionSum = Integer.MAX_VALUE;
+        }
+
+        return energyConsumptionSum;
     }
 
-    protected void recalculateProgress() {
-        if(!hasWork() || this.maxProgress <= 0)
+    protected abstract boolean hasWork(int thread);
+
+    protected abstract Optional<W> getCurrentWorkData(int thread);
+
+    protected abstract void onWorkStarted(int thread, W workData);
+
+    protected void onWorkTicked(int thread, W workData) {}
+
+    protected abstract void onWorkCompleted(int thread, W workData);
+
+    protected void resetProgress(int thread) {
+        progress[thread] = 0;
+        maxProgress[thread] = 0;
+        energyConsumptionLeft[thread] = -1;
+        hasEnoughEnergy[thread] = false;
+    }
+
+    protected void recalculateProgress(int thread) {
+        if(!hasWork(thread) || this.maxProgress[thread] <= 0)
             return;
 
-        Optional<W> workData = getCurrentWorkData();
+        Optional<W> workData = getCurrentWorkData(thread);
         if(workData.isEmpty()) {
             return;
         }
 
-        int currentMaxProgress = this.maxProgress;
+        int currentMaxProgress = this.maxProgress[thread];
 
-        this.maxProgress = getWorkDurationFor(workData.get());
-        if(this.maxProgress != currentMaxProgress) {
-            this.progress = this.progress * this.maxProgress / currentMaxProgress;
+        this.maxProgress[thread] = getWorkDurationFor(thread, workData.get());
+        if(this.maxProgress[thread] != currentMaxProgress) {
+            this.progress[thread] = this.progress[thread] * this.maxProgress[thread] / currentMaxProgress;
         }
 
-        int energyConsumptionPerTick = getEnergyConsumptionFor(workData.get());
-        this.energyConsumptionLeft = energyConsumptionPerTick * (this.maxProgress - this.progress);
+        int energyConsumptionPerTick = getEnergyConsumptionFor(thread, workData.get());
+        this.energyConsumptionLeft[thread] = energyConsumptionPerTick * (this.maxProgress[thread] - this.progress[thread]);
     }
 
     @Override
     protected void updateUpgradeModules() {
-        recalculateProgress();
+        for(int i = 0;i < workerThreadCount;i++)
+            recalculateProgress(i);
 
         super.updateUpgradeModules();
     }

@@ -154,7 +154,7 @@ public class FiltrationPlantBlockEntity
             itemHandler.setStackInSlot(3, outputs[1].
                     copyWithCount(itemHandler.getStackInSlot(3).getCount() + outputs[1].getCount()));
 
-        resetProgress();
+        resetProgress(0);
     }
 
     @Override
