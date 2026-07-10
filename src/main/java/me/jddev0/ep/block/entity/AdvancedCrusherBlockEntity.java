@@ -85,7 +85,7 @@ public class AdvancedCrusherBlockEntity
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -140,8 +140,8 @@ public class AdvancedCrusherBlockEntity
     }
 
     @Override
-    protected void craftItem(RecipeHolder<CrusherRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<CrusherRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         try(Transaction transaction = Transaction.open(null)) {
@@ -156,11 +156,11 @@ public class AdvancedCrusherBlockEntity
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(null).getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<CrusherRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<CrusherRecipe> recipe) {
         return level != null &&
                 fluidStorage.getFluid(0).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&
                 fluidStorage.getTankCapacity(1) - fluidStorage.getFluid(1).getAmount() >= WATER_CONSUMPTION_PER_RECIPE &&

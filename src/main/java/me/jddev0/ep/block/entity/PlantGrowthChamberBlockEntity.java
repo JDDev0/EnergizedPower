@@ -80,6 +80,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 7;
     }
 
     @Override
@@ -110,7 +112,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -200,7 +202,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected double getRecipeDependentRecipeDuration(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+    protected double getRecipeDependentRecipeDuration(int thread, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         SimpleContainer inventory = new SimpleContainer(itemHandler.size());
         for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
@@ -213,7 +215,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected double getRecipeDependentEnergyConsumption(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+    protected double getRecipeDependentEnergyConsumption(int thread, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         SimpleContainer inventory = new SimpleContainer(itemHandler.size());
         for(int i = 0;i < itemHandler.size();i++)
             inventory.setItem(i, itemHandler.getStackInSlot(i));
@@ -226,8 +228,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected void resetProgress() {
-        super.resetProgress();
+    protected void resetProgress(int thread) {
+        super.resetProgress(thread);
 
         //Do not reset leftoverFluidConsumption
 
@@ -237,7 +239,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected void onStartCrafting(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+    protected void onStartCrafting(int thread, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         if(!(level instanceof ServerLevel serverLevel))
             return;
 
@@ -258,8 +260,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected void onCraftingTicked(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        super.onCraftingTicked(recipe);
+    protected void onCraftingTicked(int thread, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        super.onCraftingTicked(thread, recipe);
 
         SimpleContainer inventory = new SimpleContainer(itemHandler.size());
         for(int i = 0;i < itemHandler.size();i++)
@@ -297,8 +299,8 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
     }
 
     @Override
-    protected void craftItem(RecipeHolder<PlantGrowthChamberRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         itemHandler.extractItem(0, 1);
@@ -343,11 +345,11 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             itemHandler.setStackInSlot(emptyIndices.remove(0), itemStack);
         }
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<PlantGrowthChamberRecipe> recipe) {
         Optional<RecipeHolder<PlantGrowthChamberSoilRecipe>> soilRecipe = getSoilRecipe(inventory);
         if(soilRecipe.isEmpty())
             return false;
