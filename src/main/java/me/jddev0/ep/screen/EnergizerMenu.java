@@ -34,7 +34,8 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
         this(id, inv, inv.player.level().getBlockEntity(pos), new UpgradeModuleInventory(
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ITEM_EJECTOR,
-                UpgradeModuleModifier.ITEM_PULLING
+                UpgradeModuleModifier.ITEM_PULLING,
+                UpgradeModuleModifier.ENERGIZING_SPEED
         ), null);
     }
 
@@ -46,7 +47,7 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
                 inv, blockEntity,
                 EPBlocks.ENERGIZER.get(),
 
-                upgradeModuleInventory, 3
+                upgradeModuleInventory, 4
         );
 
         ItemCapabilityMenuHelper.getEnergizedPowerItemStackHandlerCapability(this.level, this.blockEntity).ifPresent(itemHandler -> {
@@ -65,7 +66,7 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
         });
 
         for(int i = 0;i < upgradeModuleInventory.getContainerSize();i++)
-            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 62 + i * 18, 35, this::isInUpgradeModuleView));
+            addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 53 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
             addDataSlots(progressData);
@@ -130,12 +131,12 @@ public class EnergizerMenu extends UpgradableEnergyStorageMenu<EnergizerBlockEnt
 
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
-            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 2, 4 * 9 + 2 + 3, player, 0, 4 * 9, false) &&
+            if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 2, 4 * 9 + 2 + 4, player, 0, 4 * 9, false) &&
                     !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+1" instead of "+2": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
-        }else if(index < 4 * 9 + 2 + 3) {
+        }else if(index < 4 * 9 + 2 + 4) {
             //Tile inventory and upgrade module slot -> Merge into player inventory
             if(!moveItemStackTo(sourceItem, 0, 4 * 9, false)) {
                 return ItemStack.EMPTY;
