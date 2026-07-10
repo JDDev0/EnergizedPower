@@ -7,7 +7,6 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.networking.packet.SetFluidTankFilterC2SPacket;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
-import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
@@ -123,30 +122,11 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
     }
 
     @Override
-    protected void renderTooltip(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltip(drawContext, mouseX, mouseY);
+    protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
-            //Fluid meter
-
-            List<Component> components = new ArrayList<>(2);
-
-            boolean fluidEmpty =  menu.getFluid(0).isEmpty();
-
-            long fluidAmount = fluidEmpty?0:menu.getFluid(0).getMilliBucketsAmount();
-
-            Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                    FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                            convertDropletsToMilliBuckets(menu.getTankCapacity(0))));
-
-            if(!fluidEmpty) {
-                tooltipComponent = Component.translatable(menu.getFluid(0).getTranslationKey()).append(" ").
-                        append(tooltipComponent);
-            }
-
-            components.add(tooltipComponent);
-
-            drawContext.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(0), menu.getTankCapacity(0), mouseX, mouseY);
         }
 
         if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
@@ -155,7 +135,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
             List<Component> components = new ArrayList<>(2);
             components.add(Component.translatable("tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt"));
 
-            drawContext.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
 
         if(isHovering(151, 34, 18, 18, mouseX, mouseY)) {
@@ -178,7 +158,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
             components.add(Component.translatable("tooltip.energizedpower.fluid_tanks.fluid_filter.txt.2").
                     withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 
-            drawContext.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+            guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
     }
 }

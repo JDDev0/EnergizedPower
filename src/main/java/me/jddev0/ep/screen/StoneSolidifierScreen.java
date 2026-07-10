@@ -3,7 +3,6 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.base.SelectableRecipeMachineContainerScreen;
-import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -72,31 +71,12 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
 
 
     @Override
-    protected void renderTooltipNormalView(GuiGraphics drawContext, int mouseX, int mouseY) {
-        super.renderTooltipNormalView(drawContext, mouseX, mouseY);
+    protected void renderTooltipNormalView(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+        super.renderTooltipNormalView(guiGraphics, mouseX, mouseY);
 
         for(int i = 0;i < 2;i++) {
-            //Fluid meter
-
             if(isHovering(i == 0?44:152, 17, 16, 52, mouseX, mouseY)) {
-                List<Component> components = new ArrayList<>(2);
-
-                boolean fluidEmpty =  menu.getFluid(i).isEmpty();
-
-                long fluidAmount = fluidEmpty?0:menu.getFluid(i).getMilliBucketsAmount();
-
-                Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
-                        FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(FluidUtils.
-                                convertDropletsToMilliBuckets(menu.getTankCapacity(i))));
-
-                if(!fluidEmpty) {
-                    tooltipComponent = Component.translatable(menu.getFluid(i).getTranslationKey()).append(" ").
-                            append(tooltipComponent);
-                }
-
-                components.add(tooltipComponent);
-
-                drawContext.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
+                renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(i), menu.getTankCapacity(i), mouseX, mouseY);
             }
         }
     }
