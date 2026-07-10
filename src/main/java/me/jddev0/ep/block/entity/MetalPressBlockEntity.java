@@ -49,6 +49,8 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 3;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
                 if(slot == 0 || slot == 1) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -109,28 +111,23 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     }
 
     @Override
-    protected void craftItem(RecipeHolder<MetalPressRecipe> recipe) {
-        if(level == null || !hasRecipe() || !(level instanceof ServerLevel serverLevel))
+    protected void craftItem(int thread, RecipeHolder<MetalPressRecipe> recipe) {
+        if(level == null || !hasRecipe(thread) || !(level instanceof ServerLevel serverLevel))
             return;
 
-         ItemStack pressMold = itemHandler.getStackInSlot(1).copy();
+        int startOffset = getSlotStartOffsetFor(thread);
+        ItemStack pressMold = itemHandler.getStackInSlot(startOffset + 1).copy();
         if(pressMold.isEmpty() && !pressMold.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS))
             return;
 
         pressMold.hurtAndBreak(1, serverLevel, null, item -> pressMold.setCount(0));
-        itemHandler.setStackInSlot(1, pressMold);
+        itemHandler.setStackInSlot(startOffset + 1, pressMold);
         
-        itemHandler.extractItem(0, recipe.value().getInput().count());
-        itemHandler.setStackInSlot(2, recipe.value().assemble(null).
-                copyWithCount(itemHandler.getStackInSlot(2).getCount() +
+        itemHandler.extractItem(startOffset, recipe.value().getInput().count());
+        itemHandler.setStackInSlot(startOffset + 2, recipe.value().assemble(null).
+                copyWithCount(itemHandler.getStackInSlot(startOffset + 2).getCount() +
                         recipe.value().assemble(null).getCount()));
 
-        resetProgress();
-    }
-
-    @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<MetalPressRecipe> recipe) {
-        return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 2, recipe.value().assemble(null));
+        resetProgress(thread);
     }
 }

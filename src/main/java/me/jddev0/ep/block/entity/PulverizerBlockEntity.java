@@ -43,6 +43,8 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 3;
     }
 
     public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
@@ -62,25 +64,26 @@ public class PulverizerBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     }
 
     @Override
-    protected void craftItem(RecipeHolder<PulverizerRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<PulverizerRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
+        int startOffset = getSlotStartOffsetFor(thread);
         ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom(), false);
 
-        itemHandler.extractItem(0, 1);
+        itemHandler.extractItem(startOffset, 1);
         if(!outputs[0].isEmpty())
-            itemHandler.setStackInSlot(1, outputs[0].
-                    copyWithCount(itemHandler.getStackInSlot(1).getCount() + outputs[0].getCount()));
+            itemHandler.setStackInSlot(startOffset + 1, outputs[0].
+                    copyWithCount(itemHandler.getStackInSlot(startOffset + 1).getCount() + outputs[0].getCount()));
         if(!outputs[1].isEmpty())
-            itemHandler.setStackInSlot(2, outputs[1].
-                    copyWithCount(itemHandler.getStackInSlot(2).getCount() + outputs[1].getCount()));
+            itemHandler.setStackInSlot(startOffset + 2, outputs[1].
+                    copyWithCount(itemHandler.getStackInSlot(startOffset + 2).getCount() + outputs[1].getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PulverizerRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<PulverizerRecipe> recipe) {
         ItemStack[] maxOutputs = recipe.value().getMaxOutputCounts(false);
 
         return level != null &&
