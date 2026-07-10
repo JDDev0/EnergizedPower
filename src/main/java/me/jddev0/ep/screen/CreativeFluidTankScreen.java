@@ -85,7 +85,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
         super.extractTooltip(guiGraphics, mouseX, mouseY);
 
         if(isHovering(48, 17, 80, 52, mouseX, mouseY)) {
-            //Fluid meter
+            //Fluid meter (infinite)
 
             List<Component> components = new ArrayList<>(2);
 
