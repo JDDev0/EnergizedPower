@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -39,7 +40,9 @@ import java.util.List;
 public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(CableTier::valueOf, CableTier::toString).fieldOf("tier").
-                forGetter(CableBlock::getTier)).apply(instance, CableBlock::new);
+                                forGetter(CableBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
+                apply(instance, CableBlock::new);
     });
 
     public static final BooleanProperty UP = BlockStateProperties.UP;
@@ -60,8 +63,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     private final CableTier tier;
 
-    public CableBlock(CableTier tier) {
-        super(tier.getProperties());
+    public CableBlock(CableTier tier, Properties props) {
+        super(props);
 
         this.registerDefaultState(this.getStateDefinition().any().setValue(UP, false).setValue(DOWN, false).
                 setValue(NORTH, false).setValue(SOUTH, false).setValue(EAST, false).setValue(WEST, false).

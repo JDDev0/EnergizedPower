@@ -26,16 +26,18 @@ import java.util.List;
 public class SolarPanelBlock extends WorkerMachineBlock<SolarPanelBlockEntity> {
     public static final MapCodec<SolarPanelBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(SolarPanelTier::valueOf, SolarPanelTier::toString).fieldOf("tier").
-                forGetter(SolarPanelBlock::getTier)).apply(instance, SolarPanelBlock::new);
+                                forGetter(SolarPanelBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, SolarPanelBlock::new);
     });
 
     private static final VoxelShape SHAPE = Block.box(0.d, 0.d, 0.d, 16.d, 4.d, 16.d);
 
     private final SolarPanelTier tier;
 
-    public SolarPanelBlock(SolarPanelTier tier) {
+    public SolarPanelBlock(SolarPanelTier tier, Properties props) {
         super(
-                tier.getProperties(),
+                props,
 
                 tier::getEntityTypeFromTier,
                 SolarPanelBlockEntity.class, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, tier), SolarPanelBlockEntity::tick

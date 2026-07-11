@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -48,8 +49,11 @@ import java.util.List;
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidPipeTier::valueOf, FluidPipeTier::toString).fieldOf("tier").
-                forGetter(FluidPipeBlock::getTier)).apply(instance, FluidPipeBlock::new);
+                                forGetter(FluidPipeBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
+                apply(instance, FluidPipeBlock::new);
     });
+
 
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> UP = EPBlockStateProperties.PIPE_CONNECTION_UP;
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> DOWN = EPBlockStateProperties.PIPE_CONNECTION_DOWN;
@@ -81,8 +85,8 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     private final FluidPipeTier tier;
 
-    public FluidPipeBlock(FluidPipeTier tier) {
-        super(tier.getProperties());
+    public FluidPipeBlock(FluidPipeTier tier, Properties props) {
+        super(props);
 
         this.tier = tier;
 
