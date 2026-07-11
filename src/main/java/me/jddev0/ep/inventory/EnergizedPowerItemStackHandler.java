@@ -3,6 +3,7 @@ package me.jddev0.ep.inventory;
 
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class EnergizedPowerItemStackHandler extends ItemStackHandler {
     public EnergizedPowerItemStackHandler() {
@@ -34,11 +35,11 @@ public class EnergizedPowerItemStackHandler extends ItemStackHandler {
      * Method "renamed" to "isValid()" to match 26.1.x
      */
     @Override
-    public final boolean isItemValid(int slot, ItemStack stack) {
+    public final boolean isItemValid(int slot, @NotNull ItemStack stack) {
         return isValid(slot, stack);
     }
 
-    public boolean isValid(int slot, ItemStack stack) {
+    public boolean isValid(int slot, @NotNull ItemStack stack) {
         return super.isItemValid(slot, stack);
     }
 }

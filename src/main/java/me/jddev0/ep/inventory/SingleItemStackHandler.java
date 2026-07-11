@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
     protected final int slotCount;
@@ -122,7 +123,7 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
     }
 
     @Override
-    public boolean isValid(int slot, ItemStack stack) {
+    public boolean isValid(int slot, @NotNull ItemStack stack) {
         return this.stack.isEmpty() || ItemStack.isSameItemSameComponents(this.stack, stack);
     }
 

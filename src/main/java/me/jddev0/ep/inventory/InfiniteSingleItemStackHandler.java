@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandler {
     protected ItemStack stack = ItemStack.EMPTY;
@@ -68,7 +69,7 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     }
 
     @Override
-    public boolean isValid(int slot, ItemStack stack) {
+    public boolean isValid(int slot, @NotNull ItemStack stack) {
         return true;
     }
 
