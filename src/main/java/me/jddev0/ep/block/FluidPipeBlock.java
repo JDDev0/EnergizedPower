@@ -47,7 +47,9 @@ import java.util.List;
 public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
     public static final MapCodec<FluidPipeBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidPipeTier::valueOf, FluidPipeTier::toString).fieldOf("tier").
-                forGetter(FluidPipeBlock::getTier)).apply(instance, FluidPipeBlock::new);
+                                forGetter(FluidPipeBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, FluidPipeBlock::new);
     });
 
     public static final EnumProperty<EPBlockStateProperties.PipeConnection> UP = EPBlockStateProperties.PIPE_CONNECTION_UP;
@@ -80,8 +82,8 @@ public class FluidPipeBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     private final FluidPipeTier tier;
 
-    public FluidPipeBlock(FluidPipeTier tier) {
-        super(tier.getProperties());
+    public FluidPipeBlock(FluidPipeTier tier, Properties properties) {
+        super(properties);
 
         this.tier = tier;
 

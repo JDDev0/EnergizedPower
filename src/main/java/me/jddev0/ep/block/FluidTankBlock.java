@@ -34,15 +34,16 @@ import java.util.List;
 public class FluidTankBlock extends BaseEntityBlock {
     public static final MapCodec<FluidTankBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidTankTier::valueOf, FluidTankTier::toString).fieldOf("tier").
-                forGetter(FluidTankBlock::getTier)).apply(instance, FluidTankBlock::new);
+                                forGetter(FluidTankBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, FluidTankBlock::new);
     });
-
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final FluidTankTier tier;
 
-    public FluidTankBlock(FluidTankTier tier) {
-        super(tier.getProperties());
+    public FluidTankBlock(FluidTankTier tier, Properties properties) {
+        super(properties);
 
         this.tier = tier;
 

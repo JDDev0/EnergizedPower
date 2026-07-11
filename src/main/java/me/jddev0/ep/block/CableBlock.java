@@ -40,7 +40,9 @@ import java.util.List;
 public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<CableBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
         return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(CableTier::valueOf, CableTier::toString).fieldOf("tier").
-                forGetter(CableBlock::getTier)).apply(instance, CableBlock::new);
+                                forGetter(CableBlock::getTier),
+                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
+                apply(instance, CableBlock::new);
     });
 
     public static final BooleanProperty UP = BlockStateProperties.UP;
@@ -61,8 +63,8 @@ public class CableBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     private final CableTier tier;
 
-    public CableBlock(CableTier tier) {
-        super(tier.getProperties());
+    public CableBlock(CableTier tier, Properties properties) {
+        super(properties);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(DOWN, false).
                 setValue(NORTH, false).setValue(SOUTH, false).setValue(EAST, false).setValue(WEST, false).
