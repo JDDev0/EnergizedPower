@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.RedstoneOutput;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
@@ -13,11 +14,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IEnergizedPowerFluidStorage>
+        <E extends IEnergizedPowerEnergyStorage, I extends EnergizedPowerItemStackHandler, F extends IEnergizedPowerFluidStorage>
         extends UpgradableInventoryFluidEnergyStorageBlockEntity<E, I, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
         RedstoneOutput {

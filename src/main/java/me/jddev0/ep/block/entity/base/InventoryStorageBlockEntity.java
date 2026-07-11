@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity.base;
 
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.ItemDrop;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -10,10 +11,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class InventoryStorageBlockEntity<I extends ItemStackHandler>
+public abstract class InventoryStorageBlockEntity<I extends EnergizedPowerItemStackHandler>
         extends BlockEntity
         implements ItemDrop {
     protected final int slotCount;

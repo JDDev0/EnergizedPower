@@ -5,6 +5,7 @@ import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -14,14 +15,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
 public abstract class WorkerFluidMachineBlockEntity<W>
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
-        <EnergizedPowerEnergyStorage, ItemStackHandler, EnergizedPowerFluidStorage> {
+        <EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, EnergizedPowerFluidStorage> {
     protected final int baseEnergyConsumptionPerTick;
     protected final int baseWorkDuration;
 

@@ -8,6 +8,7 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
@@ -45,7 +46,6 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AdvancedPoweredFurnaceBlockEntity
-        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, ItemStackHandler, EnergizedPowerFluidStorage>
+        extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, EnergizedPowerFluidStorage>
         implements FurnaceRecipeTypePacketUpdate {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_POWERED_FURNACE_FLUID_TANK_CAPACITY.getValue();
 
@@ -137,8 +137,8 @@ public class AdvancedPoweredFurnaceBlockEntity
     }
 
     @Override
-    protected ItemStackHandler initInventoryStorage() {
-        return new ItemStackHandler(slotCount) {
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();

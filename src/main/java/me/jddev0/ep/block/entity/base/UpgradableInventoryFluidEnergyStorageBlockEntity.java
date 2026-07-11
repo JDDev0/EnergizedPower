@@ -2,6 +2,7 @@ package me.jddev0.ep.block.entity.base;
 
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.IUpgradableMachine;
@@ -16,11 +17,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class UpgradableInventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IEnergizedPowerFluidStorage>
+        <E extends IEnergizedPowerEnergyStorage, I extends EnergizedPowerItemStackHandler, F extends IEnergizedPowerFluidStorage>
         extends MenuInventoryFluidEnergyStorageBlockEntity<E, I, F>
         implements IUpgradableMachine {
     protected final UpgradeModuleInventory upgradeModuleInventory;

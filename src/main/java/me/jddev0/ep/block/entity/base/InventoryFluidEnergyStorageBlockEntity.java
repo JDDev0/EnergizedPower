@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity.base;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.fluid.FluidStoragePacketUpdate;
 import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.FluidSyncS2CPacket;
 import net.minecraft.core.BlockPos;
@@ -14,11 +15,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class InventoryFluidEnergyStorageBlockEntity
-        <E extends IEnergizedPowerEnergyStorage, I extends ItemStackHandler, F extends IEnergizedPowerFluidStorage>
+        <E extends IEnergizedPowerEnergyStorage, I extends EnergizedPowerItemStackHandler, F extends IEnergizedPowerFluidStorage>
         extends InventoryEnergyStorageBlockEntity<E, I>
         implements FluidStoragePacketUpdate {
     protected final F fluidStorage;
