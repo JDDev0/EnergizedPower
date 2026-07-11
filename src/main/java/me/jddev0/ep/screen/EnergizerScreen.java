@@ -14,7 +14,7 @@ public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContaine
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
                 EPAPI.id("textures/gui/container/energizer.png"),
-                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_item_ejector_1_item_pulling.png"));
+                EPAPI.id("textures/gui/container/upgrade_view/1_energy_capacity_1_item_ejector_1_item_pulling_1_energizing_speed.png"));
     }
 
     @Override

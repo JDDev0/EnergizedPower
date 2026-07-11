@@ -43,11 +43,12 @@ import java.util.Optional;
 public class EnergizerBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
     public static final double ENERGY_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_ENERGIZER_ENERGY_CONSUMPTION_MULTIPLIER.getValue();
+    public static final int RECIPE_DURATION = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     private int progress;
-    private int maxProgress = ModConfigs.COMMON_ENERGIZER_RECIPE_DURATION.getValue();
+    private int maxProgress;
     private long energyConsumptionLeft = -1;
     private boolean hasEnoughEnergy;
 
@@ -66,7 +67,8 @@ public class EnergizerBlockEntity
 
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ITEM_EJECTOR,
-                UpgradeModuleModifier.ITEM_PULLING
+                UpgradeModuleModifier.ITEM_PULLING,
+                UpgradeModuleModifier.ENERGIZING_SPEED
         );
     }
 
@@ -210,9 +212,13 @@ public class EnergizerBlockEntity
             if(recipe.isEmpty())
                 return;
 
+            if(blockEntity.maxProgress == 0)
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGIZING_SPEED)));
+
             long energyConsumption = recipe.get().value().getEnergyConsumption();
             energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
-            if(blockEntity.progress == 0)
+            if(blockEntity.energyConsumptionLeft < 0)
                 blockEntity.energyConsumptionLeft = energyConsumption;
 
             long energyConsumptionPerTick = blockEntity.getEnergyConsumptionPerTick();
@@ -274,11 +280,8 @@ public class EnergizerBlockEntity
         if(recipe.isEmpty())
             return -1;
 
-        long energyConsumption = recipe.get().value().getEnergyConsumption();
-        energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
-
         //TODO improve (alternate values +/- 1 per x recipes instead of changing last energy consumption tick)
-        long energyConsumptionPerTick = (long)Math.ceil((double)energyConsumption / this.maxProgress);
+        long energyConsumptionPerTick = (long)Math.ceil((double)energyConsumptionLeft / (maxProgress - progress));
         if(progress == maxProgress - 1)
             energyConsumptionPerTick = energyConsumptionLeft;
 
@@ -287,6 +290,7 @@ public class EnergizerBlockEntity
 
     private void resetProgress(BlockPos blockPos, BlockState state) {
         progress = 0;
+        maxProgress = 0;
         energyConsumptionLeft = -1;
         hasEnoughEnergy = false;
     }
@@ -323,5 +327,27 @@ public class EnergizerBlockEntity
 
         return recipe.isPresent() &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().getResultItem(level.registryAccess()));
+    }
+
+    protected void recalculateProgress() {
+        if(!hasRecipe(this) || this.maxProgress <= 0)
+            return;
+
+        int currentMaxProgress = this.maxProgress;
+
+        this.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGIZING_SPEED)));
+        if(this.maxProgress != currentMaxProgress) {
+            this.progress = Math.min(this.progress * this.maxProgress / currentMaxProgress, currentMaxProgress - 1);
+        }
+
+        //Energy consumption left stays the same
+    }
+
+    @Override
+    protected void updateUpgradeModules() {
+        recalculateProgress();
+
+        super.updateUpgradeModules();
     }
 }
