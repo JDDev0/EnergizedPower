@@ -79,11 +79,12 @@ public class FluidTransposerBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress, value -> progress = value),
-                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
-                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new EnergyValueContainerData(() -> hasWork(0)?getCurrentWorkData(0).
+                        map(workData -> getEnergyConsumptionFor(0, workData)).orElse(-1L):-1, value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
                 new ShortValueContainerData(() -> (short)mode.ordinal(), value -> mode = Mode.fromIndex(value)),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -112,7 +113,7 @@ public class FluidTransposerBlockEntity
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -194,8 +195,8 @@ public class FluidTransposerBlockEntity
     }
 
     @Override
-    protected void craftItem(RecipeHolder<FluidTransposerRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<FluidTransposerRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         if(mode == Mode.EMPTYING) {
@@ -224,11 +225,11 @@ public class FluidTransposerBlockEntity
                 copyWithCount(itemHandler.getStackInSlot(1).getCount() +
                         recipe.value().assemble(null).getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<FluidTransposerRecipe> recipe) {
         long fluidAmountInTank = fluidStorage.getAmount(0);
         long fluidAmountInRecipe = recipe.value().getFluid().map(FluidStack::getDropletsAmount, FluidIngredientWithAmount::dropletsAmount);
 
@@ -243,7 +244,7 @@ public class FluidTransposerBlockEntity
 
     public void setMode(boolean isFillingMode) {
         this.mode = isFillingMode?Mode.FILLING:Mode.EMPTYING;
-        resetProgress();
+        resetProgress(0);
         setChanged(level, getBlockPos(), getBlockState());
     }
 

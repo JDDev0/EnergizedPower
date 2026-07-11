@@ -61,6 +61,8 @@ public class AdvancedPulverizerBlockEntity
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 3;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class AdvancedPulverizerBlockEntity
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -140,8 +142,8 @@ public class AdvancedPulverizerBlockEntity
     }
 
     @Override
-    protected void craftItem(RecipeHolder<PulverizerRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<PulverizerRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         ItemStack[] outputs = recipe.value().generateOutputs(level.getRandom(), true);
@@ -161,11 +163,11 @@ public class AdvancedPulverizerBlockEntity
             itemHandler.setStackInSlot(2, outputs[1].
                     copyWithCount(itemHandler.getStackInSlot(2).getCount() + outputs[1].getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<PulverizerRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<PulverizerRecipe> recipe) {
         ItemStack[] maxOutputs = recipe.value().getMaxOutputCounts(true);
 
         return level != null &&
