@@ -7,22 +7,17 @@ import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import java.util.function.Consumer;
 
 public class AdvancedMinecartChargerBlock extends FullyOrientableWorkerMachineBlock<AdvancedMinecartChargerBlockEntity> {
     public static final MapCodec<AdvancedMinecartChargerBlock> CODEC = simpleCodec(AdvancedMinecartChargerBlock::new);
-
-    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
     protected AdvancedMinecartChargerBlock(Properties props) {
         super(
