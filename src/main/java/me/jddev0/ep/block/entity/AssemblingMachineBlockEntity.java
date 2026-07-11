@@ -53,6 +53,8 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 5;
     }
 
     @Override
@@ -76,7 +78,7 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
                 if(slot >= 0 && slot < 4) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -115,8 +117,8 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
     }
 
     @Override
-    protected void craftItem(RecipeHolder<AssemblingMachineRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<AssemblingMachineRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         IngredientWithCount[] inputs = recipe.value().getInputs();
@@ -157,12 +159,6 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
                 itemHandler.getStackInSlot(4).getCount() +
                         recipe.value().assemble(null).getCount()));
 
-        resetProgress();
-    }
-
-    @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<AssemblingMachineRecipe> recipe) {
-        return level != null &&
-                InventoryUtils.canInsertItemIntoSlot(inventory, 4, recipe.value().assemble(null));
+        resetProgress(thread);
     }
 }
