@@ -97,7 +97,7 @@ public class FluidPumpBlockEntity
                 if(slot == 0) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -119,11 +119,12 @@ public class FluidPumpBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress, value -> progress = value),
-                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
-                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new EnergyValueContainerData(() -> hasWork(0)?getCurrentWorkData(0).
+                        map(workData -> getEnergyConsumptionFor(0, workData)).orElse(-1L):-1, value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
                 new IntegerValueContainerData(() -> xOffset, value -> {}),
                 new IntegerValueContainerData(() -> yOffset, value -> {}),
                 new IntegerValueContainerData(() -> zOffset, value -> {}),
@@ -193,22 +194,22 @@ public class FluidPumpBlockEntity
     }
 
     @Override
-    protected boolean hasWork() {
+    protected boolean hasWork(int thread) {
         return yOffset != 0 && itemHandler.getStackInSlot(0).is(Items.COBBLESTONE);
     }
 
     @Override
-    protected Optional<BlockPos> getCurrentWorkData() {
+    protected Optional<BlockPos> getCurrentWorkData(int thread) {
         return Optional.of(worldPosition.offset(xOffset, yOffset, zOffset));
     }
 
     @Override
-    protected double getWorkDataDependentWorkDuration(BlockPos targetPos) {
+    protected double getWorkDataDependentWorkDuration(int thread, BlockPos targetPos) {
         return extractingFluid?EXTRACTION_DURATION:NEXT_BLOCK_COOLDOWN;
     }
 
     @Override
-    protected void onWorkStarted(BlockPos targetPos) {
+    protected void onWorkStarted(int thread, BlockPos targetPos) {
         BlockState targetState = level.getBlockState(targetPos);
         if(!(targetState.getBlock() instanceof BucketPickup))
             return;
@@ -227,7 +228,7 @@ public class FluidPumpBlockEntity
     }
 
     @Override
-    protected void onWorkCompleted(BlockPos targetPos) {
+    protected void onWorkCompleted(int thread, BlockPos targetPos) {
         BlockState targetState = level.getBlockState(targetPos);
         if(extractingFluid && targetState.getBlock() instanceof BucketPickup targetBlock) {
             ItemStack bucketItemStack = targetBlock.pickupBlock(null, level, targetPos, targetState);
@@ -261,14 +262,14 @@ public class FluidPumpBlockEntity
             }
         }
 
-        resetProgress();
+        resetProgress(thread);
 
         goToNextOffset();
     }
 
     @Override
-    protected void resetProgress() {
-        super.resetProgress();
+    protected void resetProgress(int thread) {
+        super.resetProgress(thread);
 
         extractingFluid = false;
     }
