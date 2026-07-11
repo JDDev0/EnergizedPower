@@ -100,7 +100,7 @@ public class AutoPressMoldMakerBlockEntity
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
                         recipe.value().assemble(null).getCount()));
 
-        resetProgress();
+        resetProgress(0);
     }
 
     @Override

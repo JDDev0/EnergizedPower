@@ -25,9 +25,10 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
-    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
+
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
@@ -92,9 +93,10 @@ public class AssemblingMachineMenu extends UpgradableEnergyStorageMenu<Assemblin
         if(data == null) {
             addDataSlots(progressData);
             addDataSlots(maxProgressData);
-            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData);
             addDataSlots(hasEnoughEnergyData);
+
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(redstoneModeData);
             addDataSlots(comparatorModeData);
         }else {
