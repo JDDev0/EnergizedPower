@@ -34,7 +34,6 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
             new SimpleProgressValueContainerData(),
             new SimpleProgressValueContainerData()
     };
-    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData[] energyConsumptionLeftData = new SimpleEnergyValueContainerData[] {
             new SimpleEnergyValueContainerData(),
             new SimpleEnergyValueContainerData(),
@@ -45,6 +44,8 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
             new SimpleBooleanValueContainerData(),
             new SimpleBooleanValueContainerData()
     };
+
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
@@ -114,19 +115,14 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
             addSlot(new UpgradeModuleSlot(upgradeModuleInventory, i, 26 + i * 18, 35, this::isInUpgradeModuleView));
 
         if(data == null) {
-            addDataSlots(progressData[0]);
-            addDataSlots(progressData[1]);
-            addDataSlots(progressData[2]);
-            addDataSlots(maxProgressData[0]);
-            addDataSlots(maxProgressData[1]);
-            addDataSlots(maxProgressData[2]);
+            for(int i = 0;i < 3;i++) {
+                addDataSlots(progressData[i]);
+                addDataSlots(maxProgressData[i]);
+                addDataSlots(energyConsumptionLeftData[i]);
+                addDataSlots(hasEnoughEnergyData[i]);
+            }
+
             addDataSlots(energyConsumptionPerTickData);
-            addDataSlots(energyConsumptionLeftData[0]);
-            addDataSlots(energyConsumptionLeftData[1]);
-            addDataSlots(energyConsumptionLeftData[2]);
-            addDataSlots(hasEnoughEnergyData[0]);
-            addDataSlots(hasEnoughEnergyData[1]);
-            addDataSlots(hasEnoughEnergyData[2]);
             addDataSlots(redstoneModeData);
             addDataSlots(comparatorModeData);
         }else {
