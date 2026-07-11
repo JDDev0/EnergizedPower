@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 
-public class XPExtractionModuleItem extends UpgradeModuleItem {
+public class XPExtractionUpgradeModuleItem extends UpgradeModuleItem {
     private static final UpgradeModuleModifier[] UPGRADE_MODULE_MODIFIERS = new UpgradeModuleModifier[] {
             UpgradeModuleModifier.XP_YIELD
     };
@@ -23,7 +23,7 @@ public class XPExtractionModuleItem extends UpgradeModuleItem {
     private static final double XP_EXTRACTION_7_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_XP_EXTRACTION_7_EFFECT.getValue();
     private static final double XP_EXTRACTION_8_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_XP_EXTRACTION_8_EFFECT.getValue();
 
-    public XPExtractionModuleItem(Properties props, int tier) {
+    public XPExtractionUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.XP_YIELD, tier);
     }
 
