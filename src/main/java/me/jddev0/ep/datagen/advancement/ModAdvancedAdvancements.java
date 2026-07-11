@@ -160,6 +160,16 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
                 EPItems.SPEED_UPGRADE_MODULE_4, "speed_upgrade_module_4", AdvancementType.TASK
         );
 
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule1 = addAdvancement(
+                advancementOutput, advancedUpgradeModule,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1, "energizing_speed_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule2 = addAdvancement(
+                advancementOutput, energizingSpeedUpgradeUpgradeModule1,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2, "energizing_speed_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder energyEfficiencyUpgradeModule3 = addAdvancement(
                 advancementOutput, advancedUpgradeModule,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3, "energy_efficiency_upgrade_module_3", AdvancementType.TASK
@@ -348,6 +358,16 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
         AdvancementHolder speedUpgradeUpgradeModule6 = addAdvancement(
                 advancementOutput, speedUpgradeUpgradeModule5,
                 EPItems.SPEED_UPGRADE_MODULE_6, "speed_upgrade_module_6", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule3 = addAdvancement(
+                advancementOutput, reinforcedAdvancedUpgradeModule,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3, "energizing_speed_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule4 = addAdvancement(
+                advancementOutput, energizingSpeedUpgradeUpgradeModule3,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4, "energizing_speed_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule5 = addAdvancement(

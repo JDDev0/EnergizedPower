@@ -129,6 +129,15 @@ class ModItemModelProvider {
         basicItem(EPItems.SPEED_UPGRADE_MODULE_7);
         basicItem(EPItems.SPEED_UPGRADE_MODULE_8);
 
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7);
+        basicItem(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_8);
+
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2);
         basicItem(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3);

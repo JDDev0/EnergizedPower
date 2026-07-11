@@ -36,6 +36,7 @@ public class ModLanguageProvider extends ExtensionLanguageProvider {
         Map<String, Integer> upgradeModules = new HashMap<>();
         {
             upgradeModules.put("speed", 8);
+            upgradeModules.put("energizing_speed", 8);
             upgradeModules.put("energy_efficiency", 8);
             upgradeModules.put("energy_production", 8);
             upgradeModules.put("energy_capacity", 8);
