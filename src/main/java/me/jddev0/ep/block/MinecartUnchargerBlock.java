@@ -12,15 +12,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 import java.util.List;
 
 public class MinecartUnchargerBlock extends FullyOrientableWorkerMachineBlock<MinecartUnchargerBlockEntity> {
     public static final MapCodec<MinecartUnchargerBlock> CODEC = simpleCodec(MinecartUnchargerBlock::new);
-
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     protected MinecartUnchargerBlock(Properties props) {
         super(
