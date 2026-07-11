@@ -391,6 +391,26 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/speed_upgrade_module_8.png")
         });
 
+        addSimplePage(pageId("energizing_speed_upgrades"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.energizing_speed_upgrades.1").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.energizing_speed_upgrades.2").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.energizing_speed_upgrades.3").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+        ), new ResourceLocation[] {
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_1.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_2.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_3.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_4.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_5.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_6.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_7.png"),
+                EPAPI.id("textures/item/energizing_speed_upgrade_module_8.png")
+        });
+
         addSimplePage(pageId("energy_efficiency_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_efficiency_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)

@@ -292,6 +292,13 @@
   "_template.advancements.energizedpower.speed_upgrade_module.description": "合成一个速度升级模块 (等级 %s)。",
   "book.energizedpower.page.speed_upgrades": "速度升级使机器更快并增加能量消耗。",
 
+  "_template.item.energizedpower.energizing_speed_upgrade_module": "Energizing Speed Upgrade Module (Tier %s)",
+  "_template.advancements.energizedpower.energizing_speed_upgrade_module.title": "Energizing Speed %s",
+  "_template.advancements.energizedpower.energizing_speed_upgrade_module.description": "Craft an Energizing Speed Upgrade Module (Tier %s).",
+  "book.energizedpower.page.energizing_speed_upgrade_module.1": "Energizing Speed upgrades make the Energizer faster but keep the total energy consumption the same.",
+  "book.energizedpower.page.energizing_speed_upgrade_module.2": "Energy consumption per tick will be increased at the same rate as the speed is increased.",
+  "book.energizedpower.page.energizing_speed_upgrade_module.3": "If higher tiers of the Energizing Speed Upgrades are used, Energy Capacity Upgrades must be installed to keep the Energizer operational.",
+
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "能量效率升级模块 (等级 %s)",
   "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "能量效率 %s",
   "_template.advancements.energizedpower.energy_efficiency_upgrade_module.description": "合成一个能量效率升级模块 (等级 %s)。",
@@ -1284,6 +1291,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-output items per tick",
   "tooltip.energizedpower.upgrade_module_modifier.item_pulling": "Auto-input items per tick",
   "tooltip.energizedpower.upgrade_module_modifier.xp_yield": "XP Yield",
+  "tooltip.energizedpower.upgrade_module_modifier.energizing_speed": "Energizing Speed",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "格",
   "tooltip.energizedpower.upgrade_module_modifier.slot.speed": "Speed Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.energy_consumption": "Energy Efficiency Upgrade Modules",
@@ -1298,6 +1306,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_ejector": "Item Ejector Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_pulling": "Item Pulling Upgrade Modules",
   "tooltip.energizedpower.upgrade_module_modifier.slot.xp_yield": "XP Extraction Upgrade Modules",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.energizing_speed": "Energizing Speed Upgrade Modules",
 
   "tooltip.energizedpower.upgrade.values": "升级模块修改器:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",

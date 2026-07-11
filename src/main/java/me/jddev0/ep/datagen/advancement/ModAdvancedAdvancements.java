@@ -150,6 +150,16 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 EPItems.SPEED_UPGRADE_MODULE_4, "speed_upgrade_module_4", AdvancementType.TASK
         );
 
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule1 = addAdvancement(
+                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1, "energizing_speed_upgrade_module_1", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule2 = addAdvancement(
+                advancementOutput, existingFileHelper, energizingSpeedUpgradeUpgradeModule1,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2, "energizing_speed_upgrade_module_2", AdvancementType.TASK
+        );
+
         AdvancementHolder energyEfficiencyUpgradeModule3 = addAdvancement(
                 advancementOutput, existingFileHelper, advancedUpgradeModule,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3, "energy_efficiency_upgrade_module_3", AdvancementType.TASK
@@ -334,6 +344,16 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         AdvancementHolder speedUpgradeUpgradeModule6 = addAdvancement(
                 advancementOutput, existingFileHelper, speedUpgradeUpgradeModule5,
                 EPItems.SPEED_UPGRADE_MODULE_6, "speed_upgrade_module_6", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule3 = addAdvancement(
+                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3, "energizing_speed_upgrade_module_3", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule4 = addAdvancement(
+                advancementOutput, existingFileHelper, energizingSpeedUpgradeUpgradeModule3,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4, "energizing_speed_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule5 = addAdvancement(

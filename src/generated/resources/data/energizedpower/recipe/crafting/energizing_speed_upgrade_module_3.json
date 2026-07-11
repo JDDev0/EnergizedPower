@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:plates/advanced_alloy"
+    },
+    "E": {
+      "item": "energizedpower:energizing_speed_upgrade_module_2"
+    },
+    "G": {
+      "tag": "c:wires/energized_gold"
+    },
+    "U": {
+      "item": "energizedpower:reinforced_advanced_upgrade_module"
+    }
+  },
+  "pattern": [
+    "AGA",
+    "GUG",
+    "AEA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:energizing_speed_upgrade_module_3"
+  }
+}
