@@ -13,6 +13,23 @@ public class EnergizedPowerItemStackHandler extends ItemStackHandler {
         super(size);
     }
 
+    @Override
+    protected final int getStackLimit(int slot, ItemStack stack) {
+        return super.getStackLimit(slot, stack);
+    }
+
+    /**
+     * Method "renamed" to "getCapacity()" to match 26.1.x
+     */
+    @Override
+    public int getSlotLimit(int slot) {
+        return getCapacity(slot);
+    }
+
+    public int getCapacity(int slot) {
+        return super.getSlotLimit(slot);
+    }
+
     /**
      * Method "renamed" to "isValid()" to match 26.1.x
      */

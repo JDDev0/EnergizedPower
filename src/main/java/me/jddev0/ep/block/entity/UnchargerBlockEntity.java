@@ -94,6 +94,11 @@ public class UnchargerBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
+            public int getCapacity(int slot) {
+                return 1;
+            }
+
+            @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
             }
@@ -120,11 +125,6 @@ public class UnchargerBlockEntity
                 }
 
                 super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
             }
         };
     }

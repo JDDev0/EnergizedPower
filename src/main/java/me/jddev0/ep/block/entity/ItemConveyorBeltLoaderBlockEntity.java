@@ -56,13 +56,13 @@ public class ItemConveyorBeltLoaderBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
+            public int getCapacity(int slot) {
+                return 1;
             }
 
             @Override
-            public int getSlotLimit(int slot) {
-                return 1;
+            protected void onContentsChanged(int slot) {
+                setChanged();
             }
         };
     }

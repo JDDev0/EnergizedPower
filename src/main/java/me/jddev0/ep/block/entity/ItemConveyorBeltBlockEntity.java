@@ -53,6 +53,11 @@ public class ItemConveyorBeltBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
+            public int getCapacity(int slot) {
+                return 1;
+            }
+
+            @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
 
@@ -71,11 +76,6 @@ public class ItemConveyorBeltBlockEntity
                     case 2, 3 -> false;
                     default -> super.isValid(slot, stack);
                 };
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
             }
         };
     }

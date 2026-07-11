@@ -63,12 +63,8 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     }
 
     @Override
-    public final int getSlotLimit(int slot) {
+    public final int getCapacity(int slot) {
         return Item.ABSOLUTE_MAX_STACK_SIZE;
-    }
-
-    protected final int getStackLimit(int slot, ItemStack stack) {
-        return Math.min(getSlotLimit(slot), stack.getMaxStackSize());
     }
 
     @Override

@@ -101,6 +101,11 @@ public class TeleporterBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
+            public int getCapacity(int slot) {
+                return 1;
+            }
+
+            @Override
             protected void onContentsChanged(int slot) {
                 setChangedAndUpdateReadyState();
             }
@@ -112,11 +117,6 @@ public class TeleporterBlockEntity
                 }
 
                 return super.isValid(slot, stack);
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1;
             }
         };
     }

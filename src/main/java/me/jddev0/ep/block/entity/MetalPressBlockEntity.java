@@ -53,6 +53,14 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
+            public int getCapacity(int slot) {
+                if(slot == 1)
+                    return 1;
+
+                return super.getCapacity(slot);
+            }
+
+            @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
             }
@@ -77,14 +85,6 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
                 }
 
                 super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                if(slot == 1)
-                    return 1;
-
-                return super.getSlotLimit(slot);
             }
         };
     }

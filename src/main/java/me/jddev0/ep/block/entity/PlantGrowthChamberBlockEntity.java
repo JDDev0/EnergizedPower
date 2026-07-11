@@ -101,11 +101,11 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             }
 
             @Override
-            public int getSlotLimit(int slot) {
+            public int getCapacity(int slot) {
                 if(slot == 6)
                     return 1;
 
-                return super.getSlotLimit(slot);
+                return super.getCapacity(slot);
             }
         };
     }
