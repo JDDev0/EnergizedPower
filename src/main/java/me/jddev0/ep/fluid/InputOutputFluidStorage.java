@@ -93,7 +93,7 @@ public class InputOutputFluidStorage implements IFluidHandler {
         }
 
         if(!action.simulate() && filled > 0)
-            handler.onContentsChanged();
+            handler.onFinalCommit();
 
         return filled;
     }
@@ -136,7 +136,7 @@ public class InputOutputFluidStorage implements IFluidHandler {
         }
 
         if(!action.simulate() && drained > 0)
-            handler.onContentsChanged();
+            handler.onFinalCommit();
 
         return new FluidStack(resource.getFluidHolder(), drained, resource.getComponentsPatch());
     }

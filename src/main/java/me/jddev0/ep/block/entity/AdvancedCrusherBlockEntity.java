@@ -94,7 +94,7 @@ public class AdvancedCrusherBlockEntity
     protected EnergizedPowerFluidStorage initFluidStorage() {
         return new EnergizedPowerFluidStorage(2, baseTankCapacity) {
             @Override
-            protected void onContentsChanged() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(32);
             }

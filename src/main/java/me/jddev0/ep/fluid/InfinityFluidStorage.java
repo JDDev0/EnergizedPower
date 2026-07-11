@@ -3,7 +3,6 @@ package me.jddev0.ep.fluid;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 public class InfinityFluidStorage implements IEnergizedPowerFluidStorage {
     protected FluidStack fluid;
@@ -67,10 +66,10 @@ public class InfinityFluidStorage implements IEnergizedPowerFluidStorage {
         else
             this.fluid = fluid.copyWithAmount(Integer.MAX_VALUE);
 
-        onChange();
+        onFinalCommit();
     }
 
-    protected void onChange() {}
+    protected void onFinalCommit() {}
 
     @Override
     public int fill(FluidStack fluidStack, FluidAction fluidAction) {

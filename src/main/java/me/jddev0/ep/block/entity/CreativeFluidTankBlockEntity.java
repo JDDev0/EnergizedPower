@@ -26,7 +26,7 @@ public class CreativeFluidTankBlockEntity
     protected InfinityFluidStorage initFluidStorage() {
         return new InfinityFluidStorage() {
             @Override
-            protected void onChange() {
+            protected void onFinalCommit() {
                 setChanged();
                 syncFluidToPlayers(64);
             }

@@ -67,7 +67,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         }
     }
 
-    protected void onContentsChanged() {}
+    protected void onFinalCommit() {}
 
     @Override
     public int getTanks() {
@@ -145,7 +145,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         }
 
         if(!action.simulate() && filled > 0)
-            onContentsChanged();
+            onFinalCommit();
 
         return filled;
     }
@@ -188,7 +188,7 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
         }
 
         if(!action.simulate() && drained > 0)
-            onContentsChanged();
+            onFinalCommit();
 
         return new FluidStack(resource.getFluidHolder(), drained, resource.getComponentsPatch());
     }
