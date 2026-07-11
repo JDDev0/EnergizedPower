@@ -52,6 +52,8 @@ public class StoneLiquefierBlockEntity
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 1;
     }
 
     @Override
@@ -72,7 +74,7 @@ public class StoneLiquefierBlockEntity
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() &&
                             !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -125,8 +127,8 @@ public class StoneLiquefierBlockEntity
     }
 
     @Override
-    protected void craftItem(RecipeHolder<StoneLiquefierRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<StoneLiquefierRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         FluidStack output = recipe.value().getOutput().copyWithAmount(recipe.value().getOutput().getAmount());
@@ -135,11 +137,11 @@ public class StoneLiquefierBlockEntity
 
         itemHandler.extractItem(0, 1, false);
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<StoneLiquefierRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<StoneLiquefierRecipe> recipe) {
         int fluidAmountInTank = fluidStorage.getFluid(0).getAmount();
         int fluidAmountInRecipe = recipe.value().getOutput().getAmount();
 
