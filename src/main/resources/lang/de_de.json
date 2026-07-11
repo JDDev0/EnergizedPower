@@ -292,6 +292,13 @@
   "_template.advancements.energizedpower.speed_upgrade_module.description": "Erstelle ein Geschwindigkeits-Upgrade-Modul (MK %s).",
   "book.energizedpower.page.speed_upgrades": "Geschwindigkeits-Upgrades machen Maschinen schneller und erhöhen den Energie-Verbrauch.",
 
+  "_template.item.energizedpower.energizing_speed_upgrade_module": "Energetisierungs-Geschwindigkeits-Upgrade-Modul (MK %s)",
+  "_template.advancements.energizedpower.energizing_speed_upgrade_module.title": "Energetisierungs-Geschwindigkeit %s",
+  "_template.advancements.energizedpower.energizing_speed_upgrade_module.description": "Erstelle ein Energetisierungs-Geschwindigkeits-Upgrade-Modul (MK %s).",
+  "book.energizedpower.page.energizing_speed_upgrade_module.1": "Energetisierungs-Geschwindigkeits-Upgrades machen den Energetisierer schneller. Der Gesamt-Energie-Verbrauch bleibt dabei aber gleich.",
+  "book.energizedpower.page.energizing_speed_upgrade_module.2": "Der Energie-Verbrauch pro Tick wird dabei gleich schnell wie die Geschwidigkeit erhöht.",
+  "book.energizedpower.page.energizing_speed_upgrade_module.3": "Wenn höhere MKs der Energetisierungs-Geschwindigkeits-Upgrades verwendet werden, müssen auch Energiekapazität-Upgrades installiert werden, um den Betrieb des Energetisierer aufrechtzuerhalten.",
+
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "Energie-Effizienz-Upgrade-Modul (MK %s)",
   "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "Energie-Effizienz %s",
   "_template.advancements.energizedpower.energy_efficiency_upgrade_module.description": "Erstelle ein Energie-Effizienz-Upgrade-Modul (MK %s).",
@@ -345,9 +352,9 @@
   "book.energizedpower.page.item_pulling_upgrades.1": "Item-Heranholer-Upgrades erlauben es Maschinen Items automatisch von der ersten gültigen Eingabe heranzuholen.",
   "book.energizedpower.page.item_pulling_upgrades.2": "Priorität von höchste zu geringste: Unten, Oben, Norden, Süden, Westen, Osten.",
 
-  "_template.item.energizedpower.xp_extraction_upgrade_module": "XP-Extraktions-Upgrade-Modul (Tier %s)",
+  "_template.item.energizedpower.xp_extraction_upgrade_module": "XP-Extraktions-Upgrade-Modul (MK %s)",
   "_template.advancements.energizedpower.xp_extraction_upgrade_module.title": "XP-Extraktion %s",
-  "_template.advancements.energizedpower.xp_extraction_upgrade_module.description": "Erstelle ein XP-Extraktions-Upgrade-Modul (Tier %s).",
+  "_template.advancements.energizedpower.xp_extraction_upgrade_module.description": "Erstelle ein XP-Extraktions-Upgrade-Modul (MK %s).",
   "book.energizedpower.page.xp_extraction_upgrades.1": "XP-Extraktions-Upgrades erlauben es Maschinen, wie z.B. dem Elektroofen, XP zu speichern.",
   "book.energizedpower.page.xp_extraction_upgrades.2": "XP-Punkte werden in einem internen Flüssigkeitstank gespeichert. Die Maschine produziert auch dann, wenn der Tank voll ist - zusätzliche XP-Punkte verschwinden dann aber.",
   "book.energizedpower.page.xp_extraction_upgrades.3": "Du kannst die Maschine via Flüssigkeitsrohre mit einem XP-Larger verbinden um XP in ein Spieler-Inventar hinzuzufügen.",
@@ -1284,6 +1291,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.item_ejector": "Auto-Ausgabe Items pro Tick",
   "tooltip.energizedpower.upgrade_module_modifier.item_pulling": "Auto-Eingabe Items pro Tick",
   "tooltip.energizedpower.upgrade_module_modifier.xp_yield": "XP-Ertrag",
+  "tooltip.energizedpower.upgrade_module_modifier.energizing_speed": "Energetisierungs-Geschwindigkeit",
   "tooltip.energizedpower.upgrade_module_modifier.extraction_depth.unit": "Blöcke",
   "tooltip.energizedpower.upgrade_module_modifier.slot.speed": "Geschwindigkeits-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.energy_consumption": "Energie-Effizienz-Upgrade-Module",
@@ -1298,6 +1306,7 @@
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_ejector": "Item-Auswerfer-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.item_pulling": "Item-Heranholer-Upgrade-Module",
   "tooltip.energizedpower.upgrade_module_modifier.slot.xp_yield": "XP-Extraktions-Upgrade-Module",
+  "tooltip.energizedpower.upgrade_module_modifier.slot.energizing_speed": "Energetisierungs-Geschwindigkeits-Upgrade-Module",
 
   "tooltip.energizedpower.upgrade.values": "Upgrade-Modul-Modifikatoren:",
   "tooltip.energizedpower.upgrade.value": "• %s: %s",

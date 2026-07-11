@@ -117,6 +117,26 @@ public class ModEliteAdvancements implements AdvancementSubProvider {
                 EPItems.SPEED_UPGRADE_MODULE_8, "speed_upgrade_module_8", AdvancementType.TASK
         );
 
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule5 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5, "energizing_speed_upgrade_module_5", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule6 = addAdvancement(
+                advancementOutput, energizingSpeedUpgradeUpgradeModule5,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6, "energizing_speed_upgrade_module_6", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule7 = addAdvancement(
+                advancementOutput, energizingSpeedUpgradeUpgradeModule6,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7, "energizing_speed_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder energizingSpeedUpgradeUpgradeModule8 = addAdvancement(
+                advancementOutput, energizingSpeedUpgradeUpgradeModule7,
+                EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_8, "energizing_speed_upgrade_module_8", AdvancementType.TASK
+        );
+
         AdvancementHolder energyEfficiencyUpgradeModule7 = addAdvancement(
                 advancementOutput, eliteUpgradeModule,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7, "energy_efficiency_upgrade_module_7", AdvancementType.TASK
