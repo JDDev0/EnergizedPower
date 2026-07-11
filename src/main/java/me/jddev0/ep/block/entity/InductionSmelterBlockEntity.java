@@ -53,6 +53,8 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 5;
     }
 
     @Override
@@ -76,7 +78,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
                 if(slot >= 0 && slot < 3) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -107,7 +109,7 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
     }
 
     @Override
-    protected double getRecipeDependentRecipeDuration(RecipeHolder<AlloyFurnaceRecipe> recipe) {
+    protected double getRecipeDependentRecipeDuration(int thread, RecipeHolder<AlloyFurnaceRecipe> recipe) {
         return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER;
     }
 
@@ -117,8 +119,8 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
     }
 
     @Override
-    protected void craftItem(RecipeHolder<AlloyFurnaceRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<AlloyFurnaceRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
         IngredientWithCount[] inputs = recipe.value().getInputs();
@@ -163,11 +165,11 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
             itemHandler.setStackInSlot(4, outputs[1].
                     copyWithCount(itemHandler.getStackInSlot(4).getCount() + outputs[1].getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<AlloyFurnaceRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<AlloyFurnaceRecipe> recipe) {
         ItemStack[] maxOutputs = recipe.value().getMaxOutputCounts();
 
         return level != null &&
