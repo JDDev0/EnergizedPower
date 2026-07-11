@@ -64,10 +64,10 @@ public class FluidFreezerBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack resource) {
+            public boolean isValid(int slot, @NotNull ItemStack resource) {
                 return switch(slot) {
                     case 0 -> false;
-                    default -> super.isItemValid(slot, resource);
+                    default -> super.isValid(slot, resource);
                 };
             }
         };

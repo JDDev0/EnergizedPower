@@ -192,9 +192,9 @@ public class AdvancedAutoCrafterBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot < 0 || slot >= 27)
-                    return super.isItemValid(slot, stack);
+                    return super.isValid(slot, stack);
 
                 //Slot 0, 1, 2, 3, and 4 are for output items only
                 return slot >= 5;

@@ -106,12 +106,12 @@ public class TeleporterBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0) {
                     return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override

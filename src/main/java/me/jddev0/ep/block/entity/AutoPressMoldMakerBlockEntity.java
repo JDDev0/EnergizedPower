@@ -60,12 +60,12 @@ public class AutoPressMoldMakerBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> stack.is(Items.CLAY_BALL);
                     case 1 -> stack.is(ItemTags.SHOVELS);
                     case 2 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
         };

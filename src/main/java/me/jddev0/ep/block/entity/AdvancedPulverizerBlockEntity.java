@@ -68,11 +68,11 @@ public class AdvancedPulverizerBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PulverizerRecipe.Type.INSTANCE, stack);
                     case 1, 2 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
 

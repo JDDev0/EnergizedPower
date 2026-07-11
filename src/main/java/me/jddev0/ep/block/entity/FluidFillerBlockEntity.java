@@ -120,11 +120,11 @@ public class FluidFillerBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0)
                     return stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override

@@ -48,7 +48,7 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return slot == 0 && (level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack));
             }
 

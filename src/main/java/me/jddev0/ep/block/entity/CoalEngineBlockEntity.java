@@ -105,11 +105,11 @@ public class CoalEngineBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0)
                     return stack.getBurnTime(null) > 0;
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
         };
     }

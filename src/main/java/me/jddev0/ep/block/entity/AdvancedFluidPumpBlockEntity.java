@@ -84,12 +84,12 @@ public class AdvancedFluidPumpBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0) {
                     return stack.is(Items.COBBLESTONE);
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override

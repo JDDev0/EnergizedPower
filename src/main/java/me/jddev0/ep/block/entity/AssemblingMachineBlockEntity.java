@@ -58,7 +58,7 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0, 1, 2, 3 -> level == null || level.getRecipeManager().
                             getAllRecipesFor(AssemblingMachineRecipe.Type.INSTANCE).stream().

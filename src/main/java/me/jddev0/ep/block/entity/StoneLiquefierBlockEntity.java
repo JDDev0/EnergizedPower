@@ -63,11 +63,11 @@ public class StoneLiquefierBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> level == null || level.getRecipeManager().getAllRecipesFor(recipeType).stream().
                             map(RecipeHolder::value).map(StoneLiquefierRecipe::getInput).anyMatch(ingredient -> ingredient.test(stack));
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
 

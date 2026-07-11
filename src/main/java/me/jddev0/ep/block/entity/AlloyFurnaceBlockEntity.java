@@ -81,7 +81,7 @@ public class AlloyFurnaceBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0, 1, 2 -> level == null || level.getRecipeManager().
                             getAllRecipesFor(AlloyFurnaceRecipe.Type.INSTANCE).stream().
@@ -90,7 +90,7 @@ public class AlloyFurnaceBlockEntity
                                             anyMatch(ingredient -> ingredient.test(stack)));
                     case 3 -> stack.getBurnTime(null) > 0;
                     case 4, 5 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
 

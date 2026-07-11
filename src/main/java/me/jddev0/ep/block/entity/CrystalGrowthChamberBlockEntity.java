@@ -60,14 +60,14 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> level == null || level.getRecipeManager().
                             getAllRecipesFor(CrystalGrowthChamberRecipe.Type.INSTANCE).stream().
                             map(RecipeHolder::value).map(CrystalGrowthChamberRecipe::getInput).
                             anyMatch(ingredient -> ingredient.test(stack));
                     case 1 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
 

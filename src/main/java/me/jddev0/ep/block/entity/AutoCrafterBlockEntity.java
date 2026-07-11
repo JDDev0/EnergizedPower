@@ -149,9 +149,9 @@ public class AutoCrafterBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if (slot < 0 || slot >= 18)
-                    return super.isItemValid(slot, stack);
+                    return super.isValid(slot, stack);
 
                 //Slot 0, 1, and 2 are for output items only
                 return slot >= 3;

@@ -78,13 +78,13 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberRecipe.Type.INSTANCE, stack);
                     case 1 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberFertilizerRecipe.Type.INSTANCE, stack);
                     case 6 -> level == null || RecipeUtils.isIngredientOfAny(level, PlantGrowthChamberSoilRecipe.Type.INSTANCE, stack);
                     case 2, 3, 4, 5 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
 

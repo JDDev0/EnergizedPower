@@ -99,13 +99,13 @@ public class UnchargerBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0) {
                     IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
                     return energyStorage != null && energyStorage.canExtract();
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override

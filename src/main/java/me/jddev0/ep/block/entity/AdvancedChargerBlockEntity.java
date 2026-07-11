@@ -116,7 +116,7 @@ public class AdvancedChargerBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
                     if(level == null || RecipeUtils.isIngredientOfAny(level, ChargerRecipe.Type.INSTANCE, stack))
                         return true;
@@ -125,7 +125,7 @@ public class AdvancedChargerBlockEntity
                     return energyStorage != null && energyStorage.canReceive();
                 }
 
-                return super.isItemValid(slot, stack);
+                return super.isValid(slot, stack);
             }
 
             @Override

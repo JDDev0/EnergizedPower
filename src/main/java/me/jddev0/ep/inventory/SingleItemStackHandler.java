@@ -62,7 +62,7 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
 
         validateSlotIndex(slot);
 
-        if(!isItemValid(slot, stack))
+        if(!isValid(slot, stack))
             return stack;
 
         int limit = Math.min(stack.getMaxStackSize(), slotCount * stack.getMaxStackSize() - count);
@@ -126,7 +126,7 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
+    public boolean isValid(int slot, ItemStack stack) {
         return this.stack.isEmpty() || ItemStack.isSameItemSameComponents(this.stack, stack);
     }
 

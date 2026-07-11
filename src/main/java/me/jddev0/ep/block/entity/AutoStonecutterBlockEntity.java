@@ -57,12 +57,12 @@ public class AutoStonecutterBlockEntity
             }
 
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
                     case 1 -> stack.is(ItemTags.PICKAXES);
                     case 2 -> false;
-                    default -> super.isItemValid(slot, stack);
+                    default -> super.isValid(slot, stack);
                 };
             }
         };

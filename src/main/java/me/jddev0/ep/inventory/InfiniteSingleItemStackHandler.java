@@ -72,7 +72,7 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
+    public boolean isValid(int slot, ItemStack stack) {
         return true;
     }
 
