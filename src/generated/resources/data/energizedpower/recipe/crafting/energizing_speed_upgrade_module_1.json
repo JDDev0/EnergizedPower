@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:plates/advanced_alloy"
+    },
+    "C": {
+      "tag": "c:wires/energized_copper"
+    },
+    "U": {
+      "item": "energizedpower:advanced_upgrade_module"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "CUC",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:energizing_speed_upgrade_module_1"
+  }
+}

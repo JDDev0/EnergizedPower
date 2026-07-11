@@ -395,6 +395,93 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
         addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_7,
                 new ItemStack(EPItems.SPEED_UPGRADE_MODULE_8));
 
+        addShapedCraftingRecipe(has(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'C', ingredientOf(CommonItemTags.WIRES_ENERGIZED_COPPER),
+                'U', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE)
+        ), new String[] {
+                "ACA",
+                "CUC",
+                "ACA"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1), Map.of(
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'C', ingredientOf(CommonItemTags.WIRES_ENERGIZED_COPPER),
+                'U', ingredientOf(EPItems.ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1)
+        ), new String[] {
+                "ACA",
+                "CUC",
+                "AEA"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2), Map.of(
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'G', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
+                'U', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2)
+        ), new String[] {
+                "AGA",
+                "GUG",
+                "AEA"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3), Map.of(
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'G', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
+                'U', ingredientOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3)
+        ), new String[] {
+                "AGA",
+                "GUG",
+                "AEA"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4), Map.of(
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'U', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4)
+        ), new String[] {
+                "ASA",
+                "SUS",
+                "AEA"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5), Map.of(
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'U', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5)
+        ), new String[] {
+                "AEA",
+                "SUS",
+                "AEA"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6), Map.of(
+                'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'U', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6)
+        ), new String[] {
+                "eEe",
+                "SUS",
+                "eEe"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7), Map.of(
+                'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'U', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'E', ingredientOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7)
+        ), new String[] {
+                "eEe",
+                "SUS",
+                "eEe"
+        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_8), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
                 'G', ingredientOf(ConventionalItemTags.GOLD_INGOTS),

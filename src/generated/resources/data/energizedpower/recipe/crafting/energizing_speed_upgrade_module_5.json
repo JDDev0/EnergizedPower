@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:plates/advanced_alloy"
+    },
+    "E": {
+      "item": "energizedpower:energizing_speed_upgrade_module_4"
+    },
+    "S": {
+      "tag": "c:wires/superconductor"
+    },
+    "U": {
+      "item": "energizedpower:elite_upgrade_module"
+    }
+  },
+  "pattern": [
+    "ASA",
+    "SUS",
+    "AEA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:energizing_speed_upgrade_module_5"
+  }
+}

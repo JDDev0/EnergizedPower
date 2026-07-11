@@ -150,6 +150,23 @@ public final class EPItems {
     public static final Item SPEED_UPGRADE_MODULE_8 = registerItem("speed_upgrade_module_8",
             props -> new SpeedUpgradeModuleItem(props, 8));
 
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_1 = registerItem("energizing_speed_upgrade_module_1",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 1));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_2 = registerItem("energizing_speed_upgrade_module_2",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 2));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_3 = registerItem("energizing_speed_upgrade_module_3",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 3));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_4 = registerItem("energizing_speed_upgrade_module_4",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 4));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_5 = registerItem("energizing_speed_upgrade_module_5",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 5));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_6 = registerItem("energizing_speed_upgrade_module_6",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 6));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_7 = registerItem("energizing_speed_upgrade_module_7",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 7));
+    public static final Item ENERGIZING_SPEED_UPGRADE_MODULE_8 = registerItem("energizing_speed_upgrade_module_8",
+            props -> new EnergizingSpeedUpgradeModuleItem(props, 8));
+
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_1 = registerItem("energy_efficiency_upgrade_module_1",
             props -> new EnergyEfficiencyUpgradeModuleItem(props, 1));
     public static final Item ENERGY_EFFICIENCY_UPGRADE_MODULE_2 = registerItem("energy_efficiency_upgrade_module_2",

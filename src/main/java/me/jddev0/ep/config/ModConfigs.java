@@ -214,6 +214,46 @@ public final class ModConfigs {
             80
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_1_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            1,
+            1.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_2_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            2,
+            2.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_3_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            3,
+            3.5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_4_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            4,
+            5
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_5_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            5,
+            7
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_6_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            6,
+            12
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_7_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            7,
+            25
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGIZING_SPEED_8_EFFECT = registerEnergizingSpeedModuleEffectValue(
+            8,
+            50
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ENERGY_EFFICIENCY_1_EFFECT = registerEnergyEfficiencyModuleEffectValue(
             1,
             .9
@@ -1917,6 +1957,16 @@ public final class ModConfigs {
         return COMMON_CONFIG.register(new DoubleConfigValue(
                 "item.speed_upgrade_module_" + tier + ".effect_value.energy_consumption",
                 "The upgrade module effect (Energy Consumption per tick multiplier) of the Speed Upgrade Module (Tier " +
+                        NumberUtils.convertToRoman(tier) + ")",
+                defaultValue,
+                1., null
+        ));
+    }
+
+    private static ConfigValue<Double> registerEnergizingSpeedModuleEffectValue(int tier, double defaultValue) {
+        return COMMON_CONFIG.register(new DoubleConfigValue(
+                "item.energizing_speed_upgrade_module_" + tier + ".effect_value",
+                "The upgrade module effect (Energizing speed multiplier) of the Energizing Speed Upgrade Module (Tier " +
                         NumberUtils.convertToRoman(tier) + ")",
                 defaultValue,
                 1., null
