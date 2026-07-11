@@ -1,0 +1,325 @@
+package me.jddev0.ep.block.entity;
+
+import me.jddev0.ep.block.entity.base.UpgradableMenuProvider;
+import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
+import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
+import me.jddev0.ep.fluid.InputOutputFluidStorage;
+import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
+import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.util.CapabilityUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
+public abstract class AbstractFluidPumpBlockEntity
+        extends WorkerFluidMachineBlockEntity<BlockPos> {
+    protected final UpgradableMenuProvider menuProvider;
+
+    private final int nextBlockCooldown;
+    private final int extractionDuration;
+
+    private final int baseExtractionRange;
+    private final int baseExtractionDepth;
+
+    private int xOffset = -1;
+    private int yOffset = 0;
+    private int zOffset = -1;
+    private boolean extractingFluid = false;
+
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
+
+    public AbstractFluidPumpBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                        String machineName, UpgradableMenuProvider menuProvider,
+                                        int baseEnergyCapacity, int baseEnergyTransferRate, int baseEnergyConsumptionPerTick,
+                                        int baseTankCapacity,
+                                        int nextBlockCooldown, int extractionDuration,
+                                        int baseExtractionRange, int baseExtractionDepth) {
+        super(
+                type, blockPos, blockState,
+
+                machineName, 1, 1,
+
+                baseEnergyCapacity, baseEnergyTransferRate, baseEnergyConsumptionPerTick,
+
+                baseTankCapacity,
+
+                UpgradeModuleModifier.SPEED,
+                UpgradeModuleModifier.ENERGY_CONSUMPTION,
+                UpgradeModuleModifier.ENERGY_CAPACITY,
+                UpgradeModuleModifier.EXTRACTION_RANGE,
+                UpgradeModuleModifier.EXTRACTION_DEPTH,
+                UpgradeModuleModifier.ITEM_PULLING
+        );
+
+        this.menuProvider = menuProvider;
+
+        this.nextBlockCooldown = nextBlockCooldown;
+        this.extractionDuration = extractionDuration;
+
+        this.baseExtractionRange = baseExtractionRange;
+        this.baseExtractionDepth = baseExtractionDepth;
+    }
+
+    protected abstract int initTankCount();
+
+    @Override
+    protected final int initWorkerThreadCount() {
+        return 1;
+    }
+
+    @Override
+    protected EnergizedPowerItemStackHandler initInventoryStorage() {
+        return new EnergizedPowerItemStackHandler(slotCount) {
+            @Override
+            public boolean isValid(int slot, @NotNull ItemResource stack) {
+                if(slot == 0) {
+                    return stack.is(Items.COBBLESTONE);
+                }
+
+                return super.isValid(slot, stack);
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                if(slot == 0) {
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
+                        resetProgress(0);
+                }
+
+                setChanged();
+            }
+        };
+    }
+
+    @Override
+    protected EnergizedPowerFluidStorage initFluidStorage() {
+        return new EnergizedPowerFluidStorage(initTankCount(), baseTankCapacity) {
+            @Override
+            protected void onFinalCommit() {
+                setChanged();
+                syncFluidToPlayers(32);
+            }
+        };
+    }
+
+    @Override
+    protected ContainerData initContainerData() {
+        return new CombinedContainerData(
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new EnergyValueContainerData(() -> hasWork(0)?getCurrentWorkData(0).
+                        map(workData -> getEnergyConsumptionFor(0, workData)).orElse(-1):-1, value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
+                new IntegerValueContainerData(() -> xOffset, value -> {}),
+                new IntegerValueContainerData(() -> yOffset, value -> {}),
+                new IntegerValueContainerData(() -> zOffset, value -> {}),
+                new BooleanValueContainerData(() -> extractingFluid, value -> {}),
+                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
+                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
+        );
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+        syncEnergyToPlayer(player);
+        syncFluidToPlayer(player);
+
+        return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return itemHandler;
+
+        return itemHandlerSided;
+    }
+
+    public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
+        if(side == null)
+            return fluidStorage;
+
+        return fluidStorageSided;
+    }
+
+    public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
+        return limitingEnergyStorage;
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
+
+        view.putInt("target.xOffset", xOffset);
+        view.putInt("target.yOffset", yOffset);
+        view.putInt("target.zOffset", zOffset);
+
+        view.putBoolean("recipe.extractingFluid", extractingFluid);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+
+        xOffset = view.getIntOr("target.xOffset", 0);
+        yOffset = view.getIntOr("target.yOffset", 0);
+        zOffset = view.getIntOr("target.zOffset", 0);
+
+        extractingFluid = view.getBooleanOr("recipe.extractingFluid", false);
+    }
+
+    @Override
+    protected void onTickStart() {
+        super.onTickStart();
+
+        if(yOffset == 0) {
+            goToNextOffset();
+            setChanged();
+        }
+    }
+
+    @Override
+    protected boolean hasWork(int thread) {
+        return yOffset != 0 && itemHandler.getStackInSlot(0).is(Items.COBBLESTONE);
+    }
+
+    @Override
+    protected Optional<BlockPos> getCurrentWorkData(int thread) {
+        return Optional.of(worldPosition.offset(xOffset, yOffset, zOffset));
+    }
+
+    @Override
+    protected double getWorkDataDependentWorkDuration(int thread, BlockPos targetPos) {
+        return extractingFluid?extractionDuration:nextBlockCooldown;
+    }
+
+    @Override
+    protected void onWorkStarted(int thread, BlockPos targetPos) {
+        BlockState targetState = level.getBlockState(targetPos);
+        if(!(targetState.getBlock() instanceof BucketPickup))
+            return;
+
+        FluidState targetFluidState = level.getFluidState(targetPos);
+        if(targetFluidState.isEmpty())
+            return;
+
+        try(Transaction transaction = Transaction.open(null)) {
+            if(fluidStorage.insert(FluidResource.of(targetFluidState.getType()), 1000, transaction) != 1000)
+                return;
+        }
+
+        extractingFluid = true;
+    }
+
+    @Override
+    protected void onWorkCompleted(int thread, BlockPos targetPos) {
+        BlockState targetState = level.getBlockState(targetPos);
+        if(extractingFluid && targetState.getBlock() instanceof BucketPickup targetBlock) {
+            ItemStack bucketItemStack = targetBlock.pickupBlock(null, level, targetPos, targetState);
+
+            if(!bucketItemStack.isEmpty()) {
+                level.gameEvent(null, GameEvent.FLUID_PICKUP, targetPos);
+
+                ResourceHandler<FluidResource> fluidStorage = CapabilityUtil.getItemCapabilityReadOnly(Capabilities.Fluid.ITEM, bucketItemStack);
+                if(fluidStorage != null && fluidStorage.size() == 1) {
+                    FluidResource fluidVariant = fluidStorage.getResource(0);
+
+                    if(!fluidVariant.isEmpty()) {
+                        try(Transaction transaction = Transaction.open(null)) {
+                            this.fluidStorage.insert(fluidVariant, fluidStorage.getAmountAsInt(0), transaction);
+                            transaction.commit();
+                        }
+
+                        BlockState newTargetState = level.getBlockState(targetPos);
+                        if(newTargetState.isAir() || newTargetState.canBeReplaced()) {
+                            itemHandler.extractItem(0, 1);
+
+                            level.setBlock(targetPos, Blocks.COBBLESTONE.defaultBlockState(), 3);
+                        }
+                    }
+                }
+            }
+        }
+
+        resetProgress(thread);
+
+        goToNextOffset();
+    }
+
+    @Override
+    protected void resetProgress(int thread) {
+        super.resetProgress(thread);
+
+        extractingFluid = false;
+    }
+
+    @Override
+    protected void updateUpgradeModules() {
+        //Reset yOffset to start from depth = -1 again
+        xOffset = -1;
+        yOffset = 0;
+        zOffset = -1;
+
+        super.updateUpgradeModules();
+    }
+
+    public void goToNextOffset() {
+        int range = (int)Math.ceil(baseExtractionRange *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_RANGE));
+        int depth = (int)Math.ceil(baseExtractionDepth *
+                upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.EXTRACTION_DEPTH));
+
+        if(yOffset == 0) {
+            yOffset = -1;
+            xOffset = range;
+            zOffset = 0;
+        }else if(zOffset >= range - Math.abs(xOffset)) {
+            if(-xOffset >= range) {
+                //Last position in depth = y was reached -> Go to depth = y - 1 or to depth = -1
+
+                yOffset--;
+                if(-yOffset >= depth || (getBlockPos().getY() + yOffset) < level.getMinY())
+                    yOffset = -1;
+
+                xOffset = range;
+                zOffset = 0;
+
+                return;
+            }
+
+            xOffset--;
+            zOffset = Math.abs(xOffset) - range;
+        }else {
+            zOffset++;
+        }
+    }
+}
