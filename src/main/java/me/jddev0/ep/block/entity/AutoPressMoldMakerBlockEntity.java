@@ -55,11 +55,6 @@ public class AutoPressMoldMakerBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> stack.is(Items.CLAY_BALL);
@@ -67,6 +62,11 @@ public class AutoPressMoldMakerBlockEntity
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }

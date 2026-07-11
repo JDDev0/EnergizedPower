@@ -52,11 +52,6 @@ public class AutoStonecutterBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, recipeType, stack);
@@ -64,6 +59,11 @@ public class AutoStonecutterBlockEntity
                     case 2 -> false;
                     default -> super.isValid(slot, stack);
                 };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }

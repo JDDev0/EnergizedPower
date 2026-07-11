@@ -53,18 +53,13 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = itemHandler.getStackInSlot(slot);
-                    if(!stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = itemHandler.getStackInSlot(slot);
+                    if(!stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
                 setChanged();
             }
         };

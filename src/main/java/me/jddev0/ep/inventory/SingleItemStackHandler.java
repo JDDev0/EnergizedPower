@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
@@ -19,13 +20,13 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
     public void setSize(int size) {}
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
+    public final void internalSetStackInSlot(int slot, ItemStack stack) {
         validateSlotIndex(slot);
 
         this.count = stack.getCount();
         this.stack = stack.copyWithCount(1);
 
-        onContentsChanged(slot);
+        onFinalCommit();
     }
 
     @Override
@@ -57,7 +58,7 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
     }
 
     @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+    public @NotNull ItemStack internalInsertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
         if(stack.isEmpty())
             return ItemStack.EMPTY;
 
@@ -78,14 +79,14 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
             }
 
             count += reachedLimit?limit:stack.getCount();
-            onContentsChanged(slot);
+            onFinalCommit();
         }
 
         return reachedLimit?stack.copyWithCount(stack.getCount() - limit):ItemStack.EMPTY;
     }
 
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+    public @NotNull ItemStack internalExtractItem(int slot, int amount, boolean simulate) {
         if(amount == 0)
             return ItemStack.EMPTY;
 
@@ -103,14 +104,14 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
             if(!simulate) {
                 this.count = 0;
                 this.stack = ItemStack.EMPTY;
-                onContentsChanged(slot);
+                onFinalCommit();
             }
 
             return existing.copyWithCount(existingCount);
         }else {
             if(!simulate) {
                 this.count -= toExtract;
-                onContentsChanged(slot);
+                onFinalCommit();
             }
 
             return existing.copyWithCount(toExtract);
@@ -126,6 +127,17 @@ public class SingleItemStackHandler extends EnergizedPowerItemStackHandler {
     public boolean isValid(int slot, @NotNull ItemStack stack) {
         return this.stack.isEmpty() || ItemStack.isSameItemSameComponents(this.stack, stack);
     }
+
+    /**
+     * Method not used in InfiniteSingleItemStackHandler, use onFinalCommit without parameters instead
+     */
+    @Override
+    @ApiStatus.Internal
+    protected final void onFinalCommit(int index, ItemStack previousItemStack) {
+        throw new IllegalStateException("This method should not be called in the EP implementation of the ItemStackHandler, use onFinalCommit instead");
+    }
+
+    protected void onFinalCommit() {}
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider lookupProvider) {

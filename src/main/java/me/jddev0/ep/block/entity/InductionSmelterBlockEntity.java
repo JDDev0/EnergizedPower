@@ -72,18 +72,13 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
-            }
-
-            @Override
-            protected void onContentsChanged(int slot) {
                 setChanged();
             }
         };

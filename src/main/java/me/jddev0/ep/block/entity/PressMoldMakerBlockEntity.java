@@ -53,7 +53,16 @@ public class PressMoldMakerBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0 -> level == null || stack.is(Items.CLAY_BALL);
+                    case 1 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 setChanged();
 
                 if(slot == 0) {
@@ -65,15 +74,6 @@ public class PressMoldMakerBlockEntity
                         );
                     }
                 }
-            }
-
-            @Override
-            public boolean isValid(int slot, @NotNull ItemStack stack) {
-                return switch(slot) {
-                    case 0 -> level == null || stack.is(Items.CLAY_BALL);
-                    case 1 -> false;
-                    default -> super.isValid(slot, stack);
-                };
             }
         };
     }

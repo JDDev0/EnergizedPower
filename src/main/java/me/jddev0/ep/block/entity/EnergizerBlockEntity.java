@@ -99,11 +99,6 @@ public class EnergizerBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch (slot) {
                     case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, EnergizerRecipe.Type.INSTANCE, stack);
@@ -113,14 +108,14 @@ public class EnergizerBlockEntity
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress(worldPosition, level.getBlockState(worldPosition));
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }

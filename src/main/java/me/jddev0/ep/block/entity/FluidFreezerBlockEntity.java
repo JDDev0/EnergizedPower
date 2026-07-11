@@ -59,16 +59,16 @@ public class FluidFreezerBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack resource) {
                 return switch(slot) {
                     case 0 -> false;
                     default -> super.isValid(slot, resource);
                 };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }

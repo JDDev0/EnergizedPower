@@ -30,7 +30,7 @@ public class CreativeItemSiloBlockEntity
     protected InfiniteSingleItemStackHandler initInventoryStorage() {
         return new InfiniteSingleItemStackHandler() {
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onFinalCommit() {
                 setChanged();
             }
         };

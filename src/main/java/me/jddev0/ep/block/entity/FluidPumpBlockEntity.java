@@ -79,11 +79,6 @@ public class FluidPumpBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0) {
                     return stack.is(Items.COBBLESTONE);
@@ -93,14 +88,14 @@ public class FluidPumpBlockEntity
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, itemStack))
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }

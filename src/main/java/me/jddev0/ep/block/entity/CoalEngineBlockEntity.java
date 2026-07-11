@@ -100,16 +100,16 @@ public class CoalEngineBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0)
                     return stack.getBurnTime(null) > 0;
 
                 return super.isValid(slot, stack);
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }

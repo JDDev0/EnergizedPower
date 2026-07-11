@@ -187,17 +187,17 @@ public class AdvancedAutoCrafterBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot < 0 || slot >= 27)
                     return super.isValid(slot, stack);
 
                 //Slot 0, 1, 2, 3, and 4 are for output items only
                 return slot >= 5;
+            }
+
+            @Override
+            protected void onFinalCommit(int index, ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }

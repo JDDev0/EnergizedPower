@@ -106,17 +106,17 @@ public class TeleporterBlockEntity
             }
 
             @Override
-            protected void onContentsChanged(int slot) {
-                setChangedAndUpdateReadyState();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0) {
                     return stack.is(EPItems.TELEPORTER_MATRIX.get());
                 }
 
                 return super.isValid(slot, stack);
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChangedAndUpdateReadyState();
             }
         };
     }

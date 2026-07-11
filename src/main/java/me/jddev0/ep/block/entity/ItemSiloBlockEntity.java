@@ -44,7 +44,7 @@ public class ItemSiloBlockEntity
     protected SingleItemStackHandler initInventoryStorage() {
         return new SingleItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onFinalCommit() {
                 setChanged();
             }
         };

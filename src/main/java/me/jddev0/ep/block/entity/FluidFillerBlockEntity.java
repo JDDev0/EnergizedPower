@@ -120,11 +120,6 @@ public class FluidFillerBlockEntity
             }
 
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot == 0)
                     return stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
@@ -133,18 +128,18 @@ public class FluidFillerBlockEntity
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot == 0) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && (!ItemStack.isSameItem(stack, previousItemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, previousItemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no fluid item
                                     !(stack.getCapability(Capabilities.FluidHandler.ITEM) != null &&
-                                            itemStack.getCapability(Capabilities.FluidHandler.ITEM) != null))))
+                                            previousItemStack.getCapability(Capabilities.FluidHandler.ITEM) != null))))
                         resetProgress();
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }

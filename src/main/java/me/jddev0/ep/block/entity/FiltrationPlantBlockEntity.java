@@ -66,17 +66,17 @@ public class FiltrationPlantBlockEntity
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 return switch(slot) {
                     case 0, 1 -> stack.is(EPItems.CHARCOAL_FILTER.get());
                     case 2, 3 -> false;
                     default -> super.isValid(slot, stack);
                 };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
+                setChanged();
             }
         };
     }

@@ -58,7 +58,16 @@ public class ItemConveyorBeltBlockEntity
             }
 
             @Override
-            protected void onContentsChanged(int slot) {
+            public boolean isValid(int slot, @NotNull ItemStack stack) {
+                return switch(slot) {
+                    case 0, 1 -> true;
+                    case 2, 3 -> false;
+                    default -> super.isValid(slot, stack);
+                };
+            }
+
+            @Override
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 setChanged();
 
                 for(int i = 0;i < getSlots();i++)
@@ -67,15 +76,6 @@ public class ItemConveyorBeltBlockEntity
                                 new ItemStackSyncS2CPacket(i, getStackInSlot(i), getBlockPos()),
                                 getBlockPos(), (ServerLevel)level, 64
                         );
-            }
-
-            @Override
-            public boolean isValid(int slot, @NotNull ItemStack stack) {
-                return switch(slot) {
-                    case 0, 1 -> true;
-                    case 2, 3 -> false;
-                    default -> super.isValid(slot, stack);
-                };
             }
         };
     }

@@ -103,11 +103,6 @@ public class AdvancedUnchargerBlockEntity
             }
 
             @Override
-            protected void onContentsChanged(int slot) {
-                setChanged();
-            }
-
-            @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
                 if(slot >= 0 && slot < 3) {
                     IEnergyStorage energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
@@ -118,17 +113,18 @@ public class AdvancedUnchargerBlockEntity
             }
 
             @Override
-            public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+            protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 if(slot >= 0 && slot < 3) {
-                    ItemStack itemStack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !itemStack.isEmpty() && (!ItemStack.isSameItem(stack, itemStack) ||
-                            (!ItemStack.isSameItemSameComponents(stack, itemStack) &&
+                    ItemStack stack = getStackInSlot(slot);
+                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && (!ItemStack.isSameItem(stack, previousItemStack) ||
+                            (!ItemStack.isSameItemSameComponents(stack, previousItemStack) &&
                                     //Only check if NBT data is equal if one of stack or itemStack is no energy item
-                                    !(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null && itemStack.getCapability(Capabilities.EnergyStorage.ITEM) != null))))
+                                    !(stack.getCapability(Capabilities.EnergyStorage.ITEM) != null &&
+                                            previousItemStack.getCapability(Capabilities.EnergyStorage.ITEM) != null))))
                         resetProgress(slot);
                 }
 
-                super.setStackInSlot(slot, stack);
+                setChanged();
             }
         };
     }

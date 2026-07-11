@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandler {
@@ -13,12 +14,12 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     public void setSize(int size) {}
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
+    public final void internalSetStackInSlot(int slot, ItemStack stack) {
         validateSlotIndex(slot);
 
         this.stack = stack.copyWithCount(1);
 
-        onContentsChanged(slot);
+        onFinalCommit();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     }
 
     @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+    public @NotNull ItemStack internalInsertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
         if(stack.isEmpty())
             return ItemStack.EMPTY;
 
@@ -51,7 +52,7 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     }
 
     @Override
-    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+    public @NotNull ItemStack internalExtractItem(int slot, int amount, boolean simulate) {
         if(amount == 0)
             return ItemStack.EMPTY;
 
@@ -72,6 +73,17 @@ public class InfiniteSingleItemStackHandler extends EnergizedPowerItemStackHandl
     public boolean isValid(int slot, @NotNull ItemStack stack) {
         return true;
     }
+
+    /**
+     * Method not used in InfiniteSingleItemStackHandler, use onFinalCommit without parameters instead
+     */
+    @Override
+    @ApiStatus.Internal
+    protected final void onFinalCommit(int index, ItemStack previousItemStack) {
+        throw new IllegalStateException("This method should not be called in the EP implementation of the ItemStackHandler, use onFinalCommit instead");
+    }
+
+    protected void onFinalCommit() {}
 
     @Override
     public CompoundTag serializeNBT(HolderLookup.Provider lookupProvider) {

@@ -61,7 +61,7 @@ public class ItemConveyorBeltLoaderBlockEntity
             }
 
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onFinalCommit(int index, ItemStack previousItemStack) {
                 setChanged();
             }
         };
