@@ -1,12 +1,9 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "down": "energizedpower:block/advanced_fluid_pump_top",
-    "east": "energizedpower:block/advanced_fluid_pump_side",
-    "north": "energizedpower:block/advanced_fluid_pump_side",
-    "particle": "energizedpower:block/advanced_fluid_pump_top",
-    "south": "energizedpower:block/advanced_fluid_pump_side",
-    "up": "energizedpower:block/advanced_fluid_pump_top",
-    "west": "energizedpower:block/advanced_fluid_pump_side"
+    "bottom": "energizedpower:block/advanced_fluid_pump_top",
+    "front": "energizedpower:block/advanced_fluid_pump_front",
+    "side": "energizedpower:block/advanced_fluid_pump_side",
+    "top": "energizedpower:block/advanced_fluid_pump_top"
   }
 }

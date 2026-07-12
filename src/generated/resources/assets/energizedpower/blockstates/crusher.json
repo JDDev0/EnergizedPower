@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "energizedpower:block/crusher",
+      "y": 90
+    },
+    "facing=north": {
       "model": "energizedpower:block/crusher"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/crusher",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/crusher",
+      "y": 270
     }
   }
 }
