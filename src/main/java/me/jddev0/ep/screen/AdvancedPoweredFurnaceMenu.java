@@ -175,11 +175,11 @@ public class AdvancedPoweredFurnaceMenu extends UpgradableEnergyStorageMenu<Adva
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive(int index) {
-        return progressData[index].getValue() > 0;
+        return maxProgressData[index].getValue() > 0;
     }
 
     public boolean isCrafting(int index) {
-        return progressData[index].getValue() > 0 && hasEnoughEnergyData[index].getValue();
+        return maxProgressData[index].getValue() > 0 && hasEnoughEnergyData[index].getValue();
     }
 
     public int getScaledProgressArrowSize(int index) {
