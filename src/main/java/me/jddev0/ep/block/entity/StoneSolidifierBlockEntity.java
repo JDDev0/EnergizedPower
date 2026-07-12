@@ -132,7 +132,7 @@ public class StoneSolidifierBlockEntity
                 copyWithCount(itemHandler.getStackInSlot(0).getCount() +
                         recipe.value().getResultItem(level.registryAccess()).getCount()));
 
-        resetProgress();
+        resetProgress(0);
     }
 
     @Override

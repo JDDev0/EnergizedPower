@@ -97,19 +97,17 @@ public class PoweredFurnaceBlockEntity
             public boolean isValid(int slot, @NotNull ItemVariant resource) {
                 ItemStack stack = resource.toStack();
 
-                return switch(slot) {
-                    case 0 -> level == null || RecipeUtils.isIngredientOfAny(level, getRecipeForFurnaceModeUpgrade(), stack);
-                    case 1 -> false;
-                    default -> super.isValid(slot, resource);
-                };
+                boolean isInputSlot = slot < workerThreadCount;
+                return isInputSlot && (level == null || RecipeUtils.isIngredientOfAny(level, getRecipeForFurnaceModeUpgrade(), stack));
             }
 
             @Override
             protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
-                if(slot == 0) {
-                    ItemStack stack = getStackInSlot(slot);
-                    if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                boolean isInputSlot = slot < workerThreadCount;
+                if(isInputSlot) {
+                    ItemStack stack = itemHandler.getStackInSlot(slot);
+                    if(!stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
+                        resetProgress(slot);
                 }
 
                 setChanged();
@@ -139,11 +137,12 @@ public class PoweredFurnaceBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress, value -> progress = value),
-                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
-                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new EnergyValueContainerData(() -> hasWork(0)?getCurrentWorkData(0).
+                        map(workData -> getEnergyConsumptionFor(0, workData)).orElse(-1L):-1, value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
         );
@@ -191,77 +190,70 @@ public class PoweredFurnaceBlockEntity
         leftoverXPAmount = nbt.getDouble("recipe.leftover_xp_amount");
     }
 
+    protected SimpleContainer getInventoryForRecipe(int thread) {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        for(int i = 0;i < 2;i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(thread + i * workerThreadCount));
+
+        return inventory;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
-    protected Optional<RecipeHolder<? extends AbstractCookingRecipe>> getCurrentWorkData() {
-
-        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
-        for(int i = 0;i < itemHandler.size();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        return (Optional<RecipeHolder<? extends AbstractCookingRecipe>>)getRecipeFor(inventory, level);
+    protected Optional<RecipeHolder<? extends AbstractCookingRecipe>> getCurrentWorkData(int thread) {
+        return (Optional<RecipeHolder<? extends AbstractCookingRecipe>>)getRecipeFor(getInventoryForRecipe(thread), level);
     }
 
     @Override
-    protected boolean hasWork() {
-        return hasRecipe(this);
+    protected final boolean hasWork(int thread) {
+        return hasRecipe(thread);
     }
 
     @Override
-    protected void onWorkStarted(RecipeHolder<? extends AbstractCookingRecipe> recipe) {}
+    protected void onWorkStarted(int thread, RecipeHolder<? extends AbstractCookingRecipe> recipe) {}
 
     @Override
-    protected void onWorkCompleted(RecipeHolder<? extends AbstractCookingRecipe> workData) {
-        craftItem(getBlockPos(), getBlockState(), this);
+    protected void onWorkCompleted(int thread, RecipeHolder<? extends AbstractCookingRecipe> workData) {
+        craftItem(thread, workData);
     }
 
     @Override
-    protected double getWorkDataDependentWorkDuration(RecipeHolder<? extends AbstractCookingRecipe> recipe) {
+    protected double getWorkDataDependentWorkDuration(int thread, RecipeHolder<? extends AbstractCookingRecipe> recipe) {
         return recipe.value().getCookingTime() * RECIPE_DURATION_MULTIPLIER;
     }
 
-    private static void craftItem(BlockPos blockPos, BlockState state, PoweredFurnaceBlockEntity blockEntity) {
-        Level level = blockEntity.level;
+    private void craftItem(int thread, RecipeHolder<? extends AbstractCookingRecipe> workData) {
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(getInventoryForRecipe(thread), level);
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
-        for(int i = 0;i < blockEntity.itemHandler.size();i++)
-            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
-
-        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
-
-        if(!hasRecipe(blockEntity) || recipe.isEmpty())
+        if(!hasRecipe(thread) || recipe.isEmpty())
             return;
 
-        blockEntity.itemHandler.extractItem(0, 1);
-        blockEntity.itemHandler.setStackInSlot(1, recipe.get().value().getResultItem(level.registryAccess()).copyWithCount(
-                blockEntity.itemHandler.getStackInSlot(1).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
+        itemHandler.extractItem(thread, 1);
+        itemHandler.setStackInSlot(thread + 1, recipe.get().value().getResultItem(level.registryAccess()).copyWithCount(
+                itemHandler.getStackInSlot(thread + 1).getCount() + recipe.get().value().getResultItem(level.registryAccess()).getCount()));
 
-        if(blockEntity.upgradeModuleInventory.getMainUpgradeModuleModifier(6) == UpgradeModuleModifier.XP_YIELD) {
-            blockEntity.leftoverXPAmount += recipe.get().value().getExperience() * blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.XP_YIELD);
-            int xpYieldThisTick = (int)blockEntity.leftoverXPAmount;
+        if(upgradeModuleInventory.getMainUpgradeModuleModifier(6) == UpgradeModuleModifier.XP_YIELD) {
+            leftoverXPAmount += recipe.get().value().getExperience() * upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.XP_YIELD);
+            int xpYieldThisTick = (int)leftoverXPAmount;
 
             //Only keep decimal part
-            blockEntity.leftoverXPAmount -= xpYieldThisTick;
+            leftoverXPAmount -= xpYieldThisTick;
 
             try(Transaction transaction = Transaction.openOuter()) {
                 //Do not check if overflow -> Extra XP should just vanish
-                blockEntity.fluidStorage.insert(FluidVariant.of(EPFluids.LIQUID_XP), XPUtils.XP_TO_LIQUID_RATIO * xpYieldThisTick, transaction);
+                fluidStorage.insert(FluidVariant.of(EPFluids.LIQUID_XP), XPUtils.XP_TO_LIQUID_RATIO * xpYieldThisTick, transaction);
 
                 transaction.commit();
             }
         }
 
-        blockEntity.resetProgress();
+        resetProgress(thread);
     }
 
-    private static boolean hasRecipe(PoweredFurnaceBlockEntity blockEntity) {
-        Level level = blockEntity.level;
+    private boolean hasRecipe(int thread) {
+        SimpleContainer inventory = getInventoryForRecipe(thread);
 
-        SimpleContainer inventory = new SimpleContainer(blockEntity.itemHandler.size());
-        for(int i = 0;i < blockEntity.itemHandler.size();i++)
-            inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i));
-
-        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = blockEntity.getRecipeFor(inventory, level);
+        Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> recipe = getRecipeFor(inventory, level);
 
         return recipe.isPresent() &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.get().value().getResultItem(level.registryAccess()));

@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public abstract class SimpleRecipeFluidMachineBlockEntity
@@ -23,6 +25,9 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     protected final UpgradableMenuProvider menuProvider;
 
     protected final RecipeType<R> recipeType;
+
+    protected int slotCountPerRecipeStartOffset = 0;
+    protected int slotCountPerRecipe = 2;
 
     public SimpleRecipeFluidMachineBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                                String machineName, UpgradableMenuProvider menuProvider,
@@ -40,15 +45,25 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress, value -> progress = value),
-                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
-                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
-                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
-                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
-        );
+        //this.wokerThreadCount is not yet assigned when this method gets called
+        int workerThreadCount = initWorkerThreadCount();
+
+        List<ContainerData> combinedContainerDataList = new ArrayList<>(4 * workerThreadCount + 3);
+        for(int i = 0;i < workerThreadCount;i++) {
+            final int thread = i;
+
+            combinedContainerDataList.add(new ProgressValueContainerData(() -> progress[thread], value -> progress[thread] = value));
+            combinedContainerDataList.add(new ProgressValueContainerData(() -> maxProgress[thread], value -> maxProgress[thread] = value));
+            combinedContainerDataList.add(new EnergyValueContainerData(() -> energyConsumptionLeft[thread], value -> {}));
+            combinedContainerDataList.add(new BooleanValueContainerData(() -> hasEnoughEnergy[thread], value -> {}));
+        }
+
+        combinedContainerDataList.add(new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}));
+
+        combinedContainerDataList.add(new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value));
+        combinedContainerDataList.add(new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value));
+
+        return new CombinedContainerData(combinedContainerDataList.toArray(ContainerData[]::new));
     }
 
     @Nullable
@@ -60,6 +75,19 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
 
+    protected final int getSlotStartOffsetFor(int thread) {
+        return slotCountPerRecipeStartOffset + thread * slotCountPerRecipe;
+    }
+
+    protected SimpleContainer getInventoryForRecipe(int thread) {
+        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
+        int startOffset = getSlotStartOffsetFor(thread);
+        for(int i = 0;i < slotCountPerRecipe;i++)
+            inventory.setItem(i, itemHandler.getStackInSlot(i + startOffset));
+
+        return inventory;
+    }
+
     protected abstract C getRecipeInput(Container inventory);
 
     protected Optional<RecipeHolder<R>> getRecipeFor(Container inventory) {
@@ -67,70 +95,64 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     }
 
     @Override
-    protected final Optional<RecipeHolder<R>> getCurrentWorkData() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
-        for(int i = 0;i < itemHandler.size();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-
-        return getRecipeFor(inventory);
+    protected final Optional<RecipeHolder<R>> getCurrentWorkData(int thread) {
+        return getRecipeFor(getInventoryForRecipe(thread));
     }
 
     @Override
-    protected final double getWorkDataDependentWorkDuration(RecipeHolder<R> workData) {
-        return getRecipeDependentRecipeDuration(workData);
+    protected final double getWorkDataDependentWorkDuration(int thread, RecipeHolder<R> workData) {
+        return getRecipeDependentRecipeDuration(thread, workData);
     }
 
-    protected double getRecipeDependentRecipeDuration(RecipeHolder<R> recipe) {
+    protected double getRecipeDependentRecipeDuration(int thread, RecipeHolder<R> recipe) {
         return 1;
     }
 
     @Override
-    protected final double getWorkDataDependentEnergyConsumption(RecipeHolder<R> workData) {
-        return getRecipeDependentEnergyConsumption(workData);
+    protected final double getWorkDataDependentEnergyConsumption(int thread, RecipeHolder<R> workData) {
+        return getRecipeDependentEnergyConsumption(thread, workData);
     }
 
-    protected double getRecipeDependentEnergyConsumption(RecipeHolder<R> recipe) {
+    protected double getRecipeDependentEnergyConsumption(int thread, RecipeHolder<R> recipe) {
         return 1;
     }
 
     @Override
-    protected final boolean hasWork() {
-        return hasRecipe();
+    protected final boolean hasWork(int thread) {
+        return hasRecipe(thread);
     }
 
-    protected boolean hasRecipe() {
+    protected boolean hasRecipe(int thread) {
         if(level == null)
             return false;
 
-        SimpleContainer inventory = new SimpleContainer(itemHandler.size());
-        for(int i = 0;i < itemHandler.size();i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
+        SimpleContainer inventory = getInventoryForRecipe(thread);
 
         Optional<RecipeHolder<R>> recipe = getRecipeFor(inventory);
 
-        return recipe.isPresent() && canCraftRecipe(inventory, recipe.get());
+        return recipe.isPresent() && canCraftRecipe(thread, inventory, recipe.get());
     }
 
     @Override
-    protected final void onWorkStarted(RecipeHolder<R> workData) {
-        onStartCrafting(workData);
+    protected final void onWorkStarted(int thread, RecipeHolder<R> workData) {
+        onStartCrafting(thread, workData);
     }
 
-    protected void onStartCrafting(RecipeHolder<R> recipe) {}
+    protected void onStartCrafting(int thread, RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkTicked(RecipeHolder<R> workData) {
-        onCraftingTicked(workData);
+    protected final void onWorkTicked(int thread, RecipeHolder<R> workData) {
+        onCraftingTicked(thread, workData);
     }
 
-    protected void onCraftingTicked(RecipeHolder<R> recipe) {}
+    protected void onCraftingTicked(int thread, RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkCompleted(RecipeHolder<R> workData) {
-        craftItem(workData);
+    protected final void onWorkCompleted(int thread, RecipeHolder<R> workData) {
+        craftItem(thread, workData);
     }
 
-    protected abstract void craftItem(RecipeHolder<R> recipe);
+    protected abstract void craftItem(int thread, RecipeHolder<R> recipe);
 
-    protected abstract boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<R> recipe);
+    protected abstract boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<R> recipe);
 }
