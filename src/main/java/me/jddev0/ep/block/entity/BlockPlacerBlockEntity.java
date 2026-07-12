@@ -86,7 +86,7 @@ public class BlockPlacerBlockEntity
                 if(slot == 0) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -97,11 +97,12 @@ public class BlockPlacerBlockEntity
     @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress, value -> progress = value),
-                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
-                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new EnergyValueContainerData(() -> hasWork(0)?getCurrentWorkData(0).
+                        map(workData -> getEnergyConsumptionFor(0, workData)).orElse(-1L):-1, value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
                 new BooleanValueContainerData(() -> inverseRotation, value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
@@ -142,7 +143,7 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    protected boolean hasWork() {
+    protected boolean hasWork(int thread) {
         ItemStack itemStack = itemHandler.getStackInSlot(0);
         if(itemStack.isEmpty() || !(itemStack.getItem() instanceof BlockItem blockItemStack))
             return false;
@@ -151,20 +152,20 @@ public class BlockPlacerBlockEntity
     }
 
     @Override
-    protected Optional<NoWorkData> getCurrentWorkData() {
+    protected Optional<NoWorkData> getCurrentWorkData(int thread) {
         return Optional.of(NoWorkData.INSTANCE);
     }
 
     @Override
-    protected void onWorkStarted(NoWorkData workData) {}
+    protected void onWorkStarted(int thread, NoWorkData workData) {}
 
     @Override
-    protected void onWorkCompleted(NoWorkData workData) {
-        long energyConsumptionPerTick = getEnergyConsumptionFor(workData);
+    protected void onWorkCompleted(int thread, NoWorkData workData) {
+        long energyConsumptionPerTick = getEnergyConsumptionFor(thread, workData);
 
         ItemStack itemStack = itemHandler.getStackInSlot(0);
         if(itemStack.isEmpty()) {
-            energyConsumptionLeft = energyConsumptionPerTick;
+            energyConsumptionLeft[thread] = energyConsumptionPerTick;
             setChanged();
 
             return;
@@ -219,14 +220,14 @@ public class BlockPlacerBlockEntity
         });
 
         if(result == InteractionResult.FAIL) {
-            energyConsumptionLeft = energyConsumptionPerTick;
+            energyConsumptionLeft[thread] = energyConsumptionPerTick;
             setChanged();
 
             return;
         }
 
         itemHandler.setStackInSlot(0, itemStack);
-        resetProgress();
+        resetProgress(thread);
     }
 
     public void setInverseRotation(boolean inverseRotation) {

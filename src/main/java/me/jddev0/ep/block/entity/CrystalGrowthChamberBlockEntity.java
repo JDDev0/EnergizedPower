@@ -77,7 +77,7 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
                 if(slot == 0) {
                     ItemStack stack = getStackInSlot(slot);
                     if(level != null && !stack.isEmpty() && !previousItemStack.isEmpty() && !ItemStack.isSameItemSameComponents(stack, previousItemStack))
-                        resetProgress();
+                        resetProgress(0);
                 }
 
                 setChanged();
@@ -97,7 +97,7 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
     }
 
     @Override
-    protected double getRecipeDependentRecipeDuration(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
+    protected double getRecipeDependentRecipeDuration(int thread, RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
         return recipe.value().getTicks() * RECIPE_DURATION_MULTIPLIER;
     }
 
@@ -107,23 +107,24 @@ public class CrystalGrowthChamberBlockEntity extends SimpleRecipeMachineBlockEnt
     }
 
     @Override
-    protected void craftItem(RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
-        itemHandler.extractItem(0, recipe.value().getInputCount());
+        int startOffset = getSlotStartOffsetFor(thread);
+        itemHandler.extractItem(startOffset, recipe.value().getInputCount());
 
         ItemStack output = recipe.value().generateOutput(level.random);
 
         if(!output.isEmpty())
-            itemHandler.setStackInSlot(1, output.copyWithCount(
-                    itemHandler.getStackInSlot(1).getCount() + output.getCount()));
+            itemHandler.setStackInSlot(startOffset + 1, output.copyWithCount(
+                    itemHandler.getStackInSlot(startOffset + 1).getCount() + output.getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<CrystalGrowthChamberRecipe> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getMaxOutputCount());
     }

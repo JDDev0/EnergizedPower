@@ -55,13 +55,19 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     }
 
     @Override
+    protected final int initWorkerThreadCount() {
+        return 1;
+    }
+
+    @Override
     protected ContainerData initContainerData() {
         return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress, value -> progress = value),
-                new ProgressValueContainerData(() -> maxProgress, value -> maxProgress = value),
-                new EnergyValueContainerData(() -> hasWork()?getCurrentWorkData().map(this::getEnergyConsumptionFor).orElse(-1L):-1, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft, value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy, value -> {}),
+                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
+                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
+                new EnergyValueContainerData(() -> hasWork(0)?getCurrentWorkData(0).
+                        map(workData -> getEnergyConsumptionFor(0, workData)).orElse(-1L):-1, value -> {}),
+                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
+                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
                 new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
                 new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
         );
@@ -108,12 +114,12 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     }
 
     @Override
-    protected Optional<RecipeHolder<R>> getCurrentWorkData() {
+    protected Optional<RecipeHolder<R>> getCurrentWorkData(int thread) {
         return Optional.ofNullable(currentRecipe);
     }
 
     @Override
-    protected final double getWorkDataDependentWorkDuration(RecipeHolder<R> workData) {
+    protected final double getWorkDataDependentWorkDuration(int thread, RecipeHolder<R> workData) {
         return getRecipeDependentRecipeDuration(workData);
     }
 
@@ -122,7 +128,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     }
 
     @Override
-    protected final double getWorkDataDependentEnergyConsumption(RecipeHolder<R> workData) {
+    protected final double getWorkDataDependentEnergyConsumption(int thread, RecipeHolder<R> workData) {
         return getRecipeDependentEnergyConsumption(workData);
     }
 
@@ -131,7 +137,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     }
 
     @Override
-    protected final boolean hasWork() {
+    protected final boolean hasWork(int thread) {
         return hasRecipe();
     }
 
@@ -147,21 +153,21 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     }
 
     @Override
-    protected final void onWorkStarted(RecipeHolder<R> workData) {
+    protected final void onWorkStarted(int thread, RecipeHolder<R> workData) {
         onStartCrafting(workData);
     }
 
     protected void onStartCrafting(RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkTicked(RecipeHolder<R> workData) {
+    protected final void onWorkTicked(int thread, RecipeHolder<R> workData) {
         onCraftingTicked(workData);
     }
 
     protected void onCraftingTicked(RecipeHolder<R> recipe) {}
 
     @Override
-    protected final void onWorkCompleted(RecipeHolder<R> workData) {
+    protected final void onWorkCompleted(int thread, RecipeHolder<R> workData) {
         craftItem(workData);
     }
 
@@ -198,7 +204,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
 
         currentRecipe = currentIndex == -1?null:recipes.get(currentIndex);
 
-        resetProgress();
+        resetProgress(0);
         setChanged();
 
         syncCurrentRecipeToPlayers(32);
@@ -218,7 +224,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
             currentRecipe = recipe.orElse(null);
         }
 
-        resetProgress();
+        resetProgress(0);
         setChanged();
 
         syncCurrentRecipeToPlayers(32);

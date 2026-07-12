@@ -42,6 +42,8 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInp
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
         );
+
+        slotCountPerRecipe = 3;
     }
 
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
@@ -61,25 +63,26 @@ public class SawmillBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInp
     }
 
     @Override
-    protected void craftItem(RecipeHolder<SawmillRecipe> recipe) {
-        if(level == null || !hasRecipe())
+    protected void craftItem(int thread, RecipeHolder<SawmillRecipe> recipe) {
+        if(level == null || !hasRecipe(thread))
             return;
 
-        itemHandler.extractItem(0, 1);
-        itemHandler.setStackInSlot(1, recipe.value().getResultItem(level.registryAccess()).
-                copyWithCount(itemHandler.getStackInSlot(1).getCount() +
+        int startOffset = getSlotStartOffsetFor(thread);
+        itemHandler.extractItem(startOffset, 1);
+        itemHandler.setStackInSlot(startOffset + 1, recipe.value().getResultItem(level.registryAccess()).
+                copyWithCount(itemHandler.getStackInSlot(startOffset + 1).getCount() +
                         recipe.value().getResultItem(level.registryAccess()).getCount()));
 
         if(!recipe.value().getSecondaryOutput().isEmpty())
-            itemHandler.setStackInSlot(2, recipe.value().getSecondaryOutput().
-                    copyWithCount(itemHandler.getStackInSlot(2).getCount() +
+            itemHandler.setStackInSlot(startOffset + 2, recipe.value().getSecondaryOutput().
+                    copyWithCount(itemHandler.getStackInSlot(startOffset + 2).getCount() +
                             recipe.value().getSecondaryOutput().getCount()));
 
-        resetProgress();
+        resetProgress(thread);
     }
 
     @Override
-    protected boolean canCraftRecipe(SimpleContainer inventory, RecipeHolder<SawmillRecipe> recipe) {
+    protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<SawmillRecipe> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, 1, recipe.value().getResultItem(level.registryAccess())) &&
                 (recipe.value().getSecondaryOutput().isEmpty() ||

@@ -99,7 +99,7 @@ public class AutoStonecutterBlockEntity
                 copyWithCount(itemHandler.getStackInSlot(2).getCount() +
                         recipe.value().getResultItem(level.registryAccess()).getCount()));
 
-        resetProgress();
+        resetProgress(0);
     }
 
     @Override
