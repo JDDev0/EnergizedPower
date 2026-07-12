@@ -40,7 +40,7 @@ public class AdvancedPoweredFurnaceScreen extends ConfigurableUpgradableEnergySt
     private void renderProgressArrows(GuiGraphics drawContext, int x, int y) {
         for(int i = 0;i < 3;i++)
             if(menu.isCraftingActive(i))
-                drawContext.blit(MACHINE_SPRITES_TEXTURE, x + 45 + 54 * i, y + 35, 0, 79, 12, menu.getScaledProgressArrowSize(i));
+                drawContext.blit(MACHINE_SPRITES_TEXTURE, x + 45 + 36 * i, y + 35, 0, 79, 12, menu.getScaledProgressArrowSize(i));
     }
 
     @Override
