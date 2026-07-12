@@ -5,8 +5,8 @@
     "east": "energizedpower:block/filtration_plant_side",
     "north": "energizedpower:block/filtration_plant_front",
     "particle": "energizedpower:block/filtration_plant_top",
-    "south": "energizedpower:block/filtration_plant_side",
+    "south": "energizedpower:block/filtration_plant_back",
     "up": "energizedpower:block/filtration_plant_top",
-    "west": "energizedpower:block/filtration_plant_front"
+    "west": "energizedpower:block/filtration_plant_side"
   }
 }
