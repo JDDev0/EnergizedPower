@@ -11,6 +11,7 @@ public final class ModMessagesClient {
         event.register(EnergySyncS2CPacket.ID, EnergySyncS2CPacket::handle);
         event.register(FluidSyncS2CPacket.ID, FluidSyncS2CPacket::handle);
         event.register(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket::handle);
+        event.register(IOConfigurationSyncS2CPacket.ID, IOConfigurationSyncS2CPacket::handle);
         event.register(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket::handle);
         event.register(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket::handle);
         event.register(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket::handle);
