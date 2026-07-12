@@ -235,8 +235,7 @@ public class EnergizerBlockEntity
                     level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, true), 3);
                 }
 
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0 || blockEntity.energyConsumptionLeft < 0 ||
-                        energyConsumptionPerTick < 0) {
+                if(blockEntity.progress < 0 || blockEntity.energyConsumptionLeft < 0 || energyConsumptionPerTick < 0) {
                     //Reset progress for invalid values
 
                     blockEntity.resetProgress(blockPos, state);
@@ -264,7 +263,7 @@ public class EnergizerBlockEntity
                 setChanged(level, blockPos, state);
             }
 
-            if(blockEntity.maxProgress == 0) {
+            if(blockEntity.maxProgress <= 0) {
                 blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
                         blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGIZING_SPEED)));
 
