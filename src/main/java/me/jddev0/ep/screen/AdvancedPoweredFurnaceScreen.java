@@ -1,14 +1,14 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public class AdvancedPoweredFurnaceScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedPoweredFurnaceMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AdvancedPoweredFurnaceMenu> {
     public AdvancedPoweredFurnaceScreen(AdvancedPoweredFurnaceMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.advanced_powered_furnace.energy_required_to_finish.txt",
@@ -49,5 +49,13 @@ public class AdvancedPoweredFurnaceScreen
         if(isHovering(152, 17, 16, 52, mouseX, mouseY) && menu.hasXPExtractionUpgradeModule()) {
             renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
+    }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(152, 17, 16, 52);
+
+        return super.getTankCords(tank);
     }
 }
