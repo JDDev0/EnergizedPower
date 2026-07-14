@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SelectableRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.EPRecipes;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
@@ -30,11 +32,15 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class FluidFreezerBlockEntity
         extends SelectableRecipeFluidMachineBlockEntity<RecipeInput, FluidFreezerRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_FLUID_FREEZER_TANK_CAPACITY.getValue();
 
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> false, i -> i == 0);
+    private static final int ITEM_SLOT_OUTPUT = 0;
+
+    private static final int FLUID_SLOT_INPUT = 0;
 
     public FluidFreezerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -101,15 +107,59 @@ public class FluidFreezerBlockEntity
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        return switch(slotType) {
+            case ITEM -> List.of(
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT))
+            );
+            case FLUID -> List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(FLUID_SLOT_INPUT)),
+
+                    //Output all tanks (Every EP fluid tank should support output to allow draining fluids without losing them)
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT))
+            );
+        };
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        switch(slotType) {
+            case ITEM -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 0);
+            }
+            case FLUID -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 0);
+            }
+        }
+
+        return conf;
+    }
+
     public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.FLUID);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.FLUID);
+        return conf.createSidedFluidHandlerFor(slotGroups, fluidStorage, facing, side);
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
