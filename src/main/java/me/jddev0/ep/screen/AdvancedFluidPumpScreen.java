@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -17,7 +17,7 @@ import java.util.Locale;
 
 @Environment(EnvType.CLIENT)
 public class AdvancedFluidPumpScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedFluidPumpMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AdvancedFluidPumpMenu> {
     public static final boolean SHOW_RELATIVE_COORDINATES = ModConfigs.CLIENT_FLUID_PUMP_RELATIVE_TARGET_COORDINATES.getValue();
 
     public AdvancedFluidPumpScreen(AdvancedFluidPumpMenu menu, Inventory inventory, Component component) {
@@ -25,6 +25,8 @@ public class AdvancedFluidPumpScreen
                 "tooltip.energizedpower.fluid_pump.process_energy_left.txt",
                 EPAPI.id("textures/gui/container/advanced_fluid_pump.png"),
                 EPAPI.id("textures/gui/container/upgrade_view/advanced_fluid_pump.png"), 248, 166);
+
+        ioConfigurationViewX = 33;
     }
 
     @Override
@@ -94,5 +96,13 @@ public class AdvancedFluidPumpScreen
                 renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(i), menu.getTankCapacity(i), mouseX, mouseY);
             }
         }
+    }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank >= 0 && tank <= 4)
+            return new Rect(206 + (tank%2) * 18, 17 + (tank/2) * 54, 16, 52);
+
+        return super.getTankCords(tank);
     }
 }

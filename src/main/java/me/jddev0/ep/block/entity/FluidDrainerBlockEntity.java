@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.FluidDrainerBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
@@ -11,6 +12,8 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.FluidValueContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
+import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidDrainerMenu;
 import me.jddev0.ep.util.FluidUtils;
@@ -38,6 +41,9 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import team.reborn.energy.api.EnergyStorage;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 public class FluidDrainerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity
         <EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler, EnergizedPowerFluidStorage> {
@@ -46,6 +52,10 @@ public class FluidDrainerBlockEntity
      */
     public static final long MAX_FLUID_DRAINING_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_FLUID_ITEM_TRANSFER_RATE.getValue();
     public static final long ENERGY_USAGE_PER_TICK = ModConfigs.COMMON_FLUID_DRAINER_ENERGY_CONSUMPTION_PER_TICK.getValue();
+
+    private static final int ITEM_SLOT_BOTH = 0;
+
+    private static final int FLUID_SLOT_OUTPUT = 0;
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i != 0)
@@ -73,7 +83,6 @@ public class FluidDrainerBlockEntity
 
         return true;
     });
-    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
 
     private long fluidDrainingLeft = -1;
     private long fluidDrainingSumPending = 0;
@@ -187,22 +196,68 @@ public class FluidDrainerBlockEntity
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return new FluidDrainerMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        return switch(slotType) {
+            case ITEM -> List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_BOTH)),
+
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_BOTH)),
+
+                    //Input & Output
+                    SlotGroup.of(SlotEntry.ofBoth(ITEM_SLOT_BOTH))
+            );
+            case FLUID -> List.of(
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_OUTPUT))
+            );
+        };
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        switch(slotType) {
+            case ITEM -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 2);
+            }
+            case FLUID -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 0);
+            }
+        }
+
+        return conf;
     }
 
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        //itemHandlerSided must be used because of an extra check
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandlerSided, facing, side);
     }
 
     public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return fluidStorage;
 
-        return fluidStorageSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.FLUID);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.FLUID);
+        return conf.createSidedFluidHandlerFor(slotGroups, fluidStorage, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
