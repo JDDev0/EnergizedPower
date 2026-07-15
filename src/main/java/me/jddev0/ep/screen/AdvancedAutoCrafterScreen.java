@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.*;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AdvancedAutoCrafterScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedAutoCrafterMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AdvancedAutoCrafterMenu> {
 
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
@@ -23,6 +23,7 @@ public class AdvancedAutoCrafterScreen
                 EPAPI.id("textures/gui/container/upgrade_view/advanced_auto_crafter.png"), 176, 224);
 
         inventoryLabelY = imageHeight - 94;
+        ioConfigurationViewY = 141;
     }
 
     @Override

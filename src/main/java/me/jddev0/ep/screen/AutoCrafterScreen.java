@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class AutoCrafterScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<AutoCrafterMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AutoCrafterMenu> {
     public AutoCrafterScreen(AutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -23,6 +23,7 @@ public class AutoCrafterScreen
                 EPAPI.id("textures/gui/container/upgrade_view/auto_crafter.png"), 176, 206);
 
         inventoryLabelY = imageHeight - 94;
+        ioConfigurationViewY = 123;
     }
 
     @Override
