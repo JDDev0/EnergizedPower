@@ -1,14 +1,14 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 public class AssemblingMachineScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<AssemblingMachineMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AssemblingMachineMenu> {
     public AssemblingMachineScreen(AssemblingMachineMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -18,6 +18,7 @@ public class AssemblingMachineScreen
         inventoryLabelY = imageHeight - 94;
 
         energyMeterY = 19;
+        ioConfigurationViewY = 87;
     }
 
     @Override
