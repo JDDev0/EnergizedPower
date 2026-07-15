@@ -157,23 +157,14 @@ public abstract class WorkerMachineBlockEntity<W>
                     continue;
                 }
 
-                if(blockEntity.maxProgress[i] == 0) {
-                    blockEntity.onWorkStarted(i, workData.get());
-
-                    blockEntity.maxProgress[i] = blockEntity.getWorkDurationFor(i, workData.get());
-                }
-
+                //Increment progress before starting recipe: prevents flickering (The initial recipe will complete one tick later, but the following will be correct)
                 long energyConsumptionPerTick = blockEntity.getEnergyConsumptionFor(i, workData.get());
-
-                if(blockEntity.energyConsumptionLeft[i] < 0)
-                    blockEntity.energyConsumptionLeft[i] = energyConsumptionPerTick * blockEntity.maxProgress[i];
-
-                if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
+                if(blockEntity.maxProgress[i] > 0 && energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                     blockEntity.hasEnoughEnergy[i] = true;
                     blockEntity.timeoutOffState = 0;
                     blockEntity.onHasEnoughEnergy();
 
-                    if(blockEntity.progress[i] < 0 || blockEntity.maxProgress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
+                    if(blockEntity.progress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
                         //Reset progress for invalid values
 
                         blockEntity.resetProgress(i);
@@ -199,6 +190,21 @@ public abstract class WorkerMachineBlockEntity<W>
                     blockEntity.hasEnoughEnergy[i] = false;
                     hasNotEnoughEnergyCount++;
                     setChanged(level, blockPos, state);
+                }
+
+                if(blockEntity.maxProgress[i] <= 0) {
+                    blockEntity.onWorkStarted(i, workData.get());
+
+                    blockEntity.maxProgress[i] = blockEntity.getWorkDurationFor(i, workData.get());
+
+                    energyConsumptionPerTick = blockEntity.getEnergyConsumptionFor(i, workData.get());
+                    blockEntity.energyConsumptionLeft[i] = energyConsumptionPerTick * blockEntity.maxProgress[i];
+
+                    if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
+                        blockEntity.hasEnoughEnergy[i] = true;
+                        blockEntity.timeoutOffState = 0;
+                        blockEntity.onHasEnoughEnergy();
+                    }
                 }
             }else {
                 blockEntity.resetProgress(i);
