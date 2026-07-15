@@ -8,9 +8,9 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageMenu;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageProducerIndicatorBarMenu;
-import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-public class ThermalGeneratorMenu extends UpgradableEnergyStorageMenu<ThermalGeneratorBlockEntity>
+public class ThermalGeneratorMenu extends ConfigurableIOUpgradableEnergyStorageMenu<ThermalGeneratorBlockEntity>
         implements IEnergyStorageProducerIndicatorBarMenu, IConfigurableMenu {
     private final SimpleEnergyValueContainerData energyProductionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyProductionLeftData = new SimpleEnergyValueContainerData();

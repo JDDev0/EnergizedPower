@@ -1,9 +1,11 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.MetalPressRecipe;
@@ -27,9 +29,12 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, MetalPressRecipe> {
-    private final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 1);
-    private final InputOutputItemHandler itemHandlerOthersSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 2);
+    private static final int ITEM_SLOT_INPUT = 0;
+    private static final int ITEM_SLOT_PRESS_MOLD = 1;
+    private static final int ITEM_SLOT_OUTPUT = 2;
 
     public MetalPressBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -91,14 +96,58 @@ public class MetalPressBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        if(slotType == SlotType.ITEM) {
+            return List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT)),
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_PRESS_MOLD)),
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofInput(ITEM_SLOT_PRESS_MOLD)),
+
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input & Press Mold input & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofInput(ITEM_SLOT_PRESS_MOLD), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input & Press Mold input/output & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofBoth(ITEM_SLOT_PRESS_MOLD), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Special: Press Mold replacement automation
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_PRESS_MOLD)),
+                    SlotGroup.of(SlotEntry.ofBoth(ITEM_SLOT_PRESS_MOLD))
+            );
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            for(RelativeDirection direction:RelativeDirection.values())
+                conf.setSlotGroupId(direction, 4);
+
+            conf.setSlotGroupId(RelativeDirection.TOP, 8);
+        }
+
+        return conf;
+    }
+
     public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        if(side == Direction.UP)
-            return itemHandlerTopSided;
-
-        return itemHandlerOthersSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
