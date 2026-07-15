@@ -212,17 +212,9 @@ public class EnergizerBlockEntity
             if(recipe.isEmpty())
                 return;
 
-            if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
-                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGIZING_SPEED)));
-
-            long energyConsumption = recipe.get().value().getEnergyConsumption();
-            energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
-            if(blockEntity.energyConsumptionLeft < 0)
-                blockEntity.energyConsumptionLeft = energyConsumption;
-
+            //Increment progress before starting recipe: prevents flickering (The initial recipe will complete one tick later, but the following will be correct)
             long energyConsumptionPerTick = blockEntity.getEnergyConsumptionPerTick();
-            if(energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
+            if(blockEntity.maxProgress > 0 && energyConsumptionPerTick <= blockEntity.energyStorage.getAmount()) {
                 blockEntity.hasEnoughEnergy = true;
                 blockEntity.timeoutOffState = 0;
                 if(level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
@@ -258,6 +250,26 @@ public class EnergizerBlockEntity
                 }
                 setChanged(level, blockPos, state);
             }
+
+            if(blockEntity.maxProgress == 0) {
+                blockEntity.maxProgress = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
+                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGIZING_SPEED)));
+
+                long energyConsumption = recipe.get().value().getEnergyConsumption();
+                energyConsumption = (long)(energyConsumption * ENERGY_CONSUMPTION_MULTIPLIER);
+                blockEntity.energyConsumptionLeft = energyConsumption;
+
+                if(blockEntity.getEnergyConsumptionPerTick() <= blockEntity.energyStorage.getAmount()) {
+                    blockEntity.hasEnoughEnergy = true;
+                    blockEntity.timeoutOffState = 0;
+                    if(level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
+                            !level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
+                        level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, true), 3);
+                    }
+                }
+            }
+
+            setChanged(level, blockPos, state);
         }else {
             blockEntity.resetProgress(blockPos, state);
             if(blockEntity.timeoutOffState == 0) {
