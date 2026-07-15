@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.InputOutputFluidStorage;
@@ -7,6 +8,7 @@ import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EPFluids;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
 import me.jddev0.ep.recipe.EPRecipes;
@@ -32,13 +34,19 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class AdvancedPulverizerBlockEntity
         extends SimpleRecipeFluidMachineBlockEntity<RecipeInput, PulverizerRecipe> {
     public static final int TANK_CAPACITY = 1000 * ModConfigs.COMMON_ADVANCED_PULVERIZER_TANK_CAPACITY.getValue();
     public static final int WATER_CONSUMPTION_PER_RECIPE = ModConfigs.COMMON_ADVANCED_PULVERIZER_WATER_USAGE_PER_RECIPE.getValue();
 
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1 || i == 2);
-    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> i == 0, i -> true);
+    private static final int ITEM_SLOT_INPUT = 0;
+    private static final int ITEM_SLOT_OUTPUT_MAIN = 1;
+    private static final int ITEM_SLOT_OUTPUT_SECONDARY = 2;
+
+    private static final int FLUID_SLOT_INPUT = 0;
+    private static final int FLUID_SLOT_OUTPUT = 1;
 
     public AdvancedPulverizerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -117,18 +125,83 @@ public class AdvancedPulverizerBlockEntity
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        return switch(slotType) {
+            case ITEM -> List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT)),
+
+                    //Main output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN)),
+
+                    //Secondary output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //All outputs
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //Input & Main Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN)),
+
+                    //Input & Secondary Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //Input & Main Output & Secondary Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY))
+            );
+            case FLUID -> List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(FLUID_SLOT_INPUT)),
+
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_OUTPUT)),
+
+                    //Input & Output
+                    SlotGroup.of(SlotEntry.ofInput(FLUID_SLOT_INPUT), SlotEntry.ofOutput(FLUID_SLOT_OUTPUT)),
+
+                    //Output all tanks (Every EP fluid tank should support output to allow draining fluids without losing them)
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT), SlotEntry.ofOutput(FLUID_SLOT_OUTPUT))
+            );
+        };
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        switch(slotType) {
+            case ITEM -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 6);
+            }
+            case FLUID -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 2);
+            }
+        }
+
+        return conf;
+    }
+
     public @Nullable ResourceHandler<ItemResource> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable ResourceHandler<FluidResource> getFluidHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return fluidStorage;
 
-        return fluidStorageSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.FLUID);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.FLUID);
+        return conf.createSidedFluidHandlerFor(slotGroups, fluidStorage, facing, side);
     }
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
