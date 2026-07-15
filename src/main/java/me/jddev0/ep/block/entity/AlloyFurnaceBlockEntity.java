@@ -215,11 +215,9 @@ public class AlloyFurnaceBlockEntity
                 }
             }
 
-            if(blockEntity.maxProgress == 0)
-                blockEntity.maxProgress = Math.max(1, (int)(recipe.get().value().getTicks() * RECIPE_DURATION_MULTIPLIER));
-
-            if(blockEntity.litDuration > 0) {
-                if(blockEntity.progress < 0 || blockEntity.maxProgress < 0) {
+            //Increment progress before starting recipe: prevents flickering (The initial recipe will complete one tick later, but the following will be correct)
+            if(blockEntity.maxProgress > 0 && blockEntity.litDuration > 0) {
+                if(blockEntity.progress < 0) {
                     //Reset progress for invalid values
 
                     if(hasNotEnoughFuel)
@@ -236,13 +234,18 @@ public class AlloyFurnaceBlockEntity
                     blockEntity.craftItem(recipe.get());
 
                 setChanged(level, blockPos, state);
-            }else {
+            }
+
+            if(blockEntity.litDuration <= 0) {
                 //Undo recipe progress if no fuel left
                 blockEntity.progress = Math.max(blockEntity.progress - 2, 0);
 
                 hasNotEnoughFuel = true;
                 setChanged(level, blockPos, state);
             }
+
+            if(blockEntity.maxProgress <= 0)
+                blockEntity.maxProgress = Math.max(1, (int)(recipe.get().value().getTicks() * RECIPE_DURATION_MULTIPLIER));
         }else {
             blockEntity.resetProgress();
             setChanged(level, blockPos, state);

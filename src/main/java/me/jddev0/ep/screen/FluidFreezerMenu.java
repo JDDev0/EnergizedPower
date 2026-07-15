@@ -103,11 +103,11 @@ public class FluidFreezerMenu extends UpgradableEnergyStorageMenu<FluidFreezerBl
      * @return Same as isCrafting but energy requirements are ignored
      */
     public boolean isCraftingActive() {
-        return progressData.getValue() > 0;
+        return maxProgressData.getValue() > 0;
     }
 
     public boolean isCrafting() {
-        return progressData.getValue() > 0 && hasEnoughEnergyData.getValue();
+        return maxProgressData.getValue() > 0 && hasEnoughEnergyData.getValue();
     }
 
     public int getScaledProgressArrowSize() {
