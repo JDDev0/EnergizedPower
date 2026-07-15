@@ -151,9 +151,12 @@ class ModBlockStateProvider {
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
 
-        horizontalBlockWithItem(EPBlocks.BATTERY_BOX, true);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX, true);
-        horizontalBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX, true);
+        orientableBlockWithItem(EPBlocks.BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.BATTERY_BOX, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.ADVANCED_BATTERY_BOX, true));
+        orientableBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.CREATIVE_BATTERY_BOX, true));
 
         horizontalTwoSideBlockWithItem(EPBlocks.PRESS_MOLD_MAKER, true);
 
@@ -399,8 +402,8 @@ class ModBlockStateProvider {
                 ModModelTemplates.ORIENTABLE_VERTICAL).get(block).createWithSuffix(block, fileSuffix, generator.modelOutput);
     }
 
-    private void horizontalBlockWithItem(Block block, boolean uniqueBottomTexture) {
-        Identifier model = TexturedModel.createDefault(unused -> new TextureMapping().
+    private Identifier horizontalBlockModel(Block block, boolean uniqueBottomTexture) {
+        return TexturedModel.createDefault(unused -> new TextureMapping().
                         put(TextureSlot.UP, TextureMapping.getBlockTexture(block, "_top")).
                         put(TextureSlot.DOWN, TextureMapping.getBlockTexture(block, uniqueBottomTexture?"_bottom":"_top")).
                         put(TextureSlot.NORTH, TextureMapping.getBlockTexture(block, "_side")).
@@ -409,6 +412,10 @@ class ModBlockStateProvider {
                         put(TextureSlot.WEST, TextureMapping.getBlockTexture(block, "_side")).
                         copySlot(TextureSlot.UP, TextureSlot.PARTICLE),
                 ModelTemplates.CUBE).get(block).create(block, generator.modelOutput);
+    }
+
+    private void horizontalBlockWithItem(Block block, boolean uniqueBottomTexture) {
+        Identifier model = horizontalBlockModel(block, uniqueBottomTexture);
 
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block,
                 new MultiVariant(WeightedList.of(new Variant(model)))));
