@@ -31,6 +31,7 @@ public abstract class ConfigurableIOUpgradableEnergyStorageMenu<T extends Energy
         this.ioConfigurationViewContainerData = new IOConfigurationViewContainerData();
 
         addDataSlots(ioConfigurationViewContainerData);
+        verifyAndFixDefaultSlotType();
     }
 
     public ConfigurableIOUpgradableEnergyStorageMenu(@Nullable MenuType<?> menuType, int id, Inventory playerInventory,
@@ -42,6 +43,20 @@ public abstract class ConfigurableIOUpgradableEnergyStorageMenu<T extends Energy
         this.ioConfigurationViewContainerData = new IOConfigurationViewContainerData();
 
         addDataSlots(ioConfigurationViewContainerData);
+        verifyAndFixDefaultSlotType();
+    }
+
+    public void verifyAndFixDefaultSlotType() {
+        //Support machines without slots: Prevent crash by going to first supported SlotType
+
+        List<SlotType> supportedSlotTypeList = Arrays.asList(blockEntity.getSupportedSlotTypes());
+
+        SlotType slotType = ioConfigurationViewContainerData.getSlotType();
+        while(!supportedSlotTypeList.contains(slotType)) {
+            slotType = SlotType.fromIndex(slotType.ordinal() + 1);
+        }
+
+        ioConfigurationViewContainerData.setSlotType(slotType);
     }
 
     @Override
