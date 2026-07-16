@@ -237,9 +237,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
 
-        horizontalBlockWithItem(EPBlocks.BATTERY_BOX, true);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX, true);
-        horizontalBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX, true);
+        orientableBlockWithItem(EPBlocks.BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.BATTERY_BOX, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.ADVANCED_BATTERY_BOX, true));
+        orientableBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.CREATIVE_BATTERY_BOX, true));
 
         horizontalTwoSideBlockWithItem(EPBlocks.PRESS_MOLD_MAKER, true);
 
@@ -508,10 +511,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(block.value(), cubeAll(block.value()));
     }
 
-    private void horizontalBlockWithItem(Holder<? extends Block> block, boolean uniqueBottomTexture) {
+    private ModelFile horizontalBlockModel(Holder<Block> block, boolean uniqueBottomTexture) {
         ResourceLocation blockId = Objects.requireNonNull(block.getKey()).location();
 
-        ModelFile model = models().
+        return models().
                 withExistingParent(blockId.getPath(), ModelProvider.BLOCK_FOLDER + "/cube").
                 texture("particle", "#up").
                 texture("up", getBlockTexture(block, "_top")).
@@ -520,6 +523,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 texture("south", getBlockTexture(block, "_side")).
                 texture("east", getBlockTexture(block, "_side")).
                 texture("west", getBlockTexture(block, "_side"));
+    }
+
+    private void horizontalBlockWithItem(Holder<Block> block, boolean uniqueBottomTexture) {
+        ModelFile model = horizontalBlockModel(block, uniqueBottomTexture);
 
         simpleBlockWithItem(block.value(), model);
     }

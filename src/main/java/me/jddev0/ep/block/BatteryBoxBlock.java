@@ -1,7 +1,7 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.BatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.util.EnergyUtils;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
-public class BatteryBoxBlock extends WorkerMachineBlock<BatteryBoxBlockEntity> {
+public class BatteryBoxBlock extends HorizontallyOrientableWorkerMachineBlock<BatteryBoxBlockEntity> {
     public static final MapCodec<BatteryBoxBlock> CODEC = simpleCodec(BatteryBoxBlock::new);
 
     public BatteryBoxBlock(Properties props) {
