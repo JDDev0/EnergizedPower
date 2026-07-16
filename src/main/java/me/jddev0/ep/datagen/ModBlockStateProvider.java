@@ -165,8 +165,10 @@ public class ModBlockStateProvider {
                 orientableOnBlockModel(EPBlocks.ALLOY_FURNACE, false),
                 EPBlockStateProperties.WORKING);
 
-        horizontalTwoSideBlockWithItem(EPBlocks.AUTO_CRAFTER, true);
-        horizontalTwoSideBlockWithItem(EPBlocks.ADVANCED_AUTO_CRAFTER, true);
+        orientableBlockWithItem(EPBlocks.AUTO_CRAFTER,
+                orientableWithBackBlockModel(EPBlocks.AUTO_CRAFTER, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_AUTO_CRAFTER,
+                orientableWithBackBlockModel(EPBlocks.ADVANCED_AUTO_CRAFTER, true));
 
         orientableBlockWithItem(EPBlocks.CRUSHER,
                 orientableBlockModel(EPBlocks.CRUSHER, true));
@@ -187,14 +189,14 @@ public class ModBlockStateProvider {
         orientableBlockWithItem(EPBlocks.METAL_PRESS,
                 orientableBlockModel(EPBlocks.METAL_PRESS, false));
 
-        horizontalTwoSideBlockWithItem(EPBlocks.AUTO_PRESS_MOLD_MAKER, true);
+        orientableBlockWithItem(EPBlocks.AUTO_PRESS_MOLD_MAKER,
+                orientableWithBackBlockModel(EPBlocks.AUTO_PRESS_MOLD_MAKER, true));
 
         orientableBlockWithItem(EPBlocks.AUTO_STONECUTTER,
                 orientableBlockModel(EPBlocks.AUTO_STONECUTTER, false));
 
         orientableBlockWithItem(EPBlocks.PLANT_GROWTH_CHAMBER,
-                cubeBlockModel(EPBlocks.PLANT_GROWTH_CHAMBER, "", "_top", "_top",
-                        "_front", "_front", "_side", "_side"));
+                orientableWithBackBlockModel(EPBlocks.PLANT_GROWTH_CHAMBER, false));
 
         orientableSixDirsBlockWithItem(EPBlocks.BLOCK_PLACER, true);
 
@@ -218,7 +220,8 @@ public class ModBlockStateProvider {
         orientableBlockWithItem(EPBlocks.FLUID_TRANSPOSER,
                 orientableBlockModel(EPBlocks.FLUID_TRANSPOSER, false));
 
-        horizontalTwoSideBlockWithItem(EPBlocks.FILTRATION_PLANT, false);
+        orientableBlockWithItem(EPBlocks.FILTRATION_PLANT,
+                orientableWithBackBlockModel(EPBlocks.FILTRATION_PLANT, false));
 
         orientableBlockWithItem(EPBlocks.FLUID_DRAINER,
                 orientableBlockModel(EPBlocks.FLUID_DRAINER, true));

@@ -5,8 +5,8 @@
     "east": "energizedpower:block/auto_press_mold_maker_side",
     "north": "energizedpower:block/auto_press_mold_maker_front",
     "particle": "energizedpower:block/auto_press_mold_maker_top",
-    "south": "energizedpower:block/auto_press_mold_maker_side",
+    "south": "energizedpower:block/auto_press_mold_maker_back",
     "up": "energizedpower:block/auto_press_mold_maker_top",
-    "west": "energizedpower:block/auto_press_mold_maker_front"
+    "west": "energizedpower:block/auto_press_mold_maker_side"
   }
 }
