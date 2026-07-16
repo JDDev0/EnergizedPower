@@ -5,8 +5,8 @@
     "east": "energizedpower:block/auto_crafter_side",
     "north": "energizedpower:block/auto_crafter_front",
     "particle": "#up",
-    "south": "energizedpower:block/auto_crafter_side",
+    "south": "energizedpower:block/auto_crafter_back",
     "up": "energizedpower:block/auto_crafter_top",
-    "west": "energizedpower:block/auto_crafter_front"
+    "west": "energizedpower:block/auto_crafter_side"
   }
 }

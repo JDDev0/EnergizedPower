@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "energizedpower:block/auto_press_mold_maker",
+      "y": 90
+    },
+    "facing=north": {
       "model": "energizedpower:block/auto_press_mold_maker"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/auto_press_mold_maker",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/auto_press_mold_maker",
+      "y": 270
     }
   }
 }
