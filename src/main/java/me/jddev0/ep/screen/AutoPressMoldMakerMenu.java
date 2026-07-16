@@ -11,10 +11,10 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageMenu;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import me.jddev0.ep.screen.base.ISelectableRecipeMachineMenu;
-import me.jddev0.ep.screen.base.UpgradableEnergyStorageMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class AutoPressMoldMakerMenu extends UpgradableEnergyStorageMenu<AutoPressMoldMakerBlockEntity>
+public class AutoPressMoldMakerMenu extends ConfigurableIOUpgradableEnergyStorageMenu<AutoPressMoldMakerBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu,
         ISelectableRecipeMachineMenu<PressMoldMakerRecipe> {
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();

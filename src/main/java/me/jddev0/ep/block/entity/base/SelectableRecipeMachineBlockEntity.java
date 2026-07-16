@@ -102,6 +102,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         syncEnergyToPlayer(player);
         syncCurrentRecipeToPlayer(player);
         syncIngredientListToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }

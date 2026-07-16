@@ -19,9 +19,9 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public abstract class SelectableRecipeMachineContainerScreen
-        <R extends Recipe<?>, T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu &
+        <R extends Recipe<?>, T extends AbstractContainerMenu & IEnergyStorageMenu & IConfigurableMenu & IConfigurableIOMenu &
                 ISelectableRecipeMachineMenu<R>>
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<T> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<T> {
     protected int recipeSelectorPosX = 80;
     protected int recipeSelectorPosY = 17;
 
