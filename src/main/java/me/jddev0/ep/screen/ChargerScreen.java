@@ -1,14 +1,15 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class ChargerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<ChargerMenu> {
+public class ChargerScreen
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<ChargerMenu> {
     public ChargerScreen(ChargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.charger.item_energy_left.txt",

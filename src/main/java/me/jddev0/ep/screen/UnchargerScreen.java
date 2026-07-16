@@ -1,14 +1,15 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class UnchargerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<UnchargerMenu> {
+public class UnchargerScreen
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<UnchargerMenu> {
     public UnchargerScreen(UnchargerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.uncharger.item_energy_left.txt",
