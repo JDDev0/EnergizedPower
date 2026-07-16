@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AssemblingMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AssemblingMachineRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -28,12 +30,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
+import java.util.List;
+
 public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AssemblingMachineRecipe> {
-    private final InputOutputItemHandler itemHandlerSidedTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 4, i -> i == 4);
-    private final InputOutputItemHandler itemHandlerSidedFront = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 3, i -> i == 4);
-    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 4);
-    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i == 4);
-    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i == 4);
+    private static final int ITEM_SLOT_INPUT_1 = 0;
+    private static final int ITEM_SLOT_INPUT_2 = 1;
+    private static final int ITEM_SLOT_INPUT_3 = 2;
+    private static final int ITEM_SLOT_INPUT_4 = 3;
+    private static final int ITEM_SLOT_OUTPUT = 4;
 
     public AssemblingMachineBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -86,25 +90,81 @@ public class AssemblingMachineBlockEntity extends SimpleRecipeMachineBlockEntity
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        if(slotType == SlotType.ITEM) {
+            return List.of(
+                    //Input 1 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1)),
+
+                    //Input 2 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_2)),
+
+                    //Input 3 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_3)),
+
+                    //Input 4 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_4)),
+
+                    //First 3 inputs only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofInput(ITEM_SLOT_INPUT_3)),
+
+                    //All inputs
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofInput(ITEM_SLOT_INPUT_3), SlotEntry.ofInput(ITEM_SLOT_INPUT_4)),
+
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input 1 & output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input 2 & output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input 3 & output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input 4 & output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_4), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //First 3 inputs & output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofInput(ITEM_SLOT_INPUT_3),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Alls Inputs & output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofInput(ITEM_SLOT_INPUT_3),
+                            SlotEntry.ofInput(ITEM_SLOT_INPUT_4), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT))
+            );
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            conf.setSlotGroupId(RelativeDirection.TOP, 12);
+            conf.setSlotGroupId(RelativeDirection.BOTTOM, 12);
+
+            conf.setSlotGroupId(RelativeDirection.FRONT, 10);
+            conf.setSlotGroupId(RelativeDirection.BACK, 7);
+            conf.setSlotGroupId(RelativeDirection.LEFT, 8);
+            conf.setSlotGroupId(RelativeDirection.RIGHT, 9);
+        }
+
+        return conf;
+    }
+
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        Direction facing = getBlockState().getValue(AssemblingMachineBlock.FACING);
-
-        if(facing == side)
-            return itemHandlerSidedFront;
-
-        if(facing.getOpposite() == side)
-            return itemHandlerSidedBack;
-
-        if(facing.getClockWise() == side)
-            return itemHandlerSidedLeft;
-
-        if(facing.getCounterClockWise() == side)
-            return itemHandlerSidedRight;
-
-        return itemHandlerSidedTopBottom;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
