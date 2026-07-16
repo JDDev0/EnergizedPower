@@ -1,12 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.UnchargerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
-public class UnchargerBlock extends WorkerMachineBlock<UnchargerBlockEntity> {
+public class UnchargerBlock extends HorizontallyOrientableWorkerMachineBlock<UnchargerBlockEntity> {
     public static final MapCodec<UnchargerBlock> CODEC = simpleCodec(UnchargerBlock::new);
 
     public UnchargerBlock(Properties props) {

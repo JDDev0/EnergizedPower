@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "energizedpower:block/fluid_drainer",
+      "y": 90
+    },
+    "facing=north": {
       "model": "energizedpower:block/fluid_drainer"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/fluid_drainer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/fluid_drainer",
+      "y": 270
     }
   }
 }

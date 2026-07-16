@@ -286,7 +286,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         activatableOrientableMachineBlockWithItem(EPBlocks.INDUCTION_SMELTER, false);
 
-        horizontalBlockWithItem(EPBlocks.FLUID_FILLER, true);
+        orientableBlockWithItem(EPBlocks.FLUID_FILLER,
+                orientableBlockModel(EPBlocks.FLUID_FILLER, true));
 
         orientableBlockWithItem(EPBlocks.FLUID_FREEZER,
                 orientableBlockModel(EPBlocks.FLUID_FREEZER, false));
@@ -302,7 +303,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         horizontalTwoSideBlockWithItem(EPBlocks.FILTRATION_PLANT, false);
 
-        horizontalBlockWithItem(EPBlocks.FLUID_DRAINER, true);
+        orientableBlockWithItem(EPBlocks.FLUID_DRAINER,
+                orientableBlockModel(EPBlocks.FLUID_DRAINER, true));
 
         orientableBlockWithItem(EPBlocks.FLUID_PUMP,
                 orientableBlockModel(EPBlocks.FLUID_PUMP, false));
@@ -311,11 +313,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         horizontalBlockWithItem(EPBlocks.DRAIN, true);
 
-        horizontalBlockWithItem(EPBlocks.CHARGER, true);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_CHARGER, true);
+        orientableBlockWithItem(EPBlocks.CHARGER,
+                orientableBlockModel(EPBlocks.CHARGER, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_CHARGER,
+                orientableBlockModel(EPBlocks.ADVANCED_CHARGER, true));
 
-        horizontalBlockWithItem(EPBlocks.UNCHARGER, true);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_UNCHARGER, true);
+        orientableBlockWithItem(EPBlocks.UNCHARGER,
+                orientableBlockModel(EPBlocks.UNCHARGER, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_UNCHARGER,
+                orientableBlockModel(EPBlocks.ADVANCED_UNCHARGER, true));
 
         orientableSixDirsBlockWithItem(EPBlocks.MINECART_CHARGER, true);
         orientableSixDirsBlockWithItem(EPBlocks.ADVANCED_MINECART_CHARGER, true);

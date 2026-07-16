@@ -1,12 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/advanced_uncharger_bottom",
-    "east": "energizedpower:block/advanced_uncharger_side",
-    "north": "energizedpower:block/advanced_uncharger_side",
-    "particle": "#up",
-    "south": "energizedpower:block/advanced_uncharger_side",
-    "up": "energizedpower:block/advanced_uncharger_top",
-    "west": "energizedpower:block/advanced_uncharger_side"
+    "bottom": "energizedpower:block/advanced_uncharger_bottom",
+    "front": "energizedpower:block/advanced_uncharger_front",
+    "particle": "#top",
+    "side": "energizedpower:block/advanced_uncharger_side",
+    "top": "energizedpower:block/advanced_uncharger_top"
   }
 }

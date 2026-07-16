@@ -1,12 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/fluid_filler_bottom",
-    "east": "energizedpower:block/fluid_filler_side",
-    "north": "energizedpower:block/fluid_filler_side",
-    "particle": "#up",
-    "south": "energizedpower:block/fluid_filler_side",
-    "up": "energizedpower:block/fluid_filler_top",
-    "west": "energizedpower:block/fluid_filler_side"
+    "bottom": "energizedpower:block/fluid_filler_bottom",
+    "front": "energizedpower:block/fluid_filler_front",
+    "particle": "#top",
+    "side": "energizedpower:block/fluid_filler_side",
+    "top": "energizedpower:block/fluid_filler_top"
   }
 }
