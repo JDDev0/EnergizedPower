@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "energizedpower:block/metal_press",
+      "y": 90
+    },
+    "facing=north": {
       "model": "energizedpower:block/metal_press"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/metal_press",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/metal_press",
+      "y": 270
     }
   }
 }

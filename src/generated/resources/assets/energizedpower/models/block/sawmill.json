@@ -1,12 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/sawmill_bottom",
-    "east": "energizedpower:block/sawmill_side",
-    "north": "energizedpower:block/sawmill_side",
-    "particle": "#up",
-    "south": "energizedpower:block/sawmill_side",
-    "up": "energizedpower:block/sawmill_top",
-    "west": "energizedpower:block/sawmill_side"
+    "bottom": "energizedpower:block/sawmill_bottom",
+    "front": "energizedpower:block/sawmill_front",
+    "particle": "#top",
+    "side": "energizedpower:block/sawmill_side",
+    "top": "energizedpower:block/sawmill_top"
   }
 }

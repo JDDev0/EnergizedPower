@@ -1,12 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/crystal_growth_chamber_top",
-    "east": "energizedpower:block/crystal_growth_chamber_side",
-    "north": "energizedpower:block/crystal_growth_chamber_side",
-    "particle": "#up",
-    "south": "energizedpower:block/crystal_growth_chamber_side",
-    "up": "energizedpower:block/crystal_growth_chamber_top",
-    "west": "energizedpower:block/crystal_growth_chamber_side"
+    "bottom": "energizedpower:block/crystal_growth_chamber_top",
+    "front": "energizedpower:block/crystal_growth_chamber_front",
+    "particle": "#top",
+    "side": "energizedpower:block/crystal_growth_chamber_side",
+    "top": "energizedpower:block/crystal_growth_chamber_top"
   }
 }

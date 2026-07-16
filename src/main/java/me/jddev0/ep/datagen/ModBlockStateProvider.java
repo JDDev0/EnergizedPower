@@ -251,21 +251,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalTwoSideBlockWithItem(EPBlocks.AUTO_CRAFTER, true);
         horizontalTwoSideBlockWithItem(EPBlocks.ADVANCED_AUTO_CRAFTER, true);
 
-        horizontalBlockWithItem(EPBlocks.CRUSHER, true);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_CRUSHER, true);
+        orientableBlockWithItem(EPBlocks.CRUSHER,
+                orientableBlockModel(EPBlocks.CRUSHER, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_CRUSHER,
+                orientableBlockModel(EPBlocks.ADVANCED_CRUSHER, true));
 
-        horizontalBlockWithItem(EPBlocks.PULVERIZER, true);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_PULVERIZER, true);
+        orientableBlockWithItem(EPBlocks.PULVERIZER,
+                orientableBlockModel(EPBlocks.PULVERIZER, true));
+        orientableBlockWithItem(EPBlocks.ADVANCED_PULVERIZER,
+                orientableBlockModel(EPBlocks.ADVANCED_PULVERIZER, true));
 
-        horizontalBlockWithItem(EPBlocks.SAWMILL, true);
+        orientableBlockWithItem(EPBlocks.SAWMILL,
+                orientableBlockModel(EPBlocks.SAWMILL, true));
 
-        horizontalBlockWithItem(EPBlocks.COMPRESSOR, true);
+        orientableBlockWithItem(EPBlocks.COMPRESSOR,
+                orientableBlockModel(EPBlocks.COMPRESSOR, true));
 
-        horizontalBlockWithItem(EPBlocks.METAL_PRESS, false);
+        orientableBlockWithItem(EPBlocks.METAL_PRESS,
+                orientableBlockModel(EPBlocks.METAL_PRESS, false));
 
         horizontalTwoSideBlockWithItem(EPBlocks.AUTO_PRESS_MOLD_MAKER, true);
 
-        horizontalBlockWithItem(EPBlocks.AUTO_STONECUTTER, false);
+        orientableBlockWithItem(EPBlocks.AUTO_STONECUTTER,
+                orientableBlockModel(EPBlocks.AUTO_STONECUTTER, false));
 
         orientableBlockWithItem(EPBlocks.PLANT_GROWTH_CHAMBER,
                 cubeBlockModel(EPBlocks.PLANT_GROWTH_CHAMBER, "", "_top", "_top",
@@ -296,8 +304,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         horizontalBlockWithItem(EPBlocks.FLUID_DRAINER, true);
 
-        horizontalBlockWithItem(EPBlocks.FLUID_PUMP, false);
-        horizontalBlockWithItem(EPBlocks.ADVANCED_FLUID_PUMP, false);
+        orientableBlockWithItem(EPBlocks.FLUID_PUMP,
+                orientableBlockModel(EPBlocks.FLUID_PUMP, false));
+        orientableBlockWithItem(EPBlocks.ADVANCED_FLUID_PUMP,
+                orientableBlockModel(EPBlocks.ADVANCED_FLUID_PUMP, false));
 
         horizontalBlockWithItem(EPBlocks.DRAIN, true);
 
@@ -353,7 +363,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         orientableBlockWithItem(EPBlocks.THERMAL_GENERATOR,
                 orientableBlockModel(EPBlocks.THERMAL_GENERATOR, false));
 
-        horizontalBlockWithItem(EPBlocks.CRYSTAL_GROWTH_CHAMBER, false);
+        orientableBlockWithItem(EPBlocks.CRYSTAL_GROWTH_CHAMBER,
+                orientableBlockModel(EPBlocks.CRYSTAL_GROWTH_CHAMBER, false));
 
         horizontalTwoSideBlockWithItem(EPBlocks.WEATHER_CONTROLLER, false);
 

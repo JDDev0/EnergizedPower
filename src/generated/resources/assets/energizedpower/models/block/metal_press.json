@@ -1,12 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable",
   "textures": {
-    "down": "energizedpower:block/metal_press_top",
-    "east": "energizedpower:block/metal_press_side",
-    "north": "energizedpower:block/metal_press_side",
-    "particle": "#up",
-    "south": "energizedpower:block/metal_press_side",
-    "up": "energizedpower:block/metal_press_top",
-    "west": "energizedpower:block/metal_press_side"
+    "bottom": "energizedpower:block/metal_press_top",
+    "front": "energizedpower:block/metal_press_front",
+    "particle": "#top",
+    "side": "energizedpower:block/metal_press_side",
+    "top": "energizedpower:block/metal_press_top"
   }
 }
