@@ -55,7 +55,7 @@ public class AlloyFurnaceMenu extends AbstractContainerMenu {
     }
 
     public boolean isCraftingActive() {
-        return progressData.getValue() > 0;
+        return maxProgressData.getValue() > 0;
     }
 
     public int getScaledProgressArrowSize() {
