@@ -1,12 +1,12 @@
 package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
-import me.jddev0.ep.block.base.WorkerMachineBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.FluidDrainerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
-public class FluidDrainerBlock extends WorkerMachineBlock<FluidDrainerBlockEntity> {
+public class FluidDrainerBlock extends HorizontallyOrientableWorkerMachineBlock<FluidDrainerBlockEntity> {
     public static final MapCodec<FluidDrainerBlock> CODEC = simpleCodec(FluidDrainerBlock::new);
 
     public FluidDrainerBlock(Properties props) {
