@@ -82,4 +82,14 @@ public class StoneSolidifierScreen extends SelectableRecipeMachineContainerScree
             }
         }
     }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(44, 17, 16, 52);
+        else if(tank == 1)
+            return new Rect(152, 17, 16, 52);
+
+        return super.getTankCords(tank);
+    }
 }

@@ -75,4 +75,12 @@ public class FluidFreezerScreen
             renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
     }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(44, 17, 16, 52);
+
+        return super.getTankCords(tank);
+    }
 }
