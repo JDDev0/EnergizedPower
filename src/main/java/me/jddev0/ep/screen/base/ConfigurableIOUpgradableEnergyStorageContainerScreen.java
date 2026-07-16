@@ -5,6 +5,7 @@ import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetIOConfigurationC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -106,9 +107,13 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
                 int slotGroupCount = menu.getSlotGroups().size();
 
                 if(isHovering(ioConfigurationViewX + xOffset, ioConfigurationViewY + yOffset, 20, 20, mouseX, mouseY)) {
-                    int nextSlotGroupId = slotGroupId + 1;
+                    boolean hasShiftDown = Screen.hasShiftDown();
+
+                    int nextSlotGroupId = slotGroupId + (hasShiftDown?-1:1);
                     if(nextSlotGroupId >= slotGroupCount)
                         nextSlotGroupId = -1;
+                    if(nextSlotGroupId < -1)
+                        nextSlotGroupId = slotGroupCount - 1;
 
                     ModMessages.sendToServer(new SetIOConfigurationC2SPacket(
                             menu.getBlockEntity().getBlockPos(), menu.getSlotType(), direction, nextSlotGroupId
