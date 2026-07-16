@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "energizedpower:block/fluid_filler",
+      "y": 90
+    },
+    "facing=north": {
       "model": "energizedpower:block/fluid_filler"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/fluid_filler",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/fluid_filler",
+      "y": 270
     }
   }
 }
