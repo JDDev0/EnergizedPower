@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "energizedpower:block/creative_battery_box",
+      "y": 90
+    },
+    "facing=north": {
       "model": "energizedpower:block/creative_battery_box"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/creative_battery_box",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/creative_battery_box",
+      "y": 270
     }
   }
 }
