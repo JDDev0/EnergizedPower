@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedAutoCrafterMenu> {
+public class AdvancedAutoCrafterScreen
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AdvancedAutoCrafterMenu> {
     public AdvancedAutoCrafterScreen(AdvancedAutoCrafterMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -24,6 +25,7 @@ public class AdvancedAutoCrafterScreen extends ConfigurableUpgradableEnergyStora
                 EPAPI.id("textures/gui/container/upgrade_view/advanced_auto_crafter.png"), 176, 224);
 
         inventoryLabelY = imageHeight - 94;
+        ioConfigurationViewY = 141;
     }
 
     @Override
