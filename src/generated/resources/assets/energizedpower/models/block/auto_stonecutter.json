@@ -1,12 +1,9 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "down": "energizedpower:block/auto_stonecutter_top",
-    "east": "energizedpower:block/auto_stonecutter_side",
-    "north": "energizedpower:block/auto_stonecutter_side",
-    "particle": "energizedpower:block/auto_stonecutter_top",
-    "south": "energizedpower:block/auto_stonecutter_side",
-    "up": "energizedpower:block/auto_stonecutter_top",
-    "west": "energizedpower:block/auto_stonecutter_side"
+    "bottom": "energizedpower:block/auto_stonecutter_top",
+    "front": "energizedpower:block/auto_stonecutter_front",
+    "side": "energizedpower:block/auto_stonecutter_side",
+    "top": "energizedpower:block/auto_stonecutter_top"
   }
 }
