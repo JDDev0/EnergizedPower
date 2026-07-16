@@ -1,14 +1,14 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.UpgradableMenuProvider;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
-import me.jddev0.ep.fluid.InputOutputFluidStorage;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncFurnaceRecipeTypeS2CPacket;
@@ -45,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public abstract class AbstractPoweredFurnaceBlockEntity
         extends WorkerFluidMachineBlockEntity<RecipeHolder<? extends AbstractCookingRecipe>>
@@ -54,8 +55,9 @@ public abstract class AbstractPoweredFurnaceBlockEntity
     private final List<@NotNull ResourceLocation> recipeBlacklist;
     private final double recipeDurationMultiplier;
 
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i < workerThreadCount, i -> i >= workerThreadCount);
-    private final InputOutputFluidStorage fluidStorageSided = new InputOutputFluidStorage(fluidStorage, (i, stack) -> false, i -> true);
+    //Item slot indices are dynamic
+
+    private static final int FLUID_SLOT_INPUT = 0;
 
     private double leftoverXPAmount = 0;
 
@@ -165,22 +167,104 @@ public abstract class AbstractPoweredFurnaceBlockEntity
         syncFluidToPlayer(player);
         ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()),
                 (ServerPlayer)player);
+        syncIOConfigurationToPlayer(player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
+    }
+
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        //this.wokerThreadCount is not yet assigned when this method gets called
+        int workerThreadCount = initWorkerThreadCount();
+
+        return switch(slotType) {
+            case ITEM -> {
+                List<SlotEntry> allInputs = IntStream.range(0, workerThreadCount).mapToObj(SlotEntry::ofInput).toList();
+                List<SlotEntry> allOutputs = IntStream.range(workerThreadCount, 2 * workerThreadCount).mapToObj(SlotEntry::ofOutput).toList();
+                List<SlotEntry> allSlots = new ArrayList<>(allInputs);
+                allSlots.addAll(allOutputs);
+
+                List<SlotGroup> slotGroups = new ArrayList<>();
+
+                //All inputs only
+                slotGroups.add(SlotGroup.of(allInputs));
+
+                //All outputs only
+                slotGroups.add(SlotGroup.of(allOutputs));
+
+                //All inputs & outputs
+                slotGroups.add(SlotGroup.of(allSlots));
+
+                //Only add individual & n - 1 slot groups if more than one thread, otherwise there would be duplicated groups
+                if(workerThreadCount > 1) {
+                    List<SlotEntry> allInputsExceptFirst = IntStream.range(1, workerThreadCount).mapToObj(SlotEntry::ofInput).toList();
+                    List<SlotEntry> allOutputsExceptFirst  = IntStream.range(workerThreadCount + 1, 2 * workerThreadCount).mapToObj(SlotEntry::ofOutput).toList();
+                    List<SlotEntry> allSlotsExceptFirst = new ArrayList<>(allInputsExceptFirst);
+                    allSlotsExceptFirst.addAll(allOutputsExceptFirst);
+
+                    //First input only
+                    slotGroups.add(SlotGroup.of(SlotEntry.ofInput(0)));
+
+                    //First output only
+                    slotGroups.add(SlotGroup.of(SlotEntry.ofOutput(workerThreadCount)));
+
+                    //First input & output
+                    slotGroups.add(SlotGroup.of(SlotEntry.ofInput(0), SlotEntry.ofOutput(workerThreadCount)));
+
+                    //All except first input only
+                    slotGroups.add(SlotGroup.of(allInputsExceptFirst));
+
+                    //All except first output only
+                    slotGroups.add(SlotGroup.of(allOutputsExceptFirst));
+
+                    //All except first input & output
+                    slotGroups.add(SlotGroup.of(allSlotsExceptFirst));
+                }
+
+                yield slotGroups;
+            }
+            case FLUID -> List.of(
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT))
+            );
+        };
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        switch(slotType) {
+            case ITEM -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 2);
+            }
+            case FLUID -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 0);
+            }
+        }
+
+        return conf;
     }
 
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable IFluidHandler getFluidHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return fluidStorage;
 
-        return fluidStorageSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.FLUID);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.FLUID);
+        return conf.createSidedFluidHandlerFor(slotGroups, fluidStorage, facing, side);
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
