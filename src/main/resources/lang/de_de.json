@@ -1257,6 +1257,13 @@
   "tooltip.energizedpower.direction.west": "Westen",
   "tooltip.energizedpower.direction.east": "Osten",
 
+  "tooltip.energizedpower.relative_direction.bottom": "Unten",
+  "tooltip.energizedpower.relative_direction.top": "Oben",
+  "tooltip.energizedpower.relative_direction.front": "Vorne",
+  "tooltip.energizedpower.relative_direction.back": "Hinten",
+  "tooltip.energizedpower.relative_direction.right": "Rechts",
+  "tooltip.energizedpower.relative_direction.left": "Links",
+
   "block_state.energizedpower.pipe_connection.not_connected": "Nicht verbunden",
   "block_state.energizedpower.pipe_connection.connected": "Verbunden/Einfügung",
   "block_state.energizedpower.pipe_connection.extract": "Extraktion",
@@ -1276,6 +1283,17 @@
   "tooltip.energizedpower.machine_configuration.comparator_mode.item": "Komparator-Mode: Item",
   "tooltip.energizedpower.machine_configuration.comparator_mode.fluid": "Komparator-Mode: Flüssigkeit",
   "tooltip.energizedpower.machine_configuration.comparator_mode.energy": "Komparator-Mode: Energie",
+
+  "tooltip.energizedpower.machine_configuration.slot_type.item": "Slot-Art: Item",
+  "tooltip.energizedpower.machine_configuration.slot_type.fluid": "Slot-Art: Flüssigkeit",
+
+  "tooltip.energizedpower.machine_configuration.slot_group": "Slot-Gruppe",
+
+  "tooltip.energizedpower.machine_configuration.not_configured": "Nicht konfiguriert",
+
+  "tooltip.energizedpower.slot_io_mode.input": "Eingabe",
+  "tooltip.energizedpower.slot_io_mode.output": "Ausgabe",
+  "tooltip.energizedpower.slot_io_mode.both": "Eingabe/Ausgabe",
 
   "tooltip.energizedpower.upgrade_module_modifier.speed": "Produktions-Geschwindigkeit",
   "tooltip.energizedpower.upgrade_module_modifier.energy_consumption": "Energieverbrauch pro Tick",
@@ -1313,6 +1331,10 @@
 
   "tooltip.energizedpower.upgrade_view.button.open": "Upgrade-Ansicht anzeigen",
   "tooltip.energizedpower.upgrade_view.button.close": "Upgrade-Ansicht schließen",
+
+  "tooltip.energizedpower.io_configuration_view.label": "IO-Konfiguration",
+  "tooltip.energizedpower.io_configuration_view.button.open": "IO-Konfigurations-Ansicht anzeigen",
+  "tooltip.energizedpower.io_configuration_view.button.close": "IO-Konfigurations-Ansicht schließen",
 
   "itemGroup.energizedpower.tab": "Energized Power",
   "itemGroup.energizedpower.tab.upgrades": "Energized Power (Upgrades)",

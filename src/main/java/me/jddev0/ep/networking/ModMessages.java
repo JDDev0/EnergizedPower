@@ -22,6 +22,8 @@ public final class ModMessages {
                 FluidSyncS2CPacket::handle);
         registrar.playToClient(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.STREAM_CODEC,
                 ItemStackSyncS2CPacket::handle);
+        registrar.playToClient(IOConfigurationSyncS2CPacket.ID, IOConfigurationSyncS2CPacket.STREAM_CODEC,
+                IOConfigurationSyncS2CPacket::handle);
         registrar.playToClient(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.STREAM_CODEC,
                 OpenEnergizedPowerBookS2CPacket::handle);
         registrar.playToClient(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC,
@@ -68,6 +70,8 @@ public final class ModMessages {
                 SetCreativeFluidTankFluidStackC2SPacket::handle);
         registrar.playToServer(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket.STREAM_CODEC,
                 InsertExtractXPFromXPStorageC2SPacket::handle);
+        registrar.playToServer(SetIOConfigurationC2SPacket.ID, SetIOConfigurationC2SPacket.STREAM_CODEC,
+                SetIOConfigurationC2SPacket::handle);
     }
 
     public static void sendToServer(CustomPacketPayload message) {

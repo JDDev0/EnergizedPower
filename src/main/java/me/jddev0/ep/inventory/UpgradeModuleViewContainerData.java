@@ -27,6 +27,10 @@ public class UpgradeModuleViewContainerData implements ContainerData {
         inUpgradeModuleView = !inUpgradeModuleView;
     }
 
+    public void setInUpgradeModuleView(boolean inUpgradeModuleView) {
+        this.inUpgradeModuleView = inUpgradeModuleView;
+    }
+
     @Override
     public int getCount() {
         return 1;
