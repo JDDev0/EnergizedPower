@@ -81,6 +81,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
         syncIngredientListToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }

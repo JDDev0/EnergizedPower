@@ -1,11 +1,12 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeFluidMachineBlockEntity;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SyncIngredientsS2CPacket;
@@ -48,11 +49,15 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_TANK_CAPACITY.getValue());
     public static final double FLUID_CONSUMPTION_MULTIPLIER = ModConfigs.COMMON_PLANT_GROWTH_CHAMBER_FLUID_CONSUMPTION_MULTIPLIER.getValue();
 
-    private final InputOutputItemHandler itemHandlerSidesSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 1 && i < 6);
-    private final InputOutputItemHandler itemHandlerTopSided = new InputOutputItemHandler(itemHandler,
-            (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 7);
-    private final InputOutputItemHandler itemHandlerBottomSided = new InputOutputItemHandler(itemHandler,
-            (i, stack) -> i == 1 || i == 6, i -> i > 1 && i < 6);
+    private static final int ITEM_SLOT_SEED = 0;
+    private static final int ITEM_SLOT_FERTILIZER = 1;
+    private static final int ITEM_SLOT_OUTPUT_1 = 2;
+    private static final int ITEM_SLOT_OUTPUT_2 = 3;
+    private static final int ITEM_SLOT_OUTPUT_3 = 4;
+    private static final int ITEM_SLOT_OUTPUT_4 = 5;
+    private static final int ITEM_SLOT_SOIL = 6;
+
+    private static final int FLUID_SLOT_INPUT = 0;
 
     private double leftoverFluidConsumption = 0;
     private double fertilizerSpeedMultiplier = 1;
@@ -152,21 +157,114 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        return switch(slotType) {
+            case ITEM -> List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_SEED)),
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_FERTILIZER), SlotEntry.ofInput(ITEM_SLOT_SOIL)),
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_SEED), SlotEntry.ofInput(ITEM_SLOT_FERTILIZER), SlotEntry.ofInput(ITEM_SLOT_SOIL)),
+
+                    //Output only
+                    SlotGroup.of(
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_2),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_4)
+                    ),
+
+                    //Seed input & output
+                    SlotGroup.of(
+                            SlotEntry.ofInput(ITEM_SLOT_SEED),
+
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_2),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_4)
+                    ),
+
+                    //All input & output (except soil output)
+                    SlotGroup.of(
+                            SlotEntry.ofInput(ITEM_SLOT_SEED), SlotEntry.ofInput(ITEM_SLOT_FERTILIZER), SlotEntry.ofInput(ITEM_SLOT_SOIL),
+
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_2),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_4)
+                    ),
+
+                    //All input & output
+                    SlotGroup.of(
+                            SlotEntry.ofInput(ITEM_SLOT_SEED), SlotEntry.ofInput(ITEM_SLOT_FERTILIZER), SlotEntry.ofBoth(ITEM_SLOT_SOIL),
+
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_2),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_4)
+                    ),
+
+                    //Legacy default configuration: Fertilizer + Soil input and outputs
+                    SlotGroup.of(
+                            SlotEntry.ofInput(ITEM_SLOT_FERTILIZER), SlotEntry.ofInput(ITEM_SLOT_SOIL),
+
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_2),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_4)
+                    ),
+
+                    //Legacy default configuration: Fertilizer + Soil input and outputs + soil output
+                    SlotGroup.of(
+                            SlotEntry.ofInput(ITEM_SLOT_FERTILIZER), SlotEntry.ofBoth(ITEM_SLOT_SOIL),
+
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_2),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_4)
+                    ),
+
+                    //Special: Soil replacement automation
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_SOIL)),
+                    SlotGroup.of(SlotEntry.ofBoth(ITEM_SLOT_SOIL))
+            );
+            case FLUID -> List.of(
+                    SlotGroup.of(SlotEntry.ofInput(FLUID_SLOT_INPUT)),
+
+                    //Every EP fluid tank should support output to allow draining fluids without losing them
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT)),
+                    SlotGroup.of(SlotEntry.ofBoth(FLUID_SLOT_INPUT))
+            );
+        };
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        switch(slotType) {
+            case ITEM -> {
+                for(RelativeDirection direction:RelativeDirection.sidesOnlyValues())
+                    conf.setSlotGroupId(direction, 4);
+
+                conf.setSlotGroupId(RelativeDirection.TOP, 8);
+                conf.setSlotGroupId(RelativeDirection.BOTTOM, 7);
+            }
+            case FLUID -> {
+                for(RelativeDirection direction:RelativeDirection.values())
+                    conf.setSlotGroupId(direction, 2);
+            }
+        }
+
+        return conf;
+    }
+
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        if(side == Direction.UP)
-            return itemHandlerTopSided;
-
-        if(side == Direction.DOWN)
-            return itemHandlerBottomSided;
-
-        return itemHandlerSidesSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable Storage<FluidVariant> getFluidHandlerCapability(@Nullable Direction side) {
-        return fluidStorage;
+        if(side == null)
+            return fluidStorage;
+
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.FLUID);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.FLUID);
+        return conf.createSidedFluidHandlerFor(slotGroups, fluidStorage, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {

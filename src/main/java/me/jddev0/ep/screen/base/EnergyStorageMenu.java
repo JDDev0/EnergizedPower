@@ -53,7 +53,7 @@ public abstract class EnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, blockType);
     }
 
-    private void addPlayerInventorySlots(Inventory playerInventory, int x, int y) {
+    protected void addPlayerInventorySlots(Inventory playerInventory, int x, int y) {
         //Player Inventory
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 9;j++)
