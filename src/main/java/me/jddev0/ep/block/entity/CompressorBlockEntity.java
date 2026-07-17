@@ -1,8 +1,9 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
-import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.CompressorRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -19,8 +20,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
+import java.util.List;
+
 public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, CompressorRecipe> {
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private static final int ITEM_SLOT_INPUT = 0;
+    private static final int ITEM_SLOT_OUTPUT = 1;
 
     public CompressorBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -42,11 +46,44 @@ public class CompressorBlockEntity extends SimpleRecipeMachineBlockEntity<Recipe
         );
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        if(slotType == SlotType.ITEM) {
+            return List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT)),
+
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT))
+            );
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            for(RelativeDirection direction:RelativeDirection.values())
+                conf.setSlotGroupId(direction, 2);
+        }
+
+        return conf;
+    }
+
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {

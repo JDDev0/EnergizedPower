@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class EnergizerScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<EnergizerMenu> {
+public class EnergizerScreen extends ConfigurableIOUpgradableEnergyStorageContainerScreen<EnergizerMenu> {
     public EnergizerScreen(EnergizerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
