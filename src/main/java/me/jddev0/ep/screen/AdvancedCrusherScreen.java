@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class AdvancedCrusherScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<AdvancedCrusherMenu> {
+public class AdvancedCrusherScreen extends ConfigurableIOUpgradableEnergyStorageContainerScreen<AdvancedCrusherMenu> {
     public AdvancedCrusherScreen(AdvancedCrusherMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -50,5 +50,15 @@ public class AdvancedCrusherScreen extends ConfigurableUpgradableEnergyStorageCo
                 renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(i), menu.getTankCapacity(i), mouseX, mouseY);
             }
         }
+    }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(44, 17, 16, 52);
+        else if(tank == 1)
+            return new Rect(152, 17, 16, 52);
+
+        return super.getTankCords(tank);
     }
 }
