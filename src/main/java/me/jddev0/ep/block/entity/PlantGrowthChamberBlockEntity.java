@@ -219,6 +219,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
                     //Every EP fluid tank should support output to allow draining fluids without losing them
                     SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT)),
+                    //Fluid input and output at once should also work, because input tank supports different fluid types
                     SlotGroup.of(SlotEntry.ofBoth(FLUID_SLOT_INPUT))
             );
         };
@@ -238,7 +239,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             }
             case FLUID -> {
                 for(RelativeDirection direction:RelativeDirection.values())
-                    conf.setSlotGroupId(direction, 2);
+                    conf.setSlotGroupId(direction, 0);
             }
         }
 
