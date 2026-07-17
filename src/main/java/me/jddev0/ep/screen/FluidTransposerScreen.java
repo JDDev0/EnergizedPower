@@ -4,7 +4,7 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class FluidTransposerScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidTransposerMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<FluidTransposerMenu> {
     public FluidTransposerScreen(FluidTransposerMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -107,5 +107,13 @@ public class FluidTransposerScreen
 
             guiGraphics.renderTooltip(font, components, Optional.empty(), mouseX, mouseY);
         }
+    }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(152, 17, 16, 52);
+
+        return super.getTankCords(tank);
     }
 }
