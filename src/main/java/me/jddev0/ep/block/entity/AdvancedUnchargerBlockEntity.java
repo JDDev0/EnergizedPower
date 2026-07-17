@@ -1,6 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.AdvancedUnchargerBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -11,6 +12,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AdvancedUnchargerMenu;
 import net.minecraft.core.BlockPos;
@@ -31,9 +33,15 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 public class AdvancedUnchargerBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler> {
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
+    //Item slot indices are dynamic in the future
+
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> {
         if(i < 0 || i > 2)
             return false;
 
@@ -145,15 +153,84 @@ public class AdvancedUnchargerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return new AdvancedUnchargerMenu(id, inventory, this, upgradeModuleInventory, this.data);
+    }
+
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        //this.wokerThreadCount is not yet assigned when this method gets called
+        int workerThreadCount = /* TODO initWorkerThreadCount()*/3;
+
+        if(slotType == SlotType.ITEM) {
+            List<SlotEntry> allInputs = IntStream.range(0, workerThreadCount).mapToObj(SlotEntry::ofInput).toList();
+            List<SlotEntry> allOutputs = IntStream.range(0, workerThreadCount).mapToObj(SlotEntry::ofOutput).toList();
+            List<SlotEntry> allSlots = IntStream.range(0, workerThreadCount).mapToObj(SlotEntry::ofBoth).toList();
+
+            List<SlotGroup> slotGroups = new ArrayList<>();
+
+            //All inputs only
+            slotGroups.add(SlotGroup.of(allInputs));
+
+            //All outputs only
+            slotGroups.add(SlotGroup.of(allOutputs));
+
+            //All inputs & outputs
+            slotGroups.add(SlotGroup.of(allSlots));
+
+            //Only add individual & n - 1 slot groups if more than one thread, otherwise there would be duplicated groups
+            if(workerThreadCount > 1) {
+                List<SlotEntry> allInputsExceptFirst = IntStream.range(1, workerThreadCount).mapToObj(SlotEntry::ofInput).toList();
+                List<SlotEntry> allOutputsExceptFirst  = IntStream.range(1, workerThreadCount).mapToObj(SlotEntry::ofOutput).toList();
+                List<SlotEntry> allSlotsExceptFirst  = IntStream.range(1, workerThreadCount).mapToObj(SlotEntry::ofBoth).toList();
+
+                //First input only
+                slotGroups.add(SlotGroup.of(SlotEntry.ofInput(0)));
+
+                //First output only
+                slotGroups.add(SlotGroup.of(SlotEntry.ofOutput(0)));
+
+                //First input & output
+                slotGroups.add(SlotGroup.of(SlotEntry.ofBoth(0)));
+
+                //All except first input only
+                slotGroups.add(SlotGroup.of(allInputsExceptFirst));
+
+                //All except first output only
+                slotGroups.add(SlotGroup.of(allOutputsExceptFirst));
+
+                //All except first input & output
+                slotGroups.add(SlotGroup.of(allSlotsExceptFirst));
+            }
+
+            return slotGroups;
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            for(RelativeDirection direction: RelativeDirection.values())
+                conf.setSlotGroupId(direction, 2);
+        }
+
+        return conf;
     }
 
     public @Nullable IItemHandler getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        //itemHandlerSided must be used because of an extra check
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandlerSided, facing, side);
     }
 
     public @Nullable IEnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
