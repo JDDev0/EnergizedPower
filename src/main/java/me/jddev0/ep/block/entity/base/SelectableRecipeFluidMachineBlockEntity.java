@@ -101,6 +101,7 @@ public abstract class SelectableRecipeFluidMachineBlockEntity
         syncEnergyToPlayer(player);
         syncFluidToPlayer(player);
         syncCurrentRecipeToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
