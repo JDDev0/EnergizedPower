@@ -3,7 +3,7 @@ package me.jddev0.ep.screen;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -16,7 +16,7 @@ import java.util.Locale;
 
 @Environment(EnvType.CLIENT)
 public class FluidPumpScreen
-        extends ConfigurableUpgradableEnergyStorageContainerScreen<FluidPumpMenu> {
+        extends ConfigurableIOUpgradableEnergyStorageContainerScreen<FluidPumpMenu> {
     public static final boolean SHOW_RELATIVE_COORDINATES = ModConfigs.CLIENT_FLUID_PUMP_RELATIVE_TARGET_COORDINATES.getValue();
 
     public FluidPumpScreen(FluidPumpMenu menu, Inventory inventory, Component component) {
@@ -26,6 +26,7 @@ public class FluidPumpScreen
                 EPAPI.id("textures/gui/container/upgrade_view/fluid_pump.png"));
 
         imageWidth = 230;
+        ioConfigurationViewX = 33;
     }
 
     @Override
@@ -91,5 +92,13 @@ public class FluidPumpScreen
         if(isHovering(206, 17, 16, 52, mouseX, mouseY)) {
             renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
+    }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(206, 17, 16, 52);
+
+        return super.getTankCords(tank);
     }
 }
