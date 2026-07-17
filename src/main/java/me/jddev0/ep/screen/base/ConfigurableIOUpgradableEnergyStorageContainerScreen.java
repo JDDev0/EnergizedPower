@@ -189,7 +189,9 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
 
             int modeButtonIndex = slotGroup == null?0:slotGroup.getMode().ordinal() + 1;
             int buttonVPos = 176 + 20 * modeButtonIndex;
-            if(isHovering(ioConfigurationViewX + xOffset, ioConfigurationViewY + yOffset, 20, 20, mouseX, mouseY)) {
+            if(isHovering(ioConfigurationViewX + xOffset, ioConfigurationViewY + yOffset, 20, 20, mouseX, mouseY) &&
+                    //Prevent highlighting multiple slot groups at once if hovering over an edge
+                    mouseOverSlotGroup == null) {
                 guiGraphics.blit(RenderPipelines.GUI_TEXTURED, CONFIGURATION_ICONS_TEXTURE,
                         x + ioConfigurationViewX + xOffset, y + ioConfigurationViewY + yOffset, 20, buttonVPos,
                         20, 20, 256, 256);
@@ -278,6 +280,9 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
                 }
 
                 guiGraphics.setTooltipForNextFrame(font, components, Optional.empty(), mouseX, mouseY);
+
+                //Break to prevent multiple overlapping tooltips if hovering over an edge
+                break;
             }
         }
     }
