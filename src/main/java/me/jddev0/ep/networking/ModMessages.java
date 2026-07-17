@@ -19,6 +19,7 @@ public final class ModMessages {
         PayloadTypeRegistry.playS2C().register(EnergySyncS2CPacket.ID, EnergySyncS2CPacket.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(FluidSyncS2CPacket.ID, FluidSyncS2CPacket.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket.STREAM_CODEC);
+        PayloadTypeRegistry.playS2C().register(IOConfigurationSyncS2CPacket.ID, IOConfigurationSyncS2CPacket.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket.STREAM_CODEC);
@@ -43,12 +44,14 @@ public final class ModMessages {
         PayloadTypeRegistry.playC2S().register(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.playC2S().register(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.playC2S().register(SetIOConfigurationC2SPacket.ID, SetIOConfigurationC2SPacket.STREAM_CODEC);
     }
 
     public static void registerPacketsS2C() {
         ClientPlayNetworking.registerGlobalReceiver(EnergySyncS2CPacket.ID, EnergySyncS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(FluidSyncS2CPacket.ID, FluidSyncS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(ItemStackSyncS2CPacket.ID, ItemStackSyncS2CPacket::receive);
+        ClientPlayNetworking.registerGlobalReceiver(IOConfigurationSyncS2CPacket.ID, IOConfigurationSyncS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(OpenEnergizedPowerBookS2CPacket.ID, OpenEnergizedPowerBookS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SyncPressMoldMakerRecipeListS2CPacket.ID, SyncPressMoldMakerRecipeListS2CPacket::receive);
         ClientPlayNetworking.registerGlobalReceiver(SyncCurrentRecipeS2CPacket.ID, SyncCurrentRecipeS2CPacket::receive);
@@ -74,6 +77,7 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(SetCurrentRecipeIdC2SPacket.ID, SetCurrentRecipeIdC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(SetIOConfigurationC2SPacket.ID, SetIOConfigurationC2SPacket::receive);
     }
 
     public static void sendToServer(CustomPacketPayload message) {

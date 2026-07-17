@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.screen.base.ConfigurableUpgradableEnergyStorageContainerScreen;
+import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
 @Environment(EnvType.CLIENT)
-public class PlantGrowthChamberScreen extends ConfigurableUpgradableEnergyStorageContainerScreen<PlantGrowthChamberMenu> {
+public class PlantGrowthChamberScreen extends ConfigurableIOUpgradableEnergyStorageContainerScreen<PlantGrowthChamberMenu> {
     public PlantGrowthChamberScreen(PlantGrowthChamberMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component,
                 "tooltip.energizedpower.recipe.energy_required_to_finish.txt",
@@ -46,5 +46,13 @@ public class PlantGrowthChamberScreen extends ConfigurableUpgradableEnergyStorag
         if(isHovering(44, 17, 16, 52, mouseX, mouseY)) {
             renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
+    }
+
+    @Override
+    protected Rect getTankCords(int tank) {
+        if(tank == 0)
+            return new Rect(44, 17, 16, 52);
+
+        return super.getTankCords(tank);
     }
 }

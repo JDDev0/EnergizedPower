@@ -57,6 +57,8 @@ public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEn
             upgradeModuleViewContainerData.toggleInUpgradeModuleView();
 
             broadcastChanges();
+
+            return true;
         }
 
         return false;

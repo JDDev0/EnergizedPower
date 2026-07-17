@@ -153,6 +153,9 @@ public class ConfigurableTransformerBlock extends BaseEntityBlock implements Sim
             ));
         }
 
+        //No invalidation required on Fabric, because the Storage<...> is not cached,
+        // instead the lookup provider from blockEntity + side => Storage<...> is cached, because the provider doesn't change no invalidation is required
+
         return InteractionResult.SUCCESS;
     }
 

@@ -102,6 +102,7 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
