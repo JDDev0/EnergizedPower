@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.AutoCrafterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
@@ -11,6 +12,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.util.ItemStackUtils;
@@ -45,10 +47,13 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class AutoCrafterBlockEntity
         extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
         implements CheckboxUpdate {
+    //Item slot indices are dynamic in the future
+
     private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
 
     public final static long ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
@@ -183,15 +188,69 @@ public class AutoCrafterBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return new AutoCrafterMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+    }
+
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        //this.outputOnlySlotCount is not yet assigned when this method gets called
+        int outputOnlySlotCount = /* TODO initOutputOnlySlotCount()*/3;
+
+        if(slotType == SlotType.ITEM) {
+            List<SlotEntry> allOutputOnlySlots = IntStream.range(0, outputOnlySlotCount).mapToObj(SlotEntry::ofOutput).toList();
+            List<SlotEntry> allOutputs = IntStream.range(0, slotCount).mapToObj(SlotEntry::ofOutput).toList();
+            List<SlotEntry> allInputs = IntStream.range(outputOnlySlotCount, slotCount).mapToObj(SlotEntry::ofInput).toList();
+            List<SlotEntry> allInputAndOutputOnlySlots = new ArrayList<>(IntStream.range(0, outputOnlySlotCount).mapToObj(SlotEntry::ofOutput).toList());
+            allInputAndOutputOnlySlots.addAll(allInputs);
+            List<SlotEntry> allSlots = new ArrayList<>(IntStream.range(0, outputOnlySlotCount).mapToObj(SlotEntry::ofOutput).toList());
+            allSlots.addAll(IntStream.range(outputOnlySlotCount, slotCount).mapToObj(SlotEntry::ofBoth).toList());
+
+            List<SlotGroup> slotGroups = new ArrayList<>();
+
+            //All inputs only
+            slotGroups.add(SlotGroup.of(allInputs));
+
+            //All output-only slots only
+            slotGroups.add(SlotGroup.of(allOutputOnlySlots));
+
+            //All outputs
+            slotGroups.add(SlotGroup.of(allOutputs));
+
+            //All inputs & output-only slots
+            slotGroups.add(SlotGroup.of(allInputAndOutputOnlySlots));
+
+            //All inputs & outputs
+            slotGroups.add(SlotGroup.of(allSlots));
+
+            return slotGroups;
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            for(RelativeDirection direction: RelativeDirection.values())
+                conf.setSlotGroupId(direction, 4);
+        }
+
+        return conf;
     }
 
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        //itemHandlerSided must be used because of an extra check
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandlerSided, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
