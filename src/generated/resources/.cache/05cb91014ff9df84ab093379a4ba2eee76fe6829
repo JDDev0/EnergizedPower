@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-11T23:46:04.494265773	Energized Power/Recipes
+// 1.21.1	2026-07-17T19:14:53.810367788	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -737,8 +737,8 @@ f5fd8af35159efe1686b26a3a066c8336990cb1a data/energizedpower/advancement/recipes
 b5a16bf3cb0dd8a43768e2bfbc98a0beba481a8a data/energizedpower/advancement/recipes/crafting/energized_gold_cable.json
 60e7881e391008ae000f9de4b28c66422b69f7fa data/energizedpower/advancement/recipes/crafting/speed_upgrade_module_8.json
 f41a97b56ff38d517b91cd086d35c6767fd707c0 data/energizedpower/recipe/smelting/iron_nugget_from_smelting_iron_hammer.json
-ad97179dbc5fe24fcb9f23af838dd34acc73552d data/energizedpower/recipe/metal_press/steel_rod.json
 a2cf5a90e25e8a03557d037a0677588fe24854b8 data/energizedpower/recipe/growing/soil/mycelium.json
+ad97179dbc5fe24fcb9f23af838dd34acc73552d data/energizedpower/recipe/metal_press/steel_rod.json
 f12b361c82e46bcc44c213f554cf667567cf7c4a data/energizedpower/recipe/crafting/express_item_conveyor_belt_switch.json
 385edafd3887260acfd8c958301f55974fc03792 data/energizedpower/advancement/recipes/crafting/assembling_machine.json
 966865793f07f8949f3d721749ccd357cf88ea69 data/energizedpower/advancement/recipes/crafting/battery_box.json

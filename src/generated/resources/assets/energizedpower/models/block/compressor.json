@@ -1,12 +1,9 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "down": "energizedpower:block/compressor_bottom",
-    "east": "energizedpower:block/compressor_side",
-    "north": "energizedpower:block/compressor_side",
-    "particle": "energizedpower:block/compressor_top",
-    "south": "energizedpower:block/compressor_side",
-    "up": "energizedpower:block/compressor_top",
-    "west": "energizedpower:block/compressor_side"
+    "bottom": "energizedpower:block/compressor_bottom",
+    "front": "energizedpower:block/compressor_front",
+    "side": "energizedpower:block/compressor_side",
+    "top": "energizedpower:block/compressor_top"
   }
 }
