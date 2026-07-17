@@ -9,6 +9,7 @@ import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.BlockPlacerMenu;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
@@ -41,7 +42,7 @@ public class BlockPlacerBlockEntity
         implements CheckboxUpdate {
     private static final List<@NotNull ResourceLocation> PLACEMENT_BLACKLIST = ModConfigs.COMMON_BLOCK_PLACER_PLACEMENT_BLACKLIST.getValue();
 
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
+    private static final int ITEM_SLOT_INPUT = 0;
 
     private boolean inverseRotation;
 
@@ -113,10 +114,37 @@ public class BlockPlacerBlockEntity
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         syncEnergyToPlayer(player);
+        syncIOConfigurationToPlayer(player);
 
         return new BlockPlacerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        if(slotType == SlotType.ITEM) {
+            return List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT))
+            );
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            for(RelativeDirection direction: RelativeDirection.values())
+                conf.setSlotGroupId(direction, 0);
+        }
+
+        return conf;
+    }
+
+    //TODO remove and replace with io configuration
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> true, i -> false);
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
