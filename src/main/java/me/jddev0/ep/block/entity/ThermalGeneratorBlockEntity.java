@@ -178,7 +178,9 @@ public class ThermalGeneratorBlockEntity
                     SlotGroup.of(SlotEntry.ofInput(FLUID_SLOT_INPUT)),
 
                     //Output all tanks (Every EP fluid tank should support output to allow draining fluids without losing them)
-                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT))
+                    SlotGroup.of(SlotEntry.ofOutput(FLUID_SLOT_INPUT)),
+                    //Fluid input and output at once should also work, because input tank supports different fluid types
+                    SlotGroup.of(SlotEntry.ofBoth(FLUID_SLOT_INPUT))
             );
         }
 
