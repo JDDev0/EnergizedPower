@@ -1,10 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.InductionSmelterBlock;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SimpleRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.recipe.AlloyFurnaceRecipe;
 import me.jddev0.ep.recipe.ContainerRecipeInputWrapper;
@@ -28,14 +30,16 @@ import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<RecipeInput, AlloyFurnaceRecipe> {
     public static final float RECIPE_DURATION_MULTIPLIER = ModConfigs.COMMON_INDUCTION_SMELTER_RECIPE_DURATION_MULTIPLIER.getValue();
 
-    private final InputOutputItemHandler itemHandlerSidedFrontTopBottom = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 0 && i < 3, i -> i > 2 && i < 5);
-    private final InputOutputItemHandler itemHandlerSidedBack = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 1, i -> i > 2 && i < 5);
-    private final InputOutputItemHandler itemHandlerSidedLeft = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i > 2 && i < 5);
-    private final InputOutputItemHandler itemHandlerSidedRight = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 2, i -> i > 2 && i < 5);
+    private static final int ITEM_SLOT_INPUT_1 = 0;
+    private static final int ITEM_SLOT_INPUT_2 = 1;
+    private static final int ITEM_SLOT_INPUT_3 = 2;
+    private static final int ITEM_SLOT_OUTPUT_MAIN = 3;
+    private static final int ITEM_SLOT_OUTPUT_SECONDARY = 4;
 
     public InductionSmelterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -90,22 +94,74 @@ public class InductionSmelterBlockEntity extends SimpleRecipeMachineBlockEntity<
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        if(slotType == SlotType.ITEM) {
+            return List.of(
+                    //Input 1 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1)),
+
+                    //Input 2 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_2)),
+
+                    //Input 3 only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_3)),
+
+                    //All inputs
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofInput(ITEM_SLOT_INPUT_3)),
+
+                    //Main output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN)),
+
+                    //Secondary output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //All outputs
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //Input 1 & all outputs
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //Input 2 & all outputs
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //Input 3 & all outputs
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_3), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY)),
+
+                    //Alls Inputs & Main Output & Secondary Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT_1), SlotEntry.ofInput(ITEM_SLOT_INPUT_2), SlotEntry.ofInput(ITEM_SLOT_INPUT_3),
+                            SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_MAIN), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT_SECONDARY))
+            );
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            conf.setSlotGroupId(RelativeDirection.FRONT, 10);
+            conf.setSlotGroupId(RelativeDirection.TOP, 10);
+            conf.setSlotGroupId(RelativeDirection.BOTTOM, 10);
+
+            conf.setSlotGroupId(RelativeDirection.LEFT, 7);
+            conf.setSlotGroupId(RelativeDirection.BACK, 8);
+            conf.setSlotGroupId(RelativeDirection.RIGHT, 9);
+        }
+
+        return conf;
+    }
+
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        Direction facing = getBlockState().getValue(InductionSmelterBlock.FACING);
-
-        if(facing.getOpposite() == side)
-            return itemHandlerSidedBack;
-
-        if(facing.getClockWise() == side)
-            return itemHandlerSidedLeft;
-
-        if(facing.getCounterClockWise() == side)
-            return itemHandlerSidedRight;
-
-        return itemHandlerSidedFrontTopBottom;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
