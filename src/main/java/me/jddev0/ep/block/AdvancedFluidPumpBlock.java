@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.AdvancedFluidPumpBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.world.level.block.BaseEntityBlock;
 
 public class AdvancedFluidPumpBlock extends HorizontallyOrientableWorkerMachineBlock<AdvancedFluidPumpBlockEntity> {
