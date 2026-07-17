@@ -26,7 +26,7 @@ public class ItemConveyorBeltLoaderBlockEntity
         extends MenuInventoryStorageBlockEntity<EnergizedPowerItemStackHandler> {
     private final int ticksPerItem;
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 0);
 
     private final ConveyorBeltTier tier;
 

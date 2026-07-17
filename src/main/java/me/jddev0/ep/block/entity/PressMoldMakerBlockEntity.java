@@ -37,7 +37,7 @@ public class PressMoldMakerBlockEntity
         extends MenuInventoryStorageBlockEntity<EnergizedPowerItemStackHandler> {
     private List<Pair<RecipeHolder<PressMoldMakerRecipe>, Boolean>> recipeList = new ArrayList<>();
 
-    private final IItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 1);
 
     public PressMoldMakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
