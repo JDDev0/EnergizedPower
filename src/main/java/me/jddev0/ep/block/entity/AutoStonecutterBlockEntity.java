@@ -1,9 +1,11 @@
 package me.jddev0.ep.block.entity;
 
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.SelectableRecipeMachineBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
+import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.AutoStonecutterMenu;
 import me.jddev0.ep.util.InventoryUtils;
@@ -22,9 +24,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 
+import java.util.List;
+
 public class AutoStonecutterBlockEntity
         extends SelectableRecipeMachineBlockEntity<SingleRecipeInput, StonecutterRecipe> {
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0 || i == 1, i -> i == 2);
+    private static final int ITEM_SLOT_INPUT = 0;
+    private static final int ITEM_SLOT_TOOL = 1;
+    private static final int ITEM_SLOT_OUTPUT = 2;
 
     public AutoStonecutterBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(
@@ -71,11 +77,56 @@ public class AutoStonecutterBlockEntity
         };
     }
 
+    @Override
+    protected List<SlotGroup> initSlotGroups(SlotType slotType) {
+        if(slotType == SlotType.ITEM) {
+            return List.of(
+                    //Input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT)),
+
+                    //Tool input only
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_TOOL)),
+
+                    //All inputs
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofInput(ITEM_SLOT_TOOL)),
+
+                    //Output only
+                    SlotGroup.of(SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Tool Input & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_TOOL), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT)),
+
+                    //Input & Tool Input & Output
+                    SlotGroup.of(SlotEntry.ofInput(ITEM_SLOT_INPUT), SlotEntry.ofInput(ITEM_SLOT_TOOL), SlotEntry.ofOutput(ITEM_SLOT_OUTPUT))
+            );
+        }
+
+        return super.initSlotGroups(slotType);
+    }
+
+    @Override
+    protected IOConfiguration initDefaultSlotConfiguration(SlotType slotType) {
+        IOConfiguration conf = new IOConfiguration();
+
+        if(slotType == SlotType.ITEM) {
+            for(RelativeDirection direction:RelativeDirection.values())
+                conf.setSlotGroupId(direction, 6);
+        }
+
+        return conf;
+    }
+
     public @Nullable Storage<ItemVariant> getItemHandlerCapability(@Nullable Direction side) {
         if(side == null)
             return itemHandler;
 
-        return itemHandlerSided;
+        Direction facing = getBlockState().getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+        IOConfiguration conf = getIOConfiguration(SlotType.ITEM);
+        List<SlotGroup> slotGroups = getSlotGroups(SlotType.ITEM);
+        return conf.createSidedItemHandlerFor(slotGroups, itemHandler, facing, side);
     }
 
     public @Nullable EnergyStorage getEnergyStorageCapability(@Nullable Direction side) {
