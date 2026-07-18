@@ -93,7 +93,7 @@ public abstract class ConfigurableIOUpgradableEnergyStorageMenu<T extends Energy
             ioConfigurationViewContainerData.toggleInIOConfigurationView();
 
             //IO Configuration view was toggled -> force close upgrade Configuration view
-            upgradeModuleViewContainerData.setInUpgradeModuleView(false);
+            upgradeViewContainerData.setInUpgradeModuleView(false);
 
             broadcastChanges();
 
