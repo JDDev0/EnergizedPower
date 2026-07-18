@@ -132,6 +132,11 @@ public class ModBasicsAdvancements implements AdvancementSubProvider {
                 EPItems.WRENCH, "wrench", AdvancementType.TASK
         );
 
+        AdvancementHolder machineConfigurator = addAdvancement(
+                advancementOutput, wrench,
+                EPItems.MACHINE_CONFIGURATOR, "machine_configurator", AdvancementType.TASK
+        );
+
         AdvancementHolder hammer = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedPowerBasics,
