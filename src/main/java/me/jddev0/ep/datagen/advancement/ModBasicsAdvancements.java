@@ -138,6 +138,11 @@ public class ModBasicsAdvancements extends FabricAdvancementProvider {
                 EPItems.WRENCH, "wrench", AdvancementType.TASK
         );
 
+        AdvancementHolder machineConfigurator = addAdvancement(
+                advancementOutput, wrench,
+                EPItems.MACHINE_CONFIGURATOR, "machine_configurator", AdvancementType.TASK
+        );
+
         AdvancementHolder hammer = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedPowerBasics,
