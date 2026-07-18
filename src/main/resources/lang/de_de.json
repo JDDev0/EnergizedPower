@@ -504,6 +504,9 @@
   "tooltip.energizedpower.machine_configurator.txt.shift.1": "Konfiguration durch Rechts-Klick auf eine Maschine anwenden.",
   "tooltip.energizedpower.machine_configurator.txt.shift.2": "Konfiguration durch SHIFT + Rechts-Klick auf eine Maschine speichern.",
   "tooltip.energizedpower.machine_configurator.txt.shift.3": "Konfiguration durch SHIFT + Rechts-Klick in der Luft zurücksetzen.",
+  "advancements.energizedpower.machine_configurator.title": "Maschinen-Konfiguration",
+  "advancements.energizedpower.machine_configurator.description": "Kopiere Maschinen-Konfigs mit dem Maschinen-Konfigurator.",
+  "book.energizedpower.page.machine_configurator": "Der Maschinen-Konfigurator kann für das Kopieren von Redstone-/Komparator-Mode-Konfiguration und IO-Konfiguration von einer Maschine zu einer anderen verwendet werden.",
 
   "item.energizedpower.battery_box_minecart": "Batterie-Box-Lore",
   "entity.energizedpower.battery_box_minecart": "Batterie-Box-Lore",

@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/basics/wrench",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:machine_configurator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.machine_configurator.description"
+    },
+    "icon": {
+      "id": "energizedpower:machine_configurator"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.machine_configurator.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
