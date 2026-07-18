@@ -127,6 +127,11 @@ public class ModBasicsAdvancements implements AdvancementProvider.AdvancementGen
                 EPItems.WRENCH, "wrench", AdvancementType.TASK
         );
 
+        AdvancementHolder machineConfigurator = addAdvancement(
+                advancementOutput, existingFileHelper, wrench,
+                EPItems.MACHINE_CONFIGURATOR, "machine_configurator", AdvancementType.TASK
+        );
+
         AdvancementHolder hammer = addAdvancement(
                 advancementOutput, existingFileHelper, energizedPowerBasics,
                 EPItems.IRON_HAMMER, "hammer", AdvancementType.TASK,

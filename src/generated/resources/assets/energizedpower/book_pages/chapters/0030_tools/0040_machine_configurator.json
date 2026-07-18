@@ -1,0 +1,14 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.machine_configurator"
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/item/machine_configurator.png"
+}

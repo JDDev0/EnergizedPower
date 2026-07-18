@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-18T17:16:54.072846956	Book Pages: energizedpower
+// 1.21.1	2026-07-18T17:18:23.338378886	Book Pages: energizedpower
 e56b2a7d93f0686c8bba2ceced5064f51dcad3fb assets/energizedpower/book_pages/chapters/0000_welcome/0000_welcome.json
 188704fed19e934db2b387b6c178c9821f203894 assets/energizedpower/book_pages/chapters/0000_welcome/0010_credits.json
 ade5edc63375a9b26a530e90158f43693e9bc1f1 assets/energizedpower/book_pages/chapters/0000_welcome/0020_table_of_contents.json
@@ -40,6 +40,7 @@ ff451d14ab3c06d3c842f837f4d7ae7870dcc3b6 assets/energizedpower/book_pages/chapte
 350da366179751e01e848ce0f2ad51e427eeb0e7 assets/energizedpower/book_pages/chapters/0030_tools/0010_hammers.json
 97351f31f6080b27370889c1b5459ac87bb37438 assets/energizedpower/book_pages/chapters/0030_tools/0020_cutters.json
 29b46707ad91753c826af1648e598ab94368305c assets/energizedpower/book_pages/chapters/0030_tools/0030_wrench.json
+5bd7811e4ca6172b6c41d0bcd2fc8a1987288187 assets/energizedpower/book_pages/chapters/0030_tools/0040_machine_configurator.json
 d58aa1373d036b9f2d3f222a085556c8fb4b9946 assets/energizedpower/book_pages/chapters/0040_workbenches/0000_workbenches_chapter.json
 a1e595df98725a4c5e3ed83e7bc34095d89de42d assets/energizedpower/book_pages/chapters/0040_workbenches/0010_press_mold_maker.json
 180845f9c9244f68a92ff54657ec1a8e119699cc assets/energizedpower/book_pages/chapters/0040_workbenches/0020_alloy_furnace.json

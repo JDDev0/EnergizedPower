@@ -504,6 +504,9 @@
   "tooltip.energizedpower.machine_configurator.txt.shift.1": "Apply configuration by right-clicking a machine.",
   "tooltip.energizedpower.machine_configurator.txt.shift.2": "Store configuration by shift + right-clicking a machine.",
   "tooltip.energizedpower.machine_configurator.txt.shift.3": "Clear configuration by shift + right-clicking in the air.",
+  "advancements.energizedpower.machine_configurator.title": "Machine configuration",
+  "advancements.energizedpower.machine_configurator.description": "Copy machine configs with the Machine Configurator.",
+  "book.energizedpower.page.machine_configurator": "The Machine Configurator can be used to copy Redstone/Comparator mode config and IO Configuration from one machine to another.",
 
   "item.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
   "entity.energizedpower.battery_box_minecart": "蓄電器付きのマインカート",
