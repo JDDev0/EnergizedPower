@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-18T17:29:50.230598595	Energized Power/Advancements (Basics)
+// 1.21.1	2026-07-18T17:30:39.916851869	Energized Power/Advancements (Basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -99,6 +99,7 @@ c2f83619c47a0248d3d80551487f608b31969c37 data/energizedpower/advancement/main/ba
 9c30f0a5deb5468bea0217e9645279335b7ceedc data/energizedpower/advancement/main/basics/battery_box_minecart.json
 5bdfcf707223cf1cc71e726cd3f461f130425dac data/energizedpower/advancement/main/basics/iron_fluid_pipe.json
 10166c0cfdbe59de7fbe3902c168c457d1860f10 data/energizedpower/advancement/main/basics/fast_item_conveyor_belt.json
+7f87a42fd9900b03c07ba7b375bbfa4621267068 data/energizedpower/advancement/main/basics/machine_configurator.json
 7f71ee43239696766f01c0f977036c7f1332ea62 data/energizedpower/advancement/main/basics/energy_production_upgrade_module_2.json
 76928f4d08c03296e486a1b831c55c1bd21f2115 data/energizedpower/advancement/main/basics/xp_extraction_upgrade_module_2.json
 56e22d79c713d269da4c588e06e32076debafe2d data/energizedpower/advancement/main/basics/energy_analyzer.json

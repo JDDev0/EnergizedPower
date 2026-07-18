@@ -608,6 +608,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 Component.translatable("book.energizedpower.page.wrench").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), EPAPI.id("textures/item/wrench.png"));
+
+        addSimplePage(pageId("machine_configurator"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.machine_configurator").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+        ), EPAPI.id("textures/item/machine_configurator.png"));
     }
     private void registerWorkbenchesChapter() {
         chapterId("workbenches");
