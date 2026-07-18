@@ -1,8 +1,8 @@
-package me.jddev0.ep.inventory;
+package me.jddev0.ep.inventory.data;
 
 import net.minecraft.world.inventory.ContainerData;
 
-public class UpgradeModuleViewContainerData implements ContainerData {
+public class UpgradeViewContainerData implements ContainerData {
     private boolean inUpgradeModuleView = false;
 
     @Override

@@ -1,8 +1,7 @@
 package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
-import me.jddev0.ep.inventory.UpgradeModuleSlot;
-import me.jddev0.ep.inventory.UpgradeModuleViewContainerData;
+import me.jddev0.ep.inventory.data.UpgradeViewContainerData;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
         extends EnergyStorageMenu<T> {
-    protected final UpgradeModuleViewContainerData upgradeModuleViewContainerData;
+    protected final UpgradeViewContainerData upgradeModuleViewContainerData;
     protected final UpgradeModuleInventory upgradeModuleInventory;
 
     protected UpgradableEnergyStorageMenu(@Nullable MenuType<?> menuType, int id, Inventory playerInventory,
@@ -26,7 +25,7 @@ public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEn
 
         checkContainerSize(upgradeModuleInventory, upgradeModuleCount);
 
-        this.upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        this.upgradeModuleViewContainerData = new UpgradeViewContainerData();
         this.upgradeModuleInventory = upgradeModuleInventory;
 
         addDataSlots(upgradeModuleViewContainerData);
@@ -40,7 +39,7 @@ public abstract class UpgradableEnergyStorageMenu<T extends EnergyStorageBlockEn
 
         checkContainerSize(upgradeModuleInventory, upgradeModuleCount);
 
-        this.upgradeModuleViewContainerData = new UpgradeModuleViewContainerData();
+        this.upgradeModuleViewContainerData = new UpgradeViewContainerData();
         this.upgradeModuleInventory = upgradeModuleInventory;
 
         addDataSlots(upgradeModuleViewContainerData);
