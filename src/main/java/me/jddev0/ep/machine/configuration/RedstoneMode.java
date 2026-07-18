@@ -1,5 +1,7 @@
 package me.jddev0.ep.machine.configuration;
 
+import com.mojang.serialization.Codec;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
 
@@ -7,6 +9,11 @@ import java.util.Locale;
 
 public enum RedstoneMode implements StringRepresentable {
     IGNORE, HIGH, LOW;
+
+    public static final Codec<RedstoneMode> CODEC = ExtraCodecs.orCompressed(
+            Codec.stringResolver(RedstoneMode::name, RedstoneMode::valueOf),
+            ExtraCodecs.idResolverCodec(RedstoneMode::ordinal, i -> i >= 0 && i < RedstoneMode.values().length?RedstoneMode.values()[i]:null, -1)
+    );
 
     /**
      * @return Returns the enum value at index if index is valid otherwise IGNORE will be returned

@@ -7,10 +7,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Unit;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+
 import java.util.function.UnaryOperator;
 
 public final class EPDataComponentTypes {
@@ -54,6 +58,20 @@ public final class EPDataComponentTypes {
     public static final DataComponentType<DimensionalPositionComponent> DIMENSIONAL_POSITION =
             registerDataComponentType("dimensional_position", builder ->
                     builder.persistent(DimensionalPositionComponent.CODEC).networkSynchronized(DimensionalPositionComponent.STREAM_CODEC));
+
+    public static final DataComponentType<Block> SOURCE_BLOCK =
+            registerDataComponentType("source_block", builder ->
+                    builder.persistent(BuiltInRegistries.BLOCK.byNameCodec()).
+                            networkSynchronized(ByteBufCodecs.registry(Registries.BLOCK)));
+
+    public static final DataComponentType<BlockEntityType<?>> SOURCE_BLOCK_ENTITY =
+            registerDataComponentType("source_block_entity", builder ->
+                    builder.persistent(BuiltInRegistries.BLOCK_ENTITY_TYPE.byNameCodec()).
+                            networkSynchronized(ByteBufCodecs.registry(Registries.BLOCK_ENTITY_TYPE)));
+
+    public static final DataComponentType<MachineConfigurationComponent> MACHINE_CONFIGURATION =
+            registerDataComponentType("machine_configuration", builder ->
+                    builder.persistent(MachineConfigurationComponent.CODEC).networkSynchronized(MachineConfigurationComponent.STREAM_CODEC));
 
     public static final DataComponentType<Unit> NO_REPAIR = registerDataComponentType("no_repair", builder ->
             builder.persistent(Codec.unit(Unit.INSTANCE)).networkSynchronized(StreamCodec.unit(Unit.INSTANCE)));

@@ -395,6 +395,9 @@ public final class EPItems {
     public static final Item WRENCH = registerItem("wrench",
             WrenchItem::new, new Item.Properties().stacksTo(1));
 
+    public static final Item MACHINE_CONFIGURATOR = registerItem("machine_configurator",
+            MachineConfiguratorItem::new, new Item.Properties().stacksTo(1));
+
     public static final Item BATTERY_BOX_MINECART = registerItem("battery_box_minecart",
             BatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
     public static final Item ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",

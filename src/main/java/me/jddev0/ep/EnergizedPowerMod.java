@@ -97,6 +97,8 @@ public class EnergizedPowerMod implements ModInitializer {
 
             event.accept(EPItems.WRENCH);
 
+            event.accept(EPItems.MACHINE_CONFIGURATOR);
+
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM);

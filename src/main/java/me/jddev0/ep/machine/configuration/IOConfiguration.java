@@ -64,6 +64,18 @@ public class IOConfiguration {
         return slotGroupIds[direction.ordinal()];
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || getClass() != o.getClass()) return false;
+        IOConfiguration that = (IOConfiguration)o;
+        return Objects.deepEquals(slotGroupIds, that.slotGroupIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(slotGroupIds);
+    }
+
     public boolean validate(int slotGroupCount) {
         for(int i = 0;i < 6;i++) {
             int id = slotGroupIds[i];

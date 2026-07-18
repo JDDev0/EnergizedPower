@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-17T19:29:55.530694894	Energized Power/Recipes
+// 1.21.1	2026-07-18T17:26:16.408996681	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -108,6 +108,7 @@ aa9e7f5896392864e2d13daae17678061f0f368b data/energizedpower/advancement/recipes
 53d325e0281327820868068c50db4c71a9738bbe data/energizedpower/advancement/recipes/crafting/raw_tin.json
 6e127f7d051db090a633de7882401c33c79ad7bf data/energizedpower/recipe/stone_liquefier/obsidian.json
 6dabeb8ca1c6c14db94689080d3d8e0936d21b32 data/energizedpower/recipe/metal_press/iron_rod.json
+f3418b48f81c4fd480a144045b550288e657f46a data/energizedpower/recipe/crafting/machine_configurator.json
 187766cfccf0b1830773804083b55e4500023d0b data/energizedpower/recipe/crafting/battery_1.json
 7e0e07c9c9f030f979125bd812f6f27f705f7ed6 data/energizedpower/recipe/crafting/fluid_filler.json
 627f26682db488e2077acc245076a8f4b81ef567 data/energizedpower/advancement/recipes/crafting/xp_drain.json
@@ -250,6 +251,7 @@ d81ef9d36a58abc38f2086984ee199768564c14b data/energizedpower/advancement/recipes
 ca13e47fbcb62001e182ed827a7d1a47aa8a6a52 data/energizedpower/recipe/crafting/battery_3.json
 7f22c0afa6b41b7af29ec506bfd9e4c61770965e data/energizedpower/recipe/crafting/express_item_conveyor_belt_splitter.json
 b76540c396ea98c6d975de60fa891dacf65a2978 data/energizedpower/recipe/smelting/tin_ingot_from_smelting_tin_ores.json
+90178355d714ab6d0460635e5d80ce40240ed3a6 data/energizedpower/advancement/recipes/crafting/machine_configurator.json
 1f819eb76741585d7695eba5234c4c1623f0f0a8 data/energizedpower/advancement/recipes/crafting/energy_capacity_upgrade_module_7.json
 743ed453b6be4cd9cd0ba09a816e00b10d1a2a9a data/energizedpower/advancement/recipes/crafting/metal_press.json
 ac68f1d1109571eae340a570c0e1890d786b13ae data/energizedpower/recipe/fluid_transposer/red_concrete.json
