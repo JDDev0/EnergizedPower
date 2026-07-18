@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-18T17:30:39.914740111	Energized Power/Recipes
+// 1.21.1	2026-07-18T17:31:09.947542039	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -251,7 +251,7 @@ d81ef9d36a58abc38f2086984ee199768564c14b data/energizedpower/advancement/recipes
 ca13e47fbcb62001e182ed827a7d1a47aa8a6a52 data/energizedpower/recipe/crafting/battery_3.json
 7f22c0afa6b41b7af29ec506bfd9e4c61770965e data/energizedpower/recipe/crafting/express_item_conveyor_belt_splitter.json
 b76540c396ea98c6d975de60fa891dacf65a2978 data/energizedpower/recipe/smelting/tin_ingot_from_smelting_tin_ores.json
-90178355d714ab6d0460635e5d80ce40240ed3a6 data/energizedpower/advancement/recipes/crafting/machine_configurator.json
+5c701f75c6a6f3ad20d15db954383ae25a4dde1e data/energizedpower/advancement/recipes/crafting/machine_configurator.json
 1f819eb76741585d7695eba5234c4c1623f0f0a8 data/energizedpower/advancement/recipes/crafting/energy_capacity_upgrade_module_7.json
 743ed453b6be4cd9cd0ba09a816e00b10d1a2a9a data/energizedpower/advancement/recipes/crafting/metal_press.json
 ac68f1d1109571eae340a570c0e1890d786b13ae data/energizedpower/recipe/fluid_transposer/red_concrete.json
