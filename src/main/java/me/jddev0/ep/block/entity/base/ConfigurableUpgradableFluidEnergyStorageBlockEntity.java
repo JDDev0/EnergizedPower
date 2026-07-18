@@ -1,6 +1,8 @@
 package me.jddev0.ep.block.entity.base;
 
 import com.mojang.logging.LogUtils;
+import me.jddev0.ep.block.entity.MachineConfiguratorConfigurable;
+import me.jddev0.ep.component.MachineConfigurationComponent;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.fluid.IEnergizedPowerFluidStorage;
 import me.jddev0.ep.machine.RedstoneOutput;
@@ -22,16 +24,13 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
         <E extends IEnergizedPowerEnergyStorage, F extends IEnergizedPowerFluidStorage>
         extends UpgradableFluidEnergyStorageBlockEntity<E, F>
         implements RedstoneModeUpdate, IRedstoneModeHandler, ComparatorModeUpdate, IComparatorModeHandler,
-        IOConfigurationUpdate, SetIOConfigurationUpdate, IConfigurableIOMachine,
+        IOConfigurationUpdate, SetIOConfigurationUpdate, IConfigurableIOMachine, MachineConfiguratorConfigurable,
         RedstoneOutput {
     private static final Logger LOGGER = LogUtils.getLogger();
 
@@ -225,5 +224,61 @@ public abstract class ConfigurableUpgradableFluidEnergyStorageBlockEntity
     @Override
     public IOConfiguration getIOConfiguration(@NotNull SlotType slotType) {
         return ioConfigurations.get(slotType);
+    }
+
+    @Override
+    public boolean onApplyMachineConfiguration(@NotNull MachineConfigurationComponent machineConfiguration) {
+        if(Arrays.stream(getAvailableRedstoneModes()).
+                noneMatch(redstoneMode -> redstoneMode == machineConfiguration.getRedstoneMode()))
+            return false;
+
+        if(Arrays.stream(getAvailableComparatorModes()).
+                noneMatch(comparatorMode -> comparatorMode == machineConfiguration.getComparatorMode()))
+            return false;
+
+        Map<SlotType, IOConfiguration> ioConfigurations = machineConfiguration.getIOConfigurations();
+        if(!this.ioConfigurations.keySet().equals(ioConfigurations.keySet()))
+            return false;
+
+        boolean ioConfigurationChanged = false;
+        for(SlotType slotType:getSupportedSlotTypes()) {
+            if(!ioConfigurations.get(slotType).validate(getSlotGroups(slotType).size()))
+                return false;
+
+            ioConfigurationChanged |= !this.ioConfigurations.get(slotType).equals(ioConfigurations.get(slotType));
+        }
+
+        boolean configChanged = redstoneMode != machineConfiguration.getRedstoneMode() ||
+                comparatorMode != machineConfiguration.getComparatorMode() || ioConfigurationChanged;
+        if(configChanged) {
+            this.redstoneMode = machineConfiguration.getRedstoneMode();
+            this.comparatorMode = machineConfiguration.getComparatorMode();
+
+            if(ioConfigurationChanged)
+                for(SlotType slotType:getSupportedSlotTypes())
+                    this.ioConfigurations.put(slotType, ioConfigurations.get(slotType));
+
+            setChanged();
+
+            if(ioConfigurationChanged) {
+                syncIOConfigurationToPlayers(32);
+
+                //Important: invalidate capability caches and force neighbor change
+                invalidateCapabilities();
+                level.setBlock(getBlockPos(), getBlockState(), 3);
+                for(Direction dir:Direction.values()) {
+                    //TODO only update affect direction(s)
+                    BlockPos neighborPos = getBlockPos().relative(dir);
+                    level.neighborChanged(level.getBlockState(neighborPos), neighborPos, getBlockState().getBlock(), null, false);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public @NotNull MachineConfigurationComponent onStoreMachineConfiguration() {
+        return new MachineConfigurationComponent(redstoneMode, comparatorMode, ioConfigurations);
     }
 }
