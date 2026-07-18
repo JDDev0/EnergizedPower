@@ -1,0 +1,248 @@
+{
+  "content": {
+    "extra": [
+      {
+        "bold": true,
+        "color": "black",
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.io_configuration.1"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.3"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": " "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#0000DE",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.3.1"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#DE7721",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.3.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#21DE21",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.3.3"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.4"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.5"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.6"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": " "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.7"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.8"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": " "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n\n"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#0000DE",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.1.1"
+          },
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.1.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#DE7721",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.2.1"
+          },
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.2.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#21DE21",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.3.1"
+          },
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.3.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          {
+            "bold": true,
+            "color": "#A6A6A6",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.4.1"
+          },
+          {
+            "bold": true,
+            "color": "black",
+            "font": "minecraft:uniform",
+            "translate": "book.energizedpower.page.io_configuration.9.4.2"
+          }
+        ],
+        "font": "minecraft:uniform",
+        "text": "\n• "
+      }
+    ],
+    "text": ""
+  },
+  "image": "energizedpower:textures/gui/book_icons/io_configuration_view.png"
+}
