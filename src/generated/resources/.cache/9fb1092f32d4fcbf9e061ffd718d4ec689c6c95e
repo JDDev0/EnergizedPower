@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-18T17:18:23.338781113	Recipes
+// 1.21.1	2026-07-18T17:18:55.206965876	Recipes
 ab1fc404da0248b87b7e6a6ac62991a502bda031 data/energizedpower/advancement/recipes/blasting/copper_ingot_from_blasting_copper_dust.json
 6bee64f8da51658d20e7d25fbc669faf8f4ecfd5 data/energizedpower/advancement/recipes/blasting/gold_ingot_from_blasting_gold_dust.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
@@ -196,7 +196,7 @@ bf6c0c10bd32df33466f85ef4027e8a1035f3a2d data/energizedpower/advancement/recipes
 e0ec5b612f42995da76122f237b509f31832b22a data/energizedpower/advancement/recipes/crafting/lv_transformer_1_to_n.json
 6898f0d24b29b1468c7270c582bdf63704d3a979 data/energizedpower/advancement/recipes/crafting/lv_transformer_3_to_3.json
 02e5d35a562af631cbff7ef59b69f67ea11f7088 data/energizedpower/advancement/recipes/crafting/lv_transformer_n_to_1.json
-90178355d714ab6d0460635e5d80ce40240ed3a6 data/energizedpower/advancement/recipes/crafting/machine_configurator.json
+5c701f75c6a6f3ad20d15db954383ae25a4dde1e data/energizedpower/advancement/recipes/crafting/machine_configurator.json
 743ed453b6be4cd9cd0ba09a816e00b10d1a2a9a data/energizedpower/advancement/recipes/crafting/metal_press.json
 0b563c3166c94c8bfd077fb95b62e445ecce5135 data/energizedpower/advancement/recipes/crafting/minecart_charger.json
 df4e2e914883de89628f7a72f6bc523642c394f6 data/energizedpower/advancement/recipes/crafting/minecart_uncharger.json
