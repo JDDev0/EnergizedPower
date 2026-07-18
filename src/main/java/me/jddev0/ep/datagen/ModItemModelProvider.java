@@ -266,6 +266,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         basicItem(EPItems.WRENCH);
 
+        basicItem(EPItems.MACHINE_CONFIGURATOR);
+
         basicItem(EPItems.BATTERY_BOX_MINECART);
         basicItem(EPItems.ADVANCED_BATTERY_BOX_MINECART);
 

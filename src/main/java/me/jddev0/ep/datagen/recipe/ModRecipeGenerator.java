@@ -1270,6 +1270,17 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 " iI",
                 "i  "
         }, new ItemStack(EPItems.WRENCH.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(Tags.Items.INGOTS_IRON), Map.of(
+                'I', ingredientOf(Tags.Items.NUGGETS_IRON),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'W', ingredientOf(EPItems.WRENCH)
+        ), new String[] {
+                "CSI",
+                "SWS",
+                "ISC"
+        }, new ItemStack(EPItems.MACHINE_CONFIGURATOR.get()), CraftingBookCategory.MISC);
     }
     private void buildEnergyItemsCraftingRecipes() {
         addShapedCraftingRecipe(has(Tags.Items.INGOTS_COPPER), Map.of(

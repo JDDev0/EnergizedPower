@@ -4,9 +4,12 @@ import com.mojang.serialization.Codec;
 import me.jddev0.ep.api.EPAPI;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -67,6 +70,20 @@ public final class EPDataComponentTypes {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<DimensionalPositionComponent>> DIMENSIONAL_POSITION =
             registerDataComponentType("dimensional_position", () -> builder ->
                     builder.persistent(DimensionalPositionComponent.CODEC).networkSynchronized(DimensionalPositionComponent.STREAM_CODEC));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Block>> SOURCE_BLOCK =
+            registerDataComponentType("source_block", () -> builder ->
+                    builder.persistent(BuiltInRegistries.BLOCK.byNameCodec()).
+                            networkSynchronized(ByteBufCodecs.registry(Registries.BLOCK)));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockEntityType<?>>> SOURCE_BLOCK_ENTITY =
+            registerDataComponentType("source_block_entity", () -> builder ->
+                    builder.persistent(BuiltInRegistries.BLOCK_ENTITY_TYPE.byNameCodec()).
+                            networkSynchronized(ByteBufCodecs.registry(Registries.BLOCK_ENTITY_TYPE)));
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MachineConfigurationComponent>> MACHINE_CONFIGURATION =
+            registerDataComponentType("machine_configuration", () -> builder ->
+                    builder.persistent(MachineConfigurationComponent.CODEC).networkSynchronized(MachineConfigurationComponent.STREAM_CODEC));
 
     public static void register(IEventBus modEventBus) {
         DATA_COMPONENT_TYPES.register(modEventBus);

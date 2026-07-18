@@ -3,6 +3,7 @@ package me.jddev0.ep.block.entity;
 import me.jddev0.ep.block.BlockPlacerBlock;
 import me.jddev0.ep.block.entity.base.NoWorkData;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
+import me.jddev0.ep.component.MachineConfigurationComponent;
 import me.jddev0.ep.inventory.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -32,7 +33,9 @@ import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class BlockPlacerBlockEntity
@@ -139,6 +142,38 @@ public class BlockPlacerBlockEntity
         }
 
         return conf;
+    }
+
+    //TODO remove after io configuration is fully supported for BlockPlacer
+    @Override
+    public boolean onApplyMachineConfiguration(@NotNull MachineConfigurationComponent machineConfiguration) {
+        if(Arrays.stream(getAvailableRedstoneModes()).
+                noneMatch(redstoneMode -> redstoneMode == machineConfiguration.getRedstoneMode()))
+            return false;
+
+        if(Arrays.stream(getAvailableComparatorModes()).
+                noneMatch(comparatorMode -> comparatorMode == machineConfiguration.getComparatorMode()))
+            return false;
+
+        //IO configuration is not yet supported: Invalid if present
+        if(!machineConfiguration.getIOConfigurations().isEmpty())
+            return false;
+
+        boolean configChanged = redstoneMode != machineConfiguration.getRedstoneMode() ||
+                comparatorMode != machineConfiguration.getComparatorMode();
+        if(configChanged) {
+            this.redstoneMode = machineConfiguration.getRedstoneMode();
+            this.comparatorMode = machineConfiguration.getComparatorMode();
+            setChanged();
+        }
+
+        return true;
+    }
+
+    //TODO remove after io configuration is fully supported for BlockPlacer
+    @Override
+    public @NotNull MachineConfigurationComponent onStoreMachineConfiguration() {
+        return new MachineConfigurationComponent(redstoneMode, comparatorMode, Map.of());
     }
 
     //TODO remove and replace with io configuration

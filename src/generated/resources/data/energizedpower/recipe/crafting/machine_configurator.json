@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "I": {
+      "tag": "c:nuggets/iron"
+    },
+    "S": {
+      "tag": "c:silicon"
+    },
+    "W": {
+      "item": "energizedpower:wrench"
+    }
+  },
+  "pattern": [
+    "CSI",
+    "SWS",
+    "ISC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:machine_configurator"
+  }
+}
