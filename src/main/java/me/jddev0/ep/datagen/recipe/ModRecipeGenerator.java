@@ -1262,6 +1262,17 @@ public class ModRecipeGenerator extends RecipeProvider {
                 " iI",
                 "i  "
         }, new ItemStackTemplate(EPItems.WRENCH), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(ConventionalItemTags.IRON_INGOTS), Map.of(
+                'I', ingredientOf(ConventionalItemTags.IRON_NUGGETS),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_COPPER),
+                'W', ingredientOf(EPItems.WRENCH)
+        ), new String[] {
+                "CSI",
+                "SWS",
+                "ISC"
+        }, new ItemStackTemplate(EPItems.MACHINE_CONFIGURATOR), CraftingBookCategory.MISC);
     }
     private void buildEnergyItemsCraftingRecipes() {
         addShapedCraftingRecipe(has(ConventionalItemTags.COPPER_INGOTS), Map.of(
