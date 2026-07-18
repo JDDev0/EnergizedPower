@@ -7,6 +7,7 @@ import me.jddev0.ep.datagen.generators.PageContent;
 import me.jddev0.ep.datagen.generators.PageContentProvider;
 import me.jddev0.ep.input.ModKeyBindings;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import me.jddev0.ep.machine.configuration.SlotMode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.*;
@@ -1591,6 +1592,113 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/gui/book_icons/comparator_mode_fluid.png"),
                 EPAPI.id("textures/gui/book_icons/comparator_mode_energy.png")
         });
+
+        addSimplePage(pageId("io_configuration"), Component.empty().append(
+                Component.translatable("book.energizedpower.page.io_configuration.1").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+        ).append(
+                Component.literal("\n").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.2").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal(" ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.3").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.3.1").
+                                        withColor(SlotMode.INPUT.getHighlightColorRGB()).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.3.2").
+                                        withColor(SlotMode.OUTPUT.getHighlightColorRGB()).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.3.3").
+                                        withColor(SlotMode.BOTH.getHighlightColorRGB()).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.4").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n\n").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.5").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal(" ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.6").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n\n").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.7").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal(" ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.8").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n\n").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.1.1").
+                                        withColor(SlotMode.INPUT.getHighlightColorRGB()).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        ).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.1.2").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.2.1").
+                                        withColor(SlotMode.OUTPUT.getHighlightColorRGB()).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        ).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.2.2").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.3.1").
+                                        withColor(SlotMode.BOTH.getHighlightColorRGB()).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        ).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.3.2").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ).append(
+                Component.literal("\n• ").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.4.1").
+                                        withColor(0xa6a6a6).withStyle(ChatFormatting.BOLD).withStyle(UNIFORM)
+                        ).append(
+                                Component.translatable("book.energizedpower.page.io_configuration.9.4.2").
+                                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
+                        )
+        ), EPAPI.id("textures/gui/book_icons/io_configuration_view.png"));
     }
     private void registerEntitiesChapter() {
         chapterId("entities");
