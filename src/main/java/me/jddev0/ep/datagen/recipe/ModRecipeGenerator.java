@@ -1262,7 +1262,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "i  "
         }, new ItemStackTemplate(EPItems.WRENCH), CraftingBookCategory.MISC);
 
-        addShapedCraftingRecipe(has(ConventionalItemTags.IRON_INGOTS), Map.of(
+        addShapedCraftingRecipe(has(EPItems.WRENCH), Map.of(
                 'I', ingredientOf(ConventionalItemTags.IRON_NUGGETS),
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
