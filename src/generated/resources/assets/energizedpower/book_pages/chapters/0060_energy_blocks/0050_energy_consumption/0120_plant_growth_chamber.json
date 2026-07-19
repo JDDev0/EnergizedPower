@@ -50,17 +50,8 @@
       {
         "bold": true,
         "color": "black",
-        "extra": [
-          "\n"
-        ],
         "font": "minecraft:uniform",
         "translate": "book.energizedpower.page.plant_growth_chamber.6"
-      },
-      {
-        "bold": true,
-        "color": "black",
-        "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.plant_growth_chamber.7"
       }
     ],
     "text": ""
