@@ -56,7 +56,7 @@ public class ModLanguageProvider extends ExtensionLanguageProvider {
         });
 
         String batteryTemplateString = templateTranslations.get("_template.item.energizedpower.battery");
-        for(int i = 0;i < 8;i++) {
+        for(int i = 0;i < 10;i++) {
             int tier = i + 1;
 
             add("item.energizedpower.battery_" + tier, String.format(batteryTemplateString, NumberUtils.convertToRoman(tier)));
