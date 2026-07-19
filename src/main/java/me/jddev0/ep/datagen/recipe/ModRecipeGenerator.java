@@ -265,6 +265,17 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "SAS",
                 "CSC"
         }, new ItemStackTemplate(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(CommonItemTags.INGOTS_ENERGIZED_ALLOY), Map.of(
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'E', ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'R', ingredientOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "ESE",
+                "CRC",
+                "ESE"
+        }, new ItemStackTemplate(EPBlocks.ELITE_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
     }
     private void buildFertilizerCraftingRecipes() {
         addShapedCraftingRecipe(has(Items.BONE_MEAL), Map.of(

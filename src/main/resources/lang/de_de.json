@@ -1245,10 +1245,14 @@
 
   "_template.epblock.reinforced_advanced_machine_frame": "Verstärkter Fortgeschrittener Maschinenrahmen",
   "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Noch fortgeschrittenere Maschinen",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Die fortgeschrittensten Maschinen benötigen dieses Basis-Crafting-Item.",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Noch fortgeschrittenere Maschinen benötigen dieses Basis-Crafting-Item.",
+
+  "_template.epblock.elite_machine_frame": "Elite Maschinenrahmen",
+  "advancements.energizedpower.elite_machine_frame.title": "Elite Maschinen",
+  "advancements.energizedpower.elite_machine_frame.description": "Die fortgeschrittensten Maschinen benötigen dieses Basis-Crafting-Item.",
 
   "book.energizedpower.page.machine_frames.1": "Maschinenrahmen sind der Basis-Crafting-Block für alle Maschinen.",
-  "book.energizedpower.page.machine_frames.2": "Es gibt vier Maschinenrahmen: Basis, gehärtet, fortgeschritten und verstärkt-fortgeschritten",
+  "book.energizedpower.page.machine_frames.2": "Es gibt fünf Maschinenrahmen: Basis, gehärtet, fortgeschritten, verstärkt-fortgeschritten und elite.",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "#c:gems/crystallized_lapis_lazuli",
+    "E": "#c:ingots/energized_alloy",
+    "R": "energizedpower:reinforced_advanced_machine_frame",
+    "S": "#c:silicon"
+  },
+  "pattern": [
+    "ESE",
+    "CRC",
+    "ESE"
+  ],
+  "result": {
+    "id": "energizedpower:elite_machine_frame"
+  }
+}

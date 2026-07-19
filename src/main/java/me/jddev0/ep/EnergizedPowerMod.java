@@ -281,6 +281,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.HARDENED_MACHINE_FRAME_ITEM);
             event.accept(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM);
             event.accept(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM);
+            event.accept(EPBlocks.ELITE_MACHINE_FRAME_ITEM);
 
             event.accept(EPItems.BASIC_SOLAR_CELL);
             event.accept(EPItems.ADVANCED_SOLAR_CELL);
