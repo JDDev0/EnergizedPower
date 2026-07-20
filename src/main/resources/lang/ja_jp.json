@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "線路満たす電力",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "レールでより多くの電力を輸送できます",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "蓄電器付きのマインカートは、レール上で電力を輸送できます。マインカートの充電器で充電でき、マインカートの放電器で放電できます。",
 
   "_template.epblock.silicon_block": "シリコンブロック",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "蓄電器",
   "advancements.energizedpower.battery_box.title": "蓄電器",
   "advancements.energizedpower.battery_box.description": "蓄電器に電力を蓄電しましょう",
-  "book.energizedpower.page.battery_box": "電力を蓄電でき、ブロックのすべての面から送電できます。",
 
   "_template.epcontainer.advanced_battery_box": "発展型蓄電器",
   "advancements.energizedpower.advanced_battery_box.title": "大容量蓄電器",
   "advancements.energizedpower.advanced_battery_box.description": "最高性能の電池を上回る膨大な電力を蓄電できます",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "電力を蓄電でき、ブロックのすべての面から送電できます。",
 
   "_template.epcontainer.creative_battery_box": "クリエイティブの蓄電器",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "発電量",

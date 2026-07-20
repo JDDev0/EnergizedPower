@@ -122,6 +122,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(EPBlocks.BATTERY_BOX);
         dropSelf(EPBlocks.ADVANCED_BATTERY_BOX);
+        dropSelf(EPBlocks.ELITE_BATTERY_BOX);
 
         dropSelf(EPBlocks.PRESS_MOLD_MAKER);
 

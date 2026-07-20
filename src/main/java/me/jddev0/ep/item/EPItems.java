@@ -408,6 +408,8 @@ public final class EPItems {
             BatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<Item> ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",
             AdvancedBatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
+    public static final DeferredItem<Item> ELITE_BATTERY_BOX_MINECART = registerItem("elite_battery_box_minecart",
+            EliteBatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
 
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);

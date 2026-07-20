@@ -82,6 +82,16 @@ public class ModEliteAdvancements implements AdvancementSubProvider {
                 EPItems.BATTERY_10, "battery_10", AdvancementType.CHALLENGE
         );
 
+        AdvancementHolder eliteBatteryBox = addAdvancement(
+                advancementOutput, battery10,
+                EPBlocks.ELITE_BATTERY_BOX_ITEM, "elite_battery_box", AdvancementType.TASK
+        );
+
+        AdvancementHolder eliteBatteryBoxMinecart = addAdvancement(
+                advancementOutput, eliteBatteryBox,
+                EPItems.ELITE_BATTERY_BOX_MINECART, "elite_battery_box_minecart", AdvancementType.TASK
+        );
+
         AdvancementHolder eliteMachineFrame = addAdvancement(
                 advancementOutput, energizedAlloyIngot,
                 EPBlocks.ELITE_MACHINE_FRAME_ITEM, "elite_machine_frame", AdvancementType.TASK

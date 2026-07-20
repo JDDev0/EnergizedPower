@@ -1,7 +1,8 @@
 {
   "block": [
     "energizedpower:battery_box",
-    "energizedpower:advanced_battery_box"
+    "energizedpower:advanced_battery_box",
+    "energizedpower:elite_battery_box"
   ],
   "content": {
     "extra": [
@@ -9,7 +10,7 @@
         "bold": true,
         "color": "black",
         "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.battery_box"
+        "translate": "book.energizedpower.page.battery_boxes"
       }
     ],
     "text": ""
