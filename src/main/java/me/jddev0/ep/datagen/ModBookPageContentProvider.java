@@ -1045,7 +1045,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     EPBlocks.EHV_TRANSFORMER_1_TO_N.get(),
                     EPBlocks.EHV_TRANSFORMER_3_TO_3.get(),
                     EPBlocks.EHV_TRANSFORMER_N_TO_1.get(),
-                    EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get()
+                    EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get(),
+                    EPBlocks.UHV_TRANSFORMER_1_TO_N.get(),
+                    EPBlocks.UHV_TRANSFORMER_3_TO_3.get(),
+                    EPBlocks.UHV_TRANSFORMER_N_TO_1.get(),
+                    EPBlocks.CONFIGURABLE_UHV_TRANSFORMER.get()
             }, changePageIntToId);
         }
 

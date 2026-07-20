@@ -2011,6 +2011,39 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "CTC"
         }, new ItemStackTemplate(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'M', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM)
+        ), new String[] {
+                "ETE",
+                "SMS",
+                "ETE"
+        }, new ItemStackTemplate(EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'M', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM)
+        ), new String[] {
+                "ETE",
+                "SMS",
+                "ETE"
+        }, new ItemStackTemplate(EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'M', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM)
+        ), new String[] {
+                "ETE",
+                "SMS",
+                "ETE"
+        }, new ItemStackTemplate(EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -2056,6 +2089,17 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "RMR",
                 "CTC"
         }, new ItemStackTemplate(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'Q', ingredientOf(EPItems.QUANTUM_PROCESSING_UNIT),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'M', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'T', ingredientOf(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM)
+        ), new String[] {
+                "ETE",
+                "QMQ",
+                "ETE"
+        }, new ItemStackTemplate(EPBlocks.CONFIGURABLE_UHV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
