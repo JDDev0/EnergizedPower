@@ -1,0 +1,33 @@
+{
+  "parent": "energizedpower:main/elite/superconductor",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:superconductive_cable"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.superconductive_cable.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "energizedpower:superconductive_cable"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.superconductive_cable.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
