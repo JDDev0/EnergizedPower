@@ -1,7 +1,7 @@
 package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuInventoryStorageBlockEntity;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.SingleItemStackHandler;
 import me.jddev0.ep.inventory.data.LongValueContainerData;
 import me.jddev0.ep.machine.tier.ItemSiloTier;

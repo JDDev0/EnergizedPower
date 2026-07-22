@@ -5,14 +5,12 @@ import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
-import me.jddev0.ep.fluid.InputOutputFluidStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.ComparatorModeValueContainerData;
 import me.jddev0.ep.inventory.data.FluidValueContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
-import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.FluidDrainerMenu;
@@ -42,7 +40,6 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import team.reborn.energy.api.EnergyStorage;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class FluidDrainerBlockEntity
         extends ConfigurableUpgradableInventoryFluidEnergyStorageBlockEntity

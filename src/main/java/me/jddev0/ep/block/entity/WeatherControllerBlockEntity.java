@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.UpgradableEnergyStorageBlockEntity;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.WeatherControllerMenu;
