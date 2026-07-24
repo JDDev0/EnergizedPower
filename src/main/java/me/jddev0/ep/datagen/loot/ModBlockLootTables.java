@@ -209,6 +209,7 @@ public class ModBlockLootTables extends FabricBlockLootSubProvider {
         dropSelf(EPBlocks.HARDENED_MACHINE_FRAME);
         dropSelf(EPBlocks.ADVANCED_MACHINE_FRAME);
         dropSelf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME);
+        dropSelf(EPBlocks.ELITE_MACHINE_FRAME);
     }
 
     private LootTable.Builder createTinOreDrops(Block block) {
