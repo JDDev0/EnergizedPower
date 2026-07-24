@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "energizedpower:uhv_transformer_3_to_3"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

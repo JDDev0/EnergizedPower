@@ -219,6 +219,13 @@ public final class EPMenuTypes {
     public static final MenuType<TransformerMenu> EHV_TRANSFORMER_N_TO_1_MENU = registerMenuType("ehv_transformer_n_to_1",
             TransformerMenu::new);
 
+    public static final MenuType<TransformerMenu> UHV_TRANSFORMER_1_TO_N_MENU = registerMenuType("uhv_transformer_1_to_n",
+            TransformerMenu::new);
+    public static final MenuType<TransformerMenu> UHV_TRANSFORMER_3_TO_3_MENU = registerMenuType("uhv_transformer_3_to_3",
+            TransformerMenu::new);
+    public static final MenuType<TransformerMenu> UHV_TRANSFORMER_N_TO_1_MENU = registerMenuType("uhv_transformer_n_to_1",
+            TransformerMenu::new);
+
     public static final MenuType<TransformerMenu> CONFIGURABLE_LV_TRANSFORMER_MENU = registerMenuType("configurable_lv_transformer",
             TransformerMenu::new);
     public static final MenuType<TransformerMenu> CONFIGURABLE_MV_TRANSFORMER_MENU = registerMenuType("configurable_mv_transformer",
@@ -226,6 +233,8 @@ public final class EPMenuTypes {
     public static final MenuType<TransformerMenu> CONFIGURABLE_HV_TRANSFORMER_MENU = registerMenuType("configurable_hv_transformer",
             TransformerMenu::new);
     public static final MenuType<TransformerMenu> CONFIGURABLE_EHV_TRANSFORMER_MENU = registerMenuType("configurable_ehv_transformer",
+            TransformerMenu::new);
+    public static final MenuType<TransformerMenu> CONFIGURABLE_UHV_TRANSFORMER_MENU = registerMenuType("configurable_uhv_transformer",
             TransformerMenu::new);
 
     public static final MenuType<PressMoldMakerMenu> PRESS_MOLD_MAKER_MENU = registerMenuType("press_mold_maker",

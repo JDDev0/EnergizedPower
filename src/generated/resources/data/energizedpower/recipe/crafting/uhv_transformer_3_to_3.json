@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "E": "#c:plates/energized_alloy",
+    "M": "energizedpower:elite_machine_frame",
+    "S": "#c:wires/superconductor",
+    "T": "energizedpower:ehv_transformer_3_to_3"
+  },
+  "pattern": [
+    "ETE",
+    "SMS",
+    "ETE"
+  ],
+  "result": {
+    "id": "energizedpower:uhv_transformer_3_to_3"
+  }
+}

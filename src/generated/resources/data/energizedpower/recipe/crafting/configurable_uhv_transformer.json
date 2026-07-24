@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "E": "#c:plates/energized_alloy",
+    "M": "energizedpower:elite_machine_frame",
+    "Q": "energizedpower:quantum_processing_unit",
+    "T": "energizedpower:configurable_ehv_transformer"
+  },
+  "pattern": [
+    "ETE",
+    "QMQ",
+    "ETE"
+  ],
+  "result": {
+    "id": "energizedpower:configurable_uhv_transformer"
+  }
+}
