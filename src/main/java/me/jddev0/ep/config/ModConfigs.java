@@ -688,6 +688,10 @@ public final class ModConfigs {
             "block.ehv_transformers", "EHV Transformers", 2097152
     );
 
+    public static final ConfigValue<Integer> COMMON_UHV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.uhv_transformers", "UHV Transformers", 16777216
+    );
+
     public static final ConfigValue<CableBlock.EnergyExtractionMode> COMMON_CABLES_ENERGY_EXTRACTION_MODE = COMMON_CONFIG.register(new EnumConfigValue<>(
             "block.cables.energy_extraction_mode",
             "The energy extraction mode defines how cables extract energy.\n" +

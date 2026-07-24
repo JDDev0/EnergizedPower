@@ -149,11 +149,15 @@ public class ModBlockStateProvider {
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_1_TO_N);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_3_TO_3);
         transformerBlockWithItem(EPBlocks.EHV_TRANSFORMER_N_TO_1);
+        transformerBlockWithItem(EPBlocks.UHV_TRANSFORMER_1_TO_N);
+        transformerBlockWithItem(EPBlocks.UHV_TRANSFORMER_3_TO_3);
+        transformerBlockWithItem(EPBlocks.UHV_TRANSFORMER_N_TO_1);
 
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_LV_TRANSFORMER);
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_MV_TRANSFORMER);
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
         configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
+        configurableTransformerBlockWithItem(EPBlocks.CONFIGURABLE_UHV_TRANSFORMER);
 
         orientableBlockWithItem(EPBlocks.BATTERY_BOX,
                 horizontalBlockModel(EPBlocks.BATTERY_BOX, true));
@@ -684,6 +688,7 @@ public class ModBlockStateProvider {
             case MV -> "mv_transformer";
             case HV -> "hv_transformer";
             case EHV -> "ehv_transformer";
+            case UHV -> "uhv_transformer";
         };
 
         TransformerType transformerType = block.value().getTransformerType();
@@ -747,6 +752,7 @@ public class ModBlockStateProvider {
             case MV -> "mv_transformer";
             case HV -> "hv_transformer";
             case EHV -> "ehv_transformer";
+            case UHV -> "uhv_transformer";
         };
 
         Identifier allCube = TexturedModel.createDefault(unused -> new TextureMapping().

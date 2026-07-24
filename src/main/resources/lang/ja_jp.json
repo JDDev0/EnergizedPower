@@ -821,6 +821,13 @@
   "advancements.energizedpower.ehv_transformers.title": "EHV変圧器",
   "advancements.energizedpower.ehv_transformers.description": "1ティックごとに200万FE以上を送電できます",
 
+  "_template.epcontainer.uhv_transformer_1_to_n": "UHV Transformer (1 to n)",
+  "_template.epcontainer.uhv_transformer_3_to_3": "UHV Transformer (3 to 3)",
+  "_template.epcontainer.uhv_transformer_n_to_1": "UHV Transformer (n to 1)",
+  "_template.epcontainer.configurable_uhv_transformer": "Configurable UHV Transformer",
+  "advancements.energizedpower.uhv_transformers.title": "UHV Transformers",
+  "advancements.energizedpower.uhv_transformers.description": "The best transformer tier of this mod.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "このブロックを使用すると、異なるティアのケーブル同士を接続できます。",
   "tooltip.energizedpower.transformer.txt.shift.2": "大きく色が濃いひし形の面が入力面です。",
   "tooltip.energizedpower.transformer.txt.shift.3": "小さく色が明るい正方形の面が出力面です。",
@@ -830,7 +837,7 @@
   "book.energizedpower.page.transformers.1": "変圧器は、異なるティアのケーブル同士を接続できます。",
   "book.energizedpower.page.transformers.2": "大きく色が濃いひし形の面が入力面です。",
   "book.energizedpower.page.transformers.3": "小さく色が明るい正方形の面が出力面です。",
-  "book.energizedpower.page.transformers.4": "変圧器には、LV、MV、HV、EHVの4段階のティアがあります。",
+  "book.energizedpower.page.transformers.4": "There are five tiers of transformers: LV, MV, HV, EHV, and UHV.",
   "book.energizedpower.page.transformers.5": "各ティアには、1対n、3対3、n対1、設定可能の4種類の変圧器があります。",
   "book.energizedpower.page.transformers.6": "ケーブルの代わりに変圧器を定期的に配置することで、ネットワークの負荷を軽減できます。",
   "book.energizedpower.page.transformers.7": "変圧器は、Energized Powerの電力網を他のMODのケーブルへ接続するときにも使用できます。",

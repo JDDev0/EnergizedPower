@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public enum TransformerTier {
-    LV, MV, HV, EHV;
+    LV, MV, HV, EHV, UHV;
 
     public MenuType<TransformerMenu> getMenuTypeFromTierAndType(TransformerType type) {
         return switch(this) {
@@ -38,6 +38,12 @@ public enum TransformerTier {
                 case TYPE_3_TO_3 -> EPMenuTypes.EHV_TRANSFORMER_3_TO_3_MENU.get();
                 case TYPE_N_TO_1 -> EPMenuTypes.EHV_TRANSFORMER_N_TO_1_MENU.get();
                 case CONFIGURABLE -> EPMenuTypes.CONFIGURABLE_EHV_TRANSFORMER_MENU.get();
+            };
+            case UHV -> switch(type) {
+                case TYPE_1_TO_N -> EPMenuTypes.UHV_TRANSFORMER_1_TO_N_MENU.get();
+                case TYPE_3_TO_3 -> EPMenuTypes.UHV_TRANSFORMER_3_TO_3_MENU.get();
+                case TYPE_N_TO_1 -> EPMenuTypes.UHV_TRANSFORMER_N_TO_1_MENU.get();
+                case CONFIGURABLE -> EPMenuTypes.CONFIGURABLE_UHV_TRANSFORMER_MENU.get();
             };
         };
     }
@@ -68,6 +74,12 @@ public enum TransformerTier {
                 case TYPE_N_TO_1 -> EPBlockEntities.EHV_TRANSFORMER_N_TO_1_ENTITY.get();
                 case CONFIGURABLE -> EPBlockEntities.CONFIGURABLE_EHV_TRANSFORMER_ENTITY.get();
             };
+            case UHV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlockEntities.UHV_TRANSFORMER_1_TO_N_ENTITY.get();
+                case TYPE_3_TO_3 -> EPBlockEntities.UHV_TRANSFORMER_3_TO_3_ENTITY.get();
+                case TYPE_N_TO_1 -> EPBlockEntities.UHV_TRANSFORMER_N_TO_1_ENTITY.get();
+                case CONFIGURABLE -> EPBlockEntities.CONFIGURABLE_UHV_TRANSFORMER_ENTITY.get();
+            };
         };
     }
 
@@ -96,6 +108,12 @@ public enum TransformerTier {
                 case TYPE_3_TO_3 -> EPBlocks.EHV_TRANSFORMER_3_TO_3.get();
                 case TYPE_N_TO_1 -> EPBlocks.EHV_TRANSFORMER_N_TO_1.get();
                 case CONFIGURABLE -> EPBlocks.CONFIGURABLE_EHV_TRANSFORMER.get();
+            };
+            case UHV -> switch(type) {
+                case TYPE_1_TO_N -> EPBlocks.UHV_TRANSFORMER_1_TO_N.get();
+                case TYPE_3_TO_3 -> EPBlocks.UHV_TRANSFORMER_3_TO_3.get();
+                case TYPE_N_TO_1 -> EPBlocks.UHV_TRANSFORMER_N_TO_1.get();
+                case CONFIGURABLE -> EPBlocks.CONFIGURABLE_UHV_TRANSFORMER.get();
             };
         };
     }
@@ -126,6 +144,12 @@ public enum TransformerTier {
                 case TYPE_N_TO_1 -> "ehv_transformer_n_to_1";
                 case CONFIGURABLE -> "configurable_ehv_transformer";
             };
+            case UHV -> switch(type) {
+                case TYPE_1_TO_N -> "uhv_transformer_1_to_n";
+                case TYPE_3_TO_3 -> "uhv_transformer_3_to_3";
+                case TYPE_N_TO_1 -> "uhv_transformer_n_to_1";
+                case CONFIGURABLE -> "configurable_uhv_transformer";
+            };
         };
     }
 
@@ -135,6 +159,7 @@ public enum TransformerTier {
             case MV -> ModConfigs.COMMON_MV_TRANSFORMERS_TRANSFER_RATE.getValue();
             case HV -> ModConfigs.COMMON_HV_TRANSFORMERS_TRANSFER_RATE.getValue();
             case EHV -> ModConfigs.COMMON_EHV_TRANSFORMERS_TRANSFER_RATE.getValue();
+            case UHV -> ModConfigs.COMMON_UHV_TRANSFORMERS_TRANSFER_RATE.getValue();
         };
     }
 }
