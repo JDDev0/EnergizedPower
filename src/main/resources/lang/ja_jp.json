@@ -1245,10 +1245,14 @@
 
   "_template.epblock.reinforced_advanced_machine_frame": "強化発展型マシンフレーム",
   "advancements.energizedpower.reinforced_advanced_machine_frame.title": "最高性能マシン",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "最上位の機械を作成するために必要な材料です",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Even more advanced machines need this base crafting item.",
+
+  "_template.epblock.elite_machine_frame": "Elite Machine Frame",
+  "advancements.energizedpower.elite_machine_frame.title": "Elite Machines",
+  "advancements.energizedpower.elite_machine_frame.description": "最上位の機械を作成するために必要な材料です",
 
   "book.energizedpower.page.machine_frames.1": "マシンフレームは、すべての機械の基礎となる材料です。",
-  "book.energizedpower.page.machine_frames.2": "マシンフレームには、基本型・硬化型・発展型・強化発展型の4段階のティアがあります。",
+  "book.energizedpower.page.machine_frames.2": "There are five machine frames: Basic, Hardened, Advanced, Reinforced Advanced, and Elite.",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 
