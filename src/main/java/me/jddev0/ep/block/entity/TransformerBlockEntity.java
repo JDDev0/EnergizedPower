@@ -6,7 +6,7 @@ import me.jddev0.ep.block.TransformerBlock;
 import me.jddev0.ep.block.entity.base.ConfigurableEnergyStorageBlockEntity;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;

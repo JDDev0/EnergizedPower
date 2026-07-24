@@ -1,9 +1,8 @@
 package me.jddev0.ep.block.entity.base;
 
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.data.*;
-import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.util.InventoryUtils;
 import me.jddev0.ep.util.RecipeUtils;

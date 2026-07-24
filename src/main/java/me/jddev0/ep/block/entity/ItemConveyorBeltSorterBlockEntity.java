@@ -4,7 +4,7 @@ import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.ItemConveyorBeltSorterBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;

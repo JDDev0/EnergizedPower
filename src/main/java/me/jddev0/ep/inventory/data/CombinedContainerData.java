@@ -1,4 +1,4 @@
-package me.jddev0.ep.inventory;
+package me.jddev0.ep.inventory.data;
 
 import net.minecraft.world.inventory.ContainerData;
 
