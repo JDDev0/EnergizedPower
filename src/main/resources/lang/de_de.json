@@ -782,11 +782,15 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "Zu viel Strom",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "Wann muss ich überhaupt so viel Strom transportieren?",
 
+  "_template.epblock.superconductive_cable": "Supraleitendes Kabeö",
+  "advancements.energizedpower.superconductive_cable.title": "Viel zu viel Strom",
+  "advancements.energizedpower.superconductive_cable.description": "Das ist das beste Kabel dieser Mod.",
+
   "tooltip.energizedpower.cable.txt.shift.1": "Dieses Kabel kann %s/t transferieren.",
   "tooltip.energizedpower.cable.txt.shift.2": "Seitenschneider können verwendet werden, um Kabel schneller abzubauen.",
 
   "book.energizedpower.page.cables.1": "Kabel werden für den Transport von Energie genutzt.",
-  "book.energizedpower.page.cables.2": "Es gibt sechs Kabeltypen.",
+  "book.energizedpower.page.cables.2": "Es gibt sieben Kabeltypen.",
   "book.energizedpower.page.cables.3": "Ein Trafo ist erforderlich, wenn man Kabel von verschiedenen Typen verbinden will.",
 
   "_template.epcontainer.lv_transformer_1_to_n": "LV-Trafo (1 zu n)",

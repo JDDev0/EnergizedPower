@@ -85,6 +85,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                         EPBlocks.ENERGIZED_COPPER_CABLE_ITEM,
                         EPBlocks.ENERGIZED_GOLD_CABLE_ITEM,
                         EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM,
+                        EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM,
 
                         EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
                         EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
