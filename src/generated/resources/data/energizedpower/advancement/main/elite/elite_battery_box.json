@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/battery_10",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:elite_battery_box"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.elite_battery_box.description"
+    },
+    "icon": {
+      "id": "energizedpower:elite_battery_box"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.elite_battery_box.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
