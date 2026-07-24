@@ -422,6 +422,10 @@
   "advancements.energizedpower.battery_8.description": "这是本模组最好的电池（它可以存储超过 100 万 FE）",
   "advancements.energizedpower.battery_8_fully_charged.title": "能量存储大师",
   "advancements.energizedpower.battery_8_fully_charged.description": "你已完全充满了你的 100 万 FE 电池！",
+  "advancements.energizedpower.battery_9.title": "A even better battery?",
+  "advancements.energizedpower.battery_9.description": "Well I think there is a better battery than Tier VIII, but it might not even be the best.",
+  "advancements.energizedpower.battery_10.title": "The best battery!",
+  "advancements.energizedpower.battery_10.description": "This is the best battery of this mod - for real this time!",
   "book.energizedpower.page.batteries.1": "电池可以存储能量。",
   "book.energizedpower.page.batteries.2": "它们可以通过充电器充电，或使用库存发电机充电，并且可以通过放电器放电。",
 

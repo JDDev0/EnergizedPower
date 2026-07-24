@@ -1373,6 +1373,27 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ABA"
         }, new ItemStack(EPItems.BATTERY_8.get()), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPItems.BATTERY_8), Map.of(
+                'G', ingredientOf(Tags.Items.NUGGETS_GOLD),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'B', ingredientOf(EPItems.BATTERY_8)
+        ), new String[] {
+                "G G",
+                "BEB",
+                "ESE"
+        }, new ItemStack(EPItems.BATTERY_9.get()), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.BATTERY_9), Map.of(
+                'G', ingredientOf(Tags.Items.NUGGETS_GOLD),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'B', ingredientOf(EPItems.BATTERY_9)
+        ), new String[] {
+                "G G",
+                "EBE",
+                "EBE"
+        }, new ItemStack(EPItems.BATTERY_10.get()), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.COAL_ENGINE_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),

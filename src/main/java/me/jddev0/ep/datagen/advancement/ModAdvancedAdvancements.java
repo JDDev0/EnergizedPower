@@ -90,7 +90,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
 
         AdvancementHolder battery8 = addAdvancement(
                 advancementOutput, existingFileHelper, battery7,
-                EPItems.BATTERY_8, "battery_8", AdvancementType.GOAL
+                EPItems.BATTERY_8, "battery_8", AdvancementType.TASK
         );
 
         ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8.get());

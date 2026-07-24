@@ -422,6 +422,10 @@
   "advancements.energizedpower.battery_8.description": "Das ist die beste Batterie der Mod (Sie kann 1 Millionen FE speichern)",
   "advancements.energizedpower.battery_8_fully_charged.title": "Meister der Energiespeicherung",
   "advancements.energizedpower.battery_8_fully_charged.description": "Du hast deine Batterie mit 1 Millionen FE geladen!",
+  "advancements.energizedpower.battery_9.title": "Eine noch bessere Batterie?",
+  "advancements.energizedpower.battery_9.description": "Nun, ich glaube, es gibt eine bessere Batterie als die der Stufe VIII, aber sie ist vielleicht nicht einmal die allerbeste.",
+  "advancements.energizedpower.battery_10.title": "Die allerbeste Batterie!",
+  "advancements.energizedpower.battery_10.description": "Das ist die beste Batterie dieser Mod – diesmal wirklich!",
   "book.energizedpower.page.batteries.1": "Batterien speichern Strom.",
   "book.energizedpower.page.batteries.2": "Sie können im Lader oder durch den Inventar-Kohlegenerator geladen werden und mit dem Entlader entladen werden.",
 

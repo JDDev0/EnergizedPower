@@ -707,7 +707,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/battery_5.png"),
                 EPAPI.id("textures/item/battery_6.png"),
                 EPAPI.id("textures/item/battery_7.png"),
-                EPAPI.id("textures/item/battery_8.png")
+                EPAPI.id("textures/item/battery_8.png"),
+                EPAPI.id("textures/item/battery_9.png"),
+                EPAPI.id("textures/item/battery_10.png")
         });
     }
 

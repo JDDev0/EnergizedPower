@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-24T22:31:19.494786491	Item Models: energizedpower
+// 1.21.1	2026-07-24T22:33:39.477003851	Item Models: energizedpower
 924d24d253d5e8c92cfcd342e35f13f9eb6eb1d3 assets/energizedpower/models/item/advanced_alloy_ingot.json
 a875e626086cb13fc9cf52bec9d323a84902103d assets/energizedpower/models/item/advanced_alloy_plate.json
 ec0a6b00d6535d32f24b246de790516aff3c7895 assets/energizedpower/models/item/advanced_battery_box_minecart.json
@@ -11,6 +11,7 @@ d50bb7b08c148ff92d35c882c664d721b5d03607 assets/energizedpower/models/item/advan
 2ac7b2dc3e3cc83af098bac3e9982547595a650b assets/energizedpower/models/item/basic_solar_cell.json
 38be04fad0f3b3480b800f04ddc8e9e903bb1c03 assets/energizedpower/models/item/basic_upgrade_module.json
 afddc186652e50e43a108710f84648b49dff7021 assets/energizedpower/models/item/battery_1.json
+8b16cc23349b9d76a03ecb640cfd642c8fe68c5a assets/energizedpower/models/item/battery_10.json
 8a537a08e75b5e642226d025e60aca9a020c5cce assets/energizedpower/models/item/battery_2.json
 0712a0aa56fbaf70a827a49ee101dfc189b71330 assets/energizedpower/models/item/battery_3.json
 c0a4982ca97bccdae76c7fb53067123f31cb2f6a assets/energizedpower/models/item/battery_4.json
@@ -18,6 +19,7 @@ b5a51a3faf92ce1695d7631457e81ad855bc18e4 assets/energizedpower/models/item/batte
 229fdc29137fe2faef9bcc4632f218d14864a061 assets/energizedpower/models/item/battery_6.json
 1b99cb7186fbd7f8d0e8dd9164c1dc352138e324 assets/energizedpower/models/item/battery_7.json
 843392a19fdfe9e89ff2763840e63b6c5c7f60bd assets/energizedpower/models/item/battery_8.json
+fe87ca5de4f1dbf1d1754b233fe7a7ca92c217a8 assets/energizedpower/models/item/battery_9.json
 c3b95c431272de3b9d2af2c4f4f2461434416639 assets/energizedpower/models/item/battery_box_minecart.json
 15b643fdb325854f4b14d40f0d1190548362ff39 assets/energizedpower/models/item/blast_furnace_upgrade_module.json
 2df4b118ab93ad7ff02833aeda5431ff6de830e3 assets/energizedpower/models/item/cable_insulator.json

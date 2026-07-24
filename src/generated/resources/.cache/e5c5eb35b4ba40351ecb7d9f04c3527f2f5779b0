@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-24T22:31:19.499708548	Advancements
+// 1.21.1	2026-07-24T22:33:39.48175315	Advancements
 f3b8999fc7c12f2fd7f510d35406d677b457a760 data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 89c1c7ef87c8c50e1f7dbb67442125e730fa928d data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 de6621b52b3485d7937459c0b49fb544a62858dd data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -18,7 +18,7 @@ ca5cd639fc76f3cbc6c462e7282baf61a0ad547d data/energizedpower/advancement/main/ad
 9fe8dbcbc2a9524804110f9cb435a483753402d9 data/energizedpower/advancement/main/advanced/advanced_upgrade_module.json
 5cab71851c5fb6ec0bee7dcabe58901ffd3401bc data/energizedpower/advancement/main/advanced/battery_6.json
 558afae0fda714446cb57581e69098b01273acd4 data/energizedpower/advancement/main/advanced/battery_7.json
-25bde7dc7b2e538e26ae6b63afd684a18772a975 data/energizedpower/advancement/main/advanced/battery_8.json
+6aa13f6d0411275bf0b16de9673a7e10426052a2 data/energizedpower/advancement/main/advanced/battery_8.json
 3ae59eab6f1c4f08694fc8a7a8f5e98d262dcf41 data/energizedpower/advancement/main/advanced/battery_8_fully_charged.json
 b1d4170cbf1212c60e951f9eead5465d10612276 data/energizedpower/advancement/main/advanced/charging_station.json
 687c3c05ceeb2fd1be8fc7a683dbe1654a4c9ddc data/energizedpower/advancement/main/advanced/crystal_growth_chamber.json
@@ -232,6 +232,8 @@ e344c0d9c6137fdbb060f0e8d276876ad45444c2 data/energizedpower/advancement/main/ba
 f8027c8c1eb17057c8997fd09dbd8bc160a348f0 data/energizedpower/advancement/main/basics/xp_storage_medium.json
 cc86338c678026791d6c1eedbd708aeae700621c data/energizedpower/advancement/main/basics/xp_storage_small.json
 4d7d9270b11890920a3b8ef671f30f951303a804 data/energizedpower/advancement/main/basics/xp_storage_tiny.json
+29fa2233b9168424e4cc88d58bcb490958b27fa6 data/energizedpower/advancement/main/elite/battery_10.json
+87bf7f4519eb8bf0f29b682a0c51351138bd2282 data/energizedpower/advancement/main/elite/battery_9.json
 d749d7ade01d538eecdeaad3decba8a903123efb data/energizedpower/advancement/main/elite/coolant_cell.json
 af1b4b571cd494db4e60dfd4d321c6a32a35aa66 data/energizedpower/advancement/main/elite/crystallized_alloy_ingot.json
 5d5c87dd8770c1c0944c918dea52047069dbe1e4 data/energizedpower/advancement/main/elite/crystallized_alloy_plate.json

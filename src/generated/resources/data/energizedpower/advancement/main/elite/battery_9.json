@@ -1,11 +1,11 @@
 {
-  "parent": "energizedpower:main/advanced/battery_7",
+  "parent": "energizedpower:main/elite/energized_alloy_ingot",
   "criteria": {
     "has_the_item": {
       "conditions": {
         "items": [
           {
-            "items": "energizedpower:battery_8"
+            "items": "energizedpower:battery_9"
           }
         ]
       },
@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.energizedpower.battery_8.description"
+      "translate": "advancements.energizedpower.battery_9.description"
     },
     "icon": {
       "count": 1,
-      "id": "energizedpower:battery_8"
+      "id": "energizedpower:battery_9"
     },
     "title": {
-      "translate": "advancements.energizedpower.battery_8.title"
+      "translate": "advancements.energizedpower.battery_9.title"
     }
   },
   "requirements": [

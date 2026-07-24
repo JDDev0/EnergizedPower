@@ -69,6 +69,16 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 CommonItemTags.INGOTS_ENERGIZED_ALLOY
         );
 
+        AdvancementHolder battery9 = addAdvancement(
+                advancementOutput, existingFileHelper, energizedAlloyIngot,
+                EPItems.BATTERY_9, "battery_9", AdvancementType.TASK
+        );
+
+        AdvancementHolder battery10 = addAdvancement(
+                advancementOutput, existingFileHelper, battery9,
+                EPItems.BATTERY_10, "battery_10", AdvancementType.CHALLENGE
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 advancementOutput, existingFileHelper, energizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,
