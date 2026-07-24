@@ -393,6 +393,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         horizontalBlockWithItem(EPBlocks.HARDENED_MACHINE_FRAME, false);
         horizontalBlockWithItem(EPBlocks.ADVANCED_MACHINE_FRAME, false);
         horizontalBlockWithItem(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME, false);
+        horizontalBlockWithItem(EPBlocks.ELITE_MACHINE_FRAME, false);
     }
 
     private ModelFile cubeBlockModel(Holder<? extends Block> block, String fileSuffix, String upSuffix,

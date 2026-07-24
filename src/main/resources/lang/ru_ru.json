@@ -1245,10 +1245,14 @@
 
   "_template.epblock.reinforced_advanced_machine_frame": "Укрепленный продвинутый машинный корпус",
   "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Еще более продвинутые машины",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Для самых продвинутых машин необходим этот базовый предмет для крафта.",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Even more advanced machines need this base crafting item.",
+
+  "_template.epblock.elite_machine_frame": "Elite Machine Frame",
+  "advancements.energizedpower.elite_machine_frame.title": "Elite Machines",
+  "advancements.energizedpower.elite_machine_frame.description": "Для самых продвинутых машин необходим этот базовый предмет для крафта.",
 
   "book.energizedpower.page.machine_frames.1": "Корпуса машин — это базовый блок для крафта каждой машины.",
-  "book.energizedpower.page.machine_frames.2": "Существует четыре типа корпуса машин: базовый, тяжелый, усовершенствованный и усиленный усовершенствованный.",
+  "book.energizedpower.page.machine_frames.2": "There are five machine frames: Basic, Hardened, Advanced, Reinforced Advanced, and Elite.",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

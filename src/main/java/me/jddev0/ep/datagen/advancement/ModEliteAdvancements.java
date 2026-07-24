@@ -79,6 +79,11 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 EPItems.BATTERY_10, "battery_10", AdvancementType.CHALLENGE
         );
 
+        AdvancementHolder eliteMachineFrame = addAdvancement(
+                advancementOutput, existingFileHelper, energizedAlloyIngot,
+                EPBlocks.ELITE_MACHINE_FRAME_ITEM, "elite_machine_frame", AdvancementType.TASK
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 advancementOutput, existingFileHelper, energizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,
