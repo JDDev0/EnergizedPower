@@ -821,6 +821,13 @@
   "advancements.energizedpower.ehv_transformers.title": "EHV Trasformatore",
   "advancements.energizedpower.ehv_transformers.description": "Può trasferire più di 2 milioni di E per tick.",
 
+  "_template.epcontainer.uhv_transformer_1_to_n": "UHV Transformer (1 to n)",
+  "_template.epcontainer.uhv_transformer_3_to_3": "UHV Transformer (3 to 3)",
+  "_template.epcontainer.uhv_transformer_n_to_1": "UHV Transformer (n to 1)",
+  "_template.epcontainer.configurable_uhv_transformer": "Configurable UHV Transformer",
+  "advancements.energizedpower.uhv_transformers.title": "UHV Transformers",
+  "advancements.energizedpower.uhv_transformers.description": "The best transformer tier of this mod.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "Questo blocco può essere utilizzato per collegare diversi livelli di cavi.",
   "tooltip.energizedpower.transformer.txt.shift.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "tooltip.energizedpower.transformer.txt.shift.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",
@@ -830,7 +837,7 @@
   "book.energizedpower.page.transformers.1": "I trasformatori possono essere utilizzati per collegare diversi livelli di cavi.",
   "book.energizedpower.page.transformers.2": "I lati più grandi, più scuri, a forma di diamante sono ingressi.",
   "book.energizedpower.page.transformers.3": "I lati più piccoli, più luminosi e di forma quadrata sono le uscite.",
-  "book.energizedpower.page.transformers.4": "Esistono quattro livelli di trasformatori: LV, MV, HV ed EHV.",
+  "book.energizedpower.page.transformers.4": "There are five tiers of transformers: LV, MV, HV, EHV, and UHV.",
   "book.energizedpower.page.transformers.5": "For each tier there are four types of transformers: 1 to n, 3 to 3, n to 1, and configurable.",
   "book.energizedpower.page.transformers.6": "I trasformatori possono essere utilizzati per ridurre il ritardo delle reti via cavo utilizzandoli periodicamente al posto di un blocco cavi.",
   "book.energizedpower.page.transformers.7": "I trasformatori possono essere utilizzati anche per collegare i cavi di alimentazione sotto tensione ai cavi di altri mod.",

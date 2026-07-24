@@ -15,7 +15,11 @@
     "energizedpower:ehv_transformer_1_to_n",
     "energizedpower:ehv_transformer_3_to_3",
     "energizedpower:ehv_transformer_n_to_1",
-    "energizedpower:configurable_ehv_transformer"
+    "energizedpower:configurable_ehv_transformer",
+    "energizedpower:uhv_transformer_1_to_n",
+    "energizedpower:uhv_transformer_3_to_3",
+    "energizedpower:uhv_transformer_n_to_1",
+    "energizedpower:configurable_uhv_transformer"
   ],
   "content": {
     "extra": [

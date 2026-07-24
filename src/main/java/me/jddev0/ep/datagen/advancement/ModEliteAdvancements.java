@@ -95,6 +95,20 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 EPBlocks.ELITE_MACHINE_FRAME_ITEM, "elite_machine_frame", AdvancementType.TASK
         );
 
+        AdvancementHolder uhvTransformers = addAdvancement(
+                advancementOutput, eliteMachineFrame,
+                EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM, "uhv_transformers", AdvancementType.TASK,
+                InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ItemPredicate.Builder.item().of(
+                                lookupProvider.lookupOrThrow(Registries.ITEM),
+                                EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM,
+                                EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM,
+                                EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM,
+                                EPBlocks.CONFIGURABLE_UHV_TRANSFORMER_ITEM
+                        ).build()
+                )
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedAlloyIngot,
