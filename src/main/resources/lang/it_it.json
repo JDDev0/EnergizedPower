@@ -422,6 +422,10 @@
   "advancements.energizedpower.battery_8.description": "Questa è la migliore batteria di questa mod (può immagazzinare più di 1 milione di FE)",
   "advancements.energizedpower.battery_8_fully_charged.title": "Maestro di accumulo di energia",
   "advancements.energizedpower.battery_8_fully_charged.description": "Hai caricato completamente la tua batteria da 1 milione di FE!",
+  "advancements.energizedpower.battery_9.title": "A even better battery?",
+  "advancements.energizedpower.battery_9.description": "Well I think there is a better battery than Tier VIII, but it might not even be the best.",
+  "advancements.energizedpower.battery_10.title": "The best battery!",
+  "advancements.energizedpower.battery_10.description": "This is the best battery of this mod - for real this time!",
   "book.energizedpower.page.batteries.1": "Le batterie possono immagazzinare energia.",
   "book.energizedpower.page.batteries.2": "Possono essere caricati dal caricatore o con generatori di inventario e possono essere scaricati dallo scaricatore.",
 

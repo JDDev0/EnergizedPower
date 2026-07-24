@@ -367,6 +367,10 @@ public final class EPItems {
             props -> new BatteryItem(props, BatteryTier.BATTERY_7));
     public static final DeferredItem<Item> BATTERY_8 = registerItem("battery_8",
             props -> new BatteryItem(props, BatteryTier.BATTERY_8));
+    public static final DeferredItem<Item> BATTERY_9 = registerItem("battery_9",
+            props -> new BatteryItem(props, BatteryTier.BATTERY_9));
+    public static final DeferredItem<Item> BATTERY_10 = registerItem("battery_10",
+            props -> new BatteryItem(props, BatteryTier.BATTERY_10));
     public static final DeferredItem<Item> CREATIVE_BATTERY = registerItem("creative_battery",
             CreativeBatteryItem::new, new Item.Properties().stacksTo(1));
 
