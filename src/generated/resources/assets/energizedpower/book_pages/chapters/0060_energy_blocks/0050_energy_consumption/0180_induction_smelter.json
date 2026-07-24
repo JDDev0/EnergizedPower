@@ -5,26 +5,8 @@
       {
         "bold": true,
         "color": "black",
-        "extra": [
-          "\n"
-        ],
         "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.induction_smelter.1"
-      },
-      {
-        "bold": true,
-        "color": "black",
-        "extra": [
-          "\n"
-        ],
-        "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.induction_smelter.2"
-      },
-      {
-        "bold": true,
-        "color": "black",
-        "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.induction_smelter.3"
+        "translate": "book.energizedpower.page.induction_smelter"
       }
     ],
     "text": ""

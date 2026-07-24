@@ -1316,12 +1316,6 @@ public class ModBookPageContentProvider extends PageContentProvider {
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
             ).append(
                     Component.translatable("book.energizedpower.page.metal_press.2").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.metal_press.3").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM).append(" ")
-            ).append(
-                    Component.translatable("book.energizedpower.page.metal_press.4").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
             ), EPBlocks.METAL_PRESS, changePageIntToId);
         }
@@ -1345,14 +1339,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("assembling_machine"), Component.empty().append(
-                    Component.translatable("book.energizedpower.page.assembling_machine.1").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.assembling_machine.2").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.assembling_machine.3").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
+                    Component.translatable("book.energizedpower.page.assembling_machine").
+                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPBlocks.ASSEMBLING_MACHINE, changePageIntToId);
         }
 
@@ -1375,9 +1363,6 @@ public class ModBookPageContentProvider extends PageContentProvider {
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
             ).append(
                     Component.translatable("book.energizedpower.page.plant_growth_chamber.6").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.plant_growth_chamber.7").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPBlocks.PLANT_GROWTH_CHAMBER, changePageIntToId);
         }
@@ -1418,10 +1403,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("filtration_plant"), Component.empty().append(
-                    Component.translatable("book.energizedpower.page.filtration_plant.1").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.filtration_plant.2").
+                    Component.translatable("book.energizedpower.page.filtration_plant").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPBlocks.FILTRATION_PLANT, changePageIntToId);
         }
@@ -1437,13 +1419,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         {
             Map<Integer, Identifier> changePageIntToId = new HashMap<>();
             addSimplePage(pageId("induction_smelter"), Component.empty().append(
-                    Component.translatable("book.energizedpower.page.induction_smelter.1").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.induction_smelter.2").
-                            withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n")
-            ).append(
-                    Component.translatable("book.energizedpower.page.induction_smelter.3").
+                    Component.translatable("book.energizedpower.page.induction_smelter").
                             withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
             ), EPBlocks.INDUCTION_SMELTER, changePageIntToId);
         }
