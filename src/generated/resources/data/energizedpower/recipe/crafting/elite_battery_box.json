@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "energizedpower:battery_10",
+    "E": "#c:plates/energized_alloy",
+    "M": "energizedpower:elite_machine_frame",
+    "S": "#c:wires/superconductor"
+  },
+  "pattern": [
+    "EBE",
+    "BMB",
+    "BSB"
+  ],
+  "result": {
+    "id": "energizedpower:elite_battery_box"
+  }
+}

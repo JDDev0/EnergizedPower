@@ -27,6 +27,11 @@ public final class EPEntityTypes {
                     sized(0.98F, 0.7F).
                     clientTrackingRange(8).build(ResourceKey.create(Registries.ENTITY_TYPE, EPAPI.id("advanced_battery_box_minecart")))
     );
+    public static final EntityType<MinecartEliteBatteryBox> ELITE_BATTERY_BOX_MINECART = registerEntity(
+            "elite_battery_box_minecart", EntityType.Builder.<MinecartEliteBatteryBox>of(MinecartEliteBatteryBox::new, MobCategory.MISC).
+                    sized(0.98F, 0.7F).
+                    clientTrackingRange(8).build(ResourceKey.create(Registries.ENTITY_TYPE, EPAPI.id("elite_battery_box_minecart")))
+    );
 
 
     public static void register() {

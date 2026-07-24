@@ -378,6 +378,9 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AdvancedBatteryBoxBlockEntity> ADVANCED_BATTERY_BOX_ENTITY = createBlockEntity("advanced_battery_box",
             EPBlocks.ADVANCED_BATTERY_BOX, AdvancedBatteryBoxBlockEntity::new);
 
+    public static final BlockEntityType<EliteBatteryBoxBlockEntity> ELITE_BATTERY_BOX_ENTITY = createBlockEntity("elite_battery_box",
+            EPBlocks.ELITE_BATTERY_BOX, EliteBatteryBoxBlockEntity::new);
+
     public static final BlockEntityType<CreativeBatteryBoxBlockEntity> CREATIVE_BATTERY_BOX_ENTITY = createBlockEntity("creative_battery_box",
             EPBlocks.CREATIVE_BATTERY_BOX, CreativeBatteryBoxBlockEntity::new);
 
@@ -755,6 +758,9 @@ public final class EPBlockEntities {
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ADVANCED_BATTERY_BOX_ENTITY, AdvancedBatteryBoxBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ELITE_BATTERY_BOX_ENTITY, EliteBatteryBoxBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CREATIVE_BATTERY_BOX_ENTITY, CreativeBatteryBoxBlockEntity::getEnergyStorageCapability);

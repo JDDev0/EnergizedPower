@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Noch mehr Strom auf Schienen",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Transportiere noch mehr Strom auf Schienen.",
 
+  "item.energizedpower.elite_battery_box_minecart": "Elite Batterie-Box-Lore",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Batterie-Box-Lore",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Der beste Strom auf Schienen",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transportiere Energie mit der besten Batterie-Box-Lore.",
+
   "book.energizedpower.page.battery_box_minecarts": "Batterie-Box-Loren können Energie auf Schienen transportieren. Sie können mit Loren-Lader geladen werden und mit Loren-Entlader entladen werden.",
 
   "_template.epblock.silicon_block": "Siliziumblock",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "Batterie-Box",
   "advancements.energizedpower.battery_box.title": "Batterie-Box",
   "advancements.energizedpower.battery_box.description": "Speichere Strom mit dem Batterie-Box-Block.",
-  "book.energizedpower.page.battery_box": "Batterie-Boxen können Strom speichern. Alle Block-Seiten unterstützen Strom-Ein- und Ausgabe.",
 
   "_template.epcontainer.advanced_battery_box": "Fortgeschrittene Batterie-Box",
   "advancements.energizedpower.advanced_battery_box.title": "Bessere Batterie-Box",
   "advancements.energizedpower.advanced_battery_box.description": "Speichere noch mehr Strom als das beste Batterie-Item.",
+
+  "_template.epcontainer.elite_battery_box": "Elite Batterie-Box",
+  "advancements.energizedpower.elite_battery_box.title": "Die beste Batterie-Box",
+  "advancements.energizedpower.elite_battery_box.description": "Das ist die beste Batterie-Box dieser Mod.",
+
+  "book.energizedpower.page.battery_boxes": "Batterie-Boxen können Strom speichern. Alle Block-Seiten unterstützen Strom-Ein- und Ausgabe.",
 
   "_template.epcontainer.creative_battery_box": "Creative-Batterie-Box",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energie-Produktion",
