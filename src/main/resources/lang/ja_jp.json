@@ -782,11 +782,15 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "電力過多",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "これほどのエネルギー、一体どこで使うっていうんだ？",
 
+  "_template.epblock.superconductive_cable": "Superconductive Cable",
+  "advancements.energizedpower.superconductive_cable.title": "Way too much power",
+  "advancements.energizedpower.superconductive_cable.description": "The best cable of this mod.",
+
   "tooltip.energizedpower.cable.txt.shift.1": "このケーブルは%s/t送電できます。",
   "tooltip.energizedpower.cable.txt.shift.2": "カッターを使用すれば、ケーブルを素早く撤去できます。",
 
   "book.energizedpower.page.cables.1": "ケーブルは、発電ブロックから消費先のブロックへ送電するために使用される。",
-  "book.energizedpower.page.cables.2": "ケーブルには、6段階のティアがあります。",
+  "book.energizedpower.page.cables.2": "There are seven cable tiers.",
   "book.energizedpower.page.cables.3": "異なるティアのケーブル同士を接続するには変圧器が必要です。",
 
   "_template.epcontainer.lv_transformer_1_to_n": "LV変圧器(1対n)",

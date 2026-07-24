@@ -782,11 +782,15 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "Too much power",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "When do I even need to transport that much energy?",
 
+  "_template.epblock.superconductive_cable": "Superconductive Cable",
+  "advancements.energizedpower.superconductive_cable.title": "Way too much power",
+  "advancements.energizedpower.superconductive_cable.description": "The best cable of this mod.",
+
   "tooltip.energizedpower.cable.txt.shift.1": "This cable can transfer %s/t.",
   "tooltip.energizedpower.cable.txt.shift.2": "Cutters can be used to break cables faster.",
 
   "book.energizedpower.page.cables.1": "Cables are used to transport energy from producer blocks to consumer blocks.",
-  "book.energizedpower.page.cables.2": "There are six cable tiers.",
+  "book.energizedpower.page.cables.2": "There are seven cable tiers.",
   "book.energizedpower.page.cables.3": "A transformer is required to connect cables of different tiers.",
 
   "_template.epcontainer.lv_transformer_1_to_n": "LV Transformer (1 to n)",
