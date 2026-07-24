@@ -5,17 +5,8 @@
       {
         "bold": true,
         "color": "black",
-        "extra": [
-          "\n"
-        ],
         "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.filtration_plant.1"
-      },
-      {
-        "bold": true,
-        "color": "black",
-        "font": "minecraft:uniform",
-        "translate": "book.energizedpower.page.filtration_plant.2"
+        "translate": "book.energizedpower.page.filtration_plant"
       }
     ],
     "text": ""
