@@ -250,6 +250,8 @@ class ModItemModelProvider {
         basicItem(EPItems.BATTERY_6);
         basicItem(EPItems.BATTERY_7);
         basicItem(EPItems.BATTERY_8);
+        basicItem(EPItems.BATTERY_9);
+        basicItem(EPItems.BATTERY_10);
         basicItem(EPItems.CREATIVE_BATTERY);
 
         basicItem(EPItems.ENERGY_ANALYZER);
