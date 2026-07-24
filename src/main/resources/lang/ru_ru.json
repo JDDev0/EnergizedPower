@@ -422,6 +422,10 @@
   "advancements.energizedpower.battery_8.description": "Это лучший аккумулятор этого мода (он может хранить более 1 миллиона E).",
   "advancements.energizedpower.battery_8_fully_charged.title": "Мастер хранения энергии",
   "advancements.energizedpower.battery_8_fully_charged.description": "Вы полностью зарядили свой аккумулятор емкостью 1 миллион E!",
+  "advancements.energizedpower.battery_9.title": "A even better battery?",
+  "advancements.energizedpower.battery_9.description": "Well I think there is a better battery than Tier VIII, but it might not even be the best.",
+  "advancements.energizedpower.battery_10.title": "The best battery!",
+  "advancements.energizedpower.battery_10.description": "This is the best battery of this mod - for real this time!",
   "book.energizedpower.page.batteries.1": "Аккумуляторы могут хранить энергию.",
   "book.energizedpower.page.batteries.2": "Их можно заряжать с помощью зарядника или генераторов, а разряжать — с помощью разрядника.",
 

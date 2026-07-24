@@ -1365,6 +1365,27 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "ABA"
         }, new ItemStackTemplate(EPItems.BATTERY_8), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPItems.BATTERY_8), Map.of(
+                'G', ingredientOf(ConventionalItemTags.GOLD_NUGGETS),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'B', ingredientOf(EPItems.BATTERY_8)
+        ), new String[] {
+                "G G",
+                "BEB",
+                "ESE"
+        }, new ItemStackTemplate(EPItems.BATTERY_9), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.BATTERY_9), Map.of(
+                'G', ingredientOf(ConventionalItemTags.GOLD_NUGGETS),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'B', ingredientOf(EPItems.BATTERY_9)
+        ), new String[] {
+                "G G",
+                "EBE",
+                "EBE"
+        }, new ItemStackTemplate(EPItems.BATTERY_10), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.COAL_ENGINE_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),

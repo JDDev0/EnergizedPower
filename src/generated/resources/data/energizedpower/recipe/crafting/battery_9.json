@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": "energizedpower:battery_8",
+    "E": "#c:plates/energized_alloy",
+    "G": "#c:nuggets/gold",
+    "S": "#c:wires/superconductor"
+  },
+  "pattern": [
+    "G G",
+    "BEB",
+    "ESE"
+  ],
+  "result": {
+    "id": "energizedpower:battery_9"
+  }
+}
