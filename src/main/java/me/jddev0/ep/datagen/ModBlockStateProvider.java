@@ -132,6 +132,7 @@ class ModBlockStateProvider {
         cableBlockWithItem(EPBlocks.ENERGIZED_COPPER_CABLE);
         cableBlockWithItem(EPBlocks.ENERGIZED_GOLD_CABLE);
         cableBlockWithItem(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE);
+        cableBlockWithItem(EPBlocks.SUPERCONDUCTIVE_CABLE);
 
         transformerBlockWithItem(EPBlocks.LV_TRANSFORMER_1_TO_N);
         transformerBlockWithItem(EPBlocks.LV_TRANSFORMER_3_TO_3);

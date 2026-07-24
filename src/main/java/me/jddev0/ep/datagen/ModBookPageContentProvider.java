@@ -995,7 +995,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     EPBlocks.GOLD_CABLE,
                     EPBlocks.ENERGIZED_COPPER_CABLE,
                     EPBlocks.ENERGIZED_GOLD_CABLE,
-                    EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE
+                    EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE,
+                    EPBlocks.SUPERCONDUCTIVE_CABLE
             }, changePageIntToId);
         }
 

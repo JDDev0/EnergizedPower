@@ -542,7 +542,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
 
         AdvancementHolder energizedCrystalMatrixCable = addAdvancement(
                 advancementOutput, energizedCrystalMatrix,
-                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementType.CHALLENGE
+                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementType.TASK
         );
 
         AdvancementHolder reinforcedAdvancedSolarCell = addAdvancement(

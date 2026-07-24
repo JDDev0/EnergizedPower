@@ -1863,6 +1863,15 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "ICI"
         }, new ItemStackTemplate(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(CommonItemTags.WIRES_SUPERCONDUCTOR), Map.of(
+                'I', ingredientOf(EPItems.CABLE_INSULATOR),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR)
+        ), new String[] {
+                "ISI",
+                "ISI",
+                "ISI"
+        }, new ItemStackTemplate(EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
