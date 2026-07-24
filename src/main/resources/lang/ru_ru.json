@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Ещё больше энергии на рельсах",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Перевозите еще больше энергии по рельсам.",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "Вагонетки с БатБоксами могут транспортировать энергию по рельсам. Их можно заряжать с помощью зарядников для вагонеток и разряжать с помощью разрядников для вагонеток.",
 
   "_template.epblock.silicon_block": "Блок кремния",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "БатБокс",
   "advancements.energizedpower.battery_box.title": "БатБокс",
   "advancements.energizedpower.battery_box.description": "Храните энергию с помощью блока аккумуляторов.",
-  "book.energizedpower.page.battery_box": "БатБоксы могут хранить энергию. Все поверхности блоков поддерживают вставку и извлечение энергии.",
 
   "_template.epcontainer.advanced_battery_box": "Продвинутый БатБокс",
   "advancements.energizedpower.advanced_battery_box.title": "Улучшенный БатБокс",
   "advancements.energizedpower.advanced_battery_box.description": "Хранит даже больше энергии, чем самый лучший аккумулятор.",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "БатБоксы могут хранить энергию. Все поверхности блоков поддерживают вставку и извлечение энергии.",
 
   "_template.epcontainer.creative_battery_box": "Творческий БатБокс",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Производство энергии",

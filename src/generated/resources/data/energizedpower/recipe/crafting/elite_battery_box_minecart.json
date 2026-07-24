@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "energizedpower:elite_battery_box",
+    "minecraft:minecart"
+  ],
+  "result": {
+    "id": "energizedpower:elite_battery_box_minecart"
+  }
+}

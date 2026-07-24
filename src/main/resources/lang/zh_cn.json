@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "铁轨上的更多能量",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "在铁轨上运输更多能量。",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "电池箱矿车可以在铁轨上运输能量。它可以用矿车充电器充电，也可以用矿车放电器放电。",
 
   "_template.epblock.silicon_block": "硅块",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "电池箱",
   "advancements.energizedpower.battery_box.title": "电池箱",
   "advancements.energizedpower.battery_box.description": "使用电池箱方块存储能量。",
-  "book.energizedpower.page.battery_box": "电池箱可以存储能量。所有方块面都支持能量的插入和提取。",
 
   "_template.epcontainer.advanced_battery_box": "高级电池箱",
   "advancements.energizedpower.advanced_battery_box.title": "更好的电池箱",
   "advancements.energizedpower.advanced_battery_box.description": "存储比最好的电池物品更多的能量。",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "电池箱可以存储能量。所有方块面都支持能量的插入和提取。",
 
   "_template.epcontainer.creative_battery_box": "创造模式电池箱",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "能量生产",
