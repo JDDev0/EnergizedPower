@@ -217,6 +217,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         dropSelf(EPBlocks.HARDENED_MACHINE_FRAME);
         dropSelf(EPBlocks.ADVANCED_MACHINE_FRAME);
         dropSelf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME);
+        dropSelf(EPBlocks.ELITE_MACHINE_FRAME);
     }
 
     private void dropSelf(DeferredHolder<Block, ? extends Block> block) {

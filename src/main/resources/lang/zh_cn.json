@@ -1245,10 +1245,14 @@
 
   "_template.epblock.reinforced_advanced_machine_frame": "强化高级机器框架",
   "advancements.energizedpower.reinforced_advanced_machine_frame.title": "更先进的机器",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "最先进的机器需要此基础合成物品。",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "DAHA GELİŞMİŞ MAKİNALAR",
+
+  "_template.epblock.elite_machine_frame": "Elite Machine Frame",
+  "advancements.energizedpower.elite_machine_frame.title": "Elite Machines",
+  "advancements.energizedpower.elite_machine_frame.description": "最先进的机器需要此基础合成物品。",
 
   "book.energizedpower.page.machine_frames.1": "机器框架是每台机器的基本合成方块。",
-  "book.energizedpower.page.machine_frames.2": "有四种机器框架：基础、硬化、高级和强化高级",
+  "book.energizedpower.page.machine_frames.2": "There are five machine frames: Basic, Hardened, Advanced, Reinforced Advanced, and Elite.",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

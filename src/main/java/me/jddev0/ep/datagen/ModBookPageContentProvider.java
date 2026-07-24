@@ -953,7 +953,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                     EPBlocks.BASIC_MACHINE_FRAME.get(),
                     EPBlocks.HARDENED_MACHINE_FRAME.get(),
                     EPBlocks.ADVANCED_MACHINE_FRAME.get(),
-                    EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get()
+                    EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME.get(),
+                    EPBlocks.ELITE_MACHINE_FRAME.get()
             }, changePageIntToId);
         }
     }

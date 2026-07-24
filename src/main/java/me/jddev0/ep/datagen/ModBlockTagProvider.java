@@ -203,7 +203,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.BASIC_MACHINE_FRAME,
                         EPBlocks.HARDENED_MACHINE_FRAME,
                         EPBlocks.ADVANCED_MACHINE_FRAME,
-                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
+                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME,
+                        EPBlocks.ELITE_MACHINE_FRAME
                 );
 
         buildTag(BlockTags.NEEDS_STONE_TOOL).
@@ -367,7 +368,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.BASIC_MACHINE_FRAME,
                         EPBlocks.HARDENED_MACHINE_FRAME,
                         EPBlocks.ADVANCED_MACHINE_FRAME,
-                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME
+                        EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME,
+                        EPBlocks.ELITE_MACHINE_FRAME
                 );
 
         buildTag(Tags.Blocks.ORES).
