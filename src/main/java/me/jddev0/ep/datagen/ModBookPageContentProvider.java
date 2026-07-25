@@ -12,7 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
@@ -231,21 +230,21 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("fertilizers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fertilizers").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/basic_fertilizer.png"),
                 EPAPI.id("textures/item/good_fertilizer.png"),
                 EPAPI.id("textures/item/advanced_fertilizer.png")
-        });
+        );
 
         addSimplePage(pageId("ore_dusts"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.ore_dusts").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/tin_dust.png"),
                 EPAPI.id("textures/item/copper_dust.png"),
                 EPAPI.id("textures/item/iron_dust.png"),
                 EPAPI.id("textures/item/gold_dust.png")
-        });
+        );
 
         addSimplePage(pageId("charcoal_dust"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charcoal_dust").
@@ -263,7 +262,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.plates.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/tin_plate.png"),
                 EPAPI.id("textures/item/copper_plate.png"),
                 EPAPI.id("textures/item/iron_plate.png"),
@@ -274,17 +273,17 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energized_copper_plate.png"),
                 EPAPI.id("textures/item/energized_gold_plate.png"),
                 EPAPI.id("textures/item/energized_alloy_plate.png")
-        });
+        );
 
         addSimplePage(pageId("alloys"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.alloys").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/steel_ingot.png"),
                 EPAPI.id("textures/item/redstone_alloy_ingot.png"),
                 EPAPI.id("textures/item/advanced_alloy_ingot.png"),
                 EPAPI.id("textures/item/crystallized_alloy_ingot.png")
-        });
+        );
 
         addSimplePage(pageId("metal_products"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.metal_products.1").
@@ -292,7 +291,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.metal_products.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/iron_gear.png"),
                 EPAPI.id("textures/item/steel_gear.png"),
                 EPAPI.id("textures/item/iron_rod.png"),
@@ -302,18 +301,18 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/gold_wire.png"),
                 EPAPI.id("textures/item/energized_copper_wire.png"),
                 EPAPI.id("textures/item/energized_gold_wire.png")
-        });
+        );
 
         addSimplePage(pageId("circuits"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.circuits").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/basic_circuit.png"),
                 EPAPI.id("textures/item/advanced_circuit.png"),
                 EPAPI.id("textures/item/processing_unit.png"),
                 EPAPI.id("textures/item/quantum_processing_unit.png"),
                 EPAPI.id("textures/item/teleporter_processing_unit.png")
-        });
+        );
 
         addSimplePage(pageId("energized_copper_ingot"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energized_copper_ingot.1").
@@ -378,7 +377,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("speed_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.speed_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/speed_upgrade_module_1.png"),
                 EPAPI.id("textures/item/speed_upgrade_module_2.png"),
                 EPAPI.id("textures/item/speed_upgrade_module_3.png"),
@@ -387,7 +386,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/speed_upgrade_module_6.png"),
                 EPAPI.id("textures/item/speed_upgrade_module_7.png"),
                 EPAPI.id("textures/item/speed_upgrade_module_8.png")
-        });
+        );
 
         addSimplePage(pageId("energizing_speed_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energizing_speed_upgrades.1").
@@ -398,7 +397,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.energizing_speed_upgrades.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/energizing_speed_upgrade_module_1.png"),
                 EPAPI.id("textures/item/energizing_speed_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energizing_speed_upgrade_module_3.png"),
@@ -407,12 +406,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energizing_speed_upgrade_module_6.png"),
                 EPAPI.id("textures/item/energizing_speed_upgrade_module_7.png"),
                 EPAPI.id("textures/item/energizing_speed_upgrade_module_8.png")
-        });
+        );
 
         addSimplePage(pageId("energy_efficiency_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_efficiency_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_1.png"),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_3.png"),
@@ -421,12 +420,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_6.png"),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_7.png"),
                 EPAPI.id("textures/item/energy_efficiency_upgrade_module_8.png")
-        });
+        );
 
         addSimplePage(pageId("energy_production_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_production_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/energy_production_upgrade_module_1.png"),
                 EPAPI.id("textures/item/energy_production_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energy_production_upgrade_module_3.png"),
@@ -435,12 +434,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energy_production_upgrade_module_6.png"),
                 EPAPI.id("textures/item/energy_production_upgrade_module_7.png"),
                 EPAPI.id("textures/item/energy_production_upgrade_module_8.png")
-        });
+        );
 
         addSimplePage(pageId("energy_capacity_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.energy_capacity_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_1.png"),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_2.png"),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_3.png"),
@@ -449,7 +448,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_6.png"),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_7.png"),
                 EPAPI.id("textures/item/energy_capacity_upgrade_module_8.png")
-        });
+        );
 
         addSimplePage(pageId("duration_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.duration_upgrades.1").
@@ -457,66 +456,66 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.duration_upgrades.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/duration_upgrade_module_1.png"),
                 EPAPI.id("textures/item/duration_upgrade_module_2.png"),
                 EPAPI.id("textures/item/duration_upgrade_module_3.png"),
                 EPAPI.id("textures/item/duration_upgrade_module_4.png"),
                 EPAPI.id("textures/item/duration_upgrade_module_5.png"),
                 EPAPI.id("textures/item/duration_upgrade_module_6.png")
-        });
+        );
 
         addSimplePage(pageId("range_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.range_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/range_upgrade_module_1.png"),
                 EPAPI.id("textures/item/range_upgrade_module_2.png"),
                 EPAPI.id("textures/item/range_upgrade_module_3.png")
-        });
+        );
 
         addSimplePage(pageId("extraction_depth_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.extraction_depth_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_1.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_2.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_3.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_4.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_5.png"),
                 EPAPI.id("textures/item/extraction_depth_upgrade_module_6.png")
-        });
+        );
 
         addSimplePage(pageId("extraction_range_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.extraction_range_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_1.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_2.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_3.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_4.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_5.png"),
                 EPAPI.id("textures/item/extraction_range_upgrade_module_6.png")
-        });
+        );
 
         addSimplePage(pageId("furnace_mode_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.furnace_mode_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/blast_furnace_upgrade_module.png"),
                 EPAPI.id("textures/item/smoker_upgrade_module.png")
-        });
+        );
 
         addSimplePage(pageId("moon_light_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.moon_light_upgrades").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/moon_light_upgrade_module_1.png"),
                 EPAPI.id("textures/item/moon_light_upgrade_module_2.png"),
                 EPAPI.id("textures/item/moon_light_upgrade_module_3.png"),
                 EPAPI.id("textures/item/moon_light_upgrade_module_4.png"),
                 EPAPI.id("textures/item/moon_light_upgrade_module_5.png")
-        });
+        );
 
         addSimplePage(pageId("item_ejector_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_ejector_upgrades.1").
@@ -524,14 +523,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_ejector_upgrades.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_1.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_2.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_3.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_4.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_5.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_6.png")
-        });
+        );
 
         addSimplePage(pageId("item_pulling_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_pulling_upgrades.1").
@@ -539,14 +538,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_pulling_upgrades.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_1.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_2.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_3.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_4.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_5.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_6.png")
-        });
+        );
 
         addSimplePage(pageId("xp_extraction_upgrades"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.xp_extraction_upgrades.1").
@@ -557,7 +556,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.xp_extraction_upgrades.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/xp_extraction_upgrade_module_1.png"),
                 EPAPI.id("textures/item/xp_extraction_upgrade_module_2.png"),
                 EPAPI.id("textures/item/xp_extraction_upgrade_module_3.png"),
@@ -566,7 +565,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/xp_extraction_upgrade_module_6.png"),
                 EPAPI.id("textures/item/xp_extraction_upgrade_module_7.png"),
                 EPAPI.id("textures/item/xp_extraction_upgrade_module_8.png")
-        });
+        );
     }
     private void registerToolsChapter() {
         chapterId("tools");
@@ -587,14 +586,14 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("hammers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.hammers").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/wooden_hammer.png"),
                 EPAPI.id("textures/item/stone_hammer.png"),
                 EPAPI.id("textures/item/iron_hammer.png"),
                 EPAPI.id("textures/item/golden_hammer.png"),
                 EPAPI.id("textures/item/diamond_hammer.png"),
                 EPAPI.id("textures/item/netherite_hammer.png")
-        });
+        );
 
         addSimplePage(pageId("cutters"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.cutters.1").
@@ -711,7 +710,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.batteries.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/battery_1.png"),
                 EPAPI.id("textures/item/battery_2.png"),
                 EPAPI.id("textures/item/battery_3.png"),
@@ -722,7 +721,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/battery_8.png"),
                 EPAPI.id("textures/item/battery_9.png"),
                 EPAPI.id("textures/item/battery_10.png")
-        });
+        );
     }
 
     private void registerEnergyBlocksChapter() {
@@ -777,13 +776,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.machine_frames.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_MACHINE_FRAME,
                 EPBlocks.HARDENED_MACHINE_FRAME,
                 EPBlocks.ADVANCED_MACHINE_FRAME,
                 EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME,
                 EPBlocks.ELITE_MACHINE_FRAME
-        });
+        );
     }
     private void registerEnergyBlocksChapterEnergyTransportationSubChapter() {
         subChapterId("energy_transportation");
@@ -810,7 +809,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.cables.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.TIN_CABLE,
                 EPBlocks.COPPER_CABLE,
                 EPBlocks.GOLD_CABLE,
@@ -818,7 +817,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.ENERGIZED_GOLD_CABLE,
                 EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE,
                 EPBlocks.SUPERCONDUCTIVE_CABLE
-        });
+        );
 
         addSimplePage(pageId("transformers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.transformers.1").
@@ -847,7 +846,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.transformers.9").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.LV_TRANSFORMER_1_TO_N,
                 EPBlocks.LV_TRANSFORMER_3_TO_3,
                 EPBlocks.LV_TRANSFORMER_N_TO_1,
@@ -868,7 +867,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.UHV_TRANSFORMER_3_TO_3,
                 EPBlocks.UHV_TRANSFORMER_N_TO_1,
                 EPBlocks.CONFIGURABLE_UHV_TRANSFORMER
-        });
+        );
 
         addSimplePage(pageId("minecart_charger_uncharger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.minecart_charger_uncharger.1").
@@ -879,12 +878,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.minecart_charger_uncharger.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.MINECART_CHARGER,
                 EPBlocks.MINECART_UNCHARGER,
                 EPBlocks.ADVANCED_MINECART_CHARGER,
                 EPBlocks.ADVANCED_MINECART_UNCHARGER
-        });
+        );
     }
     private void registerEnergyBlocksChapterEnergyStorageSubChapter() {
         subChapterId("energy_storage");
@@ -905,11 +904,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("battery_box"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.battery_boxes").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BATTERY_BOX,
                 EPBlocks.ADVANCED_BATTERY_BOX,
                 EPBlocks.ELITE_BATTERY_BOX
-        });
+        );
     }
     private void registerEnergyBlocksChapterEnergyProductionSubChapter() {
         subChapterId("energy_production");
@@ -933,12 +932,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.solar_cells.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/basic_solar_cell.png"),
                 EPAPI.id("textures/item/advanced_solar_cell.png"),
                 EPAPI.id("textures/item/reinforced_advanced_solar_cell.png"),
                 EPAPI.id("textures/item/elite_solar_cell.png")
-        });
+        );
 
         addSimplePage(pageId("solar_panels"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.solar_panels.1").
@@ -946,7 +945,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.solar_panels.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.SOLAR_PANEL_1,
                 EPBlocks.SOLAR_PANEL_2,
                 EPBlocks.SOLAR_PANEL_3,
@@ -954,7 +953,7 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.SOLAR_PANEL_5,
                 EPBlocks.SOLAR_PANEL_6,
                 EPBlocks.SOLAR_PANEL_7
-        });
+        );
 
         addSimplePage(pageId("coal_engine"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.coal_engine.1").
@@ -1021,10 +1020,10 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.powered_furnaces.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.POWERED_FURNACE,
                 EPBlocks.ADVANCED_POWERED_FURNACE
-        });
+        );
 
         addSimplePage(pageId("auto_crafters"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.auto_crafters.1").
@@ -1038,10 +1037,10 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.auto_crafters.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.AUTO_CRAFTER,
                 EPBlocks.ADVANCED_AUTO_CRAFTER
-        });
+        );
 
         addSimplePage(pageId("crushers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.crushers.1").
@@ -1049,10 +1048,10 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.crushers.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.CRUSHER,
                 EPBlocks.ADVANCED_CRUSHER
-        });
+        );
 
         addSimplePage(pageId("pulverizers"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.pulverizers.1").
@@ -1060,10 +1059,10 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.pulverizers.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.PULVERIZER,
                 EPBlocks.ADVANCED_PULVERIZER
-        });
+        );
 
         addSimplePage(pageId("sawmill"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.sawmill.1").
@@ -1171,18 +1170,18 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("fluid_filler_fluid_drainer"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_filler_fluid_drainer").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.FLUID_FILLER,
                 EPBlocks.FLUID_DRAINER
-        });
+        );
 
         addSimplePage(pageId("fluid_pumps"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_pumps").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.FLUID_PUMP,
                 EPBlocks.ADVANCED_FLUID_PUMP
-        });
+        );
 
         addSimplePage(pageId("charger_uncharger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charger_uncharger.1").
@@ -1190,12 +1189,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.charger_uncharger.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.CHARGER,
                 EPBlocks.UNCHARGER,
                 EPBlocks.ADVANCED_CHARGER,
                 EPBlocks.ADVANCED_UNCHARGER
-        });
+        );
 
         addSimplePage(pageId("charging_station"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.charging_station").
@@ -1279,13 +1278,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.fluid_pipes.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM).append("\n")
-        ), new Block[] {
+        ),
                 EPBlocks.COPPER_FLUID_PIPE,
                 EPBlocks.IRON_FLUID_PIPE,
                 EPBlocks.GOLDEN_FLUID_PIPE,
                 EPBlocks.STEEL_FLUID_PIPE,
                 EPBlocks.PRESSURIZED_FLUID_PIPE
-        });
+        );
 
         addSimplePage(pageId("fluid_tanks"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.fluid_tanks.1").
@@ -1293,11 +1292,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.fluid_tanks.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.FLUID_TANK_SMALL,
                 EPBlocks.FLUID_TANK_MEDIUM,
                 EPBlocks.FLUID_TANK_LARGE
-        });
+        );
 
         addSimplePage(pageId("xp_storages"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.xp_storages.1").
@@ -1305,13 +1304,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.xp_storages.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.XP_STORAGE_TINY,
                 EPBlocks.XP_STORAGE_SMALL,
                 EPBlocks.XP_STORAGE_MEDIUM,
                 EPBlocks.XP_STORAGE_LARGE,
-                EPBlocks.XP_STORAGE_GIANT,
-        });
+                EPBlocks.XP_STORAGE_GIANT
+        );
 
         addSimplePage(pageId("drain"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.drain.1").
@@ -1363,11 +1362,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt.6").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
-        });
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
+        );
 
         addSimplePage(pageId("item_conveyor_belt_loader"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.1").
@@ -1384,11 +1383,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_loader.5").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
-        });
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER
+        );
 
         addSimplePage(pageId("item_conveyor_belt_sorter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.1").
@@ -1417,11 +1416,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_sorter.9").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
-        });
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER
+        );
 
         addSimplePage(pageId("item_conveyor_belt_switch"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.1").
@@ -1429,29 +1428,29 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_switch.2").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
-        });
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH
+        );
 
         addSimplePage(pageId("item_conveyor_belt_splitter"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_splitter").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
-        });
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER
+        );
 
         addSimplePage(pageId("item_conveyor_belt_merger"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_conveyor_belt_merger").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
-        });
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER
+        );
 
         addSimplePage(pageId("item_silos"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.item_silos.1").
@@ -1462,13 +1461,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ).append(
                 Component.translatable("book.energizedpower.page.item_silos.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
-        ), new Block[] {
+        ),
                 EPBlocks.ITEM_SILO_TINY,
                 EPBlocks.ITEM_SILO_SMALL,
                 EPBlocks.ITEM_SILO_MEDIUM,
                 EPBlocks.ITEM_SILO_LARGE,
-                EPBlocks.ITEM_SILO_GIANT,
-        });
+                EPBlocks.ITEM_SILO_GIANT
+        );
     }
     private void registerFluidsChapter() {
         chapterId("fluids");
@@ -1547,11 +1546,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                 Component.translatable("book.energizedpower.page.redstone_mode_configuration.4").
                                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
                         )
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/gui/book_icons/redstone_mode_ignore.png"),
                 EPAPI.id("textures/gui/book_icons/redstone_mode_high.png"),
                 EPAPI.id("textures/gui/book_icons/redstone_mode_low.png")
-        });
+        );
 
         addSimplePage(pageId("comparator_mode_configuration"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.comparator_mode_configuration.1").
@@ -1574,11 +1573,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
                                 Component.translatable("book.energizedpower.page.comparator_mode_configuration.4").
                                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
                         )
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/gui/book_icons/comparator_mode_item.png"),
                 EPAPI.id("textures/gui/book_icons/comparator_mode_fluid.png"),
                 EPAPI.id("textures/gui/book_icons/comparator_mode_energy.png")
-        });
+        );
 
         addSimplePage(pageId("io_configuration"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.io_configuration.1").
@@ -1706,11 +1705,11 @@ public class ModBookPageContentProvider extends PageContentProvider {
         addSimplePage(pageId("battery_box_minecarts"), Component.empty().append(
                 Component.translatable("book.energizedpower.page.battery_box_minecarts").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
-        ), new ResourceLocation[] {
+        ),
                 EPAPI.id("textures/item/battery_box_minecart.png"),
                 EPAPI.id("textures/item/advanced_battery_box_minecart.png"),
                 EPAPI.id("textures/item/elite_battery_box_minecart.png")
-        });
+        );
     }
     private void registerStructuresChapter() {
         chapterId("structures");

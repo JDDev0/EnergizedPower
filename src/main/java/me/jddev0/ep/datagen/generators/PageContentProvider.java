@@ -82,7 +82,7 @@ public abstract  class PageContentProvider implements DataProvider {
         }, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        @Nullable ResourceLocation[] image) {
+                                        @Nullable ResourceLocation... image) {
         return addPage(pageId, null, content, image, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
@@ -92,7 +92,7 @@ public abstract  class PageContentProvider implements DataProvider {
         });
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        Block[] block) {
+                                        Block... block) {
         ResourceLocation[] blockIds = new ResourceLocation[block.length];
         for(int i = 0;i < blockIds.length;i++)
             blockIds[i] = BuiltInRegistries.BLOCK.getKey(block[i]);
