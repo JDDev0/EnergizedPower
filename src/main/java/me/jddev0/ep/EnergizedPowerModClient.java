@@ -177,6 +177,10 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         event.register(EPMenuTypes.EHV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
         event.register(EPMenuTypes.EHV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);
         event.register(EPMenuTypes.CONFIGURABLE_EHV_TRANSFORMER_MENU, TransformerScreen::new);
+        event.register(EPMenuTypes.UHV_TRANSFORMER_1_TO_N_MENU, TransformerScreen::new);
+        event.register(EPMenuTypes.UHV_TRANSFORMER_3_TO_3_MENU, TransformerScreen::new);
+        event.register(EPMenuTypes.UHV_TRANSFORMER_N_TO_1_MENU, TransformerScreen::new);
+        event.register(EPMenuTypes.CONFIGURABLE_UHV_TRANSFORMER_MENU, TransformerScreen::new);
         event.register(EPMenuTypes.PRESS_MOLD_MAKER_MENU, PressMoldMakerScreen::new);
         event.register(EPMenuTypes.ALLOY_FURNACE_MENU, AlloyFurnaceScreen::new);
         event.register(EPMenuTypes.METAL_PRESS_MENU, MetalPressScreen::new);

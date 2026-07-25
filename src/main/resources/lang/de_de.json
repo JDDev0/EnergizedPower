@@ -821,6 +821,13 @@
   "advancements.energizedpower.ehv_transformers.title": "EHV-Trafos",
   "advancements.energizedpower.ehv_transformers.description": "EHV-Trafos können mehr als 2 Millionen E pro Tick transferieren.",
 
+  "_template.epcontainer.uhv_transformer_1_to_n": "UHV-Trafo (1 to n)",
+  "_template.epcontainer.uhv_transformer_3_to_3": "UHV-Trafo (3 to 3)",
+  "_template.epcontainer.uhv_transformer_n_to_1": "UHV-Trafo (n to 1)",
+  "_template.epcontainer.configurable_uhv_transformer": "Konfigurierbarer UHV-Trafo",
+  "advancements.energizedpower.uhv_transformers.title": "UHV-Trafos",
+  "advancements.energizedpower.uhv_transformers.description": "Der Best Trafo dieser Mod.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "Dieser Block kann verschiedene Kabeltypen verbinden.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
@@ -830,7 +837,7 @@
   "book.energizedpower.page.transformers.1": "Trafos können Kabel von verschiedenen Typen verbinden.",
   "book.energizedpower.page.transformers.2": "Die größeren, dunkleren, Rauten-förmigen Seiten sind Eingänge.",
   "book.energizedpower.page.transformers.3": "Die kleineren, helleren, Quadrat-förmigen Seiten sind Ausgänge.",
-  "book.energizedpower.page.transformers.4": "Es gibt vier Trafostärken: LV, MV, HV und EHV.",
+  "book.energizedpower.page.transformers.4": "Es gibt fünf Trafostärken: LV, MV, HV, EHV und UHV.",
   "book.energizedpower.page.transformers.5": "Für jeden dieser Trafostärken gibt es vier Typen: 1 zu n, 3 zu 3, n zu 1 und konfigurierbar.",
   "book.energizedpower.page.transformers.6": "Trafos können Lags reduzieren, indem sie manchmal statt einem Kabel-Block plaziert werden.",
   "book.energizedpower.page.transformers.7": "Trafos können Kabel von dieser Mod mit Kabel von anderen verbinden.",

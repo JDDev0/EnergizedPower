@@ -102,11 +102,15 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.EHV_TRANSFORMER_1_TO_N);
         dropSelf(EPBlocks.EHV_TRANSFORMER_3_TO_3);
         dropSelf(EPBlocks.EHV_TRANSFORMER_N_TO_1);
+        dropSelf(EPBlocks.UHV_TRANSFORMER_1_TO_N);
+        dropSelf(EPBlocks.UHV_TRANSFORMER_3_TO_3);
+        dropSelf(EPBlocks.UHV_TRANSFORMER_N_TO_1);
 
         dropSelf(EPBlocks.CONFIGURABLE_LV_TRANSFORMER);
         dropSelf(EPBlocks.CONFIGURABLE_MV_TRANSFORMER);
         dropSelf(EPBlocks.CONFIGURABLE_HV_TRANSFORMER);
         dropSelf(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER);
+        dropSelf(EPBlocks.CONFIGURABLE_UHV_TRANSFORMER);
 
         dropSelf(EPBlocks.BATTERY_BOX);
         dropSelf(EPBlocks.ADVANCED_BATTERY_BOX);

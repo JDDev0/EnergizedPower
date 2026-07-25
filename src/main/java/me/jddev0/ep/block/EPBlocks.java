@@ -381,6 +381,24 @@ public final class EPBlocks {
     public static final Item EHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("ehv_transformer_n_to_1",
             EHV_TRANSFORMER_N_TO_1);
 
+    public static final TransformerBlock UHV_TRANSFORMER_1_TO_N = registerBlock("uhv_transformer_1_to_n",
+            props -> new TransformerBlock(props, TransformerTier.UHV, TransformerType.TYPE_1_TO_N),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item UHV_TRANSFORMER_1_TO_N_ITEM = createTransformerBlockItem("uhv_transformer_1_to_n",
+            UHV_TRANSFORMER_1_TO_N);
+
+    public static final TransformerBlock UHV_TRANSFORMER_3_TO_3 = registerBlock("uhv_transformer_3_to_3",
+            props -> new TransformerBlock(props, TransformerTier.UHV, TransformerType.TYPE_3_TO_3),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item UHV_TRANSFORMER_3_TO_3_ITEM = createTransformerBlockItem("uhv_transformer_3_to_3",
+            UHV_TRANSFORMER_3_TO_3);
+
+    public static final TransformerBlock UHV_TRANSFORMER_N_TO_1 = registerBlock("uhv_transformer_n_to_1",
+            props -> new TransformerBlock(props, TransformerTier.UHV, TransformerType.TYPE_N_TO_1),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item UHV_TRANSFORMER_N_TO_1_ITEM = createTransformerBlockItem("uhv_transformer_n_to_1",
+            UHV_TRANSFORMER_N_TO_1);
+
     private static Item createConfigurableTransformerBlockItem(String name, ConfigurableTransformerBlock block) {
         return createBlockItem(name, props -> new ConfigurableTransformerBlock.Item(block, props, block.getTier()));
     }
@@ -408,6 +426,30 @@ public final class EPBlocks {
     public static final Item CONFIGURABLE_EHV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_ehv_transformer",
             CONFIGURABLE_EHV_TRANSFORMER);
 
+    public static final ConfigurableTransformerBlock CONFIGURABLE_UHV_TRANSFORMER = registerBlock("configurable_uhv_transformer",
+            props -> new ConfigurableTransformerBlock(TransformerTier.UHV, props),
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item CONFIGURABLE_UHV_TRANSFORMER_ITEM = createConfigurableTransformerBlockItem("configurable_uhv_transformer",
+            CONFIGURABLE_UHV_TRANSFORMER);
+
+    public static final Block BATTERY_BOX = registerBlock("battery_box",
+            BatteryBoxBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item BATTERY_BOX_ITEM = createBlockItem("battery_box",
+            BatteryBoxBlock.Item::new, BATTERY_BOX);
+
+    public static final Block ADVANCED_BATTERY_BOX = registerBlock("advanced_battery_box",
+            AdvancedBatteryBoxBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box",
+            AdvancedBatteryBoxBlock.Item::new, ADVANCED_BATTERY_BOX);
+
+    public static final Block CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
+            CreativeBatteryBoxBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
+                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());
+    public static final Item CREATIVE_BATTERY_BOX_ITEM = createBlockItem("creative_battery_box",
+            CreativeBatteryBoxBlock.Item::new, CREATIVE_BATTERY_BOX);
+
     public static final Block PRESS_MOLD_MAKER = registerBlock("press_mold_maker",
             PressMoldMakerBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0f, 6.0f).sound(SoundType.STONE));
@@ -430,24 +472,6 @@ public final class EPBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
     public static final Item ADVANCED_AUTO_CRAFTER_ITEM = createBlockItem("advanced_auto_crafter",
             AdvancedAutoCrafterBlock.Item::new, ADVANCED_AUTO_CRAFTER);
-
-    public static final Block BATTERY_BOX = registerBlock("battery_box",
-            BatteryBoxBlock::new, BlockBehaviour.Properties.of().
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final Item BATTERY_BOX_ITEM = createBlockItem("battery_box",
-            BatteryBoxBlock.Item::new, BATTERY_BOX);
-
-    public static final Block ADVANCED_BATTERY_BOX = registerBlock("advanced_battery_box",
-            AdvancedBatteryBoxBlock::new, BlockBehaviour.Properties.of().
-                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final Item ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box",
-            AdvancedBatteryBoxBlock.Item::new, ADVANCED_BATTERY_BOX);
-
-    public static final Block CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
-            CreativeBatteryBoxBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
-                    requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());
-    public static final Item CREATIVE_BATTERY_BOX_ITEM = createBlockItem("creative_battery_box",
-            CreativeBatteryBoxBlock.Item::new, CREATIVE_BATTERY_BOX);
 
     public static final Block CRUSHER = registerBlock("crusher",
             CrusherBlock::new, BlockBehaviour.Properties.of().

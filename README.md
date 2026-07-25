@@ -64,7 +64,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 - Cables (7 Tiers: Tin, Copper, Gold, Energized Copper, Energized Gold, Energized Crystal Matrix, and Superconductive) (Superconductive: (**In next release (v3.0.0-beta.9)**))
 - Transformers (Can be used to connect different tiers of cables):
-  - 4 tiers: LV, MV, HV, and EHV
+  - 5 tiers: LV, MV, HV, EHV, and UHV (UHV: (**In next release (v3.0.0-beta.9)**))
   - 4 types (for each tier): 1 to n, 3 to 3, n to 1, and configurable
 - Minecart with Battery Box
 - Minecart with Advanced Battery Box

@@ -345,6 +345,16 @@ public final class EPBlockEntities {
             EPBlocks.EHV_TRANSFORMER_N_TO_1, (blockPos, state) ->
                     new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.TYPE_N_TO_1));
 
+    public static final BlockEntityType<TransformerBlockEntity> UHV_TRANSFORMER_1_TO_N_ENTITY = createBlockEntity("uhv_transformer_1_to_n",
+            EPBlocks.UHV_TRANSFORMER_1_TO_N, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.UHV, TransformerType.TYPE_1_TO_N));
+    public static final BlockEntityType<TransformerBlockEntity> UHV_TRANSFORMER_3_TO_3_ENTITY = createBlockEntity("uhv_transformer_3_to_3",
+            EPBlocks.UHV_TRANSFORMER_3_TO_3, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.UHV, TransformerType.TYPE_3_TO_3));
+    public static final BlockEntityType<TransformerBlockEntity> UHV_TRANSFORMER_N_TO_1_ENTITY = createBlockEntity("uhv_transformer_n_to_1",
+            EPBlocks.UHV_TRANSFORMER_N_TO_1, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.UHV, TransformerType.TYPE_N_TO_1));
+
     public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_LV_TRANSFORMER_ENTITY = createBlockEntity("configurable_lv_transformer",
             EPBlocks.CONFIGURABLE_LV_TRANSFORMER, (blockPos, state) ->
                     new TransformerBlockEntity(blockPos, state, TransformerTier.LV, TransformerType.CONFIGURABLE));
@@ -357,6 +367,9 @@ public final class EPBlockEntities {
     public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_EHV_TRANSFORMER_ENTITY = createBlockEntity("configurable_ehv_transformer",
             EPBlocks.CONFIGURABLE_EHV_TRANSFORMER, (blockPos, state) ->
                     new TransformerBlockEntity(blockPos, state, TransformerTier.EHV, TransformerType.CONFIGURABLE));
+    public static final BlockEntityType<TransformerBlockEntity> CONFIGURABLE_UHV_TRANSFORMER_ENTITY = createBlockEntity("configurable_uhv_transformer",
+            EPBlocks.CONFIGURABLE_UHV_TRANSFORMER, (blockPos, state) ->
+                    new TransformerBlockEntity(blockPos, state, TransformerTier.UHV, TransformerType.CONFIGURABLE));
 
     public static final BlockEntityType<BatteryBoxBlockEntity> BATTERY_BOX_ENTITY = createBlockEntity("battery_box",
             EPBlocks.BATTERY_BOX, BatteryBoxBlockEntity::new);
@@ -720,6 +733,12 @@ public final class EPBlockEntities {
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 EHV_TRANSFORMER_N_TO_1_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                UHV_TRANSFORMER_1_TO_N_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                UHV_TRANSFORMER_3_TO_3_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                UHV_TRANSFORMER_N_TO_1_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CONFIGURABLE_LV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CONFIGURABLE_MV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
@@ -727,6 +746,8 @@ public final class EPBlockEntities {
                 CONFIGURABLE_HV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 CONFIGURABLE_EHV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                CONFIGURABLE_UHV_TRANSFORMER_ENTITY, TransformerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 BATTERY_BOX_ENTITY, BatteryBoxBlockEntity::getEnergyStorageCapability);
