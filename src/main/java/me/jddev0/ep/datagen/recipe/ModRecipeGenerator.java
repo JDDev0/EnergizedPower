@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import java.util.*;
 
@@ -169,7 +170,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 " C ",
                 "SQS",
                 " T "
-        }, new ItemStack(EPItems.BASIC_SOLAR_CELL.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BASIC_SOLAR_CELL), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.WIRES_COPPER), Map.of(
                 'C', ingredientOf(CommonItemTags.WIRES_COPPER),
@@ -180,7 +181,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RCR",
                 "CIC",
                 "SCS"
-        }, new ItemStack(EPItems.BASIC_CIRCUIT.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BASIC_CIRCUIT), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_CIRCUIT), Map.of(
                 'G', ingredientOf(CommonItemTags.WIRES_GOLD),
@@ -190,7 +191,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "CBC",
                 "CBC"
-        }, new ItemStack(EPItems.BASIC_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BASIC_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
@@ -201,7 +202,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "CBC",
                 "CAC"
-        }, new ItemStack(EPItems.ADVANCED_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ADVANCED_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
                 'g', ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD),
@@ -212,7 +213,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ggg",
                 "GAG",
                 "GPG"
-        }, new ItemStack(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.QUANTUM_PROCESSING_UNIT), Map.of(
                 'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
@@ -223,7 +224,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SSS",
                 "ERE",
                 "EQE"
-        }, new ItemStack(EPItems.ELITE_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ELITE_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Tags.Items.INGOTS_IRON), Map.of(
                 'i', ingredientOf(Tags.Items.NUGGETS_IRON),
@@ -232,7 +233,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 " i ",
                 "iIi",
                 " i "
-        }, new ItemStack(EPItems.SAW_BLADE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SAW_BLADE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.SILICON), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -242,7 +243,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CIC",
                 "ISI",
                 "CIC"
-        }, new ItemStack(EPBlocks.BASIC_MACHINE_FRAME_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.GEARS_IRON), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -254,7 +255,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IsR",
                 "SBS",
                 "RsI"
-        }, new ItemStack(EPBlocks.HARDENED_MACHINE_FRAME_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.INGOTS_ENERGIZED_COPPER), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -265,7 +266,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ESE",
                 "AHA",
                 "ESE"
-        }, new ItemStack(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -275,7 +276,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "SAS",
                 "CSC"
-        }, new ItemStack(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.INGOTS_ENERGIZED_ALLOY), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -286,7 +287,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ESE",
                 "CRC",
                 "ESE"
-        }, new ItemStack(EPBlocks.ELITE_MACHINE_FRAME_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM), CraftingBookCategory.MISC);
     }
     private void buildFertilizerCraftingRecipes() {
         addShapedCraftingRecipe(has(Items.BONE_MEAL), Map.of(
@@ -300,7 +301,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "DBb",
                 "BLB",
                 "ABP"
-        }, new ItemStack(EPItems.BASIC_FERTILIZER.get(), 4), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BASIC_FERTILIZER, 4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_FERTILIZER), Map.of(
                 'B', ingredientOf(EPItems.BASIC_FERTILIZER),
@@ -313,7 +314,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SBK",
                 "BsB",
                 "bBW"
-        }, new ItemStack(EPItems.GOOD_FERTILIZER.get(), 4), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.GOOD_FERTILIZER, 4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.GOOD_FERTILIZER), Map.of(
                 'G', ingredientOf(EPItems.GOOD_FERTILIZER),
@@ -326,7 +327,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "MGS",
                 "GrG",
                 "TGR"
-        }, new ItemStack(EPItems.ADVANCED_FERTILIZER.get(), 4), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ADVANCED_FERTILIZER, 4), CraftingBookCategory.MISC);
     }
     private void buildUpgradeModuleCraftingRecipes() {
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
@@ -338,7 +339,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "RBR",
                 "CSC"
-        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SPEED_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_1), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -350,7 +351,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "RBR",
                 "CsC"
-        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SPEED_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_2), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -362,7 +363,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "RAR",
                 "CsC"
-        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SPEED_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_3), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -374,7 +375,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "RAR",
                 "CsC"
-        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SPEED_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_4), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -386,7 +387,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "rRr",
                 "CsC"
-        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SPEED_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.SPEED_UPGRADE_MODULE_5), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -397,12 +398,12 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CsC",
                 "SRS",
                 "CsC"
-        }, new ItemStack(EPItems.SPEED_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SPEED_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_6,
-                new ItemStack(EPItems.SPEED_UPGRADE_MODULE_7.get()));
+                itemStackOf(EPItems.SPEED_UPGRADE_MODULE_7));
         addEliteUpgradeModuleRecipe(EPItems.SPEED_UPGRADE_MODULE_7,
-                new ItemStack(EPItems.SPEED_UPGRADE_MODULE_8.get()));
+                itemStackOf(EPItems.SPEED_UPGRADE_MODULE_8));
 
         addShapedCraftingRecipe(has(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
                 'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
@@ -412,7 +413,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ACA",
                 "CUC",
                 "ACA"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1), Map.of(
                 'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
@@ -423,7 +424,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ACA",
                 "CUC",
                 "AEA"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2), Map.of(
                 'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
@@ -434,7 +435,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "AGA",
                 "GUG",
                 "AEA"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3), Map.of(
                 'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
@@ -445,7 +446,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "AGA",
                 "GUG",
                 "AEA"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4), Map.of(
                 'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
@@ -456,7 +457,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ASA",
                 "SUS",
                 "AEA"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_5), Map.of(
                 'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
@@ -467,7 +468,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "AEA",
                 "SUS",
                 "AEA"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_6), Map.of(
                 'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -478,7 +479,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "eEe",
                 "SUS",
                 "eEe"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_7), Map.of(
                 'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -489,7 +490,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "eEe",
                 "SUS",
                 "eEe"
-        }, new ItemStack(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_8.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_8), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -500,7 +501,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CGC",
                 "RBR",
                 "CGC"
-        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_1), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -512,7 +513,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CGC",
                 "RBR",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_2), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -524,7 +525,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CGC",
                 "RAR",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -536,7 +537,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CGC",
                 "RAR",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -548,7 +549,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CGC",
                 "rRr",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -559,12 +560,12 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CEC",
                 "GRG",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addEliteUpgradeModuleRecipe(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6,
-                new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7.get()));
+                itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7));
         addEliteUpgradeModuleRecipe(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_7,
-                new ItemStack(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8.get()));
+                itemStackOf(EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_8));
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -575,7 +576,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GAG",
                 "RBR",
                 "GAG"
-        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_1), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -587,7 +588,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GAG",
                 "RBR",
                 "GEG"
-        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_2), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -599,7 +600,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GaG",
                 "RAR",
                 "GEG"
-        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -611,7 +612,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GaG",
                 "RAR",
                 "GEG"
-        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -623,7 +624,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GAG",
                 "rRr",
                 "GEG"
-        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -634,12 +635,12 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GEG",
                 "ARA",
                 "GEG"
-        }, new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addEliteUpgradeModuleRecipe(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6,
-                new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7.get()));
+                itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7));
         addEliteUpgradeModuleRecipe(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_7,
-                new ItemStack(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8.get()));
+                itemStackOf(EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_8));
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -650,7 +651,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "cBc",
                 "CTC"
-        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_1), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -662,7 +663,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "cBc",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_2), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -674,7 +675,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "cAc",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -686,7 +687,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "cAc",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -698,7 +699,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "cRc",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -709,12 +710,12 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CEC",
                 "TRT",
                 "CEC"
-        }, new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addEliteUpgradeModuleRecipe(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6,
-                new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7.get()));
+                itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7));
         addEliteUpgradeModuleRecipe(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_7,
-                new ItemStack(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8.get()));
+                itemStackOf(EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_8));
 
         addShapedCraftingRecipe(has(EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -725,7 +726,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GCG",
                 "rRr",
                 "GCG"
-        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.DURATION_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_1), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -737,7 +738,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.DURATION_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_2), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -749,7 +750,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.DURATION_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_3), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -761,7 +762,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.DURATION_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_4), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -773,7 +774,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GCG",
                 "rRr",
                 "GDG"
-        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.DURATION_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.DURATION_UPGRADE_MODULE_5), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -784,7 +785,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GDG",
                 "CRC",
                 "GDG"
-        }, new ItemStack(EPItems.DURATION_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.DURATION_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ADVANCED_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -794,7 +795,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GRG",
                 "RAR",
                 "GRG"
-        }, new ItemStack(EPItems.RANGE_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.RANGE_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.RANGE_UPGRADE_MODULE_1), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -805,7 +806,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GrG",
                 "rAr",
                 "GRG"
-        }, new ItemStack(EPItems.RANGE_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.RANGE_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.RANGE_UPGRADE_MODULE_2), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -816,7 +817,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GrG",
                 "rAr",
                 "GRG"
-        }, new ItemStack(EPItems.RANGE_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.RANGE_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -827,7 +828,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IFI",
                 "RBR",
                 "IFI"
-        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_1), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -839,7 +840,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IFI",
                 "RBR",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_2), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -851,7 +852,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IFI",
                 "RAR",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -863,7 +864,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IFI",
                 "RAR",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -875,7 +876,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IFI",
                 "rRr",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -886,7 +887,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IEI",
                 "FRF",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -897,7 +898,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IRI",
                 "FBF",
                 "IRI"
-        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_1), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -909,7 +910,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IRI",
                 "FBF",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_2), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -921,7 +922,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IRI",
                 "FAF",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -933,7 +934,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IRI",
                 "FAF",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -945,7 +946,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IrI",
                 "FRF",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -956,7 +957,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IEI",
                 "rRr",
                 "IEI"
-        }, new ItemStack(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -968,7 +969,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "RBR",
                 "CbC"
-        }, new ItemStack(EPItems.BLAST_FURNACE_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BLAST_FURNACE_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -980,7 +981,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CsC",
                 "RBR",
                 "CSC"
-        }, new ItemStack(EPItems.SMOKER_UPGRADE_MODULE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.SMOKER_UPGRADE_MODULE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -991,7 +992,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GSG",
                 "bBb",
                 "GSG"
-        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.MOON_LIGHT_UPGRADE_MODULE_1), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1003,7 +1004,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GSG",
                 "BAB",
                 "GMG"
-        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.MOON_LIGHT_UPGRADE_MODULE_2), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1015,7 +1016,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GSG",
                 "BRB",
                 "GMG"
-        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.MOON_LIGHT_UPGRADE_MODULE_3), Map.of(
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -1027,7 +1028,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ECE",
                 "eUe",
                 "EME"
-        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.MOON_LIGHT_UPGRADE_MODULE_4), Map.of(
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -1039,7 +1040,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ECE",
                 "eUe",
                 "EME"
-        }, new ItemStack(EPItems.MOON_LIGHT_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.MOON_LIGHT_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1050,7 +1051,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TbT",
                 "IBI",
                 "TbT"
-        }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_1), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1062,7 +1063,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TbT",
                 "IBI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_2), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1074,7 +1075,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TFT",
                 "IAI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1086,7 +1087,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TFT",
                 "IAI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1098,7 +1099,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TET",
                 "IRI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1109,7 +1110,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TiT",
                 "ERE",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1120,7 +1121,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "THT",
                 "IBI",
                 "THT"
-        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_1), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1132,7 +1133,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "THT",
                 "IBI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_2), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1144,7 +1145,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "THT",
                 "IAI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_3), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1156,7 +1157,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "THT",
                 "IAI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_4), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1168,7 +1169,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "THT",
                 "IRI",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_5), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
@@ -1179,7 +1180,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "TiT",
                 "HRH",
                 "TiT"
-        }, new ItemStack(EPItems.ITEM_PULLING_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1190,7 +1191,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GLG",
                 "EBE",
                 "GLG"
-        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1202,7 +1203,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GLG",
                 "EBE",
                 "GXG"
-        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1214,7 +1215,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GLG",
                 "EAE",
                 "GXG"
-        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_3), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1226,7 +1227,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GLG",
                 "EAE",
                 "GXG"
-        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_4), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1238,7 +1239,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GLG",
                 "ERE",
                 "GXG"
-        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.XP_EXTRACTION_UPGRADE_MODULE_5), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -1249,12 +1250,12 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GXG",
                 "LRL",
                 "GXG"
-        }, new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
         addEliteUpgradeModuleRecipe(EPItems.XP_EXTRACTION_UPGRADE_MODULE_6,
-                new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_7.get()));
+                itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_7));
         addEliteUpgradeModuleRecipe(EPItems.XP_EXTRACTION_UPGRADE_MODULE_7,
-                new ItemStack(EPItems.XP_EXTRACTION_UPGRADE_MODULE_8.get()));
+                itemStackOf(EPItems.XP_EXTRACTION_UPGRADE_MODULE_8));
     }
     private void buildToolsCraftingRecipes() {
         addHammerCraftingRecipe(ItemTags.PLANKS, EPItems.WOODEN_HAMMER);
@@ -1271,7 +1272,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "I I",
                 " i ",
                 "S S"
-        }, new ItemStack(EPItems.CUTTER.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.CUTTER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Tags.Items.INGOTS_IRON), Map.of(
                 'i', ingredientOf(Tags.Items.NUGGETS_IRON),
@@ -1280,7 +1281,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 " I ",
                 " iI",
                 "i  "
-        }, new ItemStack(EPItems.WRENCH.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.WRENCH), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.WRENCH), Map.of(
                 'I', ingredientOf(Tags.Items.NUGGETS_IRON),
@@ -1291,7 +1292,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSI",
                 "SWS",
                 "ISC"
-        }, new ItemStack(EPItems.MACHINE_CONFIGURATOR.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.MACHINE_CONFIGURATOR), CraftingBookCategory.MISC);
     }
     private void buildEnergyItemsCraftingRecipes() {
         addShapedCraftingRecipe(has(Tags.Items.INGOTS_COPPER), Map.of(
@@ -1303,7 +1304,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "T T",
                 "CRC",
                 "CcC"
-        }, new ItemStack(EPItems.BATTERY_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_1), Map.of(
                 'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
@@ -1315,7 +1316,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "T T",
                 "CBC",
                 "IcI"
-        }, new ItemStack(EPItems.BATTERY_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_2), Map.of(
                 'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
@@ -1326,7 +1327,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "T T",
                 "BCB",
                 "CSC"
-        }, new ItemStack(EPItems.BATTERY_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_3), Map.of(
                 'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
@@ -1338,7 +1339,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "T T",
                 "CBC",
                 "SIS"
-        }, new ItemStack(EPItems.BATTERY_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_4), Map.of(
                 'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
@@ -1350,7 +1351,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "T T",
                 "BSB",
                 "IRI"
-        }, new ItemStack(EPItems.BATTERY_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_5), Map.of(
                 'T', ingredientOf(CommonItemTags.NUGGETS_TIN),
@@ -1360,7 +1361,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "T T",
                 "EBE",
                 "EBE"
-        }, new ItemStack(EPItems.BATTERY_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_6), Map.of(
                 'G', ingredientOf(Tags.Items.NUGGETS_GOLD),
@@ -1371,7 +1372,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "G G",
                 "EBE",
                 "SBS"
-        }, new ItemStack(EPItems.BATTERY_7.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_7), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_7), Map.of(
                 'G', ingredientOf(Tags.Items.NUGGETS_GOLD),
@@ -1382,7 +1383,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "G G",
                 "EBE",
                 "ABA"
-        }, new ItemStack(EPItems.BATTERY_8.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_8), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_8), Map.of(
                 'G', ingredientOf(Tags.Items.NUGGETS_GOLD),
@@ -1393,7 +1394,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "G G",
                 "BEB",
                 "ESE"
-        }, new ItemStack(EPItems.BATTERY_9.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_9), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_9), Map.of(
                 'G', ingredientOf(Tags.Items.NUGGETS_GOLD),
@@ -1403,7 +1404,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "G G",
                 "EBE",
                 "EBE"
-        }, new ItemStack(EPItems.BATTERY_10.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.BATTERY_10), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.COAL_ENGINE_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -1415,7 +1416,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SIS",
                 "RCR",
                 "cIc"
-        }, new ItemStack(EPItems.INVENTORY_COAL_ENGINE.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.INVENTORY_COAL_ENGINE), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.CHARGER_ITEM), Map.of(
                 'c', ingredientOf(CommonItemTags.PLATES_COPPER),
@@ -1427,7 +1428,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SIS",
                 "RCR",
                 "cIc"
-        }, new ItemStack(EPItems.INVENTORY_CHARGER.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.INVENTORY_CHARGER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.TELEPORTER_ITEM), Map.of(
                 'C', ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX),
@@ -1439,7 +1440,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CcC",
                 "RTR",
                 "GcG"
-        }, new ItemStack(EPItems.INVENTORY_TELEPORTER.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.INVENTORY_TELEPORTER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_3), Map.of(
                 'b', ingredientOf(EPItems.BASIC_CIRCUIT),
@@ -1451,7 +1452,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "S S",
                 "bRb",
                 "CBC"
-        }, new ItemStack(EPItems.ENERGY_ANALYZER.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.ENERGY_ANALYZER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BATTERY_3), Map.of(
                 'b', ingredientOf(EPItems.BASIC_CIRCUIT),
@@ -1463,7 +1464,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "S S",
                 "bLb",
                 "CBC"
-        }, new ItemStack(EPItems.FLUID_ANALYZER.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.FLUID_ANALYZER), CraftingBookCategory.MISC);
     }
     private void buildItemTransportCraftingRecipes() {
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
@@ -1474,7 +1475,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                         "   ",
                         "LLL",
                         "IRI"
-                }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
+                }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, 6), CraftingBookCategory.MISC,
                 "item_conveyor_belt", "_from_leather");
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
@@ -1485,7 +1486,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                         "   ",
                         "KKK",
                         "IRI"
-                }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM.get(), 6), CraftingBookCategory.MISC,
+                }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM, 6), CraftingBookCategory.MISC,
                 "item_conveyor_belt", "_from_dried_kelp");
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
@@ -1497,7 +1498,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RIR",
                 "SBS",
                 "RIR"
-        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.GEARS_STEEL), Map.of(
                 'G', ingredientOf(CommonItemTags.GEARS_STEEL),
@@ -1508,7 +1509,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GSG",
                 "rFr",
                 "GSG"
-        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1518,7 +1519,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CCC",
                 "CHC",
                 "CcC"
-        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'b', ingredientOf(Items.BRICKS),
@@ -1529,7 +1530,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "bbb",
                 "bBb",
                 "SFS"
-        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
@@ -1542,7 +1543,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "sFs",
                 "SES"
-        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1553,7 +1554,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CRC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'b', ingredientOf(Items.BRICKS),
@@ -1564,7 +1565,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "bbb",
                 "bBb",
                 "SFS"
-        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
@@ -1577,7 +1578,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "sFs",
                 "SES"
-        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1589,7 +1590,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ClC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'b', ingredientOf(Items.BRICKS),
@@ -1600,7 +1601,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "bbb",
                 "bBb",
                 "SFS"
-        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
@@ -1613,7 +1614,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "sFs",
                 "SES"
-        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1624,7 +1625,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CIC",
                 "ILI",
                 "CRC"
-        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'b', ingredientOf(Items.BRICKS),
@@ -1635,7 +1636,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "bbb",
                 "bBb",
                 "SFS"
-        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
@@ -1648,7 +1649,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "sFs",
                 "SES"
-        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1659,7 +1660,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CRC",
                 "ILI",
                 "CIC"
-        }, new ItemStack(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'b', ingredientOf(Items.BRICKS),
@@ -1670,7 +1671,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "bbb",
                 "bBb",
                 "SFS"
-        }, new ItemStack(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
@@ -1683,7 +1684,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "sFs",
                 "SES"
-        }, new ItemStack(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                 'B', ingredientOf(Tags.Items.BARRELS_WOODEN),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON)
@@ -1691,7 +1692,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "III",
                 "IBI",
                 "III"
-        }, new ItemStack(EPBlocks.ITEM_SILO_TINY_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ITEM_SILO_TINY_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_TINY_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_TINY_ITEM),
@@ -1701,7 +1702,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "iSi",
                 "IiI"
-        }, new ItemStack(EPBlocks.ITEM_SILO_SMALL_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ITEM_SILO_SMALL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_SMALL_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_SMALL_ITEM),
@@ -1711,7 +1712,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IsI",
                 "sSs",
                 "IsI"
-        }, new ItemStack(EPBlocks.ITEM_SILO_MEDIUM_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ITEM_SILO_MEDIUM_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_MEDIUM_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_MEDIUM_ITEM),
@@ -1721,7 +1722,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "BsB",
                 "sSs",
                 "BsB"
-        }, new ItemStack(EPBlocks.ITEM_SILO_LARGE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ITEM_SILO_LARGE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ITEM_SILO_LARGE_ITEM), Map.of(
                 'S', ingredientOf(EPBlocks.ITEM_SILO_LARGE_ITEM),
@@ -1730,7 +1731,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "sss",
                 "sSs",
                 "sss"
-        }, new ItemStack(EPBlocks.ITEM_SILO_GIANT_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ITEM_SILO_GIANT_ITEM), CraftingBookCategory.MISC);
     }
     private void buildFluidTransportCraftingRecipes() {
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_COPPER), Map.of(
@@ -1740,7 +1741,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CcC",
                 "CcC",
                 "CcC"
-        }, new ItemStack(EPBlocks.COPPER_FLUID_PIPE_ITEM.get(), 12), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.COPPER_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                 'I', ingredientOf(Tags.Items.INGOTS_IRON),
@@ -1749,7 +1750,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IiI",
                 "IiI",
                 "IiI"
-        }, new ItemStack(EPBlocks.IRON_FLUID_PIPE_ITEM.get(), 12), CraftingBookCategory.MISC,
+        }, itemStackOf(EPBlocks.IRON_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC,
                 "", "", "iron_");
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_GOLD), Map.of(
@@ -1759,7 +1760,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GgG",
                 "GgG",
                 "GgG"
-        }, new ItemStack(EPBlocks.GOLDEN_FLUID_PIPE_ITEM.get(), 12), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.GOLDEN_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_STEEL), Map.of(
                 'S', ingredientOf(CommonItemTags.INGOTS_STEEL),
@@ -1768,7 +1769,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SsS",
                 "SsS",
                 "SsS"
-        }, new ItemStack(EPBlocks.STEEL_FLUID_PIPE_ITEM.get(), 12), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.STEEL_FLUID_PIPE_ITEM, 12), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -1777,7 +1778,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IGI",
                 "IGI",
                 "IGI"
-        }, new ItemStack(EPBlocks.FLUID_TANK_SMALL_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_TANK_SMALL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FLUID_TANK_SMALL_ITEM), Map.of(
                 'F', ingredientOf(EPBlocks.FLUID_TANK_SMALL_ITEM),
@@ -1786,16 +1787,16 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SFS",
                 "SFS",
                 "SFS"
-        }, new ItemStack(EPBlocks.FLUID_TANK_MEDIUM_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_TANK_MEDIUM_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.FLUID_TANK_MEDIUM_ITEM), Map.of(
-                'F', ingredientOf(EPBlocks.FLUID_TANK_MEDIUM_ITEM.get()),
+                'F', ingredientOf(EPBlocks.FLUID_TANK_MEDIUM_ITEM),
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL)
         ), new String[] {
                 "SFS",
                 "SFS",
                 "SFS"
-        }, new ItemStack(EPBlocks.FLUID_TANK_LARGE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_TANK_LARGE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -1805,7 +1806,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IGI",
                 "GLG",
                 "IGI"
-        }, new ItemStack(EPBlocks.XP_STORAGE_TINY_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.XP_STORAGE_TINY_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_TINY_ITEM), Map.of(
                 'X', ingredientOf(EPBlocks.XP_STORAGE_TINY_ITEM),
@@ -1815,7 +1816,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ILI",
                 "XIX",
                 "ILI"
-        }, new ItemStack(EPBlocks.XP_STORAGE_SMALL_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.XP_STORAGE_SMALL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_SMALL_ITEM), Map.of(
                 'X', ingredientOf(EPBlocks.XP_STORAGE_SMALL_ITEM),
@@ -1825,7 +1826,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SLS",
                 "XSX",
                 "SLS"
-        }, new ItemStack(EPBlocks.XP_STORAGE_MEDIUM_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.XP_STORAGE_MEDIUM_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_MEDIUM_ITEM), Map.of(
                 'X', ingredientOf(EPBlocks.XP_STORAGE_MEDIUM_ITEM),
@@ -1835,7 +1836,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CXC",
                 "XSX",
                 "CXC"
-        }, new ItemStack(EPBlocks.XP_STORAGE_LARGE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.XP_STORAGE_LARGE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.XP_STORAGE_LARGE_ITEM), Map.of(
                 'X', ingredientOf(EPBlocks.XP_STORAGE_LARGE_ITEM),
@@ -1845,21 +1846,21 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CXC",
                 "XSX",
                 "CXC"
-        }, new ItemStack(EPBlocks.XP_STORAGE_GIANT_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.XP_STORAGE_GIANT_ITEM), CraftingBookCategory.MISC);
     }
     private void buildEnergyTransportCraftingRecipes() {
         addBasicCableCraftingRecipes(CommonItemTags.INGOTS_TIN, CommonItemTags.WIRES_TIN,
-                new ItemStack(EPBlocks.TIN_CABLE_ITEM.get(), 9));
+                itemStackOf(EPBlocks.TIN_CABLE_ITEM, 9));
 
         addBasicCableCraftingRecipes(Tags.Items.INGOTS_COPPER, CommonItemTags.WIRES_COPPER,
-                new ItemStack(EPBlocks.COPPER_CABLE_ITEM.get(), 6));
+                itemStackOf(EPBlocks.COPPER_CABLE_ITEM, 6));
         addBasicCableCraftingRecipes(Tags.Items.INGOTS_GOLD, CommonItemTags.WIRES_GOLD,
-                new ItemStack(EPBlocks.GOLD_CABLE_ITEM.get(), 6));
+                itemStackOf(EPBlocks.GOLD_CABLE_ITEM, 6));
 
         addBasicCableCraftingRecipes(CommonItemTags.INGOTS_ENERGIZED_COPPER, CommonItemTags.WIRES_ENERGIZED_COPPER,
-                new ItemStack(EPBlocks.ENERGIZED_COPPER_CABLE_ITEM.get(), 3));
+                itemStackOf(EPBlocks.ENERGIZED_COPPER_CABLE_ITEM, 3));
         addBasicCableCraftingRecipes(CommonItemTags.INGOTS_ENERGIZED_GOLD, CommonItemTags.WIRES_ENERGIZED_GOLD,
-                new ItemStack(EPBlocks.ENERGIZED_GOLD_CABLE_ITEM.get(), 3));
+                itemStackOf(EPBlocks.ENERGIZED_GOLD_CABLE_ITEM, 3));
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
                 'I', ingredientOf(EPItems.CABLE_INSULATOR),
@@ -1868,7 +1869,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ICI",
                 "ICI",
                 "ICI"
-        }, new ItemStack(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(CommonItemTags.WIRES_SUPERCONDUCTOR), Map.of(
                 'I', ingredientOf(EPItems.CABLE_INSULATOR),
@@ -1877,7 +1878,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ISI",
                 "ISI",
                 "ISI"
-        }, new ItemStack(EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -1889,7 +1890,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSI",
                 "RMR",
                 "CSI"
-        }, new ItemStack(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -1901,7 +1902,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSI",
                 "SMR",
                 "CRI"
-        }, new ItemStack(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -1913,7 +1914,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CRI",
                 "SMS",
                 "CRI"
-        }, new ItemStack(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -1925,7 +1926,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTI",
                 "SMS",
                 "CTI"
-        }, new ItemStack(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC,
+        }, itemStackOf(EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC,
                 "", "", "mv_");
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
@@ -1938,7 +1939,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTI",
                 "SMS",
                 "CTI"
-        }, new ItemStack(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC,
+        }, itemStackOf(EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC,
                 "", "", "mv_");
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
@@ -1951,7 +1952,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTI",
                 "SMS",
                 "CTI"
-        }, new ItemStack(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC,
+        }, itemStackOf(EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC,
                 "", "", "mv_");
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
@@ -1963,7 +1964,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GTG",
                 "SMS",
                 "GTG"
-        }, new ItemStack(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -1974,7 +1975,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GTG",
                 "SMS",
                 "GTG"
-        }, new ItemStack(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -1985,7 +1986,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GTG",
                 "SMS",
                 "GTG"
-        }, new ItemStack(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -1996,7 +1997,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "SMS",
                 "CTC"
-        }, new ItemStack(EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -2007,7 +2008,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "SMS",
                 "CTC"
-        }, new ItemStack(EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -2018,7 +2019,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "SMS",
                 "CTC"
-        }, new ItemStack(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -2029,7 +2030,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ETE",
                 "SMS",
                 "ETE"
-        }, new ItemStack(EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -2040,7 +2041,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ETE",
                 "SMS",
                 "ETE"
-        }, new ItemStack(EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
                 'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
@@ -2051,7 +2052,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ETE",
                 "SMS",
                 "ETE"
-        }, new ItemStack(EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2063,7 +2064,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSI",
                 "BMB",
                 "CSI"
-        }, new ItemStack(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'B', ingredientOf(EPItems.BASIC_CIRCUIT),
@@ -2075,7 +2076,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTI",
                 "BMB",
                 "CTI"
-        }, new ItemStack(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'A', ingredientOf(EPItems.ADVANCED_CIRCUIT),
@@ -2086,7 +2087,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GTG",
                 "AMA",
                 "GTG"
-        }, new ItemStack(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'R', ingredientOf(EPItems.PROCESSING_UNIT),
@@ -2097,7 +2098,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "RMR",
                 "CTC"
-        }, new ItemStack(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
                 'Q', ingredientOf(EPItems.QUANTUM_PROCESSING_UNIT),
@@ -2108,7 +2109,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ETE",
                 "QMQ",
                 "ETE"
-        }, new ItemStack(EPBlocks.CONFIGURABLE_UHV_TRANSFORMER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CONFIGURABLE_UHV_TRANSFORMER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2119,7 +2120,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CBC",
                 "BMB",
                 "SBS"
-        }, new ItemStack(EPBlocks.BATTERY_BOX_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -2130,7 +2131,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "EBE",
                 "BMB",
                 "BSB"
-        }, new ItemStack(EPBlocks.ADVANCED_BATTERY_BOX_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
@@ -2141,22 +2142,22 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "EBE",
                 "BMB",
                 "BSB"
-        }, new ItemStack(EPBlocks.ELITE_BATTERY_BOX_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ELITE_BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(EPBlocks.BATTERY_BOX_ITEM), List.of(
                 ingredientOf(EPBlocks.BATTERY_BOX_ITEM),
                 ingredientOf(Items.MINECART)
-        ), new ItemStack(EPItems.BATTERY_BOX_MINECART.get()), CraftingBookCategory.MISC);
+        ), itemStackOf(EPItems.BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), List.of(
                 ingredientOf(EPBlocks.ADVANCED_BATTERY_BOX_ITEM),
                 ingredientOf(Items.MINECART)
-        ), new ItemStack(EPItems.ADVANCED_BATTERY_BOX_MINECART.get()), CraftingBookCategory.MISC);
+        ), itemStackOf(EPItems.ADVANCED_BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(EPBlocks.ELITE_BATTERY_BOX_ITEM), List.of(
                 ingredientOf(EPBlocks.ELITE_BATTERY_BOX_ITEM),
                 ingredientOf(Items.MINECART)
-        ), new ItemStack(EPItems.ELITE_BATTERY_BOX_MINECART.get()), CraftingBookCategory.MISC);
+        ), itemStackOf(EPItems.ELITE_BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
     }
     private void buildMachineCraftingRecipes() {
         addShapedCraftingRecipe(has(Items.SMOOTH_STONE), Map.of(
@@ -2167,7 +2168,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "BBB",
                 "BsB",
                 "SSS"
-        }, new ItemStack(EPBlocks.PRESS_MOLD_MAKER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.PRESS_MOLD_MAKER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Items.FURNACE), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -2177,7 +2178,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "III",
                 "FIF",
                 "BBB"
-        }, new ItemStack(EPBlocks.ALLOY_FURNACE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ALLOY_FURNACE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'b', ingredientOf(EPItems.BASIC_CIRCUIT),
@@ -2189,7 +2190,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CTC",
                 "bBb",
                 "ITI"
-        }, new ItemStack(EPBlocks.AUTO_CRAFTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.AUTO_CRAFTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME), Map.of(
                 'c', ingredientOf(EPItems.ADVANCED_CIRCUIT),
@@ -2201,7 +2202,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GaG",
                 "cAc",
                 "PaP"
-        }, new ItemStack(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
@@ -2213,7 +2214,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CsC",
                 "SBS",
                 "CIC"
-        }, new ItemStack(EPBlocks.CRUSHER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CRUSHER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'c', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
@@ -2225,7 +2226,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "aCa",
                 "FAF",
                 "cCc"
-        }, new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_CRUSHER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -2235,7 +2236,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ISI",
                 "SBS",
                 "ISI"
-        }, new ItemStack(EPBlocks.PULVERIZER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.PULVERIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER),
@@ -2247,7 +2248,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "aPa",
                 "FAF",
                 "CPC"
-        }, new ItemStack(EPBlocks.ADVANCED_PULVERIZER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_PULVERIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(EPItems.SAW_BLADE),
@@ -2259,7 +2260,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "sSs",
                 "CBC",
                 "sIs"
-        }, new ItemStack(EPBlocks.SAWMILL_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SAWMILL_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'P', ingredientOf(Items.PISTON),
@@ -2269,7 +2270,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IPI",
                 "PBP",
                 "IPI"
-        }, new ItemStack(EPBlocks.COMPRESSOR_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.COMPRESSOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'P', ingredientOf(Items.PISTON),
@@ -2280,7 +2281,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SPS",
                 "IBI",
                 "SIS"
-        }, new ItemStack(EPBlocks.METAL_PRESS_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.METAL_PRESS_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'I', ingredientOf(CommonItemTags.GEARS_IRON),
@@ -2291,7 +2292,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IPI",
                 "iBi",
                 "IPI"
-        }, new ItemStack(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.AUTO_PRESS_MOLD_MAKER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
@@ -2303,7 +2304,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "sBs",
                 "ISI"
-        }, new ItemStack(EPBlocks.AUTO_STONECUTTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.AUTO_STONECUTTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2316,7 +2317,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SiS",
                 "GBG",
                 "IFI"
-        }, new ItemStack(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.PLANT_GROWTH_CHAMBER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -2328,7 +2329,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IDS",
                 "DBD",
                 "SDC"
-        }, new ItemStack(EPBlocks.BLOCK_PLACER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.BLOCK_PLACER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
@@ -2341,7 +2342,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "iRi",
                 "BHB",
                 "SsS"
-        }, new ItemStack(EPBlocks.ASSEMBLING_MACHINE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ASSEMBLING_MACHINE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'B', ingredientOf(EPItems.BASIC_CIRCUIT),
@@ -2352,7 +2353,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SAS",
                 "BHB",
                 "SAS"
-        }, new ItemStack(EPBlocks.INDUCTION_SMELTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.INDUCTION_SMELTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2364,7 +2365,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SIS",
                 "IBI",
                 "CFC"
-        }, new ItemStack(EPBlocks.FLUID_FILLER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_FILLER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2377,7 +2378,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "STS",
                 "IHI",
                 "CFC"
-        }, new ItemStack(EPBlocks.FLUID_FREEZER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_FREEZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2390,7 +2391,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SiS",
                 "IHI",
                 "CFC"
-        }, new ItemStack(EPBlocks.STONE_LIQUEFIER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.STONE_LIQUEFIER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2403,7 +2404,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "iSi",
                 "FHF",
                 "CIC"
-        }, new ItemStack(EPBlocks.STONE_SOLIDIFIER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.STONE_SOLIDIFIER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -2417,7 +2418,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CiC",
                 "DHF",
                 "IfI"
-        }, new ItemStack(EPBlocks.FLUID_TRANSPOSER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_TRANSPOSER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'i', ingredientOf(CommonItemTags.GEARS_IRON),
@@ -2430,7 +2431,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "iBi",
                 "FHF",
                 "IfI"
-        }, new ItemStack(EPBlocks.FILTRATION_PLANT_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FILTRATION_PLANT_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2442,7 +2443,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CFC",
                 "IBI",
                 "SIS"
-        }, new ItemStack(EPBlocks.FLUID_DRAINER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_DRAINER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),
@@ -2455,7 +2456,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RPR",
                 "FBF",
                 "IpI"
-        }, new ItemStack(EPBlocks.FLUID_PUMP_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.FLUID_PUMP_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD),
@@ -2467,7 +2468,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GFG",
                 "fAf",
                 "aFa"
-        }, new ItemStack(EPBlocks.ADVANCED_FLUID_PUMP_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_FLUID_PUMP_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Tags.Items.STORAGE_BLOCKS_IRON), Map.of(
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -2478,7 +2479,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "IBI",
                 "iGi",
                 "IiI"
-        }, new ItemStack(EPBlocks.DRAIN_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.DRAIN_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Tags.Items.GEMS_LAPIS), Map.of(
                 'i', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -2487,7 +2488,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         ), new String[] {
                 "iIi",
                 "iLi"
-        }, new ItemStack(EPBlocks.XP_DRAIN_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.XP_DRAIN_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
@@ -2499,7 +2500,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "sCs",
                 "IBI",
                 "CSC"
-        }, new ItemStack(EPBlocks.CHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2511,7 +2512,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SGS",
                 "aAa",
                 "GCG"
-        }, new ItemStack(EPBlocks.ADVANCED_CHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
@@ -2523,7 +2524,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "IBI",
                 "sCs"
-        }, new ItemStack(EPBlocks.UNCHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2535,7 +2536,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GUG",
                 "aAa",
                 "SGS"
-        }, new ItemStack(EPBlocks.ADVANCED_UNCHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.CHARGER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
@@ -2548,7 +2549,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "cCc",
                 "SHS",
                 "iIi"
-        }, new ItemStack(EPBlocks.MINECART_CHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_CHARGER_ITEM), Map.of(
                 'G', ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD),
@@ -2561,7 +2562,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "gGg",
                 "SHS",
                 "cCc"
-        }, new ItemStack(EPBlocks.ADVANCED_MINECART_CHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.UNCHARGER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER),
@@ -2574,7 +2575,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "iIi",
                 "SUS",
                 "cCc"
-        }, new ItemStack(EPBlocks.MINECART_UNCHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_UNCHARGER_ITEM), Map.of(
                 'G', ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD),
@@ -2587,7 +2588,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "cCc",
                 "SUS",
                 "gGg"
-        }, new ItemStack(EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_SOLAR_CELL), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2599,7 +2600,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "BRB",
                 "ICI"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_1.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_1), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_1), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2611,7 +2612,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "SBS",
                 "CRC"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_2.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_2), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_2), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2623,7 +2624,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "SBS",
                 "sRs"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_3.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_3), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_3), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2635,7 +2636,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "SsS",
                 "ARA"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_4.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_4), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_4), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2647,7 +2648,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "SaS",
                 "AEA"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_5.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_5), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_5), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2659,7 +2660,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "SAS",
                 "RER"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_6.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_6), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.SOLAR_PANEL_ITEM_6), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
@@ -2671,7 +2672,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GGG",
                 "SCS",
                 "EeE"
-        }, new ItemStack(EPBlocks.SOLAR_PANEL_ITEM_7.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.SOLAR_PANEL_ITEM_7), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2683,7 +2684,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ISI",
                 "CBC",
                 "IFI"
-        }, new ItemStack(EPBlocks.COAL_ENGINE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.COAL_ENGINE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(Items.REDSTONE_LAMP), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2693,7 +2694,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CSC",
                 "SRS",
                 "CSC"
-        }, new ItemStack(EPBlocks.POWERED_LAMP_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.POWERED_LAMP_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2705,7 +2706,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CFC",
                 "SBS",
                 "IFI"
-        }, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.POWERED_FURNACE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2717,7 +2718,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GPG",
                 "SAS",
                 "aPa"
-        }, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
@@ -2730,7 +2731,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RaR",
                 "GAG",
                 "ECE"
-        }, new ItemStack(EPBlocks.LIGHTNING_GENERATOR_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.LIGHTNING_GENERATOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
@@ -2743,7 +2744,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "RaR",
                 "GAG",
                 "ESE"
-        }, new ItemStack(EPBlocks.ENERGIZER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.ENERGIZER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'I', ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON),
@@ -2756,7 +2757,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "aRa",
                 "IAI",
                 "ECE"
-        }, new ItemStack(EPBlocks.CHARGING_STATION_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CHARGING_STATION_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.COAL_ENGINE_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
@@ -2767,7 +2768,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "cSc",
                 "sCs",
                 "cSc"
-        }, new ItemStack(EPBlocks.HEAT_GENERATOR_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.HEAT_GENERATOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.HARDENED_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
@@ -2780,7 +2781,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "cHc",
                 "SES",
                 "CFC"
-        }, new ItemStack(EPBlocks.THERMAL_GENERATOR_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.THERMAL_GENERATOR_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'a', ingredientOf(Items.AMETHYST_BLOCK),
@@ -2791,7 +2792,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "aPa",
                 "EAE",
                 "aPa"
-        }, new ItemStack(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'P', ingredientOf(EPItems.PROCESSING_UNIT),
@@ -2804,7 +2805,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CAC",
                 "PRP",
                 "aEa"
-        }, new ItemStack(EPBlocks.WEATHER_CONTROLLER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.WEATHER_CONTROLLER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'P', ingredientOf(EPItems.PROCESSING_UNIT),
@@ -2817,7 +2818,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "cCc",
                 "PRP",
                 "AEA"
-        }, new ItemStack(EPBlocks.TIME_CONTROLLER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.TIME_CONTROLLER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'T', ingredientOf(EPItems.TELEPORTER_PROCESSING_UNIT),
@@ -2830,7 +2831,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "CEC",
                 "TRT",
                 "SAS"
-        }, new ItemStack(EPBlocks.TELEPORTER_ITEM.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPBlocks.TELEPORTER_ITEM), CraftingBookCategory.MISC);
     }
     private void buildMiscCraftingRecipes() {
         addShapelessCraftingRecipe(InventoryChangeTrigger.TriggerInstance.hasItems(
@@ -2839,14 +2840,14 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         ), List.of(
                 ingredientOf(Items.BOOK),
                 ingredientOf(EPBlocks.BASIC_MACHINE_FRAME_ITEM)
-        ), new ItemStack(EPItems.ENERGIZED_POWER_BOOK.get()), CraftingBookCategory.MISC);
+        ), itemStackOf(EPItems.ENERGIZED_POWER_BOOK), CraftingBookCategory.MISC);
 
         addShapelessCraftingRecipe(has(CommonItemTags.DUSTS_WOOD), List.of(
                 ingredientOf(CommonItemTags.DUSTS_WOOD),
                 ingredientOf(CommonItemTags.DUSTS_WOOD),
                 ingredientOf(CommonItemTags.DUSTS_WOOD),
                 ingredientOf(Items.WATER_BUCKET)
-        ), new ItemStack(Items.PAPER, 2), CraftingBookCategory.MISC, "", "_from_sawdust");
+        ), itemStackOf(Items.PAPER, 2), CraftingBookCategory.MISC, "", "_from_sawdust");
 
         addShapedCraftingRecipe(has(CommonItemTags.DUSTS_CHARCOAL), Map.of(
                 'P', ingredientOf(Items.PAPER),
@@ -2856,7 +2857,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "PCP",
                 "CIC",
                 "PCP"
-        }, new ItemStack(EPItems.CHARCOAL_FILTER.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.CHARCOAL_FILTER), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.ENERGIZED_CRYSTAL_MATRIX), Map.of(
                 'A', ingredientOf(Tags.Items.GEMS_AMETHYST),
@@ -2866,168 +2867,168 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "AEA",
                 "EeE",
                 "AEA"
-        }, new ItemStack(EPItems.TELEPORTER_MATRIX.get()), CraftingBookCategory.MISC);
+        }, itemStackOf(EPItems.TELEPORTER_MATRIX), CraftingBookCategory.MISC);
     }
     private void buildCustomCraftingRecipes() {
         addCustomCraftingRecipe(new TeleporterMatrixSettingsCopyRecipe(CraftingBookCategory.MISC),
                 "teleporter_matrix_settings_copy");
-        addCustomCraftingRecipe(new FarmlandCraftingRecipe(ingredientOf(Items.DIRT), new ItemStack(Items.FARMLAND)), "farmland");
+        addCustomCraftingRecipe(new FarmlandCraftingRecipe(ingredientOf(Items.DIRT), itemStackOf(Items.FARMLAND)), "farmland");
     }
 
     private void buildCookingRecipes() {
-        addBlastingAndSmeltingRecipes(CommonItemTags.RAW_MATERIALS_TIN, new ItemStack(EPItems.TIN_INGOT.get()), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(CommonItemTags.RAW_MATERIALS_TIN, itemStackOf(EPItems.TIN_INGOT), CookingBookCategory.MISC,
                 100, .7f, "tin_ingot", "raw_tin");
-        addBlastingAndSmeltingRecipes(CommonItemTags.ORES_TIN, new ItemStack(EPItems.TIN_INGOT.get()), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(CommonItemTags.ORES_TIN, itemStackOf(EPItems.TIN_INGOT), CookingBookCategory.MISC,
                 100, .7f, "tin_ingot", "tin_ores");
 
-        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_TIN, new ItemStack(EPItems.TIN_INGOT.get()), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_TIN, itemStackOf(EPItems.TIN_INGOT), CookingBookCategory.MISC,
                 100, .7f, "tin_ingot", "tin_dust");
-        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_COPPER, new ItemStack(Items.COPPER_INGOT), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_COPPER, itemStackOf(Items.COPPER_INGOT), CookingBookCategory.MISC,
                 100, .7f, "copper_ingot", "copper_dust");
-        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_IRON, new ItemStack(Items.IRON_INGOT), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_IRON, itemStackOf(Items.IRON_INGOT), CookingBookCategory.MISC,
                 100, .7f, "iron_ingot", "iron_dust");
-        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_GOLD, new ItemStack(Items.GOLD_INGOT), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(CommonItemTags.DUSTS_GOLD, itemStackOf(Items.GOLD_INGOT), CookingBookCategory.MISC,
                 100, .7f, "gold_ingot", "gold_dust");
 
-        addBlastingAndSmeltingRecipes(EPItems.IRON_HAMMER.get(), new ItemStack(Items.IRON_NUGGET), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(EPItems.IRON_HAMMER, itemStackOf(Items.IRON_NUGGET), CookingBookCategory.MISC,
                 100, .1f, "iron_nugget", "iron_hammer");
-        addBlastingAndSmeltingRecipes(EPItems.GOLDEN_HAMMER.get(), new ItemStack(Items.GOLD_NUGGET), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(EPItems.GOLDEN_HAMMER, itemStackOf(Items.GOLD_NUGGET), CookingBookCategory.MISC,
                 100, .1f, "gold_nugget", "golden_hammer");
 
-        addBlastingAndSmeltingRecipes(Tags.Items.GEMS_QUARTZ, new ItemStack(EPItems.SILICON.get()), CookingBookCategory.MISC,
+        addBlastingAndSmeltingRecipes(Tags.Items.GEMS_QUARTZ, itemStackOf(EPItems.SILICON), CookingBookCategory.MISC,
                 250, 4.1f, "silicon", "nether_quartz");
 
-        addSmeltingRecipe(EPBlocks.SAWDUST_BLOCK_ITEM.get(), new ItemStack(Items.CHARCOAL), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPBlocks.SAWDUST_BLOCK_ITEM, itemStackOf(Items.CHARCOAL), CookingBookCategory.MISC,
                 200, .15f, null, "sawdust_block");
 
-        addSmeltingRecipe(EPItems.RAW_GEAR_PRESS_MOLD.get(), new ItemStack(EPItems.GEAR_PRESS_MOLD.get()), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPItems.RAW_GEAR_PRESS_MOLD, itemStackOf(EPItems.GEAR_PRESS_MOLD), CookingBookCategory.MISC,
                 200, .3f, null);
-        addSmeltingRecipe(EPItems.RAW_ROD_PRESS_MOLD.get(), new ItemStack(EPItems.ROD_PRESS_MOLD.get()), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPItems.RAW_ROD_PRESS_MOLD, itemStackOf(EPItems.ROD_PRESS_MOLD), CookingBookCategory.MISC,
                 200, .3f, null);
-        addSmeltingRecipe(EPItems.RAW_WIRE_PRESS_MOLD.get(), new ItemStack(EPItems.WIRE_PRESS_MOLD.get()), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPItems.RAW_WIRE_PRESS_MOLD, itemStackOf(EPItems.WIRE_PRESS_MOLD), CookingBookCategory.MISC,
                 200, .3f, null);
     }
 
     private void buildSmithingRecipes() {
         addNetheriteSmithingUpgradeRecipe(ingredientOf(EPItems.DIAMOND_HAMMER),
-                new ItemStack(EPItems.NETHERITE_HAMMER.get()));
+                itemStackOf(EPItems.NETHERITE_HAMMER));
     }
 
     private void buildPressMoldMakerRecipes() {
-        addPressMoldMakerRecipe(4, new ItemStack(EPItems.RAW_GEAR_PRESS_MOLD.get()));
-        addPressMoldMakerRecipe(9, new ItemStack(EPItems.RAW_ROD_PRESS_MOLD.get()));
-        addPressMoldMakerRecipe(6, new ItemStack(EPItems.RAW_WIRE_PRESS_MOLD.get()));
+        addPressMoldMakerRecipe(4, itemStackOf(EPItems.RAW_GEAR_PRESS_MOLD));
+        addPressMoldMakerRecipe(9, itemStackOf(EPItems.RAW_ROD_PRESS_MOLD));
+        addPressMoldMakerRecipe(6, itemStackOf(EPItems.RAW_WIRE_PRESS_MOLD));
     }
 
     private void buildAlloyFurnaceRecipes() {
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(Tags.Items.INGOTS_IRON)),
                 new IngredientWithCount(ingredientOf(ItemTags.COALS), 3)
-        }, new ItemStack(EPItems.STEEL_INGOT.get()), 350);
+        }, itemStackOf(EPItems.STEEL_INGOT), 350);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN)),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON)),
                 new IngredientWithCount(ingredientOf(Tags.Items.DUSTS_REDSTONE), 2)
-        }, new ItemStack(EPItems.REDSTONE_ALLOY_INGOT.get()), 1000);
+        }, itemStackOf(EPItems.REDSTONE_ALLOY_INGOT), 1000);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_STEEL), 3),
                 new IngredientWithCount(ingredientOf(Tags.Items.INGOTS_COPPER), 3),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN), 3)
-        }, new ItemStack(EPItems.ADVANCED_ALLOY_INGOT.get()), 2500);
+        }, itemStackOf(EPItems.ADVANCED_ALLOY_INGOT), 2500);
 
         addAlloyFurnaceRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 2),
                 new IngredientWithCount(ingredientOf(EPItems.CRYSTAL_MATRIX), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY), 2)
-        }, new ItemStack(EPItems.CRYSTALLIZED_ALLOY_INGOT.get()), 5000);
+        }, itemStackOf(EPItems.CRYSTALLIZED_ALLOY_INGOT), 5000);
     }
 
     private void buildCompressorRecipes() {
-        addCompressorRecipe(ingredientOf(EPItems.STONE_PEBBLE), new ItemStack(Items.COBBLESTONE),
+        addCompressorRecipe(ingredientOf(EPItems.STONE_PEBBLE), itemStackOf(Items.COBBLESTONE),
                 16, "stone_pebbles");
 
         addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_TIN),
-                ingredientOf(CommonItemTags.STORAGE_BLOCKS_TIN), new ItemStack(EPItems.TIN_PLATE.get()),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_TIN), itemStackOf(EPItems.TIN_PLATE),
                 "tin");
         addPlateCompressorRecipes(ingredientOf(Tags.Items.INGOTS_COPPER),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER), new ItemStack(EPItems.COPPER_PLATE.get()),
+                ingredientOf(Tags.Items.STORAGE_BLOCKS_COPPER), itemStackOf(EPItems.COPPER_PLATE),
                 "copper");
         addPlateCompressorRecipes(ingredientOf(Tags.Items.INGOTS_IRON),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON), new ItemStack(EPItems.IRON_PLATE.get()),
+                ingredientOf(Tags.Items.STORAGE_BLOCKS_IRON), itemStackOf(EPItems.IRON_PLATE),
                 "iron");
         addPlateCompressorRecipes(ingredientOf(Tags.Items.INGOTS_GOLD),
-                ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD), new ItemStack(EPItems.GOLD_PLATE.get()),
+                ingredientOf(Tags.Items.STORAGE_BLOCKS_GOLD), itemStackOf(EPItems.GOLD_PLATE),
                 "gold");
         addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_STEEL),
-                ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL), new ItemStack(EPItems.STEEL_PLATE.get()),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_STEEL), itemStackOf(EPItems.STEEL_PLATE),
                 "steel");
         addPlateCompressorRecipes(ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
-                ingredientOf(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY), new ItemStack(EPItems.ADVANCED_ALLOY_PLATE.get()),
+                ingredientOf(CommonItemTags.STORAGE_BLOCKS_ADVANCED_ALLOY), itemStackOf(EPItems.ADVANCED_ALLOY_PLATE),
                 "advanced_alloy");
 
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
-                new ItemStack(EPItems.CRYSTALLIZED_ALLOY_PLATE.get()), "crystallized_alloy");
+                itemStackOf(EPItems.CRYSTALLIZED_ALLOY_PLATE), "crystallized_alloy");
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER),
-                new ItemStack(EPItems.ENERGIZED_COPPER_PLATE.get()), "energized_copper");
+                itemStackOf(EPItems.ENERGIZED_COPPER_PLATE), "energized_copper");
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_GOLD),
-                new ItemStack(EPItems.ENERGIZED_GOLD_PLATE.get()), "energized_gold");
+                itemStackOf(EPItems.ENERGIZED_GOLD_PLATE), "energized_gold");
         addPlateCompressorIngotRecipe(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY),
-                new ItemStack(EPItems.ENERGIZED_ALLOY_PLATE.get()), "energized_alloy");
+                itemStackOf(EPItems.ENERGIZED_ALLOY_PLATE), "energized_alloy");
     }
 
     private void buildCrusherRecipes() {
-        addCrusherRecipe(ingredientOf(Items.STONE), new ItemStack(Items.COBBLESTONE),
+        addCrusherRecipe(ingredientOf(Items.STONE), itemStackOf(Items.COBBLESTONE),
                 "stone");
         addCrusherRecipe(ingredientOf(Items.STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.CRACKED_STONE_BRICKS,
-                        Items.SMOOTH_STONE), new ItemStack(Items.COBBLESTONE),
+                        Items.SMOOTH_STONE), itemStackOf(Items.COBBLESTONE),
                 "stone_variants");
 
-        addCrusherRecipe(ingredientOf(Items.MOSSY_STONE_BRICKS), new ItemStack(Items.MOSSY_COBBLESTONE),
+        addCrusherRecipe(ingredientOf(Items.MOSSY_STONE_BRICKS), itemStackOf(Items.MOSSY_COBBLESTONE),
                 "mossy_stone_bricks");
 
         addCrusherRecipe(ingredientOf(Items.TUFF_BRICKS, Items.CHISELED_TUFF_BRICKS, Items.CHISELED_TUFF,
-                        Items.POLISHED_TUFF), new ItemStack(Items.TUFF),
+                        Items.POLISHED_TUFF), itemStackOf(Items.TUFF),
                 "tuff_variants");
 
-        addCrusherRecipe(ingredientOf(Items.DEEPSLATE), new ItemStack(Items.COBBLED_DEEPSLATE),
+        addCrusherRecipe(ingredientOf(Items.DEEPSLATE), itemStackOf(Items.COBBLED_DEEPSLATE),
                 "deepslate");
         addCrusherRecipe(ingredientOf(Items.DEEPSLATE_BRICKS, Items.CHISELED_DEEPSLATE, Items.CRACKED_DEEPSLATE_BRICKS,
-                        Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES, Items.POLISHED_DEEPSLATE), new ItemStack(Items.COBBLED_DEEPSLATE),
+                        Items.DEEPSLATE_TILES, Items.CRACKED_DEEPSLATE_TILES, Items.POLISHED_DEEPSLATE), itemStackOf(Items.COBBLED_DEEPSLATE),
                 "deepslate_variants");
 
-        addCrusherRecipe(ingredientOf(Items.POLISHED_GRANITE), new ItemStack(Items.GRANITE),
+        addCrusherRecipe(ingredientOf(Items.POLISHED_GRANITE), itemStackOf(Items.GRANITE),
                 "polished_granite");
-        addCrusherRecipe(ingredientOf(Items.POLISHED_DIORITE), new ItemStack(Items.DIORITE),
+        addCrusherRecipe(ingredientOf(Items.POLISHED_DIORITE), itemStackOf(Items.DIORITE),
                 "polished_diorite");
-        addCrusherRecipe(ingredientOf(Items.POLISHED_ANDESITE), new ItemStack(Items.ANDESITE),
+        addCrusherRecipe(ingredientOf(Items.POLISHED_ANDESITE), itemStackOf(Items.ANDESITE),
                 "polished_andesite");
 
-        addCrusherRecipe(ingredientOf(Tags.Items.COBBLESTONES_NORMAL), new ItemStack(Items.GRAVEL),
+        addCrusherRecipe(ingredientOf(Tags.Items.COBBLESTONES_NORMAL), itemStackOf(Items.GRAVEL),
                 "cobblestone");
 
-        addCrusherRecipe(ingredientOf(Tags.Items.GRAVELS), new ItemStack(Items.SAND),
+        addCrusherRecipe(ingredientOf(Tags.Items.GRAVELS), itemStackOf(Items.SAND),
                 "gravel");
 
-        addCrusherRecipe(ingredientOf(Items.SANDSTONE), new ItemStack(Items.SAND),
+        addCrusherRecipe(ingredientOf(Items.SANDSTONE), itemStackOf(Items.SAND),
                 "sandstone");
         addCrusherRecipe(ingredientOf(Items.SMOOTH_SANDSTONE, Items.CUT_SANDSTONE,
-                        Items.CHISELED_SANDSTONE), new ItemStack(Items.SAND),
+                        Items.CHISELED_SANDSTONE), itemStackOf(Items.SAND),
                 "sandstone_variants");
 
-        addCrusherRecipe(ingredientOf(Items.RED_SANDSTONE), new ItemStack(Items.RED_SAND),
+        addCrusherRecipe(ingredientOf(Items.RED_SANDSTONE), itemStackOf(Items.RED_SAND),
                 "red_sandstone");
         addCrusherRecipe(ingredientOf(Items.SMOOTH_RED_SANDSTONE, Items.CUT_RED_SANDSTONE,
-                        Items.CHISELED_RED_SANDSTONE), new ItemStack(Items.RED_SAND),
+                        Items.CHISELED_RED_SANDSTONE), itemStackOf(Items.RED_SAND),
                 "red_sandstone_variants");
 
         addCrusherRecipe(ingredientOf(Items.POLISHED_BLACKSTONE, Items.POLISHED_BLACKSTONE_BRICKS,
                         Items.CHISELED_POLISHED_BLACKSTONE, Items.CRACKED_POLISHED_BLACKSTONE_BRICKS,
-                        Items.GILDED_BLACKSTONE), new ItemStack(Items.BLACKSTONE),
+                        Items.GILDED_BLACKSTONE), itemStackOf(Items.BLACKSTONE),
                 "blackstone_variants");
 
-        addCrusherRecipe(ingredientOf(Items.SMOOTH_BASALT, Items.POLISHED_BASALT), new ItemStack(Items.BASALT),
+        addCrusherRecipe(ingredientOf(Items.SMOOTH_BASALT, Items.POLISHED_BASALT), itemStackOf(Items.BASALT),
                 "basalt_variants");
     }
 
@@ -3035,137 +3036,137 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addBasicMetalPulverizerRecipes(
                 ingredientOf(CommonItemTags.ORES_TIN), ingredientOf(CommonItemTags.RAW_MATERIALS_TIN),
                 ingredientOf(CommonItemTags.STORAGE_BLOCKS_RAW_TIN), ingredientOf(CommonItemTags.INGOTS_TIN),
-                new ItemStack(EPItems.TIN_DUST.get()), "tin");
+                itemStackOf(EPItems.TIN_DUST), "tin");
         addBasicMetalPulverizerRecipes(
                 ingredientOf(Tags.Items.ORES_IRON), ingredientOf(Tags.Items.RAW_MATERIALS_IRON),
                 ingredientOf(Tags.Items.STORAGE_BLOCKS_RAW_IRON), ingredientOf(Tags.Items.INGOTS_IRON),
-                new ItemStack(EPItems.IRON_DUST.get()), "iron");
+                itemStackOf(EPItems.IRON_DUST), "iron");
         addBasicMetalPulverizerRecipes(
                 ingredientOf(Tags.Items.ORES_GOLD), ingredientOf(Tags.Items.RAW_MATERIALS_GOLD),
                 ingredientOf(Tags.Items.STORAGE_BLOCKS_RAW_GOLD), ingredientOf(Tags.Items.INGOTS_GOLD),
-                new ItemStack(EPItems.GOLD_DUST.get()), "gold");
+                itemStackOf(EPItems.GOLD_DUST), "gold");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_COPPER),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.COPPER_DUST.get()), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(EPItems.COPPER_DUST), new double[] {
                         1., 1., 1., 1., .5, .5
                 }, new double[] {
                         1., 1., 1., 1., .75, .5, .25
                 }),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.GOLD_DUST.get()),
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(EPItems.GOLD_DUST),
                         .1, .2), "copper_ores");
         addRawMetalAndIngotPulverizerRecipes(
                 ingredientOf(Tags.Items.RAW_MATERIALS_COPPER),
                 ingredientOf(Tags.Items.STORAGE_BLOCKS_RAW_COPPER), ingredientOf(Tags.Items.INGOTS_COPPER),
-                new ItemStack(EPItems.COPPER_DUST.get()), "copper");
+                itemStackOf(EPItems.COPPER_DUST), "copper");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_COAL),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.COAL), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.COAL), new double[] {
                         1., 1., .25
                 }, new double[] {
                         1., 1., .5, .25
                 }), "coal_ores");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_REDSTONE),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.REDSTONE), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.REDSTONE), new double[] {
                         1., 1., 1., 1., 1., .67, .33, .33, .17
                 }, new double[] {
                         1., 1., 1., 1., 1., .67, .67, .33, .33, .17
                 }), "redstone_ores");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_LAPIS),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.LAPIS_LAZULI), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.LAPIS_LAZULI), new double[] {
                         1., 1., 1., 1., 1., 1., 1., 1., .5, .5, .25, .125
                 }, new double[] {
                         1., 1., 1., 1., 1., 1., 1., 1., .75, .5, .5, .25, .125
                 }), "lapis_ores");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_EMERALD),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.EMERALD), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.EMERALD), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "emerald_ores");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_DIAMOND),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.DIAMOND), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.DIAMOND), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "diamond_ores");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_QUARTZ),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.QUARTZ), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.QUARTZ), new double[] {
                         1., .67, .17
                 }, new double[] {
                         1., .67, .33, .17
                 }), "nether_quartz_ores");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.ORES_NETHERITE_SCRAP),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.NETHERITE_SCRAP), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.NETHERITE_SCRAP), new double[] {
                         1., .125, .125
                 }, new double[] {
                         1., .25, .25, .125
                 }), "ancient_debris");
 
         addPulverizerRecipe(ingredientOf(Items.CHARCOAL),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(EPItems.CHARCOAL_DUST.get()),
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(EPItems.CHARCOAL_DUST),
                         1., 1.), "charcoal");
 
         addPulverizerRecipe(ingredientOf(Items.CLAY),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.CLAY_BALL), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.CLAY_BALL), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "clay");
 
         addPulverizerRecipe(ingredientOf(Items.GLOWSTONE),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.GLOWSTONE_DUST), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.GLOWSTONE_DUST), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "glowstone");
 
         addPulverizerRecipe(ingredientOf(Items.MAGMA_BLOCK),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.MAGMA_CREAM), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.MAGMA_CREAM), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "magma_block");
 
         addPulverizerRecipe(ingredientOf(Items.QUARTZ_BLOCK),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.QUARTZ), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.QUARTZ), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "quartz_block");
 
         addPulverizerRecipe(ingredientOf(ItemTags.WOOL),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.STRING), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.STRING), new double[] {
                         1., 1., 1., 1.
                 }, new double[] {
                         1., 1., 1., 1.
                 }), "wool");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.GRAVELS),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.FLINT),
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.FLINT),
                         1., 1.), "gravels");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.BONES),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.BONE_MEAL), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.BONE_MEAL), new double[] {
                         1., 1., 1., .25, .25
                 }, new double[] {
                         1., 1., 1., .5, .25, .125
                 }), "bones");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.RODS_BLAZE),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.BLAZE_POWDER), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.BLAZE_POWDER), new double[] {
                         1., 1., .5
                 }, new double[] {
                         1., 1., .75, .25
                 }), "blaze_rods");
 
         addPulverizerRecipe(ingredientOf(Tags.Items.RODS_BREEZE),
-                new PulverizerRecipe.OutputItemStackWithPercentages(new ItemStack(Items.WIND_CHARGE), new double[] {
+                new PulverizerRecipe.OutputItemStackWithPercentages(itemStackOf(Items.WIND_CHARGE), new double[] {
                         1., 1., 1., 1., .5, .5
                 }, new double[] {
                         1., 1., 1., 1., .75, .5, .25
@@ -3173,159 +3174,159 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     }
 
     private void buildSawmillRecipes() {
-        addBasicWoodSawmillRecipe(new ItemStack(Items.OAK_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.OAK_PLANKS),
                 ingredientOf(ItemTags.OAK_LOGS), ingredientOf(Items.OAK_FENCE),
                 ingredientOf(Items.OAK_FENCE_GATE), ingredientOf(Items.OAK_DOOR),
                 ingredientOf(Items.OAK_TRAPDOOR), ingredientOf(Items.OAK_PRESSURE_PLATE),
                 ingredientOf(Items.OAK_SIGN), ingredientOf(Items.OAK_BOAT), ingredientOf(Items.OAK_CHEST_BOAT),
                 false, "oak");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.SPRUCE_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.SPRUCE_PLANKS),
                 ingredientOf(ItemTags.SPRUCE_LOGS), ingredientOf(Items.SPRUCE_FENCE),
                 ingredientOf(Items.SPRUCE_FENCE_GATE), ingredientOf(Items.SPRUCE_DOOR),
                 ingredientOf(Items.SPRUCE_TRAPDOOR), ingredientOf(Items.SPRUCE_PRESSURE_PLATE),
                 ingredientOf(Items.SPRUCE_SIGN), ingredientOf(Items.SPRUCE_BOAT), ingredientOf(Items.SPRUCE_CHEST_BOAT),
                 false, "spruce");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.BIRCH_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.BIRCH_PLANKS),
                 ingredientOf(ItemTags.BIRCH_LOGS), ingredientOf(Items.BIRCH_FENCE),
                 ingredientOf(Items.BIRCH_FENCE_GATE), ingredientOf(Items.BIRCH_DOOR),
                 ingredientOf(Items.BIRCH_TRAPDOOR), ingredientOf(Items.BIRCH_PRESSURE_PLATE),
                 ingredientOf(Items.BIRCH_SIGN), ingredientOf(Items.BIRCH_BOAT), ingredientOf(Items.BIRCH_CHEST_BOAT),
                 false, "birch");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.JUNGLE_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.JUNGLE_PLANKS),
                 ingredientOf(ItemTags.JUNGLE_LOGS), ingredientOf(Items.JUNGLE_FENCE),
                 ingredientOf(Items.JUNGLE_FENCE_GATE), ingredientOf(Items.JUNGLE_DOOR),
                 ingredientOf(Items.JUNGLE_TRAPDOOR), ingredientOf(Items.JUNGLE_PRESSURE_PLATE),
                 ingredientOf(Items.JUNGLE_SIGN), ingredientOf(Items.JUNGLE_BOAT), ingredientOf(Items.JUNGLE_CHEST_BOAT),
                 false, "jungle");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.ACACIA_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.ACACIA_PLANKS),
                 ingredientOf(ItemTags.ACACIA_LOGS), ingredientOf(Items.ACACIA_FENCE),
                 ingredientOf(Items.ACACIA_FENCE_GATE), ingredientOf(Items.ACACIA_DOOR),
                 ingredientOf(Items.ACACIA_TRAPDOOR), ingredientOf(Items.ACACIA_PRESSURE_PLATE),
                 ingredientOf(Items.ACACIA_SIGN), ingredientOf(Items.ACACIA_BOAT), ingredientOf(Items.ACACIA_CHEST_BOAT),
                 false, "acacia");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.DARK_OAK_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.DARK_OAK_PLANKS),
                 ingredientOf(ItemTags.DARK_OAK_LOGS), ingredientOf(Items.DARK_OAK_FENCE),
                 ingredientOf(Items.DARK_OAK_FENCE_GATE), ingredientOf(Items.DARK_OAK_DOOR),
                 ingredientOf(Items.DARK_OAK_TRAPDOOR), ingredientOf(Items.DARK_OAK_PRESSURE_PLATE),
                 ingredientOf(Items.DARK_OAK_SIGN), ingredientOf(Items.DARK_OAK_BOAT), ingredientOf(Items.DARK_OAK_CHEST_BOAT),
                 false, "dark_oak");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.MANGROVE_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.MANGROVE_PLANKS),
                 ingredientOf(ItemTags.MANGROVE_LOGS), ingredientOf(Items.MANGROVE_FENCE),
                 ingredientOf(Items.MANGROVE_FENCE_GATE), ingredientOf(Items.MANGROVE_DOOR),
                 ingredientOf(Items.MANGROVE_TRAPDOOR), ingredientOf(Items.MANGROVE_PRESSURE_PLATE),
                 ingredientOf(Items.MANGROVE_SIGN), ingredientOf(Items.MANGROVE_BOAT), ingredientOf(Items.MANGROVE_CHEST_BOAT),
                 false, "mangrove");
 
-        addBasicWoodSawmillRecipe(new ItemStack(Items.CHERRY_PLANKS),
+        addBasicWoodSawmillRecipe(itemStackOf(Items.CHERRY_PLANKS),
                 ingredientOf(ItemTags.CHERRY_LOGS), ingredientOf(Items.CHERRY_FENCE),
                 ingredientOf(Items.CHERRY_FENCE_GATE), ingredientOf(Items.CHERRY_DOOR),
                 ingredientOf(Items.CHERRY_TRAPDOOR), ingredientOf(Items.CHERRY_PRESSURE_PLATE),
                 ingredientOf(Items.CHERRY_SIGN), ingredientOf(Items.CHERRY_BOAT), ingredientOf(Items.CHERRY_CHEST_BOAT),
                 false, "cherry");
 
-        addSawmillRecipe(ingredientOf(ItemTags.BAMBOO_BLOCKS), new ItemStack(Items.BAMBOO_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(ItemTags.BAMBOO_BLOCKS), itemStackOf(Items.BAMBOO_PLANKS, 3),
                 1, "bamboo_planks", "bamboo_blocks");
-        addBasicWoodWithoutLogsSawmillRecipe(new ItemStack(Items.BAMBOO_PLANKS),
+        addBasicWoodWithoutLogsSawmillRecipe(itemStackOf(Items.BAMBOO_PLANKS),
                 ingredientOf(Items.BAMBOO_FENCE), ingredientOf(Items.BAMBOO_FENCE_GATE), ingredientOf(Items.BAMBOO_DOOR),
                 ingredientOf(Items.BAMBOO_TRAPDOOR), ingredientOf(Items.BAMBOO_PRESSURE_PLATE),
                 ingredientOf(Items.BAMBOO_SIGN), ingredientOf(Items.BAMBOO_RAFT), ingredientOf(Items.BAMBOO_CHEST_RAFT),
                 true, "bamboo");
 
-        addSawmillRecipe(ingredientOf(ItemTags.CRIMSON_STEMS), new ItemStack(Items.CRIMSON_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(ItemTags.CRIMSON_STEMS), itemStackOf(Items.CRIMSON_PLANKS, 6),
                 1, "crimson_planks", "crimson_stems");
-        addBasicWoodWithoutLogsAndBoatsSawmillRecipe(new ItemStack(Items.CRIMSON_PLANKS),
+        addBasicWoodWithoutLogsAndBoatsSawmillRecipe(itemStackOf(Items.CRIMSON_PLANKS),
                 ingredientOf(Items.CRIMSON_FENCE), ingredientOf(Items.CRIMSON_FENCE_GATE), ingredientOf(Items.CRIMSON_DOOR),
                 ingredientOf(Items.CRIMSON_TRAPDOOR), ingredientOf(Items.CRIMSON_PRESSURE_PLATE),
                 ingredientOf(Items.CRIMSON_SIGN), "crimson");
 
-        addSawmillRecipe(ingredientOf(ItemTags.WARPED_STEMS), new ItemStack(Items.WARPED_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(ItemTags.WARPED_STEMS), itemStackOf(Items.WARPED_PLANKS, 6),
                 1, "warped_planks", "warped_stems");
-        addBasicWoodWithoutLogsAndBoatsSawmillRecipe(new ItemStack(Items.WARPED_PLANKS),
+        addBasicWoodWithoutLogsAndBoatsSawmillRecipe(itemStackOf(Items.WARPED_PLANKS),
                 ingredientOf(Items.WARPED_FENCE), ingredientOf(Items.WARPED_FENCE_GATE), ingredientOf(Items.WARPED_DOOR),
                 ingredientOf(Items.WARPED_TRAPDOOR), ingredientOf(Items.WARPED_PRESSURE_PLATE),
                 ingredientOf(Items.WARPED_SIGN), "warped");
 
-        addSawmillRecipe(ingredientOf(Items.CRAFTING_TABLE), new ItemStack(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.CRAFTING_TABLE), itemStackOf(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "crafting_table");
-        addSawmillRecipe(ingredientOf(Items.CARTOGRAPHY_TABLE), new ItemStack(Items.OAK_PLANKS, 4),
-                new ItemStack(Items.PAPER, 2), "oak_planks", "cartography_table");
-        addSawmillRecipe(ingredientOf(Items.FLETCHING_TABLE), new ItemStack(Items.OAK_PLANKS, 4),
-                new ItemStack(Items.FLINT, 2), "oak_planks", "fletching_table");
-        addSawmillRecipe(ingredientOf(Items.SMITHING_TABLE), new ItemStack(Items.OAK_PLANKS, 4),
-                new ItemStack(Items.IRON_INGOT, 2), "oak_planks", "smithing_table");
-        addSawmillRecipe(ingredientOf(Items.LOOM), new ItemStack(Items.OAK_PLANKS, 2),
-                new ItemStack(Items.STRING, 2), "oak_planks", "loom");
-        addSawmillRecipe(ingredientOf(Items.COMPOSTER), new ItemStack(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.CARTOGRAPHY_TABLE), itemStackOf(Items.OAK_PLANKS, 4),
+                itemStackOf(Items.PAPER, 2), "oak_planks", "cartography_table");
+        addSawmillRecipe(ingredientOf(Items.FLETCHING_TABLE), itemStackOf(Items.OAK_PLANKS, 4),
+                itemStackOf(Items.FLINT, 2), "oak_planks", "fletching_table");
+        addSawmillRecipe(ingredientOf(Items.SMITHING_TABLE), itemStackOf(Items.OAK_PLANKS, 4),
+                itemStackOf(Items.IRON_INGOT, 2), "oak_planks", "smithing_table");
+        addSawmillRecipe(ingredientOf(Items.LOOM), itemStackOf(Items.OAK_PLANKS, 2),
+                itemStackOf(Items.STRING, 2), "oak_planks", "loom");
+        addSawmillRecipe(ingredientOf(Items.COMPOSTER), itemStackOf(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "composter");
-        addSawmillRecipe(ingredientOf(Items.NOTE_BLOCK), new ItemStack(Items.OAK_PLANKS, 8),
-                new ItemStack(Items.REDSTONE), "oak_planks", "note_block");
-        addSawmillRecipe(ingredientOf(Items.JUKEBOX), new ItemStack(Items.OAK_PLANKS, 8),
-                new ItemStack(Items.DIAMOND), "oak_planks", "jukebox");
+        addSawmillRecipe(ingredientOf(Items.NOTE_BLOCK), itemStackOf(Items.OAK_PLANKS, 8),
+                itemStackOf(Items.REDSTONE), "oak_planks", "note_block");
+        addSawmillRecipe(ingredientOf(Items.JUKEBOX), itemStackOf(Items.OAK_PLANKS, 8),
+                itemStackOf(Items.DIAMOND), "oak_planks", "jukebox");
 
-        addSawmillRecipe(ingredientOf(Items.BOOKSHELF), new ItemStack(Items.OAK_PLANKS, 6),
-                new ItemStack(Items.BOOK, 3), "oak_planks", "bookshelf");
-        addSawmillRecipe(ingredientOf(Items.CHISELED_BOOKSHELF), new ItemStack(Items.OAK_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(Items.BOOKSHELF), itemStackOf(Items.OAK_PLANKS, 6),
+                itemStackOf(Items.BOOK, 3), "oak_planks", "bookshelf");
+        addSawmillRecipe(ingredientOf(Items.CHISELED_BOOKSHELF), itemStackOf(Items.OAK_PLANKS, 6),
                 5, "oak_planks", "chiseled_bookshelf");
-        addSawmillRecipe(ingredientOf(Items.LECTERN), new ItemStack(Items.OAK_PLANKS, 8),
-                new ItemStack(Items.BOOK, 3), "oak_planks", "lectern");
+        addSawmillRecipe(ingredientOf(Items.LECTERN), itemStackOf(Items.OAK_PLANKS, 8),
+                itemStackOf(Items.BOOK, 3), "oak_planks", "lectern");
 
-        addSawmillRecipe(ingredientOf(Items.CHEST), new ItemStack(Items.OAK_PLANKS, 7),
+        addSawmillRecipe(ingredientOf(Items.CHEST), itemStackOf(Items.OAK_PLANKS, 7),
                 3, "oak_planks", "chest");
-        addSawmillRecipe(ingredientOf(Items.BARREL), new ItemStack(Items.OAK_PLANKS, 6),
+        addSawmillRecipe(ingredientOf(Items.BARREL), itemStackOf(Items.OAK_PLANKS, 6),
                 5, "oak_planks", "barrel");
 
-        addSawmillRecipe(ingredientOf(Items.WOODEN_SWORD), new ItemStack(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_SWORD), itemStackOf(Items.OAK_PLANKS, 2),
                 1, "oak_planks", "wooden_sword");
-        addSawmillRecipe(ingredientOf(Items.WOODEN_SHOVEL), new ItemStack(Items.OAK_PLANKS),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_SHOVEL), itemStackOf(Items.OAK_PLANKS),
                 2, "oak_planks", "wooden_shovel");
-        addSawmillRecipe(ingredientOf(Items.WOODEN_PICKAXE), new ItemStack(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_PICKAXE), itemStackOf(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "wooden_pickaxe");
-        addSawmillRecipe(ingredientOf(Items.WOODEN_AXE), new ItemStack(Items.OAK_PLANKS, 3),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_AXE), itemStackOf(Items.OAK_PLANKS, 3),
                 2, "oak_planks", "wooden_axe");
-        addSawmillRecipe(ingredientOf(Items.WOODEN_HOE), new ItemStack(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(Items.WOODEN_HOE), itemStackOf(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hoe");
-        addSawmillRecipe(ingredientOf(EPItems.WOODEN_HAMMER.get()), new ItemStack(Items.OAK_PLANKS, 2),
+        addSawmillRecipe(ingredientOf(EPItems.WOODEN_HAMMER), itemStackOf(Items.OAK_PLANKS, 2),
                 2, "oak_planks", "wooden_hammer");
 
-        addSawmillRecipe(ingredientOf(Items.SHIELD), new ItemStack(Items.OAK_PLANKS, 6),
-                new ItemStack(Items.IRON_INGOT), "oak_planks", "shield");
+        addSawmillRecipe(ingredientOf(Items.SHIELD), itemStackOf(Items.OAK_PLANKS, 6),
+                itemStackOf(Items.IRON_INGOT), "oak_planks", "shield");
 
-        addSawmillRecipe(ingredientOf(ItemTags.PLANKS), new ItemStack(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(ItemTags.PLANKS), itemStackOf(Items.STICK, 3),
                 1, "sticks", "planks");
-        addSawmillRecipe(ingredientOf(Items.BAMBOO_MOSAIC), new ItemStack(Items.STICK, 3),
+        addSawmillRecipe(ingredientOf(Items.BAMBOO_MOSAIC), itemStackOf(Items.STICK, 3),
                 3, "sticks", "bamboo_mosaic");
 
         addSawmillRecipe(Ingredient.fromValues(Stream.of(new Ingredient.TagValue(ItemTags.WOODEN_STAIRS),
-                        new Ingredient.ItemValue(new ItemStack(Items.BAMBOO_MOSAIC_STAIRS)))),
-                new ItemStack(Items.STICK, 3), 1, "sticks", "stairs");
+                        new Ingredient.ItemValue(itemStackOf(Items.BAMBOO_MOSAIC_STAIRS)))),
+                itemStackOf(Items.STICK, 3), 1, "sticks", "stairs");
         addSawmillRecipe(Ingredient.fromValues(Stream.of(new Ingredient.TagValue(ItemTags.WOODEN_SLABS),
-                        new Ingredient.ItemValue(new ItemStack(Items.BAMBOO_MOSAIC_SLAB)))),
-                new ItemStack(Items.STICK, 1), 1, "sticks", "slabs");
-        addSawmillRecipe(ingredientOf(ItemTags.WOODEN_BUTTONS), new ItemStack(Items.STICK, 3),
+                        new Ingredient.ItemValue(itemStackOf(Items.BAMBOO_MOSAIC_SLAB)))),
+                itemStackOf(Items.STICK, 1), 1, "sticks", "slabs");
+        addSawmillRecipe(ingredientOf(ItemTags.WOODEN_BUTTONS), itemStackOf(Items.STICK, 3),
                 1, "sticks", "buttons");
 
-        addSawmillRecipe(ingredientOf(Items.LADDER), new ItemStack(Items.STICK, 2),
+        addSawmillRecipe(ingredientOf(Items.LADDER), itemStackOf(Items.STICK, 2),
                 1, "sticks", "ladder");
 
-        addSawmillRecipe(ingredientOf(Items.BOWL), new ItemStack(Items.STICK),
+        addSawmillRecipe(ingredientOf(Items.BOWL), itemStackOf(Items.STICK),
                 2, "sticks", "bowl");
-        addSawmillRecipe(ingredientOf(Items.BOW), new ItemStack(Items.STICK, 3),
-                new ItemStack(Items.STRING, 3), "sticks", "bow");
-        addSawmillRecipe(ingredientOf(Items.FISHING_ROD), new ItemStack(Items.STICK, 3),
-                new ItemStack(Items.STRING, 2), "sticks", "fishing_rod");
+        addSawmillRecipe(ingredientOf(Items.BOW), itemStackOf(Items.STICK, 3),
+                itemStackOf(Items.STRING, 3), "sticks", "bow");
+        addSawmillRecipe(ingredientOf(Items.FISHING_ROD), itemStackOf(Items.STICK, 3),
+                itemStackOf(Items.STRING, 2), "sticks", "fishing_rod");
 
-        addSawmillRecipe(ingredientOf(Items.PAINTING), new ItemStack(Items.STICK, 8),
-                new ItemStack(Items.WHITE_WOOL), "sticks", "painting");
-        addSawmillRecipe(ingredientOf(Items.ITEM_FRAME), new ItemStack(Items.STICK, 8),
-                new ItemStack(Items.LEATHER), "sticks", "item_frame");
+        addSawmillRecipe(ingredientOf(Items.PAINTING), itemStackOf(Items.STICK, 8),
+                itemStackOf(Items.WHITE_WOOL), "sticks", "painting");
+        addSawmillRecipe(ingredientOf(Items.ITEM_FRAME), itemStackOf(Items.STICK, 8),
+                itemStackOf(Items.LEATHER), "sticks", "item_frame");
 
-        addSawmillRecipe(ingredientOf(Tags.Items.RODS_WOODEN), new ItemStack(EPItems.SAWDUST.get()),
+        addSawmillRecipe(ingredientOf(Tags.Items.RODS_WOODEN), itemStackOf(EPItems.SAWDUST),
                 0, "sawdust", "sticks");
     }
 
@@ -3355,117 +3356,117 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
         addBasicAncientFlowerGrowingRecipe(Items.PITCHER_POD, Items.PITCHER_PLANT, "pitcher_plants");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.PINK_PETALS), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.PINK_PETALS), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.PINK_PETALS), new double[] {
                         1., 1., 1., .67, .33, .33, .15
                 })
         }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, "pink_petals", "pink_petals");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.SWEET_BERRIES), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.SWEET_BERRIES), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.SWEET_BERRIES), new double[] {
                         1., 1., .33, .17
                 })
         }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, "sweet_berries", "sweet_berries");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.GLOW_BERRIES), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.GLOW_BERRIES), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.GLOW_BERRIES), new double[] {
                         1., 1., .67, .33, .17, .17
                 })
         }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, "glow_berries", "glow_berries");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.WHEAT_SEEDS), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.WHEAT_SEEDS), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.WHEAT_SEEDS), new double[] {
                         1., .33, .33
                 }),
-                new OutputItemStackWithPercentages(new ItemStack(Items.WHEAT), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.WHEAT), new double[] {
                         1., .75, .25
                 })
         }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "wheat", "wheat_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.BEETROOT_SEEDS), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.BEETROOT_SEEDS), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.BEETROOT_SEEDS), new double[] {
                         1., .33, .33
                 }),
-                new OutputItemStackWithPercentages(new ItemStack(Items.BEETROOT), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.BEETROOT), new double[] {
                         1., .75, .25, .25
                 })
         }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "beetroots", "beetroot_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.POTATO), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.POTATO), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.POTATO), new double[] {
                         1., .75, .25, .25
                 }),
-                new OutputItemStackWithPercentages(new ItemStack(Items.POISONOUS_POTATO), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.POISONOUS_POTATO), new double[] {
                         .125
                 })
         }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "potatoes", "potato");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.CARROT), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.CARROT), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.CARROT), new double[] {
                         1., .75, .25, .25
                 })
         }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "carrots", "carrot");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.MELON_SEEDS), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.MELON_SLICE), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.MELON_SLICE), new double[] {
                         1., 1., .75, .25, .25
                 })
         }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "melon_slices", "melon_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.PUMPKIN_SEEDS), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.PUMPKIN), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.PUMPKIN), new double[] {
                         1.
                 })
         }, EPSoilTypeTags.CROPS, Fluids.WATER, 0.0625, 4000, "pumpkin", "pumpkin_seeds");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.SUGAR_CANE), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.SUGAR_CANE), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.SUGAR_CANE), new double[] {
                         1., 1., .67, .67, .33, .17, .17
                 })
         }, EPSoilTypeTags.SUGAR_CANE_CROPS, Fluids.WATER, 0.0625, 4000, "sugar_canes", "sugar_cane");
         addPlantGrowthChamberRecipe(ingredientOf(Items.BAMBOO), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.BAMBOO), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.BAMBOO), new double[] {
                         1., 1., .67, .17
                 })
         }, EPSoilTypeTags.SUGAR_CANE_CROPS, Fluids.WATER, 0.0625, 4000, "bamboo", "bamboo");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.KELP), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.KELP), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.KELP), new double[] {
                         1., 1., .67, .67, .33, .17, .17
                 })
         }, EPSoilTypeTags.WATER_CROPS, Fluids.WATER, 0.25, 4000, "kelp", "kelp");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.LILY_PAD), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.LILY_PAD), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.LILY_PAD), new double[] {
                         1., .75, .25, .25
                 })
         }, EPSoilTypeTags.WATER_CROPS, Fluids.WATER, 0.125, 4000, "lily_pads", "lily_pad");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.SEA_PICKLE), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.SEA_PICKLE), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.SEA_PICKLE), new double[] {
                         1., .75, .25, .25
                 })
         }, EPSoilTypeTags.WATER_CROPS, Fluids.WATER, 0.25, 4000, "sea_pickles", "sea_pickle");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.CACTUS), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.CACTUS), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.CACTUS), new double[] {
                         1., 1., .75, .25, .125
                 })
         }, EPSoilTypeTags.DESERT_CROPS, Fluids.WATER, 0.001, 4000, "cactus", "cactus");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.WITHER_ROSE), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.WITHER_ROSE), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.WITHER_ROSE), new double[] {
                         1., .17
                 })
         }, EPSoilTypeTags.NETHER_FLOWERS, Fluids.LAVA, 0.01, 4000, "wither_rose", "wither_roses");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.NETHER_WART), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.NETHER_WART), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.NETHER_WART), new double[] {
                         1., .75, .25, .25
                 })
         }, EPSoilTypeTags.NETHER_CROPS, Fluids.LAVA, 0.001, 4000, "nether_warts", "nether_wart");
 
         addPlantGrowthChamberRecipe(ingredientOf(Items.CHORUS_FRUIT), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(Items.CHORUS_FRUIT), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.CHORUS_FRUIT), new double[] {
                         1., 1., .67, .67, .33, .17, .17
                 })
         }, EPSoilTypeTags.END_CROPS, Fluids.WATER, 0.00000001, 4000, "chorus_fruits", "chorus_fruit");
@@ -3523,18 +3524,18 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     }
 
     private void buildMetalPressRecipes() {
-        addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStack(EPItems.IRON_GEAR.get()));
-        addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), new ItemStack(EPItems.STEEL_GEAR.get()));
+        addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), itemStackOf(EPItems.IRON_GEAR));
+        addGearMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), itemStackOf(EPItems.STEEL_GEAR));
 
-        addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), new ItemStack(EPItems.IRON_ROD.get()));
-        addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), new ItemStack(EPItems.STEEL_ROD.get()));
+        addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_IRON), itemStackOf(EPItems.IRON_ROD));
+        addRodMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_STEEL), itemStackOf(EPItems.STEEL_ROD));
 
-        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_TIN), new ItemStack(EPItems.TIN_WIRE.get()));
-        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_COPPER), new ItemStack(EPItems.COPPER_WIRE.get()));
-        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_GOLD), new ItemStack(EPItems.GOLD_WIRE.get()));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_TIN), itemStackOf(EPItems.TIN_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_COPPER), itemStackOf(EPItems.COPPER_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_GOLD), itemStackOf(EPItems.GOLD_WIRE));
 
-        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER), new ItemStack(EPItems.ENERGIZED_COPPER_WIRE.get()));
-        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD), new ItemStack(EPItems.ENERGIZED_GOLD_WIRE.get()));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_ENERGIZED_COPPER), itemStackOf(EPItems.ENERGIZED_COPPER_WIRE));
+        addWireMetalPressRecipe(ingredientOf(CommonItemTags.PLATES_ENERGIZED_GOLD), itemStackOf(EPItems.ENERGIZED_GOLD_WIRE));
     }
 
     private void buildHeatGeneratorRecipes() {
@@ -3552,83 +3553,83 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_COPPER), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_TIN), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY), 1)
-        }, new ItemStack(EPItems.ADVANCED_SOLAR_CELL.get()));
+        }, itemStackOf(EPItems.ADVANCED_SOLAR_CELL));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.ADVANCED_SOLAR_CELL), 2),
                 new IngredientWithCount(ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 2),
                 new IngredientWithCount(ingredientOf(Tags.Items.DUSTS_REDSTONE), 2)
-        }, new ItemStack(EPItems.REINFORCED_ADVANCED_SOLAR_CELL.get()));
+        }, itemStackOf(EPItems.REINFORCED_ADVANCED_SOLAR_CELL));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.REINFORCED_ADVANCED_SOLAR_CELL), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_ENERGIZED_ALLOY), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
                 new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 2)
-        }, new ItemStack(EPItems.ELITE_SOLAR_CELL.get()));
+        }, itemStackOf(EPItems.ELITE_SOLAR_CELL));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.BASIC_CIRCUIT), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_COPPER), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 4),
                 new IngredientWithCount(ingredientOf(Tags.Items.DUSTS_REDSTONE), 2)
-        }, new ItemStack(EPItems.ADVANCED_CIRCUIT.get()));
+        }, itemStackOf(EPItems.ADVANCED_CIRCUIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.ADVANCED_CIRCUIT), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD), 6),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 6)
-        }, new ItemStack(EPItems.PROCESSING_UNIT.get()));
+        }, itemStackOf(EPItems.PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.PROCESSING_UNIT), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
                 new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 2)
-        }, new ItemStack(EPItems.QUANTUM_PROCESSING_UNIT.get()));
+        }, itemStackOf(EPItems.QUANTUM_PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.PROCESSING_UNIT), 4),
                 new IngredientWithCount(ingredientOf(EPItems.TELEPORTER_MATRIX), 4),
                 new IngredientWithCount(ingredientOf(EPItems.ENERGIZED_CRYSTAL_MATRIX), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 2)
-        }, new ItemStack(EPItems.TELEPORTER_PROCESSING_UNIT.get()));
+        }, itemStackOf(EPItems.TELEPORTER_PROCESSING_UNIT));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(Tags.Items.GEMS_AMETHYST), 6),
                 new IngredientWithCount(ingredientOf(Tags.Items.GEMS_DIAMOND), 2),
                 new IngredientWithCount(ingredientOf(Tags.Items.GEMS_EMERALD), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY))
-        }, new ItemStack(EPItems.CRYSTAL_MATRIX.get()));
+        }, itemStackOf(EPItems.CRYSTAL_MATRIX));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(Items.BLUE_ICE)),
                 new IngredientWithCount(ingredientOf(CommonItemTags.DUSTS_CHARCOAL), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_TIN), 4)
-        }, new ItemStack(EPItems.COOLANT_CELL.get(), 4));
+        }, itemStackOf(EPItems.COOLANT_CELL, 4));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(EPItems.COOLANT_CELL), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI), 4),
                 new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY), 2),
                 new IngredientWithCount(ingredientOf(CommonItemTags.WIRES_ENERGIZED_GOLD), 6)
-        }, new ItemStack(EPItems.SUPERCONDUCTOR.get(), 3));
+        }, itemStackOf(EPItems.SUPERCONDUCTOR, 3));
 
         addAssemblingMachineRecipe(new IngredientWithCount[] {
                 new IngredientWithCount(ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY), 3),
                 new IngredientWithCount(ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY), 6),
                 new IngredientWithCount(ingredientOf(CommonItemTags.SILICON), 2)
-        }, new ItemStack(EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM.get(), 12));
+        }, itemStackOf(EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM, 12));
     }
 
     private void buildFluidFreezerRecipe() {
-        addWaterInputFluidFreezerRecipe(125, new ItemStack(Items.SNOWBALL));
+        addWaterInputFluidFreezerRecipe(125, itemStackOf(Items.SNOWBALL));
 
-        addWaterInputFluidFreezerRecipe(500, new ItemStack(Items.SNOW_BLOCK));
+        addWaterInputFluidFreezerRecipe(500, itemStackOf(Items.SNOW_BLOCK));
 
-        addWaterInputFluidFreezerRecipe(1000, new ItemStack(Items.ICE));
+        addWaterInputFluidFreezerRecipe(1000, itemStackOf(Items.ICE));
     }
 
     private void buildStoneLiquefierRecipes() {
@@ -3663,92 +3664,92 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     }
 
     private void buildStoneSolidifierRecipes() {
-        addStoneSolidifierRecipe(1000, 50, new ItemStack(Items.STONE));
+        addStoneSolidifierRecipe(1000, 50, itemStackOf(Items.STONE));
 
-        addStoneSolidifierRecipe(50, 50, new ItemStack(Items.COBBLESTONE));
+        addStoneSolidifierRecipe(50, 50, itemStackOf(Items.COBBLESTONE));
 
-        addStoneSolidifierRecipe(1000, 150, new ItemStack(Items.DEEPSLATE));
+        addStoneSolidifierRecipe(1000, 150, itemStackOf(Items.DEEPSLATE));
 
-        addStoneSolidifierRecipe(150, 150, new ItemStack(Items.COBBLED_DEEPSLATE));
+        addStoneSolidifierRecipe(150, 150, itemStackOf(Items.COBBLED_DEEPSLATE));
 
-        addStoneSolidifierRecipe(1000, 50, new ItemStack(Items.GRANITE));
+        addStoneSolidifierRecipe(1000, 50, itemStackOf(Items.GRANITE));
 
-        addStoneSolidifierRecipe(1000, 50, new ItemStack(Items.DIORITE));
+        addStoneSolidifierRecipe(1000, 50, itemStackOf(Items.DIORITE));
 
-        addStoneSolidifierRecipe(1000, 50, new ItemStack(Items.ANDESITE));
+        addStoneSolidifierRecipe(1000, 50, itemStackOf(Items.ANDESITE));
 
-        addStoneSolidifierRecipe(1000, 250, new ItemStack(Items.BLACKSTONE));
+        addStoneSolidifierRecipe(1000, 250, itemStackOf(Items.BLACKSTONE));
 
-        addStoneSolidifierRecipe(1000, 1000, new ItemStack(Items.OBSIDIAN));
+        addStoneSolidifierRecipe(1000, 1000, itemStackOf(Items.OBSIDIAN));
     }
 
     private void buildFiltrationPlantRecipes() {
-        addOreFiltrationRecipe(new ItemStack(EPItems.RAW_TIN.get()), 0.05, "tin");
-        addOreFiltrationRecipe(new ItemStack(Items.RAW_COPPER), 0.05, "copper");
-        addOreFiltrationRecipe(new ItemStack(Items.RAW_IRON), 0.05, "iron");
-        addOreFiltrationRecipe(new ItemStack(Items.RAW_GOLD), 0.005, "gold");
+        addOreFiltrationRecipe(itemStackOf(EPItems.RAW_TIN), 0.05, "tin");
+        addOreFiltrationRecipe(itemStackOf(Items.RAW_COPPER), 0.05, "copper");
+        addOreFiltrationRecipe(itemStackOf(Items.RAW_IRON), 0.05, "iron");
+        addOreFiltrationRecipe(itemStackOf(Items.RAW_GOLD), 0.005, "gold");
     }
 
     private void buildFluidTransposerRecipes() {
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.WHITE_CONCRETE_POWDER), new ItemStack(Items.WHITE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.ORANGE_CONCRETE_POWDER), new ItemStack(Items.ORANGE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.MAGENTA_CONCRETE_POWDER), new ItemStack(Items.MAGENTA_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_BLUE_CONCRETE_POWDER), new ItemStack(Items.LIGHT_BLUE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.YELLOW_CONCRETE_POWDER), new ItemStack(Items.YELLOW_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIME_CONCRETE_POWDER), new ItemStack(Items.LIME_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.PINK_CONCRETE_POWDER), new ItemStack(Items.PINK_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.GRAY_CONCRETE_POWDER), new ItemStack(Items.GRAY_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_GRAY_CONCRETE_POWDER), new ItemStack(Items.LIGHT_GRAY_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.CYAN_CONCRETE_POWDER), new ItemStack(Items.CYAN_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.PURPLE_CONCRETE_POWDER), new ItemStack(Items.PURPLE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLUE_CONCRETE_POWDER), new ItemStack(Items.BLUE_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.BROWN_CONCRETE_POWDER), new ItemStack(Items.BROWN_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.GREEN_CONCRETE_POWDER), new ItemStack(Items.GREEN_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.RED_CONCRETE_POWDER), new ItemStack(Items.RED_CONCRETE));
-        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLACK_CONCRETE_POWDER), new ItemStack(Items.BLACK_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.WHITE_CONCRETE_POWDER), itemStackOf(Items.WHITE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.ORANGE_CONCRETE_POWDER), itemStackOf(Items.ORANGE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.MAGENTA_CONCRETE_POWDER), itemStackOf(Items.MAGENTA_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_BLUE_CONCRETE_POWDER), itemStackOf(Items.LIGHT_BLUE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.YELLOW_CONCRETE_POWDER), itemStackOf(Items.YELLOW_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIME_CONCRETE_POWDER), itemStackOf(Items.LIME_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.PINK_CONCRETE_POWDER), itemStackOf(Items.PINK_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.GRAY_CONCRETE_POWDER), itemStackOf(Items.GRAY_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.LIGHT_GRAY_CONCRETE_POWDER), itemStackOf(Items.LIGHT_GRAY_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.CYAN_CONCRETE_POWDER), itemStackOf(Items.CYAN_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.PURPLE_CONCRETE_POWDER), itemStackOf(Items.PURPLE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLUE_CONCRETE_POWDER), itemStackOf(Items.BLUE_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.BROWN_CONCRETE_POWDER), itemStackOf(Items.BROWN_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.GREEN_CONCRETE_POWDER), itemStackOf(Items.GREEN_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.RED_CONCRETE_POWDER), itemStackOf(Items.RED_CONCRETE));
+        addConcreteFluidTransposerRecipe(ingredientOf(Items.BLACK_CONCRETE_POWDER), itemStackOf(Items.BLACK_CONCRETE));
 
-        addFluidTransposerRecipe(ingredientOf(Items.SPONGE), new ItemStack(Items.WET_SPONGE), FluidTransposerBlockEntity.Mode.FILLING,
+        addFluidTransposerRecipe(ingredientOf(Items.SPONGE), itemStackOf(Items.WET_SPONGE), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, 1000));
-        addFluidTransposerRecipe(ingredientOf(Items.WET_SPONGE), new ItemStack(Items.SPONGE), FluidTransposerBlockEntity.Mode.EMPTYING,
+        addFluidTransposerRecipe(ingredientOf(Items.WET_SPONGE), itemStackOf(Items.SPONGE), FluidTransposerBlockEntity.Mode.EMPTYING,
                 new FluidStack(Fluids.WATER, 1000));
 
-        addFluidTransposerRecipe(ingredientOf(Items.DIRT), new ItemStack(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
+        addFluidTransposerRecipe(ingredientOf(Items.DIRT), itemStackOf(Items.MUD), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidStack(Fluids.WATER, 250));
 
-        addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), new ItemStack(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
+        addFluidTransposerRecipe(ingredientOf(Items.GLASS_BOTTLE), itemStackOf(Items.EXPERIENCE_BOTTLE), FluidTransposerBlockEntity.Mode.FILLING,
                 new FluidIngredientWithAmount(FluidIngredient.of(Tags.Fluids.EXPERIENCE), 250));
     }
 
     private void buildChargerRecipes() {
         addChargerRecipe(ingredientOf(Tags.Items.INGOTS_COPPER),
-                new ItemStack(EPItems.ENERGIZED_COPPER_INGOT.get()), 4194304);
+                itemStackOf(EPItems.ENERGIZED_COPPER_INGOT), 4194304);
     }
 
     private void buildEnergizerRecipes() {
         addEnergizerRecipe(ingredientOf(Tags.Items.INGOTS_COPPER),
-                new ItemStack(EPItems.ENERGIZED_COPPER_INGOT.get()), 32768);
+                itemStackOf(EPItems.ENERGIZED_COPPER_INGOT), 32768);
         addEnergizerRecipe(ingredientOf(Tags.Items.INGOTS_GOLD),
-                new ItemStack(EPItems.ENERGIZED_GOLD_INGOT.get()), 131072);
+                itemStackOf(EPItems.ENERGIZED_GOLD_INGOT), 131072);
         addEnergizerRecipe(ingredientOf(EPItems.CRYSTAL_MATRIX),
-                new ItemStack(EPItems.ENERGIZED_CRYSTAL_MATRIX.get()), 524288);
+                itemStackOf(EPItems.ENERGIZED_CRYSTAL_MATRIX), 524288);
         addEnergizerRecipe(ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
-                new ItemStack(EPItems.ENERGIZED_ALLOY_INGOT.get()), 8388608);
+                itemStackOf(EPItems.ENERGIZED_ALLOY_INGOT), 8388608);
     }
 
     private void buildCrystalGrowthChamberRecipes() {
         addCrystalGrowthChamberRecipe(ingredientOf(Tags.Items.GEMS_AMETHYST),
-                new OutputItemStackWithPercentages(new ItemStack(Items.AMETHYST_SHARD), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(Items.AMETHYST_SHARD), new double[] {
                     1., 1., .67, .5, .25, .125
                 }), 16000);
         addCrystalGrowthChamberRecipe(ingredientOf(Items.AMETHYST_BLOCK),
-                new OutputItemStackWithPercentages(new ItemStack(Items.BUDDING_AMETHYST), .25), 4,
+                new OutputItemStackWithPercentages(itemStackOf(Items.BUDDING_AMETHYST), .25), 4,
                 32000);
 
         addCrystalGrowthChamberRecipe(ingredientOf(Items.LAPIS_LAZULI),
-                new OutputItemStackWithPercentages(new ItemStack(EPItems.CRYSTALLIZED_LAPIS_LAZULI.get()), 1.), 8,
+                new OutputItemStackWithPercentages(itemStackOf(EPItems.CRYSTALLIZED_LAPIS_LAZULI), 1.), 8,
                 128000, "_from_lapis_lazli");
         addCrystalGrowthChamberRecipe(ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
-                new OutputItemStackWithPercentages(new ItemStack(EPItems.CRYSTALLIZED_LAPIS_LAZULI.get()), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(EPItems.CRYSTALLIZED_LAPIS_LAZULI), new double[] {
                         1., 1., .67, .5, .25, .125
                 }), 32000);
     }
@@ -3762,14 +3763,14 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "###",
                 "###",
                 "###"
-        }, new ItemStack(packedItem), category, group, recipeIdSuffix);
+        }, itemStackOf(packedItem.asItem()), category, group, recipeIdSuffix);
     }
     private void add3x3UnpackingCraftingRecipe(Criterion<InventoryChangeTrigger.TriggerInstance> hasIngredientTrigger,
                                                       Ingredient packedInput, ItemLike unpackedItem, CraftingBookCategory category,
                                                       String group, String recipeIdSuffix) {
         addShapelessCraftingRecipe(hasIngredientTrigger, List.of(
                 packedInput
-        ), new ItemStack(unpackedItem, 9), category, group, recipeIdSuffix);
+        ), itemStackOf(unpackedItem.asItem(), 9), category, group, recipeIdSuffix);
     }
     private void addMetalIngotCraftingRecipes(TagKey<Item> nuggetInput,
                                                      TagKey<Item> blockInput, ItemLike ingotItem, String metalName) {
@@ -3781,19 +3782,19 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     private void addMetalNuggetCraftingRecipe(TagKey<Item> ingotInput, ItemLike nuggetItem) {
         addShapelessCraftingRecipe(has(ingotInput), List.of(
                 ingredientOf(ingotInput)
-        ), new ItemStack(nuggetItem, 9), CraftingBookCategory.MISC);
+        ), itemStackOf(nuggetItem.asItem(), 9), CraftingBookCategory.MISC);
     }
     private void addMetalPlateCraftingRecipe(TagKey<Item> ingotInput, ItemLike plateItem) {
         addShapelessCraftingRecipe(has(ingotInput), List.of(
                 ingredientOf(CommonItemTags.TOOLS_HAMMERS),
                 ingredientOf(ingotInput)
-        ), new ItemStack(plateItem), CraftingBookCategory.MISC);
+        ), itemStackOf(plateItem.asItem()), CraftingBookCategory.MISC);
     }
     private void addMetalWireCraftingRecipe(TagKey<Item> plateInput, ItemLike wireItem) {
         addShapelessCraftingRecipe(has(plateInput), List.of(
                 ingredientOf(CommonItemTags.TOOLS_CUTTERS),
                 ingredientOf(plateInput)
-        ), new ItemStack(wireItem, 2), CraftingBookCategory.MISC);
+        ), itemStackOf(wireItem.asItem(), 2), CraftingBookCategory.MISC);
     }
     private void addHammerCraftingRecipe(TagKey<Item> materialInput, ItemLike hammerItem) {
         addShapedCraftingRecipe(has(materialInput), Map.of(
@@ -3803,7 +3804,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 " M ",
                 " SM",
                 "S  "
-        }, new ItemStack(hammerItem), CraftingBookCategory.MISC);
+        }, itemStackOf(hammerItem.asItem()), CraftingBookCategory.MISC);
     }
     private void addBasicCableCraftingRecipes(TagKey<Item> ingotInput, TagKey<Item> wireInput,
                                                      ItemStack cableItem) {
@@ -4166,7 +4167,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     private void addBasicFlowerGrowingRecipe(ItemLike flowerItem,
                                                     String outputName) {
         addPlantGrowthChamberRecipe(ingredientOf(flowerItem), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(flowerItem), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(flowerItem.asItem()), new double[] {
                         1., 1., .33
                 })
         }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, outputName, getItemName(flowerItem));
@@ -4174,7 +4175,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     private void addBasicMushroomsGrowingRecipe(ItemLike mushroomItem,
                                                        String outputName) {
         addPlantGrowthChamberRecipe(ingredientOf(mushroomItem), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(mushroomItem), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(mushroomItem.asItem()), new double[] {
                         1., 1., .5, .25
                 })
         }, EPSoilTypeTags.MUSHROOMS, Fluids.WATER, 0.0625, 4000, outputName, getItemName(mushroomItem));
@@ -4182,10 +4183,10 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     private void addBasicAncientFlowerGrowingRecipe(ItemLike seedItem,
                                                            ItemLike flowerItem, String outputName) {
         addPlantGrowthChamberRecipe(ingredientOf(seedItem), new OutputItemStackWithPercentages[] {
-                new OutputItemStackWithPercentages(new ItemStack(seedItem), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(seedItem.asItem()), new double[] {
                         1., .33, .15
                 }),
-                new OutputItemStackWithPercentages(new ItemStack(flowerItem), new double[] {
+                new OutputItemStackWithPercentages(itemStackOf(flowerItem.asItem()), new double[] {
                         1., .15
                 })
         }, EPSoilTypeTags.FLOWERS, Fluids.WATER, 0.0625, 4000, outputName, getItemName(seedItem));
@@ -4262,13 +4263,13 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
     }
 
     private void addGearMetalPressRecipe(Ingredient input, ItemStack output) {
-        addMetalPressRecipe(input, output, new ItemStack(EPItems.GEAR_PRESS_MOLD.get()), 2);
+        addMetalPressRecipe(input, output, itemStackOf(EPItems.GEAR_PRESS_MOLD), 2);
     }
     private void addRodMetalPressRecipe(Ingredient input, ItemStack output) {
-        addMetalPressRecipe(input, output.copyWithCount(2), new ItemStack(EPItems.ROD_PRESS_MOLD.get()));
+        addMetalPressRecipe(input, output.copyWithCount(2), itemStackOf(EPItems.ROD_PRESS_MOLD));
     }
     private void addWireMetalPressRecipe(Ingredient input, ItemStack output) {
-        addMetalPressRecipe(input, output.copyWithCount(3), new ItemStack(EPItems.WIRE_PRESS_MOLD.get()));
+        addMetalPressRecipe(input, output.copyWithCount(3), itemStackOf(EPItems.WIRE_PRESS_MOLD));
     }
     private void addMetalPressRecipe(Ingredient input, ItemStack output,
                                             ItemStack pressMold) {
@@ -4383,7 +4384,7 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
     private void addOreFiltrationRecipe(ItemStack oreOutput, double oreOutputPercentage,
                                                String oreName) {
-        addFiltrationPlantRecipe(new OutputItemStackWithPercentages(new ItemStack(EPItems.STONE_PEBBLE.get()), .33),
+        addFiltrationPlantRecipe(new OutputItemStackWithPercentages(itemStackOf(EPItems.STONE_PEBBLE), .33),
                 new OutputItemStackWithPercentages(oreOutput, oreOutputPercentage), BuiltInRegistries.ITEM.getKey(oreOutput.getItem()),
                 oreName + "_ore_filtration");
     }
@@ -4465,5 +4466,21 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
 
     private Ingredient ingredientOf(TagKey<Item> tagKey) {
         return Ingredient.of(tagKey);
+    }
+
+    private ItemStack itemStackOf(Item item) {
+        return new ItemStack(item);
+    }
+
+    private ItemStack itemStackOf(Item item, int count) {
+        return new ItemStack(item, count);
+    }
+
+    private ItemStack itemStackOf(Supplier<Item> item) {
+        return new ItemStack(item.get());
+    }
+
+    private ItemStack itemStackOf(Supplier<Item> item, int count) {
+        return new ItemStack(item.get(), count);
     }
 }
