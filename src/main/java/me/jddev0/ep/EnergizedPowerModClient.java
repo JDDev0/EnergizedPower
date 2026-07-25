@@ -65,6 +65,9 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         EntityRendererRegistry.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART,
                 entity -> new MinecartRenderer<>(entity, new ModelLayerLocation(
                         ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
+        EntityRendererRegistry.register(EPEntityTypes.ELITE_BATTERY_BOX_MINECART,
+                entity -> new MinecartRenderer(entity, new ModelLayerLocation(
+                        ResourceLocation.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
     }
 
     public void registerBlockRenderers() {
@@ -149,6 +152,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         event.register(EPMenuTypes.THERMAL_GENERATOR_MENU, ThermalGeneratorScreen::new);
         event.register(EPMenuTypes.BATTERY_BOX_MENU, BatteryBoxScreen::new);
         event.register(EPMenuTypes.ADVANCED_BATTERY_BOX_MENU, AdvancedBatteryBoxScreen::new);
+        event.register(EPMenuTypes.ELITE_BATTERY_BOX_MENU, EliteBatteryBoxScreen::new);
         event.register(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU, CreativeBatteryBoxScreen::new);
         event.register(EPMenuTypes.MINECART_CHARGER_MENU, MinecartChargerScreen::new);
         event.register(EPMenuTypes.ADVANCED_MINECART_CHARGER_MENU, AdvancedMinecartChargerScreen::new);
@@ -209,6 +213,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
 
         event.register(EPMenuTypes.MINECART_BATTERY_BOX_MENU, MinecartBatteryBoxScreen::new);
         event.register(EPMenuTypes.MINECART_ADVANCED_BATTERY_BOX_MENU, MinecartAdvancedBatteryBoxScreen::new);
+        event.register(EPMenuTypes.MINECART_ELITE_BATTERY_BOX_MENU, MinecartEliteBatteryBoxScreen::new);
     }
 
     public void onRegisterConditionalItemModelProperties() {

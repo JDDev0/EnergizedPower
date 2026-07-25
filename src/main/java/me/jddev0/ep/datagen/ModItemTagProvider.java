@@ -110,6 +110,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
                         EPBlocks.BATTERY_BOX_ITEM,
                         EPBlocks.ADVANCED_BATTERY_BOX_ITEM,
+                        EPBlocks.ELITE_BATTERY_BOX_ITEM,
                         EPBlocks.CREATIVE_BATTERY_BOX_ITEM
                 );
 

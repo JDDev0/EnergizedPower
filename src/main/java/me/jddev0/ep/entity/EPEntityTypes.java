@@ -29,6 +29,12 @@ public final class EPEntityTypes {
                     dimensions(EntityDimensions.fixed(0.98F, 0.7F)).
                     trackRangeChunks(8).build()
     );
+    public static final EntityType<MinecartEliteBatteryBox> ELITE_BATTERY_BOX_MINECART = registerEntity(
+            "elite_battery_box_minecart", FabricEntityTypeBuilder.<MinecartEliteBatteryBox>create(MobCategory.MISC,
+                            MinecartEliteBatteryBox::new).
+                    dimensions(EntityDimensions.fixed(0.98F, 0.7F)).
+                    trackRangeChunks(8).build()
+    );
 
 
     public static void register() {

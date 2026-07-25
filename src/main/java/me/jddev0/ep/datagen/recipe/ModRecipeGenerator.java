@@ -2135,6 +2135,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "BSB"
         }, new ItemStack(EPBlocks.ADVANCED_BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'B', ingredientOf(EPItems.BATTERY_10),
+                'M', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM)
+        ), new String[] {
+                "EBE",
+                "BMB",
+                "BSB"
+        }, new ItemStack(EPBlocks.ELITE_BATTERY_BOX_ITEM), CraftingBookCategory.MISC);
+
         addShapelessCraftingRecipe(has(EPBlocks.BATTERY_BOX_ITEM), List.of(
                 ingredientOf(EPBlocks.BATTERY_BOX_ITEM),
                 ingredientOf(Items.MINECART)
@@ -2144,6 +2155,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 ingredientOf(EPBlocks.ADVANCED_BATTERY_BOX_ITEM),
                 ingredientOf(Items.MINECART)
         ), new ItemStack(EPItems.ADVANCED_BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
+
+        addShapelessCraftingRecipe(has(EPBlocks.ELITE_BATTERY_BOX_ITEM), List.of(
+                ingredientOf(EPBlocks.ELITE_BATTERY_BOX_ITEM),
+                ingredientOf(Items.MINECART)
+        ), new ItemStack(EPItems.ELITE_BATTERY_BOX_MINECART), CraftingBookCategory.MISC);
     }
     private void buildMachineCraftingRecipes() {
         addShapedCraftingRecipe(has(Items.SMOOTH_STONE), Map.of(

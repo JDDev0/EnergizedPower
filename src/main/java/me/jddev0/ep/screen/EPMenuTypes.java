@@ -150,6 +150,8 @@ public final class EPMenuTypes {
             BatteryBoxMenu::new);
     public static final MenuType<AdvancedBatteryBoxMenu> ADVANCED_BATTERY_BOX_MENU = registerMenuType("advanced_battery_box",
             AdvancedBatteryBoxMenu::new);
+    public static final MenuType<EliteBatteryBoxMenu> ELITE_BATTERY_BOX_MENU = registerMenuType("elite_battery_box",
+            EliteBatteryBoxMenu::new);
     public static final MenuType<CreativeBatteryBoxMenu> CREATIVE_BATTERY_BOX_MENU = registerMenuType("creative_battery_box",
             CreativeBatteryBoxMenu::new);
 
@@ -175,6 +177,8 @@ public final class EPMenuTypes {
             MinecartBatteryBoxMenu::new);
     public static final MenuType<MinecartAdvancedBatteryBoxMenu> MINECART_ADVANCED_BATTERY_BOX_MENU = registerNonBlockMenuType("minecart_advanced_battery_box",
             MinecartAdvancedBatteryBoxMenu::new);
+    public static final MenuType<MinecartEliteBatteryBoxMenu> MINECART_ELITE_BATTERY_BOX_MENU = registerNonBlockMenuType("minecart_elite_battery_box",
+            MinecartEliteBatteryBoxMenu::new);
 
     public static final MenuType<SolarPanelMenu> SOLAR_PANEL_MENU_1 = registerMenuType("solar_panel_1",
             SolarPanelMenu::new);

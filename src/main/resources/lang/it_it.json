@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Ancora più potenza sui binari",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Trasporta ancora più energia su rotaia.",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "I carrelli da miniera con vano batteria possono trasportare energia su rotaie. Può essere caricato con Caricatore per carrello da miniera e può essere scaricato con Scaricatore per carrello da miniera.",
 
   "_template.epblock.silicon_block": "Blocco di Silicio",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "Scatola batteria",
   "advancements.energizedpower.battery_box.title": "Scatola batteria",
   "advancements.energizedpower.battery_box.description": "Accumula energia con la Scatola batteria.",
-  "book.energizedpower.page.battery_box": "Le scatole delle batterie possono immagazzinare energia. Tutte le facce del blocco supportano l'inserimento e l'estrazione di energia.",
 
   "_template.epcontainer.advanced_battery_box": "Scatola batteria avanzata",
   "advancements.energizedpower.advanced_battery_box.title": "Scatola batteria migliore",
   "advancements.energizedpower.advanced_battery_box.description": "Immagazzina ancora più energia rispetto alla Scatola batteria standard.",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "Le scatole delle batterie possono immagazzinare energia. Tutte le facce del blocco supportano l'inserimento e l'estrazione di energia.",
 
   "_template.epcontainer.creative_battery_box": "Scatola batteria creativa",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",

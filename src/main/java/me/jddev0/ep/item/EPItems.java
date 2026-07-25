@@ -406,6 +406,8 @@ public final class EPItems {
             BatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
     public static final Item ADVANCED_BATTERY_BOX_MINECART = registerItem("advanced_battery_box_minecart",
             AdvancedBatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
+    public static final Item ELITE_BATTERY_BOX_MINECART = registerItem("elite_battery_box_minecart",
+            EliteBatteryBoxMinecartItem::new, new Item.Properties().stacksTo(1));
 
     //Register energy storage for items
     static {

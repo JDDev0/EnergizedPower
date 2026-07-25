@@ -177,6 +177,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
             event.accept(EPBlocks.BATTERY_BOX_ITEM);
             event.accept(EPBlocks.ADVANCED_BATTERY_BOX_ITEM);
+            event.accept(EPBlocks.ELITE_BATTERY_BOX_ITEM);
             event.accept(EPBlocks.CREATIVE_BATTERY_BOX_ITEM);
 
             event.accept(EPBlocks.POWERED_LAMP_ITEM);
@@ -253,6 +254,7 @@ public class EnergizedPowerMod implements ModInitializer {
 
             event.accept(EPItems.BATTERY_BOX_MINECART);
             event.accept(EPItems.ADVANCED_BATTERY_BOX_MINECART);
+            event.accept(EPItems.ELITE_BATTERY_BOX_MINECART);
 
             event.accept(EPBlocks.BASIC_MACHINE_FRAME_ITEM);
             event.accept(EPBlocks.HARDENED_MACHINE_FRAME_ITEM);

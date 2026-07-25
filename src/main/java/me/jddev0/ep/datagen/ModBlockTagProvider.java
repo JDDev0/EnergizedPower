@@ -143,6 +143,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                         EPBlocks.BATTERY_BOX,
                         EPBlocks.ADVANCED_BATTERY_BOX,
+                        EPBlocks.ELITE_BATTERY_BOX,
 
                         EPBlocks.CRUSHER,
                         EPBlocks.ADVANCED_CRUSHER,
@@ -312,6 +313,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                         EPBlocks.BATTERY_BOX,
                         EPBlocks.ADVANCED_BATTERY_BOX,
+                        EPBlocks.ELITE_BATTERY_BOX,
 
                         EPBlocks.CRUSHER,
                         EPBlocks.ADVANCED_CRUSHER,

@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T10:17:25.400663427	Energized Power/Block Loot Tables
+// 1.21.1	2026-07-25T11:22:08.683290861	Energized Power/Block Loot Tables
 bd7ff3066f252b13829b32a37374c791389d2237 data/energizedpower/loot_table/blocks/xp_drain.json
 0969fa6cea044e0a38c7e55a6f7ddb6bd0c39218 data/energizedpower/loot_table/blocks/stone_solidifier.json
 e9b25d4563facbc5f36dacbbfbb80c947a35537b data/energizedpower/loot_table/blocks/golden_fluid_pipe.json
@@ -48,6 +48,7 @@ ad8d3a16e8e179d26c806b88c7989b1c6cf4a203 data/energizedpower/loot_table/blocks/f
 0a49307b424d4f1b0e91168078a1b639d6469655 data/energizedpower/loot_table/blocks/charger.json
 9dc979657537d8e3c0e92a09ef60a885a44817a8 data/energizedpower/loot_table/blocks/steel_fluid_pipe.json
 c80db79bffc249a90332ed219b99b3775d9eadda data/energizedpower/loot_table/blocks/advanced_charger.json
+6b3cf54118f85a7378586e0ce1339d06d21bebe8 data/energizedpower/loot_table/blocks/elite_battery_box.json
 b876ace1f87f468a10290353d9f4dc322362fe6b data/energizedpower/loot_table/blocks/ehv_transformer_3_to_3.json
 6b28e2f581f69080c4986e2488fa9b7095e7f1c9 data/energizedpower/loot_table/blocks/crystal_growth_chamber.json
 d886a55316238723ac0edd331602ac5cf7030695 data/energizedpower/loot_table/blocks/stone_liquefier.json

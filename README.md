@@ -54,6 +54,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Solar Panels (6 Tiers)
 - Battery Box
 - Advanced Battery Box
+- Elite Battery Box (**In next release (v3.0.0-beta.9)**)
 - Weather Controller
 - Time Controller
 - Teleporter (Highly configurable)
@@ -68,6 +69,7 @@ Every machine supports auto-insert and auto-extract of items from all block face
   - 4 types (for each tier): 1 to n, 3 to 3, n to 1, and configurable
 - Minecart with Battery Box
 - Minecart with Advanced Battery Box
+- Minecart with Elite Battery Box (**In next release (v3.0.0-beta.9)**)
 
 ### Energy Items
 
