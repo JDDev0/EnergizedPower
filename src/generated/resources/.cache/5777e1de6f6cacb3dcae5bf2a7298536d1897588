@@ -1,8 +1,8 @@
-// 1.21.1	2026-07-25T12:31:09.535357365	Energized Power/Advancements (main/elite)
+// 1.21.1	2026-07-25T12:50:11.21967931	Energized Power/Advancements (main/elite)
 74877f8cb45b36d3771dbe74bf17ea88f8a69255 data/energizedpower/advancement/main/elite/elite_battery_box_minecart.json
 dbcc056ebcd36e7285d3cee40c0ce998bf73ad1c data/energizedpower/advancement/main/elite/energy_production_upgrade_module_8.json
-a24913ab62869646a9c30731429e3b3a6e4f257c data/energizedpower/advancement/main/elite/elite_upgrade_module.json
 2a2507a57a20f3b659bfb48a9e0d1c8ab41aa4f6 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
+a24913ab62869646a9c30731429e3b3a6e4f257c data/energizedpower/advancement/main/elite/elite_upgrade_module.json
 3ffad83761880ec816822dec17caf32c7c256a9f data/energizedpower/advancement/main/elite/energy_efficiency_upgrade_module_8.json
 8cc59f3eb9ba5699c92db4e5f144fdb43abe6493 data/energizedpower/advancement/main/elite/energy_capacity_upgrade_module_8.json
 87bf7f4519eb8bf0f29b682a0c51351138bd2282 data/energizedpower/advancement/main/elite/battery_9.json
