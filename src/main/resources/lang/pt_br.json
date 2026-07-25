@@ -821,6 +821,13 @@
   "advancements.energizedpower.ehv_transformers.title": "Transformadores de Extra Alta Tensão (EHV)",
   "advancements.energizedpower.ehv_transformers.description": "Podem transferir mais de 2 milhões de FE por tick.",
 
+  "_template.epcontainer.uhv_transformer_1_to_n": "UHV Transformer (1 to n)",
+  "_template.epcontainer.uhv_transformer_3_to_3": "UHV Transformer (3 to 3)",
+  "_template.epcontainer.uhv_transformer_n_to_1": "UHV Transformer (n to 1)",
+  "_template.epcontainer.configurable_uhv_transformer": "Configurable UHV Transformer",
+  "advancements.energizedpower.uhv_transformers.title": "UHV Transformers",
+  "advancements.energizedpower.uhv_transformers.description": "The best transformer tier of this mod.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "Este bloco pode ser usado para conectar diferentes níveis de cabos.",
   "tooltip.energizedpower.transformer.txt.shift.2": "Os lados maiores, mais escuros e em forma de diamante são entradas.",
   "tooltip.energizedpower.transformer.txt.shift.3": "Os lados menores, mais brilhantes e em forma de quadrado são saídas.",
@@ -830,7 +837,7 @@
   "book.energizedpower.page.transformers.1": "Os transformadores podem ser usados para conectar diferentes níveis de cabos.",
   "book.energizedpower.page.transformers.2": "Os lados maiores, mais escuros e em forma de diamante são entradas.",
   "book.energizedpower.page.transformers.3": "Os lados menores, mais brilhantes e em forma de quadrado são saídas.",
-  "book.energizedpower.page.transformers.4": "Existem quatro níveis de transformadores: LV, MV, HV e EHV.",
+  "book.energizedpower.page.transformers.4": "There are five tiers of transformers: LV, MV, HV, EHV, and UHV.",
   "book.energizedpower.page.transformers.5": "Para cada nível, existem quatro tipos de transformadores: 1 para n, 3 para 3, n para 1 e configurável.",
   "book.energizedpower.page.transformers.6": "Os transformadores podem ser usados para reduzir o lag das redes de cabos, usando-os periodicamente em vez de um bloco de cabo.",
   "book.energizedpower.page.transformers.7": "Os transformadores também podem ser usados para conectar cabos do energized power aos cabos de outros mods.",

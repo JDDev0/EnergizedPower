@@ -821,6 +821,13 @@
   "advancements.energizedpower.ehv_transformers.title": "超高压变压器",
   "advancements.energizedpower.ehv_transformers.description": "每 tick 可以传输超过 200 万 FE 的能量。",
 
+  "_template.epcontainer.uhv_transformer_1_to_n": "UHV Transformer (1 to n)",
+  "_template.epcontainer.uhv_transformer_3_to_3": "UHV Transformer (3 to 3)",
+  "_template.epcontainer.uhv_transformer_n_to_1": "UHV Transformer (n to 1)",
+  "_template.epcontainer.configurable_uhv_transformer": "Configurable UHV Transformer",
+  "advancements.energizedpower.uhv_transformers.title": "UHV Transformers",
+  "advancements.energizedpower.uhv_transformers.description": "The best transformer tier of this mod.",
+
   "tooltip.energizedpower.transformer.txt.shift.1": "此方块可用于连接不同等级的线缆。",
   "tooltip.energizedpower.transformer.txt.shift.2": "较大、较暗、菱形的面是输入端。",
   "tooltip.energizedpower.transformer.txt.shift.3": "较小、较亮、方形的面是输出端。",
@@ -830,7 +837,7 @@
   "book.energizedpower.page.transformers.1": "变压器可用于连接不同等级的线缆。",
   "book.energizedpower.page.transformers.2": "较大、较暗、菱形的面是输入端。",
   "book.energizedpower.page.transformers.3": "较小、较亮、方形的面是输出端。",
-  "book.energizedpower.page.transformers.4": "有四个等级的变压器：LV、MV、HV 和 EHV。",
+  "book.energizedpower.page.transformers.4": "There are five tiers of transformers: LV, MV, HV, EHV, and UHV.",
   "book.energizedpower.page.transformers.5": "每个等级有四种类型的变压器：1 转 n、3 转 3、n 转 1 和可配置。",
   "book.energizedpower.page.transformers.6": "可以通过定期使用变压器而不是线缆方块来减少线缆网络的延迟。",
   "book.energizedpower.page.transformers.7": "变压器也可用于将充能能源线缆连接到其他模组的线缆。",

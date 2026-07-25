@@ -1,0 +1,38 @@
+{
+  "parent": "energizedpower:main/elite/elite_machine_frame",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "energizedpower:uhv_transformer_1_to_n",
+              "energizedpower:uhv_transformer_3_to_3",
+              "energizedpower:uhv_transformer_n_to_1",
+              "energizedpower:configurable_uhv_transformer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.uhv_transformers.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "energizedpower:uhv_transformer_1_to_n"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.uhv_transformers.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

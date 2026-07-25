@@ -105,11 +105,15 @@ public class ModItemTagProvider extends ItemTagsProvider {
                         EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
                         EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
                         EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM,
+                        EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM,
+                        EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM,
+                        EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM,
 
                         EPBlocks.CONFIGURABLE_LV_TRANSFORMER_ITEM,
                         EPBlocks.CONFIGURABLE_MV_TRANSFORMER_ITEM,
                         EPBlocks.CONFIGURABLE_HV_TRANSFORMER_ITEM,
                         EPBlocks.CONFIGURABLE_EHV_TRANSFORMER_ITEM,
+                        EPBlocks.CONFIGURABLE_UHV_TRANSFORMER_ITEM,
 
                         EPBlocks.BATTERY_BOX_ITEM,
                         EPBlocks.ADVANCED_BATTERY_BOX_ITEM,

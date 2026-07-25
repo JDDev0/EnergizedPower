@@ -84,6 +84,19 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 EPBlocks.ELITE_MACHINE_FRAME_ITEM, "elite_machine_frame", AdvancementType.TASK
         );
 
+        AdvancementHolder uhvTransformers = addAdvancement(
+                advancementOutput, existingFileHelper, eliteMachineFrame,
+                EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM, "uhv_transformers", AdvancementType.TASK,
+                InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ItemPredicate.Builder.item().of(
+                                EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM,
+                                EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM,
+                                EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM,
+                                EPBlocks.CONFIGURABLE_UHV_TRANSFORMER_ITEM
+                        ).build()
+                )
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 advancementOutput, existingFileHelper, energizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,

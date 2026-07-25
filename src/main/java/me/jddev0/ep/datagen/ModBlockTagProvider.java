@@ -136,11 +136,15 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.EHV_TRANSFORMER_1_TO_N,
                         EPBlocks.EHV_TRANSFORMER_3_TO_3,
                         EPBlocks.EHV_TRANSFORMER_N_TO_1,
+                        EPBlocks.UHV_TRANSFORMER_1_TO_N,
+                        EPBlocks.UHV_TRANSFORMER_3_TO_3,
+                        EPBlocks.UHV_TRANSFORMER_N_TO_1,
 
                         EPBlocks.CONFIGURABLE_LV_TRANSFORMER,
                         EPBlocks.CONFIGURABLE_MV_TRANSFORMER,
                         EPBlocks.CONFIGURABLE_HV_TRANSFORMER,
                         EPBlocks.CONFIGURABLE_EHV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_UHV_TRANSFORMER,
 
                         EPBlocks.BATTERY_BOX,
                         EPBlocks.ADVANCED_BATTERY_BOX,
@@ -301,11 +305,15 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.EHV_TRANSFORMER_1_TO_N,
                         EPBlocks.EHV_TRANSFORMER_3_TO_3,
                         EPBlocks.EHV_TRANSFORMER_N_TO_1,
+                        EPBlocks.UHV_TRANSFORMER_1_TO_N,
+                        EPBlocks.UHV_TRANSFORMER_3_TO_3,
+                        EPBlocks.UHV_TRANSFORMER_N_TO_1,
 
                         EPBlocks.CONFIGURABLE_LV_TRANSFORMER,
                         EPBlocks.CONFIGURABLE_MV_TRANSFORMER,
                         EPBlocks.CONFIGURABLE_HV_TRANSFORMER,
                         EPBlocks.CONFIGURABLE_EHV_TRANSFORMER,
+                        EPBlocks.CONFIGURABLE_UHV_TRANSFORMER,
 
                         EPBlocks.BATTERY_BOX,
                         EPBlocks.ADVANCED_BATTERY_BOX,
