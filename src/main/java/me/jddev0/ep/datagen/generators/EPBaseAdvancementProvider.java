@@ -1,6 +1,8 @@
 package me.jddev0.ep.datagen.generators;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -76,6 +78,47 @@ public abstract class EPBaseAdvancementProvider implements AdvancementProvider.A
                         Component.translatable("advancements.energizedpower." + advancementId + ".description"),
                         null,
                         type,
+                        true,
+                        true,
+                        false
+                ).
+                addCriterion("has_the_item", trigger).
+                save(advancementOutput, EPAPI.id(advancementPathPrefix + "/" + advancementId), existingFileHelper);
+    }
+
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, icon, advancementId, icon);
+    }
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId,
+                                                   ItemLike trigger) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, new ItemStack(icon.asItem()), advancementId,
+                InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
+    }
+    protected AdvancementHolder addRootAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId,
+                                                   TagKey<Item> trigger) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, new ItemStack(icon.asItem()), advancementId,
+                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                        trigger
+                )));
+    }
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId,
+                                                   Criterion<?> trigger) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, new ItemStack(icon.asItem()), advancementId, trigger);
+    }
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemStack icon, String advancementId,
+                                                   Criterion<?> trigger) {
+        return Advancement.Builder.advancement().
+                display(
+                        icon,
+                        Component.translatable("advancements.energizedpower." + advancementId + ".title"),
+                        Component.translatable("advancements.energizedpower." + advancementId + ".description"),
+                        EPAPI.id("textures/block/" + backgroundBlockTexture + ".png"),
+                        AdvancementType.TASK,
                         true,
                         true,
                         false

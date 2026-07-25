@@ -12,7 +12,6 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
     "background": "energizedpower:textures/block/basic_machine_frame_top.png",
     "description": {
       "translate": "advancements.energizedpower.energizedpower_basics.description"

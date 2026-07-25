@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T12:20:36.893368081	Advancements
+// 1.21.1	2026-07-25T12:23:26.369418487	Advancements
 f3b8999fc7c12f2fd7f510d35406d677b457a760 data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 89c1c7ef87c8c50e1f7dbb67442125e730fa928d data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 de6621b52b3485d7937459c0b49fb544a62858dd data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -130,7 +130,7 @@ cc647fc712c2b007083b4bebb70e928b87d12c80 data/energizedpower/advancement/main/ba
 676136baefe8d5f4b8499c5bfd1d2eab8ceb0119 data/energizedpower/advancement/main/basics/cutter.json
 2f233d5156a1e00c1cf38dfe75d071199955b2c9 data/energizedpower/advancement/main/basics/drain.json
 2dce3584c163b3c582be9802a37883e1a6fee2bc data/energizedpower/advancement/main/basics/energized_power_book.json
-34c542d1e3802cd7f0ba7d894bdb1569d9cec409 data/energizedpower/advancement/main/basics/energizedpower_basics.json
+71fa061dd8601d37a4800d3a05089587bd37b232 data/energizedpower/advancement/main/basics/energizedpower_basics.json
 56e22d79c713d269da4c588e06e32076debafe2d data/energizedpower/advancement/main/basics/energy_analyzer.json
 5cfb3e9da0766b77e09ae0306995a6fedf7f41ce data/energizedpower/advancement/main/basics/energy_capacity_upgrade_module_1.json
 872f50a935ef1dfab9a7458c906b03b1133ef4cd data/energizedpower/advancement/main/basics/energy_capacity_upgrade_module_2.json
