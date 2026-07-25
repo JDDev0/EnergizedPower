@@ -1,18 +1,15 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 
 import java.util.function.Consumer;
 
@@ -23,23 +20,11 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
 
     @Override
     protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
-        AdvancementHolder energizedPowerElite = Advancement.Builder.advancement().
-                display(
-                        EPItems.CRYSTALLIZED_LAPIS_LAZULI,
-                        Component.translatable("advancements.energizedpower.energizedpower_elite.title"),
-                        Component.translatable("advancements.energizedpower.energizedpower_elite.description"),
-                        EPAPI.id("block/elite_machine_frame_top"),
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false
-                ).
-                addCriterion("has_the_item",
-                        InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
-                                CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI
-                        ))).
-                save(advancementOutput, EPAPI.id("main/elite/energizedpower_elite"));
+        AdvancementHolder energizedPowerElite = addRootAdvancement(
+                lookupProvider, advancementOutput,
+                "elite_machine_frame_top", EPItems.CRYSTALLIZED_LAPIS_LAZULI, "energizedpower_elite",
+                CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI
+        );
 
         AdvancementHolder crystallizedAlloyIngot = addAdvancement(
                 lookupProvider,

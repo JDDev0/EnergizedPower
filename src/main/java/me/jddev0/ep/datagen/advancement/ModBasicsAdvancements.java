@@ -1,13 +1,11 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -15,7 +13,6 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
@@ -29,23 +26,11 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
 
     @Override
     protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
-        AdvancementHolder energizedPowerBasics = Advancement.Builder.advancement().
-                display(
-                        Items.COPPER_INGOT,
-                        Component.translatable("advancements.energizedpower.energizedpower_basics.title"),
-                        Component.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        EPAPI.id("block/basic_machine_frame_top"),
-                        AdvancementType.TASK,
-                        true,
-                        false,
-                        false
-                ).
-                addCriterion("has_the_item",
-                        InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
-                                Tags.Items.INGOTS_COPPER
-                        ))).
-                save(advancementOutput, EPAPI.id("main/basics/energizedpower_basics"));
+        AdvancementHolder energizedPowerBasics = addRootAdvancement(
+                lookupProvider, advancementOutput,
+                "basic_machine_frame_top", Items.COPPER_INGOT, "energizedpower_basics",
+                Tags.Items.INGOTS_COPPER
+        );
 
         AdvancementHolder energizedPowerBook = addAdvancement(
                 advancementOutput, energizedPowerBasics,
