@@ -11,23 +11,20 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ItemLike;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
     public ModAdvancedAdvancements(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(dataOutput, lookupProvider);
+        super(dataOutput, lookupProvider, "main/advanced");
     }
 
     @Override
@@ -50,12 +47,14 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
                 save(advancementOutput, EPAPI.MOD_ID + ":main/advanced/energizedpower_advanced");
 
         AdvancementHolder advancedAlloyIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedPowerAdvanced,
                 EPItems.ADVANCED_ALLOY_INGOT, "advanced_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ADVANCED_ALLOY
         );
 
         AdvancementHolder advancedAlloyPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, advancedAlloyIngot,
                 EPItems.ADVANCED_ALLOY_PLATE, "advanced_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ADVANCED_ALLOY
@@ -122,12 +121,14 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedCopperPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedPowerAdvanced,
                 EPItems.ENERGIZED_COPPER_PLATE, "energized_copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_COPPER
         );
 
         AdvancementHolder energizedCopperWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedCopperPlate,
                 EPItems.ENERGIZED_COPPER_WIRE, "energized_copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_COPPER
@@ -307,6 +308,7 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedGoldIngot = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizer,
                 EPItems.ENERGIZED_GOLD_INGOT, "energized_gold_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ENERGIZED_GOLD
@@ -318,12 +320,14 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedGoldPlate = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedGoldIngot,
                 EPItems.ENERGIZED_GOLD_PLATE, "energized_gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_GOLD
         );
 
         AdvancementHolder energizedGoldWire = addAdvancement(
+                lookupProvider,
                 advancementOutput, energizedGoldPlate,
                 EPItems.ENERGIZED_GOLD_WIRE, "energized_gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_GOLD
@@ -581,51 +585,5 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
                 advancementOutput, teleporter,
                 EPItems.INVENTORY_TELEPORTER, "inventory_teleporter", AdvancementType.TASK
         );
-    }
-
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemLike icon, String advancementId, AdvancementType type) {
-        return addAdvancement(advancementOutput, parent, icon, advancementId, type, icon);
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemLike icon, String advancementId, AdvancementType type,
-                                            ItemLike trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
-                InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemLike icon, String advancementId, AdvancementType type,
-                                            TagKey<Item> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        trigger
-                )));
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemLike icon, String advancementId, AdvancementType type,
-                                            Criterion<?> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type, trigger);
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, AdvancementHolder parent,
-                                            ItemStack icon, String advancementId, AdvancementType type,
-                                            Criterion<?> trigger) {
-        return Advancement.Builder.advancement().parent(parent).
-                display(
-                        icon,
-                        Component.translatable("advancements.energizedpower." + advancementId + ".title"),
-                        Component.translatable("advancements.energizedpower." + advancementId + ".description"),
-                        null,
-                        type,
-                        true,
-                        true,
-                        false
-                ).
-                addCriterion("has_the_item", trigger).
-                save(advancementOutput, EPAPI.MOD_ID + ":main/advanced/" + advancementId);
-    }
-
-    @Override
-    public String getName() {
-        return "Advancements (Advanced)";
     }
 }
