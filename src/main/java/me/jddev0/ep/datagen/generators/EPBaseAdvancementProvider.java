@@ -10,6 +10,9 @@ import java.util.function.Consumer;
 public abstract class EPBaseAdvancementProvider implements AdvancementProvider.AdvancementGenerator {
     protected ExistingFileHelper existingFileHelper;
 
+    /**
+     * Method redirected to "generateAdvancements()" to match 26.1.x
+     */
     @Override
     public final void generate(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper) {
         this.existingFileHelper = existingFileHelper;
