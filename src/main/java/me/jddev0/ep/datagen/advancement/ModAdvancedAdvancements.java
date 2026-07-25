@@ -3,6 +3,7 @@ package me.jddev0.ep.datagen.advancement;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
+import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -20,15 +21,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.function.Consumer;
 
-public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementGenerator {
+public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
     @Override
-    public void generate(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput,
-                         ExistingFileHelper existingFileHelper) {
+    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
         AdvancementHolder energizedPowerAdvanced = Advancement.Builder.advancement().
                 display(
                         EPItems.ENERGIZED_COPPER_INGOT,
@@ -47,49 +45,49 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 save(advancementOutput, EPAPI.id("main/advanced/energizedpower_advanced"), existingFileHelper);
 
         AdvancementHolder advancedAlloyIngot = addAdvancement(
-                advancementOutput, existingFileHelper, energizedPowerAdvanced,
+                advancementOutput, energizedPowerAdvanced,
                 EPItems.ADVANCED_ALLOY_INGOT, "advanced_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ADVANCED_ALLOY
         );
 
         AdvancementHolder advancedAlloyPlate = addAdvancement(
-                advancementOutput, existingFileHelper, advancedAlloyIngot,
+                advancementOutput, advancedAlloyIngot,
                 EPItems.ADVANCED_ALLOY_PLATE, "advanced_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ADVANCED_ALLOY
         );
 
         AdvancementHolder energizedCopperCable = addAdvancement(
-                advancementOutput, existingFileHelper, energizedPowerAdvanced,
+                advancementOutput, energizedPowerAdvanced,
                 EPBlocks.ENERGIZED_COPPER_CABLE_ITEM, "energized_copper_cable", AdvancementType.TASK
         );
 
         AdvancementHolder advancedSolarCell = addAdvancement(
-                advancementOutput, existingFileHelper, energizedPowerAdvanced,
+                advancementOutput, energizedPowerAdvanced,
                 EPItems.ADVANCED_SOLAR_CELL, "advanced_solar_cell", AdvancementType.TASK
         );
 
         AdvancementHolder solarPanel4 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedSolarCell,
+                advancementOutput, advancedSolarCell,
                 EPBlocks.SOLAR_PANEL_ITEM_4, "solar_panel_4", AdvancementType.TASK
         );
 
         AdvancementHolder solarPanel5 = addAdvancement(
-                advancementOutput, existingFileHelper, solarPanel4,
+                advancementOutput, solarPanel4,
                 EPBlocks.SOLAR_PANEL_ITEM_5, "solar_panel_5", AdvancementType.TASK
         );
 
         AdvancementHolder battery6 = addAdvancement(
-                advancementOutput, existingFileHelper, energizedPowerAdvanced,
+                advancementOutput, energizedPowerAdvanced,
                 EPItems.BATTERY_6, "battery_6", AdvancementType.TASK
         );
 
         AdvancementHolder battery7 = addAdvancement(
-                advancementOutput, existingFileHelper, battery6,
+                advancementOutput, battery6,
                 EPItems.BATTERY_7, "battery_7", AdvancementType.TASK
         );
 
         AdvancementHolder battery8 = addAdvancement(
-                advancementOutput, existingFileHelper, battery7,
+                advancementOutput, battery7,
                 EPItems.BATTERY_8, "battery_8", AdvancementType.TASK
         );
 
@@ -98,7 +96,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
                 set(EPDataComponentTypes.ENERGY.get(), BatteryTier.BATTERY_8.getCapacity()).
                 build());
         AdvancementHolder battery8FullyCharged = addAdvancement(
-                advancementOutput, existingFileHelper, battery8,
+                advancementOutput, battery8,
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementType.CHALLENGE,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().
                         of(EPItems.BATTERY_8).
@@ -109,164 +107,164 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         );
 
         AdvancementHolder advancedBatteryBox = addAdvancement(
-                advancementOutput, existingFileHelper, battery8,
+                advancementOutput, battery8,
                 EPBlocks.ADVANCED_BATTERY_BOX_ITEM, "advanced_battery_box", AdvancementType.TASK
         );
 
         AdvancementHolder advancedBatteryBoxMinecart = addAdvancement(
-                advancementOutput, existingFileHelper, advancedBatteryBox,
+                advancementOutput, advancedBatteryBox,
                 EPItems.ADVANCED_BATTERY_BOX_MINECART, "advanced_battery_box_minecart", AdvancementType.TASK
         );
 
         AdvancementHolder energizedCopperPlate = addAdvancement(
-                advancementOutput, existingFileHelper, energizedPowerAdvanced,
+                advancementOutput, energizedPowerAdvanced,
                 EPItems.ENERGIZED_COPPER_PLATE, "energized_copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_COPPER
         );
 
         AdvancementHolder energizedCopperWire = addAdvancement(
-                advancementOutput, existingFileHelper, energizedCopperPlate,
+                advancementOutput, energizedCopperPlate,
                 EPItems.ENERGIZED_COPPER_WIRE, "energized_copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_COPPER
         );
 
         AdvancementHolder advancedCircuit = addAdvancement(
-                advancementOutput, existingFileHelper, energizedCopperWire,
+                advancementOutput, energizedCopperWire,
                 EPItems.ADVANCED_CIRCUIT, "advanced_circuit", AdvancementType.TASK
         );
 
         AdvancementHolder advancedUpgradeModule = addAdvancement(
-                advancementOutput, existingFileHelper, advancedCircuit,
+                advancementOutput, advancedCircuit,
                 EPItems.ADVANCED_UPGRADE_MODULE, "advanced_upgrade_module", AdvancementType.TASK
         );
 
         AdvancementHolder speedUpgradeUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.SPEED_UPGRADE_MODULE_3, "speed_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder speedUpgradeUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, speedUpgradeUpgradeModule3,
+                advancementOutput, speedUpgradeUpgradeModule3,
                 EPItems.SPEED_UPGRADE_MODULE_4, "speed_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder energizingSpeedUpgradeUpgradeModule1 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_1, "energizing_speed_upgrade_module_1", AdvancementType.TASK
         );
 
         AdvancementHolder energizingSpeedUpgradeUpgradeModule2 = addAdvancement(
-                advancementOutput, existingFileHelper, energizingSpeedUpgradeUpgradeModule1,
+                advancementOutput, energizingSpeedUpgradeUpgradeModule1,
                 EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_2, "energizing_speed_upgrade_module_2", AdvancementType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_3, "energy_efficiency_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, energyEfficiencyUpgradeModule3,
+                advancementOutput, energyEfficiencyUpgradeModule3,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_4, "energy_efficiency_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder energyProductionUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_3, "energy_production_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder energyProductionUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, energyProductionUpgradeModule3,
+                advancementOutput, energyProductionUpgradeModule3,
                 EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_4, "energy_production_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_3, "energy_capacity_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, energyCapacityUpgradeModule3,
+                advancementOutput, energyCapacityUpgradeModule3,
                 EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_4, "energy_capacity_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder rangeUpgradeModule1 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.RANGE_UPGRADE_MODULE_1, "range_upgrade_module_1", AdvancementType.TASK
         );
 
         AdvancementHolder rangeUpgradeModule2 = addAdvancement(
-                advancementOutput, existingFileHelper, rangeUpgradeModule1,
+                advancementOutput, rangeUpgradeModule1,
                 EPItems.RANGE_UPGRADE_MODULE_2, "range_upgrade_module_2", AdvancementType.TASK
         );
 
         AdvancementHolder rangeUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, rangeUpgradeModule2,
+                advancementOutput, rangeUpgradeModule2,
                 EPItems.RANGE_UPGRADE_MODULE_3, "range_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder extractionDepthUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_3, "extraction_depth_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder extractionDepthUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, extractionDepthUpgradeModule3,
+                advancementOutput, extractionDepthUpgradeModule3,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_4, "extraction_depth_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder extractionRangeUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_3, "extraction_range_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder extractionRangeUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, extractionRangeUpgradeModule3,
+                advancementOutput, extractionRangeUpgradeModule3,
                 EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_4, "extraction_range_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder moonLightUpgradeModule2 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_2, "moon_light_upgrade_module_2", AdvancementType.TASK
         );
 
         AdvancementHolder itemEjectorUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.ITEM_EJECTOR_UPGRADE_MODULE_3, "item_ejector_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder itemEjectorUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, itemEjectorUpgradeModule3,
+                advancementOutput, itemEjectorUpgradeModule3,
                 EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4, "item_ejector_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder itemPullingUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_3, "item_pulling_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder itemPullingUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, itemPullingUpgradeModule3,
+                advancementOutput, itemPullingUpgradeModule3,
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_4, "item_pulling_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder xpExtractionUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUpgradeModule,
+                advancementOutput, advancedUpgradeModule,
                 EPItems.XP_EXTRACTION_UPGRADE_MODULE_3, "xp_extraction_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder xpExtractionUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, xpExtractionUpgradeModule3,
+                advancementOutput, xpExtractionUpgradeModule3,
                 EPItems.XP_EXTRACTION_UPGRADE_MODULE_4, "xp_extraction_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder advancedMachineFrame = addAdvancement(
-                advancementOutput, existingFileHelper, energizedPowerAdvanced,
+                advancementOutput, energizedPowerAdvanced,
                 EPBlocks.ADVANCED_MACHINE_FRAME_ITEM, "advanced_machine_frame", AdvancementType.TASK
         );
 
         AdvancementHolder hvTransformers = addAdvancement(
-                advancementOutput, existingFileHelper, advancedMachineFrame,
+                advancementOutput, advancedMachineFrame,
                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM, "hv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
@@ -279,275 +277,275 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         );
 
         AdvancementHolder advancedCrusher = addAdvancement(
-                advancementOutput, existingFileHelper, advancedMachineFrame,
+                advancementOutput, advancedMachineFrame,
                 EPBlocks.ADVANCED_CRUSHER_ITEM, "advanced_crusher", AdvancementType.TASK
         );
 
         AdvancementHolder advancedPulverizer = addAdvancement(
-                advancementOutput, existingFileHelper, advancedMachineFrame,
+                advancementOutput, advancedMachineFrame,
                 EPBlocks.ADVANCED_PULVERIZER_ITEM, "advanced_pulverizer", AdvancementType.TASK
         );
 
         AdvancementHolder lightningGenerator = addAdvancement(
-                advancementOutput, existingFileHelper, advancedMachineFrame,
+                advancementOutput, advancedMachineFrame,
                 EPBlocks.LIGHTNING_GENERATOR_ITEM, "lightning_generator", AdvancementType.TASK
         );
 
         AdvancementHolder crystalGrowthChamber = addAdvancement(
-                advancementOutput, existingFileHelper, advancedMachineFrame,
+                advancementOutput, advancedMachineFrame,
                 EPBlocks.CRYSTAL_GROWTH_CHAMBER_ITEM, "crystal_growth_chamber", AdvancementType.TASK
         );
 
         AdvancementHolder energizer = addAdvancement(
-                advancementOutput, existingFileHelper, advancedMachineFrame,
+                advancementOutput, advancedMachineFrame,
                 EPBlocks.ENERGIZER_ITEM, "energizer", AdvancementType.TASK
         );
 
         AdvancementHolder energizedGoldIngot = addAdvancement(
-                advancementOutput, existingFileHelper, energizer,
+                advancementOutput, energizer,
                 EPItems.ENERGIZED_GOLD_INGOT, "energized_gold_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ENERGIZED_GOLD
         );
 
         AdvancementHolder energizedGoldCable = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.ENERGIZED_GOLD_CABLE_ITEM, "energized_gold_cable", AdvancementType.TASK
         );
 
         AdvancementHolder energizedGoldPlate = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPItems.ENERGIZED_GOLD_PLATE, "energized_gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_GOLD
         );
 
         AdvancementHolder energizedGoldWire = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldPlate,
+                advancementOutput, energizedGoldPlate,
                 EPItems.ENERGIZED_GOLD_WIRE, "energized_gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_GOLD
         );
 
         AdvancementHolder processingUnit = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldWire,
+                advancementOutput, energizedGoldWire,
                 EPItems.PROCESSING_UNIT, "processing_unit", AdvancementType.TASK
         );
 
         AdvancementHolder reinforcedAdvancedUpgradeModule = addAdvancement(
-                advancementOutput, existingFileHelper, processingUnit,
+                advancementOutput, processingUnit,
                 EPItems.REINFORCED_ADVANCED_UPGRADE_MODULE, "reinforced_advanced_upgrade_module", AdvancementType.TASK
         );
 
         AdvancementHolder speedUpgradeUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.SPEED_UPGRADE_MODULE_5, "speed_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder speedUpgradeUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, speedUpgradeUpgradeModule5,
+                advancementOutput, speedUpgradeUpgradeModule5,
                 EPItems.SPEED_UPGRADE_MODULE_6, "speed_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder energizingSpeedUpgradeUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_3, "energizing_speed_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder energizingSpeedUpgradeUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, energizingSpeedUpgradeUpgradeModule3,
+                advancementOutput, energizingSpeedUpgradeUpgradeModule3,
                 EPItems.ENERGIZING_SPEED_UPGRADE_MODULE_4, "energizing_speed_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_5, "energy_efficiency_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder energyEfficiencyUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, energyEfficiencyUpgradeModule5,
+                advancementOutput, energyEfficiencyUpgradeModule5,
                 EPItems.ENERGY_EFFICIENCY_UPGRADE_MODULE_6, "energy_efficiency_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder energyProductionUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_5, "energy_production_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder energyProductionUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, energyProductionUpgradeModule5,
+                advancementOutput, energyProductionUpgradeModule5,
                 EPItems.ENERGY_PRODUCTION_UPGRADE_MODULE_6, "energy_production_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_5, "energy_capacity_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder energyCapacityUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, energyCapacityUpgradeModule5,
+                advancementOutput, energyCapacityUpgradeModule5,
                 EPItems.ENERGY_CAPACITY_UPGRADE_MODULE_6, "energy_capacity_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder durationUpgradeModule1 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.DURATION_UPGRADE_MODULE_1, "duration_upgrade_module_1", AdvancementType.TASK
         );
 
         AdvancementHolder durationUpgradeModule2 = addAdvancement(
-                advancementOutput, existingFileHelper, durationUpgradeModule1,
+                advancementOutput, durationUpgradeModule1,
                 EPItems.DURATION_UPGRADE_MODULE_2, "duration_upgrade_module_2", AdvancementType.TASK
         );
 
         AdvancementHolder durationUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, durationUpgradeModule2,
+                advancementOutput, durationUpgradeModule2,
                 EPItems.DURATION_UPGRADE_MODULE_3, "duration_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder durationUpgradeModule4 = addAdvancement(
-                advancementOutput, existingFileHelper, durationUpgradeModule3,
+                advancementOutput, durationUpgradeModule3,
                 EPItems.DURATION_UPGRADE_MODULE_4, "duration_upgrade_module_4", AdvancementType.TASK
         );
 
         AdvancementHolder durationUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, durationUpgradeModule4,
+                advancementOutput, durationUpgradeModule4,
                 EPItems.DURATION_UPGRADE_MODULE_5, "duration_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder durationUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, durationUpgradeModule5,
+                advancementOutput, durationUpgradeModule5,
                 EPItems.DURATION_UPGRADE_MODULE_6, "duration_upgrade_module_6", AdvancementType.CHALLENGE
         );
 
         AdvancementHolder extractionDepthUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_5, "extraction_depth_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder extractionDepthUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, extractionDepthUpgradeModule5,
+                advancementOutput, extractionDepthUpgradeModule5,
                 EPItems.EXTRACTION_DEPTH_UPGRADE_MODULE_6, "extraction_depth_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder extractionRangeUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_5, "extraction_range_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder extractionRangeUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, extractionRangeUpgradeModule5,
+                advancementOutput, extractionRangeUpgradeModule5,
                 EPItems.EXTRACTION_RANGE_UPGRADE_MODULE_6, "extraction_range_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder moonLightUpgradeModule3 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_3, "moon_light_upgrade_module_3", AdvancementType.TASK
         );
 
         AdvancementHolder itemEjectorUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5, "item_ejector_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder itemEjectorUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, itemEjectorUpgradeModule5,
+                advancementOutput, itemEjectorUpgradeModule5,
                 EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6, "item_ejector_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder itemPullingUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_5, "item_pulling_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder itemPullingUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, itemPullingUpgradeModule5,
+                advancementOutput, itemPullingUpgradeModule5,
                 EPItems.ITEM_PULLING_UPGRADE_MODULE_6, "item_pulling_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder xpExtractionUpgradeModule5 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedUpgradeModule,
+                advancementOutput, reinforcedAdvancedUpgradeModule,
                 EPItems.XP_EXTRACTION_UPGRADE_MODULE_5, "xp_extraction_upgrade_module_5", AdvancementType.TASK
         );
 
         AdvancementHolder xpExtractionUpgradeModule6 = addAdvancement(
-                advancementOutput, existingFileHelper, xpExtractionUpgradeModule5,
+                advancementOutput, xpExtractionUpgradeModule5,
                 EPItems.XP_EXTRACTION_UPGRADE_MODULE_6, "xp_extraction_upgrade_module_6", AdvancementType.TASK
         );
 
         AdvancementHolder advancedAutoCrafter = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM, "advanced_auto_crafter", AdvancementType.TASK
         );
 
         AdvancementHolder advancedFluidPump = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.ADVANCED_FLUID_PUMP_ITEM, "advanced_fluid_pump", AdvancementType.TASK
         );
 
         AdvancementHolder advancedPoweredFurnace = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.ADVANCED_POWERED_FURNACE_ITEM, "advanced_powered_furnace", AdvancementType.TASK
         );
 
         AdvancementHolder chargingStation = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.CHARGING_STATION_ITEM, "charging_station", AdvancementType.TASK
         );
 
         AdvancementHolder advancedCharger = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.ADVANCED_CHARGER_ITEM, "advanced_charger", AdvancementType.TASK
         );
 
         AdvancementHolder advancedMinecartCharger = addAdvancement(
-                advancementOutput, existingFileHelper, advancedCharger,
+                advancementOutput, advancedCharger,
                 EPBlocks.ADVANCED_MINECART_CHARGER_ITEM, "advanced_minecart_charger", AdvancementType.TASK
         );
 
         AdvancementHolder advancedUncharger = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPBlocks.ADVANCED_UNCHARGER_ITEM, "advanced_uncharger", AdvancementType.TASK
         );
 
         AdvancementHolder advancedMinecartUncharger = addAdvancement(
-                advancementOutput, existingFileHelper, advancedUncharger,
+                advancementOutput, advancedUncharger,
                 EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM, "advanced_minecart_uncharger", AdvancementType.TASK
         );
 
         AdvancementHolder energizedCrystalMatrix = addAdvancement(
-                advancementOutput, existingFileHelper, energizedGoldIngot,
+                advancementOutput, energizedGoldIngot,
                 EPItems.ENERGIZED_CRYSTAL_MATRIX, "energized_crystal_matrix", AdvancementType.TASK
         );
 
         AdvancementHolder teleporterMatrix = addAdvancement(
-                advancementOutput, existingFileHelper, energizedCrystalMatrix,
+                advancementOutput, energizedCrystalMatrix,
                 EPItems.TELEPORTER_MATRIX, "teleporter_matrix", AdvancementType.TASK
         );
 
         AdvancementHolder teleporterProcessingUnit = addAdvancement(
-                advancementOutput, existingFileHelper, teleporterMatrix,
+                advancementOutput, teleporterMatrix,
                 EPItems.TELEPORTER_PROCESSING_UNIT, "teleporter_processing_unit", AdvancementType.TASK
         );
 
         AdvancementHolder energizedCrystalMatrixCable = addAdvancement(
-                advancementOutput, existingFileHelper, energizedCrystalMatrix,
+                advancementOutput, energizedCrystalMatrix,
                 EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementType.TASK
         );
 
         AdvancementHolder reinforcedAdvancedSolarCell = addAdvancement(
-                advancementOutput, existingFileHelper, energizedCrystalMatrix,
+                advancementOutput, energizedCrystalMatrix,
                 EPItems.REINFORCED_ADVANCED_SOLAR_CELL, "reinforced_advanced_solar_cell", AdvancementType.TASK
         );
 
         AdvancementHolder solarPanel6 = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedSolarCell,
+                advancementOutput, reinforcedAdvancedSolarCell,
                 EPBlocks.SOLAR_PANEL_ITEM_6, "solar_panel_6", AdvancementType.TASK
         );
 
         AdvancementHolder reinforcedAdvancedMachineFrame = addAdvancement(
-                advancementOutput, existingFileHelper, energizedCrystalMatrix,
+                advancementOutput, energizedCrystalMatrix,
                 EPBlocks.REINFORCED_ADVANCED_MACHINE_FRAME_ITEM, "reinforced_advanced_machine_frame", AdvancementType.TASK
         );
 
         AdvancementHolder ehvTransformers = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedMachineFrame,
+                advancementOutput, reinforcedAdvancedMachineFrame,
                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM, "ehv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
@@ -560,50 +558,50 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
         );
 
         AdvancementHolder weatherController = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedMachineFrame,
+                advancementOutput, reinforcedAdvancedMachineFrame,
                 EPBlocks.WEATHER_CONTROLLER_ITEM, "weather_controller", AdvancementType.TASK
         );
 
         AdvancementHolder timeController = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedMachineFrame,
+                advancementOutput, reinforcedAdvancedMachineFrame,
                 EPBlocks.TIME_CONTROLLER_ITEM, "time_controller", AdvancementType.TASK
         );
 
         AdvancementHolder teleporter = addAdvancement(
-                advancementOutput, existingFileHelper, reinforcedAdvancedMachineFrame,
+                advancementOutput, reinforcedAdvancedMachineFrame,
                 EPBlocks.TELEPORTER_ITEM, "teleporter", AdvancementType.TASK
         );
 
         AdvancementHolder inventoryTeleporter = addAdvancement(
-                advancementOutput, existingFileHelper, teleporter,
+                advancementOutput, teleporter,
                 EPItems.INVENTORY_TELEPORTER, "inventory_teleporter", AdvancementType.TASK
         );
     }
 
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type) {
-        return addAdvancement(advancementOutput, existingFileHelper, parent, icon, advancementId, type, icon);
+        return addAdvancement(advancementOutput, parent, icon, advancementId, type, icon);
     }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              ItemLike trigger) {
-        return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
     }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              TagKey<Item> trigger) {
-        return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type,
+        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
                         trigger
                 )));
     }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
                                              Criterion<?> trigger) {
-        return addAdvancement(advancementOutput, existingFileHelper, parent, new ItemStack(icon), advancementId, type, trigger);
+        return addAdvancement(advancementOutput, parent, new ItemStack(icon), advancementId, type, trigger);
     }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput, ExistingFileHelper existingFileHelper,
+    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
                                              AdvancementHolder parent, ItemStack icon, String advancementId, AdvancementType type,
                                              Criterion<?> trigger) {
         return Advancement.Builder.advancement().parent(parent).
