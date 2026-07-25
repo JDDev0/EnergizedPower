@@ -86,4 +86,46 @@ public abstract class EPBaseAdvancementProvider extends FabricAdvancementProvide
                 addCriterion("has_the_item", trigger).
                 save(advancementOutput, EPAPI.id(advancementPathPrefix + "/" + advancementId));
     }
+
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, icon, advancementId, icon);
+    }
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId,
+                                                   ItemLike trigger) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, new ItemStackTemplate(icon.asItem()), advancementId,
+                InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
+    }
+    protected AdvancementHolder addRootAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId,
+                                                   TagKey<Item> trigger) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, new ItemStackTemplate(icon.asItem()), advancementId,
+                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
+                        lookupProvider.lookupOrThrow(Registries.ITEM),
+                        trigger
+                )));
+    }
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemLike icon, String advancementId,
+                                                   Criterion<?> trigger) {
+        return addRootAdvancement(advancementOutput, backgroundBlockTexture, new ItemStackTemplate(icon.asItem()), advancementId, trigger);
+    }
+    protected AdvancementHolder addRootAdvancement(Consumer<AdvancementHolder> advancementOutput,
+                                                   String backgroundBlockTexture, ItemStackTemplate icon, String advancementId,
+                                                   Criterion<?> trigger) {
+        return Advancement.Builder.advancement().
+                display(
+                        icon,
+                        Component.translatable("advancements.energizedpower." + advancementId + ".title"),
+                        Component.translatable("advancements.energizedpower." + advancementId + ".description"),
+                        EPAPI.id("block/" + backgroundBlockTexture),
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                ).
+                addCriterion("has_the_item", trigger).
+                save(advancementOutput, EPAPI.id(advancementPathPrefix + "/" + advancementId));
+    }
 }
