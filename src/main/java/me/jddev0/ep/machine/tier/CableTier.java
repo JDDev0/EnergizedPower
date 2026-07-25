@@ -20,6 +20,8 @@ public enum CableTier {
     ENERGIZED_GOLD("energized_gold_cable", ModConfigs.COMMON_ENERGIZED_GOLD_CABLE_TRANSFER_RATE.getValue(),
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
     ENERGIZED_CRYSTAL_MATRIX("energized_crystal_matrix_cable", ModConfigs.COMMON_ENERGIZED_CRYSTAL_MATRIX_CABLE_TRANSFER_RATE.getValue(),
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL)),
+    SUPERCONDUCTIVE("superconductive_cable", ModConfigs.COMMON_SUPERCONDUCTIVE_CABLE_TRANSFER_RATE.getValue(),
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY).strength(.5f).sound(SoundType.WOOL));
 
     private final String resourceId;
@@ -40,6 +42,7 @@ public enum CableTier {
             case ENERGIZED_COPPER -> EPBlockEntities.ENERGIZED_COPPER_CABLE_ENTITY.get();
             case ENERGIZED_GOLD -> EPBlockEntities.ENERGIZED_GOLD_CABLE_ENTITY.get();
             case ENERGIZED_CRYSTAL_MATRIX -> EPBlockEntities.ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY.get();
+            case SUPERCONDUCTIVE -> EPBlockEntities.SUPERCONDUCTIVE_CABLE_ENTITY.get();
         };
     }
 

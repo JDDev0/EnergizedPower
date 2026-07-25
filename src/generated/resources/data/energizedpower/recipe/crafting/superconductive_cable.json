@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "energizedpower:cable_insulator"
+    },
+    "S": {
+      "tag": "c:wires/superconductor"
+    }
+  },
+  "pattern": [
+    "ISI",
+    "ISI",
+    "ISI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:superconductive_cable"
+  }
+}

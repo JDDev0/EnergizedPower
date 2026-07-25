@@ -133,6 +133,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.ENERGIZED_COPPER_CABLE_ITEM);
             event.accept(EPBlocks.ENERGIZED_GOLD_CABLE_ITEM);
             event.accept(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM);
+            event.accept(EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM);
 
             event.accept(EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM);
             event.accept(EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM);

@@ -528,7 +528,7 @@ public class ModAdvancedAdvancements implements AdvancementProvider.AdvancementG
 
         AdvancementHolder energizedCrystalMatrixCable = addAdvancement(
                 advancementOutput, existingFileHelper, energizedCrystalMatrix,
-                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementType.CHALLENGE
+                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM, "energized_crystal_matrix_cable", AdvancementType.TASK
         );
 
         AdvancementHolder reinforcedAdvancedSolarCell = addAdvancement(

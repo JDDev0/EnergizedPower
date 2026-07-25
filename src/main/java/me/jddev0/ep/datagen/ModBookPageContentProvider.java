@@ -804,7 +804,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.GOLD_CABLE.get(),
                 EPBlocks.ENERGIZED_COPPER_CABLE.get(),
                 EPBlocks.ENERGIZED_GOLD_CABLE.get(),
-                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get()
+                EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE.get(),
+                EPBlocks.SUPERCONDUCTIVE_CABLE.get()
         });
 
         addSimplePage(pageId("transformers"), Component.empty().append(

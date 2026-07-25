@@ -96,6 +96,11 @@ public class ModEliteAdvancements implements AdvancementProvider.AdvancementGene
                 CommonItemTags.WIRES_SUPERCONDUCTOR
         );
 
+        AdvancementHolder superconductiveCable = addAdvancement(
+                advancementOutput, existingFileHelper, superconductor,
+                EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM, "superconductive_cable", AdvancementType.CHALLENGE
+        );
+
         AdvancementHolder eliteSolarCell = addAdvancement(
                 advancementOutput, existingFileHelper, energizedAlloyIngot,
                 EPItems.ELITE_SOLAR_CELL, "elite_solar_cell", AdvancementType.TASK

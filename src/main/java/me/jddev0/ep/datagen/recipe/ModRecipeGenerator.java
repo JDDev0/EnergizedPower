@@ -1870,6 +1870,15 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "ICI"
         }, new ItemStack(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM.get()), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(CommonItemTags.WIRES_SUPERCONDUCTOR), Map.of(
+                'I', ingredientOf(EPItems.CABLE_INSULATOR),
+                'S', ingredientOf(CommonItemTags.WIRES_SUPERCONDUCTOR)
+        ), new String[] {
+                "ISI",
+                "ISI",
+                "ISI"
+        }, new ItemStack(EPBlocks.SUPERCONDUCTIVE_CABLE_ITEM.get()), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 'S', ingredientOf(CommonItemTags.SILICON),
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),
