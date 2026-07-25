@@ -246,6 +246,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 horizontalBlockModel(EPBlocks.BATTERY_BOX, true));
         orientableBlockWithItem(EPBlocks.ADVANCED_BATTERY_BOX,
                 horizontalBlockModel(EPBlocks.ADVANCED_BATTERY_BOX, true));
+        orientableBlockWithItem(EPBlocks.ELITE_BATTERY_BOX,
+                horizontalBlockModel(EPBlocks.ELITE_BATTERY_BOX, true));
         orientableBlockWithItem(EPBlocks.CREATIVE_BATTERY_BOX,
                 horizontalBlockModel(EPBlocks.CREATIVE_BATTERY_BOX, true));
 

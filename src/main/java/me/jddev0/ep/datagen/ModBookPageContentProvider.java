@@ -891,11 +891,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
         tableOfContentsEntries.get(energyBlocksTableOfContentPageId).add(Pair.of(energyBlocksEnergyStorageChapterTitle, energyBlocksEnergyStorageChapterPage));
 
         addSimplePage(pageId("battery_box"), Component.empty().append(
-                Component.translatable("book.energizedpower.page.battery_box").
+                Component.translatable("book.energizedpower.page.battery_boxes").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new Block[] {
                 EPBlocks.BATTERY_BOX.get(),
-                EPBlocks.ADVANCED_BATTERY_BOX.get()
+                EPBlocks.ADVANCED_BATTERY_BOX.get(),
+                EPBlocks.ELITE_BATTERY_BOX.get()
         });
     }
     private void registerEnergyBlocksChapterEnergyProductionSubChapter() {
@@ -1696,7 +1697,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), new ResourceLocation[] {
                 EPAPI.id("textures/item/battery_box_minecart.png"),
-                EPAPI.id("textures/item/advanced_battery_box_minecart.png")
+                EPAPI.id("textures/item/advanced_battery_box_minecart.png"),
+                EPAPI.id("textures/item/elite_battery_box_minecart.png")
         });
     }
     private void registerStructuresChapter() {

@@ -12,6 +12,7 @@
   },
   "image": [
     "energizedpower:textures/item/battery_box_minecart.png",
-    "energizedpower:textures/item/advanced_battery_box_minecart.png"
+    "energizedpower:textures/item/advanced_battery_box_minecart.png",
+    "energizedpower:textures/item/elite_battery_box_minecart.png"
   ]
 }

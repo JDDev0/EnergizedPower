@@ -443,6 +443,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ADVANCED_BATTERY_BOX_ITEM = createBlockItem("advanced_battery_box",
             AdvancedBatteryBoxBlock.Item::new, ADVANCED_BATTERY_BOX);
 
+    public static final DeferredBlock<Block> ELITE_BATTERY_BOX = registerBlock("elite_battery_box",
+            EliteBatteryBoxBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> ELITE_BATTERY_BOX_ITEM = createBlockItem("elite_battery_box",
+            EliteBatteryBoxBlock.Item::new, ELITE_BATTERY_BOX);
+
     public static final DeferredBlock<Block> CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
             CreativeBatteryBoxBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
                     requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());

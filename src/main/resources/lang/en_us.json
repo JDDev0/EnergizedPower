@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "Battery Box Minecarts can transport energy on rails. It can be charged with Minecart Chargers and can be uncharged with Minecart Unchargers.",
 
   "_template.epblock.silicon_block": "Block of Silicon",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "Battery Box",
   "advancements.energizedpower.battery_box.title": "Battery Box",
   "advancements.energizedpower.battery_box.description": "Store energy with the Battery Box block.",
-  "book.energizedpower.page.battery_box": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
 
   "_template.epcontainer.advanced_battery_box": "Advanced Battery Box",
   "advancements.energizedpower.advanced_battery_box.title": "Better Battery Box",
   "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "Battery boxes can store energy. All block faces support insertion and extraction of energy.",
 
   "_template.epcontainer.creative_battery_box": "Creative Battery Box",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",

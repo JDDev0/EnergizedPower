@@ -672,6 +672,13 @@ public final class ModConfigs {
             "block.advanced_battery_box", "Advanced Battery Box", 262144
     );
 
+    public static final ConfigValue<Integer> COMMON_ELITE_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.elite_battery_box", "Elite Battery Box", 268435456
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_BATTERY_BOX_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.elite_battery_box", "Elite Battery Box", 16777216
+    );
+
     public static final ConfigValue<Integer> COMMON_LV_TRANSFORMERS_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.lv_transformers", "LV Transformers", 8192
     );
@@ -1773,6 +1780,13 @@ public final class ModConfigs {
     );
     public static final ConfigValue<Integer> COMMON_ADVANCED_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "entity.advanced_battery_box_minecart", "Advanced Battery Box Minecart", 65536
+    );
+
+    public static final ConfigValue<Integer> COMMON_ELITE_BATTERY_BOX_MINECART_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.elite_battery_box_minecart", "Elite Battery Box Minecart", 268435456
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_BATTERY_BOX_MINECART_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.elite_battery_box_minecart", "Elite Battery Box Minecart", 8388608
     );
 
     //World

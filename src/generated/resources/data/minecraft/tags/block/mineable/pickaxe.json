@@ -89,6 +89,7 @@
     "energizedpower:configurable_uhv_transformer",
     "energizedpower:battery_box",
     "energizedpower:advanced_battery_box",
+    "energizedpower:elite_battery_box",
     "energizedpower:crusher",
     "energizedpower:advanced_crusher",
     "energizedpower:pulverizer",

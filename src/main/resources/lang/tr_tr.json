@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Rayda daha fazla güç",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Raylarda daha fazla güç depola.",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "Battery Box Minecart'lar raylar üzerinde enerji taşıyabilir. Minecart Şarj Aletleri ile şarj edilebilir ve Minecart Şarj Aletleri ile şarjı boşaltılabilir.",
 
   "_template.epblock.silicon_block": "Silikon Bloğu",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "Batarya Kutusu",
   "advancements.energizedpower.battery_box.title": "Battarya Kutusu",
   "advancements.energizedpower.battery_box.description": "Batarya kutusu ile enerji depola.",
-  "book.energizedpower.page.battery_box": "Batarya kutuları enerji depolayabilir.",
 
   "_template.epcontainer.advanced_battery_box": "Gelişmiş Batarya Kutusu",
   "advancements.energizedpower.advanced_battery_box.title": "Gelişmiş Batarya Kutusu!",
   "advancements.energizedpower.advanced_battery_box.description": "En iyi batarya eşyasından daha fazla enerji depola.",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "Batarya kutuları enerji depolayabilir.",
 
   "_template.epcontainer.creative_battery_box": "Yaratıcı Mod Batarya Kutusu",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Energy Production",

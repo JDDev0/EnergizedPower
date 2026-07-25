@@ -272,6 +272,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
         basicItem(EPItems.BATTERY_BOX_MINECART);
         basicItem(EPItems.ADVANCED_BATTERY_BOX_MINECART);
+        basicItem(EPItems.ELITE_BATTERY_BOX_MINECART);
 
         basicItem(EPFluids.DIRTY_WATER_BUCKET_ITEM);
         basicItem(EPFluids.LIQUID_XP_BUCKET_ITEM);

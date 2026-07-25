@@ -522,6 +522,11 @@
   "advancements.energizedpower.advanced_battery_box_minecart.title": "Even more power on Rails",
   "advancements.energizedpower.advanced_battery_box_minecart.description": "Transport even more energy on rails.",
 
+  "item.energizedpower.elite_battery_box_minecart": "Minecart with Elite Battery Box",
+  "entity.energizedpower.elite_battery_box_minecart": "Elite Battery Box Minecart",
+  "advancements.energizedpower.elite_battery_box_minecart.title": "Best power on Rails",
+  "advancements.energizedpower.elite_battery_box_minecart.description": "Transport energy with the best Battery Box Minecart.",
+
   "book.energizedpower.page.battery_box_minecarts": "Los vagones con caja de baterías pueden transportar energía por vías. Se pueden cargar con cargadores de vagones y se descargan con descargadores de vagones.",
 
   "_template.epblock.silicon_block": "Bloque de silicio",
@@ -847,11 +852,16 @@
   "_template.epcontainer.battery_box": "Caja de baterías",
   "advancements.energizedpower.battery_box.title": "Caja de baterías",
   "advancements.energizedpower.battery_box.description": "Store energy with the Caja de baterías block.",
-  "book.energizedpower.page.battery_box": "Caja de baterías, puede almacenar energía. Todos sus bloques adyacentes pueden transferir y consumir energía.",
 
   "_template.epcontainer.advanced_battery_box": "Caja de baterías avanzada",
   "advancements.energizedpower.advanced_battery_box.title": "Better Caja de baterías",
   "advancements.energizedpower.advanced_battery_box.description": "Store even more energy than the best battery item.",
+
+  "_template.epcontainer.elite_battery_box": "Elite Battery Box",
+  "advancements.energizedpower.elite_battery_box.title": "The best Battery Box",
+  "advancements.energizedpower.elite_battery_box.description": "This is the best Battery Box of this mod.",
+
+  "book.energizedpower.page.battery_boxes": "Caja de baterías, puede almacenar energía. Todos sus bloques adyacentes pueden transferir y consumir energía.",
 
   "_template.epcontainer.creative_battery_box": "Caja de baterías de creativo",
   "tooltip.energizedpower.creative_battery_box.cbx.energy_production": "Producción de energía",

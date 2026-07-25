@@ -29,6 +29,13 @@ public final class EPEntityTypes {
                             clientTrackingRange(8).
                             build(EPAPI.id("advanced_battery_box_minecart").
                                     toString()));
+    public static final Supplier<EntityType<MinecartEliteBatteryBox>> ELITE_BATTERY_BOX_MINECART =
+            ENTITY_TYPES.register("elite_battery_box_minecart",
+                    () -> EntityType.Builder.<MinecartEliteBatteryBox>of(MinecartEliteBatteryBox::new, MobCategory.MISC).
+                            sized(.98f, .7f).
+                            clientTrackingRange(8).
+                            build(EPAPI.id("elite_battery_box_minecart").
+                                    toString()));
 
 
     public static void register(IEventBus modEventBus) {
