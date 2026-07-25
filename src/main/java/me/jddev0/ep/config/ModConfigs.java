@@ -1604,11 +1604,11 @@ public final class ModConfigs {
     public static final ConfigValue<Long> COMMON_CHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
             "block.charger", "Charger", 512
     );
-    public static final ConfigValue<Float> COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+    public static final ConfigValue<Double> COMMON_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new DoubleConfigValue(
             "block.charger.charger_recipe_energy_consumption_multiplier",
             "The multiplier by which the energy consumption of charger recipes in the Charger is multiplied by.",
-            1.f,
-            0.f, null
+            1.,
+            0., null
     ));
 
     public static final ConfigValue<Long> COMMON_ADVANCED_CHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
@@ -1625,11 +1625,11 @@ public final class ModConfigs {
             8192L,
             1L, null
     ));
-    public static final ConfigValue<Float> COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+    public static final ConfigValue<Double> COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new DoubleConfigValue(
             "block.advanced_charger.charger_recipe_energy_consumption_multiplier",
             "The multiplier by which the energy consumption of charger recipes in the Charger is multiplied by.",
-            1.f,
-            0.f, null
+            1.,
+            0., null
     ));
 
     public static final ConfigValue<Long> COMMON_UNCHARGER_CAPACITY = registerEnergyCapacityConfigValue(
