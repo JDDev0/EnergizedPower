@@ -104,6 +104,8 @@ public abstract class InventoryEnergyStorageBlockEntity
                 if(itemToExtract.isEmpty())
                     continue;
 
+                itemToExtract = itemToExtract.copy();
+
                 //Item found for extraction -> try to insert and extract for real if successful
                 for(int j = 0;j < itemStackStorageOutput.getSlots();j++) {
                     ItemStack remaining = itemStackStorageOutput.insertItem(j, itemToExtract.copy(), false);
@@ -112,7 +114,8 @@ public abstract class InventoryEnergyStorageBlockEntity
                         itemStackStorageSelf.extractItem(i, amount, false);
 
                         itemAmountLeft -= amount;
-                        break;
+                        itemToExtract.shrink(amount);
+                        continue;
                     }
                 }
 
@@ -168,6 +171,8 @@ public abstract class InventoryEnergyStorageBlockEntity
                 if(itemToExtract.isEmpty())
                     continue;
 
+                itemToExtract = itemToExtract.copy();
+
                 //Item found for extraction -> try to insert and extract for real if successful
                 for(int j = 0;j < itemStackStorageSelf.getSlots();j++) {
                     ItemStack remaining = itemStackStorageSelf.insertItem(j, itemToExtract.copy(), false);
@@ -176,7 +181,8 @@ public abstract class InventoryEnergyStorageBlockEntity
                         itemStackStorageInput.extractItem(i, amount, false);
 
                         itemAmountLeft -= amount;
-                        break;
+                        itemToExtract.shrink(amount);
+                        continue;
                     }
                 }
 
