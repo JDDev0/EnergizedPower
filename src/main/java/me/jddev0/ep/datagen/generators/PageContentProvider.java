@@ -15,9 +15,11 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public abstract  class PageContentProvider implements DataProvider {
     private final Map<String, PageContent> data = new TreeMap<>();
@@ -87,7 +89,7 @@ public abstract  class PageContentProvider implements DataProvider {
         }, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        @Nullable ResourceLocation[] image) {
+                                        @Nullable ResourceLocation... image) {
         return addPage(pageId, null, content, image, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
@@ -96,15 +98,25 @@ public abstract  class PageContentProvider implements DataProvider {
                 block
         });
     }
+    @SafeVarargs
+    protected final PageContent addSimplePage(String pageId, @Nullable Component content,
+                                              Supplier<? extends Block>... block) {
+        return addSimplePage(pageId, content, Arrays.stream(block).map(Supplier::get).toArray(Block[]::new));
+    }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         Block[] block) {
         ResourceLocation[] blockIds = new ResourceLocation[block.length];
+
         for(int i = 0;i < blockIds.length;i++)
             blockIds[i] = BuiltInRegistries.BLOCK.getKey(block[i]);
 
         return addPage(pageId, null, content, null, blockIds);
     }
 
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
+                                         Supplier<? extends Block> block) {
+        return addChapterPage(pageId, title, content, block.get());
+    }
     protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
                                          Block block) {
         return addChapterPage(pageId, title, content, new Block[] {
