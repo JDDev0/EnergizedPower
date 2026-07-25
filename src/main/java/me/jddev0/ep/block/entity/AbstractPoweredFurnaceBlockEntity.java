@@ -5,7 +5,7 @@ import me.jddev0.ep.block.entity.base.UpgradableMenuProvider;
 import me.jddev0.ep.block.entity.base.WorkerFluidMachineBlockEntity;
 import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.fluid.EnergizedPowerFluidStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.configuration.*;

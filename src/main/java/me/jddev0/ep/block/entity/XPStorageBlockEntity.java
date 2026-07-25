@@ -2,7 +2,7 @@ package me.jddev0.ep.block.entity;
 
 import me.jddev0.ep.block.entity.base.MenuFluidStorageBlockEntity;
 import me.jddev0.ep.fluid.EnergizedPowerXPFluidStorage;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.data.XPValueContainerData;
 import me.jddev0.ep.machine.tier.XPStorageTier;
 import me.jddev0.ep.screen.XPStorageMenu;

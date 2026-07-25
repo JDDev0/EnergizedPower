@@ -2,7 +2,7 @@ package me.jddev0.ep.entity;
 
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.config.ModConfigs;
-import me.jddev0.ep.inventory.CombinedContainerData;
+import me.jddev0.ep.inventory.data.CombinedContainerData;
 import me.jddev0.ep.inventory.data.EnergyValueContainerData;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.screen.MinecartBatteryBoxMenu;
