@@ -3,6 +3,7 @@ package me.jddev0.ep.datagen.advancement;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
+import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
@@ -15,7 +16,6 @@ import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -26,9 +26,9 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.Consumer;
 
-public class ModBasicsAdvancements implements AdvancementSubProvider {
+public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
     @Override
-    public void generate(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
         AdvancementHolder energizedPowerBasics = Advancement.Builder.advancement().
                 display(
                         Items.COPPER_INGOT,
