@@ -782,11 +782,15 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "过多的能量",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "我什么时候需要传输那么多能量？",
 
+  "_template.epblock.superconductive_cable": "Superconductive Cable",
+  "advancements.energizedpower.superconductive_cable.title": "Way too much power",
+  "advancements.energizedpower.superconductive_cable.description": "The best cable of this mod.",
+
   "tooltip.energizedpower.cable.txt.shift.1": "此线缆可传输 %s/t。",
   "tooltip.energizedpower.cable.txt.shift.2": "剪线钳可用于更快地破坏线缆。",
 
   "book.energizedpower.page.cables.1": "线缆用于将能量从生产者方块传输到消费者方块。",
-  "book.energizedpower.page.cables.2": "有六个线缆等级。",
+  "book.energizedpower.page.cables.2": "There are seven cable tiers.",
   "book.energizedpower.page.cables.3": "需要变压器来连接不同等级的线缆。",
 
   "_template.epcontainer.lv_transformer_1_to_n": "低压变压器 (1 转 n)",

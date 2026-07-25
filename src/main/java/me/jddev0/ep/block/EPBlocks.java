@@ -302,6 +302,10 @@ public final class EPBlocks {
     public static final Item ENERGIZED_CRYSTAL_MATRIX_CABLE_ITEM = createCableBlockItem("energized_crystal_matrix_cable",
             ENERGIZED_CRYSTAL_MATRIX_CABLE);
 
+    public static final CableBlock SUPERCONDUCTIVE_CABLE = registerBlock("superconductive_cable",
+            props -> new CableBlock(CableTier.SUPERCONDUCTIVE, props), CableTier.SUPERCONDUCTIVE.getProperties());
+    public static final Item SUPERCONDUCTIVE_CABLE_ITEM = createCableBlockItem("superconductive_cable", SUPERCONDUCTIVE_CABLE);
+
     private static Item createTransformerBlockItem(String name, TransformerBlock block) {
         return createBlockItem(name, props -> new TransformerBlock.Item(block, props, block.getTier(), block.getTransformerType()));
     }

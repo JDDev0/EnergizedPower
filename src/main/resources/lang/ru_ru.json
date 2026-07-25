@@ -782,11 +782,15 @@
   "advancements.energizedpower.energized_crystal_matrix_cable.title": "Слишком много мощности",
   "advancements.energizedpower.energized_crystal_matrix_cable.description": "Когда мне вообще понадобится транспортировать столько энергии?",
 
+  "_template.epblock.superconductive_cable": "Superconductive Cable",
+  "advancements.energizedpower.superconductive_cable.title": "Way too much power",
+  "advancements.energizedpower.superconductive_cable.description": "The best cable of this mod.",
+
   "tooltip.energizedpower.cable.txt.shift.1": "Этот кабель может передавать %s/т.",
   "tooltip.energizedpower.cable.txt.shift.2": "Ножницы можно использовать для более быстрого разрыва кабелей.",
 
   "book.energizedpower.page.cables.1": "Кабели используются для транспортировки энергии от блоков-производителей к блокам-потребителям.",
-  "book.energizedpower.page.cables.2": "Имеется шесть уровней кабелей.",
+  "book.energizedpower.page.cables.2": "There are seven cable tiers.",
   "book.energizedpower.page.cables.3": "Для соединения кабелей разных уровней необходим трансформатор.",
 
   "_template.epcontainer.lv_transformer_1_to_n": "LV Трансформатор (1 к n)",

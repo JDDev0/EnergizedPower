@@ -1,11 +1,11 @@
 {
-  "parent": "energizedpower:main/advanced/energized_crystal_matrix",
+  "parent": "energizedpower:main/elite/superconductor",
   "criteria": {
     "has_the_item": {
       "conditions": {
         "items": [
           {
-            "items": "energizedpower:energized_crystal_matrix_cable"
+            "items": "energizedpower:superconductive_cable"
           }
         ]
       },
@@ -14,14 +14,15 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.energizedpower.energized_crystal_matrix_cable.description"
+      "translate": "advancements.energizedpower.superconductive_cable.description"
     },
+    "frame": "challenge",
     "icon": {
       "count": 1,
-      "id": "energizedpower:energized_crystal_matrix_cable"
+      "id": "energizedpower:superconductive_cable"
     },
     "title": {
-      "translate": "advancements.energizedpower.energized_crystal_matrix_cable.title"
+      "translate": "advancements.energizedpower.superconductive_cable.title"
     }
   },
   "requirements": [

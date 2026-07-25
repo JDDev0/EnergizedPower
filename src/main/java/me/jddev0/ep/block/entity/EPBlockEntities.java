@@ -176,6 +176,8 @@ public final class EPBlockEntities {
             EPBlocks.ENERGIZED_GOLD_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_GOLD));
     public static final BlockEntityType<CableBlockEntity> ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY = createBlockEntity("energized_crystal_matrix_cable",
             EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.ENERGIZED_CRYSTAL_MATRIX));
+    public static final BlockEntityType<CableBlockEntity> SUPERCONDUCTIVE_CABLE_ENTITY = createBlockEntity("superconductive_cable",
+            EPBlocks.SUPERCONDUCTIVE_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.SUPERCONDUCTIVE));
 
     public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = createBlockEntity("auto_crafter",
             EPBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new);
@@ -490,6 +492,8 @@ public final class EPBlockEntities {
                 ENERGIZED_GOLD_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ENERGIZED_CRYSTAL_MATRIX_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                SUPERCONDUCTIVE_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getItemHandlerCapability);

@@ -725,6 +725,10 @@ public final class ModConfigs {
             "block.energized_crystal_matrix_cable", "Energized Crystal Matrix Cable", 2097152
     );
 
+    public static final ConfigValue<Long> COMMON_SUPERCONDUCTIVE_CABLE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.superconductive_cable", "Superconductive Cable", 16777216
+    );
+
     public static final ConfigValue<Long> COMMON_WEATHER_CONTROLLER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.weather_controller", "Weather Controller", 8388608
     );

@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T10:13:01.21414081	Energized Power/Advancements (Advanced)
+// 1.21.1	2026-07-25T10:14:53.910099312	Energized Power/Advancements (Advanced)
 348c143ab4a32c8091ebc4914c660de205443faf data/energizedpower/advancement/main/advanced/duration_upgrade_module_4.json
 98ec67818acc1cfeb4cb0869518643cdb8558c7f data/energizedpower/advancement/main/advanced/range_upgrade_module_2.json
 bf7fb6ac9fc4d202afead358445745e4a0df19de data/energizedpower/advancement/main/advanced/reinforced_advanced_upgrade_module.json
@@ -65,7 +65,7 @@ ce9b8401932c6122254a27918044429ffeb790c6 data/energizedpower/advancement/main/ad
 9a90000c7a412fa704faa938b5115ec6ef7243ba data/energizedpower/advancement/main/advanced/teleporter.json
 6aca0cc5ad3624d123464cd21cd9deda25423e71 data/energizedpower/advancement/main/advanced/energy_production_upgrade_module_5.json
 872f7edded03f788ba9e843c407d3f58e70a6f9b data/energizedpower/advancement/main/advanced/advanced_fluid_pump.json
-082aa495a090d34a7355f97402400f9160b48151 data/energizedpower/advancement/main/advanced/energized_crystal_matrix_cable.json
+cfc750f4f85c9349914176d1d497e3d54af313f7 data/energizedpower/advancement/main/advanced/energized_crystal_matrix_cable.json
 92a8bd08e2c38d72e231229865a6c4c1d2856506 data/energizedpower/advancement/main/advanced/energy_efficiency_upgrade_module_3.json
 c66fdcc7aae5e2e92f5ee8fc4717167b603078b6 data/energizedpower/advancement/main/advanced/advanced_minecart_uncharger.json
 e3f1b51cb25fb82065f3d398084e244c735d2efa data/energizedpower/advancement/main/advanced/lightning_generator.json

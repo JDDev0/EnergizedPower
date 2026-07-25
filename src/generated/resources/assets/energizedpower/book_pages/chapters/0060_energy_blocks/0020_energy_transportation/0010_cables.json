@@ -5,7 +5,8 @@
     "energizedpower:gold_cable",
     "energizedpower:energized_copper_cable",
     "energizedpower:energized_gold_cable",
-    "energizedpower:energized_crystal_matrix_cable"
+    "energizedpower:energized_crystal_matrix_cable",
+    "energizedpower:superconductive_cable"
   ],
   "content": {
     "extra": [

@@ -88,6 +88,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
         dropSelf(EPBlocks.ENERGIZED_COPPER_CABLE);
         dropSelf(EPBlocks.ENERGIZED_GOLD_CABLE);
         dropSelf(EPBlocks.ENERGIZED_CRYSTAL_MATRIX_CABLE);
+        dropSelf(EPBlocks.SUPERCONDUCTIVE_CABLE);
 
         dropSelf(EPBlocks.LV_TRANSFORMER_1_TO_N);
         dropSelf(EPBlocks.LV_TRANSFORMER_3_TO_3);
