@@ -2,12 +2,10 @@ package me.jddev0.ep.datagen.advancement;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.component.EPDataComponentTypes;
+import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
-import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -15,8 +13,6 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -25,16 +21,13 @@ import net.minecraft.world.level.ItemLike;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-
-public class ModEliteAdvancements extends FabricAdvancementProvider {
+public class ModEliteAdvancements extends EPBaseAdvancementProvider {
     public ModEliteAdvancements(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 
     @Override
-    public void generateAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
         AdvancementHolder energizedPowerElite = Advancement.Builder.advancement().
                 display(
                         EPItems.CRYSTALLIZED_LAPIS_LAZULI,
