@@ -15,9 +15,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.net.URI;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public abstract  class PageContentProvider implements DataProvider {
     private final Map<String, PageContent> data = new TreeMap<>();
@@ -90,12 +92,16 @@ public abstract  class PageContentProvider implements DataProvider {
         }, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        @Nullable Identifier[] image) {
+                                        @Nullable Identifier... image) {
         return addSimplePage(pageId, content, image, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         @Nullable Identifier[] image, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addPage(pageId, null, content, image, null, changePageIntToId);
+    }
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        Supplier<? extends Block> block) {
+        return addSimplePage(pageId, content, block.get(), null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         Block block) {
@@ -107,8 +113,13 @@ public abstract  class PageContentProvider implements DataProvider {
                 block
         }, changePageIntToId);
     }
+    @SafeVarargs
+    protected final PageContent addSimplePage(String pageId, @Nullable Component content,
+                                              Supplier<? extends Block>... block) {
+        return addSimplePage(pageId, content, Arrays.stream(block).map(Supplier::get).toArray(Block[]::new), null);
+    }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        Block[] block) {
+                                        Block... block) {
         return addSimplePage(pageId, content, block, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
@@ -120,6 +131,10 @@ public abstract  class PageContentProvider implements DataProvider {
         return addPage(pageId, null, content, null, blockIds, changePageIntToId);
     }
 
+    protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
+                                         Supplier<? extends Block> block, @Nullable Map<Integer, Identifier> changePageIntToId) {
+        return addChapterPage(pageId, title, content, block.get(), changePageIntToId);
+    }
     protected PageContent addChapterPage(String pageId, @Nullable Component title, @Nullable Component content,
                                          Block block, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addChapterPage(pageId, title, content, new Block[] {
