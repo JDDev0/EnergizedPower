@@ -72,8 +72,15 @@ public abstract  class PageContentProvider implements DataProvider {
                 withHoverEvent(new HoverEvent.ShowText(Component.translatable("book.energizedpower.tooltip.link"))));
     }
 
+    protected PageContent addSimplePage(String pageId, @Nullable Component content) {
+        return addSimplePage(pageId, content, (Map<Integer, Identifier>)null);
+    }
     protected PageContent addSimplePage(String pageId, @Nullable Component content, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addPage(pageId, null, content, null, null, changePageIntToId);
+    }
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        @Nullable Identifier image) {
+        return addSimplePage(pageId, content, image, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         @Nullable Identifier image, @Nullable Map<Integer, Identifier> changePageIntToId) {
@@ -82,14 +89,26 @@ public abstract  class PageContentProvider implements DataProvider {
         }, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        @Nullable Identifier[] image) {
+        return addSimplePage(pageId, content, image, null);
+    }
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         @Nullable Identifier[] image, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addPage(pageId, null, content, image, null, changePageIntToId);
+    }
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        Block block) {
+        return addSimplePage(pageId, content, block, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         Block block, @Nullable Map<Integer, Identifier> changePageIntToId) {
         return addSimplePage(pageId, content, new Block[] {
                 block
         }, changePageIntToId);
+    }
+    protected PageContent addSimplePage(String pageId, @Nullable Component content,
+                                        Block[] block) {
+        return addSimplePage(pageId, content, block, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
                                         Block[] block, @Nullable Map<Integer, Identifier> changePageIntToId) {
