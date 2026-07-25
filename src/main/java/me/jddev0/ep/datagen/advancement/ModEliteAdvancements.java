@@ -2,12 +2,10 @@ package me.jddev0.ep.datagen.advancement;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.component.EPDataComponentTypes;
+import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
-import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -15,10 +13,7 @@ import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentExactPredicate;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -28,13 +23,13 @@ import net.minecraft.world.level.ItemLike;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class ModEliteAdvancements extends FabricAdvancementProvider {
+public class ModEliteAdvancements extends EPBaseAdvancementProvider {
     public ModEliteAdvancements(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(dataOutput, lookupProvider);
     }
 
     @Override
-    public void generateAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
         AdvancementHolder energizedPowerElite = Advancement.Builder.advancement().
                 display(
                         EPItems.CRYSTALLIZED_LAPIS_LAZULI,
