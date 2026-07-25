@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T12:28:37.844341778	Energized Power/Advancements (main/basics)
+// 1.21.1	2026-07-25T12:31:09.534664756	Energized Power/Advancements (main/basics)
 ff9949fe72dee114b53ee0f2b647b81b2f1f402b data/energizedpower/advancement/main/basics/extraction_depth_upgrade_module_2.json
 5077465da380532c15013042a6350f9bb114e033 data/energizedpower/advancement/main/basics/tin_wire.json
 407b6a9181bcbe3575248242a9a9dc3ee5f9e32d data/energizedpower/advancement/main/basics/tin_cable.json
@@ -80,7 +80,7 @@ f8027c8c1eb17057c8997fd09dbd8bc160a348f0 data/energizedpower/advancement/main/ba
 4c5f84631107c48e877066702292ff2f7b0d748e data/energizedpower/advancement/main/basics/xp_drain.json
 f2364a311f3784dd4edd80b9da3828a50b191be3 data/energizedpower/advancement/main/basics/lv_transformers.json
 9a3c3b10e561f267ea501f22d43b66f05486ff5b data/energizedpower/advancement/main/basics/express_item_conveyor_belt_splitter.json
-34c542d1e3802cd7f0ba7d894bdb1569d9cec409 data/energizedpower/advancement/main/basics/energizedpower_basics.json
+71fa061dd8601d37a4800d3a05089587bd37b232 data/energizedpower/advancement/main/basics/energizedpower_basics.json
 cb1a66ef4ac6400e6aeb17ad72619910a6f2d0fb data/energizedpower/advancement/main/basics/powered_lamp.json
 6f2825f233507b20bb06c071b0dfa99268f9a3e6 data/energizedpower/advancement/main/basics/smoker_upgrade_module.json
 100a062b3121e905580c2969128d39072aaec934 data/energizedpower/advancement/main/basics/fluid_analyzer.json

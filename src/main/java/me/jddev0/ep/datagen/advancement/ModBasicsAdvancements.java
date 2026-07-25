@@ -1,6 +1,5 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
@@ -9,16 +8,15 @@ import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -29,22 +27,11 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
 
     @Override
     protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
-        AdvancementHolder energizedPowerBasics = Advancement.Builder.advancement().
-                display(
-                        Items.COPPER_INGOT,
-                        Component.translatable("advancements.energizedpower.energizedpower_basics.title"),
-                        Component.translatable("advancements.energizedpower.energizedpower_basics.description"),
-                        EPAPI.id("textures/block/basic_machine_frame_top.png"),
-                        AdvancementType.TASK,
-                        true,
-                        false,
-                        false
-                ).
-                addCriterion("has_the_item",
-                        InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                                ConventionalItemTags.COPPER_INGOTS
-                        ))).
-                save(advancementOutput, EPAPI.MOD_ID + ":main/basics/energizedpower_basics");
+        AdvancementHolder energizedPowerBasics = addRootAdvancement(
+                lookupProvider, advancementOutput,
+                "basic_machine_frame_top", Items.COPPER_INGOT, "energizedpower_basics",
+                ConventionalItemTags.COPPER_INGOTS
+        );
 
         AdvancementHolder energizedPowerBook = addAdvancement(
                 advancementOutput, energizedPowerBasics,
