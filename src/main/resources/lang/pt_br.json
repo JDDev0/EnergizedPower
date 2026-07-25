@@ -1245,10 +1245,14 @@
 
   "_template.epblock.reinforced_advanced_machine_frame": "Estrutura de Máquina Avançada Reforçada",
   "advancements.energizedpower.reinforced_advanced_machine_frame.title": "Máquinas ainda mais avançadas",
-  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "As máquinas mais avançadas precisam deste item de criação base.",
+  "advancements.energizedpower.reinforced_advanced_machine_frame.description": "Even more advanced machines need this base crafting item.",
+
+  "_template.epblock.elite_machine_frame": "Elite Machine Frame",
+  "advancements.energizedpower.elite_machine_frame.title": "Elite Machines",
+  "advancements.energizedpower.elite_machine_frame.description": "As máquinas mais avançadas precisam deste item de criação base.",
 
   "book.energizedpower.page.machine_frames.1": "As Fundações de Máquinas são o bloco de criação base para todas as máquinas.",
-  "book.energizedpower.page.machine_frames.2": "Existem quatro fundações de máquinas: Básica, Endurecida, Avançada e Avançada Reforçada",
+  "book.energizedpower.page.machine_frames.2": "There are five machine frames: Basic, Hardened, Advanced, Reinforced Advanced, and Elite.",
 
   "tooltip.energizedpower.count_with_item.txt": "%dx %s",
 

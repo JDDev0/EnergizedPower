@@ -742,6 +742,10 @@ public final class EPBlocks {
             BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
     public static final Item REINFORCED_ADVANCED_MACHINE_FRAME_ITEM = createBlockItem("reinforced_advanced_machine_frame", REINFORCED_ADVANCED_MACHINE_FRAME);
 
+    public static final Block ELITE_MACHINE_FRAME = registerBlock("elite_machine_frame",
+            BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item ELITE_MACHINE_FRAME_ITEM = createBlockItem("elite_machine_frame", ELITE_MACHINE_FRAME);
+
     public static void register() {
 
     }
