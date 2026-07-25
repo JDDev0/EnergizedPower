@@ -93,7 +93,7 @@ public class ModAdvancedAdvancements extends FabricAdvancementProvider {
 
         AdvancementHolder battery8 = addAdvancement(
                 advancementOutput, battery7,
-                EPItems.BATTERY_8, "battery_8", AdvancementType.GOAL
+                EPItems.BATTERY_8, "battery_8", AdvancementType.TASK
         );
 
         ItemStack battery8FullyChargedIcon = new ItemStack(EPItems.BATTERY_8);

@@ -86,6 +86,20 @@ public final class ModConfigs {
             "item.battery_8", "Battery (Tier VIII)", 32768
     );
 
+    public static final ConfigValue<Long> COMMON_BATTERY_9_CAPACITY = registerEnergyCapacityConfigValue(
+            "item.battery_9", "Battery (Tier IX)", 8388608
+    );
+    public static final ConfigValue<Long> COMMON_BATTERY_9_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "item.battery_9", "Battery (Tier IX)", 262144
+    );
+
+    public static final ConfigValue<Long> COMMON_BATTERY_10_CAPACITY = registerEnergyCapacityConfigValue(
+            "item.battery_10", "Battery (Tier X)", 33554432
+    );
+    public static final ConfigValue<Long> COMMON_BATTERY_10_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "item.battery_10", "Battery (Tier X)", 2097152
+    );
+
     public static final ConfigValue<Long> COMMON_ENERGY_ANALYZER_CAPACITY = registerEnergyCapacityConfigValue(
             "item.energy_analyzer", "Energy Analyzer", 2048
     );

@@ -10,7 +10,9 @@ public enum BatteryTier {
     BATTERY_5("battery_5", ModConfigs.COMMON_BATTERY_5_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_5_TRANSFER_RATE.getValue()),
     BATTERY_6("battery_6", ModConfigs.COMMON_BATTERY_6_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_6_TRANSFER_RATE.getValue()),
     BATTERY_7("battery_7", ModConfigs.COMMON_BATTERY_7_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_7_TRANSFER_RATE.getValue()),
-    BATTERY_8("battery_8", ModConfigs.COMMON_BATTERY_8_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_8_TRANSFER_RATE.getValue());
+    BATTERY_8("battery_8", ModConfigs.COMMON_BATTERY_8_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_8_TRANSFER_RATE.getValue()),
+    BATTERY_9("battery_9", ModConfigs.COMMON_BATTERY_9_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_9_TRANSFER_RATE.getValue()),
+    BATTERY_10("battery_10", ModConfigs.COMMON_BATTERY_10_CAPACITY.getValue(), ModConfigs.COMMON_BATTERY_10_TRANSFER_RATE.getValue());
 
     private final String resourceId;
     private final long capacity;

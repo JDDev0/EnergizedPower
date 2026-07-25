@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T10:09:38.188486263	Energized Power/Advancements (Advanced)
+// 1.21.1	2026-07-25T10:10:39.751886392	Energized Power/Advancements (Advanced)
 348c143ab4a32c8091ebc4914c660de205443faf data/energizedpower/advancement/main/advanced/duration_upgrade_module_4.json
 98ec67818acc1cfeb4cb0869518643cdb8558c7f data/energizedpower/advancement/main/advanced/range_upgrade_module_2.json
 bf7fb6ac9fc4d202afead358445745e4a0df19de data/energizedpower/advancement/main/advanced/reinforced_advanced_upgrade_module.json
@@ -7,7 +7,7 @@ bf7fb6ac9fc4d202afead358445745e4a0df19de data/energizedpower/advancement/main/ad
 19e7037eeae86a4cd0b1dc43180c14c5760bde3e data/energizedpower/advancement/main/advanced/extraction_range_upgrade_module_6.json
 61999c818e38f2c92b555a412b09bec2a3bf6ec2 data/energizedpower/advancement/main/advanced/advanced_crusher.json
 0b4ee53507501fea5c5d34cdf270386b2d6dff87 data/energizedpower/advancement/main/advanced/reinforced_advanced_machine_frame.json
-25bde7dc7b2e538e26ae6b63afd684a18772a975 data/energizedpower/advancement/main/advanced/battery_8.json
+6aa13f6d0411275bf0b16de9673a7e10426052a2 data/energizedpower/advancement/main/advanced/battery_8.json
 c96783e009f7dfd354e11169b374a3b5e433ec61 data/energizedpower/advancement/main/advanced/extraction_depth_upgrade_module_6.json
 b34fcc8f0f407987f5f4105a1d4cd2e44bf0201b data/energizedpower/advancement/main/advanced/ehv_transformers.json
 e9b24ca0762895e7618d87e33f0452e477fe8ca5 data/energizedpower/advancement/main/advanced/energized_copper_cable.json

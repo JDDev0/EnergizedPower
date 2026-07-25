@@ -75,6 +75,16 @@ public class ModEliteAdvancements extends FabricAdvancementProvider {
                 CommonItemTags.INGOTS_ENERGIZED_ALLOY
         );
 
+        AdvancementHolder battery9 = addAdvancement(
+                advancementOutput, energizedAlloyIngot,
+                EPItems.BATTERY_9, "battery_9", AdvancementType.TASK
+        );
+
+        AdvancementHolder battery10 = addAdvancement(
+                advancementOutput, battery9,
+                EPItems.BATTERY_10, "battery_10", AdvancementType.CHALLENGE
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 advancementOutput, energizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,
