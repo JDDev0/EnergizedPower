@@ -1,6 +1,5 @@
 package me.jddev0.ep.datagen.advancement;
 
-import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.component.EPDataComponentTypes;
 import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
@@ -8,7 +7,6 @@ import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.DataComponentMatchers;
@@ -18,7 +16,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStackTemplate;
 
 import java.util.concurrent.CompletableFuture;
@@ -31,23 +28,11 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
 
     @Override
     protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
-        AdvancementHolder energizedPowerAdvanced = Advancement.Builder.advancement().
-                display(
-                        EPItems.ENERGIZED_COPPER_INGOT,
-                        Component.translatable("advancements.energizedpower.energizedpower_advanced.title"),
-                        Component.translatable("advancements.energizedpower.energizedpower_advanced.description"),
-                        EPAPI.id("block/advanced_machine_frame_top"),
-                        AdvancementType.TASK,
-                        true,
-                        true,
-                        false
-                ).
-                addCriterion("has_the_item",
-                        InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
-                                CommonItemTags.INGOTS_ENERGIZED_COPPER
-                        ))).
-                save(advancementOutput, EPAPI.MOD_ID + ":main/advanced/energizedpower_advanced");
+        AdvancementHolder energizedPowerAdvanced = addRootAdvancement(
+                lookupProvider, advancementOutput,
+                "advanced_machine_frame_top", EPItems.ENERGIZED_COPPER_INGOT, "energizedpower_advanced",
+                CommonItemTags.INGOTS_ENERGIZED_COPPER
+        );
 
         AdvancementHolder advancedAlloyIngot = addAdvancement(
                 lookupProvider,
