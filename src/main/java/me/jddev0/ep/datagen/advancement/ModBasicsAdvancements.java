@@ -10,23 +10,23 @@ import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.Consumer;
 
 public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
+    public ModBasicsAdvancements() {
+        super("main/basics");
+    }
+
     @Override
     protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
         AdvancementHolder energizedPowerBasics = Advancement.Builder.advancement().
@@ -754,47 +754,5 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
                 advancementOutput, hardenedMachineFrame,
                 EPBlocks.THERMAL_GENERATOR_ITEM, "thermal_generator", AdvancementType.TASK
         );
-    }
-
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
-                                             AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type) {
-        return addAdvancement(advancementOutput, parent, icon, advancementId, type, icon);
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
-                                             AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
-                                             ItemLike trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
-                InventoryChangeTrigger.TriggerInstance.hasItems(trigger));
-    }
-    private AdvancementHolder addAdvancement(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput,
-                                             AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
-                                             TagKey<Item> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type,
-                InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(
-                        lookupProvider.lookupOrThrow(Registries.ITEM),
-                        trigger
-                )));
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
-                                             AdvancementHolder parent, ItemLike icon, String advancementId, AdvancementType type,
-                                             Criterion<?> trigger) {
-        return addAdvancement(advancementOutput, parent, new ItemStackTemplate(icon.asItem()), advancementId, type, trigger);
-    }
-    private AdvancementHolder addAdvancement(Consumer<AdvancementHolder> advancementOutput,
-                                             AdvancementHolder parent, ItemStackTemplate icon, String advancementId, AdvancementType type,
-                                             Criterion<?> trigger) {
-        return Advancement.Builder.advancement().parent(parent).
-                display(
-                        icon,
-                        Component.translatable("advancements.energizedpower." + advancementId + ".title"),
-                        Component.translatable("advancements.energizedpower." + advancementId + ".description"),
-                        null,
-                        type,
-                        true,
-                        true,
-                        false
-                ).
-                addCriterion("has_the_item", trigger).
-                save(advancementOutput, EPAPI.id("main/basics/" + advancementId));
     }
 }
