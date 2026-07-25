@@ -58,7 +58,7 @@ public abstract class AbstractChargerBlockEntity
         implements IngredientPacketUpdate {
     protected final UpgradableMenuProvider menuProvider;
 
-    private final double chargerRecipeDurationMultiplier;
+    private final float chargerRecipeDurationMultiplier;
     protected final int[] energyConsumptionLeft;
 
     //Item slot indices are dynamic
@@ -85,7 +85,7 @@ public abstract class AbstractChargerBlockEntity
 
     public AbstractChargerBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
                                       String machineName, UpgradableMenuProvider menuProvider,
-                                      int slotCount, double chargerRecipeDurationMultiplier,
+                                      int slotCount, float chargerRecipeDurationMultiplier,
                                       int baseEnergyCapacityPerSlot, int baseEnergyTransferRatePerSlot) {
         super(
                 type, blockPos, blockState,
