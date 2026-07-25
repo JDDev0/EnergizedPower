@@ -89,7 +89,7 @@ public abstract  class PageContentProvider implements DataProvider {
         }, null, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        @Nullable Identifier[] image) {
+                                        @Nullable Identifier... image) {
         return addSimplePage(pageId, content, image, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
@@ -107,7 +107,7 @@ public abstract  class PageContentProvider implements DataProvider {
         }, changePageIntToId);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
-                                        Block[] block) {
+                                        Block... block) {
         return addSimplePage(pageId, content, block, null);
     }
     protected PageContent addSimplePage(String pageId, @Nullable Component content,
