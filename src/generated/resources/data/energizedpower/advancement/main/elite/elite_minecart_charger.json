@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/elite_charger",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:elite_minecart_charger"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.elite_minecart_charger.description"
+    },
+    "icon": {
+      "id": "energizedpower:elite_minecart_charger"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.elite_minecart_charger.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

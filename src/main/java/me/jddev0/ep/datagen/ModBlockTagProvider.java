@@ -103,6 +103,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.MINECART_CHARGER,
                         EPBlocks.ADVANCED_MINECART_CHARGER,
+                        EPBlocks.ELITE_MINECART_CHARGER,
 
                         EPBlocks.MINECART_UNCHARGER,
                         EPBlocks.ADVANCED_MINECART_UNCHARGER,
@@ -275,6 +276,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.MINECART_CHARGER,
                         EPBlocks.ADVANCED_MINECART_CHARGER,
+                        EPBlocks.ELITE_MINECART_CHARGER,
 
                         EPBlocks.MINECART_UNCHARGER,
                         EPBlocks.ADVANCED_MINECART_UNCHARGER,

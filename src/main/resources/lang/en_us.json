@@ -759,6 +759,10 @@
   "advancements.energizedpower.advanced_minecart_charger.title": "Advanced minecart charging",
   "advancements.energizedpower.advanced_minecart_charger.description": "Charges minecarts quicker.",
 
+  "_template.epcontainer.elite_minecart_charger": "Elite Minecart Charger",
+  "advancements.energizedpower.elite_minecart_charger.title": "Minecart Quick Charging",
+  "advancements.energizedpower.elite_minecart_charger.description": "The best minecart charger of this mod.",
+
   "_template.epcontainer.minecart_uncharger": "Minecart Uncharger",
   "advancements.energizedpower.minecart_uncharger.title": "Uncharge the minecart!",
   "advancements.energizedpower.minecart_uncharger.description": "Uncharges minecarts.",
