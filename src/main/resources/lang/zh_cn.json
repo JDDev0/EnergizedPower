@@ -771,6 +771,10 @@
   "advancements.energizedpower.advanced_minecart_uncharger.title": "高级矿车放电",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "更快地给矿车放电。",
 
+  "_template.epcontainer.elite_minecart_uncharger": "Elite Minecart Uncharger",
+  "advancements.energizedpower.elite_minecart_uncharger.title": "Minecart Quick Uncharging",
+  "advancements.energizedpower.elite_minecart_uncharger.description": "The best minecart uncharger of this mod.",
+
   "book.energizedpower.page.minecart_charger_uncharger.1": "矿车充电器可以为带有电池箱的矿车充电，放电器可以为其放电。",
   "book.energizedpower.page.minecart_charger_uncharger.2": "红石比较器可用于获取正在充电或放电的矿车的当前能量等级。",
   "book.energizedpower.page.minecart_charger_uncharger.3": "高级版本具有更高的传输速率。",
