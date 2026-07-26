@@ -725,6 +725,10 @@
   "advancements.energizedpower.advanced_charger.title": "Параллельная зарядка",
   "advancements.energizedpower.advanced_charger.description": "Зарядите энергетические предметы параллельно.",
 
+  "_template.epcontainer.elite_charger": "Elite Charger",
+  "advancements.energizedpower.elite_charger.title": "Quick Charging",
+  "advancements.energizedpower.elite_charger.description": "The best charger of this mod.",
+
   "tooltip.energizedpower.chargers.txt.shift.1": "Зарядные устройства можно использовать для создания заряженных медных слитков.",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "Но вместо этого вам следует использовать Активатор,",
   "tooltip.energizedpower.chargers.txt.shift.2.2": "потому что зарядные устройства заряжают очень неэффективно.",
@@ -741,7 +745,7 @@
   "advancements.energizedpower.advanced_uncharger.description": "Разрядите энергетические предметы параллельно.",
 
   "book.energizedpower.page.charger_uncharger.1": "Зарядник может заряжать предметы, а разрядник устройство может разряжать предметы.",
-  "book.energizedpower.page.charger_uncharger.2": "Продвинутая версия зарядника и разрядника имеет 3 слота.",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
   "_template.epcontainer.minecart_charger": "Зарядник вагонеток",
   "advancements.energizedpower.minecart_charger.title": "Заряди вагонетку!",

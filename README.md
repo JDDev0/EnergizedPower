@@ -36,8 +36,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Fluid Drainer
 - Fluid Pump
 - Advanced Fluid Pump
-- Charger
-- Advanced Charger (3 slots)
+- Charger, Advanced Charger (3 slots), Elite Charger (7 slots) (Elite Charger: (**In next release (v3.0.0-beta.9)**))
 - Uncharger
 - Advanced Uncharger (3 slots)
 - Minecart Charger
