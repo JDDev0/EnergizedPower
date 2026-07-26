@@ -4,7 +4,8 @@
     "energizedpower:uncharger",
     "energizedpower:advanced_charger",
     "energizedpower:advanced_uncharger",
-    "energizedpower:elite_charger"
+    "energizedpower:elite_charger",
+    "energizedpower:elite_uncharger"
   ],
   "content": {
     "extra": [
