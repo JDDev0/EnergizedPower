@@ -2758,6 +2758,17 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "aPa"
         }, itemStackOf(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'E', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'P', ingredientOf(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM)
+        ), new String[] {
+                "CPC",
+                "SES",
+                "CPC"
+        }, itemStackOf(EPBlocks.ELITE_POWERED_FURNACE_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.ADVANCED_MACHINE_FRAME_ITEM), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
                 'R', ingredientOf(ConventionalItemTags.REDSTONE_DUSTS),

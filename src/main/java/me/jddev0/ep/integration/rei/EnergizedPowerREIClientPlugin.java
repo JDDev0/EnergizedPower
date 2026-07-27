@@ -41,6 +41,10 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
         registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
         registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
 
+        registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
+        registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
+
         registry.addWorkstations(BuiltinPlugin.STONE_CUTTING, EntryStacks.of(EPBlocks.AUTO_STONECUTTER_ITEM));
 
         registry.addWorkstations(BuiltinPlugin.FUEL, EntryStacks.of(EPBlocks.COAL_ENGINE_ITEM));
@@ -164,6 +168,10 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
                 AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
         registerRecipeClickArea(registry, new Rectangle(115, 34, 18, 18),
                 AdvancedPoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
+
+        for(int i = 0;i < 7;i++)
+            registerRecipeClickArea(registry, new Rectangle(34 + i * 24, 34, 18, 18),
+                    ElitePoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);
 
         registerRecipeClickArea(registry, new Rectangle(84, 43, 20, 17),
                 AutoStonecutterScreen.class, BuiltinPlugin.STONE_CUTTING);

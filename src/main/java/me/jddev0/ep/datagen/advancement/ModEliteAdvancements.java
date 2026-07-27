@@ -93,6 +93,11 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
                 )
         );
 
+        AdvancementHolder elitePoweredFurnace = addAdvancement(
+                advancementOutput, eliteMachineFrame,
+                EPBlocks.ELITE_POWERED_FURNACE_ITEM, "elite_powered_furnace", AdvancementType.TASK
+        );
+
         AdvancementHolder eliteCharger = addAdvancement(
                 advancementOutput, eliteMachineFrame,
                 EPBlocks.ELITE_CHARGER_ITEM, "elite_charger", AdvancementType.TASK

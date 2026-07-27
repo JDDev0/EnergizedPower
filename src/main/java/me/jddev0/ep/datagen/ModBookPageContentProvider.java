@@ -1069,7 +1069,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ),
                 EPBlocks.POWERED_FURNACE,
-                EPBlocks.ADVANCED_POWERED_FURNACE
+                EPBlocks.ADVANCED_POWERED_FURNACE,
+                EPBlocks.ELITE_POWERED_FURNACE
         );
 
         addSimplePage(pageId("auto_crafters"), Component.empty().append(
