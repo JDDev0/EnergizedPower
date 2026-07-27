@@ -168,6 +168,9 @@ public final class EPMenuTypes {
     public static final MenuType<AdvancedMinecartChargerMenu> ADVANCED_MINECART_CHARGER_MENU = registerMenuType("advanced_minecart_charger",
             AdvancedMinecartChargerMenu::new);
 
+    public static final MenuType<EliteMinecartChargerMenu> ELITE_MINECART_CHARGER_MENU = registerMenuType("elite_minecart_charger",
+            EliteMinecartChargerMenu::new);
+
     public static final MenuType<MinecartUnchargerMenu> MINECART_UNCHARGER_MENU = registerMenuType("minecart_uncharger",
             MinecartUnchargerMenu::new);
 

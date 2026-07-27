@@ -2590,6 +2590,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "cCc"
         }, itemStackOf(EPBlocks.ADVANCED_MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_CHARGER_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'H', ingredientOf(EPBlocks.ELITE_CHARGER_ITEM)
+        ), new String[] {
+                "ECE",
+                "SHS",
+                "ECE"
+        }, itemStackOf(EPBlocks.ELITE_MINECART_CHARGER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.UNCHARGER_ITEM), Map.of(
                 'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
                 'c', ingredientOf(CommonItemTags.PLATES_COPPER),

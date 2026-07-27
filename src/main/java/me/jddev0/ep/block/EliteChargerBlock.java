@@ -5,7 +5,6 @@ import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.EliteChargerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -15,7 +14,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class EliteChargerBlock extends HorizontallyOrientableWorkerMachineBlock<EliteChargerBlockEntity> {
     public static final MapCodec<EliteChargerBlock> CODEC = simpleCodec(EliteChargerBlock::new);

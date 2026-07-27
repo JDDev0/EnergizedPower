@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-27T23:11:56.782782341	Energized Power/Advancements (main/elite)
+// 1.21.1	2026-07-27T23:13:48.203250991	Energized Power/Advancements (main/elite)
 74877f8cb45b36d3771dbe74bf17ea88f8a69255 data/energizedpower/advancement/main/elite/elite_battery_box_minecart.json
 dbcc056ebcd36e7285d3cee40c0ce998bf73ad1c data/energizedpower/advancement/main/elite/energy_production_upgrade_module_8.json
 2a2507a57a20f3b659bfb48a9e0d1c8ab41aa4f6 data/energizedpower/advancement/main/elite/energized_alloy_ingot.json
@@ -9,6 +9,7 @@ a24913ab62869646a9c30731429e3b3a6e4f257c data/energizedpower/advancement/main/el
 489933e6536c0898fd864de5a97aac0b243c5432 data/energizedpower/advancement/main/elite/moon_light_upgrade_module_5.json
 2d93ad8427304cdddc95cd3f16b375ad892563a4 data/energizedpower/advancement/main/elite/speed_upgrade_module_7.json
 c4cee993bf48d1bc5a9fcbb5732fb2737aa08f42 data/energizedpower/advancement/main/elite/energizing_speed_upgrade_module_7.json
+1dcfc5791f7920c70937eba9e6f9f49a479ac991 data/energizedpower/advancement/main/elite/elite_minecart_charger.json
 6778599bc79a5d43ca1fba98171e5731be36bde6 data/energizedpower/advancement/main/elite/elite_solar_cell.json
 24b8bfda09f7caa00c54294117cac158743625be data/energizedpower/advancement/main/elite/speed_upgrade_module_8.json
 29fa2233b9168424e4cc88d58bcb490958b27fa6 data/energizedpower/advancement/main/elite/battery_10.json
