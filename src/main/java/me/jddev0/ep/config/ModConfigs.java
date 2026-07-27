@@ -1288,6 +1288,28 @@ public final class ModConfigs {
             "block.advanced_powered_furnace", "Advanced Powered Furnace", new ArrayList<>(0)
     );
 
+    public static final ConfigValue<Integer> COMMON_ELITE_POWERED_FURNACE_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.elite_powered_furnace", "Elite Powered Furnace", 8388608
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_POWERED_FURNACE_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.elite_powered_furnace", "Elite Powered Furnace", 131072
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_POWERED_FURNACE_ENERGY_CONSUMPTION_PER_INPUT_PER_TICK = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.elite_powered_furnace.energy_consumption_per_input_per_tick",
+            "The energy consumption per input of the Elite Powered Furnace in FE per tick.",
+            16384,
+            1, null
+    ));
+    public static final ConfigValue<Float> COMMON_ELITE_POWERED_FURNACE_RECIPE_DURATION_MULTIPLIER = registerRecipeDurationMultiplierConfigValue(
+            "block.elite_powered_furnace", "Elite Powered Furnace", 1.f/20.f
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_POWERED_FURNACE_FLUID_TANK_CAPACITY = registerFluidTankCapacityConfigValue(
+            "block.elite_powered_furnace", "Elite Powered Furnace", 7 * 32 /* 7 inputs * 32 Buckets */
+    );
+    public static final ConfigValue<List<@NotNull Identifier>> COMMON_ELITE_POWERED_FURNACE_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+            "block.elite_powered_furnace", "Elite Powered Furnace", new ArrayList<>(0)
+    );
+
     public static final ConfigValue<Integer> COMMON_PLANT_GROWTH_CHAMBER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.plant_growth_chamber", "Plant Growth Chamber", 4096
     );

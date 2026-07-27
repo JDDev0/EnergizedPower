@@ -279,6 +279,7 @@ public class ModBlockStateProvider {
 
         activatableOrientableMachineBlockWithItem(EPBlocks.POWERED_FURNACE, false);
         activatableOrientableMachineBlockWithItem(EPBlocks.ADVANCED_POWERED_FURNACE, false);
+        activatableOrientableMachineBlockWithItem(EPBlocks.ELITE_POWERED_FURNACE, false);
 
         activatableBlockWithItem(EPBlocks.LIGHTNING_GENERATOR,
                 cubeBlockModel(EPBlocks.LIGHTNING_GENERATOR, "", "_top", "_bottom",

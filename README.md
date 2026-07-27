@@ -8,10 +8,9 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 ### Machines
 
 - Powered Lamp
-- Powered Furnace
+- Powered Furnace, Advanced Powered Furnace (3 input/output slot pairs), and Elite Powered Furnace (7 input/output slot pairs) (Elite Powered Furnace: (**In next release (v3.0.0-beta.9)**))
 - Press Mold Maker
 - Alloy Furnace
-- Advanced Powered Furnace (3 input/output slot pairs)
 - Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
 - Advanced Auto Crafter (3 recipes at once)
 - Crusher
@@ -36,10 +35,10 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Fluid Drainer
 - Fluid Pump
 - Advanced Fluid Pump
-- Charger, Advanced Charger (3 slots), Elite Charger (7 slots) (Elite Charger: (**In next release (v3.0.0-beta.9)**))
-- Uncharger, Advanced Uncharger (3 slots), Elite Uncharger (7 slots) (Elite Uncharger: (**In next release (v3.0.0-beta.9)**))
-- Minecart Charger, Advanced Minecart Charger, Elite Minecart Charger (Elite Minecart Charger: (**In next release (v3.0.0-beta.9)**))
-- Minecart Uncharger, Advanced Minecart Uncharger, Elite Minecart Uncharger (Elite Minecart Uncharger: (**In next release (v3.0.0-beta.9)**))
+- Charger, Advanced Charger (3 slots), and Elite Charger (7 slots) (Elite Charger: (**In next release (v3.0.0-beta.9)**))
+- Uncharger, Advanced Uncharger (3 slots), and Elite Uncharger (7 slots) (Elite Uncharger: (**In next release (v3.0.0-beta.9)**))
+- Minecart Charger, Advanced Minecart Charger, and Elite Minecart Charger (Elite Minecart Charger: (**In next release (v3.0.0-beta.9)**))
+- Minecart Uncharger, Advanced Minecart Uncharger, and Elite Minecart Uncharger (Elite Minecart Uncharger: (**In next release (v3.0.0-beta.9)**))
 - Charging Station
 - Crystal Growth Chamber
 - Energizer

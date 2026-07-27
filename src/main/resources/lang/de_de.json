@@ -939,8 +939,12 @@
   "advancements.energizedpower.advanced_powered_furnace.title": "Schnelles Schmelzen",
   "advancements.energizedpower.advanced_powered_furnace.description": "Schmelze mehre Items zu gleich mit Strom.",
 
+  "_template.epcontainer.elite_powered_furnace": "Elite Elektroofen",
+  "advancements.energizedpower.elite_powered_furnace.title": "Übertaktetes Schmelzen",
+  "advancements.energizedpower.elite_powered_furnace.description": "Der beste Elektroofen dieser Mod.",
+
   "book.energizedpower.page.powered_furnaces.1": "Elektroöfen funktionieren wie ein Ofen, verwenden aber statt Kohle Strom. Sie sind auch schneller als der normale Ofen.",
-  "book.energizedpower.page.powered_furnaces.2": "Die fortgeschrittene Version vom Elektroofen hat 3 Eingabe-/Ausgabe-Slot-Paare.",
+  "book.energizedpower.page.powered_furnaces.2": "Die fortgeschrittene Version vom Elektroofen hat 3 Eingabe-/Ausgabe-Slot-Paare und die Elite Version hat 7 Eingabe-/Ausgabe-Slot-Paare.",
 
   "_template.epcontainer.crusher": "Zerkleinerer",
   "advancements.energizedpower.crusher.title": "Zerkleinere es",
