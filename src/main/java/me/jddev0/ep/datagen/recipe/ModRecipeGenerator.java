@@ -2504,6 +2504,18 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "GCG"
         }, itemStackOf(EPBlocks.ADVANCED_CHARGER_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'E', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'A', ingredientOf(EPBlocks.ADVANCED_CHARGER_ITEM)
+        ), new String[] {
+                "SeS",
+                "CEC",
+                "eAe"
+        }, itemStackOf(EPBlocks.ELITE_CHARGER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
