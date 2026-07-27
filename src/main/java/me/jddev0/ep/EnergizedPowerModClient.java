@@ -151,6 +151,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         event.register(EPMenuTypes.CREATIVE_BATTERY_BOX_MENU, CreativeBatteryBoxScreen::new);
         event.register(EPMenuTypes.MINECART_CHARGER_MENU, MinecartChargerScreen::new);
         event.register(EPMenuTypes.ADVANCED_MINECART_CHARGER_MENU, AdvancedMinecartChargerScreen::new);
+        event.register(EPMenuTypes.ELITE_MINECART_CHARGER_MENU, EliteMinecartChargerScreen::new);
         event.register(EPMenuTypes.MINECART_UNCHARGER_MENU, MinecartUnchargerScreen::new);
         event.register(EPMenuTypes.ADVANCED_MINECART_UNCHARGER_MENU, AdvancedMinecartUnchargerScreen::new);
         event.register(EPMenuTypes.SOLAR_PANEL_MENU_1, SolarPanelScreen::new);

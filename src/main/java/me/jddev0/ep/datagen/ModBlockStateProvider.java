@@ -256,6 +256,7 @@ class ModBlockStateProvider {
 
         orientableSixDirsBlockWithItem(EPBlocks.MINECART_CHARGER, true);
         orientableSixDirsBlockWithItem(EPBlocks.ADVANCED_MINECART_CHARGER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.ELITE_MINECART_CHARGER, true);
 
         orientableSixDirsBlockWithItem(EPBlocks.MINECART_UNCHARGER, true);
         orientableSixDirsBlockWithItem(EPBlocks.ADVANCED_MINECART_UNCHARGER, true);

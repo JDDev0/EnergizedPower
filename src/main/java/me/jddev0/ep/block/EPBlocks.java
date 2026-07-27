@@ -654,6 +654,12 @@ public final class EPBlocks {
     public static final Item ADVANCED_MINECART_CHARGER_ITEM = createBlockItem("advanced_minecart_charger",
             AdvancedMinecartChargerBlock.Item::new, ADVANCED_MINECART_CHARGER);
 
+    public static final Block ELITE_MINECART_CHARGER = registerBlock("elite_minecart_charger",
+            EliteMinecartChargerBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final Item ELITE_MINECART_CHARGER_ITEM = createBlockItem("elite_minecart_charger",
+            EliteMinecartChargerBlock.Item::new, ELITE_MINECART_CHARGER);
+
     public static final Block MINECART_UNCHARGER = registerBlock("minecart_uncharger",
             MinecartUnchargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
