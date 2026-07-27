@@ -1626,7 +1626,28 @@ public final class ModConfigs {
     ));
     public static final ConfigValue<Float> COMMON_ADVANCED_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
             "block.advanced_charger.charger_recipe_energy_consumption_multiplier",
-            "The multiplier by which the energy consumption of charger recipes in the Charger is multiplied by.",
+            "The multiplier by which the energy consumption of charger recipes in the Advanced Charger is multiplied by.",
+            1.f,
+            0.f, null
+    ));
+
+    public static final ConfigValue<Integer> COMMON_ELITE_CHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.elite_charger.capacity_per_slot",
+            "The energy capacity per slot of the Elite Charger in FE.\n" +
+                    "=> The energy capacity of the block is seven times this value.",
+            2097152,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_ELITE_CHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.elite_charger.transfer_rate_per_slot",
+            "The energy transfer rate per slot of the Elite Charger in FE per tick.\n" +
+                    "=> The energy transfer rate of the block is seven times this value.",
+            262144,
+            1, null
+    ));
+    public static final ConfigValue<Float> COMMON_ELITE_CHARGER_CHARGER_RECIPE_ENERGY_CONSUMPTION_MULTIPLIER = COMMON_CONFIG.register(new FloatConfigValue(
+            "block.elite_charger.charger_recipe_energy_consumption_multiplier",
+            "The multiplier by which the energy consumption of charger recipes in the Elite Charger is multiplied by.",
             1.f,
             0.f, null
     ));

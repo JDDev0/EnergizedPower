@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "bottom": "energizedpower:block/elite_charger_bottom",
+    "front": "energizedpower:block/elite_charger_front",
+    "particle": "#top",
+    "side": "energizedpower:block/elite_charger_side",
+    "top": "energizedpower:block/elite_charger_top"
+  }
+}

@@ -1196,7 +1196,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.CHARGER,
                 EPBlocks.UNCHARGER,
                 EPBlocks.ADVANCED_CHARGER,
-                EPBlocks.ADVANCED_UNCHARGER
+                EPBlocks.ADVANCED_UNCHARGER,
+                EPBlocks.ELITE_CHARGER
         );
 
         addSimplePage(pageId("charging_station"), Component.empty().append(

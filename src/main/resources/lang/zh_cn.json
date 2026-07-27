@@ -725,6 +725,10 @@
   "advancements.energizedpower.advanced_charger.title": "并行充电",
   "advancements.energizedpower.advanced_charger.description": "并行给能量物品充电。",
 
+  "_template.epcontainer.elite_charger": "Elite Charger",
+  "advancements.energizedpower.elite_charger.title": "Quick Charging",
+  "advancements.energizedpower.elite_charger.description": "The best charger of this mod.",
+
   "tooltip.energizedpower.chargers.txt.shift.1": "充电器可用于合成充能铜锭。",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "但你应该改用充能器，",
   "tooltip.energizedpower.chargers.txt.shift.2.2": "因为充电器的充能效率非常低。",
@@ -741,7 +745,7 @@
   "advancements.energizedpower.advanced_uncharger.description": "并行给能量物品放电。",
 
   "book.energizedpower.page.charger_uncharger.1": "充电器可以为物品充电，放电器可以为物品放电。",
-  "book.energizedpower.page.charger_uncharger.2": "充电器和放电器的高级版本有 3 个槽。",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
   "_template.epcontainer.minecart_charger": "矿车充电器",
   "advancements.energizedpower.minecart_charger.title": "给矿车充电！",

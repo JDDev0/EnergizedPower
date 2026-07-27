@@ -618,6 +618,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ADVANCED_CHARGER_ITEM = createBlockItem("advanced_charger",
             AdvancedChargerBlock.Item::new, ADVANCED_CHARGER);
 
+    public static final DeferredBlock<Block> ELITE_CHARGER = registerBlock("elite_charger",
+            EliteChargerBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> ELITE_CHARGER_ITEM = createBlockItem("elite_charger",
+            EliteChargerBlock.Item::new, ELITE_CHARGER);
+
     public static final DeferredBlock<Block> UNCHARGER = registerBlock("uncharger",
             UnchargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));

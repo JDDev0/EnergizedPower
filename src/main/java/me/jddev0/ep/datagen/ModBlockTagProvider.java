@@ -97,6 +97,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.CHARGER,
                         EPBlocks.ADVANCED_CHARGER,
+                        EPBlocks.ELITE_CHARGER,
 
                         EPBlocks.UNCHARGER,
                         EPBlocks.ADVANCED_UNCHARGER,
@@ -267,6 +268,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.CHARGER,
                         EPBlocks.ADVANCED_CHARGER,
+                        EPBlocks.ELITE_CHARGER,
 
                         EPBlocks.UNCHARGER,
                         EPBlocks.ADVANCED_UNCHARGER,

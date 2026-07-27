@@ -725,6 +725,10 @@
   "advancements.energizedpower.advanced_charger.title": "Carregamento paralelo",
   "advancements.energizedpower.advanced_charger.description": "Carregue itens de energia em paralelo.",
 
+  "_template.epcontainer.elite_charger": "Elite Charger",
+  "advancements.energizedpower.elite_charger.title": "Quick Charging",
+  "advancements.energizedpower.elite_charger.description": "The best charger of this mod.",
+
   "tooltip.energizedpower.chargers.txt.shift.1": "Carregadores podem ser usados para fabricar Lingotes de Cobre Energizados.",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "Mas você deve usar o Energizador em vez disso,",
   "tooltip.energizedpower.chargers.txt.shift.2.2": "porque carregadores energizam de forma muito ineficiente.",
@@ -741,7 +745,7 @@
   "advancements.energizedpower.advanced_uncharger.description": "Descarregue itens de energia em paralelo.",
 
   "book.energizedpower.page.charger_uncharger.1": "O Carregador pode carregar itens e o Descarregador pode descarregar itens.",
-  "book.energizedpower.page.charger_uncharger.2": "A versão avançada do Carregador e do Descarregador possui 3 slots.",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
   "_template.epcontainer.minecart_charger": "Carregador de Carrinho de Mina",
   "advancements.energizedpower.minecart_charger.title": "Carregue o carrinho de mina!",

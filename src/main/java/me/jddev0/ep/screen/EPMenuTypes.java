@@ -111,6 +111,9 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<AdvancedChargerMenu>> ADVANCED_CHARGER_MENU = registerMenuType("advanced_charger",
             AdvancedChargerMenu::new);
 
+    public static final Supplier<MenuType<EliteChargerMenu>> ELITE_CHARGER_MENU = registerMenuType("elite_charger",
+            EliteChargerMenu::new);
+
     public static final Supplier<MenuType<UnchargerMenu>> UNCHARGER_MENU = registerMenuType("uncharger",
             UnchargerMenu::new);
 

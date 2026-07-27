@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T13:45:07.734245963	Tags for minecraft:block mod id energizedpower
+// 1.21.1	2026-07-27T22:36:10.120498803	Tags for minecraft:block mod id energizedpower
 bb4186a3e465b9f0dc55195ffc40227269df8852 data/c/tags/block/ores.json
 d56528e409960f498e933e25a7b732eabb64284b data/c/tags/block/ores/tin.json
 3dd65c930d78a891766bed591b7962b592077cab data/c/tags/block/ores_in_ground/deepslate.json
@@ -10,6 +10,6 @@ a6059a627c0cc23ca09e65f9b660f52fb6cd7541 data/c/tags/block/storage_blocks/silico
 63629df80c7d7313b6c3b38316e338c5d3bb39e1 data/c/tags/block/storage_blocks/steel.json
 fd183452dd799f8a170ed852d3c32a0429121458 data/c/tags/block/storage_blocks/tin.json
 77ed7e57b3f7fa82f38f98eb25447052e66c9605 data/minecraft/tags/block/mineable/axe.json
-19fbcb60e157077dbaa9a1fd460fc5c769eeec21 data/minecraft/tags/block/mineable/pickaxe.json
-9615301aaacd21a9b46baca6f1a2fef9774274a4 data/minecraft/tags/block/needs_stone_tool.json
+a8d379ae6179e57927bf5f99e41e0d48c5ee39ac data/minecraft/tags/block/mineable/pickaxe.json
+9928e426f8fc54181bb451c8ea11d38a4208790e data/minecraft/tags/block/needs_stone_tool.json
 146647a55796db54a377622d4f88579b80972ce0 data/minecraft/tags/block/prevent_mob_spawning_inside.json
