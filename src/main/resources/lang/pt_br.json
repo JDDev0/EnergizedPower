@@ -744,6 +744,10 @@
   "advancements.energizedpower.advanced_uncharger.title": "Descarregamento paralelo",
   "advancements.energizedpower.advanced_uncharger.description": "Descarregue itens de energia em paralelo.",
 
+  "_template.epcontainer.elite_uncharger": "Elite Uncharger",
+  "advancements.energizedpower.elite_uncharger.title": "Quick Uncharging",
+  "advancements.energizedpower.elite_uncharger.description": "The best uncharger of this mod.",
+
   "book.energizedpower.page.charger_uncharger.1": "O Carregador pode carregar itens e o Descarregador pode descarregar itens.",
   "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
