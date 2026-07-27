@@ -725,6 +725,10 @@
   "advancements.energizedpower.advanced_charger.title": "Paralel Şarj!",
   "advancements.energizedpower.advanced_charger.description": "Enerji ürünlerini paralel şarj et!.",
 
+  "_template.epcontainer.elite_charger": "Elite Charger",
+  "advancements.energizedpower.elite_charger.title": "Quick Charging",
+  "advancements.energizedpower.elite_charger.description": "The best charger of this mod.",
+
   "tooltip.energizedpower.chargers.txt.shift.1": "Sarjlar Bakır Külçe yapımında kullanılabilir.",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "Ama kesinlikle Enerjici kullanmalısın,",
   "tooltip.energizedpower.chargers.txt.shift.2.2": "Çünkü Şarjlar verimsizdir.",
@@ -741,7 +745,7 @@
   "advancements.energizedpower.advanced_uncharger.description": "Enerji ürünlerini paralel şarj düşürt.",
 
   "book.energizedpower.page.charger_uncharger.1": "Şarj Cihazı öğeleri şarj edebilir ve Şarj Cihazı öğelerin şarjını boşaltabilir.",
-  "book.energizedpower.page.charger_uncharger.2": "Şarj Aletinin gelişmiş versiyonu ve Şarj Aletinin 3 yuvası vardır.",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
   "_template.epcontainer.minecart_charger": "Maden Arabası Şarjı",
   "advancements.energizedpower.minecart_charger.title": "Maden Arabasını Şarj et!",

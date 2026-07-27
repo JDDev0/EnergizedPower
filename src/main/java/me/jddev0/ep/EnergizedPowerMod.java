@@ -220,6 +220,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.XP_DRAIN_ITEM);
             event.accept(EPBlocks.CHARGER_ITEM);
             event.accept(EPBlocks.ADVANCED_CHARGER_ITEM);
+            event.accept(EPBlocks.ELITE_CHARGER_ITEM);
             event.accept(EPBlocks.UNCHARGER_ITEM);
             event.accept(EPBlocks.ADVANCED_UNCHARGER_ITEM);
             event.accept(EPBlocks.MINECART_CHARGER_ITEM);

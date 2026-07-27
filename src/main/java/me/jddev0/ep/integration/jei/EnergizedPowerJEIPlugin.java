@@ -168,6 +168,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.CHARGER_ITEM), ChargerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_CHARGER_ITEM), ChargerCategory.TYPE);
+        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ELITE_CHARGER_ITEM), ChargerCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.CRUSHER_ITEM), CrusherCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM), CrusherCategory.TYPE);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.PULVERIZER_ITEM), PulverizerCategory.TYPE);
