@@ -759,6 +759,10 @@
   "advancements.energizedpower.advanced_minecart_charger.title": "Усовершенствованная зарядка вагонеток",
   "advancements.energizedpower.advanced_minecart_charger.description": "Заряжает вагонетки быстрее.",
 
+  "_template.epcontainer.elite_minecart_charger": "Elite Minecart Charger",
+  "advancements.energizedpower.elite_minecart_charger.title": "Minecart Quick Charging",
+  "advancements.energizedpower.elite_minecart_charger.description": "The best minecart charger of this mod.",
+
   "_template.epcontainer.minecart_uncharger": "Разрядник вагонеток",
   "advancements.energizedpower.minecart_uncharger.title": "Разряди вагонетку!",
   "advancements.energizedpower.minecart_uncharger.description": "Разрядите вагонетку.",

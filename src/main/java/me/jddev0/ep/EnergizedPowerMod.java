@@ -222,6 +222,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.ELITE_UNCHARGER_ITEM);
             event.accept(EPBlocks.MINECART_CHARGER_ITEM);
             event.accept(EPBlocks.ADVANCED_MINECART_CHARGER_ITEM);
+            event.accept(EPBlocks.ELITE_MINECART_CHARGER_ITEM);
             event.accept(EPBlocks.MINECART_UNCHARGER_ITEM);
             event.accept(EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM);
 

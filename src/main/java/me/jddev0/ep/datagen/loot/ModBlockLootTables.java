@@ -184,6 +184,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(EPBlocks.MINECART_CHARGER);
         dropSelf(EPBlocks.ADVANCED_MINECART_CHARGER);
+        dropSelf(EPBlocks.ELITE_MINECART_CHARGER);
 
         dropSelf(EPBlocks.MINECART_UNCHARGER);
         dropSelf(EPBlocks.ADVANCED_MINECART_UNCHARGER);

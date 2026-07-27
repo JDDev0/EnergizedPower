@@ -759,6 +759,10 @@
   "advancements.energizedpower.advanced_minecart_charger.title": "マインカートの発展型充電器",
   "advancements.energizedpower.advanced_minecart_charger.description": "マインカートをより速く充電できます",
 
+  "_template.epcontainer.elite_minecart_charger": "Elite Minecart Charger",
+  "advancements.energizedpower.elite_minecart_charger.title": "Minecart Quick Charging",
+  "advancements.energizedpower.elite_minecart_charger.description": "The best minecart charger of this mod.",
+
   "_template.epcontainer.minecart_uncharger": "マインカートの放電器",
   "advancements.energizedpower.minecart_uncharger.title": "マインカートを放電！",
   "advancements.energizedpower.minecart_uncharger.description": "マインカートを放電できます",
