@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "energizedpower:advanced_uncharger",
+    "C": "#c:gems/crystallized_lapis_lazuli",
+    "E": "energizedpower:elite_machine_frame",
+    "S": "#c:silicon",
+    "e": "#c:plates/energized_alloy"
+  },
+  "pattern": [
+    "eAe",
+    "CEC",
+    "SeS"
+  ],
+  "result": {
+    "id": "energizedpower:elite_uncharger"
+  }
+}

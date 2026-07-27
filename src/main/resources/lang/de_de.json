@@ -744,6 +744,10 @@
   "advancements.energizedpower.advanced_uncharger.title": "Paralleles Entladen",
   "advancements.energizedpower.advanced_uncharger.description": "Entlade Energie-Items in parallel.",
 
+  "_template.epcontainer.elite_uncharger": "Elite Entlader",
+  "advancements.energizedpower.elite_uncharger.title": "Quick Uncharg",
+  "advancements.energizedpower.elite_uncharger.description": "Der beste Entlader dieser Mod.",
+
   "book.energizedpower.page.charger_uncharger.1": "Der Lader kann Items laden und der Entlader kann Items entladen.",
   "book.energizedpower.page.charger_uncharger.2": "Die fortgeschrittene Version vom Lader und Endlader haben 3 Slots und die elite Versionen haben 7 Slots.",
 

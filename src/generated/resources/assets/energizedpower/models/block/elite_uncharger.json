@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "energizedpower:block/elite_uncharger_bottom",
+    "front": "energizedpower:block/elite_uncharger_front",
+    "side": "energizedpower:block/elite_uncharger_side",
+    "top": "energizedpower:block/elite_uncharger_top"
+  }
+}

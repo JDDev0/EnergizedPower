@@ -113,6 +113,10 @@ public final class EPMenuTypes {
 
     public static final MenuType<AdvancedUnchargerMenu> ADVANCED_UNCHARGER_MENU = registerMenuType("advanced_uncharger",
             AdvancedUnchargerMenu::new);
+
+    public static final MenuType<EliteUnchargerMenu> ELITE_UNCHARGER_MENU = registerMenuType("elite_uncharger",
+            EliteUnchargerMenu::new);
+
     public static final MenuType<EnergizerMenu> ENERGIZER_MENU = registerMenuType("energizer",
             EnergizerMenu::new);
 
