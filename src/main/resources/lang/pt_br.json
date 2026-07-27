@@ -759,6 +759,10 @@
   "advancements.energizedpower.advanced_minecart_charger.title": "Carregamento avançado de carrinho de mina",
   "advancements.energizedpower.advanced_minecart_charger.description": "Carrega carrinhos de mina mais rapidamente.",
 
+  "_template.epcontainer.elite_minecart_charger": "Elite Minecart Charger",
+  "advancements.energizedpower.elite_minecart_charger.title": "Minecart Quick Charging",
+  "advancements.energizedpower.elite_minecart_charger.description": "The best minecart charger of this mod.",
+
   "_template.epcontainer.minecart_uncharger": "Descarregador de Carrinho de Mina",
   "advancements.energizedpower.minecart_uncharger.title": "Descarregue o carrinho de mina!",
   "advancements.energizedpower.minecart_uncharger.description": "Descarrega carrinhos de mina.",

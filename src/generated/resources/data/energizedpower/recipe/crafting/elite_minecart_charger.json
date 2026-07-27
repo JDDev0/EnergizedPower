@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:gems/crystallized_lapis_lazuli",
+    "E": "#c:plates/energized_alloy",
+    "H": "energizedpower:elite_charger",
+    "S": "#c:silicon"
+  },
+  "pattern": [
+    "ECE",
+    "SHS",
+    "ECE"
+  ],
+  "result": {
+    "id": "energizedpower:elite_minecart_charger"
+  }
+}
