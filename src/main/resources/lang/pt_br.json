@@ -771,6 +771,10 @@
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Descarregamento avançado de carrinho de mina",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Descarrega carrinhos de mina mais rapidamente.",
 
+  "_template.epcontainer.elite_minecart_uncharger": "Elite Minecart Uncharger",
+  "advancements.energizedpower.elite_minecart_uncharger.title": "Minecart Quick Uncharging",
+  "advancements.energizedpower.elite_minecart_uncharger.description": "The best minecart uncharger of this mod.",
+
   "book.energizedpower.page.minecart_charger_uncharger.1": "O Carregador de Carrinho de Mina pode carregar o Carrinho de Mina com Caixa de Bateria e o Descarregador pode descarregá-lo.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Um Comparador de Redstone pode ser usado para obter o nível de energia atual de um Carrinho de Mina que está sendo carregado ou descarregado.",
   "book.energizedpower.page.minecart_charger_uncharger.3": "As versões Avançadas têm uma taxa de transferência mais alta.",

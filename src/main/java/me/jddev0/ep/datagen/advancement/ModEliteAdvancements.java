@@ -104,6 +104,11 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.ELITE_UNCHARGER_ITEM, "elite_uncharger", AdvancementType.TASK
         );
 
+        AdvancementHolder eliteMinecartUncharger = addAdvancement(
+                advancementOutput, eliteUncharger,
+                EPBlocks.ELITE_MINECART_UNCHARGER_ITEM, "elite_minecart_uncharger", AdvancementType.TASK
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedAlloyIngot,

@@ -2625,6 +2625,17 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "gGg"
         }, itemStackOf(EPBlocks.ADVANCED_MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_UNCHARGER_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'E', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'H', ingredientOf(EPBlocks.ELITE_UNCHARGER_ITEM)
+        ), new String[] {
+                "ECE",
+                "SHS",
+                "ECE"
+        }, itemStackOf(EPBlocks.ELITE_MINECART_UNCHARGER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPItems.BASIC_SOLAR_CELL), Map.of(
                 'G', ingredientOf(Tags.Items.GLASS_PANES_COLORLESS),
                 'R', ingredientOf(Tags.Items.DUSTS_REDSTONE),

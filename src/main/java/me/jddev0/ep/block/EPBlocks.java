@@ -669,6 +669,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ADVANCED_MINECART_UNCHARGER_ITEM = createBlockItem("advanced_minecart_uncharger",
             AdvancedMinecartUnchargerBlock.Item::new, ADVANCED_MINECART_UNCHARGER);
 
+    public static final DeferredBlock<Block> ELITE_MINECART_UNCHARGER = registerBlock("elite_minecart_uncharger",
+            EliteMinecartUnchargerBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> ELITE_MINECART_UNCHARGER_ITEM = createBlockItem("elite_minecart_uncharger",
+            EliteMinecartUnchargerBlock.Item::new, ELITE_MINECART_UNCHARGER);
+
 
     private static DeferredItem<Item> createSolarPanelBlockItem(String name, DeferredBlock<SolarPanelBlock> blockRegistryObject) {
         return createBlockItem(name, props -> new SolarPanelBlock.Item(blockRegistryObject.get(), props,

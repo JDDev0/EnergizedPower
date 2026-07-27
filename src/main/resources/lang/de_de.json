@@ -771,6 +771,10 @@
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Fortgeschrittenes Loren-Entladen",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Entläd Loren schneller.",
 
+  "_template.epcontainer.elite_minecart_uncharger": "Elite Loren-Entlader",
+  "advancements.energizedpower.elite_minecart_uncharger.title": "Loren Quick Uncharge",
+  "advancements.energizedpower.elite_minecart_uncharger.description": "Der beste Loren-Entlader dieser Mod.",
+
   "book.energizedpower.page.minecart_charger_uncharger.1": "Der Loren-Lader kann Batterie-Box-Loren laden und der Loren-Entlader kann diese entladen.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Mit einem Redstone-Komparator kann der aktuelle Ladestand einer Lore, die ge- oder entladen wird, ausgelesen werden.",
   "book.energizedpower.page.minecart_charger_uncharger.3": "Die fortgeschrittenen Versionen haben eine höhere Transferrate.",

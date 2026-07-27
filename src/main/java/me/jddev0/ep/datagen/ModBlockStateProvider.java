@@ -346,6 +346,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         orientableSixDirsBlockWithItem(EPBlocks.MINECART_UNCHARGER, true);
         orientableSixDirsBlockWithItem(EPBlocks.ADVANCED_MINECART_UNCHARGER, true);
+        orientableSixDirsBlockWithItem(EPBlocks.ELITE_MINECART_UNCHARGER, true);
 
         solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_1);
         solarPanelBlockWithItem(EPBlocks.SOLAR_PANEL_2);
