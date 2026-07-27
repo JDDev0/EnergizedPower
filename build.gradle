@@ -23,7 +23,7 @@ repositories {
 	}
 
 	maven {
-		url "https://maven.terraformersmc.com/"
+		url "https://repo.sleeping.town/"
 	}
 
 	maven {
