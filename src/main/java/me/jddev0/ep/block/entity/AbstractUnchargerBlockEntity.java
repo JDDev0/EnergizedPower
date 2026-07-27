@@ -190,29 +190,35 @@ public abstract class AbstractUnchargerBlockEntity
             //All inputs & outputs
             slotGroups.add(SlotGroup.of(allSlots));
 
-            //Only add individual & n - 1 slot groups if more than one thread, otherwise there would be duplicated groups
+            //Only add 0 to n/2 - 1 & n/2 to n - 1 slot groups if more than one thread, otherwise there would be duplicated groups
             if(slotCount > 1) {
-                List<SlotEntry> allInputsExceptFirst = IntStream.range(1, slotCount).mapToObj(SlotEntry::ofInput).toList();
-                List<SlotEntry> allOutputsExceptFirst  = IntStream.range(1, slotCount).mapToObj(SlotEntry::ofOutput).toList();
-                List<SlotEntry> allSlotsExceptFirst  = IntStream.range(1, slotCount).mapToObj(SlotEntry::ofBoth).toList();
+                int firstHalfSlotCount = slotCount/2;
 
-                //First input only
-                slotGroups.add(SlotGroup.of(SlotEntry.ofInput(0)));
+                List<SlotEntry> allInputsFirstHalf = IntStream.range(0, firstHalfSlotCount).mapToObj(SlotEntry::ofInput).toList();
+                List<SlotEntry> allOutputsFirstHalf  = IntStream.range(0, firstHalfSlotCount).mapToObj(SlotEntry::ofOutput).toList();
+                List<SlotEntry> allSlotsFirstHalf  = IntStream.range(0, firstHalfSlotCount).mapToObj(SlotEntry::ofBoth).toList();
 
-                //First output only
-                slotGroups.add(SlotGroup.of(SlotEntry.ofOutput(0)));
+                List<SlotEntry> allInputsSecondHalf = IntStream.range(firstHalfSlotCount, slotCount).mapToObj(SlotEntry::ofInput).toList();
+                List<SlotEntry> allOutputsSecondHalf  = IntStream.range(firstHalfSlotCount, slotCount).mapToObj(SlotEntry::ofOutput).toList();
+                List<SlotEntry> allSlotsSecondHalf  = IntStream.range(firstHalfSlotCount, slotCount).mapToObj(SlotEntry::ofBoth).toList();
 
-                //First input & output
-                slotGroups.add(SlotGroup.of(SlotEntry.ofBoth(0)));
+                //First half input only
+                slotGroups.add(SlotGroup.of(allInputsFirstHalf));
 
-                //All except first input only
-                slotGroups.add(SlotGroup.of(allInputsExceptFirst));
+                //First half output only
+                slotGroups.add(SlotGroup.of(allOutputsFirstHalf));
 
-                //All except first output only
-                slotGroups.add(SlotGroup.of(allOutputsExceptFirst));
+                //First half input & output
+                slotGroups.add(SlotGroup.of(allSlotsFirstHalf));
 
-                //All except first input & output
-                slotGroups.add(SlotGroup.of(allSlotsExceptFirst));
+                //Second half input only
+                slotGroups.add(SlotGroup.of(allInputsSecondHalf));
+
+                //Second half output only
+                slotGroups.add(SlotGroup.of(allOutputsSecondHalf));
+
+                //Second half input & output
+                slotGroups.add(SlotGroup.of(allSlotsSecondHalf));
             }
 
             return slotGroups;

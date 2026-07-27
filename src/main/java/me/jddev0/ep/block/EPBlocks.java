@@ -634,6 +634,11 @@ public final class EPBlocks {
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> ADVANCED_UNCHARGER_ITEM = createBlockItem("advanced_uncharger", ADVANCED_UNCHARGER);
 
+    public static final DeferredBlock<Block> ELITE_UNCHARGER = registerBlock("elite_uncharger",
+            EliteUnchargerBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> ELITE_UNCHARGER_ITEM = createBlockItem("elite_uncharger", ELITE_UNCHARGER);
+
     public static final DeferredBlock<Block> MINECART_CHARGER = registerBlock("minecart_charger",
             MinecartChargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));

@@ -283,6 +283,9 @@ public final class EPBlockEntities {
     public static final Supplier<BlockEntityType<AdvancedUnchargerBlockEntity>> ADVANCED_UNCHARGER_ENTITY = createBlockEntity("advanced_uncharger",
             EPBlocks.ADVANCED_UNCHARGER, AdvancedUnchargerBlockEntity::new);
 
+    public static final Supplier<BlockEntityType<EliteUnchargerBlockEntity>> ELITE_UNCHARGER_ENTITY = createBlockEntity("elite_uncharger",
+            EPBlocks.ELITE_UNCHARGER, EliteUnchargerBlockEntity::new);
+
     public static final Supplier<BlockEntityType<MinecartChargerBlockEntity>> MINECART_CHARGER_ENTITY = createBlockEntity("minecart_charger",
             EPBlocks.MINECART_CHARGER, MinecartChargerBlockEntity::new);
 
@@ -694,6 +697,11 @@ public final class EPBlockEntities {
                 ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ELITE_UNCHARGER_ENTITY, EliteUnchargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ELITE_UNCHARGER_ENTITY, EliteUnchargerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 MINECART_CHARGER_ENTITY, MinecartChargerBlockEntity::getEnergyStorageCapability);

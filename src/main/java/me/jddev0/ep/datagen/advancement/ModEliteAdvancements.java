@@ -94,6 +94,11 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.ELITE_CHARGER_ITEM, "elite_charger", AdvancementType.TASK
         );
 
+        AdvancementHolder eliteUncharger = addAdvancement(
+                advancementOutput, eliteMachineFrame,
+                EPBlocks.ELITE_UNCHARGER_ITEM, "elite_uncharger", AdvancementType.TASK
+        );
+
         AdvancementHolder energizedAlloyPlate = addAdvancement(
                 lookupProvider,
                 advancementOutput, energizedAlloyIngot,
