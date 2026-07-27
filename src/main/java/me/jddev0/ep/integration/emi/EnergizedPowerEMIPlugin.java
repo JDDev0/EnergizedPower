@@ -41,6 +41,10 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
 
+        registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
+        registry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
+        registry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
+
         registry.addWorkstation(VanillaEmiRecipeCategories.STONECUTTING, EmiStack.of(EPBlocks.AUTO_STONECUTTER_ITEM));
 
         registry.addWorkstation(VanillaEmiRecipeCategories.FUEL, EmiStack.of(EPBlocks.COAL_ENGINE_ITEM));

@@ -196,6 +196,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
 
         dropSelf(EPBlocks.POWERED_FURNACE);
         dropSelf(EPBlocks.ADVANCED_POWERED_FURNACE);
+        dropSelf(EPBlocks.ELITE_POWERED_FURNACE);
 
         dropSelf(EPBlocks.LIGHTNING_GENERATOR);
 

@@ -413,6 +413,9 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AdvancedPoweredFurnaceBlockEntity> ADVANCED_POWERED_FURNACE_ENTITY = createBlockEntity("advanced_powered_furnace",
             EPBlocks.ADVANCED_POWERED_FURNACE, AdvancedPoweredFurnaceBlockEntity::new);
 
+    public static final BlockEntityType<ElitePoweredFurnaceBlockEntity> ELITE_POWERED_FURNACE_ENTITY = createBlockEntity("elite_powered_furnace",
+            EPBlocks.ELITE_POWERED_FURNACE, ElitePoweredFurnaceBlockEntity::new);
+
     public static final BlockEntityType<LightningGeneratorBlockEntity> LIGHTING_GENERATOR_ENTITY = createBlockEntity("lightning_generator",
             EPBlocks.LIGHTNING_GENERATOR, LightningGeneratorBlockEntity::new);
 
@@ -821,6 +824,13 @@ public final class EPBlockEntities {
                 ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getFluidHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ADVANCED_POWERED_FURNACE_ENTITY, AdvancedPoweredFurnaceBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ELITE_POWERED_FURNACE_ENTITY, ElitePoweredFurnaceBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Fluid.BLOCK,
+                ELITE_POWERED_FURNACE_ENTITY, ElitePoweredFurnaceBlockEntity::getFluidHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ELITE_POWERED_FURNACE_ENTITY, ElitePoweredFurnaceBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 LIGHTING_GENERATOR_ENTITY, LightningGeneratorBlockEntity::getEnergyStorageCapability);
