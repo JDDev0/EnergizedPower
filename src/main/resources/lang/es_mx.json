@@ -939,8 +939,12 @@
   "advancements.energizedpower.advanced_powered_furnace.title": "Fast smelting",
   "advancements.energizedpower.advanced_powered_furnace.description": "Smelt multiple objetos at once with power.",
 
+  "_template.epcontainer.elite_powered_furnace": "Elite Powered Furnace",
+  "advancements.energizedpower.elite_powered_furnace.title": "Overclocked smelting",
+  "advancements.energizedpower.elite_powered_furnace.description": "The best powered furnace of this mod.",
+
   "book.energizedpower.page.powered_furnaces.1": "Horno eléctricos works like the Furnace. Instead of coal they use power and they are faster than the normal furnace.",
-  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Horno eléctrico has 3 input/output slot pairs.",
+  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs and the elite version has 7 input/output slot pairs.",
 
   "_template.epcontainer.crusher": "Trituradora",
   "advancements.energizedpower.crusher.title": "Crush it",

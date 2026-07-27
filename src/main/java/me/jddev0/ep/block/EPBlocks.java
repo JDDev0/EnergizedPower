@@ -744,6 +744,12 @@ public final class EPBlocks {
                     lightLevel(AdvancedPoweredFurnaceBlock.LIGHT_EMISSION));
     public static final Item ADVANCED_POWERED_FURNACE_ITEM = createBlockItem("advanced_powered_furnace", ADVANCED_POWERED_FURNACE);
 
+    public static final Block ELITE_POWERED_FURNACE = registerBlock("elite_powered_furnace",
+            ElitePoweredFurnaceBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
+                    lightLevel(ElitePoweredFurnaceBlock.LIGHT_EMISSION));
+    public static final Item ELITE_POWERED_FURNACE_ITEM = createBlockItem("elite_powered_furnace", ELITE_POWERED_FURNACE);
+
     public static final Block LIGHTNING_GENERATOR = registerBlock("lightning_generator",
             LightningGeneratorBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).

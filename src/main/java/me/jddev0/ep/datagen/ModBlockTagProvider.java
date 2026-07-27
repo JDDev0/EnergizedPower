@@ -123,6 +123,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
                         EPBlocks.POWERED_FURNACE,
                         EPBlocks.ADVANCED_POWERED_FURNACE,
+                        EPBlocks.ELITE_POWERED_FURNACE,
 
                         EPBlocks.LV_TRANSFORMER_1_TO_N,
                         EPBlocks.LV_TRANSFORMER_3_TO_3,
@@ -297,6 +298,7 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
                         EPBlocks.POWERED_FURNACE,
                         EPBlocks.ADVANCED_POWERED_FURNACE,
+                        EPBlocks.ELITE_POWERED_FURNACE,
 
                         EPBlocks.LV_TRANSFORMER_1_TO_N,
                         EPBlocks.LV_TRANSFORMER_3_TO_3,
