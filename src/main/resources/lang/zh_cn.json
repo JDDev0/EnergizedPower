@@ -744,6 +744,10 @@
   "advancements.energizedpower.advanced_uncharger.title": "并行放电",
   "advancements.energizedpower.advanced_uncharger.description": "并行给能量物品放电。",
 
+  "_template.epcontainer.elite_uncharger": "Elite Uncharger",
+  "advancements.energizedpower.elite_uncharger.title": "Quick Uncharging",
+  "advancements.energizedpower.elite_uncharger.description": "The best uncharger of this mod.",
+
   "book.energizedpower.page.charger_uncharger.1": "充电器可以为物品充电，放电器可以为物品放电。",
   "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
