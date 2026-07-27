@@ -3,7 +3,8 @@
     "energizedpower:minecart_charger",
     "energizedpower:minecart_uncharger",
     "energizedpower:advanced_minecart_charger",
-    "energizedpower:advanced_minecart_uncharger"
+    "energizedpower:advanced_minecart_uncharger",
+    "energizedpower:elite_minecart_charger"
   ],
   "content": {
     "extra": [
