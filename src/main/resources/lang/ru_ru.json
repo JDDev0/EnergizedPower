@@ -771,6 +771,10 @@
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Продвинутая разрядка вагонетки",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Разряжает вагонетки быстрее.",
 
+  "_template.epcontainer.elite_minecart_uncharger": "Elite Minecart Uncharger",
+  "advancements.energizedpower.elite_minecart_uncharger.title": "Minecart Quick Uncharging",
+  "advancements.energizedpower.elite_minecart_uncharger.description": "The best minecart uncharger of this mod.",
+
   "book.energizedpower.page.minecart_charger_uncharger.1": "Зарядник вагонеток может заряжать вагонетки с БатБоксами, а разрядник может разряжать их.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Компаратор красного камня можно использовать для получения текущего уровня мощности вагонетки, которая заряжается или разряжается.",
   "book.energizedpower.page.minecart_charger_uncharger.3": "Продвинутые версии имеют более высокую скорость передачи.",

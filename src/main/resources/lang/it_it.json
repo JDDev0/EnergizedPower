@@ -771,6 +771,10 @@
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Scarico avanzato del carrello da miniera",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "Scarica i carrelli da miniera più velocemente.",
 
+  "_template.epcontainer.elite_minecart_uncharger": "Elite Minecart Uncharger",
+  "advancements.energizedpower.elite_minecart_uncharger.title": "Minecart Quick Uncharging",
+  "advancements.energizedpower.elite_minecart_uncharger.description": "The best minecart uncharger of this mod.",
+
   "book.energizedpower.page.minecart_charger_uncharger.1": "Il caricatore del carrello da miniera può caricare il carrello da miniera con il contenitore della batteria e lo scaricatore può scaricarlo.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Un comparatore Redstone può essere utilizzato per ottenere l'attuale livello di potenza di un carrello da miniera che viene caricato o scaricato.",
   "book.energizedpower.page.minecart_charger_uncharger.3": "Le versioni Avanzate hanno una velocità di trasferimento più elevata.",

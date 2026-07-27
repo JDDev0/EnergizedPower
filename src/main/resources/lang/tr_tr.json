@@ -771,6 +771,10 @@
   "advancements.energizedpower.advanced_minecart_uncharger.title": "Gelişmiş Şarj Düşürme",
   "advancements.energizedpower.advanced_minecart_uncharger.description": "DAHA HIZLI şarj düşürme!",
 
+  "_template.epcontainer.elite_minecart_uncharger": "Elite Minecart Uncharger",
+  "advancements.energizedpower.elite_minecart_uncharger.title": "Minecart Quick Uncharging",
+  "advancements.energizedpower.elite_minecart_uncharger.description": "The best minecart uncharger of this mod.",
+
   "book.energizedpower.page.minecart_charger_uncharger.1": "Minecart Şarj Cihazı, Pil Kutulu Minecart'ı şarj edebilir ve Uncharger ise şarjını boşaltabilir.",
   "book.energizedpower.page.minecart_charger_uncharger.2": "Bir Redstone Karşılaştırıcı, şarj edilen veya şarj edilmeyen bir Minecart'ın mevcut güç seviyesini elde etmek için kullanılabilir.",
   "book.energizedpower.page.minecart_charger_uncharger.3": "Gelişmiş versiyonlar daha yüksek transfer oranına sahiptir.",
