@@ -883,7 +883,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPBlocks.MINECART_UNCHARGER,
                 EPBlocks.ADVANCED_MINECART_CHARGER,
                 EPBlocks.ADVANCED_MINECART_UNCHARGER,
-                EPBlocks.ELITE_MINECART_CHARGER
+                EPBlocks.ELITE_MINECART_CHARGER,
+                EPBlocks.ELITE_MINECART_UNCHARGER
         );
     }
     private void registerEnergyBlocksChapterEnergyStorageSubChapter() {

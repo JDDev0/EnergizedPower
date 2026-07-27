@@ -296,6 +296,9 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AdvancedMinecartUnchargerBlockEntity> ADVANCED_MINECART_UNCHARGER_ENTITY = createBlockEntity("advanced_minecart_uncharger",
             EPBlocks.ADVANCED_MINECART_UNCHARGER, AdvancedMinecartUnchargerBlockEntity::new);
 
+    public static final BlockEntityType<EliteMinecartUnchargerBlockEntity> ELITE_MINECART_UNCHARGER_ENTITY = createBlockEntity("elite_minecart_uncharger",
+            EPBlocks.ELITE_MINECART_UNCHARGER, EliteMinecartUnchargerBlockEntity::new);
+
     private static BlockEntityType<SolarPanelBlockEntity> createSolarPanelBlockEntity(String name, SolarPanelBlock block) {
         return createBlockEntity(name, block, (blockPos, state) -> new SolarPanelBlockEntity(blockPos, state, block.getTier()));
     }
@@ -717,6 +720,9 @@ public final class EPBlockEntities {
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ADVANCED_MINECART_UNCHARGER_ENTITY, AdvancedMinecartUnchargerBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ELITE_MINECART_UNCHARGER_ENTITY, EliteMinecartUnchargerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 SOLAR_PANEL_ENTITY_1, SolarPanelBlockEntity::getEnergyStorageCapability);
