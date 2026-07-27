@@ -172,6 +172,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
 
         dropSelf(EPBlocks.UNCHARGER);
         dropSelf(EPBlocks.ADVANCED_UNCHARGER);
+        dropSelf(EPBlocks.ELITE_UNCHARGER);
 
         dropSelf(EPBlocks.MINECART_CHARGER);
         dropSelf(EPBlocks.ADVANCED_MINECART_CHARGER);

@@ -96,6 +96,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                         EPBlocks.UNCHARGER,
                         EPBlocks.ADVANCED_UNCHARGER,
+                        EPBlocks.ELITE_UNCHARGER,
 
                         EPBlocks.MINECART_CHARGER,
                         EPBlocks.ADVANCED_MINECART_CHARGER,
@@ -267,6 +268,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
                         EPBlocks.UNCHARGER,
                         EPBlocks.ADVANCED_UNCHARGER,
+                        EPBlocks.ELITE_UNCHARGER,
 
                         EPBlocks.MINECART_CHARGER,
                         EPBlocks.ADVANCED_MINECART_CHARGER,

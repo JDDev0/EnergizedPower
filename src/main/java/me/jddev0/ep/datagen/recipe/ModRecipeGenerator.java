@@ -2552,6 +2552,18 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "SGS"
         }, itemStackOf(EPBlocks.ADVANCED_UNCHARGER_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME_ITEM), Map.of(
+                'S', ingredientOf(CommonItemTags.SILICON),
+                'C', ingredientOf(CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI),
+                'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'E', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'A', ingredientOf(EPBlocks.ADVANCED_UNCHARGER_ITEM)
+        ), new String[] {
+                "eAe",
+                "CEC",
+                "SeS"
+        }, itemStackOf(EPBlocks.ELITE_UNCHARGER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.CHARGER_ITEM), Map.of(
                 'C', ingredientOf(ConventionalItemTags.STORAGE_BLOCKS_COPPER),
                 'c', ingredientOf(CommonItemTags.PLATES_COPPER),

@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-27T23:09:41.979049227	Energized Power/Recipes
+// 1.21.1	2026-07-27T23:11:56.784576936	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -525,6 +525,7 @@ bf814cc17962f2b3033bbdbcf4f2bdb439611dc7 data/energizedpower/recipe/metal_press/
 c2f34c084940c54d60d3efefc1fab84701c36dff data/energizedpower/recipe/crafting/hv_transformer_1_to_n.json
 4c42fc3718ee7324ce036d6ed1100ea38c58bb62 data/energizedpower/recipe/growing/soil/clay.json
 3e7f1f0e3f954a34e7c238346d37b7ef80d14bbf data/energizedpower/advancement/recipes/crafting/tin_cable.json
+b3b8d761a02aeb498144f5bfeb8ed5bb7631d820 data/energizedpower/advancement/recipes/crafting/elite_uncharger.json
 8657b946f495f5c17d598e7140f2623d847af1cc data/energizedpower/advancement/recipes/crafting/item_ejector_upgrade_module_4.json
 cfd17efe7c21c49c0f003b1fc7d34b775935d67e data/energizedpower/recipe/crafting/wrench.json
 b8556b74f0432ee8a41af901c2f89a695cb0aad2 data/energizedpower/recipe/crafting/energy_efficiency_upgrade_module_1.json
@@ -922,6 +923,7 @@ e428480edf248a779984fb0029b7f1e53a1f3a03 data/energizedpower/recipe/growing/carr
 e127f299110ab4ca289b90a6051c95c3e8a8aee3 data/energizedpower/advancement/recipes/crafting/speed_upgrade_module_1.json
 77c7d4e9799036ee93c2d2e8b79f01577e29f3cf data/energizedpower/advancement/recipes/blasting/gold_nugget_from_blasting_golden_hammer.json
 b23fc97d3c3ba132162b120da1431a04a68a3872 data/energizedpower/advancement/recipes/crafting/item_ejector_upgrade_module_2.json
+58690cdbc3defe4724c14cecb71206e37dc74754 data/energizedpower/recipe/crafting/elite_uncharger.json
 b537edb8b9e3cd3ef3f77dedbf6f50f6a51002e5 data/energizedpower/recipe/crafting/heat_generator.json
 bc66f6acc6494cb1c9c20da953af9561c125412f data/energizedpower/recipe/crafting/uhv_transformer_n_to_1.json
 5344b60eb0d5c6b82e60a34e409e80a038025f2f data/energizedpower/recipe/assembling/elite_solar_cell.json

@@ -1675,6 +1675,21 @@ public final class ModConfigs {
             1L, null
     ));
 
+    public static final ConfigValue<Long> COMMON_ELITE_UNCHARGER_CAPACITY_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
+            "block.elite_uncharger.capacity_per_slot",
+            "The energy capacity per slot of the Elite Uncharger in E.\n" +
+                    "=> The energy capacity of the block is seven times this value.",
+            2097152L,
+            1L, null
+    ));
+    public static final ConfigValue<Long> COMMON_ELITE_UNCHARGER_TRANSFER_RATE_PER_SLOT = COMMON_CONFIG.register(new LongConfigValue(
+            "block.elite_uncharger.transfer_rate_per_slot",
+            "The energy transfer rate per slot of the Elite Uncharger in E per tick.\n" +
+                    "=> The energy transfer rate of the block is seven times this value.",
+            262144L,
+            1L, null
+    ));
+
     public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt.ticks_per_step",
             "The time required for the Basic Item Conveyor Belt to transport an item one step in ticks per step",
