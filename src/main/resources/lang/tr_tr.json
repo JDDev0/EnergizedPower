@@ -939,8 +939,12 @@
   "advancements.energizedpower.advanced_powered_furnace.title": "Hızlı eritme",
   "advancements.energizedpower.advanced_powered_furnace.description": "Aynı anda birçok cismi erit.",
 
+  "_template.epcontainer.elite_powered_furnace": "Elite Powered Furnace",
+  "advancements.energizedpower.elite_powered_furnace.title": "Overclocked smelting",
+  "advancements.energizedpower.elite_powered_furnace.description": "The best powered furnace of this mod.",
+
   "book.energizedpower.page.powered_furnaces.1": "Güçlü Fırınlar normal Fırın gibidir,sadece elektrik ve hızlı pişirme özelleğine sahiplerdir.",
-  "book.energizedpower.page.powered_furnaces.2": "Gelişmiş versiyon 3 slota sahiptir.",
+  "book.energizedpower.page.powered_furnaces.2": "The advanced version of the Powered Furnace has 3 input/output slot pairs and the elite version has 7 input/output slot pairs.",
 
   "_template.epcontainer.crusher": "Ezici",
   "advancements.energizedpower.crusher.title": "Ez onu!",

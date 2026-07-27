@@ -204,6 +204,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(EPBlocks.POWERED_FURNACE);
         dropSelf(EPBlocks.ADVANCED_POWERED_FURNACE);
+        dropSelf(EPBlocks.ELITE_POWERED_FURNACE);
 
         dropSelf(EPBlocks.LIGHTNING_GENERATOR);
 
