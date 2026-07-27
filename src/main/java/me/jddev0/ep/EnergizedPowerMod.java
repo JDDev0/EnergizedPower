@@ -179,6 +179,7 @@ public class EnergizedPowerMod {
             event.accept(EPBlocks.POWERED_LAMP_ITEM);
             event.accept(EPBlocks.POWERED_FURNACE_ITEM);
             event.accept(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM);
+            event.accept(EPBlocks.ELITE_POWERED_FURNACE_ITEM);
             event.accept(EPBlocks.AUTO_CRAFTER_ITEM);
             event.accept(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM);
             event.accept(EPBlocks.CRUSHER_ITEM);

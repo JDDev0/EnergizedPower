@@ -135,6 +135,9 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<AdvancedPoweredFurnaceMenu>> ADVANCED_POWERED_FURNACE_MENU = registerMenuType("advanced_powered_furnace",
             AdvancedPoweredFurnaceMenu::new);
 
+    public static final Supplier<MenuType<ElitePoweredFurnaceMenu>> ELITE_POWERED_FURNACE_MENU = registerMenuType("elite_powered_furnace",
+            ElitePoweredFurnaceMenu::new);
+
     public static final Supplier<MenuType<WeatherControllerMenu>> WEATHER_CONTROLLER_MENU = registerMenuType("weather_controller",
             WeatherControllerMenu::new);
 

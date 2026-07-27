@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:plates/energized_alloy"
+    },
+    "E": {
+      "item": "energizedpower:elite_machine_frame"
+    },
+    "P": {
+      "item": "energizedpower:advanced_powered_furnace"
+    },
+    "S": {
+      "tag": "c:silicon"
+    }
+  },
+  "pattern": [
+    "CPC",
+    "SES",
+    "CPC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:elite_powered_furnace"
+  }
+}

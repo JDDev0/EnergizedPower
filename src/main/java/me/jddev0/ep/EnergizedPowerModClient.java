@@ -202,6 +202,7 @@ public class EnergizedPowerModClient {
         event.register(EPMenuTypes.COAL_ENGINE_MENU, CoalEngineScreen::new);
         event.register(EPMenuTypes.POWERED_FURNACE_MENU, PoweredFurnaceScreen::new);
         event.register(EPMenuTypes.ADVANCED_POWERED_FURNACE_MENU, AdvancedPoweredFurnaceScreen::new);
+        event.register(EPMenuTypes.ELITE_POWERED_FURNACE_MENU, ElitePoweredFurnaceScreen::new);
         event.register(EPMenuTypes.WEATHER_CONTROLLER_MENU, WeatherControllerScreen::new);
         event.register(EPMenuTypes.TIME_CONTROLLER_MENU, TimeControllerScreen::new);
         event.register(EPMenuTypes.TELEPORTER_MENU, TeleporterScreen::new);

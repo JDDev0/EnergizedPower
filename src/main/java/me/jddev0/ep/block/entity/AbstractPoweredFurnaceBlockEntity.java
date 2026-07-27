@@ -195,30 +195,37 @@ public abstract class AbstractPoweredFurnaceBlockEntity
                 //All inputs & outputs
                 slotGroups.add(SlotGroup.of(allSlots));
 
-                //Only add individual & n - 1 slot groups if more than one thread, otherwise there would be duplicated groups
+                //Only add 0 to n/2 - 1 & n/2 to n - 1 slot groups if more than one thread, otherwise there would be duplicated groups
                 if(workerThreadCount > 1) {
-                    List<SlotEntry> allInputsExceptFirst = IntStream.range(1, workerThreadCount).mapToObj(SlotEntry::ofInput).toList();
-                    List<SlotEntry> allOutputsExceptFirst  = IntStream.range(workerThreadCount + 1, 2 * workerThreadCount).mapToObj(SlotEntry::ofOutput).toList();
-                    List<SlotEntry> allSlotsExceptFirst = new ArrayList<>(allInputsExceptFirst);
-                    allSlotsExceptFirst.addAll(allOutputsExceptFirst);
+                    int firstHalfSlotCount = workerThreadCount/2;
 
-                    //First input only
-                    slotGroups.add(SlotGroup.of(SlotEntry.ofInput(0)));
+                    List<SlotEntry> allInputsFirstHalf = IntStream.range(0, firstHalfSlotCount).mapToObj(SlotEntry::ofInput).toList();
+                    List<SlotEntry> allOutputsFirstHalf  = IntStream.range(workerThreadCount, workerThreadCount + firstHalfSlotCount).mapToObj(SlotEntry::ofOutput).toList();
+                    List<SlotEntry> allSlotsFirstHalf = new ArrayList<>(allInputsFirstHalf);
+                    allSlotsFirstHalf.addAll(allOutputsFirstHalf);
 
-                    //First output only
-                    slotGroups.add(SlotGroup.of(SlotEntry.ofOutput(workerThreadCount)));
+                    List<SlotEntry> allInputsSecondHalf = IntStream.range(firstHalfSlotCount, workerThreadCount).mapToObj(SlotEntry::ofInput).toList();
+                    List<SlotEntry> allOutputsSecondHalf  = IntStream.range(workerThreadCount + firstHalfSlotCount, 2 * workerThreadCount).mapToObj(SlotEntry::ofOutput).toList();
+                    List<SlotEntry> allSlotsSecondHalf = new ArrayList<>(allInputsSecondHalf);
+                    allSlotsSecondHalf.addAll(allOutputsSecondHalf);
 
-                    //First input & output
-                    slotGroups.add(SlotGroup.of(SlotEntry.ofInput(0), SlotEntry.ofOutput(workerThreadCount)));
+                    //First half input only
+                    slotGroups.add(SlotGroup.of(allInputsFirstHalf));
 
-                    //All except first input only
-                    slotGroups.add(SlotGroup.of(allInputsExceptFirst));
+                    //First half output only
+                    slotGroups.add(SlotGroup.of(allOutputsFirstHalf));
 
-                    //All except first output only
-                    slotGroups.add(SlotGroup.of(allOutputsExceptFirst));
+                    //First half input & output
+                    slotGroups.add(SlotGroup.of(allSlotsFirstHalf));
 
-                    //All except first input & output
-                    slotGroups.add(SlotGroup.of(allSlotsExceptFirst));
+                    //Second half input only
+                    slotGroups.add(SlotGroup.of(allInputsSecondHalf));
+
+                    //Second half output only
+                    slotGroups.add(SlotGroup.of(allOutputsSecondHalf));
+
+                    //Second half input & output
+                    slotGroups.add(SlotGroup.of(allSlotsSecondHalf));
                 }
 
                 yield slotGroups;

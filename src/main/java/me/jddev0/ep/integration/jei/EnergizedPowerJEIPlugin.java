@@ -164,6 +164,10 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.BLASTING);
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMOKING);
 
+        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ELITE_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMELTING);
+        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ELITE_POWERED_FURNACE_ITEM.get()), RecipeTypes.BLASTING);
+        registration.addRecipeCatalyst(new ItemStack(EPBlocks.ELITE_POWERED_FURNACE_ITEM.get()), RecipeTypes.SMOKING);
+
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.AUTO_STONECUTTER_ITEM.get()), RecipeTypes.STONECUTTING);
 
         registration.addRecipeCatalyst(new ItemStack(EPBlocks.COAL_ENGINE_ITEM.get()), RecipeTypes.FUELING);
@@ -215,6 +219,10 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
         registerRecipeClickArea(registration, AdvancedPoweredFurnaceScreen.class, 115, 34, 18, 18, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);
+
+        for(int i = 0;i < 7;i++)
+            registerRecipeClickArea(registration, ElitePoweredFurnaceScreen.class, 34 + i * 24, 34, 18, 18, RecipeTypes.SMELTING,
+                    RecipeTypes.BLASTING, RecipeTypes.SMOKING);
 
         registerRecipeClickArea(registration, AutoStonecutterScreen.class, 84, 43, 24, 17, RecipeTypes.STONECUTTING);
 

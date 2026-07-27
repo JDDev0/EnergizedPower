@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-27T22:51:24.504471801	Loot Tables
+// 1.21.1	2026-07-27T22:56:50.570912958	Loot Tables
 72200bb34e5b90912d73801f199f8d1ba1d5f73f data/energizedpower/loot_table/blocks/advanced_alloy_block.json
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
@@ -42,6 +42,7 @@ b55c44680c7da8796f7d384be77796f0c6a4e5a1 data/energizedpower/loot_table/blocks/e
 5e1d7f967ed96754f7a1229dc3cbcb6a862af245 data/energizedpower/loot_table/blocks/elite_machine_frame.json
 7f0f426d1dfc2bf72a4bc3b69517a5c00b851442 data/energizedpower/loot_table/blocks/elite_minecart_charger.json
 2c3eb16b713396b62d8fc8bff18fb3449412762d data/energizedpower/loot_table/blocks/elite_minecart_uncharger.json
+07d5adaa832ace62ae7b1190d08a221dadaf0066 data/energizedpower/loot_table/blocks/elite_powered_furnace.json
 ac1fe2f70cf32c78659e8a6f5ecfd1015a888112 data/energizedpower/loot_table/blocks/elite_uncharger.json
 010568954bcdd8f3ea845b28c6ec70d9654a8532 data/energizedpower/loot_table/blocks/energized_copper_cable.json
 c9981a1746c9462f4621f7c058bc53af47cdd924 data/energizedpower/loot_table/blocks/energized_crystal_matrix_cable.json
