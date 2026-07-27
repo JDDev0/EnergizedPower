@@ -244,6 +244,8 @@ class ModBlockStateProvider {
                 orientableBlockModel(EPBlocks.CHARGER, true));
         orientableBlockWithItem(EPBlocks.ADVANCED_CHARGER,
                 orientableBlockModel(EPBlocks.ADVANCED_CHARGER, true));
+        orientableBlockWithItem(EPBlocks.ELITE_CHARGER,
+                orientableBlockModel(EPBlocks.ELITE_CHARGER, true));
 
         orientableBlockWithItem(EPBlocks.UNCHARGER,
                 orientableBlockModel(EPBlocks.UNCHARGER, true));

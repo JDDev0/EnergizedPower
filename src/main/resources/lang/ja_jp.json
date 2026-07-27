@@ -725,6 +725,10 @@
   "advancements.energizedpower.advanced_charger.title": "同時充電",
   "advancements.energizedpower.advanced_charger.description": "複数のアイテムを同時に充電できます",
 
+  "_template.epcontainer.elite_charger": "Elite Charger",
+  "advancements.energizedpower.elite_charger.title": "Quick Charging",
+  "advancements.energizedpower.elite_charger.description": "The best charger of this mod.",
+
   "tooltip.energizedpower.chargers.txt.shift.1": "充電器は、帯電した銅インゴットを作成できます。",
   "tooltip.energizedpower.chargers.txt.shift.2.1": "ですが、専用機である高エネルギー充電器がおすすめです。",
   "tooltip.energizedpower.chargers.txt.shift.2.2": "充電器だと電力消費が大きいためです。",
@@ -741,7 +745,7 @@
   "advancements.energizedpower.advanced_uncharger.description": "複数のアイテムから同時に電力を回収できます",
 
   "book.energizedpower.page.charger_uncharger.1": "充電器はアイテムを充電し、放電器で放電できます。",
-  "book.energizedpower.page.charger_uncharger.2": "充電器と放電器の上位版には、3つのスロットが搭載されています。",
+  "book.energizedpower.page.charger_uncharger.2": "The advanced version of the Charger and the Uncharger have 3 slots and the elite versions have 7 slots.",
 
   "_template.epcontainer.minecart_charger": "マインカートの充電器",
   "advancements.energizedpower.minecart_charger.title": "マインカートを充電！",

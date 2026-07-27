@@ -270,6 +270,9 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AdvancedChargerBlockEntity> ADVANCED_CHARGER_ENTITY = createBlockEntity("advanced_charger",
             EPBlocks.ADVANCED_CHARGER, AdvancedChargerBlockEntity::new);
 
+    public static final BlockEntityType<EliteChargerBlockEntity> ELITE_CHARGER_ENTITY = createBlockEntity("elite_charger",
+            EPBlocks.ELITE_CHARGER, EliteChargerBlockEntity::new);
+
     public static final BlockEntityType<UnchargerBlockEntity> UNCHARGER_ENTITY = createBlockEntity("uncharger",
             EPBlocks.UNCHARGER, UnchargerBlockEntity::new);
 
@@ -679,6 +682,11 @@ public final class EPBlockEntities {
                 ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 ADVANCED_CHARGER_ENTITY, AdvancedChargerBlockEntity::getEnergyStorageCapability);
+
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                ELITE_CHARGER_ENTITY, EliteChargerBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Energy.BLOCK,
+                ELITE_CHARGER_ENTITY, EliteChargerBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 ADVANCED_UNCHARGER_ENTITY, AdvancedUnchargerBlockEntity::getItemHandlerCapability);

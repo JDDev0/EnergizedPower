@@ -49,7 +49,7 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
 
         registry.add(new ChargerCategory());
         registry.addWorkstations(ChargerDisplay.CATEGORY, EntryStacks.of(EPBlocks.CHARGER_ITEM),
-                EntryStacks.of(EPBlocks.ADVANCED_CHARGER_ITEM));
+                EntryStacks.of(EPBlocks.ADVANCED_CHARGER_ITEM), EntryStacks.of(EPBlocks.ELITE_CHARGER_ITEM));
 
         registry.add(new CrusherCategory());
         registry.addWorkstations(CrusherDisplay.CATEGORY, EntryStacks.of(EPBlocks.CRUSHER_ITEM),
