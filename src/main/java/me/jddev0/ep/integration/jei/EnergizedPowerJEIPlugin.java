@@ -172,6 +172,7 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
         registration.addCraftingStation(ChargerCategory.TYPE, new ItemStack(EPBlocks.CHARGER_ITEM));
         registration.addCraftingStation(ChargerCategory.TYPE, new ItemStack(EPBlocks.ADVANCED_CHARGER_ITEM));
+        registration.addCraftingStation(ChargerCategory.TYPE, new ItemStack(EPBlocks.ELITE_CHARGER_ITEM));
         registration.addCraftingStation(CrusherCategory.TYPE, new ItemStack(EPBlocks.CRUSHER_ITEM));
         registration.addCraftingStation(CrusherCategory.TYPE, new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM));
         registration.addCraftingStation(PulverizerCategory.TYPE, new ItemStack(EPBlocks.PULVERIZER_ITEM));

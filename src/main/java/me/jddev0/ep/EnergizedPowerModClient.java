@@ -129,6 +129,7 @@ public class EnergizedPowerModClient implements ClientModInitializer {
         event.register(EPMenuTypes.DRAIN_MENU, DrainScreen::new);
         event.register(EPMenuTypes.CHARGER_MENU, ChargerScreen::new);
         event.register(EPMenuTypes.ADVANCED_CHARGER_MENU, AdvancedChargerScreen::new);
+        event.register(EPMenuTypes.ELITE_CHARGER_MENU, EliteChargerScreen::new);
         event.register(EPMenuTypes.UNCHARGER_MENU, UnchargerScreen::new);
         event.register(EPMenuTypes.ADVANCED_UNCHARGER_MENU, AdvancedUnchargerScreen::new);
         event.register(EPMenuTypes.ENERGIZER_MENU, EnergizerScreen::new);
