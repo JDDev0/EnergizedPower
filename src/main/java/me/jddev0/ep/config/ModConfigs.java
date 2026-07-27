@@ -980,6 +980,13 @@ public final class ModConfigs {
             "block.elite_minecart_charger", "Elite Minecart Charger", 8388608
     );
 
+    public static final ConfigValue<Integer> COMMON_ELITE_MINECART_UNCHARGER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.elite_minecart_uncharger", "Elite Minecart Uncharger", 67108864
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_MINECART_UNCHARGER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.elite_minecart_uncharger", "Elite Minecart Uncharger", 8388608
+    );
+
     public static final ConfigValue<Integer> COMMON_CRUSHER_CAPACITY = registerEnergyCapacityConfigValue(
             "block.crusher", "Crusher", 2048
     );

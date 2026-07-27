@@ -183,6 +183,9 @@ public final class EPMenuTypes {
     public static final Supplier<MenuType<AdvancedMinecartUnchargerMenu>> ADVANCED_MINECART_UNCHARGER_MENU = registerMenuType("advanced_minecart_uncharger",
             AdvancedMinecartUnchargerMenu::new);
 
+    public static final Supplier<MenuType<EliteMinecartUnchargerMenu>> ELITE_MINECART_UNCHARGER_MENU = registerMenuType("elite_minecart_uncharger",
+            EliteMinecartUnchargerMenu::new);
+
     public static final Supplier<MenuType<InventoryChargerMenu>> INVENTORY_CHARGER_MENU = registerNonBlockMenuType("inventory_charger",
             InventoryChargerMenu::new);
 
