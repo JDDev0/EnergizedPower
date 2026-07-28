@@ -2,7 +2,8 @@
   "block": [
     "energizedpower:item_conveyor_belt_splitter",
     "energizedpower:fast_item_conveyor_belt_splitter",
-    "energizedpower:express_item_conveyor_belt_splitter"
+    "energizedpower:express_item_conveyor_belt_splitter",
+    "energizedpower:turbo_item_conveyor_belt_splitter"
   ],
   "content": {
     "extra": [

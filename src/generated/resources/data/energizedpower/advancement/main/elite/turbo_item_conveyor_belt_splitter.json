@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/turbo_item_conveyor_belt",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:turbo_item_conveyor_belt_splitter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description"
+    },
+    "icon": {
+      "id": "energizedpower:turbo_item_conveyor_belt_splitter"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
