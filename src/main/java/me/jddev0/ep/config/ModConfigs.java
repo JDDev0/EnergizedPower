@@ -587,6 +587,16 @@ public final class ModConfigs {
             16.
     );
 
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_7_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            7,
+            32.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_EJECTOR_8_EFFECT = registerItemEjectorUpgradeModuleEffectValue(
+            8,
+            64.
+    );
+
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_1_EFFECT = registerItemPullingUpgradeModuleEffectValue(
             1,
             .05
@@ -615,6 +625,16 @@ public final class ModConfigs {
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_6_EFFECT = registerItemPullingUpgradeModuleEffectValue(
             6,
             16.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_7_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            7,
+            32.
+    );
+
+    public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_ITEM_PULLING_8_EFFECT = registerItemPullingUpgradeModuleEffectValue(
+            8,
+            64.
     );
 
     public static final ConfigValue<Double> COMMON_UPGRADE_MODULE_XP_EXTRACTION_1_EFFECT = registerXPExtractionUpgradeModuleEffectValue(
