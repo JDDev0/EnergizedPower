@@ -8,6 +8,7 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
+import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.soil.EPSoilTypeTags;
 import me.jddev0.ep.soil.EPSoilTypes;
 import me.jddev0.ep.soil.SoilType;
@@ -4487,20 +4488,20 @@ public class ModRecipeGenerator extends RecipeProvider {
     }
 
     private void addGearMetalPressRecipe(Ingredient input, ItemStackTemplate output) {
-        addMetalPressRecipe(new IngredientWithCount(input, 2), output, itemStackOf(EPItems.GEAR_PRESS_MOLD));
+        addMetalPressRecipe(new IngredientWithCount(input, 2), output, ingredientOf(EnergizedPowerItemTags.METAL_PRESS_MOLDS_GEAR));
     }
     private void addRodMetalPressRecipe(Ingredient input, ItemStackTemplate output) {
-        addMetalPressRecipe(input, output.withCount(2), itemStackOf(EPItems.ROD_PRESS_MOLD));
+        addMetalPressRecipe(input, output.withCount(2), ingredientOf(EnergizedPowerItemTags.METAL_PRESS_MOLDS_ROD));
     }
     private void addWireMetalPressRecipe(Ingredient input, ItemStackTemplate output) {
-        addMetalPressRecipe(input, output.withCount(3), itemStackOf(EPItems.WIRE_PRESS_MOLD));
+        addMetalPressRecipe(input, output.withCount(3), ingredientOf(EnergizedPowerItemTags.METAL_PRESS_MOLDS_WIRE));
     }
     private void addMetalPressRecipe(Ingredient input, ItemStackTemplate output,
-                                     ItemStackTemplate pressMold) {
+                                     Ingredient pressMold) {
         addMetalPressRecipe(new IngredientWithCount(input), output, pressMold);
     }
     private void addMetalPressRecipe(IngredientWithCount input, ItemStackTemplate output,
-                                     ItemStackTemplate pressMold) {
+                                     Ingredient pressMold) {
         Identifier recipeId = EPAPI.id("metal_press/" +
                 getItemName(output.item().value()));
 

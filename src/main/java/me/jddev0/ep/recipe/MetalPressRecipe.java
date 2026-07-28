@@ -21,10 +21,10 @@ import java.util.List;
 
 public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
     private final ItemStackTemplate output;
-    private final ItemStackTemplate pressMold;
+    private final Ingredient pressMold;
     private final IngredientWithCount input;
 
-    public MetalPressRecipe(ItemStackTemplate output, ItemStackTemplate pressMold, IngredientWithCount input) {
+    public MetalPressRecipe(ItemStackTemplate output, Ingredient pressMold, IngredientWithCount input) {
         this.output = output;
         this.pressMold = pressMold;
         this.input = input;
@@ -34,7 +34,7 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         return output;
     }
 
-    public ItemStackTemplate getPressMold() {
+    public Ingredient getPressMold() {
         return pressMold;
     }
 
@@ -47,10 +47,8 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         if(level.isClientSide())
             return false;
 
-        ItemStack pressMold = ItemStackUtils.fromNullableItemStackTemplate(this.pressMold);
-
         return input.input().test(container.getItem(0)) && container.getItem(0).getCount() >= input.count() &&
-                ItemStack.isSameItem(pressMold, container.getItem(1));
+                pressMold.test(container.getItem(1));
     }
 
     @Override
@@ -113,7 +111,7 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
         private static final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(ItemStackTemplate.CODEC.fieldOf("result").forGetter((recipe) -> {
                 return recipe.output;
-            }), ItemStackTemplate.CODEC.fieldOf("pressMold").forGetter((recipe) -> {
+            }), Ingredient.CODEC.fieldOf("pressMold").forGetter((recipe) -> {
                 return recipe.pressMold;
             }), IngredientWithCount.CODEC.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
@@ -128,7 +126,7 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
         private static MetalPressRecipe read(RegistryFriendlyByteBuf buffer) {
             IngredientWithCount input = IngredientWithCount.STREAM_CODEC.decode(buffer);
-            ItemStackTemplate pressMold = ItemStackTemplate.STREAM_CODEC.decode(buffer);
+            Ingredient pressMold = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             ItemStackTemplate output = ItemStackTemplate.STREAM_CODEC.decode(buffer);
 
             return new MetalPressRecipe(output, pressMold, input);
@@ -136,7 +134,7 @@ public class MetalPressRecipe implements EnergizedPowerBaseRecipe<RecipeInput> {
 
         private static void write(RegistryFriendlyByteBuf buffer, MetalPressRecipe recipe) {
             IngredientWithCount.STREAM_CODEC.encode(buffer, recipe.input);
-            ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.pressMold);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.pressMold);
             ItemStackTemplate.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
