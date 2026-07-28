@@ -1744,6 +1744,12 @@ public final class ModConfigs {
             2,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_TURBO_ITEM_CONVEYOR_BELT_TICKS_PER_STEP = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.turbo_item_conveyor_belt.ticks_per_step",
+            "The time required for the Turbo Item Conveyor Belt to transport an item one step in ticks per step",
+            1,
+            1, null
+    ));
 
     public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_loader.ticks_per_item",
@@ -1761,6 +1767,12 @@ public final class ModConfigs {
             "block.express_item_conveyor_belt_loader.ticks_per_item",
             "The time required for the Express Item Conveyor Belt Loader to extract a single item in ticks",
             2,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_TURBO_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.turbo_item_conveyor_belt_loader.ticks_per_item",
+            "The time required for the Turbo Item Conveyor Belt Loader to extract a single item in ticks",
+            1,
             1, null
     ));
 
@@ -1782,6 +1794,12 @@ public final class ModConfigs {
             2,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_TURBO_ITEM_CONVEYOR_BELT_SORTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.turbo_item_conveyor_belt_sorter.ticks_per_item",
+            "The time required for the Turbo Item Conveyor Belt Sorter to process a single item in ticks",
+            1,
+            1, null
+    ));
 
     public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_switch.ticks_per_item",
@@ -1799,6 +1817,12 @@ public final class ModConfigs {
             "block.express_item_conveyor_belt_switch.ticks_per_item",
             "The time required for the Express Item Conveyor Belt Switch to process a single item in ticks",
             2,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_TURBO_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.turbo_item_conveyor_belt_switch.ticks_per_item",
+            "The time required for the Turbo Item Conveyor Belt Switch to process a single item in ticks",
+            1,
             1, null
     ));
 
@@ -1820,6 +1844,12 @@ public final class ModConfigs {
             2,
             1, null
     ));
+    public static final ConfigValue<Integer> COMMON_TURBO_ITEM_CONVEYOR_BELT_SPLITTER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.turbo_item_conveyor_belt_splitter.ticks_per_item",
+            "The time required for the Turbo Item Conveyor Belt Splitter to process a single item in ticks",
+            1,
+            1, null
+    ));
 
     public static final ConfigValue<Integer> COMMON_BASIC_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
             "block.item_conveyor_belt_merger.ticks_per_item",
@@ -1837,6 +1867,12 @@ public final class ModConfigs {
             "block.express_item_conveyor_belt_merger.ticks_per_item",
             "The time required for the Express Item Conveyor Belt Merger to process a single item in ticks",
             2,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_TURBO_ITEM_CONVEYOR_BELT_MERGER_TICKS_PER_ITEM = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.turbo_item_conveyor_belt_merger.ticks_per_item",
+            "The time required for the Turbo Item Conveyor Belt Merger to process a single item in ticks",
+            1,
             1, null
     ));
 
