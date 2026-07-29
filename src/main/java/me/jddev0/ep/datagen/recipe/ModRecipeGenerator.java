@@ -1100,6 +1100,28 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "TiT"
         }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'I', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6)
+        ), new String[] {
+                "CIC",
+                "TET",
+                "CIC"
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_7), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_7), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'I', ingredientOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_7)
+        ), new String[] {
+                "CIC",
+                "TET",
+                "CIC"
+        }, itemStackOf(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_8), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'T', ingredientOf(CommonItemTags.PLATES_TIN),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -1169,6 +1191,28 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "HRH",
                 "TiT"
         }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_6), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_6), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'H', ingredientOf(Items.HOPPER),
+                'E', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'I', ingredientOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_6)
+        ), new String[] {
+                "CIC",
+                "HEH",
+                "CIC"
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_7), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPItems.ITEM_PULLING_UPGRADE_MODULE_7), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'H', ingredientOf(Items.HOPPER),
+                'E', ingredientOf(EPItems.ELITE_UPGRADE_MODULE),
+                'I', ingredientOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_7)
+        ), new String[] {
+                "CIC",
+                "HEH",
+                "CIC"
+        }, itemStackOf(EPItems.ITEM_PULLING_UPGRADE_MODULE_8), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
                 'G', ingredientOf(CommonItemTags.PLATES_GOLD),
