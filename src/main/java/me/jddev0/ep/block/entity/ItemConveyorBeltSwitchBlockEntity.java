@@ -30,6 +30,7 @@ public class ItemConveyorBeltSwitchBlockEntity extends BlockEntity {
             case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
             case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
             case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
+            case TURBO -> ModConfigs.COMMON_TURBO_ITEM_CONVEYOR_BELT_SWITCH_TICKS_PER_ITEM.getValue();
         };
     }
 

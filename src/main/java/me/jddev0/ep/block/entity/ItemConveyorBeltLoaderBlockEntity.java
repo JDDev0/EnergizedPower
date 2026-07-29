@@ -40,6 +40,7 @@ public class ItemConveyorBeltLoaderBlockEntity
                     case BASIC -> "item_conveyor_belt_loader";
                     case FAST -> "fast_item_conveyor_belt_loader";
                     case EXPRESS -> "express_item_conveyor_belt_loader";
+                    case TURBO -> "turbo_item_conveyor_belt_loader";
                 },
 
                 1
@@ -51,6 +52,7 @@ public class ItemConveyorBeltLoaderBlockEntity
             case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
             case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
             case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
+            case TURBO -> ModConfigs.COMMON_TURBO_ITEM_CONVEYOR_BELT_LOADER_TICKS_PER_ITEM.getValue();
         };
     }
 

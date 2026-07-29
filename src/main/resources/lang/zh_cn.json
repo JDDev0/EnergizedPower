@@ -564,6 +564,10 @@
   "advancements.energizedpower.express_item_conveyor_belt.title": "特快物品运输",
   "advancements.energizedpower.express_item_conveyor_belt.description": "合成一个特快物品传送带。",
 
+  "_template.epblock.turbo_item_conveyor_belt": "Turbo Item Conveyor Belt",
+  "advancements.energizedpower.turbo_item_conveyor_belt.title": "Turbo Item Transport",
+  "advancements.energizedpower.turbo_item_conveyor_belt.description": "Craft a Turbo Item Conveyor Belt.",
+
   "_template.epblock.item_conveyor_belt_loader": "基础物品传送带装载机",
   "container.energizedpower.item_conveyor_belt_loader": "基础传送带装载机",
   "advancements.energizedpower.item_conveyor_belt_loader.title": "物品装载器",
@@ -583,6 +587,11 @@
   "container.energizedpower.express_item_conveyor_belt_loader": "极速传送带装载机",
   "advancements.energizedpower.express_item_conveyor_belt_loader.title": "特快物品传送带装载器",
   "advancements.energizedpower.express_item_conveyor_belt_loader.description": "合成一个特快物品传送带装载器。",
+
+  "_template.epblock.turbo_item_conveyor_belt_loader": "Turbo Item Conveyor Belt Loader",
+  "container.energizedpower.turbo_item_conveyor_belt_loader": "Turbo Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.title": "Turbo Item Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.description": "Craft a Turbo Item Conveyor Belt Loader.",
 
   "_template.epblock.item_conveyor_belt_sorter": "基础物品传送带分拣机",
   "container.energizedpower.item_conveyor_belt_sorter": "基础传送带分拣机",
@@ -613,6 +622,11 @@
   "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "特快物品传送带分类器",
   "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "合成一个特快物品传送带分类器。",
 
+  "_template.epblock.turbo_item_conveyor_belt_sorter": "Turbo Item Conveyor Belt Sorter",
+  "container.energizedpower.turbo_item_conveyor_belt_sorter": "Turbo Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.title": "Turbo Item Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.description": "Craft a Turbo Item Conveyor Belt Sorter.",
+
   "_template.epblock.item_conveyor_belt_switch": "基础物品传送带切换器",
   "advancements.energizedpower.item_conveyor_belt_switch.title": "传送带开关",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "选择一个方向。",
@@ -627,6 +641,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_switch.title": "特快物品传送带开关",
   "advancements.energizedpower.express_item_conveyor_belt_switch.description": "合成一个特快物品传送带开关。",
 
+  "_template.epblock.turbo_item_conveyor_belt_switch": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.title": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.description": "Craft a Turbo Item Conveyor Belt Switch.",
+
   "_template.epblock.item_conveyor_belt_splitter": "基础物品传送带分离器",
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "传送带分离器",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "将物品均匀分配到多个输出端。",
@@ -640,6 +658,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "特快物品传送带分离器",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "合成一个特快物品传送带分离器。",
 
+  "_template.epblock.turbo_item_conveyor_belt_splitter": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description": "Craft a Turbo Item Conveyor Belt Splitter.",
+
   "_template.epblock.item_conveyor_belt_merger": "基础物品传送带合并器",
   "advancements.energizedpower.item_conveyor_belt_merger.title": "传送带合并器",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "从多个输入端均匀合并物品。",
@@ -652,6 +674,10 @@
   "_template.epblock.express_item_conveyor_belt_merger": "极速物品传送带合并器",
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "特快物品传送带合并器",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "合成一个特快物品传送带合并器。",
+
+  "_template.epblock.turbo_item_conveyor_belt_merger": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.title": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.description": "Craft a Turbo Item Conveyor Belt Merger.",
 
   "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 

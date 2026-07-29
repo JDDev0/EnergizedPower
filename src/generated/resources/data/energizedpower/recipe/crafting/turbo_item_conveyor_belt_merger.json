@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "#c:plates/advanced_alloy",
+    "C": "#c:plates/crystallized_alloy",
+    "E": "energizedpower:express_item_conveyor_belt_merger",
+    "S": "#c:storage_blocks/silicon",
+    "T": "energizedpower:turbo_item_conveyor_belt"
+  },
+  "pattern": [
+    "CCC",
+    "AEA",
+    "STS"
+  ],
+  "result": {
+    "id": "energizedpower:turbo_item_conveyor_belt_merger"
+  }
+}
