@@ -564,6 +564,10 @@
   "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
   "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Cinta transportadora Express.",
 
+  "_template.epblock.turbo_item_conveyor_belt": "Turbo Item Conveyor Belt",
+  "advancements.energizedpower.turbo_item_conveyor_belt.title": "Turbo Item Transport",
+  "advancements.energizedpower.turbo_item_conveyor_belt.description": "Craft a Turbo Item Conveyor Belt.",
+
   "_template.epblock.item_conveyor_belt_loader": "Cargadora de cinta transportadora básica",
   "container.energizedpower.item_conveyor_belt_loader": "Cargadora de cinta transportadora básica",
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Item Loader",
@@ -583,6 +587,11 @@
   "container.energizedpower.express_item_conveyor_belt_loader": "Cargadora de cinta transportadora Express",
   "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Cinta transportadora Express Loader",
   "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Cinta transportadora Express Loader.",
+
+  "_template.epblock.turbo_item_conveyor_belt_loader": "Turbo Item Conveyor Belt Loader",
+  "container.energizedpower.turbo_item_conveyor_belt_loader": "Turbo Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.title": "Turbo Item Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.description": "Craft a Turbo Item Conveyor Belt Loader.",
 
   "_template.epblock.item_conveyor_belt_sorter": "Clasificador de cinta transportadora básica",
   "container.energizedpower.item_conveyor_belt_sorter": "Clasificador de cinta transportadora básica",
@@ -613,6 +622,11 @@
   "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Cinta transportadora Express Sorter",
   "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Cinta transportadora Express Sorter.",
 
+  "_template.epblock.turbo_item_conveyor_belt_sorter": "Turbo Item Conveyor Belt Sorter",
+  "container.energizedpower.turbo_item_conveyor_belt_sorter": "Turbo Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.title": "Turbo Item Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.description": "Craft a Turbo Item Conveyor Belt Sorter.",
+
   "_template.epblock.item_conveyor_belt_switch": "Interruptor de cinta transportadora básica",
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Conveyor Belt Interruptor de",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Select a direction.",
@@ -627,6 +641,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Cinta transportadora Express Interruptor de",
   "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Cinta transportadora Express Interruptor de.",
 
+  "_template.epblock.turbo_item_conveyor_belt_switch": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.title": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.description": "Craft a Turbo Item Conveyor Belt Switch.",
+
   "_template.epblock.item_conveyor_belt_splitter": "Separador de cinta transportadora básica",
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Conveyor Belt Splitter",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Distribute objetos evenly to multiple outputs.",
@@ -640,6 +658,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Cinta transportadora Express Splitter",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Cinta transportadora Express Splitter.",
 
+  "_template.epblock.turbo_item_conveyor_belt_splitter": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description": "Craft a Turbo Item Conveyor Belt Splitter.",
+
   "_template.epblock.item_conveyor_belt_merger": "Mezclador de cinta transportadora básica",
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Conveyor Belt Mezclador de",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Merge objetos evenly from multiple inputs.",
@@ -652,6 +674,10 @@
   "_template.epblock.express_item_conveyor_belt_merger": "Mezclador de cinta transportadora Express",
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Cinta transportadora Express Mezclador de",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Cinta transportadora Express Mezclador de.",
+
+  "_template.epblock.turbo_item_conveyor_belt_merger": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.title": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.description": "Craft a Turbo Item Conveyor Belt Merger.",
 
   "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "energizedpower:block/turbo_item_conveyor_belt_loader_top",
+    "east": "energizedpower:block/turbo_item_conveyor_belt_loader_side",
+    "north": "energizedpower:block/turbo_item_conveyor_belt_loader_front",
+    "particle": "energizedpower:block/turbo_item_conveyor_belt_loader_top",
+    "south": "energizedpower:block/turbo_item_conveyor_belt_loader_back",
+    "up": "energizedpower:block/turbo_item_conveyor_belt_loader_top",
+    "west": "energizedpower:block/turbo_item_conveyor_belt_loader_side"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/elite/crystallized_alloy_ingot",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "energizedpower:turbo_item_conveyor_belt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.turbo_item_conveyor_belt.description"
+    },
+    "icon": {
+      "id": "energizedpower:turbo_item_conveyor_belt"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.turbo_item_conveyor_belt.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

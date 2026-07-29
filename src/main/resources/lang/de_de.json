@@ -564,6 +564,10 @@
   "advancements.energizedpower.express_item_conveyor_belt.title": "Express-Item-Transport",
   "advancements.energizedpower.express_item_conveyor_belt.description": "Stelle ein Express-Item-Förderband her.",
 
+  "_template.epblock.turbo_item_conveyor_belt": "Turbo-Item-Förderband",
+  "advancements.energizedpower.turbo_item_conveyor_belt.title": "Turbo-Item-Förderband",
+  "advancements.energizedpower.turbo_item_conveyor_belt.description": "Stelle ein Turbo-Item-Förderband her.",
+
   "_template.epblock.item_conveyor_belt_loader": "Basis Item-Förderband-Lader",
   "container.energizedpower.item_conveyor_belt_loader": "Basis Förderband-Lader",
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Item-Lader",
@@ -583,6 +587,11 @@
   "container.energizedpower.express_item_conveyor_belt_loader": "Express-Förderband-Lader",
   "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express-Item-Förderband-Lader",
   "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Stelle einen Express-Item-Förderband-Lader her.",
+
+  "_template.epblock.turbo_item_conveyor_belt_loader": "Turbo-Item-Förderband-Lader",
+  "container.energizedpower.turbo_item_conveyor_belt_loader": "Turbo-Förderband-Lader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.title": "Turbo-Item-Förderband-Lader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.description": "Stelle einen Turbo-Item-Förderband-Lader her.",
 
   "_template.epblock.item_conveyor_belt_sorter": "Basis Item-Förderband-Sortierer",
   "container.energizedpower.item_conveyor_belt_sorter": "Basis Förderband-Sortierer",
@@ -613,6 +622,11 @@
   "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express-Item-Förderband-Sortierer",
   "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Stelle einen Express-Item-Förderband-Sortierer her.",
 
+  "_template.epblock.turbo_item_conveyor_belt_sorter": "Turbo-Item-Förderband-Sortierer",
+  "container.energizedpower.turbo_item_conveyor_belt_sorter": "Turbo-Förderband-Sortierer",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.title": "Turbo-Item-Förderband-Sortierer",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.description": "Stelle einen Turbo-Item-Förderband-Sortierer her.",
+
   "_template.epblock.item_conveyor_belt_switch": "Basis Item-Förderband-Schalter",
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Förderband-Schalter",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Wähle eine Richtung.",
@@ -627,6 +641,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express-Item-Förderband-Schalter",
   "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Stelle einen Express-Item-Förderband-Schalter her.",
 
+  "_template.epblock.turbo_item_conveyor_belt_switch": "Turbo-Item-Förderband-Schalter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.title": "Turbo-Item-Förderband-Schalter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.description": "Stelle einen Turbo-Item-Förderband-Schalter her.",
+
   "_template.epblock.item_conveyor_belt_splitter": "Basis Item-Förderband-Verteiler",
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Förderband-Verteiler",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Verteile Items gleichmäßig auf mehrere Ausgänge.",
@@ -636,9 +654,13 @@
   "advancements.energizedpower.fast_item_conveyor_belt_splitter.title": "Schneller Item-Förderband-Verteiler",
   "advancements.energizedpower.fast_item_conveyor_belt_splitter.description": "Stelle einen schnellen Item-Förderband-Verteiler her.",
 
-  "_template.epblock.express_item_conveyor_belt_splitter": "Express Item-Förderband-Verteiler",
+  "_template.epblock.express_item_conveyor_belt_splitter": "Express-Item-Förderband-Verteiler",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express-Item-Förderband-Verteiler",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Stelle einen Express-Item-Förderband-Verteiler her.",
+
+  "_template.epblock.turbo_item_conveyor_belt_splitter": "Turbo-Item-Förderband-Verteiler",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title": "Turbo-Item-Förderband-Verteiler",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description": "Stelle einen Turbo-Item-Förderband-Verteiler her.",
 
   "_template.epblock.item_conveyor_belt_merger": "Basis Item-Förderband-Vereiniger",
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Förderband-Vereiniger",
@@ -649,9 +671,13 @@
   "advancements.energizedpower.fast_item_conveyor_belt_merger.title": "Schneller Item-Förderband-Vereiniger",
   "advancements.energizedpower.fast_item_conveyor_belt_merger.description": "Stelle einen schnellen Item-Förderband-Vereiniger her.",
 
-  "_template.epblock.express_item_conveyor_belt_merger": "Express Item-Förderband-Vereiniger",
+  "_template.epblock.express_item_conveyor_belt_merger": "Express-Item-Förderband-Vereiniger",
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express-Item-Förderband-Vereiniger",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Stelle einen Express-Item-Förderband-Vereiniger her.",
+
+  "_template.epblock.turbo_item_conveyor_belt_merger": "Turbo-Item-Förderband-Vereiniger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.title": "Turbo-Item-Förderband-Vereiniger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.description": "Stelle einen Turbo-Item-Förderband-Vereiniger her.",
 
   "_template.epblock.copper_fluid_pipe": "Kupfer-Flüssigkeitsrohr",
 

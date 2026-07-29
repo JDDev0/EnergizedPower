@@ -28,7 +28,8 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 add(
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT,
-                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
+                        EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT
                 );
 
         buildTag(BlockTags.MINEABLE_WITH_PICKAXE).
@@ -46,21 +47,27 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER,
 
                         EPBlocks.COPPER_FLUID_PIPE,
                         EPBlocks.IRON_FLUID_PIPE,
@@ -230,16 +237,22 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                         //Basic Item Conveyor Belts and Belt Machines do not require stone tools
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER,
 
                         EPBlocks.COPPER_FLUID_PIPE,
                         EPBlocks.IRON_FLUID_PIPE,
