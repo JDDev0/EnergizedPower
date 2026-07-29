@@ -257,6 +257,26 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
                 EPItems.MOON_LIGHT_UPGRADE_MODULE_5, "moon_light_upgrade_module_5", AdvancementType.TASK
         );
 
+        AdvancementHolder itemEjectorUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_7, "item_ejector_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemEjectorUpgradeModule8 = addAdvancement(
+                advancementOutput, itemEjectorUpgradeModule7,
+                EPItems.ITEM_EJECTOR_UPGRADE_MODULE_8, "item_ejector_upgrade_module_8", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemPullingUpgradeModule7 = addAdvancement(
+                advancementOutput, eliteUpgradeModule,
+                EPItems.ITEM_PULLING_UPGRADE_MODULE_7, "item_pulling_upgrade_module_7", AdvancementType.TASK
+        );
+
+        AdvancementHolder itemPullingUpgradeModule8 = addAdvancement(
+                advancementOutput, itemPullingUpgradeModule7,
+                EPItems.ITEM_PULLING_UPGRADE_MODULE_8, "item_pulling_upgrade_module_8", AdvancementType.TASK
+        );
+
         AdvancementHolder xpExtractionUpgradeModule7 = addAdvancement(
                 advancementOutput, eliteUpgradeModule,
                 EPItems.XP_EXTRACTION_UPGRADE_MODULE_7, "xp_extraction_upgrade_module_7", AdvancementType.TASK

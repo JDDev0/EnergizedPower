@@ -477,6 +477,8 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_4);
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_5);
             event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_6);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_7);
+            event.accept(EPItems.ITEM_EJECTOR_UPGRADE_MODULE_8);
 
             event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_1);
             event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_2);
@@ -484,6 +486,8 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_4);
             event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_5);
             event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_6);
+            event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_7);
+            event.accept(EPItems.ITEM_PULLING_UPGRADE_MODULE_8);
 
             event.accept(EPItems.XP_EXTRACTION_UPGRADE_MODULE_1);
             event.accept(EPItems.XP_EXTRACTION_UPGRADE_MODULE_2);
