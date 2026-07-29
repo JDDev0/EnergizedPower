@@ -3,9 +3,7 @@
   "ingredient": {
     "ingredient": "#c:plates/iron"
   },
-  "pressMold": {
-    "id": "energizedpower:rod_press_mold"
-  },
+  "pressMold": "#energizedpower:metal_press/press_molds/rod",
   "result": {
     "count": 2,
     "id": "energizedpower:iron_rod"

@@ -4,9 +4,7 @@
     "count": 2,
     "ingredient": "#c:plates/iron"
   },
-  "pressMold": {
-    "id": "energizedpower:gear_press_mold"
-  },
+  "pressMold": "#energizedpower:metal_press/press_molds/gear",
   "result": {
     "id": "energizedpower:iron_gear"
   }
