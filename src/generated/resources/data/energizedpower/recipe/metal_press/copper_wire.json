@@ -3,9 +3,7 @@
   "ingredient": {
     "ingredient": "#c:plates/copper"
   },
-  "pressMold": {
-    "id": "energizedpower:wire_press_mold"
-  },
+  "pressMold": "#energizedpower:metal_press/press_molds/wire",
   "result": {
     "count": 3,
     "id": "energizedpower:copper_wire"
