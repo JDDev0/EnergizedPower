@@ -48,7 +48,7 @@ public record MetalPressDisplay(RecipeHolder<MetalPressRecipe> recipe) implement
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.value().getPressMold()),
+                EntryIngredients.ofIngredient(recipe.value().getPressMold()),
                 EntryIngredients.ofItemStacks(recipe.value().getInput().input().items().
                         map(Holder::unwrap).
                         map(registryKeyItemEither -> registryKeyItemEither.map(
