@@ -20,6 +20,8 @@ public class ItemPullingUpgradeModuleItem extends UpgradeModuleItem {
     private static final double ITEM_PULLING_4_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_PULLING_4_EFFECT.getValue();
     private static final double ITEM_PULLING_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_PULLING_5_EFFECT.getValue();
     private static final double ITEM_PULLING_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_PULLING_6_EFFECT.getValue();
+    private static final double ITEM_PULLING_7_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_PULLING_7_EFFECT.getValue();
+    private static final double ITEM_PULLING_8_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_PULLING_8_EFFECT.getValue();
 
     public ItemPullingUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.ITEM_PULLING, tier);
@@ -40,6 +42,8 @@ public class ItemPullingUpgradeModuleItem extends UpgradeModuleItem {
                 case 4 -> ITEM_PULLING_4_EFFECT;
                 case 5 -> ITEM_PULLING_5_EFFECT;
                 case 6 -> ITEM_PULLING_6_EFFECT;
+                case 7 -> ITEM_PULLING_7_EFFECT;
+                case 8 -> ITEM_PULLING_8_EFFECT;
 
                 default -> -1;
             };

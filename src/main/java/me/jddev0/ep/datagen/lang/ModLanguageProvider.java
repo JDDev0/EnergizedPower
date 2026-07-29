@@ -45,8 +45,8 @@ public class ModLanguageProvider extends ExtensionLanguageProvider {
             upgradeModules.put("extraction_depth", 6);
             upgradeModules.put("extraction_range", 6);
             upgradeModules.put("moon_light", 5);
-            upgradeModules.put("item_ejector", 6);
-            upgradeModules.put("item_pulling", 6);
+            upgradeModules.put("item_ejector", 8);
+            upgradeModules.put("item_pulling", 8);
             upgradeModules.put("xp_extraction", 8);
         }
 

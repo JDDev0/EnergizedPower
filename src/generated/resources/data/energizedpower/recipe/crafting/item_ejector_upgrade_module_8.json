@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "#c:plates/energized_alloy",
+    "E": "energizedpower:elite_upgrade_module",
+    "I": "energizedpower:item_ejector_upgrade_module_7",
+    "T": "energizedpower:turbo_item_conveyor_belt"
+  },
+  "pattern": [
+    "CIC",
+    "TET",
+    "CIC"
+  ],
+  "result": {
+    "id": "energizedpower:item_ejector_upgrade_module_8"
+  }
+}

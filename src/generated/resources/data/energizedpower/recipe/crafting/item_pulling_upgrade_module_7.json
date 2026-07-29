@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "#c:plates/energized_alloy",
+    "E": "energizedpower:elite_upgrade_module",
+    "H": "minecraft:hopper",
+    "I": "energizedpower:item_pulling_upgrade_module_6"
+  },
+  "pattern": [
+    "CIC",
+    "HEH",
+    "CIC"
+  ],
+  "result": {
+    "id": "energizedpower:item_pulling_upgrade_module_7"
+  }
+}

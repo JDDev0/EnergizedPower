@@ -297,6 +297,10 @@ public final class EPItems {
             props -> new ItemEjectorUpgradeModuleItem(props, 5));
     public static final Item ITEM_EJECTOR_UPGRADE_MODULE_6 = registerItem("item_ejector_upgrade_module_6",
             props -> new ItemEjectorUpgradeModuleItem(props, 6));
+    public static final Item ITEM_EJECTOR_UPGRADE_MODULE_7 = registerItem("item_ejector_upgrade_module_7",
+            props -> new ItemEjectorUpgradeModuleItem(props, 7));
+    public static final Item ITEM_EJECTOR_UPGRADE_MODULE_8 = registerItem("item_ejector_upgrade_module_8",
+            props -> new ItemEjectorUpgradeModuleItem(props, 8));
 
     public static final Item ITEM_PULLING_UPGRADE_MODULE_1 = registerItem("item_pulling_upgrade_module_1",
             props -> new ItemPullingUpgradeModuleItem(props, 1));
@@ -310,6 +314,10 @@ public final class EPItems {
             props -> new ItemPullingUpgradeModuleItem(props, 5));
     public static final Item ITEM_PULLING_UPGRADE_MODULE_6 = registerItem("item_pulling_upgrade_module_6",
             props -> new ItemPullingUpgradeModuleItem(props, 6));
+    public static final Item ITEM_PULLING_UPGRADE_MODULE_7 = registerItem("item_pulling_upgrade_module_7",
+            props -> new ItemPullingUpgradeModuleItem(props, 7));
+    public static final Item ITEM_PULLING_UPGRADE_MODULE_8 = registerItem("item_pulling_upgrade_module_8",
+            props -> new ItemPullingUpgradeModuleItem(props, 8));
 
     public static final Item XP_EXTRACTION_UPGRADE_MODULE_1 = registerItem("xp_extraction_upgrade_module_1",
             props -> new XPExtractionUpgradeModuleItem(props, 1));
