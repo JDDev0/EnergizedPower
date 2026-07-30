@@ -658,6 +658,16 @@ public final class ModConfigs {
             10.
     );
 
+    public static final ConfigValue<Integer> COMMON_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.gear_press_mold", "Gear Press Mold", 2000
+    );
+    public static final ConfigValue<Integer> COMMON_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.rod_press_mold", "Rod Press Mold", 2000
+    );
+    public static final ConfigValue<Integer> COMMON_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.wire_press_mold", "Wire Press Mold", 2000
+    );
+
     //Blocks
     public static final ConfigValue<Long> COMMON_BATTERY_BOX_CAPACITY = registerEnergyCapacityConfigValue(
             "block.battery_box", "Battery Box", 65536
@@ -2234,6 +2244,15 @@ public final class ModConfigs {
                         NumberUtils.convertToRoman(tier) + ")",
                 defaultValue,
                 0., null
+        ));
+    }
+
+    private static ConfigValue<Integer> registerPressMoldDurabilityValue(String baseConfigKey, String itemName, int defaultValue) {
+        return COMMON_CONFIG.register(new IntegerConfigValue(
+                baseConfigKey + ".max_durability",
+                "The max durability of the " + itemName + "\nIf set to 0 there is no durability (= infinite uses) (the max stack size will also be increased to 64)",
+                defaultValue,
+                0, null
         ));
     }
 
