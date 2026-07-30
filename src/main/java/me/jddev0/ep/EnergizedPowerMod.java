@@ -338,8 +338,17 @@ public class EnergizedPowerMod {
             event.accept(EPItems.RAW_ROD_PRESS_MOLD);
             event.accept(EPItems.RAW_WIRE_PRESS_MOLD);
             event.accept(EPItems.BASIC_GEAR_PRESS_MOLD);
+            event.accept(EPItems.HARDENED_GEAR_PRESS_MOLD);
+            event.accept(EPItems.ADVANCED_GEAR_PRESS_MOLD);
+            event.accept(EPItems.ELITE_GEAR_PRESS_MOLD);
             event.accept(EPItems.BASIC_ROD_PRESS_MOLD);
+            event.accept(EPItems.HARDENED_ROD_PRESS_MOLD);
+            event.accept(EPItems.ADVANCED_ROD_PRESS_MOLD);
+            event.accept(EPItems.ELITE_ROD_PRESS_MOLD);
             event.accept(EPItems.BASIC_WIRE_PRESS_MOLD);
+            event.accept(EPItems.HARDENED_WIRE_PRESS_MOLD);
+            event.accept(EPItems.ADVANCED_WIRE_PRESS_MOLD);
+            event.accept(EPItems.ELITE_WIRE_PRESS_MOLD);
             event.accept(EPItems.SILICON);
             event.accept(EPItems.TIN_DUST);
             event.accept(EPItems.COPPER_DUST);

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": "#c:ingots/crystallized_alloy",
+    "P": "#c:plates/crystallized_alloy",
+    "p": "energizedpower:advanced_rod_press_mold"
+  },
+  "pattern": [
+    "PIP",
+    "IpI",
+    "PIP"
+  ],
+  "result": {
+    "id": "energizedpower:elite_rod_press_mold"
+  }
+}

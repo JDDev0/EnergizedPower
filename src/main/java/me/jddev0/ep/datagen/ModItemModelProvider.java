@@ -100,8 +100,17 @@ public class ModItemModelProvider {
         basicItem(EPItems.RAW_WIRE_PRESS_MOLD);
 
         basicItem(EPItems.BASIC_GEAR_PRESS_MOLD);
+        basicItem(EPItems.HARDENED_GEAR_PRESS_MOLD);
+        basicItem(EPItems.ADVANCED_GEAR_PRESS_MOLD);
+        basicItem(EPItems.ELITE_GEAR_PRESS_MOLD);
         basicItem(EPItems.BASIC_ROD_PRESS_MOLD);
+        basicItem(EPItems.HARDENED_ROD_PRESS_MOLD);
+        basicItem(EPItems.ADVANCED_ROD_PRESS_MOLD);
+        basicItem(EPItems.ELITE_ROD_PRESS_MOLD);
         basicItem(EPItems.BASIC_WIRE_PRESS_MOLD);
+        basicItem(EPItems.HARDENED_WIRE_PRESS_MOLD);
+        basicItem(EPItems.ADVANCED_WIRE_PRESS_MOLD);
+        basicItem(EPItems.ELITE_WIRE_PRESS_MOLD);
 
         basicItem(EPItems.BASIC_SOLAR_CELL);
         basicItem(EPItems.ADVANCED_SOLAR_CELL);

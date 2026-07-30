@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/basics/press_molds",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#energizedpower:metal_press/press_molds/tier/hardened"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.hardened_press_molds.description"
+    },
+    "icon": {
+      "id": "energizedpower:hardened_gear_press_mold"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.hardened_press_molds.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

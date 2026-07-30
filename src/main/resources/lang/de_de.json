@@ -166,6 +166,24 @@
   "advancements.energizedpower.press_molds.title": "Basis Pressform",
   "advancements.energizedpower.press_molds.description": "Gekochte Pressformen können in der Metallpresse verwendet werden.",
 
+  "item.energizedpower.hardened_gear_press_mold": "Gehärtete Zahnrad-Pressform",
+  "item.energizedpower.hardened_rod_press_mold": "Gehärtete Stangen-Pressform",
+  "item.energizedpower.hardened_wire_press_mold": "Gehärtete Draht-Pressform",
+  "advancements.energizedpower.hardened_press_molds.title": "Gehärtete Pressform",
+  "advancements.energizedpower.hardened_press_molds.description": "Gehärtete Pressformen haben eine höhere Haltbarkeit als Basis Pressformen.",
+
+  "item.energizedpower.advanced_gear_press_mold": "Fortgeschrittene Zahnrad-Pressform",
+  "item.energizedpower.advanced_rod_press_mold": "Fortgeschrittene Stangen-Pressform",
+  "item.energizedpower.advanced_wire_press_mold": "Fortgeschrittene Draht-Pressform",
+  "advancements.energizedpower.advanced_press_molds.title": "Fortgeschrittene Pressform",
+  "advancements.energizedpower.advanced_press_molds.description": "Fortgeschrittene Pressformen haben eine höhere Haltbarkeit als gehärtete Pressformen.",
+
+  "item.energizedpower.elite_gear_press_mold": "Elite Zahnrad-Pressform",
+  "item.energizedpower.elite_rod_press_mold": "Elite Stangen-Pressform",
+  "item.energizedpower.elite_wire_press_mold": "Elite Draht-Pressform",
+  "advancements.energizedpower.elite_press_molds.title": "Elite Pressform",
+  "advancements.energizedpower.elite_press_molds.description": "Elite Pressformen haben eine höhere Haltbarkeit als fortgeschrittene Pressformen.",
+
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",
   "advancements.energizedpower.basic_solar_cell.title": "Solarstrom Basics",
   "advancements.energizedpower.basic_solar_cell.description": "Deine erste Solarzelle von zwei, die für dein erstes Panel erforderlich sind.",
