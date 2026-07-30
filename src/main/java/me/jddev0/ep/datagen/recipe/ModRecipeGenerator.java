@@ -80,6 +80,8 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         buildFertilizerCraftingRecipes();
 
+        buildPressMoldCraftingRecipes();
+
         buildUpgradeModuleCraftingRecipes();
 
         buildToolsCraftingRecipes();
@@ -317,6 +319,37 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "GrG",
                 "TGR"
         }, itemStackOf(EPItems.ADVANCED_FERTILIZER, 4), CraftingBookCategory.MISC);
+    }
+    private void buildPressMoldCraftingRecipes() {
+        addPressMoldUpgradeRecipe(EPItems.BASIC_GEAR_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_STEEL), ingredientOf(CommonItemTags.INGOTS_STEEL),
+                itemStackOf(EPItems.HARDENED_GEAR_PRESS_MOLD));
+        addPressMoldUpgradeRecipe(EPItems.BASIC_ROD_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_STEEL), ingredientOf(CommonItemTags.INGOTS_STEEL),
+                itemStackOf(EPItems.HARDENED_ROD_PRESS_MOLD));
+        addPressMoldUpgradeRecipe(EPItems.BASIC_WIRE_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_STEEL), ingredientOf(CommonItemTags.INGOTS_STEEL),
+                itemStackOf(EPItems.HARDENED_WIRE_PRESS_MOLD));
+
+        addPressMoldUpgradeRecipe(EPItems.HARDENED_GEAR_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY), ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                itemStackOf(EPItems.ADVANCED_GEAR_PRESS_MOLD));
+        addPressMoldUpgradeRecipe(EPItems.HARDENED_ROD_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY), ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                itemStackOf(EPItems.ADVANCED_ROD_PRESS_MOLD));
+        addPressMoldUpgradeRecipe(EPItems.HARDENED_WIRE_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY), ingredientOf(CommonItemTags.INGOTS_ADVANCED_ALLOY),
+                itemStackOf(EPItems.ADVANCED_WIRE_PRESS_MOLD));
+
+        addPressMoldUpgradeRecipe(EPItems.ADVANCED_GEAR_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY), ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
+                itemStackOf(EPItems.ELITE_GEAR_PRESS_MOLD));
+        addPressMoldUpgradeRecipe(EPItems.ADVANCED_ROD_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY), ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
+                itemStackOf(EPItems.ELITE_ROD_PRESS_MOLD));
+        addPressMoldUpgradeRecipe(EPItems.ADVANCED_WIRE_PRESS_MOLD,
+                ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY), ingredientOf(CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY),
+                itemStackOf(EPItems.ELITE_WIRE_PRESS_MOLD));
     }
     private void buildUpgradeModuleCraftingRecipes() {
         addShapedCraftingRecipe(has(EPItems.BASIC_UPGRADE_MODULE), Map.of(
@@ -4045,6 +4078,17 @@ public class ModRecipeGenerator extends RecipeProvider {
                 "iIi",
                 "iIi"
         }, cableItem, CraftingBookCategory.MISC, getItemName(cableItem.item().value()));
+    }
+    private void addPressMoldUpgradeRecipe(ItemLike pressMoldPreviousTier, Ingredient plate, Ingredient ingot, ItemStackTemplate pressMoldItem) {
+        addShapedCraftingRecipe(has(pressMoldPreviousTier), Map.of(
+                'P', plate,
+                'I', ingot,
+                'p', ingredientOf(pressMoldPreviousTier)
+        ), new String[] {
+                "PIP",
+                "IpI",
+                "PIP"
+        }, pressMoldItem, CraftingBookCategory.MISC);
     }
     private void addEliteUpgradeModuleRecipe(ItemLike upgradeModulePreviousTier, ItemStackTemplate upgradeModuleItem) {
         addShapedCraftingRecipe(has(upgradeModulePreviousTier), Map.of(
