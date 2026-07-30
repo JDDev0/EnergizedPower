@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-30T19:39:42.405553275	Advancements
+// 1.21.1	2026-07-31T00:47:07.611721141	Advancements
 f3b8999fc7c12f2fd7f510d35406d677b457a760 data/energizedpower/advancement/main/advanced/advanced_alloy_ingot.json
 89c1c7ef87c8c50e1f7dbb67442125e730fa928d data/energizedpower/advancement/main/advanced/advanced_alloy_plate.json
 de6621b52b3485d7937459c0b49fb544a62858dd data/energizedpower/advancement/main/advanced/advanced_auto_crafter.json
@@ -202,7 +202,7 @@ a707221677312f81118ca3585d4f6cfa60dab694 data/energizedpower/advancement/main/ba
 51813eda851febb9bd9f6d80eea7ba123662d7a1 data/energizedpower/advancement/main/basics/powered_furnace.json
 cb1a66ef4ac6400e6aeb17ad72619910a6f2d0fb data/energizedpower/advancement/main/basics/powered_lamp.json
 d1686feb8c76af8cda3f9b1b52140fcb491dae0a data/energizedpower/advancement/main/basics/press_mold_maker.json
-ccaee5d885c35d5c5fdef4fdb5d88ead8813d350 data/energizedpower/advancement/main/basics/press_molds.json
+6782c582801b4649b308e6e7b8275f55443c2b0f data/energizedpower/advancement/main/basics/press_molds.json
 52078872aab3cb9888596166e364c2075192cddf data/energizedpower/advancement/main/basics/pulverizer.json
 c7d861ae719b31a45a16ab82b888d185c4f4af66 data/energizedpower/advancement/main/basics/raw_press_molds.json
 8b483317e7247f27207fe5d09f5a08eedfc96d4f data/energizedpower/advancement/main/basics/redstone_alloy_ingot.json

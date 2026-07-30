@@ -15,6 +15,9 @@ public final class EnergizedPowerItemTags {
     public static final TagKey<Item> METAL_PRESS_MOLDS = TagKey.create(Registries.ITEM,
             EPAPI.id("metal_press/press_molds"));
 
+    public static final TagKey<Item> METAL_PRESS_MOLDS_TIER_BASIC = TagKey.create(Registries.ITEM,
+            EPAPI.id("metal_press/press_molds/tier/basic"));
+
     public static final TagKey<Item> METAL_PRESS_MOLDS_GEAR = TagKey.create(Registries.ITEM,
             EPAPI.id("metal_press/press_molds/gear"));
     public static final TagKey<Item> METAL_PRESS_MOLDS_ROD = TagKey.create(Registries.ITEM,

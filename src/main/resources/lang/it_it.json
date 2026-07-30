@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "Stampo per pressa grezza",
   "advancements.energizedpower.raw_press_molds.description": "Usa le palline di argilla per creare uno stampo per pressa grezza. (Non dimenticare di cucinarlo...)",
 
-  "item.energizedpower.gear_press_mold": "Stampo pressa ingranaggi",
-  "item.energizedpower.rod_press_mold": "Stampo pressa barra",
-  "item.energizedpower.wire_press_mold": "Stampo pressa Filo",
-  "advancements.energizedpower.press_molds.title": "Stampa stampo",
+  "item.energizedpower.gear_press_mold": "Basic Gear Press Mold",
+  "item.energizedpower.rod_press_mold": "Basic Rod Press Mold",
+  "item.energizedpower.wire_press_mold": "Basic Wire Press Mold",
+  "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "Gli stampi per pressa cotti possono essere utilizzati nella pressa per metallo.",
 
   "item.energizedpower.basic_solar_cell": "Cella solare di base",
