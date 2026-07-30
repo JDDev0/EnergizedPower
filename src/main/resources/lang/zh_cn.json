@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "粗制冲压模具",
   "advancements.energizedpower.raw_press_molds.description": "使用粘土球制作粗制冲压模具。(别忘了烧制它...)",
 
-  "item.energizedpower.gear_press_mold": "齿轮压模",
-  "item.energizedpower.rod_press_mold": "杆压模",
-  "item.energizedpower.wire_press_mold": "线压模",
-  "advancements.energizedpower.press_molds.title": "冲压模具",
+  "item.energizedpower.gear_press_mold": "Basic Gear Press Mold",
+  "item.energizedpower.rod_press_mold": "Basic Rod Press Mold",
+  "item.energizedpower.wire_press_mold": "Basic Wire Press Mold",
+  "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "烧制后的冲压模具可用于金属压机。",
 
   "item.energizedpower.basic_solar_cell": "基础太阳能板",

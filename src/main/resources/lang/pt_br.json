@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "Molde de Prensa Bruto",
   "advancements.energizedpower.raw_press_molds.description": "Use Bolas de Argila para fazer um Molde de Prensa Bruto. (Não se esqueça de assá-lo...)",
 
-  "item.energizedpower.gear_press_mold": "Molde de Prensa de Engrenagem",
-  "item.energizedpower.rod_press_mold": "Molde de Prensa de Haste",
-  "item.energizedpower.wire_press_mold": "Molde de Prensa de Fio",
-  "advancements.energizedpower.press_molds.title": "Molde de Prensa",
+  "item.energizedpower.gear_press_mold": "Basic Gear Press Mold",
+  "item.energizedpower.rod_press_mold": "Basic Rod Press Mold",
+  "item.energizedpower.wire_press_mold": "Basic Wire Press Mold",
+  "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "Moldes de Prensa assados podem ser usados na Prensa de Metal.",
 
   "item.energizedpower.basic_solar_cell": "Célula Solar Básica",

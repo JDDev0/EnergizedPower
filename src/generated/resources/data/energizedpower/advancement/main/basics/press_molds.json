@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "#energizedpower:metal_press/press_molds"
+            "items": "#energizedpower:metal_press/press_molds/tier/basic"
           }
         ]
       },
