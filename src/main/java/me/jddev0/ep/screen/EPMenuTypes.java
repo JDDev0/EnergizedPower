@@ -37,12 +37,16 @@ public final class EPMenuTypes {
             ItemConveyorBeltLoaderMenu::new);
     public static final Supplier<MenuType<ItemConveyorBeltLoaderMenu>> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("express_item_conveyor_belt_loader",
             ItemConveyorBeltLoaderMenu::new);
+    public static final Supplier<MenuType<ItemConveyorBeltLoaderMenu>> TURBO_ITEM_CONVEYOR_BELT_LOADER_MENU = registerMenuType("turbo_item_conveyor_belt_loader",
+            ItemConveyorBeltLoaderMenu::new);
 
     public static final Supplier<MenuType<ItemConveyorBeltSorterMenu>> BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("item_conveyor_sorter_loader",
             ItemConveyorBeltSorterMenu::new);
     public static final Supplier<MenuType<ItemConveyorBeltSorterMenu>> FAST_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("fast_conveyor_sorter_loader",
             ItemConveyorBeltSorterMenu::new);
     public static final Supplier<MenuType<ItemConveyorBeltSorterMenu>> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("express_conveyor_sorter_loader",
+            ItemConveyorBeltSorterMenu::new);
+    public static final Supplier<MenuType<ItemConveyorBeltSorterMenu>> TURBO_ITEM_CONVEYOR_BELT_SORTER_MENU = registerMenuType("turbo_conveyor_sorter_loader",
             ItemConveyorBeltSorterMenu::new);
 
     public static final Supplier<MenuType<AutoCrafterMenu>> AUTO_CRAFTER_MENU = registerMenuType("auto_crafter",

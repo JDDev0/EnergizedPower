@@ -1511,6 +1511,17 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "GSG"
         }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY), Map.of(
+                'R', ingredientOf(CommonItemTags.INGOTS_REDSTONE_ALLOY),
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM)
+        ), new String[] {
+                "RCR",
+                "AEA",
+                "RCR"
+        }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
                 'c', ingredientOf(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM),
@@ -1544,6 +1555,18 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "sFs",
                 "SES"
         }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM)
+        ), new String[] {
+                "CCC",
+                "AEA",
+                "STS"
+        }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1579,6 +1602,18 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "sFs",
                 "SES"
         }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM)
+        ), new String[] {
+                "CCC",
+                "AEA",
+                "STS"
+        }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER_ITEM), CraftingBookCategory.MISC);
 
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
@@ -1616,6 +1651,18 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SES"
         }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM)
+        ), new String[] {
+                "CCC",
+                "AEA",
+                "STS"
+        }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -1651,6 +1698,18 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "SES"
         }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM)
+        ), new String[] {
+                "CCC",
+                "AEA",
+                "STS"
+        }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM), Map.of(
                 'C', ingredientOf(Tags.Items.COBBLESTONES_NORMAL),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON),
@@ -1685,6 +1744,19 @@ public class ModRecipeGenerator extends RecipeProvider implements IConditionBuil
                 "sFs",
                 "SES"
         }, itemStackOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
+
+        addShapedCraftingRecipe(has(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM), Map.of(
+                'C', ingredientOf(CommonItemTags.PLATES_CRYSTALLIZED_ALLOY),
+                'A', ingredientOf(CommonItemTags.PLATES_ADVANCED_ALLOY),
+                'S', ingredientOf(CommonItemTags.STORAGE_BLOCKS_SILICON),
+                'T', ingredientOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM),
+                'E', ingredientOf(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM)
+        ), new String[] {
+                "CCC",
+                "AEA",
+                "STS"
+        }, itemStackOf(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(CommonItemTags.PLATES_IRON), Map.of(
                 'B', ingredientOf(Tags.Items.BARRELS_WOODEN),
                 'I', ingredientOf(CommonItemTags.PLATES_IRON)

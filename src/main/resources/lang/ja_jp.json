@@ -564,6 +564,10 @@
   "advancements.energizedpower.express_item_conveyor_belt.title": "特急型アイテムコンベア",
   "advancements.energizedpower.express_item_conveyor_belt.description": "特急型アイテムコンベアを作成する",
 
+  "_template.epblock.turbo_item_conveyor_belt": "Turbo Item Conveyor Belt",
+  "advancements.energizedpower.turbo_item_conveyor_belt.title": "Turbo Item Transport",
+  "advancements.energizedpower.turbo_item_conveyor_belt.description": "Craft a Turbo Item Conveyor Belt.",
+
   "_template.epblock.item_conveyor_belt_loader": "基本型アイテムコンベア搬入機",
   "container.energizedpower.item_conveyor_belt_loader": "基本型アイテムコンベア搬入機",
   "advancements.energizedpower.item_conveyor_belt_loader.title": "アイテム搬入機",
@@ -583,6 +587,11 @@
   "container.energizedpower.express_item_conveyor_belt_loader": "特急型アイテムコンベア搬入機",
   "advancements.energizedpower.express_item_conveyor_belt_loader.title": "特急型アイテムコンベア搬入機",
   "advancements.energizedpower.express_item_conveyor_belt_loader.description": "特急型アイテムコンベア搬入機を作成する",
+
+  "_template.epblock.turbo_item_conveyor_belt_loader": "Turbo Item Conveyor Belt Loader",
+  "container.energizedpower.turbo_item_conveyor_belt_loader": "Turbo Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.title": "Turbo Item Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.description": "Craft a Turbo Item Conveyor Belt Loader.",
 
   "_template.epblock.item_conveyor_belt_sorter": "基本型アイテムコンベア仕分け機",
   "container.energizedpower.item_conveyor_belt_sorter": "基本型アイテムコンベア仕分け機",
@@ -613,6 +622,11 @@
   "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "特急型アイテムコンベア仕分け機",
   "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "特急型アイテムコンベア仕分け機を作成する",
 
+  "_template.epblock.turbo_item_conveyor_belt_sorter": "Turbo Item Conveyor Belt Sorter",
+  "container.energizedpower.turbo_item_conveyor_belt_sorter": "Turbo Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.title": "Turbo Item Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.description": "Craft a Turbo Item Conveyor Belt Sorter.",
+
   "_template.epblock.item_conveyor_belt_switch": "基本型アイテムコンベア分岐機",
   "advancements.energizedpower.item_conveyor_belt_switch.title": "アイテムコンベア分岐機",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "搬出方向を選択できます",
@@ -627,6 +641,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_switch.title": "特急型アイテムコンベア分岐機",
   "advancements.energizedpower.express_item_conveyor_belt_switch.description": "特急型アイテムコンベア分岐機を作成する",
 
+  "_template.epblock.turbo_item_conveyor_belt_switch": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.title": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.description": "Craft a Turbo Item Conveyor Belt Switch.",
+
   "_template.epblock.item_conveyor_belt_splitter": "基本型アイテムコンベア分配機",
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "アイテムコンベア分配機",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "アイテムを複数の搬出先へ均等に分配します",
@@ -640,6 +658,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "特急型アイテムコンベア分配機",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "特急型アイテムコンベア分配機を作成する",
 
+  "_template.epblock.turbo_item_conveyor_belt_splitter": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description": "Craft a Turbo Item Conveyor Belt Splitter.",
+
   "_template.epblock.item_conveyor_belt_merger": "基本型アイテムコンベア合流機",
   "advancements.energizedpower.item_conveyor_belt_merger.title": "アイテムコンベア合流機",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "複数の搬入先からアイテムを均等に合流させる",
@@ -652,6 +674,10 @@
   "_template.epblock.express_item_conveyor_belt_merger": "特急型アイテムコンベア合流機",
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "特急型アイテムコンベア合流機",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "特急型アイテムコンベア合流機を作成する",
+
+  "_template.epblock.turbo_item_conveyor_belt_merger": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.title": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.description": "Craft a Turbo Item Conveyor Belt Merger.",
 
   "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 

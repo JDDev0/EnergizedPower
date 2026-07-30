@@ -106,6 +106,11 @@ public final class EPBlocks {
                     strength(2.5f, 3.0f).sound(SoundType.METAL));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("express_item_conveyor_belt",
             (block, props) -> new ItemConveyorBeltBlock.Item(block, props, ConveyorBeltTier.EXPRESS), EXPRESS_ITEM_CONVEYOR_BELT);
+    public static final DeferredBlock<ItemConveyorBeltBlock> TURBO_ITEM_CONVEYOR_BELT = registerBlock("turbo_item_conveyor_belt",
+            props -> new ItemConveyorBeltBlock(ConveyorBeltTier.TURBO, props), BlockBehaviour.Properties.of().noCollission().
+                    strength(2.5f, 3.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> TURBO_ITEM_CONVEYOR_BELT_ITEM = createBlockItem("turbo_item_conveyor_belt",
+            (block, props) -> new ItemConveyorBeltBlock.Item(block, props, ConveyorBeltTier.TURBO), TURBO_ITEM_CONVEYOR_BELT);
 
     public static final DeferredBlock<ItemConveyorBeltLoaderBlock> BASIC_ITEM_CONVEYOR_BELT_LOADER = registerBlock("item_conveyor_belt_loader",
             props -> new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
@@ -119,6 +124,10 @@ public final class EPBlocks {
             props -> new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("express_item_conveyor_belt_loader", EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
+    public static final DeferredBlock<ItemConveyorBeltLoaderBlock> TURBO_ITEM_CONVEYOR_BELT_LOADER = registerBlock("turbo_item_conveyor_belt_loader",
+            props -> new ItemConveyorBeltLoaderBlock(ConveyorBeltTier.TURBO, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
+    public static final DeferredItem<Item> TURBO_ITEM_CONVEYOR_BELT_LOADER_ITEM = createBlockItem("turbo_item_conveyor_belt_loader", TURBO_ITEM_CONVEYOR_BELT_LOADER);
 
     public static final DeferredBlock<ItemConveyorBeltSorterBlock> BASIC_ITEM_CONVEYOR_BELT_SORTER = registerBlock("item_conveyor_belt_sorter",
             props -> new ItemConveyorBeltSorterBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
@@ -132,6 +141,10 @@ public final class EPBlocks {
             props -> new ItemConveyorBeltSorterBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("express_item_conveyor_belt_sorter", EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
+    public static final DeferredBlock<ItemConveyorBeltSorterBlock> TURBO_ITEM_CONVEYOR_BELT_SORTER = registerBlock("turbo_item_conveyor_belt_sorter",
+            props -> new ItemConveyorBeltSorterBlock(ConveyorBeltTier.TURBO, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
+    public static final DeferredItem<Item> TURBO_ITEM_CONVEYOR_BELT_SORTER_ITEM = createBlockItem("turbo_item_conveyor_belt_sorter", TURBO_ITEM_CONVEYOR_BELT_SORTER);
 
     public static final DeferredBlock<ItemConveyorBeltSwitchBlock> BASIC_ITEM_CONVEYOR_BELT_SWITCH = registerBlock("item_conveyor_belt_switch",
             props -> new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
@@ -145,6 +158,10 @@ public final class EPBlocks {
             props -> new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("express_item_conveyor_belt_switch", EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final DeferredBlock<ItemConveyorBeltSwitchBlock> TURBO_ITEM_CONVEYOR_BELT_SWITCH = registerBlock("turbo_item_conveyor_belt_switch",
+            props -> new ItemConveyorBeltSwitchBlock(ConveyorBeltTier.TURBO, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
+    public static final DeferredItem<Item> TURBO_ITEM_CONVEYOR_BELT_SWITCH_ITEM = createBlockItem("turbo_item_conveyor_belt_switch", TURBO_ITEM_CONVEYOR_BELT_SWITCH);
 
     public static final DeferredBlock<ItemConveyorBeltSplitterBlock> BASIC_ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("item_conveyor_belt_splitter",
             props -> new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
@@ -158,6 +175,10 @@ public final class EPBlocks {
             props -> new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("express_item_conveyor_belt_splitter", EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final DeferredBlock<ItemConveyorBeltSplitterBlock> TURBO_ITEM_CONVEYOR_BELT_SPLITTER = registerBlock("turbo_item_conveyor_belt_splitter",
+            props -> new ItemConveyorBeltSplitterBlock(ConveyorBeltTier.TURBO, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
+    public static final DeferredItem<Item> TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ITEM = createBlockItem("turbo_item_conveyor_belt_splitter", TURBO_ITEM_CONVEYOR_BELT_SPLITTER);
 
     public static final DeferredBlock<ItemConveyorBeltMergerBlock> BASIC_ITEM_CONVEYOR_BELT_MERGER = registerBlock("item_conveyor_belt_merger",
             props -> new ItemConveyorBeltMergerBlock(ConveyorBeltTier.BASIC, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
@@ -171,6 +192,10 @@ public final class EPBlocks {
             props -> new ItemConveyorBeltMergerBlock(ConveyorBeltTier.EXPRESS, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
                     instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
     public static final DeferredItem<Item> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("express_item_conveyor_belt_merger", EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
+    public static final DeferredBlock<ItemConveyorBeltMergerBlock> TURBO_ITEM_CONVEYOR_BELT_MERGER = registerBlock("turbo_item_conveyor_belt_merger",
+            props -> new ItemConveyorBeltMergerBlock(ConveyorBeltTier.TURBO, props), BlockBehaviour.Properties.of().mapColor(MapColor.STONE).
+                    instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.STONE));
+    public static final DeferredItem<Item> TURBO_ITEM_CONVEYOR_BELT_MERGER_ITEM = createBlockItem("turbo_item_conveyor_belt_merger", TURBO_ITEM_CONVEYOR_BELT_MERGER);
 
     public static final DeferredBlock<FluidPipeBlock> COPPER_FLUID_PIPE = registerBlock("copper_fluid_pipe",
             props -> new FluidPipeBlock(FluidPipeTier.COPPER, props), FluidPipeTier.COPPER.getProperties());

@@ -57,9 +57,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM,
                         EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM,
                         EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM,
                         EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM,
+                        EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER_ITEM,
 
                         EPBlocks.ITEM_SILO_TINY_ITEM,
                         EPBlocks.ITEM_SILO_SMALL_ITEM,

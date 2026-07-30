@@ -564,6 +564,10 @@
   "advancements.energizedpower.express_item_conveyor_belt.title": "Экспресс транспортировка предметов",
   "advancements.energizedpower.express_item_conveyor_belt.description": "Создайте экспресс конвейерную ленту.",
 
+  "_template.epblock.turbo_item_conveyor_belt": "Turbo Item Conveyor Belt",
+  "advancements.energizedpower.turbo_item_conveyor_belt.title": "Turbo Item Transport",
+  "advancements.energizedpower.turbo_item_conveyor_belt.description": "Craft a Turbo Item Conveyor Belt.",
+
   "_template.epblock.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
   "container.energizedpower.item_conveyor_belt_loader": "Базовый загрузчик конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Загрузка предметов",
@@ -583,6 +587,11 @@
   "container.energizedpower.express_item_conveyor_belt_loader": "Экспресс загрузчик конвейерной ленты",
   "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Экспресс загрузка предметов",
   "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Создайте экспресс загрузчик конвейерной ленты.",
+
+  "_template.epblock.turbo_item_conveyor_belt_loader": "Turbo Item Conveyor Belt Loader",
+  "container.energizedpower.turbo_item_conveyor_belt_loader": "Turbo Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.title": "Turbo Item Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.description": "Craft a Turbo Item Conveyor Belt Loader.",
 
   "_template.epblock.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
   "container.energizedpower.item_conveyor_belt_sorter": "Базовый сортировщик конвейерной ленты",
@@ -613,6 +622,11 @@
   "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Экспресс автоматическая сортировка",
   "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Создайте экспресс сортировщик конвейерной ленты.",
 
+  "_template.epblock.turbo_item_conveyor_belt_sorter": "Turbo Item Conveyor Belt Sorter",
+  "container.energizedpower.turbo_item_conveyor_belt_sorter": "Turbo Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.title": "Turbo Item Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.description": "Craft a Turbo Item Conveyor Belt Sorter.",
+
   "_template.epblock.item_conveyor_belt_switch": "Базовый переключатель конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Переключение конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Выберите направление.",
@@ -627,6 +641,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Экспресс переключение конвейерной ленты",
   "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Создайте экспресс переключатель конвейерной ленты.",
 
+  "_template.epblock.turbo_item_conveyor_belt_switch": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.title": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.description": "Craft a Turbo Item Conveyor Belt Switch.",
+
   "_template.epblock.item_conveyor_belt_splitter": "Базовый разветвитель конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Разветвление конвейерных лент",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Равномерно распределите предметы по нескольким выходам.",
@@ -640,6 +658,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Экспресс разветвление конвейерных лент",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Создайте экспресс разветвитель конвейерной ленты.",
 
+  "_template.epblock.turbo_item_conveyor_belt_splitter": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description": "Craft a Turbo Item Conveyor Belt Splitter.",
+
   "_template.epblock.item_conveyor_belt_merger": "Базовый объединитель конвейерной ленты",
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Объединение конвейерных лент",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Равномерно объединяйте предметы из нескольких источников.",
@@ -652,6 +674,10 @@
   "_template.epblock.express_item_conveyor_belt_merger": "Экспресс объединитель конвейерной ленты",
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Экспресс объединение конвейерных лент",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Создайте экспресс объединитель конвейерной ленты.",
+
+  "_template.epblock.turbo_item_conveyor_belt_merger": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.title": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.description": "Craft a Turbo Item Conveyor Belt Merger.",
 
   "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 

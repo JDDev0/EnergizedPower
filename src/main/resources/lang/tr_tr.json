@@ -564,6 +564,10 @@
   "advancements.energizedpower.express_item_conveyor_belt.title": "Express Item Transport",
   "advancements.energizedpower.express_item_conveyor_belt.description": "Craft an Express Item Conveyor Belt.",
 
+  "_template.epblock.turbo_item_conveyor_belt": "Turbo Item Conveyor Belt",
+  "advancements.energizedpower.turbo_item_conveyor_belt.title": "Turbo Item Transport",
+  "advancements.energizedpower.turbo_item_conveyor_belt.description": "Craft a Turbo Item Conveyor Belt.",
+
   "_template.epblock.item_conveyor_belt_loader": "Basic Item Conveyor Belt Loader",
   "container.energizedpower.item_conveyor_belt_loader": "Basic Conveyor Belt Loader",
   "advancements.energizedpower.item_conveyor_belt_loader.title": "Eşya Yükleyici",
@@ -583,6 +587,11 @@
   "container.energizedpower.express_item_conveyor_belt_loader": "Express Conveyor Belt Loader",
   "advancements.energizedpower.express_item_conveyor_belt_loader.title": "Express Item Conveyor Belt Loader",
   "advancements.energizedpower.express_item_conveyor_belt_loader.description": "Craft an Express Item Conveyor Belt Loader.",
+
+  "_template.epblock.turbo_item_conveyor_belt_loader": "Turbo Item Conveyor Belt Loader",
+  "container.energizedpower.turbo_item_conveyor_belt_loader": "Turbo Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.title": "Turbo Item Conveyor Belt Loader",
+  "advancements.energizedpower.turbo_item_conveyor_belt_loader.description": "Craft a Turbo Item Conveyor Belt Loader.",
 
   "_template.epblock.item_conveyor_belt_sorter": "Basic Item Conveyor Belt Sorter",
   "container.energizedpower.item_conveyor_belt_sorter": "Basic Conveyor Belt Sorter",
@@ -613,6 +622,11 @@
   "advancements.energizedpower.express_item_conveyor_belt_sorter.title": "Express Item Conveyor Belt Sorter",
   "advancements.energizedpower.express_item_conveyor_belt_sorter.description": "Craft an Express Item Conveyor Belt Sorter.",
 
+  "_template.epblock.turbo_item_conveyor_belt_sorter": "Turbo Item Conveyor Belt Sorter",
+  "container.energizedpower.turbo_item_conveyor_belt_sorter": "Turbo Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.title": "Turbo Item Conveyor Belt Sorter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_sorter.description": "Craft a Turbo Item Conveyor Belt Sorter.",
+
   "_template.epblock.item_conveyor_belt_switch": "Basic Item Conveyor Belt Switch",
   "advancements.energizedpower.item_conveyor_belt_switch.title": "Konveyor Şalteri",
   "advancements.energizedpower.item_conveyor_belt_switch.description": "Hangi yön?.",
@@ -627,6 +641,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_switch.title": "Express Item Conveyor Belt Switch",
   "advancements.energizedpower.express_item_conveyor_belt_switch.description": "Craft an Express Item Conveyor Belt Switch.",
 
+  "_template.epblock.turbo_item_conveyor_belt_switch": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.title": "Turbo Item Conveyor Belt Switch",
+  "advancements.energizedpower.turbo_item_conveyor_belt_switch.description": "Craft a Turbo Item Conveyor Belt Switch.",
+
   "_template.epblock.item_conveyor_belt_splitter": "Basic Item Conveyor Belt Splitter",
   "advancements.energizedpower.item_conveyor_belt_splitter.title": "Konveyor Ayırma",
   "advancements.energizedpower.item_conveyor_belt_splitter.description": "Tüm eşyaları farklı çıkışlara ayır.",
@@ -640,6 +658,10 @@
   "advancements.energizedpower.express_item_conveyor_belt_splitter.title": "Express Item Conveyor Belt Splitter",
   "advancements.energizedpower.express_item_conveyor_belt_splitter.description": "Craft an Express Item Conveyor Belt Splitter.",
 
+  "_template.epblock.turbo_item_conveyor_belt_splitter": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.title": "Turbo Item Conveyor Belt Splitter",
+  "advancements.energizedpower.turbo_item_conveyor_belt_splitter.description": "Craft a Turbo Item Conveyor Belt Splitter.",
+
   "_template.epblock.item_conveyor_belt_merger": "Basic Item Conveyor Belt Merger",
   "advancements.energizedpower.item_conveyor_belt_merger.title": "Konveyor Birleştirici",
   "advancements.energizedpower.item_conveyor_belt_merger.description": "Eşyaları bir çok farklı çıkıştan birleştir.",
@@ -652,6 +674,10 @@
   "_template.epblock.express_item_conveyor_belt_merger": "Express Item Conveyor Belt Merger",
   "advancements.energizedpower.express_item_conveyor_belt_merger.title": "Express Item Conveyor Belt Merger",
   "advancements.energizedpower.express_item_conveyor_belt_merger.description": "Craft an Express Item Conveyor Belt Merger.",
+
+  "_template.epblock.turbo_item_conveyor_belt_merger": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.title": "Turbo Item Conveyor Belt Merger",
+  "advancements.energizedpower.turbo_item_conveyor_belt_merger.description": "Craft a Turbo Item Conveyor Belt Merger.",
 
   "_template.epblock.copper_fluid_pipe": "Copper Fluid Pipe",
 

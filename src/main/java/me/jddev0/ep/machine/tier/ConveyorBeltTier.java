@@ -9,13 +9,14 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public enum ConveyorBeltTier {
-    BASIC, FAST, EXPRESS;
+    BASIC, FAST, EXPRESS, TURBO;
 
     public ItemConveyorBeltBlock getItemConveyorBeltBlockFromTier() {
         return switch(this) {
             case BASIC -> EPBlocks.BASIC_ITEM_CONVEYOR_BELT.get();
             case FAST -> EPBlocks.FAST_ITEM_CONVEYOR_BELT.get();
             case EXPRESS -> EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT.get();
+            case TURBO -> EPBlocks.TURBO_ITEM_CONVEYOR_BELT.get();
         };
     }
 
@@ -24,6 +25,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY.get();
             case FAST -> EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY.get();
             case EXPRESS -> EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get();
+            case TURBO -> EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_ENTITY.get();
         };
     }
 
@@ -32,6 +34,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER.get();
             case FAST -> EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER.get();
             case EXPRESS -> EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER.get();
+            case TURBO -> EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER.get();
         };
     }
 
@@ -40,6 +43,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get();
             case FAST -> EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get();
             case EXPRESS -> EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get();
+            case TURBO -> EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_LOADER_ENTITY.get();
         };
     }
 
@@ -48,6 +52,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_LOADER_MENU.get();
             case FAST -> EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_LOADER_MENU.get();
             case EXPRESS -> EPMenuTypes.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_MENU.get();
+            case TURBO -> EPMenuTypes.TURBO_ITEM_CONVEYOR_BELT_LOADER_MENU.get();
         };
     }
 
@@ -56,6 +61,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER.get();
             case FAST -> EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER.get();
             case EXPRESS -> EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER.get();
+            case TURBO -> EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER.get();
         };
     }
 
@@ -64,6 +70,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_MERGER_ENTITY.get();
             case FAST -> EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_MERGER_ENTITY.get();
             case EXPRESS -> EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ENTITY.get();
+            case TURBO -> EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_MERGER_ENTITY.get();
         };
     }
 
@@ -72,6 +79,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER.get();
             case FAST -> EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER.get();
             case EXPRESS -> EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER.get();
+            case TURBO -> EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER.get();
         };
     }
 
@@ -80,6 +88,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_SORTER_ENTITY.get();
             case FAST -> EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_SORTER_ENTITY.get();
             case EXPRESS -> EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ENTITY.get();
+            case TURBO -> EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_SORTER_ENTITY.get();
         };
     }
 
@@ -88,6 +97,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPMenuTypes.BASIC_ITEM_CONVEYOR_BELT_SORTER_MENU.get();
             case FAST -> EPMenuTypes.FAST_ITEM_CONVEYOR_BELT_SORTER_MENU.get();
             case EXPRESS -> EPMenuTypes.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_MENU.get();
+            case TURBO -> EPMenuTypes.TURBO_ITEM_CONVEYOR_BELT_SORTER_MENU.get();
         };
     }
 
@@ -96,6 +106,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER.get();
             case FAST -> EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER.get();
             case EXPRESS -> EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER.get();
+            case TURBO -> EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER.get();
         };
     }
 
@@ -104,6 +115,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get();
             case FAST -> EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get();
             case EXPRESS -> EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get();
+            case TURBO -> EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY.get();
         };
     }
 
@@ -112,6 +124,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH.get();
             case FAST -> EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH.get();
             case EXPRESS -> EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH.get();
+            case TURBO -> EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH.get();
         };
     }
 
@@ -120,6 +133,7 @@ public enum ConveyorBeltTier {
             case BASIC -> EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get();
             case FAST -> EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get();
             case EXPRESS -> EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get();
+            case TURBO -> EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_SWITCH_ENTITY.get();
         };
     }
 }

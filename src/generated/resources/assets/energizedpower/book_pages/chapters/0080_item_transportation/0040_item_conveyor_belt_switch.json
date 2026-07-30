@@ -2,7 +2,8 @@
   "block": [
     "energizedpower:item_conveyor_belt_switch",
     "energizedpower:fast_item_conveyor_belt_switch",
-    "energizedpower:express_item_conveyor_belt_switch"
+    "energizedpower:express_item_conveyor_belt_switch",
+    "energizedpower:turbo_item_conveyor_belt_switch"
   ],
   "content": {
     "extra": [

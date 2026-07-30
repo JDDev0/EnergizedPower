@@ -103,6 +103,8 @@ public final class EPBlockEntities {
             createItemConveyorBeltBlockEntity("fast_item_conveyor_belt", EPBlocks.FAST_ITEM_CONVEYOR_BELT);
     public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_ENTITY =
             createItemConveyorBeltBlockEntity("express_item_conveyor_belt", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltBlockEntity>> TURBO_ITEM_CONVEYOR_BELT_ENTITY =
+            createItemConveyorBeltBlockEntity("turbo_item_conveyor_belt", EPBlocks.TURBO_ITEM_CONVEYOR_BELT);
 
     private static Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> createItemConveyorBeltLoaderBlockEntity(
             String name,
@@ -116,6 +118,8 @@ public final class EPBlockEntities {
             createItemConveyorBeltLoaderBlockEntity("fast_item_conveyor_belt_loader", EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER);
     public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
             createItemConveyorBeltLoaderBlockEntity("express_item_conveyor_belt_loader", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltLoaderBlockEntity>> TURBO_ITEM_CONVEYOR_BELT_LOADER_ENTITY =
+            createItemConveyorBeltLoaderBlockEntity("turbo_item_conveyor_belt_loader", EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER);
 
     private static Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> createItemConveyorBeltSorterBlockEntity(
             String name,
@@ -129,6 +133,8 @@ public final class EPBlockEntities {
             createItemConveyorBeltSorterBlockEntity("fast_item_conveyor_belt_sorter", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER);
     public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
             createItemConveyorBeltSorterBlockEntity("express_item_conveyor_belt_sorter", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSorterBlockEntity>> TURBO_ITEM_CONVEYOR_BELT_SORTER_ENTITY =
+            createItemConveyorBeltSorterBlockEntity("turbo_item_conveyor_belt_sorter", EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER);
 
     private static Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> createItemConveyorBeltSwitchBlockEntity(
             String name,
@@ -142,6 +148,8 @@ public final class EPBlockEntities {
             createItemConveyorBeltSwitchBlockEntity("fast_item_conveyor_belt_switch", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH);
     public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
             createItemConveyorBeltSwitchBlockEntity("express_item_conveyor_belt_switch", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSwitchBlockEntity>> TURBO_ITEM_CONVEYOR_BELT_SWITCH_ENTITY =
+            createItemConveyorBeltSwitchBlockEntity("turbo_item_conveyor_belt_switch", EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH);
 
     private static Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> createItemConveyorBeltSplitterBlockEntity(
             String name,
@@ -155,6 +163,8 @@ public final class EPBlockEntities {
             createItemConveyorBeltSplitterBlockEntity("fast_conveyor_belt_splitter", EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER);
     public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
             createItemConveyorBeltSplitterBlockEntity("express_conveyor_belt_splitter", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltSplitterBlockEntity>> TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ENTITY =
+            createItemConveyorBeltSplitterBlockEntity("turbo_conveyor_belt_splitter", EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER);
 
     private static Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> createItemConveyorBeltMergerBlockEntity(
             String name,
@@ -168,6 +178,8 @@ public final class EPBlockEntities {
             createItemConveyorBeltMergerBlockEntity("fast_item_conveyor_belt_merger", EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER);
     public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
             createItemConveyorBeltMergerBlockEntity("express_item_conveyor_belt_merger", EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER);
+    public static final Supplier<BlockEntityType<ItemConveyorBeltMergerBlockEntity>> TURBO_ITEM_CONVEYOR_BELT_MERGER_ENTITY =
+            createItemConveyorBeltMergerBlockEntity("turbo_item_conveyor_belt_merger", EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER);
 
     public static final Supplier<BlockEntityType<CableBlockEntity>> TIN_CABLE_ENTITY = createBlockEntity("tin_cable",
             EPBlocks.TIN_CABLE, (blockPos, state) -> new CableBlockEntity(blockPos, state, CableTier.TIN));
@@ -506,6 +518,8 @@ public final class EPBlockEntities {
                 FAST_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 EXPRESS_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                TURBO_ITEM_CONVEYOR_BELT_ENTITY, ItemConveyorBeltBlockEntity::getItemHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 BASIC_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
@@ -513,6 +527,8 @@ public final class EPBlockEntities {
                 FAST_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
+        event.registerBlockEntity(Capabilities.Item.BLOCK,
+                TURBO_ITEM_CONVEYOR_BELT_LOADER_ENTITY, ItemConveyorBeltLoaderBlockEntity::getItemHandlerCapability);
 
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
                 TIN_CABLE_ENTITY, CableBlockEntity::getEnergyStorageCapability);
