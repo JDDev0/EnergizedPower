@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "Rohe Pressform",
   "advancements.energizedpower.raw_press_molds.description": "Benutze Tonklumpen, um rohe Pressformen zu machen. (Vergiss nicht aufs Kochen...)",
 
-  "item.energizedpower.gear_press_mold": "Zahnrad-Pressform",
-  "item.energizedpower.rod_press_mold": "Stangen-Pressform",
-  "item.energizedpower.wire_press_mold": "Draht-Pressform",
-  "advancements.energizedpower.press_molds.title": "Pressform",
+  "item.energizedpower.gear_press_mold": "Basis Zahnrad-Pressform",
+  "item.energizedpower.rod_press_mold": "Basis Stangen-Pressform",
+  "item.energizedpower.wire_press_mold": "Basis Draht-Pressform",
+  "advancements.energizedpower.press_molds.title": "Basis Pressform",
   "advancements.energizedpower.press_molds.description": "Gekochte Pressformen können in der Metallpresse verwendet werden.",
 
   "item.energizedpower.basic_solar_cell": "Basis Solarzelle",

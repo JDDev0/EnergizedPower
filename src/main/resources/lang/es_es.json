@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "Raw Press Mold",
   "advancements.energizedpower.raw_press_molds.description": "Use Clay Balls to make a Raw Press Mold. (Don't forget to cook it...)",
 
-  "item.energizedpower.gear_press_mold": "Molde de prensa de engrane",
-  "item.energizedpower.rod_press_mold": "Molde de prensa de barra",
-  "item.energizedpower.wire_press_mold": "Molde de prensa de cable",
-  "advancements.energizedpower.press_molds.title": "Press Mold",
+  "item.energizedpower.gear_press_mold": "Basic Gear Press Mold",
+  "item.energizedpower.rod_press_mold": "Basic Rod Press Mold",
+  "item.energizedpower.wire_press_mold": "Basic Wire Press Mold",
+  "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "Cooked Press Molds can be used in the Prensa de metal.",
 
   "item.energizedpower.basic_solar_cell": "Célula solar básica",
