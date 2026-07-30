@@ -98,9 +98,9 @@ class ModItemModelProvider {
         basicItem(EPItems.RAW_ROD_PRESS_MOLD);
         basicItem(EPItems.RAW_WIRE_PRESS_MOLD);
 
-        basicItem(EPItems.GEAR_PRESS_MOLD);
-        basicItem(EPItems.ROD_PRESS_MOLD);
-        basicItem(EPItems.WIRE_PRESS_MOLD);
+        basicItem(EPItems.BASIC_GEAR_PRESS_MOLD);
+        basicItem(EPItems.BASIC_ROD_PRESS_MOLD);
+        basicItem(EPItems.BASIC_WIRE_PRESS_MOLD);
 
         basicItem(EPItems.BASIC_SOLAR_CELL);
         basicItem(EPItems.ADVANCED_SOLAR_CELL);

@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "未製錬の成形型",
   "advancements.energizedpower.raw_press_molds.description": "粘土玉から成形型を作成する(かまどで焼くのを忘れずに！)",
 
-  "item.energizedpower.gear_press_mold": "製錬された歯車の成形型",
-  "item.energizedpower.rod_press_mold": "製錬された棒の成形型",
-  "item.energizedpower.wire_press_mold": "製錬されたワイヤーの成形型",
-  "advancements.energizedpower.press_molds.title": "成形型",
+  "item.energizedpower.gear_press_mold": "Basic Gear Press Mold",
+  "item.energizedpower.rod_press_mold": "Basic Rod Press Mold",
+  "item.energizedpower.wire_press_mold": "Basic Wire Press Mold",
+  "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "出来上がった成形型は金属成型機で使用できます",
 
   "item.energizedpower.basic_solar_cell": "基本型ソーラーセル",

@@ -47,11 +47,16 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 addTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_ROD).
                 addTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_WIRE);
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_GEAR).
-                add(EPItems.GEAR_PRESS_MOLD);
+                add(EPItems.BASIC_GEAR_PRESS_MOLD);
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_ROD).
-                add(EPItems.ROD_PRESS_MOLD);
+                add(EPItems.BASIC_ROD_PRESS_MOLD);
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_WIRE).
-                add(EPItems.WIRE_PRESS_MOLD);
+                add(EPItems.BASIC_WIRE_PRESS_MOLD);
+
+        buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_BASIC).
+                add(EPItems.BASIC_GEAR_PRESS_MOLD,
+                        EPItems.BASIC_ROD_PRESS_MOLD,
+                        EPItems.BASIC_WIRE_PRESS_MOLD);
 
         buildTag(CompatibilityItemTags.AE2_ITEM_P2P_TUNNEL_ATTUNEMENTS).
                 add(

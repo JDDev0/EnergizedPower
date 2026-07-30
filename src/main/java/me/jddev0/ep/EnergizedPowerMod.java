@@ -340,9 +340,9 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPItems.RAW_GEAR_PRESS_MOLD);
             event.accept(EPItems.RAW_ROD_PRESS_MOLD);
             event.accept(EPItems.RAW_WIRE_PRESS_MOLD);
-            event.accept(EPItems.GEAR_PRESS_MOLD);
-            event.accept(EPItems.ROD_PRESS_MOLD);
-            event.accept(EPItems.WIRE_PRESS_MOLD);
+            event.accept(EPItems.BASIC_GEAR_PRESS_MOLD);
+            event.accept(EPItems.BASIC_ROD_PRESS_MOLD);
+            event.accept(EPItems.BASIC_WIRE_PRESS_MOLD);
             event.accept(EPItems.SILICON);
             event.accept(EPItems.TIN_DUST);
             event.accept(EPItems.COPPER_DUST);
