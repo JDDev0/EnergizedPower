@@ -9,6 +9,7 @@ import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
+import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageMenu;
 import me.jddev0.ep.screen.base.IConfigurableMenu;
 import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
@@ -141,7 +142,8 @@ public class MetalPressMenu extends ConfigurableIOUpgradableEnergyStorageMenu<Me
         if(index < 4 * 9) {
             //Player inventory slot -> Merge into upgrade module inventory, Merge into tile inventory
             if(!moveUpgradeModuleItemStackTo(sourceItem, 4 * 9 + 3, 4 * 9 + 3 + 5, player, 0, 4 * 9, false) &&
-                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 2, false)) {
+                    !movePressMoldItemStackTo(sourceItem, 4 * 9 + 1, 4 * 9 + 2, player, 0, 4 * 9, false) &&
+                    !moveItemStackTo(sourceItem, 4 * 9, 4 * 9 + 1, false)) {
                 //"+2" instead of "+3": Do not allow adding to output slot
                 return ItemStack.EMPTY;
             }
@@ -162,5 +164,50 @@ public class MetalPressMenu extends ConfigurableIOUpgradableEnergyStorageMenu<Me
         sourceSlot.onTake(player, sourceItem);
 
         return sourceItemCopy;
+    }
+
+    private boolean movePressMoldItemStackTo(
+            ItemStack sourceItemStack,
+            int startSlot, int endSlot,
+            Player player, int playerStartSlot, int playerEndSlot,
+            boolean backwards
+    ) {
+        if(!(sourceItemStack.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS))) {
+            return false;
+        }
+
+        boolean anythingChanged = false;
+
+        int destSlot = backwards?endSlot - 1:startSlot;
+        while(!sourceItemStack.isEmpty() && (backwards?destSlot >= startSlot:destSlot < endSlot)) {
+            Slot targetSlot = slots.get(destSlot);
+            ItemStack targetItemStack = targetSlot.getItem();
+            if(!ItemStack.isSameItemSameComponents(sourceItemStack, targetItemStack)) {
+                if(targetItemStack.isEmpty()) {
+                    anythingChanged |= moveItemStackTo(sourceItemStack, destSlot, destSlot + 1, backwards);
+                }else if(targetItemStack.is(EnergizedPowerItemTags.METAL_PRESS_MOLDS)) {
+                    if(moveItemStackTo(targetItemStack, playerStartSlot, playerEndSlot, backwards)) {
+                        anythingChanged = true;
+
+                        if(targetItemStack.getCount() == 0)
+                            targetSlot.set(ItemStack.EMPTY);
+                        else
+                            targetSlot.setChanged();
+
+                        targetSlot.onTake(player, targetItemStack);
+
+                        moveItemStackTo(sourceItemStack, destSlot, destSlot + 1, backwards);
+                    }
+                }
+            }
+
+            if(backwards) {
+                destSlot--;
+            }else {
+                destSlot++;
+            }
+        }
+
+        return anythingChanged;
     }
 }
