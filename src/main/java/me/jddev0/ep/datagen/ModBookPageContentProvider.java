@@ -532,7 +532,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/item_ejector_upgrade_module_3.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_4.png"),
                 EPAPI.id("textures/item/item_ejector_upgrade_module_5.png"),
-                EPAPI.id("textures/item/item_ejector_upgrade_module_6.png")
+                EPAPI.id("textures/item/item_ejector_upgrade_module_6.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_7.png"),
+                EPAPI.id("textures/item/item_ejector_upgrade_module_8.png")
         );
 
         addSimplePage(pageId("item_pulling_upgrades"), Component.empty().append(
@@ -547,7 +549,9 @@ public class ModBookPageContentProvider extends PageContentProvider {
                 EPAPI.id("textures/item/item_pulling_upgrade_module_3.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_4.png"),
                 EPAPI.id("textures/item/item_pulling_upgrade_module_5.png"),
-                EPAPI.id("textures/item/item_pulling_upgrade_module_6.png")
+                EPAPI.id("textures/item/item_pulling_upgrade_module_6.png"),
+                EPAPI.id("textures/item/item_pulling_upgrade_module_7.png"),
+                EPAPI.id("textures/item/item_pulling_upgrade_module_8.png")
         );
 
         addSimplePage(pageId("xp_extraction_upgrades"), Component.empty().append(
