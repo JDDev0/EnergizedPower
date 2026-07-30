@@ -15,7 +15,7 @@ public record MetalPressDisplay(RecipeHolder<MetalPressRecipe> recipe) implement
     @Override
     public List<EntryIngredient> getInputEntries() {
         return List.of(
-                EntryIngredients.of(recipe.value().getPressMold()),
+                EntryIngredients.ofIngredient(recipe.value().getPressMold()),
                 EntryIngredients.ofItemStacks(Arrays.stream(recipe.value().getInput().getItems()).
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
                         collect(Collectors.toList()))
