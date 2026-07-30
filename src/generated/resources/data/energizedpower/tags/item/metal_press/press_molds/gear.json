@@ -1,5 +1,8 @@
 {
   "values": [
-    "energizedpower:gear_press_mold"
+    "energizedpower:gear_press_mold",
+    "energizedpower:hardened_gear_press_mold",
+    "energizedpower:advanced_gear_press_mold",
+    "energizedpower:elite_gear_press_mold"
   ]
 }
