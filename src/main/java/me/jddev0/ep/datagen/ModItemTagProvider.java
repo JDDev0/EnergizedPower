@@ -46,17 +46,44 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 addTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_GEAR).
                 addTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_ROD).
                 addTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_WIRE);
+
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_GEAR).
-                add(EPItems.BASIC_GEAR_PRESS_MOLD);
+                add(EPItems.BASIC_GEAR_PRESS_MOLD,
+                        EPItems.HARDENED_GEAR_PRESS_MOLD,
+                        EPItems.ADVANCED_GEAR_PRESS_MOLD,
+                        EPItems.ELITE_GEAR_PRESS_MOLD);
+
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_ROD).
-                add(EPItems.BASIC_ROD_PRESS_MOLD);
+                add(EPItems.BASIC_ROD_PRESS_MOLD,
+                        EPItems.HARDENED_ROD_PRESS_MOLD,
+                        EPItems.ADVANCED_ROD_PRESS_MOLD,
+                        EPItems.ELITE_ROD_PRESS_MOLD);
+
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_WIRE).
-                add(EPItems.BASIC_WIRE_PRESS_MOLD);
+                add(EPItems.BASIC_WIRE_PRESS_MOLD,
+                        EPItems.HARDENED_WIRE_PRESS_MOLD,
+                        EPItems.ADVANCED_WIRE_PRESS_MOLD,
+                        EPItems.ELITE_WIRE_PRESS_MOLD);
 
         buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_BASIC).
                 add(EPItems.BASIC_GEAR_PRESS_MOLD,
                         EPItems.BASIC_ROD_PRESS_MOLD,
                         EPItems.BASIC_WIRE_PRESS_MOLD);
+
+        buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_HARDENED).
+                add(EPItems.HARDENED_GEAR_PRESS_MOLD,
+                        EPItems.HARDENED_ROD_PRESS_MOLD,
+                        EPItems.HARDENED_WIRE_PRESS_MOLD);
+
+        buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_ADVANCED).
+                add(EPItems.ADVANCED_GEAR_PRESS_MOLD,
+                        EPItems.ADVANCED_ROD_PRESS_MOLD,
+                        EPItems.ADVANCED_WIRE_PRESS_MOLD);
+
+        buildTag(EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_ELITE).
+                add(EPItems.ELITE_GEAR_PRESS_MOLD,
+                        EPItems.ELITE_ROD_PRESS_MOLD,
+                        EPItems.ELITE_WIRE_PRESS_MOLD);
 
         buildTag(CompatibilityItemTags.AE2_ITEM_P2P_TUNNEL_ATTUNEMENTS).
                 add(

@@ -1,5 +1,8 @@
 {
   "values": [
-    "energizedpower:wire_press_mold"
+    "energizedpower:wire_press_mold",
+    "energizedpower:hardened_wire_press_mold",
+    "energizedpower:advanced_wire_press_mold",
+    "energizedpower:elite_wire_press_mold"
   ]
 }

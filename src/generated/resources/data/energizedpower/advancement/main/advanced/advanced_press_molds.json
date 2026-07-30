@@ -1,0 +1,32 @@
+{
+  "parent": "energizedpower:main/advanced/advanced_alloy_plate",
+  "criteria": {
+    "has_the_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#energizedpower:metal_press/press_molds/tier/advanced"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.energizedpower.advanced_press_molds.description"
+    },
+    "icon": {
+      "id": "energizedpower:advanced_gear_press_mold"
+    },
+    "title": {
+      "translate": "advancements.energizedpower.advanced_press_molds.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
