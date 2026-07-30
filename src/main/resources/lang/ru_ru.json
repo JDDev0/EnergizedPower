@@ -160,10 +160,10 @@
   "advancements.energizedpower.raw_press_molds.title": "Сырая пресс-форма",
   "advancements.energizedpower.raw_press_molds.description": "Используйте глиняные шарики, чтобы сделать сырую пресс-форму. (Не забудьте ее приготовить...)",
 
-  "item.energizedpower.gear_press_mold": "Пресс-форма для шестерни",
-  "item.energizedpower.rod_press_mold": "Пресс-форма для стержня",
-  "item.energizedpower.wire_press_mold": "Пресс-форма для провода",
-  "advancements.energizedpower.press_molds.title": "Пресс-форма",
+  "item.energizedpower.gear_press_mold": "Basic Gear Press Mold",
+  "item.energizedpower.rod_press_mold": "Basic Rod Press Mold",
+  "item.energizedpower.wire_press_mold": "Basic Wire Press Mold",
+  "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "Приготовленный пресс-формы можно использовать в металлическом прессе.",
 
   "item.energizedpower.basic_solar_cell": "Базовая солнечная ячейка",

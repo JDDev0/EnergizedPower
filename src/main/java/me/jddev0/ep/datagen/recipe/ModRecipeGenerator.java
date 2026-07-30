@@ -5,7 +5,6 @@ import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.EPBlocks;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
-import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
@@ -3066,11 +3065,11 @@ public class ModRecipeGenerator extends RecipeProvider {
         addSmeltingRecipe(EPBlocks.SAWDUST_BLOCK_ITEM, itemStackOf(Items.CHARCOAL), CookingBookCategory.MISC,
                 200, .15f, null, "sawdust_block");
 
-        addSmeltingRecipe(EPItems.RAW_GEAR_PRESS_MOLD, itemStackOf(EPItems.GEAR_PRESS_MOLD), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPItems.RAW_GEAR_PRESS_MOLD, itemStackOf(EPItems.BASIC_GEAR_PRESS_MOLD), CookingBookCategory.MISC,
                 200, .3f, null);
-        addSmeltingRecipe(EPItems.RAW_ROD_PRESS_MOLD, itemStackOf(EPItems.ROD_PRESS_MOLD), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPItems.RAW_ROD_PRESS_MOLD, itemStackOf(EPItems.BASIC_ROD_PRESS_MOLD), CookingBookCategory.MISC,
                 200, .3f, null);
-        addSmeltingRecipe(EPItems.RAW_WIRE_PRESS_MOLD, itemStackOf(EPItems.WIRE_PRESS_MOLD), CookingBookCategory.MISC,
+        addSmeltingRecipe(EPItems.RAW_WIRE_PRESS_MOLD, itemStackOf(EPItems.BASIC_WIRE_PRESS_MOLD), CookingBookCategory.MISC,
                 200, .3f, null);
     }
 
