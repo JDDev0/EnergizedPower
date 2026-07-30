@@ -1,6 +1,7 @@
 package me.jddev0.ep.item;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
@@ -112,12 +113,15 @@ public final class EPItems {
     public static final Item RAW_ROD_PRESS_MOLD = registerItem("raw_rod_press_mold");
     public static final Item RAW_WIRE_PRESS_MOLD = registerItem("raw_wire_press_mold");
 
-    public static final Item GEAR_PRESS_MOLD = registerItem("gear_press_mold",
-            new Item.Properties().durability(2000));
-    public static final Item ROD_PRESS_MOLD = registerItem("rod_press_mold",
-            new Item.Properties().durability(2000));
-    public static final Item WIRE_PRESS_MOLD = registerItem("wire_press_mold",
-            new Item.Properties().durability(2000));
+    private static Item registerPressMoldItem(String name, int maxDamage) {
+        return registerItem(name, maxDamage > 0?new Item.Properties().durability(maxDamage):new Item.Properties());
+    }
+    public static final Item GEAR_PRESS_MOLD = registerPressMoldItem("gear_press_mold",
+            ModConfigs.COMMON_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ROD_PRESS_MOLD = registerPressMoldItem("rod_press_mold",
+            ModConfigs.COMMON_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item WIRE_PRESS_MOLD = registerPressMoldItem("wire_press_mold",
+            ModConfigs.COMMON_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell");
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell");
