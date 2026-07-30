@@ -8,6 +8,6 @@
     "item": "energizedpower:steel_gear"
   },
   "pressMold": {
-    "item": "energizedpower:gear_press_mold"
+    "tag": "energizedpower:metal_press/press_molds/gear"
   }
 }

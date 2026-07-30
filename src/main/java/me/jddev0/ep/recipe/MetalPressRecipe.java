@@ -16,11 +16,11 @@ import net.minecraft.world.level.Level;
 
 public class MetalPressRecipe implements Recipe<RecipeInput> {
     private final ItemStack output;
-    private final ItemStack pressMold;
+    private final Ingredient pressMold;
     private final Ingredient input;
     private final int inputCount;
 
-    public MetalPressRecipe(ItemStack output, ItemStack pressMold, Ingredient input, int inputCount) {
+    public MetalPressRecipe(ItemStack output, Ingredient pressMold, Ingredient input, int inputCount) {
         this.output = output;
         this.pressMold = pressMold;
         this.input = input;
@@ -31,7 +31,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         return output;
     }
 
-    public ItemStack getPressMold() {
+    public Ingredient getPressMold() {
         return pressMold;
     }
 
@@ -49,7 +49,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
             return false;
 
         return input.test(container.getItem(0)) && container.getItem(0).getCount() >= inputCount &&
-                ItemStack.isSameItem(pressMold, container.getItem(1));
+                pressMold.test(container.getItem(1));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         private final MapCodec<MetalPressRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
             return instance.group(CodecFix.ITEM_STACK_CODEC.fieldOf("output").forGetter((recipe) -> {
                 return recipe.output;
-            }), CodecFix.ITEM_STACK_CODEC.fieldOf("pressMold").forGetter((recipe) -> {
+            }), Ingredient.CODEC.fieldOf("pressMold").forGetter((recipe) -> {
                 return recipe.pressMold;
             }), Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter((recipe) -> {
                 return recipe.input;
@@ -128,7 +128,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         private static MetalPressRecipe read(RegistryFriendlyByteBuf buffer) {
             Ingredient input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             int inputCount = buffer.readInt();
-            ItemStack pressMold = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
+            Ingredient pressMold = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             ItemStack output = ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer);
 
             return new MetalPressRecipe(output, pressMold, input, inputCount);
@@ -137,7 +137,7 @@ public class MetalPressRecipe implements Recipe<RecipeInput> {
         private static void write(RegistryFriendlyByteBuf buffer, MetalPressRecipe recipe) {
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
             buffer.writeInt(recipe.inputCount);
-            ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.pressMold);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.pressMold);
             ItemStack.OPTIONAL_STREAM_CODEC.encode(buffer, recipe.output);
         }
     }

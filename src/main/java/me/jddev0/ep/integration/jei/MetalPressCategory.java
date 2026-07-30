@@ -58,7 +58,7 @@ public class MetalPressCategory implements IRecipeCategory<RecipeHolder<MetalPre
                         map(itemStack -> itemStack.copyWithCount(recipe.value().getInputCount())).
                         collect(Collectors.toList()));
 
-        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CATALYST, 37, 1).addItemStack(recipe.value().getPressMold());
+        iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.CATALYST, 37, 1).addIngredients(recipe.value().getPressMold());
 
         iRecipeLayoutBuilder.addSlot(RecipeIngredientRole.OUTPUT, 77, 13).addItemStack(recipe.value().getOutput());
     }

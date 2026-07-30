@@ -9,6 +9,7 @@ import me.jddev0.ep.fluid.EPFluids;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.recipe.*;
 import me.jddev0.ep.registry.tags.CommonItemTags;
+import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import me.jddev0.ep.util.FluidUtils;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -4393,20 +4394,20 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
     }
 
     private void addGearMetalPressRecipe(Ingredient input, ItemStack output) {
-        addMetalPressRecipe(input, output, itemStackOf(EPItems.GEAR_PRESS_MOLD), 2);
+        addMetalPressRecipe(input, output, ingredientOf(EnergizedPowerItemTags.METAL_PRESS_MOLDS_GEAR), 2);
     }
     private void addRodMetalPressRecipe(Ingredient input, ItemStack output) {
-        addMetalPressRecipe(input, output.copyWithCount(2), itemStackOf(EPItems.ROD_PRESS_MOLD));
+        addMetalPressRecipe(input, output.copyWithCount(2), ingredientOf(EnergizedPowerItemTags.METAL_PRESS_MOLDS_ROD));
     }
     private void addWireMetalPressRecipe(Ingredient input, ItemStack output) {
-        addMetalPressRecipe(input, output.copyWithCount(3), itemStackOf(EPItems.WIRE_PRESS_MOLD));
+        addMetalPressRecipe(input, output.copyWithCount(3), ingredientOf(EnergizedPowerItemTags.METAL_PRESS_MOLDS_WIRE));
     }
     private void addMetalPressRecipe(Ingredient input, ItemStack output,
-                                            ItemStack pressMold) {
+                                     Ingredient pressMold) {
         addMetalPressRecipe(input, output, pressMold, 1);
     }
     private void addMetalPressRecipe(Ingredient input, ItemStack output,
-                                            ItemStack pressMold, int inputCount) {
+                                     Ingredient pressMold, int inputCount) {
         ResourceLocation recipeId = EPAPI.id("metal_press/" +
                 getItemName(output.getItem()));
 

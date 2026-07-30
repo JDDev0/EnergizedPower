@@ -8,6 +8,6 @@
     "item": "energizedpower:energized_copper_wire"
   },
   "pressMold": {
-    "item": "energizedpower:wire_press_mold"
+    "tag": "energizedpower:metal_press/press_molds/wire"
   }
 }
