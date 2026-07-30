@@ -1370,7 +1370,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT
         );
 
         addSimplePage(pageId("item_conveyor_belt_loader"), Component.empty().append(
@@ -1391,7 +1392,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER
         );
 
         addSimplePage(pageId("item_conveyor_belt_sorter"), Component.empty().append(
@@ -1424,7 +1426,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER
         );
 
         addSimplePage(pageId("item_conveyor_belt_switch"), Component.empty().append(
@@ -1436,7 +1439,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH
         );
 
         addSimplePage(pageId("item_conveyor_belt_splitter"), Component.empty().append(
@@ -1445,7 +1449,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER
         );
 
         addSimplePage(pageId("item_conveyor_belt_merger"), Component.empty().append(
@@ -1454,7 +1459,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ),
                 EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER,
                 EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER,
-                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER
+                EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER
         );
 
         addSimplePage(pageId("item_silos"), Component.empty().append(

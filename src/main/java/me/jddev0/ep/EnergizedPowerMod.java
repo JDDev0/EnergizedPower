@@ -102,21 +102,27 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_ITEM);
+            event.accept(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM);
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_LOADER_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_LOADER_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_LOADER_ITEM);
+            event.accept(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER_ITEM);
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SORTER_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SORTER_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SORTER_ITEM);
+            event.accept(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER_ITEM);
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
+            event.accept(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH_ITEM);
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
+            event.accept(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ITEM);
             event.accept(EPBlocks.BASIC_ITEM_CONVEYOR_BELT_MERGER_ITEM);
             event.accept(EPBlocks.FAST_ITEM_CONVEYOR_BELT_MERGER_ITEM);
             event.accept(EPBlocks.EXPRESS_ITEM_CONVEYOR_BELT_MERGER_ITEM);
+            event.accept(EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER_ITEM);
 
             event.accept(EPBlocks.ITEM_SILO_TINY_ITEM);
             event.accept(EPBlocks.ITEM_SILO_SMALL_ITEM);

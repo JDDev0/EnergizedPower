@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:plates/advanced_alloy"
+    },
+    "C": {
+      "tag": "c:plates/crystallized_alloy"
+    },
+    "E": {
+      "item": "energizedpower:express_item_conveyor_belt"
+    },
+    "R": {
+      "tag": "c:ingots/redstone_alloy"
+    }
+  },
+  "pattern": [
+    "RCR",
+    "AEA",
+    "RCR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:turbo_item_conveyor_belt"
+  }
+}

@@ -48,6 +48,7 @@ public class ItemConveyorBeltBlockEntity
             case BASIC -> ModConfigs.COMMON_BASIC_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
             case FAST -> ModConfigs.COMMON_FAST_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
             case EXPRESS -> ModConfigs.COMMON_EXPRESS_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
+            case TURBO -> ModConfigs.COMMON_TURBO_ITEM_CONVEYOR_BELT_TICKS_PER_STEP.getValue();
         };
     }
 

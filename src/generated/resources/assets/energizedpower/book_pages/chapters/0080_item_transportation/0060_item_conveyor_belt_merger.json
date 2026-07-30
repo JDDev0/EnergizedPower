@@ -2,7 +2,8 @@
   "block": [
     "energizedpower:item_conveyor_belt_merger",
     "energizedpower:fast_item_conveyor_belt_merger",
-    "energizedpower:express_item_conveyor_belt_merger"
+    "energizedpower:express_item_conveyor_belt_merger",
+    "energizedpower:turbo_item_conveyor_belt_merger"
   ],
   "content": {
     "extra": [

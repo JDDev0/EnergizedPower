@@ -41,6 +41,36 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
                 CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
         );
 
+        AdvancementHolder turboItemConveyorBelt = addAdvancement(
+                advancementOutput, crystallizedAlloyIngot,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_ITEM, "turbo_item_conveyor_belt", AdvancementType.TASK
+        );
+
+        AdvancementHolder turboItemConveyorBeltLoader = addAdvancement(
+                advancementOutput, turboItemConveyorBelt,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_LOADER_ITEM, "turbo_item_conveyor_belt_loader", AdvancementType.TASK
+        );
+
+        AdvancementHolder turboItemConveyorBeltSorter = addAdvancement(
+                advancementOutput, turboItemConveyorBelt,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SORTER_ITEM, "turbo_item_conveyor_belt_sorter", AdvancementType.TASK
+        );
+
+        AdvancementHolder turboItemConveyorBeltSwitch = addAdvancement(
+                advancementOutput, turboItemConveyorBelt,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SWITCH_ITEM, "turbo_item_conveyor_belt_switch", AdvancementType.TASK
+        );
+
+        AdvancementHolder turboItemConveyorBeltSplitter = addAdvancement(
+                advancementOutput, turboItemConveyorBelt,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_SPLITTER_ITEM, "turbo_item_conveyor_belt_splitter", AdvancementType.TASK
+        );
+
+        AdvancementHolder turboItemConveyorBeltMerger = addAdvancement(
+                advancementOutput, turboItemConveyorBelt,
+                EPBlocks.TURBO_ITEM_CONVEYOR_BELT_MERGER_ITEM, "turbo_item_conveyor_belt_merger", AdvancementType.TASK
+        );
+
         AdvancementHolder pressurizedFluidPipe = addAdvancement(
                 advancementOutput, crystallizedAlloyPlate,
                 EPBlocks.PRESSURIZED_FLUID_PIPE_ITEM, "pressurized_fluid_pipe", AdvancementType.TASK
