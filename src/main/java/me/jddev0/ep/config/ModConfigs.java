@@ -659,13 +659,13 @@ public final class ModConfigs {
     );
 
     public static final ConfigValue<Integer> COMMON_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
-            "item.gear_press_mold", "Gear Press Mold", 2000
+            "item.basic_gear_press_mold", "Basic Gear Press Mold", 2000
     );
     public static final ConfigValue<Integer> COMMON_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
-            "item.rod_press_mold", "Rod Press Mold", 2000
+            "item.basic_rod_press_mold", "Basic Rod Press Mold", 2000
     );
     public static final ConfigValue<Integer> COMMON_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
-            "item.wire_press_mold", "Wire Press Mold", 2000
+            "item.basic_wire_press_mold", "Basic Wire Press Mold", 2000
     );
 
     //Blocks

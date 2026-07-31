@@ -111,11 +111,11 @@ public final class EPItems {
     private static Item registerPressMoldItem(String name, int maxDamage) {
         return registerItem(name, maxDamage > 0?new Item.Properties().durability(maxDamage):new Item.Properties());
     }
-    public static final Item GEAR_PRESS_MOLD = registerPressMoldItem("gear_press_mold",
+    public static final Item BASIC_GEAR_PRESS_MOLD = registerPressMoldItem("gear_press_mold",
             ModConfigs.COMMON_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
-    public static final Item ROD_PRESS_MOLD = registerPressMoldItem("rod_press_mold",
+    public static final Item BASIC_ROD_PRESS_MOLD = registerPressMoldItem("rod_press_mold",
             ModConfigs.COMMON_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
-    public static final Item WIRE_PRESS_MOLD = registerPressMoldItem("wire_press_mold",
+    public static final Item BASIC_WIRE_PRESS_MOLD = registerPressMoldItem("wire_press_mold",
             ModConfigs.COMMON_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell");
