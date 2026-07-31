@@ -322,6 +322,17 @@ public abstract class AbstractAutoCrafterBlockEntity
         currentRecipeIndex = view.getIntOr("current_recipe_index", 0);
         if(currentRecipeIndex < 0 || currentRecipeIndex >= workerThreadCount)
             currentRecipeIndex = 0;
+
+        //Ensure compatibility with older versions: Override recipe progress data for thread 0
+        if(view.child("pattern").isPresent())
+            loadPatternContainer(0, view.childOrEmpty("pattern"));
+
+        view.getString("recipe.id").ifPresent(recipeId ->
+                recipeIdForSetRecipe[0] = ResourceKey.create(Registries.RECIPE, Identifier.tryParse(recipeId))
+        );
+
+        if(view.getInt("ignore_nbt").isPresent())
+            ignoreNBT[0] = view.getBooleanOr("ignore_nbt", false);
     }
 
     private void loadPatternContainer(int index, ValueInput view) {
