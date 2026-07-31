@@ -29,10 +29,10 @@ public final class ModMessages {
         //Client -> Server
         registrar.playToServer(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC,
                 PopEnergizedPowerBookFromLecternC2SPacket::handle);
-        registrar.playToServer(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC,
-                SetAutoCrafterPatternInputSlotsC2SPacket::handle);
-        registrar.playToServer(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC,
-                SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::handle);
+        registrar.playToServer(LegacySetAutoCrafterPatternInputSlotsC2SPacket.ID, LegacySetAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC,
+                LegacySetAutoCrafterPatternInputSlotsC2SPacket::handle);
+        registrar.playToServer(LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC,
+                LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket::handle);
         registrar.playToServer(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket.STREAM_CODEC,
                 SetWeatherFromWeatherControllerC2SPacket::handle);
         registrar.playToServer(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket.STREAM_CODEC,
@@ -41,12 +41,12 @@ public final class ModMessages {
                 UseTeleporterC2SPacket::handle);
         registrar.playToServer(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket.STREAM_CODEC,
                 SetCheckboxC2SPacket::handle);
-        registrar.playToServer(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket.STREAM_CODEC,
-                SetAdvancedAutoCrafterRecipeIndexC2SPacket::handle);
-        registrar.playToServer(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC,
-                CycleAutoCrafterRecipeOutputC2SPacket::handle);
-        registrar.playToServer(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC,
-                CycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle);
+        registrar.playToServer(LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket.STREAM_CODEC,
+                LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket::handle);
+        registrar.playToServer(LegacyCycleAutoCrafterRecipeOutputC2SPacket.ID, LegacyCycleAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC,
+                LegacyCycleAutoCrafterRecipeOutputC2SPacket::handle);
+        registrar.playToServer(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC,
+                LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket::handle);
         registrar.playToServer(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.STREAM_CODEC,
                 CraftPressMoldMakerRecipeC2SPacket::handle);
         registrar.playToServer(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket.STREAM_CODEC,
