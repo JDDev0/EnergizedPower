@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
+import me.jddev0.ep.block.entity.LegacyAdvancedAutoCrafterBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -43,7 +43,7 @@ public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recip
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
+            if(!(blockEntity instanceof LegacyAdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
                 return;
 
             advancedAutoCrafterBlockEntity.setCurrentRecipeIndex(data.recipeIndex);
