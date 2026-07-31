@@ -1,7 +1,7 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.LegacyAdvancedAutoCrafterBlockEntity;
+import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -77,7 +77,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof LegacyAdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
+            if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
                 return;
 
             AbstractContainerMenu menu = player.containerMenu;
