@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/advanced_alloy"
+    },
+    "P": {
+      "tag": "c:plates/advanced_alloy"
+    },
+    "p": {
+      "item": "energizedpower:hardened_gear_press_mold"
+    }
+  },
+  "pattern": [
+    "PIP",
+    "IpI",
+    "PIP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:advanced_gear_press_mold"
+  }
+}

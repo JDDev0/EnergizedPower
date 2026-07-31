@@ -112,11 +112,31 @@ public final class EPItems {
         return registerItem(name, maxDamage > 0?new Item.Properties().durability(maxDamage):new Item.Properties());
     }
     public static final Item BASIC_GEAR_PRESS_MOLD = registerPressMoldItem("gear_press_mold",
-            ModConfigs.COMMON_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
+            ModConfigs.COMMON_BASIC_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item HARDENED_GEAR_PRESS_MOLD = registerPressMoldItem("hardened_gear_press_mold",
+            ModConfigs.COMMON_HARDENED_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ADVANCED_GEAR_PRESS_MOLD = registerPressMoldItem("advanced_gear_press_mold",
+            ModConfigs.COMMON_ADVANCED_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ELITE_GEAR_PRESS_MOLD = registerPressMoldItem("elite_gear_press_mold",
+            ModConfigs.COMMON_ELITE_GEAR_PRESS_MOLD_MAX_DURABILITY.getValue());
+
     public static final Item BASIC_ROD_PRESS_MOLD = registerPressMoldItem("rod_press_mold",
-            ModConfigs.COMMON_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
+            ModConfigs.COMMON_BASIC_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item HARDENED_ROD_PRESS_MOLD = registerPressMoldItem("hardened_rod_press_mold",
+            ModConfigs.COMMON_HARDENED_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ADVANCED_ROD_PRESS_MOLD = registerPressMoldItem("advanced_rod_press_mold",
+            ModConfigs.COMMON_ADVANCED_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ELITE_ROD_PRESS_MOLD = registerPressMoldItem("elite_rod_press_mold",
+            ModConfigs.COMMON_ELITE_ROD_PRESS_MOLD_MAX_DURABILITY.getValue());
+
     public static final Item BASIC_WIRE_PRESS_MOLD = registerPressMoldItem("wire_press_mold",
-            ModConfigs.COMMON_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
+            ModConfigs.COMMON_BASIC_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item HARDENED_WIRE_PRESS_MOLD = registerPressMoldItem("hardened_wire_press_mold",
+            ModConfigs.COMMON_HARDENED_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ADVANCED_WIRE_PRESS_MOLD = registerPressMoldItem("advanced_wire_press_mold",
+            ModConfigs.COMMON_ADVANCED_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
+    public static final Item ELITE_WIRE_PRESS_MOLD = registerPressMoldItem("elite_wire_press_mold",
+            ModConfigs.COMMON_ELITE_WIRE_PRESS_MOLD_MAX_DURABILITY.getValue());
 
     public static final Item BASIC_SOLAR_CELL = registerItem("basic_solar_cell");
     public static final Item ADVANCED_SOLAR_CELL = registerItem("advanced_solar_cell");

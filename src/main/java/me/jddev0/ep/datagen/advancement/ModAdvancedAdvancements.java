@@ -6,6 +6,7 @@ import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
+import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -44,6 +45,13 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
                 advancementOutput, advancedAlloyIngot,
                 EPItems.ADVANCED_ALLOY_PLATE, "advanced_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ADVANCED_ALLOY
+        );
+
+        AdvancementHolder advancedPressMolds = addAdvancement(
+                lookupProvider,
+                advancementOutput, advancedAlloyPlate,
+                EPItems.ADVANCED_GEAR_PRESS_MOLD, "advanced_press_molds", AdvancementType.TASK,
+                EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_ADVANCED
         );
 
         AdvancementHolder energizedCopperCable = addAdvancement(

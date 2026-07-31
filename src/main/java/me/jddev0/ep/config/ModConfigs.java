@@ -658,14 +658,44 @@ public final class ModConfigs {
             10.
     );
 
-    public static final ConfigValue<Integer> COMMON_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
             "item.basic_gear_press_mold", "Basic Gear Press Mold", 2000
     );
-    public static final ConfigValue<Integer> COMMON_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
             "item.basic_rod_press_mold", "Basic Rod Press Mold", 2000
     );
-    public static final ConfigValue<Integer> COMMON_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+    public static final ConfigValue<Integer> COMMON_BASIC_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
             "item.basic_wire_press_mold", "Basic Wire Press Mold", 2000
+    );
+
+    public static final ConfigValue<Integer> COMMON_HARDENED_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.hardened_gear_press_mold", "Hardened Gear Press Mold", 50000
+    );
+    public static final ConfigValue<Integer> COMMON_HARDENED_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.hardened_rod_press_mold", "Hardened Rod Press Mold", 50000
+    );
+    public static final ConfigValue<Integer> COMMON_HARDENED_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.hardened_wire_press_mold", "Hardened Wire Press Mold", 50000
+    );
+
+    public static final ConfigValue<Integer> COMMON_ADVANCED_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.advanced_gear_press_mold", "Advanced Gear Press Mold", 1000000
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.advanced_rod_press_mold", "Advanced Rod Press Mold", 1000000
+    );
+    public static final ConfigValue<Integer> COMMON_ADVANCED_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.advanced_wire_press_mold", "Advanced Wire Press Mold", 1000000
+    );
+
+    public static final ConfigValue<Integer> COMMON_ELITE_GEAR_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.elite_gear_press_mold", "Elite Gear Press Mold", 50000000
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_ROD_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.elite_rod_press_mold", "Elite Rod Press Mold", 50000000
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_WIRE_PRESS_MOLD_MAX_DURABILITY = registerPressMoldDurabilityValue(
+            "item.elite_wire_press_mold", "Elite Wire Press Mold", 50000000
     );
 
     //Blocks
