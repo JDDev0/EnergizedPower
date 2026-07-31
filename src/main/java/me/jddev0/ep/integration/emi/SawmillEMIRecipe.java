@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class SawmillEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/sawmill_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/sawmill_front.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.SAWMILL_ITEM.get());
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("sawmill"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));

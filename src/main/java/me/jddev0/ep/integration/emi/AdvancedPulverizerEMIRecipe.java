@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class AdvancedPulverizerEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/advanced_pulverizer_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/advanced_pulverizer_front.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.ADVANCED_PULVERIZER_ITEM.get());
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("advanced_pulverizer"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
