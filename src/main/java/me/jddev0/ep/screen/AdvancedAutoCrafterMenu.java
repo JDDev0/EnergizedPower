@@ -1,7 +1,7 @@
 package me.jddev0.ep.screen;
 
 import me.jddev0.ep.block.EPBlocks;
-import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
+import me.jddev0.ep.block.entity.LegacyAdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.inventory.*;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
-public class AdvancedAutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
+public class AdvancedAutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<LegacyAdvancedAutoCrafterBlockEntity>
         implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
     private final Container[] patternSlots;
 
