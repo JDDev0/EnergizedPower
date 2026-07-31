@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.List;
 
 public class CompressorEMIRecipe implements EmiRecipe {
-    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/compressor_side.png");
+    public static final ResourceLocation SIMPLIFIED_TEXTURE = EPAPI.id("textures/block/compressor_front.png");
     public static final EmiStack ITEM = EmiStack.of(EPBlocks.COMPRESSOR_ITEM);
     public static final EmiRecipeCategory CATEGORY = new EmiRecipeCategory(EPAPI.id("compressor"),
             ITEM, new EmiTexture(SIMPLIFIED_TEXTURE, 0, 0, 16, 16, 16, 16, 16, 16));
