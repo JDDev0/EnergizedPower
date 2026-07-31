@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/steel"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "p": {
+      "item": "energizedpower:gear_press_mold"
+    }
+  },
+  "pattern": [
+    "PIP",
+    "IpI",
+    "PIP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:hardened_gear_press_mold"
+  }
+}

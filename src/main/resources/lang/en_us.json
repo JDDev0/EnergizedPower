@@ -166,6 +166,24 @@
   "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "Cooked Press Molds can be used in the Metal Press.",
 
+  "item.energizedpower.hardened_gear_press_mold": "Hardened Gear Press Mold",
+  "item.energizedpower.hardened_rod_press_mold": "Hardened Rod Press Mold",
+  "item.energizedpower.hardened_wire_press_mold": "Hardened Wire Press Mold",
+  "advancements.energizedpower.hardened_press_molds.title": "Hardened Press Mold",
+  "advancements.energizedpower.hardened_press_molds.description": "Hardened Press Molds have more durability than Basic Press Molds.",
+
+  "item.energizedpower.advanced_gear_press_mold": "Advanced Gear Press Mold",
+  "item.energizedpower.advanced_rod_press_mold": "Advanced Rod Press Mold",
+  "item.energizedpower.advanced_wire_press_mold": "Advanced Wire Press Mold",
+  "advancements.energizedpower.advanced_press_molds.title": "Advanced Press Mold",
+  "advancements.energizedpower.advanced_press_molds.description": "Advanced Press Molds have more durability than Hardened Press Molds.",
+
+  "item.energizedpower.elite_gear_press_mold": "Elite Gear Press Mold",
+  "item.energizedpower.elite_rod_press_mold": "Elite Rod Press Mold",
+  "item.energizedpower.elite_wire_press_mold": "Elite Wire Press Mold",
+  "advancements.energizedpower.elite_press_molds.title": "Elite Press Mold",
+  "advancements.energizedpower.elite_press_molds.description": "Elite Press Molds have more durability than Advanced Press Molds.",
+
   "item.energizedpower.basic_solar_cell": "Basic Solar Cell",
   "advancements.energizedpower.basic_solar_cell.title": "Solar Power Basics",
   "advancements.energizedpower.basic_solar_cell.description": "Your first solar cell of two required for your first solar panel.",

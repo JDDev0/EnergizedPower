@@ -166,6 +166,24 @@
   "advancements.energizedpower.press_molds.title": "Basic Press Mold",
   "advancements.energizedpower.press_molds.description": "烧制后的冲压模具可用于金属压机。",
 
+  "item.energizedpower.hardened_gear_press_mold": "Hardened Gear Press Mold",
+  "item.energizedpower.hardened_rod_press_mold": "Hardened Rod Press Mold",
+  "item.energizedpower.hardened_wire_press_mold": "Hardened Wire Press Mold",
+  "advancements.energizedpower.hardened_press_molds.title": "Hardened Press Mold",
+  "advancements.energizedpower.hardened_press_molds.description": "Hardened Press Molds have more durability than Basic Press Molds.",
+
+  "item.energizedpower.advanced_gear_press_mold": "Advanced Gear Press Mold",
+  "item.energizedpower.advanced_rod_press_mold": "Advanced Rod Press Mold",
+  "item.energizedpower.advanced_wire_press_mold": "Advanced Wire Press Mold",
+  "advancements.energizedpower.advanced_press_molds.title": "Advanced Press Mold",
+  "advancements.energizedpower.advanced_press_molds.description": "Advanced Press Molds have more durability than Hardened Press Molds.",
+
+  "item.energizedpower.elite_gear_press_mold": "Elite Gear Press Mold",
+  "item.energizedpower.elite_rod_press_mold": "Elite Rod Press Mold",
+  "item.energizedpower.elite_wire_press_mold": "Elite Wire Press Mold",
+  "advancements.energizedpower.elite_press_molds.title": "Elite Press Mold",
+  "advancements.energizedpower.elite_press_molds.description": "Elite Press Molds have more durability than Advanced Press Molds.",
+
   "item.energizedpower.basic_solar_cell": "基础太阳能板",
   "advancements.energizedpower.basic_solar_cell.title": "太阳能基础",
   "advancements.energizedpower.basic_solar_cell.description": "你的第一个太阳能电池，制造第一个太阳能板需要两个。",

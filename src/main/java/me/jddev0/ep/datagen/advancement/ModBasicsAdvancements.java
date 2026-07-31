@@ -48,11 +48,18 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
                 EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
         );
 
-        AdvancementHolder pressMolds = addAdvancement(
+        AdvancementHolder basicPressMolds = addAdvancement(
                 lookupProvider,
                 advancementOutput, rawPressMolds,
                 EPItems.BASIC_GEAR_PRESS_MOLD, "press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_BASIC
+        );
+
+        AdvancementHolder hardenedPressMolds = addAdvancement(
+                lookupProvider,
+                advancementOutput, basicPressMolds,
+                EPItems.HARDENED_GEAR_PRESS_MOLD, "hardened_press_molds", AdvancementType.TASK,
+                EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_HARDENED
         );
 
         AdvancementHolder alloyFurnace = addAdvancement(

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/crystallized_alloy"
+    },
+    "P": {
+      "tag": "c:plates/crystallized_alloy"
+    },
+    "p": {
+      "item": "energizedpower:advanced_gear_press_mold"
+    }
+  },
+  "pattern": [
+    "PIP",
+    "IpI",
+    "PIP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "energizedpower:elite_gear_press_mold"
+  }
+}

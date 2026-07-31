@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-31T00:47:07.606091275	Tags for minecraft:item mod id energizedpower
+// 1.21.1	2026-07-31T20:52:15.019657098	Tags for minecraft:item mod id energizedpower
 5006819179c0c86bdbe5b300c3aa6a361bf71110 data/ae2/tags/item/p2p_attunements/fe_p2p_tunnel.json
 dd17d1d16166f2ec946769e7c5151597b2205dce data/ae2/tags/item/p2p_attunements/fluid_p2p_tunnel.json
 a5fe3a823b7f8841166df863a1219392a4d12e10 data/ae2/tags/item/p2p_attunements/item_p2p_tunnel.json
@@ -64,10 +64,13 @@ ba27a206e3a5b6ccdbd698dafd6ba2bbdf1b1c8a data/c/tags/item/wires/gold.json
 36eaf1e3e9d57a9101249c3a81dd8f4290ed3477 data/c/tags/item/wires/superconductor.json
 e6fb7fc4ce3a281229106fb8c6f60fdcd34505e6 data/c/tags/item/wires/tin.json
 a3281e4f8a2df1c4b713297fed4650b056bc5905 data/energizedpower/tags/item/metal_press/press_molds.json
-62d705bc56d0f3e49964fc6d693890b5b8010437 data/energizedpower/tags/item/metal_press/press_molds/gear.json
-815d4d0624873874ecc0e51997d2c45b5ba91420 data/energizedpower/tags/item/metal_press/press_molds/rod.json
+51fab32a9eecf110df7aeecb4410f66166b09103 data/energizedpower/tags/item/metal_press/press_molds/gear.json
+759066d6b7323761ed389d95cd3b1727860a3e94 data/energizedpower/tags/item/metal_press/press_molds/rod.json
+a63e8f700b528e33800f740ace9273ff0d4c515c data/energizedpower/tags/item/metal_press/press_molds/tier/advanced.json
 99d0d82d2933243f20aa6929c14999a6a17c106d data/energizedpower/tags/item/metal_press/press_molds/tier/basic.json
-31513455becb533f26b9215cc9c535279a4cbe58 data/energizedpower/tags/item/metal_press/press_molds/wire.json
+2b99f4809db3616e1856381be0512cd036dbc59b data/energizedpower/tags/item/metal_press/press_molds/tier/elite.json
+db7e8e2713c2363b3f790b311c3594e4c4af6fdc data/energizedpower/tags/item/metal_press/press_molds/tier/hardened.json
+95b0921a26bd71392950d7e8532f23fda7488f10 data/energizedpower/tags/item/metal_press/press_molds/wire.json
 68dde9bd334ebc282493e6e6c9b0e5906ff3fee5 data/energizedpower/tags/item/metal_press/raw_press_molds.json
 4ab2c8fb92268d9f91f8b4253ab231b449e58920 data/minecraft/tags/item/bookshelf_books.json
 4ab2c8fb92268d9f91f8b4253ab231b449e58920 data/minecraft/tags/item/lectern_books.json

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "energizedpower:item/hardened_gear_press_mold"
+  }
+}
