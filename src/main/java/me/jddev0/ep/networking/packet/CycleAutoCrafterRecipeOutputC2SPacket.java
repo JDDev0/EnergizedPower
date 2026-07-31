@@ -1,8 +1,8 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
-import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
+import me.jddev0.ep.block.entity.AbstractAutoCrafterBlockEntity;
+import me.jddev0.ep.screen.IAutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -15,13 +15,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
-    public static final Type<LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket> ID =
-            new Type<>(EPAPI.id("cycle_advanced_auto_crafter_recipe_output"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket::write, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket::new);
+public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
+    public static final Type<CycleAutoCrafterRecipeOutputC2SPacket> ID =
+            new Type<>(EPAPI.id("cycle_auto_crafter_recipe_output"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CycleAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(CycleAutoCrafterRecipeOutputC2SPacket::write, CycleAutoCrafterRecipeOutputC2SPacket::new);
 
-    public LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public CycleAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos());
     }
 
@@ -35,7 +35,7 @@ public record LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) 
         return ID;
     }
 
-    public static void handle(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket data, IPayloadContext context) {
+    public static void handle(CycleAutoCrafterRecipeOutputC2SPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;
@@ -44,19 +44,19 @@ public record LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) 
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
+            if(!(blockEntity instanceof AbstractAutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
             AbstractContainerMenu menu = player.containerMenu;
 
-            if(!(menu instanceof AdvancedAutoCrafterMenu))
+            if(!(menu instanceof IAutoCrafterMenu))
                 return;
 
-            int recipeIndex = advancedAutoCrafterBlockEntity.getCurrentRecipeIndex();
+            int recipeIndex = autoCrafterBlockEntity.getCurrentRecipeIndex();
 
-            advancedAutoCrafterBlockEntity.cycleRecipe();
+            autoCrafterBlockEntity.cycleRecipe();
 
-            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
         });
     }
 }

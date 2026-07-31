@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.rei;
 
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.LegacySetAutoCrafterPatternInputSlotsC2SPacket;
+import me.jddev0.ep.networking.packet.SetAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
 import me.shedaniel.rei.api.common.display.Display;
@@ -50,7 +50,7 @@ public class AutoCrafterTransferHandler implements TransferHandler {
             itemStacks.add(entryStack.castValue());
         }
 
-        ModMessages.sendToServer(new LegacySetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipeIdOptional.get()));
+        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipeIdOptional.get()));
 
         return Result.createSuccessful().blocksFurtherHandling();
     }
