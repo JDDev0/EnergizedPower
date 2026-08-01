@@ -135,6 +135,35 @@ public class WeatherControllerBlockEntity extends UpgradableEnergyStorageBlockEn
         }
     }
 
+    public void onRedstoneTriggered(int signalStrength) {
+        if(!hasEnoughEnergy())
+            return;
+
+        int weatherType = switch(signalStrength) {
+            case 15 -> 0; //Clear
+            case 14 -> 1; //Rain
+            case 13 -> 2; //Thunder
+            default -> -1; //Reset (Does nothing if infinite duration upgrade is not installed)
+        };
+
+         if(hasInfiniteWeatherChangedDuration()) {
+            setSelectedWeatherType(weatherType);
+        }else if(weatherType != -1) {
+            clearEnergy();
+        }
+
+        int duration = getWeatherChangedDuration();
+
+        switch(weatherType) {
+            //Clear
+            case 0 -> level.getServer().setWeatherParameters(duration, 0, false, false);
+            //Rain
+            case 1 -> level.getServer().setWeatherParameters(0, duration, true, false);
+            //Thunder
+            case 2 -> level.getServer().setWeatherParameters(0, duration, true, true);
+        }
+    }
+
     public void clearEnergy() {
         try(Transaction transaction = Transaction.open(null)) {
             energyStorage.extract(energyStorage.getCapacityAsInt(), transaction);
