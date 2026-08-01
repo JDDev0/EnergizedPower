@@ -13,13 +13,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record CycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<CycleAdvancedAutoCrafterRecipeOutputC2SPacket> ID =
+public record LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("cycle_advanced_auto_crafter_recipe_output"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, CycleAdvancedAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(CycleAdvancedAutoCrafterRecipeOutputC2SPacket::write, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket::write, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket::new);
 
-    public CycleAdvancedAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos());
     }
 
@@ -32,7 +32,7 @@ public record CycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implem
         return ID;
     }
 
-    public static void receive(CycleAdvancedAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
             if(!context.player().mayBuild())
                 return;

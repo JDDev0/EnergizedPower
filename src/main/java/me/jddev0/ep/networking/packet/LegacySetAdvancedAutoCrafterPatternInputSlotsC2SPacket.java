@@ -19,17 +19,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> ID =
+public final class LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_pattern_input_slots"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::write, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket::write, LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
     private final Identifier recipeId;
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
+    public LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -40,7 +40,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         this.recipeId = recipeId;
     }
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
@@ -64,7 +64,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         return ID;
     }
 
-    public static void receive(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
             if(!context.player().mayBuild())
                 return;

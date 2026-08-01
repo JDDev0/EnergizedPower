@@ -19,17 +19,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
+public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LegacySetAutoCrafterPatternInputSlotsC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_auto_crafter_pattern_input_slots"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacySetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacySetAutoCrafterPatternInputSlotsC2SPacket::write, LegacySetAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
     private final Identifier recipeId;
 
-    public SetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
+    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, Identifier recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -40,7 +40,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPac
         this.recipeId = recipeId;
     }
 
-    public SetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
@@ -64,7 +64,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPac
         return ID;
     }
 
-    public static void receive(SetAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(LegacySetAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
             if(!context.player().mayBuild())
                 return;

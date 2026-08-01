@@ -1,7 +1,7 @@
 package me.jddev0.ep.integration.jei;
 
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SetAutoCrafterPatternInputSlotsC2SPacket;
+import me.jddev0.ep.networking.packet.LegacySetAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import me.jddev0.ep.screen.EPMenuTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
@@ -64,7 +64,7 @@ public class AutoCrafterTransferHandler implements IRecipeTransferHandler<AutoCr
         for(int i = 0;i < len;i++)
             itemStacks.add(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY).copy());
 
-        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.id().identifier()));
+        ModMessages.sendToServer(new LegacySetAutoCrafterPatternInputSlotsC2SPacket(container.getBlockEntity().getBlockPos(), itemStacks, recipe.id().identifier()));
 
         return null;
     }
