@@ -85,7 +85,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPac
 
             autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 
-            autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(0);
         });
     }
 }
