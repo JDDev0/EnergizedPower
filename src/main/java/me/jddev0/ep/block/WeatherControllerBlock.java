@@ -10,20 +10,29 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
     public static final MapCodec<WeatherControllerBlock> CODEC = simpleCodec(WeatherControllerBlock::new);
 
-    public WeatherControllerBlock(BlockBehaviour.Properties props) {
+    public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
+
+    public WeatherControllerBlock(Properties props) {
         super(props);
+
+        this.registerDefaultState(this.stateDefinition.any().setValue(TRIGGERED, false));
     }
 
     @Override
@@ -59,6 +68,32 @@ public class WeatherControllerBlock extends BaseEntityBlock {
         player.openMenu((WeatherControllerBlockEntity)blockEntity);
 
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void neighborChanged(BlockState selfState, Level level, BlockPos selfPos, Block fromBlock, @Nullable Orientation orientation, boolean isMoving) {
+        super.neighborChanged(selfState, level, selfPos, fromBlock, orientation, isMoving);
+
+        if(level.isClientSide())
+            return;
+
+        boolean isPowered = level.hasNeighborSignal(selfPos);
+        if(isPowered != selfState.getValue(TRIGGERED)) {
+            if(isPowered) {
+                BlockEntity blockEntity = level.getBlockEntity(selfPos);
+                if(!(blockEntity instanceof WeatherControllerBlockEntity weatherControllerBlockEntity))
+                    throw new IllegalStateException("Container is invalid");
+
+                weatherControllerBlockEntity.onRedstoneTriggered(level.getBestNeighborSignal(selfPos));
+            }
+
+            level.setBlock(selfPos, selfState.setValue(TRIGGERED, isPowered), 2);
+        }
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+        stateBuilder.add(TRIGGERED);
     }
 
     @Nullable
