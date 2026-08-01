@@ -1,14 +1,13 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
+import me.jddev0.ep.block.entity.LegacyAdvancedAutoCrafterBlockEntity;
 import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -45,7 +44,7 @@ public record CycleAdvancedAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implem
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
+            if(!(blockEntity instanceof LegacyAdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
                 return;
 
             AbstractContainerMenu menu = player.containerMenu;
