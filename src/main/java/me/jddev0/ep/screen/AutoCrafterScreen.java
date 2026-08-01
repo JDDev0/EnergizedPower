@@ -2,7 +2,7 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
+import me.jddev0.ep.networking.packet.LegacyCycleAutoCrafterRecipeOutputC2SPacket;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
@@ -53,7 +53,7 @@ public class AutoCrafterScreen
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
-                ModMessages.sendToServer(new CycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new LegacyCycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }
         }

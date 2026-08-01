@@ -20,17 +20,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
-    public static final Type<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
+public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final Type<LegacySetAutoCrafterPatternInputSlotsC2SPacket> ID =
             new Type<>(EPAPI.id("set_auto_crafter_pattern_input_slots"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacySetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacySetAutoCrafterPatternInputSlotsC2SPacket::write, LegacySetAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
     private final ResourceLocation recipeId;
 
-    public SetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
+    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -41,7 +41,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPac
         this.recipeId = recipeId;
     }
 
-    public SetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
@@ -66,7 +66,7 @@ public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPac
         return ID;
     }
 
-    public static void handle(SetAutoCrafterPatternInputSlotsC2SPacket data, IPayloadContext context) {
+    public static void handle(LegacySetAutoCrafterPatternInputSlotsC2SPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;

@@ -8,7 +8,7 @@ import dev.emi.emi.api.recipe.handler.EmiRecipeHandler;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.SetAutoCrafterPatternInputSlotsC2SPacket;
+import me.jddev0.ep.networking.packet.LegacySetAutoCrafterPatternInputSlotsC2SPacket;
 import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -53,7 +53,7 @@ public class AutoCrafterRecipeHandler implements EmiRecipeHandler<AutoCrafterMen
 
         Minecraft.getInstance().setScreen(context.getScreen());
 
-        ModMessages.sendToServer(new SetAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(), itemStacks, recipe.getId()));
+        ModMessages.sendToServer(new LegacySetAutoCrafterPatternInputSlotsC2SPacket(context.getScreenHandler().getBlockEntity().getBlockPos(), itemStacks, recipe.getId()));
 
         return true;
     }

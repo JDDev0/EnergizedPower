@@ -53,12 +53,12 @@ public class AdvancedAutoCrafterScreen
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
-                ModMessages.sendToServer(new CycleAdvancedAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }else if(isHovering(96, 16, 12, 12, mouseX, mouseY)) {
                 //Set recipe index
 
-                ModMessages.sendToServer(new SetAdvancedAutoCrafterRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(), menu.getRecipeIndex() + 1));
+                ModMessages.sendToServer(new LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(), menu.getRecipeIndex() + 1));
                 return true;
             }
         }
