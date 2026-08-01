@@ -74,7 +74,7 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Ener
 
         long ticksPerDay = 24000;
 
-        long time = Math.clamp(signalStrength - 1, 0, 14) * ticksPerDay / 15; //"15" instead of "14": signal strength 14 should set time to 14/15th of ticksPerDay
+        long time = Math.clamp(signalStrength - 1, 0, 14) * ticksPerDay / 15; //"15" instead of "14": signal strength 14 should set time to 14/15 of ticksPerDay
 
         long currentTime = level.getDayTime();
 
