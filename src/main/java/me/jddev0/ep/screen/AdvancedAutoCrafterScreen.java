@@ -2,8 +2,8 @@ package me.jddev0.ep.screen;
 
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
-import me.jddev0.ep.networking.packet.LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket;
-import me.jddev0.ep.networking.packet.LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket;
+import me.jddev0.ep.networking.packet.CycleAutoCrafterRecipeOutputC2SPacket;
+import me.jddev0.ep.networking.packet.SetAutoCrafterRecipeIndexC2SPacket;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
 import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageContainerScreen;
 import net.fabricmc.api.EnvType;
@@ -54,12 +54,12 @@ public class AdvancedAutoCrafterScreen
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
-                ModMessages.sendToServer(new LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new CycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }else if(isHovering(96, 16, 12, 12, mouseX, mouseY)) {
                 //Set recipe index
 
-                ModMessages.sendToServer(new LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(), menu.getRecipeIndex() + 1));
+                ModMessages.sendToServer(new SetAutoCrafterRecipeIndexC2SPacket(menu.getBlockEntity().getBlockPos(), menu.getRecipeIndex() + 1));
                 return true;
             }
         }
