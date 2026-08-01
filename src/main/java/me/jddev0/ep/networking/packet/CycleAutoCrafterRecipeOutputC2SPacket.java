@@ -1,8 +1,8 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
-import me.jddev0.ep.screen.AutoCrafterMenu;
+import me.jddev0.ep.block.entity.AbstractAutoCrafterBlockEntity;
+import me.jddev0.ep.screen.IAutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -13,13 +13,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record LegacyCycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<LegacyCycleAutoCrafterRecipeOutputC2SPacket> ID =
-            new CustomPacketPayload.Type<>(EPAPI.id("cycle_auto_crafter_recipe_output"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, LegacyCycleAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(LegacyCycleAutoCrafterRecipeOutputC2SPacket::write, LegacyCycleAutoCrafterRecipeOutputC2SPacket::new);
+public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
+    public static final Type<CycleAutoCrafterRecipeOutputC2SPacket> ID =
+            new Type<>(EPAPI.id("cycle_auto_crafter_recipe_output"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, CycleAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(CycleAutoCrafterRecipeOutputC2SPacket::write, CycleAutoCrafterRecipeOutputC2SPacket::new);
 
-    public LegacyCycleAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public CycleAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos());
     }
 
@@ -32,7 +32,7 @@ public record LegacyCycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implemen
         return ID;
     }
 
-    public static void receive(LegacyCycleAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(CycleAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
         context.server().execute(() -> {
             if(!context.player().mayBuild())
                 return;
@@ -42,17 +42,19 @@ public record LegacyCycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implemen
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
+            if(!(blockEntity instanceof AbstractAutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
             AbstractContainerMenu menu = context.player().containerMenu;
 
-            if(!(menu instanceof AutoCrafterMenu))
+            if(!(menu instanceof IAutoCrafterMenu))
                 return;
+
+            int recipeIndex = autoCrafterBlockEntity.getCurrentRecipeIndex();
 
             autoCrafterBlockEntity.cycleRecipe();
 
-            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(0);
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
         });
     }
 }
