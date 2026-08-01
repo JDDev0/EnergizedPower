@@ -52,7 +52,7 @@ public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements Cus
 
             autoCrafterBlockEntity.cycleRecipe();
 
-            autoCrafterBlockEntity.resetProgressAndMarkAsChanged();
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(0);
         });
     }
 }
