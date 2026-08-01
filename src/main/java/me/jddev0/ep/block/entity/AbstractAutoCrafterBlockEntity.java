@@ -315,6 +315,22 @@ public abstract class AbstractAutoCrafterBlockEntity
         currentRecipeIndex = nbt.getInt("current_recipe_index");
         if(currentRecipeIndex < 0 || currentRecipeIndex >= workerThreadCount)
             currentRecipeIndex = 0;
+
+        //Ensure compatibility with older versions: Override recipe progress data for thread 0
+        if(nbt.contains("pattern"))
+            loadPatternContainer(0, nbt.getCompound("pattern"), registries);
+
+        if(nbt.contains("recipe.id")) {
+            Tag tag = nbt.get("recipe.id");
+
+            if(!(tag instanceof StringTag stringTag))
+                throw new IllegalArgumentException("Tag must be of type StringTag!");
+
+            recipeIdForSetRecipe[0] = ResourceLocation.tryParse(stringTag.getAsString());
+        }
+
+        if(nbt.contains("ignore_nbt"))
+            ignoreNBT[0] = nbt.getBoolean("ignore_nbt");
     }
 
     private void loadPatternContainer(int index, CompoundTag tag, HolderLookup.Provider registries) {
