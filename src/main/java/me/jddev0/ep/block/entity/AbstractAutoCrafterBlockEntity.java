@@ -4,14 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.NoWorkData;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
-import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
-import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,6 +30,7 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -41,12 +40,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class LegacyAdvancedAutoCrafterBlockEntity
+public abstract class AbstractAutoCrafterBlockEntity
         extends WorkerMachineBlockEntity<NoWorkData>
         implements CheckboxUpdate {
-    //TODO remove once abstract
-    public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
-            ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
+    protected final AutoCrafterMenuProvider menuProvider;
 
     private final List<@NotNull ResourceLocation> recipeBlacklist;
     private final int energyConsumptionPerTickPerIngredient;
@@ -57,7 +54,7 @@ public class LegacyAdvancedAutoCrafterBlockEntity
     private boolean allowOutputOverflow = true;
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler,
-            (i, stack) -> i >= LegacyAdvancedAutoCrafterBlockEntity.this.outputOnlySlotCount,
+            (i, stack) -> i >= AbstractAutoCrafterBlockEntity.this.outputOnlySlotCount,
             i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):
                     isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
@@ -85,19 +82,17 @@ public class LegacyAdvancedAutoCrafterBlockEntity
     private int currentRecipeIndex = 0;
 
     @SuppressWarnings("unchecked")
-    public LegacyAdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
-        //TODO move to constructor parameter for abstract version
+    public AbstractAutoCrafterBlockEntity(BlockEntityType<?> type, BlockPos blockPos, BlockState blockState,
+                                          String machineName, AutoCrafterMenuProvider menuProvider,
+                                          int slotCount, List<@NotNull ResourceLocation> recipeBlacklist, int baseRecipeDuration,
+                                          int baseEnergyCapacity, int baseEnergyTransferRate, int energyConsumptionPerTickPerIngredient) {
         super(
-                EPBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
+                type, blockPos, blockState,
 
-                "advanced_auto_crafter",
+                machineName,
 
-                27, ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue(),
-
-                ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue(),
-                ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
-
-                1,
+                slotCount, baseRecipeDuration,
+                baseEnergyCapacity, baseEnergyTransferRate, 1,
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -106,9 +101,10 @@ public class LegacyAdvancedAutoCrafterBlockEntity
                 UpgradeModuleModifier.ITEM_PULLING
         );
 
-        recipeBlacklist = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
-        energyConsumptionPerTickPerIngredient = ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT;
-        //TODO keep everything below as is
+        this.menuProvider = menuProvider;
+
+        this.recipeBlacklist = recipeBlacklist;
+        this.energyConsumptionPerTickPerIngredient = energyConsumptionPerTickPerIngredient;
 
         outputOnlySlotCount = initOutputOnlySlotCount();
 
@@ -140,13 +136,9 @@ public class LegacyAdvancedAutoCrafterBlockEntity
     }
 
     @Override
-    protected int initWorkerThreadCount() {
-        return 3;
-    }
+    protected abstract int initWorkerThreadCount();
 
-    protected int initOutputOnlySlotCount() {
-        return 5;
-    }
+    protected abstract int initOutputOnlySlotCount();
 
     @Override
     protected EnergizedPowerItemStackHandler initInventoryStorage() {
@@ -202,7 +194,7 @@ public class LegacyAdvancedAutoCrafterBlockEntity
         syncEnergyToPlayer(player);
         syncIOConfigurationToPlayer(player);
 
-        return new AdvancedAutoCrafterMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
+        return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
     }
 
     @Override

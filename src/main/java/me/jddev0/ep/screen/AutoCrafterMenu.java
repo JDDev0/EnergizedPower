@@ -29,12 +29,13 @@ public class AutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<A
 
     private final SimpleProgressValueContainerData progressData = new SimpleProgressValueContainerData();
     private final SimpleProgressValueContainerData maxProgressData = new SimpleProgressValueContainerData();
-    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleEnergyValueContainerData energyConsumptionLeftData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData hasEnoughEnergyData = new SimpleBooleanValueContainerData();
     private final SimpleBooleanValueContainerData ignoreNBTData = new SimpleBooleanValueContainerData();
+    private final SimpleEnergyValueContainerData energyConsumptionPerTickData = new SimpleEnergyValueContainerData();
     private final SimpleBooleanValueContainerData secondaryExtractModeData = new SimpleBooleanValueContainerData();
     private final SimpleBooleanValueContainerData allowOutputOverflowData = new SimpleBooleanValueContainerData();
+    private final SimpleShortValueContainerData currentRecipeIndexData = new SimpleShortValueContainerData();
     private final SimpleRedstoneModeValueContainerData redstoneModeData = new SimpleRedstoneModeValueContainerData();
     private final SimpleComparatorModeValueContainerData comparatorModeData = new SimpleComparatorModeValueContainerData();
 
@@ -45,11 +46,15 @@ public class AutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<A
                 UpgradeModuleModifier.ENERGY_CAPACITY,
                 UpgradeModuleModifier.ITEM_EJECTOR,
                 UpgradeModuleModifier.ITEM_PULLING
-        ), new SimpleContainer(9), new SimpleContainer(1), null);
+        ),  new Container[] {
+                new SimpleContainer(9)
+        },  new Container[] {
+                new SimpleContainer(1)
+        }, null);
     }
 
     public AutoCrafterMenu(int id, Inventory inv, BlockEntity blockEntity, UpgradeModuleInventory upgradeModuleInventory,
-                           Container patternSlots, Container patternResultSlots, ContainerData data) {
+                           Container[] patternSlots, Container[] patternResultSlots, ContainerData data) {
         super(
                 EPMenuTypes.AUTO_CRAFTER_MENU.get(), id,
 
@@ -60,8 +65,8 @@ public class AutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<A
                 upgradeModuleInventory, 4
         );
 
-        this.patternSlots = patternSlots;
-        this.patternResultSlots = patternResultSlots;
+        this.patternSlots = patternSlots[0];
+        this.patternResultSlots = patternResultSlots[0];
 
         ItemCapabilityMenuHelper.getCapabilityItemHandler(this.level, this.blockEntity).ifPresent(itemHandler -> {
             for(int i = 0;i < 2;i++)
@@ -71,14 +76,14 @@ public class AutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<A
 
         for(int i = 0;i < 3;i++)
             for(int j = 0;j < 3;j++)
-                addSlot(new PatternSlot(patternSlots, j + i * 3, 30 + j * 18, 17 + i * 18, () -> true) {
+                addSlot(new PatternSlot(patternSlots[0], j + i * 3, 30 + j * 18, 17 + i * 18, () -> true) {
                     @Override
                     public boolean isActive() {
                         return super.isActive() && !isInUpgradeModuleView();
                     }
                 });
 
-        addSlot(new PatternResultSlot(patternResultSlots, 0, 124, 35, () -> true) {
+        addSlot(new PatternResultSlot(patternResultSlots[0], 0, 124, 35, () -> true) {
             @Override
             public boolean isActive() {
                 return super.isActive() && !isInUpgradeModuleView();
@@ -91,12 +96,14 @@ public class AutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<A
         if(data == null) {
             addDataSlots(progressData);
             addDataSlots(maxProgressData);
-            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(energyConsumptionLeftData);
             addDataSlots(hasEnoughEnergyData);
             addDataSlots(ignoreNBTData);
+
+            addDataSlots(energyConsumptionPerTickData);
             addDataSlots(secondaryExtractModeData);
             addDataSlots(allowOutputOverflowData);
+            addDataSlots(currentRecipeIndexData);
             addDataSlots(redstoneModeData);
             addDataSlots(comparatorModeData);
         }else {
