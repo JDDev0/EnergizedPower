@@ -1280,7 +1280,9 @@
   "tooltip.energizedpower.weather_controller.btn.thunder": "Setze das Wetter auf Gewitter",
   "advancements.energizedpower.weather_controller.title": "Steuere das Wetter",
   "advancements.energizedpower.weather_controller.description": "Ändere das Wetter mit dem Wetter-Kontroller.",
-  "book.energizedpower.page.weather_controller": "Der Wetter-Kontroller kann das Wetter temporär ändern. Um das zu tun, benötigt er Energie.",
+  "book.energizedpower.page.weather_controller.1": "Der Wetter-Kontroller kann das Wetter temporär ändern. Um das zu tun, benötigt er Energie.",
+  "book.energizedpower.page.weather_controller.2": "Er kann mit Redstone automatisiert werden - Signalstäkren: (15: Klar, 14: Regen, 13: Gewitter, 1 - 12 (nur, wenn das Laufzeit-Upgrade-Modul (MK VI) installiert ist): Setzt das gewählte Wetter zurück).",
+  "book.energizedpower.page.weather_controller.3": "Er kann auch mit Computern von CCTweaked automatisiert werden.",
 
   "_template.epcontainer.time_controller": "Zeit-Kontroller",
   "tooltip.energizedpower.time_controller.btn.day": "Setze die Zeit auf Vormittag",
@@ -1290,7 +1292,9 @@
   "advancements.energizedpower.time_controller.title": "Steuere die Zeit",
   "advancements.energizedpower.time_controller.description": "Ändere die Zeit mit dem Zeit-Kontroller.",
   "book.energizedpower.page.time_controller.1": "Der Zeit-Kontroller kann die Zeit des Tages ändern. Um das zu tun, benötigt er Energie.",
-  "book.energizedpower.page.time_controller.2": "Es kann nicht in der Zeit zurückgehen, der Zeitwert wird immer erhöht.",
+  "book.energizedpower.page.time_controller.2": "Er kann mit Redstone automatisiert werden. Signalstäkre 1 setzt die Zeit des Tages auf 0 Ticks und 15 setzt die Zeit des Tages auf 14/15 der Anzahl der Ticks in einem Tag.",
+  "book.energizedpower.page.time_controller.3": "Er kann auch mit Computern von CCTweaked automatisiert werden.",
+  "book.energizedpower.page.time_controller.4": "Es kann nicht in der Zeit zurückgehen, der Zeitwert wird immer erhöht.",
 
   "_template.epcontainer.teleporter": "Teleporter",
   "tooltip.energizedpower.teleporter.txt.shift.1": "Drücke [%s] während du auf dem Teleporter stehst, um dich zu teleportieren.",
