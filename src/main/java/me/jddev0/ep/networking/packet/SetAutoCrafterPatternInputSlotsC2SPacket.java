@@ -1,8 +1,8 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
-import me.jddev0.ep.screen.AutoCrafterMenu;
+import me.jddev0.ep.block.entity.AbstractAutoCrafterBlockEntity;
+import me.jddev0.ep.screen.IAutoCrafterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -20,17 +20,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
-    public static final Type<LegacySetAutoCrafterPatternInputSlotsC2SPacket> ID =
+public final class SetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final Type<SetAutoCrafterPatternInputSlotsC2SPacket> ID =
             new Type<>(EPAPI.id("set_auto_crafter_pattern_input_slots"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, LegacySetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(LegacySetAutoCrafterPatternInputSlotsC2SPacket::write, LegacySetAutoCrafterPatternInputSlotsC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(SetAutoCrafterPatternInputSlotsC2SPacket::write, SetAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
     private final ResourceLocation recipeId;
 
-    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
+    public SetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -41,7 +41,7 @@ public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements Cus
         this.recipeId = recipeId;
     }
 
-    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public SetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
@@ -66,7 +66,7 @@ public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements Cus
         return ID;
     }
 
-    public static void handle(LegacySetAutoCrafterPatternInputSlotsC2SPacket data, IPayloadContext context) {
+    public static void handle(SetAutoCrafterPatternInputSlotsC2SPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             if(!(context.player().level() instanceof ServerLevel level) || !(context.player() instanceof ServerPlayer player))
                 return;
@@ -75,20 +75,22 @@ public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements Cus
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
+            if(!(blockEntity instanceof AbstractAutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
             AbstractContainerMenu menu = player.containerMenu;
 
-            if(!(menu instanceof AutoCrafterMenu autoCrafterMenu))
+            if(!(menu instanceof IAutoCrafterMenu autoCrafterMenu))
                 return;
 
+            int recipeIndex = autoCrafterBlockEntity.getCurrentRecipeIndex();
+
             for(int i = 0;i < data.itemStacks.size();i++)
-                autoCrafterMenu.getPatternSlots().setItem(i, data.itemStacks.get(i));
+                autoCrafterMenu.getPatternSlots()[recipeIndex].setItem(i, data.itemStacks.get(i));
 
             autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 
-            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(0);
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
         });
     }
 }
