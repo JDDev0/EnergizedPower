@@ -7,13 +7,20 @@ import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.screen.TimeControllerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.clock.ServerClockManager;
+import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<EnergizedPowerEnergyStorage> {
     public static final int CAPACITY = ModConfigs.COMMON_TIME_CONTROLLER_CAPACITY.getValue();
@@ -63,5 +70,37 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Ener
 
             transaction.commit();
         }
+    }
+
+    public void onRedstoneTriggered(int signalStrength) {
+        if(energyStorage.getAmountAsInt() < TimeControllerBlockEntity.CAPACITY || !(level instanceof ServerLevel serverLevel))
+            return;
+
+        clearEnergy();
+
+        //TODO dynamically get days timeline
+        long ticksPerDay = 24000;
+
+        long time = Math.clamp(signalStrength - 1, 0, 14) * ticksPerDay / 15; //"15" instead of "14": signal strength 14 should set time to 14/15th of ticksPerDay
+
+        Holder<DimensionType> dimensionType = serverLevel.dimensionTypeRegistration();
+        Optional<Holder<WorldClock>> defaultClockOptional = dimensionType.value().defaultClock();
+        if(defaultClockOptional.isEmpty()) {
+            //TODO trigger error state in block texture (There is no time in dimension ...)
+
+            return;
+        }
+
+        Holder<WorldClock> defaultClock = defaultClockOptional.get();
+        ServerClockManager clockManager = serverLevel.clockManager();
+
+        long currentTime = clockManager.getTotalTicks(defaultClock);
+
+        int currentDayTime = (int)(currentTime % ticksPerDay);
+
+        if(currentDayTime <= time)
+            clockManager.setTotalTicks(defaultClock, currentTime - currentDayTime + time);
+        else
+            clockManager.setTotalTicks(defaultClock, currentTime + ticksPerDay - currentDayTime + time);
     }
 }
