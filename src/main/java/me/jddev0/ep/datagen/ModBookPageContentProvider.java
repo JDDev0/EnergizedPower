@@ -1267,7 +1267,13 @@ public class ModBookPageContentProvider extends PageContentProvider {
         ), EPBlocks.ENERGIZER);
 
         addSimplePage(pageId("weather_controller"), Component.empty().append(
-                Component.translatable("book.energizedpower.page.weather_controller").
+                Component.translatable("book.energizedpower.page.weather_controller.1").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.weather_controller.2").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.weather_controller.3").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM)
         ), EPBlocks.WEATHER_CONTROLLER);
 
@@ -1276,6 +1282,12 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
         ).append(
                 Component.translatable("book.energizedpower.page.time_controller.2").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.time_controller.3").
+                        withStyle(ChatFormatting.BLACK, ChatFormatting.BOLD).withStyle(UNIFORM).append("\n\n")
+        ).append(
+                Component.translatable("book.energizedpower.page.time_controller.4").
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ), EPBlocks.TIME_CONTROLLER);
 

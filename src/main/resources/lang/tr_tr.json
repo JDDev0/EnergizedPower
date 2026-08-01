@@ -1280,7 +1280,9 @@
   "tooltip.energizedpower.weather_controller.btn.thunder": "Hava Fırtına olarak değiştirildi",
   "advancements.energizedpower.weather_controller.title": "Havayı Kontrol Et!",
   "advancements.energizedpower.weather_controller.description": "Hava Kontrolcüsü ile havayı kontrol et!.",
-  "book.energizedpower.page.weather_controller": "Hava Durumu Denetleyicisi hava durumunu geçici olarak değiştirebilir. Bunu yapmak için enerji gerektirir.",
+  "book.energizedpower.page.weather_controller.1": "Hava Durumu Denetleyicisi hava durumunu geçici olarak değiştirebilir. Bunu yapmak için enerji gerektirir.",
+  "book.energizedpower.page.weather_controller.2": "It can be automated with redstone - signal strengths: (15: clear, 14: rain, 13: thunder, 1 - 12 (only if the Duration Upgrade Module (Tier VI) is installed): reset selected weather).",
+  "book.energizedpower.page.weather_controller.3": "It can also be automated with computers from CCTweaked.",
 
   "_template.epcontainer.time_controller": "Zaman Kontrolcüsü",
   "tooltip.energizedpower.time_controller.btn.day": "Saat gündüz yapıldı",
@@ -1290,7 +1292,9 @@
   "advancements.energizedpower.time_controller.title": "Zamanı Kontrol Et!",
   "advancements.energizedpower.time_controller.description": "Zaman Kontrolcüsü ile zamanı kontrol et!.",
   "book.energizedpower.page.time_controller.1": "Zaman Kontrolörü günün saatini değiştirebilir. Bunu yapmak için enerjiye ihtiyaç duyar.",
-  "book.energizedpower.page.time_controller.2": "Zamanda geriye gidemez, zaman değeri her zaman artacaktır.",
+  "book.energizedpower.page.time_controller.2": "It can be automated with redstone. Signal Strength 1 will set the time of the day to 0 ticks and 15 will set the time of the day to 14/15 of the amount of ticks in a day.",
+  "book.energizedpower.page.time_controller.3": "It can also be automated with computers from CCTweaked.",
+  "book.energizedpower.page.time_controller.4": "Zamanda geriye gidemez, zaman değeri her zaman artacaktır.",
 
   "_template.epcontainer.teleporter": "Işınlayıcı",
   "tooltip.energizedpower.teleporter.txt.shift.1": "Işınlayıcının üstünde shifte basarak ışınlanın [%s].",
