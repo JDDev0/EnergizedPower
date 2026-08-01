@@ -8,7 +8,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 ### Machines
 
 - Powered Lamp
-- Powered Furnace, Advanced Powered Furnace (3 input/output slot pairs), and Elite Powered Furnace (7 input/output slot pairs) (Elite Powered Furnace: (**In next release (v3.0.0-beta.9)**))
+- Powered Furnace, Advanced Powered Furnace (3 input/output slot pairs), and Elite Powered Furnace (7 input/output slot pairs) (Elite Powered Furnace: (**In next release (v3.0.0)**))
 - Press Mold Maker
 - Alloy Furnace
 - Auto Crafter, Advanced Auto Crafter (3 recipes at once), Elite Auto Crafter (7 recipes at once):
@@ -35,10 +35,10 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Fluid Drainer
 - Fluid Pump
 - Advanced Fluid Pump
-- Charger, Advanced Charger (3 slots), and Elite Charger (7 slots) (Elite Charger: (**In next release (v3.0.0-beta.9)**))
-- Uncharger, Advanced Uncharger (3 slots), and Elite Uncharger (7 slots) (Elite Uncharger: (**In next release (v3.0.0-beta.9)**))
-- Minecart Charger, Advanced Minecart Charger, and Elite Minecart Charger (Elite Minecart Charger: (**In next release (v3.0.0-beta.9)**))
-- Minecart Uncharger, Advanced Minecart Uncharger, and Elite Minecart Uncharger (Elite Minecart Uncharger: (**In next release (v3.0.0-beta.9)**))
+- Charger, Advanced Charger (3 slots), and Elite Charger (7 slots) (Elite Charger: (**In next release (v3.0.0)**))
+- Uncharger, Advanced Uncharger (3 slots), and Elite Uncharger (7 slots) (Elite Uncharger: (**In next release (v3.0.0)**))
+- Minecart Charger, Advanced Minecart Charger, and Elite Minecart Charger (Elite Minecart Charger: (**In next release (v3.0.0)**))
+- Minecart Uncharger, Advanced Minecart Uncharger, and Elite Minecart Uncharger (Elite Minecart Uncharger: (**In next release (v3.0.0)**))
 - Charging Station
 - Crystal Growth Chamber
 - Energizer
@@ -49,7 +49,7 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Solar Panels (6 Tiers)
 - Battery Box
 - Advanced Battery Box
-- Elite Battery Box (**In next release (v3.0.0-beta.9)**)
+- Elite Battery Box (**In next release (v3.0.0)**)
 - Weather Controller
 - Time Controller
 - Teleporter (Highly configurable)
@@ -58,19 +58,19 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Energy transportation
 
-- Cables (7 Tiers: Tin, Copper, Gold, Energized Copper, Energized Gold, Energized Crystal Matrix, and Superconductive) (Superconductive: (**In next release (v3.0.0-beta.9)**))
+- Cables (7 Tiers: Tin, Copper, Gold, Energized Copper, Energized Gold, Energized Crystal Matrix, and Superconductive) (Superconductive: (**In next release (v3.0.0)**))
 - Transformers (Can be used to connect different tiers of cables):
-  - 5 tiers: LV, MV, HV, EHV, and UHV (UHV: (**In next release (v3.0.0-beta.9)**))
+  - 5 tiers: LV, MV, HV, EHV, and UHV (UHV: (**In next release (v3.0.0)**))
   - 4 types (for each tier): 1 to n, 3 to 3, n to 1, and configurable
 - Minecart with Battery Box
 - Minecart with Advanced Battery Box
-- Minecart with Elite Battery Box (**In next release (v3.0.0-beta.9)**)
+- Minecart with Elite Battery Box (**In next release (v3.0.0)**)
 
 ### Energy Items
 
 - Energy Analyzer (Can be used to debug energy blocks)
 - Fluid Analyzer (Can be used to debug blocks which contain fluids)
-- Batteries (10 Tiers) (Tiers 9 and 10: (**In next release (v3.0.0-beta.9)**))
+- Batteries (10 Tiers) (Tiers 9 and 10: (**In next release (v3.0.0)**))
 - Inventory Coal Engine
 - Inventory Charger
 - Inventory Teleporter
@@ -82,12 +82,12 @@ Every machine supports auto-insert and auto-extract of items from all block face
 
 ### Item transportation
 
-- Item Conveyor Belt (4 tiers) (Tier 4: (**In next release (v3.0.0-beta.9)**))
-- Item Conveyor Belt Loader (4 tiers) (Tier 4: (**In next release (v3.0.0-beta.9)**))
-- Item Conveyor Belt Sorter (4 tiers) (Tier 4: (**In next release (v3.0.0-beta.9)**))
-- Item Conveyor Belt Switch (4 tiers) (Tier 4: (**In next release (v3.0.0-beta.9)**))
-- Item Conveyor Belt Splitter (4 tiers) (Tier 4: (**In next release (v3.0.0-beta.9)**))
-- Item Conveyor Belt Merger (4 tiers) (Tier 4: (**In next release (v3.0.0-beta.9)**))
+- Item Conveyor Belt (4 tiers) (Tier 4: (**In next release (v3.0.0)**))
+- Item Conveyor Belt Loader (4 tiers) (Tier 4: (**In next release (v3.0.0)**))
+- Item Conveyor Belt Sorter (4 tiers) (Tier 4: (**In next release (v3.0.0)**))
+- Item Conveyor Belt Switch (4 tiers) (Tier 4: (**In next release (v3.0.0)**))
+- Item Conveyor Belt Splitter (4 tiers) (Tier 4: (**In next release (v3.0.0)**))
+- Item Conveyor Belt Merger (4 tiers) (Tier 4: (**In next release (v3.0.0)**))
 - Item Silos (Tiny, Small, Medium, Large, and Giant)
 
 ### Misc
