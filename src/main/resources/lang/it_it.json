@@ -1280,7 +1280,9 @@
   "tooltip.energizedpower.weather_controller.btn.thunder": "Imposta il meteo sul temporale",
   "advancements.energizedpower.weather_controller.title": "Controlla il meteo",
   "advancements.energizedpower.weather_controller.description": "Cambia il tempo con il controller meteorologico.",
-  "book.energizedpower.page.weather_controller": "Il controller meteorologico può cambiare temporaneamente il tempo. Richiede energia per farlo.",
+  "book.energizedpower.page.weather_controller.1": "Il controller meteorologico può cambiare temporaneamente il tempo. Richiede energia per farlo.",
+  "book.energizedpower.page.weather_controller.2": "It can be automated with redstone - signal strengths: (15: clear, 14: rain, 13: thunder, 1 - 12 (only if the Duration Upgrade Module (Tier VI) is installed): reset selected weather).",
+  "book.energizedpower.page.weather_controller.3": "It can also be automated with computers from CCTweaked.",
 
   "_template.epcontainer.time_controller": "Controllore del tempo",
   "tooltip.energizedpower.time_controller.btn.day": "Imposta l'ora di giorno",
@@ -1290,7 +1292,9 @@
   "advancements.energizedpower.time_controller.title": "Controlla il tempo",
   "advancements.energizedpower.time_controller.description": "Modificare l'ora con il controller del tempo.",
   "book.energizedpower.page.time_controller.1": "Il controller del tempo può modificare l'ora del giorno. Richiede energia per farlo.",
-  "book.energizedpower.page.time_controller.2": "Non può tornare indietro nel tempo, il valore temporale sarà sempre incrementato.",
+  "book.energizedpower.page.time_controller.2": "It can be automated with redstone. Signal Strength 1 will set the time of the day to 0 ticks and 15 will set the time of the day to 14/15 of the amount of ticks in a day.",
+  "book.energizedpower.page.time_controller.3": "It can also be automated with computers from CCTweaked.",
+  "book.energizedpower.page.time_controller.4": "Non può tornare indietro nel tempo, il valore temporale sarà sempre incrementato.",
 
   "_template.epcontainer.teleporter": "Teletrasporto",
   "tooltip.energizedpower.teleporter.txt.shift.1": "Premi [%s] mentre sei sopra il Teletrasporto per teletrasportarti.",

@@ -12,10 +12,28 @@
         "translate": "book.energizedpower.page.time_controller.1"
       },
       {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.time_controller.2"
+      },
+      {
+        "bold": true,
+        "color": "black",
+        "extra": [
+          "\n\n"
+        ],
+        "font": "minecraft:uniform",
+        "translate": "book.energizedpower.page.time_controller.3"
+      },
+      {
         "color": "black",
         "font": "minecraft:uniform",
         "italic": true,
-        "translate": "book.energizedpower.page.time_controller.2"
+        "translate": "book.energizedpower.page.time_controller.4"
       }
     ],
     "text": ""
