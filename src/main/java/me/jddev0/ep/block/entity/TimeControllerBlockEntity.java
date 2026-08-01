@@ -8,6 +8,7 @@ import me.jddev0.ep.screen.TimeControllerMenu;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -63,5 +64,25 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Ener
 
             transaction.commit();
         }
+    }
+
+    public void onRedstoneTriggered(int signalStrength) {
+        if(energyStorage.getAmount() < TimeControllerBlockEntity.CAPACITY || !(level instanceof ServerLevel serverLevel))
+            return;
+
+        clearEnergy();
+
+        long ticksPerDay = 24000;
+
+        long time = Math.clamp(signalStrength - 1, 0, 14) * ticksPerDay / 15; //"15" instead of "14": signal strength 14 should set time to 14/15th of ticksPerDay
+
+        long currentTime = level.getDayTime();
+
+        int currentDayTime = (int)(currentTime % 24000);
+
+        if(currentDayTime <= time)
+            serverLevel.setDayTime(currentTime - currentDayTime + time);
+        else
+            serverLevel.setDayTime(currentTime + 24000 - currentDayTime + time);
     }
 }
