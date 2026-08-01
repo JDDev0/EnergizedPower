@@ -1280,7 +1280,9 @@
   "tooltip.energizedpower.weather_controller.btn.thunder": "设置天气为雷暴",
   "advancements.energizedpower.weather_controller.title": "控制天气",
   "advancements.energizedpower.weather_controller.description": "用天气控制器改变天气。",
-  "book.energizedpower.page.weather_controller": "天气控制器可以暂时改变天气。它需要能量才能这样做。",
+  "book.energizedpower.page.weather_controller.1": "天气控制器可以暂时改变天气。它需要能量才能这样做。",
+  "book.energizedpower.page.weather_controller.2": "It can be automated with redstone - signal strengths: (15: clear, 14: rain, 13: thunder, 1 - 12 (only if the Duration Upgrade Module (Tier VI) is installed): reset selected weather).",
+  "book.energizedpower.page.weather_controller.3": "It can also be automated with computers from CCTweaked.",
 
   "_template.epcontainer.time_controller": "时间控制器",
   "tooltip.energizedpower.time_controller.btn.day": "设置时间为白天",
@@ -1290,7 +1292,9 @@
   "advancements.energizedpower.time_controller.title": "控制时间",
   "advancements.energizedpower.time_controller.description": "用时间控制器改变时间。",
   "book.energizedpower.page.time_controller.1": "时间控制器可以改变一天中的时间。它需要能量才能这样做。",
-  "book.energizedpower.page.time_controller.2": "它不能回到过去，时间值将始终递增。",
+  "book.energizedpower.page.time_controller.2": "It can be automated with redstone. Signal Strength 1 will set the time of the day to 0 ticks and 15 will set the time of the day to 14/15 of the amount of ticks in a day.",
+  "book.energizedpower.page.time_controller.3": "It can also be automated with computers from CCTweaked.",
+  "book.energizedpower.page.time_controller.4": "它不能回到过去，时间值将始终递增。",
 
   "_template.epcontainer.teleporter": "传送器",
   "tooltip.energizedpower.teleporter.txt.shift.1": "站在传送器上时按 [%s] 键进行传送。",

@@ -1280,7 +1280,9 @@
   "tooltip.energizedpower.weather_controller.btn.thunder": "Definir clima para tempestade",
   "advancements.energizedpower.weather_controller.title": "Controle o clima",
   "advancements.energizedpower.weather_controller.description": "Mude o clima com o Controlador de Clima.",
-  "book.energizedpower.page.weather_controller": "O Controlador de Clima pode mudar o clima temporariamente. Ele requer energia para fazer isso.",
+  "book.energizedpower.page.weather_controller.1": "O Controlador de Clima pode mudar o clima temporariamente. Ele requer energia para fazer isso.",
+  "book.energizedpower.page.weather_controller.2": "It can be automated with redstone - signal strengths: (15: clear, 14: rain, 13: thunder, 1 - 12 (only if the Duration Upgrade Module (Tier VI) is installed): reset selected weather).",
+  "book.energizedpower.page.weather_controller.3": "It can also be automated with computers from CCTweaked.",
 
   "_template.epcontainer.time_controller": "Controlador de Tempo",
   "tooltip.energizedpower.time_controller.btn.day": "Definir tempo para dia",
@@ -1290,7 +1292,9 @@
   "advancements.energizedpower.time_controller.title": "Controle o tempo",
   "advancements.energizedpower.time_controller.description": "Mude o tempo com o Controlador de Tempo.",
   "book.energizedpower.page.time_controller.1": "O Controlador de Tempo pode mudar a hora do dia. Ele requer energia para fazer isso.",
-  "book.energizedpower.page.time_controller.2": "Ele não pode voltar no tempo, o valor do tempo sempre será incrementado.",
+  "book.energizedpower.page.time_controller.2": "It can be automated with redstone. Signal Strength 1 will set the time of the day to 0 ticks and 15 will set the time of the day to 14/15 of the amount of ticks in a day.",
+  "book.energizedpower.page.time_controller.3": "It can also be automated with computers from CCTweaked.",
+  "book.energizedpower.page.time_controller.4": "Ele não pode voltar no tempo, o valor do tempo sempre será incrementado.",
 
   "_template.epcontainer.teleporter": "Teletransportador",
   "tooltip.energizedpower.teleporter.txt.shift.1": "Pressione [%s] enquanto estiver acima do Teletransportador para se teletransportar.",
