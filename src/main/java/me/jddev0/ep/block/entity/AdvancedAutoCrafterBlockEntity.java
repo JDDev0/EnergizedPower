@@ -1,16 +1,12 @@
 package me.jddev0.ep.block.entity;
 
 import com.mojang.datafixers.util.Pair;
-import me.jddev0.ep.block.AdvancedAutoCrafterBlock;
-import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
-import me.jddev0.ep.block.entity.base.ConfigurableUpgradableInventoryEnergyStorageBlockEntity;
-import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
-import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
-import me.jddev0.ep.inventory.data.CombinedContainerData;
+import me.jddev0.ep.block.entity.base.NoWorkData;
+import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
-import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.data.*;
 import me.jddev0.ep.machine.CheckboxUpdate;
 import me.jddev0.ep.machine.configuration.*;
@@ -46,63 +42,32 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class AdvancedAutoCrafterBlockEntity
-        extends ConfigurableUpgradableInventoryEnergyStorageBlockEntity<EnergizedPowerEnergyStorage, EnergizedPowerItemStackHandler>
+        extends WorkerMachineBlockEntity<NoWorkData>
         implements CheckboxUpdate {
-    //Item slot indices are dynamic in the future
+    //TODO remove once abstract
+    public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
+            ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
 
-    private static final List<@NotNull ResourceLocation> RECIPE_BLACKLIST = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
+    private final List<@NotNull ResourceLocation> recipeBlacklist;
+    private final int energyConsumptionPerTickPerIngredient;
 
-    private final static int RECIPE_DURATION = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue();
+    private final int outputOnlySlotCount;
 
     private boolean secondaryExtractMode = false;
     private boolean allowOutputOverflow = true;
 
-    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i >= 5,
-                    i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
+    private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler,
+            (i, stack) -> i >= AdvancedAutoCrafterBlockEntity.this.outputOnlySlotCount,
+            i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):
+                    isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
-    private final SimpleContainer[] patternSlots = new SimpleContainer[] {
-            new SimpleContainer(3 * 3) {
-                @Override
-                public int getMaxStackSize() {
-                    return 1;
-                }
-            },
-            new SimpleContainer(3 * 3) {
-                @Override
-                public int getMaxStackSize() {
-                    return 1;
-                }
-            },
-            new SimpleContainer(3 * 3) {
-                @Override
-                public int getMaxStackSize() {
-                    return 1;
-                }
-            }
-    };
-    private final SimpleContainer[] patternResultSlots = new SimpleContainer[] {
-            new SimpleContainer(1),
-            new SimpleContainer(1),
-            new SimpleContainer(1)
-    };
-    private final ContainerListener[] updatePatternListener = new ContainerListener[] {
-            container -> updateRecipe(0),
-            container -> updateRecipe(1),
-            container -> updateRecipe(2)
-    };
-    private final boolean[] hasRecipeLoaded = new boolean[] {
-            false, false, false
-    };
-    private final ResourceLocation[] recipeIdForSetRecipe = new ResourceLocation[] {
-            null, null, null
-    };
-    @SuppressWarnings("unchecked")
-    private final RecipeHolder<CraftingRecipe>[] craftingRecipe = new RecipeHolder[] {
-            null, null, null
-    };
-    private final CraftingContainer[] oldCopyOfRecipe = new CraftingContainer[] {
-            null, null, null
-    };
+    private final SimpleContainer[] patternSlots;
+    private final SimpleContainer[] patternResultSlots;
+    private final ContainerListener[] updatePatternListener;
+    private final boolean[] hasRecipeLoaded;
+    private final ResourceLocation[] recipeIdForSetRecipe;
+    private final RecipeHolder<CraftingRecipe>[] craftingRecipe;
+    private final CraftingContainer[] oldCopyOfRecipe;
     private final AbstractContainerMenu dummyContainerMenu = new AbstractContainerMenu(null, -1) {
         @Override
         public ItemStack quickMoveStack(Player player, int index) {
@@ -116,38 +81,23 @@ public class AdvancedAutoCrafterBlockEntity
         public void slotsChanged(Container container) {}
     };
 
-    public final static int ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT =
-            ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT.getValue();
-
-    private final int[] progress = new int[] {
-            0, 0, 0
-    };
-    private final int[] maxProgress = new int[] {
-            0, 0, 0
-    };
-    private final int[] energyConsumptionLeft = new int[] {
-            -1, -1, -1
-    };
-    private final boolean[] hasEnoughEnergy = new boolean[] {
-            false, false, false
-    };
-    private final boolean[] ignoreNBT = new boolean[] {
-            false, false, false
-    };
+    private final boolean[] ignoreNBT;
     private int currentRecipeIndex = 0;
 
-    private int timeoutOffState;
-
+    @SuppressWarnings("unchecked")
     public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
+        //TODO move to constructor parameter for abstract version
         super(
                 EPBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY.get(), blockPos, blockState,
 
                 "advanced_auto_crafter",
 
+                27, ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_DURATION.getValue(),
+
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_CAPACITY.getValue(),
                 ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_TRANSFER_RATE.getValue(),
 
-                27,
+                1,
 
                 UpgradeModuleModifier.SPEED,
                 UpgradeModuleModifier.ENERGY_CONSUMPTION,
@@ -156,36 +106,46 @@ public class AdvancedAutoCrafterBlockEntity
                 UpgradeModuleModifier.ITEM_PULLING
         );
 
-        for(int i = 0;i < 3;i++)
+        recipeBlacklist = ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST.getValue();
+        energyConsumptionPerTickPerIngredient = ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT;
+        //TODO keep everything below as is
+
+        outputOnlySlotCount = initOutputOnlySlotCount();
+
+        patternSlots = new SimpleContainer[workerThreadCount];
+        patternResultSlots = new SimpleContainer[workerThreadCount];
+        updatePatternListener = new ContainerListener[workerThreadCount];
+
+        hasRecipeLoaded = new boolean[workerThreadCount];
+        recipeIdForSetRecipe = new ResourceLocation[workerThreadCount];
+        craftingRecipe = new RecipeHolder[workerThreadCount];
+        oldCopyOfRecipe = new CraftingContainer[workerThreadCount];
+
+        ignoreNBT = new boolean[workerThreadCount];
+
+        for(int i = 0;i < workerThreadCount;i++) {
+            final int thread = i;
+
+            patternSlots[i] = new SimpleContainer(3 * 3) {
+                @Override
+                public int getMaxStackSize() {
+                            return 1;
+                        }
+            };
+            patternResultSlots[i] = new SimpleContainer(1);
+            updatePatternListener[i] = container -> updateRecipe(thread);
+
             patternSlots[i].addListener(updatePatternListener[i]);
+        }
     }
 
     @Override
-    protected EnergizedPowerEnergyStorage initEnergyStorage() {
-        return new EnergizedPowerEnergyStorage(baseEnergyCapacity) {
-            @Override
-            public int getCapacity() {
-                return Math.max(1, (int)Math.ceil(capacity * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_CAPACITY)));
-            }
-
-            @Override
-            protected void onFinalCommit() {
-                setChanged();
-                syncEnergyToPlayers(32);
-            }
-        };
+    protected int initWorkerThreadCount() {
+        return 3;
     }
 
-    @Override
-    protected EnergizedPowerLimitingEnergyStorage initLimitingEnergyStorage() {
-        return new EnergizedPowerLimitingEnergyStorage(energyStorage, baseEnergyTransferRate, 0) {
-            @Override
-            public int getMaxInsert() {
-                return Math.max(1, (int)Math.ceil(maxInsert * upgradeModuleInventory.getModifierEffectProduct(
-                        UpgradeModuleModifier.ENERGY_TRANSFER_RATE)));
-            }
-        };
+    protected int initOutputOnlySlotCount() {
+        return 5;
     }
 
     @Override
@@ -193,11 +153,11 @@ public class AdvancedAutoCrafterBlockEntity
         return new EnergizedPowerItemStackHandler(slotCount) {
             @Override
             public boolean isValid(int slot, @NotNull ItemStack stack) {
-                if(slot < 0 || slot >= 27)
+                if(slot < 0 || slot >= slotCount)
                     return super.isValid(slot, stack);
 
-                //Slot 0, 1, 2, 3, and 4 are for output items only
-                return slot >= 5;
+                //First few slots are for output items only
+                return slot >= outputOnlySlotCount;
             }
 
             @Override
@@ -209,29 +169,31 @@ public class AdvancedAutoCrafterBlockEntity
 
     @Override
     protected ContainerData initContainerData() {
-        return new CombinedContainerData(
-                new ProgressValueContainerData(() -> progress[0], value -> progress[0] = value),
-                new ProgressValueContainerData(() -> progress[1], value -> progress[1] = value),
-                new ProgressValueContainerData(() -> progress[2], value -> progress[2] = value),
-                new ProgressValueContainerData(() -> maxProgress[0], value -> maxProgress[0] = value),
-                new ProgressValueContainerData(() -> maxProgress[1], value -> maxProgress[1] = value),
-                new ProgressValueContainerData(() -> maxProgress[2], value -> maxProgress[2] = value),
-                new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft[0], value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft[1], value -> {}),
-                new EnergyValueContainerData(() -> energyConsumptionLeft[2], value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy[0], value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy[1], value -> {}),
-                new BooleanValueContainerData(() -> hasEnoughEnergy[2], value -> {}),
-                new BooleanValueContainerData(() -> ignoreNBT[0], value -> ignoreNBT[0] = value),
-                new BooleanValueContainerData(() -> ignoreNBT[1], value -> ignoreNBT[1] = value),
-                new BooleanValueContainerData(() -> ignoreNBT[2], value -> ignoreNBT[2] = value),
-                new BooleanValueContainerData(() -> secondaryExtractMode, value -> secondaryExtractMode = value),
-                new BooleanValueContainerData(() -> allowOutputOverflow, value -> allowOutputOverflow = value),
-                new ShortValueContainerData(() -> (short)currentRecipeIndex, value -> currentRecipeIndex = value),
-                new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value),
-                new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value)
-        );
+        //this.wokerThreadCount is not yet assigned when this method gets called
+        int workerThreadCount = initWorkerThreadCount();
+
+        List<ContainerData> combinedContainerDataList = new ArrayList<>(5 * workerThreadCount + 6);
+        for(int i = 0;i < workerThreadCount;i++) {
+            final int thread = i;
+
+            combinedContainerDataList.add(new ProgressValueContainerData(() -> progress[thread], value -> progress[thread] = value));
+            combinedContainerDataList.add(new ProgressValueContainerData(() -> maxProgress[thread], value -> maxProgress[thread] = value));
+            combinedContainerDataList.add(new EnergyValueContainerData(() -> energyConsumptionLeft[thread], value -> {}));
+            combinedContainerDataList.add(new BooleanValueContainerData(() -> hasEnoughEnergy[thread], value -> {}));
+            combinedContainerDataList.add(new BooleanValueContainerData(() -> ignoreNBT[thread], value -> ignoreNBT[thread] = value));
+        }
+
+        combinedContainerDataList.add(new EnergyValueContainerData(this::getEnergyConsumptionPerTickSum, value -> {}));
+
+        combinedContainerDataList.add(new BooleanValueContainerData(() -> secondaryExtractMode, value -> secondaryExtractMode = value));
+        combinedContainerDataList.add(new BooleanValueContainerData(() -> allowOutputOverflow, value -> allowOutputOverflow = value));
+
+        combinedContainerDataList.add(new ShortValueContainerData(() -> (short)currentRecipeIndex, value -> currentRecipeIndex = value));
+
+        combinedContainerDataList.add(new RedstoneModeValueContainerData(() -> redstoneMode, value -> redstoneMode = value));
+        combinedContainerDataList.add(new ComparatorModeValueContainerData(() -> comparatorMode, value -> comparatorMode = value));
+
+        return new CombinedContainerData(combinedContainerDataList.toArray(ContainerData[]::new));
     }
 
     @Nullable
@@ -246,7 +208,7 @@ public class AdvancedAutoCrafterBlockEntity
     @Override
     protected List<SlotGroup> initSlotGroups(SlotType slotType) {
         //this.outputOnlySlotCount is not yet assigned when this method gets called
-        int outputOnlySlotCount = /* TODO initOutputOnlySlotCount()*/5;
+        int outputOnlySlotCount = initOutputOnlySlotCount();
 
         if(slotType == SlotType.ITEM) {
             List<SlotEntry> allOutputOnlySlots = IntStream.range(0, outputOnlySlotCount).mapToObj(SlotEntry::ofOutput).toList();
@@ -311,16 +273,12 @@ public class AdvancedAutoCrafterBlockEntity
     protected void saveAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.saveAdditional(nbt, registries);
 
-        for(int i = 0;i < 3;i++)
+        for(int i = 0;i < workerThreadCount;i++)
             nbt.put("pattern." + i, savePatternContainer(i, registries));
 
-        for(int i = 0;i < 3;i++) {
+        for(int i = 0;i < workerThreadCount;i++) {
             if(craftingRecipe[i] != null)
                 nbt.put("recipe.id." + i, StringTag.valueOf(craftingRecipe[i].id().toString()));
-
-            nbt.put("recipe.progress." + i, IntTag.valueOf(progress[i]));
-            nbt.put("recipe.max_progress." + i, IntTag.valueOf(maxProgress[i]));
-            nbt.put("recipe.energy_consumption_left." + i, IntTag.valueOf(energyConsumptionLeft[i]));
 
             nbt.putBoolean("ignore_nbt." + i, ignoreNBT[i]);
         }
@@ -343,10 +301,10 @@ public class AdvancedAutoCrafterBlockEntity
     protected void loadAdditional(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
 
-        for(int i = 0;i < 3;i++)
+        for(int i = 0;i < workerThreadCount;i++)
             loadPatternContainer(i, nbt.getCompound("pattern." + i), registries);
 
-        for(int i = 0;i < 3;i++) {
+        for(int i = 0;i < workerThreadCount;i++) {
             if(nbt.contains("recipe.id." + i)) {
                 Tag tag = nbt.get("recipe.id." + i);
 
@@ -356,10 +314,6 @@ public class AdvancedAutoCrafterBlockEntity
                 recipeIdForSetRecipe[i] = ResourceLocation.tryParse(stringTag.getAsString());
             }
 
-            progress[i] = nbt.getInt("recipe.progress." + i);
-            maxProgress[i] = nbt.getInt("recipe.max_progress." + i);
-            energyConsumptionLeft[i] = nbt.getInt("recipe.energy_consumption_left." + i);
-
             ignoreNBT[i] = nbt.getBoolean("ignore_nbt." + i);
         }
 
@@ -367,7 +321,7 @@ public class AdvancedAutoCrafterBlockEntity
         allowOutputOverflow = !nbt.contains("allow_output_overflow") || nbt.getBoolean("allow_output_overflow");
 
         currentRecipeIndex = nbt.getInt("current_recipe_index");
-        if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
+        if(currentRecipeIndex < 0 || currentRecipeIndex >= workerThreadCount)
             currentRecipeIndex = 0;
     }
 
@@ -382,166 +336,69 @@ public class AdvancedAutoCrafterBlockEntity
         patternSlots[index].addListener(updatePatternListener[index]);
     }
 
-    public static void tick(Level level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
-        if(level.isClientSide)
-            return;
+    @Override
+    protected double getWorkDataDependentEnergyConsumption(int thread, NoWorkData workData) {
+        int itemCount = 0;
+        for(int i = 0;i < patternSlots[thread].getContainerSize();i++)
+            if(!patternSlots[thread].getItem(i).isEmpty())
+                itemCount++;
 
-        if(blockEntity.timeoutOffState > 0) {
-            blockEntity.timeoutOffState--;
-
-            if(blockEntity.timeoutOffState == 0 && level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
-                    level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
-                level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, false), 3);
-            }
-        }
-
-        if(!blockEntity.redstoneMode.isActive(state.getValue(AdvancedAutoCrafterBlock.POWERED)))
-            return;
-
-        blockEntity.pullItemsFromInputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_PULLING));
-
-        tickRecipe(level, blockPos, state, blockEntity);
-
-        blockEntity.pushItemsToOutputs(blockEntity.upgradeModuleInventory.getModifierEffectSum(UpgradeModuleModifier.ITEM_EJECTOR));
+        return itemCount * energyConsumptionPerTickPerIngredient;
     }
 
-    private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, AdvancedAutoCrafterBlockEntity blockEntity) {
-        if(level.isClientSide())
-            return;
+    @Override
+    protected void onTickStart() {
+        for(int i = 0;i < workerThreadCount;i++) {
+            if(!hasRecipeLoaded[i]) {
+                updateRecipe(i);
 
-        boolean hasNoRecipe = true;
-        int hasNotEnoughEnergyCount = 0;
-        for(int i = 0;i < 3;i++) {
-            if(!blockEntity.hasRecipeLoaded[i]) {
-                blockEntity.updateRecipe(i);
+                if(craftingRecipe[i] == null)
+                    resetProgress(i);
 
-                if(blockEntity.craftingRecipe[i] == null)
-                    blockEntity.resetProgress(i);
-
-                setChanged(level, blockPos, state);
-            }
-
-            int itemCount = 0;
-            for(int j = 0;j < blockEntity.patternSlots[i].getContainerSize();j++)
-                if(!blockEntity.patternSlots[i].getItem(j).isEmpty())
-                    itemCount++;
-
-            //Ignore empty recipes
-            if(itemCount == 0)
-                continue;
-
-            if(blockEntity.craftingRecipe[i] != null && (blockEntity.progress[i] > 0 ||
-                    (blockEntity.canInsertItemsIntoOutputSlots(i) && blockEntity.canExtractItemsFromInput(i)))) {
-                hasNoRecipe = false;
-
-                if(!blockEntity.canInsertItemsIntoOutputSlots(i) || !blockEntity.canExtractItemsFromInput(i))
-                    continue;
-
-                if(blockEntity.maxProgress[i] == 0)
-                    blockEntity.maxProgress[i] = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
-                            blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
-
-                int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
-                        blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
-
-                if(blockEntity.progress[i] == 0) {
-                    if(!blockEntity.canExtractItemsFromInput(i))
-                        continue;
-
-                    blockEntity.energyConsumptionLeft[i] = energyConsumptionPerTick * blockEntity.maxProgress[i];
-                }
-
-                if(blockEntity.progress[i] < 0 || blockEntity.maxProgress[i] < 0 || blockEntity.energyConsumptionLeft[i] < 0) {
-                    //Reset progress for invalid values
-
-                    blockEntity.resetProgress(i);
-                    setChanged(level, blockPos, state);
-
-                    continue;
-                }
-
-                if(energyConsumptionPerTick <= blockEntity.energyStorage.getEnergy()) {
-                    blockEntity.timeoutOffState = 0;
-                    if(level.getBlockState(blockPos).hasProperty(EPBlockStateProperties.WORKING) &&
-                            !level.getBlockState(blockPos).getValue(EPBlockStateProperties.WORKING)) {
-                        level.setBlock(blockPos, state.setValue(EPBlockStateProperties.WORKING, true), 3);
-                    }
-
-                    blockEntity.energyStorage.setEnergy(blockEntity.energyStorage.getEnergy() - energyConsumptionPerTick);
-                    blockEntity.energyConsumptionLeft[i] -= energyConsumptionPerTick;
-
-                    blockEntity.progress[i]++;
-
-                    if(blockEntity.progress[i] >= blockEntity.maxProgress[i]) {
-                        SimpleContainer patternSlotsForRecipe = blockEntity.ignoreNBT[i]?
-                                blockEntity.replaceCraftingPatternWithCurrentNBTItems(blockEntity.patternSlots[i]):blockEntity.patternSlots[i];
-                        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(blockEntity.dummyContainerMenu, 3, 3);
-                        for(int j = 0;j < patternSlotsForRecipe.getContainerSize();j++)
-                            copyOfPatternSlots.setItem(j, patternSlotsForRecipe.getItem(j));
-
-                        blockEntity.extractItems(i);
-                        blockEntity.craftItem(i, copyOfPatternSlots);
-                    }
-
-                    setChanged(level, blockPos, state);
-                }else {
-                    blockEntity.hasEnoughEnergy[i] = false;
-                    hasNotEnoughEnergyCount++;
-                    setChanged(level, blockPos, state);
-                }
-            }else {
-                blockEntity.resetProgress(i);
-                hasNotEnoughEnergyCount++;
-                setChanged(level, blockPos, state);
-            }
-        }
-
-        //Unlit if nothing is being crafted
-        if(hasNoRecipe || hasNotEnoughEnergyCount == 3) {
-            if(blockEntity.timeoutOffState == 0) {
-                blockEntity.timeoutOffState = ModConfigs.COMMON_OFF_STATE_TIMEOUT.getValue();
+                setChanged();
             }
         }
     }
-    
-    protected final int getEnergyConsumptionPerTickSum() {
-        int energyConsumptionSum = -1;
 
-        for(int i = 0;i < 3;i++) {
-            int itemCount = 0;
-            for(int j = 0;j < patternSlots[i].getContainerSize();j++)
-                if(!patternSlots[i].getItem(j).isEmpty())
-                    itemCount++;
-
-            //Ignore empty recipes
-            if(itemCount == 0 || craftingRecipe[i] == null || progress[i] <= 0)
-                continue;
-
-            int energyConsumption = Math.max(1, (int)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
-                    upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
-
-            if(energyConsumptionSum == -1)
-                energyConsumptionSum = energyConsumption;
-            else
-                energyConsumptionSum += energyConsumption;
-
-            if(energyConsumptionSum < 0)
-                energyConsumptionSum = Integer.MAX_VALUE;
-        }
-
-        return energyConsumptionSum;
+    @Override
+    protected boolean hasWork(int thread) {
+        return craftingRecipe[thread] != null &&
+                canInsertItemsIntoOutputSlots(thread) &&
+                canExtractItemsFromInput(thread);
     }
 
-    private void resetProgress(int index) {
-        progress[index] = 0;
-        maxProgress[index] = 0;
-        energyConsumptionLeft[index] = -1;
-        hasEnoughEnergy[index] = true;
+    @Override
+    protected Optional<NoWorkData> getCurrentWorkData(int thread) {
+        int itemCount = 0;
+        for(int j = 0;j < patternSlots[thread].getContainerSize();j++)
+            if(!patternSlots[thread].getItem(j).isEmpty())
+                itemCount++;
+
+        //Ignore empty recipes
+        if(itemCount == 0)
+            return Optional.empty();
+
+        return Optional.of(NoWorkData.INSTANCE);
     }
 
-    public void resetProgressAndMarkAsChanged(int index) {
-        resetProgress(index);
-        setChanged(level, getBlockPos(), getBlockState());
+    @Override
+    protected void onWorkStarted(int thread, NoWorkData workData) {}
+
+    @Override
+    protected void onWorkCompleted(int thread, NoWorkData workData) {
+        SimpleContainer patternSlotsForRecipe = ignoreNBT[thread]?
+                replaceCraftingPatternWithCurrentNBTItems(patternSlots[thread]):patternSlots[thread];
+        CraftingContainer copyOfPatternSlots = new TransientCraftingContainer(dummyContainerMenu, 3, 3);
+        for(int j = 0;j < patternSlotsForRecipe.getContainerSize();j++)
+            copyOfPatternSlots.setItem(j, patternSlotsForRecipe.getItem(j));
+
+        extractItems(thread);
+        craftItem(thread, copyOfPatternSlots);
+    }
+
+    public void resetProgressAndMarkAsChanged(int thread) {
+        resetProgress(thread);
+        setChanged();
     }
 
     public void cycleRecipe() {
@@ -686,7 +543,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacksInsert = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():5;
+        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():outputOnlySlotCount;
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
         for(ItemStack itemStack:itemStacksInsert) {
@@ -800,7 +657,7 @@ public class AdvancedAutoCrafterBlockEntity
 
         List<ItemStack> itemStacks = ItemStackUtils.combineItemStacks(outputItemStacks);
 
-        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():5;
+        int outputSlotCount = allowOutputOverflow?itemHandler.getSlots():outputOnlySlotCount;
         List<Integer> checkedIndices = new ArrayList<>(outputSlotCount);
         List<Integer> emptyIndices = new ArrayList<>(outputSlotCount);
         outer:
@@ -848,7 +705,7 @@ public class AdvancedAutoCrafterBlockEntity
     }
 
     private boolean isOutputOrCraftingRemainderOfInput(ItemStack itemStack) {
-        for(int i = 0;i < 3;i++) {
+        for(int i = 0;i < workerThreadCount;i++) {
             if(craftingRecipe[i] == null)
                 continue;
 
@@ -875,7 +732,7 @@ public class AdvancedAutoCrafterBlockEntity
 
 
     private boolean isInput(ItemStack itemStack) {
-        for(int i = 0;i < 3;i++) {
+        for(int i = 0;i < workerThreadCount;i++) {
             if(craftingRecipe[i] == null)
                 continue;
 
@@ -939,7 +796,7 @@ public class AdvancedAutoCrafterBlockEntity
 
     private List<RecipeHolder<CraftingRecipe>> getRecipesFor(CraftingContainer patternSlots, Level level) {
         return level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING).
-                stream().filter(recipe -> !RECIPE_BLACKLIST.contains(recipe.id())).
+                stream().filter(recipe -> !recipeBlacklist.contains(recipe.id())).
                 filter(recipe -> recipe.value().matches(patternSlots.asCraftInput(), level)).
                 sorted(Comparator.comparing(recipe -> recipe.value().getResultItem(level.registryAccess()).getDescriptionId())).
                 toList();
@@ -952,63 +809,32 @@ public class AdvancedAutoCrafterBlockEntity
         return recipe.or(() -> recipes.stream().findFirst()).map(r -> Pair.of(r.id(), r));
     }
 
-    protected void recalculateProgress(int index) {
-        if(this.craftingRecipe[index] == null || this.maxProgress[index] <= 0)
-            return;
-
-        int currentMaxProgress = this.maxProgress[index];
-
-        this.maxProgress[index] = Math.max(1, (int)Math.ceil(RECIPE_DURATION /
-                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.SPEED)));
-        if(this.maxProgress[index] != currentMaxProgress) {
-            this.progress[index] = this.progress[index] * this.maxProgress[index] / currentMaxProgress;
-        }
-
-        int itemCount = 0;
-        for(int i = 0;i < this.patternSlots[index].getContainerSize();i++)
-            if(!this.patternSlots[index].getItem(i).isEmpty())
-                itemCount++;
-
-        int energyConsumptionPerTick = Math.max(1, (int)Math.ceil(itemCount * ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT *
-                this.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_CONSUMPTION)));
-
-        this.energyConsumptionLeft[index] = energyConsumptionPerTick * (this.maxProgress[index] - this.progress[index]);
-    }
-
-    @Override
-    protected void updateUpgradeModules() {
-        for(int i = 0;i < 3;i++)
-            recalculateProgress(i);
-
-        super.updateUpgradeModules();
-    }
-
     public int getCurrentRecipeIndex() {
         return currentRecipeIndex;
     }
 
     public void setCurrentRecipeIndex(int currentRecipeIndex) {
-        if(currentRecipeIndex < 0 || currentRecipeIndex >= 3)
+        if(currentRecipeIndex < 0 || currentRecipeIndex >= workerThreadCount)
             currentRecipeIndex = 0;
 
         this.currentRecipeIndex = currentRecipeIndex;
-        setChanged(level, getBlockPos(), getBlockState());
+        setChanged();
     }
 
     public void setIgnoreNBT(boolean ignoreNBT) {
         this.ignoreNBT[currentRecipeIndex] = ignoreNBT;
         updateRecipe(currentRecipeIndex);
-        setChanged(level, getBlockPos(), getBlockState());
+        setChanged();
     }
 
     public void setSecondaryExtractMode(boolean secondaryExtractMode) {
         this.secondaryExtractMode = secondaryExtractMode;
-        setChanged(level, getBlockPos(), getBlockState());
+        setChanged();
     }
 
     public void setAllowOutputOverflow(boolean allowOutputOverflow) {
         this.allowOutputOverflow = allowOutputOverflow;
-        setChanged(level, getBlockPos(), getBlockState());
+        setChanged();
     }
 
     @Override
