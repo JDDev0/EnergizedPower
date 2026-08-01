@@ -11,8 +11,8 @@ Download on Modrinth: [Energized Power](https://modrinth.com/mod/energized-power
 - Powered Furnace, Advanced Powered Furnace (3 input/output slot pairs), and Elite Powered Furnace (7 input/output slot pairs) (Elite Powered Furnace: (**In next release (v3.0.0-beta.9)**))
 - Press Mold Maker
 - Alloy Furnace
-- Auto Crafter (Can handle recipe conflicts, that is recipes with the same inputs)
-- Advanced Auto Crafter (3 recipes at once)
+- Auto Crafter, Advanced Auto Crafter (3 recipes at once), Elite Auto Crafter (7 recipes at once):
+  - Auto Crafters can handle recipe conflicts, that is recipes with the same inputs
 - Crusher
 - Advanced Crusher
 - Pulverizer

@@ -746,6 +746,10 @@
   "advancements.energizedpower.advanced_auto_crafter.title": "Power-Crafting",
   "advancements.energizedpower.advanced_auto_crafter.description": "Crafte mehrere Rezepte mit dem selben Block.",
 
+  "_template.epcontainer.elite_auto_crafter": "Elite Automatische Werkbank",
+  "advancements.energizedpower.elite_auto_crafter.title": "Übertaktetes crafting",
+  "advancements.energizedpower.elite_auto_crafter.description": "Die beste Automatische Werkbank dieser Mod.",
+
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "Dieser Block verbraucht %s/t pro Zutat.",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "NBT ignorieren",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Extrahierungsmodus 1: Nur Ausgabe-Items und übrig bleibende Items",

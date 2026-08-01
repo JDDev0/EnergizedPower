@@ -746,6 +746,10 @@
   "advancements.energizedpower.advanced_auto_crafter.title": "Силовое ремесло",
   "advancements.energizedpower.advanced_auto_crafter.description": "Создавайте несколько рецептов с использованием одного и того же блока.",
 
+  "_template.epcontainer.elite_auto_crafter": "Elite Auto Crafter",
+  "advancements.energizedpower.elite_auto_crafter.title": "Overclocked crafting",
+  "advancements.energizedpower.elite_auto_crafter.description": "The best auto crafter of this mod.",
+
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "Этот блок использует %s/т на ингредиент.",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "Игнорировать NBT теги",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "Режим извлечения 1: только вывод и оставшиеся предметы",
