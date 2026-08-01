@@ -51,7 +51,7 @@ public class AutoCrafterScreen
             }else if(isHovering(126, 16, 12, 12, mouseX, mouseY)) {
                 //Cycle through recipes
 
-                ModMessages.sendToServer(new LegacyCycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
+                ModMessages.sendToServer(new CycleAutoCrafterRecipeOutputC2SPacket(menu.getBlockEntity().getBlockPos()));
                 return true;
             }
         }

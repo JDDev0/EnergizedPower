@@ -9,8 +9,6 @@ import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import me.jddev0.ep.screen.base.ConfigurableIOUpgradableEnergyStorageMenu;
-import me.jddev0.ep.screen.base.IConfigurableMenu;
-import me.jddev0.ep.screen.base.IEnergyStorageConsumerIndicatorBarMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -21,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AdvancedAutoCrafterMenu extends ConfigurableIOUpgradableEnergyStorageMenu<AdvancedAutoCrafterBlockEntity>
-        implements IEnergyStorageConsumerIndicatorBarMenu, IConfigurableMenu {
+        implements IAutoCrafterMenu {
     private final Container[] patternSlots;
 
     private final Container[] patternResultSlots;
@@ -138,6 +136,7 @@ public class AdvancedAutoCrafterMenu extends ConfigurableIOUpgradableEnergyStora
         }
     }
 
+    @Override
     public Container[] getPatternSlots() {
         return patternSlots;
     }
