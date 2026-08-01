@@ -40,6 +40,8 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
 
         registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM));
 
+        registry.addWorkstations(BuiltinPlugin.CRAFTING, EntryStacks.of(EPBlocks.ELITE_AUTO_CRAFTER_ITEM));
+
         registry.addWorkstations(BuiltinPlugin.SMELTING, EntryStacks.of(EPBlocks.POWERED_FURNACE_ITEM));
         registry.addWorkstations(BuiltinPlugin.BLASTING, EntryStacks.of(EPBlocks.POWERED_FURNACE_ITEM));
         registry.addWorkstations(BuiltinPlugin.SMOKING, EntryStacks.of(EPBlocks.POWERED_FURNACE_ITEM));
@@ -136,6 +138,8 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
 
         registry.register(new AdvancedAutoCrafterTransferHandler());
 
+        registry.register(new EliteAutoCrafterTransferHandler());
+
         registry.register(new SelectableRecipeMachineTransferHandler<>(AutoPressMoldMakerMenu.class,
                 PressMoldMakerRecipe.class));
 
@@ -165,6 +169,9 @@ public class EnergizedPowerREIClientPlugin implements REIClientPlugin {
 
         registerRecipeClickArea(registry, new Rectangle(89, 34, 24, 17),
                 AdvancedAutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
+
+        registerRecipeClickArea(registry, new Rectangle(89, 34, 24, 17),
+                EliteAutoCrafterScreen.class, BuiltinPlugin.CRAFTING);
 
         registerRecipeClickArea(registry, new Rectangle(80, 34, 24, 17),
                 PoweredFurnaceScreen.class, BuiltinPlugin.SMELTING, BuiltinPlugin.BLASTING, BuiltinPlugin.SMOKING);

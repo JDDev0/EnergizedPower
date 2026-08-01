@@ -507,6 +507,12 @@ public final class EPBlocks {
     public static final DeferredItem<Item> ADVANCED_AUTO_CRAFTER_ITEM = createBlockItem("advanced_auto_crafter",
             AdvancedAutoCrafterBlock.Item::new, ADVANCED_AUTO_CRAFTER);
 
+    public static final DeferredBlock<Block> ELITE_AUTO_CRAFTER = registerBlock("elite_auto_crafter",
+            EliteAutoCrafterBlock::new, BlockBehaviour.Properties.of().
+                    requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+    public static final DeferredItem<Item> ELITE_AUTO_CRAFTER_ITEM = createBlockItem("elite_auto_crafter",
+            EliteAutoCrafterBlock.Item::new, ELITE_AUTO_CRAFTER);
+
     public static final DeferredBlock<Block> CRUSHER = registerBlock("crusher",
             CrusherBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));

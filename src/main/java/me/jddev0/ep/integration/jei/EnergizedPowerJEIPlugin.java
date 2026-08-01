@@ -73,6 +73,9 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registration.addRecipeTransferHandler(new AdvancedAutoCrafterTransferHandler(registration.getTransferHelper()),
                 RecipeTypes.CRAFTING);
 
+        registration.addRecipeTransferHandler(new EliteAutoCrafterTransferHandler(registration.getTransferHelper()),
+                RecipeTypes.CRAFTING);
+
         registration.addRecipeTransferHandler(new SelectableRecipeMachineTransferHandler<>(
                 registration.getTransferHelper(), AutoPressMoldMakerMenu.class,
                         EPMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU.get()),
@@ -160,6 +163,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
 
         registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM.get()));
 
+        registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.ELITE_AUTO_CRAFTER_ITEM.get()));
+
         registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()));
         registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()));
         registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM.get()));
@@ -213,6 +218,8 @@ public class EnergizedPowerJEIPlugin implements IModPlugin {
         registerRecipeClickArea(registration, AutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
 
         registerRecipeClickArea(registration, AdvancedAutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
+
+        registerRecipeClickArea(registration, EliteAutoCrafterScreen.class, 89, 34, 24, 17, RecipeTypes.CRAFTING);
 
         registerRecipeClickArea(registration, PoweredFurnaceScreen.class, 80, 34, 24, 17, RecipeTypes.SMELTING,
                 RecipeTypes.BLASTING, RecipeTypes.SMOKING);

@@ -149,6 +149,7 @@ public class EnergizedPowerModClient {
         event.register(EPMenuTypes.TURBO_ITEM_CONVEYOR_BELT_SORTER_MENU, ItemConveyorBeltSorterScreen::new);
         event.register(EPMenuTypes.AUTO_CRAFTER_MENU, AutoCrafterScreen::new);
         event.register(EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, AdvancedAutoCrafterScreen::new);
+        event.register(EPMenuTypes.ELITE_AUTO_CRAFTER_MENU, EliteAutoCrafterScreen::new);
         event.register(EPMenuTypes.CRUSHER_MENU, CrusherScreen::new);
         event.register(EPMenuTypes.ADVANCED_CRUSHER_MENU, AdvancedCrusherScreen::new);
         event.register(EPMenuTypes.PULVERIZER_MENU, PulverizerScreen::new);
