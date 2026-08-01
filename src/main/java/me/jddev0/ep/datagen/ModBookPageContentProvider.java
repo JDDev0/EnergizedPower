@@ -1091,7 +1091,8 @@ public class ModBookPageContentProvider extends PageContentProvider {
                         withStyle(ChatFormatting.BLACK, ChatFormatting.ITALIC).withStyle(UNIFORM)
         ),
                 EPBlocks.AUTO_CRAFTER,
-                EPBlocks.ADVANCED_AUTO_CRAFTER
+                EPBlocks.ADVANCED_AUTO_CRAFTER,
+                EPBlocks.ELITE_AUTO_CRAFTER
         );
 
         addSimplePage(pageId("crushers"), Component.empty().append(
