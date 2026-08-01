@@ -97,6 +97,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.AUTO_CRAFTER,
                         EPBlocks.ADVANCED_AUTO_CRAFTER,
+                        EPBlocks.ELITE_AUTO_CRAFTER,
 
                         EPBlocks.PRESS_MOLD_MAKER,
 
@@ -282,6 +283,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
 
                         EPBlocks.AUTO_CRAFTER,
                         EPBlocks.ADVANCED_AUTO_CRAFTER,
+                        EPBlocks.ELITE_AUTO_CRAFTER,
 
                         EPBlocks.CHARGER,
                         EPBlocks.ADVANCED_CHARGER,

@@ -1233,6 +1233,25 @@ public final class ModConfigs {
             "block.advanced_auto_crafter", "Advanced Auto Crafter", new ArrayList<>(0)
     );
 
+    public static final ConfigValue<Integer> COMMON_ELITE_AUTO_CRAFTER_CAPACITY = registerEnergyCapacityConfigValue(
+            "block.elite_auto_crafter", "Elite Auto Crafter", 8388608
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_AUTO_CRAFTER_TRANSFER_RATE = registerEnergyTransferRateConfigValue(
+            "block.elite_auto_crafter", "Elite Auto Crafter", 131072
+    );
+    public static final ConfigValue<Integer> COMMON_ELITE_AUTO_CRAFTER_ENERGY_CONSUMPTION_PER_TICK_PER_INGREDIENT = COMMON_CONFIG.register(new IntegerConfigValue(
+            "block.elite_auto_crafter.energy_consumption_per_tick_per_ingredient",
+            "The energy consumption of the Elite Auto Crafter if active in FE per tick per ingredient",
+            4096,
+            1, null
+    ));
+    public static final ConfigValue<Integer> COMMON_ELITE_AUTO_CRAFTER_RECIPE_DURATION = registerRecipeDurationConfigValue(
+            "block.elite_auto_crafter", "Elite Auto Crafter", 10
+    );
+    public static final ConfigValue<List<@NotNull ResourceLocation>> COMMON_ELITE_AUTO_CRAFTER_RECIPE_BLACKLIST = registerRecipeBlacklistValue(
+            "block.elite_auto_crafter", "Elite Auto Crafter", new ArrayList<>(0)
+    );
+
     public static final ConfigValue<Integer> COMMON_HEAT_GENERATOR_CAPACITY = registerEnergyCapacityConfigValue(
             "block.heat_generator", "Heat Generator", 10000
     );

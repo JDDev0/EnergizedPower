@@ -279,6 +279,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 orientableWithBackBlockModel(EPBlocks.AUTO_CRAFTER, true));
         orientableBlockWithItem(EPBlocks.ADVANCED_AUTO_CRAFTER,
                 orientableWithBackBlockModel(EPBlocks.ADVANCED_AUTO_CRAFTER, true));
+        orientableBlockWithItem(EPBlocks.ELITE_AUTO_CRAFTER,
+                orientableWithBackBlockModel(EPBlocks.ELITE_AUTO_CRAFTER, true));
 
         orientableBlockWithItem(EPBlocks.CRUSHER,
                 orientableBlockModel(EPBlocks.CRUSHER, true));

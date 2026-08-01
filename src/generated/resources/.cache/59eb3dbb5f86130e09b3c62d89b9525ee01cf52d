@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-31T20:52:15.018733809	Loot Tables
+// 1.21.1	2026-08-01T11:38:43.112911437	Loot Tables
 72200bb34e5b90912d73801f199f8d1ba1d5f73f data/energizedpower/loot_table/blocks/advanced_alloy_block.json
 d24af79b3c818677ed03734065b7990c9bc3f82d data/energizedpower/loot_table/blocks/advanced_auto_crafter.json
 6602eac862b1f1ef2f9c6f75a0f0f9dabf7e6871 data/energizedpower/loot_table/blocks/advanced_battery_box.json
@@ -37,6 +37,7 @@ c8984d00d9016a2bb113eed049020a477626f05b data/energizedpower/loot_table/blocks/d
 9683e8593ce66eb554158d35a8896b9c13ef8f48 data/energizedpower/loot_table/blocks/ehv_transformer_1_to_n.json
 d222a0bc344b8225aa86013ffbd8a858294e7fa7 data/energizedpower/loot_table/blocks/ehv_transformer_3_to_3.json
 211d6639ad0dc2bc3f9ee7d33d1aa99ad477af13 data/energizedpower/loot_table/blocks/ehv_transformer_n_to_1.json
+570b3316db513ba2b269cb613d6be18c98ef7bd3 data/energizedpower/loot_table/blocks/elite_auto_crafter.json
 b55c44680c7da8796f7d384be77796f0c6a4e5a1 data/energizedpower/loot_table/blocks/elite_battery_box.json
 80aa9bfd90b3c2d27a161bced29bba2172120c21 data/energizedpower/loot_table/blocks/elite_charger.json
 5e1d7f967ed96754f7a1229dc3cbcb6a862af245 data/energizedpower/loot_table/blocks/elite_machine_frame.json
