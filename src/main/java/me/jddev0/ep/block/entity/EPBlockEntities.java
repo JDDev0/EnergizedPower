@@ -194,8 +194,8 @@ public final class EPBlockEntities {
     public static final BlockEntityType<AutoCrafterBlockEntity> AUTO_CRAFTER_ENTITY = createBlockEntity("auto_crafter",
             EPBlocks.AUTO_CRAFTER, AutoCrafterBlockEntity::new);
 
-    public static final BlockEntityType<AdvancedAutoCrafterBlockEntity> ADVANCED_AUTO_CRAFTER_ENTITY = createBlockEntity("advanced_auto_crafter",
-            EPBlocks.ADVANCED_AUTO_CRAFTER, AdvancedAutoCrafterBlockEntity::new);
+    public static final BlockEntityType<LegacyAdvancedAutoCrafterBlockEntity> ADVANCED_AUTO_CRAFTER_ENTITY = createBlockEntity("advanced_auto_crafter",
+            EPBlocks.ADVANCED_AUTO_CRAFTER, LegacyAdvancedAutoCrafterBlockEntity::new);
 
     public static final BlockEntityType<PressMoldMakerBlockEntity> PRESS_MOLD_MAKER_ENTITY = createBlockEntity("press_mold_maker",
             EPBlocks.PRESS_MOLD_MAKER, PressMoldMakerBlockEntity::new);
@@ -548,9 +548,9 @@ public final class EPBlockEntities {
                 AUTO_CRAFTER_ENTITY, AutoCrafterBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
-                ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getItemHandlerCapability);
+                ADVANCED_AUTO_CRAFTER_ENTITY, LegacyAdvancedAutoCrafterBlockEntity::getItemHandlerCapability);
         event.registerBlockEntity(Capabilities.Energy.BLOCK,
-                ADVANCED_AUTO_CRAFTER_ENTITY, AdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
+                ADVANCED_AUTO_CRAFTER_ENTITY, LegacyAdvancedAutoCrafterBlockEntity::getEnergyStorageCapability);
 
         event.registerBlockEntity(Capabilities.Item.BLOCK,
                 PRESS_MOLD_MAKER_ENTITY, PressMoldMakerBlockEntity::getItemHandlerCapability);
