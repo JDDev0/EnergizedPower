@@ -27,15 +27,15 @@ public final class ModMessages {
 
         //Client -> Server
         PayloadTypeRegistry.serverboundPlay().register(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket.STREAM_CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(LegacySetAutoCrafterPatternInputSlotsC2SPacket.ID, LegacySetAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket.STREAM_CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket.STREAM_CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC);
-        PayloadTypeRegistry.serverboundPlay().register(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(LegacyCycleAutoCrafterRecipeOutputC2SPacket.ID, LegacyCycleAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket.STREAM_CODEC);
@@ -60,15 +60,15 @@ public final class ModMessages {
 
     public static void registerPacketsC2S() {
         ServerPlayNetworking.registerGlobalReceiver(PopEnergizedPowerBookFromLecternC2SPacket.ID, PopEnergizedPowerBookFromLecternC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(SetAutoCrafterPatternInputSlotsC2SPacket.ID, SetAutoCrafterPatternInputSlotsC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(LegacySetAutoCrafterPatternInputSlotsC2SPacket.ID, LegacySetAutoCrafterPatternInputSlotsC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket.ID, LegacySetAdvancedAutoCrafterPatternInputSlotsC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetWeatherFromWeatherControllerC2SPacket.ID, SetWeatherFromWeatherControllerC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetTimeFromTimeControllerC2SPacket.ID, SetTimeFromTimeControllerC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(UseTeleporterC2SPacket.ID, UseTeleporterC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetCheckboxC2SPacket.ID, SetCheckboxC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(SetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, SetAdvancedAutoCrafterRecipeIndexC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(CycleAutoCrafterRecipeOutputC2SPacket.ID, CycleAutoCrafterRecipeOutputC2SPacket::receive);
-        ServerPlayNetworking.registerGlobalReceiver(CycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, CycleAdvancedAutoCrafterRecipeOutputC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket.ID, LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(LegacyCycleAutoCrafterRecipeOutputC2SPacket.ID, LegacyCycleAutoCrafterRecipeOutputC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket.ID, LegacyCycleAdvancedAutoCrafterRecipeOutputC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(CraftPressMoldMakerRecipeC2SPacket.ID, CraftPressMoldMakerRecipeC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(ChangeCurrentRecipeIndexC2SPacket.ID, ChangeCurrentRecipeIndexC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(ChangeRedstoneModeC2SPacket.ID, ChangeRedstoneModeC2SPacket::receive);
