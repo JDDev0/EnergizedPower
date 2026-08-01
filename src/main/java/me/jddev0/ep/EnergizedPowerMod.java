@@ -223,6 +223,7 @@ public class EnergizedPowerMod implements ModInitializer {
             event.accept(EPBlocks.ELITE_POWERED_FURNACE_ITEM);
             event.accept(EPBlocks.AUTO_CRAFTER_ITEM);
             event.accept(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM);
+            event.accept(EPBlocks.ELITE_AUTO_CRAFTER_ITEM);
             event.accept(EPBlocks.CRUSHER_ITEM);
             event.accept(EPBlocks.ADVANCED_CRUSHER_ITEM);
             event.accept(EPBlocks.PULVERIZER_ITEM);
