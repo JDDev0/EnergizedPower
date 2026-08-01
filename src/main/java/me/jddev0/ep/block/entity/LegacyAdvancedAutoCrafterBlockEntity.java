@@ -15,7 +15,6 @@ import me.jddev0.ep.util.ItemStackUtils;
 import me.jddev0.ep.util.RecipeUtils;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -43,7 +42,7 @@ import team.reborn.energy.api.EnergyStorage;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class AdvancedAutoCrafterBlockEntity
+public class LegacyAdvancedAutoCrafterBlockEntity
         extends WorkerMachineBlockEntity<NoWorkData>
         implements CheckboxUpdate {
     //TODO remove once abstract
@@ -61,7 +60,7 @@ public class AdvancedAutoCrafterBlockEntity
     private boolean allowOutputOverflow = true;
 
     private final InputOutputItemHandler itemHandlerSided = new InputOutputItemHandler(itemHandler,
-            (i, stack) -> i >= AdvancedAutoCrafterBlockEntity.this.outputOnlySlotCount,
+            (i, stack) -> i >= LegacyAdvancedAutoCrafterBlockEntity.this.outputOnlySlotCount,
             i -> secondaryExtractMode?!isInput(itemHandler.getStackInSlot(i)):
                     isOutputOrCraftingRemainderOfInput(itemHandler.getStackInSlot(i)));
 
@@ -89,7 +88,7 @@ public class AdvancedAutoCrafterBlockEntity
     private int currentRecipeIndex = 0;
 
     @SuppressWarnings("unchecked")
-    public AdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
+    public LegacyAdvancedAutoCrafterBlockEntity(BlockPos blockPos, BlockState blockState) {
         //TODO move to constructor parameter for abstract version
         super(
                 EPBlockEntities.ADVANCED_AUTO_CRAFTER_ENTITY, blockPos, blockState,
