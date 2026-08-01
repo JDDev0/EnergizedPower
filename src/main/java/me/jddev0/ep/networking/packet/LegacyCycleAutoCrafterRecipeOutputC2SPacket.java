@@ -13,13 +13,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<CycleAutoCrafterRecipeOutputC2SPacket> ID =
+public record LegacyCycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LegacyCycleAutoCrafterRecipeOutputC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("cycle_auto_crafter_recipe_output"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, CycleAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(CycleAutoCrafterRecipeOutputC2SPacket::write, CycleAutoCrafterRecipeOutputC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacyCycleAutoCrafterRecipeOutputC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacyCycleAutoCrafterRecipeOutputC2SPacket::write, LegacyCycleAutoCrafterRecipeOutputC2SPacket::new);
 
-    public CycleAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacyCycleAutoCrafterRecipeOutputC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos());
     }
 
@@ -32,7 +32,7 @@ public record CycleAutoCrafterRecipeOutputC2SPacket(BlockPos pos) implements Cus
         return ID;
     }
 
-    public static void receive(CycleAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(LegacyCycleAutoCrafterRecipeOutputC2SPacket data, ServerPlayNetworking.Context context) {
         context.player().server.execute(() -> {
             if(!context.player().mayBuild())
                 return;

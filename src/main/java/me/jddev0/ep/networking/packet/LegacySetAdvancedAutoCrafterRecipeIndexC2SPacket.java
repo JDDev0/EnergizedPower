@@ -11,13 +11,13 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
+public record LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recipeIndex) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket> ID =
             new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_recipe_index"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterRecipeIndexC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(SetAdvancedAutoCrafterRecipeIndexC2SPacket::write, SetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket::write, LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket::new);
 
-    public SetAdvancedAutoCrafterRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket(RegistryFriendlyByteBuf buffer) {
         this(buffer.readBlockPos(), buffer.readInt());
     }
 
@@ -31,7 +31,7 @@ public record SetAdvancedAutoCrafterRecipeIndexC2SPacket(BlockPos pos, int recip
         return ID;
     }
 
-    public static void receive(SetAdvancedAutoCrafterRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(LegacySetAdvancedAutoCrafterRecipeIndexC2SPacket data, ServerPlayNetworking.Context context) {
         context.player().server.execute(() -> {
             if(!context.player().mayBuild())
                 return;

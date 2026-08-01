@@ -1,8 +1,8 @@
 package me.jddev0.ep.networking.packet;
 
 import me.jddev0.ep.api.EPAPI;
-import me.jddev0.ep.block.entity.AdvancedAutoCrafterBlockEntity;
-import me.jddev0.ep.screen.AdvancedAutoCrafterMenu;
+import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
+import me.jddev0.ep.screen.AutoCrafterMenu;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -17,17 +17,17 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> ID =
-            new CustomPacketPayload.Type<>(EPAPI.id("set_advanced_auto_crafter_pattern_input_slots"));
-    public static final StreamCodec<RegistryFriendlyByteBuf, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
-            StreamCodec.ofMember(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::write, SetAdvancedAutoCrafterPatternInputSlotsC2SPacket::new);
+public final class LegacySetAutoCrafterPatternInputSlotsC2SPacket implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<LegacySetAutoCrafterPatternInputSlotsC2SPacket> ID =
+            new CustomPacketPayload.Type<>(EPAPI.id("set_auto_crafter_pattern_input_slots"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, LegacySetAutoCrafterPatternInputSlotsC2SPacket> STREAM_CODEC =
+            StreamCodec.ofMember(LegacySetAutoCrafterPatternInputSlotsC2SPacket::write, LegacySetAutoCrafterPatternInputSlotsC2SPacket::new);
 
     private final BlockPos pos;
     private final List<ItemStack> itemStacks;
     private final ResourceLocation recipeId;
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
+    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(BlockPos pos, List<ItemStack> itemStacks, ResourceLocation recipeId) {
         this.pos = pos;
 
         this.itemStacks = new ArrayList<>(itemStacks);
@@ -38,7 +38,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         this.recipeId = recipeId;
     }
 
-    public SetAdvancedAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
+    public LegacySetAutoCrafterPatternInputSlotsC2SPacket(RegistryFriendlyByteBuf buffer) {
         pos = buffer.readBlockPos();
 
         itemStacks = new ArrayList<>(9);
@@ -48,7 +48,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         recipeId = buffer.readResourceLocation();
     }
 
-    public void write(final RegistryFriendlyByteBuf buffer) {
+    public void write(RegistryFriendlyByteBuf buffer) {
         buffer.writeBlockPos(pos);
 
         for(ItemStack itemStack:itemStacks)
@@ -62,7 +62,7 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
         return ID;
     }
 
-    public static void receive(SetAdvancedAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
+    public static void receive(LegacySetAutoCrafterPatternInputSlotsC2SPacket data, ServerPlayNetworking.Context context) {
         context.player().server.execute(() -> {
             if(!context.player().mayBuild())
                 return;
@@ -72,22 +72,20 @@ public final class SetAdvancedAutoCrafterPatternInputSlotsC2SPacket implements C
                 return;
 
             BlockEntity blockEntity = level.getBlockEntity(data.pos);
-            if(!(blockEntity instanceof AdvancedAutoCrafterBlockEntity advancedAutoCrafterBlockEntity))
+            if(!(blockEntity instanceof AutoCrafterBlockEntity autoCrafterBlockEntity))
                 return;
 
             AbstractContainerMenu menu = context.player().containerMenu;
 
-            if(!(menu instanceof AdvancedAutoCrafterMenu advancedAutoCrafterMenu))
+            if(!(menu instanceof AutoCrafterMenu autoCrafterMenu))
                 return;
 
-            int recipeIndex = advancedAutoCrafterBlockEntity.getCurrentRecipeIndex();
-
             for(int i = 0;i < data.itemStacks.size();i++)
-                advancedAutoCrafterMenu.getPatternSlots()[recipeIndex].setItem(i, data.itemStacks.get(i));
+                autoCrafterMenu.getPatternSlots().setItem(i, data.itemStacks.get(i));
 
-            advancedAutoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
+            autoCrafterBlockEntity.setRecipeIdForSetRecipe(data.recipeId);
 
-            advancedAutoCrafterBlockEntity.resetProgressAndMarkAsChanged(recipeIndex);
+            autoCrafterBlockEntity.resetProgressAndMarkAsChanged(0);
         });
     }
 }
