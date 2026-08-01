@@ -128,6 +128,7 @@ public class ModBlockLootTables extends FabricBlockLootTableProvider {
 
         dropSelf(EPBlocks.AUTO_CRAFTER);
         dropSelf(EPBlocks.ADVANCED_AUTO_CRAFTER);
+        dropSelf(EPBlocks.ELITE_AUTO_CRAFTER);
 
         dropSelf(EPBlocks.CRUSHER);
         dropSelf(EPBlocks.ADVANCED_CRUSHER);

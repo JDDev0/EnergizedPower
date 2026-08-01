@@ -2310,6 +2310,17 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 "PaP"
         }, itemStackOf(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM), CraftingBookCategory.MISC);
 
+        addShapedCraftingRecipe(has(EPBlocks.ELITE_MACHINE_FRAME), Map.of(
+                'Q', ingredientOf(EPItems.QUANTUM_PROCESSING_UNIT),
+                'e', ingredientOf(CommonItemTags.PLATES_ENERGIZED_ALLOY),
+                'E', ingredientOf(EPBlocks.ELITE_MACHINE_FRAME_ITEM),
+                'a', ingredientOf(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM)
+        ), new String[] {
+                "eae",
+                "QEQ",
+                "eae"
+        }, itemStackOf(EPBlocks.ELITE_AUTO_CRAFTER_ITEM), CraftingBookCategory.MISC);
+
         addShapedCraftingRecipe(has(EPBlocks.BASIC_MACHINE_FRAME_ITEM), Map.of(
                 's', ingredientOf(CommonItemTags.SILICON),
                 'C', ingredientOf(CommonItemTags.PLATES_COPPER),

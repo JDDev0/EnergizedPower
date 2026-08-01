@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "energizedpower:block/elite_auto_crafter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "energizedpower:block/elite_auto_crafter"
+    },
+    "facing=south": {
+      "model": "energizedpower:block/elite_auto_crafter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "energizedpower:block/elite_auto_crafter",
+      "y": 270
+    }
+  }
+}

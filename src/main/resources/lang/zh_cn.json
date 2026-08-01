@@ -746,6 +746,10 @@
   "advancements.energizedpower.advanced_auto_crafter.title": "强力合成",
   "advancements.energizedpower.advanced_auto_crafter.description": "用同一个方块合成多种配方。",
 
+  "_template.epcontainer.elite_auto_crafter": "Elite Auto Crafter",
+  "advancements.energizedpower.elite_auto_crafter.title": "Overclocked crafting",
+  "advancements.energizedpower.elite_auto_crafter.description": "The best auto crafter of this mod.",
+
   "tooltip.energizedpower.auto_crafter.txt.shift.1": "此方块每配料消耗 %s/t。",
   "tooltip.energizedpower.auto_crafter.cbx.ignore_nbt": "忽略NBT",
   "tooltip.energizedpower.auto_crafter.cbx.extract_mode.1": "提取模式 1: 仅输出和剩余物品",

@@ -49,6 +49,9 @@ public final class EPMenuTypes {
     public static final MenuType<AdvancedAutoCrafterMenu> ADVANCED_AUTO_CRAFTER_MENU = registerMenuType("advanced_auto_crafter",
             AdvancedAutoCrafterMenu::new);
 
+    public static final MenuType<EliteAutoCrafterMenu> ELITE_AUTO_CRAFTER_MENU = registerMenuType("elite_auto_crafter",
+            EliteAutoCrafterMenu::new);
+
     public static final MenuType<CrusherMenu> CRUSHER_MENU = registerMenuType("crusher",
             CrusherMenu::new);
 

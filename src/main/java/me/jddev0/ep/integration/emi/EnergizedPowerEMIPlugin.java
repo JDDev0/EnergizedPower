@@ -33,6 +33,8 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
 
         registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM));
 
+        registry.addWorkstation(VanillaEmiRecipeCategories.CRAFTING, EmiStack.of(EPBlocks.ELITE_AUTO_CRAFTER_ITEM));
+
         registry.addWorkstation(VanillaEmiRecipeCategories.SMELTING, EmiStack.of(EPBlocks.POWERED_FURNACE_ITEM));
         registry.addWorkstation(VanillaEmiRecipeCategories.BLASTING, EmiStack.of(EPBlocks.POWERED_FURNACE_ITEM));
         registry.addWorkstation(VanillaEmiRecipeCategories.SMOKING, EmiStack.of(EPBlocks.POWERED_FURNACE_ITEM));
@@ -219,6 +221,8 @@ public class EnergizedPowerEMIPlugin implements EmiPlugin {
         registry.addRecipeHandler(EPMenuTypes.AUTO_CRAFTER_MENU, new AutoCrafterRecipeHandler());
 
         registry.addRecipeHandler(EPMenuTypes.ADVANCED_AUTO_CRAFTER_MENU, new AdvancedAutoCrafterRecipeHandler());
+
+        registry.addRecipeHandler(EPMenuTypes.ELITE_AUTO_CRAFTER_MENU, new EliteAutoCrafterRecipeHandler());
 
         registry.addRecipeHandler(EPMenuTypes.AUTO_PRESS_MOLD_MAKER_MENU,
                 new SelectableRecipeMachineRecipeHandler<>(PressMoldMakerEMIRecipe.CATEGORY));
