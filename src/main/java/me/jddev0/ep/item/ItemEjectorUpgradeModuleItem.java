@@ -20,6 +20,8 @@ public class ItemEjectorUpgradeModuleItem extends UpgradeModuleItem {
     private static final double ITEM_EJECTOR_4_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_EJECTOR_4_EFFECT.getValue();
     private static final double ITEM_EJECTOR_5_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_EJECTOR_5_EFFECT.getValue();
     private static final double ITEM_EJECTOR_6_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_EJECTOR_6_EFFECT.getValue();
+    private static final double ITEM_EJECTOR_7_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_EJECTOR_7_EFFECT.getValue();
+    private static final double ITEM_EJECTOR_8_EFFECT = ModConfigs.COMMON_UPGRADE_MODULE_ITEM_EJECTOR_8_EFFECT.getValue();
 
     public ItemEjectorUpgradeModuleItem(Properties props, int tier) {
         super(props, UpgradeModuleModifier.ITEM_EJECTOR, tier);
@@ -40,6 +42,8 @@ public class ItemEjectorUpgradeModuleItem extends UpgradeModuleItem {
                 case 4 -> ITEM_EJECTOR_4_EFFECT;
                 case 5 -> ITEM_EJECTOR_5_EFFECT;
                 case 6 -> ITEM_EJECTOR_6_EFFECT;
+                case 7 -> ITEM_EJECTOR_7_EFFECT;
+                case 8 -> ITEM_EJECTOR_8_EFFECT;
 
                 default -> -1;
             };
