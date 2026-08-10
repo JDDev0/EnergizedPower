@@ -313,9 +313,9 @@
   "_template.item.energizedpower.energizing_speed_upgrade_module": "Energetisierungs-Geschwindigkeits-Upgrade-Modul (MK %s)",
   "_template.advancements.energizedpower.energizing_speed_upgrade_module.title": "Energetisierungs-Geschwindigkeit %s",
   "_template.advancements.energizedpower.energizing_speed_upgrade_module.description": "Erstelle ein Energetisierungs-Geschwindigkeits-Upgrade-Modul (MK %s).",
-  "book.energizedpower.page.energizing_speed_upgrade_module.1": "Energetisierungs-Geschwindigkeits-Upgrades machen den Energetisierer schneller. Der Gesamt-Energie-Verbrauch bleibt dabei aber gleich.",
-  "book.energizedpower.page.energizing_speed_upgrade_module.2": "Der Energie-Verbrauch pro Tick wird dabei gleich schnell wie die Geschwidigkeit erhöht.",
-  "book.energizedpower.page.energizing_speed_upgrade_module.3": "Wenn höhere MKs der Energetisierungs-Geschwindigkeits-Upgrades verwendet werden, müssen auch Energiekapazität-Upgrades installiert werden, um den Betrieb des Energetisierer aufrechtzuerhalten.",
+  "book.energizedpower.page.energizing_speed_upgrades.1": "Energetisierungs-Geschwindigkeits-Upgrades machen den Energetisierer schneller. Der Gesamt-Energie-Verbrauch bleibt dabei aber gleich.",
+  "book.energizedpower.page.energizing_speed_upgrades.2": "Der Energie-Verbrauch pro Tick wird dabei gleich schnell wie die Geschwidigkeit erhöht.",
+  "book.energizedpower.page.energizing_speed_upgrades.3": "Wenn höhere MKs der Energetisierungs-Geschwindigkeits-Upgrades verwendet werden, müssen auch Energiekapazität-Upgrades installiert werden, um den Betrieb des Energetisierer aufrechtzuerhalten.",
 
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "Energie-Effizienz-Upgrade-Modul (MK %s)",
   "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "Energie-Effizienz %s",
