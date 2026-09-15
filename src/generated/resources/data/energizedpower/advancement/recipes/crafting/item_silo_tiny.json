@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/item_silo_tiny"
+        "recipes": "energizedpower:crafting/item_silo_tiny"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

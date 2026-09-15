@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/hv_transformer_1_to_n"
+        "recipes": "energizedpower:crafting/hv_transformer_1_to_n"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -15,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.lwjgl.glfw.GLFW;
 
 @Environment(EnvType.CLIENT)
 public final class ModKeyBindings {
@@ -25,7 +24,7 @@ public final class ModKeyBindings {
     public static final String KEY_TELEPORTER_USE = "key.energizedpower.teleporter.use";
 
     public static final KeyMapping TELEPORTER_USE_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping(
-            KEY_TELEPORTER_USE, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, KEY_CATEGORY_ENERGIZED_POWER));
+            KEY_TELEPORTER_USE, InputConstants.Type.KEYBOARD, InputConstants.KEY_V, KEY_CATEGORY_ENERGIZED_POWER));
 
     public static void register() {
         ClientTickEvents.END_CLIENT_TICK.register(ModKeyBindings::checkTeleporterUseKey);

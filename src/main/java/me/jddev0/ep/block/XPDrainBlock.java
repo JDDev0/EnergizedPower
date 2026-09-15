@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.XPDrainBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -36,8 +35,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class XPDrainBlock extends BaseEntityBlock {
-    public static final MapCodec<XPDrainBlock> CODEC = simpleCodec(XPDrainBlock::new);
-
     private static final VoxelShape SHAPE = Block.box(0.d, 0.d, 0.d, 16.d, 1.d, 16.d);
 
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -47,11 +44,6 @@ public class XPDrainBlock extends BaseEntityBlock {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

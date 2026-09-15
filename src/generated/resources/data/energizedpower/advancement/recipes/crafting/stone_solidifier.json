@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/stone_solidifier"
+        "recipes": "energizedpower:crafting/stone_solidifier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

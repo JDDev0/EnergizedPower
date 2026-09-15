@@ -77,7 +77,6 @@ public abstract class EPBaseAdvancementProvider extends FabricAdvancementProvide
                         icon,
                         Component.translatable("advancements.energizedpower." + advancementId + ".title"),
                         Component.translatable("advancements.energizedpower." + advancementId + ".description"),
-                        null,
                         type,
                         true,
                         true,
@@ -115,7 +114,7 @@ public abstract class EPBaseAdvancementProvider extends FabricAdvancementProvide
                                                    String backgroundBlockTexture, ItemStackTemplate icon, String advancementId,
                                                    Criterion<?> trigger) {
         return Advancement.Builder.advancement().
-                display(
+                rootDisplay(
                         icon,
                         Component.translatable("advancements.energizedpower." + advancementId + ".title"),
                         Component.translatable("advancements.energizedpower." + advancementId + ".description"),

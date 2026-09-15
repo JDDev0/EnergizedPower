@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.List;
 import java.util.Optional;
@@ -211,7 +213,10 @@ public class EPVillagerTrades {
 
     private static void register(BootstrapContext<VillagerTrade> context, ResourceKey<VillagerTrade> key,
                                  TradeCost costA, TradeCost costB, ItemStackTemplate result, int maxUses, int xp, float priceMultiplier) {
-        context.register(key, new VillagerTrade(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier,
-                Optional.empty(), List.of()));
+        VillagerTrade.Builder builder = VillagerTrade.builder(costA, result, maxUses, xp, priceMultiplier);
+        if(costB != null)
+            builder.additionalWants(costB);
+
+        context.register(key, builder.build());
     }
 }

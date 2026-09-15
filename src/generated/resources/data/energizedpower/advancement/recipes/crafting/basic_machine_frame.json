@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/basic_machine_frame"
+        "recipes": "energizedpower:crafting/basic_machine_frame"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

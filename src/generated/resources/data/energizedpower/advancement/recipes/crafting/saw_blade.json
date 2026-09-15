@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/saw_blade"
+        "recipes": "energizedpower:crafting/saw_blade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

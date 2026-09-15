@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/energized_gold_cable"
+        "recipes": "energizedpower:crafting/energized_gold_cable"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

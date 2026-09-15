@@ -231,13 +231,11 @@ public class ModBlockLootTables extends FabricBlockLootSubProvider {
     }
 
     private LootTable.Builder createTinOreDrops(Block block) {
-        HolderLookup.RegistryLookup<Enchantment> impl = registries.lookupOrThrow(Registries.ENCHANTMENT);
-
         return createSilkTouchDispatchTable(block,
                 applyExplosionDecay(
                         block,
                         LootItem.lootTableItem(EPItems.RAW_TIN)
-                                .apply(ApplyBonusCount.addOreBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))
+                                .apply(ApplyBonusCount.addOreBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
                 )
         );
     }

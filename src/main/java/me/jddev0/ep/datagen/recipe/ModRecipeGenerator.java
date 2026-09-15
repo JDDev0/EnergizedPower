@@ -25,8 +25,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
@@ -43,8 +43,12 @@ import java.util.*;
 import java.util.function.Supplier;
 
 public class ModRecipeGenerator extends RecipeProvider {
-    public ModRecipeGenerator(HolderLookup.Provider registries, RecipeOutput exporter) {
-        super(registries, exporter);
+    private final HolderLookup.Provider registries;
+
+    public ModRecipeGenerator(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+        this.registries = registries;
+
+        super(recipes, advancements);
     }
 
     @Override
@@ -3470,6 +3474,14 @@ public class ModRecipeGenerator extends RecipeProvider {
                 ingredientOf(Items.PALE_OAK_BOAT), ingredientOf(Items.PALE_OAK_CHEST_BOAT),
                 false, "pale_oak");
 
+        addBasicWoodSawmillRecipe(itemStackOf(Items.POPLAR_PLANKS),
+                ingredientOf(ItemTags.POPLAR_LOGS), ingredientOf(Items.POPLAR_FENCE),
+                ingredientOf(Items.POPLAR_FENCE_GATE), ingredientOf(Items.POPLAR_DOOR),
+                ingredientOf(Items.POPLAR_TRAPDOOR), ingredientOf(Items.POPLAR_PRESSURE_PLATE),
+                ingredientOf(Items.POPLAR_SIGN), ingredientOf(Items.POPLAR_SHELF),
+                ingredientOf(Items.POPLAR_BOAT), ingredientOf(Items.POPLAR_CHEST_BOAT),
+                false, "poplar");
+
         addSawmillRecipe(ingredientOf(ItemTags.BAMBOO_BLOCKS), itemStackOf(Items.BAMBOO_PLANKS, 3),
                 1, "bamboo_planks", "bamboo_blocks");
         addBasicWoodWithoutLogsSawmillRecipe(itemStackOf(Items.BAMBOO_PLANKS),
@@ -3598,6 +3610,7 @@ public class ModRecipeGenerator extends RecipeProvider {
 
         addBasicMushroomsGrowingRecipe(Items.BROWN_MUSHROOM, "brown_mushrooms");
         addBasicMushroomsGrowingRecipe(Items.RED_MUSHROOM, "red_mushrooms");
+        addBasicMushroomsGrowingRecipe(Items.SHELF_MUSHROOM, "shelf_mushrooms");
 
         addBasicAncientFlowerGrowingRecipe(Items.TORCHFLOWER_SEEDS, Items.TORCHFLOWER, "torchflowers");
         addBasicAncientFlowerGrowingRecipe(Items.PITCHER_POD, Items.PITCHER_PLANT, "pitcher_plants");
@@ -4138,7 +4151,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 recipeIdPrefix + getItemName(result.item().value()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", hasIngredientTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
@@ -4168,7 +4181,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 recipeIdPrefix + getItemName(result.item().value()) + recipeIdSuffix);
 
         Advancement.Builder advancementBuilder = output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", hasIngredientTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
@@ -4216,7 +4229,7 @@ public class ModRecipeGenerator extends RecipeProvider {
     private void addSmeltingRecipe(ItemLike ingredient, ItemStackTemplate result, CookingBookCategory category,
                                    int time, float xp, String group, Identifier recipeId) {
         Advancement.Builder advancementBuilder = output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
@@ -4231,7 +4244,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 getItemName(result.item().value()) + "_from_smelting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
@@ -4247,7 +4260,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 getItemName(result.item().value()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
@@ -4262,7 +4275,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 getItemName(result.item().value()) + "_from_blasting_" + recipeIngredientName);
 
         Advancement.Builder advancementBuilder = output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", has(ingredient))
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
@@ -4277,7 +4290,7 @@ public class ModRecipeGenerator extends RecipeProvider {
                 getItemName(output.item().value()));
 
         Advancement.Builder advancementBuilder = this.output.advancement()
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(getKey(recipeId)))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(this.output.lookup(Registries.RECIPE).getOrThrow(getKey(recipeId))))
                 .addCriterion("has_the_ingredient", has(ConventionalItemTags.NETHERITE_INGOTS))
                 .rewards(AdvancementRewards.Builder.recipe(getKey(recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);

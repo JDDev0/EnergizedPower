@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:blasting/gold_nugget_from_blasting_golden_hammer"
+        "recipes": "energizedpower:blasting/gold_nugget_from_blasting_golden_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

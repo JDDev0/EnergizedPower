@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
@@ -43,7 +44,7 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
         double mouseY = click.y();
         int mouseButton = click.button();
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             boolean clicked = false;
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox

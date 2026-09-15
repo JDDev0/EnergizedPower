@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/auto_stonecutter"
+        "recipes": "energizedpower:crafting/auto_stonecutter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

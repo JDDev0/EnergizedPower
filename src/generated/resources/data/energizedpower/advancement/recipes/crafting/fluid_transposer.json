@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/fluid_transposer"
+        "recipes": "energizedpower:crafting/fluid_transposer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/stone_liquefier"
+        "recipes": "energizedpower:crafting/stone_liquefier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

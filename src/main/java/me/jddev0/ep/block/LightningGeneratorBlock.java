@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.LightningGeneratorBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.config.ModConfigs;
@@ -38,13 +37,10 @@ import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.ToIntFunction;
 
 public class LightningGeneratorBlock extends BaseEntityBlock {
-    public static final MapCodec<LightningGeneratorBlock> CODEC = simpleCodec(LightningGeneratorBlock::new);
-
     public static final long ENERGY_PER_LIGHTNING_STRIKE = ModConfigs.COMMON_LIGHTNING_GENERATOR_CAPACITY.getValue();
 
     public static final BooleanProperty HIT_BY_LIGHTNING_BOLT = BooleanProperty.create("hit_by_lightning_bolt");
@@ -58,11 +54,6 @@ public class LightningGeneratorBlock extends BaseEntityBlock {
         super(props);
 
         this.registerDefaultState(this.getStateDefinition().any().setValue(HIT_BY_LIGHTNING_BOLT, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

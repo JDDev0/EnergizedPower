@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/fluid_tank_small"
+        "recipes": "energizedpower:crafting/fluid_tank_small"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

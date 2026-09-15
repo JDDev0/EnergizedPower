@@ -3,11 +3,11 @@
     "count": 4,
     "id": "minecraft:emerald"
   },
-  "max_uses": 20.0,
+  "max_uses": 20,
   "reputation_discount": 0.02,
   "wants": {
-    "count": 17.0,
+    "count": 17,
     "id": "energizedpower:sawdust"
   },
-  "xp": 18.0
+  "xp": 18
 }

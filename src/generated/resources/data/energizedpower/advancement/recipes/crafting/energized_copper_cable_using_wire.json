@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/energized_copper_cable_using_wire"
+        "recipes": "energizedpower:crafting/energized_copper_cable_using_wire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

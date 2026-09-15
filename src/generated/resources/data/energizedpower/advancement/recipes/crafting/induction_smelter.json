@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/induction_smelter"
+        "recipes": "energizedpower:crafting/induction_smelter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

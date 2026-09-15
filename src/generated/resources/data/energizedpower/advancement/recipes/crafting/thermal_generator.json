@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/thermal_generator"
+        "recipes": "energizedpower:crafting/thermal_generator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

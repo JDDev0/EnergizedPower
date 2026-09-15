@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/raw_tin_block"
+        "recipes": "energizedpower:crafting/raw_tin_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

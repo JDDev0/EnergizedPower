@@ -13,6 +13,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -201,7 +202,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
         //"< main.size()": Ignore armor and offhand slots
         for(int i = 9;i < inventory.getNonEquipmentItems().size();i++) {
             ItemStack testItemStack = inventory.getItem(i);
-            long energyProduction = level.fuelValues().burnDuration(testItemStack);
+            long energyProduction = ItemStackUtils.getItemBurnDuration(testItemStack, level, player, itemStack);
             if(energyProduction <= 0)
                 continue;
 
@@ -225,7 +226,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
                 ItemStack craftingRemainingItem = ItemStackUtils.fromNullableItemStackTemplate(testItemStack.getCraftingRemainder());
 
                 if(inventory.add(craftingRemainingItem))
-                    player.drop(craftingRemainingItem, false);
+                    player.drop(craftingRemainingItem, false, Prediction.SERVER_ONLY);
             }
 
             break;

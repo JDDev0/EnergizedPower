@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen.base;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.inventory.UpgradeModuleSlot;
 import me.jddev0.ep.inventory.upgrade.UpgradeModuleInventory;
@@ -72,7 +73,7 @@ public abstract class UpgradableEnergyStorageContainerScreen<T extends AbstractC
     }
 
     protected boolean mouseClickedConfiguration(double mouseX, double mouseY, int mouseButton) {
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             if(isHovering(-22, 2, 20, 20, mouseX, mouseY)) {
                 //Upgrade view
 

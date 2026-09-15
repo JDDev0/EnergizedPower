@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/block_placer"
+        "recipes": "energizedpower:crafting/block_placer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

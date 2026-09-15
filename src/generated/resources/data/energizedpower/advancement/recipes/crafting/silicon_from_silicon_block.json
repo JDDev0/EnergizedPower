@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/silicon_from_silicon_block"
+        "recipes": "energizedpower:crafting/silicon_from_silicon_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

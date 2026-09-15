@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.networking.ModMessages;
@@ -42,7 +43,7 @@ public class CreativeFluidTankScreen extends EnergizedPowerBaseContainerScreen<C
         double mouseY = click.y();
         int mouseButton = click.button();
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             boolean clicked = false;
 
             if(isHovering(48, 17, 80, 52, mouseX, mouseY)) {

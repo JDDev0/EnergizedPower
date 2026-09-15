@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/paper_from_sawdust"
+        "recipes": "energizedpower:crafting/paper_from_sawdust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

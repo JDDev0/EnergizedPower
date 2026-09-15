@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/elite_battery_box_minecart"
+        "recipes": "energizedpower:crafting/elite_battery_box_minecart"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

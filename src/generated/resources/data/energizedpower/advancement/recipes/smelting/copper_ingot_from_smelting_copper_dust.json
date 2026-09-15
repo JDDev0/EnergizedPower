@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smelting/copper_ingot_from_smelting_copper_dust"
+        "recipes": "energizedpower:smelting/copper_ingot_from_smelting_copper_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

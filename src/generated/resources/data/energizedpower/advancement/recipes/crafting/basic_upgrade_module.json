@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/basic_upgrade_module"
+        "recipes": "energizedpower:crafting/basic_upgrade_module"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

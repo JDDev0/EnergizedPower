@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/smoker_upgrade_module"
+        "recipes": "energizedpower:crafting/smoker_upgrade_module"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

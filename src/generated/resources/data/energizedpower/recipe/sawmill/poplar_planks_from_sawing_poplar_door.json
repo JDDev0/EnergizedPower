@@ -1,0 +1,8 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:poplar_door",
+  "result": {
+    "id": "minecraft:poplar_planks"
+  },
+  "sawdustAmount": 3
+}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/sawdust_from_sawdust_block"
+        "recipes": "energizedpower:crafting/sawdust_from_sawdust_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/xp_storage_large"
+        "recipes": "energizedpower:crafting/xp_storage_large"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

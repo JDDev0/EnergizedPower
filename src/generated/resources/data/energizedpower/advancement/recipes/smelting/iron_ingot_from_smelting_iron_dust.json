@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smelting/iron_ingot_from_smelting_iron_dust"
+        "recipes": "energizedpower:smelting/iron_ingot_from_smelting_iron_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

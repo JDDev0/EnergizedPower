@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AlloyFurnaceBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
@@ -17,8 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.ToIntFunction;
 
 public class AlloyFurnaceBlock extends HorizontallyOrientableWorkerMachineBlock<AlloyFurnaceBlockEntity> {
-    public static final MapCodec<AlloyFurnaceBlock> CODEC = simpleCodec(AlloyFurnaceBlock::new);
-
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
             (state) -> state.getValue(WORKING) ? 13 : 0;
 
@@ -29,11 +26,6 @@ public class AlloyFurnaceBlock extends HorizontallyOrientableWorkerMachineBlock<
                 () -> EPBlockEntities.ALLOY_FURNACE_ENTITY,
                 AlloyFurnaceBlockEntity.class, AlloyFurnaceBlockEntity::new, AlloyFurnaceBlockEntity::tick
         );
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

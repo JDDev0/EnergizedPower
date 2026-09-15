@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/xp_drain"
+        "recipes": "energizedpower:crafting/xp_drain"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

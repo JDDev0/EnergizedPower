@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCheckboxC2SPacket;
@@ -34,7 +35,7 @@ public class CreativeBatteryBoxScreen extends EnergizedPowerBaseContainerScreen<
         double mouseY = click.y();
         int mouseButton = click.button();
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             boolean clicked = false;
             if(isHovering(10, 28, 11, 11, mouseX, mouseY)) {
                 //Energy Production checkbox

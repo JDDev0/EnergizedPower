@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/tin_nugget"
+        "recipes": "energizedpower:crafting/tin_nugget"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

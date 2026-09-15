@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/coal_engine"
+        "recipes": "energizedpower:crafting/coal_engine"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

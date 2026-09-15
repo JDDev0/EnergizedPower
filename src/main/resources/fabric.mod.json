@@ -45,7 +45,7 @@
 	"accessWidener" : "energizedpower.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.19.0",
-		"minecraft": "~26.2",
+		"minecraft": "~26.3",
 		"java": ">=25",
 		"fabric-api": "*"
 	},

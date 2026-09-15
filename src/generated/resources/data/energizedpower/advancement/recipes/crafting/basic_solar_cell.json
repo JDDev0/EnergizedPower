@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/basic_solar_cell"
+        "recipes": "energizedpower:crafting/basic_solar_cell"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

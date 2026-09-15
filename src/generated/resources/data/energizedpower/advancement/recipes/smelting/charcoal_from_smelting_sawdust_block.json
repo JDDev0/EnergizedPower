@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smelting/charcoal_from_smelting_sawdust_block"
+        "recipes": "energizedpower:smelting/charcoal_from_smelting_sawdust_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

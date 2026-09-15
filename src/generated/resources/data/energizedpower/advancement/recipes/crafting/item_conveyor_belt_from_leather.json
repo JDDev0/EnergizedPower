@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/item_conveyor_belt_from_leather"
+        "recipes": "energizedpower:crafting/item_conveyor_belt_from_leather"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/configurable_uhv_transformer"
+        "recipes": "energizedpower:crafting/configurable_uhv_transformer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

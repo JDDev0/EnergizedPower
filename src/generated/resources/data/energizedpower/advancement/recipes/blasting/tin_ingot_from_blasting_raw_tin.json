@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:blasting/tin_ingot_from_blasting_raw_tin"
+        "recipes": "energizedpower:blasting/tin_ingot_from_blasting_raw_tin"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

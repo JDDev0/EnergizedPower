@@ -1,7 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemSiloBlockEntity;
 import me.jddev0.ep.machine.tier.ItemSiloTier;
 import net.minecraft.ChatFormatting;
@@ -9,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -35,13 +32,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class ItemSiloBlock extends BaseEntityBlock {
-    public static final MapCodec<ItemSiloBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(ItemSiloTier::valueOf, ItemSiloTier::toString).fieldOf("tier").
-                forGetter(ItemSiloBlock::getTier),
-                        BlockBehaviour.Properties.CODEC.fieldOf("properties").forGetter(BlockBehaviour::properties)).
-                apply(instance, ItemSiloBlock::new);
-    });
-
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final ItemSiloTier tier;
@@ -56,11 +46,6 @@ public class ItemSiloBlock extends BaseEntityBlock {
 
     public ItemSiloTier getTier() {
         return tier;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/hardened_wire_press_mold"
+        "recipes": "energizedpower:crafting/hardened_wire_press_mold"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

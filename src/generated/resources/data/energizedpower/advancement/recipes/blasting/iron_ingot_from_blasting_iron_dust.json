@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:blasting/iron_ingot_from_blasting_iron_dust"
+        "recipes": "energizedpower:blasting/iron_ingot_from_blasting_iron_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

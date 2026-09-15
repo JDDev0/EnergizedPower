@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/advanced_uncharger"
+        "recipes": "energizedpower:crafting/advanced_uncharger"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -7,6 +7,7 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LecternBlock;
@@ -50,7 +51,7 @@ public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements
             lecternBlockEntity.setBook(ItemStack.EMPTY);
             LecternBlock.resetBookState(context.player(), context.player().level(), data.pos, context.player().level().getBlockState(data.pos), false);
             if(!context.player().getInventory().add(itemStack))
-                context.player().drop(itemStack, false);
+                context.player().drop(itemStack, false, Prediction.SERVER_ONLY);
         });
     }
 }

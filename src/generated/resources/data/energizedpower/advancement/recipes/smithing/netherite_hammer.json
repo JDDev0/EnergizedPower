@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smithing/netherite_hammer"
+        "recipes": "energizedpower:smithing/netherite_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

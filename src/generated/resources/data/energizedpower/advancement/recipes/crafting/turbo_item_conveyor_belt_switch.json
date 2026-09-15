@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/turbo_item_conveyor_belt_switch"
+        "recipes": "energizedpower:crafting/turbo_item_conveyor_belt_switch"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

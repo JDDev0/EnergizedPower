@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/energy_production_upgrade_module_8"
+        "recipes": "energizedpower:crafting/energy_production_upgrade_module_8"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

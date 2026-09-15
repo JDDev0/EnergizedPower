@@ -83,13 +83,13 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	// REI integration
+	// REI integration (TODO UPDATE to 26.3)
 	compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
 	compileOnlyApi "dev.architectury:architectury-fabric:21.0.2"
 	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.2.820"
 	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.2.820"
 
-    //JEI integration
+    //JEI integration (TODO UPDATE to 26.3)
 	compileOnly "mezz.jei:jei-26.2-common-api:30.0.0.1"
 	compileOnly "mezz.jei:jei-26.2-fabric-api:30.0.0.1"
 
@@ -97,7 +97,7 @@ dependencies {
 	//TODO re-enable
 	//compileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
 
-	// CCTweaked integration
+	// CCTweaked integration (TODO UPDATE to 26.3)
 	compileOnlyApi "cc.tweaked:cc-tweaked-26.2-core-api:1.120.0"
 	compileOnlyApi "cc.tweaked:cc-tweaked-26.2-fabric-api:1.120.0"
 }
@@ -156,7 +156,7 @@ publishing {
 }
 
 publishMods {
-	displayName = "Energized Power - " + "26.2.x" + " - v" + project.mod_version.split("\\+")[0] + " [Fabric]"
+	displayName = "Energized Power - " + "26.3.x" + " - v" + project.mod_version.split("\\+")[0] + " [Fabric]"
 	changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
 	type = STABLE
 	file = jar.archiveFile
@@ -168,7 +168,7 @@ publishMods {
 		modrinth {
 			accessToken = getProperty('MODRINTH_TOKEN') as String
 			projectId = "6pku8gW1"
-			minecraftVersionList("26.2")
+			minecraftVersionList("26.3")
 			requires("fabric-api")
 		}
 	}
@@ -177,7 +177,7 @@ publishMods {
 		curseforge {
 			accessToken = getProperty('CURSEFORGE_TOKEN') as String
 			projectId = "782147"
-			minecraftVersionList("26.2")
+			minecraftVersionList("26.3")
 			requires("fabric-api")
 			client = true
 			server = true

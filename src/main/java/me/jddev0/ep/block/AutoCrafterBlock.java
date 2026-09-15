@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.AutoCrafterBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
@@ -17,8 +16,6 @@ import net.minecraft.world.level.block.*;
 import java.util.function.Consumer;
 
 public class AutoCrafterBlock extends HorizontallyOrientableWorkerMachineBlock<AutoCrafterBlockEntity> {
-    public static final MapCodec<AutoCrafterBlock> CODEC = simpleCodec(AutoCrafterBlock::new);
-
     public AutoCrafterBlock(Properties props) {
         super(
                 props,
@@ -26,11 +23,6 @@ public class AutoCrafterBlock extends HorizontallyOrientableWorkerMachineBlock<A
                 () -> EPBlockEntities.AUTO_CRAFTER_ENTITY,
                 AutoCrafterBlockEntity.class, AutoCrafterBlockEntity::new, AutoCrafterBlockEntity::tick
         );
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     public static class Item extends BlockItem {

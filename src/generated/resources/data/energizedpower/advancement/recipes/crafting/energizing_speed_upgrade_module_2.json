@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/energizing_speed_upgrade_module_2"
+        "recipes": "energizedpower:crafting/energizing_speed_upgrade_module_2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

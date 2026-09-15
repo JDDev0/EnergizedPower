@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/elite_powered_furnace"
+        "recipes": "energizedpower:crafting/elite_powered_furnace"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/compressor"
+        "recipes": "energizedpower:crafting/compressor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

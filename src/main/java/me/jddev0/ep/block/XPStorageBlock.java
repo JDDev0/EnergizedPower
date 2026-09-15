@@ -1,7 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.XPStorageBlockEntity;
 import me.jddev0.ep.machine.tier.XPStorageTier;
 import net.minecraft.ChatFormatting;
@@ -9,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -30,13 +27,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class XPStorageBlock extends BaseEntityBlock {
-    public static final MapCodec<XPStorageBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(XPStorageTier::valueOf, XPStorageTier::toString).fieldOf("tier").
-                forGetter(XPStorageBlock::getTier),
-                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
-                apply(instance, XPStorageBlock::new);
-    });
-
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final XPStorageTier tier;
@@ -51,11 +41,6 @@ public class XPStorageBlock extends BaseEntityBlock {
 
     public XPStorageTier getTier() {
         return tier;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/charging_station"
+        "recipes": "energizedpower:crafting/charging_station"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

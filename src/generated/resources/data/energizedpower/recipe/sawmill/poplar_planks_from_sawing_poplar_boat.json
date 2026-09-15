@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:poplar_boat",
+  "result": {
+    "count": 4,
+    "id": "minecraft:poplar_planks"
+  },
+  "sawdustAmount": 3
+}

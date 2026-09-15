@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen.base;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.networking.ModMessages;
@@ -75,7 +76,7 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
         if(super.mouseClickedConfiguration(mouseX, mouseY, mouseButton))
             return true;
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             if(isHovering(-22, 74, 20, 20, mouseX, mouseY)) {
                 //IO Configuration View
 
@@ -91,7 +92,7 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
     }
 
     protected boolean mouseClickedIOConfigurationView(double mouseX, double mouseY, int mouseButton) {
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             if(isHovering(ioConfigurationViewX, ioConfigurationViewY, 20, 20, mouseX, mouseY)) {
                 //Toggle slot type mode
 

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/lightning_generator"
+        "recipes": "energizedpower:crafting/lightning_generator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

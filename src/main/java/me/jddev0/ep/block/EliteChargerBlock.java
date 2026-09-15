@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.EliteChargerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
@@ -11,14 +10,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 
 import java.util.function.Consumer;
 
 public class EliteChargerBlock extends HorizontallyOrientableWorkerMachineBlock<EliteChargerBlockEntity> {
-    public static final MapCodec<EliteChargerBlock> CODEC = simpleCodec(EliteChargerBlock::new);
-
     public EliteChargerBlock(Properties props) {
         super(
                 props,
@@ -26,11 +22,6 @@ public class EliteChargerBlock extends HorizontallyOrientableWorkerMachineBlock<
                 () -> EPBlockEntities.ELITE_CHARGER_ENTITY,
                 EliteChargerBlockEntity.class, EliteChargerBlockEntity::new, EliteChargerBlockEntity::tick
         );
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     public static class Item extends BlockItem {

@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.InsertExtractXPFromXPStorageC2SPacket;
@@ -28,7 +29,7 @@ public class XPStorageScreen extends EnergizedPowerBaseContainerScreen<XPStorage
         double mouseX = click.x();
         double mouseY = click.y();
         int mouseButton = click.button();
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             boolean clicked = false;
             if(isHovering(45, 16, 13, 14, mouseX, mouseY)) {
                 //+1 button

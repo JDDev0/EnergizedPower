@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/filtration_plant"
+        "recipes": "energizedpower:crafting/filtration_plant"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

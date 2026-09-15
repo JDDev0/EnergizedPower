@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/fluid_filler"
+        "recipes": "energizedpower:crafting/fluid_filler"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
