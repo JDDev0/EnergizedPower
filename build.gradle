@@ -16,11 +16,6 @@ repositories {
     maven { url "https://maven.terraformersmc.com/" }
 
     maven {
-        name "OctoStudios"
-        url "https://maven.octo-studios.com/releases"
-    }
-
-    maven {
         url "https://maven.squiddev.cc/"
         content {
             includeGroup("cc.tweaked")
