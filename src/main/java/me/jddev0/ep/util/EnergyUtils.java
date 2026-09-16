@@ -25,7 +25,7 @@ public final class EnergyUtils {
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f %sE", energyWithPrefix, ENERGY_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s E", energyWithPrefix, ENERGY_PREFIXES[prefixIndex]);
     }
 
     public static int getRedstoneSignalFromEnergyStorage(EnergyStorage energyStorage) {
