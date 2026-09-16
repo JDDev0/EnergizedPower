@@ -219,7 +219,7 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             if(testItemStack.hasCraftingRemainingItem()) {
                 ItemStack craftingRemainingItem = testItemStack.getCraftingRemainingItem();
 
-                if(inventory.add(craftingRemainingItem))
+                if(!inventory.add(craftingRemainingItem))
                     player.drop(craftingRemainingItem, false);
             }
 
