@@ -33,7 +33,7 @@ public final class FluidUtils {
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f %sB", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s B", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 
     public static String getFluidAmountWithPrefixSmallAndLarge(double milliBuckets) {
@@ -61,7 +61,7 @@ public final class FluidUtils {
             prefixIndex++;
         }
 
-        return String.format(Locale.ENGLISH, "%.2f %sB", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
+        return String.format(Locale.ENGLISH, "%.2f%s B", milliBucketsWithPrefix, FLUID_PREFIXES[prefixIndex]);
     }
 
     public static long convertDropletsToMilliBuckets(long droplets) {
