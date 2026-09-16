@@ -1,13 +1,10 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltLoaderBlockEntity;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -27,14 +24,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
-    public static final MapCodec<ItemConveyorBeltLoaderBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(
-                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
-                        forGetter(ItemConveyorBeltLoaderBlock::getTier),
-                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
-        ).apply(instance, ItemConveyorBeltLoaderBlock::new);
-    });
-
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
@@ -50,11 +39,6 @@ public class ItemConveyorBeltLoaderBlock extends BaseEntityBlock {
 
     public ConveyorBeltTier getTier() {
         return tier;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

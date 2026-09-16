@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/item_ejector_upgrade_module_7"
+        "recipes": "energizedpower:crafting/item_ejector_upgrade_module_7"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/xp_storage_tiny"
+        "recipes": "energizedpower:crafting/xp_storage_tiny"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

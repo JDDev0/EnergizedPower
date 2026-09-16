@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.ChargingStationBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
@@ -23,8 +22,6 @@ import java.util.function.Consumer;
 import java.util.function.ToIntFunction;
 
 public class ChargingStationBlock extends HorizontallyOrientableWorkerMachineBlock<ChargingStationBlockEntity> {
-    public static final MapCodec<ChargingStationBlock> CODEC = simpleCodec(ChargingStationBlock::new);
-
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
             (state) -> state.getValue(WORKING) ? 8 : 0;
 
@@ -35,11 +32,6 @@ public class ChargingStationBlock extends HorizontallyOrientableWorkerMachineBlo
                 EPBlockEntities.CHARGING_STATION_ENTITY,
                 ChargingStationBlockEntity.class, ChargingStationBlockEntity::new, ChargingStationBlockEntity::tick
         );
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

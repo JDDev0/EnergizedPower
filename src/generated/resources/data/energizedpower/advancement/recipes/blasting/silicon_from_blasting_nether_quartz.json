@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:blasting/silicon_from_blasting_nether_quartz"
+        "recipes": "energizedpower:blasting/silicon_from_blasting_nether_quartz"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -8,6 +8,7 @@ import me.jddev0.ep.item.upgrade.UpgradeModuleItem;
 import me.jddev0.ep.machine.upgrade.IUpgradableMachine;
 import me.jddev0.ep.machine.upgrade.UpgradeModuleModifier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -87,7 +88,7 @@ public abstract class UpgradableInventoryEnergyStorageBlockEntity
                                 sourceUpgradeModuleItem.getUpgradeModuleTier() > targetUpgradeModuleItem.getUpgradeModuleTier())) {
                     //Remove item stack completely (Count cannot be > 1 without modifying the block data itself,
                     // but in case it was modified the whole stack should be removed anyway to prevent losing items)
-                    player.getInventory().placeItemBackInInventory(targetItemStack.copy());
+                    player.getInventory().placeItemBackInInventory(targetItemStack.copy(), Prediction.SERVER_ONLY);
 
                     upgradeModuleInventory.setItem(i, sourceItemStack.copyWithCount(1));
                     sourceItemStack.shrink(1);

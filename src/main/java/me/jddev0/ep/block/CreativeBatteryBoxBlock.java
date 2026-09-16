@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -31,19 +30,12 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CreativeBatteryBoxBlock extends BaseEntityBlock {
-    public static final MapCodec<CreativeBatteryBoxBlock> CODEC = simpleCodec(CreativeBatteryBoxBlock::new);
-
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public CreativeBatteryBoxBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:poplar_shelf",
+  "result": {
+    "count": 3,
+    "id": "minecraft:poplar_planks"
+  },
+  "sawdustAmount": 1
+}

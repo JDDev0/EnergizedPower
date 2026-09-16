@@ -211,7 +211,10 @@ public class EPVillagerTrades {
 
     private static void register(BootstrapContext<VillagerTrade> context, ResourceKey<VillagerTrade> key,
                                  TradeCost costA, TradeCost costB, ItemStackTemplate result, int maxUses, int xp, float priceMultiplier) {
-        context.register(key, new VillagerTrade(costA, Optional.ofNullable(costB), result, maxUses, xp, priceMultiplier,
-                Optional.empty(), List.of()));
+        VillagerTrade.Builder builder = VillagerTrade.builder(costA, result, maxUses, xp, priceMultiplier);
+        if(costB != null)
+            builder.additionalWants(costB);
+
+        context.register(key, builder.build());
     }
 }

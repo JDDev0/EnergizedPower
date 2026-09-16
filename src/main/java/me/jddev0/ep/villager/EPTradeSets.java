@@ -1,14 +1,15 @@
 package me.jddev0.ep.villager;
 
 import me.jddev0.ep.api.EPAPI;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.trading.TradeSet;
 import net.minecraft.world.item.trading.VillagerTrade;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.Optional;
 
@@ -34,11 +35,11 @@ public class EPTradeSets {
     }
 
     public static void register(BootstrapContext<TradeSet> context, ResourceKey<TradeSet> key, TagKey<VillagerTrade> tradeTag) {
-        register(context, key, tradeTag, ConstantValue.exactly(2.0f));
+        register(context, key, tradeTag, ContextIntProviders.exactly(2));
     }
 
     public static void register(BootstrapContext<TradeSet> context, ResourceKey<TradeSet> key, TagKey<VillagerTrade> tradeTag,
-                                NumberProvider numberProvider) {
+                                Holder<ContextIntProvider> numberProvider) {
         context.register(key, new TradeSet(context.lookup(Registries.VILLAGER_TRADE).getOrThrow(tradeTag), numberProvider, false,
                 Optional.of(key.identifier().withPrefix("trade_set/"))));
     }

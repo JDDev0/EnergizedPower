@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
 import me.jddev0.ep.input.ModKeyBindings;
 import net.minecraft.ChatFormatting;
@@ -31,8 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class TeleporterBlock extends BaseEntityBlock {
-    public static final MapCodec<TeleporterBlock> CODEC = simpleCodec(TeleporterBlock::new);
-
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 
@@ -40,11 +37,6 @@ public class TeleporterBlock extends BaseEntityBlock {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false).setValue(TRIGGERED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

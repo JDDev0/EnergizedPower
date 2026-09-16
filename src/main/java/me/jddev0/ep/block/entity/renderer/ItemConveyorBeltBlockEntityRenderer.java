@@ -19,7 +19,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
+import org.joml.Matrix4f;
 
 public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<ItemConveyorBeltBlockEntity, ItemConveyorBeltBlockEntityRenderState> {
     private final BlockEntityRendererProvider.Context context;
@@ -82,41 +82,41 @@ public class ItemConveyorBeltBlockEntityRenderer implements BlockEntityRenderer<
             poseStack.translate(.5f, 0.f, 1.f);
 
             if(facing.isAscending()) {
-                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * .25f));
+                poseStack.mulPose(new Matrix4f().rotateX((float)Math.PI * .25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * -.25f));
+                poseStack.mulPose(new Matrix4f().rotateX((float)Math.PI * -.25f));
             }
         }else if(facingDirection == Direction.SOUTH) {
             poseStack.translate(.5f, 0.f, 0.f);
 
             if(facing.isAscending()) {
-                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * -.25f));
+                poseStack.mulPose(new Matrix4f().rotateX((float)Math.PI * -.25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.mulPose(new Quaternionf().rotateX((float)Math.PI * .25f));
+                poseStack.mulPose(new Matrix4f().rotateX((float)Math.PI * .25f));
             }
         }else if(facingDirection == Direction.EAST) {
             poseStack.translate(0.f, 0.f, .5f);
 
             if(facing.isAscending()) {
-                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * .25f));
+                poseStack.mulPose(new Matrix4f().rotateZ((float)Math.PI * .25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * -.25f));
+                poseStack.mulPose(new Matrix4f().rotateZ((float)Math.PI * -.25f));
             }
         }else if(facingDirection == Direction.WEST) {
             poseStack.translate(1.f, 0.f, .5f);
 
             if(facing.isAscending()) {
-                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * -.25f));
+                poseStack.mulPose(new Matrix4f().rotateZ((float)Math.PI * -.25f));
             }else if(facing.isDescending()) {
                 poseStack.translate(0.f, 1.f, 0.f);
-                poseStack.mulPose(new Quaternionf().rotateZ((float)Math.PI * .25f));
+                poseStack.mulPose(new Matrix4f().rotateZ((float)Math.PI * .25f));
             }
         }
 
-        poseStack.mulPose(facingDirection.getRotation());
+        poseStack.mulPose(new Matrix4f().set(facingDirection.getRotation()));
 
         poseStack.scale(.75f, .75f, .75f);
         poseStack.translate(0.f, -.2f * (slope == null?1.f:1.41f), 0.f);

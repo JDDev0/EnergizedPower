@@ -1,25 +1,27 @@
 package me.jddev0.ep.datagen;
 
 import me.jddev0.ep.datagen.recipe.ModRecipeGenerator;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.MultiRegistryBootstrap;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 
-public class ModRecipeProvider extends RecipeProvider.Runner {
-    protected ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider);
-    }
+public final class ModRecipeProvider {
+    private ModRecipeProvider() {}
 
-    @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeOutput) {
-        return new ModRecipeGenerator(wrapperLookup, recipeOutput);
-    }
+    public static MultiRegistryBootstrap create() {
+        return new MultiRegistryBootstrap() {
+            @Override
+            public Set<ResourceKey<? extends Registry<?>>> requestedRegistries() {
+                return Set.of(Registries.RECIPE, Registries.ADVANCEMENT);
+            }
 
-    @Override
-    public String getName() {
-        return "Recipes";
+            @Override
+            public void run(MultiRegistryBootstrap.BootstrapGetter registries) {
+                new ModRecipeGenerator(registries.get(Registries.RECIPE), registries.get(Registries.ADVANCEMENT)).buildRecipes();
+            }
+        };
     }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/diamond_hammer"
+        "recipes": "energizedpower:crafting/diamond_hammer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

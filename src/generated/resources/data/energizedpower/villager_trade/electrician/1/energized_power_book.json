@@ -5,11 +5,11 @@
   "gives": {
     "id": "energizedpower:energized_power_book"
   },
-  "max_uses": 3.0,
+  "max_uses": 3,
   "reputation_discount": 0.02,
   "wants": {
-    "count": 6.0,
+    "count": 6,
     "id": "minecraft:emerald"
   },
-  "xp": 3.0
+  "xp": 3
 }

@@ -7,6 +7,7 @@ import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.machine.tier.BatteryTier;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.DataComponentMatchers;
@@ -16,39 +17,35 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.ItemStackTemplate;
 
-import java.util.function.Consumer;
-
 public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
-    public ModAdvancedAdvancements() {
-        super("main/advanced");
+    public ModAdvancedAdvancements(BootstrapContext<Advancement> output) {
+        super(output, "main/advanced");
     }
 
     @Override
-    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+    protected void generateAdvancements(BootstrapContext<Advancement> advancementOutput) {
         AdvancementHolder energizedPowerAdvanced = addRootAdvancement(
-                lookupProvider, advancementOutput,
+                advancementOutput,
                 "advanced_machine_frame_top", EPItems.ENERGIZED_COPPER_INGOT, "energizedpower_advanced",
                 CommonItemTags.INGOTS_ENERGIZED_COPPER
         );
 
         AdvancementHolder advancedAlloyIngot = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedPowerAdvanced,
                 EPItems.ADVANCED_ALLOY_INGOT, "advanced_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ADVANCED_ALLOY
         );
 
         AdvancementHolder advancedAlloyPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, advancedAlloyIngot,
                 EPItems.ADVANCED_ALLOY_PLATE, "advanced_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ADVANCED_ALLOY
         );
 
         AdvancementHolder advancedPressMolds = addAdvancement(
-                lookupProvider,
                 advancementOutput, advancedAlloyPlate,
                 EPItems.ADVANCED_GEAR_PRESS_MOLD, "advanced_press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_ADVANCED
@@ -96,7 +93,7 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
                 advancementOutput, battery8,
                 battery8FullyChargedIcon, "battery_8_fully_charged", AdvancementType.CHALLENGE,
                 InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().
-                        of(lookupProvider.lookupOrThrow(Registries.ITEM), EPItems.BATTERY_8).
+                        of(output.lookup(Registries.ITEM), EPItems.BATTERY_8).
                         withComponents(DataComponentMatchers.Builder.components().
                                 exact(DataComponentExactPredicate.expect(EPDataComponentTypes.ENERGY.get(), BatteryTier.BATTERY_8.getCapacity())).
                                 build()).
@@ -114,14 +111,12 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedCopperPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedPowerAdvanced,
                 EPItems.ENERGIZED_COPPER_PLATE, "energized_copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_COPPER
         );
 
         AdvancementHolder energizedCopperWire = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedCopperPlate,
                 EPItems.ENERGIZED_COPPER_WIRE, "energized_copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_COPPER
@@ -267,7 +262,7 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM, "hv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
+                                output.lookup(Registries.ITEM),
                                 EPBlocks.HV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.HV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.HV_TRANSFORMER_N_TO_1_ITEM,
@@ -302,7 +297,6 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedGoldIngot = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizer,
                 EPItems.ENERGIZED_GOLD_INGOT, "energized_gold_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ENERGIZED_GOLD
@@ -314,14 +308,12 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedGoldPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedGoldIngot,
                 EPItems.ENERGIZED_GOLD_PLATE, "energized_gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_GOLD
         );
 
         AdvancementHolder energizedGoldWire = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedGoldPlate,
                 EPItems.ENERGIZED_GOLD_WIRE, "energized_gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_ENERGIZED_GOLD
@@ -552,7 +544,7 @@ public class ModAdvancedAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM, "ehv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
+                                output.lookup(Registries.ITEM),
                                 EPBlocks.EHV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.EHV_TRANSFORMER_N_TO_1_ITEM,

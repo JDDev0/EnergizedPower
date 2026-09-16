@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/advanced_fertilizer"
+        "recipes": "energizedpower:crafting/advanced_fertilizer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

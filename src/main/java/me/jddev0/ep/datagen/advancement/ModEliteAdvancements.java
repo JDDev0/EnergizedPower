@@ -5,44 +5,40 @@ import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-
-import java.util.function.Consumer;
+import net.minecraft.data.worldgen.BootstrapContext;
 
 public class ModEliteAdvancements extends EPBaseAdvancementProvider {
-    public ModEliteAdvancements() {
-        super("main/elite");
+    public ModEliteAdvancements(BootstrapContext<Advancement> output) {
+        super(output, "main/elite");
     }
 
     @Override
-    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+    protected void generateAdvancements(BootstrapContext<Advancement> advancementOutput) {
         AdvancementHolder energizedPowerElite = addRootAdvancement(
-                lookupProvider, advancementOutput,
+                advancementOutput,
                 "elite_machine_frame_top", EPItems.CRYSTALLIZED_LAPIS_LAZULI, "energizedpower_elite",
                 CommonItemTags.GEMS_CRYSTALLIZED_LAPIS_LAZULI
         );
 
         AdvancementHolder crystallizedAlloyIngot = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedPowerElite,
                 EPItems.CRYSTALLIZED_ALLOY_INGOT, "crystallized_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_CRYSTALLIZED_ALLOY
         );
 
         AdvancementHolder crystallizedAlloyPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, crystallizedAlloyIngot,
                 EPItems.CRYSTALLIZED_ALLOY_PLATE, "crystallized_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_CRYSTALLIZED_ALLOY
         );
 
         AdvancementHolder elitePressMolds = addAdvancement(
-                lookupProvider,
                 advancementOutput, crystallizedAlloyPlate,
                 EPItems.ELITE_GEAR_PRESS_MOLD, "elite_press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_ELITE
@@ -84,7 +80,6 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedAlloyIngot = addAdvancement(
-                lookupProvider,
                 advancementOutput, crystallizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_INGOT, "energized_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_ENERGIZED_ALLOY
@@ -120,7 +115,7 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM, "uhv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
+                                output.lookup(Registries.ITEM),
                                 EPBlocks.UHV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.UHV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.UHV_TRANSFORMER_N_TO_1_ITEM,
@@ -160,14 +155,12 @@ public class ModEliteAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder energizedAlloyPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedAlloyIngot,
                 EPItems.ENERGIZED_ALLOY_PLATE, "energized_alloy_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_ENERGIZED_ALLOY
         );
 
         AdvancementHolder superconductor = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedAlloyPlate,
                 EPItems.SUPERCONDUCTOR, "superconductor", AdvancementType.TASK,
                 CommonItemTags.WIRES_SUPERCONDUCTOR

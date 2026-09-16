@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen.base;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.machine.configuration.ComparatorMode;
 import me.jddev0.ep.machine.configuration.RedstoneMode;
 import me.jddev0.ep.networking.ModMessages;
@@ -47,7 +48,7 @@ public abstract class ConfigurableUpgradableEnergyStorageContainerScreen
         if(super.mouseClickedConfiguration(mouseX, mouseY, mouseButton))
             return true;
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             if(isHovering(-22, 26, 20, 20, mouseX, mouseY)) {
                 //Redstone Mode
 

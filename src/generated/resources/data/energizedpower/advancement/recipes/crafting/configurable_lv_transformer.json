@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/configurable_lv_transformer"
+        "recipes": "energizedpower:crafting/configurable_lv_transformer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

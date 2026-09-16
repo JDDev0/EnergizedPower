@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smelting/gold_ingot_from_smelting_gold_dust"
+        "recipes": "energizedpower:smelting/gold_ingot_from_smelting_gold_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

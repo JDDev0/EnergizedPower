@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.EnergizerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
@@ -15,8 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.function.ToIntFunction;
 
 public class EnergizerBlock extends HorizontallyOrientableWorkerMachineBlock<EnergizerBlockEntity> {
-    public static final MapCodec<EnergizerBlock> CODEC = simpleCodec(EnergizerBlock::new);
-
     public static final ToIntFunction<BlockState> LIGHT_EMISSION =
             (state) -> state.getValue(WORKING) ? 8 : 0;
 
@@ -27,11 +24,6 @@ public class EnergizerBlock extends HorizontallyOrientableWorkerMachineBlock<Ene
                 EPBlockEntities.ENERGIZER_ENTITY,
                 EnergizerBlockEntity.class, EnergizerBlockEntity::new, EnergizerBlockEntity::tick
         );
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

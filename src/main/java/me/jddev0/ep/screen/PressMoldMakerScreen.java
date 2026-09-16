@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.CraftPressMoldMakerRecipeC2SPacket;
@@ -38,7 +39,7 @@ public class PressMoldMakerScreen extends EnergizedPowerBaseContainerScreen<Pres
         double mouseX = click.x();
         double mouseY = click.y();
         int mouseButton = click.button();
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             boolean clicked = false;
             //Recipe buttons
             for(int j = 0; j < 2;j++) {

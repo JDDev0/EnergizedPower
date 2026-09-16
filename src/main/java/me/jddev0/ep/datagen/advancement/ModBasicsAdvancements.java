@@ -6,28 +6,27 @@ import me.jddev0.ep.datagen.generators.EPBaseAdvancementProvider;
 import me.jddev0.ep.item.EPItems;
 import me.jddev0.ep.registry.tags.CommonItemTags;
 import me.jddev0.ep.registry.tags.EnergizedPowerItemTags;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
-import java.util.function.Consumer;
-
 public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
-    public ModBasicsAdvancements() {
-        super("main/basics");
+    public ModBasicsAdvancements(BootstrapContext<Advancement> output) {
+        super(output, "main/basics");
     }
 
     @Override
-    protected void generateAdvancements(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> advancementOutput) {
+    protected void generateAdvancements(BootstrapContext<Advancement> advancementOutput) {
         AdvancementHolder energizedPowerBasics = addRootAdvancement(
-                lookupProvider, advancementOutput,
+                advancementOutput,
                 "basic_machine_frame_top", Items.COPPER_INGOT, "energizedpower_basics",
                 Tags.Items.INGOTS_COPPER
         );
@@ -43,21 +42,18 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder rawPressMolds = addAdvancement(
-                lookupProvider,
                 advancementOutput, pressMoldMaker,
                 EPItems.RAW_GEAR_PRESS_MOLD, "raw_press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.RAW_METAL_PRESS_MOLDS
         );
 
         AdvancementHolder basicPressMolds = addAdvancement(
-                lookupProvider,
                 advancementOutput, rawPressMolds,
                 EPItems.BASIC_GEAR_PRESS_MOLD, "press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_BASIC
         );
 
         AdvancementHolder hardenedPressMolds = addAdvancement(
-                lookupProvider,
                 advancementOutput, basicPressMolds,
                 EPItems.HARDENED_GEAR_PRESS_MOLD, "hardened_press_molds", AdvancementType.TASK,
                 EnergizedPowerItemTags.METAL_PRESS_MOLDS_TIER_HARDENED
@@ -69,14 +65,12 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder steelIngot = addAdvancement(
-                lookupProvider,
                 advancementOutput, alloyFurnace,
                 EPItems.STEEL_INGOT, "steel_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_STEEL
         );
 
         AdvancementHolder steelPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, steelIngot,
                 EPItems.STEEL_PLATE, "steel_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_STEEL
@@ -113,7 +107,6 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder redstoneAlloyIngot = addAdvancement(
-                lookupProvider,
                 advancementOutput, alloyFurnace,
                 EPItems.REDSTONE_ALLOY_INGOT, "redstone_alloy_ingot", AdvancementType.TASK,
                 CommonItemTags.INGOTS_REDSTONE_ALLOY
@@ -130,63 +123,54 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder hammer = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedPowerBasics,
                 EPItems.IRON_HAMMER, "hammer", AdvancementType.TASK,
                 CommonItemTags.TOOLS_HAMMERS
         );
 
         AdvancementHolder tinPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.TIN_PLATE, "tin_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_TIN
         );
 
         AdvancementHolder copperPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.COPPER_PLATE, "copper_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_COPPER
         );
 
         AdvancementHolder goldPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.GOLD_PLATE, "gold_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_GOLD
         );
 
         AdvancementHolder ironPlate = addAdvancement(
-                lookupProvider,
                 advancementOutput, hammer,
                 EPItems.IRON_PLATE, "iron_plate", AdvancementType.TASK,
                 CommonItemTags.PLATES_IRON
         );
 
         AdvancementHolder cutter = addAdvancement(
-                lookupProvider,
                 advancementOutput, ironPlate,
                 EPItems.CUTTER, "cutter", AdvancementType.TASK,
                 CommonItemTags.TOOLS_CUTTERS
         );
 
         AdvancementHolder tinWire = addAdvancement(
-                lookupProvider,
                 advancementOutput, cutter,
                 EPItems.TIN_WIRE, "tin_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_TIN
         );
 
         AdvancementHolder goldWire = addAdvancement(
-                lookupProvider,
                 advancementOutput, cutter,
                 EPItems.GOLD_WIRE, "gold_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_GOLD
         );
 
         AdvancementHolder copperWire = addAdvancement(
-                lookupProvider,
                 advancementOutput, cutter,
                 EPItems.COPPER_WIRE, "copper_wire", AdvancementType.TASK,
                 CommonItemTags.WIRES_COPPER
@@ -447,7 +431,7 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM, "lv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
+                                output.lookup(Registries.ITEM),
                                 EPBlocks.LV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.LV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.LV_TRANSFORMER_N_TO_1_ITEM,
@@ -457,7 +441,6 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
         );
 
         AdvancementHolder silicon = addAdvancement(
-                lookupProvider,
                 advancementOutput, energizedPowerBasics,
                 EPItems.SILICON, "silicon", AdvancementType.TASK,
                 CommonItemTags.SILICON
@@ -698,7 +681,7 @@ public class ModBasicsAdvancements extends EPBaseAdvancementProvider {
                 EPBlocks.MV_TRANSFORMER_1_TO_N, "mv_transformers", AdvancementType.TASK,
                 InventoryChangeTrigger.TriggerInstance.hasItems(
                         ItemPredicate.Builder.item().of(
-                                lookupProvider.lookupOrThrow(Registries.ITEM),
+                                output.lookup(Registries.ITEM),
                                 EPBlocks.MV_TRANSFORMER_1_TO_N_ITEM,
                                 EPBlocks.MV_TRANSFORMER_3_TO_3_ITEM,
                                 EPBlocks.MV_TRANSFORMER_N_TO_1_ITEM,

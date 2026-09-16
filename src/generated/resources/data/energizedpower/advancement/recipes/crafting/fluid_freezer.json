@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/fluid_freezer"
+        "recipes": "energizedpower:crafting/fluid_freezer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smelting/tin_ingot_from_smelting_tin_ores"
+        "recipes": "energizedpower:smelting/tin_ingot_from_smelting_tin_ores"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

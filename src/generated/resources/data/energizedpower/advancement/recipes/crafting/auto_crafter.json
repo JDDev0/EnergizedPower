@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/auto_crafter"
+        "recipes": "energizedpower:crafting/auto_crafter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

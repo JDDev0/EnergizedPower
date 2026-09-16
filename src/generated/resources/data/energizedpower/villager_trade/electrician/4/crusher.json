@@ -5,11 +5,11 @@
   "gives": {
     "id": "energizedpower:crusher"
   },
-  "max_uses": 3.0,
+  "max_uses": 3,
   "reputation_discount": 0.02,
   "wants": {
-    "count": 39.0,
+    "count": 39,
     "id": "minecraft:emerald"
   },
-  "xp": 20.0
+  "xp": 20
 }

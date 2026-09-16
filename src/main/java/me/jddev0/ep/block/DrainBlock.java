@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
@@ -28,15 +27,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class DrainBlock extends BaseEntityBlock {
-    public static final MapCodec<DrainBlock> CODEC = simpleCodec(DrainBlock::new);
-
     public DrainBlock(Properties props) {
         super(props);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

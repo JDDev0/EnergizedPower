@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/elite_minecart_uncharger"
+        "recipes": "energizedpower:crafting/elite_minecart_uncharger"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

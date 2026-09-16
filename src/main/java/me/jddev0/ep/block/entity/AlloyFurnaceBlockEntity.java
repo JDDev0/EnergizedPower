@@ -60,7 +60,7 @@ public class AlloyFurnaceBlockEntity
         if(i == 3) {
             //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
             ItemStack item = itemHandler.getStackInSlot(i);
-            return level != null && item.getBurnTime(null, level.fuelValues()) <= 0;
+            return level != null && !ItemStackUtils.isItemCookingFuel(item);
         }
 
         return i > 3 && i < 6;
@@ -93,7 +93,7 @@ public class AlloyFurnaceBlockEntity
                     case 0, 1, 2 -> (level instanceof ServerLevel serverLevel)?
                             RecipeUtils.isIngredientOfAny(serverLevel, EPRecipes.ALLOY_FURNACE_TYPE.get(), stack):
                             RecipeUtils.isIngredientOfAny(ingredientsOfRecipes, stack);
-                    case 3 -> level != null && stack.getBurnTime(null, level.fuelValues()) > 0;
+                    case 3 -> level != null && ItemStackUtils.isItemCookingFuel(stack);
                     case 4, 5 -> false;
                     default -> super.isValid(slot, resource);
                 };
@@ -178,7 +178,7 @@ public class AlloyFurnaceBlockEntity
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, AlloyFurnaceBlockEntity blockEntity) {
-        if(level.isClientSide())
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
         boolean hasNotEnoughFuel = false;
@@ -204,7 +204,7 @@ public class AlloyFurnaceBlockEntity
             if(blockEntity.litDuration <= 0) {
                 ItemStack item = blockEntity.itemHandler.getStackInSlot(3);
 
-                blockEntity.litDuration = blockEntity.maxLitDuration = item.getBurnTime(null, level.fuelValues());
+                blockEntity.litDuration = blockEntity.maxLitDuration = ItemStackUtils.getItemBurnDuration(item, serverLevel, blockEntity);
                 if(blockEntity.maxLitDuration > 0) {
                     blockEntity.onHasEnoughFuel();
                     hasNotEnoughFuel = false;

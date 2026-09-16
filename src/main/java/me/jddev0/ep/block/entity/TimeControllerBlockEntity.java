@@ -94,7 +94,7 @@ public class TimeControllerBlockEntity extends MenuEnergyStorageBlockEntity<Ener
         Holder<WorldClock> defaultClock = defaultClockOptional.get();
         ServerClockManager clockManager = serverLevel.clockManager();
 
-        long currentTime = clockManager.getTotalTicks(defaultClock);
+        long currentTime = clockManager.getInstance(defaultClock).totalTicks();
 
         int currentDayTime = (int)(currentTime % ticksPerDay);
 

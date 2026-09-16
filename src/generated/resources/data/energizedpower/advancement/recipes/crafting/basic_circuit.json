@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/basic_circuit"
+        "recipes": "energizedpower:crafting/basic_circuit"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

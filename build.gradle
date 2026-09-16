@@ -3,7 +3,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.1.38'
+    id 'net.neoforged.gradle.userdev' version '7.1.39'
     id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2"
 }
 
@@ -143,14 +143,14 @@ dependencies {
     // For all intends and purposes: You can treat this dependency as if it is a normal library you would use.
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    // REI integration
+    // REI integration (TODO UPDATE to 26.3)
     compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
     compileOnlyApi "dev.architectury:architectury-neoforge:21.0.2"
     compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-neoforge:26.2.820"
     compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.2.820"
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
-    // JEI integration
+    // JEI integration (TODO UPDATE to 26.3)
     compileOnly "mezz.jei:jei-26.2-common-api:30.0.0.1"
     compileOnly "mezz.jei:jei-26.2-neoforge-api:30.0.0.1"
 
@@ -158,10 +158,10 @@ dependencies {
     //TODO re-enable
     //compileOnly "dev.emi:emi-neoforge:1.1.15+1.21.1:api"
 
-    // Curios Continuation integration
+    // Curios Continuation integration (TODO UPDATE to 26.3)
     compileOnly "top.theillusivec4.curios:curios-neoforge:16.0.0+26.2"
 
-    // CCTweaked integration
+    // CCTweaked integration (TODO UPDATE to 26.3)
     compileOnly "cc.tweaked:cc-tweaked-26.2-core-api:1.120.0"
     compileOnly "cc.tweaked:cc-tweaked-26.2-forge-api:1.120.0"
 
@@ -229,9 +229,9 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 publishMods {
-    displayName = "Energized Power - " + "26.2.x" + " - v" + project.mod_version.split("\\+")[0] + " [NeoForge]"
+    displayName = "Energized Power - " + "26.3.x" + " - v" + project.mod_version.split("\\+")[0] + " [NeoForge]"
     changelog = new File("CHANGELOG.md").exists()?new File("CHANGELOG.md").getText("UTF-8"):""
-    type = STABLE
+    type = BETA //TODO change to "stable" if NeoForge is no longer in beta
     file = jar.archiveFile
     modLoaders.add("neoforge")
 
@@ -241,7 +241,7 @@ publishMods {
         modrinth {
             accessToken = getProperty('MODRINTH_TOKEN') as String
             projectId = "6pku8gW1"
-            minecraftVersionList("26.2")
+            minecraftVersionList("26.3")
         }
     }
 
@@ -249,7 +249,7 @@ publishMods {
         curseforge {
             accessToken = getProperty('CURSEFORGE_TOKEN') as String
             projectId = "782147"
-            minecraftVersionList("26.2")
+            minecraftVersionList("26.3")
             client = true
             server = true
             javaVersions.add(JavaVersion.VERSION_25)

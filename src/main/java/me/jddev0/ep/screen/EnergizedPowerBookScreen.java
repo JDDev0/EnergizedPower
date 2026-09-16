@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.networking.ModMessages;
@@ -255,7 +256,7 @@ public class EnergizedPowerBookScreen extends Screen {
         ActiveTextCollector.ClickableStyleFinder clickHandler = new ActiveTextCollector.ClickableStyleFinder(this.font, (int)mouseX, (int)mouseY);
         renderText(clickHandler);
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             Style style = clickHandler.result();
             if(style != null && handleComponentClicked(style))
                 return true;

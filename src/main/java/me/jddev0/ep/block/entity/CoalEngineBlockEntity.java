@@ -16,6 +16,7 @@ import me.jddev0.ep.screen.CoalEngineMenu;
 import me.jddev0.ep.util.ItemStackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -48,7 +49,7 @@ public class CoalEngineBlockEntity
 
         //Do not allow extraction of fuel items, allow for non fuel items (Bucket of Lava -> Empty Bucket)
         ItemStack item = itemHandler.getStackInSlot(i);
-        return level != null && item.getBurnTime(null, level.fuelValues()) <= 0;
+        return level != null && !ItemStackUtils.isItemCookingFuel(item);
     });
 
     private int progress;
@@ -113,7 +114,7 @@ public class CoalEngineBlockEntity
                 ItemStack stack = resource.toStack();
 
                 if(slot == 0)
-                    return stack.getBurnTime(null, level.fuelValues()) > 0;
+                    return ItemStackUtils.isItemCookingFuel(stack);
 
                 return super.isValid(slot, resource);
             }
@@ -233,7 +234,7 @@ public class CoalEngineBlockEntity
     }
 
     private static void tickRecipe(Level level, BlockPos blockPos, BlockState state, CoalEngineBlockEntity blockEntity) {
-        if(level.isClientSide())
+        if(!(level instanceof ServerLevel serverLevel))
             return;
 
         if(blockEntity.timeoutOffState > 0) {
@@ -252,7 +253,7 @@ public class CoalEngineBlockEntity
 
             ItemStack item = inventory.getItem(0);
 
-            int energyProduction = item.getBurnTime(null, level.fuelValues());
+            int energyProduction = ItemStackUtils.getItemBurnDuration(item, serverLevel, blockEntity);
             energyProduction = (int)(energyProduction * ENERGY_PRODUCTION_MULTIPLIER *
                     blockEntity.upgradeModuleInventory.getModifierEffectProduct(UpgradeModuleModifier.ENERGY_PRODUCTION));
             if(blockEntity.progress == 0)
@@ -336,7 +337,7 @@ public class CoalEngineBlockEntity
 
         ItemStack item = inventory.getItem(0);
 
-        if(blockEntity.level != null && item.getBurnTime(null, blockEntity.level.fuelValues()) <= 0)
+        if(blockEntity.level == null || !ItemStackUtils.isItemCookingFuel(item))
             return false;
 
         return item.getCraftingRemainder() == null || item.getCount() == 1;

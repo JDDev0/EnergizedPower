@@ -1,5 +1,6 @@
 package me.jddev0.ep.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.block.entity.FluidTransposerBlockEntity;
 import me.jddev0.ep.networking.ModMessages;
@@ -30,7 +31,7 @@ public class FluidTransposerScreen
         if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
             return true;
 
-        if(mouseButton == 0) {
+        if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
             if(isHovering(114, 47, 20, 20, mouseX, mouseY)) {
                 //Mode button
 

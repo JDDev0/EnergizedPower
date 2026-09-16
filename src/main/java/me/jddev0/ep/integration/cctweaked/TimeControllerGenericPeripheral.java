@@ -43,7 +43,7 @@ public class TimeControllerGenericPeripheral implements GenericPeripheral {
         Holder<WorldClock> defaultClock = defaultClockOptional.get();
         ServerClockManager clockManager = level.clockManager();
 
-        long currentTime = clockManager.getTotalTicks(defaultClock);
+        long currentTime = clockManager.getInstance(defaultClock).totalTicks();
 
         int currentDayTime = (int)(currentTime % ticksPerDay);
 

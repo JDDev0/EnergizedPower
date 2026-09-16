@@ -1,5 +1,5 @@
 {
-  "amount": 2.0,
+  "amount": 2,
   "random_sequence": "energizedpower:trade_set/electrician/level_5",
   "trades": "#energizedpower:electrician/level_5"
 }

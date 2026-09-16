@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/fluid_analyzer"
+        "recipes": "energizedpower:crafting/fluid_analyzer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

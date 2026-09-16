@@ -82,7 +82,7 @@ public record SetTimeFromTimeControllerC2SPacket(BlockPos pos, int time) impleme
             //TODO dynamically get days timeline
             long ticksPerDay = 24000;
 
-            long currentTime = clockManager.getTotalTicks(defaultClock);
+            long currentTime = clockManager.getInstance(defaultClock).totalTicks();
 
             int currentDayTime = (int)(currentTime % ticksPerDay);
 

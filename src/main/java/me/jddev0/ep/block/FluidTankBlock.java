@@ -1,7 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.FluidTankBlockEntity;
 import me.jddev0.ep.machine.tier.FluidTankTier;
 import me.jddev0.ep.util.FluidUtils;
@@ -10,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -33,13 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class FluidTankBlock extends BaseEntityBlock {
-    public static final MapCodec<FluidTankBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(FluidTankTier::valueOf, FluidTankTier::toString).fieldOf("tier").
-                forGetter(FluidTankBlock::getTier),
-                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
-                apply(instance, FluidTankBlock::new);
-    });
-
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private final FluidTankTier tier;
@@ -54,11 +44,6 @@ public class FluidTankBlock extends BaseEntityBlock {
 
     public FluidTankTier getTier() {
         return tier;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

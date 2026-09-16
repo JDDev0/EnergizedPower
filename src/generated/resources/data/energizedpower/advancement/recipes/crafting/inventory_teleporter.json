@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/inventory_teleporter"
+        "recipes": "energizedpower:crafting/inventory_teleporter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

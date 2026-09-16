@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:smelting/wire_press_mold"
+        "recipes": "energizedpower:smelting/wire_press_mold"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

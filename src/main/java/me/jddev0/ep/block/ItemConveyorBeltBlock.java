@@ -1,7 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.ItemConveyorBeltBlockEntity;
 import me.jddev0.ep.machine.tier.ConveyorBeltTier;
 import net.minecraft.ChatFormatting;
@@ -12,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -41,14 +38,6 @@ import java.util.function.Consumer;
 import static me.jddev0.ep.block.EPBlockStateProperties.ConveyorBeltDirection;
 
 public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConfigurable {
-    public static final MapCodec<ItemConveyorBeltBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(
-                ExtraCodecs.NON_EMPTY_STRING.xmap(ConveyorBeltTier::valueOf, ConveyorBeltTier::toString).fieldOf("tier").
-                        forGetter(ItemConveyorBeltBlock::getTier),
-                Properties.CODEC.fieldOf("properties").forGetter(Block::properties)
-        ).apply(instance, ItemConveyorBeltBlock::new);
-    });
-
     public static final EnumProperty<ConveyorBeltDirection> FACING = EPBlockStateProperties.CONVEYOR_BELT_FACING;
 
     protected static final VoxelShape SHAPE_FLAT = Block.box(0., 0., 0., 16., 2., 16.);
@@ -66,11 +55,6 @@ public class ItemConveyorBeltBlock extends BaseEntityBlock implements WrenchConf
 
     public ConveyorBeltTier getTier() {
         return tier;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

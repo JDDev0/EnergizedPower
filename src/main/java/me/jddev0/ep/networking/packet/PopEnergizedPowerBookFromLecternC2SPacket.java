@@ -8,6 +8,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -55,7 +56,7 @@ public record PopEnergizedPowerBookFromLecternC2SPacket(BlockPos pos) implements
             lecternBlockEntity.setBook(ItemStack.EMPTY);
             LecternBlock.resetBookState(player, player.level(), data.pos, player.level().getBlockState(data.pos), false);
             if(!player.getInventory().add(itemStack))
-                player.drop(itemStack, false);
+                player.drop(itemStack, false, Prediction.SERVER_ONLY);
         });
     }
 }

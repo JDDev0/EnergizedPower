@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/alloy_furnace"
+        "recipes": "energizedpower:crafting/alloy_furnace"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

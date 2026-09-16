@@ -1,7 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.jddev0.ep.block.entity.TransformerBlockEntity;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
@@ -13,7 +11,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -40,13 +37,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class ConfigurableTransformerBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, WrenchConfigurable {
-    public static final MapCodec<ConfigurableTransformerBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> {
-        return instance.group(ExtraCodecs.NON_EMPTY_STRING.xmap(TransformerTier::valueOf, TransformerTier::toString).fieldOf("tier").
-                forGetter(ConfigurableTransformerBlock::getTier),
-                        Properties.CODEC.fieldOf("properties").forGetter(Block::properties)).
-                apply(instance, ConfigurableTransformerBlock::new);
-    });
-
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final EnumProperty<EPBlockStateProperties.TransformerConnection> UP = EPBlockStateProperties.TRANSFORMER_CONNECTION_UP;
     public static final EnumProperty<EPBlockStateProperties.TransformerConnection> DOWN = EPBlockStateProperties.TRANSFORMER_CONNECTION_DOWN;
@@ -85,11 +75,6 @@ public class ConfigurableTransformerBlock extends BaseEntityBlock implements Sim
 
     public TransformerTier getTier() {
         return tier;
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

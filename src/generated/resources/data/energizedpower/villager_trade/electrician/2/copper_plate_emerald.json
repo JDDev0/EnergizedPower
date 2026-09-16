@@ -3,11 +3,11 @@
     "count": 8,
     "id": "minecraft:emerald"
   },
-  "max_uses": 15.0,
+  "max_uses": 15,
   "reputation_discount": 0.02,
   "wants": {
-    "count": 3.0,
+    "count": 3,
     "id": "energizedpower:copper_plate"
   },
-  "xp": 6.0
+  "xp": 6
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/pulverizer"
+        "recipes": "energizedpower:crafting/pulverizer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

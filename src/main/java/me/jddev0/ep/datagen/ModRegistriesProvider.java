@@ -17,9 +17,11 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class ModRegistriesProvider extends DatapackBuiltinEntriesProvider {
+public final class ModRegistriesProvider {
+    private ModRegistriesProvider() {}
+
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder().
-            add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap).
+            add(Registries.FEATURE, ModConfiguredFeatures::bootstrap).
             add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap).
             add(Registries.TEMPLATE_POOL, ModTemplatePools::bootstrap).
             add(Registries.STRUCTURE, ModStructures::bootstrap).
@@ -30,7 +32,7 @@ public class ModRegistriesProvider extends DatapackBuiltinEntriesProvider {
             add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap).
             add(EPRegistries.SOIL_TYPE, EPSoilTypes::bootstrap);
 
-    public ModRegistriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, lookupProvider, BUILDER, Set.of(EPAPI.MOD_ID));
+    public static DatapackBuiltinEntriesProvider create(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        return DatapackBuiltinEntriesProvider.forWorldLayer(output, "Energized Power", registries, BUILDER, Set.of(EPAPI.MOD_ID));
     }
 }

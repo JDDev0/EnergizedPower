@@ -1,0 +1,9 @@
+{
+  "type": "energizedpower:sawmill",
+  "ingredient": "minecraft:poplar_fence_gate",
+  "result": {
+    "count": 2,
+    "id": "minecraft:poplar_planks"
+  },
+  "sawdustAmount": 3
+}

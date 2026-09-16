@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/weather_controller"
+        "recipes": "energizedpower:crafting/weather_controller"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

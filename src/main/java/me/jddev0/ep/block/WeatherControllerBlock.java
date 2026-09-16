@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.EPBlockEntities;
 import me.jddev0.ep.block.entity.WeatherControllerBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -24,19 +23,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class WeatherControllerBlock extends BaseEntityBlock {
-    public static final MapCodec<WeatherControllerBlock> CODEC = simpleCodec(WeatherControllerBlock::new);
-
     public static final BooleanProperty TRIGGERED = BlockStateProperties.TRIGGERED;
 
     public WeatherControllerBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(TRIGGERED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

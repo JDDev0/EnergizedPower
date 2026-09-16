@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/solar_panel_2"
+        "recipes": "energizedpower:crafting/solar_panel_2"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

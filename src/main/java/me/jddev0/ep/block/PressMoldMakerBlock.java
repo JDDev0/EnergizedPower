@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.PressMoldMakerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,15 +16,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class PressMoldMakerBlock extends BaseEntityBlock {
-    public static final MapCodec<PressMoldMakerBlock> CODEC = simpleCodec(PressMoldMakerBlock::new);
-
     public PressMoldMakerBlock(Properties props) {
         super(props);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

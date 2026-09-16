@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:blasting/copper_ingot_from_blasting_copper_dust"
+        "recipes": "energizedpower:blasting/copper_ingot_from_blasting_copper_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

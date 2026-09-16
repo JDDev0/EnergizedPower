@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/item_conveyor_belt_from_dried_kelp"
+        "recipes": "energizedpower:crafting/item_conveyor_belt_from_dried_kelp"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

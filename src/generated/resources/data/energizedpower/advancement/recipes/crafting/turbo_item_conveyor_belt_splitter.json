@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/turbo_item_conveyor_belt_splitter"
+        "recipes": "energizedpower:crafting/turbo_item_conveyor_belt_splitter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

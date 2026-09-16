@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/energizer"
+        "recipes": "energizedpower:crafting/energizer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -1,6 +1,5 @@
 package me.jddev0.ep.block;
 
-import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeItemSiloBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -27,19 +26,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 public class CreativeItemSiloBlock extends BaseEntityBlock {
-    public static final MapCodec<CreativeItemSiloBlock> CODEC = simpleCodec(CreativeItemSiloBlock::new);
-
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public CreativeItemSiloBlock(Properties props) {
         super(props);
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

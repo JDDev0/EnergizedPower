@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/steel_fluid_pipe"
+        "recipes": "energizedpower:crafting/steel_fluid_pipe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

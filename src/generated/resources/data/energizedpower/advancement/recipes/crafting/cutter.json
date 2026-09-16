@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/cutter"
+        "recipes": "energizedpower:crafting/cutter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/xp_extraction_upgrade_module_4"
+        "recipes": "energizedpower:crafting/xp_extraction_upgrade_module_4"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

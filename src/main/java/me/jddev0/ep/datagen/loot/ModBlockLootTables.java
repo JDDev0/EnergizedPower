@@ -3,11 +3,9 @@ package me.jddev0.ep.datagen.loot;
 import me.jddev0.ep.block.*;
 import me.jddev0.ep.item.EPItems;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -19,8 +17,8 @@ import java.util.Set;
 import java.util.function.Function;
 
 public class ModBlockLootTables extends BlockLootSubProvider {
-    public ModBlockLootTables(HolderLookup.Provider lookupProvider) {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), lookupProvider);
+    public ModBlockLootTables(LootTableSubProvider.Context context) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), context);
     }
 
     @Override
@@ -247,13 +245,11 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     }
 
     private LootTable.Builder createTinOreDrops(Block block) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
-
         return createSilkTouchDispatchTable(block,
                 applyExplosionDecay(
                         block,
                         LootItem.lootTableItem(EPItems.RAW_TIN)
-                                .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                                .apply(ApplyBonusCount.addOreBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
                 )
         );
     }

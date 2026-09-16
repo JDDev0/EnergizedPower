@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/moon_light_upgrade_module_3"
+        "recipes": "energizedpower:crafting/moon_light_upgrade_module_3"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

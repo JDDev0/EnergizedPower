@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/express_item_conveyor_belt_merger"
+        "recipes": "energizedpower:crafting/express_item_conveyor_belt_merger"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

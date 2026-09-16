@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/battery_3"
+        "recipes": "energizedpower:crafting/battery_3"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

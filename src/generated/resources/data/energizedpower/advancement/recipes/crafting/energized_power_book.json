@@ -16,7 +16,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/energized_power_book"
+        "recipes": "energizedpower:crafting/energized_power_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

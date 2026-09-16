@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/metal_press"
+        "recipes": "energizedpower:crafting/metal_press"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

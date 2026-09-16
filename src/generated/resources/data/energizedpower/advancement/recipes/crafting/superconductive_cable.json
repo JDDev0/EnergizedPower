@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "energizedpower:crafting/superconductive_cable"
+        "recipes": "energizedpower:crafting/superconductive_cable"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

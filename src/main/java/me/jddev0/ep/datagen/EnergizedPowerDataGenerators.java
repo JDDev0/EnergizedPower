@@ -19,7 +19,7 @@ public class EnergizedPowerDataGenerators {
         PackOutput output = generator.getPackOutput();
 
         CompletableFuture<HolderLookup.Provider> lookupProvider =
-                generator.addProvider(true, new ModRegistriesProvider(output, event.getLookupProvider())).
+                generator.addProvider(true, ModRegistriesProvider.create(output, event.getWorldLookupProvider())).
                         getRegistryProvider();
 
         generator.addProvider(true, new ModModelProvider(output));
@@ -46,9 +46,8 @@ public class EnergizedPowerDataGenerators {
         generator.addProvider(true, new ModLanguageProvider(output, "es_uy", "lang/es_mx.json"));
         generator.addProvider(true, new ModLanguageProvider(output, "es_ve", "lang/es_mx.json"));
 
-        generator.addProvider(true, new ModRecipeProvider(output, lookupProvider));
-        generator.addProvider(true, ModLootTableProvider.create(output, lookupProvider));
-        generator.addProvider(true, ModAdvancementProvider.create(output, lookupProvider));
+        generator.addProvider(true, ModReloadableRegistriesProvider.create(output, event.getWorldLookupProvider(),
+                event.getReloadableLookupProvider()));
 
         generator.addProvider(true, new ModBlockTagProvider(output, lookupProvider));
         generator.addProvider(true, new ModItemTagProvider(output, lookupProvider));
