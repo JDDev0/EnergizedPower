@@ -313,9 +313,9 @@
   "_template.item.energizedpower.energizing_speed_upgrade_module": "Energizing Speed Upgrade Module (Tier %s)",
   "_template.advancements.energizedpower.energizing_speed_upgrade_module.title": "Energizing Speed %s",
   "_template.advancements.energizedpower.energizing_speed_upgrade_module.description": "Craft an Energizing Speed Upgrade Module (Tier %s).",
-  "book.energizedpower.page.energizing_speed_upgrade_module.1": "Energizing Speed upgrades make the Energizer faster but keep the total energy consumption the same.",
-  "book.energizedpower.page.energizing_speed_upgrade_module.2": "Energy consumption per tick will be increased at the same rate as the speed is increased.",
-  "book.energizedpower.page.energizing_speed_upgrade_module.3": "If higher tiers of the Energizing Speed Upgrades are used, Energy Capacity Upgrades must be installed to keep the Energizer operational.",
+  "book.energizedpower.page.energizing_speed_upgrades.1": "Energizing Speed upgrades make the Energizer faster but keep the total energy consumption the same.",
+  "book.energizedpower.page.energizing_speed_upgrades.2": "Energy consumption per tick will be increased at the same rate as the speed is increased.",
+  "book.energizedpower.page.energizing_speed_upgrades.3": "If higher tiers of the Energizing Speed Upgrades are used, Energy Capacity Upgrades must be installed to keep the Energizer operational.",
 
   "_template.item.energizedpower.energy_efficiency_upgrade_module": "能量效率升级模块 (等级 %s)",
   "_template.advancements.energizedpower.energy_efficiency_upgrade_module.title": "能量效率 %s",
