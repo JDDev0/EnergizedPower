@@ -36,6 +36,23 @@ public enum RelativeDirection implements StringRepresentable {
             return RelativeDirection.BOTTOM;
     }
 
+    public @NotNull Direction resolve(@NotNull Direction facing) {
+        //TODO support facing up and facing down
+
+        if(this == RelativeDirection.FRONT)
+            return facing;
+        else if(this == RelativeDirection.BACK)
+            return facing.getOpposite();
+        else if(this == RelativeDirection.LEFT)
+            return facing.getClockWise();
+        else if(this == RelativeDirection.RIGHT)
+            return facing.getCounterClockWise();
+        else if(this == RelativeDirection.TOP)
+            return Direction.UP;
+        else
+            return Direction.DOWN;
+    }
+
     public static @NotNull RelativeDirection @NotNull [] sidesOnlyValues() {
         return new RelativeDirection[] {
                 RelativeDirection.FRONT, RelativeDirection.BACK, RelativeDirection.RIGHT, RelativeDirection.LEFT
