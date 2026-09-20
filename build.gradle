@@ -150,9 +150,9 @@ dependencies {
     compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.2.820"
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
-    // JEI integration (TODO UPDATE to 26.3)
-    compileOnly "mezz.jei:jei-26.2-common-api:30.0.0.1"
-    compileOnly "mezz.jei:jei-26.2-neoforge-api:30.0.0.1"
+    // JEI integration
+    compileOnly "mezz.jei:jei-26.3-common-api:31.1.0.13"
+    compileOnly "mezz.jei:jei-26.3-neoforge-api:31.1.0.13"
 
     // EMI integration
     //TODO re-enable
@@ -161,9 +161,9 @@ dependencies {
     // Curios Continuation integration (TODO UPDATE to 26.3)
     compileOnly "top.theillusivec4.curios:curios-neoforge:16.0.0+26.2"
 
-    // CCTweaked integration (TODO UPDATE to 26.3)
-    compileOnly "cc.tweaked:cc-tweaked-26.2-core-api:1.120.0"
-    compileOnly "cc.tweaked:cc-tweaked-26.2-forge-api:1.120.0"
+    // CCTweaked integration
+    compileOnly "cc.tweaked:cc-tweaked-26.3-core-api:1.120.2"
+    compileOnly "cc.tweaked:cc-tweaked-26.3-forge-api:1.120.2"
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
