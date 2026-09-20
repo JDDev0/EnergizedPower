@@ -89,17 +89,17 @@ dependencies {
 	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.2.820"
 	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.2.820"
 
-    //JEI integration (TODO UPDATE to 26.3)
-	compileOnly "mezz.jei:jei-26.2-common-api:30.0.0.1"
-	compileOnly "mezz.jei:jei-26.2-fabric-api:30.0.0.1"
+    //JEI integration
+	compileOnly "mezz.jei:jei-26.3-common-api:31.1.0.13"
+	compileOnly "mezz.jei:jei-26.3-fabric-api:31.1.0.13"
 
 	// EMI integration
 	//TODO re-enable
 	//compileOnly "dev.emi:emi-fabric:1.1.8+1.21:api"
 
-	// CCTweaked integration (TODO UPDATE to 26.3)
-	compileOnlyApi "cc.tweaked:cc-tweaked-26.2-core-api:1.120.0"
-	compileOnlyApi "cc.tweaked:cc-tweaked-26.2-fabric-api:1.120.0"
+	// CCTweaked integration
+	compileOnlyApi "cc.tweaked:cc-tweaked-26.3-core-api:1.120.2"
+	compileOnlyApi "cc.tweaked:cc-tweaked-26.3-fabric-api:1.120.2"
 }
 
 processResources {
