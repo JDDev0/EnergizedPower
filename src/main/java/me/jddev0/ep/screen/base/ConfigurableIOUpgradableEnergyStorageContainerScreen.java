@@ -1,16 +1,22 @@
 package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.machine.configuration.*;
 import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetIOConfigurationC2SPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +31,8 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
     protected int ioConfigurationViewY = 83;
     protected int ioConfigurationViewWidth = 166;
     protected int ioConfigurationViewHeight = 83;
+
+    protected static final boolean IO_CONFIGURATION_SHOW_NEIGHBORING_BLOCKS = ModConfigs.CLIENT_IO_CONFIGURATION_SHOW_NEIGHBORING_BLOCKS.getValue();
 
     public ConfigurableIOUpgradableEnergyStorageContainerScreen(T menu, Inventory inventory, Component titleComponent,
                                                                 ResourceLocation texture,
@@ -191,6 +199,28 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
                 guiGraphics.blit(CONFIGURATION_ICONS_TEXTURE,
                         x + ioConfigurationViewX + xOffset, y + ioConfigurationViewY + yOffset, 0, buttonVPos,
                         20, 20, 256, 256);
+            }
+
+            if(IO_CONFIGURATION_SHOW_NEIGHBORING_BLOCKS) {
+                BlockEntity blockEntity = this.menu.getBlockEntity();
+                BlockState blockState = blockEntity.getBlockState();
+                //TODO add interface method to get facing property of machine
+                if(blockState.hasProperty(HorizontallyOrientableWorkerMachineBlock.FACING)) {
+                    Direction facing = blockState.getValue(HorizontallyOrientableWorkerMachineBlock.FACING);
+                    Direction resolved = direction.resolve(facing);
+
+                    if(blockEntity.getLevel() != null) {
+                        BlockState state = blockEntity.getLevel().getBlockState(blockEntity.getBlockPos().relative(resolved));
+
+                        ItemStack output = new ItemStack(state.getBlock());
+                        guiGraphics.pose().pushPose();
+                        guiGraphics.pose().translate(0.f, 0.f, 100.f);
+
+                        guiGraphics.renderItem(output, x + ioConfigurationViewX + xOffset + 2, y + ioConfigurationViewY + yOffset + 2, 116 + 49 * this.imageWidth);
+
+                        guiGraphics.pose().popPose();
+                    }
+                }
             }
         }
 

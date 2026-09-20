@@ -18,7 +18,7 @@ import java.util.List;
 public final class ModConfigs {
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    private static final String CONFIG_VERSION = "3.0.0";
+    private static final String CONFIG_VERSION = "3.0.1";
 
     private ModConfigs() {}
 
@@ -2030,6 +2030,12 @@ public final class ModConfigs {
     public static final ConfigValue<Boolean> CLIENT_FLUID_PUMP_RELATIVE_TARGET_COORDINATES = CLIENT_CONFIG.register(new BooleanConfigValue(
             "block.fluid_pump.relative_target_coordinates",
             "If set to true relative target coordinates will be shown instead of absolute coordinates in the Fluid Pump",
+            true
+    ));
+
+    public static final ConfigValue<Boolean> CLIENT_IO_CONFIGURATION_SHOW_NEIGHBORING_BLOCKS = CLIENT_CONFIG.register(new BooleanConfigValue(
+            "io_configuration.show_neighboring_blocks",
+            "If set to true neighboring blocks will be drawn in the directional buttons in the io configuration screen.",
             true
     ));
 
