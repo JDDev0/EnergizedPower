@@ -158,8 +158,8 @@ dependencies {
     //TODO re-enable
     //compileOnly "dev.emi:emi-neoforge:1.1.15+1.21.1:api"
 
-    // Curios Continuation integration (TODO UPDATE to 26.3)
-    compileOnly "top.theillusivec4.curios:curios-neoforge:16.0.0+26.2"
+    // Curios Continuation integration
+    compileOnly "top.theillusivec4.curios:curios-neoforge:17.0.0-beta+26.3"
 
     // CCTweaked integration
     compileOnly "cc.tweaked:cc-tweaked-26.3-core-api:1.120.2"
