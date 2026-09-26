@@ -6,7 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.registries.NewDatapackRegistryEvent;
 
 @EventBusSubscriber(modid = EPAPI.MOD_ID)
 public final class EPRegistries {
@@ -15,7 +15,7 @@ public final class EPRegistries {
     public static final ResourceKey<Registry<SoilType>> SOIL_TYPE = ResourceKey.createRegistryKey(EPAPI.id("soil_type"));
 
     @SubscribeEvent
-    public static void onRegisterDatapackRegistry(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(SOIL_TYPE, SoilType.DIRECT_CODEC, SoilType.DIRECT_CODEC);
+    public static void onRegisterDatapackRegistry(NewDatapackRegistryEvent event) {
+        event.worldRegistry(SOIL_TYPE, SoilType.DIRECT_CODEC, SoilType.DIRECT_CODEC);
     }
 }
