@@ -236,7 +236,7 @@ public abstract class ConfigurableIOUpgradableEnergyStorageContainerScreen
 
         if(mouseOverSlotGroup != null) {
             for(SlotEntry slotEntry:mouseOverSlotGroup.getSlots()) {
-                int color = slotEntry.mode().getHighlightColorRGB() | 0x7F000000;
+                int color = slotEntry.mode().getHighlightColorRGB() | 0xAF000000;
 
                 switch(menu.getSlotType()) {
                     case ITEM -> {
