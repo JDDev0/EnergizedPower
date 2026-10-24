@@ -33,6 +33,7 @@ public class CableBlockEntity extends BlockEntity {
     private final EnergizedPowerEnergyStorage energyStorage;
 
     private boolean loaded;
+    private long lastTicked = -1;
 
     private final Map<Pair<BlockPos, Direction>, EnergyHandler> producers = new HashMap<>();
     private final Map<Pair<BlockPos, Direction>, EnergyHandler> consumers = new HashMap<>();
@@ -112,8 +113,15 @@ public class CableBlockEntity extends BlockEntity {
         }
     }
 
-    public static Deque<EnergyHandler> getConnectedConsumers(Level level, BlockPos blockPos, Set<BlockPos> checkedCables) {
+    private record CableNetwork(Deque<EnergyHandler> cablesWithStoredEnergy, Deque<EnergyHandler> consumers, Deque<EnergyHandler> producers) {}
+    private static CableNetwork gatherEnergyStoragesAndMarkTicked(
+            Level level, BlockPos blockPos, Set<BlockPos> checkedCables
+    ) {
+        final long currentGameTick = level.getGameTime();
+
+        Deque<EnergyHandler> cablesWithStoredEnergy = new ArrayDeque<>(1024);
         Deque<EnergyHandler> consumers = new ArrayDeque<>(1024);
+        Deque<EnergyHandler> producers = new ArrayDeque<>(1024);
 
         Deque<BlockPos> cableBlocksLeft = new ArrayDeque<>(1024);
         cableBlocksLeft.add(blockPos);
@@ -124,20 +132,25 @@ public class CableBlockEntity extends BlockEntity {
             BlockPos checkPos = cableBlocksLeft.pop();
 
             BlockEntity blockEntity = level.getBlockEntity(checkPos);
-            if(!(blockEntity instanceof CableBlockEntity))
+            if(!(blockEntity instanceof CableBlockEntity cableBlockEntity))
                 continue;
 
-            CableBlockEntity cableBlockEntity = (CableBlockEntity)blockEntity;
+            cableBlockEntity.lastTicked = currentGameTick;
+
             cableBlockEntity.getCableBlocks().forEach(pos -> {
                 if(checkedCables.add(pos)) {
                     cableBlocksLeft.add(pos);
                 }
             });
 
+            if(cableBlockEntity.energyStorage.getAmountAsInt() > 0)
+                cablesWithStoredEnergy.add(cableBlockEntity.energyStorage);
+
             consumers.addAll(cableBlockEntity.getConsumers().values());
+            producers.addAll(cableBlockEntity.getProducers().values());
         }
 
-        return consumers;
+        return new CableNetwork(cablesWithStoredEnergy, consumers, producers);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState state, CableBlockEntity blockEntity) {
@@ -150,13 +163,22 @@ public class CableBlockEntity extends BlockEntity {
             blockEntity.loaded = true;
         }
 
+        if(blockEntity.lastTicked == level.getGameTime()) {
+            //Cable algorithm was already run this tick for this network
+            return;
+        }
+
+        CableNetwork cableNetwork = gatherEnergyStoragesAndMarkTicked(level, blockPos, new HashSet<>());
+
         final int MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
         List<EnergyHandler> energyProduction = new ArrayList<>();
         List<Integer> energyProductionValues = new ArrayList<>();
 
         //Prioritize stored energy for PUSH mode
-        int productionSum = blockEntity.energyStorage.getAmountAsInt(); //Will always be 0 if in PULL only mode
-        for(EnergyHandler energyStorage:blockEntity.producers.values()) {
+        int productionSum = cableNetwork.cablesWithStoredEnergy().stream().
+                mapToInt(EnergyHandler::getAmountAsInt).
+                sum(); //Will always be 0 if in PULL only mode
+        for(EnergyHandler energyStorage:cableNetwork.producers()) {
             try(Transaction transaction = Transaction.open(null)) {
                 int extracted = energyStorage.extract(MAX_TRANSFER, transaction);
 
@@ -175,7 +197,7 @@ public class CableBlockEntity extends BlockEntity {
         List<EnergyHandler> energyConsumption = new ArrayList<>();
         List<Integer> energyConsumptionValues = new ArrayList<>();
 
-        Deque<EnergyHandler> consumers = getConnectedConsumers(level, blockPos, new HashSet<>());
+        Deque<EnergyHandler> consumers = cableNetwork.consumers();
 
         int consumptionSum = 0;
         for(EnergyHandler energyStorage:consumers) {
@@ -199,11 +221,15 @@ public class CableBlockEntity extends BlockEntity {
         int extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
             //Prioritize stored energy for PUSH mode
-            extractInternally = Math.min(blockEntity.energyStorage.getAmountAsInt(), transferLeft);
-            try(Transaction transaction = Transaction.open(null)) {
-                blockEntity.energyStorage.extract(extractInternally, transaction);
+            for(EnergyHandler energyHandler:cableNetwork.cablesWithStoredEnergy()) {
+                int extracted = Math.min(energyHandler.getAmountAsInt(), transferLeft - extractInternally);
+                try(Transaction transaction = Transaction.open(null)) {
+                    energyHandler.extract(extracted, transaction);
 
-                transaction.commit();
+                    transaction.commit();
+                }
+
+                extractInternally += extracted;
             }
         }
 
