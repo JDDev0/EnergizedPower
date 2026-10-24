@@ -56,6 +56,8 @@ public class EnergizedPowerModClient {
     public EnergizedPowerModClient(IEventBus modEventBus) {
         modEventBus.addListener(this::onClientSetup);
 
+        modEventBus.addListener(this::onRegisterEntityRenderers);
+
         modEventBus.addListener(this::onRegisterFluidModels);
         modEventBus.addListener(this::onRegisterClientExtensions);
 
@@ -72,33 +74,34 @@ public class EnergizedPowerModClient {
 
     public void onClientSetup(FMLClientSetupEvent event) {
         ModConfigs.registerConfigs(false);
-
-        registerEntityRenderers();
-
-        registerBlockEntityRenderers();
     }
 
-    public void registerEntityRenderers() {
-        EntityRenderers.register(EPEntityTypes.BATTERY_BOX_MINECART.get(),
+    public void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        registerEntityRenderers(event);
+        registerBlockEntityRenderers(event);
+    }
+
+    private void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(EPEntityTypes.BATTERY_BOX_MINECART.get(),
                 entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                         Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
-        EntityRenderers.register(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
+        event.registerEntityRenderer(EPEntityTypes.ADVANCED_BATTERY_BOX_MINECART.get(),
                 entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                         Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
-        EntityRenderers.register(EPEntityTypes.ELITE_BATTERY_BOX_MINECART.get(),
+        event.registerEntityRenderer(EPEntityTypes.ELITE_BATTERY_BOX_MINECART.get(),
                 entity -> new MinecartRenderer(entity, new ModelLayerLocation(
                         Identifier.fromNamespaceAndPath("minecraft", "chest_minecart"), "main")));
     }
 
-    public void registerBlockEntityRenderers() {
-        BlockEntityRenderers.register(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);
-        BlockEntityRenderers.register(EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+    private void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(EPBlockEntities.BASIC_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.FAST_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.EXPRESS_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.TURBO_ITEM_CONVEYOR_BELT_ENTITY.get(), ItemConveyorBeltBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.FLUID_TANK_SMALL_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.FLUID_TANK_MEDIUM_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.FLUID_TANK_LARGE_ENTITY.get(), FluidTankBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY.get(), FluidTankBlockEntityRenderer::new);
     }
 
     public void onRegisterFluidModels(RegisterFluidModelsEvent event) {
