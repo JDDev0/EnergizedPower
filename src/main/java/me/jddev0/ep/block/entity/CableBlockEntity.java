@@ -115,7 +115,7 @@ public class CableBlockEntity extends BlockEntity {
 
     private record CableNetwork(Deque<EnergyHandler> cablesWithStoredEnergy, Deque<EnergyHandler> consumers, Deque<EnergyHandler> producers) {}
     private static CableNetwork gatherEnergyStoragesAndMarkTicked(
-            Level level, BlockPos blockPos, Set<BlockPos> checkedCables
+            Level level, BlockPos blockPos
     ) {
         final long currentGameTick = level.getGameTime();
 
@@ -123,23 +123,23 @@ public class CableBlockEntity extends BlockEntity {
         Deque<EnergyHandler> consumers = new ArrayDeque<>(1024);
         Deque<EnergyHandler> producers = new ArrayDeque<>(1024);
 
-        Deque<BlockPos> cableBlocksLeft = new ArrayDeque<>(1024);
-        cableBlocksLeft.add(blockPos);
-
-        checkedCables.add(blockPos);
+        Deque<CableBlockEntity> cableBlocksLeft = new ArrayDeque<>(1024);
+        if(level.getBlockEntity(blockPos) instanceof CableBlockEntity cableBlockEntity) {
+            cableBlockEntity.lastTicked = currentGameTick;
+            cableBlocksLeft.add(cableBlockEntity);
+        }
 
         while(cableBlocksLeft.size() > 0) {
-            BlockPos checkPos = cableBlocksLeft.pop();
-
-            BlockEntity blockEntity = level.getBlockEntity(checkPos);
-            if(!(blockEntity instanceof CableBlockEntity cableBlockEntity))
-                continue;
-
-            cableBlockEntity.lastTicked = currentGameTick;
+            CableBlockEntity cableBlockEntity = cableBlocksLeft.pop();
 
             cableBlockEntity.getCableBlocks().forEach(pos -> {
-                if(checkedCables.add(pos)) {
-                    cableBlocksLeft.add(pos);
+                BlockEntity blockEntity = level.getBlockEntity(pos);
+                if(!(blockEntity instanceof CableBlockEntity cableBE))
+                    return;
+
+                if(cableBE.lastTicked != currentGameTick) {
+                    cableBE.lastTicked = currentGameTick;
+                    cableBlocksLeft.add(cableBE);
                 }
             });
 
@@ -168,7 +168,7 @@ public class CableBlockEntity extends BlockEntity {
             return;
         }
 
-        CableNetwork cableNetwork = gatherEnergyStoragesAndMarkTicked(level, blockPos, new HashSet<>());
+        CableNetwork cableNetwork = gatherEnergyStoragesAndMarkTicked(level, blockPos);
 
         final int MAX_TRANSFER = blockEntity.tier.getMaxTransfer();
         List<EnergyHandler> energyProduction = new ArrayList<>();
