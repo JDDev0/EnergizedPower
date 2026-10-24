@@ -75,15 +75,6 @@
         ],
         "font": "minecraft:uniform",
         "italic": true,
-        "translate": "book.energizedpower.page.transformers.6"
-      },
-      {
-        "color": "black",
-        "extra": [
-          "\n"
-        ],
-        "font": "minecraft:uniform",
-        "italic": true,
         "translate": "book.energizedpower.page.transformers.7"
       },
       {
