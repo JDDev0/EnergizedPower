@@ -11,6 +11,7 @@ import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.FluidUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -51,7 +52,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<EnergizedPower
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncFluidToPlayers(32);
+                syncFluidToTrackingPlayers();
             }
         };
     }
@@ -67,7 +68,7 @@ public class DrainBlockEntity extends MenuFluidStorageBlockEntity<EnergizedPower
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncFluidToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new DrainMenu(id, inventory, this, this.data);
     }
