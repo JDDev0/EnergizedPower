@@ -165,8 +165,8 @@ public class CableBlockEntity extends BlockEntity {
         List<Integer> energyProductionValues = new ArrayList<>();
 
         //Prioritize stored energy for PUSH mode
-        int productionSum = cableNetwork.cablesWithStoredEnergy().stream().
-                mapToInt(EnergyHandler::getAmountAsInt).
+        long productionSum = cableNetwork.cablesWithStoredEnergy().stream().
+                mapToLong(EnergyHandler::getAmountAsInt).
                 sum(); //Will always be 0 if in PULL only mode
         for(EnergyHandler energyStorage:cableNetwork.producers()) {
             try(Transaction transaction = Transaction.open(null)) {
@@ -189,7 +189,7 @@ public class CableBlockEntity extends BlockEntity {
 
         Deque<EnergyHandler> consumers = cableNetwork.consumers();
 
-        int consumptionSum = 0;
+        long consumptionSum = 0;
         for(EnergyHandler energyStorage:consumers) {
             try(Transaction transaction = Transaction.open(null)) {
                 int received = energyStorage.insert(MAX_TRANSFER, transaction);
@@ -206,7 +206,7 @@ public class CableBlockEntity extends BlockEntity {
         if(consumptionSum <= 0)
             return;
 
-        int transferLeft = Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
+        int transferLeft = (int)Math.min(Math.min(MAX_TRANSFER, productionSum), consumptionSum);
 
         int extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
