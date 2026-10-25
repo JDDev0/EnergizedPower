@@ -383,10 +383,7 @@ public abstract class AbstractPoweredFurnaceBlockEntity
         super.updateUpgradeModules();
 
         if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+            syncFurnaceRecipeTypeToTrackingPlayers();
     }
 
     @Override
@@ -394,5 +391,11 @@ public abstract class AbstractPoweredFurnaceBlockEntity
         super.onPlayerStartTracking(player);
 
         ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()), player);
+    }
+
+    protected final void syncFurnaceRecipeTypeToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(ServerPlayer player:playersTracking)
+                ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()), player);
     }
 }
