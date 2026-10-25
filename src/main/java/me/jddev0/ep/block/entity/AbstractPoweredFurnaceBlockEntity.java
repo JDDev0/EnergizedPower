@@ -387,10 +387,7 @@ public abstract class AbstractPoweredFurnaceBlockEntity
         super.updateUpgradeModules();
 
         if(level != null && !level.isClientSide())
-            ModMessages.sendToPlayersWithinXBlocks(
-                    new SyncIngredientsS2CPacket(getBlockPos(), 0, RecipeUtils.getIngredientsOf((ServerLevel)level, getRecipeForFurnaceModeUpgrade())),
-                    getBlockPos(), (ServerLevel)level, 32
-            );
+            syncIngredientListToTrackingPlayers();
     }
 
     @Override
@@ -398,6 +395,12 @@ public abstract class AbstractPoweredFurnaceBlockEntity
         super.onPlayerStartTracking(player);
 
         syncIngredientListToPlayer(player);
+    }
+
+    protected final void syncIngredientListToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncIngredientListToPlayer(player);
     }
 
     protected void syncIngredientListToPlayer(Player player) {
