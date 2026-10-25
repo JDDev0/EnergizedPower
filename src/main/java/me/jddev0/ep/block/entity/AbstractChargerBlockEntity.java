@@ -123,7 +123,7 @@ public abstract class AbstractChargerBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -202,9 +202,7 @@ public abstract class AbstractChargerBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncIngredientListToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
@@ -466,6 +464,13 @@ public abstract class AbstractChargerBlockEntity
                 getRecipeFor(ChargerRecipe.Type.INSTANCE, new ContainerRecipeInputWrapper(inventory), level);
 
         return recipe.isPresent();
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncIngredientListToPlayer(player);
     }
 
     protected void syncIngredientListToPlayer(Player player) {

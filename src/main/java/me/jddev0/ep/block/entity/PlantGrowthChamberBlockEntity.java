@@ -18,9 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -139,7 +137,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncFluidToPlayers(32);
+                syncFluidToTrackingPlayers();
             }
 
             @Override
@@ -268,14 +266,6 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
 
     public @Nullable EnergyHandler getEnergyStorageCapability(@Nullable Direction side) {
         return limitingEnergyStorage;
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncFertilizerAndSoilIngredientListToPlayer(player);
-
-        return super.createMenu(id, inventory, player);
     }
 
     @Override
@@ -514,6 +504,13 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
         }
 
         return itemsStacks.isEmpty();
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncFertilizerAndSoilIngredientListToPlayer(player);
     }
 
     protected void syncFertilizerAndSoilIngredientListToPlayer(Player player) {
