@@ -78,10 +78,7 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncFluidToPlayer(player);
-        syncIngredientListToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
@@ -169,6 +166,13 @@ public abstract class SimpleRecipeFluidMachineBlockEntity
     protected abstract void craftItem(int thread, RecipeHolder<R> recipe);
 
     protected abstract boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<R> recipe);
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncIngredientListToPlayer(player);
+    }
 
     protected void syncIngredientListToPlayer(Player player) {
         if(!(level instanceof ServerLevel serverWorld))

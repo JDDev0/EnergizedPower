@@ -99,10 +99,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncCurrentRecipeToPlayer(player);
-        syncIngredientListToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
@@ -213,7 +210,7 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         resetProgress(0);
         setChanged();
 
-        syncCurrentRecipeToPlayers(32);
+        syncCurrentRecipeToTrackingPlayers();
     }
 
     @Override
@@ -233,7 +230,21 @@ public abstract class SelectableRecipeMachineBlockEntity<C extends RecipeInput, 
         resetProgress(0);
         setChanged();
 
-        syncCurrentRecipeToPlayers(32);
+        syncCurrentRecipeToTrackingPlayers();
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncCurrentRecipeToPlayer(player);
+        syncIngredientListToPlayer(player);
+    }
+
+    protected final void syncCurrentRecipeToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncCurrentRecipeToPlayer(player);
     }
 
     protected final void syncCurrentRecipeToPlayer(Player player) {

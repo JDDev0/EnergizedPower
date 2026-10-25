@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergyStorage>
-        extends BlockEntity
+        extends EnergizedPowerTrackedBlockEntity
         implements EnergyStoragePacketUpdate {
     protected final E energyStorage;
     public final EnergizedPowerLimitingEnergyStorage limitingEnergyStorage;
@@ -57,6 +57,19 @@ public abstract class EnergyStorageBlockEntity<E extends IEnergizedPowerEnergySt
         super.loadAdditional(view);
 
         energyStorage.setAmountWithoutUpdate(view.getLongOr("energy", 0));
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncEnergyToPlayer(player);
+    }
+
+    protected final void syncEnergyToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncEnergyToPlayer(player);
     }
 
     protected final void syncEnergyToPlayer(Player player) {

@@ -1,6 +1,7 @@
 package me.jddev0.ep.screen.base;
 
 import me.jddev0.ep.block.entity.base.EnergyStorageBlockEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -51,6 +52,15 @@ public abstract class EnergyStorageMenu<T extends EnergyStorageBlockEntity<?>>
     @Override
     public boolean stillValid(@NotNull Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, blockType);
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+
+        if(player instanceof ServerPlayer serverPlayer) {
+            blockEntity.onPlayerStopTracking(serverPlayer);
+        }
     }
 
     protected void addPlayerInventorySlots(Inventory playerInventory, int x, int y) {
