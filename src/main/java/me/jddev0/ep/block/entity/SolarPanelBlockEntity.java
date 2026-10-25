@@ -13,6 +13,7 @@ import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Inventory;
@@ -59,7 +60,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -118,7 +119,7 @@ public class SolarPanelBlockEntity extends UpgradableEnergyStorageBlockEntity<En
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new SolarPanelMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }

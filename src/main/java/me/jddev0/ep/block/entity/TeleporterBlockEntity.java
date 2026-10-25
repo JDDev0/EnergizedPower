@@ -89,7 +89,7 @@ public class TeleporterBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChangedAndUpdateReadyState();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -126,7 +126,7 @@ public class TeleporterBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new TeleporterMenu(id, inventory, this);
     }

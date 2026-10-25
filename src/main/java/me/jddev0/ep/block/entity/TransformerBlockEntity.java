@@ -14,6 +14,7 @@ import me.jddev0.ep.screen.TransformerMenu;
 import me.jddev0.ep.util.CapabilityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -62,7 +63,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
 
             @Override
@@ -92,7 +93,7 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new TransformerMenu(id, inventory, this, this.data);
     }

@@ -51,6 +51,19 @@ public abstract class InventoryFluidEnergyStorageBlockEntity
         fluidStorage.deserialize(view);
     }
 
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncFluidToPlayer(player);
+    }
+
+    protected final void syncFluidToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncFluidToPlayer(player);
+    }
+
     protected final void syncFluidToPlayer(Player player) {
         for(int i = 0;i < fluidStorage.size();i++)
             ModMessages.sendToPlayer(new FluidSyncS2CPacket(i, fluidStorage.getFluid(i),
