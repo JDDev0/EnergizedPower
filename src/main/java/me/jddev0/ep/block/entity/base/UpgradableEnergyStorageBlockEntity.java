@@ -60,7 +60,7 @@ public abstract class UpgradableEnergyStorageBlockEntity<E extends IEnergizedPow
 
     protected void updateUpgradeModules() {
         setChanged();
-        syncEnergyToPlayers(32);
+        syncEnergyToTrackingPlayers();
     }
 
     @Override

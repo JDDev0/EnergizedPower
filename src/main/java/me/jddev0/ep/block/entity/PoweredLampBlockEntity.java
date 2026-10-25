@@ -32,7 +32,7 @@ public class PoweredLampBlockEntity extends EnergyStorageBlockEntity<EnergizedPo
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
