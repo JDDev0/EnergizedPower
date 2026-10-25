@@ -96,7 +96,7 @@ public class EnergizerBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -157,9 +157,7 @@ public class EnergizerBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncIngredientListToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new EnergizerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }
@@ -415,6 +413,13 @@ public class EnergizerBlockEntity
         recalculateProgress();
 
         super.updateUpgradeModules();
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncIngredientListToPlayer(player);
     }
 
     protected void syncIngredientListToPlayer(Player player) {
