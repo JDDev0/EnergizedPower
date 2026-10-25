@@ -101,6 +101,19 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
         }
     }
 
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncIOConfigurationToPlayer(player);
+    }
+
+    protected final void syncIOConfigurationToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncIOConfigurationToPlayer(player);
+    }
+
     protected final void syncIOConfigurationToPlayer(Player player) {
         for(SlotType slotType:getSupportedSlotTypes())
             ModMessages.sendToPlayer(new IOConfigurationSyncS2CPacket(slotType, ioConfigurations.get(slotType), getBlockPos()), (ServerPlayer)player);
@@ -196,7 +209,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
             ioConfiguration.setSlotGroupId(direction, slotGroupId);
 
             setChanged();
-            syncIOConfigurationToPlayers(32);
+            syncIOConfigurationToTrackingPlayers();
 
             //Important: invalidate capability caches and force neighbor change
             invalidateCapabilities();
@@ -264,7 +277,7 @@ public abstract class ConfigurableUpgradableInventoryEnergyStorageBlockEntity
             setChanged();
 
             if(ioConfigurationChanged) {
-                syncIOConfigurationToPlayers(32);
+                syncIOConfigurationToTrackingPlayers();
 
                 //Important: invalidate capability caches and force neighbor change
                 invalidateCapabilities();

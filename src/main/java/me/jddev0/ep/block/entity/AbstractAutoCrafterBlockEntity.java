@@ -17,6 +17,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -191,8 +192,7 @@ public abstract class AbstractAutoCrafterBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, patternSlots, patternResultSlots, data);
     }

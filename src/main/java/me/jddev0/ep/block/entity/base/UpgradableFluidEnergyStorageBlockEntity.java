@@ -62,7 +62,7 @@ public abstract class UpgradableFluidEnergyStorageBlockEntity
 
     protected void updateUpgradeModules() {
         setChanged();
-        syncEnergyToPlayers(32);
+        syncEnergyToTrackingPlayers();
     }
 
     @Override

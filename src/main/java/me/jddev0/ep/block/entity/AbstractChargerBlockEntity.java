@@ -22,6 +22,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -110,7 +111,7 @@ public abstract class AbstractChargerBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -185,8 +186,7 @@ public abstract class AbstractChargerBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }

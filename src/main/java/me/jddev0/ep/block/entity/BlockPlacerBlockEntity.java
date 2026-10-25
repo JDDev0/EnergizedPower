@@ -19,6 +19,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -114,8 +115,7 @@ public class BlockPlacerBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new BlockPlacerMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }

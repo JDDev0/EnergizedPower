@@ -9,6 +9,7 @@ import me.jddev0.ep.machine.ItemDrop;
 import me.jddev0.ep.machine.RedstoneOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Inventory;
@@ -52,7 +53,7 @@ public abstract class AbstractMinecartChargerBlockEntity extends MenuEnergyStora
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -66,7 +67,7 @@ public abstract class AbstractMinecartChargerBlockEntity extends MenuEnergyStora
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this);
     }

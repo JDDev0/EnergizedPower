@@ -15,6 +15,7 @@ import me.jddev0.ep.recipe.ThermalGeneratorRecipe;
 import me.jddev0.ep.screen.ThermalGeneratorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -63,7 +64,7 @@ public class ThermalGeneratorBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -85,7 +86,7 @@ public class ThermalGeneratorBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncFluidToPlayers(32);
+                syncFluidToTrackingPlayers();
             }
 
             @Override
@@ -163,9 +164,7 @@ public class ThermalGeneratorBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncFluidToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new ThermalGeneratorMenu(id, inventory, this, upgradeModuleInventory, this.data);
     }

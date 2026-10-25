@@ -124,7 +124,7 @@ public abstract class AbstractPoweredFurnaceBlockEntity
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncFluidToPlayers(32);
+                syncFluidToTrackingPlayers();
             }
 
             @Override
@@ -163,11 +163,7 @@ public abstract class AbstractPoweredFurnaceBlockEntity
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncFluidToPlayer(player);
-        ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()),
-                (ServerPlayer)player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
@@ -391,5 +387,12 @@ public abstract class AbstractPoweredFurnaceBlockEntity
                     new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()),
                     getBlockPos(), (ServerLevel)level, 32
             );
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        ModMessages.sendToPlayer(new SyncFurnaceRecipeTypeS2CPacket(getRecipeForFurnaceModeUpgrade(), getBlockPos()), player);
     }
 }
