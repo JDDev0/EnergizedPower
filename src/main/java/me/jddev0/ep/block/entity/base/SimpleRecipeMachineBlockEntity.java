@@ -111,9 +111,7 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
-        syncIngredientListToPlayer(player);
-        syncIOConfigurationToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return menuProvider.createMenu(id, inventory, this, upgradeModuleInventory, data);
     }
@@ -216,6 +214,13 @@ public abstract class SimpleRecipeMachineBlockEntity<C extends RecipeInput, R ex
     protected boolean canCraftRecipe(int thread, SimpleContainer inventory, RecipeHolder<R> recipe) {
         return level != null &&
                 InventoryUtils.canInsertItemIntoSlot(inventory, slotCountPerRecipe - 1, recipe.value().assemble(getRecipeInput(inventory)));
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncIngredientListToPlayer(player);
     }
 
     protected void syncIngredientListToPlayer(Player player) {

@@ -69,7 +69,7 @@ public abstract class WorkerMachineBlockEntity<W>
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
