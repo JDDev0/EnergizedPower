@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public abstract class FluidStorageBlockEntity<F extends IEnergizedPowerFluidStorage>
-        extends BlockEntity
+        extends EnergizedPowerTrackedBlockEntity
         implements FluidStoragePacketUpdate {
     protected final F fluidStorage;
 
@@ -44,6 +44,19 @@ public abstract class FluidStorageBlockEntity<F extends IEnergizedPowerFluidStor
         super.loadAdditional(view);
 
         fluidStorage.deserialize(view);
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncFluidToPlayer(player);
+    }
+
+    protected final void syncFluidToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncFluidToPlayer(player);
     }
 
     protected final void syncFluidToPlayer(Player player) {
