@@ -128,7 +128,7 @@ public class PlantGrowthChamberBlockEntity extends SimpleRecipeFluidMachineBlock
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncFluidToPlayers(32);
+                syncFluidToTrackingPlayers();
             }
 
             @Override

@@ -10,6 +10,7 @@ import me.jddev0.ep.screen.EliteBatteryBoxMenu;
 import me.jddev0.ep.util.EnergyUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -39,7 +40,7 @@ public class EliteBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Ene
             @Override
             protected void onFinalCommit() {
                 setChanged();
-                syncEnergyToPlayers(32);
+                syncEnergyToTrackingPlayers();
             }
         };
     }
@@ -52,7 +53,7 @@ public class EliteBatteryBoxBlockEntity extends MenuEnergyStorageBlockEntity<Ene
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        syncEnergyToPlayer(player);
+        onPlayerStartTracking((ServerPlayer)player);
 
         return new EliteBatteryBoxMenu(id, inventory, this);
     }

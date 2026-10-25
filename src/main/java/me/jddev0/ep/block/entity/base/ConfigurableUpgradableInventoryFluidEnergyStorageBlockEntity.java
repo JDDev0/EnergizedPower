@@ -106,6 +106,19 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
         }
     }
 
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncIOConfigurationToPlayer(player);
+    }
+
+    protected final void syncIOConfigurationToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncIOConfigurationToPlayer(player);
+    }
+
     protected final void syncIOConfigurationToPlayer(Player player) {
         for(SlotType slotType:getSupportedSlotTypes())
             ModMessages.sendToPlayer(new IOConfigurationSyncS2CPacket(slotType, ioConfigurations.get(slotType), getBlockPos()), (ServerPlayer)player);
@@ -197,7 +210,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
             ioConfiguration.setSlotGroupId(direction, slotGroupId);
 
             setChanged();
-            syncIOConfigurationToPlayers(32);
+            syncIOConfigurationToTrackingPlayers();
 
             //Important: On Fabric no invalidation is required, because the Storage<...> is not cached,
             // instead the lookup provider from blockEntity + side => Storage<...> is cached, because the provider doesn't change no invalidation is required
@@ -266,7 +279,7 @@ public abstract class ConfigurableUpgradableInventoryFluidEnergyStorageBlockEnti
             setChanged();
 
             if(ioConfigurationChanged) {
-                syncIOConfigurationToPlayers(32);
+                syncIOConfigurationToTrackingPlayers();
 
                 //Important: On Fabric no invalidation is required, because the Storage<...> is not cached,
                 // instead the lookup provider from blockEntity + side => Storage<...> is cached, because the provider doesn't change no invalidation is required
