@@ -5,6 +5,7 @@ import me.jddev0.ep.block.entity.DrainBlockEntity;
 import me.jddev0.ep.fluid.FluidStack;
 import me.jddev0.ep.inventory.data.SimpleProgressValueContainerData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -60,6 +61,15 @@ public class DrainMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, EPBlocks.DRAIN);
+    }
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+
+        if(player instanceof ServerPlayer serverPlayer) {
+            blockEntity.onPlayerStopTracking(serverPlayer);
+        }
     }
 
     private void addPlayerInventory(Inventory playerInventory) {

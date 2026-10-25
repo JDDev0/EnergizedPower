@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class FluidStorageBlockEntity<F extends IEnergizedPowerFluidStorage>
-        extends BlockEntity
+        extends EnergizedPowerTrackedBlockEntity
         implements FluidStoragePacketUpdate {
     protected final F fluidStorage;
 
@@ -45,6 +45,19 @@ public abstract class FluidStorageBlockEntity<F extends IEnergizedPowerFluidStor
         super.loadAdditional(nbt, registries);
 
         fluidStorage.deserialize(nbt, registries);
+    }
+
+    @Override
+    protected void onPlayerStartTracking(ServerPlayer player) {
+        super.onPlayerStartTracking(player);
+
+        syncFluidToPlayer(player);
+    }
+
+    protected final void syncFluidToTrackingPlayers() {
+        if(level != null && !level.isClientSide())
+            for(Player player:playersTracking)
+                syncFluidToPlayer(player);
     }
 
     protected final void syncFluidToPlayer(Player player) {
