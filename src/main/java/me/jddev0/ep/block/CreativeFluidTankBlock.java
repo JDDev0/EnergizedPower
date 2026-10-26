@@ -2,7 +2,6 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeFluidTankBlockEntity;
-import me.jddev0.ep.block.entity.EPBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -17,8 +16,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -86,12 +83,6 @@ public class CreativeFluidTankBlock extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING);
-    }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, EPBlockEntities.CREATIVE_FLUID_TANK_ENTITY, CreativeFluidTankBlockEntity::tick);
     }
 
     public static class Item extends BlockItem {

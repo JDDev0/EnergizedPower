@@ -17,6 +17,9 @@ import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -104,15 +107,6 @@ public class ItemConveyorBeltBlockEntity
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
         if(level.isClientSide())
             return;
-
-        //Sync item stacks to client every 5 seconds
-        if(level.getGameTime() % 100 == 0) //TODO improve
-            for(int i = 0;i < blockEntity.itemHandler.size();i++)
-                if(!level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new ItemStackSyncS2CPacket(i, blockEntity.itemHandler.getStackInSlot(i), blockPos),
-                            blockPos, (ServerLevel)level, 64
-                    );
 
         if(level.getGameTime() % blockEntity.ticksPerStep == 0) {
             int slotCount = blockEntity.itemHandler.size();
@@ -204,5 +198,21 @@ public class ItemConveyorBeltBlockEntity
     @Override
     public void setItemStack(int slot, ItemStack itemStack) {
         itemHandler.setStackInSlot(slot, itemStack);
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        CompoundTag output = new CompoundTag();
+
+        CompoundTag inventoryNbt = new CompoundTag();
+        itemHandler.serialize(inventoryNbt, registries);
+        output.put("inventory", inventoryNbt);
+
+        return output;
     }
 }
