@@ -1,5 +1,6 @@
 package me.jddev0.ep.block.entity;
 
+import com.mojang.logging.LogUtils;
 import me.jddev0.ep.block.ItemConveyorBeltBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.block.entity.base.InventoryStorageBlockEntity;
@@ -13,21 +14,29 @@ import me.jddev0.ep.networking.packet.ItemStackSyncS2CPacket;
 import me.jddev0.ep.util.InventoryUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 
 public class ItemConveyorBeltBlockEntity
         extends InventoryStorageBlockEntity<EnergizedPowerItemStackHandler>
         implements ItemStackPacketUpdate {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     private final int ticksPerStep;
 
     private final InputOutputItemHandler itemHandlerFrontSided = new InputOutputItemHandler(itemHandler, (i, stack) -> i == 0, i -> i == 3);
@@ -104,15 +113,6 @@ public class ItemConveyorBeltBlockEntity
     public static void tick(Level level, BlockPos blockPos, BlockState state, ItemConveyorBeltBlockEntity blockEntity) {
         if(level.isClientSide())
             return;
-
-        //Sync item stacks to client every 5 seconds
-        if(level.getGameTime() % 100 == 0) //TODO improve
-            for(int i = 0;i < blockEntity.itemHandler.size();i++)
-                if(!level.isClientSide())
-                    ModMessages.sendToPlayersWithinXBlocks(
-                            new ItemStackSyncS2CPacket(i, blockEntity.itemHandler.getStackInSlot(i), blockPos),
-                            blockPos, (ServerLevel)level, 64
-                    );
 
         if(level.getGameTime() % blockEntity.ticksPerStep == 0) {
             int slotCount = blockEntity.itemHandler.size();
@@ -202,5 +202,19 @@ public class ItemConveyorBeltBlockEntity
     @Override
     public void setItemStack(int slot, ItemStack itemStack) {
         itemHandler.setStackInSlot(slot, itemStack);
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        try(ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(this.problemPath(), LOGGER)) {
+            TagValueOutput output = TagValueOutput.createWithContext(reporter, registries);
+            itemHandler.serialize(output.child("inventory"));
+            return output.buildResult();
+        }
     }
 }
