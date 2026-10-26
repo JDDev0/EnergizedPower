@@ -24,7 +24,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
-import net.minecraft.world.level.storage.ValueInput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
@@ -217,12 +216,5 @@ public class ItemConveyorBeltBlockEntity
             itemHandler.serialize(output.child("inventory"));
             return output.buildResult();
         }
-    }
-
-    @Override
-    public void handleUpdateTag(ValueInput input) {
-        super.handleUpdateTag(input);
-
-        //Nothing to do, because loadAdditional will be called in super call
     }
 }

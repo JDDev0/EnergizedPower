@@ -13,7 +13,6 @@ import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.TagValueOutput;
-import net.minecraft.world.level.storage.ValueInput;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
@@ -49,12 +48,5 @@ public abstract class AbstractFluidTankBlockEntity<F extends IEnergizedPowerFlui
             fluidStorage.serialize(output);
             return output.buildResult();
         }
-    }
-
-    @Override
-    public void handleUpdateTag(ValueInput input) {
-        super.handleUpdateTag(input);
-
-        //Nothing to do, because loadAdditional will be called in super call
     }
 }
