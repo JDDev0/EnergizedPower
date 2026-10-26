@@ -126,13 +126,21 @@ public class ItemConveyorBeltBlockEntity
                     continue;
 
                 //Last free slot found
-                for(int j = i;j >= 0;j--) {
+
+                int index = i;
+                while(index > 0 && blockEntity.itemHandler.getStackInSlot(index).isEmpty())
+                    index--;
+
+                //Last filled slot found
+
+                for(int j = index;j >= 0;j--) {
                     ItemStack fromItemStack = blockEntity.itemHandler.getStackInSlot(j);
                     blockEntity.itemHandler.setStackInSlot(j + 1, fromItemStack);
                 }
 
                 //Very first stack must be empty after item movement
-                blockEntity.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+                if(!blockEntity.itemHandler.getStackInSlot(0).isEmpty())
+                    blockEntity.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 
                 break;
             }
