@@ -121,16 +121,20 @@ public class ItemConveyorBeltBlockEntity
                 insertItemStackIntoBlockEntity(level, blockPos, state, blockEntity, blockEntity.itemHandler.getStackInSlot(slotCount - 1).copy());
 
             for(int i = slotCount - 2;i >= 0;i--) {
-                ItemStack fromItemStack = blockEntity.itemHandler.getStackInSlot(i);
-                if(fromItemStack.isEmpty())
-                    continue;
-
                 ItemStack toItemStack = blockEntity.itemHandler.getStackInSlot(i + 1);
                 if(!toItemStack.isEmpty())
                     continue;
 
-                blockEntity.itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-                blockEntity.itemHandler.setStackInSlot(i + 1, fromItemStack);
+                //Last free slot found
+                for(int j = i;j >= 0;j--) {
+                    ItemStack fromItemStack = blockEntity.itemHandler.getStackInSlot(j);
+                    blockEntity.itemHandler.setStackInSlot(j + 1, fromItemStack);
+                }
+
+                //Very first stack must be empty after item movement
+                blockEntity.itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+
+                break;
             }
         }
     }
