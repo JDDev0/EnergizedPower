@@ -126,10 +126,10 @@ public class ItemConveyorBeltBlockEntity
                 //Last free slot found
 
                 int index = i;
-                while(index > 0 && blockEntity.itemHandler.getStackInSlot(index).isEmpty())
+                while(index >= 0 && blockEntity.itemHandler.getStackInSlot(index).isEmpty())
                     index--;
 
-                //Last filled slot found
+                //Last filled slot found or all slots empty
 
                 for(int j = index;j >= 0;j--) {
                     ItemStack fromItemStack = blockEntity.itemHandler.getStackInSlot(j);
