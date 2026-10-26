@@ -73,12 +73,11 @@ public class ItemConveyorBeltBlockEntity
             protected void onFinalCommit(int slot, @NotNull ItemStack previousItemStack) {
                 setChanged();
 
-                for(int i = 0;i < size();i++)
-                    if(level != null && !level.isClientSide())
-                        ModMessages.sendToPlayersWithinXBlocks(
-                                new ItemStackSyncS2CPacket(i, getStackInSlot(i), getBlockPos()),
-                                getBlockPos(), (ServerLevel)level, 64
-                        );
+                if(level != null && !level.isClientSide())
+                    ModMessages.sendToPlayersWithinXBlocks(
+                            new ItemStackSyncS2CPacket(slot, getStackInSlot(slot), getBlockPos()),
+                            getBlockPos(), (ServerLevel)level, 64
+                    );
             }
         };
     }
