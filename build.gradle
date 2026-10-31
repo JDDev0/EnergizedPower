@@ -143,11 +143,11 @@ dependencies {
     // For all intends and purposes: You can treat this dependency as if it is a normal library you would use.
     implementation "net.neoforged:neoforge:${neo_version}"
 
-    // REI integration (TODO UPDATE to 26.3)
+    // REI integration
     compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-    compileOnlyApi "dev.architectury:architectury-neoforge:21.0.2"
-    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-neoforge:26.2.820"
-    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.2.820"
+    compileOnlyApi "dev.architectury:architectury-neoforge:22.0.5"
+    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-neoforge:26.3.824"
+    compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:26.3.824"
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
