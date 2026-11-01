@@ -1,4 +1,4 @@
-// 1.21.1	2026-11-01T22:14:52.671119641	Energized Power/Recipes
+// 1.21.1	2026-11-01T22:18:43.589809882	Energized Power/Recipes
 309b74dcc62e568b76d9a9298db048a033a685aa data/energizedpower/advancement/recipes/crafting/tin_wire.json
 7a43eefa3caf1b7cecf3eabd30e18121d4bbd84b data/energizedpower/advancement/recipes/crafting/press_mold_maker.json
 89ff59d99ae9b8f7a6a0240d59dac2c2dd62cfda data/energizedpower/advancement/recipes/crafting/compressor.json
@@ -104,8 +104,8 @@ fb1a9d924e88e2fdae116b19ff4abcba1856142f data/energizedpower/advancement/recipes
 33a75816b765f1247b153933be8a9721ed4a9808 data/energizedpower/advancement/recipes/crafting/sawdust_block.json
 9249d3db137cbb7a10ef307864705c86c01ae0b5 data/energizedpower/recipe/crafting/basic_fertilizer.json
 5c66465352ec2a47259c6f34d3d817137b3e1eb9 data/energizedpower/recipe/crafting/uhv_transformer_3_to_3.json
-2d402a3c786bd8e1d7e1222f9c6cc3c720c86bf0 data/energizedpower/recipe/compressing/tin_plate_from_compressing_tin_ingot.json
 53602f82b07c96bd44e2a51725c63a10078642d6 data/energizedpower/advancement/recipes/crafting/extraction_depth_upgrade_module_3.json
+2d402a3c786bd8e1d7e1222f9c6cc3c720c86bf0 data/energizedpower/recipe/compressing/tin_plate_from_compressing_tin_ingot.json
 bde20ff4457b38839d473dbc5a55510b95017aea data/energizedpower/recipe/fluid_transposer/gray_concrete.json
 eaaa15227c5ab70b3fd1f598b088b0aec1d1bd37 data/energizedpower/recipe/crafting/advanced_gear_press_mold.json
 31924af95487c8e773d4135eefe4e9c733deb109 data/energizedpower/advancement/recipes/crafting/hardened_rod_press_mold.json

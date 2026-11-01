@@ -39,8 +39,9 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+        boolean clicked = false;
+
         if(mouseButton == 0) {
-            boolean clicked = false;
             if(isHovering(158, 16, 11, 11, mouseX, mouseY)) {
                 //Ignore NBT checkbox
 
@@ -70,10 +71,15 @@ public class FluidTankScreen extends EnergizedPowerBaseContainerScreen<FluidTank
                 ModMessages.sendToServer(new SetFluidTankFilterC2SPacket(menu.getBlockEntity().getBlockPos(), fluidFilter));
                 clicked = true;
             }
-
-            if(clicked)
-                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
         }
+
+        if(isHovering(80, 17, 16, 52, mouseX, mouseY) &&
+                handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), 0, mouseButton)) {
+            clicked = true;
+        }
+
+        if(clicked)
+            minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
 
         return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
