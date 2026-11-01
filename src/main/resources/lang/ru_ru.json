@@ -343,15 +343,15 @@
   "_template.advancements.energizedpower.range_upgrade_module.description": "Создайте модуль улучшения дальности (Уровень %s).",
   "book.energizedpower.page.range_upgrades": "Улучшения дальности действия увеличивают дальность, на которой машина может отправлять и принимать электромагнитные волны.",
 
-  "_template.item.energizedpower.extraction_depth_upgrade_module": "Модуль улучшения глубины (Уровень %s)",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Глубина извлечения %s",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Создайте модуль улучшения глубины извлечения (Уровень %s).",
-  "book.energizedpower.page.extraction_depth_upgrades": "Улучшения глубины добычи увеличивают глубину, на которой может работать машина.",
-
   "_template.item.energizedpower.extraction_range_upgrade_module": "Модуль улучшения радиуса (Уровень %s)",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "Радиус извлечения %s",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "Создайте модуль улучшения радиуса извлечения (Уровень %s).",
   "book.energizedpower.page.extraction_range_upgrades": "Улучшения радиуса добычи увеличивают радиус, в котором может работать машина.",
+
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "Модуль улучшения глубины (Уровень %s)",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Глубина извлечения %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Создайте модуль улучшения глубины извлечения (Уровень %s).",
+  "book.energizedpower.page.extraction_depth_upgrades": "Улучшения глубины добычи увеличивают глубину, на которой может работать машина.",
 
   "_template.item.energizedpower.moon_light_upgrade_module": "Модуль улучшения «Лунный свет» (Уровень %s)",
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Лунный свет %s",
