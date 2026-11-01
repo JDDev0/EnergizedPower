@@ -83,11 +83,11 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-	// REI integration (TODO UPDATE to 26.3)
+	// REI integration
 	compileOnlyApi "me.shedaniel.cloth:basic-math:0.6.1"
-	compileOnlyApi "dev.architectury:architectury-fabric:21.0.2"
-	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.2.820"
-	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.2.820"
+	compileOnlyApi "dev.architectury:architectury-fabric:22.0.5"
+	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-api-fabric:26.3.824"
+	compileOnlyApi "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:26.3.824"
 
     //JEI integration
 	compileOnly "mezz.jei:jei-26.3-common-api:31.1.0.13"
