@@ -343,15 +343,15 @@
   "_template.advancements.energizedpower.range_upgrade_module.description": "Fabrique um Módulo de Melhoria de Alcance (Nível %s).",
   "book.energizedpower.page.range_upgrades": "As Melhorias de Alcance aumentam o alcance em que uma máquina pode enviar e receber ondas eletromagnéticas.",
 
-  "_template.item.energizedpower.extraction_depth_upgrade_module": "Módulo de Melhoria de Profundidade de Extração (Nível %s)",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Profundidade de Extração %s",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Fabrique um Módulo de Melhoria de Profundidade de Extração (Nível %s).",
-  "book.energizedpower.page.extraction_depth_upgrades": "As Melhorias de Profundidade de Extração aumentam a profundidade em que uma máquina pode operar.",
-
   "_template.item.energizedpower.extraction_range_upgrade_module": "Módulo de Melhoria de Alcance de Extração (Nível %s)",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "Alcance de Extração %s",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "Fabrique um Módulo de Melhoria de Alcance de Extração (Nível %s).",
   "book.energizedpower.page.extraction_range_upgrades": "As Melhorias de Alcance de Extração aumentam o alcance em que uma máquina pode operar.",
+
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "Módulo de Melhoria de Profundidade de Extração (Nível %s)",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Profundidade de Extração %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Fabrique um Módulo de Melhoria de Profundidade de Extração (Nível %s).",
+  "book.energizedpower.page.extraction_depth_upgrades": "As Melhorias de Profundidade de Extração aumentam a profundidade em que uma máquina pode operar.",
 
   "_template.item.energizedpower.moon_light_upgrade_module": "Módulo de Melhoria de Luz da Lua (Nível %s)",
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Luz do Luar %s",
