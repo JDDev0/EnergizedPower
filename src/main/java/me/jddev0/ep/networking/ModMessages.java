@@ -68,6 +68,8 @@ public final class ModMessages {
                 InsertExtractXPFromXPStorageC2SPacket::handle);
         registrar.playToServer(SetIOConfigurationC2SPacket.ID, SetIOConfigurationC2SPacket.STREAM_CODEC,
                 SetIOConfigurationC2SPacket::handle);
+        registrar.playToServer(InsertExtractFluidFromFluidMeterC2SPacket.ID, InsertExtractFluidFromFluidMeterC2SPacket.STREAM_CODEC,
+                InsertExtractFluidFromFluidMeterC2SPacket::handle);
     }
 
     public static void sendToServer(CustomPacketPayload message) {

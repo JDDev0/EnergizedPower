@@ -1602,6 +1602,8 @@
   "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Нажмите на блок, содержащий жидкости, чтобы получить информацию.",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s будет потреблено за одно использование",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.extract_fluid.txt": "Extract fluids by right-clicking the fluid meter with a fluid item",
+  "tooltip.energizedpower.fluid_meter.insert_fluid.txt": "Insert fluids by left-clicking the fluid meter with a fluid item",
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Макс. извлечение на одну сторону экстрактора: %s/т",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Тип соединения грани (%s) изменить невозможно.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Тип соединения грани (%s) установлен на %s.",

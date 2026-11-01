@@ -1,26 +1,35 @@
 package me.jddev0.ep.screen.base;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.networking.ModMessages;
+import me.jddev0.ep.networking.packet.InsertExtractFluidFromFluidMeterC2SPacket;
 import me.jddev0.ep.util.FluidUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.joml.Matrix4f;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,6 +110,8 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
 
         int fluidAmount = fluidEmpty?0:fluid.getAmount();
 
+        List<Component> tooltipComponents = new ArrayList<>(3);
+
         Component tooltipComponent = Component.translatable("tooltip.energizedpower.fluid_meter.content_amount.txt",
                 FluidUtils.getFluidAmountWithPrefix(fluidAmount), FluidUtils.getFluidAmountWithPrefix(tankCapacity));
 
@@ -109,6 +120,33 @@ public abstract class EnergizedPowerBaseContainerScreen<T extends AbstractContai
                     append(tooltipComponent);
         }
 
-        guiGraphics.renderTooltip(font, List.of(tooltipComponent), Optional.empty(), mouseX, mouseY);
+        tooltipComponents.add(tooltipComponent);
+
+        tooltipComponents.add(Component.empty());
+        tooltipComponents.add(Component.translatable("tooltip.energizedpower.fluid_meter.insert_fluid.txt").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+        tooltipComponents.add(Component.translatable("tooltip.energizedpower.fluid_meter.extract_fluid.txt").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+
+        guiGraphics.renderTooltip(font, tooltipComponents, Optional.empty(), mouseX, mouseY);
+    }
+
+    protected boolean handleFluidMeterClick(BlockPos blockPos, int tank, int mouseButton) {
+        ItemStack carriedItemStack = menu.getCarried();
+
+        IFluidHandlerItem fluidStorage = carriedItemStack.getCapability(Capabilities.FluidHandler.ITEM);
+        if(fluidStorage != null && fluidStorage.getTanks() > 0) {
+            boolean insertExtract;
+            if(mouseButton == InputConstants.MOUSE_BUTTON_LEFT) {
+                insertExtract = true;
+            }else if(mouseButton == InputConstants.MOUSE_BUTTON_RIGHT) {
+                insertExtract = false;
+            }else {
+                return false;
+            }
+
+            ModMessages.sendToServer(new InsertExtractFluidFromFluidMeterC2SPacket(blockPos, tank, insertExtract));
+            return true;
+        }
+
+        return false;
     }
 }

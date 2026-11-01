@@ -1602,6 +1602,8 @@
   "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Drücke auf einen Block, der Flüssigkeiten enthält, um Informationen zu erhalten.",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s werden pro Benutzung verwendet",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.extract_fluid.txt": "Extrahiere Flüssigkeiten mittels rechts-klick auf das Flüssigkeitsmaß mit einem Flüssigkeits-Item",
+  "tooltip.energizedpower.fluid_meter.insert_fluid.txt": "Füge Flüssigkeiten mittels links-klick auf das Flüssigkeitsmaß mit einem Flüssigkeits-Item hinzu",
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Maximale Extraktion per Extraktions-Seite: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Verbindungs-Typ der Blockseite (%s) konnte nicht geändert werden.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Verbindungs-Typ der Blockseite (%s) wurde zu %s gesetzt.",

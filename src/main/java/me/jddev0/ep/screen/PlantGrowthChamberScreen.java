@@ -56,4 +56,17 @@ public class PlantGrowthChamberScreen
 
         return super.getTankCords(tank);
     }
+
+    @Override
+    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
+        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
+            return true;
+
+        if(isHovering(44, 17, 16, 52, mouseX, mouseY) &&
+                handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), 0, mouseButton)) {
+            return true;
+        }
+
+        return false;
+    }
 }

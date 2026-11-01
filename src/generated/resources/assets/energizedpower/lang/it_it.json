@@ -1602,6 +1602,8 @@
   "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Fare clic su un blocco che contiene fluidi per recuperare informazioni.",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s sarà consumato per uso",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.extract_fluid.txt": "Extract fluids by right-clicking the fluid meter with a fluid item",
+  "tooltip.energizedpower.fluid_meter.insert_fluid.txt": "Insert fluids by left-clicking the fluid meter with a fluid item",
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Max extraction per extractor face: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Impossibile modificare il tipo di connessione del quadrante (%s).",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Il tipo di connessione del quadrante (%s) è stato impostato su %s.",

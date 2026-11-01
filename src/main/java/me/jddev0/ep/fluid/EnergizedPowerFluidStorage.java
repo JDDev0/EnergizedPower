@@ -5,12 +5,14 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.IntStream;
 
 public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
-    final NonNullList<FluidStack> fluidStacks;
+    @ApiStatus.Internal
+    public final NonNullList<FluidStack> fluidStacks;
     private final int[] capacities;
 
     /**
@@ -68,6 +70,14 @@ public class EnergizedPowerFluidStorage implements IEnergizedPowerFluidStorage {
     }
 
     protected void onFinalCommit() {}
+
+    /**
+     * This method must only be used in InsertExtractFluidFromFluidMeterC2SPacket
+     */
+    @ApiStatus.Internal
+    public final void _triggerFinalCommitFromInsertExtractFluidFromFluidMeterC2SPacket() {
+        onFinalCommit();
+    }
 
     @Override
     public int getTanks() {

@@ -1602,6 +1602,8 @@
   "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "液体を持つブロックをクリックすると、詳細情報が表示される。",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "1回の使用につき%sを消費します。",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.extract_fluid.txt": "Extract fluids by right-clicking the fluid meter with a fluid item",
+  "tooltip.energizedpower.fluid_meter.insert_fluid.txt": "Insert fluids by left-clicking the fluid meter with a fluid item",
   "tooltip.energizedpower.fluid_pipe.max_extraction": "抽出面ごとの最大抽出量: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "面(%s)の接続タイプを変更できませんでした。",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "面(%s)の接続タイプを%sに設定しました。",
