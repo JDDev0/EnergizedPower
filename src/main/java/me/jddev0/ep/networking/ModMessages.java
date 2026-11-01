@@ -43,6 +43,7 @@ public final class ModMessages {
         PayloadTypeRegistry.serverboundPlay().register(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket.STREAM_CODEC);
         PayloadTypeRegistry.serverboundPlay().register(SetIOConfigurationC2SPacket.ID, SetIOConfigurationC2SPacket.STREAM_CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(InsertExtractFluidFromFluidMeterC2SPacket.ID, InsertExtractFluidFromFluidMeterC2SPacket.STREAM_CODEC);
     }
 
     public static void registerPacketsS2C() {
@@ -74,6 +75,7 @@ public final class ModMessages {
         ServerPlayNetworking.registerGlobalReceiver(SetCreativeFluidTankFluidStackC2SPacket.ID, SetCreativeFluidTankFluidStackC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(InsertExtractXPFromXPStorageC2SPacket.ID, InsertExtractXPFromXPStorageC2SPacket::receive);
         ServerPlayNetworking.registerGlobalReceiver(SetIOConfigurationC2SPacket.ID, SetIOConfigurationC2SPacket::receive);
+        ServerPlayNetworking.registerGlobalReceiver(InsertExtractFluidFromFluidMeterC2SPacket.ID, InsertExtractFluidFromFluidMeterC2SPacket::receive);
     }
 
     public static void sendToServer(CustomPacketPayload message) {
