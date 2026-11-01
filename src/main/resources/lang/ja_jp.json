@@ -343,15 +343,15 @@
   "_template.advancements.energizedpower.range_upgrade_module.description": "有効範囲アップグレードモジュール (ティアー %s)を作成する",
   "book.energizedpower.page.range_upgrades": "有効範囲アップグレードは、機械が電磁波を送受信できる範囲を拡張します。",
 
-  "_template.item.energizedpower.extraction_depth_upgrade_module": "抽出深度アップグレードモジュール (ティアー %s)",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "抽出深度 %s",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "抽出深度アップグレードモジュール (ティアー %s)を作成する",
-  "book.energizedpower.page.extraction_depth_upgrades": "抽出深度アップグレードは、機械が作業できる深度を増加させます。",
-
   "_template.item.energizedpower.extraction_range_upgrade_module": "抽出範囲アップグレードモジュール (ティアー %s)",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "抽出範囲 %s",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "抽出範囲アップグレードモジュール (ティアー %s)を作成する",
   "book.energizedpower.page.extraction_range_upgrades": "抽出範囲アップグレードは、機械が作業できる範囲を増加させます。",
+
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "抽出深度アップグレードモジュール (ティアー %s)",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "抽出深度 %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "抽出深度アップグレードモジュール (ティアー %s)を作成する",
+  "book.energizedpower.page.extraction_depth_upgrades": "抽出深度アップグレードは、機械が作業できる深度を増加させます。",
 
   "_template.item.energizedpower.moon_light_upgrade_module": "月光アップグレードモジュール (ティアー %s)",
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "月光 %s",
