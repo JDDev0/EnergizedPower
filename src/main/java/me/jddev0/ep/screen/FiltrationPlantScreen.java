@@ -125,4 +125,19 @@ public class FiltrationPlantScreen
 
         return super.getTankCords(tank);
     }
+
+    @Override
+    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
+        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
+            return true;
+
+        for(int i = 0;i < 2;i++) {
+            if(isHovering(i == 0?44:152, 17, 16, 52, mouseX, mouseY) &&
+                    handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), i, mouseButton)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

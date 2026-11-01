@@ -40,6 +40,11 @@ public class FluidTransposerScreen
             }
         }
 
+        if(isHovering(152, 17, 16, 52, mouseX, mouseY) &&
+                handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), 0, mouseButton)) {
+            return true;
+        }
+
         return false;
     }
 
