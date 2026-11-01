@@ -140,7 +140,8 @@ public class FluidTransposerBlockEntity
                 return level.getRecipeManager().getAllRecipesFor(recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
                         anyMatch(fluid -> fluid.map(
-                                fluidStack -> resource.componentsMatch(fluidStack.getFluidVariant().getComponents()),
+                                fluidStack -> resource.isOf(fluidStack.getFluid()) &&
+                                        resource.componentsMatch(fluidStack.getFluidVariant().getComponents()),
                                 f -> f.fluid().test(resource)));
             }
         };
