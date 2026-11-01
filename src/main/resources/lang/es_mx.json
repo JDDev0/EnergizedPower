@@ -1351,6 +1351,8 @@
 
   "tooltip.energizedpower.energy_meter.content.txt": "%s / %s",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.insert_fluid.txt": "Insert fluids by left-clicking the fluid meter with a fluid item",
+  "tooltip.energizedpower.fluid_meter.extract_fluid.txt": "Extract fluids by right-clicking the fluid meter with a fluid item",
   "tooltip.energizedpower.energy_consumption_per_tick.txt": "Consumo de energía: %s",
   "tooltip.energizedpower.energy_production_per_tick.txt": "Producción de energía: %s",
   "tooltip.energizedpower.recipe.energy_required_to_finish.txt": "Esta receta requiere %s.",
