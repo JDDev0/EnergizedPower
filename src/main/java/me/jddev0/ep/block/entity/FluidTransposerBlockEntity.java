@@ -144,7 +144,8 @@ public class FluidTransposerBlockEntity
                         RecipeUtils.getAllRecipesFor(serverLevel, recipeType).stream().map(RecipeHolder::value).
                         map(FluidTransposerRecipe::getFluid).
                         anyMatch(fluid -> fluid.map(
-                                fluidStack -> resource.componentsMatch(fluidStack.getFluidVariant().getComponentsPatch()),
+                                fluidStack -> resource.isOf(fluidStack.getFluid()) &&
+                                        resource.componentsMatch(fluidStack.getFluidVariant().getComponentsPatch()),
                                 f -> f.fluid().test(resource)));
             }
         };
