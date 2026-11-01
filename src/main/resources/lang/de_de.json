@@ -343,15 +343,15 @@
   "_template.advancements.energizedpower.range_upgrade_module.description": "Erstelle ein Reichweiten-Upgrade-Modul (MK %s).",
   "book.energizedpower.page.range_upgrades": "Reichweiten-Upgrades erhöhen die Reichweite, in der eine Maschine elektromagentische Wellen senden und empfangen kann.",
 
-  "_template.item.energizedpower.extraction_depth_upgrade_module": "Extraktionstiefen-Upgrade-Modul (MK %s)",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Extraktionstiefe %s",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK %s).",
-  "book.energizedpower.page.extraction_depth_upgrades": "Extraktionstiefen-Upgrades erhöhen die Tiefe, in der eine Machine arbeiten kann.",
-
   "_template.item.energizedpower.extraction_range_upgrade_module": "Extraktionsreichweiten-Upgrade-Modul (MK %s)",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "Extraktionsreichweite %s",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "Erstelle ein Extraktionsreichweiten-Upgrade-Modul (MK %s).",
   "book.energizedpower.page.extraction_range_upgrades": "Extraktionsreichweiten-Upgrades erhöhen die Reichweite, in der eine Machine arbeiten kann.",
+
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "Extraktionstiefen-Upgrade-Modul (MK %s)",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Extraktionstiefe %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Erstelle ein Extraktionstiefen-Upgrade-Modul (MK %s).",
+  "book.energizedpower.page.extraction_depth_upgrades": "Extraktionstiefen-Upgrades erhöhen die Tiefe, in der eine Machine arbeiten kann.",
 
   "_template.item.energizedpower.moon_light_upgrade_module": "Mondlicht-Upgrade-Modul (MK %s)",
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Mondlicht %s",

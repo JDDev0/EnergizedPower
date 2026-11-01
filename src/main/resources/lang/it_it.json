@@ -343,15 +343,15 @@
   "_template.advancements.energizedpower.range_upgrade_module.description": "Craft a Range Upgrade Module (Tier %s).",
   "book.energizedpower.page.range_upgrades": "Range Upgrades increase the range a machine can send and receive electromagnetic waves in.",
 
-  "_template.item.energizedpower.extraction_depth_upgrade_module": "Extraction Depth Upgrade Module (Tier %s)",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Extraction Depth %s",
-  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Craft an Extraction Depth Upgrade Module (Tier %s).",
-  "book.energizedpower.page.extraction_depth_upgrades": "Extraction Depth Upgrades increase the depth a machine can operate in.",
-
   "_template.item.energizedpower.extraction_range_upgrade_module": "Extraction Range Upgrade Module (Tier %s)",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.title": "Extraction Range %s",
   "_template.advancements.energizedpower.extraction_range_upgrade_module.description": "Craft an Extraction Range Upgrade Module (Tier %s).",
   "book.energizedpower.page.extraction_range_upgrades": "Extraction Range Upgrades increase the range a machine can operate in.",
+
+  "_template.item.energizedpower.extraction_depth_upgrade_module": "Extraction Depth Upgrade Module (Tier %s)",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.title": "Extraction Depth %s",
+  "_template.advancements.energizedpower.extraction_depth_upgrade_module.description": "Craft an Extraction Depth Upgrade Module (Tier %s).",
+  "book.energizedpower.page.extraction_depth_upgrades": "Extraction Depth Upgrades increase the depth a machine can operate in.",
 
   "_template.item.energizedpower.moon_light_upgrade_module": "Moon Light Upgrade Module (Tier %s)",
   "_template.advancements.energizedpower.moon_light_upgrade_module.title": "Moon Light %s",
