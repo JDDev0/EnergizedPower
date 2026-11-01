@@ -4,9 +4,12 @@ import me.jddev0.ep.api.EPAPI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import me.jddev0.ep.screen.base.EnergizedPowerBaseContainerScreen;
 
@@ -44,5 +47,23 @@ public class DrainScreen extends EnergizedPowerBaseContainerScreen<DrainMenu> {
         if(isHovering(80, 17, 16, 52, mouseX, mouseY)) {
             renderFluidMeterContentTooltip(guiGraphics, menu.getFluid(), menu.getTankCapacity(), mouseX, mouseY);
         }
+    }
+
+    @Override
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
+        double mouseX = click.x();
+        double mouseY = click.y();
+        int mouseButton = click.button();
+        boolean clicked = false;
+
+        if(isHovering(80, 17, 16, 52, mouseX, mouseY) &&
+                handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), 0, mouseButton)) {
+            clicked = true;
+        }
+
+        if(clicked)
+            minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.f));
+
+        return super.mouseClicked(click, doubled);
     }
 }

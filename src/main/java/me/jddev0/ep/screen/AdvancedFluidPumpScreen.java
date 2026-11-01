@@ -105,4 +105,19 @@ public class AdvancedFluidPumpScreen
 
         return super.getTankCords(tank);
     }
+
+    @Override
+    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
+        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
+            return true;
+
+        for(int i = 0;i < 4;i++) {
+            if(isHovering(206 + (i%2) * 18, 17 + (i/2) * 54, 16, 52, mouseX, mouseY) &&
+                    handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), i, mouseButton)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

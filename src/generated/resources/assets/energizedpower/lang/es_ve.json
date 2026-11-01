@@ -1602,6 +1602,8 @@
   "tooltip.energizedpower.fluid_analyzer.txt.shift.1": "Click en un bloque que contenga fluidos para recibir información.",
   "tooltip.energizedpower.fluid_analyzer.txt.shift.2": "%s será consumido por cada uso",
   "tooltip.energizedpower.fluid_meter.content_amount.txt": "%s / %s",
+  "tooltip.energizedpower.fluid_meter.extract_fluid.txt": "Extract fluids by right-clicking the fluid meter with a fluid item",
+  "tooltip.energizedpower.fluid_meter.insert_fluid.txt": "Insert fluids by left-clicking the fluid meter with a fluid item",
   "tooltip.energizedpower.fluid_pipe.max_extraction": "Extracción máxima por cara extractora: %s/t",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_change_not_possible": "Tipo de conexión de la cara (%s) no se pudo cambiar.",
   "tooltip.energizedpower.fluid_pipe.wrench_configuration.face_changed": "Tipo de conexión de la cara (%s) se cambió a %s.",

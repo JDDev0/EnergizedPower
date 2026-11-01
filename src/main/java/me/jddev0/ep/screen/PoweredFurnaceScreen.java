@@ -59,4 +59,17 @@ public class PoweredFurnaceScreen extends ConfigurableIOUpgradableEnergyStorageC
 
         return super.getTankCords(tank);
     }
+
+    @Override
+    protected boolean mouseClickedNormalView(double mouseX, double mouseY, int mouseButton) {
+        if(super.mouseClickedNormalView(mouseX, mouseY, mouseButton))
+            return true;
+
+        if(isHovering(152, 17, 16, 52, mouseX, mouseY) && menu.hasXPExtractionUpgradeModule() &&
+                handleFluidMeterClick(menu.getBlockEntity().getBlockPos(), 0, mouseButton)) {
+            return true;
+        }
+
+        return false;
+    }
 }
