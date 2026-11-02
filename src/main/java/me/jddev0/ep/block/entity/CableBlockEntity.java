@@ -7,6 +7,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
 import me.jddev0.ep.util.CapabilityUtil;
+import me.jddev0.ep.util.MathUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -211,15 +212,27 @@ public class CableBlockEntity extends BlockEntity {
         int extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
             //Prioritize stored energy for PUSH mode
-            for(EnergyHandler energyHandler:cableNetwork.cablesWithStoredEnergy()) {
-                int extracted = Math.min(energyHandler.getAmountAsInt(), transferLeft - extractInternally);
-                try(Transaction transaction = Transaction.open(null)) {
-                    energyHandler.extract(extracted, transaction);
+            List<EnergyHandler> energyProductionInternally = new ArrayList<>();
+            List<Integer> energyProductionValuesInternally = new ArrayList<>();
 
-                    transaction.commit();
+            for(EnergyHandler energyHandler:cableNetwork.cablesWithStoredEnergy()) {
+                int extracted = energyHandler.getAmountAsInt();
+                if(extracted <= 0)
+                    continue;
+
+                energyProductionInternally.add(energyHandler);
+                energyProductionValuesInternally.add(extracted);
+            }
+
+            int[] distributedEnergyProduction = MathUtils.distributeEvenly(transferLeft, energyProductionValuesInternally);
+            try(Transaction transaction = Transaction.open(null)) {
+                for(int i = 0;i < energyProductionInternally.size();i++) {
+                    int extracted = distributedEnergyProduction[i];
+                    energyProductionInternally.get(i).extract(extracted, transaction);
+                    extractInternally += extracted;
                 }
 
-                extractInternally += extracted;
+                transaction.commit();
             }
         }
 
