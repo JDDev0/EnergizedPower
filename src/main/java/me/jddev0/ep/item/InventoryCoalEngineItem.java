@@ -8,6 +8,7 @@ import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.util.CapabilityUtil;
 import me.jddev0.ep.util.EnergyUtils;
 import me.jddev0.ep.util.ItemStackUtils;
+import me.jddev0.ep.util.MathUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -122,36 +123,12 @@ public class InventoryCoalEngineItem extends EnergizedPowerEnergyItem implements
             }
         }
 
-        List<Integer> consumerEnergyDistributed = new ArrayList<>();
-        for(int i = 0;i < consumerItems.size();i++)
-            consumerEnergyDistributed.add(0);
-
         int consumptionLeft = Math.min(MAX_EXTRACT, Math.min(getEnergy(itemStack), consumptionSum));
         setEnergy(itemStack, getEnergy(itemStack) - consumptionLeft);
 
-        int divisor = consumerItems.size();
-        outer:
-        while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < consumerEnergyValues.size();i++) {
-                int consumptionDistributed = consumerEnergyDistributed.get(i);
-                int consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
-
-                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
+        int[] consumerEnergyDistributed = MathUtils.distributeEvenly(consumptionLeft, consumerEnergyValues);
         for(int i = 0;i < consumerItems.size();i++) {
-            int energy = consumerEnergyDistributed.get(i);
+            int energy = consumerEnergyDistributed[i];
             if(energy > 0) {
                 try(Transaction transaction = Transaction.open(null)) {
                     consumerItems.get(i).insert(energy, transaction);
