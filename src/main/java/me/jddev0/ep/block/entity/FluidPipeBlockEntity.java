@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.machine.tier.FluidPipeTier;
+import me.jddev0.ep.util.MathUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -286,38 +287,12 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
         int transferLeft = Math.min(productionSum, consumptionSum);
 
-        List<Integer> fluidProductionDistributed = new ArrayList<>();
-        for(int i = 0;i < fluidProduction.size();i++)
-            fluidProductionDistributed.add(0);
-
-        int productionLeft = transferLeft;
-        int divisor = fluidProduction.size();
-
-        outer:
-        while(productionLeft > 0) {
-            int productionPerProducer = productionLeft / divisor;
-            if(productionPerProducer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                productionPerProducer = productionLeft / divisor;
-            }
-
-            for(int i = 0;i < fluidProductionValues.size();i++) {
-                int productionDistributed = fluidProductionDistributed.get(i);
-                int productionOfProducerLeft = fluidProductionValues.get(i) - productionDistributed;
-
-                int productionDistributedNew = Math.min(productionPerProducer, Math.min(productionOfProducerLeft, productionLeft));
-                fluidProductionDistributed.set(i, productionDistributed + productionDistributedNew);
-
-                productionLeft -= productionDistributedNew;
-                if(productionLeft == 0)
-                    break outer;
-            }
-        }
+        int[] fluidProductionDistributed = MathUtils.distributeEvenly(transferLeft, fluidProductionValues);
 
         int realProduction = 0;
         int realProductionAmountMissing = 0;
         for(int i = 0;i < fluidProduction.size();i++) {
-            int amount = fluidProductionDistributed.get(i) + realProductionAmountMissing;
+            int amount = fluidProductionDistributed[i] + realProductionAmountMissing;
             if(amount > 0) {
                 FluidResource extract = extractedFluidType;
                 int realExtract;
@@ -350,35 +325,11 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
-        List<Integer> fluidConsumptionDistributed = new ArrayList<>();
-        for(int i = 0;i < fluidConsumption.size();i++)
-            fluidConsumptionDistributed.add(0);
-
-        int consumptionLeft = realProduction;
-        divisor = fluidConsumption.size();
-        outer:
-        while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < fluidConsumptionValues.size();i++) {
-                int consumptionDistributed = fluidConsumptionDistributed.get(i);
-                int consumptionOfConsumerLeft = fluidConsumptionValues.get(i) - consumptionDistributed;
-
-                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                fluidConsumptionDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
+        int[] fluidConsumptionDistributed = MathUtils.distributeEvenly(realProduction, fluidConsumptionValues);
 
         int realConsumptionAmountMissing = 0;
         for(int i = 0;i < fluidConsumption.size();i++) {
-            int amount = fluidConsumptionDistributed.get(i) + realConsumptionAmountMissing;
+            int amount = fluidConsumptionDistributed[i] + realConsumptionAmountMissing;
             if(amount > 0) {
                 FluidResource insert = extractedFluidType;
                 int realInsert;
