@@ -5,6 +5,7 @@ import me.jddev0.ep.component.InventoryComponent;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.screen.InventoryChargerMenu;
 import me.jddev0.ep.util.EnergyUtils;
+import me.jddev0.ep.util.MathUtils;
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ContainerStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -151,37 +152,12 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             }
         }
 
-        List<Long> consumerEnergyDistributed = new ArrayList<>();
-        for(int i = 0;i < consumerItems.size();i++)
-            consumerEnergyDistributed.add(0L);
-
         long consumptionLeft = Math.min(getMaxTransfer(inventoryChargerInventory, null), consumptionSum);
-
         extractEnergyFromBatteries(consumptionLeft, inventoryChargerInventory);
 
-        int divisor = consumerItems.size();
-        outer:
-        while(consumptionLeft > 0) {
-            long consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < consumerEnergyValues.size();i++) {
-                long consumptionDistributed = consumerEnergyDistributed.get(i);
-                long consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
-
-                long consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
+        long[] consumerEnergyDistributed = MathUtils.distributeEvenly(consumptionLeft, consumerEnergyValues);
         for(int i = 0;i < consumerItems.size();i++) {
-            long energy = consumerEnergyDistributed.get(i);
+            long energy = consumerEnergyDistributed[i];
             if(energy > 0) {
                 try(Transaction transaction = Transaction.openOuter()) {
                     consumerItems.get(i).insert(energy, transaction);
@@ -214,34 +190,9 @@ public class InventoryChargerItem extends Item implements MenuProvider {
             }
         }
 
-        List<Long> energyProductionDistributed = new ArrayList<>();
-        for(int i = 0;i < energyProduction.size();i++)
-            energyProductionDistributed.add(0L);
-
-        long productionLeft = energyProductionLeft;
-        int divisor = energyProduction.size();
-        outer:
-        while(productionLeft > 0) {
-            long productionPerProducer = productionLeft / divisor;
-            if(productionPerProducer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                productionPerProducer = productionLeft / divisor;
-            }
-
-            for(int i = 0;i < energyProductionValues.size();i++) {
-                long productionDistributed = energyProductionDistributed.get(i);
-                long productionOfProducerLeft = energyProductionValues.get(i) - productionDistributed;
-
-                long productionDistributedNew = Math.min(productionPerProducer, Math.min(productionOfProducerLeft, productionLeft));
-                energyProductionDistributed.set(i, productionDistributed + productionDistributedNew);
-                productionLeft -= productionDistributedNew;
-                if(productionLeft == 0)
-                    break outer;
-            }
-        }
-
+        long[] energyProductionDistributed = MathUtils.distributeEvenly(energyProductionLeft, energyProductionValues);
         for(int i = 0;i < energyProduction.size();i++) {
-            long energy = energyProductionDistributed.get(i);
+            long energy = energyProductionDistributed[i];
             if(energy > 0)
                 try(Transaction transaction = Transaction.openOuter()) {
                     energyProduction.get(i).extract(energy, transaction);
