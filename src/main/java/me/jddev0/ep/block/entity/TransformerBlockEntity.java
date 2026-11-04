@@ -11,6 +11,7 @@ import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.screen.TransformerMenu;
+import me.jddev0.ep.util.MathUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -215,37 +216,13 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             consumerEnergyValues.add(received);
         }
 
-        List<Integer> consumerEnergyDistributed = new ArrayList<>();
-        for(int i = 0;i < consumerItems.size();i++)
-            consumerEnergyDistributed.add(0);
-
         int consumptionLeft = Math.min(blockEntity.baseEnergyTransferRate,
                 Math.min(blockEntity.energyStorage.getEnergy(), consumptionSum));
         blockEntity.energyStorage.extractEnergy(consumptionLeft, false);
 
-        int divisor = consumerItems.size();
-        outer:
-        while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < consumerEnergyValues.size();i++) {
-                int consumptionDistributed = consumerEnergyDistributed.get(i);
-                int consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
-
-                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
+        int[] consumerEnergyDistributed = MathUtils.distributeEvenly(consumptionLeft, consumerEnergyValues);
         for(int i = 0;i < consumerItems.size();i++) {
-            int energy = consumerEnergyDistributed.get(i);
+            int energy = consumerEnergyDistributed[i];
             if(energy > 0)
                 consumerItems.get(i).receiveEnergy(energy, false);
         }
