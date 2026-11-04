@@ -7,6 +7,7 @@ import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.energy.IEnergizedPowerEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.util.MathUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -205,10 +206,22 @@ public class CableBlockEntity extends BlockEntity {
         int extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
             //Prioritize stored energy for PUSH mode
+            List<IEnergizedPowerEnergyStorage> energyProductionInternally = new ArrayList<>();
+            List<Integer> energyProductionValuesInternally = new ArrayList<>();
+
             for(IEnergizedPowerEnergyStorage energyHandler:cableNetwork.cablesWithStoredEnergy()) {
                 int extracted = Math.min(energyHandler.getEnergy(), transferLeft - extractInternally);
-                energyHandler.setEnergy(energyHandler.getEnergy() - extracted);
+                if(extracted <= 0)
+                    continue;
 
+                energyProductionInternally.add(energyHandler);
+                energyProductionValuesInternally.add(extracted);
+            }
+
+            int[] distributedEnergyProduction = MathUtils.distributeEvenly(transferLeft, energyProductionValuesInternally);
+            for(int i = 0;i < energyProductionInternally.size();i++) {
+                int extracted = distributedEnergyProduction[i];
+                energyProductionInternally.get(i).setEnergy(energyProductionInternally.get(i).getEnergy() - extracted);
                 extractInternally += extracted;
             }
         }
