@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.FluidPipeBlock;
 import me.jddev0.ep.block.EPBlockStateProperties;
 import me.jddev0.ep.machine.tier.FluidPipeTier;
+import me.jddev0.ep.util.MathUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -258,38 +259,12 @@ public class FluidPipeBlockEntity extends BlockEntity {
 
         long transferLeft = Math.min(productionSum, consumptionSum);
 
-        List<Long> fluidProductionDistributed = new ArrayList<>();
-        for(int i = 0;i < fluidProduction.size();i++)
-            fluidProductionDistributed.add(0L);
-
-        long productionLeft = transferLeft;
-        int divisor = fluidProduction.size();
-
-        outer:
-        while(productionLeft > 0) {
-            long productionPerProducer = productionLeft / divisor;
-            if(productionPerProducer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                productionPerProducer = productionLeft / divisor;
-            }
-
-            for(int i = 0;i < fluidProductionValues.size();i++) {
-                long productionDistributed = fluidProductionDistributed.get(i);
-                long productionOfProducerLeft = fluidProductionValues.get(i) - productionDistributed;
-
-                long productionDistributedNew = Math.min(productionPerProducer, Math.min(productionOfProducerLeft, productionLeft));
-                fluidProductionDistributed.set(i, productionDistributed + productionDistributedNew);
-
-                productionLeft -= productionDistributedNew;
-                if(productionLeft == 0)
-                    break outer;
-            }
-        }
+        long[] fluidProductionDistributed = MathUtils.distributeEvenly(transferLeft, fluidProductionValues);
 
         long realProduction = 0;
         long realProductionAmountMissing = 0;
         for(int i = 0;i < fluidProduction.size();i++) {
-            long amount = fluidProductionDistributed.get(i) + realProductionAmountMissing;
+            long amount = fluidProductionDistributed[i] + realProductionAmountMissing;
             if(amount > 0) {
                 FluidVariant extract = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponentsPatch());
                 long realExtract;
@@ -322,35 +297,11 @@ public class FluidPipeBlockEntity extends BlockEntity {
             }
         }
 
-        List<Long> fluidConsumptionDistributed = new ArrayList<>();
-        for(int i = 0;i < fluidConsumption.size();i++)
-            fluidConsumptionDistributed.add(0L);
-
-        long consumptionLeft = realProduction;
-        divisor = fluidConsumption.size();
-        outer:
-        while(consumptionLeft > 0) {
-            long consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < fluidConsumptionValues.size();i++) {
-                long consumptionDistributed = fluidConsumptionDistributed.get(i);
-                long consumptionOfConsumerLeft = fluidConsumptionValues.get(i) - consumptionDistributed;
-
-                long consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                fluidConsumptionDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
+        long[] fluidConsumptionDistributed = MathUtils.distributeEvenly(realProduction, fluidConsumptionValues);
 
         long realConsumptionAmountMissing = 0;
         for(int i = 0;i < fluidConsumption.size();i++) {
-            long amount = fluidConsumptionDistributed.get(i) + realConsumptionAmountMissing;
+            long amount = fluidConsumptionDistributed[i] + realConsumptionAmountMissing;
             if(amount > 0) {
                 FluidVariant insert = FluidVariant.of(extractedFluidType.getFluid(), extractedFluidType.getComponentsPatch());
                 long realInsert;
