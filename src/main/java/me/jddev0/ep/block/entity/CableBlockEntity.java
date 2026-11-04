@@ -229,8 +229,7 @@ public class CableBlockEntity extends BlockEntity {
                 for(int i = 0;i < energyProductionInternally.size();i++) {
                     long extracted = distributedEnergyProduction[i];
                     if(extracted > 0) {
-                        energyProductionInternally.get(i).extract(extracted, transaction);
-                        extractInternally += extracted;
+                        extractInternally += energyProductionInternally.get(i).extract(extracted, transaction);
                     }
                 }
 
@@ -240,6 +239,7 @@ public class CableBlockEntity extends BlockEntity {
 
         //Set to 0 for PUSH only mode
         long productionLeft = ENERGY_EXTRACTION_MODE.isPull()?transferLeft - extractInternally:0;
+        long realExtract = extractInternally;
         if(productionLeft > 0) {
             long[] energyProductionDistributed = MathUtils.distributeEvenly(productionLeft, energyProductionValues);
 
@@ -247,14 +247,13 @@ public class CableBlockEntity extends BlockEntity {
                 long energy = energyProductionDistributed[i];
                 if(energy > 0)
                     try(Transaction transaction = Transaction.openOuter()) {
-                        energyProduction.get(i).extract(energy, transaction);
+                        realExtract += energyProduction.get(i).extract(energy, transaction);
                         transaction.commit();
                     }
             }
         }
 
-        long[] energyConsumptionDistributed = MathUtils.distributeEvenly(transferLeft, energyConsumptionValues);
-
+        long[] energyConsumptionDistributed = MathUtils.distributeEvenly(realExtract, energyConsumptionValues);
         for(int i = 0;i < energyConsumption.size();i++) {
             long energy = energyConsumptionDistributed[i];
             if(energy > 0)
