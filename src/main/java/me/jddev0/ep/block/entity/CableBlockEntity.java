@@ -221,74 +221,31 @@ public class CableBlockEntity extends BlockEntity {
             int[] distributedEnergyProduction = MathUtils.distributeEvenly(transferLeft, energyProductionValuesInternally);
             for(int i = 0;i < energyProductionInternally.size();i++) {
                 int extracted = distributedEnergyProduction[i];
-                energyProductionInternally.get(i).setEnergy(energyProductionInternally.get(i).getEnergy() - extracted);
-                extractInternally += extracted;
+                if(extracted > 0) {
+                    energyProductionInternally.get(i).setEnergy(energyProductionInternally.get(i).getEnergy() - extracted);
+                    extractInternally += extracted;
+                }
             }
         }
-
-        List<Integer> energyProductionDistributed = new ArrayList<>();
-        for(int i = 0;i < energyProduction.size();i++)
-            energyProductionDistributed.add(0);
 
         //Set to 0 for PUSH only mode
         int productionLeft = ENERGY_EXTRACTION_MODE.isPull()?transferLeft - extractInternally:0;
-        int divisor = energyProduction.size();
-        outer:
-        while(productionLeft > 0) {
-            int productionPerProducer = productionLeft / divisor;
-            if(productionPerProducer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                productionPerProducer = productionLeft / divisor;
-            }
-
-            for(int i = 0;i < energyProductionValues.size();i++) {
-                int productionDistributed = energyProductionDistributed.get(i);
-                int productionOfProducerLeft = energyProductionValues.get(i) - productionDistributed;
-
-                int productionDistributedNew = Math.min(productionPerProducer, Math.min(productionOfProducerLeft, productionLeft));
-                energyProductionDistributed.set(i, productionDistributed + productionDistributedNew);
-                productionLeft -= productionDistributedNew;
-                if(productionLeft == 0)
-                    break outer;
+        if(productionLeft > 0) {
+            int[] energyProductionDistributed = MathUtils.distributeEvenly(productionLeft, energyProductionValues);
+            for(int i = 0;i < energyProduction.size();i++) {
+                int energy = energyProductionDistributed[i];
+                if(energy > 0) {
+                    energyProduction.get(i).extractEnergy(energy, false);
+                }
             }
         }
 
-        for(int i = 0;i < energyProduction.size();i++) {
-            int energy = energyProductionDistributed.get(i);
-            if(energy > 0)
-                energyProduction.get(i).extractEnergy(energy, false);
-        }
-
-        List<Integer> energyConsumptionDistributed = new ArrayList<>();
-        for(int i = 0;i < energyConsumption.size();i++)
-            energyConsumptionDistributed.add(0);
-
-        int consumptionLeft = transferLeft;
-        divisor = energyConsumption.size();
-        outer:
-        while(consumptionLeft > 0) {
-            int consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < energyConsumptionValues.size();i++) {
-                int consumptionDistributed = energyConsumptionDistributed.get(i);
-                int consumptionOfConsumerLeft = energyConsumptionValues.get(i) - consumptionDistributed;
-
-                int consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                energyConsumptionDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
+        int[] energyConsumptionDistributed = MathUtils.distributeEvenly(transferLeft, energyConsumptionValues);
         for(int i = 0;i < energyConsumption.size();i++) {
-            int energy = energyConsumptionDistributed.get(i);
-            if(energy > 0)
+            int energy = energyConsumptionDistributed[i];
+            if(energy > 0) {
                 energyConsumption.get(i).receiveEnergy(energy, false);
+            }
         }
     }
 
