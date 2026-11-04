@@ -6,6 +6,7 @@ import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.EnergizedPowerEnergyStorage;
 import me.jddev0.ep.energy.EnergizedPowerLimitingEnergyStorage;
 import me.jddev0.ep.machine.tier.CableTier;
+import me.jddev0.ep.util.MathUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -211,15 +212,27 @@ public class CableBlockEntity extends BlockEntity {
         long extractInternally = 0;
         if(ENERGY_EXTRACTION_MODE.isPush()) {
             //Prioritize stored energy for PUSH mode
-            for(EnergyStorage energyHandler:cableNetwork.cablesWithStoredEnergy()) {
-                long extracted = Math.min(energyHandler.getAmount(), transferLeft - extractInternally);
-                try(Transaction transaction = Transaction.openOuter()) {
-                    energyHandler.extract(extracted, transaction);
+            List<EnergyStorage> energyProductionInternally = new ArrayList<>();
+            List<Long> energyProductionValuesInternally = new ArrayList<>();
 
-                    transaction.commit();
+            for(EnergyStorage energyHandler:cableNetwork.cablesWithStoredEnergy()) {
+                long extracted = energyHandler.getAmount();
+                if(extracted <= 0)
+                    continue;
+
+                energyProductionInternally.add(energyHandler);
+                energyProductionValuesInternally.add(extracted);
+            }
+
+            long[] distributedEnergyProduction = MathUtils.distributeEvenly(transferLeft, energyProductionValuesInternally);
+            try(Transaction transaction = Transaction.openOuter()) {
+                for(int i = 0;i < energyProductionInternally.size();i++) {
+                    long extracted = distributedEnergyProduction[i];
+                    energyProductionInternally.get(i).extract(extracted, transaction);
+                    extractInternally += extracted;
                 }
 
-                extractInternally += extracted;
+                transaction.commit();
             }
         }
 
