@@ -11,6 +11,7 @@ import me.jddev0.ep.inventory.data.RedstoneModeValueContainerData;
 import me.jddev0.ep.machine.tier.TransformerTier;
 import me.jddev0.ep.machine.tier.TransformerType;
 import me.jddev0.ep.screen.TransformerMenu;
+import me.jddev0.ep.util.MathUtils;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
@@ -222,39 +223,15 @@ public class TransformerBlockEntity extends ConfigurableEnergyStorageBlockEntity
             }
         }
 
-        List<Long> consumerEnergyDistributed = new ArrayList<>();
-        for(int i = 0;i < consumerItems.size();i++)
-            consumerEnergyDistributed.add(0L);
-
         long consumptionLeft = Math.min(blockEntity.baseEnergyTransferRate, Math.min(blockEntity.energyStorage.getAmount(), consumptionSum));
         try(Transaction transaction = Transaction.openOuter()) {
             blockEntity.energyStorage.extract(consumptionLeft, transaction);
             transaction.commit();
         }
 
-        int divisor = consumerItems.size();
-        outer:
-        while(consumptionLeft > 0) {
-            long consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < consumerEnergyValues.size();i++) {
-                long consumptionDistributed = consumerEnergyDistributed.get(i);
-                long consumptionOfConsumerLeft = consumerEnergyValues.get(i) - consumptionDistributed;
-
-                long consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                consumerEnergyDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
-
+        long[] consumerEnergyDistributed = MathUtils.distributeEvenly(consumptionLeft, consumerEnergyValues);
         for(int i = 0;i < consumerItems.size();i++) {
-            long energy = consumerEnergyDistributed.get(i);
+            long energy = consumerEnergyDistributed[i];
             if(energy > 0) {
                 try(Transaction transaction = Transaction.openOuter()) {
                     consumerItems.get(i).insert(energy, transaction);
