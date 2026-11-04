@@ -229,84 +229,40 @@ public class CableBlockEntity extends BlockEntity {
             try(Transaction transaction = Transaction.openOuter()) {
                 for(int i = 0;i < energyProductionInternally.size();i++) {
                     long extracted = distributedEnergyProduction[i];
-                    energyProductionInternally.get(i).extract(extracted, transaction);
-                    extractInternally += extracted;
+                    if(extracted > 0) {
+                        energyProductionInternally.get(i).extract(extracted, transaction);
+                        extractInternally += extracted;
+                    }
                 }
 
                 transaction.commit();
             }
         }
 
-        List<Long> energyProductionDistributed = new ArrayList<>();
-        for(int i = 0;i < energyProduction.size();i++)
-            energyProductionDistributed.add(0L);
-
         //Set to 0 for PUSH only mode
         long productionLeft = ENERGY_EXTRACTION_MODE.isPull()?transferLeft - extractInternally:0;
-        int divisor = energyProduction.size();
-        outer:
-        while(productionLeft > 0) {
-            long productionPerProducer = productionLeft / divisor;
-            if(productionPerProducer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                productionPerProducer = productionLeft / divisor;
-            }
+        if(productionLeft > 0) {
+            long[] energyProductionDistributed = MathUtils.distributeEvenly(productionLeft, energyProductionValues);
 
-            for(int i = 0;i < energyProductionValues.size();i++) {
-                long productionDistributed = energyProductionDistributed.get(i);
-                long productionOfProducerLeft = energyProductionValues.get(i) - productionDistributed;
-
-                long productionDistributedNew = Math.min(productionPerProducer, Math.min(productionOfProducerLeft, productionLeft));
-                energyProductionDistributed.set(i, productionDistributed + productionDistributedNew);
-                productionLeft -= productionDistributedNew;
-                if(productionLeft == 0)
-                    break outer;
+            for(int i = 0;i < energyProduction.size();i++) {
+                long energy = energyProductionDistributed[i];
+                if(energy > 0)
+                    try(Transaction transaction = Transaction.openOuter()) {
+                        energyProduction.get(i).extract(energy, transaction);
+                        transaction.commit();
+                    }
             }
         }
 
-        for(int i = 0;i < energyProduction.size();i++) {
-            long energy = energyProductionDistributed.get(i);
-            if(energy > 0)
-                try(Transaction transaction = Transaction.openOuter()) {
-                    energyProduction.get(i).extract(energy, transaction);
-                    transaction.commit();
-                }
-        }
-
-        List<Long> energyConsumptionDistributed = new ArrayList<>();
-        for(int i = 0;i < energyConsumption.size();i++)
-            energyConsumptionDistributed.add(0L);
-
-        long consumptionLeft = transferLeft;
-        divisor = energyConsumption.size();
-        outer:
-        while(consumptionLeft > 0) {
-            long consumptionPerConsumer = consumptionLeft / divisor;
-            if(consumptionPerConsumer == 0) {
-                divisor = Math.max(1, divisor - 1);
-                consumptionPerConsumer = consumptionLeft / divisor;
-            }
-
-            for(int i = 0;i < energyConsumptionValues.size();i++) {
-                long consumptionDistributed = energyConsumptionDistributed.get(i);
-                long consumptionOfConsumerLeft = energyConsumptionValues.get(i) - consumptionDistributed;
-
-                long consumptionDistributedNew = Math.min(consumptionOfConsumerLeft, Math.min(consumptionPerConsumer, consumptionLeft));
-                energyConsumptionDistributed.set(i, consumptionDistributed + consumptionDistributedNew);
-                consumptionLeft -= consumptionDistributedNew;
-                if(consumptionLeft == 0)
-                    break outer;
-            }
-        }
+        long[] energyConsumptionDistributed = MathUtils.distributeEvenly(transferLeft, energyConsumptionValues);
 
         for(int i = 0;i < energyConsumption.size();i++) {
-            long energy = energyConsumptionDistributed.get(i);
-            if(energy > 0) {
+            long energy = energyConsumptionDistributed[i];
+            if(energy > 0)
                 try(Transaction transaction = Transaction.openOuter()) {
                     energyConsumption.get(i).insert(energy, transaction);
                     transaction.commit();
                 }
-            }
         }
     }
 
