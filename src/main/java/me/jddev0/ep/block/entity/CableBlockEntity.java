@@ -230,17 +230,18 @@ public class CableBlockEntity extends BlockEntity {
 
         //Set to 0 for PUSH only mode
         int productionLeft = ENERGY_EXTRACTION_MODE.isPull()?transferLeft - extractInternally:0;
+        int realExtract = extractInternally;
         if(productionLeft > 0) {
             int[] energyProductionDistributed = MathUtils.distributeEvenly(productionLeft, energyProductionValues);
             for(int i = 0;i < energyProduction.size();i++) {
                 int energy = energyProductionDistributed[i];
                 if(energy > 0) {
-                    energyProduction.get(i).extractEnergy(energy, false);
+                    realExtract += energyProduction.get(i).extractEnergy(energy, false);
                 }
             }
         }
 
-        int[] energyConsumptionDistributed = MathUtils.distributeEvenly(transferLeft, energyConsumptionValues);
+        int[] energyConsumptionDistributed = MathUtils.distributeEvenly(realExtract, energyConsumptionValues);
         for(int i = 0;i < energyConsumption.size();i++) {
             int energy = energyConsumptionDistributed[i];
             if(energy > 0) {
