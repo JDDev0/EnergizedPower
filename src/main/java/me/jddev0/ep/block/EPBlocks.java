@@ -1,9 +1,13 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.input.ModKeyBindings;
 import me.jddev0.ep.item.EPItems;
+import me.jddev0.ep.item.base.BlockItemWithShiftTooltip;
 import me.jddev0.ep.machine.tier.*;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -49,6 +53,14 @@ public final class EPBlocks {
 
     public static DeferredItem<Item> createBlockItem(String name, Function<Item.Properties, Item> factory) {
         return createBlockItem(name, factory, new Item.Properties());
+    }
+
+    public static DeferredItem<Item> creatBlockItemWithShiftTooltip(String name, DeferredBlock<? extends Block> block, Component... shiftTooltip) {
+        return creatBlockItemWithShiftTooltip(name, block, new Item.Properties(), shiftTooltip);
+    }
+
+    public static DeferredItem<Item> creatBlockItemWithShiftTooltip(String name, DeferredBlock<? extends Block> block, Item.Properties props, Component... shiftTooltip) {
+        return createBlockItem(name, p -> new BlockItemWithShiftTooltip(block.get(), p, shiftTooltip), props);
     }
 
     public static DeferredItem<Item> createBlockItem(String name, Function<Item.Properties, Item> factory, Item.Properties props) {
@@ -244,8 +256,13 @@ public final class EPBlocks {
     public static final DeferredBlock<CreativeFluidTankBlock> CREATIVE_FLUID_TANK = registerBlock("creative_fluid_tank",
             CreativeFluidTankBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
                     requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());
-    public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = createBlockItem("creative_fluid_tank",
-            CreativeFluidTankBlock.Item::new, CREATIVE_FLUID_TANK);
+    public static final DeferredItem<Item> CREATIVE_FLUID_TANK_ITEM = creatBlockItemWithShiftTooltip(
+            "creative_fluid_tank", CREATIVE_FLUID_TANK,
+            Component.translatable("tooltip.energizedpower.tank_capacity.txt",
+                            Component.translatable("tooltip.energizedpower.infinite.txt").
+                                    withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
+                    withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<XPStorageBlock> XP_STORAGE_TINY = registerBlock("xp_storage_tiny",
             props -> new XPStorageBlock(XPStorageTier.TINY, props), XPStorageTier.TINY.getProperties());
@@ -300,8 +317,13 @@ public final class EPBlocks {
     public static final DeferredBlock<CreativeItemSiloBlock> CREATIVE_ITEM_SILO = registerBlock("creative_item_silo",
             CreativeItemSiloBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
                     requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());
-    public static final DeferredItem<Item> CREATIVE_ITEM_SILO_ITEM = createBlockItem("creative_item_silo",
-            CreativeItemSiloBlock.Item::new, CREATIVE_ITEM_SILO);
+    public static final DeferredItem<Item> CREATIVE_ITEM_SILO_ITEM = creatBlockItemWithShiftTooltip(
+            "creative_item_silo", CREATIVE_ITEM_SILO,
+            Component.translatable("tooltip.energizedpower.item_silo_capacity.txt",
+                            Component.translatable("tooltip.energizedpower.infinite.txt").
+                                    withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
+                    withStyle(ChatFormatting.GRAY)
+    );
 
     private static DeferredItem<Item> createCableBlockItem(String name, DeferredBlock<CableBlock> block) {
         return createBlockItem(name, props -> new CableBlock.Item(block.get(), props, block.get().getTier()));
@@ -481,8 +503,17 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> CREATIVE_BATTERY_BOX = registerBlock("creative_battery_box",
             CreativeBatteryBoxBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).
                     requiresCorrectToolForDrops().strength(-1.f, 3600000.f).noLootTable());
-    public static final DeferredItem<Item> CREATIVE_BATTERY_BOX_ITEM = createBlockItem("creative_battery_box",
-            CreativeBatteryBoxBlock.Item::new, CREATIVE_BATTERY_BOX);
+    public static final DeferredItem<Item> CREATIVE_BATTERY_BOX_ITEM = creatBlockItemWithShiftTooltip(
+            "creative_battery_box", CREATIVE_BATTERY_BOX,
+            Component.translatable("tooltip.energizedpower.capacity.txt",
+                            Component.translatable("tooltip.energizedpower.infinite.txt").
+                                    withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
+                    withStyle(ChatFormatting.GRAY),
+            Component.translatable("tooltip.energizedpower.transfer_rate.txt",
+                            Component.translatable("tooltip.energizedpower.infinite.txt").
+                                    withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
+                    withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> PRESS_MOLD_MAKER = registerBlock("press_mold_maker",
             PressMoldMakerBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).
@@ -521,8 +552,10 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> ADVANCED_CRUSHER = registerBlock("advanced_crusher",
             AdvancedCrusherBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> ADVANCED_CRUSHER_ITEM = createBlockItem("advanced_crusher",
-            AdvancedCrusherBlock.Item::new, ADVANCED_CRUSHER);
+    public static final DeferredItem<Item> ADVANCED_CRUSHER_ITEM = creatBlockItemWithShiftTooltip(
+            "advanced_crusher", ADVANCED_CRUSHER,
+            Component.translatable("tooltip.energizedpower.advanced_crusher.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> PULVERIZER = registerBlock("pulverizer",
             PulverizerBlock::new, BlockBehaviour.Properties.of().
@@ -532,8 +565,10 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> ADVANCED_PULVERIZER = registerBlock("advanced_pulverizer",
             AdvancedPulverizerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> ADVANCED_PULVERIZER_ITEM = createBlockItem("advanced_pulverizer",
-            AdvancedPulverizerBlock.Item::new, ADVANCED_PULVERIZER);
+    public static final DeferredItem<Item> ADVANCED_PULVERIZER_ITEM = creatBlockItemWithShiftTooltip(
+            "advanced_pulverizer", ADVANCED_PULVERIZER,
+            Component.translatable("tooltip.energizedpower.advanced_pulverizer.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> SAWMILL = registerBlock("sawmill",
             SawmillBlock::new, BlockBehaviour.Properties.of().
@@ -548,8 +583,10 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> METAL_PRESS = registerBlock("metal_press",
             MetalPressBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> METAL_PRESS_ITEM = createBlockItem("metal_press",
-            MetalPressBlock.Item::new, METAL_PRESS);
+    public static final DeferredItem<Item> METAL_PRESS_ITEM = creatBlockItemWithShiftTooltip(
+            "metal_press", METAL_PRESS,
+            Component.translatable("tooltip.energizedpower.metal_press.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> AUTO_PRESS_MOLD_MAKER = registerBlock("auto_press_mold_maker",
             AutoPressMoldMakerBlock::new, BlockBehaviour.Properties.of().
@@ -605,8 +642,10 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> FILTRATION_PLANT = registerBlock("filtration_plant",
             FiltrationPlantBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> FILTRATION_PLANT_ITEM = createBlockItem("filtration_plant",
-            FiltrationPlantBlock.Item::new, FILTRATION_PLANT);
+    public static final DeferredItem<Item> FILTRATION_PLANT_ITEM = creatBlockItemWithShiftTooltip(
+            "filtration_plant", FILTRATION_PLANT,
+            Component.translatable("tooltip.energizedpower.filtration_plant.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> FLUID_TRANSPOSER = registerBlock("fluid_transposer",
             FluidTransposerBlock::new, BlockBehaviour.Properties.of().
@@ -632,32 +671,60 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> DRAIN = registerBlock("drain",
             DrainBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> DRAIN_ITEM = createBlockItem("drain",
-            DrainBlock.Item::new, DRAIN);
+    public static final DeferredItem<Item> DRAIN_ITEM = creatBlockItemWithShiftTooltip(
+            "drain", DRAIN,
+            Component.translatable("tooltip.energizedpower.drain.txt.shift").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> XP_DRAIN = registerBlock("xp_drain",
             XPDrainBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).noOcclusion().forceSolidOn());
-    public static final DeferredItem<Item> XP_DRAIN_ITEM = createBlockItem("xp_drain",
-            XPDrainBlock.Item::new, XP_DRAIN);
+    public static final DeferredItem<Item> XP_DRAIN_ITEM = creatBlockItemWithShiftTooltip(
+            "xp_drain", XP_DRAIN,
+            Component.translatable("tooltip.energizedpower.xp_drain.txt.shift").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> CHARGER = registerBlock("charger",
             ChargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> CHARGER_ITEM = createBlockItem("charger",
-            ChargerBlock.Item::new, CHARGER);
+    public static final DeferredItem<Item> CHARGER_ITEM = creatBlockItemWithShiftTooltip(
+            "charger", CHARGER,
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.1").
+                    withStyle(ChatFormatting.GRAY),
+            Component.empty(),
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.1").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC),
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.2").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)
+    );
 
     public static final DeferredBlock<Block> ADVANCED_CHARGER = registerBlock("advanced_charger",
             AdvancedChargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> ADVANCED_CHARGER_ITEM = createBlockItem("advanced_charger",
-            AdvancedChargerBlock.Item::new, ADVANCED_CHARGER);
+    public static final DeferredItem<Item> ADVANCED_CHARGER_ITEM = creatBlockItemWithShiftTooltip(
+            "advanced_charger", ADVANCED_CHARGER,
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.1").
+                    withStyle(ChatFormatting.GRAY),
+            Component.empty(),
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.1").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC),
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.2").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)
+    );
 
     public static final DeferredBlock<Block> ELITE_CHARGER = registerBlock("elite_charger",
             EliteChargerBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> ELITE_CHARGER_ITEM = createBlockItem("elite_charger",
-            EliteChargerBlock.Item::new, ELITE_CHARGER);
+    public static final DeferredItem<Item> ELITE_CHARGER_ITEM = creatBlockItemWithShiftTooltip(
+            "elite_charger", ELITE_CHARGER,
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.1").
+                    withStyle(ChatFormatting.GRAY),
+            Component.empty(),
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.1").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC),
+            Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.2").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)
+    );
 
     public static final DeferredBlock<Block> UNCHARGER = registerBlock("uncharger",
             UnchargerBlock::new, BlockBehaviour.Properties.of().
@@ -800,8 +867,10 @@ public final class EPBlocks {
             ChargingStationBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL).
                     lightLevel(ChargingStationBlock.LIGHT_EMISSION));
-    public static final DeferredItem<Item> CHARGING_STATION_ITEM = createBlockItem("charging_station",
-            ChargingStationBlock.Item::new, CHARGING_STATION);
+    public static final DeferredItem<Item> CHARGING_STATION_ITEM = creatBlockItemWithShiftTooltip(
+            "charging_station", CHARGING_STATION,
+            Component.translatable("tooltip.energizedpower.charging_station.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final DeferredBlock<Block> CRYSTAL_GROWTH_CHAMBER = registerBlock("crystal_growth_chamber",
             CrystalGrowthChamberBlock::new, BlockBehaviour.Properties.of().
@@ -821,8 +890,13 @@ public final class EPBlocks {
     public static final DeferredBlock<Block> TELEPORTER = registerBlock("teleporter",
             TeleporterBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final DeferredItem<Item> TELEPORTER_ITEM = createBlockItem("teleporter",
-            TeleporterBlock.Item::new, TELEPORTER);
+    public static final DeferredItem<Item> TELEPORTER_ITEM = creatBlockItemWithShiftTooltip(
+            "teleporter", TELEPORTER,
+            Component.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
+                    Component.keybind(ModKeyBindings.KEY_TELEPORTER_USE)).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC),
+            Component.translatable("tooltip.energizedpower.teleporter.txt.shift.2").
+                    withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC)
+    );
 
     public static final DeferredBlock<Block> BASIC_MACHINE_FRAME = registerBlock("basic_machine_frame",
             BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
