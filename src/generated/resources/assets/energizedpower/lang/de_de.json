@@ -1612,6 +1612,7 @@
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "Dieser Prozess muss noch %s konsumieren, um abgeschlossen werden zu können.",
   "tooltip.energizedpower.fluid_pump.target": "Ziel: %d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "Ziel (Relativ): %s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "Für eine unendliche Wasser-Quelle solltest du einen Ablauf statt der Flüssigkeits-Pumpe verwenden.",
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBT ignorieren",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "Filter: %s",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "Kein Filter gesetzt",
