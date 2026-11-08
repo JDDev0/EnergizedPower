@@ -1,20 +1,12 @@
 package me.jddev0.ep.block;
 
 import me.jddev0.ep.block.entity.TeleporterBlockEntity;
-import me.jddev0.ep.input.ModKeyBindings;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -29,8 +21,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Consumer;
 
 public class TeleporterBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -120,24 +110,5 @@ public class TeleporterBlock extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(POWERED, TRIGGERED);
-    }
-
-    public static class Item extends BlockItem {
-
-        public Item(Block block, Properties props) {
-            super(block, props);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> tooltip, TooltipFlag type) {
-            if(Minecraft.getInstance().hasShiftDown()) {
-                tooltip.accept(Component.translatable("tooltip.energizedpower.teleporter.txt.shift.1",
-                        Component.keybind(ModKeyBindings.KEY_TELEPORTER_USE)).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-                tooltip.accept(Component.translatable("tooltip.energizedpower.teleporter.txt.shift.2").
-                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            }else {
-                tooltip.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
-            }
-        }
     }
 }
