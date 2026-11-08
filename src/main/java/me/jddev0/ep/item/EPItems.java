@@ -3,12 +3,15 @@ package me.jddev0.ep.item;
 import me.jddev0.ep.api.EPAPI;
 import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.energy.InfinityEnergyStorage;
+import me.jddev0.ep.item.base.ItemWithShiftTooltip;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
 import me.jddev0.ep.machine.tier.BatteryTier;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
@@ -32,6 +35,14 @@ public final class EPItems {
         return registerItem(name, factory, new Item.Properties());
     }
 
+    public static Item registerItemWithShiftTooltip(String name, Component... shiftTooltip) {
+        return registerItemWithShiftTooltip(name, new Item.Properties(), shiftTooltip);
+    }
+
+    public static Item registerItemWithShiftTooltip(String name, Item.Properties props, Component... shiftTooltip) {
+        return registerItem(name, p -> new ItemWithShiftTooltip(p, shiftTooltip), props);
+    }
+
     public static  <T extends Item> T registerItem(String name, Function<Item.Properties, T> factory, Item.Properties props) {
         Identifier itemId = EPAPI.id(name);
         return Registry.register(BuiltInRegistries.ITEM, itemId, factory.apply(props.
@@ -40,8 +51,10 @@ public final class EPItems {
 
     public static final Item ENERGIZED_COPPER_INGOT = registerItem("energized_copper_ingot");
     public static final Item ENERGIZED_GOLD_INGOT = registerItem("energized_gold_ingot");
-    public static final Item ENERGIZED_ALLOY_INGOT = registerItem("energized_alloy_ingot",
-            EnergizedAlloyIngotItem::new);
+    public static final Item ENERGIZED_ALLOY_INGOT = registerItemWithShiftTooltip(
+            "energized_alloy_ingot",
+            Component.translatable("tooltip.energizedpower.energized_alloy_ingot.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final Item ENERGIZED_COPPER_PLATE = registerItem("energized_copper_plate");
     public static final Item ENERGIZED_GOLD_PLATE = registerItem("energized_gold_plate");
@@ -96,8 +109,10 @@ public final class EPItems {
     public static final Item COPPER_WIRE = registerItem("copper_wire");
     public static final Item GOLD_WIRE = registerItem("gold_wire");
 
-    public static final Item CRYSTALLIZED_LAPIS_LAZULI = registerItem("crystallized_lapis_lazuli",
-            CrystallizedLapisLazuliItem::new);
+    public static final Item CRYSTALLIZED_LAPIS_LAZULI = registerItemWithShiftTooltip(
+            "crystallized_lapis_lazuli",
+            Component.translatable("tooltip.energizedpower.crystallized_lapis_lazuli.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final Item SAWDUST = registerItem("sawdust");
 
@@ -363,8 +378,10 @@ public final class EPItems {
     public static final Item ENERGIZED_POWER_BOOK = registerItem("energized_power_book",
             EnergizedPowerBookItem::new, new Item.Properties().stacksTo(1));
 
-    public static final Item CABLE_INSULATOR = registerItem("cable_insulator",
-            CableInsulatorItem::new);
+    public static final Item CABLE_INSULATOR = registerItemWithShiftTooltip(
+            "cable_insulator",
+            Component.translatable("tooltip.energizedpower.cable_insulator.txt.shift.1").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final Item CHARCOAL_FILTER = registerItem("charcoal_filter",
             new Item.Properties().durability(200));
