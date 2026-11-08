@@ -3,14 +3,8 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.XPDrainBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -29,9 +23,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.function.Consumer;
 
 public class XPDrainBlock extends BaseEntityBlock {
     public static final MapCodec<XPDrainBlock> CODEC = simpleCodec(XPDrainBlock::new);
@@ -110,21 +101,5 @@ public class XPDrainBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTickerHelper(type, EPBlockEntities.XP_DRAIN_ENTITY.get(), XPDrainBlockEntity::tick);
-    }
-
-    public static class Item extends BlockItem {
-        public Item(Block block, Properties props) {
-            super(block, props);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
-            if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.xp_drain.txt.shift").
-                        withStyle(ChatFormatting.GRAY));
-            }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
-            }
-        }
     }
 }

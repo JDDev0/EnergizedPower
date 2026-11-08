@@ -3,16 +3,10 @@ package me.jddev0.ep.block;
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeBatteryBoxBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -97,27 +91,5 @@ public class CreativeBatteryBoxBlock extends BaseEntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return createTickerHelper(type, EPBlockEntities.CREATIVE_BATTERY_BOX_ENTITY.get(), CreativeBatteryBoxBlockEntity::tick);
-    }
-
-    public static class Item extends BlockItem {
-        public Item(Block block, Properties props) {
-            super(block, props);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack itemStack, TooltipContext context, List<Component> components, TooltipFlag flag) {
-            if(Screen.hasShiftDown()) {
-                components.add(Component.translatable("tooltip.energizedpower.capacity.txt",
-                                Component.translatable("tooltip.energizedpower.infinite.txt").
-                                        withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
-                        withStyle(ChatFormatting.GRAY));
-                components.add(Component.translatable("tooltip.energizedpower.transfer_rate.txt",
-                                Component.translatable("tooltip.energizedpower.infinite.txt").
-                                        withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
-                        withStyle(ChatFormatting.GRAY));
-            }else {
-                components.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
-            }
-        }
     }
 }
