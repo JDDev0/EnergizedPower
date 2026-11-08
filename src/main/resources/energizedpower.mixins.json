@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "entity.ExperienceOrbCountGetterSetter",
+    "entity.LivingEntityFluidMovementAccessor",
     "entity.PlayerTeleporterCrashFixMixin",
     "recipe.RepairItemRecipeMixin"
   ],
