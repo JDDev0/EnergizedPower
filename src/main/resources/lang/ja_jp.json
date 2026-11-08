@@ -1226,6 +1226,7 @@
   "tooltip.energizedpower.fluid_pump.target_relative": "目標地点 (相対座標): %s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "丸石がありません！",
   "tooltip.energizedpower.fluid_pump.extracting": "抽出中: %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "advancements.energizedpower.fluid_pump.title": "液体ポンプ",
   "advancements.energizedpower.fluid_pump.description": "液体ポンプを作成する",
 
