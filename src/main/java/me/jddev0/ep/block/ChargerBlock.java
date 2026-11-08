@@ -4,15 +4,7 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.ChargerBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.block.*;
-
-import java.util.List;
+import net.minecraft.world.level.block.BaseEntityBlock;
 
 public class ChargerBlock extends HorizontallyOrientableWorkerMachineBlock<ChargerBlockEntity> {
     public static final MapCodec<ChargerBlock> CODEC = simpleCodec(ChargerBlock::new);
@@ -29,26 +21,5 @@ public class ChargerBlock extends HorizontallyOrientableWorkerMachineBlock<Charg
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
-    }
-
-    public static class Item extends BlockItem {
-        public Item(Block block,  Item.Properties props) {
-            super(block, props);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag type) {
-            if(Screen.hasShiftDown()) {
-                tooltip.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.1").
-                        withStyle(ChatFormatting.GRAY));
-                tooltip.add(Component.empty());
-                tooltip.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.1").
-                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-                tooltip.add(Component.translatable("tooltip.energizedpower.chargers.txt.shift.2.2").
-                        withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
-            }else {
-                tooltip.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
-            }
-        }
     }
 }

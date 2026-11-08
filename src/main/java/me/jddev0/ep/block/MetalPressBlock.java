@@ -4,16 +4,7 @@ import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.MetalPressBlockEntity;
 import me.jddev0.ep.block.entity.EPBlockEntities;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-
-import java.util.List;
 
 public class MetalPressBlock extends HorizontallyOrientableWorkerMachineBlock<MetalPressBlockEntity> {
     public static final MapCodec<MetalPressBlock> CODEC = simpleCodec(MetalPressBlock::new);
@@ -30,21 +21,5 @@ public class MetalPressBlock extends HorizontallyOrientableWorkerMachineBlock<Me
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
-    }
-
-    public static class Item extends BlockItem {
-        public Item(Block block,  Item.Properties props) {
-            super(block, props);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag type) {
-            if(Screen.hasShiftDown()) {
-                tooltip.add(Component.translatable("tooltip.energizedpower.metal_press.txt.shift.1").
-                        withStyle(ChatFormatting.GRAY));
-            }else {
-                tooltip.add(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
-            }
-        }
     }
 }
