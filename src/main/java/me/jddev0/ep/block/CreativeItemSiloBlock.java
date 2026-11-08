@@ -2,17 +2,10 @@ package me.jddev0.ep.block;
 
 import com.mojang.serialization.MapCodec;
 import me.jddev0.ep.block.entity.CreativeItemSiloBlockEntity;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -23,8 +16,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Consumer;
 
 public class CreativeItemSiloBlock extends BaseEntityBlock {
     public static final MapCodec<CreativeItemSiloBlock> CODEC = simpleCodec(CreativeItemSiloBlock::new);
@@ -85,24 +76,5 @@ public class CreativeItemSiloBlock extends BaseEntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(FACING);
-    }
-
-    public static class Item extends BlockItem {
-        public Item(Block block, Properties props) {
-            super(block, props);
-        }
-
-        @Override
-        public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> components, TooltipFlag tooltipFlag) {
-
-            if(Minecraft.getInstance().hasShiftDown()) {
-                components.accept(Component.translatable("tooltip.energizedpower.item_silo_capacity.txt",
-                                Component.translatable("tooltip.energizedpower.infinite.txt").
-                                        withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.ITALIC)).
-                        withStyle(ChatFormatting.GRAY));
-            }else {
-                components.accept(Component.translatable("tooltip.energizedpower.shift_details.txt").withStyle(ChatFormatting.YELLOW));
-            }
-        }
     }
 }
