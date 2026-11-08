@@ -1226,6 +1226,7 @@
   "tooltip.energizedpower.fluid_pump.target_relative": "Target (Relative): %s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Cobblestone is missing!",
   "tooltip.energizedpower.fluid_pump.extracting": "Extracting: %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "advancements.energizedpower.fluid_pump.title": "Fluid Pump",
   "advancements.energizedpower.fluid_pump.description": "Craft a Fluid Pump.",
 
