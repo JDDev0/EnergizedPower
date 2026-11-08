@@ -660,12 +660,18 @@ public final class EPBlocks {
     public static final Block FLUID_PUMP = registerBlock("fluid_pump",
             FluidPumpBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final Item FLUID_PUMP_ITEM = createBlockItem("fluid_pump", FLUID_PUMP);
+    public static final Item FLUID_PUMP_ITEM = creatBlockItemWithShiftTooltip(
+            "fluid_pump", FLUID_PUMP,
+            Component.translatable("tooltip.energizedpower.fluid_pump.txt.shift").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final Block ADVANCED_FLUID_PUMP = registerBlock("advanced_fluid_pump",
             AdvancedFluidPumpBlock::new, BlockBehaviour.Properties.of().
                     requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
-    public static final Item ADVANCED_FLUID_PUMP_ITEM = createBlockItem("advanced_fluid_pump", ADVANCED_FLUID_PUMP);
+    public static final Item ADVANCED_FLUID_PUMP_ITEM = creatBlockItemWithShiftTooltip(
+            "advanced_fluid_pump", ADVANCED_FLUID_PUMP,
+            Component.translatable("tooltip.energizedpower.fluid_pump.txt.shift").withStyle(ChatFormatting.GRAY)
+    );
 
     public static final Block DRAIN = registerBlock("drain",
             DrainBlock::new, BlockBehaviour.Properties.of().

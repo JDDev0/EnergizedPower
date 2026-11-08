@@ -1226,6 +1226,7 @@
   "tooltip.energizedpower.fluid_pump.target_relative": "目标（相对）：%s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "缺少圆石！",
   "tooltip.energizedpower.fluid_pump.extracting": "正在抽取：%s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "advancements.energizedpower.fluid_pump.title": "流体泵",
   "advancements.energizedpower.fluid_pump.description": "合成一个流体泵。",
 
