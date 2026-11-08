@@ -1612,6 +1612,7 @@
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "此过程仍需%s才能完成。",
   "tooltip.energizedpower.fluid_pump.target": "目标：%d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "目标（相对）：%s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "忽略NBT",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "过滤器：%s",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "未设置过滤器",

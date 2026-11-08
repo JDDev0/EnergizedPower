@@ -1612,6 +1612,7 @@
   "tooltip.energizedpower.fluid_pump.process_energy_left.txt": "処理完了には%sが必要です。",
   "tooltip.energizedpower.fluid_pump.target": "目標: %d, %d, %d",
   "tooltip.energizedpower.fluid_pump.target_relative": "目標地点 (相対座標): %s, %s, %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "tooltip.energizedpower.fluid_tanks.cbx.ignore_nbt": "NBTを無視",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.filter_set": "フィルター: %s",
   "tooltip.energizedpower.fluid_tanks.fluid_filter.no_filter_set": "フィルターが設定されていません",
