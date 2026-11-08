@@ -1226,6 +1226,7 @@
   "tooltip.energizedpower.fluid_pump.target_relative": "Цель (Относительная): %s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Булыжник отсутствует!",
   "tooltip.energizedpower.fluid_pump.extracting": "Извлечение: %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "advancements.energizedpower.fluid_pump.title": "Жидкостный насос",
   "advancements.energizedpower.fluid_pump.description": "Создайте жидкостный насос.",
 

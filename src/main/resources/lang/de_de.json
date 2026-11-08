@@ -1226,6 +1226,7 @@
   "tooltip.energizedpower.fluid_pump.target_relative": "Ziel (Relativ): %s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "Burchstein fehlt!",
   "tooltip.energizedpower.fluid_pump.extracting": "Extrahiert: %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "Für eine unendliche Wasser-Quelle solltest du einen Ablauf statt der Flüssigkeits-Pumpe verwenden.",
   "advancements.energizedpower.fluid_pump.title": "Flüssigkeits-Pumpe",
   "advancements.energizedpower.fluid_pump.description": "Stelle eine Flüssigkeits-Pumpe her.",
 
