@@ -1226,6 +1226,7 @@
   "tooltip.energizedpower.fluid_pump.target_relative": "Objetivo (Relativo): %s, %s, %s",
   "tooltip.energizedpower.fluid_pump.cobblestone_missing": "¡Hace falta piedra labrada!",
   "tooltip.energizedpower.fluid_pump.extracting": "Extrayendo: %s",
+  "tooltip.energizedpower.fluid_pump.txt.shift": "For an infinite Water source, you should use the Drain instead of the Fluid Pump.",
   "advancements.energizedpower.fluid_pump.title": "Bomba de fluidos",
   "advancements.energizedpower.fluid_pump.description": "Craft a Bomba de fluidos.",
 
