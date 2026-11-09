@@ -114,8 +114,14 @@ public class IOConfiguration {
 
         final SlotGroup slotGroup = slotGroups.get(slotGroupId);
         return new InputOutputItemHandler(handler, (i, stack) -> {
+            if(i < 64)
+                return (slotGroup.canInputBitField & (1L << i)) > 0;
+
             return slotGroup.getSlots().stream().anyMatch(entry -> entry.mode().canInput() && entry.index() == i);
         }, i -> {
+            if(i < 64)
+                return (slotGroup.canOutputBitField & (1L << i)) > 0;
+
             return slotGroup.getSlots().stream().anyMatch(entry -> entry.mode().canOutput() && entry.index() == i);
         });
     }
@@ -133,8 +139,14 @@ public class IOConfiguration {
 
         final SlotGroup slotGroup = slotGroups.get(slotGroupId);
         return new InputOutputFluidStorage(handler, (i, stack) -> {
+            if(i < 64)
+                return (slotGroup.canInputBitField & (1L << i)) > 0;
+
             return slotGroup.getSlots().stream().anyMatch(entry -> entry.mode().canInput() && entry.index() == i);
         }, i -> {
+            if(i < 64)
+                return (slotGroup.canOutputBitField & (1L << i)) > 0;
+
             return slotGroup.getSlots().stream().anyMatch(entry -> entry.mode().canOutput() && entry.index() == i);
         });
     }
