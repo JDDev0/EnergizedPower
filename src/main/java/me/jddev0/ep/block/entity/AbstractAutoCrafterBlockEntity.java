@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import me.jddev0.ep.block.base.HorizontallyOrientableWorkerMachineBlock;
 import me.jddev0.ep.block.entity.base.NoWorkData;
 import me.jddev0.ep.block.entity.base.WorkerMachineBlockEntity;
+import me.jddev0.ep.config.ModConfigs;
 import me.jddev0.ep.inventory.ContainerListener;
 import me.jddev0.ep.inventory.EnergizedPowerItemStackHandler;
 import me.jddev0.ep.inventory.InputOutputItemHandler;
@@ -718,7 +719,41 @@ public abstract class AbstractAutoCrafterBlockEntity
             for(int j = 0;j < patternSlotsForRecipe.getContainerSize();j++)
                 copyOfPatternSlots.setItem(j, patternSlotsForRecipe.getItem(j));
 
-            ItemStack resultItemStack = craftingRecipe[i].value().assemble(copyOfPatternSlots.asCraftInput());
+            ItemStack resultItemStack;
+            try {
+                resultItemStack = craftingRecipe[i].value().assemble(copyOfPatternSlots.asCraftInput());
+            }catch(RuntimeException e) {
+                Identifier recipeId = craftingRecipe[i].id().identifier();
+                StringBuilder configLines = new StringBuilder();
+                for(var configValue:List.of(
+                        ModConfigs.COMMON_AUTO_CRAFTER_RECIPE_BLACKLIST,
+                        ModConfigs.COMMON_ADVANCED_AUTO_CRAFTER_RECIPE_BLACKLIST,
+                        ModConfigs.COMMON_ELITE_AUTO_CRAFTER_RECIPE_BLACKLIST
+                )) {
+                    List<Identifier> updatedBlacklist = new ArrayList<>(configValue.getValue());
+                    updatedBlacklist.add(recipeId);
+
+                    configLines.append("\n").append(configValue.getKey()).append(" = [");
+
+                    for(Identifier identifier:updatedBlacklist)
+                        configLines.append(identifier).append(", ");
+
+                    configLines.delete(configLines.length() - 2, configLines.length());
+
+                    configLines.append("]");
+                }
+
+                throw new RuntimeException(String.format(
+                        "This crash is caused by a broken modded recipe in the crafting pattern number %d (Recipe ID: \"%s\")\nHOW TO FIX THE CRASH:\n" +
+                                "- For a quick fix, you can add the recipe \"%2$s\" to the recipe blacklist config value of all Auto Crafters in " +
+                                "\"config/energizedpower/common.conf\" by setting the following config values:\n%s\n\n" +
+                                "- For a proper fix, this issue must be reported to the modpack or the mod which added the \"%2$s\" recipe. " +
+                                "If this is caused by \"A root transaction of ... is already active on this thread\", the fix is simple: " +
+                                "A new root transaction is opened somewhere in \"Recipe.assemble()\", this should be replaced with " +
+                                "\"Transaction.open(Transaction.getCurrentOpenedTransaction())\".\n",
+                        i + 1, recipeId, configLines
+                ), e);
+            }
 
             if(ItemStack.isSameItemSameComponents(itemStack, resultItemStack))
                 return true;
