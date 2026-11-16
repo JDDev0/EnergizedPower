@@ -6,7 +6,10 @@
     "entity.ExperienceOrbCountGetterSetter",
     "entity.LivingEntityFluidMovementAccessor",
     "entity.PlayerTeleporterCrashFixMixin",
-    "recipe.RepairItemRecipeMixin"
+    "recipe.RepairItemRecipeMixin",
+    "integration.rrv.RecipeViewMenuMixin",
+    "integration.rrv.RecipeTransferDataAccessor",
+    "integration.rrv.RecipeViewScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
