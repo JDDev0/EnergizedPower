@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
 import me.jddev0.ep.recipe.StoneSolidifierRecipe;
 import me.jddev0.ep.screen.StoneSolidifierScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -73,7 +74,7 @@ public class StoneSolidifierClientRecipe implements EPExtendedReliableClientReci
     }
 
     @Override
-    public boolean energizedpower$ignoreRecipeRequirementsForTransfer() {
+    public boolean energizedpower$ignoreRecipeRequirementsForTransfer(Screen screen) {
         return true;
     }
 }
