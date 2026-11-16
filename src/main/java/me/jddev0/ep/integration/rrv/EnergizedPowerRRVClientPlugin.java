@@ -18,12 +18,6 @@ import net.neoforged.neoforge.common.Tags;
 public class EnergizedPowerRRVClientPlugin implements ReliableRecipeViewerClientPlugin {
     @Override
     public void onIntegrationInitialize() {
-        //TODO transfer handler to built-in type for auto crafter
-        //TODO transfer handler to built-in type for advanced auto crafter
-        //TODO transfer handler to built-in type for elite auto crafter
-
-        //TODO transfer handler to built-in type for auto stonecutter
-
         ItemView.addClientRecipeProvider(recipeList -> {
             ClientRecipeManager.INSTANCE.getRecipesForType(EPRecipes.CHARGER_TYPE.get()).stream().
                     map(ChargerClientRecipe::new).forEach(recipeList::add);

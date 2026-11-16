@@ -12,9 +12,11 @@
     "integration.rrv.RecipeViewScreenMixin",
     "integration.rrv.recipe.BlastingClientRecipeTypeMixin",
     "integration.rrv.recipe.BurningClientRecipeTypeMixin",
+    "integration.rrv.recipe.CraftingClientRecipeMixin",
     "integration.rrv.recipe.CraftingClientRecipeTypeMixin",
     "integration.rrv.recipe.SmeltingClientRecipeTypeMixin",
     "integration.rrv.recipe.SmokingClientRecipeTypeMixin",
+    "integration.rrv.recipe.StonecutterClientRecipeMixin",
     "integration.rrv.recipe.StonecutterClientRecipeTypeMixin"
   ],
   "injectors": {
