@@ -38,6 +38,13 @@ repositories {
 		}
 	}
 
+	maven {
+		url "https://maven.cassian.cc"
+		content {
+			includeGroupAndSubgroups("cc.cassian")
+		}
+	}
+
 	flatDir {
 		dir 'libs'
 	}
@@ -92,6 +99,9 @@ dependencies {
     //JEI integration
 	compileOnly "mezz.jei:jei-26.3-common-api:31.1.0.13"
 	compileOnly "mezz.jei:jei-26.3-fabric-api:31.1.0.13"
+
+	// RRV integration
+	compileOnly "cc.cassian.rrv:reliable-recipe-viewer-fabric:8.11.3+26.3"
 
 	// EMI integration
 	//TODO re-enable
