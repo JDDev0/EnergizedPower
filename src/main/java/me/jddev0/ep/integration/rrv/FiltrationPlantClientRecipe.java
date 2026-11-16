@@ -13,6 +13,7 @@ import me.jddev0.ep.recipe.FiltrationPlantRecipe;
 import me.jddev0.ep.recipe.OutputItemStackTemplateWithPercentages;
 import me.jddev0.ep.screen.FiltrationPlantScreen;
 import me.jddev0.ep.util.FluidUtils;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -120,7 +121,7 @@ public class FiltrationPlantClientRecipe implements EPExtendedReliableClientReci
     }
 
     @Override
-    public boolean energizedpower$ignoreRecipeRequirementsForTransfer() {
+    public boolean energizedpower$ignoreRecipeRequirementsForTransfer(Screen screen) {
         return true;
     }
 }
