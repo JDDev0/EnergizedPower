@@ -1,0 +1,60 @@
+package me.jddev0.ep.integration.rrv;
+
+import cc.cassian.rrv.api.recipe.ReliableClientRecipeType;
+import cc.cassian.rrv.common.recipe.inventory.RecipeViewMenu;
+import me.jddev0.ep.api.EPAPI;
+import me.jddev0.ep.block.EPBlocks;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import org.jspecify.annotations.Nullable;
+
+import java.util.List;
+
+public class CrusherClientRecipeType implements ReliableClientRecipeType {
+    protected static final CrusherClientRecipeType INSTANCE = new CrusherClientRecipeType();
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable("container.energizedpower.crusher");
+    }
+
+    @Override
+    public int getDisplayWidth() {
+        return 104;
+    }
+
+    @Override
+    public int getDisplayHeight() {
+        return 32;
+    }
+
+    @Override
+    public @Nullable Identifier getGuiTexture() {
+        return EPAPI.id("textures/gui/recipe/rrv/crusher.png");
+    }
+
+    @Override
+    public void placeSlots(RecipeViewMenu.SlotDefinition slotDefinition) {
+        slotDefinition.addItemSlot(0, 4, 8);
+        slotDefinition.addItemSlot(1, 80, 8);
+    }
+
+    @Override
+    public Identifier getId() {
+        return EPAPI.id("crusher");
+    }
+
+    @Override
+    public ItemStack getIcon() {
+        return new ItemStack(EPBlocks.CRUSHER_ITEM);
+    }
+
+    @Override
+    public List<ItemStack> getCraftReferences() {
+        return List.of(
+                new ItemStack(EPBlocks.CRUSHER_ITEM),
+                new ItemStack(EPBlocks.ADVANCED_CRUSHER_ITEM)
+        );
+    }
+}
