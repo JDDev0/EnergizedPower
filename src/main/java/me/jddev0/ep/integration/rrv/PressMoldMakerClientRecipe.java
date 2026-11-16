@@ -7,6 +7,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
 import me.jddev0.ep.recipe.PressMoldMakerRecipe;
 import me.jddev0.ep.screen.AutoPressMoldMakerScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
@@ -70,7 +71,7 @@ public class PressMoldMakerClientRecipe implements EPExtendedReliableClientRecip
     }
 
     @Override
-    public boolean energizedpower$ignoreRecipeRequirementsForTransfer() {
+    public boolean energizedpower$ignoreRecipeRequirementsForTransfer(Screen screen) {
         return true;
     }
 }
