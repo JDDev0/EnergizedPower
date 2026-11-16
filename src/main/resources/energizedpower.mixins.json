@@ -13,7 +13,13 @@
 		"client.multiplayer.MultiPlayerGameModeMixin",
 		"integration.rrv.RecipeViewMenuMixin",
 		"integration.rrv.RecipeTransferDataAccessor",
-		"integration.rrv.RecipeViewScreenMixin"
+		"integration.rrv.RecipeViewScreenMixin",
+		"integration.rrv.recipe.BlastingClientRecipeTypeMixin",
+		"integration.rrv.recipe.BurningClientRecipeTypeMixin",
+		"integration.rrv.recipe.CraftingClientRecipeTypeMixin",
+		"integration.rrv.recipe.SmeltingClientRecipeTypeMixin",
+		"integration.rrv.recipe.SmokingClientRecipeTypeMixin",
+		"integration.rrv.recipe.StonecutterClientRecipeTypeMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
