@@ -22,6 +22,13 @@ repositories {
         }
     }
 
+    maven {
+        url "https://maven.cassian.cc"
+        content {
+            includeGroupAndSubgroups("cc.cassian")
+        }
+    }
+
     flatDir {
         dir 'libs'
     }
@@ -153,6 +160,9 @@ dependencies {
     // JEI integration
     compileOnly "mezz.jei:jei-26.2-common-api:30.0.0.1"
     compileOnly "mezz.jei:jei-26.2-neoforge-api:30.0.0.1"
+
+    // RRV integration
+    compileOnly "cc.cassian.rrv:reliable-recipe-viewer-neoforge:8.11.3+26.2"
 
     // EMI integration
     //TODO re-enable

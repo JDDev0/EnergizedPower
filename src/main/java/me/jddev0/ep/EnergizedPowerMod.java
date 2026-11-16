@@ -14,6 +14,7 @@ import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedIntegration;
 import me.jddev0.ep.integration.cctweaked.EnergizedPowerCCTweakedUtils;
 import me.jddev0.ep.integration.jei.EnergizedPowerJEIUtils;
 import me.jddev0.ep.integration.rei.EnergizedPowerREIUtils;
+import me.jddev0.ep.integration.rrv.EnergizedPowerRRVUtils;
 import me.jddev0.ep.item.*;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItem;
 import me.jddev0.ep.item.energy.EnergizedPowerEnergyItemStorage;
@@ -65,7 +66,7 @@ public class EnergizedPowerMod {
 
         modEventBus.addListener(ModMessages::register);
 
-        if(EnergizedPowerJEIUtils.isJEIAvailable() || EnergizedPowerREIUtils.isREIAvailable()) {
+        if(EnergizedPowerJEIUtils.isJEIAvailable() || EnergizedPowerREIUtils.isREIAvailable() || EnergizedPowerRRVUtils.isRRVAvailable()) {
             NeoForge.EVENT_BUS.addListener(false, OnDatapackSyncEvent.class, e -> e.sendRecipes(
                     ChargerRecipe.Type.INSTANCE,
                     CrusherRecipe.Type.INSTANCE,
