@@ -37,6 +37,12 @@
 		],
 		"emi": [
 			"me.jddev0.ep.integration.emi.EnergizedPowerEMIPlugin"
+		],
+		"rrv": [
+			"me.jddev0.ep.integration.rrv.EnergizedPowerRRVPlugin"
+		],
+		"rrv_client": [
+			"me.jddev0.ep.integration.rrv.EnergizedPowerRRVClientPlugin"
 		]
 	},
 	"mixins": [

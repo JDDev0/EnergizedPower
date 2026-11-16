@@ -1,5 +1,5 @@
 plugins {
-	id 'net.fabricmc.fabric-loom' version '1.15-SNAPSHOT'
+	id 'net.fabricmc.fabric-loom' version '1.16-SNAPSHOT'
 	id 'maven-publish'
 	id "me.modmuss50.mod-publish-plugin" version "2.0.0-beta.2"
 }
@@ -35,6 +35,13 @@ repositories {
 		url "https://maven.squiddev.cc/"
 		content {
 			includeGroup("cc.tweaked")
+		}
+	}
+
+	maven {
+		url "https://maven.cassian.cc"
+		content {
+			includeGroupAndSubgroups("cc.cassian")
 		}
 	}
 
@@ -91,6 +98,9 @@ dependencies {
 
     //JEI integration
 	compileOnly "mezz.jei:jei-26.1.2-common-api:29.5.0.28"
+
+	// RRV integration
+	compileOnly "cc.cassian.rrv:reliable-recipe-viewer-fabric:8.11.3+26.1.2"
 
 	// EMI integration
 	//TODO re-enable
