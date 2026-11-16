@@ -32,11 +32,6 @@ public abstract class StonecutterClientRecipeMixin implements EPExtendedReliable
         return List.copyOf(extendedList);
     }
 
-    @Override
-    public boolean canTransferToScreen(AbstractContainerScreen<?> screen) {
-        return screen instanceof AutoStonecutterScreen;
-    }
-
     @Inject(method = "mapRecipeItems", at = @At(value = "HEAD"), cancellable = true)
     private void injectMapRecipeItems(RecipeTransferMap map, AbstractContainerScreen<?> screen, CallbackInfo ci) {
         //TODO this method is intended to do something else, but it is called right time to send a SetCurrentRecipeIdC2SPacket
