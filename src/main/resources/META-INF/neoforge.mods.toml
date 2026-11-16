@@ -37,6 +37,8 @@ authors="${mod_authors}" #optional
 # NONE means that no display test is set on your mod. You need to do this yourself, see IExtensionPoint.DisplayTest for more information. You can define any scheme you wish with this value.
 # IMPORTANT NOTE: this is NOT an instruction as to which environments (CLIENT or DEDICATED SERVER) your mod loads on. Your mod should load (and maybe do nothing!) whereever it finds itself.
 #displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
+rrv = "me.jddev0.ep.integration.rrv.EnergizedPowerRRVPlugin"
+rrv_client = "me.jddev0.ep.integration.rrv.EnergizedPowerRRVClientPlugin"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''${mod_description}'''
