@@ -18,38 +18,6 @@ import net.minecraft.world.item.crafting.*;
 public class EnergizedPowerRRVClientPlugin implements ReliableRecipeViewerClientPlugin {
     @Override
     public void onIntegrationInitialize() {
-        /*TODO add craft references to built-in recipe types {
-               registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.AUTO_CRAFTER_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.ADVANCED_AUTO_CRAFTER_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.CRAFTING, new ItemStack(EPBlocks.ELITE_AUTO_CRAFTER_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM));
-               registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM));
-               registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(EPBlocks.POWERED_FURNACE_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
-               registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
-               registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(EPBlocks.ADVANCED_POWERED_FURNACE_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.SMELTING, new ItemStack(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
-               registration.addCraftingStation(RecipeTypes.BLASTING, new ItemStack(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
-               registration.addCraftingStation(RecipeTypes.SMOKING, new ItemStack(EPBlocks.ELITE_POWERED_FURNACE_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.STONECUTTING, new ItemStack(EPBlocks.AUTO_STONECUTTER_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.SMELTING_FUEL, new ItemStack(EPBlocks.COAL_ENGINE_ITEM));
-
-               registration.addCraftingStation(RecipeTypes.SMELTING_FUEL, new ItemStack(EPItems.INVENTORY_COAL_ENGINE.get()));
-        }*/
-
-        //TODO transfer handler to built-in type for auto crafter
-        //TODO transfer handler to built-in type for advanced auto crafter
-        //TODO transfer handler to built-in type for elite auto crafter
-
-        //TODO transfer handler to built-in type for auto stonecutter
-
         ItemView.addClientRecipeProvider(recipeList -> {
             ClientRecipeManager.INSTANCE.getRecipesForType(EPRecipes.CHARGER_TYPE).stream().
                     map(ChargerClientRecipe::new).forEach(recipeList::add);

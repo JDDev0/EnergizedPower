@@ -9,6 +9,7 @@ import me.jddev0.ep.networking.ModMessages;
 import me.jddev0.ep.networking.packet.SetCurrentRecipeIdC2SPacket;
 import me.jddev0.ep.recipe.FluidFreezerRecipe;
 import me.jddev0.ep.screen.FluidFreezerScreen;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -92,7 +93,7 @@ public class FluidFreezerClientRecipe implements EPExtendedReliableClientRecipe 
     }
 
     @Override
-    public boolean energizedpower$ignoreRecipeRequirementsForTransfer() {
+    public boolean energizedpower$ignoreRecipeRequirementsForTransfer(Screen screen) {
         return true;
     }
 }
