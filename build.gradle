@@ -158,8 +158,8 @@ dependencies {
     compileOnly "me.shedaniel:REIPluginCompatibilities-forge-annotations:12.+"
 
     // JEI integration
-    compileOnly "mezz.jei:jei-26.3-common-api:31.1.0.13"
-    compileOnly "mezz.jei:jei-26.3-neoforge-api:31.1.0.13"
+    compileOnly "mezz.jei:jei-26.3-common-api:31.17.0.109"
+    compileOnly "mezz.jei:jei-26.3-neoforge-api:31.17.0.109"
 
     // RRV integration
     compileOnly "cc.cassian.rrv:reliable-recipe-viewer-neoforge:8.11.3+26.3"
