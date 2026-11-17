@@ -157,18 +157,18 @@ public class ModItemTagProvider extends ItemTagsProvider {
                         EPBlocks.CREATIVE_BATTERY_BOX_ITEM
                 );
 
-        buildTag(Tags.Items.ORES).
+        buildTag(Tags.BlockItems.ORES.item()).
                 addTag(CommonItemTags.ORES_TIN);
         buildTag(CommonItemTags.ORES_TIN).
                 add(EPBlocks.TIN_ORE_ITEM,
                         EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
 
-        buildTag(Tags.Items.ORES_IN_GROUND_STONE).
+        buildTag(Tags.BlockItems.ORES_IN_GROUND_STONE.item()).
                 add(EPBlocks.TIN_ORE_ITEM);
-        buildTag(Tags.Items.ORES_IN_GROUND_DEEPSLATE).
+        buildTag(Tags.BlockItems.ORES_IN_GROUND_DEEPSLATE.item()).
                 add(EPBlocks.DEEPSLATE_TIN_ORE_ITEM);
 
-        buildTag(Tags.Items.STORAGE_BLOCKS).
+        buildTag(Tags.BlockItems.STORAGE_BLOCKS.item()).
                 addTag(CommonItemTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonItemTags.STORAGE_BLOCKS_RAW_TIN).
                 addTag(CommonItemTags.STORAGE_BLOCKS_TIN).

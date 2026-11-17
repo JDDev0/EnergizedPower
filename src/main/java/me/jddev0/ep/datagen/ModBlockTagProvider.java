@@ -407,18 +407,18 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                         EPBlocks.ELITE_MACHINE_FRAME
                 );
 
-        buildTag(Tags.Blocks.ORES).
+        buildTag(Tags.BlockItems.ORES.block()).
                 addTag(CommonBlockTags.ORES_TIN);
         buildTag(CommonBlockTags.ORES_TIN).
                 add(EPBlocks.TIN_ORE,
                         EPBlocks.DEEPSLATE_TIN_ORE);
 
-        buildTag(Tags.Blocks.ORES_IN_GROUND_STONE).
+        buildTag(Tags.BlockItems.ORES_IN_GROUND_STONE.block()).
                 add(EPBlocks.TIN_ORE);
-        buildTag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).
+        buildTag(Tags.BlockItems.ORES_IN_GROUND_DEEPSLATE.block()).
                 add(EPBlocks.DEEPSLATE_TIN_ORE);
 
-        buildTag(Tags.Blocks.STORAGE_BLOCKS).
+        buildTag(Tags.BlockItems.STORAGE_BLOCKS.block()).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_SILICON).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_TIN).
                 addTag(CommonBlockTags.STORAGE_BLOCKS_STEEL).
